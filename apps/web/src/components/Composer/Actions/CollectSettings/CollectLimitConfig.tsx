@@ -1,9 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { StarIcon } from '@heroicons/react/outline';
+import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Input } from 'ui';
 
 interface CollectLimitConfigProps {
   setCollectType: (data: any) => void;

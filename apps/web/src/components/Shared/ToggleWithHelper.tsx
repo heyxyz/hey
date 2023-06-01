@@ -1,5 +1,5 @@
+import { Toggle } from '@lenster/ui';
 import type { FC, ReactNode } from 'react';
-import { Toggle } from 'ui';
 
 interface ToggleWithHelperProps {
   on: boolean;

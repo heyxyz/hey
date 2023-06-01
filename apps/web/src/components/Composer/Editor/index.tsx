@@ -5,6 +5,7 @@ import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
+import Errors from '@lenster/data/errors';
 import {
   $convertToMarkdownString,
   TEXT_FORMAT_TRANSFORMERS
@@ -17,7 +18,6 @@ import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPl
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
-import Errors from 'data/errors';
 import {
   COMMAND_PRIORITY_NORMAL,
   INSERT_LINE_BREAK_COMMAND,

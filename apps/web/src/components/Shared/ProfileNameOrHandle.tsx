@@ -1,7 +1,7 @@
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import formatHandle from 'lib/formatHandle';
-import sanitizeDisplayName from 'lib/sanitizeDisplayName';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 

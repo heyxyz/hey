@@ -1,4 +1,4 @@
-import { useUserSigNoncesQuery } from 'lens';
+import { useUserSigNoncesQuery } from '@lenster/lens';
 import type { FC } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useAppPersistStore } from 'src/store/app';

@@ -6,15 +6,15 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/outline';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import { CollectModules, useProfileLazyQuery } from '@lenster/lens';
+import isValidEthAddress from '@lenster/lib/isValidEthAddress';
+import splitNumber from '@lenster/lib/splitNumber';
+import { Button, Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from 'data/constants';
-import { CollectModules, useProfileLazyQuery } from 'lens';
-import isValidEthAddress from 'lib/isValidEthAddress';
-import splitNumber from 'lib/splitNumber';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Button, Input } from 'ui';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;

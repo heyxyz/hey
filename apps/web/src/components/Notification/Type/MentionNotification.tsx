@@ -1,10 +1,10 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { AtSymbolIcon } from '@heroicons/react/solid';
+import type { NewMentionNotification } from '@lenster/lens';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
-import type { NewMentionNotification } from 'lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';

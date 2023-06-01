@@ -1,4 +1,4 @@
-import { APP_VERSION } from 'data/constants';
+import { APP_VERSION } from '@lenster/data/constants';
 import Link from 'next/link';
 import type { FC } from 'react';
 

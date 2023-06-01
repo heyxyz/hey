@@ -1,5 +1,5 @@
+import { APP_NAME } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
-import { APP_NAME } from 'data/constants';
 import { PRERENDER_BASE_URL } from 'test/constants';
 
 test.beforeEach(async ({ page }) => {

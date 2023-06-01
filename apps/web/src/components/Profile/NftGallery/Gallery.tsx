@@ -1,24 +1,24 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
-import Errors from 'data/errors';
-import type { Nft, NftGallery } from 'lens';
+import Errors from '@lenster/data/errors';
+import type { Nft, NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
   useDeleteNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
-} from 'lens';
-import { useApolloClient } from 'lens/apollo';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import { Button } from '@lenster/ui';
+import { t, Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button } from 'ui';
 
 import Create from './Create';
 import NftCard from './NftCard';

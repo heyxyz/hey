@@ -1,10 +1,10 @@
 import { UsersIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
+import humanize from '@lenster/lib/humanize';
+import { Modal } from '@lenster/ui';
 import { Plural, t } from '@lingui/macro';
-import type { Profile } from 'lens';
-import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Modal } from 'ui';
 
 import Followers from './Followers';
 import Following from './Following';

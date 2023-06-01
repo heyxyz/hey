@@ -1,4 +1,4 @@
-import { AVATAR, ZERO_ADDRESS } from 'data/constants';
+import { AVATAR, ZERO_ADDRESS } from '@lenster/data/constants';
 
 import getStampFyiURL from './getStampFyiURL';
 import imageKit from './imageKit';

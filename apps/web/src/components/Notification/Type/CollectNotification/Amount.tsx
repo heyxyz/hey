@@ -1,8 +1,8 @@
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
+import type { NewCollectNotification } from '@lenster/lens';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import humanize from '@lenster/lib/humanize';
 import { Trans } from '@lingui/macro';
-import type { NewCollectNotification } from 'lens';
-import getTokenImage from 'lib/getTokenImage';
-import humanize from 'lib/humanize';
 import type { FC } from 'react';
 
 interface CollectedAmountProps {

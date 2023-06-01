@@ -6,12 +6,12 @@ import {
   HeartIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
+import type { Publication } from '@lenster/lens';
+import nFormatter from '@lenster/lib/nFormatter';
+import { Modal } from '@lenster/ui';
 import { Plural, t } from '@lingui/macro';
-import type { Publication } from 'lens';
-import nFormatter from 'lib/nFormatter';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { Modal } from 'ui';
 
 interface PublicationStatsProps {
   publication: Publication;

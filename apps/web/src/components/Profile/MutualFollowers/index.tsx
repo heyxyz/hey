@@ -1,12 +1,12 @@
+import type { Profile } from '@lenster/lens';
+import { useMutualFollowersQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Profile } from 'lens';
-import { useMutualFollowersQuery } from 'lens';
-import formatHandle from 'lib/formatHandle';
-import getAvatar from 'lib/getAvatar';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Image } from 'ui';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<boolean>;

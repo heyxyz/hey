@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { HeartIcon } from '@heroicons/react/outline';
+import type { ReactionEvent } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { ReactionEvent } from 'lens';
 import type { FC } from 'react';
 
 interface LikedProps {

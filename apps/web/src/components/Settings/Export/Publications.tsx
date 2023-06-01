@@ -1,13 +1,13 @@
+import type { PublicationsQueryRequest } from '@lenster/lens';
+import { PublicationTypes, useProfileFeedLazyQuery } from '@lenster/lens';
+import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import type { PublicationsQueryRequest } from 'lens';
-import { PublicationTypes, useProfileFeedLazyQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card } from 'ui';
 
 const Publications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

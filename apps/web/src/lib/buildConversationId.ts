@@ -1,4 +1,4 @@
-import { XMTP_PREFIX } from 'data/constants';
+import { XMTP_PREFIX } from '@lenster/data/constants';
 
 /**
  * Builds a unique conversation ID for a chat between two users.

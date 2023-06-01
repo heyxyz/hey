@@ -1,5 +1,5 @@
+import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { expect, test } from '@playwright/test';
-import isValidEthAddress from 'lib/isValidEthAddress';
 
 test.describe('isValidEthAddress', () => {
   test('should return true for valid Ethereum address', () => {

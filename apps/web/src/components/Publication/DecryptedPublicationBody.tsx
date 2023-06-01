@@ -20,21 +20,22 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import axios from 'axios';
-import clsx from 'clsx';
 import {
   LIT_PROTOCOL_ENVIRONMENT,
   POLYGONSCAN_URL,
   RARIBLE_URL
-} from 'data/constants';
-import type { Publication, PublicationMetadataV2Input } from 'lens';
-import { DecryptFailReason, useCanDecryptStatusQuery } from 'lens';
-import formatHandle from 'lib/formatHandle';
-import getURLs from 'lib/getURLs';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
-import stopEventPropagation from 'lib/stopEventPropagation';
+} from '@lenster/data/constants';
+import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
+import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getURLs from '@lenster/lib/getURLs';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import axios from 'axios';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -42,7 +43,6 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { PUBLICATION } from 'src/tracking';
-import { Card, ErrorMessage, Tooltip } from 'ui';
 import { usePublicClient, useToken } from 'wagmi';
 
 interface DecryptMessageProps {

@@ -1,5 +1,5 @@
+import splitNumber from '@lenster/lib/splitNumber';
 import { expect, test } from '@playwright/test';
-import splitNumber from 'lib/splitNumber';
 
 test.describe('splitNumber', () => {
   test('should split number equally', () => {

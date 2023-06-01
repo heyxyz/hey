@@ -1,10 +1,10 @@
-import { RARIBLE_URL, STATIC_IMAGES_URL } from 'data/constants';
-import type { Nft } from 'lens';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { RARIBLE_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import type { Nft } from '@lenster/lens';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { Card } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
-import { Card } from 'ui';
 
 interface SingleNftProps {
   nft: Nft;

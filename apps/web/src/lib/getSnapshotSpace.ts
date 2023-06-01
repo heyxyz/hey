@@ -1,5 +1,5 @@
+import { Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data';
 import axios from 'axios';
-import { Errors, IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from 'data';
 
 /**
  * Get the space from the snapshot relay worker.

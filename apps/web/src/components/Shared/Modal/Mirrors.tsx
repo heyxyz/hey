@@ -1,13 +1,13 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import type { Profile, ProfileQueryRequest } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { Profile, ProfileQueryRequest } from 'lens';
-import { useProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
-import { EmptyState, ErrorMessage } from 'ui';
 
 import Loader from '../Loader';
 

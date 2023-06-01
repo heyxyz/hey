@@ -1,4 +1,4 @@
-@import url('image-cropper/styles.css');
+@import url('@lenster/image-cropper/styles.css');
 
 @tailwind base;
 @tailwind components;

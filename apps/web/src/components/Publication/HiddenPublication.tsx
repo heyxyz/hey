@@ -1,6 +1,6 @@
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { Card } from 'ui';
 
 interface HiddenPublicationProps {
   type?: string;

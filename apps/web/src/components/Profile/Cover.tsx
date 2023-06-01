@@ -1,6 +1,6 @@
-import { COVER, STATIC_IMAGES_URL } from 'data/constants';
-import imageKit from 'lib/imageKit';
-import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
+import { COVER, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import type { FC } from 'react';
 import colors from 'tailwindcss/colors';
 

@@ -1,5 +1,5 @@
+import { Spinner } from '@lenster/ui';
 import type { FC } from 'react';
-import { Spinner } from 'ui';
 
 interface LoaderProps {
   message?: string;

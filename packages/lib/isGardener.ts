@@ -1,5 +1,5 @@
-import { IS_MAINNET } from 'data/constants';
-import { mainnetGardeners, testnetGardeners } from 'data/gardeners';
+import { IS_MAINNET } from '@lenster/data/constants';
+import { mainnetGardeners, testnetGardeners } from '@lenster/data/gardeners';
 
 /**
  * Determines whether a given profile ID belongs to a Gardener on the current network.

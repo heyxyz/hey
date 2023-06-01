@@ -1,11 +1,11 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
+import { CollectModules, useEnabledModulesQuery } from '@lenster/lens';
+import isValidEthAddress from '@lenster/lib/isValidEthAddress';
+import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import { CollectModules, useEnabledModulesQuery } from 'lens';
-import isValidEthAddress from 'lib/isValidEthAddress';
 import type { Dispatch, FC } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Button, ErrorMessage, Spinner } from 'ui';
 
 import AmountConfig from './AmountConfig';
 import CollectLimitConfig from './CollectLimitConfig';
