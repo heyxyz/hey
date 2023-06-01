@@ -1,19 +1,19 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import sampleFromArray from '@lib/sampleFromArray';
 import sanitizeSingleProfileInterest from '@lib/sanitizeSingleProfileInterest';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Profile } from '@lenster/lens';
-import { useProfilesQuery } from '@lenster/lens';
 import { useFetchSuggestedFollowsForProfile } from 'madfi';
 import type { FC } from 'react';
 import { useMemo, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { FollowSource, MISCELLANEOUS } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 
 import SuggestedFull from './SuggestedFull';
 
@@ -57,7 +57,7 @@ const SuggestedFollows: FC = () => {
   const recommendedProfilesNotFollowed = useMemo(() => {
     if (recommendedProfiles?.profiles?.items?.length) {
       const res = recommendedProfiles.profiles.items.filter(
-        ({ isFollowedByMe, id }: { isFollowedByMe: boolean, id: string }) =>
+        ({ isFollowedByMe, id }: { isFollowedByMe: boolean; id: string }) =>
           !isFollowedByMe && id !== currentProfile?.id
       );
 
