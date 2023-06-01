@@ -8,6 +8,7 @@ import {
   useUserProfilesLazyQuery
 } from '@lenster/lens';
 import getWalletDetails from '@lenster/lib/getWalletDetails';
+import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -19,7 +20,6 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { AUTH } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {

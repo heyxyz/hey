@@ -28,6 +28,7 @@ import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
@@ -41,7 +42,6 @@ import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
-import { Button, Image, LightBox, Modal, Tooltip } from 'ui';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

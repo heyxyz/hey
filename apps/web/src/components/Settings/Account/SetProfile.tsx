@@ -10,6 +10,7 @@ import {
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getSignature from '@lenster/lib/getSignature';
+import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -20,7 +21,6 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

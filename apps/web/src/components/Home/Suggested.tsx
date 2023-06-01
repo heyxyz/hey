@@ -4,11 +4,11 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
-import { EmptyState, ErrorMessage } from 'ui';
 
 const Suggested: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery();

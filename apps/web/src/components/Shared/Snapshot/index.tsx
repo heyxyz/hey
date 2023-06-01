@@ -1,6 +1,7 @@
 import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from '@lenster/data';
 import generateSnapshotAccount from '@lenster/lib/generateSnapshotAccount';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Card, Spinner } from '@lenster/ui';
 import getSnapshotProposal from '@lib/getSnapshotProposal';
 import getSnapshotSpace from '@lib/getSnapshotSpace';
 import { useQuery } from '@tanstack/react-query';
@@ -8,7 +9,6 @@ import type { Proposal, Vote } from '@workers/snapshot-relay';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { Card, Spinner } from 'ui';
 
 import Choices from './Choices';
 import Header from './Header';

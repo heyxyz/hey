@@ -5,6 +5,13 @@ import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Image
+} from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -12,7 +19,6 @@ import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout, Image } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NFTDetail: FC = () => {

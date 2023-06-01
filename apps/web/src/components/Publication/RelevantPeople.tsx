@@ -7,10 +7,10 @@ import {
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { FollowSource } from 'src/tracking';
-import { Card, ErrorMessage } from 'ui';
 
 interface RelevantPeopleProps {
   publication: Publication;

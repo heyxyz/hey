@@ -9,6 +9,7 @@ import {
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
+import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -20,7 +21,6 @@ import { useAppStore } from 'src/store/app';
 import { useAuthStore } from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {

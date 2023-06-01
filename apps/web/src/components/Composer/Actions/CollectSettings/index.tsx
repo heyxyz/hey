@@ -1,10 +1,10 @@
 import { CollectionIcon } from '@heroicons/react/outline';
+import { Modal, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { Modal, Tooltip } from 'ui';
 
 import CollectForm from './CollectForm';
 

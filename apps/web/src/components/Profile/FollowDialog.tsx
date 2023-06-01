@@ -4,9 +4,9 @@ import SuperFollow from '@components/Shared/SuperFollow';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import { Button, Image } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
-import { Button, Image } from 'ui';
 
 interface FollowModalProps {
   profile: Profile;

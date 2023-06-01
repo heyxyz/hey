@@ -8,6 +8,7 @@ import {
 } from '@lenster/data';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
+import { Card, Modal, Spinner } from '@lenster/ui';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
@@ -19,7 +20,6 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
-import { Card, Modal, Spinner } from 'ui';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';

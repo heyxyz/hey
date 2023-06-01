@@ -12,6 +12,7 @@ import {
   useProfileFeedQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -19,7 +20,6 @@ import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
-import { Card, EmptyState, ErrorMessage } from 'ui';
 
 interface FeedProps {
   profile: Profile;

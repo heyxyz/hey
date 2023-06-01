@@ -8,6 +8,14 @@ import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import Errors from '@lenster/data/errors';
 import type { Profile } from '@lenster/lens';
+import {
+  Card,
+  EmptyState,
+  ErrorMessage,
+  GridItemFour,
+  Modal,
+  TabButton
+} from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
@@ -22,14 +30,6 @@ import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import {
-  Card,
-  EmptyState,
-  ErrorMessage,
-  GridItemFour,
-  Modal,
-  TabButton
-} from 'ui';
 
 interface PreviewListProps {
   className?: string;

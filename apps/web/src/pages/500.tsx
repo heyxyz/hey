@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
 import { APP_NAME } from '@lenster/data/constants';
+import { Button } from '@lenster/ui';
 import circluarStd from '@lib/lensterFont';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Button } from 'ui';
 
 const Custom500: FC = () => {
   return (

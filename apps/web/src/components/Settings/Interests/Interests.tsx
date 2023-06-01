@@ -6,13 +6,13 @@ import {
   useRemoveProfileInterestMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
+import { Button } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { SETTINGS } from 'src/tracking';
-import { Button } from 'ui';
 
 import Loader from '../../Shared/Loader';
 

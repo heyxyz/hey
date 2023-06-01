@@ -1,9 +1,9 @@
 import { CollectionIcon, HashtagIcon } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { Card } from 'ui';
 
 import MetaDetails from './MetaDetails';
 

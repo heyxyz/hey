@@ -6,12 +6,12 @@ import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { Image } from '@lenster/ui';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 import { FollowSource } from 'src/tracking';
-import { Image } from 'ui';
 
 import Follow from '../Shared/Follow';
 

@@ -4,12 +4,12 @@ import { UsersIcon } from '@heroicons/react/outline';
 import type { FollowingRequest, Profile } from '@lenster/lens';
 import { useFollowingQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';
-import { EmptyState, ErrorMessage } from 'ui';
 
 interface FollowingProps {
   profile: Profile;

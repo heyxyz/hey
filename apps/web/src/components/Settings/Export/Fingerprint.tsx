@@ -1,7 +1,7 @@
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useFingerprintStore } from 'src/store/fingerprint';
-import { Card } from 'ui';
 
 const Fingerprint: FC = () => {
   const fingerprint = useFingerprintStore((state) => state.fingerprint);

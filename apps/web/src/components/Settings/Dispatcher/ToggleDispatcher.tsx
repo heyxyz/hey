@@ -11,6 +11,7 @@ import {
 } from '@lenster/lens';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import getSignature from '@lenster/lib/getSignature';
+import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -21,7 +22,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { SETTINGS } from 'src/tracking';
-import { Button, Spinner } from 'ui';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleDispatcherProps {

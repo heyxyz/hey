@@ -5,12 +5,12 @@ import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { FollowSource, MISCELLANEOUS } from 'src/tracking';
-import { Card, EmptyState, ErrorMessage, Modal } from 'ui';
 
 import Suggested from './Suggested';
 

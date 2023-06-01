@@ -8,6 +8,7 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME } from '@lenster/data/constants';
 import { usePublicationQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -15,7 +16,6 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';

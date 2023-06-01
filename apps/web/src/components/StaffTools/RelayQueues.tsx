@@ -3,6 +3,13 @@ import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME, POLYGONSCAN_URL } from '@lenster/data/constants';
 import Errors from '@lenster/data/errors';
 import { useRelayQueuesQuery } from '@lenster/lens';
+import {
+  Card,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Spinner
+} from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -10,7 +17,6 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { PAGEVIEW } from 'src/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout, Spinner } from 'ui';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from './Sidebar';

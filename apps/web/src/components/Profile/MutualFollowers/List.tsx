@@ -5,13 +5,13 @@ import type {
   Profile
 } from '@lenster/lens';
 import { useMutualFollowersQuery } from '@lenster/lens';
+import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { FollowSource } from 'src/tracking';
-import { ErrorMessage } from 'ui';
 
 interface MutualFollowersListProps {
   profileId: string;

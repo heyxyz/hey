@@ -1,6 +1,7 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
+import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
@@ -9,7 +10,6 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { SETTINGS } from 'src/tracking';
-import { Button, Modal, Spinner, WarningMessage } from 'ui';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {

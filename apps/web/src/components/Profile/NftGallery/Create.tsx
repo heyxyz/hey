@@ -11,13 +11,13 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import trimify from '@lenster/lib/trimify';
+import { Button, Modal, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
-import { Button, Modal, Spinner } from 'ui';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

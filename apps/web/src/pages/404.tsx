@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { Button } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Button } from 'ui';
 
 const Custom404: FC = () => {
   return (
