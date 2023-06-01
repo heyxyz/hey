@@ -1,6 +1,6 @@
 import WalletSelector from '@components/Shared/Login/WalletSelector';
 import { Trans } from '@lingui/macro';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from 'data/constants';
+import { APP_NAME, IS_MAINNET } from 'data/constants';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -16,7 +16,7 @@ const Login: FC = () => {
         <div className="space-y-5">
           {hasConnected ? (
             <div className="space-y-1">
-              <div className="text-xl font-bold">
+              <div className="text-xl font-medium text-white">
                 <Trans>Please sign the message</Trans>.
               </div>
               <div className="lt-text-gray-500 text-sm">
@@ -25,7 +25,7 @@ const Login: FC = () => {
             </div>
           ) : (
             <div className="space-y-1">
-              <div className="text-xl font-bold">
+              <div className="font-medium text-white">
                 <Trans>Connect your wallet</Trans>.
               </div>
               <div className="lt-text-gray-500 text-sm">
@@ -37,19 +37,12 @@ const Login: FC = () => {
         </div>
       ) : IS_MAINNET ? (
         <div className="mb-2 space-y-4">
-          <img
-            className="h-16 w-16 rounded-full"
-            height={64}
-            width={64}
-            src={`${STATIC_IMAGES_URL}/brands/lens.png`}
-            alt="Logo"
-          />
-          <div className="text-xl font-bold">Claim your Lens profile 🌿</div>
+          <div className="text-xl font-medium text-white">Claim your Lens profile 🌿</div>
           <div className="space-y-1">
-            <div className="linkify">
+            <div className="linkify text-white">
               Visit{' '}
               <a
-                className="font-bold"
+                className="font-medium"
                 href="https://claim.lens.xyz"
                 target="_blank"
                 rel="noreferrer noopener"

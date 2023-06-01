@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = ({
     <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
-        className="border-red fixed inset-2 z-10 overflow-y-auto border-2"
+        className="fixed inset-2 z-10 overflow-y-auto"
         onClose={() => onClose?.()}
         data-testid={dataTestId}
       >
@@ -59,19 +59,19 @@ export const Modal: FC<ModalProps> = ({
                 { 'sm:max-w-3xl': size === 'md' },
                 { 'sm:max-w-lg': size === 'sm' },
                 { 'sm:max-w-sm': size === 'xs' },
-                'inline-block w-full transform rounded-[2px] bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
+                'bg-dark inline-block w-full transform rounded-[2px] text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
               {title && (
-                <div className="divider flex items-center justify-between px-5 py-3.5 dark:bg-black">
+                <div className="bg-darker flex items-center justify-between rounded-[2px] px-5 py-3.5 text-white">
                   <div className="flex items-center space-x-2 font-bold">
                     {icon}
-                    <div className="text-dark font-medium uppercase dark:text-white">{title}</div>
+                    <div className="font-medium uppercase">{title}</div>
                   </div>
                   {onClose ? (
                     <button
                       type="button"
-                      className="dark:hover:bg-brand-500 hover:bg-brand-500 rounded-full p-1 text-gray-800 dark:text-gray-100"
+                      className="hover:bg-brand-500 hover:text-dark rounded-full p-1"
                       onClick={onClose}
                     >
                       <XIcon className="h-5 w-5" />

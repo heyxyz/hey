@@ -21,7 +21,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       className={clsx(
         {
-          'bg-brand-500 hover:bg-brand-600 border-brand-600 focus:ring-brand-400 border text-white':
+          'bg-brand-500 text-darker rounded-full border-none text-sm font-medium uppercase hover:bg-white':
             !outline && variant === 'primary',
           'border border-gray-600 bg-gray-500 text-white hover:bg-gray-600 focus:ring-gray-400':
             !outline && variant === 'secondary',
@@ -46,8 +46,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
           'px-4 py-1.5': size === 'lg',
           'inline-flex items-center space-x-1.5': icon && children
         },
-        'font-bold shadow-sm outline-none disabled:opacity-50',
-        className
+        className,
+        'font-medium shadow-sm outline-none disabled:opacity-50'
       )}
       type={rest.type}
       {...rest}

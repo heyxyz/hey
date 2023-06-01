@@ -14,7 +14,7 @@ const LoginButton: FC = () => {
         setShowAuthModal(true);
         Mixpanel.track(AUTH.LOGIN);
       }}
-      className="bg-brand text-darker rounded-full border-none text-sm font-medium uppercase hover:bg-white"
+      className="text-darker rounded-full border-none text-sm font-medium uppercase hover:bg-brand-500"
       data-testid="login-button"
     >
       <Trans>Login</Trans>

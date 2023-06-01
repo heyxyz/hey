@@ -32,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="mb-1 flex items-center space-x-1.5">
-          <div className="font-medium text-gray-800 dark:text-gray-200">{label}</div>
+          <div className="font-medium text-white">{label}</div>
           <HelpTooltip content={helper} />
         </div>
       )}
@@ -54,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             id={id}
             className={clsx(
               { 'placeholder-red-500': error },
-              prefix ? 'rounded-r-xl' : 'rounded-xl',
+              prefix ? 'rounded-r-xl' : 'rounded-full',
               'autofill:shadow-transparentfocus-within:border-none peer w-full border-none bg-none text-black outline-none ring-0 autofill:bg-transparent focus-within:bg-transparent focus:border-none focus:bg-transparent focus:ring-0',
               className
             )}
