@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { TrashIcon } from '@heroicons/react/outline';
+import type { Publication } from '@lenster/lens';
 import clsx from 'clsx';
-import type { Publication } from 'lens';
 import stopEventPropagation from 'lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';

@@ -1,7 +1,7 @@
 import { ChatAlt2Icon } from '@heroicons/react/outline';
+import type { Publication } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { Publication } from 'lens';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import Link from 'next/link';

@@ -1,6 +1,6 @@
 import { UsersIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import { Plural, t } from '@lingui/macro';
-import type { Profile } from 'lens';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';
 import { useState } from 'react';

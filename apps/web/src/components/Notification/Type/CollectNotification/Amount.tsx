@@ -1,6 +1,6 @@
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
+import type { NewCollectNotification } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
-import type { NewCollectNotification } from 'lens';
 import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
 import type { FC } from 'react';

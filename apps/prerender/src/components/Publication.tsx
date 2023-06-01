@@ -1,6 +1,6 @@
+import type { Comment } from '@lenster/lens';
+import { Publication } from '@lenster/lens';
 import { DEFAULT_OG } from 'data/constants';
-import type { Comment } from 'lens';
-import { Publication } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';
 import truncateByWords from 'lib/truncateByWords';

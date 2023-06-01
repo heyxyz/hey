@@ -5,12 +5,12 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8082",
-    "worker:deploy": "wrangler deploy",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.342.0"

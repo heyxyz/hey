@@ -1,5 +1,5 @@
-import type { MediaSet, NftImage, Publication } from 'lens';
-import { Profile } from 'lens';
+import type { MediaSet, NftImage, Publication } from '@lenster/lens';
+import { Profile } from '@lenster/lens';
 import formatHandle from 'lib/formatHandle';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import sanitizeDStorageUrl from 'lib/sanitizeDStorageUrl';

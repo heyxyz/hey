@@ -1,9 +1,9 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/outline';
+import { RelayErrorReasons, useCreateProfileMutation } from '@lenster/lens';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from 'data/constants';
-import { RelayErrorReasons, useCreateProfileMutation } from 'lens';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';

@@ -2,9 +2,9 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
+import { useRecommendedProfilesQuery } from '@lenster/lens';
 import { t } from '@lingui/macro';
-import type { Profile } from 'lens';
-import { useRecommendedProfilesQuery } from 'lens';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { FollowSource } from 'src/tracking';

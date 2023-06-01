@@ -4,17 +4,17 @@
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "test:dev": "playwright test",
-    "test:nightly": "playwright test apps",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "test:dev": "playwright test",
+    "test:nightly": "playwright test apps",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/lens": "workspace:*",
     "data": "workspace:*",
-    "lens": "workspace:*",
     "lib": "workspace:*"
   },
   "devDependencies": {

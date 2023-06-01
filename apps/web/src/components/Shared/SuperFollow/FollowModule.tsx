@@ -1,19 +1,19 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
-import { LensHub } from 'abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
-import Errors from 'data/errors';
-import type { ApprovedAllowanceAmount, Profile } from 'lens';
+import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
-} from 'lens';
+} from '@lenster/lens';
+import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
+import { t, Trans } from '@lingui/macro';
+import { LensHub } from 'abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from 'data/constants';
+import Errors from 'data/errors';
 import formatAddress from 'lib/formatAddress';
 import formatHandle from 'lib/formatHandle';
 import getSignature from 'lib/getSignature';

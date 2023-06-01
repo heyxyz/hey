@@ -1,10 +1,10 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import type { ApprovedAllowanceAmount } from '@lenster/lens';
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import type { ApprovedAllowanceAmount } from 'lens';
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

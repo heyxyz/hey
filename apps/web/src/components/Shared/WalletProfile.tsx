@@ -1,6 +1,6 @@
 import { ExternalLinkIcon } from '@heroicons/react/outline';
+import type { Wallet } from '@lenster/lens';
 import { POLYGONSCAN_URL } from 'data/constants';
-import type { Wallet } from 'lens';
 import formatAddress from 'lib/formatAddress';
 import getStampFyiURL from 'lib/getStampFyiURL';
 import imageKit from 'lib/imageKit';

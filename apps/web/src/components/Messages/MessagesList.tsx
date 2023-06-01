@@ -1,10 +1,10 @@
 import { EmojiSadIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import { formatTime } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import type { Profile } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import getAvatar from 'lib/getAvatar';
 import getStampFyiURL from 'lib/getStampFyiURL';

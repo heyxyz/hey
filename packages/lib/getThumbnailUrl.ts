@@ -1,5 +1,5 @@
+import type { MetadataOutput } from '@lenster/lens';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import type { MetadataOutput } from 'lens';
 
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';
 

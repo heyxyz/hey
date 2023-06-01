@@ -1,7 +1,7 @@
+import type { MetadataOutput } from '@lenster/lens';
+import { PublicationMainFocus } from '@lenster/lens';
 import { expect, test } from '@playwright/test';
 import { STATIC_IMAGES_URL } from 'data/constants';
-import type { MetadataOutput } from 'lens';
-import { PublicationMainFocus } from 'lens';
 import getThumbnailUrl from 'lib/getThumbnailUrl';
 
 test.describe('getThumbnailUrl', () => {

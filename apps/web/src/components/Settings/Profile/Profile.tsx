@@ -1,5 +1,15 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
+import type {
+  CreatePublicSetProfileMetadataUriRequest,
+  MediaSet,
+  Profile
+} from '@lenster/lens';
+import {
+  useBroadcastMutation,
+  useCreateSetProfileMetadataTypedDataMutation,
+  useCreateSetProfileMetadataViaDispatcherMutation
+} from '@lenster/lens';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
@@ -16,16 +26,6 @@ import {
 import Errors from 'data/errors';
 import { getCroppedImg } from 'image-cropper/cropUtils';
 import type { Area } from 'image-cropper/types';
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
-  Profile
-} from 'lens';
-import {
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
-} from 'lens';
 import getProfileAttribute from 'lib/getProfileAttribute';
 import getSignature from 'lib/getSignature';
 import hasPrideLogo from 'lib/hasPrideLogo';

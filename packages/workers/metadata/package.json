@@ -5,13 +5,13 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8083",
-    "start": "pnpm dev",
-    "worker:deploy": "wrangler deploy",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "pnpm dev",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "bundlr": "workspace:*"

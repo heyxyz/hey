@@ -1,16 +1,16 @@
 {
-  "name": "lens",
+  "name": "@lenster/lens",
   "version": "0.0.0",
-  "main": "generated.ts",
   "private": true,
   "license": "GPL-3.0",
+  "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
-    "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache"
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@apollo/client": "^3.7.14",

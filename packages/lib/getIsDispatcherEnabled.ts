@@ -1,5 +1,5 @@
+import type { Profile } from '@lenster/lens';
 import { OLD_LENS_RELAYER_ADDRESS } from 'data';
-import type { Profile } from 'lens';
 
 const getIsDispatcherEnabled = (profile: Profile | null): boolean => {
   if (!profile?.dispatcher?.canUseRelay) {

@@ -1,10 +1,10 @@
 import Loader from '@components/Shared/Loader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import type { ElectedMirror, Publication } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { ElectedMirror, Publication } from 'lens';
 import humanize from 'lib/humanize';
 import nFormatter from 'lib/nFormatter';
 import dynamic from 'next/dynamic';
