@@ -3,9 +3,9 @@ import { METADATA_BASE_URL } from 'test/constants';
 
 test('should return false if method is not POST', async ({ request }) => {
   const getMetadata = request.get(METADATA_BASE_URL);
-  const response = await (await getMetadata).json();
+  const response = await (await getMetadata).text();
 
-  expect(response.success).toBeFalsy();
+  expect(response).toContain('gm to metadata service 👋');
 });
 
 test('should return false if payload is not provided', async ({ request }) => {
