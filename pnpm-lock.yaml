@@ -633,7 +633,7 @@ importers:
 
   packages/workers/metadata:
     dependencies:
-      bundlr:
+      '@lenster/bundlr':
         specifier: workspace:*
         version: link:../../bundlr
     devDependencies:

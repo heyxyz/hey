@@ -1,4 +1,4 @@
-import { createData, EthereumSigner } from 'bundlr';
+import { createData, EthereumSigner } from '@lenster/bundlr';
 
 interface EnvType {
   BUNDLR_PRIVATE_KEY: string;
