@@ -1,11 +1,8 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
-import {
-  ADDRESS_REGEX,
-  IS_MAINNET,
-  LENSHUB_PROXY
-} from '@lenster/data/constants';
+import { IS_MAINNET, LENSHUB_PROXY } from '@lenster/data/constants';
 import Errors from '@lenster/data/errors';
+import Regex from '@lenster/data/regex';
 import type {
   NftImage,
   Profile,
@@ -42,7 +39,7 @@ import { object, string } from 'zod';
 const editNftPictureSchema = object({
   contractAddress: string()
     .max(42, { message: t`Contract address should be within 42 characters` })
-    .regex(ADDRESS_REGEX, { message: t`Invalid Contract address` }),
+    .regex(Regex.ethereumAddress, { message: t`Invalid Contract address` }),
   tokenId: string()
 });
 
