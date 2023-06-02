@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data/storage';
+import { Localstorage } from '@lenster/data';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

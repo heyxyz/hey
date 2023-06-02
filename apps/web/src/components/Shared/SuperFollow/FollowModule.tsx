@@ -1,8 +1,8 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,

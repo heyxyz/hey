@@ -1,5 +1,5 @@
+import { Errors } from '@lenster/data';
 import { METADATA_WORKER_URL } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 

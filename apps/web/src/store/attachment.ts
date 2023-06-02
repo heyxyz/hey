@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data/storage';
+import { Localstorage } from '@lenster/data';
 import { del, get, set } from 'idb-keyval';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';
 import { create } from 'zustand';

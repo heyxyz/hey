@@ -1,7 +1,7 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
-import Errors from '@lenster/data/errors';
+import { Errors } from '@lenster/data';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,

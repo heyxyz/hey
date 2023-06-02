@@ -1,8 +1,7 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors, Regex } from '@lenster/data';
 import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
-import Regex from '@lenster/data/regex';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,

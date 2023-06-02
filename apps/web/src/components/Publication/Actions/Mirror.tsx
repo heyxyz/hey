@@ -1,7 +1,7 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,

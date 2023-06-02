@@ -1,7 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { APP_NAME, LENS_PERIPHERY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
 import {
   useBroadcastMutation,
