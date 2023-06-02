@@ -1,3 +1,4 @@
+import isPrimeMonth from '@lenster/lib/isPrideMonth';
 import type { FC } from 'react';
 
 import MetaTags from '../Common/MetaTags';
@@ -10,7 +11,7 @@ const Loading: FC = () => {
         className="h-28 w-28"
         height={112}
         width={112}
-        src="/pride.svg"
+        src={isPrimeMonth() ? '/pride.svg' : '/logo.svg'}
         alt="Logo"
       />
     </div>
