@@ -1,5 +1,5 @@
+import { Errors } from '@lenster/data';
 import { STATIC_ASSETS_URL } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';

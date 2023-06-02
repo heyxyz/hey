@@ -1,6 +1,6 @@
 const RESTRICTED_SYMBOLS = '☑️✓✔✅';
 
-const Regex = {
+export const Regex = {
   url: /(http|https):\/\/([\w+.?])+([\w!#$%&'()*+,./:;=?@\\^~\-]*)?/g,
   mention: /(@[a-z\d-_.]{1,31})/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
@@ -12,5 +12,3 @@ const Regex = {
   profileNameFilter: new RegExp('[' + RESTRICTED_SYMBOLS + ']', 'gu'),
   gm: /\bgm\b/i
 };
-
-export default Regex;

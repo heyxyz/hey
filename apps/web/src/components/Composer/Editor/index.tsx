@@ -5,7 +5,7 @@ import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
-import Errors from '@lenster/data/errors';
+import { Errors } from '@lenster/data';
 import {
   $convertToMarkdownString,
   TEXT_FORMAT_TRANSFORMERS

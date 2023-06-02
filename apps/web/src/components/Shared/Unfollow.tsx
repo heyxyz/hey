@@ -1,6 +1,6 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { FollowNft } from '@lenster/abis';
-import Errors from '@lenster/data/errors';
+import { Errors } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,

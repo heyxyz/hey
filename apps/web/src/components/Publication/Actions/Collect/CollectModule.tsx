@@ -15,8 +15,8 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,

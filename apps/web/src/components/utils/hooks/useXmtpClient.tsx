@@ -1,5 +1,5 @@
+import { Localstorage } from '@lenster/data';
 import { APP_NAME, APP_VERSION, XMTP_ENV } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';

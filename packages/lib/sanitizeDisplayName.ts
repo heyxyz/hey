@@ -1,4 +1,4 @@
-import Regex from '@lenster/data/regex';
+import { Regex } from '@lenster/data';
 
 /**
  * Remove restricted symbols from profile name

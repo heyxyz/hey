@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
+import { Localstorage } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
 import {
   Button,
   Card,
