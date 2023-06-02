@@ -40,6 +40,10 @@ test.describe('Profile', async () => {
       await expect(page.getByTestId('profile-meta-ens')).toContainText('alainnicolas.eth');
     });
 
+    test('should have meta Linea ens', async ({ page }) => {
+      await expect(page.getByTestId('profile-meta-linea-ens')).toContainText('alain.lineatest.eth');
+    });
+
     test('should have meta website', async ({ page }) => {
       await expect(page.getByTestId('profile-meta-website')).toContainText('alainnicolas.fr');
     });

@@ -3,14 +3,13 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { lineaTestnet } from '@wagmi/chains';
-import { WALLETCONNECT_PROJECT_ID } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
+import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from './ErrorBoundary';
@@ -30,10 +29,13 @@ const { chains, provider } = configureChains(
 const connectors = () => {
   return [
     new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-    new WalletConnectConnector({
+    new WalletConnectLegacyConnector({
       options: {
-        projectId: WALLETCONNECT_PROJECT_ID,
-        showQrModal: true
+        qrcode: true,
+        qrcodeModalOptions: {
+          desktopLinks: [],
+          mobileLinks: ['MetaMask']
+        }
       }
     })
   ];

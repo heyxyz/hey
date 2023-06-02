@@ -427,7 +427,8 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.x
 
 // Web3
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
-export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
+export const WALLETCONNECT_PROJECT_ID =
+  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'cd542acc70c2b548030f9901a52e70c8';
 
 // Regex
 export const URL_REGEX =
