@@ -1,9 +1,6 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import {
-  ALL_HANDLES_REGEX,
-  HANDLE_SANITIZE_REGEX
-} from '@lenster/data/constants';
+import Regex from '@lenster/data/regex';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -18,16 +15,13 @@ interface RelevantPeopleProps {
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   const mentions =
-    publication?.metadata?.content?.match(ALL_HANDLES_REGEX, '$1[~$2]') ?? [];
+    publication?.metadata?.content?.match(Regex.allHandles, '$1[~$2]') ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
 
     if (trimmedMention.length > 9) {
-      return mention
-        .trim()
-        .replace("'s", '')
-        .replace(HANDLE_SANITIZE_REGEX, '');
+      return mention.trim().replace("'s", '').replace(Regex.santiizeHandle, '');
     }
 
     return formatHandle(publication?.profile?.handle);

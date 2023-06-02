@@ -1,5 +1,5 @@
+import Regex from '@lenster/data/regex';
 import trimify from '@lenster/lib/trimify';
-import { hashtagRegex, mentionRegex } from '@lib/markupUtils';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -13,8 +13,9 @@ import MarkupLink from './MarkupLink';
 const plugins = [
   [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
   remarkBreaks,
-  linkifyRegex(mentionRegex),
-  linkifyRegex(hashtagRegex)
+  linkifyRegex(Regex.url),
+  linkifyRegex(Regex.mention),
+  linkifyRegex(Regex.hashtag)
 ];
 
 const components = {
