@@ -20,6 +20,6 @@
     "@lenster/tsconfig": "workspace:*",
     "@types/secp256k1": "^4.0.3",
     "eslint-config-node": "workspace:*",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
