@@ -11,8 +11,8 @@ import {
   UsersIcon
 } from '@heroicons/react/outline';
 import { PencilAltIcon } from '@heroicons/react/solid';
+import { Errors } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import { useLensterStatsQuery } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import {

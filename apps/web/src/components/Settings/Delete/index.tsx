@@ -3,8 +3,8 @@ import UserProfile from '@components/Shared/UserProfile';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
 import {
   Button,

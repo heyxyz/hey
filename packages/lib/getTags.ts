@@ -1,4 +1,4 @@
-import Regex from '@lenster/data/regex';
+import { Regex } from '@lenster/data';
 
 /**
  * Extracts up to five unique hashtags from the specified input text.

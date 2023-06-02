@@ -1,8 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors, Regex } from '@lenster/data';
 import { IS_MAINNET, LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
-import Regex from '@lenster/data/regex';
 import type {
   NftImage,
   Profile,

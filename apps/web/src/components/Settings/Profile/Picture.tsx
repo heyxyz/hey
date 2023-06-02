@@ -1,8 +1,8 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {

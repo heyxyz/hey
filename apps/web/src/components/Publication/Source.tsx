@@ -1,4 +1,4 @@
-import { apps } from '@lenster/data/apps';
+import { apps } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Publication } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';

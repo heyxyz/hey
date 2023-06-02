@@ -6,7 +6,7 @@ import useGetMessagePreviews from '@components/utils/hooks/useGetMessagePreviews
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
-import Errors from '@lenster/data/errors';
+import { Errors } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
