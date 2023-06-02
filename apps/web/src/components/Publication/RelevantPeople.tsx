@@ -1,6 +1,6 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import Regex from '@lenster/data/regex';
+import { Regex } from '@lenster/data';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';

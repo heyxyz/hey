@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
+import { Errors } from '@lenster/data';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,

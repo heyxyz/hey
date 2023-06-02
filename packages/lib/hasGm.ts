@@ -1,4 +1,4 @@
-import Regex from '@lenster/data/regex';
+import { Regex } from '@lenster/data';
 
 /**
  * Returns true if the specified text contains the "gm" tag, ignoring case and word boundaries.

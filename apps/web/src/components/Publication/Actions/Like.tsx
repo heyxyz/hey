@@ -3,7 +3,7 @@ import {
   HeartIcon as HeartIconSolid,
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
-import Errors from '@lenster/data/errors';
+import { Errors } from '@lenster/data';
 import type { Publication } from '@lenster/lens';
 import {
   ReactionTypes,

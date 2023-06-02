@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
+import { Errors } from '@lenster/data';
 import { APP_NAME, POLYGONSCAN_URL } from '@lenster/data/constants';
-import Errors from '@lenster/data/errors';
 import { useRelayQueuesQuery } from '@lenster/lens';
 import {
   Card,

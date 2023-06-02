@@ -1,4 +1,4 @@
-import Regex from '@lenster/data/regex';
+import { Regex } from '@lenster/data';
 import trimify from '@lenster/lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
