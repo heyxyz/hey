@@ -1,11 +1,8 @@
 import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
-import {
-  ADDRESS_REGEX,
-  DEFAULT_COLLECT_TOKEN,
-  LENSHUB_PROXY
-} from '@lenster/data/constants';
+import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
 import Errors from '@lenster/data/errors';
+import Regex from '@lenster/data/regex';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -31,7 +28,7 @@ const newSuperFollowSchema = object({
   amount: string().min(1, { message: t`Invalid amount` }),
   recipient: string()
     .max(42, { message: t`Ethereum address should be within 42 characters` })
-    .regex(ADDRESS_REGEX, { message: t`Invalid Ethereum address` })
+    .regex(Regex.ethereumAddress, { message: t`Invalid Ethereum address` })
 });
 
 const SuperFollow: FC = () => {

@@ -1,3 +1,5 @@
+import Regex from '@lenster/data/regex';
+
 /**
  * Returns true if the specified text contains the "gm" tag, ignoring case and word boundaries.
  *
@@ -5,8 +7,7 @@
  * @returns True if the text contains the "gm" tag, false otherwise.
  */
 const hasGm = (inputText: string): boolean => {
-  const regex = /\bgm\b/i;
-  return regex.test(inputText);
+  return Regex.gm.test(inputText);
 };
 
 export default hasGm;

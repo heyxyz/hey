@@ -1,4 +1,4 @@
-import { PROFILE_NAME_FILTER_REGEX } from '@lenster/data';
+import Regex from '@lenster/data/regex';
 
 /**
  * Remove restricted symbols from profile name
@@ -13,7 +13,7 @@ const sanitizeDisplayName = (
     return null;
   }
 
-  return name.replace(PROFILE_NAME_FILTER_REGEX, ' ').trim();
+  return name.replace(Regex.profileNameFilter, ' ').trim();
 };
 
 export default sanitizeDisplayName;
