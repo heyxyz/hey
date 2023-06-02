@@ -1,4 +1,4 @@
-import { hashflags } from '@lenster/data';
+import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import Link from 'next/link';
@@ -10,8 +10,9 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
     return null;
   }
 
-  const hashflag = title.slice(1).toLowerCase();
-  const hasHashflag = hashflags.hasOwnProperty(hashflag);
+  const tag = title.slice(1).toLowerCase();
+  const hasHashflag = hashflags.hasOwnProperty(tag);
+  const isPrideHashtag = prideHashtags.includes(tag);
 
   return (
     <span className="inline-flex items-center space-x-1">
@@ -20,15 +21,15 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={stopEventPropagation}
         >
-          {title}
+          {isPrideHashtag ? <b className="pride-text">{title}</b> : title}
         </Link>
       </span>
       {hasHashflag && (
         <img
           className="!mr-0.5 h-4"
           height={16}
-          src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[hashflag]}.png`}
-          alt={hashflag}
+          src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[tag]}.png`}
+          alt={tag}
         />
       )}
     </span>
