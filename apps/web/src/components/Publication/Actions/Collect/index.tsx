@@ -10,9 +10,8 @@ import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PUBLICATION } from 'src/tracking';
-import { useUpdateEffect } from 'usehooks-ts';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
@@ -36,7 +35,7 @@ const Collect: FC<CollectProps> = ({
     ? publication?.mirrorOf?.hasCollectedByMe
     : publication?.hasCollectedByMe;
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (
       isMirror
         ? publication?.mirrorOf?.stats?.totalAmountOfCollects
@@ -48,6 +47,7 @@ const Collect: FC<CollectProps> = ({
           : publication?.stats?.totalAmountOfCollects
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
   const iconClassName = showCount
