@@ -31,7 +31,7 @@ const Explore: NextPage = () => {
   }, []);
 
   const tabs = [
-    { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
+    { name: `Latest`, type: PublicationSortCriteria.Latest },
     { name: t`Popular`, type: PublicationSortCriteria.TopCommented },
     { name: t`Trending`, type: PublicationSortCriteria.TopCollected },
     { name: t`Interesting`, type: PublicationSortCriteria.TopMirrored }
