@@ -37,7 +37,6 @@ export default async (request: IRequest, env: Env) => {
     const tableName = 'events';
 
     // Event details from Cloudflare request
-    const ip = request.headers.get('cf-connecting-ip');
     const country = request.headers.get('cf-ipcountry');
     const user_agent = request.headers.get('user-agent');
 
@@ -71,7 +70,6 @@ export default async (request: IRequest, env: Env) => {
             name,
             user_id,
             fingerprint,
-            ip,
             country,
             user_agent,
             referrer,
