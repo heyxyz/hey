@@ -1,6 +1,7 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/outline';
-import { APP_NAME, HANDLE_REGEX, ZERO_ADDRESS } from '@lenster/data/constants';
+import { APP_NAME, ZERO_ADDRESS } from '@lenster/data/constants';
+import Regex from '@lenster/data/regex';
 import { RelayErrorReasons, useCreateProfileMutation } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import {
@@ -24,7 +25,7 @@ const newUserSchema = object({
   handle: string()
     .min(5, { message: t`Handle should be at least 5 characters` })
     .max(26, { message: t`Handle should not exceed 26 characters` })
-    .regex(HANDLE_REGEX, {
+    .regex(Regex.handle, {
       message: t`Handle should only contain alphanumeric characters`
     })
 });

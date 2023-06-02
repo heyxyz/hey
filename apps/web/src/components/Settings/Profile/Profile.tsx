@@ -1,14 +1,9 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
-import {
-  APP_NAME,
-  COVER,
-  LENS_PERIPHERY,
-  PROFILE_NAME_VALIDATOR_REGEX,
-  URL_REGEX
-} from '@lenster/data/constants';
+import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
 import Errors from '@lenster/data/errors';
+import Regex from '@lenster/data/regex';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {
@@ -60,14 +55,14 @@ const editProfileSchema = object({
     .max(100, {
       message: t`Name should not exceed 100 characters`
     })
-    .regex(PROFILE_NAME_VALIDATOR_REGEX, {
+    .regex(Regex.profileNameValidator, {
       message: t`Profile name must not contain restricted symbols`
     }),
   location: string().max(100, {
     message: t`Location should not exceed 100 characters`
   }),
   website: union([
-    string().regex(URL_REGEX, { message: t`Invalid website` }),
+    string().regex(Regex.url, { message: t`Invalid website` }),
     string().max(0)
   ]),
   twitter: string().max(100, {
