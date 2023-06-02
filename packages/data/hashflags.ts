@@ -1,3 +1,5 @@
+import { prideHashtags } from './pride-hashtags';
+
 export const hashflags: Record<string, string> = {
   lenster: 'lenster',
   lenstube: 'lenstube',
@@ -11,9 +13,8 @@ export const hashflags: Record<string, string> = {
   blm: 'blm',
   blacklivesmatter: 'blm',
   bhm: 'blm',
-  pride: 'pride',
-  lgbt: 'pride',
   voted: 'voted',
   hashtag: 'hashtag',
-  bonsai: 'bonsai'
+  bonsai: 'bonsai',
+  ...prideHashtags.reduce((acc, cur) => ({ ...acc, [cur]: 'pride' }), {})
 };
