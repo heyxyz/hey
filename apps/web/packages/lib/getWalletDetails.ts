@@ -16,6 +16,10 @@ const getWalletDetails = (name: string): WalletDetails => {
     WalletConnect: {
       name: 'Wallet Connect',
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
+    },
+    WalletConnectLegacy: {
+      name: 'Wallet Connect',
+      logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
     }
   };
   const defaultDetails: WalletDetails = {
