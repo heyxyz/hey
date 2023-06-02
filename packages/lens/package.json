@@ -18,7 +18,7 @@
     "axios": "^1.4.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^4.0.0",
+    "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.0",
     "@graphql-codegen/typescript-operations": "^4.0.0",
@@ -26,6 +26,6 @@
     "@lenster/tsconfig": "workspace:*",
     "@types/node": "^20.2.5",
     "eslint-config-node": "workspace:*",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
