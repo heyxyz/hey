@@ -262,7 +262,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="ENS Logo"
                 />
               }
-              dataTestId="profile-meta-ens"
+              dataTestId="profile-meta-linea-ens"
             >
               <a href={`${ENS_DOMAIN_URL}/${domain}`} target="_blank">
                 {domain}
