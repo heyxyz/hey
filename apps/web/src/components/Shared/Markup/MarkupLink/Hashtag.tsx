@@ -21,7 +21,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={stopEventPropagation}
         >
-          {isPrideHashtag ? <b className="pride-text">{title}</b> : title}
+          {isPrideHashtag ? <span className="pride-text">{title}</span> : title}
         </Link>
       </span>
       {hasHashflag && (
