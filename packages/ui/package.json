@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.14",
+    "@headlessui/react": "^1.7.15",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.0",
     "@lenster/data": "workspace:*",
@@ -21,14 +21,14 @@
     "clsx": "^1.2.1",
     "next": "^13.4.2",
     "react": "^18.2.0",
-    "react-hook-form": "^7.44.2",
+    "react-hook-form": "^7.44.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@lenster/tsconfig": "workspace:*",
     "@types/node": "^20.2.5",
-    "@types/react": "^18.2.7",
+    "@types/react": "^18.2.8",
     "eslint-config-node": "workspace:*",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.3"
   }
 }
