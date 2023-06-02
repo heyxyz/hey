@@ -226,3 +226,17 @@ ul {
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
 }
+
+.pride-text {
+  background: linear-gradient(
+    to right,
+    #dc2626,
+    #ea580c,
+    #ca8a04,
+    #16a34a,
+    #2563eb,
+    #4f46e5,
+    #7c3aed
+  );
+  @apply bg-clip-text text-transparent;
+}

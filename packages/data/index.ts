@@ -8,6 +8,7 @@ export * from './errors';
 export * from './feature-flags';
 export * from './gardeners';
 export * from './hashflags';
+export * from './pride-hashtags';
 export * from './regex';
 export * from './staffs';
 export * from './storage';
