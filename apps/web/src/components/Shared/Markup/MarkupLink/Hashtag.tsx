@@ -1,5 +1,6 @@
 import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import isPrimeMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -12,7 +13,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
 
   const tag = title.slice(1).toLowerCase();
   const hasHashflag = hashflags.hasOwnProperty(tag);
-  const isPrideHashtag = prideHashtags.includes(tag);
+  const isPrideHashtag = isPrimeMonth() ? prideHashtags.includes(tag) : false;
 
   return (
     <span className="inline-flex items-center space-x-1">
