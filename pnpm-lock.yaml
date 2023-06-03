@@ -53,18 +53,15 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(typescript@5.1.3)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../packages/config
       '@types/react':
         specifier: ^18.2.8
         version: 18.2.8
       '@types/react-dom':
         specifier: ^18.2.4
         version: 18.2.4
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -291,9 +288,9 @@ importers:
       '@giphy/js-types':
         specifier: ^4.2.1
         version: 4.4.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../packages/config
       '@lingui/cli':
         specifier: ^4.1.2
         version: 4.1.2
@@ -318,9 +315,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.14
         version: 10.4.14(postcss@8.4.24)
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-node
       postcss:
         specifier: ^8.4.24
         version: 8.4.24
@@ -333,12 +327,9 @@ importers:
 
   packages/abis:
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
+        version: link:../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -358,35 +349,17 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/secp256k1':
         specifier: ^4.0.3
         version: 4.0.3
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
 
-  packages/data:
-    devDependencies:
-      '@lenster/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: ^20.2.5
-        version: 20.2.5
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
-      typescript:
-        specifier: ^5.1.3
-        version: 5.1.3
-
-  packages/eslint-config-node:
+  packages/config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.59.8
@@ -410,6 +383,18 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@typescript-eslint/eslint-plugin@5.59.8)(eslint@8.42.0)
 
+  packages/data:
+    devDependencies:
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/node':
+        specifier: ^20.2.5
+        version: 20.2.5
+      typescript:
+        specifier: ^5.1.3
+        version: 5.1.3
+
   packages/image-cropper:
     dependencies:
       clsx:
@@ -425,9 +410,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -437,9 +422,6 @@ importers:
       '@types/react':
         specifier: ^18.2.8
         version: 18.2.8
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -471,15 +453,12 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -496,20 +475,15 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
-
-  packages/tsconfig: {}
 
   packages/ui:
     dependencies:
@@ -547,18 +521,15 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
       '@types/react':
         specifier: ^18.2.8
         version: 18.2.8
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -575,12 +546,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -593,12 +561,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -621,15 +586,12 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       '@types/ua-parser-js':
         specifier: ^0.7.36
         version: 0.7.36
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -649,12 +611,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -680,12 +639,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -698,12 +654,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -747,12 +700,9 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -772,12 +722,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../../eslint-config-node
+        version: link:../../config
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -797,18 +744,15 @@ importers:
         specifier: workspace:*
         version: link:../packages/lib
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../packages/tsconfig
+        version: link:../packages/config
       '@playwright/test':
         specifier: ^1.34.3
         version: 1.34.3
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
-      eslint-config-node:
-        specifier: workspace:*
-        version: link:../packages/eslint-config-node
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -863,7 +807,7 @@ packages:
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
-      tslib: 2.5.2
+      tslib: 2.5.3
       zen-observable-ts: 1.2.5
     dev: false
 
@@ -2671,7 +2615,7 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 18.2.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@dnd-kit/core@6.0.8(react-dom@18.2.0)(react@18.2.0):
@@ -2705,7 +2649,7 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 18.2.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@emotion/babel-plugin@11.11.0:
@@ -4062,7 +4006,7 @@ packages:
       '@graphql-tools/schema': 10.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-codegen/fragment-matcher@5.0.0(graphql@16.6.0):
@@ -4100,7 +4044,7 @@ packages:
       graphql: 16.6.0
       import-from: 4.0.0
       lodash: 4.17.21
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-codegen/schema-ast@4.0.0(graphql@16.6.0):
@@ -4111,7 +4055,7 @@ packages:
       '@graphql-codegen/plugin-helpers': 5.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-codegen/typescript-operations@4.0.0(graphql@16.6.0):
@@ -4200,7 +4144,7 @@ packages:
       graphql: 16.6.0
       graphql-tag: 2.12.6(graphql@16.6.0)
       parse-filepath: 1.0.2
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4216,7 +4160,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       '@whatwg-node/fetch': 0.9.1
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -4230,7 +4174,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       dataloader: 2.2.2
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     dev: true
 
@@ -4244,7 +4188,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       globby: 11.1.0
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       unixify: 1.0.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -4263,7 +4207,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       dataloader: 2.2.2
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     dev: true
 
@@ -4279,7 +4223,7 @@ packages:
       graphql: 16.6.0
       graphql-ws: 5.13.1(graphql@16.6.0)
       isomorphic-ws: 5.0.0(ws@8.13.0)
-      tslib: 2.5.2
+      tslib: 2.5.3
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
@@ -4299,7 +4243,7 @@ packages:
       extract-files: 11.0.0
       graphql: 16.6.0
       meros: 1.3.0(@types/node@20.2.5)
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     transitivePeerDependencies:
       - '@types/node'
@@ -4315,7 +4259,7 @@ packages:
       '@types/ws': 8.5.4
       graphql: 16.6.0
       isomorphic-ws: 5.0.0(ws@8.13.0)
-      tslib: 2.5.2
+      tslib: 2.5.3
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
@@ -4332,7 +4276,7 @@ packages:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.6.0)
       '@repeaterjs/repeater': 3.0.4
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     dev: true
 
@@ -4347,7 +4291,7 @@ packages:
       graphql: 16.6.0
       is-glob: 4.0.3
       micromatch: 4.0.5
-      tslib: 2.5.2
+      tslib: 2.5.3
       unixify: 1.0.0
     transitivePeerDependencies:
       - '@babel/core'
@@ -4366,7 +4310,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       '@whatwg-node/fetch': 0.9.1
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     transitivePeerDependencies:
       - '@babel/core'
@@ -4385,7 +4329,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       globby: 11.1.0
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       unixify: 1.0.0
     dev: true
 
@@ -4401,7 +4345,7 @@ packages:
       '@babel/types': 7.22.4
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
@@ -4416,7 +4360,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
       resolve-from: 5.0.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/json-file-loader@8.0.0(graphql@16.6.0):
@@ -4428,7 +4372,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       globby: 11.1.0
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       unixify: 1.0.0
     dev: true
 
@@ -4442,7 +4386,7 @@ packages:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
       p-limit: 3.1.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/merge@9.0.0(graphql@16.6.0):
@@ -4453,7 +4397,7 @@ packages:
     dependencies:
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/optimize@1.3.1(graphql@16.6.0):
@@ -4462,7 +4406,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/optimize@2.0.0(graphql@16.6.0):
@@ -4472,7 +4416,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/prisma-loader@8.0.1(@types/node@20.2.5)(graphql@16.6.0):
@@ -4498,7 +4442,7 @@ packages:
       json-stable-stringify: 1.0.2
       lodash: 4.17.21
       scuid: 1.1.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       yaml-ast-parser: 0.0.43
     transitivePeerDependencies:
       - '@types/node'
@@ -4516,7 +4460,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4531,7 +4475,7 @@ packages:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -4546,7 +4490,7 @@ packages:
       '@graphql-tools/merge': 9.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     dev: true
 
@@ -4567,7 +4511,7 @@ packages:
       '@whatwg-node/fetch': 0.9.1
       graphql: 16.6.0
       isomorphic-ws: 5.0.0(ws@8.13.0)
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -4585,7 +4529,7 @@ packages:
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/utils@8.13.1(graphql@16.6.0):
@@ -4594,7 +4538,7 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/utils@9.2.1(graphql@16.6.0):
@@ -4604,7 +4548,7 @@ packages:
     dependencies:
       '@graphql-typed-document-node/core': 3.2.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /@graphql-tools/wrap@10.0.0(graphql@16.6.0):
@@ -4617,7 +4561,7 @@ packages:
       '@graphql-tools/schema': 10.0.0(graphql@16.6.0)
       '@graphql-tools/utils': 10.0.0(graphql@16.6.0)
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
       value-or-promise: 1.0.12
     dev: true
 
@@ -5264,7 +5208,7 @@ packages:
       '@motionone/easing': 10.15.1
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/dom@10.16.2:
@@ -5275,14 +5219,14 @@ packages:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
       hey-listen: 1.0.8
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/easing@10.15.1:
     resolution: {integrity: sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==}
     dependencies:
       '@motionone/utils': 10.15.1
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/generators@10.15.1:
@@ -5290,14 +5234,14 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/svelte@10.16.2:
     resolution: {integrity: sha512-38xsroKrfK+aHYhuQlE6eFcGy0EwrB43Q7RGjF73j/kRUTcLNu/LAaKiLLsN5lyqVzCgTBVt4TMT/ShWbTbc5Q==}
     dependencies:
       '@motionone/dom': 10.16.2
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/types@10.15.1:
@@ -5309,14 +5253,14 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       hey-listen: 1.0.8
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@motionone/vue@10.16.2:
     resolution: {integrity: sha512-7/dEK/nWQXOkJ70bqb2KyNfSWbNvWqKKq1C8juj+0Mg/AorgD8O5wE3naddK0G+aXuNMqRuc4jlsYHHWHtIzVw==}
     dependencies:
       '@motionone/dom': 10.16.2
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@multiformats/base-x@4.0.1:
@@ -5469,14 +5413,14 @@ packages:
     dependencies:
       asn1js: 3.0.5
       pvtsutils: 1.3.2
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@peculiar/json-schema@1.1.12:
     resolution: {integrity: sha512-coUfuoMeIB7B8/NMekxaDzLhaYmp0HZNPEjYRm9goRou8UZIC3z21s0sL9AWoCw4EG876QyO3kYrc61WNF9B/w==}
     engines: {node: '>=8.0.0'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@peculiar/webcrypto@1.4.3:
@@ -5486,7 +5430,7 @@ packages:
       '@peculiar/asn1-schema': 2.3.6
       '@peculiar/json-schema': 1.1.12
       pvtsutils: 1.3.2
-      tslib: 2.5.2
+      tslib: 2.5.3
       webcrypto-core: 1.7.7
     dev: true
 
@@ -5503,7 +5447,7 @@ packages:
       is-glob: 4.0.3
       open: 9.1.0
       picocolors: 1.0.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@playwright/test@1.34.3:
@@ -5884,7 +5828,7 @@ packages:
   /@swc/helpers@0.5.1:
     resolution: {integrity: sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.3.2):
@@ -6932,7 +6876,7 @@ packages:
       busboy: 1.6.0
       fast-querystring: 1.1.1
       fast-url-parser: 1.1.3
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@whatwg-node/node-fetch@0.4.1:
@@ -6943,49 +6887,49 @@ packages:
       busboy: 1.6.0
       fast-querystring: 1.1.1
       fast-url-parser: 1.1.3
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /@wry/context@0.7.1:
     resolution: {integrity: sha512-nEWMz5t7VPcQU7aMImt9ReZgv18ZJREIH03YpFLGtGLj91Ulf0YROhYVc5J/hUaHXL2NuwRJdZvq+piNLN23kA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@wry/context@0.7.3:
     resolution: {integrity: sha512-Nl8WTesHp89RF803Se9X3IiHjdmLBrIvPMaJkl+rKVJAYyPsz1TEUbu89943HpvujtSJgDUx9W4vZw3K1Mr3sA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@wry/equality@0.5.4:
     resolution: {integrity: sha512-sKmePi7fqeg0CstdHWH+EAkd3s0EoghUmIlwVpM46M1KCgmWPh1mrQr2k1RG3GXuVKFkOu840N+o107Yw4PjJA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@wry/equality@0.5.6:
     resolution: {integrity: sha512-D46sfMTngaYlrH+OspKf8mIJETntFnf6Hsjb0V41jAXJ7Bx2kB8Rv8RCUujuVWYttFtHkUNp7g+FwxNQAr6mXA==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@wry/trie@0.3.2:
     resolution: {integrity: sha512-yRTyhWSls2OY/pYLfwff867r8ekooZ4UI+/gxot5Wj8EFwSf2rG+n+Mo/6LoLQm1TKA4GRj2+LCpbfS937dClQ==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@wry/trie@0.4.3:
     resolution: {integrity: sha512-I6bHwH0fSf6RqQcnnXLJKhkSXG45MFral3GxPaY4uAl0LYDZM+YDVDAiU9bYwjTuysy1S0IeecWtmq1SZA3M1w==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /@xmtp/proto@3.25.0:
@@ -7402,7 +7346,7 @@ packages:
     dependencies:
       pvtsutils: 1.3.2
       pvutils: 1.1.3
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /ast-types-flow@0.0.7:
@@ -7417,13 +7361,13 @@ packages:
   /async-mutex@0.2.6:
     resolution: {integrity: sha512-Hs4R+4SPgamu6rSGW8C7cV9gaWUKEHykfzCCvIRuaVv636Ju10ZdeUbvb4TBEW0INuq2DHZqXbK4Nd3yG4RaRw==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /async-mutex@0.4.0:
     resolution: {integrity: sha512-eJFZ1YhRR8UN8eBLoNzcDPcy/jqjsg6I1AP+KvWQX80BqOSW1oJPJXDylPUEeMr2ZQvHgnQ//Lp6f3RQ1zI7HA==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /asynckit@0.4.0:
@@ -7733,7 +7677,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001481
+      caniuse-lite: 1.0.30001492
       electron-to-chromium: 1.4.359
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10(browserslist@4.21.5)
@@ -7820,7 +7764,7 @@ packages:
     resolution: {integrity: sha512-gxGWBrTT1JuMx6R+o5PTXMmUnhnVzLQ9SNutD4YqKtI6ap897t3tKECYla6gCWEkplXnlNybEkZg9GEGxKFCgw==}
     dependencies:
       pascal-case: 3.1.2
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /camelcase-css@2.0.1:
@@ -7840,9 +7784,6 @@ packages:
     resolution: {integrity: sha512-lZim4iUHhGcy5p+Ri/G7m84hJwncj+Kz7S5aD4hoQfslKZJgt0tHc/hafVbqHC5bbhHb+mrW2JOUHkI5KH7toQ==}
     dev: true
 
-  /caniuse-lite@1.0.30001481:
-    resolution: {integrity: sha512-KCqHwRnaa1InZBtqXzP98LPg0ajCVujMKjqKDhZEthIpAsJl/YEIa3YvXjGXPVqzZVguccuu7ga9KOE1J9rKPQ==}
-
   /caniuse-lite@1.0.30001487:
     resolution: {integrity: sha512-83564Z3yWGqXsh2vaH/mhXfEM0wX+NlBCm1jYHOb97TrTWJEmPTccZgeLTPBUUb0PNVo+oomb7wkimZBIERClA==}
     dev: false
@@ -7854,7 +7795,7 @@ packages:
     resolution: {integrity: sha512-ds37W8CytHgwnhGGTi88pcPyR15qoNkOpYwmMMfnWqqWgESapLqvDx6huFjQ5vqWSn2Z06173XNA7LtMOeUh1A==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
       upper-case-first: 2.0.2
     dev: true
 
@@ -7862,7 +7803,7 @@ packages:
     resolution: {integrity: sha512-XKxXAC3HVPv7r674zP0VC3RTXz+/JKhfyw94ljvF80yynK6VkTnqE3jMuN8b3dUVmmc43TjyxjW4KTsmB3c86g==}
     dependencies:
       debug: 4.3.4
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7926,7 +7867,7 @@ packages:
       path-case: 3.0.4
       sentence-case: 3.0.4
       snake-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /character-entities@2.0.2:
@@ -8143,7 +8084,7 @@ packages:
     resolution: {integrity: sha512-I2hSBi7Vvs7BEuJDr5dDHfzb/Ruj3FyvFyh7KLilAjNQw3Be+xgqUBA2W6scVEcL0hL1dwPRtIqEPVUCKkSsyQ==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
       upper-case: 2.0.2
     dev: true
 
@@ -8578,7 +8519,7 @@ packages:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /dotenv@16.1.3:
@@ -9865,7 +9806,7 @@ packages:
       jiti: 1.18.2
       minimatch: 4.2.3
       string-env-interpolation: 1.0.1
-      tslib: 2.5.2
+      tslib: 2.5.3
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -9892,7 +9833,7 @@ packages:
       graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.6.0
-      tslib: 2.5.2
+      tslib: 2.5.3
 
   /graphql-ws@5.13.1(graphql@16.6.0):
     resolution: {integrity: sha512-eiX7ES/ZQr0q7hSM5UBOEIFfaAUmAY9/CSDyAnsETuybByU7l/v46drRg9DQoTvVABEHp3QnrvwgTRMhqy7zxQ==}
@@ -9978,7 +9919,7 @@ packages:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
     dependencies:
       capital-case: 1.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /hey-listen@1.0.8:
@@ -10378,7 +10319,7 @@ packages:
   /is-lower-case@2.0.2:
     resolution: {integrity: sha512-bVcMJy4X5Og6VZfdOZstSexlEy20Sr0k/p/b2IlQJlfdKAQuMpiv5w2Ccxb8sKdRUNAG1PnHVHjFSdRDVS6NlQ==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /is-map@2.0.2:
@@ -10492,7 +10433,7 @@ packages:
   /is-upper-case@2.0.2:
     resolution: {integrity: sha512-44pxmxAvnnAOwBg4tHPnkfvgjPwbc5QIsSstNU+YcJ1ovxVzCWpSGosPJOZh/a1tdl81fbgnLc9LLv+x2ywbPQ==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /is-weakmap@2.0.1:
@@ -11046,13 +10987,13 @@ packages:
   /lower-case-first@2.0.2:
     resolution: {integrity: sha512-EVm/rR94FJTZi3zefZ82fLWab+GX14LJN4HrWBcuo6Evmsl9hEfnqxgcHCKb9q+mNf6EVdsjx/qucYFIIB84pg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /lru-cache@5.1.1:
@@ -11671,7 +11612,7 @@ packages:
     resolution: {integrity: sha512-fgAN3jGAh+RoxUGZHTSOLJIqUc2wmoBwGR4tbpNAKmmovFoWq0OdRkb0VkldReO2a2iBT/OEulG9XSUc10r3zg==}
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /node-abi@3.40.0:
@@ -11965,7 +11906,7 @@ packages:
     resolution: {integrity: sha512-RXlj7zCYokReqWpOPH9oYivUzLYZ5vAPIfEmCTNViosC78F8F0H9y7T7gG2M39ymgutxF5gcFEsyZQSph9Bp3A==}
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /parent-module@1.0.1:
@@ -11996,14 +11937,14 @@ packages:
     resolution: {integrity: sha512-uWlGT3YSnK9x3BQJaOdcZwrnV6hPpd8jFH1/ucpiLRPh/2zCVJKS19E4GvYHvaCcACn3foXZ0cLB9Wrx1KGe5g==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /path-case@3.0.4:
     resolution: {integrity: sha512-qO4qCFjXqVTrcbPt/hQfhTQ+VhFsqNKOPtytgNKkKxSoEp3XPUQ8ObFuePylOIok5gjn69ry8XiULxCwot3Wfg==}
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /path-exists@3.0.0:
@@ -12472,7 +12413,7 @@ packages:
   /pvtsutils@1.3.2:
     resolution: {integrity: sha512-+Ipe2iNUyrZz+8K/2IOo+kKikdtfhRKzNpQbruF2URmqPtoqAs8g3xS7TJvFF2GcPXjh7DkqMnpVveRFq4PgEQ==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /pvutils@1.1.3:
@@ -12703,14 +12644,14 @@ packages:
       typescript: 5.1.3
     dev: false
 
-  /react-universal-interface@0.6.2(react@18.2.0)(tslib@2.5.2):
+  /react-universal-interface@0.6.2(react@18.2.0)(tslib@2.5.3):
     resolution: {integrity: sha512-dg8yXdcQmvgR13RIlZbTRQOoUrDciFVoSBZILwjE2LFISxZZ8loVJKAkuzswl5js8BHda79bIb2b84ehU8IjXw==}
     peerDependencies:
       react: '*'
       tslib: '*'
     dependencies:
       react: 18.2.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /react-use@17.4.0(react-dom@18.2.0)(react@18.2.0):
@@ -12728,13 +12669,13 @@ packages:
       nano-css: 5.3.5(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-universal-interface: 0.6.2(react@18.2.0)(tslib@2.5.2)
+      react-universal-interface: 0.6.2(react@18.2.0)(tslib@2.5.3)
       resize-observer-polyfill: 1.5.1
       screenfull: 5.2.0
       set-harmonic-interval: 1.0.1
       throttle-debounce: 3.0.1
       ts-easing: 0.2.0
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /react-virtuoso@4.3.8(react-dom@18.2.0)(react@18.2.0):
@@ -13042,13 +12983,13 @@ packages:
   /rxjs@7.8.0:
     resolution: {integrity: sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
 
   /sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
@@ -13185,7 +13126,7 @@ packages:
     resolution: {integrity: sha512-8LS0JInaQMCRoQ7YUytAo/xUu5W2XnQxV2HI/6uM6U7CITS1RqPElr30V6uIqyMKM9lJGRVFy5/4CuzcixNYSg==}
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
       upper-case-first: 2.0.2
     dev: true
 
@@ -13304,7 +13245,7 @@ packages:
     resolution: {integrity: sha512-LAOh4z89bGQvl9pFfNF8V146i7o7/CqFPbqzYgP+yYzDIDeS9HaNFtXABamRW+AQzEVODcvE79ljJ+8a9YSdMg==}
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /sonic-boom@2.8.0:
@@ -13401,7 +13342,7 @@ packages:
   /sponge-case@1.0.1:
     resolution: {integrity: sha512-dblb9Et4DAtiZ5YSUZHLl4XhH4uK80GhAZrVXdN4O2P4gQ40Wa5UIOPUHlA/nFd2PLblBZWUioLMMAVrgpoYcA==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /stable@0.1.8:
@@ -13679,7 +13620,7 @@ packages:
   /swap-case@2.0.2:
     resolution: {integrity: sha512-kc6S2YS/2yXbtkSMunBtKdah4VFETZ8Oh6ONSmSd9bRxhqTrtARUCBUiWXH3xVPpvR7tz2CSnkuXVE42EcGnMw==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /symbol-observable@4.0.0:
@@ -13692,7 +13633,7 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     dependencies:
       '@pkgr/utils': 2.4.1
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /tailwindcss@3.3.2:
@@ -13830,7 +13771,7 @@ packages:
   /title-case@3.0.3:
     resolution: {integrity: sha512-e1zGYRvbffpcHIrnuqT0Dh+gEJtDaxDSoG4JAIpq4oDFyooziLBIiYQv0GBT4FUAnUop5uZ1hiIAj7oAF6sOCA==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /titleize@3.0.0:
@@ -13907,7 +13848,7 @@ packages:
     resolution: {integrity: sha512-uivwYcQaxAucv1CzRp2n/QdYPo4ILf9VXgH19zEIjFx2EJufV16P0JtJVpYHy89DItG6Kwj2oIUjrcK5au+4tQ==}
     engines: {node: '>=8'}
     dependencies:
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: false
 
   /ts-log@2.2.5:
@@ -13939,7 +13880,6 @@ packages:
 
   /tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
-    dev: false
 
   /tsutils@3.21.0(typescript@5.1.3):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -14227,13 +14167,13 @@ packages:
   /upper-case-first@2.0.2:
     resolution: {integrity: sha512-514ppYHBaKwfJRK/pNC6c/OxfGa0obSnAl106u97Ed0I625Nin96KAjttZF6ZL3e1XLtphxnqrOi9iWgm+u+bg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /upper-case@2.0.2:
     resolution: {integrity: sha512-KgdgDGJt2TpuwBUIjgG6lzw2GWFRCW9Qkfkiv0DxqHHLYJHmtmdUIKcZd8rHgFSjopVTlw6ggzCm1b8MFQwikg==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.5.3
     dev: true
 
   /uri-js@4.4.1:
@@ -14473,7 +14413,7 @@ packages:
       '@peculiar/json-schema': 1.1.12
       asn1js: 3.0.5
       pvtsutils: 1.3.2
-      tslib: 2.5.2
+      tslib: 2.5.3
     dev: true
 
   /webidl-conversions@3.0.1:
