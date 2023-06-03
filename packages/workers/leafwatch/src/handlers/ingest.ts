@@ -1,6 +1,7 @@
 // @ts-ignore
 import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt';
 import { error, type IRequest } from 'itty-router';
+import parser from 'ua-parser-js';
 
 import getPrivateKey from '../helpers/getPrivateKey';
 import { keysValidator } from '../helpers/keysValidator';
@@ -38,7 +39,8 @@ export default async (request: IRequest, env: Env) => {
 
     // Event details from Cloudflare request
     const country = request.headers.get('cf-ipcountry');
-    const user_agent = request.headers.get('user-agent');
+    const user_agent = request.headers.get('user-agent') ?? '';
+    const ua = parser(user_agent);
 
     // Insert ID
     const id = crypto.randomUUID();
@@ -70,8 +72,9 @@ export default async (request: IRequest, env: Env) => {
             name,
             user_id,
             fingerprint,
+            browser: ua.browser.name,
+            os: ua.os.name,
             country,
-            user_agent,
             referrer,
             properties: JSON.stringify(properties)
           }
