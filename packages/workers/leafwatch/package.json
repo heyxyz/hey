@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "@sagi.io/workers-jwt": "^0.0.23",
-    "itty-router": "^4.0.9"
+    "itty-router": "^4.0.9",
+    "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
     "@lenster/tsconfig": "workspace:*",
+    "@types/ua-parser-js": "^0.7.36",
     "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3",
     "wrangler": "^3.0.1"
