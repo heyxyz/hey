@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React",
-  "extends": "./base.json",
+  "extends": "./base.tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
