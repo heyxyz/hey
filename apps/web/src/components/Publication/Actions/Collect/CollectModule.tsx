@@ -522,7 +522,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 ) : null
               ) : (
                 <WarningMessage
-                  className="mt-5"
+                  className="mt-5 w-full"
                   message={<Uniswap module={collectModule} />}
                 />
               )
