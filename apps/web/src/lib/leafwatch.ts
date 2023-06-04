@@ -27,7 +27,8 @@ export const Leafwatch = {
       properties,
       user_id: user.state.profileId,
       fingerprint: fingerprint.state.fingerprint,
-      referrer: referrerDomain
+      referrer: referrerDomain,
+      platform: 'web'
     });
 
     worker.onmessage = function (event: MessageEvent) {
