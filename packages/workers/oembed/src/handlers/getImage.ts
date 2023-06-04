@@ -10,7 +10,7 @@ export default async (request: IRequest, env: Env) => {
     const url = decode(hash);
     const isSquare = transform === 'square';
     const height = isSquare ? 400 : 600;
-    const width = isSquare ? 400 : 1000;
+    const width = isSquare ? 400 : 'auto';
     const image = await fetch(
       `${env.IMAGEKIT_URL}/tr:di-placeholder.webp,h-${height},w-${width}/${url}`,
       {
