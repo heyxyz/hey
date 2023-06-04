@@ -1,5 +1,3 @@
 module.exports = {
-  root: true,
-  extends: ['node'],
-  ignorePatterns: ['generated.ts']
+  extends: [require.resolve('@lenster/config/eslint/base.js')]
 };

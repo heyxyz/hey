@@ -1,5 +1,5 @@
 {
-  "extends": "@lenster/tsconfig/react.json",
+  "extends": "@lenster/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -9,10 +9,5 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "../../packages/lib/isPrideMonth.ts"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
