@@ -9,9 +9,8 @@
   { "name": "user_id", "type": "STRING", "mode": "NULLABLE" },
   { "name": "fingerprint", "type": "STRING", "mode": "NULLABLE" },
   { "name": "country", "type": "STRING", "mode": "NULLABLE" },
-  { "name": "browser", "type": "STRING", "mode": "NULLABLE" },
-  { "name": "os", "type": "STRING", "mode": "NULLABLE" },
   { "name": "referrer", "type": "STRING", "mode": "NULLABLE" },
+  { "name": "platform", "type": "STRING", "mode": "NULLABLE" },
   { "name": "properties", "type": "JSON", "mode": "NULLABLE" }
 ]
 ```
