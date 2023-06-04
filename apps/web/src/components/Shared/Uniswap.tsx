@@ -11,18 +11,21 @@ interface UniswapProps {
 }
 
 const Uniswap: FC<UniswapProps> = ({ module }) => {
+  const amount = module?.amount?.value ?? module?.fee?.amount?.value;
+  const currency =
+    module?.amount?.asset?.symbol ?? module?.fee?.amount?.asset?.symbol;
+  const assetAddress =
+    module?.amount?.asset?.address ?? module?.fee?.amount?.asset?.address;
+
   return (
     <div className="space-y-1">
       <div className="text-sm">
         <Trans>
-          You don't have enough <b>{module?.amount?.asset?.symbol}</b>
+          You don't have enough <b>{currency}</b>
         </Trans>
       </div>
       <Link
-        href={getUniswapURL(
-          parseFloat(module?.amount?.value),
-          module?.amount?.asset?.address
-        )}
+        href={getUniswapURL(parseFloat(amount), assetAddress)}
         onClick={() => {
           Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP);
         }}
