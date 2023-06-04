@@ -2741,8 +2741,8 @@ msgid "Unfollow"
 msgstr "取消关注"
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
-msgstr "您没有足够的 <0>{0}</0>"
+msgid "You don't have enough <0>{currency}</0>"
+msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
@@ -2903,4 +2903,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

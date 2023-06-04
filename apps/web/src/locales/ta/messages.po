@@ -2741,8 +2741,8 @@ msgid "Unfollow"
 msgstr "பின்தொடராதே"
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
-msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்லை"
+msgid "You don't have enough <0>{currency}</0>"
+msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
@@ -2903,4 +2903,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

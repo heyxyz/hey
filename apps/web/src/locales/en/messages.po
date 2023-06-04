@@ -2741,8 +2741,8 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
-msgstr ""
+msgid "You don't have enough <0>{currency}</0>"
+msgstr "You don't have enough <0>{currency}</0>"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"

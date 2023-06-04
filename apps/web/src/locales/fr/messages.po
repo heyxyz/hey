@@ -2741,7 +2741,7 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
+msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
@@ -2903,4 +2903,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
