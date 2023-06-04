@@ -1,3 +1,3 @@
 {
-  "extends": "@lenster/tsconfig/react.json"
+  "extends": "@lenster/config/react.tsconfig.json"
 }

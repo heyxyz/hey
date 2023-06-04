@@ -12,8 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@lenster/tsconfig": "workspace:*",
-    "eslint-config-node": "workspace:*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.1.3"
   }
 }

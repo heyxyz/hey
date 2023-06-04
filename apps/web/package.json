@@ -90,7 +90,7 @@
   },
   "devDependencies": {
     "@giphy/js-types": "^4.2.1",
-    "@lenster/tsconfig": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@lingui/cli": "^4.1.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
@@ -99,7 +99,6 @@
     "@types/react-dom": "^18.2.4",
     "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
-    "eslint-config-node": "workspace:*",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.1.3"
