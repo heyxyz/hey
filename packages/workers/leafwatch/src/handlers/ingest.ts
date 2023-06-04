@@ -11,6 +11,7 @@ type ExtensionRequest = {
   user_id?: string;
   fingerprint?: string;
   referrer?: string;
+  platform?: 'web' | 'mobile';
   properties?: string;
 };
 
@@ -22,7 +23,7 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const { name, user_id, fingerprint, referrer, properties } =
+  const { name, user_id, fingerprint, referrer, platform, properties } =
     body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
@@ -71,6 +72,7 @@ export default async (request: IRequest, env: Env) => {
             fingerprint,
             country,
             referrer,
+            platform,
             properties: JSON.stringify(properties)
           }
         }
