@@ -30,7 +30,6 @@
     "@graphql-codegen/typescript-operations": "^4.0.0",
     "@graphql-codegen/typescript-react-apollo": "^3.3.6",
     "@lenster/config": "workspace:*",
-    "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3",
     "wrangler": "^3.0.1"
   }

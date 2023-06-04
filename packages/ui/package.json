@@ -28,7 +28,6 @@
     "@lenster/config": "workspace:*",
     "@types/node": "^20.2.5",
     "@types/react": "^18.2.8",
-    "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3"
   }
 }

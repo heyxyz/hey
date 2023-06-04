@@ -21,7 +21,6 @@
     "@lenster/config": "workspace:*",
     "@playwright/test": "^1.34.3",
     "@types/node": "^20.2.5",
-    "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3"
   }
 }
