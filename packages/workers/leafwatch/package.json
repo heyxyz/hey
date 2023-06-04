@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@lenster/tsconfig": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@types/ua-parser-js": "^0.7.36",
     "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3",

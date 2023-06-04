@@ -90,7 +90,7 @@
   },
   "devDependencies": {
     "@giphy/js-types": "^4.2.1",
-    "@lenster/tsconfig": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@lingui/cli": "^4.1.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",

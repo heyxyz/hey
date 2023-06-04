@@ -53,9 +53,9 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(typescript@5.1.3)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../packages/config
       '@types/react':
         specifier: ^18.2.8
         version: 18.2.8
@@ -291,9 +291,9 @@ importers:
       '@giphy/js-types':
         specifier: ^4.2.1
         version: 4.4.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../packages/config
       '@lingui/cli':
         specifier: ^4.1.2
         version: 4.1.2
@@ -333,9 +333,9 @@ importers:
 
   packages/abis:
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../eslint-config-node
@@ -358,9 +358,9 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/secp256k1':
         specifier: ^4.0.3
         version: 4.0.3
@@ -371,11 +371,13 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
 
+  packages/config: {}
+
   packages/data:
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -425,9 +427,9 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -471,9 +473,9 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -496,9 +498,9 @@ importers:
         specifier: ^0.3.19
         version: 0.3.19(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -508,8 +510,6 @@ importers:
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
-
-  packages/tsconfig: {}
 
   packages/ui:
     dependencies:
@@ -547,9 +547,9 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../config
       '@types/node':
         specifier: ^20.2.5
         version: 20.2.5
@@ -575,9 +575,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -593,9 +593,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -621,9 +621,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       '@types/ua-parser-js':
         specifier: ^0.7.36
         version: 0.7.36
@@ -649,9 +649,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -680,9 +680,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -698,9 +698,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -747,9 +747,9 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^3.3.6
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.6.0)
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -772,9 +772,9 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
         version: 4.20230518.0
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../../tsconfig
+        version: link:../../config
       eslint-config-node:
         specifier: workspace:*
         version: link:../../eslint-config-node
@@ -797,9 +797,9 @@ importers:
         specifier: workspace:*
         version: link:../packages/lib
     devDependencies:
-      '@lenster/tsconfig':
+      '@lenster/config':
         specifier: workspace:*
-        version: link:../packages/tsconfig
+        version: link:../packages/config
       '@playwright/test':
         specifier: ^1.34.3
         version: 1.34.3

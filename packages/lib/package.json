@@ -16,7 +16,7 @@
     "viem": "^0.3.19"
   },
   "devDependencies": {
-    "@lenster/tsconfig": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@types/node": "^20.2.5",
     "eslint-config-node": "workspace:*",
     "typescript": "^5.1.3"

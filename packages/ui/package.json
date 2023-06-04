@@ -25,7 +25,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@lenster/tsconfig": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@types/node": "^20.2.5",
     "@types/react": "^18.2.8",
     "eslint-config-node": "workspace:*",
