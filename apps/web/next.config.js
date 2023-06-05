@@ -2,7 +2,6 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 const nextConfig = {
-  transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
     scrollRestoration: true,

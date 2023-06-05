@@ -3,7 +3,6 @@
 const nextConfig = {
   reactStrictMode: false,
   trailingSlash: false,
-  transpilePackages: ['data'],
   async headers() {
     return [
       {
