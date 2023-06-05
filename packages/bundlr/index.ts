@@ -6,8 +6,6 @@ import { privateKeyToAccount } from 'viem/accounts';
 
 import {
   byteArrayToLong,
-  getShim,
-  getSignatureData,
   longTo8ByteArray,
   serializeTags,
   shortTo2ByteArray,
@@ -81,11 +79,6 @@ export class DataItem {
 
   set id(id: string) {
     this._id = base64url.toBuffer(id);
-  }
-
-  // @ts-ignore
-  get rawId(): Promise<Buffer> {
-    return getShim('sha256').update(this.rawSignature).digest();
   }
 
   set rawId(id: Buffer) {
@@ -205,14 +198,6 @@ export class DataItem {
   public async setSignature(signature: Buffer): Promise<void> {
     this.binary.set(signature, 2);
     this._id = Buffer.from(await crypto.subtle.digest('SHA-256', signature));
-  }
-
-  public isSigned(): boolean {
-    return (this._id?.length ?? 0) > 0;
-  }
-
-  public async getSignatureData(): Promise<Uint8Array> {
-    return getSignatureData(this);
   }
 
   private getTagsStart(): number {

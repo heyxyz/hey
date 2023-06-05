@@ -44,32 +44,6 @@ export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
   ]);
 };
 
-const shimClass = class {
-  context = [];
-  // @ts-expect-error
-  constructor(private algo) {
-    this.context = [];
-  }
-
-  update(data: Buffer) {
-    // @ts-expect-error
-    this.context.push(data);
-    return this;
-  }
-
-  async digest() {
-    return Buffer.from(
-      await crypto.subtle.digest(this.algo, Buffer.concat(this.context))
-    );
-  }
-};
-
-export const getShim = (algo: string) => {
-  // @ts-expect-error
-  algo = algo.includes('-') ? algo : (algo = map[algo]);
-  return new shimClass(algo);
-};
-
 export const byteArrayToLong = (byteArray: Uint8Array): number => {
   let value = 0;
   for (let i = byteArray.length - 1; i >= 0; i--) {
