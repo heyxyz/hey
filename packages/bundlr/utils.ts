@@ -28,6 +28,7 @@ export const sign = async (
 ): Promise<Buffer> => {
   const { signature, id } = await getSignatureAndId(item, signer);
   item.getRaw().set(signature, 2);
+
   return id;
 };
 
@@ -49,6 +50,7 @@ export const byteArrayToLong = (byteArray: Uint8Array): number => {
   for (let i = byteArray.length - 1; i >= 0; i--) {
     value = value * 256 + byteArray[i];
   }
+
   return value;
 };
 
@@ -104,6 +106,7 @@ const encodeLong = (n: number): Buffer => {
       f /= 128;
     } while (f >= 1 && (buf[offset++] |= 0x80));
   }
+
   return buf;
 };
 
@@ -133,5 +136,6 @@ export const serializeTags = (
   }
   // 0 terminator
   byt = Buffer.concat([byt, encodeLong(0)]);
+
   return byt;
 };
