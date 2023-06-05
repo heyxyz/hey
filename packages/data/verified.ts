@@ -61,7 +61,6 @@ export const mainnetVerified = [
   '0x018ccc', // zospours
   '0x5805', // memester
   '0xf6b0', // andresbriceno
-  '0x01637c', // lou_lou
   '0x0132', // luduvigo
   '0x013e57', // andriy
   '0x018cf8', // zachchin
