@@ -35,8 +35,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       dotenv:
-        specifier: ^16.1.3
-        version: 16.1.3
+        specifier: ^16.1.4
+        version: 16.1.4
       next:
         specifier: ^13.4.2
         version: 13.4.2(@babel/core@7.21.8)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -195,8 +195,8 @@ importers:
         specifier: ^1.1.6
         version: 1.1.6(@types/react@18.2.8)(dexie@3.2.4)(react@18.2.0)
       dotenv:
-        specifier: ^16.1.3
-        version: 16.1.3
+        specifier: ^16.1.4
+        version: 16.1.4
       framer-motion:
         specifier: ^10.12.16
         version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
@@ -8507,6 +8507,12 @@ packages:
   /dotenv@16.1.3:
     resolution: {integrity: sha512-FYssxsmCTtKL72fGBSvb1K9dRz0/VZeWqFme/vSb7r7323x4CRaHu4LvQ5JG3+s6yt2YPbBrkpiEODktfyjI9A==}
     engines: {node: '>=12'}
+    dev: true
+
+  /dotenv@16.1.4:
+    resolution: {integrity: sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /drbg.js@1.0.1:
     resolution: {integrity: sha512-F4wZ06PvqxYLFEZKkFxTDcns9oFNk34hvmJSEwdzsxVQ8YI5YaxtACgQatkYgv2VI2CFkUd2Y+xosPQnHv809g==}
@@ -11353,7 +11359,7 @@ packages:
       stoppable: 1.1.0
       undici: 5.22.1
       workerd: 1.20230518.0
-      ws: 8.13.0
+      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
       youch: 3.2.3
       zod: 3.21.4
     transitivePeerDependencies:
@@ -14600,19 +14606,6 @@ packages:
       utf-8-validate:
         optional: true
     dev: false
-
-  /ws@8.13.0:
-    resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: true
 
   /ws@8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
