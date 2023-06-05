@@ -2,7 +2,6 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
     "lint": { "outputs": [] },
@@ -14,7 +13,7 @@
     "extract": { "outputs": [] },
     "worker:deploy": { "outputs": [] },
     "dev": { "cache": false },
-    "start": { "cache": false },
+    "start": { "dependsOn": ["build"], "cache": false },
     "test:dev": { "cache": false },
     "test:nightly": { "cache": false }
   }
