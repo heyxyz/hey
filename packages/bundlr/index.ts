@@ -15,20 +15,11 @@ import {
 export class Secp256k1 {
   readonly ownerLength: number = 65;
   readonly signatureLength: number = 65;
-
   readonly signatureType = 3;
   public readonly pk: string;
 
   constructor(protected _key: string, pk: Buffer) {
     this.pk = pk.toString('hex');
-  }
-
-  public get publicKey(): Buffer {
-    return Buffer.alloc(0);
-  }
-
-  public get key(): Uint8Array {
-    return Buffer.from(this._key, 'hex');
   }
 }
 
@@ -139,11 +130,6 @@ export class DataItem {
     return this._id;
   }
 
-  public async setSignature(signature: Buffer): Promise<void> {
-    this.binary.set(signature, 2);
-    this._id = Buffer.from(await crypto.subtle.digest('SHA-256', signature));
-  }
-
   private getTagsStart(): number {
     const targetStart = this.getTargetStart();
     const targetPresent = this.binary[targetStart] === 1;
@@ -239,6 +225,3 @@ export const createData = (
 
   return new DataItem(bytes);
 };
-
-export * from './deephash';
-export * from './utils';
