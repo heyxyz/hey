@@ -13,7 +13,7 @@
     "extract": { "outputs": [] },
     "worker:deploy": { "outputs": [] },
     "dev": { "cache": false },
-    "start": { "dependsOn": ["build"], "cache": false },
+    "start": { "cache": false },
     "test:dev": { "cache": false },
     "test:nightly": { "cache": false }
   }
