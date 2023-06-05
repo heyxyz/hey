@@ -28,10 +28,11 @@ export const sign = async (
 ): Promise<Buffer> => {
   const { signature, id } = await getSignatureAndId(item, signer);
   item.getRaw().set(signature, 2);
+
   return id;
 };
 
-export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
+const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
   return deepHash([
     Buffer.from('dataitem', 'utf-8'),
     Buffer.from('1', 'utf-8'),
@@ -44,37 +45,12 @@ export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
   ]);
 };
 
-const shimClass = class {
-  context = [];
-  // @ts-expect-error
-  constructor(private algo) {
-    this.context = [];
-  }
-
-  update(data: Buffer) {
-    // @ts-expect-error
-    this.context.push(data);
-    return this;
-  }
-
-  async digest() {
-    return Buffer.from(
-      await crypto.subtle.digest(this.algo, Buffer.concat(this.context))
-    );
-  }
-};
-
-export const getShim = (algo: string) => {
-  // @ts-expect-error
-  algo = algo.includes('-') ? algo : (algo = map[algo]);
-  return new shimClass(algo);
-};
-
 export const byteArrayToLong = (byteArray: Uint8Array): number => {
   let value = 0;
   for (let i = byteArray.length - 1; i >= 0; i--) {
     value = value * 256 + byteArray[i];
   }
+
   return value;
 };
 
@@ -130,6 +106,7 @@ const encodeLong = (n: number): Buffer => {
       f /= 128;
     } while (f >= 1 && (buf[offset++] |= 0x80));
   }
+
   return buf;
 };
 
@@ -159,5 +136,6 @@ export const serializeTags = (
   }
   // 0 terminator
   byt = Buffer.concat([byt, encodeLong(0)]);
+
   return byt;
 };
