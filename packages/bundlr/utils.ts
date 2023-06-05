@@ -31,7 +31,7 @@ export const sign = async (
   return id;
 };
 
-export const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
+const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
   return deepHash([
     Buffer.from('dataitem', 'utf-8'),
     Buffer.from('1', 'utf-8'),

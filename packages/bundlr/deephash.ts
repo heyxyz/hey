@@ -1,5 +1,3 @@
-import { getShim } from './utils';
-
 export type DeepHashChunk = Uint8Array | AsyncIterable<Buffer> | DeepHashChunks;
 export type DeepHashChunks = DeepHashChunk[];
 
@@ -10,13 +8,11 @@ export async function deepHash(data: DeepHashChunk): Promise<Uint8Array> {
     'function'
   ) {
     const _data = data as AsyncIterable<Buffer>;
-    const context = getShim('sha384');
 
     let length = 0;
 
     for await (const chunk of _data) {
       length += chunk.byteLength;
-      context.update(chunk);
     }
 
     const tag = Buffer.concat([
@@ -25,8 +21,7 @@ export async function deepHash(data: DeepHashChunk): Promise<Uint8Array> {
     ]);
 
     const taggedHash = Buffer.concat([
-      Buffer.from(await crypto.subtle.digest('SHA-384', tag)),
-      await context.digest()
+      Buffer.from(await crypto.subtle.digest('SHA-384', tag))
     ]);
     return Buffer.from(await crypto.subtle.digest('SHA-384', taggedHash));
   } else if (Array.isArray(data)) {
@@ -67,18 +62,6 @@ export async function deepHashChunks(
   const hashPair = Buffer.concat([acc, await deepHash(chunks[0])]);
   const newAcc = Buffer.from(await crypto.subtle.digest('SHA-384', hashPair));
   return await deepHashChunks(chunks.slice(1), newAcc);
-}
-
-export async function hashStream(
-  stream: AsyncIterable<Buffer>
-): Promise<Buffer> {
-  const context = getShim('sha384');
-
-  for await (const chunk of stream) {
-    context.update(chunk);
-  }
-
-  return await context.digest();
 }
 
 export default deepHash;
