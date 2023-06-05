@@ -1,7 +1,6 @@
 import type { DataItemCreateOptions } from 'arbundles';
 import base64url from 'base64url';
-import { publicKeyCreate } from 'secp256k1';
-import { toHex } from 'viem';
+import { bytesToHex, toHex } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 
 import {
@@ -30,8 +29,8 @@ export class EthereumSigner extends Secp256k1 {
 
   constructor(key: string) {
     const b = Buffer.from(key, 'hex');
-    const pub = publicKeyCreate(b, false);
-    super(key, Buffer.from(pub));
+    const account = privateKeyToAccount(bytesToHex(b));
+    super(key, Buffer.from(account.publicKey));
   }
 
   sign(message: Uint8Array): Uint8Array {
