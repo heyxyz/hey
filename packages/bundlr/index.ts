@@ -42,9 +42,7 @@ export class EthereumSigner extends Secp256k1 {
   }
 
   sign(message: Uint8Array): Uint8Array {
-    const account = privateKeyToAccount(`0x${this._key}`);
-
-    return account
+    return privateKeyToAccount(`0x${this._key}`)
       .signMessage({ message: { raw: toHex(message) } })
       .then((r) => {
         return Buffer.from(r.slice(2), 'hex');
@@ -108,12 +106,12 @@ export class DataItem {
     const tagsSize = byteArrayToLong(
       this.binary.subarray(tagsStart + 8, tagsStart + 16)
     );
+
     return this.binary.subarray(tagsStart + 16, tagsStart + 16 + tagsSize);
   }
 
   get rawData(): Buffer {
     const tagsStart = this.getTagsStart();
-
     const numberOfTagBytesArray = this.binary.subarray(
       tagsStart + 8,
       tagsStart + 16
@@ -124,10 +122,6 @@ export class DataItem {
     return this.binary.subarray(dataStart, this.binary.length);
   }
 
-  /**
-   * UNSAFE!!
-   * DO NOT MUTATE THE BINARY ARRAY. THIS WILL CAUSE UNDEFINED BEHAVIOUR.
-   */
   getRaw(): Buffer {
     return this.binary;
   }
@@ -227,7 +221,6 @@ export const createData = (
   }
 
   const data_start = tags_start + tags_length;
-
   bytes.set(_data, data_start);
 
   return new DataItem(bytes);
