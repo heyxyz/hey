@@ -1,22 +1,16 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
-import onError from '@lib/onError';
-import splitSignature from '@lib/splitSignature';
 import { t } from '@lingui/macro';
 import { FollowNft } from 'abis';
-import Errors from 'data/errors';
-import type { Signer } from 'ethers';
-import { Contract } from 'ethers';
-import type { CreateBurnEip712TypedData, Profile } from 'lens';
-import { useBroadcastMutation, useCreateUnfollowTypedDataMutation } from 'lens';
-import getSignature from 'lib/getSignature';
+import type { Profile } from 'lens';
+import { useFollowersNftOwnedTokenIdsQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 import { Button, Spinner } from 'ui';
-import { useSigner, useSignTypedData } from 'wagmi';
+import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from 'wagmi';
+
+import { PROFILE } from '../../tracking';
 
 interface UnfollowProps {
   profile: Profile;
@@ -25,77 +19,53 @@ interface UnfollowProps {
 }
 
 const Unfollow: FC<UnfollowProps> = ({ profile, showText = false, setFollowing }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const [writeLoading, setWriteLoading] = useState(false);
-  const { isLoading: signLoading, signTypedDataAsync } = useSignTypedData({ onError });
-  const { data: signer } = useSigner();
+  const { address } = useAccount();
 
-  const burnWithSig = async (signature: string, typedData: CreateBurnEip712TypedData) => {
-    const { tokenId, deadline } = typedData.value;
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-
-    const followNftContract = new Contract(typedData.domain.verifyingContract, FollowNft, signer as Signer);
-
-    const tx = await followNftContract.burnWithSig(tokenId, sig);
-    if (tx) {
-      setFollowing(false);
-    }
-  };
-
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: () => {
-      setFollowing(false);
-    }
+  const { data } = useFollowersNftOwnedTokenIdsQuery({
+    variables: { request: { address, profileId: profile.id } }
   });
 
-  const [createUnfollowTypedData, { loading: typedDataLoading }] = useCreateUnfollowTypedDataMutation({
-    onCompleted: async ({ createUnfollowTypedData }) => {
-      const { typedData, id } = createUnfollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
+  const followerNftOwnedTokenIds = data?.followerNftOwnedTokenIds;
 
-      setWriteLoading(true);
-      try {
-        const { data } = await broadcast({ variables: { request: { id, signature } } });
-        if (data?.broadcast.__typename === 'RelayError') {
-          await burnWithSig(signature, typedData);
-        }
-        toast.success(t`Unfollowed successfully!`);
-        Mixpanel.track(PROFILE.UNFOLLOW);
-      } catch {
-        toast.error(t`User rejected request`);
-      } finally {
-        setWriteLoading(false);
-      }
-    },
-    onError
+  const { config, isError, error } = usePrepareContractWrite({
+    address: profile?.followNftAddress,
+    abi: FollowNft,
+    functionName: 'burn',
+    args: [followerNftOwnedTokenIds?.tokensIds[0]],
+    enabled: Boolean(followerNftOwnedTokenIds?.tokensIds?.length)
   });
 
-  const createUnfollow = async () => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
+  const { data: txData, write } = useContractWrite(config);
 
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: txData?.hash
+  });
+
+  const handleUnfollow = async () => {
     try {
-      await createUnfollowTypedData({ variables: { request: { profile: profile?.id } } });
-    } catch {}
+      write?.();
+    } catch {
+      toast.error(t`User rejected request`);
+    }
   };
+
+  useEffect(() => {
+    if (setFollowing && isSuccess) {
+      setFollowing(false);
+      toast.success(t`Unfollowed successfully!`);
+      Mixpanel.track(PROFILE.UNFOLLOW);
+    }
+  }, [isSuccess, setFollowing]);
 
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
       outline
-      onClick={createUnfollow}
-      disabled={typedDataLoading || signLoading || writeLoading}
+      onClick={handleUnfollow}
+      disabled={isLoading || !write || isError}
       variant="danger"
       aria-label="Unfollow"
-      icon={
-        typedDataLoading || signLoading || writeLoading ? (
-          <Spinner variant="danger" size="xs" />
-        ) : (
-          <UserRemoveIcon className="h-4 w-4" />
-        )
-      }
+      icon={isLoading ? <Spinner variant="danger" size="xs" /> : <UserRemoveIcon className="h-4 w-4" />}
     >
       {showText && t`Unfollow`}
     </Button>

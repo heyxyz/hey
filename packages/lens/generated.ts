@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import { gql } from '@apollo/client';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -29,6 +30,7 @@ export type Scalars = {
   FollowModuleData: any;
   Handle: any;
   HandleClaimIdScalar: any;
+  ImageSizeTransform: any;
   InternalPublicationId: any;
   IpfsCid: any;
   Jwt: any;
@@ -300,6 +302,7 @@ export type CollectModule =
   | LimitedTimedFeeCollectModuleSettings
   | MultirecipientFeeCollectModuleSettings
   | RevertCollectModuleSettings
+  | SimpleCollectModuleSettings
   | TimedFeeCollectModuleSettings
   | UnknownCollectModuleSettings;
 
@@ -320,6 +323,8 @@ export type CollectModuleParams = {
   multirecipientFeeCollectModule?: InputMaybe<MultirecipientFeeCollectModuleParams>;
   /** The collect revert collect module */
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
+  /** The collect simple fee collect module */
+  simpleCollectModule?: InputMaybe<SimpleCollectModuleParams>;
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>;
   /** A unknown collect module */
@@ -336,6 +341,7 @@ export enum CollectModules {
   LimitedTimedFeeCollectModule = 'LimitedTimedFeeCollectModule',
   MultirecipientFeeCollectModule = 'MultirecipientFeeCollectModule',
   RevertCollectModule = 'RevertCollectModule',
+  SimpleCollectModule = 'SimpleCollectModule',
   TimedFeeCollectModule = 'TimedFeeCollectModule',
   UnknownCollectModule = 'UnknownCollectModule'
 }
@@ -1044,6 +1050,98 @@ export enum CustomFiltersTypes {
   Gardeners = 'GARDENERS'
 }
 
+export type DataAvailabilityComment = {
+  __typename?: 'DataAvailabilityComment';
+  appId?: Maybe<Scalars['Sources']>;
+  commentedOnProfile: Profile;
+  commentedOnPublicationId: Scalars['InternalPublicationId'];
+  createdAt: Scalars['DateTime'];
+  profile: Profile;
+  publicationId: Scalars['InternalPublicationId'];
+  submitter: Scalars['EthereumAddress'];
+  transactionId: Scalars['String'];
+  verificationStatus: DataAvailabilityVerificationStatusUnion;
+};
+
+export type DataAvailabilityMirror = {
+  __typename?: 'DataAvailabilityMirror';
+  appId?: Maybe<Scalars['Sources']>;
+  createdAt: Scalars['DateTime'];
+  mirrorOfProfile: Profile;
+  mirrorOfPublicationId: Scalars['InternalPublicationId'];
+  profile: Profile;
+  publicationId: Scalars['InternalPublicationId'];
+  submitter: Scalars['EthereumAddress'];
+  transactionId: Scalars['String'];
+  verificationStatus: DataAvailabilityVerificationStatusUnion;
+};
+
+export type DataAvailabilityPost = {
+  __typename?: 'DataAvailabilityPost';
+  appId?: Maybe<Scalars['Sources']>;
+  createdAt: Scalars['DateTime'];
+  profile: Profile;
+  publicationId: Scalars['InternalPublicationId'];
+  submitter: Scalars['EthereumAddress'];
+  transactionId: Scalars['String'];
+  verificationStatus: DataAvailabilityVerificationStatusUnion;
+};
+
+export type DataAvailabilitySubmitterResult = {
+  __typename?: 'DataAvailabilitySubmitterResult';
+  address: Scalars['EthereumAddress'];
+  name: Scalars['String'];
+  totalTransactions: Scalars['Int'];
+};
+
+/** The paginated submitter results */
+export type DataAvailabilitySubmittersResult = {
+  __typename?: 'DataAvailabilitySubmittersResult';
+  items: Array<DataAvailabilitySubmitterResult>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type DataAvailabilitySummaryResult = {
+  __typename?: 'DataAvailabilitySummaryResult';
+  totalTransactions: Scalars['Int'];
+};
+
+export type DataAvailabilityTransactionRequest = {
+  /** The DA transaction id or internal publiation id */
+  id: Scalars['String'];
+};
+
+export type DataAvailabilityTransactionUnion =
+  | DataAvailabilityComment
+  | DataAvailabilityMirror
+  | DataAvailabilityPost;
+
+export type DataAvailabilityTransactionsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+};
+
+export type DataAvailabilityTransactionsResult = {
+  __typename?: 'DataAvailabilityTransactionsResult';
+  items: Array<DataAvailabilityTransactionUnion>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type DataAvailabilityVerificationStatusFailure = {
+  __typename?: 'DataAvailabilityVerificationStatusFailure';
+  status?: Maybe<MomokaValidatorError>;
+};
+
+export type DataAvailabilityVerificationStatusSuccess = {
+  __typename?: 'DataAvailabilityVerificationStatusSuccess';
+  verified: Scalars['Boolean'];
+};
+
+export type DataAvailabilityVerificationStatusUnion =
+  | DataAvailabilityVerificationStatusFailure
+  | DataAvailabilityVerificationStatusSuccess;
+
 /** The reason why a profile cannot decrypt a publication */
 export enum DecryptFailReason {
   CanNotDecrypt = 'CAN_NOT_DECRYPT',
@@ -1096,6 +1194,8 @@ export type Dispatcher = {
   address: Scalars['EthereumAddress'];
   /** If the dispatcher can use the relay */
   canUseRelay: Scalars['Boolean'];
+  /** If the dispatcher transactions will be sponsored by lens aka cover the gas costs */
+  sponsor: Scalars['Boolean'];
 };
 
 export type DoesFollow = {
@@ -1872,16 +1972,35 @@ export type MediaSet = {
   __typename?: 'MediaSet';
   /**
    * Medium media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   medium?: Maybe<Media>;
-  /** Original media */
+  /** Original media as found on the publication metadata */
+  onChain: Media;
+  /** Optimized media, snapshotted and served from a CDN */
+  optimized?: Maybe<Media>;
+  /** On-chain or snapshotted media on a CDN */
   original: Media;
   /**
    * Small media - will always be null on the public API
-   * @deprecated should not be used will always be null
+   * @deprecated should not be used will always be null - use transform function to get small media
    */
   small?: Maybe<Media>;
+  transformed?: Maybe<Media>;
+};
+
+/** The Media Set */
+export type MediaSetTransformedArgs = {
+  params: MediaTransformParams;
+};
+
+export type MediaTransformParams = {
+  /** Set the transformed image's height. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  height?: InputMaybe<Scalars['ImageSizeTransform']>;
+  /** Set if you want to keep the image's original aspect ratio. True by default. If explicitly set to false, the image will stretch based on the width and height values. */
+  keepAspectRatio?: InputMaybe<Scalars['Boolean']>;
+  /** Set the transformed image's width. You can use specific size in pixels eg. 100px, a percentage eg. 50% or set as 'auto' to be set automatically. Default value is 'auto'. */
+  width?: InputMaybe<Scalars['ImageSizeTransform']>;
 };
 
 export type MentionPublication = Comment | Post;
@@ -2012,6 +2131,16 @@ export type MirrorEvent = {
 
 export type MirrorablePublication = Comment | Post;
 
+export type ModuleFee = {
+  __typename?: 'ModuleFee';
+  /** The fee amount */
+  amount: ModuleFeeAmount;
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee */
+  referralFee: Scalars['Float'];
+};
+
 export type ModuleFeeAmount = {
   __typename?: 'ModuleFeeAmount';
   /** The erc20 token info */
@@ -2027,11 +2156,52 @@ export type ModuleFeeAmountParams = {
   value: Scalars['String'];
 };
 
+export type ModuleFeeParams = {
+  /** The fee amount */
+  amount: ModuleFeeAmountParams;
+  /** The fee recipient */
+  recipient: Scalars['EthereumAddress'];
+  /** The referral fee */
+  referralFee: Scalars['Float'];
+};
+
 export type ModuleInfo = {
   __typename?: 'ModuleInfo';
   name: Scalars['String'];
   type: Scalars['String'];
 };
+
+/** The momka validator error */
+export enum MomokaValidatorError {
+  BlockCantBeReadFromNode = 'BLOCK_CANT_BE_READ_FROM_NODE',
+  BlockTooFar = 'BLOCK_TOO_FAR',
+  CanNotConnectToBundlr = 'CAN_NOT_CONNECT_TO_BUNDLR',
+  ChainSignatureAlreadyUsed = 'CHAIN_SIGNATURE_ALREADY_USED',
+  DataCantBeReadFromNode = 'DATA_CANT_BE_READ_FROM_NODE',
+  EventMismatch = 'EVENT_MISMATCH',
+  GeneratedPublicationIdMismatch = 'GENERATED_PUBLICATION_ID_MISMATCH',
+  InvalidEventTimestamp = 'INVALID_EVENT_TIMESTAMP',
+  InvalidFormattedTypedData = 'INVALID_FORMATTED_TYPED_DATA',
+  InvalidPointerSetNotNeeded = 'INVALID_POINTER_SET_NOT_NEEDED',
+  InvalidSignatureSubmitter = 'INVALID_SIGNATURE_SUBMITTER',
+  InvalidTxId = 'INVALID_TX_ID',
+  InvalidTypedDataDeadlineTimestamp = 'INVALID_TYPED_DATA_DEADLINE_TIMESTAMP',
+  NotClosestBlock = 'NOT_CLOSEST_BLOCK',
+  NoSignatureSubmitter = 'NO_SIGNATURE_SUBMITTER',
+  PointerFailedVerification = 'POINTER_FAILED_VERIFICATION',
+  PotentialReorg = 'POTENTIAL_REORG',
+  PublicationNonceInvalid = 'PUBLICATION_NONCE_INVALID',
+  PublicationNoneDa = 'PUBLICATION_NONE_DA',
+  PublicationNoPointer = 'PUBLICATION_NO_POINTER',
+  PublicationSignerNotAllowed = 'PUBLICATION_SIGNER_NOT_ALLOWED',
+  SimulationFailed = 'SIMULATION_FAILED',
+  SimulationNodeCouldNotRun = 'SIMULATION_NODE_COULD_NOT_RUN',
+  TimestampProofInvalidDaId = 'TIMESTAMP_PROOF_INVALID_DA_ID',
+  TimestampProofInvalidSignature = 'TIMESTAMP_PROOF_INVALID_SIGNATURE',
+  TimestampProofInvalidType = 'TIMESTAMP_PROOF_INVALID_TYPE',
+  TimestampProofNotSubmitter = 'TIMESTAMP_PROOF_NOT_SUBMITTER',
+  Unknown = 'UNKNOWN'
+}
 
 export type MultirecipientFeeCollectModuleParams = {
   /** The collecting cost associated with this publication. 0 for free collect. */
@@ -2110,6 +2280,7 @@ export type Mutation = {
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']>;
   dismissRecommendedProfiles?: Maybe<Scalars['Void']>;
+  dss?: Maybe<Scalars['Void']>;
   gci?: Maybe<Scalars['Void']>;
   gcr?: Maybe<Scalars['Void']>;
   gdi?: Maybe<Scalars['Void']>;
@@ -2294,6 +2465,10 @@ export type MutationDeleteNftGalleryArgs = {
 
 export type MutationDismissRecommendedProfilesArgs = {
   request: DismissRecommendedProfilesRequest;
+};
+
+export type MutationDssArgs = {
+  request: PrfRequest;
 };
 
 export type MutationGciArgs = {
@@ -2648,7 +2823,7 @@ export type NotificationRequest = {
   customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   highSignalFilter?: InputMaybe<Scalars['Boolean']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
-  /** The profile id */
+  /** The notification types */
   notificationTypes?: InputMaybe<Array<NotificationTypes>>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
@@ -2877,6 +3052,24 @@ export type PostMirrorsArgs = {
 /** The social post */
 export type PostReactionArgs = {
   request?: InputMaybe<ReactionFieldResolverRequest>;
+};
+
+export type PrfRequest = {
+  dd: Scalars['Boolean'];
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
+  ss: Scalars['Boolean'];
+};
+
+export type PrfResponse = {
+  __typename?: 'PrfResponse';
+  dd: Scalars['Boolean'];
+  ss: Scalars['Boolean'];
+};
+
+export type PriRequest = {
+  hhh: Scalars['String'];
+  secret: Scalars['String'];
 };
 
 /** The Profile */
@@ -3212,7 +3405,7 @@ export enum PublicationMetadataStatusType {
 
 /** Publication metadata tag filter */
 export type PublicationMetadataTagsFilter = {
-  /** Needs to only match all */
+  /** Needs to match all */
   all?: InputMaybe<Array<Scalars['String']>>;
   /** Needs to only match one of */
   oneOf?: InputMaybe<Array<Scalars['String']>>;
@@ -3339,6 +3532,7 @@ export enum PublicationReportingSensitiveSubreason {
 /** Publication reporting spam subreason */
 export enum PublicationReportingSpamSubreason {
   FakeEngagement = 'FAKE_ENGAGEMENT',
+  LowSignal = 'LOW_SIGNAL',
   ManipulationAlgo = 'MANIPULATION_ALGO',
   Misleading = 'MISLEADING',
   MisuseHashtags = 'MISUSE_HASHTAGS',
@@ -3452,6 +3646,10 @@ export type Query = {
   claimableHandles: ClaimableHandles;
   claimableStatus: ClaimStatus;
   cur: Array<Scalars['String']>;
+  dataAvailabilitySubmitters: DataAvailabilitySubmittersResult;
+  dataAvailabilitySummary: DataAvailabilitySummaryResult;
+  dataAvailabilityTransaction?: Maybe<DataAvailabilityTransactionUnion>;
+  dataAvailabilityTransactions: DataAvailabilityTransactionsResult;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
@@ -3470,6 +3668,7 @@ export type Query = {
   hasTxHashBeenIndexed: TransactionResult;
   internalPublicationFilter: PaginatedPublicationResult;
   isIDKitPhoneVerified: Scalars['Boolean'];
+  iss: PrfResponse;
   mutualFollowersProfiles: PaginatedProfileResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
@@ -3494,6 +3693,7 @@ export type Query = {
   publications: PaginatedPublicationResult;
   recommendedProfiles: Array<Profile>;
   rel?: Maybe<Scalars['Void']>;
+  relayQueues: Array<RelayQueueResult>;
   search: SearchResult;
   txIdToTxHash: Scalars['TxHash'];
   unknownEnabledModules: EnabledModules;
@@ -3518,6 +3718,14 @@ export type QueryChallengeArgs = {
 
 export type QueryCurArgs = {
   request: CurRequest;
+};
+
+export type QueryDataAvailabilityTransactionArgs = {
+  request: DataAvailabilityTransactionRequest;
+};
+
+export type QueryDataAvailabilityTransactionsArgs = {
+  request?: InputMaybe<DataAvailabilityTransactionsRequest>;
 };
 
 export type QueryDefaultProfileArgs = {
@@ -3578,6 +3786,10 @@ export type QueryHasTxHashBeenIndexedArgs = {
 
 export type QueryInternalPublicationFilterArgs = {
   request: InternalPublicationsFilterRequest;
+};
+
+export type QueryIssArgs = {
+  request: PriRequest;
 };
 
 export type QueryMutualFollowersProfilesArgs = {
@@ -3781,7 +3993,52 @@ export enum RelayErrorReasons {
   WrongWalletSigned = 'WRONG_WALLET_SIGNED'
 }
 
+/** The  */
+export type RelayQueueResult = {
+  __typename?: 'RelayQueueResult';
+  /** The address of the relay */
+  address: Scalars['EthereumAddress'];
+  /** The queue on the relay */
+  queue: Scalars['Float'];
+  /** The relayer name */
+  relayer: RelayRoleKey;
+};
+
 export type RelayResult = RelayError | RelayerResult;
+
+/** The relay role key */
+export enum RelayRoleKey {
+  CreateProfile = 'CREATE_PROFILE',
+  Dispatcher_1 = 'DISPATCHER_1',
+  Dispatcher_2 = 'DISPATCHER_2',
+  Dispatcher_3 = 'DISPATCHER_3',
+  Dispatcher_4 = 'DISPATCHER_4',
+  Dispatcher_5 = 'DISPATCHER_5',
+  Dispatcher_6 = 'DISPATCHER_6',
+  Dispatcher_7 = 'DISPATCHER_7',
+  Dispatcher_8 = 'DISPATCHER_8',
+  Dispatcher_9 = 'DISPATCHER_9',
+  Dispatcher_10 = 'DISPATCHER_10',
+  ProxyActionCollect_1 = 'PROXY_ACTION_COLLECT_1',
+  ProxyActionCollect_2 = 'PROXY_ACTION_COLLECT_2',
+  ProxyActionCollect_3 = 'PROXY_ACTION_COLLECT_3',
+  ProxyActionCollect_4 = 'PROXY_ACTION_COLLECT_4',
+  ProxyActionCollect_5 = 'PROXY_ACTION_COLLECT_5',
+  ProxyActionCollect_6 = 'PROXY_ACTION_COLLECT_6',
+  ProxyActionFollow_1 = 'PROXY_ACTION_FOLLOW_1',
+  ProxyActionFollow_2 = 'PROXY_ACTION_FOLLOW_2',
+  ProxyActionFollow_3 = 'PROXY_ACTION_FOLLOW_3',
+  ProxyActionFollow_4 = 'PROXY_ACTION_FOLLOW_4',
+  ProxyActionFollow_5 = 'PROXY_ACTION_FOLLOW_5',
+  ProxyActionFollow_6 = 'PROXY_ACTION_FOLLOW_6',
+  ProxyActionFollow_7 = 'PROXY_ACTION_FOLLOW_7',
+  ProxyActionFollow_8 = 'PROXY_ACTION_FOLLOW_8',
+  ProxyActionFollow_9 = 'PROXY_ACTION_FOLLOW_9',
+  ProxyActionFollow_10 = 'PROXY_ACTION_FOLLOW_10',
+  WithSig_1 = 'WITH_SIG_1',
+  WithSig_2 = 'WITH_SIG_2',
+  WithSig_3 = 'WITH_SIG_3'
+}
 
 /** The relayer result */
 export type RelayerResult = {
@@ -3928,6 +4185,32 @@ export type SignedAuthChallenge = {
   signature: Scalars['Signature'];
 };
 
+export type SimpleCollectModuleParams = {
+  /** The collect module limit */
+  collectLimit?: InputMaybe<Scalars['String']>;
+  /** The timestamp that this collect module will expire */
+  endTimestamp?: InputMaybe<Scalars['DateTime']>;
+  /** The collect module fee params */
+  fee?: InputMaybe<ModuleFeeParams>;
+  /** Collectible by followers only */
+  followerOnly: Scalars['Boolean'];
+};
+
+export type SimpleCollectModuleSettings = {
+  __typename?: 'SimpleCollectModuleSettings';
+  /** The maximum number of collects for this publication. 0 for no limit. */
+  collectLimit?: Maybe<Scalars['String']>;
+  contractAddress: Scalars['ContractAddress'];
+  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
+  endTimestamp?: Maybe<Scalars['DateTime']>;
+  /** The collect module fee params */
+  fee?: Maybe<ModuleFee>;
+  /** True if only followers of publisher may collect the post. */
+  followerOnly: Scalars['Boolean'];
+  /** The collect modules enum */
+  type: CollectModules;
+};
+
 export type SingleProfileQueryRequest = {
   /** The handle for the profile */
   handle?: InputMaybe<Scalars['Handle']>;
@@ -3938,6 +4221,11 @@ export type SingleProfileQueryRequest = {
 export type SpamReasonInputParams = {
   reason: PublicationReportingReason;
   subreason: PublicationReportingSpamSubreason;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  newDataAvailabilityTransaction: DataAvailabilityTransactionUnion;
 };
 
 export type SybilDotOrgIdentity = {
@@ -4255,6 +4543,10 @@ type CollectModuleFields_RevertCollectModuleSettings_Fragment = {
   __typename?: 'RevertCollectModuleSettings';
 };
 
+type CollectModuleFields_SimpleCollectModuleSettings_Fragment = {
+  __typename?: 'SimpleCollectModuleSettings';
+};
+
 type CollectModuleFields_TimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'TimedFeeCollectModuleSettings';
   type: CollectModules;
@@ -4282,6 +4574,7 @@ export type CollectModuleFieldsFragment =
   | CollectModuleFields_LimitedTimedFeeCollectModuleSettings_Fragment
   | CollectModuleFields_MultirecipientFeeCollectModuleSettings_Fragment
   | CollectModuleFields_RevertCollectModuleSettings_Fragment
+  | CollectModuleFields_SimpleCollectModuleSettings_Fragment
   | CollectModuleFields_TimedFeeCollectModuleSettings_Fragment
   | CollectModuleFields_UnknownCollectModuleSettings_Fragment;
 
@@ -4388,6 +4681,7 @@ export type CommentFieldsFragment = {
         recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -4618,6 +4912,7 @@ export type CommentFieldsFragment = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -4847,6 +5142,7 @@ export type CommentFieldsFragment = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -5127,6 +5423,7 @@ export type CommentFieldsFragment = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -5362,6 +5659,7 @@ export type CommentFieldsFragment = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -5592,6 +5890,7 @@ export type CommentFieldsFragment = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -5868,6 +6167,7 @@ export type CommentFieldsFragment = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -6100,6 +6400,7 @@ export type CommentFieldsFragment = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -6439,6 +6740,7 @@ export type MirrorFieldsFragment = {
         recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -6715,6 +7017,7 @@ export type MirrorFieldsFragment = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -6954,6 +7257,7 @@ export type PostFieldsFragment = {
         recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
       }
     | { __typename?: 'RevertCollectModuleSettings' }
+    | { __typename?: 'SimpleCollectModuleSettings' }
     | {
         __typename?: 'TimedFeeCollectModuleSettings';
         type: CollectModules;
@@ -7876,6 +8180,7 @@ export type CollectModuleQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -7958,6 +8263,7 @@ export type CollectModuleQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -8040,6 +8346,7 @@ export type CollectModuleQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -8209,6 +8516,7 @@ export type CommentFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -8443,6 +8751,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -8680,6 +8989,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -8999,6 +9309,7 @@ export type CommentFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -9256,6 +9567,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -9493,6 +9805,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -9781,6 +10094,7 @@ export type CommentFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -10020,6 +10334,7 @@ export type CommentFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -10325,6 +10640,7 @@ export type ExploreFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -10559,6 +10875,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -10796,6 +11113,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -11115,6 +11433,7 @@ export type ExploreFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -11372,6 +11691,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -11609,6 +11929,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -11897,6 +12218,7 @@ export type ExploreFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -12136,6 +12458,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -12367,6 +12690,7 @@ export type ExploreFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -12647,6 +12971,7 @@ export type ExploreFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -12879,6 +13204,7 @@ export type ExploreFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -13126,6 +13452,7 @@ export type FeedHighlightsQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -13360,6 +13687,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -13597,6 +13925,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -13916,6 +14245,7 @@ export type FeedHighlightsQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -14173,6 +14503,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -14410,6 +14741,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -14698,6 +15030,7 @@ export type FeedHighlightsQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -14937,6 +15270,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -15168,6 +15502,7 @@ export type FeedHighlightsQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -15448,6 +15783,7 @@ export type FeedHighlightsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -15680,6 +16016,7 @@ export type FeedHighlightsQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -15811,6 +16148,19 @@ export type FeedHighlightsQuery = {
     >;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
+};
+
+export type FollowersNftOwnedTokenIdsQueryVariables = Exact<{
+  request: FollowerNftOwnedTokenIdsRequest;
+}>;
+
+export type FollowersNftOwnedTokenIdsQuery = {
+  __typename?: 'Query';
+  followerNftOwnedTokenIds?: {
+    __typename?: 'FollowerNftOwnedTokenIds';
+    followerNftAddress: any;
+    tokensIds: Array<string>;
+  } | null;
 };
 
 export type FollowersQueryVariables = Exact<{
@@ -16243,6 +16593,7 @@ export type NotificationsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -16331,6 +16682,7 @@ export type NotificationsQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -16737,6 +17089,7 @@ export type ProfileFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -16971,6 +17324,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -17208,6 +17562,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -17527,6 +17882,7 @@ export type ProfileFeedQuery = {
                                   }>;
                                 }
                               | { __typename?: 'RevertCollectModuleSettings' }
+                              | { __typename?: 'SimpleCollectModuleSettings' }
                               | {
                                   __typename?: 'TimedFeeCollectModuleSettings';
                                   type: CollectModules;
@@ -17784,6 +18140,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -18021,6 +18378,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -18309,6 +18667,7 @@ export type ProfileFeedQuery = {
                             }>;
                           }
                         | { __typename?: 'RevertCollectModuleSettings' }
+                        | { __typename?: 'SimpleCollectModuleSettings' }
                         | {
                             __typename?: 'TimedFeeCollectModuleSettings';
                             type: CollectModules;
@@ -18548,6 +18907,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -18779,6 +19139,7 @@ export type ProfileFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -19059,6 +19420,7 @@ export type ProfileFeedQuery = {
                       }>;
                     }
                   | { __typename?: 'RevertCollectModuleSettings' }
+                  | { __typename?: 'SimpleCollectModuleSettings' }
                   | {
                       __typename?: 'TimedFeeCollectModuleSettings';
                       type: CollectModules;
@@ -19291,6 +19653,7 @@ export type ProfileFeedQuery = {
                 recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
               }
             | { __typename?: 'RevertCollectModuleSettings' }
+            | { __typename?: 'SimpleCollectModuleSettings' }
             | {
                 __typename?: 'TimedFeeCollectModuleSettings';
                 type: CollectModules;
@@ -19608,6 +19971,7 @@ export type PublicationQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -19838,6 +20202,7 @@ export type PublicationQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -20071,6 +20436,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -20390,6 +20756,7 @@ export type PublicationQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -20640,6 +21007,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -20873,6 +21241,7 @@ export type PublicationQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -21153,6 +21522,7 @@ export type PublicationQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -21388,6 +21758,7 @@ export type PublicationQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -21625,6 +21996,7 @@ export type PublicationQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -21901,6 +22273,7 @@ export type PublicationQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -22139,6 +22512,7 @@ export type PublicationQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -22494,6 +22868,7 @@ export type SearchPublicationsQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -22728,6 +23103,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -22992,6 +23368,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -23328,6 +23705,7 @@ export type SearchPublicationsQuery = {
                                       }>;
                                     }
                                   | { __typename?: 'RevertCollectModuleSettings' }
+                                  | { __typename?: 'SimpleCollectModuleSettings' }
                                   | {
                                       __typename?: 'TimedFeeCollectModuleSettings';
                                       type: CollectModules;
@@ -23615,6 +23993,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -23863,6 +24242,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -24182,6 +24562,7 @@ export type SearchPublicationsQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -24432,6 +24813,7 @@ export type SearchPublicationsQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -24668,6 +25050,7 @@ export type SearchPublicationsQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -25126,6 +25509,7 @@ export type TimelineQuery = {
                   recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | { __typename?: 'SimpleCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
@@ -25360,6 +25744,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -25617,6 +26002,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -25947,6 +26333,7 @@ export type TimelineQuery = {
                                     }>;
                                   }
                                 | { __typename?: 'RevertCollectModuleSettings' }
+                                | { __typename?: 'SimpleCollectModuleSettings' }
                                 | {
                                     __typename?: 'TimedFeeCollectModuleSettings';
                                     type: CollectModules;
@@ -26224,6 +26611,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -26472,6 +26860,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -26780,6 +27169,7 @@ export type TimelineQuery = {
                               }>;
                             }
                           | { __typename?: 'RevertCollectModuleSettings' }
+                          | { __typename?: 'SimpleCollectModuleSettings' }
                           | {
                               __typename?: 'TimedFeeCollectModuleSettings';
                               type: CollectModules;
@@ -27030,6 +27420,7 @@ export type TimelineQuery = {
                         }>;
                       }
                     | { __typename?: 'RevertCollectModuleSettings' }
+                    | { __typename?: 'SimpleCollectModuleSettings' }
                     | {
                         __typename?: 'TimedFeeCollectModuleSettings';
                         type: CollectModules;
@@ -27263,6 +27654,7 @@ export type TimelineQuery = {
                   recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                 }
               | { __typename?: 'RevertCollectModuleSettings' }
+              | { __typename?: 'SimpleCollectModuleSettings' }
               | {
                   __typename?: 'TimedFeeCollectModuleSettings';
                   type: CollectModules;
@@ -27596,6 +27988,7 @@ export type TimelineQuery = {
               recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
             }
           | { __typename?: 'RevertCollectModuleSettings' }
+          | { __typename?: 'SimpleCollectModuleSettings' }
           | {
               __typename?: 'TimedFeeCollectModuleSettings';
               type: CollectModules;
@@ -27826,6 +28219,7 @@ export type TimelineQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -28059,6 +28453,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -28378,6 +28773,7 @@ export type TimelineQuery = {
                                 }>;
                               }
                             | { __typename?: 'RevertCollectModuleSettings' }
+                            | { __typename?: 'SimpleCollectModuleSettings' }
                             | {
                                 __typename?: 'TimedFeeCollectModuleSettings';
                                 type: CollectModules;
@@ -28628,6 +29024,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -28861,6 +29258,7 @@ export type TimelineQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -29141,6 +29539,7 @@ export type TimelineQuery = {
                           }>;
                         }
                       | { __typename?: 'RevertCollectModuleSettings' }
+                      | { __typename?: 'SimpleCollectModuleSettings' }
                       | {
                           __typename?: 'TimedFeeCollectModuleSettings';
                           type: CollectModules;
@@ -29376,6 +29775,7 @@ export type TimelineQuery = {
                     recipients: Array<{ __typename?: 'RecipientDataOutput'; recipient: any; split: number }>;
                   }
                 | { __typename?: 'RevertCollectModuleSettings' }
+                | { __typename?: 'SimpleCollectModuleSettings' }
                 | {
                     __typename?: 'TimedFeeCollectModuleSettings';
                     type: CollectModules;
@@ -29564,6 +29964,7 @@ export interface PossibleTypesResultData {
     [key: string]: string[];
   };
 }
+
 const result: PossibleTypesResultData = {
   possibleTypes: {
     BroadcastDataAvailabilityUnion: ['CreateDataAvailabilityPublicationResult', 'RelayError'],
@@ -29576,8 +29977,18 @@ const result: PossibleTypesResultData = {
       'LimitedTimedFeeCollectModuleSettings',
       'MultirecipientFeeCollectModuleSettings',
       'RevertCollectModuleSettings',
+      'SimpleCollectModuleSettings',
       'TimedFeeCollectModuleSettings',
       'UnknownCollectModuleSettings'
+    ],
+    DataAvailabilityTransactionUnion: [
+      'DataAvailabilityComment',
+      'DataAvailabilityMirror',
+      'DataAvailabilityPost'
+    ],
+    DataAvailabilityVerificationStatusUnion: [
+      'DataAvailabilityVerificationStatusFailure',
+      'DataAvailabilityVerificationStatusSuccess'
     ],
     FeedItemRoot: ['Comment', 'Post'],
     FollowModule: [
@@ -30041,6 +30452,7 @@ export function useAddProfileInterestMutation(
     options
   );
 }
+
 export type AddProfileInterestMutationHookResult = ReturnType<typeof useAddProfileInterestMutation>;
 export type AddProfileInterestMutationResult = Apollo.MutationResult<AddProfileInterestMutation>;
 export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
@@ -30080,6 +30492,7 @@ export function useAddReactionMutation(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<AddReactionMutation, AddReactionMutationVariables>(AddReactionDocument, options);
 }
+
 export type AddReactionMutationHookResult = ReturnType<typeof useAddReactionMutation>;
 export type AddReactionMutationResult = Apollo.MutationResult<AddReactionMutation>;
 export type AddReactionMutationOptions = Apollo.BaseMutationOptions<
@@ -30125,6 +30538,7 @@ export function useAuthenticateMutation(
     options
   );
 }
+
 export type AuthenticateMutationHookResult = ReturnType<typeof useAuthenticateMutation>;
 export type AuthenticateMutationResult = Apollo.MutationResult<AuthenticateMutation>;
 export type AuthenticateMutationOptions = Apollo.BaseMutationOptions<
@@ -30169,6 +30583,7 @@ export function useBroadcastMutation(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<BroadcastMutation, BroadcastMutationVariables>(BroadcastDocument, options);
 }
+
 export type BroadcastMutationHookResult = ReturnType<typeof useBroadcastMutation>;
 export type BroadcastMutationResult = Apollo.MutationResult<BroadcastMutation>;
 export type BroadcastMutationOptions = Apollo.BaseMutationOptions<
@@ -30237,6 +30652,7 @@ export function useCreateBurnProfileTypedDataMutation(
     options
   );
 }
+
 export type CreateBurnProfileTypedDataMutationHookResult = ReturnType<
   typeof useCreateBurnProfileTypedDataMutation
 >;
@@ -30310,6 +30726,7 @@ export function useCreateCollectTypedDataMutation(
     options
   );
 }
+
 export type CreateCollectTypedDataMutationHookResult = ReturnType<typeof useCreateCollectTypedDataMutation>;
 export type CreateCollectTypedDataMutationResult = Apollo.MutationResult<CreateCollectTypedDataMutation>;
 export type CreateCollectTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -30386,6 +30803,7 @@ export function useCreateCommentTypedDataMutation(
     options
   );
 }
+
 export type CreateCommentTypedDataMutationHookResult = ReturnType<typeof useCreateCommentTypedDataMutation>;
 export type CreateCommentTypedDataMutationResult = Apollo.MutationResult<CreateCommentTypedDataMutation>;
 export type CreateCommentTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -30434,6 +30852,7 @@ export function useCreateCommentViaDispatcherMutation(
     options
   );
 }
+
 export type CreateCommentViaDispatcherMutationHookResult = ReturnType<
   typeof useCreateCommentViaDispatcherMutation
 >;
@@ -30506,6 +30925,7 @@ export function useCreateFollowTypedDataMutation(
     options
   );
 }
+
 export type CreateFollowTypedDataMutationHookResult = ReturnType<typeof useCreateFollowTypedDataMutation>;
 export type CreateFollowTypedDataMutationResult = Apollo.MutationResult<CreateFollowTypedDataMutation>;
 export type CreateFollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -30579,6 +30999,7 @@ export function useCreateMirrorTypedDataMutation(
     options
   );
 }
+
 export type CreateMirrorTypedDataMutationHookResult = ReturnType<typeof useCreateMirrorTypedDataMutation>;
 export type CreateMirrorTypedDataMutationResult = Apollo.MutationResult<CreateMirrorTypedDataMutation>;
 export type CreateMirrorTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -30627,6 +31048,7 @@ export function useCreateMirrorViaDispatcherMutation(
     options
   );
 }
+
 export type CreateMirrorViaDispatcherMutationHookResult = ReturnType<
   typeof useCreateMirrorViaDispatcherMutation
 >;
@@ -30672,6 +31094,7 @@ export function useCreateNftGalleryMutation(
     options
   );
 }
+
 export type CreateNftGalleryMutationHookResult = ReturnType<typeof useCreateNftGalleryMutation>;
 export type CreateNftGalleryMutationResult = Apollo.MutationResult<CreateNftGalleryMutation>;
 export type CreateNftGalleryMutationOptions = Apollo.BaseMutationOptions<
@@ -30742,6 +31165,7 @@ export function useCreatePostTypedDataMutation(
     options
   );
 }
+
 export type CreatePostTypedDataMutationHookResult = ReturnType<typeof useCreatePostTypedDataMutation>;
 export type CreatePostTypedDataMutationResult = Apollo.MutationResult<CreatePostTypedDataMutation>;
 export type CreatePostTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -30790,6 +31214,7 @@ export function useCreatePostViaDispatcherMutation(
     options
   );
 }
+
 export type CreatePostViaDispatcherMutationHookResult = ReturnType<typeof useCreatePostViaDispatcherMutation>;
 export type CreatePostViaDispatcherMutationResult = Apollo.MutationResult<CreatePostViaDispatcherMutation>;
 export type CreatePostViaDispatcherMutationOptions = Apollo.BaseMutationOptions<
@@ -30835,6 +31260,7 @@ export function useCreateProfileMutation(
     options
   );
 }
+
 export type CreateProfileMutationHookResult = ReturnType<typeof useCreateProfileMutation>;
 export type CreateProfileMutationResult = Apollo.MutationResult<CreateProfileMutation>;
 export type CreateProfileMutationOptions = Apollo.BaseMutationOptions<
@@ -30907,6 +31333,7 @@ export function useCreateSetDefaultProfileTypedDataMutation(
     CreateSetDefaultProfileTypedDataMutationVariables
   >(CreateSetDefaultProfileTypedDataDocument, options);
 }
+
 export type CreateSetDefaultProfileTypedDataMutationHookResult = ReturnType<
   typeof useCreateSetDefaultProfileTypedDataMutation
 >;
@@ -30979,6 +31406,7 @@ export function useCreateSetDispatcherTypedDataMutation(
     CreateSetDispatcherTypedDataMutationVariables
   >(CreateSetDispatcherTypedDataDocument, options);
 }
+
 export type CreateSetDispatcherTypedDataMutationHookResult = ReturnType<
   typeof useCreateSetDispatcherTypedDataMutation
 >;
@@ -31055,6 +31483,7 @@ export function useCreateSetFollowModuleTypedDataMutation(
     CreateSetFollowModuleTypedDataMutationVariables
   >(CreateSetFollowModuleTypedDataDocument, options);
 }
+
 export type CreateSetFollowModuleTypedDataMutationHookResult = ReturnType<
   typeof useCreateSetFollowModuleTypedDataMutation
 >;
@@ -31130,6 +31559,7 @@ export function useCreateSetProfileImageUriTypedDataMutation(
     CreateSetProfileImageUriTypedDataMutationVariables
   >(CreateSetProfileImageUriTypedDataDocument, options);
 }
+
 export type CreateSetProfileImageUriTypedDataMutationHookResult = ReturnType<
   typeof useCreateSetProfileImageUriTypedDataMutation
 >;
@@ -31181,6 +31611,7 @@ export function useCreateSetProfileImageUriViaDispatcherMutation(
     CreateSetProfileImageUriViaDispatcherMutationVariables
   >(CreateSetProfileImageUriViaDispatcherDocument, options);
 }
+
 export type CreateSetProfileImageUriViaDispatcherMutationHookResult = ReturnType<
   typeof useCreateSetProfileImageUriViaDispatcherMutation
 >;
@@ -31256,6 +31687,7 @@ export function useCreateSetProfileMetadataTypedDataMutation(
     CreateSetProfileMetadataTypedDataMutationVariables
   >(CreateSetProfileMetadataTypedDataDocument, options);
 }
+
 export type CreateSetProfileMetadataTypedDataMutationHookResult = ReturnType<
   typeof useCreateSetProfileMetadataTypedDataMutation
 >;
@@ -31307,6 +31739,7 @@ export function useCreateSetProfileMetadataViaDispatcherMutation(
     CreateSetProfileMetadataViaDispatcherMutationVariables
   >(CreateSetProfileMetadataViaDispatcherDocument, options);
 }
+
 export type CreateSetProfileMetadataViaDispatcherMutationHookResult = ReturnType<
   typeof useCreateSetProfileMetadataViaDispatcherMutation
 >;
@@ -31377,6 +31810,7 @@ export function useCreateUnfollowTypedDataMutation(
     options
   );
 }
+
 export type CreateUnfollowTypedDataMutationHookResult = ReturnType<typeof useCreateUnfollowTypedDataMutation>;
 export type CreateUnfollowTypedDataMutationResult = Apollo.MutationResult<CreateUnfollowTypedDataMutation>;
 export type CreateUnfollowTypedDataMutationOptions = Apollo.BaseMutationOptions<
@@ -31419,6 +31853,7 @@ export function useDeleteNftGalleryMutation(
     options
   );
 }
+
 export type DeleteNftGalleryMutationHookResult = ReturnType<typeof useDeleteNftGalleryMutation>;
 export type DeleteNftGalleryMutationResult = Apollo.MutationResult<DeleteNftGalleryMutation>;
 export type DeleteNftGalleryMutationOptions = Apollo.BaseMutationOptions<
@@ -31461,6 +31896,7 @@ export function useHidePublicationMutation(
     options
   );
 }
+
 export type HidePublicationMutationHookResult = ReturnType<typeof useHidePublicationMutation>;
 export type HidePublicationMutationResult = Apollo.MutationResult<HidePublicationMutation>;
 export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<
@@ -31500,6 +31936,7 @@ export function useProxyActionMutation(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<ProxyActionMutation, ProxyActionMutationVariables>(ProxyActionDocument, options);
 }
+
 export type ProxyActionMutationHookResult = ReturnType<typeof useProxyActionMutation>;
 export type ProxyActionMutationResult = Apollo.MutationResult<ProxyActionMutation>;
 export type ProxyActionMutationOptions = Apollo.BaseMutationOptions<
@@ -31545,6 +31982,7 @@ export function useRemoveProfileInterestMutation(
     options
   );
 }
+
 export type RemoveProfileInterestMutationHookResult = ReturnType<typeof useRemoveProfileInterestMutation>;
 export type RemoveProfileInterestMutationResult = Apollo.MutationResult<RemoveProfileInterestMutation>;
 export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
@@ -31587,6 +32025,7 @@ export function useRemoveReactionMutation(
     options
   );
 }
+
 export type RemoveReactionMutationHookResult = ReturnType<typeof useRemoveReactionMutation>;
 export type RemoveReactionMutationResult = Apollo.MutationResult<RemoveReactionMutation>;
 export type RemoveReactionMutationOptions = Apollo.BaseMutationOptions<
@@ -31629,6 +32068,7 @@ export function useReportPublicationMutation(
     options
   );
 }
+
 export type ReportPublicationMutationHookResult = ReturnType<typeof useReportPublicationMutation>;
 export type ReportPublicationMutationResult = Apollo.MutationResult<ReportPublicationMutation>;
 export type ReportPublicationMutationOptions = Apollo.BaseMutationOptions<
@@ -31674,6 +32114,7 @@ export function useUpdateNftGalleryInfoMutation(
     options
   );
 }
+
 export type UpdateNftGalleryInfoMutationHookResult = ReturnType<typeof useUpdateNftGalleryInfoMutation>;
 export type UpdateNftGalleryInfoMutationResult = Apollo.MutationResult<UpdateNftGalleryInfoMutation>;
 export type UpdateNftGalleryInfoMutationOptions = Apollo.BaseMutationOptions<
@@ -31719,6 +32160,7 @@ export function useUpdateNftGalleryItemsMutation(
     options
   );
 }
+
 export type UpdateNftGalleryItemsMutationHookResult = ReturnType<typeof useUpdateNftGalleryItemsMutation>;
 export type UpdateNftGalleryItemsMutationResult = Apollo.MutationResult<UpdateNftGalleryItemsMutation>;
 export type UpdateNftGalleryItemsMutationOptions = Apollo.BaseMutationOptions<
@@ -31764,6 +32206,7 @@ export function useUpdateNftGalleryOrderMutation(
     options
   );
 }
+
 export type UpdateNftGalleryOrderMutationHookResult = ReturnType<typeof useUpdateNftGalleryOrderMutation>;
 export type UpdateNftGalleryOrderMutationResult = Apollo.MutationResult<UpdateNftGalleryOrderMutation>;
 export type UpdateNftGalleryOrderMutationOptions = Apollo.BaseMutationOptions<
@@ -31815,6 +32258,7 @@ export function useApprovedModuleAllowanceAmountQuery(
     options
   );
 }
+
 export function useApprovedModuleAllowanceAmountLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     ApprovedModuleAllowanceAmountQuery,
@@ -31827,6 +32271,7 @@ export function useApprovedModuleAllowanceAmountLazyQuery(
     options
   );
 }
+
 export type ApprovedModuleAllowanceAmountQueryHookResult = ReturnType<
   typeof useApprovedModuleAllowanceAmountQuery
 >;
@@ -31891,6 +32336,7 @@ export function useCanDecryptStatusQuery(
     options
   );
 }
+
 export function useCanDecryptStatusLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<CanDecryptStatusQuery, CanDecryptStatusQueryVariables>
 ) {
@@ -31900,6 +32346,7 @@ export function useCanDecryptStatusLazyQuery(
     options
   );
 }
+
 export type CanDecryptStatusQueryHookResult = ReturnType<typeof useCanDecryptStatusQuery>;
 export type CanDecryptStatusLazyQueryHookResult = ReturnType<typeof useCanDecryptStatusLazyQuery>;
 export type CanDecryptStatusQueryResult = Apollo.QueryResult<
@@ -31936,12 +32383,14 @@ export function useChallengeQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ChallengeQuery, ChallengeQueryVariables>(ChallengeDocument, options);
 }
+
 export function useChallengeLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ChallengeQuery, ChallengeQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<ChallengeQuery, ChallengeQueryVariables>(ChallengeDocument, options);
 }
+
 export type ChallengeQueryHookResult = ReturnType<typeof useChallengeQuery>;
 export type ChallengeLazyQueryHookResult = ReturnType<typeof useChallengeLazyQuery>;
 export type ChallengeQueryResult = Apollo.QueryResult<ChallengeQuery, ChallengeQueryVariables>;
@@ -31993,12 +32442,14 @@ export function useCollectModuleQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<CollectModuleQuery, CollectModuleQueryVariables>(CollectModuleDocument, options);
 }
+
 export function useCollectModuleLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<CollectModuleQuery, CollectModuleQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<CollectModuleQuery, CollectModuleQueryVariables>(CollectModuleDocument, options);
 }
+
 export type CollectModuleQueryHookResult = ReturnType<typeof useCollectModuleQuery>;
 export type CollectModuleLazyQueryHookResult = ReturnType<typeof useCollectModuleLazyQuery>;
 export type CollectModuleQueryResult = Apollo.QueryResult<CollectModuleQuery, CollectModuleQueryVariables>;
@@ -32042,12 +32493,14 @@ export function useCollectorsQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<CollectorsQuery, CollectorsQueryVariables>(CollectorsDocument, options);
 }
+
 export function useCollectorsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<CollectorsQuery, CollectorsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<CollectorsQuery, CollectorsQueryVariables>(CollectorsDocument, options);
 }
+
 export type CollectorsQueryHookResult = ReturnType<typeof useCollectorsQuery>;
 export type CollectorsLazyQueryHookResult = ReturnType<typeof useCollectorsLazyQuery>;
 export type CollectorsQueryResult = Apollo.QueryResult<CollectorsQuery, CollectorsQueryVariables>;
@@ -32095,12 +32548,14 @@ export function useCommentFeedQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<CommentFeedQuery, CommentFeedQueryVariables>(CommentFeedDocument, options);
 }
+
 export function useCommentFeedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<CommentFeedQuery, CommentFeedQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<CommentFeedQuery, CommentFeedQueryVariables>(CommentFeedDocument, options);
 }
+
 export type CommentFeedQueryHookResult = ReturnType<typeof useCommentFeedQuery>;
 export type CommentFeedLazyQueryHookResult = ReturnType<typeof useCommentFeedLazyQuery>;
 export type CommentFeedQueryResult = Apollo.QueryResult<CommentFeedQuery, CommentFeedQueryVariables>;
@@ -32139,6 +32594,7 @@ export function useEnabledCurrencyModulesQuery(
     options
   );
 }
+
 export function useEnabledCurrencyModulesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<EnabledCurrencyModulesQuery, EnabledCurrencyModulesQueryVariables>
 ) {
@@ -32148,6 +32604,7 @@ export function useEnabledCurrencyModulesLazyQuery(
     options
   );
 }
+
 export type EnabledCurrencyModulesQueryHookResult = ReturnType<typeof useEnabledCurrencyModulesQuery>;
 export type EnabledCurrencyModulesLazyQueryHookResult = ReturnType<typeof useEnabledCurrencyModulesLazyQuery>;
 export type EnabledCurrencyModulesQueryResult = Apollo.QueryResult<
@@ -32198,6 +32655,7 @@ export function useEnabledCurrencyModulesWithProfileQuery(
     EnabledCurrencyModulesWithProfileQueryVariables
   >(EnabledCurrencyModulesWithProfileDocument, options);
 }
+
 export function useEnabledCurrencyModulesWithProfileLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     EnabledCurrencyModulesWithProfileQuery,
@@ -32210,6 +32668,7 @@ export function useEnabledCurrencyModulesWithProfileLazyQuery(
     EnabledCurrencyModulesWithProfileQueryVariables
   >(EnabledCurrencyModulesWithProfileDocument, options);
 }
+
 export type EnabledCurrencyModulesWithProfileQueryHookResult = ReturnType<
   typeof useEnabledCurrencyModulesWithProfileQuery
 >;
@@ -32258,6 +32717,7 @@ export function useEnabledModulesQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<EnabledModulesQuery, EnabledModulesQueryVariables>(EnabledModulesDocument, options);
 }
+
 export function useEnabledModulesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<EnabledModulesQuery, EnabledModulesQueryVariables>
 ) {
@@ -32267,6 +32727,7 @@ export function useEnabledModulesLazyQuery(
     options
   );
 }
+
 export type EnabledModulesQueryHookResult = ReturnType<typeof useEnabledModulesQuery>;
 export type EnabledModulesLazyQueryHookResult = ReturnType<typeof useEnabledModulesLazyQuery>;
 export type EnabledModulesQueryResult = Apollo.QueryResult<EnabledModulesQuery, EnabledModulesQueryVariables>;
@@ -32322,12 +32783,14 @@ export function useExploreFeedQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ExploreFeedQuery, ExploreFeedQueryVariables>(ExploreFeedDocument, options);
 }
+
 export function useExploreFeedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ExploreFeedQuery, ExploreFeedQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<ExploreFeedQuery, ExploreFeedQueryVariables>(ExploreFeedDocument, options);
 }
+
 export type ExploreFeedQueryHookResult = ReturnType<typeof useExploreFeedQuery>;
 export type ExploreFeedLazyQueryHookResult = ReturnType<typeof useExploreFeedLazyQuery>;
 export type ExploreFeedQueryResult = Apollo.QueryResult<ExploreFeedQuery, ExploreFeedQueryVariables>;
@@ -32383,6 +32846,7 @@ export function useFeedHighlightsQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FeedHighlightsQuery, FeedHighlightsQueryVariables>(FeedHighlightsDocument, options);
 }
+
 export function useFeedHighlightsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FeedHighlightsQuery, FeedHighlightsQueryVariables>
 ) {
@@ -32392,9 +32856,69 @@ export function useFeedHighlightsLazyQuery(
     options
   );
 }
+
 export type FeedHighlightsQueryHookResult = ReturnType<typeof useFeedHighlightsQuery>;
 export type FeedHighlightsLazyQueryHookResult = ReturnType<typeof useFeedHighlightsLazyQuery>;
 export type FeedHighlightsQueryResult = Apollo.QueryResult<FeedHighlightsQuery, FeedHighlightsQueryVariables>;
+export const FollowersNftOwnedTokenIdsDocument = gql`
+  query FollowersNftOwnedTokenIds($request: FollowerNftOwnedTokenIdsRequest!) {
+    followerNftOwnedTokenIds(request: $request) {
+      followerNftAddress
+      tokensIds
+    }
+  }
+`;
+
+/**
+ * __useFollowersNftOwnedTokenIdsQuery__
+ *
+ * To run a query within a React component, call `useFollowersNftOwnedTokenIdsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFollowersNftOwnedTokenIdsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFollowersNftOwnedTokenIdsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useFollowersNftOwnedTokenIdsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    FollowersNftOwnedTokenIdsQuery,
+    FollowersNftOwnedTokenIdsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<FollowersNftOwnedTokenIdsQuery, FollowersNftOwnedTokenIdsQueryVariables>(
+    FollowersNftOwnedTokenIdsDocument,
+    options
+  );
+}
+
+export function useFollowersNftOwnedTokenIdsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    FollowersNftOwnedTokenIdsQuery,
+    FollowersNftOwnedTokenIdsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<FollowersNftOwnedTokenIdsQuery, FollowersNftOwnedTokenIdsQueryVariables>(
+    FollowersNftOwnedTokenIdsDocument,
+    options
+  );
+}
+
+export type FollowersNftOwnedTokenIdsQueryHookResult = ReturnType<typeof useFollowersNftOwnedTokenIdsQuery>;
+export type FollowersNftOwnedTokenIdsLazyQueryHookResult = ReturnType<
+  typeof useFollowersNftOwnedTokenIdsLazyQuery
+>;
+export type FollowersNftOwnedTokenIdsQueryResult = Apollo.QueryResult<
+  FollowersNftOwnedTokenIdsQuery,
+  FollowersNftOwnedTokenIdsQueryVariables
+>;
 export const FollowersDocument = gql`
   query Followers($request: FollowersRequest!) {
     followers(request: $request) {
@@ -32438,12 +32962,14 @@ export function useFollowersQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FollowersQuery, FollowersQueryVariables>(FollowersDocument, options);
 }
+
 export function useFollowersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FollowersQuery, FollowersQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<FollowersQuery, FollowersQueryVariables>(FollowersDocument, options);
 }
+
 export type FollowersQueryHookResult = ReturnType<typeof useFollowersQuery>;
 export type FollowersLazyQueryHookResult = ReturnType<typeof useFollowersLazyQuery>;
 export type FollowersQueryResult = Apollo.QueryResult<FollowersQuery, FollowersQueryVariables>;
@@ -32487,12 +33013,14 @@ export function useFollowingQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<FollowingQuery, FollowingQueryVariables>(FollowingDocument, options);
 }
+
 export function useFollowingLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<FollowingQuery, FollowingQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<FollowingQuery, FollowingQueryVariables>(FollowingDocument, options);
 }
+
 export type FollowingQueryHookResult = ReturnType<typeof useFollowingQuery>;
 export type FollowingLazyQueryHookResult = ReturnType<typeof useFollowingLazyQuery>;
 export type FollowingQueryResult = Apollo.QueryResult<FollowingQuery, FollowingQueryVariables>;
@@ -32534,6 +33062,7 @@ export function useGenerateModuleCurrencyApprovalDataQuery(
     GenerateModuleCurrencyApprovalDataQueryVariables
   >(GenerateModuleCurrencyApprovalDataDocument, options);
 }
+
 export function useGenerateModuleCurrencyApprovalDataLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
     GenerateModuleCurrencyApprovalDataQuery,
@@ -32546,6 +33075,7 @@ export function useGenerateModuleCurrencyApprovalDataLazyQuery(
     GenerateModuleCurrencyApprovalDataQueryVariables
   >(GenerateModuleCurrencyApprovalDataDocument, options);
 }
+
 export type GenerateModuleCurrencyApprovalDataQueryHookResult = ReturnType<
   typeof useGenerateModuleCurrencyApprovalDataQuery
 >;
@@ -32598,6 +33128,7 @@ export function useHasTxHashBeenIndexedQuery(
     options
   );
 }
+
 export function useHasTxHashBeenIndexedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<HasTxHashBeenIndexedQuery, HasTxHashBeenIndexedQueryVariables>
 ) {
@@ -32607,6 +33138,7 @@ export function useHasTxHashBeenIndexedLazyQuery(
     options
   );
 }
+
 export type HasTxHashBeenIndexedQueryHookResult = ReturnType<typeof useHasTxHashBeenIndexedQuery>;
 export type HasTxHashBeenIndexedLazyQueryHookResult = ReturnType<typeof useHasTxHashBeenIndexedLazyQuery>;
 export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
@@ -32649,12 +33181,14 @@ export function useLensterStatsQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<LensterStatsQuery, LensterStatsQueryVariables>(LensterStatsDocument, options);
 }
+
 export function useLensterStatsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<LensterStatsQuery, LensterStatsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<LensterStatsQuery, LensterStatsQueryVariables>(LensterStatsDocument, options);
 }
+
 export type LensterStatsQueryHookResult = ReturnType<typeof useLensterStatsQuery>;
 export type LensterStatsLazyQueryHookResult = ReturnType<typeof useLensterStatsLazyQuery>;
 export type LensterStatsQueryResult = Apollo.QueryResult<LensterStatsQuery, LensterStatsQueryVariables>;
@@ -32696,12 +33230,14 @@ export function useLikesQuery(baseOptions: Apollo.QueryHookOptions<LikesQuery, L
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<LikesQuery, LikesQueryVariables>(LikesDocument, options);
 }
+
 export function useLikesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<LikesQuery, LikesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<LikesQuery, LikesQueryVariables>(LikesDocument, options);
 }
+
 export type LikesQueryHookResult = ReturnType<typeof useLikesQuery>;
 export type LikesLazyQueryHookResult = ReturnType<typeof useLikesLazyQuery>;
 export type LikesQueryResult = Apollo.QueryResult<LikesQuery, LikesQueryVariables>;
@@ -32740,12 +33276,14 @@ export function useMirrorsQuery(baseOptions: Apollo.QueryHookOptions<MirrorsQuer
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<MirrorsQuery, MirrorsQueryVariables>(MirrorsDocument, options);
 }
+
 export function useMirrorsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MirrorsQuery, MirrorsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<MirrorsQuery, MirrorsQueryVariables>(MirrorsDocument, options);
 }
+
 export type MirrorsQueryHookResult = ReturnType<typeof useMirrorsQuery>;
 export type MirrorsLazyQueryHookResult = ReturnType<typeof useMirrorsLazyQuery>;
 export type MirrorsQueryResult = Apollo.QueryResult<MirrorsQuery, MirrorsQueryVariables>;
@@ -32798,6 +33336,7 @@ export function useMutualFollowersQuery(
     options
   );
 }
+
 export function useMutualFollowersLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MutualFollowersQuery, MutualFollowersQueryVariables>
 ) {
@@ -32807,6 +33346,7 @@ export function useMutualFollowersLazyQuery(
     options
   );
 }
+
 export type MutualFollowersQueryHookResult = ReturnType<typeof useMutualFollowersQuery>;
 export type MutualFollowersLazyQueryHookResult = ReturnType<typeof useMutualFollowersLazyQuery>;
 export type MutualFollowersQueryResult = Apollo.QueryResult<
@@ -32853,6 +33393,7 @@ export function useMutualFollowersListQuery(
     options
   );
 }
+
 export function useMutualFollowersListLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<MutualFollowersListQuery, MutualFollowersListQueryVariables>
 ) {
@@ -32862,6 +33403,7 @@ export function useMutualFollowersListLazyQuery(
     options
   );
 }
+
 export type MutualFollowersListQueryHookResult = ReturnType<typeof useMutualFollowersListQuery>;
 export type MutualFollowersListLazyQueryHookResult = ReturnType<typeof useMutualFollowersListLazyQuery>;
 export type MutualFollowersListQueryResult = Apollo.QueryResult<
@@ -32899,12 +33441,14 @@ export function useNftChallengeQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<NftChallengeQuery, NftChallengeQueryVariables>(NftChallengeDocument, options);
 }
+
 export function useNftChallengeLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<NftChallengeQuery, NftChallengeQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<NftChallengeQuery, NftChallengeQueryVariables>(NftChallengeDocument, options);
 }
+
 export type NftChallengeQueryHookResult = ReturnType<typeof useNftChallengeQuery>;
 export type NftChallengeLazyQueryHookResult = ReturnType<typeof useNftChallengeLazyQuery>;
 export type NftChallengeQueryResult = Apollo.QueryResult<NftChallengeQuery, NftChallengeQueryVariables>;
@@ -32949,12 +33493,14 @@ export function useNftFeedQuery(baseOptions: Apollo.QueryHookOptions<NftFeedQuer
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<NftFeedQuery, NftFeedQueryVariables>(NftFeedDocument, options);
 }
+
 export function useNftFeedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<NftFeedQuery, NftFeedQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<NftFeedQuery, NftFeedQueryVariables>(NftFeedDocument, options);
 }
+
 export type NftFeedQueryHookResult = ReturnType<typeof useNftFeedQuery>;
 export type NftFeedLazyQueryHookResult = ReturnType<typeof useNftFeedLazyQuery>;
 export type NftFeedQueryResult = Apollo.QueryResult<NftFeedQuery, NftFeedQueryVariables>;
@@ -33002,12 +33548,14 @@ export function useNftGalleriesQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(NftGalleriesDocument, options);
 }
+
 export function useNftGalleriesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<NftGalleriesQuery, NftGalleriesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(NftGalleriesDocument, options);
 }
+
 export type NftGalleriesQueryHookResult = ReturnType<typeof useNftGalleriesQuery>;
 export type NftGalleriesLazyQueryHookResult = ReturnType<typeof useNftGalleriesLazyQuery>;
 export type NftGalleriesQueryResult = Apollo.QueryResult<NftGalleriesQuery, NftGalleriesQueryVariables>;
@@ -33046,6 +33594,7 @@ export function useNotificationCountQuery(
     options
   );
 }
+
 export function useNotificationCountLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<NotificationCountQuery, NotificationCountQueryVariables>
 ) {
@@ -33055,6 +33604,7 @@ export function useNotificationCountLazyQuery(
     options
   );
 }
+
 export type NotificationCountQueryHookResult = ReturnType<typeof useNotificationCountQuery>;
 export type NotificationCountLazyQueryHookResult = ReturnType<typeof useNotificationCountLazyQuery>;
 export type NotificationCountQueryResult = Apollo.QueryResult<
@@ -33233,12 +33783,14 @@ export function useNotificationsQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
 }
+
 export function useNotificationsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<NotificationsQuery, NotificationsQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<NotificationsQuery, NotificationsQueryVariables>(NotificationsDocument, options);
 }
+
 export type NotificationsQueryHookResult = ReturnType<typeof useNotificationsQuery>;
 export type NotificationsLazyQueryHookResult = ReturnType<typeof useNotificationsLazyQuery>;
 export type NotificationsQueryResult = Apollo.QueryResult<NotificationsQuery, NotificationsQueryVariables>;
@@ -33331,12 +33883,14 @@ export function useProfileQuery(baseOptions: Apollo.QueryHookOptions<ProfileQuer
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
 }
+
 export function useProfileLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfileQuery, ProfileQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<ProfileQuery, ProfileQueryVariables>(ProfileDocument, options);
 }
+
 export type ProfileQueryHookResult = ReturnType<typeof useProfileQuery>;
 export type ProfileLazyQueryHookResult = ReturnType<typeof useProfileLazyQuery>;
 export type ProfileQueryResult = Apollo.QueryResult<ProfileQuery, ProfileQueryVariables>;
@@ -33371,6 +33925,7 @@ export function useProfileAddressQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ProfileAddressQuery, ProfileAddressQueryVariables>(ProfileAddressDocument, options);
 }
+
 export function useProfileAddressLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfileAddressQuery, ProfileAddressQueryVariables>
 ) {
@@ -33380,6 +33935,7 @@ export function useProfileAddressLazyQuery(
     options
   );
 }
+
 export type ProfileAddressQueryHookResult = ReturnType<typeof useProfileAddressQuery>;
 export type ProfileAddressLazyQueryHookResult = ReturnType<typeof useProfileAddressLazyQuery>;
 export type ProfileAddressQueryResult = Apollo.QueryResult<ProfileAddressQuery, ProfileAddressQueryVariables>;
@@ -33435,12 +33991,14 @@ export function useProfileFeedQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ProfileFeedQuery, ProfileFeedQueryVariables>(ProfileFeedDocument, options);
 }
+
 export function useProfileFeedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfileFeedQuery, ProfileFeedQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<ProfileFeedQuery, ProfileFeedQueryVariables>(ProfileFeedDocument, options);
 }
+
 export type ProfileFeedQueryHookResult = ReturnType<typeof useProfileFeedQuery>;
 export type ProfileFeedLazyQueryHookResult = ReturnType<typeof useProfileFeedLazyQuery>;
 export type ProfileFeedQueryResult = Apollo.QueryResult<ProfileFeedQuery, ProfileFeedQueryVariables>;
@@ -33474,6 +34032,7 @@ export function useProfileInterestsQuery(
     options
   );
 }
+
 export function useProfileInterestsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfileInterestsQuery, ProfileInterestsQueryVariables>
 ) {
@@ -33483,6 +34042,7 @@ export function useProfileInterestsLazyQuery(
     options
   );
 }
+
 export type ProfileInterestsQueryHookResult = ReturnType<typeof useProfileInterestsQuery>;
 export type ProfileInterestsLazyQueryHookResult = ReturnType<typeof useProfileInterestsLazyQuery>;
 export type ProfileInterestsQueryResult = Apollo.QueryResult<
@@ -33549,6 +34109,7 @@ export function useProfileSettingsQuery(
     options
   );
 }
+
 export function useProfileSettingsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfileSettingsQuery, ProfileSettingsQueryVariables>
 ) {
@@ -33558,6 +34119,7 @@ export function useProfileSettingsLazyQuery(
     options
   );
 }
+
 export type ProfileSettingsQueryHookResult = ReturnType<typeof useProfileSettingsQuery>;
 export type ProfileSettingsLazyQueryHookResult = ReturnType<typeof useProfileSettingsLazyQuery>;
 export type ProfileSettingsQueryResult = Apollo.QueryResult<
@@ -33602,12 +34164,14 @@ export function useProfilesQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<ProfilesQuery, ProfilesQueryVariables>(ProfilesDocument, options);
 }
+
 export function useProfilesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<ProfilesQuery, ProfilesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<ProfilesQuery, ProfilesQueryVariables>(ProfilesDocument, options);
 }
+
 export type ProfilesQueryHookResult = ReturnType<typeof useProfilesQuery>;
 export type ProfilesLazyQueryHookResult = ReturnType<typeof useProfilesLazyQuery>;
 export type ProfilesQueryResult = Apollo.QueryResult<ProfilesQuery, ProfilesQueryVariables>;
@@ -33679,12 +34243,14 @@ export function usePublicationQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
 }
+
 export function usePublicationLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<PublicationQuery, PublicationQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<PublicationQuery, PublicationQueryVariables>(PublicationDocument, options);
 }
+
 export type PublicationQueryHookResult = ReturnType<typeof usePublicationQuery>;
 export type PublicationLazyQueryHookResult = ReturnType<typeof usePublicationLazyQuery>;
 export type PublicationQueryResult = Apollo.QueryResult<PublicationQuery, PublicationQueryVariables>;
@@ -33725,6 +34291,7 @@ export function usePublicationRevenueQuery(
     options
   );
 }
+
 export function usePublicationRevenueLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<PublicationRevenueQuery, PublicationRevenueQueryVariables>
 ) {
@@ -33734,6 +34301,7 @@ export function usePublicationRevenueLazyQuery(
     options
   );
 }
+
 export type PublicationRevenueQueryHookResult = ReturnType<typeof usePublicationRevenueQuery>;
 export type PublicationRevenueLazyQueryHookResult = ReturnType<typeof usePublicationRevenueLazyQuery>;
 export type PublicationRevenueQueryResult = Apollo.QueryResult<
@@ -33775,6 +34343,7 @@ export function useRecommendedProfilesQuery(
     options
   );
 }
+
 export function useRecommendedProfilesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<RecommendedProfilesQuery, RecommendedProfilesQueryVariables>
 ) {
@@ -33784,6 +34353,7 @@ export function useRecommendedProfilesLazyQuery(
     options
   );
 }
+
 export type RecommendedProfilesQueryHookResult = ReturnType<typeof useRecommendedProfilesQuery>;
 export type RecommendedProfilesLazyQueryHookResult = ReturnType<typeof useRecommendedProfilesLazyQuery>;
 export type RecommendedProfilesQueryResult = Apollo.QueryResult<
@@ -33824,6 +34394,7 @@ export function useRelevantPeopleQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<RelevantPeopleQuery, RelevantPeopleQueryVariables>(RelevantPeopleDocument, options);
 }
+
 export function useRelevantPeopleLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<RelevantPeopleQuery, RelevantPeopleQueryVariables>
 ) {
@@ -33833,6 +34404,7 @@ export function useRelevantPeopleLazyQuery(
     options
   );
 }
+
 export type RelevantPeopleQueryHookResult = ReturnType<typeof useRelevantPeopleQuery>;
 export type RelevantPeopleLazyQueryHookResult = ReturnType<typeof useRelevantPeopleLazyQuery>;
 export type RelevantPeopleQueryResult = Apollo.QueryResult<RelevantPeopleQuery, RelevantPeopleQueryVariables>;
@@ -33874,6 +34446,7 @@ export function useSearchProfilesQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SearchProfilesQuery, SearchProfilesQueryVariables>(SearchProfilesDocument, options);
 }
+
 export function useSearchProfilesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<SearchProfilesQuery, SearchProfilesQueryVariables>
 ) {
@@ -33883,6 +34456,7 @@ export function useSearchProfilesLazyQuery(
     options
   );
 }
+
 export type SearchProfilesQueryHookResult = ReturnType<typeof useSearchProfilesQuery>;
 export type SearchProfilesLazyQueryHookResult = ReturnType<typeof useSearchProfilesLazyQuery>;
 export type SearchProfilesQueryResult = Apollo.QueryResult<SearchProfilesQuery, SearchProfilesQueryVariables>;
@@ -33939,6 +34513,7 @@ export function useSearchPublicationsQuery(
     options
   );
 }
+
 export function useSearchPublicationsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<SearchPublicationsQuery, SearchPublicationsQueryVariables>
 ) {
@@ -33948,6 +34523,7 @@ export function useSearchPublicationsLazyQuery(
     options
   );
 }
+
 export type SearchPublicationsQueryHookResult = ReturnType<typeof useSearchPublicationsQuery>;
 export type SearchPublicationsLazyQueryHookResult = ReturnType<typeof useSearchPublicationsLazyQuery>;
 export type SearchPublicationsQueryResult = Apollo.QueryResult<
@@ -34026,6 +34602,7 @@ export function useSeeThroughProfilesQuery(
     options
   );
 }
+
 export function useSeeThroughProfilesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<SeeThroughProfilesQuery, SeeThroughProfilesQueryVariables>
 ) {
@@ -34035,6 +34612,7 @@ export function useSeeThroughProfilesLazyQuery(
     options
   );
 }
+
 export type SeeThroughProfilesQueryHookResult = ReturnType<typeof useSeeThroughProfilesQuery>;
 export type SeeThroughProfilesLazyQueryHookResult = ReturnType<typeof useSeeThroughProfilesLazyQuery>;
 export type SeeThroughProfilesQueryResult = Apollo.QueryResult<
@@ -34085,12 +34663,14 @@ export function useSuperFollowQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<SuperFollowQuery, SuperFollowQueryVariables>(SuperFollowDocument, options);
 }
+
 export function useSuperFollowLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<SuperFollowQuery, SuperFollowQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<SuperFollowQuery, SuperFollowQueryVariables>(SuperFollowDocument, options);
 }
+
 export type SuperFollowQueryHookResult = ReturnType<typeof useSuperFollowQuery>;
 export type SuperFollowLazyQueryHookResult = ReturnType<typeof useSuperFollowLazyQuery>;
 export type SuperFollowQueryResult = Apollo.QueryResult<SuperFollowQuery, SuperFollowQueryVariables>;
@@ -34174,12 +34754,14 @@ export function useTimelineQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<TimelineQuery, TimelineQueryVariables>(TimelineDocument, options);
 }
+
 export function useTimelineLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<TimelineQuery, TimelineQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<TimelineQuery, TimelineQueryVariables>(TimelineDocument, options);
 }
+
 export type TimelineQueryHookResult = ReturnType<typeof useTimelineQuery>;
 export type TimelineLazyQueryHookResult = ReturnType<typeof useTimelineLazyQuery>;
 export type TimelineQueryResult = Apollo.QueryResult<TimelineQuery, TimelineQueryVariables>;
@@ -34216,12 +34798,14 @@ export function useTrendingQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<TrendingQuery, TrendingQueryVariables>(TrendingDocument, options);
 }
+
 export function useTrendingLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<TrendingQuery, TrendingQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<TrendingQuery, TrendingQueryVariables>(TrendingDocument, options);
 }
+
 export type TrendingQueryHookResult = ReturnType<typeof useTrendingQuery>;
 export type TrendingLazyQueryHookResult = ReturnType<typeof useTrendingLazyQuery>;
 export type TrendingQueryResult = Apollo.QueryResult<TrendingQuery, TrendingQueryVariables>;
@@ -34267,12 +34851,14 @@ export function useUserProfilesQuery(
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useQuery<UserProfilesQuery, UserProfilesQueryVariables>(UserProfilesDocument, options);
 }
+
 export function useUserProfilesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<UserProfilesQuery, UserProfilesQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useLazyQuery<UserProfilesQuery, UserProfilesQueryVariables>(UserProfilesDocument, options);
 }
+
 export type UserProfilesQueryHookResult = ReturnType<typeof useUserProfilesQuery>;
 export type UserProfilesLazyQueryHookResult = ReturnType<typeof useUserProfilesLazyQuery>;
 export type UserProfilesQueryResult = Apollo.QueryResult<UserProfilesQuery, UserProfilesQueryVariables>;
