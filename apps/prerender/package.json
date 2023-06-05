@@ -19,7 +19,7 @@
     "@lenster/lib": "workspace:*",
     "axios": "^1.4.0",
     "dotenv": "^16.1.4",
-    "next": "^13.4.2",
+    "next": "^13.4.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
