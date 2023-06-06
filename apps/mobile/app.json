@@ -4,20 +4,20 @@
     "slug": "lenster",
     "version": "1.0.0",
     "orientation": "portrait",
-    "jsEngine": "hermes",
-    "scheme": "lenster",
-    "platforms": ["ios", "android"],
-    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "updates": {
-      "enabled": false,
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.lenster.mobile"
+      "buildNumber": "1.0.0",
+      "supportsTablet": true
     },
-    "android": {},
-    "privacy": "hidden"
+    "android": {}
   }
 }

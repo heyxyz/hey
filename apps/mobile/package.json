@@ -1,31 +1,26 @@
 {
   "name": "@lenster/mobile",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "main": "index.js",
   "scripts": {
-    "mobile:android": "expo run:android",
-    "mobile:ios": "expo run:ios",
-    "mobile:start": "expo start",
-    "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "ios": "expo run:ios"
+    "dev": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios"
   },
   "dependencies": {
-    "expo": "~48.0.18",
-    "expo-splash-screen": "~0.18.2",
-    "expo-status-bar": "~1.4.4",
-    "react": "18.2.0",
-    "react-dom": "^18.2.0",
-    "react-native": "0.71.8",
-    "ui": "*"
+    "expo": "^48.0.10",
+    "expo-status-bar": "^1.4.4",
+    "react": "^18.2.0",
+    "react-native": "^0.71.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.1",
+    "@babel/core": "^7.21.4",
     "@lenster/config": "workspace:*",
     "@rnx-kit/metro-config": "^1.3.6",
-    "@types/react": "~18.0.27",
-    "@types/react-native": "^0.72.2",
-    "typescript": "^4.9.5"
+    "@types/react": "^18.0.28",
+    "@types/react-native": "^0.70.6",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-preset-expo": "^9.3.0"
   }
 }
