@@ -1,16 +1,16 @@
-name: Docker Image Dev - Webapp
+name: Docker Image UAT - Webapp
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - uat
   release:
     types:
       - released
   pull_request_target:
     branches:
-      - develop
+      - uat
 
 jobs:
   publish:
@@ -22,12 +22,12 @@ jobs:
       - name: Set Docker Tag
         id: docker-tag
         if: ${{ github.event_name != 'release' }}
-        run: echo "DOCKER_TAG=dev-${GITHUB_SHA:0:7}-$(date +%s)" | tee $GITHUB_ENV
+        run: echo "DOCKER_TAG=uat-${GITHUB_SHA:0:7}-$(date +%s)" | tee $GITHUB_ENV
 
       - name: Set Docker Tag - Release
         id: docker-tag-release
         if: ${{ github.event_name == 'release' }}
-        run: echo "DOCKER_TAG=dev-${GITHUB_SHA:0:7}-$(date +%s)-${GITHUB_REF#refs/tags/}" | tee $GITHUB_ENV
+        run: echo "DOCKER_TAG=uat-${GITHUB_SHA:0:7}-$(date +%s)-${GITHUB_REF#refs/tags/}" | tee $GITHUB_ENV
 
       - name: Login to Docker Repository
         uses: docker/login-action@v2
@@ -49,7 +49,7 @@ jobs:
           push: false
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          build-args: ENV_FILE=.env.uat
 
       - name: Docker Image Build and Publish
         id: docker-build-publish
@@ -60,4 +60,4 @@ jobs:
           push: true
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          build-args: ENV_FILE=.env.uat
