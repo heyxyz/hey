@@ -34,7 +34,7 @@ echo "IMAGEKIT_URL=https://ik.imagekit.io/lensterdev" >> .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-pnpm install --frozen-lockfile
+pnpm install --no-frozen-lockfile
 echo "Dependencies installed 📦"
 echo "Installing playwright 🎭"
 npx playwright install
