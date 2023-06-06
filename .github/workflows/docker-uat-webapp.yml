@@ -53,7 +53,7 @@ jobs:
 
       - name: Docker Image Build and Publish
         id: docker-build-publish
-        if: ${{ github.ref == 'refs/heads/develop' || startsWith(github.ref,'refs/tags/') }}
+        if: ${{ github.ref == 'refs/heads/uat' || startsWith(github.ref,'refs/tags/') }}
         uses: docker/build-push-action@v4
         with:
           context: ./apps/web

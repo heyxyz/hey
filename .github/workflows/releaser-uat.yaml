@@ -1,5 +1,5 @@
 ---
-name: Dev releaser
+name: UAT releaser
 
 on:
   workflow_dispatch:
