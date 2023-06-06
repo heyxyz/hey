@@ -12,3 +12,4 @@ The following ports are exposed by the repository
 | 8085 | Snapshot relay worker      | http://localhost:8085 | https://snapshot-relay.lenster.xyz |
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens-resolver.lenster.xyz   |
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.lenster.xyz         |
+| 8088 | Leafwatch worker           | http://localhost:8088 | https://leafwatch.lenster.xyz      |
