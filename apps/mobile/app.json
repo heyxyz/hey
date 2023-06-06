@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Lenster",
+    "slug": "lenster",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "jsEngine": "hermes",
+    "scheme": "lenster",
+    "platforms": ["ios", "android"],
+    "userInterfaceStyle": "automatic",
+    "updates": {
+      "enabled": false,
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.lenster.mobile"
+    },
+    "android": {},
+    "privacy": "hidden"
+  }
+}
