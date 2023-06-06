@@ -1,12 +1,18 @@
 {
   "name": "@lenster/mobile",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
+  "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
-    "dev": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios"
+    "mobile:dev": "expo start",
+    "mobile:android": "expo start --android",
+    "mobile:ios": "expo start --ios",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "expo": "^48.0.10",
