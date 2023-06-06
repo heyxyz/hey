@@ -2,8 +2,10 @@ import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import isPrimeMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 import type { MarkupLinkProps } from 'src/types';
 
 const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
@@ -20,7 +22,12 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
       <span>
         <Link
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
-          onClick={stopEventPropagation}
+          onClick={(event) => {
+            stopEventPropagation(event);
+            Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {
+              hashtag: title.slice(1)
+            });
+          }}
         >
           {isPrideHashtag ? <span className="pride-text">{title}</span> : title}
         </Link>
