@@ -5,11 +5,11 @@
   "license": "GPL-3.0",
   "main": "index.js",
   "scripts": {
-    "mobile:dev": "expo start",
-    "mobile:android": "expo start --android",
-    "mobile:ios": "expo start --ios",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
+    "mobile:android": "expo start --android",
+    "mobile:dev": "expo start",
+    "mobile:ios": "expo start --ios",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "typecheck": "tsc --pretty"
