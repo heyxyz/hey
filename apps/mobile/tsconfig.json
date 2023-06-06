@@ -1,6 +1,0 @@
-{
-  "extends": "@lenster/config/base.tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react-native"
-  }
-}
