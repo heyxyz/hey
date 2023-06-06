@@ -14,7 +14,7 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
       {allowance?.approvedModuleAllowanceAmount?.map((item: ApprovedAllowanceAmount) =>
         item?.module === CollectModules.RevertCollectModule ||
         item?.module === CollectModules.FreeCollectModule ||
-        item?.module === CollectModules.MultirecipientFeeCollectModule ? (
+        item?.contractAddress === '0x000000000000000000000000000000000000dEaD' ? (
           ''
         ) : (
           <Module key={item?.contractAddress} module={item} />
