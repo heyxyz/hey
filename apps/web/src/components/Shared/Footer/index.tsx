@@ -23,9 +23,6 @@ const Footer: FC = () => {
         <a href="https://discord.com/invite/9QwXqsyAps" target="_blank" rel="noreferrer noopener">
           <Trans>ConsenSys Discord</Trans>
         </a>
-        <a href="https://lenster.xyz/discord" target="_blank" rel="noreferrer noopener">
-          <Trans>Lenster Discord</Trans>
-        </a>
         <a href="https://lenster.xyz/donate" target="_blank" rel="noreferrer noopener">
           <Trans>Donate to Lenster</Trans>
         </a>
