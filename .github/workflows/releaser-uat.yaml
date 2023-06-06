@@ -1,0 +1,18 @@
+---
+name: UAT releaser
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.DEV_RELEASER_GH_TOKEN }}
+
+      - name: Run Dev release script
+        run: ./release-uat.sh
