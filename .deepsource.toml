@@ -9,7 +9,7 @@ exclude_patterns = [
   "tests",
   "pnpm-lock.yaml",
   "packages/lens/generated.ts",
-  "packages/snapshot/generated.ts",
+  "packages/workers/snapshot-relay/generated.ts",
 ]
 
 [[analyzers]]
