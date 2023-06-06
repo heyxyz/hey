@@ -22,7 +22,9 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           stopEventPropagation(event);
-          Leafwatch.track(PUBLICATION.OEMBED_CLICK);
+          Leafwatch.track(PUBLICATION.CLICK_OEMBED, {
+            url: og.url
+          });
         }}
         target={og.url.includes(location.host) ? '_self' : '_blank'}
         rel="noreferrer noopener"
