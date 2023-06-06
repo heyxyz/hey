@@ -1,0 +1,6 @@
+query FollowersNftOwnedTokenIds($request: FollowerNftOwnedTokenIdsRequest!) {
+    followerNftOwnedTokenIds(request: $request) {
+        followerNftAddress
+        tokensIds
+    }
+}
