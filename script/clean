@@ -1,0 +1,9 @@
+#!/bin/bash
+
+#/ Usage: script/clean
+#/ Clean all node_modules and pnpm-lock.yaml files recursively.
+
+echo "Deleting all node_modules and pnpm-lock.yaml files recursively 🗑"
+find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+find . -name "pnpm-lock.yaml" -type f -prune -exec rm -rf '{}' +
+echo "node_modules and pnpm-lock.yaml files deleted 🎉"
