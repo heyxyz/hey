@@ -1,11 +1,9 @@
+const { getDefaultConfig } = require('expo/metro-config');
 const { makeMetroConfig } = require('@rnx-kit/metro-config');
-
 const path = require('path');
 
-const { getDefaultConfig } = require('expo/metro-config');
-const expoDefaultConfig = getDefaultConfig(__dirname);
-
 const projectRoot = __dirname;
+const expoDefaultConfig = getDefaultConfig(projectRoot);
 const workspaceRoot = path.resolve(projectRoot, '../..');
 
 const metroConfig = makeMetroConfig({

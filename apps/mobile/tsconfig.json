@@ -1,6 +1,6 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": "@lenster/config/base.tsconfig.json",
   "compilerOptions": {
-    "strict": true
+    "jsx": "react-native"
   }
 }
