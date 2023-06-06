@@ -1,8 +1,10 @@
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { PUBLICATION } from 'src/tracking';
 import type { MarkupLinkProps } from 'src/types';
 
 import Slug from '../../Slug';
@@ -23,7 +25,13 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
   };
 
   return (
-    <Link href={`/u/${formatHandle(handle)}`} onClick={stopEventPropagation}>
+    <Link
+      href={`/u/${formatHandle(handle)}`}
+      onClick={(event) => {
+        stopEventPropagation(event);
+        Leafwatch.track(PUBLICATION.CLICK_MENTION, { handle });
+      }}
+    >
       {profile?.handle ? (
         <UserPreview
           isBig={false}
