@@ -30,7 +30,9 @@ export const PUBLICATION = {
   TRANSLATE: 'Translate publication',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
-  OEMBED_CLICK: 'Click publication oembed',
+  CLICK_OEMBED: 'Click publication oembed',
+  CLICK_HASHTAG: 'Click publication hashtag',
+  CLICK_MENTION: 'Click publication mention',
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
