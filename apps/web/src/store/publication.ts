@@ -1,11 +1,12 @@
+import type { Publication } from '@lenster/lens';
 import type { NewLensterAttachment } from 'src/types';
 import { create } from 'zustand';
 
 interface PublicationState {
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
-  quotedPublicationId: string;
-  setQuotedPublicationId: (quotedPublicationId: string) => void;
+  quotedPublication: Publication | null;
+  setQuotedPublication: (quotedPublication: Publication | null) => void;
   audioPublication: {
     title: string;
     author: string;
@@ -51,9 +52,9 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   publicationContent: '',
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),
-  quotedPublicationId: '',
-  setQuotedPublicationId: (quotedPublicationId) =>
-    set(() => ({ quotedPublicationId })),
+  quotedPublication: null,
+  setQuotedPublication: (quotedPublication) =>
+    set(() => ({ quotedPublication })),
   audioPublication: {
     title: '',
     author: '',

@@ -18,13 +18,13 @@ import DecryptedPublicationBody from './DecryptedPublicationBody';
 interface PublicationBodyProps {
   publication: Publication;
   showMore?: boolean;
-  nestedEmbeds?: boolean;
+  quoted?: boolean;
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
   publication,
   showMore = false,
-  nestedEmbeds = true
+  quoted = false
 }) => {
   const { id, metadata } = publication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
@@ -53,9 +53,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const showAttachments = metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showPublicationEmbed = quotedPublicationId && nestedEmbeds;
+  const showPublicationEmbed = quotedPublicationId && !quoted;
   const showOembed =
-    hasURLs && !showAttachments && !showSnapshot && !showPublicationEmbed;
+    hasURLs &&
+    !showAttachments &&
+    !showSnapshot &&
+    !showPublicationEmbed &&
+    !quoted;
 
   return (
     <div className="break-words">

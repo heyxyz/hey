@@ -15,8 +15,8 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
-  const setQuotedPublicationId = usePublicationStore(
-    (state) => state.setQuotedPublicationId
+  const setQuotedPublication = usePublicationStore(
+    (state) => state.setQuotedPublication
   );
 
   return (
@@ -29,7 +29,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
         )
       }
       onClick={() => {
-        setQuotedPublicationId(publication.id);
+        setQuotedPublication(publication);
         setShowNewPostModal(true);
       }}
     >

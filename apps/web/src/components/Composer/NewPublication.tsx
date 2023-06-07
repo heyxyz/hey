@@ -1,5 +1,7 @@
+import QuotedPublication from '@components/Publication/QuotedPublication';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
+import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
@@ -148,6 +150,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   );
+  const quotedPublication = usePublicationStore(
+    (state) => state.quotedPublication
+  );
+  const setQuotedPublication = usePublicationStore(
+    (state) => state.setQuotedPublication
+  );
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
   );
@@ -223,6 +231,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       $getRoot().clear();
     });
     setPublicationContent('');
+    setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
     setAttachments([]);
@@ -698,6 +707,24 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
+        ...(quotedPublication
+          ? [
+              {
+                traitType: 'quotedPublicationId',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: quotedPublication.id
+              }
+            ]
+          : []),
+        ...(hasAudio
+          ? [
+              {
+                traitType: 'author',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: audioPublication.author
+              }
+            ]
+          : []),
         ...(hasVideo
           ? [
               {
@@ -708,14 +735,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             ]
           : [])
       ];
-
-      if (hasAudio) {
-        attributes.push({
-          traitType: 'author',
-          displayType: PublicationMetadataDisplayTypes.String,
-          value: audioPublication.author
-        });
-      }
 
       const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
         (attachment) => ({
@@ -875,6 +894,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       )}
       {showPollEditor && <PollEditor />}
+      {quotedPublication ? (
+        <Wrapper className="m-5" zeroPadding>
+          <QuotedPublication publication={quotedPublication} isNew />
+        </Wrapper>
+      ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
