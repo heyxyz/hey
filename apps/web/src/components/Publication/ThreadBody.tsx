@@ -1,5 +1,5 @@
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { Publication } from '@lenster/lens';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -12,18 +12,8 @@ interface ThreadBodyProps {
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
-  const { push } = useRouter();
-
   return (
-    <article
-      onClick={() => {
-        const selection = window.getSelection();
-        if (!selection || selection.toString().length === 0) {
-          push(`/posts/${publication?.id}`);
-        }
-      }}
-      aria-hidden="true"
-    >
+    <PublicationWrapper publication={publication}>
       <PublicationHeader publication={publication} />
       <div className="flex">
         <div className="-my-6 ml-5 mr-8 border-[0.8px] border-gray-300 bg-gray-300 dark:border-gray-700 dark:bg-gray-700" />
@@ -38,7 +28,7 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
           )}
         </div>
       </div>
-    </article>
+    </PublicationWrapper>
   );
 };
 
