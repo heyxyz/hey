@@ -1,5 +1,5 @@
 import Attachments from '@components/Shared/Attachments';
-import Profile from '@components/Shared/Embed/Publication';
+import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
@@ -18,11 +18,13 @@ import DecryptedPublicationBody from './DecryptedPublicationBody';
 interface PublicationBodyProps {
   publication: Publication;
   showMore?: boolean;
+  nestedEmbeds?: boolean;
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
   publication,
-  showMore = false
+  showMore = false,
+  nestedEmbeds = true
 }) => {
   const canShowMore = publication?.metadata?.content?.length > 450 && showMore;
   const urls = getURLs(publication?.metadata?.content);
@@ -49,7 +51,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showPublicationEmbed = renderPublications.length > 0;
+  const showPublicationEmbed = renderPublications.length > 0 && nestedEmbeds;
   const showOembed =
     hasURLs && !showAttachments && !showSnapshot && !showPublicationEmbed;
 
@@ -79,7 +81,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         />
       ) : null}
       {showPublicationEmbed ? (
-        <Profile publicationIds={renderPublications} />
+        <Quote publicationIds={renderPublications} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}

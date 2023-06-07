@@ -1,6 +1,6 @@
 import ActionType from '@components/Home/Timeline/EventType';
+import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -29,7 +29,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showThread = true,
   showMore = true
 }) => {
-  const { push } = useRouter();
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
     ? firstComment
@@ -38,16 +37,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
     : publication;
 
   return (
-    <article
+    <PublicationWrapper
       className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
-      onClick={() => {
-        const selection = window.getSelection();
-        if (!selection || selection.toString().length === 0) {
-          push(`/posts/${rootPublication?.id}`);
-        }
-      }}
-      data-testid={`publication-${publication.id}`}
-      aria-hidden="true"
+      publication={publication}
     >
       {feedItem ? (
         <ActionType feedItem={feedItem} />
@@ -83,7 +75,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           </>
         )}
       </div>
-    </article>
+    </PublicationWrapper>
   );
 };
 
