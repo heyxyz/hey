@@ -209,7 +209,7 @@ const Mirror: FC<DeleteProps> = ({ publication, setIsLoading, isLoading }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          mirrored ? 'text-green-500' : 'text-brand',
+          mirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }

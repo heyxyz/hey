@@ -12,6 +12,7 @@ import type { FC } from 'react';
 import { Fragment, useState } from 'react';
 
 import Mirror from './Mirror';
+import Quote from './Quote';
 
 interface PublicationMenuProps {
   publication: Publication;
@@ -32,16 +33,14 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
-    <div
-      className={clsx(
-        mirrored ? 'text-green-500' : 'text-brand',
-        'flex items-center space-x-1'
-      )}
-    >
+    <div className="flex items-center space-x-1">
       <Menu as="div" className="relative">
         <Menu.Button as={Fragment}>
           <button
-            className="rounded-full p-1.5 hover:bg-gray-300/20"
+            className={clsx(
+              mirrored ? 'text-green-500' : 'text-brand',
+              'rounded-full p-1.5 hover:bg-gray-300/20'
+            )}
             onClick={stopEventPropagation}
             aria-label="Mirror"
           >
@@ -72,6 +71,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
               setIsLoading={setIsLoading}
               isLoading={isLoading}
             />
+            <Quote publication={publication} />
           </Menu.Items>
         </MenuTransition>
       </Menu>
