@@ -1,3 +1,4 @@
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import useModMode from '@components/utils/hooks/useModMode';
 import { XIcon } from '@heroicons/react/outline';
@@ -50,7 +51,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       data-testid={`publication-${publication.id}-header`}
     >
       <span onClick={stopEventPropagation} aria-hidden="true">
-        <UserProfile profile={profile} timestamp={timestamp} showStatus />
+        {quoted ? (
+          <SmallUserProfile profile={profile} timestamp={timestamp} />
+        ) : (
+          <UserProfile profile={profile} timestamp={timestamp} showStatus />
+        )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
         {modMode && <Source publication={publication} />}

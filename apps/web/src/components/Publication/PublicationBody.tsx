@@ -53,12 +53,12 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const showAttachments = metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showPublicationEmbed = quotedPublicationId && !quoted;
+  const showQuotedPublication = quotedPublicationId && !quoted;
   const showOembed =
     hasURLs &&
     !showAttachments &&
     !showSnapshot &&
-    !showPublicationEmbed &&
+    !showQuotedPublication &&
     !quoted;
 
   return (
@@ -83,11 +83,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
-      {showPublicationEmbed ? (
-        <Quote publicationId={quotedPublicationId} />
-      ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
+      {showQuotedPublication ? (
+        <Quote publicationId={quotedPublicationId} />
+      ) : null}
     </div>
   );
 };
