@@ -1,3 +1,5 @@
+import formatHandle from './formatHandle';
+
 interface Pattern {
   regex: RegExp;
 }
@@ -8,10 +10,10 @@ interface PatternWithFormat extends Pattern {
 
 /**
  * Get Lens publication IDs from URLs
- * @param content Text containing URLs
+ * @param urls Publication URLs
  * @returns Lens publication IDs
  */
-const getLensPublicationIdsFromUrls = (content: string): string[] => {
+const getLensPublicationIdsFromUrls = (urls: string[]): string[] => {
   try {
     const patterns: PatternWithFormat[] = [
       { regex: /https?:\/\/localhost:4783\/posts\/([^/]+)/ },
@@ -23,18 +25,14 @@ const getLensPublicationIdsFromUrls = (content: string): string[] => {
     ];
 
     const publicationIds: string[] = [];
-    const urlRegex = /(https?:\/\/\S+)/g;
-    const urls = content.match(urlRegex);
 
-    if (urls) {
-      for (const url of urls) {
-        for (const pattern of patterns) {
-          const match = url.match(pattern.regex);
-          if (match && match[1]) {
-            const publicationId = match[1];
-            publicationIds.push(publicationId);
-            break;
-          }
+    for (const url of urls) {
+      for (const pattern of patterns) {
+        const match = url.match(pattern.regex);
+        if (match && match[1]) {
+          const publicationId = match[1];
+          publicationIds.push(formatHandle(publicationId));
+          break;
         }
       }
     }

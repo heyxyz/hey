@@ -25,13 +25,19 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false
 }) => {
   const canShowMore = publication?.metadata?.content?.length > 450 && showMore;
-  const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
-  const snapshotProposalId =
-    hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content));
+  const urls = getURLs(publication?.metadata?.content);
+  const hasURLs = urls?.length > 0;
+  const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
+  const renderPublications = getLensPublicationIdsFromUrls(urls);
+
   let content = publication?.metadata?.content;
-  if (snapshotProposalId) {
-    for (const url of getURLs(publication?.metadata?.content)) {
-      if (url.includes(snapshotProposalId)) {
+  const filterId =
+    snapshotProposalId ||
+    (renderPublications.length > 0 && renderPublications[0]);
+
+  if (filterId) {
+    for (const url of urls) {
+      if (url.includes(filterId)) {
         content = content?.replace(url, '');
       }
     }
@@ -41,7 +47,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
-  const renderPublications = getLensPublicationIdsFromUrls(content);
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
   const showPublicationEmbed = renderPublications.length > 0;
@@ -77,9 +82,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Profile publicationIds={renderPublications} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showOembed ? (
-        <Oembed url={getURLs(publication?.metadata?.content)[0]} />
-      ) : null}
+      {showOembed ? <Oembed url={urls[0]} /> : null}
     </div>
   );
 };
