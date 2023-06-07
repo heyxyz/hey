@@ -23,7 +23,7 @@ const Quote: FC<PublicationProps> = ({ publicationId }) => {
     );
   }
 
-  if (error || !data) {
+  if (error || !data?.publication) {
     return null;
   }
 

@@ -26,16 +26,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false,
   nestedEmbeds = true
 }) => {
-  const canShowMore = publication?.metadata?.content?.length > 450 && showMore;
-  const urls = getURLs(publication?.metadata?.content);
+  const { id, metadata } = publication;
+  const canShowMore = metadata?.content?.length > 450 && showMore;
+  const urls = getURLs(metadata?.content);
   const hasURLs = urls?.length > 0;
   const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
   const quotedPublicationId = getPublicationAttribute(
-    publication.metadata.attributes,
+    metadata.attributes,
     'quotedPublicationId'
   );
 
-  let content = publication?.metadata?.content;
+  let content = metadata?.content;
   const filterId = snapshotProposalId || quotedPublicationId;
 
   if (filterId) {
@@ -46,11 +47,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     }
   }
 
-  if (publication?.metadata?.encryptionParams) {
+  if (metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
-  const showAttachments = publication?.metadata?.media?.length > 0;
+  const showAttachments = metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
   const showPublicationEmbed = quotedPublicationId && nestedEmbeds;
   const showOembed =
@@ -69,17 +70,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {canShowMore && (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
-          <Link href={`/posts/${publication?.id}`}>
+          <Link href={`/posts/${id}`}>
             <Trans>Show more</Trans>
           </Link>
         </div>
       )}
       {/* Snapshot, Attachments and Opengraph */}
       {showAttachments ? (
-        <Attachments
-          attachments={publication?.metadata?.media}
-          publication={publication}
-        />
+        <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
       {showPublicationEmbed ? (
         <Quote publicationId={quotedPublicationId} />
