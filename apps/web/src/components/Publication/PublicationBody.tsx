@@ -18,11 +18,13 @@ import DecryptedPublicationBody from './DecryptedPublicationBody';
 interface PublicationBodyProps {
   publication: Publication;
   showMore?: boolean;
+  nestedEmbeds?: boolean;
 }
 
 const PublicationBody: FC<PublicationBodyProps> = ({
   publication,
-  showMore = false
+  showMore = false,
+  nestedEmbeds = true
 }) => {
   const canShowMore = publication?.metadata?.content?.length > 450 && showMore;
   const urls = getURLs(publication?.metadata?.content);
@@ -49,7 +51,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showPublicationEmbed = renderPublications.length > 0;
+  const showPublicationEmbed = renderPublications.length > 0 && nestedEmbeds;
   const showOembed =
     hasURLs && !showAttachments && !showSnapshot && !showPublicationEmbed;
 
