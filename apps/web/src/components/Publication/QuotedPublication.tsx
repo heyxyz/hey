@@ -21,13 +21,11 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <PublicationHeader publication={publication} quoted isNew={isNew} />
-      <div className="ml-[53px]">
-        {publication?.hidden ? (
-          <HiddenPublication type={publication.__typename} />
-        ) : (
-          <PublicationBody publication={publication} showMore quoted />
-        )}
-      </div>
+      {publication?.hidden ? (
+        <HiddenPublication type={publication.__typename} />
+      ) : (
+        <PublicationBody publication={publication} showMore quoted />
+      )}
     </PublicationWrapper>
   );
 };

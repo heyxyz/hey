@@ -4,6 +4,7 @@ import useModMode from '@components/utils/hooks/useModMode';
 import { XIcon } from '@heroicons/react/outline';
 import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import clsx from 'clsx';
 import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -47,7 +48,10 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
 
   return (
     <div
-      className="relative flex justify-between space-x-1.5 pb-4"
+      className={clsx(
+        quoted ? 'pb-2' : 'pb-4',
+        'relative flex justify-between space-x-1.5'
+      )}
       data-testid={`publication-${publication.id}-header`}
     >
       <span onClick={stopEventPropagation} aria-hidden="true">
