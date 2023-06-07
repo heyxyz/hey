@@ -75,6 +75,7 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -135,6 +136,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  // Modal store
+  const setShowNewPostModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPostModal
+  );
+
   // Publication store
   const publicationContent = usePublicationStore(
     (state) => state.publicationContent
@@ -144,9 +150,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
-  );
-  const setShowNewPostModal = usePublicationStore(
-    (state) => state.setShowNewPostModal
   );
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);

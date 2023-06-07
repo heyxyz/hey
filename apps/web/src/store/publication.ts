@@ -2,10 +2,10 @@ import type { NewLensterAttachment } from 'src/types';
 import { create } from 'zustand';
 
 interface PublicationState {
-  showNewPostModal: boolean;
-  setShowNewPostModal: (showNewPostModal: boolean) => void;
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
+  quotedPublicationId: string;
+  setQuotedPublicationId: (quotedPublicationId: string) => void;
   audioPublication: {
     title: string;
     author: string;
@@ -48,11 +48,12 @@ interface PublicationState {
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
-  showNewPostModal: false,
-  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   publicationContent: '',
   setPublicationContent: (publicationContent) =>
     set(() => ({ publicationContent })),
+  quotedPublicationId: '',
+  setQuotedPublicationId: (quotedPublicationId) =>
+    set(() => ({ quotedPublicationId })),
   audioPublication: {
     title: '',
     author: '',

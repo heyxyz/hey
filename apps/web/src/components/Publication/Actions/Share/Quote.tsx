@@ -4,12 +4,21 @@ import type { Publication } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { type FC } from 'react';
+import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePublicationStore } from 'src/store/publication';
 
-interface DeleteProps {
+interface QuoteProps {
   publication: Publication;
 }
 
-const Quote: FC<DeleteProps> = ({ publication }) => {
+const Quote: FC<QuoteProps> = ({ publication }) => {
+  const setShowNewPostModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPostModal
+  );
+  const setQuotedPublicationId = usePublicationStore(
+    (state) => state.setQuotedPublicationId
+  );
+
   return (
     <Menu.Item
       as="div"
@@ -19,7 +28,10 @@ const Quote: FC<DeleteProps> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
-      // onClick={}
+      onClick={() => {
+        setQuotedPublicationId(publication.id);
+        setShowNewPostModal(true);
+      }}
     >
       <div className="flex items-center space-x-2">
         <AnnotationIcon className="h-4 w-4" />

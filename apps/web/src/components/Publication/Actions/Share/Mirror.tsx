@@ -27,13 +27,13 @@ import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface DeleteProps {
+interface MirrorProps {
   publication: Publication;
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
 }
 
-const Mirror: FC<DeleteProps> = ({ publication, setIsLoading, isLoading }) => {
+const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
