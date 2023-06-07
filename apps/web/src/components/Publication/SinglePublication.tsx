@@ -17,6 +17,7 @@ interface SinglePublicationProps {
   showActions?: boolean;
   showModActions?: boolean;
   showThread?: boolean;
+  showMore?: boolean;
 }
 
 const SinglePublication: FC<SinglePublicationProps> = ({
@@ -25,7 +26,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   showType = true,
   showActions = true,
   showModActions = false,
-  showThread = true
+  showThread = true,
+  showMore = true
 }) => {
   const { push } = useRouter();
   const firstComment = feedItem?.comments && feedItem.comments[0];
@@ -62,7 +64,10 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication} />
+            <PublicationBody
+              publication={rootPublication}
+              showMore={showMore}
+            />
             {showActions && (
               <PublicationActions
                 publication={rootPublication}
