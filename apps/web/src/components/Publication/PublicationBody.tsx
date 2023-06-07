@@ -1,27 +1,30 @@
 import Attachments from '@components/Shared/Attachments';
+import Profile from '@components/Shared/Embed/Publication';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
+import getLensPublicationIdsFromUrls from '@lenster/lib/getLensPublicationIdsFromUrls';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface PublicationBodyProps {
   publication: Publication;
+  showMore?: boolean;
 }
 
-const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
-  const { pathname } = useRouter();
-  const showMore =
-    publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
+const PublicationBody: FC<PublicationBodyProps> = ({
+  publication,
+  showMore = false
+}) => {
+  const canShowMore = publication?.metadata?.content?.length > 450 && showMore;
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
   const snapshotProposalId =
     hasURLs && getSnapshotProposalId(getURLs(publication?.metadata?.content));
@@ -38,21 +41,24 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
+  const renderPublications = getLensPublicationIdsFromUrls(content);
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showOembed = hasURLs && !showAttachments && !showSnapshot;
+  const showPublicationEmbed = renderPublications.length > 0;
+  const showOembed =
+    hasURLs && !showAttachments && !showSnapshot && !showPublicationEmbed;
 
   return (
     <div className="break-words">
       <Markup
         className={clsx(
-          { 'line-clamp-5': showMore },
+          { 'line-clamp-5': canShowMore },
           'markup linkify text-md break-words'
         )}
       >
         {content}
       </Markup>
-      {showMore && (
+      {canShowMore && (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${publication?.id}`}>
@@ -66,6 +72,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication }) => {
           attachments={publication?.metadata?.media}
           publication={publication}
         />
+      ) : null}
+      {showPublicationEmbed ? (
+        <Profile publicationIds={renderPublications} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? (
