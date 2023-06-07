@@ -334,10 +334,6 @@ msgstr "கருத்துரை"
 msgid "Post"
 msgstr "போஸ்ட்"
 
-#: src/components/Composer/Post/New.tsx
-msgid "Create post"
-msgstr "போஸ்ட்-ஐ உருவாக்கு"
-
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -1577,6 +1573,10 @@ msgstr ""
 msgid "Mirror"
 msgstr "மிரர்"
 
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote"
+msgstr ""
+
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
 msgstr "{0} மிரர்கள்"
@@ -2298,6 +2298,10 @@ msgstr "சுயவிவரத்தை மாற்றவும்"
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
 msgstr "புகுபதிகை"
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Create post"
+msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
