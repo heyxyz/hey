@@ -3,7 +3,11 @@ import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
 import useGetMessages from '@components/utils/hooks/useGetMessages';
 import { useGetProfile } from '@components/utils/hooks/useMessageDb';
-import useSendMessage from '@components/utils/hooks/useSendMessage';
+import type {
+  FailedMessage,
+  PendingMessage
+} from '@components/utils/hooks/useSendOptimisticMessage';
+import useSendOptimisticMessage from '@components/utils/hooks/useSendOptimisticMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { APP_NAME } from '@lenster/data/constants';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -15,7 +19,7 @@ import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -33,17 +37,86 @@ interface MessageProps {
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { profile } = useGetProfile(currentProfile?.id, conversationKey);
-  const selectedConversation = useMessageStore((state) =>
-    state.conversations.get(conversationKey)
+  const queuedMessages = useMessageStore((state) =>
+    state.queuedMessages.get(conversationKey)
+  );
+  const addQueuedMessage = useMessageStore((state) => state.addQueuedMessage);
+  const removeQueuedMessage = useMessageStore(
+    (state) => state.removeQueuedMessage
+  );
+  const updateQueuedMessage = useMessageStore(
+    (state) => state.updateQueuedMessage
   );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
   const { messages, hasMore } = useGetMessages(
     conversationKey,
-    selectedConversation,
     endTime.get(conversationKey)
   );
-  useStreamMessages(conversationKey, selectedConversation);
-  const { missingXmtpAuth, sendMessage } = useSendMessage(conversationKey);
+  useStreamMessages(conversationKey);
+
+  const onMessageQueue = useCallback(
+    (message: PendingMessage | FailedMessage) => {
+      addQueuedMessage(conversationKey, message);
+    },
+    [addQueuedMessage, conversationKey]
+  );
+  const onMessageCancel = useCallback(
+    (id: string) => {
+      removeQueuedMessage(conversationKey, id);
+    },
+    [removeQueuedMessage, conversationKey]
+  );
+  const onMessageUpdate = useCallback(
+    (id: string, message: PendingMessage | FailedMessage) => {
+      updateQueuedMessage(conversationKey, id, message);
+    },
+    [updateQueuedMessage, conversationKey]
+  );
+  const { missingXmtpAuth, sendMessage } = useSendOptimisticMessage(
+    conversationKey,
+    {
+      onQueue: onMessageQueue,
+      onCancel: onMessageCancel,
+      onUpdate: onMessageUpdate
+    }
+  );
+
+  const allMessages = useMemo(() => {
+    // if the queued message is in sent messages, ignore it
+    // it is expected that this will occur and provides a clean
+    // transition from "pending" to "sent" state
+    const finalQueuedMessage = (queuedMessages ?? []).reduce(
+      (result, queuedMessage) => {
+        const found = messages?.some((m) => m.id === queuedMessage.id);
+        if (!found) {
+          return [...result, queuedMessage];
+        }
+        return result;
+      },
+      [] as (PendingMessage | FailedMessage)[]
+    );
+    return [...finalQueuedMessage, ...(messages ?? [])];
+  }, [messages, queuedMessages]);
+
+  // remove pending messages from state after they've been sent
+  useEffect(() => {
+    if (queuedMessages) {
+      for (const queuedMessage of queuedMessages) {
+        let found: string = '';
+        messages?.some((m) => {
+          if (m.id === queuedMessage.id) {
+            found = m.id;
+            return true;
+          }
+        });
+        if (found) {
+          removeQueuedMessage(conversationKey, found);
+          continue;
+        }
+      }
+    }
+    // only run this effect when messages changes
+  }, [messages]);
 
   const fetchNextMessages = useCallback(() => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
@@ -93,7 +166,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 currentProfile={currentProfile}
                 profile={profile}
                 fetchNextMessages={fetchNextMessages}
-                messages={messages ?? []}
+                messages={allMessages}
                 hasMore={hasMore}
                 missingXmtpAuth={missingXmtpAuth ?? false}
               />

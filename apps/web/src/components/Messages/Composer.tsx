@@ -1,8 +1,13 @@
+import type {
+  AllowedContent,
+  SendMessageContent,
+  SendMessageOptions
+} from '@components/utils/hooks/useSendOptimisticMessage';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Button, Input, Spinner } from '@lenster/ui';
+import { Button, Input } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -31,10 +36,10 @@ import {
 import Attachment from './AttachmentView';
 
 interface ComposerProps {
-  sendMessage: (
-    content: string | RemoteAttachment,
+  sendMessage: <T extends AllowedContent = string>(
+    content: SendMessageContent<T>,
     contentType: ContentTypeId,
-    fallback?: string
+    options?: SendMessageOptions
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
@@ -66,6 +71,21 @@ const AttachmentPreview: FC<AttachmentPreviewProps> = ({
   );
 };
 
+/**
+ * This component is for displaying the attachment preview in the messages
+ * list before it's uploaded and sent to the network. It matches how the
+ * attachment is rendered when retrieved from the network.
+ */
+const AttachmentPreviewInline: FC<
+  Pick<AttachmentPreviewProps, 'attachment'>
+> = ({ attachment }) => {
+  return (
+    <div className="mt-1 space-y-1">
+      <Attachment attachment={attachment} />
+    </div>
+  );
+};
+
 const Composer: FC<ComposerProps> = ({
   sendMessage,
   conversationKey,
@@ -89,8 +109,16 @@ const Composer: FC<ComposerProps> = ({
     (state) => state.cacheAttachment
   );
 
-  const canSendMessage =
-    !sending && (attachment || (!disabledInput && message.length > 0));
+  const canSendMessage = !disabledInput && (attachment || message.length > 0);
+
+  const onDismiss = () => {
+    setAttachment(null);
+
+    const el = fileInputRef.current;
+    if (el) {
+      el.value = '';
+    }
+  };
 
   const handleSend = async () => {
     if (!canSendMessage) {
@@ -98,58 +126,78 @@ const Composer: FC<ComposerProps> = ({
     }
     setSending(true);
 
-    if (attachment) {
-      const encryptedEncodedContent =
-        await RemoteAttachmentCodec.encodeEncrypted(
-          attachment,
-          new AttachmentCodec()
-        );
+    // a `null` value indicates that a message won't be sent
+    let sendAttachment: Promise<boolean | null> = Promise.resolve(null);
+    let sendText: Promise<boolean | null> = Promise.resolve(null);
 
-      const file = new File(
-        [encryptedEncodedContent.payload],
-        'XMTPEncryptedContent',
+    if (attachment) {
+      sendAttachment = sendMessage<RemoteAttachment>(
+        async () => {
+          const encryptedEncodedContent =
+            await RemoteAttachmentCodec.encodeEncrypted(
+              attachment,
+              new AttachmentCodec()
+            );
+
+          const file = new File(
+            [encryptedEncodedContent.payload],
+            'XMTPEncryptedContent',
+            {
+              type: attachment.mimeType
+            }
+          );
+
+          const uploadedAttachment = await uploadFileToIPFS(file);
+          const url = sanitizeDStorageUrl(uploadedAttachment.original.url);
+
+          const remoteAttachment: RemoteAttachment = {
+            url,
+            contentDigest: encryptedEncodedContent.digest,
+            salt: encryptedEncodedContent.salt,
+            nonce: encryptedEncodedContent.nonce,
+            secret: encryptedEncodedContent.secret,
+            scheme: 'https://',
+            filename: attachment.filename,
+            contentLength: attachment.data.byteLength
+          };
+
+          // Since we're sending this, we should always load it
+          addLoadedAttachmentURL(url);
+          cacheAttachment(url, attachment);
+
+          // return content for message
+          return remoteAttachment;
+        },
+        ContentTypeRemoteAttachment,
         {
-          type: attachment.mimeType
+          fallback: `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.`,
+          renderPreview: () => (
+            <AttachmentPreviewInline attachment={attachment} />
+          )
         }
       );
+      setAttachment(null);
+    }
 
-      const uploadedAttachment = await uploadFileToIPFS(file);
-      const url = sanitizeDStorageUrl(uploadedAttachment.original.url);
+    if (message.length > 0) {
+      sendText = sendMessage(message, ContentTypeText);
+      setMessage('');
+    }
 
-      const remoteAttachment: RemoteAttachment = {
-        url,
-        contentDigest: encryptedEncodedContent.digest,
-        salt: encryptedEncodedContent.salt,
-        nonce: encryptedEncodedContent.nonce,
-        secret: encryptedEncodedContent.secret,
-        scheme: 'https://',
-        filename: attachment.filename,
-        contentLength: attachment.data.byteLength
-      };
+    const sentAttachment = await sendAttachment;
 
-      // Since we're sending this, we should always load it
-      addLoadedAttachmentURL(url);
-      cacheAttachment(url, attachment);
-
-      const sentAttachment = await sendMessage(
-        remoteAttachment,
-        ContentTypeRemoteAttachment,
-        `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.`
-      );
-
+    if (sentAttachment !== null) {
       if (sentAttachment) {
-        setAttachment(null);
         Leafwatch.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending attachment`);
       }
     }
 
-    if (message.length > 0) {
-      const sentMessage = await sendMessage(message, ContentTypeText);
+    const sentText = await sendText;
 
-      if (sentMessage) {
-        setMessage('');
+    if (sentText !== null) {
+      if (sentText) {
         setUnsentMessage(conversationKey, null);
         Leafwatch.track(MESSAGES.SEND);
       } else {
@@ -202,18 +250,9 @@ const Composer: FC<ComposerProps> = ({
     }
   };
 
-  const onDismiss = () => {
-    setAttachment(null);
-
-    const el = fileInputRef.current;
-    if (el) {
-      el.value = '';
-    }
-  };
-
   return (
     <div className="bg-brand-100/75">
-      {attachment ? (
+      {attachment && !sending ? (
         <AttachmentPreview
           onDismiss={onDismiss}
           dismissDisabled={!canSendMessage}
@@ -252,11 +291,7 @@ const Composer: FC<ComposerProps> = ({
                 <Trans>Send</Trans>
               </span>
             ) : null}
-            {sending ? (
-              <Spinner size="sm" className="h-5 w-5" />
-            ) : (
-              <ArrowRightIcon className="h-5 w-5" />
-            )}
+            <ArrowRightIcon className="h-5 w-5" />
           </div>
         </Button>
       </div>

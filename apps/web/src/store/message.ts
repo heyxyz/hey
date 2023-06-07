@@ -1,4 +1,8 @@
-import { Localstorage } from '@lenster/data';
+import type {
+  FailedMessage,
+  PendingMessage
+} from '@components/utils/hooks/useSendOptimisticMessage';
+import { Localstorage } from '@lenster/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
@@ -13,6 +17,17 @@ interface MessageState {
   conversations: Map<string, Conversation>;
   setConversations: (conversations: Map<string, Conversation>) => void;
   addConversation: (key: string, newConversation: Conversation) => void;
+  queuedMessages: Map<string, (PendingMessage | FailedMessage)[]>;
+  addQueuedMessage: (
+    key: string,
+    message: PendingMessage | FailedMessage
+  ) => void;
+  removeQueuedMessage: (key: string, id: string) => void;
+  updateQueuedMessage: (
+    key: string,
+    id: string,
+    message: PendingMessage | FailedMessage
+  ) => void;
   messages: Map<string, DecodedMessage[]>;
   addMessages: (key: string, newMessages: DecodedMessage[]) => number;
   hasSyncedMessages: boolean;
@@ -45,6 +60,53 @@ export const useMessageStore = create<MessageState>((set) => ({
       const conversations = new Map(state.conversations);
       conversations.set(key, newConversation);
       return { conversations };
+    });
+  },
+  queuedMessages: new Map(),
+  addQueuedMessage: (
+    key: string,
+    newQueuedMessage: PendingMessage | FailedMessage
+  ) => {
+    set((state) => {
+      const queuedMessages = new Map(state.queuedMessages);
+      const existing = state.queuedMessages.get(key) || [];
+      const updated = [...existing, newQueuedMessage];
+      // sort descending by time sent
+      updated.sort((a, b) => b.sent.getTime() - a.sent.getTime());
+      queuedMessages.set(key, updated);
+      return { queuedMessages };
+    });
+  },
+  removeQueuedMessage: (key: string, id: string) => {
+    set((state) => {
+      const queuedMessages = new Map(state.queuedMessages);
+      const existing = state.queuedMessages.get(key) || [];
+      const updated = existing.filter((m) => m.id !== id);
+      queuedMessages.set(key, updated);
+      return { queuedMessages };
+    });
+  },
+  updateQueuedMessage: (
+    key: string,
+    id: string,
+    message: PendingMessage | FailedMessage
+  ) => {
+    set((state) => {
+      const queuedMessages = new Map(state.queuedMessages);
+      const existing = state.queuedMessages.get(key) || [];
+      const updated = existing.filter((m) => m.id !== id);
+      if (existing.length !== updated.length) {
+        updated.push(message);
+        // sort descending by time sent
+        updated.sort((a, b) => b.sent.getTime() - a.sent.getTime());
+        queuedMessages.set(key, updated);
+        return { queuedMessages };
+      } else {
+        // if no update, return existing queued messages to prevent re-render
+        return {
+          queuedMessages: state.queuedMessages
+        };
+      }
     });
   },
   messages: new Map(),
