@@ -39,7 +39,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   return (
     <PublicationWrapper
       className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
-      publication={publication}
+      publication={rootPublication}
     >
       {feedItem ? (
         <ActionType feedItem={feedItem} />
