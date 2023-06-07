@@ -29,17 +29,15 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface DeleteProps {
   publication: Publication;
+  setIsLoading: (isLoading: boolean) => void;
+  isLoading: boolean;
 }
 
-const Mirror: FC<DeleteProps> = ({ publication }) => {
+const Mirror: FC<DeleteProps> = ({ publication, setIsLoading, isLoading }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [isLoading, setIsLoading] = useState(false);
-  const count = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
     isMirror
       ? publication?.mirrorOf?.mirrors?.length > 0
