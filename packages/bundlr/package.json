@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^0.3.50"
+    "viem": "^1.0.0"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
