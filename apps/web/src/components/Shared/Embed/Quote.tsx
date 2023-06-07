@@ -7,12 +7,12 @@ import PublicationShimmer from '../Shimmer/PublicationShimmer';
 import Wrapper from './Wrapper';
 
 interface PublicationProps {
-  publicationIds: string[];
+  publicationId: string;
 }
 
-const Quote: FC<PublicationProps> = ({ publicationIds }) => {
+const Quote: FC<PublicationProps> = ({ publicationId }) => {
   const { data, loading, error } = usePublicationQuery({
-    variables: { request: { publicationId: publicationIds[0] } }
+    variables: { request: { publicationId } }
   });
 
   if (loading) {

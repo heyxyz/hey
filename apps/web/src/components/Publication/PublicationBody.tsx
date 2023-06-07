@@ -5,7 +5,7 @@ import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
-import getLensPublicationIdsFromUrls from '@lenster/lib/getLensPublicationIdsFromUrls';
+import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import { Trans } from '@lingui/macro';
@@ -30,12 +30,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const urls = getURLs(publication?.metadata?.content);
   const hasURLs = urls?.length > 0;
   const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
-  const renderPublications = getLensPublicationIdsFromUrls(urls);
+  const quotedPublicationId = getPublicationAttribute(
+    publication.metadata.attributes,
+    'quotedPublicationId'
+  );
 
   let content = publication?.metadata?.content;
-  const filterId =
-    snapshotProposalId ||
-    (renderPublications.length > 0 && renderPublications[0]);
+  const filterId = snapshotProposalId || quotedPublicationId;
 
   if (filterId) {
     for (const url of urls) {
@@ -51,7 +52,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const showAttachments = publication?.metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
-  const showPublicationEmbed = renderPublications.length > 0 && nestedEmbeds;
+  const showPublicationEmbed = quotedPublicationId && nestedEmbeds;
   const showOembed =
     hasURLs && !showAttachments && !showSnapshot && !showPublicationEmbed;
 
@@ -81,7 +82,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         />
       ) : null}
       {showPublicationEmbed ? (
-        <Quote publicationIds={renderPublications} />
+        <Quote publicationId={quotedPublicationId} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
