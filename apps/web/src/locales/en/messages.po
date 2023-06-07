@@ -334,10 +334,6 @@ msgstr ""
 msgid "Post"
 msgstr "Post"
 
-#: src/components/Composer/Post/New.tsx
-msgid "Create post"
-msgstr ""
-
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -1577,6 +1573,10 @@ msgstr "Unmirror"
 msgid "Mirror"
 msgstr ""
 
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote"
+msgstr "Quote"
+
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
 msgstr ""
@@ -2297,6 +2297,10 @@ msgstr "Change Profile"
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Create post"
 msgstr ""
 
 #: src/components/Shared/IndexStatus.tsx
