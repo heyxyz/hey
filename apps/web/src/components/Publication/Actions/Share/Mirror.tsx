@@ -1,7 +1,7 @@
+import { Menu } from '@headlessui/react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
-import { Errors } from '@lenster/data';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { Errors, LENSHUB_PROXY } from '@lenster/data';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
@@ -16,36 +16,28 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Spinner, Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { motion } from 'framer-motion';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { type FC, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface MirrorProps {
+interface DeleteProps {
   publication: Publication;
-  showCount: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+  isLoading: boolean;
 }
 
-const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
+const Mirror: FC<DeleteProps> = ({ publication, setIsLoading, isLoading }) => {
   const isMirror = publication.__typename === 'Mirror';
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [isLoading, setIsLoading] = useState(false);
-  const count = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
   const [mirrored, setMirrored] = useState(
     isMirror
       ? publication?.mirrorOf?.mirrors?.length > 0
@@ -62,6 +54,7 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     cache.modify({
       id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
       fields: {
+        mirrors: (mirrors) => [...mirrors, currentProfile?.id],
         stats: (stats) => ({
           ...stats,
           totalAmountOfMirrors: stats.totalAmountOfMirrors + 1
@@ -210,46 +203,24 @@ const Mirror: FC<MirrorProps> = ({ publication, showCount }) => {
     }
   };
 
-  const iconClassName = showCount
-    ? 'w-[17px] sm:w-[20px]'
-    : 'w-[15px] sm:w-[18px]';
-
   return (
-    <div
-      className={clsx(
-        mirrored ? 'text-green-500' : 'text-brand',
-        'flex items-center space-x-1'
-      )}
+    <Menu.Item
+      as="div"
+      className={({ active }) =>
+        clsx(
+          { 'dropdown-active': active },
+          mirrored ? 'text-green-500' : 'text-brand',
+          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+        )
+      }
+      onClick={createMirror}
+      disabled={isLoading}
     >
-      <motion.button
-        whileTap={{ scale: 0.9 }}
-        onClick={createMirror}
-        disabled={isLoading}
-        aria-label="Mirror"
-      >
-        <div
-          className={clsx(
-            mirrored ? 'hover:bg-green-300/20' : 'hover:bg-brand-300/20',
-            'rounded-full p-1.5'
-          )}
-        >
-          {isLoading ? (
-            <Spinner variant={mirrored ? 'success' : 'primary'} size="xs" />
-          ) : (
-            <Tooltip
-              placement="top"
-              content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
-              withDelay
-            >
-              <SwitchHorizontalIcon className={iconClassName} />
-            </Tooltip>
-          )}
-        </div>
-      </motion.button>
-      {count > 0 && !showCount && (
-        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-      )}
-    </div>
+      <div className="flex items-center space-x-2">
+        <SwitchHorizontalIcon className="h-4 w-4" />
+        <div>{mirrored ? <Trans>Unmirror</Trans> : <Trans>Mirror</Trans>}</div>
+      </div>
+    </Menu.Item>
   );
 };
 

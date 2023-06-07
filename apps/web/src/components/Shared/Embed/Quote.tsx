@@ -1,5 +1,6 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import { Publication, usePublicationQuery } from '@lenster/lens';
+import QuotedPublication from '@components/Publication/QuotedPublication';
+import type { Publication } from '@lenster/lens';
+import { usePublicationQuery } from '@lenster/lens';
 import type { FC } from 'react';
 
 import PublicationShimmer from '../Shimmer/PublicationShimmer';
@@ -9,7 +10,7 @@ interface PublicationProps {
   publicationIds: string[];
 }
 
-const Publication: FC<PublicationProps> = ({ publicationIds }) => {
+const Quote: FC<PublicationProps> = ({ publicationIds }) => {
   const { data, loading, error } = usePublicationQuery({
     variables: { request: { publicationId: publicationIds[0] } }
   });
@@ -28,15 +29,9 @@ const Publication: FC<PublicationProps> = ({ publicationIds }) => {
 
   return (
     <Wrapper zeroPadding>
-      <SinglePublication
-        publication={data.publication as Publication}
-        showThread={false}
-        showType={false}
-        showActions={false}
-        showMore
-      />
+      <QuotedPublication publication={data.publication as Publication} />
     </Wrapper>
   );
 };
 
-export default Publication;
+export default Quote;

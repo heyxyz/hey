@@ -313,7 +313,7 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-#: src/components/Publication/Actions/Mirror.tsx
+#: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
@@ -1547,18 +1547,6 @@ msgstr ""
 msgid "Translate"
 msgstr ""
 
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Post has been mirrored!"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "{0} Mirrors"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Mirror"
-msgstr ""
-
 #: src/components/Publication/Actions/Mod.tsx
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -1574,6 +1562,23 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Post has been mirrored!"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "{0} Mirrors"
 msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -2741,7 +2746,7 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
+msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
@@ -2903,4 +2908,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
