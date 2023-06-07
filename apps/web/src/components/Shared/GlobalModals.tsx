@@ -1,3 +1,4 @@
+import NewPublication from '@components/Composer/NewPublication';
 import Report from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
@@ -37,6 +38,13 @@ const GlobalModals: FC = () => {
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
+  const showNewPostModal = useGlobalModalStateStore(
+    (state) => state.showNewPostModal
+  );
+  const setShowNewPostModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPostModal
+  );
+  // TODO: migrate to useGlobalModalStateStore
   const showAuthModal = useAuthStore((state) => state.showAuthModal);
   const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
 
@@ -76,6 +84,14 @@ const GlobalModals: FC = () => {
         dataTestId="login-modal"
       >
         <Login />
+      </Modal>
+      <Modal
+        title={t`Create post`}
+        size="md"
+        show={showNewPostModal}
+        onClose={() => setShowNewPostModal(false)}
+      >
+        <NewPublication />
       </Modal>
     </>
   );
