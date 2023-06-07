@@ -7,8 +7,8 @@ import { useAppStore } from 'src/store/app';
 import Collect from './Collect';
 import Comment from './Comment';
 import Like from './Like';
-import Mirror from './Mirror';
 import Mod from './Mod';
+import ShareMenu from './Share';
 
 interface PublicationActionsProps {
   publication: Publication;
@@ -33,7 +33,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       aria-hidden="true"
     >
       <Comment publication={publication} showCount={showCount} />
-      {canMirror && <Mirror publication={publication} showCount={showCount} />}
+      {canMirror && (
+        <ShareMenu publication={publication} showCount={showCount} />
+      )}
       <Like publication={publication} showCount={showCount} />
       {collectModuleType !== 'RevertCollectModuleSettings' && (
         <Collect
