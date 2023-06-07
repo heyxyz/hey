@@ -313,7 +313,7 @@ msgid "What's happening?"
 msgstr "என்ன நடக்கிறது?"
 
 #: src/components/Composer/NewPublication.tsx
-#: src/components/Publication/Actions/Mirror.tsx
+#: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
@@ -1547,18 +1547,6 @@ msgstr "கிளிப்போர்டுக்கு நகலெடுக�
 msgid "Translate"
 msgstr "மொழிபெயர்"
 
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Post has been mirrored!"
-msgstr "இடுகை மிரர் செய்யப்பட்டது!"
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "{0} Mirrors"
-msgstr "{0} மிரர்கள்"
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Mirror"
-msgstr "மிரர்"
-
 #: src/components/Publication/Actions/Mod.tsx
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -1575,6 +1563,23 @@ msgstr ""
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
 msgstr "ஸ்பான்சரை நிறுத்து"
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Post has been mirrored!"
+msgstr "இடுகை மிரர் செய்யப்பட்டது!"
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "Mirror"
+msgstr "மிரர்"
+
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "{0} Mirrors"
+msgstr "{0} மிரர்கள்"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -2741,8 +2746,8 @@ msgid "Unfollow"
 msgstr "பின்தொடராதே"
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
-msgstr "உங்களிடம் போதுமான <0>{0}</0> இல்லை"
+msgid "You don't have enough <0>{currency}</0>"
+msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
@@ -2903,4 +2908,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

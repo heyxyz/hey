@@ -1,5 +1,5 @@
 import Attachments from '@components/Shared/Attachments';
-import Profile from '@components/Shared/Embed/Publication';
+import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
@@ -79,7 +79,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         />
       ) : null}
       {showPublicationEmbed ? (
-        <Profile publicationIds={renderPublications} />
+        <Quote publicationIds={renderPublications} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? <Oembed url={urls[0]} /> : null}
