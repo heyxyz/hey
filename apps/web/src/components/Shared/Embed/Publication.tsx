@@ -1,8 +1,9 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import { Publication, usePublicationQuery } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Card } from '@lenster/ui';
 import type { FC } from 'react';
+
+import PublicationShimmer from '../Shimmer/PublicationShimmer';
+import Wrapper from './Wrapper';
 
 interface PublicationProps {
   publicationIds: string[];
@@ -14,7 +15,11 @@ const Publication: FC<PublicationProps> = ({ publicationIds }) => {
   });
 
   if (loading) {
-    return null;
+    return (
+      <Wrapper zeroPadding>
+        <PublicationShimmer showActions={false} />
+      </Wrapper>
+    );
   }
 
   if (error || !data) {
@@ -22,11 +27,7 @@ const Publication: FC<PublicationProps> = ({ publicationIds }) => {
   }
 
   return (
-    <Card
-      className="mt-3 cursor-auto"
-      forceRounded
-      onClick={stopEventPropagation}
-    >
+    <Wrapper zeroPadding>
       <SinglePublication
         publication={data.publication as Publication}
         showThread={false}
@@ -34,7 +35,7 @@ const Publication: FC<PublicationProps> = ({ publicationIds }) => {
         showActions={false}
         showMore
       />
-    </Card>
+    </Wrapper>
   );
 };
 
