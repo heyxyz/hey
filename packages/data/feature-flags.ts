@@ -3,7 +3,8 @@ export enum FeatureFlag {
   NftGallery = 'nft-gallery',
   NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
-  Polls = 'polls'
+  Polls = 'polls',
+  Spaces = 'spaces'
 }
 
 export enum KillSwitch {
