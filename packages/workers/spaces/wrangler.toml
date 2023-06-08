@@ -1,0 +1,12 @@
+name = "spaces"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "spaces.lenster.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+HUDDLE_API_KEY = ""

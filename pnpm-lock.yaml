@@ -707,6 +707,25 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
 
+  packages/workers/spaces:
+    dependencies:
+      itty-router:
+        specifier: ^4.0.9
+        version: 4.0.9
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230518.0
+        version: 4.20230518.0
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.1.3
+        version: 5.1.3
+      wrangler:
+        specifier: ^3.1.0
+        version: 3.1.0
+
   packages/workers/sts-generator:
     dependencies:
       '@aws-sdk/client-sts':
