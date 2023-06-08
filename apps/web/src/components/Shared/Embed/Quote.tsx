@@ -6,11 +6,11 @@ import type { FC } from 'react';
 import PublicationShimmer from '../Shimmer/PublicationShimmer';
 import Wrapper from './Wrapper';
 
-interface PublicationProps {
+interface QuoteProps {
   publicationId: string;
 }
 
-const Quote: FC<PublicationProps> = ({ publicationId }) => {
+const Quote: FC<QuoteProps> = ({ publicationId }) => {
   const { data, loading, error } = usePublicationQuery({
     variables: { request: { publicationId } }
   });

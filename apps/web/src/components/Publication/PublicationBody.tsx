@@ -1,17 +1,21 @@
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
+import Space from '@components/Shared/Embed/Space';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
+import { Growthbook } from '@lib/growthbook';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
+import type { Space as TSpace } from 'src/types';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -26,6 +30,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false,
   quoted = false
 }) => {
+  const { on: isSpacesEnabled } = Growthbook.feature(FeatureFlag.Spaces);
   const { id, metadata } = publication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
   const urls = getURLs(metadata?.content);
@@ -35,6 +40,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     metadata.attributes,
     'quotedPublicationId'
   );
+  const spaceObject = getPublicationAttribute(metadata.attributes, 'space');
+  const space: TSpace = Boolean(spaceObject) ? JSON.parse(spaceObject) : null;
 
   let content = metadata?.content;
   const filterId = snapshotProposalId || quotedPublicationId;
@@ -49,6 +56,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   if (metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
+  }
+
+  if (Boolean(space?.id) && isSpacesEnabled) {
+    return <Space publication={publication} />;
   }
 
   const showAttachments = metadata?.media?.length > 0;
