@@ -1,14 +1,14 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import { MicrophoneIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
-import { useState, type FC } from 'react';
+import { Button, Modal } from '@lenster/ui';
+import { type FC, useState } from 'react';
 import { Space } from 'src/types';
 
 import Wrapper from '../Wrapper';
-import { Button, Modal } from '@lenster/ui';
 import SpacePlayer from './SpacePlayer';
-import { MicrophoneIcon, PlusCircleIcon } from '@heroicons/react/outline';
 
 interface SpaceProps {
   publication: Publication;
