@@ -1,7 +1,7 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import createPoll from './handlers/createPoll';
 import type { Env } from './types';
+import createSpace from './handlers/createSpace';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -12,7 +12,7 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('say gm to spaces service 👋'));
-router.post('/createSpace', createPoll);
+router.post('/createSpace', createSpace);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
