@@ -1,4 +1,5 @@
-import { getLensAccessToken, getLensMessage, getMessage } from '@huddle01/auth';
+import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
+import { useDisplayName } from '@huddle01/react/app-utils';
 import {
   useAudio,
   useHuddle01,
@@ -8,12 +9,12 @@ import {
   useRoom
 } from '@huddle01/react/hooks';
 import type { Profile, Publication } from '@lenster/lens';
-import { useState } from 'react';
 import type { FC } from 'react';
+import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useSignMessage } from 'wagmi';
-import { useDisplayName } from '@huddle01/react/app-utils';
-import { useAppStore } from 'src/store/app';
+
 import SpaceUser from './SpaceUser';
 
 interface SpacePlayerProps {

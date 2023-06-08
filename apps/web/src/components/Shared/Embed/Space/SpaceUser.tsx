@@ -1,22 +1,14 @@
-import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { MicrophoneIcon, PlusCircleIcon } from '@heroicons/react/outline';
-import type { Profile, Publication } from '@lenster/lens';
-import { useProfileQuery, useProfilesQuery } from '@lenster/lens';
-import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
-import { Button, Modal } from '@lenster/ui';
-import { type FC, useState } from 'react';
-import { Space } from 'src/types';
-
-import Wrapper from '../Wrapper';
-import SpacePlayer from './SpacePlayer';
 import UserProfile from '@components/Shared/UserProfile';
+import type { Profile } from '@lenster/lens';
+import { useProfileQuery } from '@lenster/lens';
+import { type FC } from 'react';
 
 interface SpaceUserProps {
   profileId: string;
 }
 
 const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
-  const { data, loading, error } = useProfileQuery({
+  const { data, loading } = useProfileQuery({
     variables: { request: { profileId } },
     skip: !profileId || profileId === 'Guest'
   });
