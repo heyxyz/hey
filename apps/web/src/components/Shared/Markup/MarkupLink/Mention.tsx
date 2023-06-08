@@ -29,7 +29,9 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
       href={`/u/${formatHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.CLICK_MENTION, { handle });
+        Leafwatch.track(PUBLICATION.CLICK_MENTION, {
+          handle: formatHandle(handle)
+        });
       }}
     >
       {profile?.handle ? (

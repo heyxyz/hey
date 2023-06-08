@@ -1,10 +1,10 @@
 {
-  "name": "@workers/sts-generator",
+  "name": "@workers/spaces",
   "version": "0.0.0",
   "private": true,
   "license": "GPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8082",
+    "dev": "wrangler dev --port 8089",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -13,7 +13,6 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.348.0",
     "itty-router": "^4.0.9"
   },
   "devDependencies": {

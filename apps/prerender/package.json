@@ -28,7 +28,7 @@
   "devDependencies": {
     "@lenster/config": "workspace:*",
     "@lenster/lens": "workspace:*",
-    "@types/react": "^18.2.8",
+    "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
     "typescript": "^5.1.3"
   }
