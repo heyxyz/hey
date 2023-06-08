@@ -707,6 +707,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
+        {
+          traitType: 'space',
+          displayType: PublicationMetadataDisplayTypes.String,
+          value: JSON.stringify({
+            id: 'ytg-texo-vks',
+            mainHost: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3',
+            subHosts: [
+              '0x01d79BcEaEaaDfb8fD2F2f53005289CFcF483464',
+              '0x4A1a2197f307222cD67A1762D9A352F64558d9Be',
+              '0x7241DDDec3A6aF367882eAF9651b87E1C7549Dff'
+            ]
+          })
+        },
         ...(quotedPublication
           ? [
               {

@@ -1,10 +1,5 @@
-import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { APP_NAME } from '@lenster/data/constants';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-
+import { getLensAccessToken, getLensMessage, getMessage } from '@huddle01/auth';
 import { useHuddle01 } from '@huddle01/react';
 import {
   useAudio,
@@ -13,13 +8,10 @@ import {
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import type { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
-import {
-  getAccessToken,
-  getLensAccessToken,
-  getLensMessage,
-  getMessage
-} from '@huddle01/auth';
 
 const Spaces: NextPage = () => {
   const [accessToken, setAccessToken] = useState('');
@@ -76,10 +68,6 @@ const Spaces: NextPage = () => {
         <div className="break-words">
           {JSON.stringify(state.context.displayName)}
         </div>
-        <h2 className="text-2xl">Error</h2>
-        <div className="break-words text-red-500">
-          {JSON.stringify(state.context.error)}
-        </div>
         <h2 className="text-2xl">Peers</h2>
         <div className="break-words">{JSON.stringify(peerIds)}</div>
         <h2 className="text-2xl">Consumers</h2>
@@ -96,27 +84,31 @@ const Spaces: NextPage = () => {
           Sign Message
         </button>
         <br />
-        <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-          Join
-        </button>
-        <br />
-        <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-          Leave
-        </button>
-        <br />
-        <button
-          disabled={!produceAudio.isCallable}
-          onClick={() => produceAudio(micStream)}
-        >
-          Talk
-        </button>
-        <br />
-        <button
-          disabled={!stopProducingAudio.isCallable}
-          onClick={stopProducingAudio}
-        >
-          Mute
-        </button>
+        {accessToken ? (
+          <>
+            <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
+              Join
+            </button>
+            <br />
+            <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+              Leave
+            </button>
+            <br />
+            <button
+              disabled={!produceAudio.isCallable}
+              onClick={() => produceAudio(micStream)}
+            >
+              Talk
+            </button>
+            <br />
+            <button
+              disabled={!stopProducingAudio.isCallable}
+              onClick={stopProducingAudio}
+            >
+              Mute
+            </button>
+          </>
+        ) : null}
       </GridItemEight>
       <GridItemFour>
         <Footer />
