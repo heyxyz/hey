@@ -12,7 +12,7 @@ export type AllMessagesStream = Promise<AsyncGenerator<DecodedMessage>>;
 export const useStreamAllMessages = (
   onMessage: (message: DecodedMessage) => void
 ) => {
-  const { client } = useXmtpClient();
+  const { client } = useXmtpClient(true);
   const streamRef = useRef<AllMessagesStream>();
   const endStreamRef = useRef(async (stream?: AllMessagesStream) => {
     // it's important to reset the stream reference first so that any

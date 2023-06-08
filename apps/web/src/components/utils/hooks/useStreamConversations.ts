@@ -12,7 +12,7 @@ export type ConversationStream = Promise<Stream<Conversation>>;
 export const useStreamConversations = (
   onConversation: (conversation: Conversation) => void
 ) => {
-  const { client } = useXmtpClient();
+  const { client } = useXmtpClient(true);
   const streamRef = useRef<ConversationStream | undefined>();
   const endStreamRef = useRef(async (stream?: ConversationStream) => {
     // it's important to reset the stream reference first so that any
