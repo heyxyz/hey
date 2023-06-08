@@ -23,7 +23,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
 
   // merge space.mainHost and space.subHosts array
   const allHosts = [space.mainHost, ...(space.subHosts ?? [])];
-  const { data, loading, error } = useProfilesQuery({
+  const { data, loading } = useProfilesQuery({
     variables: {
       request: { ownedBy: allHosts }
     }

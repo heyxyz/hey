@@ -105,9 +105,8 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           >
             Mute
           </button>
-          {JSON.stringify(Object.values(peers))}
           {Object.values(peers)
-            // .filter((peer) => peer.mic && peer.displayName !== 'Guest')
+            .filter((peer) => peer.displayName !== 'Guest')
             .map((peer) => (
               <>
                 <div>{JSON.stringify(peer.displayName)}</div>
