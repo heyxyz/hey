@@ -1,0 +1,36 @@
+{
+  "name": "@workers/snapshot-relay",
+  "version": "0.0.0",
+  "private": true,
+  "license": "GPL-3.0",
+  "main": "generated.ts",
+  "scripts": {
+    "codegen": "graphql-codegen",
+    "dev": "wrangler dev --port 8085",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "pnpm dev",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.15",
+    "@lenster/lib": "workspace:*",
+    "@tsndr/cloudflare-worker-jwt": "^2.2.1",
+    "itty-router": "^4.0.9",
+    "viem": "^1.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/fragment-matcher": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@lenster/config": "workspace:*",
+    "typescript": "^5.1.3",
+    "wrangler": "^3.1.0"
+  }
+}

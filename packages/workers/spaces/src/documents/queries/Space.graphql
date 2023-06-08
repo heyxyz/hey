@@ -1,0 +1,7 @@
+query Space($id: String) {
+  proposal(id: $id) {
+    space {
+      id
+    }
+  }
+}
