@@ -7,7 +7,7 @@ import {
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
-import type { Publication } from '@lenster/lens';
+import type { Profile, Publication } from '@lenster/lens';
 import { useState } from 'react';
 import type { FC } from 'react';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -17,7 +17,11 @@ import { useAppStore } from 'src/store/app';
 
 interface SpacePlayerProps {
   publication: Publication;
-  space: any;
+  space: {
+    id: string;
+    mainHost: Profile;
+    subHosts: Profile[];
+  };
 }
 
 const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
@@ -58,7 +62,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   useUpdateEffect(() => {
     if (isInitialized && accessToken) {
-      joinLobby('xuv-ajbu-hrw', accessToken);
+      joinLobby(space.id, accessToken);
     }
   }, [isInitialized, accessToken]);
 

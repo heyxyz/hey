@@ -75,7 +75,14 @@ const Space: FC<SpaceProps> = ({ publication }) => {
         title="Space"
         icon={<MicrophoneIcon className="text-brand h-5 w-5" />}
       >
-        <SpacePlayer publication={publication} space={space} />
+        <SpacePlayer
+          publication={publication}
+          space={{
+            id: space.id,
+            mainHost: mainHostProfile,
+            subHosts: subHostsProfiles
+          }}
+        />
       </Modal>
     </Wrapper>
   );
