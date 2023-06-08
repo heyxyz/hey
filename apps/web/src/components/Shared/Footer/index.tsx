@@ -32,6 +32,9 @@ const Footer: FC = () => {
         <a href="https://github.com/ConsenSys/lineaster" target="_blank" rel="noreferrer noopener">
           <Trans>GitHub</Trans>
         </a>
+        <a href="https://twitter.com/LineasterBuild" target="_blank" rel="noreferrer noopener">
+          <Trans>Twitter</Trans>
+        </a>
       </div>
       <div className="mt-2 flex space-x-4">
         <Locale />
