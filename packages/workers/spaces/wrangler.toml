@@ -9,4 +9,4 @@ routes = [
 ]
 
 [env.production.vars]
-HUDDLE_SECRET_KEY = ""
+HUDDLE_API_KEY = ""

@@ -1,3 +1,3 @@
 export interface Env {
-  HUDDLE_SECRET_KEY: string;
+  HUDDLE_API_KEY: string;
 }

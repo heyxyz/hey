@@ -38,7 +38,7 @@ export default async (request: IRequest, env: Env) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': env.HUDDLE_SECRET_KEY
+          'x-api-key': env.HUDDLE_API_KEY
         },
         body: JSON.stringify({
           title: 'Lenster-Space',
