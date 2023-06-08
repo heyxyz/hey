@@ -1,6 +1,6 @@
 # Lens Protocol - Contracts
 
-To provide the best experience possible on Lineaster, we provide a dedicated `MockProfileCreationProxy` contract and the
+To provide the best experience possible on Lineaster, we have a dedicated `MockProfileCreationProxy` contract, and the
 tooling to deploy it.
 
 This contract aims to create Lens handles, with 2 restrictions:
@@ -18,28 +18,28 @@ This contract aims to create Lens handles, with 2 restrictions:
 
 2. Install dependencies
 
-```
-   npm install
-```
+   ```
+      npm install
+   ```
 
 3. Compile contract
 
-```
-   npm run compile
-```
+   ```
+      npm run compile
+   ```
 
 4. Deploy contract
 
-```
-   npm run deploy
-```
+   ```
+      npm run deploy
+   ```
 
 5. Verify contract on explorer
 
    1. Flatten contract
 
-   ```
-      npm run flatten
-   ```
+      ```
+         npm run flatten
+      ```
 
    2. Copy the content of `Flattened.sol` and use it in the verification process

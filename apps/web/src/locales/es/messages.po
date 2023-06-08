@@ -298,10 +298,6 @@ msgid "Images"
 msgstr ""
 
 #: src/components/Explore/index.tsx
-msgid "For you"
-msgstr ""
-
-#: src/components/Explore/index.tsx
 msgid "Popular"
 msgstr ""
 
@@ -317,6 +313,10 @@ msgstr ""
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr ""
+
+#: src/components/Explore/index.tsx
+#~ msgid "For you"
+#~ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -1940,6 +1940,7 @@ msgid "Website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Twitter"
 msgstr ""
 
@@ -2065,10 +2066,6 @@ msgid "ConsenSys Discord"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Lenster Discord"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
 msgid "Donate to Lenster"
 msgstr ""
 
@@ -2079,6 +2076,10 @@ msgstr ""
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr ""
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Lenster Discord"
+#~ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 #~ msgid "Discord"
@@ -2199,12 +2200,12 @@ msgid "Change wallet"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
-msgid "Browser Wallet"
+msgid "Failed to connect"
 msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
-msgid "Failed to connect"
-msgstr ""
+#~ msgid "Browser Wallet"
+#~ msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2534,11 +2535,11 @@ msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
+msgid "User rejected request"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
-msgid "User rejected request"
+msgid "Unfollowed successfully!"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx

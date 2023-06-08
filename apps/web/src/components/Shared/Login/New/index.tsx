@@ -88,6 +88,8 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       return 'Handle too short';
     } else if (error.data === '0x561a8587') {
       return 'Profile creator not allowlisted';
+    } else if (error.message.includes('The transaction sender must be')) {
+      return error.message;
     }
 
     return `Error code = ${error.data}`;
