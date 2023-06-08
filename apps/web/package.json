@@ -25,6 +25,8 @@
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.0",
+    "@huddle01/auth": "^0.0.1",
+    "@huddle01/react": "^0.0.11",
     "@lens-protocol/sdk-gated": "^1.2.0",
     "@lenster/abis": "workspace:*",
     "@lenster/data": "workspace:*",
