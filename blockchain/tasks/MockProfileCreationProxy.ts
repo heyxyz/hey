@@ -1,21 +1,18 @@
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/dist/src/signer-with-address';
+import { LENS_HUB, LINEA_RESOLVER } from '../../packages/data';
 import { ethers } from 'hardhat';
 
-import { LENS_HUB, LINEA_RESOLVER } from '../../packages/data/constants';
-
 async function main() {
-  const signers: SignerWithAddress[] = await ethers.getSigners();
-  console.log('Deployer address:', signers[0].address);
-  const mockProfileCreationProxy__factory = await ethers.getContractFactory(
-    'MockProfileCreationProxy'
+  const contractName = 'MockProfileCreationProxy';
+  const contract = await ethers.deployContract(contractName, [LENS_HUB, LINEA_RESOLVER]);
+  const contractAddress = await contract.getAddress();
+  const tx = await contract.deploymentTransaction();
+  const txHash = tx?.hash;
+  console.log(
+    `${contractName} deploying in transaction ${txHash} => https://explorer.goerli.linea.build/tx/${txHash}`
   );
-  const mockProfileCreationProxy = await mockProfileCreationProxy__factory.deploy(
-    LENS_HUB,
-    LINEA_RESOLVER
+  console.log(
+    `${contractName} deploying at ${contractAddress} => https://explorer.goerli.linea.build/address/${contractAddress}`
   );
-  await mockProfileCreationProxy.deployed();
-  await mockProfileCreationProxy.deployTransaction.wait();
-  console.log('MockProfileCreationProxy deployed at:', mockProfileCreationProxy.address);
 }
 
 main().catch((error) => {

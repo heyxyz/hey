@@ -298,10 +298,6 @@ msgid "Images"
 msgstr "图像"
 
 #: src/components/Explore/index.tsx
-msgid "For you"
-msgstr "为您推荐"
-
-#: src/components/Explore/index.tsx
 msgid "Popular"
 msgstr "热门"
 
@@ -317,6 +313,10 @@ msgstr "有趣的内容"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "看看别人都在干吗？ • {APP_NAME}"
+
+#: src/components/Explore/index.tsx
+#~ msgid "For you"
+#~ msgstr "为您推荐"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -1940,6 +1940,7 @@ msgid "Website"
 msgstr "网站"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Footer/index.tsx
 msgid "Twitter"
 msgstr "推特"
 
@@ -2065,10 +2066,6 @@ msgid "ConsenSys Discord"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
-msgid "Lenster Discord"
-msgstr ""
-
-#: src/components/Shared/Footer/index.tsx
 msgid "Donate to Lenster"
 msgstr ""
 
@@ -2079,6 +2076,10 @@ msgstr "反馈"
 #: src/components/Shared/Footer/index.tsx
 msgid "GitHub"
 msgstr "GitHub"
+
+#: src/components/Shared/Footer/index.tsx
+#~ msgid "Lenster Discord"
+#~ msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
 #~ msgid "Discord"
@@ -2199,12 +2200,12 @@ msgid "Change wallet"
 msgstr "更换钱包"
 
 #: src/components/Shared/Login/WalletSelector.tsx
-msgid "Browser Wallet"
-msgstr "浏览器钱包"
-
-#: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "连接失败"
+
+#: src/components/Shared/Login/WalletSelector.tsx
+#~ msgid "Browser Wallet"
+#~ msgstr "浏览器钱包"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2534,12 +2535,12 @@ msgid "Switch Network"
 msgstr "切换网络"
 
 #: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
-msgstr "取消关注成功！"
-
-#: src/components/Shared/Unfollow.tsx
 msgid "User rejected request"
 msgstr "用户拒绝了请求"
+
+#: src/components/Shared/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr "取消关注成功！"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollow"
