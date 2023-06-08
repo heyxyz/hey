@@ -14,6 +14,7 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useSignMessage } from 'wagmi';
 import { useDisplayName } from '@huddle01/react/app-utils';
 import { useAppStore } from 'src/store/app';
+import SpaceUser from './SpaceUser';
 
 interface SpacePlayerProps {
   publication: Publication;
@@ -37,7 +38,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   } = useAudio();
   const { joinRoom, leaveRoom } = useRoom();
   const { setDisplayName } = useDisplayName();
-  const { peerIds: peers } = usePeers();
+  const { peers } = usePeers();
   const { state } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
@@ -45,7 +46,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const { signMessage } = useSignMessage({
     onSuccess: async (data) => {
       const token = await getLensAccessToken(data, address as string);
-      console.log('data', token);
       setAccessToken(token.accessToken);
     }
   });
@@ -83,8 +83,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           <div className="break-words">
             {JSON.stringify(state.context.displayName)}
           </div>
-          <h2 className="text-2xl">Peers</h2>
-          <div className="break-words">{JSON.stringify(peers)}</div>
           <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
             Join
           </button>
@@ -106,6 +104,15 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           >
             Mute
           </button>
+          {JSON.stringify(Object.values(peers))}
+          {Object.values(peers)
+            // .filter((peer) => peer.mic && peer.displayName !== 'Guest')
+            .map((peer) => (
+              <>
+                <div>{JSON.stringify(peer.displayName)}</div>
+                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
+              </>
+            ))}
         </>
       ) : null}
     </div>
