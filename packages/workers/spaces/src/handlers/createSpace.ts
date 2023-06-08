@@ -12,7 +12,7 @@ type ExtensionRequest = {
 type CreateRoomResponse = {
   message: string;
   data: {
-    roomID: string;
+    roomId: string;
   };
 };
 
@@ -58,11 +58,11 @@ export default async (request: IRequest, env: Env) => {
     return new Response(
       JSON.stringify({
         success: true,
-        spaceId: createRoomResponse.data.roomID
+        spaceId: createRoomResponse.data.roomId
       })
     );
   } catch (error) {
-    console.error('Failed to create poll', error);
+    console.error('Failed to create space', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

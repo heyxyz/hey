@@ -1,1 +1,1 @@
-# Snapshot relay worker
+# Spaces worker
