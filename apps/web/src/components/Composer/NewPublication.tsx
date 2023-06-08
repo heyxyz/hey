@@ -711,7 +711,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           traitType: 'space',
           displayType: PublicationMetadataDisplayTypes.String,
           value: JSON.stringify({
-            id: 'ytg-texo-vks',
+            id: 'sso-tdfr-ths',
             mainHost: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3',
             subHosts: [
               '0x01d79BcEaEaaDfb8fD2F2f53005289CFcF483464',
