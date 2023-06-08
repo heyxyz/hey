@@ -1,7 +1,7 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import type { Env } from './types';
 import createSpace from './handlers/createSpace';
+import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
