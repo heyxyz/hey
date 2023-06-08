@@ -24,7 +24,7 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const { subHosts, accessToken } = body as ExtensionRequest;
+  const { subHosts } = body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
   if (missingKeysError) {
