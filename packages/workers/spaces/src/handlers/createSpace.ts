@@ -17,29 +17,15 @@ import walletClient from '../helpers/walletClient';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
-  isMainnet: boolean;
-  title: string;
-  description: string;
-  choices: string[];
-  length: number;
+  subHosts: boolean;
+  accessToken: string;
 };
 
-type SnapshotResponse = {
+type SpacesResponse = {
   id: string;
-  ipfs: string;
-  relayer: {
-    address: string;
-    receipt: string;
-  };
 };
 
-const requiredKeys: (keyof ExtensionRequest)[] = [
-  'isMainnet',
-  'title',
-  'description',
-  'choices',
-  'length'
-];
+const requiredKeys: (keyof ExtensionRequest)[] = ['subHosts', 'accessToken'];
 
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
@@ -47,8 +33,7 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const { isMainnet, title, description, choices, length } =
-    body as ExtensionRequest;
+  const { subHosts, accessToken } = body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
   if (missingKeysError) {
