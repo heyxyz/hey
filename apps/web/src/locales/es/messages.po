@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-06 00:09\n"
+"PO-Revision-Date: 2023-06-08 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -313,7 +313,7 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
-#: src/components/Publication/Actions/Mirror.tsx
+#: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
@@ -332,10 +332,6 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
-msgstr ""
-
-#: src/components/Composer/Post/New.tsx
-msgid "Create post"
 msgstr ""
 
 #: src/components/Explore/Feed.tsx
@@ -1547,18 +1543,6 @@ msgstr ""
 msgid "Translate"
 msgstr ""
 
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Post has been mirrored!"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "{0} Mirrors"
-msgstr ""
-
-#: src/components/Publication/Actions/Mirror.tsx
-msgid "Mirror"
-msgstr ""
-
 #: src/components/Publication/Actions/Mod.tsx
 #: src/components/Shared/GlobalAlerts.tsx
 msgid "Mod actions"
@@ -1574,6 +1558,27 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Post has been mirrored!"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "Mirror"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/index.tsx
+msgid "{0} Mirrors"
 msgstr ""
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
@@ -2294,6 +2299,10 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
+#: src/components/Shared/GlobalModals.tsx
+msgid "Create post"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr ""
@@ -2741,7 +2750,7 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
-msgid "You don't have enough <0>{0}</0>"
+msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
