@@ -1565,13 +1565,13 @@ msgid "Post has been mirrored!"
 msgstr "帖子已被转发！"
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
-msgid "Unmirror"
-msgstr ""
-
-#: src/components/Publication/Actions/Share/Mirror.tsx
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "Mirror"
 msgstr "转发"
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote"
@@ -2912,4 +2912,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
