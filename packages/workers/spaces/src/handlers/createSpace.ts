@@ -1,7 +1,7 @@
+import validateLensAccount from '@lenster/lib/validateLensAccount';
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
-import jwt from '@tsndr/cloudflare-worker-jwt';
-import validateLensAccount from '@lenster/lib/validateLensAccount';
 
 import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
