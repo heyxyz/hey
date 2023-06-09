@@ -1,7 +1,6 @@
 import Markup from '@components/Shared/Markup';
-import Collectors from '@components/Shared/Modal/Collectors';
 import Uniswap from '@components/Shared/Uniswap';
-import { ClockIcon, CollectionIcon, UsersIcon, MinusIcon } from '@heroicons/react/outline';
+import { ClockIcon, MinusIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
@@ -14,26 +13,25 @@ import { ethers } from 'ethers';
 import type { Publication } from 'lens';
 import { CollectModules } from 'lens';
 import getAssetAddress from 'lib/getAssetAddress';
-import toast from 'react-hot-toast';
 import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { Button, Modal, Spinner, WarningMessage } from 'ui';
+import { Button, Spinner, WarningMessage } from 'ui';
 import {
   useAccount,
   useBalance,
   useContractRead,
+  useContractWrite,
   useSendTransaction,
-  useWaitForTransaction,
-  useContractWrite
+  useWaitForTransaction
 } from 'wagmi';
 
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
 import { getRoundInfo } from './QuadraticQueries/grantsQueries';
 import { getVotesbyPubId } from './QuadraticQueries/voteCollectQueries';
-import { parseEther } from 'ethers/lib/utils.js';
 interface Props {
   count: number;
   setCount: Dispatch<number>;
