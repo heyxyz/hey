@@ -1565,13 +1565,13 @@ msgid "Post has been mirrored!"
 msgstr "Post has been mirrored!"
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
-msgid "Unmirror"
-msgstr "Unmirror"
-
-#: src/components/Publication/Actions/Share/Mirror.tsx
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "Mirror"
 msgstr ""
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr "Unmirror"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote"
