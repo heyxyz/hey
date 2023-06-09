@@ -126,7 +126,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
               onClick={joinRoom}
               disabled={!joinRoom.isCallable}
             >
-              Join
+              Join Space
             </Button>
           )
         ) : (
