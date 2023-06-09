@@ -91,8 +91,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
     }
   }, [selectedQuadraticRound, editor, publicationContent, setPublicationContent]);
 
-  // console.log('publicationContent2', publicationContent);
-
   return (
     <div className="relative">
       <EmojiPickerPlugin />

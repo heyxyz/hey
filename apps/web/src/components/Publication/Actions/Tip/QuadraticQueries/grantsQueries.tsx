@@ -9,7 +9,7 @@ const apiClient = axios.create({
 });
 
 function graphPostID(lensterPostID: string): string {
-  const [hex1, hex2] = lensterPostID.split('-').map((hex) => hex.trim());
+  const [hex1] = lensterPostID.split('-').map((hex) => hex.trim());
   const num1 = BigInt(hex1);
   const result = num1.toString(16).padStart(64, '0');
   return `0x${result}`;
@@ -23,6 +23,10 @@ async function request(query: string, variables: any = {}) {
     throw new Error('Subgraph fetch error: ' + error);
   }
 }
+
+// *************
+// ROUND QUERIES
+// *************
 
 export async function getRoundInfo(grantsRound: string) {
   const roundLower = grantsRound.toLowerCase();
@@ -71,33 +75,16 @@ export async function getRoundTippingData(grantsRound: string) {
   return data.round;
 }
 
-export async function getPostInfo(address: string, postId: string) {
-  const addressLower = address.toLowerCase();
-  const graphId = graphPostID(postId);
-  const query = `{
-    qfvotes(
-      where: {from: "${addressLower}", projectId: "${graphId}"}
-    ) {
-      amount
-      createdAt
-      id
-      from
-      to
-      projectId
-    }
-  }`;
-  const data = await request(query);
-  return data.qfvotes;
-}
-
-export async function getCurrentRound(blockTimestamp: number) {
+export async function getCurrentActiveRounds(unixTimestamp: number) {
   const query = `{
     rounds(
-      where: {roundEndTime_gt: "${blockTimestamp}"}
+      where: { roundEndTime_gt: "${unixTimestamp}" }
       orderBy: createdAt
       orderDirection: desc
     ) {
       id
+      token
+      
     }
   }`;
   const data = await request(query);
@@ -115,4 +102,27 @@ export async function getAllRounds() {
   }`;
   const data = await request(query);
   return data.rounds;
+}
+
+// ************
+// POST QUERIES
+// ************
+
+export async function getPostInfo(address: string, postId: string) {
+  const addressLower = address.toLowerCase();
+  const graphId = graphPostID(postId);
+  const query = `{
+    qfvotes(
+      where: {from: "${addressLower}", projectId: "${graphId}"}
+    ) {
+      amount
+      createdAt
+      id
+      from
+      to
+      projectId
+    }
+  }`;
+  const data = await request(query);
+  return data.qfvotes;
 }
