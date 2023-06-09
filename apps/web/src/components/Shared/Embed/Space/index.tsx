@@ -5,7 +5,7 @@ import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import { Button, Modal } from '@lenster/ui';
 import { type FC, useState } from 'react';
-import type { Space as TSpace } from 'src/types';
+import type { SpaceMetadata } from 'src/types';
 
 import Wrapper from '../Wrapper';
 import SpacePlayer from './SpacePlayer';
@@ -17,7 +17,7 @@ interface SpaceProps {
 const Space: FC<SpaceProps> = ({ publication }) => {
   const [showPlayer, setShowPlayer] = useState(false);
   const { metadata } = publication;
-  const space: TSpace = JSON.parse(
+  const space: SpaceMetadata = JSON.parse(
     getPublicationAttribute(metadata.attributes, 'space')
   );
 
