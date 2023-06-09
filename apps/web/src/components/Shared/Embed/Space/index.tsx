@@ -1,5 +1,5 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { MicrophoneIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { MicrophoneIcon } from '@heroicons/react/outline';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
@@ -42,7 +42,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
         <b className="text-lg">{metadata.content}</b>
         <Button
           className="!mt-4 flex w-full justify-center"
-          icon={<PlusCircleIcon className="h-5 w-5" />}
+          icon={<MicrophoneIcon className="h-5 w-5" />}
           onClick={() => setShowPlayer(true)}
         >
           Open Space

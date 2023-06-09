@@ -1,3 +1,5 @@
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import { PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import { useDisplayName } from '@huddle01/react/app-utils';
 import { Audio } from '@huddle01/react/components';
@@ -9,6 +11,7 @@ import {
   useRoom
 } from '@huddle01/react/hooks';
 import type { Profile, Publication } from '@lenster/lens';
+import { Button } from '@lenster/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -51,12 +54,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   useEffectOnce(() => {
     initialize('KL1r3E1yHfcrRbXsT4mcE-3mK60Yc3YR');
-    const getAccessToken = async () => {
-      const msg = await getLensMessage(address as string);
-      signMessage({ message: msg.message });
-    };
-
-    // getAccessToken();
   });
 
   useUpdateEffect(() => {
@@ -79,63 +76,71 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   return (
     <div className="p-5">
-      {accessToken ? (
-        <>
-          <div className="text-xl font-bold">{metadata.content}</div>
-          <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-            Join
-          </button>
-          <br />
-          <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-            Leave
-          </button>
-          <br />
-          <button
-            disabled={!produceAudio.isCallable}
-            onClick={() => produceAudio(micStream)}
+      <SmallUserProfile profile={space.host} smallAvatar />
+      <div className="mt-2 space-y-3">
+        <b className="text-lg">{metadata.content}</b>
+        {accessToken ? (
+          isRoomJoined ? (
+            <div>
+              <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+                Leave
+              </button>
+              <br />
+              <button
+                disabled={!produceAudio.isCallable}
+                onClick={() => produceAudio(micStream)}
+              >
+                Talk
+              </button>
+              <br />
+              <button
+                disabled={!stopProducingAudio.isCallable}
+                onClick={stopProducingAudio}
+              >
+                Mute
+              </button>
+              <div className="grid grid-cols-3 gap-6 sm:grid-cols-5">
+                {Object.values(peers)
+                  .filter((peer) => peer.displayName !== 'Guest')
+                  .map((peer) => (
+                    <>
+                      {peer.mic ? (
+                        <Audio
+                          key={peer.peerId}
+                          peerId={peer.peerId}
+                          track={peer.mic}
+                        />
+                      ) : null}
+                      <SpaceUser
+                        key={peer.peerId}
+                        profileId={peer.displayName}
+                      />
+                    </>
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <Button
+              className="flex w-full justify-center"
+              icon={<PlusCircleIcon className="h-5 w-5" />}
+              onClick={joinRoom}
+              disabled={!joinRoom.isCallable}
+            >
+              Join
+            </Button>
+          )
+        ) : (
+          <Button
+            className="flex w-full justify-center"
+            icon={<PencilAltIcon className="h-5 w-5" />}
+            onClick={async () => {
+              const msg = await getLensMessage(address as string);
+              signMessage({ message: msg.message });
+            }}
           >
-            Talk
-          </button>
-          <br />
-          <button
-            disabled={!stopProducingAudio.isCallable}
-            onClick={stopProducingAudio}
-          >
-            Mute
-          </button>
-          {Object.values(peers)
-            .filter((peer) => peer.displayName !== 'Guest')
-            .map((peer) => (
-              <>
-                {peer.mic ? (
-                  <Audio
-                    key={peer.peerId}
-                    peerId={peer.peerId}
-                    track={peer.mic}
-                  />
-                ) : null}
-                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
-              </>
-            ))}
-        </>
-      ) : null}
-      <div className="grid grid-cols-4 gap-4">
-        <SpaceUser profileId="0x0d" />
-        <SpaceUser profileId="0x01" />
-        <SpaceUser profileId="0x02" />
-        <SpaceUser profileId="0x03" />
-        <SpaceUser profileId="0x15" />
-        <SpaceUser profileId="0x16" />
-        <SpaceUser profileId="0x17" />
-        <SpaceUser profileId="0x18" />
-        <SpaceUser profileId="0x19" />
-        <SpaceUser profileId="0x20" />
-        <SpaceUser profileId="0x21" />
-        <SpaceUser profileId="0x22" />
-        <SpaceUser profileId="0x23" />
-        <SpaceUser profileId="0x24" />
-        <SpaceUser profileId="0x25" />
-        <SpaceUser profileId="0x26" />
+            Sign to continue
+          </Button>
+        )}
       </div>
     </div>
   );

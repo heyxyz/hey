@@ -32,16 +32,14 @@ const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
     <Image
       src={getAvatar(profile)}
       loading="lazy"
-      className="h-14 w-14 rounded-full border bg-gray-200 dark:border-gray-700"
-      height={24}
-      width={24}
+      className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700 sm:h-12 sm:w-12"
       alt={formatHandle(profile?.handle)}
     />
   );
 
   const UserName = () => (
-    <div className="flex max-w-[150px] items-center">
-      <div className="truncate">
+    <div className="flex items-center">
+      <div className="max-w-[80px] truncate text-sm sm:max-w-[120px]">
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
       {isVerified(profile?.id) && (
@@ -51,7 +49,7 @@ const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
   );
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center space-y-2">
       <UserAvatar />
       <UserName />
     </div>
