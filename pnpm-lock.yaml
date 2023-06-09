@@ -709,6 +709,9 @@ importers:
 
   packages/workers/spaces:
     dependencies:
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.9
         version: 4.0.9

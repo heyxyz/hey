@@ -13,6 +13,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.9"
   },
   "devDependencies": {

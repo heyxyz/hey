@@ -10,7 +10,7 @@ import {
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import serializedTypedData from '../helpers/serializedTypedData';
-import validateLensAccount from '../helpers/validateLensAccount';
+import validateLensAccount from '@lenster/lib/validateLensAccount';
 import walletClient from '../helpers/walletClient';
 
 type ExtensionRequest = {
