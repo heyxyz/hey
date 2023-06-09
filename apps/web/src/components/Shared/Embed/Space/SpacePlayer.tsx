@@ -1,14 +1,17 @@
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
+import { PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import { useDisplayName } from '@huddle01/react/app-utils';
+import { Audio } from '@huddle01/react/components';
 import {
   useAudio,
   useHuddle01,
   useLobby,
-  useMeetingMachine,
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
 import type { Profile, Publication } from '@lenster/lens';
+import { Button } from '@lenster/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -21,8 +24,7 @@ interface SpacePlayerProps {
   publication: Publication;
   space: {
     id: string;
-    mainHost: Profile;
-    subHosts: Profile[];
+    host: Profile;
   };
 }
 
@@ -37,10 +39,9 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
     produceAudio,
     stream: micStream
   } = useAudio();
-  const { joinRoom, leaveRoom } = useRoom();
+  const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
-  const { state } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
 
@@ -53,12 +54,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   useEffectOnce(() => {
     initialize('KL1r3E1yHfcrRbXsT4mcE-3mK60Yc3YR');
-    const getAccessToken = async () => {
-      const msg = await getLensMessage(address as string);
-      signMessage({ message: msg.message });
-    };
-
-    getAccessToken();
   });
 
   useUpdateEffect(() => {
@@ -69,52 +64,84 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   useUpdateEffect(() => {
     if (fetchAudioStream.isCallable) {
-      setDisplayName(currentProfile?.id);
       fetchAudioStream();
     }
   }, [isLobbyJoined]);
 
+  useUpdateEffect(() => {
+    if (isRoomJoined) {
+      setDisplayName(currentProfile?.id);
+    }
+  }, [isRoomJoined]);
+
   return (
     <div className="p-5">
-      {accessToken ? (
-        <>
-          <h2 className="text-2xl">Room State</h2>
-          <h3 className="break-words">{JSON.stringify(state.value)}</h3>
-          <h2 className="text-2xl">DisplayName</h2>
-          <div className="break-words">
-            {JSON.stringify(state.context.displayName)}
-          </div>
-          <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
-            Join
-          </button>
-          <br />
-          <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-            Leave
-          </button>
-          <br />
-          <button
-            disabled={!produceAudio.isCallable}
-            onClick={() => produceAudio(micStream)}
+      <SmallUserProfile profile={space.host} smallAvatar />
+      <div className="mt-2 space-y-3">
+        <b className="text-lg">{metadata.content}</b>
+        {accessToken ? (
+          isRoomJoined ? (
+            <div>
+              <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
+                Leave
+              </button>
+              <br />
+              <button
+                disabled={!produceAudio.isCallable}
+                onClick={() => produceAudio(micStream)}
+              >
+                Talk
+              </button>
+              <br />
+              <button
+                disabled={!stopProducingAudio.isCallable}
+                onClick={stopProducingAudio}
+              >
+                Mute
+              </button>
+              <div className="grid grid-cols-3 gap-6 sm:grid-cols-5">
+                {Object.values(peers)
+                  .filter((peer) => peer.displayName !== 'Guest')
+                  .map((peer) => (
+                    <>
+                      {peer.mic ? (
+                        <Audio
+                          key={peer.peerId}
+                          peerId={peer.peerId}
+                          track={peer.mic}
+                        />
+                      ) : null}
+                      <SpaceUser
+                        key={peer.peerId}
+                        profileId={peer.displayName}
+                      />
+                    </>
+                  ))}
+              </div>
+            </div>
+          ) : (
+            <Button
+              className="flex w-full justify-center"
+              icon={<PlusCircleIcon className="h-5 w-5" />}
+              onClick={joinRoom}
+              disabled={!joinRoom.isCallable}
+            >
+              Join Space
+            </Button>
+          )
+        ) : (
+          <Button
+            className="flex w-full justify-center"
+            icon={<PencilAltIcon className="h-5 w-5" />}
+            onClick={async () => {
+              const msg = await getLensMessage(address as string);
+              signMessage({ message: msg.message });
+            }}
           >
-            Talk
-          </button>
-          <br />
-          <button
-            disabled={!stopProducingAudio.isCallable}
-            onClick={stopProducingAudio}
-          >
-            Mute
-          </button>
-          {Object.values(peers)
-            .filter((peer) => peer.displayName !== 'Guest')
-            .map((peer) => (
-              <>
-                <div>{JSON.stringify(peer.displayName)}</div>
-                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
-              </>
-            ))}
-        </>
-      ) : null}
+            Sign to continue
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
