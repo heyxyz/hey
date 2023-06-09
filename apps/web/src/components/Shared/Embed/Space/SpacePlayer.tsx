@@ -98,6 +98,13 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           </button>
           <br />
           <button
+            disabled={!fetchAudioStream.isCallable}
+            onClick={fetchAudioStream}
+          >
+            Fetch stream
+          </button>
+          <br />
+          <button
             disabled={!produceAudio.isCallable}
             onClick={() => produceAudio(micStream)}
           >
