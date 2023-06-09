@@ -84,6 +84,10 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
         <>
           <h2 className="text-2xl">Room State</h2>
           <h3 className="break-words">{JSON.stringify(state.value)}</h3>
+          <h2 className="text-2xl">Consumers</h2>
+          <div className="break-words">
+            {JSON.stringify(state.context.consumers)}
+          </div>
           <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
             Join
           </button>
