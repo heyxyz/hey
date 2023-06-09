@@ -1,4 +1,5 @@
 import generateSnapshotAccount from '@lenster/lib/generateSnapshotAccount';
+import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
@@ -10,7 +11,6 @@ import {
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import serializedTypedData from '../helpers/serializedTypedData';
-import validateLensAccount from '../helpers/validateLensAccount';
 import walletClient from '../helpers/walletClient';
 
 type ExtensionRequest = {

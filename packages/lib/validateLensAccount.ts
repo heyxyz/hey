@@ -1,9 +1,3 @@
-type VerifyResponse = {
-  data: {
-    verify: boolean;
-  };
-};
-
 /**
  * Validate lens account using Lens API verify endpoint
  * @param accessToken Lens access token
@@ -21,15 +15,15 @@ const validateLensAccount = async (accessToken: string, isMainnet: boolean) => {
       },
       body: JSON.stringify({
         query: `
-        query Verify {
-          verify(request: { accessToken: "${accessToken}" })
-        }
-      `
+          query Verify {
+            verify(request: { accessToken: "${accessToken}" })
+          }
+        `
       })
     }
   );
 
-  const json: VerifyResponse = await response.json();
+  const json: { data: { verify: boolean } } = await response.json();
 
   return json.data.verify;
 };
