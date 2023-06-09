@@ -20,7 +20,7 @@
     "@lenster/lib": "workspace:*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.9",
-    "viem": "^1.0.0"
+    "viem": "^1.0.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
