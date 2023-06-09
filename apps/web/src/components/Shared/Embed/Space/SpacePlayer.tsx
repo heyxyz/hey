@@ -1,10 +1,10 @@
 import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import { useDisplayName } from '@huddle01/react/app-utils';
+import { Audio } from '@huddle01/react/components';
 import {
   useAudio,
   useHuddle01,
   useLobby,
-  useMeetingMachine,
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
@@ -14,7 +14,6 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useSignMessage } from 'wagmi';
-import { Audio } from '@huddle01/react/components';
 
 import SpaceUser from './SpaceUser';
 

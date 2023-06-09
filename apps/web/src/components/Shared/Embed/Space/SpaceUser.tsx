@@ -1,4 +1,3 @@
-import Slug from '@components/Shared/Slug';
 import { BadgeCheckIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
