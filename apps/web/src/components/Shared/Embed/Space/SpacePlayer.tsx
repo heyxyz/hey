@@ -21,8 +21,7 @@ interface SpacePlayerProps {
   publication: Publication;
   space: {
     id: string;
-    mainHost: Profile;
-    subHosts: Profile[];
+    host: Profile;
   };
 }
 

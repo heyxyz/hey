@@ -5,7 +5,6 @@ import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
-  subHosts: string[];
   accessToken: string;
 };
 
@@ -24,7 +23,7 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const { subHosts } = body as ExtensionRequest;
+  const { accessToken } = body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
   if (missingKeysError) {
@@ -42,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
         },
         body: JSON.stringify({
           title: 'Lenster-Space',
-          hostWallets: subHosts
+          hostWallets: ['']
         })
       }
     );

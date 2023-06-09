@@ -21,11 +21,9 @@ const Space: FC<SpaceProps> = ({ publication }) => {
     getPublicationAttribute(metadata.attributes, 'space')
   );
 
-  // merge space.mainHost and space.subHosts array
-  const allHosts = [space.mainHost, ...(space.subHosts ?? [])];
   const { data, loading } = useProfilesQuery({
     variables: {
-      request: { ownedBy: allHosts }
+      request: { ownedBy: [space.host] }
     }
   });
 
@@ -33,33 +31,15 @@ const Space: FC<SpaceProps> = ({ publication }) => {
     return <div>Loading...</div>;
   }
 
-  // get mainHost profile
-  const mainHostProfile = data?.profiles?.items?.find(
-    (profile) => profile?.ownedBy === space.mainHost && profile?.isDefault
+  const hostProfile = data?.profiles?.items?.find(
+    (profile) => profile?.ownedBy === space.host && profile?.isDefault
   ) as Profile;
-  const subHostsProfiles = data?.profiles?.items?.filter(
-    (profile) => profile?.ownedBy !== space.mainHost && profile?.isDefault
-  ) as Profile[];
 
   return (
     <Wrapper className="!bg-brand-500/30 border-brand-400 mt-0 !p-3">
-      <SmallUserProfile profile={mainHostProfile} smallAvatar />
+      <SmallUserProfile profile={hostProfile} smallAvatar />
       <div className="mt-2 space-y-3">
         <b className="text-lg">{metadata.content}</b>
-        {subHostsProfiles?.length > 0 && (
-          <div className="space-y-2">
-            <b className="lt-text-gray-500 text-sm">Subhosts</b>
-            <div>
-              {subHostsProfiles.map((profile) => (
-                <SmallUserProfile
-                  key={profile.ownedBy}
-                  profile={profile}
-                  smallAvatar
-                />
-              ))}
-            </div>
-          </div>
-        )}
         <Button
           className="!mt-4 flex w-full justify-center"
           icon={<PlusCircleIcon className="h-5 w-5" />}
@@ -79,8 +59,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
           publication={publication}
           space={{
             id: space.id,
-            mainHost: mainHostProfile,
-            subHosts: subHostsProfiles
+            host: hostProfile
           }}
         />
       </Modal>
