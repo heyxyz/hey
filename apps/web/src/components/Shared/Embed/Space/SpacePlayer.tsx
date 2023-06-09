@@ -40,7 +40,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
-  const { state } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
 
@@ -58,7 +57,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
       signMessage({ message: msg.message });
     };
 
-    getAccessToken();
+    // getAccessToken();
   });
 
   useUpdateEffect(() => {
@@ -83,12 +82,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
     <div className="p-5">
       {accessToken ? (
         <>
-          <h2 className="text-2xl">Room State</h2>
-          <h3 className="break-words">{JSON.stringify(state.value)}</h3>
-          <h2 className="text-2xl">Consumers</h2>
-          <div className="break-words">
-            {JSON.stringify(state.context.consumers)}
-          </div>
+          <div className="text-xl font-bold">{metadata.content}</div>
           <button disabled={!joinRoom.isCallable} onClick={joinRoom}>
             Join
           </button>
@@ -126,6 +120,24 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
             ))}
         </>
       ) : null}
+      <div className="grid grid-cols-4 gap-4">
+        <SpaceUser profileId="0x0d" />
+        <SpaceUser profileId="0x01" />
+        <SpaceUser profileId="0x02" />
+        <SpaceUser profileId="0x03" />
+        <SpaceUser profileId="0x15" />
+        <SpaceUser profileId="0x16" />
+        <SpaceUser profileId="0x17" />
+        <SpaceUser profileId="0x18" />
+        <SpaceUser profileId="0x19" />
+        <SpaceUser profileId="0x20" />
+        <SpaceUser profileId="0x21" />
+        <SpaceUser profileId="0x22" />
+        <SpaceUser profileId="0x23" />
+        <SpaceUser profileId="0x24" />
+        <SpaceUser profileId="0x25" />
+        <SpaceUser profileId="0x26" />
+      </div>
     </div>
   );
 };
