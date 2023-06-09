@@ -1,13 +1,17 @@
-import { getAllRounds } from '@components/Publication/Actions/Collect/QuadraticQueries/grantsQueries';
+import { getAllRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface SelectQuadraticRoundMenuProps {
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const SelectQuadraticRoundMenu = ({ setSelectedQuadraticRound }: SelectQuadraticRoundMenuProps) => {
+const SelectQuadraticRoundMenu = ({
+  setSelectedQuadraticRound,
+  setShowModal
+}: SelectQuadraticRoundMenuProps) => {
   const [roundArray, setRoundArray] = useState<{ id: string }[]>();
 
   useEffect(() => {
@@ -36,7 +40,10 @@ const SelectQuadraticRoundMenu = ({ setSelectedQuadraticRound }: SelectQuadratic
                       active ? 'bg-white text-white' : 'text-purple-500'
                     } group my-1 flex w-full items-center justify-center rounded-md bg-purple-300 px-2 py-2 text-sm hover:bg-purple-500`}
                     href="#"
-                    onClick={() => setSelectedQuadraticRound(round.id)}
+                    onClick={() => {
+                      setSelectedQuadraticRound(round.id);
+                      setShowModal(false);
+                    }}
                   >
                     {round.id}
                   </a>

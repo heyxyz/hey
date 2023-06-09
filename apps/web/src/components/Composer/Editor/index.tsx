@@ -15,19 +15,30 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import Errors from 'data/errors';
-import { COMMAND_PRIORITY_NORMAL, INSERT_LINE_BREAK_COMMAND, INSERT_PARAGRAPH_COMMAND } from 'lexical';
+import type { LexicalCommand } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, createCommand } from 'lexical';
 import type { FC } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
-const Editor: FC = () => {
+const QUADRATIC_ROUND_SELECTED_COMMAND: LexicalCommand<string> = createCommand();
+const UPDATE_EDITOR_CONTENT_COMMAND: LexicalCommand<string> = createCommand();
+
+interface Props {
+  selectedQuadraticRound: string;
+}
+
+const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
+  const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
   const [editor] = useLexicalComposerContext();
+  const prevQuadraticRoundRef = useRef('');
+  const [roundNotifications, setRoundNotifications] = useState<string>('');
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
@@ -40,15 +51,47 @@ const Editor: FC = () => {
   };
 
   useEffect(() => {
-    return editor.registerCommand(
-      INSERT_PARAGRAPH_COMMAND,
-      () => {
-        editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-        return true;
-      },
-      COMMAND_PRIORITY_NORMAL
-    );
-  }, [editor]);
+    prevQuadraticRoundRef.current = selectedQuadraticRound;
+  }, []);
+
+  // useEffect(() => {
+  //   return editor.registerCommand(
+  //     INSERT_PARAGRAPH_COMMAND,
+  //     () => {
+  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
+  //       return true;
+  //     },
+  //     COMMAND_PRIORITY_NORMAL
+  //   );
+  // }, [editor]);
+
+  useEffect(() => {
+    const prevQuadraticRound = prevQuadraticRoundRef.current;
+
+    if (selectedQuadraticRound !== prevQuadraticRound) {
+      // editor.update(() => {
+      //   const root = $getRoot();
+      //   const textContent = root.getTextContent();
+
+      //   const notificationString = `Your post will be included in the ${prevQuadraticRound} round.`;
+      //   const regex = new RegExp(notificationString.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&'), 'g');
+      //   root.remove()
+      //   console.log('textContent', textContent);
+      // });
+
+      const newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
+
+      editor.update(() => {
+        const p = $createParagraphNode();
+        p.append($createTextNode(newNotification));
+        $getRoot().append(p);
+      });
+
+      prevQuadraticRoundRef.current = selectedQuadraticRound;
+    }
+  }, [selectedQuadraticRound, editor, publicationContent, setPublicationContent]);
+
+  // console.log('publicationContent2', publicationContent);
 
   return (
     <div className="relative">
@@ -63,6 +106,7 @@ const Editor: FC = () => {
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
       />
+
       <OnChangePlugin
         onChange={(editorState) => {
           editorState.read(() => {

@@ -1,26 +1,19 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { UserGroupIcon } from '@heroicons/react/outline';
-import { getTimeAddedNDay } from '@lib/formatTime';
-import isValidEthAddress from '@lib/isValidEthAddress';
+import {
+  ClockIcon,
+  CollectionIcon,
+  StarIcon,
+  SwitchHorizontalIcon,
+  UserGroupIcon
+} from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
-import getEnvConfig from 'data/utils/getEnvConfig';
-import { ethers } from 'ethers';
-import type { Publication } from 'lens';
+import type { Erc20, Publication } from 'lens';
 import { CollectModules, useEnabledModulesQuery } from 'lens';
 import type { Dispatch, FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PUBLICATION } from 'src/tracking';
-import { Button, ErrorMessage, Spinner, Toggle } from 'ui';
-
-import AmountConfig from './AmountConfig';
-import CollectLimitConfig from './CollectLimitConfig';
-import FollowersConfig from './FollowersConfig';
-import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
-import SplitConfig from './SplitConfig';
-import TimeLimitConfig from './TimeLimitConfig';
+import { Button, ErrorMessage, Input, Spinner, Toggle } from 'ui';
 
 interface CollectFormProps {
   setShowModal: Dispatch<boolean>;
@@ -32,20 +25,20 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   const selectedCollectModule = useCollectModuleStore((state) => state.selectedCollectModule);
   const setSelectedCollectModule = useCollectModuleStore((state) => state.setSelectedCollectModule);
   const amount = useCollectModuleStore((state) => state.amount);
+  const setAmount = useCollectModuleStore((state) => state.setAmount);
   const selectedCurrency = useCollectModuleStore((state) => state.selectedCurrency);
+  const setSelectedCurrency = useCollectModuleStore((state) => state.setSelectedCurrency);
   const referralFee = useCollectModuleStore((state) => state.referralFee);
+  const setReferralFee = useCollectModuleStore((state) => state.setReferralFee);
   const collectLimit = useCollectModuleStore((state) => state.collectLimit);
   const setCollectLimit = useCollectModuleStore((state) => state.setCollectLimit);
   const hasTimeLimit = useCollectModuleStore((state) => state.hasTimeLimit);
   const setHasTimeLimit = useCollectModuleStore((state) => state.setHasTimeLimit);
-  const recipients = useCollectModuleStore((state) => state.recipients);
   const followerOnly = useCollectModuleStore((state) => state.followerOnly);
+  const setFollowerOnly = useCollectModuleStore((state) => state.setFollowerOnly);
   const setPayload = useCollectModuleStore((state) => state.setPayload);
   const reset = useCollectModuleStore((state) => state.reset);
   const setCollectToView = useAccessSettingsStore((state) => state.setCollectToView);
-  const [toggleCollectEnabled, setToggleCollectEnabled] = useState(false);
-  const [toggleQuadraticEnabled, setToggleQuadraticEnabled] = useState(false);
-  const [selectedQuadraticRound, setSelecedQuadraticRound] = useState('');
 
   const {
     RevertCollectModule,
@@ -53,20 +46,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     FeeCollectModule,
     LimitedFeeCollectModule,
     LimitedTimedFeeCollectModule,
-    TimedFeeCollectModule,
-    UnknownCollectModule,
-    MultirecipientFeeCollectModule
+    TimedFeeCollectModule
   } = CollectModules;
-  const hasRecipients = recipients.length > 0;
-  const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
-  const hasEmptyRecipients = recipients.some((recipient) => !recipient.recipient);
-  const hasInvalidEthAddressInRecipients = recipients.some(
-    (recipient) => recipient.recipient && !isValidEthAddress(recipient.recipient)
-  );
-  const isRecipientsDuplicated = () => {
-    const recipientsSet = new Set(recipients.map((recipient) => recipient.recipient));
-    return recipientsSet.size !== recipients.length;
-  };
 
   useEffect(() => {
     const baseFeeData = {
@@ -74,7 +55,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         currency: selectedCurrency,
         value: amount
       },
-      [hasRecipients ? 'recipients' : 'recipient']: hasRecipients ? recipients : currentProfile?.ownedBy,
+      recipient: currentProfile?.ownedBy,
       referralFee: parseFloat(referralFee ?? '0'),
       followerOnly
     };
@@ -106,97 +87,74 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       case TimedFeeCollectModule:
         setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
-      case UnknownCollectModule:
-        const fee = referralFee === null ? 0 : parseFloat(referralFee);
-        let encodedQuadraticData = '';
-        if (selectedCollectModule.length > 0 && ethers.utils.isAddress(selectedQuadraticRound)) {
-          encodedQuadraticData = ethers.utils.defaultAbiCoder.encode(
-            ['address', 'uint16', 'address'],
-            [selectedCurrency, fee, selectedQuadraticRound]
-          );
-        }
+      default:
+        setPayload({ revertCollectModule: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
+
+  useEffect(() => {
+    const baseFeeData = {
+      amount: {
+        currency: selectedCurrency,
+        value: amount
+      },
+      recipient: currentProfile?.ownedBy,
+      referralFee: parseFloat(referralFee ?? '0'),
+      followerOnly
+    };
+
+    switch (selectedCollectModule) {
+      case RevertCollectModule:
+        setCollectToView(false);
+        setPayload({ revertCollectModule: true });
+        break;
+      case FreeCollectModule:
+        setPayload({ freeCollectModule: { followerOnly } });
+        break;
+      case FeeCollectModule:
         setPayload({
-          unknownCollectModule: {
-            contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
-            data: encodedQuadraticData
+          feeCollectModule: { ...baseFeeData }
+        });
+        break;
+      case LimitedFeeCollectModule:
+      case LimitedTimedFeeCollectModule:
+        setPayload({
+          [selectedCollectModule === LimitedFeeCollectModule
+            ? 'limitedFeeCollectModule'
+            : 'limitedTimedFeeCollectModule']: {
+            ...baseFeeData,
+            collectLimit
           }
         });
         break;
-      case MultirecipientFeeCollectModule:
-        setPayload({
-          multirecipientFeeCollectModule: {
-            ...baseFeeData,
-            ...(collectLimit && { collectLimit }),
-            ...(hasTimeLimit && {
-              endTimestamp: getTimeAddedNDay(1)
-            })
-          }
-        });
+      case TimedFeeCollectModule:
+        setPayload({ timedFeeCollectModule: { ...baseFeeData } });
         break;
       default:
         setPayload({ revertCollectModule: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, recipients, selectedCollectModule]);
+  }, [amount, referralFee, collectLimit, hasTimeLimit, followerOnly, selectedCollectModule]);
 
   useEffect(() => {
     if (hasTimeLimit) {
       if (amount) {
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedTimedFeeCollectModule);
-          }
-        } else {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(TimedFeeCollectModule);
-          }
-        }
+        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : TimedFeeCollectModule);
       } else {
         setHasTimeLimit(false);
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          setSelectedCollectModule(FreeCollectModule);
-        }
+        setSelectedCollectModule(collectLimit ? LimitedTimedFeeCollectModule : FreeCollectModule);
       }
     } else {
       if (amount) {
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(FeeCollectModule);
-          }
-        }
+        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FeeCollectModule);
       } else {
         setCollectLimit(null);
-        if (collectLimit) {
-          if (hasRecipients) {
-            setSelectedCollectModule(MultirecipientFeeCollectModule);
-          } else {
-            setSelectedCollectModule(LimitedFeeCollectModule);
-          }
-        } else {
-          setSelectedCollectModule(FreeCollectModule);
-        }
+        setSelectedCollectModule(collectLimit ? LimitedFeeCollectModule : FreeCollectModule);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amount, collectLimit, hasTimeLimit, recipients]);
+  }, [amount, collectLimit, hasTimeLimit]);
 
   const { error, data, loading } = useEnabledModulesQuery();
 
@@ -214,35 +172,224 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   if (error) {
     return <ErrorMessage className="p-5" title={t`Failed to load modules`} error={error} />;
   }
-  const toggleQuadratic = () => {
-    setToggleQuadraticEnabled(!toggleQuadraticEnabled);
-    // Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
+  // const toggleQuadratic = () => {
+  //   setToggleQuadraticEnabled(!toggleQuadraticEnabled);
+  //   // Leafwatch.track(PUBLICATION.NEW.COLLECT_MODULE.TOGGLE_COLLECT_MODULE);
 
-    if (toggleCollectEnabled) {
-      setToggleCollectEnabled(false);
-    }
+  //   if (toggleCollectEnabled) {
+  //     setToggleCollectEnabled(false);
+  //   }
 
-    if (!toggleQuadraticEnabled) {
-      // setReferralFee('0');
-      setSelectedCollectModule(UnknownCollectModule);
-    } else {
-      reset();
-      setSelectedCollectModule(RevertCollectModule);
-    }
-  };
+  //   if (!toggleQuadraticEnabled) {
+  //     // setReferralFee('0');
+  //     setSelectedCollectModule(UnknownCollectModule);
+  //   } else {
+  //     reset();
+  //     setSelectedCollectModule(RevertCollectModule);
+  //   }
+  // };
 
   const toggleCollect = () => {
     if (selectedCollectModule === RevertCollectModule) {
       return setSelectedCollectModule(FreeCollectModule);
     } else {
       reset();
-      setSelectedCollectModule(RevertCollectModule);
+      return setSelectedCollectModule(RevertCollectModule);
     }
   };
 
   return (
     <div className="space-y-3 p-5">
-      {PUBLICATION.NEW_COMMENT !== 'Comment' ? (
+      <div className="flex items-center space-x-2">
+        <Toggle on={selectedCollectModule !== RevertCollectModule} setOn={toggleCollect} />
+        <div className="lt-text-gray-500 text-sm font-bold">
+          <Trans>This post can be collected</Trans>
+        </div>
+      </div>
+      {selectedCollectModule !== RevertCollectModule && (
+        <div className="ml-5">
+          <div className="space-y-2 pt-3">
+            <div className="flex items-center space-x-2">
+              <CollectionIcon className="text-brand-500 h-4 w-4" />
+              <span>
+                <Trans>Charge for collecting</Trans>
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle
+                on={Boolean(amount)}
+                setOn={() => {
+                  setAmount(amount ? null : '0');
+                }}
+              />
+              <div className="lt-text-gray-500 text-sm font-bold">
+                <Trans>Get paid whenever someone collects your post</Trans>
+              </div>
+            </div>
+            {amount ? (
+              <div className="pt-2">
+                <div className="flex space-x-2 text-sm">
+                  <Input
+                    label={t`Price`}
+                    type="number"
+                    placeholder="0.5"
+                    min="0"
+                    max="100000"
+                    value={parseFloat(amount)}
+                    onChange={(event) => {
+                      setAmount(event.target.value ? event.target.value : '0');
+                    }}
+                  />
+                  <div>
+                    <div className="label">
+                      <Trans>Select Currency</Trans>
+                    </div>
+                    <select
+                      className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-800"
+                      onChange={(e) => setSelectedCurrency(e.target.value)}
+                    >
+                      {data?.enabledModuleCurrencies.map((currency: Erc20) => (
+                        <option
+                          key={currency.address}
+                          value={currency.address}
+                          selected={currency?.address === selectedCurrency}
+                        >
+                          {currency.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className="space-y-2 pt-5">
+                  <div className="flex items-center space-x-2">
+                    <SwitchHorizontalIcon className="text-brand-500 h-4 w-4" />
+                    <span>
+                      <Trans>Mirror referral reward</Trans>
+                    </span>
+                  </div>
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Share your collect fee with people who amplify your content</Trans>
+                  </div>
+                  <div className="flex space-x-2 pt-2 text-sm">
+                    <Input
+                      label={t`Referral fee`}
+                      type="number"
+                      placeholder="5"
+                      iconRight="%"
+                      min="0"
+                      max="100"
+                      value={parseFloat(referralFee ?? '0')}
+                      onChange={(event) => {
+                        setReferralFee(event.target.value ? event.target.value : '0');
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </div>
+          {selectedCollectModule !== FreeCollectModule && amount && (
+            <>
+              <div className="space-y-2 pt-5">
+                <div className="flex items-center space-x-2">
+                  <StarIcon className="text-brand-500 h-4 w-4" />
+                  <span>
+                    <Trans>Limited edition</Trans>
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Toggle
+                    on={Boolean(collectLimit)}
+                    setOn={() => {
+                      setCollectLimit(collectLimit ? null : '1');
+                    }}
+                  />
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Make the collects exclusive</Trans>
+                  </div>
+                </div>
+                {collectLimit ? (
+                  <div className="flex space-x-2 pt-2 text-sm">
+                    <Input
+                      label={t`Collect limit`}
+                      type="number"
+                      placeholder="5"
+                      min="1"
+                      max="100000"
+                      value={parseFloat(collectLimit)}
+                      onChange={(event) => {
+                        setCollectLimit(event.target.value ? event.target.value : '1');
+                      }}
+                    />
+                  </div>
+                ) : null}
+              </div>
+              <div className="space-y-2 pt-5">
+                <div className="flex items-center space-x-2">
+                  <ClockIcon className="text-brand-500 h-4 w-4" />
+                  <span>
+                    <Trans>Time limit</Trans>
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Toggle
+                    on={hasTimeLimit}
+                    setOn={() => {
+                      setHasTimeLimit(!hasTimeLimit);
+                    }}
+                  />
+                  <div className="lt-text-gray-500 text-sm font-bold">
+                    <Trans>Limit collecting to the first 24h</Trans>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          <div className="space-y-2 pt-5">
+            <div className="flex items-center space-x-2">
+              <UserGroupIcon className="text-brand-500 h-4 w-4" />
+              <span>
+                <Trans>Who can collect</Trans>
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Toggle
+                on={followerOnly}
+                setOn={() => {
+                  setFollowerOnly(!followerOnly);
+                }}
+              />
+              <div className="lt-text-gray-500 text-sm font-bold">
+                <Trans>Only followers can collect</Trans>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="flex space-x-2 pt-5">
+        <Button
+          className="ml-auto"
+          variant="danger"
+          outline
+          onClick={() => {
+            reset();
+            setShowModal(false);
+          }}
+        >
+          <Trans>Cancel</Trans>
+        </Button>
+        <Button onClick={() => setShowModal(false)}>
+          <Trans>Save</Trans>
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default CollectForm;
+
+{
+  /* {PUBLICATION.NEW_COMMENT !== 'Comment' ? (
         <>
           <div className="flex items-center space-x-2">
             <Toggle
@@ -288,56 +435,5 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             </div>
           )}
         </>
-      ) : null}
-      <div className="flex items-center space-x-2">
-        <Toggle
-          on={selectedCollectModule !== RevertCollectModule && toggleCollectEnabled}
-          setOn={toggleCollect}
-        />
-        <div className="lt-text-gray-500 text-sm font-bold">
-          <Trans>This post can be collected</Trans>
-        </div>
-      </div>
-      {selectedCollectModule !== RevertCollectModule && toggleCollectEnabled && (
-        <div className="ml-5">
-          <AmountConfig enabledModuleCurrencies={data?.enabledModuleCurrencies} />
-          {selectedCollectModule !== FreeCollectModule && amount && toggleCollectEnabled && (
-            <>
-              <CollectLimitConfig />
-              <TimeLimitConfig />
-              <SplitConfig isRecipientsDuplicated={isRecipientsDuplicated} />
-            </>
-          )}
-          <FollowersConfig />
-        </div>
-      )}
-      <div className="flex space-x-2 pt-5">
-        <Button
-          className="ml-auto"
-          variant="danger"
-          outline
-          onClick={() => {
-            reset();
-            setShowModal(false);
-          }}
-        >
-          <Trans>Cancel</Trans>
-        </Button>
-        <Button
-          disabled={
-            (parseFloat(amount as string) <= 0 && selectedCollectModule !== FreeCollectModule) ||
-            splitTotal > 100 ||
-            hasEmptyRecipients ||
-            hasInvalidEthAddressInRecipients ||
-            isRecipientsDuplicated()
-          }
-          onClick={() => setShowModal(false)}
-        >
-          <Trans>Save</Trans>
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-export default CollectForm;
+      ) : null} */
+}

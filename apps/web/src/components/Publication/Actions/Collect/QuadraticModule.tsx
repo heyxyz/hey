@@ -45,8 +45,8 @@ import { Button, Modal, Spinner, WarningMessage } from 'ui';
 import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
 
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
-import { getRoundInfo } from './QuadraticQueries/grantsQueries';
-import { getVotesbyPubId } from './QuadraticQueries/voteCollectQueries';
+import { getRoundInfo } from '../Tip/QuadraticQueries/grantsQueries';
+import { getVotesbyPubId } from '../Tip/QuadraticQueries/voteCollectQueries';
 interface Props {
   count: number;
   setCount: Dispatch<number>;
@@ -150,42 +150,93 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     onError
   });
 
+  // useEffect(() => {
+  //   async function fetchRoundInfo(grantsRound: string) {
+  //     const roundInfo = await getRoundInfo(grantsRound);
+  //     return roundInfo;
+  //   }
+
+  //   if (!isFetching && collectModule === quadraticModuleSettings) {
+  //     refetch().then((res: { data: any }) => {
+  //       if (res) {
+  //         const { currency, referral, grantsRoundAddress } = res.data;
+  //         fetchRoundInfo(grantsRoundAddress).then((round) => {
+  //           const roundEnd = new Date(round.roundEndTime * 1000);
+  //           const roundVotingStrategyAddress = round.votingStrategy.id;
+  //           setCollectModule({
+  //             __typename: 'UnknownCollectModuleSettings',
+  //             type: CollectModules.UnknownCollectModule,
+  //             referralFee: referral,
+  //             contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
+  //             followerOnly: false,
+  //             endTimestamp: roundEnd,
+  //             votingStrategy: roundVotingStrategyAddress,
+  //             grantsRound: grantsRoundAddress,
+  //             // alert, will need custom function/api here for this info as this data doesn't exist on UnkownCollectModuleSettings, esp for mumbai
+  //             amount: {
+  //               __typename: 'ModuleFeeAmount',
+  //               value: '.0001',
+  //               asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
+  //             }
+  //           });
+  //         });
+  //       }
+  //     });
+  //   }
+  // }, [isFetching, collectModule, refetch]);
+
+  // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
+
   useEffect(() => {
     async function fetchRoundInfo(grantsRound: string) {
-      const roundInfo = await getRoundInfo(grantsRound);
-      return roundInfo;
+      try {
+        const roundInfo = await getRoundInfo(grantsRound);
+        return roundInfo;
+      } catch (error) {
+        console.error('Error fetching round info:', error);
+        return null;
+      }
+    }
+
+    async function updateCollectModule() {
+      const res = await refetch();
+      if (res) {
+        const { currency, referral, grantsRoundAddress } = res.data as {
+          currency: string;
+          referral: number;
+          grantsRoundAddress: string;
+        };
+        const round = await fetchRoundInfo(grantsRoundAddress);
+        if (round) {
+          const roundEnd = new Date(round.roundEndTime * 1000);
+          const roundVotingStrategyAddress = round.votingStrategy.id;
+          setCollectModule({
+            __typename: 'UnknownCollectModuleSettings',
+            type: CollectModules.UnknownCollectModule,
+            referralFee: referral,
+            contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
+            followerOnly: false,
+            endTimestamp: roundEnd,
+            votingStrategy: roundVotingStrategyAddress,
+            grantsRound: grantsRoundAddress,
+            // alert, will need custom function/api here for this info as this data doesn't exist on UnkownCollectModuleSettings, esp for mumbai
+            amount: {
+              __typename: 'ModuleFeeAmount',
+              value: '.0001',
+              asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
+            }
+          });
+        } else {
+          setReadyToDisplay(true);
+        }
+      }
     }
 
     if (!isFetching && collectModule === quadraticModuleSettings) {
-      refetch().then((res: { data: any }) => {
-        if (res) {
-          const { currency, referral, grantsRoundAddress } = res.data;
-          fetchRoundInfo(grantsRoundAddress).then((round) => {
-            const roundEnd = new Date(round.roundEndTime * 1000);
-            const roundVotingStrategyAddress = round.votingStrategy.id;
-            setCollectModule({
-              __typename: 'UnknownCollectModuleSettings',
-              type: CollectModules.UnknownCollectModule,
-              referralFee: referral,
-              contractAddress: getEnvConfig().QuadraticVoteCollectModuleAddress,
-              followerOnly: false,
-              endTimestamp: roundEnd,
-              votingStrategy: roundVotingStrategyAddress,
-              grantsRound: grantsRoundAddress,
-              // alert, will need custom function/api here for this info as this data doesn't exist on UnkownCollectModuleSettings, esp for mumbai
-              amount: {
-                __typename: 'ModuleFeeAmount',
-                value: '.0001',
-                asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: currency }
-              }
-            });
-          });
-        }
-      });
+      updateCollectModule();
     }
   }, [isFetching, collectModule, refetch]);
 
-  // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
