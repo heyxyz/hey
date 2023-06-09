@@ -98,13 +98,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           </button>
           <br />
           <button
-            disabled={!fetchAudioStream.isCallable}
-            onClick={fetchAudioStream}
-          >
-            Fetch stream
-          </button>
-          <br />
-          <button
             disabled={!produceAudio.isCallable}
             onClick={() => produceAudio(micStream)}
           >
@@ -120,10 +113,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           {Object.values(peers)
             .filter((peer) => peer.displayName !== 'Guest')
             .map((peer) => (
-              <>
-                <div>{JSON.stringify(peer.displayName)}</div>
-                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
-              </>
+              <SpaceUser key={peer.peerId} profileId={peer.displayName} />
             ))}
         </>
       ) : null}

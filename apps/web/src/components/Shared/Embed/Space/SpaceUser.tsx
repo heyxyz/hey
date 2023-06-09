@@ -1,3 +1,4 @@
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
@@ -23,7 +24,7 @@ const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
 
   return (
     <div>
-      <UserProfile profile={data?.profile as Profile} />
+      <SmallUserProfile profile={data?.profile as Profile} />
     </div>
   );
 };
