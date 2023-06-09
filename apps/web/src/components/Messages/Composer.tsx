@@ -14,7 +14,7 @@ import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { ChangeEvent, FC } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
   useAttachmentCachePersistStore,
@@ -22,7 +22,7 @@ import {
 } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
 import { MESSAGES } from 'src/tracking';
-import { useUpdateEffect, useWindowSize } from 'usehooks-ts';
+import { useWindowSize } from 'usehooks-ts';
 import type {
   Attachment as TAttachment,
   RemoteAttachment
@@ -182,6 +182,7 @@ const Composer: FC<ComposerProps> = ({
     if (message.length > 0) {
       sendText = sendMessage(message, ContentTypeText);
       setMessage('');
+      setUnsentMessage(conversationKey, null);
     }
 
     const sentAttachment = await sendAttachment;
@@ -198,7 +199,6 @@ const Composer: FC<ComposerProps> = ({
 
     if (sentText !== null) {
       if (sentText) {
-        setUnsentMessage(conversationKey, null);
         Leafwatch.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending message`);
@@ -208,9 +208,10 @@ const Composer: FC<ComposerProps> = ({
     setSending(false);
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setMessage(unsentMessage ?? '');
-  }, [unsentMessage]);
+    // only run this effect when the conversation changes
+  }, [conversationKey]);
 
   const onChangeCallback = (value: string) => {
     setUnsentMessage(conversationKey, value);
