@@ -1,7 +1,8 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon } from '@heroicons/react/outline';
+
 import type {
   Comment,
   Publication,
@@ -100,7 +101,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       {!publication?.hidden && !loading && totalComments === 0 && (
         <EmptyState
           message={t`Be the first one to comment!`}
-          icon={<CollectionIcon className="text-brand h-8 w-8" />}
+          icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
         />
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
