@@ -15,7 +15,7 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { Space as TSpace } from 'src/types';
+import type { SpaceMetadata } from 'src/types';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -41,7 +41,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     'quotedPublicationId'
   );
   const spaceObject = getPublicationAttribute(metadata.attributes, 'space');
-  const space: TSpace = Boolean(spaceObject) ? JSON.parse(spaceObject) : null;
+  const space: SpaceMetadata = Boolean(spaceObject)
+    ? JSON.parse(spaceObject)
+    : null;
 
   let content = metadata?.content;
   const filterId = snapshotProposalId || quotedPublicationId;
