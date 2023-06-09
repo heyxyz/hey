@@ -119,7 +119,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
                   peerId={peer.peerId}
                   track={peer.mic}
                 />
-                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
+                {/* <SpaceUser key={peer.peerId} profileId={peer.displayName} /> */}
               </>
             ))}
         </>
