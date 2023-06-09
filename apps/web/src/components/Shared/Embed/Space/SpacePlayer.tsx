@@ -111,7 +111,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
             Mute
           </button>
           {Object.values(peers)
-            .filter((peer) => peer.displayName !== 'Guest')
+            .filter((peer) => peer.mic && peer.displayName !== 'Guest')
             .map((peer) => (
               <>
                 <Audio
@@ -119,7 +119,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
                   peerId={peer.peerId}
                   track={peer.mic}
                 />
-                {/* <SpaceUser key={peer.peerId} profileId={peer.displayName} /> */}
+                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
               </>
             ))}
         </>
