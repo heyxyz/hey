@@ -37,7 +37,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
     produceAudio,
     stream: micStream
   } = useAudio();
-  const { joinRoom, leaveRoom } = useRoom();
+  const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
   const { state } = useMeetingMachine();
@@ -69,10 +69,15 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
 
   useUpdateEffect(() => {
     if (fetchAudioStream.isCallable) {
-      setDisplayName(currentProfile?.id);
       fetchAudioStream();
     }
   }, [isLobbyJoined]);
+
+  useUpdateEffect(() => {
+    if (isRoomJoined) {
+      setDisplayName(currentProfile?.id);
+    }
+  }, [isRoomJoined]);
 
   return (
     <div className="p-5">
