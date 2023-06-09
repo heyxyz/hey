@@ -48,15 +48,15 @@ const MessageTile: FC<MessageTileProps> = ({
   if (isQueuedMessage(message)) {
     switch (message.status) {
       case 'failed':
-        statusIcon = <ExclamationIcon width={16} height={16} />;
+        statusIcon = <ExclamationIcon width={14} height={14} />;
         break;
       case 'pending':
-        statusIcon = <ClockIcon width={16} height={16} />;
+        statusIcon = <ClockIcon width={14} height={14} />;
         break;
     }
   } else {
     // message has been successfully sent
-    statusIcon = <CheckIcon width={16} height={16} />;
+    statusIcon = <CheckIcon width={14} height={14} />;
   }
 
   // content to display to indicate message status
@@ -125,7 +125,10 @@ const MessageTile: FC<MessageTileProps> = ({
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
         <span
-          className="flex items-center gap-1 place-self-end text-xs text-gray-400"
+          className={clsx(
+            address === message.senderAddress ? 'flex-row' : 'flex-row-reverse',
+            'flex items-center gap-1 text-xs text-gray-400'
+          )}
           title={formatTime(message.sent)}
         >
           {statusIcon}
