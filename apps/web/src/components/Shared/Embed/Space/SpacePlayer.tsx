@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useSignMessage } from 'wagmi';
+import { Audio } from '@huddle01/react/components';
 
 import SpaceUser from './SpaceUser';
 
@@ -112,7 +113,14 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           {Object.values(peers)
             .filter((peer) => peer.displayName !== 'Guest')
             .map((peer) => (
-              <SpaceUser key={peer.peerId} profileId={peer.displayName} />
+              <>
+                <Audio
+                  key={peer.peerId}
+                  peerId={peer.peerId}
+                  track={peer.mic}
+                />
+                <SpaceUser key={peer.peerId} profileId={peer.displayName} />
+              </>
             ))}
         </>
       ) : null}
