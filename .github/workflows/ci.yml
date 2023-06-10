@@ -39,7 +39,7 @@ jobs:
         run: pnpm prettier:affected
 
       - name: Build 🎁
-        run: pnpm build:affected
+        run: pnpm build
 
       - name: Run Tests 🧪
         run: pnpm test:e2e
