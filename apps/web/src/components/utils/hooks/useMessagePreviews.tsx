@@ -8,15 +8,17 @@ import {
   parseConversationKey
 } from '@lib/conversationKey';
 import { resolveEns } from '@lib/resolveEns';
-import type { Conversation, Stream } from '@xmtp/xmtp-js';
+import type { Conversation } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 
 import { useMessageDb } from './useMessageDb';
+import { useStreamAllMessages } from './useStreamAllMessages';
+import { useStreamConversations } from './useStreamConversations';
 
 const MAX_PROFILES_PER_REQUEST = 50;
 
@@ -62,15 +64,18 @@ const useMessagePreviews = () => {
     batchPersistProfiles
   } = useMessageDb();
 
-  const getProfileFromKey = (key: string): string | null => {
-    const parsed = parseConversationKey(key);
-    const userProfileId = currentProfile?.id;
-    if (!parsed || !userProfileId) {
-      return null;
-    }
+  const getProfileFromKey = useCallback(
+    (key: string): string | null => {
+      const parsed = parseConversationKey(key);
+      const userProfileId = currentProfile?.id;
+      if (!parsed || !userProfileId) {
+        return null;
+      }
 
-    return parsed.members.find((member) => member !== userProfileId) ?? null;
-  };
+      return parsed.members.find((member) => member !== userProfileId) ?? null;
+    },
+    [currentProfile?.id]
+  );
 
   useEffect(() => {
     const mapPreviewMessages = async () => {
@@ -180,22 +185,6 @@ const useMessagePreviews = () => {
     if (!client || !currentProfile) {
       return;
     }
-    let messageStream: AsyncGenerator<DecodedMessage>;
-    let conversationStream: Stream<Conversation>;
-
-    const streamAllMessages = async () => {
-      messageStream = await client.conversations.streamAllMessages();
-
-      for await (const message of messageStream) {
-        const conversationId = message.conversation.context?.conversationId;
-
-        const key = buildConversationKey(
-          message.conversation.peerAddress,
-          conversationId ?? ''
-        );
-        persistPreviewMessage(key, message);
-      }
-    };
 
     const listConversations = async () => {
       setMessagesLoading(true);
@@ -231,53 +220,56 @@ const useMessagePreviews = () => {
       setMessagesLoading(false);
     };
 
-    const closeConversationStream = async () => {
-      if (!conversationStream) {
-        return;
-      }
-      await conversationStream.return();
-    };
-
-    const closeMessageStream = async () => {
-      if (messageStream) {
-        await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
-      }
-    };
-
-    const streamConversations = async () => {
-      closeConversationStream();
-      conversationStream = (await client?.conversations?.stream()) || [];
-      for await (const convo of conversationStream) {
-        const newConversations = new Map(conversations);
-        const newProfileIds = new Set(profileIds);
-        const newNonLensProfiles = new Set(nonLensProfiles);
-        const key = buildConversationKey(
-          convo.peerAddress,
-          convo?.context?.conversationId ?? ''
-        );
-        newConversations.set(key, convo);
-        const profileId = getProfileFromKey(key);
-        if (profileId && !profileIds.has(profileId)) {
-          newProfileIds.add(profileId);
-          setProfileIds(newProfileIds);
-        } else {
-          newNonLensProfiles.add(key);
-          setNonLensProfiles(newNonLensProfiles);
-        }
-        setConversations(newConversations);
-      }
-    };
-
     listConversations();
-    streamConversations();
-    streamAllMessages();
 
-    return () => {
-      closeConversationStream();
-      closeMessageStream();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, currentProfile?.id, selectedProfileId]);
+
+  const onMessage = useCallback(
+    (message: DecodedMessage) => {
+      const conversationId = message.conversation.context?.conversationId;
+
+      const key = buildConversationKey(
+        message.conversation.peerAddress,
+        conversationId ?? ''
+      );
+      persistPreviewMessage(key, message);
+    },
+    [persistPreviewMessage]
+  );
+
+  useStreamAllMessages(onMessage);
+
+  const onConversation = useCallback(
+    (convo: Conversation) => {
+      const newConversations = new Map(conversations);
+      const newProfileIds = new Set(profileIds);
+      const newNonLensProfiles = new Set(nonLensProfiles);
+      const key = buildConversationKey(
+        convo.peerAddress,
+        convo?.context?.conversationId ?? ''
+      );
+      newConversations.set(key, convo);
+      const profileId = getProfileFromKey(key);
+      if (profileId && !profileIds.has(profileId)) {
+        newProfileIds.add(profileId);
+        setProfileIds(newProfileIds);
+      } else {
+        newNonLensProfiles.add(key);
+        setNonLensProfiles(newNonLensProfiles);
+      }
+      setConversations(newConversations);
+    },
+    [
+      conversations,
+      getProfileFromKey,
+      nonLensProfiles,
+      profileIds,
+      setConversations
+    ]
+  );
+
+  useStreamConversations(onConversation);
 
   useEffect(() => {
     if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
