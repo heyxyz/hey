@@ -1757,10 +1757,6 @@ msgstr "Установить супер подписку"
 msgid "No."
 msgstr "Нет."
 
-#: src/components/Settings/Account/Verification.tsx
-msgid "Request Verification"
-msgstr "Запросить верификацию"
-
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
