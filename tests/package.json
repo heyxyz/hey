@@ -20,7 +20,7 @@
   "devDependencies": {
     "@lenster/config": "workspace:*",
     "@playwright/test": "^1.35.0",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.2.6",
     "typescript": "^5.1.3"
   }
 }
