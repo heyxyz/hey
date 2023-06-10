@@ -67,10 +67,10 @@ const Follow: FC<FollowProps> = ({
     setFollowing(true);
     toast.success(t`Followed successfully!`);
     Leafwatch.track(PROFILE.FOLLOW, {
-      follow_path: pathname,
-      ...(followSource && { follow_source: followSource }),
-      ...(followPosition && { follow_position: followPosition }),
-      follow_target: profile?.id
+      path: pathname,
+      ...(followSource && { source: followSource }),
+      ...(followPosition && { position: followPosition }),
+      target: profile?.id
     });
   };
 
