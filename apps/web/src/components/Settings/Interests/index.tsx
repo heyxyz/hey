@@ -39,7 +39,6 @@ const InterestsSettings: NextPage = () => {
                 <Trans>Select profile interests</Trans>
               </div>
               <Beta />
-              <New />
             </div>
             <p>
               <Trans>
