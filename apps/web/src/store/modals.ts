@@ -2,6 +2,8 @@ import type { Publication } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {
+  showAuthModal: boolean;
+  setShowAuthModal: (showAuthModal: boolean) => void;
   showNewPostModal: boolean;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   showReportModal: boolean;
@@ -21,6 +23,8 @@ interface GlobalModalState {
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
+  showAuthModal: false,
+  setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   showReportModal: false,

@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { PROFILE } from 'src/tracking';
 
 import Loader from '../Loader';
@@ -39,7 +39,9 @@ const SuperFollow: FC<SuperFollowProps> = ({
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
 
   return (
     <>
