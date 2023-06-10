@@ -18,7 +18,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
 import { PROFILE } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -43,10 +43,12 @@ const Follow: FC<FollowProps> = ({
   followUnfollowPosition
 }) => {
   const { pathname } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const updateCache = (cache: ApolloCache<any>) => {

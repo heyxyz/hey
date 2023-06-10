@@ -41,7 +41,7 @@ import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { PUBLICATION } from 'src/tracking';
 import { usePublicClient, useToken } from 'wagmi';
 
@@ -66,7 +66,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [decryptedData, setDecryptedData] = useState<any>(null);
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
