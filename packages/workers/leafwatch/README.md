@@ -1,5 +1,7 @@
 # Leafwatch worker
 
+User telemetry tracking worker collecting crucial data points from the frontend for analytics and better understanding of user behavior.
+
 ## Table structure
 
 ```json

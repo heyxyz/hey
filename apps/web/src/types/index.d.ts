@@ -63,8 +63,7 @@ export interface MarkupLinkProps {
   title?: string;
 }
 
-export interface Space {
+export interface SpaceMetadata {
   id: string;
-  mainHost: `0x${string}`;
-  subHosts: `0x${string}`[];
+  host: `0x${string}`;
 }

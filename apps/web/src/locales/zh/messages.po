@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-09 00:09\n"
+"PO-Revision-Date: 2023-06-10 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1565,13 +1565,13 @@ msgid "Post has been mirrored!"
 msgstr "帖子已被转发！"
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
-msgid "Unmirror"
-msgstr ""
-
-#: src/components/Publication/Actions/Share/Mirror.tsx
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "Mirror"
 msgstr "转发"
+
+#: src/components/Publication/Actions/Share/Mirror.tsx
+msgid "Unmirror"
+msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote"
