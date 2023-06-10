@@ -5,21 +5,26 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "turbo run build --parallel",
+    "build:affected": "turbo run build --parallel --filter=[origin/main]",
     "codegen": "turbo run codegen --parallel",
     "dev": "turbo run dev --parallel",
     "i18n:extract": "turbo run extract",
     "preinstall": "npx only-allow pnpm",
     "lint": "turbo run lint --parallel",
+    "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
     "lint:fix": "turbo run lint:fix --parallel",
     "prepare": "husky install",
     "prettier": "turbo run prettier --parallel",
+    "prettier:affected": "turbo run prettier --parallel --filter=[origin/main]",
     "prettier:fix": "turbo run prettier:fix --parallel",
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
     "test:e2e": "start-server-and-test start '4783|4784|8083|8085|8087' test:dev",
     "test:nightly": "turbo run test:nightly",
     "typecheck": "turbo run typecheck --parallel",
-    "workers:deploy": "turbo run worker:deploy --parallel"
+    "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]",
+    "workers:deploy": "turbo run worker:deploy --parallel",
+    "workers:deploy:affected": "turbo run worker:deploy --parallel --filter=[origin/main]"
   },
   "eslintConfig": {
     "root": true

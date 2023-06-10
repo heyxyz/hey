@@ -22,18 +22,12 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: Turborepo local server 🚀
-        uses: felixmosh/turborepo-gh-artifacts@v2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
-
       - name: Install 📦
         run: pnpm install --frozen-lockfile
 
       - name: Deploy 🚀
         run: |
           pnpm add wrangler -g
-          pnpm workers:deploy --api="${{ secrets.TURBO_SERVER }}" --token="${{ secrets.TURBO_SERVER_TOKEN }}" --team="lenster"
+          pnpm workers:deploy:affected
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
