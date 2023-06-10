@@ -5,7 +5,6 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "turbo run build --parallel",
-    "build:affected": "turbo run build --parallel --filter=[origin/main]",
     "codegen": "turbo run codegen --parallel",
     "dev": "turbo run dev --parallel",
     "i18n:extract": "turbo run extract",
