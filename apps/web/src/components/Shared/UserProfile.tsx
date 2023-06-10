@@ -31,8 +31,8 @@ interface UserProfileProps {
   timestamp?: Date;
 
   // For data analytics
-  followPosition?: number;
-  followSource?: string;
+  followUnfollowPosition?: number;
+  followUnfollowSource?: string;
 }
 
 const UserProfile: FC<UserProfileProps> = ({
@@ -46,8 +46,8 @@ const UserProfile: FC<UserProfileProps> = ({
   showStatus = false,
   showUserPreview = true,
   timestamp = '',
-  followPosition,
-  followSource
+  followUnfollowPosition,
+  followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
   const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
@@ -162,15 +162,15 @@ const UserProfile: FC<UserProfileProps> = ({
           <SuperFollow
             profile={profile}
             setFollowing={setFollowing}
-            followPosition={followPosition}
-            followSource={followSource}
+            followUnfollowPosition={followUnfollowPosition}
+            followUnfollowSource={followUnfollowSource}
           />
         ) : (
           <Follow
             profile={profile}
             setFollowing={setFollowing}
-            followPosition={followPosition}
-            followSource={followSource}
+            followUnfollowPosition={followUnfollowPosition}
+            followUnfollowSource={followUnfollowSource}
           />
         ))}
     </div>

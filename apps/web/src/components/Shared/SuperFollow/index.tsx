@@ -25,8 +25,8 @@ interface SuperFollowProps {
   again?: boolean;
 
   // For data analytics
-  followPosition?: number;
-  followSource?: string;
+  followUnfollowPosition?: number;
+  followUnfollowSource?: string;
 }
 
 const SuperFollow: FC<SuperFollowProps> = ({
@@ -34,8 +34,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
   setFollowing,
   showText = false,
   again = false,
-  followPosition,
-  followSource
+  followUnfollowPosition,
+  followUnfollowSource
 }) => {
   const [showFollowModal, setShowFollowModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -77,8 +77,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
           setFollowing={setFollowing}
           setShowFollowModal={setShowFollowModal}
           again={again}
-          followPosition={followPosition}
-          followSource={followSource}
+          followUnfollowPosition={followUnfollowPosition}
+          followUnfollowSource={followUnfollowSource}
         />
       </Modal>
     </>

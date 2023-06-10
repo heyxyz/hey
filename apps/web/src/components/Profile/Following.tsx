@@ -9,7 +9,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 interface FollowingProps {
   profile: Profile;
@@ -99,8 +99,8 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 profile={following?.profile as Profile}
                 linkToProfile={!onProfileSelected}
                 isFollowing={following?.profile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.FOLLOWING_MODAL}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}

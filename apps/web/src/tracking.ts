@@ -138,7 +138,7 @@ export const ONBOARDING = {
 };
 
 // enums
-export enum FollowSource {
+export enum FollowUnfollowSource {
   WHO_TO_FOLLOW = 'who_to_follow',
   WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
   LIKES_MODAL = 'likes_modal',

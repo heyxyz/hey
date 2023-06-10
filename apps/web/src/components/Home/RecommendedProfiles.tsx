@@ -10,7 +10,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { FollowSource, MISCELLANEOUS } from 'src/tracking';
+import { FollowUnfollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
 
@@ -76,15 +76,15 @@ const RecommendedProfiles: FC = () => {
                 <UserProfile
                   profile={profile as Profile}
                   isFollowing={profile.isFollowedByMe}
-                  followPosition={index + 1}
-                  followSource={FollowSource.WHO_TO_FOLLOW}
+                  followUnfollowPosition={index + 1}
+                  followUnfollowSource={FollowUnfollowSource.WHO_TO_FOLLOW}
                   showFollow
                 />
               </div>
               <DismissRecommendedProfile
                 profile={profile as Profile}
                 dismissPosition={index + 1}
-                dismissSource={FollowSource.WHO_TO_FOLLOW}
+                dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW}
               />
             </div>
           ))}

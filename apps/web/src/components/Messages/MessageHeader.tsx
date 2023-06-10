@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 import Follow from '../Shared/Follow';
 
@@ -82,7 +82,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               showText
               profile={profile}
               setFollowing={setFollowingWrapped}
-              followSource={FollowSource.DIRECT_MESSAGE_HEADER}
+              followUnfollowSource={FollowUnfollowSource.DIRECT_MESSAGE_HEADER}
             />
           ) : (
             <Unfollow

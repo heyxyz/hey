@@ -86,16 +86,14 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     }
   };
 
-  const getEventProperties = (type: 'like' | 'unlike') => {
-    return {
-      [`${type}_publication`]: publication?.id,
-      [`${type}_source`]: getLikeSource()
-    };
+  const eventProperties = {
+    publication_id: publication?.id,
+    source: getLikeSource()
   };
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE, getEventProperties('like'));
+      Leafwatch.track(PUBLICATION.LIKE, eventProperties);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -107,7 +105,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.UNLIKE, getEventProperties('unlike'));
+      Leafwatch.track(PUBLICATION.UNLIKE, eventProperties);
     },
     onError: (error) => {
       setLiked(!liked);
