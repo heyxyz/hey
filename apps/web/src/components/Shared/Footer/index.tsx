@@ -1,8 +1,10 @@
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME } from '@lenster/data/constants';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { MISCELLANEOUS } from 'src/tracking';
 
 import Locale from './Locale';
 
@@ -28,6 +30,7 @@ const Footer: FC = () => {
           href="https://lenster.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
         >
           <Trans>Discord</Trans>
         </Link>
@@ -35,6 +38,7 @@ const Footer: FC = () => {
           href="https://lenster.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DONATE)}
         >
           <Trans>Donate</Trans>
         </Link>
@@ -42,6 +46,7 @@ const Footer: FC = () => {
           href="https://status.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
         >
           <Trans>Status</Trans>
         </Link>
@@ -49,6 +54,7 @@ const Footer: FC = () => {
           href="https://feedback.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
         >
           <Trans>Feedback</Trans>
         </Link>
@@ -59,6 +65,7 @@ const Footer: FC = () => {
           href="https://github.com/lensterxyz/lenster"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
         >
           <Trans>GitHub</Trans>
         </Link>
@@ -66,6 +73,7 @@ const Footer: FC = () => {
           href="https://translate.lenster.xyz"
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_TRANSLATE)}
         >
           <Trans>Translate</Trans>
         </Link>
@@ -77,6 +85,7 @@ const Footer: FC = () => {
           href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
           target="_blank"
           rel="noreferrer noopener"
+          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_VERCEL)}
         >
           <Trans>▲ Powered by Vercel</Trans>
         </Link>
