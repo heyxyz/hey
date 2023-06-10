@@ -38,6 +38,7 @@ export const PUBLICATION = {
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
   OPEN_COLLECTORS: 'Open collectors modal',
+  OPEN_GIFS: 'Open GIFs modal',
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
