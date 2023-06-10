@@ -2,7 +2,6 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatAlt2Icon } from '@heroicons/react/outline';
-
 import type {
   Comment,
   Publication,
