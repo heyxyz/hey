@@ -40,8 +40,8 @@ interface FollowModuleProps {
   again: boolean;
 
   // For data analytics
-  followPosition?: number;
-  followSource?: string;
+  followUnfollowPosition?: number;
+  followUnfollowSource?: string;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
@@ -49,8 +49,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   setFollowing,
   setShowFollowModal,
   again,
-  followPosition,
-  followSource
+  followUnfollowPosition,
+  followUnfollowSource
 }) => {
   const { pathname } = useRouter();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
@@ -69,10 +69,10 @@ const FollowModule: FC<FollowModuleProps> = ({
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
-      follow_path: pathname,
-      ...(followSource && { follow_source: followSource }),
-      ...(followPosition && { follow_position: followPosition }),
-      follow_target: profile?.id
+      path: pathname,
+      ...(followUnfollowSource && { source: followUnfollowSource }),
+      ...(followUnfollowPosition && { position: followUnfollowPosition }),
+      target: profile?.id
     });
   };
 

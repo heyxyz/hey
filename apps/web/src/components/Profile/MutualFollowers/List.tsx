@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 interface MutualFollowersListProps {
   profileId: string;
@@ -68,8 +68,8 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
             <UserProfile
               profile={profile as Profile}
               isFollowing={profile?.isFollowedByMe}
-              followPosition={index + 1}
-              followSource={FollowSource.MUTUAL_FOLLOWERS_MODAL}
+              followUnfollowPosition={index + 1}
+              followUnfollowSource={FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL}
               showBio
               showFollow
               showUserPreview={false}

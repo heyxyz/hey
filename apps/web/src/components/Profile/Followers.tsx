@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 interface FollowersProps {
   profile: Profile;
@@ -85,8 +85,8 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
                   isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
-                  followPosition={index + 1}
-                  followSource={FollowSource.FOLLOWERS_MODAL}
+                  followUnfollowPosition={index + 1}
+                  followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
                   showBio
                   showFollow={
                     currentProfile?.id !== follower?.wallet?.defaultProfile?.id

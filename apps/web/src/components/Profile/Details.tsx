@@ -41,7 +41,7 @@ import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -201,7 +201,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 <SuperFollow
                   profile={profile}
                   setFollowing={setFollowing}
-                  followSource={FollowSource.PROFILE_PAGE}
+                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
                 />
                 {currentProfile && <Message onClick={onMessageClick} />}
@@ -211,7 +211,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 <Follow
                   profile={profile}
                   setFollowing={setFollowing}
-                  followSource={FollowSource.PROFILE_PAGE}
+                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
                 />
                 {currentProfile && <Message onClick={onMessageClick} />}

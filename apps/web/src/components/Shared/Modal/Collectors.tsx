@@ -12,7 +12,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 import Loader from '../Loader';
 
@@ -86,8 +86,8 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
                   isFollowing={wallet?.defaultProfile?.isFollowedByMe}
-                  followPosition={index + 1}
-                  followSource={FollowSource.COLLECTORS_MODAL}
+                  followUnfollowPosition={index + 1}
+                  followUnfollowSource={FollowUnfollowSource.COLLECTORS_MODAL}
                   showBio
                   showFollow
                   showUserPreview={false}

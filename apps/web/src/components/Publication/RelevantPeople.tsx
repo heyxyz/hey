@@ -7,7 +7,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 interface RelevantPeopleProps {
   publication: Publication;
@@ -71,8 +71,10 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
           <UserProfile
             profile={profile as Profile}
             isFollowing={profile.isFollowedByMe}
-            followPosition={index + 1}
-            followSource={FollowSource.PUBLICATION_RELEVANT_PROFILES}
+            followUnfollowPosition={index + 1}
+            followUnfollowSource={
+              FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES
+            }
             showUserPreview={false}
             showFollow
           />
