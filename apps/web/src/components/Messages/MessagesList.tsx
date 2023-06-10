@@ -1,4 +1,10 @@
-import { EmojiSadIcon } from '@heroicons/react/outline';
+import {
+  type FailedMessage,
+  isQueuedMessage,
+  type PendingMessage
+} from '@components/utils/hooks/useSendOptimisticMessage';
+import { ClockIcon, EmojiSadIcon } from '@heroicons/react/outline';
+import { CheckIcon, ExclamationIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -10,7 +16,7 @@ import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useMessageStore } from 'src/store/message';
 
@@ -24,7 +30,7 @@ const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
   url?: string;
-  message: DecodedMessage;
+  message: DecodedMessage | PendingMessage | FailedMessage;
   profile?: Profile;
   currentProfile?: Profile | null;
 }
@@ -36,6 +42,49 @@ const MessageTile: FC<MessageTileProps> = ({
   currentProfile
 }) => {
   const address = currentProfile?.ownedBy;
+
+  // icon to display to indicate status of message
+  let statusIcon: JSX.Element | null = null;
+  if (isQueuedMessage(message)) {
+    switch (message.status) {
+      case 'failed':
+        statusIcon = <ExclamationIcon width={14} height={14} />;
+        break;
+      case 'pending':
+        statusIcon = <ClockIcon width={14} height={14} />;
+        break;
+    }
+  } else {
+    // message has been successfully sent
+    statusIcon = <CheckIcon width={14} height={14} />;
+  }
+
+  // content to display to indicate message status
+  let statusContent: React.ReactNode = null;
+  if (isQueuedMessage(message)) {
+    switch (message.status) {
+      case 'failed':
+        statusContent = (
+          <span className="flex items-center gap-1 text-red-500">
+            <Trans>Not delivered</Trans> &bull;
+            <span className="cursor-pointer underline" onClick={message.retry}>
+              <Trans>Retry</Trans>
+            </span>
+            &bull;
+            <span className="cursor-pointer underline" onClick={message.cancel}>
+              <Trans>Cancel</Trans>
+            </span>
+          </span>
+        );
+        break;
+      case 'pending':
+        statusContent = dayjs(message.sent).fromNow();
+        break;
+    }
+  } else {
+    // message has been successfully sent
+    statusContent = dayjs(message.sent).fromNow();
+  }
 
   return (
     <div
@@ -76,10 +125,14 @@ const MessageTile: FC<MessageTileProps> = ({
       </div>
       <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
         <span
-          className="place-self-end text-xs text-gray-400"
+          className={clsx(
+            address === message.senderAddress ? 'flex-row' : 'flex-row-reverse',
+            'flex items-center gap-1 text-xs text-gray-400'
+          )}
           title={formatTime(message.sent)}
         >
-          {dayjs(message.sent).fromNow()}
+          {statusIcon}
+          {statusContent}
         </span>
       </div>
     </div>
@@ -141,7 +194,7 @@ const LoadingMore: FC = () => (
 
 interface MessageListProps {
   conversationKey?: string;
-  messages: DecodedMessage[];
+  messages: (DecodedMessage | PendingMessage | FailedMessage)[];
   fetchNextMessages: () => void;
   profile?: Profile;
   currentProfile?: Profile | null;
@@ -158,6 +211,7 @@ const MessagesList: FC<MessageListProps> = ({
   hasMore,
   missingXmtpAuth
 }) => {
+  const listRef = useRef<HTMLSpanElement | null>(null);
   let lastMessageDate: Date | undefined;
   const { observe } = useInView({
     onChange: ({ inView }) => {
@@ -169,6 +223,11 @@ const MessagesList: FC<MessageListProps> = ({
     }
   });
 
+  // scroll to the bottom of the message list when a conversation is selected
+  useEffect(() => {
+    listRef.current?.scrollTo(0, listRef.current.scrollHeight);
+  }, [conversationKey]);
+
   const ensNames = useMessageStore((state) => state.ensNames);
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
   const url =
@@ -179,8 +238,11 @@ const MessagesList: FC<MessageListProps> = ({
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth && <MissingXmtpAuth />}
-          <span className="flex flex-col-reverse overflow-y-auto overflow-x-hidden">
-            {messages?.map((msg: DecodedMessage, index) => {
+          <span
+            ref={listRef}
+            className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
+          >
+            {messages?.map((msg, index) => {
               const dateHasChanged = lastMessageDate
                 ? !isOnSameDay(lastMessageDate, msg.sent)
                 : false;
