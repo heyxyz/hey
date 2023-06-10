@@ -18,7 +18,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useAuthStore } from 'src/store/auth';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { AUTH } from 'src/tracking';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
@@ -42,7 +42,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const onError = (error: any) => {

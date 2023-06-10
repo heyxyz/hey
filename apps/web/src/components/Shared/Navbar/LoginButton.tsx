@@ -2,11 +2,13 @@ import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useAuthStore } from 'src/store/auth';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { AUTH } from 'src/tracking';
 
 const LoginButton: FC = () => {
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
 
   return (
     <Button
