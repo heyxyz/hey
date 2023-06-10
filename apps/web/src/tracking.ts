@@ -134,7 +134,16 @@ export const MISCELLANEOUS = {
   SWITCH_TIMELINE: 'Switch to timeline',
   SWITCH_HIGHLIGHTS: 'Switch to highlights',
   SELECT_USER_FEED: 'Select user feed',
-  SELECT_LOCALE: 'Select locale'
+  SELECT_LOCALE: 'Select locale',
+  FOOTER: {
+    OPEN_DISCORD: 'Open Discord',
+    OPEN_GITHUB: 'Open GitHub',
+    OPEN_VERCEL: 'Open Vercel',
+    OPEN_STATUS: 'Open status',
+    OPEN_FEEDBACK: 'Open feedback',
+    OPEN_TRANSLATE: 'Open translate',
+    OPEN_DONATE: 'Open donate'
+  }
 };
 
 export const ONBOARDING = {
