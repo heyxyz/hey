@@ -9,9 +9,11 @@ import {
 import type { Publication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { PUBLICATION } from 'src/tracking';
 
 interface PublicationStatsProps {
   publication: Publication;
@@ -54,7 +56,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           </span>
           <button
             type="button"
-            onClick={() => setShowMirrorsModal(true)}
+            onClick={() => {
+              setShowMirrorsModal(true);
+              Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
+                publication_id: publicationId
+              });
+            }}
             data-testid="mirror-stats"
           >
             <b className="text-black dark:text-white">
@@ -81,7 +88,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         <>
           <button
             type="button"
-            onClick={() => setShowLikesModal(true)}
+            onClick={() => {
+              setShowLikesModal(true);
+              Leafwatch.track(PUBLICATION.OPEN_LIKES, {
+                publication_id: publicationId
+              });
+            }}
             data-testid="like-stats"
           >
             <b className="text-black dark:text-white">
@@ -108,7 +120,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
         <>
           <button
             type="button"
-            onClick={() => setShowCollectorsModal(true)}
+            onClick={() => {
+              setShowCollectorsModal(true);
+              Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
+                publication_id: publicationId
+              });
+            }}
             data-testid="collect-stats"
           >
             <b className="text-black dark:text-white">
