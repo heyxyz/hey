@@ -35,7 +35,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
 }) => {
   const [status, setStatus] = useState<Status>(Status.UNLOADED);
   const [attachment, setAttachment] = useState<TAttachment | null>(null);
-  const { client } = useXmtpClient();
+  const { client } = useXmtpClient(true);
   const loadedAttachmentURLs = useAttachmentStore(
     (state) => state.loadedAttachmentURLs
   );
