@@ -8,7 +8,6 @@ import {
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useAuthStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
@@ -44,9 +43,12 @@ const GlobalModals: FC = () => {
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
-  // TODO: migrate to useGlobalModalStateStore
-  const showAuthModal = useAuthStore((state) => state.showAuthModal);
-  const setShowAuthModal = useAuthStore((state) => state.setShowAuthModal);
+  const showAuthModal = useGlobalModalStateStore(
+    (state) => state.showAuthModal
+  );
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
 
   return (
     <>
