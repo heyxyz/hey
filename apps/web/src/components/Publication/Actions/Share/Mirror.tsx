@@ -77,7 +77,9 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     setIsLoading(false);
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Leafwatch.track(PUBLICATION.MIRROR);
+    Leafwatch.track(PUBLICATION.MIRROR, {
+      publication_id: publication.id
+    });
   };
 
   const onError = (error: any) => {
