@@ -57,6 +57,13 @@ export type AliasWhere = {
   ipfs_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type DelegationPortal = {
+  __typename?: 'DelegationPortal';
+  delegationApi: Scalars['String']['output'];
+  delegationContract: Scalars['String']['output'];
+  delegationType: Scalars['String']['output'];
+};
+
 export type Follow = {
   __typename?: 'Follow';
   created: Scalars['Int']['output'];
@@ -357,6 +364,7 @@ export type Space = {
   categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   children?: Maybe<Array<Maybe<Space>>>;
   coingecko?: Maybe<Scalars['String']['output']>;
+  delegationPortal?: Maybe<DelegationPortal>;
   domain?: Maybe<Scalars['String']['output']>;
   email?: Maybe<Scalars['String']['output']>;
   filters?: Maybe<SpaceFilters>;
