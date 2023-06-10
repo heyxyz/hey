@@ -2,9 +2,11 @@ import { UsersIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import { Modal } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { PROFILE } from 'src/tracking';
 
 import Followers from './Followers';
 import Following from './Following';
@@ -22,7 +24,12 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => setShowFollowingModal(!showFollowingModal)}
+        onClick={() => {
+          setShowFollowingModal(!showFollowingModal);
+          Leafwatch.track(PROFILE.OPEN_FOLLOWING, {
+            profile_id: profile.id
+          });
+        }}
         data-testid="profile-followings"
       >
         <div className="text-xl">
@@ -40,7 +47,12 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       <button
         type="button"
         className="text-left"
-        onClick={() => setShowFollowersModal(!showFollowersModal)}
+        onClick={() => {
+          setShowFollowersModal(!showFollowersModal);
+          Leafwatch.track(PROFILE.OPEN_FOLLOWERS, {
+            profile_id: profile.id
+          });
+        }}
         data-testid="profile-followers"
       >
         <div className="text-xl">

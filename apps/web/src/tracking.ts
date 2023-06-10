@@ -15,6 +15,8 @@ export const PROFILE = {
   UNFOLLOW: 'Unfollow profile',
   DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
   OPEN_SUPER_FOLLOW: 'Open super follow modal',
+  OPEN_FOLLOWERS: 'Open followers modal',
+  OPEN_FOLLOWING: 'Open following modal',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
@@ -33,6 +35,9 @@ export const PUBLICATION = {
   CLICK_OEMBED: 'Click publication oembed',
   CLICK_HASHTAG: 'Click publication hashtag',
   CLICK_MENTION: 'Click publication mention',
+  OPEN_LIKES: 'Open likes modal',
+  OPEN_MIRRORS: 'Open mirrors modal',
+  OPEN_COLLECTORS: 'Open collectors modal',
   ATTACHMENT: {
     IMAGE: {
       OPEN: 'Open image attachment'
