@@ -7,7 +7,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 import Loader from '../Loader';
 
@@ -77,8 +77,8 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               <UserProfile
                 profile={like?.profile as Profile}
                 isFollowing={like?.profile?.isFollowedByMe}
-                followPosition={index + 1}
-                followSource={FollowSource.LIKES_MODAL}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.LIKES_MODAL}
                 showBio
                 showFollow
                 showUserPreview={false}

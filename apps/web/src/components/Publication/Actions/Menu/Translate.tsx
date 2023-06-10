@@ -32,7 +32,9 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       href={getGoogleTranslateUrl(publication?.metadata?.content)}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.TRANSLATE);
+        Leafwatch.track(PUBLICATION.TRANSLATE, {
+          publication_id: publication.id
+        });
       }}
       target="_blank"
     >

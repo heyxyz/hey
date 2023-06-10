@@ -13,7 +13,7 @@ import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -88,13 +88,13 @@ const UserPreview: FC<UserPreviewProps> = ({
               <SuperFollow
                 profile={lazyProfile}
                 setFollowing={setFollowing}
-                followSource={FollowSource.PROFILE_POPOVER}
+                followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
               />
             ) : (
               <Follow
                 profile={lazyProfile}
                 setFollowing={setFollowing}
-                followSource={FollowSource.PROFILE_POPOVER}
+                followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
               />
             ))}
         </div>

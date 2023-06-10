@@ -8,7 +8,7 @@ import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowSource } from 'src/tracking';
+import { FollowUnfollowSource } from 'src/tracking';
 
 const Suggested: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery();
@@ -40,8 +40,10 @@ const Suggested: FC = () => {
                 <UserProfile
                   profile={profile as Profile}
                   isFollowing={profile?.isFollowedByMe}
-                  followPosition={index + 1}
-                  followSource={FollowSource.WHO_TO_FOLLOW_MODAL}
+                  followUnfollowPosition={index + 1}
+                  followUnfollowSource={
+                    FollowUnfollowSource.WHO_TO_FOLLOW_MODAL
+                  }
                   showBio
                   showFollow
                   showUserPreview={false}
@@ -50,7 +52,7 @@ const Suggested: FC = () => {
               <DismissRecommendedProfile
                 profile={profile as Profile}
                 dismissPosition={index + 1}
-                dismissSource={FollowSource.WHO_TO_FOLLOW_MODAL}
+                dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW_MODAL}
               />
             </div>
           );
