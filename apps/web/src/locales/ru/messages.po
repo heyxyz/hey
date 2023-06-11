@@ -1542,10 +1542,15 @@ msgstr ""
 msgid "Like"
 msgstr "Лайкнуть"
 
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "Скопировано в буфер обмена!"
+
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+msgid "Copy post text"
+msgstr ""
 
 #: src/components/Publication/Actions/Menu/Translate.tsx
 #: src/components/Shared/Footer/index.tsx

@@ -1542,9 +1542,14 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+msgid "Copy post text"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Translate.tsx
