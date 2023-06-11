@@ -8,6 +8,7 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import CopyPostText from './CopyPostText';
 import Delete from './Delete';
 import Permalink from './Permalink';
 import Report from './Report';
@@ -48,6 +49,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           )}
           <Permalink publication={publication} />
           <Translate publication={publication} />
+          <CopyPostText publication={publication} />
         </Menu.Items>
       </MenuTransition>
     </Menu>
