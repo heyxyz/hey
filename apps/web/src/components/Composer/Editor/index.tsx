@@ -9,6 +9,7 @@ import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { HashtagNode } from '@lexical/hashtag';
 import { AutoLinkNode } from '@lexical/link';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -22,9 +23,8 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import { focusManager } from '@tanstack/react-query';
 import Errors from 'data/errors';
-import type { LexicalCommand } from 'lexical';
-import { $createParagraphNode, $createTextNode, $getRoot, RootNode, TextNode, createCommand } from 'lexical';
-import { updateDOMSelection } from 'lexical/LexicalSelection';
+import type { LexicalCommand, LexicalEditor } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, createCommand } from 'lexical';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -39,7 +39,47 @@ interface Props {
   selectedQuadraticRound: string;
 }
 
-const Editor: FC = () => {
+interface BannerProps {
+  selectedQuadraticRound: string;
+  editor: LexicalEditor;
+}
+
+const RoundBanner: FC<BannerProps> = ({ selectedQuadraticRound, editor }) => {
+  const prevQuadraticRoundRef = useRef('');
+  const [roundNotifications, setRoundNotifications] = useState<string>('');
+
+  useEffect(() => {
+    const prevQuadraticRound = prevQuadraticRoundRef.current;
+
+    if (selectedQuadraticRound !== prevQuadraticRound) {
+
+      const newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
+      editor.update(() => {
+        const p = $createParagraphNode();
+        const root = $getRoot();
+        root?.clear();
+        p.append($createTextNode(newNotification));
+        root.append(p);
+        console.log('updated', newNotification);
+      });
+      prevQuadraticRoundRef.current = selectedQuadraticRound;
+    }
+    editor.setEditable(false);
+  }, [selectedQuadraticRound, editor]);
+  return (
+    <div className="relative">
+      <PlainTextPlugin
+        contentEditable={<ContentEditable className="block min-h-[25px] overflow-auto px-5" />}
+        placeholder={
+          <div className="pointer-events-none absolute top-[2px] whitespace-nowrap px-5 text-gray-400" />
+        }
+        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
+      />
+    </div>
+  );
+};
+
+const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const attachments = usePublicationStore((state) => state.attachments);
@@ -59,19 +99,6 @@ const Editor: FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   return editor.registerCommand(
-  //     INSERT_PARAGRAPH_COMMAND,
-  //     () => {
-  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-  //       return true;
-  //     },
-  //     COMMAND_PRIORITY_NORMAL
-  //   );
-  // }, [editor]);
-
-  // console.log('publicationContent2', publicationContent);
-
   return (
     <div className="relative">
       <LexicalComposer
@@ -86,6 +113,7 @@ const Editor: FC = () => {
       >
         <EmojiPickerPlugin />
         <ToolbarPlugin />
+        <AutoFocusPlugin />
         <RichTextPlugin
           contentEditable={<ContentEditable className="my-4 block min-h-[65px] overflow-auto px-2" />}
           placeholder={
@@ -95,6 +123,7 @@ const Editor: FC = () => {
           }
           ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
         />
+
         <OnChangePlugin
           onChange={(editorState) => {
             editorState.read(() => {
@@ -112,79 +141,7 @@ const Editor: FC = () => {
         <ImagesPlugin onPaste={handlePaste} />
         <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       </LexicalComposer>
-    </div>
-  );
-};
-
-const RoundBanner: FC<Props> = ({ selectedQuadraticRound }) => {
-  const [banner] = useLexicalComposerContext();
-  const prevQuadraticRoundRef = useRef('');
-  const [roundNotifications, setRoundNotifications] = useState<string>('');
-
-  useEffect(() => {
-    prevQuadraticRoundRef.current = selectedQuadraticRound;
-  }, []);
-
-  // useEffect(() => {
-  //   return editor.registerCommand(
-  //     INSERT_PARAGRAPH_COMMAND,
-  //     () => {
-  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-  //       return true;
-  //     },
-  //     COMMAND_PRIORITY_NORMAL
-  //   );
-  // }, [editor]);
-
-  useEffect(() => {
-    const prevQuadraticRound = prevQuadraticRoundRef.current;
-
-    if (selectedQuadraticRound !== prevQuadraticRound) {
-      // editor.update(() => {
-      //   const root = $getRoot();
-      //   const textContent = root.getTextContent();
-
-      //   const notificationString = `Your post will be included in the ${prevQuadraticRound} round.`;
-      //   const regex = new RegExp(notificationString.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&'), 'g');
-      //   root.remove()
-      //   console.log('textContent', textContent);
-      // });
-
-      const newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
-      banner.update(() => {
-        const p = $createParagraphNode();
-        const root = $getRoot();
-        root?.clear();
-        p.append($createTextNode(newNotification));
-        root.append(p);
-      });
-      prevQuadraticRoundRef.current = selectedQuadraticRound;
-    }
-  }, [selectedQuadraticRound, banner]);
-
-  return (
-    <div className="relative">
-      {/* <LexicalComposer
-        key={selectedQuadraticRound}
-        initialConfig={{
-          namespace: 'RoundBanner',
-          onError(error, editor) {
-            console.error(error);
-          },
-          editable: true,
-          nodes: [TextNode]
-        }}
-      > */}
-      <PlainTextPlugin
-        contentEditable={<ContentEditable className="block min-h-[25px] overflow-auto border-4 px-5" />}
-        placeholder={
-          <div className="pointer-events-none absolute top-[2px] whitespace-nowrap px-5 text-gray-400">
-            <Trans> Round # </Trans>
-          </div>
-        }
-        ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
-      />
-      {/* </LexicalComposer> */}
+      <RoundBanner selectedQuadraticRound={selectedQuadraticRound} editor={editor} />
     </div>
   );
 };

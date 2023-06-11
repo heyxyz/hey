@@ -574,12 +574,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
-      <Editor />
+      <Editor selectedQuadraticRound={selectedQuadraticRound} />
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
-
-      <RoundBanner selectedQuadraticRound={selectedQuadraticRound} />
 
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
