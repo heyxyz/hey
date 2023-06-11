@@ -28,7 +28,7 @@ export const PUBLICATION = {
   LIKE: 'Like publication',
   UNLIKE: 'Unlike publication',
   MIRROR: 'Mirror publication',
-  PERMALINK: 'Permalink publication',
+  SHARE: 'Permalink publication',
   TRANSLATE: 'Translate publication',
   COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
