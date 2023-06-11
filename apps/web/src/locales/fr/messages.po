@@ -61,6 +61,7 @@ msgstr ""
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Messages/MessagesList.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "Annuler"
@@ -612,6 +613,14 @@ msgstr "Envoyer"
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
 msgstr "Chargement des messages"
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Not delivered"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Retry"
+msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -1755,10 +1764,6 @@ msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
-msgstr ""
-
-#: src/components/Settings/Account/Verification.tsx
-msgid "Request Verification"
 msgstr ""
 
 #: src/components/Settings/Account/index.tsx
@@ -2912,4 +2917,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
