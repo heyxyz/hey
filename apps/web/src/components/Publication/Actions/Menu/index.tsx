@@ -10,8 +10,8 @@ import { useAppStore } from 'src/store/app';
 
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
-import Permalink from './Permalink';
 import Report from './Report';
+import Permalink from './Share';
 import Translate from './Translate';
 
 interface PublicationMenuProps {
