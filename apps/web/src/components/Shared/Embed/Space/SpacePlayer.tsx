@@ -7,6 +7,7 @@ import {
   useAudio,
   useHuddle01,
   useLobby,
+  useMeetingMachine,
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
@@ -42,6 +43,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
+  const { send } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
 
@@ -75,74 +77,81 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   }, [isRoomJoined]);
 
   return (
-    <div className="p-5">
-      <SmallUserProfile profile={space.host} smallAvatar />
-      <div className="mt-2 space-y-3">
-        <b className="text-lg">{metadata.content}</b>
-        {accessToken ? (
-          isRoomJoined ? (
-            <div>
-              <button disabled={!leaveRoom.isCallable} onClick={leaveRoom}>
-                Leave
-              </button>
-              <br />
-              <button
-                disabled={!produceAudio.isCallable}
-                onClick={() => produceAudio(micStream)}
-              >
-                Talk
-              </button>
-              <br />
-              <button
-                disabled={!stopProducingAudio.isCallable}
-                onClick={stopProducingAudio}
-              >
-                Mute
-              </button>
-              <div className="grid grid-cols-3 gap-6 sm:grid-cols-5">
-                {Object.values(peers)
-                  .filter((peer) => peer.displayName !== 'Guest')
-                  .map((peer) => (
-                    <>
-                      {peer.mic ? (
-                        <Audio
-                          key={peer.peerId}
-                          peerId={peer.peerId}
-                          track={peer.mic}
-                        />
-                      ) : null}
-                      <SpaceUser
-                        key={peer.peerId}
-                        profileId={peer.displayName}
-                      />
-                    </>
-                  ))}
+    <>
+      <div className="p-5">
+        <SmallUserProfile profile={space.host} smallAvatar />
+        <div className="mt-2 space-y-3">
+          <b className="text-lg">{metadata.content}</b>
+          {accessToken ? (
+            isRoomJoined ? (
+              <div>
+                <div className="grid grid-cols-3 gap-6 sm:grid-cols-5">
+                  {Object.values(peers)
+                    .filter((peer) => peer.displayName !== 'Guest')
+                    .map((peer) => (
+                      <>
+                        {peer.mic ? (
+                          <Audio
+                            key={peer.peerId}
+                            peerId={peer.peerId}
+                            track={peer.mic}
+                          />
+                        ) : null}
+                        <SpaceUser key={peer.peerId} peer={peer} />
+                      </>
+                    ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <Button
+                className="flex w-full justify-center"
+                icon={<PlusCircleIcon className="h-5 w-5" />}
+                onClick={joinRoom}
+                disabled={!joinRoom.isCallable}
+              >
+                Join Space
+              </Button>
+            )
           ) : (
             <Button
               className="flex w-full justify-center"
-              icon={<PlusCircleIcon className="h-5 w-5" />}
-              onClick={joinRoom}
-              disabled={!joinRoom.isCallable}
+              icon={<PencilAltIcon className="h-5 w-5" />}
+              onClick={async () => {
+                const msg = await getLensMessage(address as string);
+                signMessage({ message: msg.message });
+              }}
             >
-              Join Space
+              Sign to continue
             </Button>
-          )
-        ) : (
-          <Button
-            className="flex w-full justify-center"
-            icon={<PencilAltIcon className="h-5 w-5" />}
-            onClick={async () => {
-              const msg = await getLensMessage(address as string);
-              signMessage({ message: msg.message });
-            }}
-          >
-            Sign to continue
-          </Button>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      {isRoomJoined ? (
+        <div className="flex items-center justify-between space-x-2 border-t p-5">
+          <div className="flex items-center space-x-2">
+            <Button
+              disabled={!produceAudio.isCallable}
+              onClick={() => produceAudio(micStream)}
+            >
+              Talk
+            </Button>
+            <Button
+              disabled={!stopProducingAudio.isCallable}
+              onClick={stopProducingAudio}
+            >
+              Mute
+            </Button>
+          </div>
+          <Button
+            variant="danger"
+            disabled={!leaveRoom.isCallable}
+            onClick={() => send(['LEAVE_ROOM', 'LEAVE_LOBBY'])}
+          >
+            Leave
+          </Button>
+        </div>
+      ) : null}
+    </>
   );
 };
 
