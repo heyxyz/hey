@@ -711,7 +711,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           traitType: 'space',
           displayType: PublicationMetadataDisplayTypes.String,
           value: JSON.stringify({
-            id: 'sso-tdfr-ths',
+            id: 'fci-ggbe-bxl',
             host: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3'
           })
         },
