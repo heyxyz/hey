@@ -95,7 +95,7 @@
     "@lingui/cli": "^4.2.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
-    "@types/node": "^20.2.6",
+    "@types/node": "^20.3.0",
     "@types/react": "^18.2.11",
     "@types/react-dom": "^18.2.4",
     "@types/uuid": "^9.0.2",
