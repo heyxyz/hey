@@ -1757,10 +1757,6 @@ msgstr ""
 msgid "No."
 msgstr ""
 
-#: src/components/Settings/Account/Verification.tsx
-msgid "Request Verification"
-msgstr ""
-
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
