@@ -9,10 +9,18 @@ import { Image } from '@lenster/ui';
 import { type FC } from 'react';
 
 interface SpaceUserProps {
-  profileId: string;
+  peer: {
+    peerId: string;
+    role: any;
+    mic: MediaStreamTrack;
+    cam: MediaStreamTrack;
+    displayName: string;
+  };
 }
 
-const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
+const SpaceUser: FC<SpaceUserProps> = ({ peer }) => {
+  const profileId = peer.displayName;
+
   const { data, loading } = useProfileQuery({
     variables: { request: { profileId } },
     skip: !profileId || profileId === 'Guest'
@@ -51,7 +59,12 @@ const SpaceUser: FC<SpaceUserProps> = ({ profileId }) => {
   return (
     <div className="flex flex-col items-center space-y-2">
       <UserAvatar />
-      <UserName />
+      <div className="space-y-1 text-center">
+        <UserName />
+        <div className="lt-text-gray-500 text-xs">
+          {peer.role === 'host' ? 'Host' : 'Listener'}
+        </div>
+      </div>
     </div>
   );
 };
