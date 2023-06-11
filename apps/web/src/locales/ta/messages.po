@@ -1757,10 +1757,6 @@ msgstr "சூப்பர் பின்தொடர்பை அமைக்�
 msgid "No."
 msgstr "இல்லை."
 
-#: src/components/Settings/Account/Verification.tsx
-msgid "Request Verification"
-msgstr "சரிபார்ப்பு கோரிக்கை"
-
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"

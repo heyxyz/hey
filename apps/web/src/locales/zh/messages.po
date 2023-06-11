@@ -1757,10 +1757,6 @@ msgstr "设置超级关注"
 msgid "No."
 msgstr "不。"
 
-#: src/components/Settings/Account/Verification.tsx
-msgid "Request Verification"
-msgstr "请求验证"
-
 #: src/components/Settings/Account/index.tsx
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
