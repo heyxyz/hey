@@ -1880,7 +1880,7 @@ msgid "This will delete your Lens profile"
 msgstr "这将删除你的Lens账户"
 
 #: src/components/Settings/Delete/index.tsx
-msgid "This will permanently burn your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr "这将永久地删除你在Lens协议上的个人资料NFT。你将无法使用任何建立在Lens上的应用程序，包括Lenster。你的所有数据将立即被抹去并且无法被取回。"
 
 #: src/components/Settings/Delete/index.tsx

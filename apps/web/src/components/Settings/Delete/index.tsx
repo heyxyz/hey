@@ -120,7 +120,7 @@ const DeleteSettings: FC = () => {
           </div>
           <p>
             <Trans>
-              This will permanently burn your Profile NFT on the Lens
+              This will permanently delete your Profile NFT on the Lens
               Protocol. You will not be able to use any apps built on Lens,
               including Lenster. All your data will be wiped out immediately and
               you won't be able to get it back.
