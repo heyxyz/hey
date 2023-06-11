@@ -12,7 +12,7 @@ import {
   useRoom
 } from '@huddle01/react/hooks';
 import type { Profile, Publication } from '@lenster/lens';
-import { Button } from '@lenster/ui';
+import { Button, Spinner } from '@lenster/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -43,11 +43,11 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
-  const { send } = useMeetingMachine();
+  const { state, send } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
 
-  const { signMessage } = useSignMessage({
+  const { signMessage, isLoading: signing } = useSignMessage({
     onSuccess: async (data) => {
       const token = await getLensAccessToken(data, address as string);
       setAccessToken(token.accessToken);
@@ -115,7 +115,14 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           ) : (
             <Button
               className="flex w-full justify-center"
-              icon={<PencilAltIcon className="h-5 w-5" />}
+              icon={
+                signing ? (
+                  <Spinner size="xs" className="mr-1" />
+                ) : (
+                  <PencilAltIcon className="h-5 w-5" />
+                )
+              }
+              disabled={signing}
               onClick={async () => {
                 const msg = await getLensMessage(address as string);
                 signMessage({ message: msg.message });
@@ -128,20 +135,24 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
       </div>
       {isRoomJoined ? (
         <div className="flex items-center justify-between space-x-2 border-t p-5">
-          <div className="flex items-center space-x-2">
-            <Button
-              disabled={!produceAudio.isCallable}
-              onClick={() => produceAudio(micStream)}
-            >
-              Talk
-            </Button>
-            <Button
-              disabled={!stopProducingAudio.isCallable}
-              onClick={stopProducingAudio}
-            >
-              Mute
-            </Button>
-          </div>
+          {state.context.role === 'host' ? (
+            <div className="flex items-center space-x-2">
+              <Button
+                disabled={!produceAudio.isCallable}
+                onClick={() => produceAudio(micStream)}
+              >
+                Talk
+              </Button>
+              <Button
+                disabled={!stopProducingAudio.isCallable}
+                onClick={stopProducingAudio}
+              >
+                Mute
+              </Button>
+            </div>
+          ) : (
+            <div />
+          )}
           <Button
             variant="danger"
             disabled={!leaveRoom.isCallable}
