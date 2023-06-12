@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
+import { encodePublicationId } from '../utils';
 
 const apiClient = axios.create({
   baseURL: SANDBOX_GRANTS_URL,
@@ -7,13 +8,6 @@ const apiClient = axios.create({
     'Content-Type': 'application/json'
   }
 });
-
-function graphPostID(lensterPostID: string): string {
-  const [hex1] = lensterPostID.split('-').map((hex) => hex.trim());
-  const num1 = BigInt(hex1);
-  const result = num1.toString(16).padStart(64, '0');
-  return `0x${result}`;
-}
 
 async function request(query: string, variables: any = {}) {
   try {
@@ -39,6 +33,9 @@ export async function getRoundInfo(grantsRound: string) {
       roundEndTime
       payoutStrategy
       votingStrategy {
+        id
+      }
+      program {
         id
       }
       roundStartTime
@@ -83,10 +80,13 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
       orderDirection: desc
     ) {
       id
+      roundEndTime
+      createdAt
       token
       
     }
   }`;
+
   const data = await request(query);
   return data.rounds;
 }
@@ -108,21 +108,33 @@ export async function getAllRounds() {
 // POST QUERIES
 // ************
 
-export async function getPostInfo(address: string, postId: string) {
-  const addressLower = address.toLowerCase();
-  const graphId = graphPostID(postId);
-  const query = `{
-    qfvotes(
-      where: {from: "${addressLower}", projectId: "${graphId}"}
-    ) {
-      amount
-      createdAt
+export async function getPostQuadraticTipping(address: string, pubId: string, roundAddress: string) {
+  const query = `
+  query GetQuadraticTipping($roundAddressLower: ID!, $postId: String!, $addressLower: String!) {
+    quadraticTipping(id: $roundAddressLower) {
       id
-      from
-      to
-      projectId
+      votes(where: {from: $addressLower, projectId: $postId}) {
+        version
+        to
+        projectId
+        token
+        round {
+          id
+        }
+        id
+        from
+        createdAt
+        amount
+      }
     }
   }`;
-  const data = await request(query);
-  return data.qfvotes;
+
+  const variables = {
+    roundAddressLower: roundAddress.toLowerCase(),
+    postId: encodePublicationId(pubId),
+    addressLower: address.toLowerCase()
+  };
+
+  const data = await request(query, variables);
+  return data.quadraticTipping;
 }

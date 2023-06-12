@@ -61,13 +61,7 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
         show={showTipModal}
         onClose={() => setShowTipModal(false)}
       >
-        <Tipping
-          publication={publication}
-          roundAddress={roundAddress}
-          count={count}
-          setCount={setCount}
-          setShowTipModal={setShowTipModal}
-        />
+        <Tipping publication={publication} roundAddress={roundAddress} setShowTipModal={setShowTipModal} />
       </Modal>
     </>
   );

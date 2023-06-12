@@ -17,8 +17,8 @@ const SelectQuadraticRoundMenu = ({
   useEffect(() => {
     async function getActiveRounds() {
       const now = Math.floor(Date.now() / 1000);
+
       const rounds = await getCurrentActiveRounds(now);
-      console.log('rounds', rounds);
       setRoundArray(rounds);
     }
     getActiveRounds();

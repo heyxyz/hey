@@ -28,13 +28,11 @@ import {
   useSendTransaction,
   useWaitForTransaction
 } from 'wagmi';
-
+import { encodePublicationId } from './utils';
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
-import { getRoundInfo } from './QuadraticQueries/grantsQueries';
-import { getVotesbyPubId } from './QuadraticQueries/voteCollectQueries';
+import { getRoundInfo, getPostQuadraticTipping } from './QuadraticQueries/grantsQueries';
+
 interface Props {
-  count: number;
-  setCount: Dispatch<number>;
   publication: Publication;
   setShowTipModal?: Dispatch<boolean>;
   roundAddress: string;
@@ -70,22 +68,24 @@ const quadraticModuleSettings: QuadraticCollectModuleData = {
   }
 };
 
-const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setShowTipModal }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   // const [revenue, setRevenue] = useState(0);
   // const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
+
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
 
   const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
 
+  const [votingStrategyAllowancePending, setVotingStrategyAllowancePending] = useState(false);
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
+
   const [tipAmount, setTipAmount] = useState('0');
-  const [postTipTotal, setPostTipTotal] = useState(0);
+  const [tipCount, setTipCount] = useState(0);
+  const [tipTotal, setTipTotal] = useState(ethers.BigNumber.from(0));
+
+  const [roundInfoLoaded, setRoundInfoLoaded] = useState(false);
   const [roundInfo, setRoundInfo] = useState({
     id: '',
     payoutStrategy: '',
@@ -97,24 +97,72 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
     }
   });
 
+  // REGULAR VERSON
+
   // Get and store round info
+  // useEffect(() => {
+  //   async function fetchRoundInfo(roundAddress: string) {
+  //     try {
+  //       const round = await getRoundInfo(roundAddress);
+  //       if (round) {
+  //         setRoundInfo(round);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching round info:', error);
+  //       return null;
+  //     }
+  //   }
+
+  //   fetchRoundInfo(roundAddress);
+  // }, [roundAddress]);
+
+  // TEMPORARY VERSION- HARDCODED WMATIC
   useEffect(() => {
     async function fetchRoundInfo(roundAddress: string) {
       try {
         const round = await getRoundInfo(roundAddress);
         if (round) {
-          setRoundInfo(round);
+          // Override the token address
+          const modifiedRound = {
+            ...round,
+            token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
+          };
+          setRoundInfo(modifiedRound);
+          setRoundInfoLoaded(true);
         }
       } catch (error) {
         console.error('Error fetching round info:', error);
         return null;
       }
     }
-
     fetchRoundInfo(roundAddress);
-  }, [roundAddress]);
+  }, [roundAddress, address, publication?.id]);
 
-  // Get user balance. need to dynamically change token address, or just use wmatic
+  useEffect(() => {
+    async function fetchPostQuadraticTipping() {
+      try {
+        const postQuadraticTipping = await getPostQuadraticTipping(address!, publication?.id, roundAddress);
+
+        let tipTotal = ethers.BigNumber.from(0);
+        if (postQuadraticTipping && postQuadraticTipping.votes) {
+          for (const vote of postQuadraticTipping.votes) {
+            if (vote.amount) {
+              const weiAmount = ethers.BigNumber.from(vote.amount);
+              tipTotal = tipTotal.add(weiAmount);
+            }
+          }
+        }
+
+        setTipTotal(tipTotal);
+        setTipCount(postQuadraticTipping?.votes?.length);
+      } catch (error) {
+        console.error('Error fetching post quadratic tipping:', error);
+        return null;
+      }
+    }
+    fetchPostQuadraticTipping();
+  }, [roundAddress, address, publication?.id]);
+
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
     token: roundInfo.token as `0x${string}`,
@@ -123,7 +171,6 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
   });
 
   let hasAmount = false;
-
   if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(tipAmount)) {
     hasAmount = false;
   } else {
@@ -131,20 +178,6 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
   }
 
   // Get and store post info
-
-  useEffect(() => {
-    const fetchPostInfo = async () => {
-      if (address && publication?.id) {
-        const votes = await getVotesbyPubId(publication?.id);
-        let voteTipTotal = 0;
-        for (const vote of votes) {
-          voteTipTotal += parseFloat(vote?.amount);
-        }
-        setPostTipTotal(voteTipTotal);
-      }
-    };
-    fetchPostInfo();
-  }, [address, publication?.id]);
 
   // **********
   // CHECK VOTING STRATEGY ALLOWANCE
@@ -172,27 +205,50 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
   } = useSendTransaction({
     request: {},
     mode: 'recklesslyUnprepared',
-    onError
+    onError: (error) => {
+      toast.error(t`Error updating allowance: ${error.message}`);
+      setVotingStrategyAllowancePending(false);
+    }
   });
+
   const { isLoading: waitLoading } = useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      toast.success(allowed ? t`Module disabled successfully!` : t`Module enabled successfully!`);
+      toast.success(
+        votingStrategyAllowed ? t`Voting disabled successfully!` : t`Voting enabled successfully!`
+      );
+      setVotingStrategyAllowancePending(false);
       setShowWarningModal(false);
-      setAllowed(!allowed);
+      setVotingStrategyAllowed(!votingStrategyAllowed);
     },
     onError
   });
+
+  let encodedData;
+
+  if (roundInfo.token.length > 0 && publication?.id) {
+    const bytesIds = encodePublicationId(publication.id);
+    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
+    encodedData = ethers.utils.defaultAbiCoder.encode(
+      ['address', 'address', 'uint256', 'address', 'bytes32'],
+      [address, roundInfo.token, hexTipAmount, publication.profile.ownedBy, bytesIds]
+    );
+  }
 
   const handleAllowance = (customAllowance?: string) => {
     const abi = ['function approve(address spender, uint256 value)'];
     let iface = new ethers.utils.Interface(abi);
 
+    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
+    let hexCustomAllowance;
+    if (customAllowance) {
+      hexCustomAllowance = ethers.utils.parseUnits(customAllowance!, 18).toHexString();
+    }
     const approveVotingStrategy = iface.encodeFunctionData('approve', [
       roundInfo.votingStrategy.id,
-      tipAmount === '0' ? 0 : customAllowance ? customAllowance : tipAmount
+      customAllowance ? hexCustomAllowance : hexTipAmount
     ]);
-
+    setVotingStrategyAllowancePending(true);
     sendTransaction?.({
       recklesslySetUnpreparedRequest: {
         from: address,
@@ -202,23 +258,9 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
     });
   };
 
-  let encodedData;
-
-  if (roundInfo.token.length > 0 && publication?.id) {
-    const postId = publication?.id.split('-')[1];
-    let postIdBN = ethers.BigNumber.from(postId);
-    const bytesPostId = ethers.utils.hexZeroPad(postIdBN.toHexString(), 32);
-
-    encodedData = ethers.utils.defaultAbiCoder.encode(
-      ['address', 'address', 'uint256', 'address', 'bytes32'],
-      [address, roundInfo.token, 1000000, publication.profile.ownedBy, bytesPostId]
-    );
-  }
-
   const {
     isLoading: writeLoading,
     data,
-    isSuccess,
     write
   } = useContractWrite({
     address: roundAddress as `0x${string}`,
@@ -227,15 +269,19 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
     args: [[encodedData]],
     overrides: {
       from: address,
-      value: ethers.utils.parseEther('0.0001')
+      value: ethers.utils.parseEther(tipAmount)
     },
-    mode: 'recklesslyUnprepared'
+    mode: 'recklesslyUnprepared',
+    onSuccess: () => {
+      toast.success(t`Tip submitted successfully!`);
+      setShowTipModal!(false);
+    }
   });
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((res) => res),
-    { enabled: Boolean(collectModule?.amount) }
+    () => getCoingeckoPrice(getAssetAddress(roundInfo.token)).then((res) => res),
+    { enabled: tipTotal && tipTotal.gt(0) }
   );
 
   const isLoading = writeLoading || balanceLoading;
@@ -244,76 +290,79 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
     setTipAmount('0');
   };
 
-  return (
+  return roundInfoLoaded ? (
     <div className="p-5">
       <div className="mb-2 flex items-center space-x-2">
-        {currentProfile &&
-          (allowed ? (
-            hasAmount ? (
-              <div className="flex w-full flex-col">
-                <div className="flex items-stretch">
-                  <input
-                    className="mr-2 flex-grow rounded"
-                    type="number"
-                    step="0.0001"
-                    placeholder="How much do you want to tip?"
-                    value={tipAmount}
-                    onChange={(e) => {
-                      const value = e.target.value.trim();
-                      if (value === '' || value === '.') {
-                        setTipAmount('0');
-                      } else {
-                        setTipAmount(Math.max(parseFloat(value), 0).toString());
-                      }
-                    }}
-                  />
+        {currentProfile && hasAmount ? (
+          <div className="flex w-full flex-col">
+            <div className="flex items-stretch">
+              <input
+                className="mr-2 flex-grow rounded"
+                type="number"
+                step="0.0001"
+                placeholder="How much do you want to tip?"
+                value={tipAmount}
+                onChange={(e) => {
+                  const value = e.target.value.trim();
+                  if (value === '' || value === '.') {
+                    setTipAmount('0');
+                  } else {
+                    setTipAmount(Math.max(parseFloat(value), 0).toString());
+                  }
+                }}
+              />
 
-                  <Button
-                    onClick={votingStrategyAllowed ? () => write() : () => handleAllowance()}
-                    disabled={isLoading || tipAmount === '0'}
-                    icon={isLoading ? <Spinner size="xs" /> : <TipsOutlineIcon color="white" />}
-                    className="flex w-2/6 justify-center"
-                  >
-                    <div className="flex items-center">
-                      <Trans>{votingStrategyAllowed ? 'Tip' : 'Approve and Tip'}</Trans>
-                    </div>
-                  </Button>
+              <Button
+                onClick={votingStrategyAllowed ? () => write() : () => handleAllowance()}
+                disabled={isLoading || tipAmount === '0'}
+                icon={
+                  isLoading || transactionLoading || writeLoading || votingStrategyAllowancePending ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <TipsOutlineIcon color="white" />
+                  )
+                }
+                className="flex w-2/6 justify-center"
+              >
+                <div className="flex items-center">
+                  <Trans>{votingStrategyAllowed ? 'Tip!' : 'Approve Tip'}</Trans>
                 </div>
+              </Button>
+            </div>
 
-                {allowed && (
-                  <div className="mt-2 flex w-full justify-end text-xs">
-                    <Button
-                      variant="warning"
-                      icon={
-                        transactionLoading || waitLoading ? (
-                          <Spinner variant="warning" size="xs" />
-                        ) : (
-                          <MinusIcon className="h-4 w-4" />
-                        )
-                      }
-                      onClick={() => handleAllowance('0')}
-                    >
-                      <Trans>Revoke Allowance</Trans>
-                    </Button>
-                  </div>
-                )}
+            {votingStrategyAllowed && (
+              <div className="mt-2 flex w-full justify-end text-xs">
+                <Button
+                  variant="warning"
+                  icon={
+                    (transactionLoading || waitLoading) && votingStrategyAllowed ? (
+                      <Spinner variant="warning" size="xs" />
+                    ) : (
+                      <MinusIcon className="h-4 w-4" />
+                    )
+                  }
+                  onClick={() => handleAllowance('0')}
+                >
+                  <Trans>Revoke Allowance</Trans>
+                </Button>
               </div>
-            ) : (
-              <div className="flex flex-1 items-center">
-                <div>
-                  <WarningMessage message={<Uniswap module={collectModule} />} />
-                </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-1 items-center">
+            <div>
+              <WarningMessage message={<Uniswap module={collectModule} />} />
+            </div>
 
-                <div className="mx-auto flex items-center">
-                  <div className="flex w-full justify-center">
-                    <Button className="text-center" onClick={resetAmount}>
-                      Reset Amount
-                    </Button>
-                  </div>
-                </div>
+            <div className="mx-auto flex items-center">
+              <div className="flex w-full justify-center">
+                <Button className="text-center" onClick={resetAmount}>
+                  Reset Amount
+                </Button>
               </div>
-            )
-          ) : null)}
+            </div>
+          </div>
+        )}
       </div>
       <div className="space-y-1.5 pb-2">
         {publication?.metadata?.name && (
@@ -323,24 +372,23 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
           <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
         )}
       </div>
-      {collectModule?.amount && (
+      {tipTotal && (
         <div className="flex items-center space-x-1.5 py-2">
           <img
             className="h-7 w-7"
             height={28}
             width={28}
-            src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-            alt={collectModule?.amount?.asset?.symbol}
-            title={collectModule?.amount?.asset?.symbol}
+            src={getTokenImage('wmatic')}
+            alt={tipTotal.toString()}
+            title={tipTotal.toString()}
           />
           <span className="space-x-1">
-            <span className="text-2xl font-bold">{collectModule.amount.value}</span>
-            <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+            <span className="text-xs">{ethers.utils.formatEther(tipTotal)}</span>
             {usdPrice ? (
               <>
                 <span className="lt-text-gray-500 px-0.5">·</span>
                 <span className="lt-text-gray-500 text-xs font-bold">
-                  ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(5)}
+                  ${(parseInt(ethers.utils.formatEther(tipTotal)) * usdPrice).toFixed(5)}
                 </span>
               </>
             ) : null}
@@ -352,22 +400,23 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
           <div className="flex items-center space-x-2">
             <UsersIcon className="lt-text-gray-500 h-4 w-4" />
 
-            <div>
-              {humanize(count)} tips totaling {ethers.utils.formatEther(postTipTotal)}{' '}
-              {collectModule?.amount?.asset?.symbol}
-            </div>
+            <div>{humanize(tipCount)} tippers</div>
           </div>
         </div>
-        {collectModule?.endTimestamp && (
+        {roundInfo.roundEndTime && (
           <div className="flex items-center space-x-2">
             <ClockIcon className="lt-text-gray-500 h-4 w-4" />
             <div className="space-x-1.5">
               <span>
                 <Trans>Round Ends:</Trans>
               </span>
-              <span className="font-bold text-gray-600" title={formatTime(collectModule?.endTimestamp)}>
-                {dayjs(collectModule?.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                {dayjs(collectModule?.endTimestamp).format('hh:mm a')}
+
+              <span
+                className="font-bold text-gray-600"
+                title={formatTime(new Date(parseInt(roundInfo.roundEndTime) * 1000))}
+              >
+                {dayjs(parseInt(roundInfo.roundEndTime) * 1000).format('MMMM DD, YYYY')} at{' '}
+                {dayjs(parseInt(roundInfo.roundEndTime) * 1000).format('hh:mm a')}
               </span>
             </div>
           </div>
@@ -382,6 +431,8 @@ const Tipping: FC<Props> = ({ count, setCount, publication, roundAddress, setSho
         </div>
       )}
     </div>
+  ) : (
+    <div className="p-5">"Loading..."</div>
   );
 };
 
