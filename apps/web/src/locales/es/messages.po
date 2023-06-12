@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-10 00:09\n"
+"PO-Revision-Date: 2023-06-12 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -61,6 +61,7 @@ msgstr ""
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Messages/MessagesList.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr ""
@@ -611,6 +612,14 @@ msgstr ""
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Not delivered"
+msgstr ""
+
+#: src/components/Messages/MessagesList.tsx
+msgid "Retry"
 msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
