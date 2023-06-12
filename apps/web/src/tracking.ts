@@ -30,7 +30,7 @@ export const PUBLICATION = {
   MIRROR: 'Mirror publication',
   PERMALINK: 'Permalink publication',
   TRANSLATE: 'Translate publication',
-  COPY_TEXT: 'Copy publication content',
+  COPY_TEXT: 'Copy publication text',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   CLICK_OEMBED: 'Click publication oembed',
