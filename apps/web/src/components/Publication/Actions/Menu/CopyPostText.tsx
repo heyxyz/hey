@@ -14,6 +14,10 @@ interface CopyPostTextProps {
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
+  const isMirror = publication.__typename === 'Mirror';
+  const publicationType = isMirror
+    ? publication.mirrorOf.__typename
+    : publication.__typename;
   return (
     <Menu.Item
       as="div"
@@ -37,7 +41,11 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <ClipboardCopyIcon className="h-4 w-4" />
         <div>
-          <Trans>Copy post text</Trans>
+          {publicationType === 'Comment' ? (
+            <Trans>Copy comment text</Trans>
+          ) : (
+            <Trans>Copy post text</Trans>
+          )}
         </div>
       </div>
     </Menu.Item>
