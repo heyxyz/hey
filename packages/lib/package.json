@@ -13,7 +13,7 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
-    "viem": "^1.0.2"
+    "viem": "^1.0.5"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
