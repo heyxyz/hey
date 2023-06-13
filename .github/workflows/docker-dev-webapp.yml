@@ -49,7 +49,9 @@ jobs:
           push: false
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          build-args: |
+            ENV_FILE=.env.development
+            APP_ENV=dev
 
       - name: Docker Image Build and Publish
         id: docker-build-publish
@@ -60,4 +62,6 @@ jobs:
           push: true
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
-          build-args: ENV_FILE=.env.development
+          build-args: |
+            ENV_FILE=.env.development
+            APP_ENV=dev

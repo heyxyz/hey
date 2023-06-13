@@ -1,12 +1,12 @@
 import useSimpleDebounce from '@components/utils/hooks/useSimpleDebounce';
 import { PlusIcon } from '@heroicons/react/outline';
 import { t, Trans } from '@lingui/macro';
+import { LensProfileCreator } from 'abis/LensProfileCreator';
 import {
   APP_NAME,
   HANDLE_REGEX,
   IS_RELAYER_AVAILABLE,
   LENS_PROFILE_CREATOR,
-  LENS_PROFILE_CREATOR_ABI,
   ZERO_ADDRESS
 } from 'data/constants';
 import { useCreateProfileMutation } from 'lens';
@@ -49,7 +49,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
 
   const { config, error: contractError } = usePrepareContractWrite({
     address: LENS_PROFILE_CREATOR,
-    abi: LENS_PROFILE_CREATOR_ABI,
+    abi: LensProfileCreator,
     functionName: 'proxyCreateProfile',
     args: [
       {
