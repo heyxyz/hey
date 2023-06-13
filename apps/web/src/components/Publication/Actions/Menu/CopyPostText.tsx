@@ -18,6 +18,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
   const publicationType = isMirror
     ? publication.mirrorOf.__typename
     : publication.__typename;
+
   return (
     <Menu.Item
       as="div"
