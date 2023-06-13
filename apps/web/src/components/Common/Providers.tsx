@@ -3,6 +3,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { lineaTestnet } from '@wagmi/chains';
+import { INFURA_KEY } from 'data';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
@@ -11,6 +12,7 @@ import { configureChains, createClient, WagmiConfig } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { WalletConnectLegacyConnector } from 'wagmi/connectors/walletConnectLegacy';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import { publicProvider } from 'wagmi/providers/public';
 
 import ErrorBoundary from './ErrorBoundary';
 import Layout from './Layout';
@@ -20,9 +22,10 @@ const { chains, provider } = configureChains(
   [
     jsonRpcProvider({
       rpc: () => ({
-        http: `https://rpc.goerli.linea.build`
+        http: `https://linea-goerli.infura.io/v3/${INFURA_KEY}`
       })
-    })
+    }),
+    publicProvider()
   ]
 );
 
@@ -30,6 +33,7 @@ const connectors = () => {
   return [
     new InjectedConnector({ chains, options: { shimDisconnect: true } }),
     new WalletConnectLegacyConnector({
+      chains,
       options: {
         qrcode: true,
         qrcodeModalOptions: {

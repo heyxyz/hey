@@ -41,7 +41,7 @@ test.describe('Profile', async () => {
     });
 
     test('should have meta Linea ens', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-linea-ens')).toContainText('alain.lineatest.eth');
+      await expect(page.getByTestId('profile-meta-linea-ens')).toContainText('alain.linea-build.eth');
     });
 
     test('should have meta website', async ({ page }) => {

@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
-  extends: ['weblint'],
-  rules: {
-    'import/no-anonymous-default-export': 'off',
-    'import/no-anonymous-default-export': 'off',
-    'no-use-before-define': 'off'
-  }
+  env: {
+    node: true
+  },
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint']
 };

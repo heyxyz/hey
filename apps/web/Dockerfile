@@ -7,6 +7,8 @@ RUN pnpm install
 
 # Stage 2: build
 FROM node:18-alpine AS builder
+ARG APP_ENV
+ENV APP_ENV ${APP_ENV}
 ENV NODE_ENV production
 RUN npm install -g pnpm
 COPY --from=deps node_modules ./node_modules

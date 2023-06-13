@@ -11,11 +11,11 @@ import { BadgeCheckIcon } from '@heroicons/react/solid';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { t, Trans } from '@lingui/macro';
+import { LineaResolver } from 'abis/LineaResolver';
 import {
   ENS_DOMAIN_URL,
   ENS_FRONT_DEV_LINEA_URL,
   LINEA_RESOLVER,
-  LINEA_RESOLVER_ABI,
   STATIC_IMAGES_URL,
   ZONIC_URL
 } from 'data/constants';
@@ -61,7 +61,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
 
   const { isError: isBalanceError, data: balanceData } = useContractRead({
     address: LINEA_RESOLVER,
-    abi: LINEA_RESOLVER_ABI,
+    abi: LineaResolver,
     functionName: 'balanceOf',
     args: [address]
   });
@@ -70,7 +70,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
 
   const { data: tokenId, isError: isTokenError } = useContractRead({
     address: LINEA_RESOLVER,
-    abi: LINEA_RESOLVER_ABI,
+    abi: LineaResolver,
     functionName: 'tokenOfOwnerByIndex',
     args: [address, 0]
   });
