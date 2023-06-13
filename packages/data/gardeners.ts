@@ -4,7 +4,12 @@ export const mainnetGardeners = [
   '0x09', // seb
   '0x0a', // matthieu
   '0x19', // emanuele
-  '0x1a' // marco
+  '0x1a', // marco
+  '0x82', // chinzilla
+  '0x87', // nakedwinnie
+  '0x7a', // rooshee
+  '0x33', // lovekosmas
+  '0x8e' // chaindoe
 ];
 
 export const testnetGardeners = [
@@ -13,5 +18,10 @@ export const testnetGardeners = [
   '0x09', // seb
   '0x0a', // matthieu
   '0x19', // emanuele
-  '0x1a' // marco
+  '0x1a', // marco
+  '0x82', // chinzilla
+  '0x87', // nakedwinnie
+  '0x7a', // rooshee
+  '0x33', // lovekosmas
+  '0x8e' // chaindoe
 ];
