@@ -63,7 +63,6 @@
     "framer-motion": "^10.12.16",
     "graphql": "^16.6.0",
     "idb-keyval": "^6.2.1",
-    "jwt-decode": "^3.1.2",
     "lexical": "^0.11.1",
     "next": "^13.4.2",
     "next-themes": "^0.2.1",
