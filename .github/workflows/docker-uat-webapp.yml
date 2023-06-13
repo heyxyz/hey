@@ -50,7 +50,6 @@ jobs:
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
           build-args: |
-            ENV_FILE=.env.uat
             APP_ENV=uat
 
       - name: Docker Image Build and Publish
@@ -63,5 +62,4 @@ jobs:
           tags: consensys/lineaster:${{ env.DOCKER_TAG }}
           # Env file dedicated for dev
           build-args: |
-            ENV_FILE=.env.uat
             APP_ENV=uat
