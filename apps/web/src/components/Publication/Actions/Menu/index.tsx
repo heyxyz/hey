@@ -10,8 +10,8 @@ import { useAppStore } from 'src/store/app';
 
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
-import Permalink from './Permalink';
 import Report from './Report';
+import Share from './Share';
 import Translate from './Translate';
 
 interface PublicationMenuProps {
@@ -47,7 +47,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
-          <Permalink publication={publication} />
+          <Share publication={publication} />
           <Translate publication={publication} />
           <CopyPostText publication={publication} />
         </Menu.Items>
