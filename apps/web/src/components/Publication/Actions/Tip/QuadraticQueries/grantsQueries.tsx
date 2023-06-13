@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
+
 import { encodePublicationId } from '../utils';
 
 const apiClient = axios.create({
@@ -108,12 +109,12 @@ export async function getAllRounds() {
 // POST QUERIES
 // ************
 
-export async function getPostQuadraticTipping(address: string, pubId: string, roundAddress: string) {
+export async function getPostQuadraticTipping(pubId: string, roundAddress: string) {
   const query = `
-  query GetQuadraticTipping($roundAddressLower: ID!, $postId: String!, $addressLower: String!) {
+  query GetQuadraticTipping($roundAddressLower: ID!, $postId: String!) {
     quadraticTipping(id: $roundAddressLower) {
       id
-      votes(where: {from: $addressLower, projectId: $postId}) {
+      votes(where: {projectId: $postId}) {
         version
         to
         projectId
@@ -131,8 +132,7 @@ export async function getPostQuadraticTipping(address: string, pubId: string, ro
 
   const variables = {
     roundAddressLower: roundAddress.toLowerCase(),
-    postId: encodePublicationId(pubId),
-    addressLower: address.toLowerCase()
+    postId: encodePublicationId(pubId)
   };
 
   const data = await request(query, variables);

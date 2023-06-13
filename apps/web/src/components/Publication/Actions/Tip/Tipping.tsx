@@ -9,6 +9,7 @@ import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { RoundImplementation } from 'abis';
 import dayjs from 'dayjs';
+import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import type { Publication } from 'lens';
 import { CollectModules } from 'lens';
@@ -21,21 +22,24 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { Button, Spinner, WarningMessage } from 'ui';
 import {
-  useAccount,
   useBalance,
   useContractRead,
   useContractWrite,
   useSendTransaction,
   useWaitForTransaction
 } from 'wagmi';
-import { encodePublicationId } from './utils';
+
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
-import { getRoundInfo, getPostQuadraticTipping } from './QuadraticQueries/grantsQueries';
+import { getRoundInfo } from './QuadraticQueries/grantsQueries';
+import { encodePublicationId } from './utils';
 
 interface Props {
+  address: string;
   publication: Publication;
   setShowTipModal?: Dispatch<boolean>;
   roundAddress: string;
+  tipCount: number;
+  tipTotal: BigNumber;
 }
 
 export interface QuadraticCollectModuleData {
@@ -68,13 +72,12 @@ const quadraticModuleSettings: QuadraticCollectModuleData = {
   }
 };
 
-const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
+const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModal, tipTotal, tipCount }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   // const [revenue, setRevenue] = useState(0);
   // const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
 
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const { address } = useAccount();
 
   const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
 
@@ -82,8 +85,6 @@ const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
 
   const [tipAmount, setTipAmount] = useState('0');
-  const [tipCount, setTipCount] = useState(0);
-  const [tipTotal, setTipTotal] = useState(ethers.BigNumber.from(0));
 
   const [roundInfoLoaded, setRoundInfoLoaded] = useState(false);
   const [roundInfo, setRoundInfo] = useState({
@@ -138,33 +139,8 @@ const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
     fetchRoundInfo(roundAddress);
   }, [roundAddress, address, publication?.id]);
 
-  useEffect(() => {
-    async function fetchPostQuadraticTipping() {
-      try {
-        const postQuadraticTipping = await getPostQuadraticTipping(address!, publication?.id, roundAddress);
-
-        let tipTotal = ethers.BigNumber.from(0);
-        if (postQuadraticTipping && postQuadraticTipping.votes) {
-          for (const vote of postQuadraticTipping.votes) {
-            if (vote.amount) {
-              const weiAmount = ethers.BigNumber.from(vote.amount);
-              tipTotal = tipTotal.add(weiAmount);
-            }
-          }
-        }
-
-        setTipTotal(tipTotal);
-        setTipCount(postQuadraticTipping?.votes?.length);
-      } catch (error) {
-        console.error('Error fetching post quadratic tipping:', error);
-        return null;
-      }
-    }
-    fetchPostQuadraticTipping();
-  }, [roundAddress, address, publication?.id]);
-
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address,
+    address: address as `0x${string}`,
     token: roundInfo.token as `0x${string}`,
     formatUnits: 18,
     watch: true
@@ -268,7 +244,7 @@ const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
     functionName: 'vote',
     args: [[encodedData]],
     overrides: {
-      from: address,
+      from: address as `0x${string}`,
       value: ethers.utils.parseEther(tipAmount)
     },
     mode: 'recklesslyUnprepared',
@@ -400,7 +376,7 @@ const Tipping: FC<Props> = ({ publication, roundAddress, setShowTipModal }) => {
           <div className="flex items-center space-x-2">
             <UsersIcon className="lt-text-gray-500 h-4 w-4" />
 
-            <div>{humanize(tipCount)} tippers</div>
+            <div>{humanize(tipCount)} tips</div>
           </div>
         </div>
         {roundInfo.roundEndTime && (
