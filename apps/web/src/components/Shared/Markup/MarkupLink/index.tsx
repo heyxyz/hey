@@ -1,3 +1,4 @@
+import truncateUrl from '@lenster/lib/truncateUrl';
 import type { MarkupLinkProps } from 'src/types';
 
 import ExternalLink from './ExternalLink';
@@ -19,7 +20,7 @@ const MarkupLink = ({ href, title = href }: MarkupLinkProps) => {
     return <Hashtag href={href} title={title} />;
   }
 
-  return <ExternalLink href={href} title={title} />;
+  return <ExternalLink href={href} title={title && truncateUrl(title, 30)} />;
 };
 
 export default MarkupLink;
