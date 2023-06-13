@@ -1543,7 +1543,7 @@ msgid "Like"
 msgstr "点赞"
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Permalink.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "已复制到剪贴板！"
@@ -1554,6 +1554,10 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Share.tsx
+msgid "Share"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Translate.tsx

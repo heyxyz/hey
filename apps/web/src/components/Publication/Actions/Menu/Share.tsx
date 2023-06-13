@@ -3,17 +3,17 @@ import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { PUBLICATION } from 'src/tracking';
 
-interface PermalinkProps {
+interface ShareProps {
   publication: Publication;
 }
 
-const Permalink: FC<PermalinkProps> = ({ publication }) => {
+const Share: FC<ShareProps> = ({ publication }) => {
   return (
     <Menu.Item
       as="div"
@@ -29,17 +29,19 @@ const Permalink: FC<PermalinkProps> = ({ publication }) => {
           `${location.origin}/posts/${publication?.id}`
         );
         toast.success(t`Copied to clipboard!`);
-        Leafwatch.track(PUBLICATION.PERMALINK, {
+        Leafwatch.track(PUBLICATION.SHARE, {
           publication_id: publication.id
         });
       }}
     >
       <div className="flex items-center space-x-2">
         <ClipboardCopyIcon className="h-4 w-4" />
-        <div>Permalink</div>
+        <div>
+          <Trans>Share</Trans>
+        </div>
       </div>
     </Menu.Item>
   );
 };
 
-export default Permalink;
+export default Share;
