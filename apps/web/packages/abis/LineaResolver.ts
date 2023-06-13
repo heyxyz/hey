@@ -1,4 +1,4 @@
-export const FollowNft = [
+export const LineaResolver = [
   {
     type: 'constructor',
     stateMutability: 'nonpayable',
