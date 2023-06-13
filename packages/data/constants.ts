@@ -4,7 +4,7 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
+export const IS_UAT = process.env.APP_ENV === 'uat';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -70,6 +70,7 @@ export const FRESHDESK_WORKER_URL = IS_PRODUCTION ? 'https://freshdesk.lenster.x
 
 // Web3
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
+export const INFURA_KEY = IS_UAT ? 'f77a2b1d1f0d434c8677a863c79419fe' : 'b4817cb2c70347559b6f0b03c53787db';
 
 // Regex
 export const URL_REGEX =
