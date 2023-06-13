@@ -74,9 +74,6 @@ const quadraticModuleSettings: QuadraticCollectModuleData = {
 
 const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModal, tipTotal, tipCount }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  // const [revenue, setRevenue] = useState(0);
-  // const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
-
   const [showWarningModal, setShowWarningModal] = useState(false);
 
   const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
@@ -152,8 +149,6 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
   } else {
     hasAmount = true;
   }
-
-  // Get and store post info
 
   // **********
   // CHECK VOTING STRATEGY ALLOWANCE

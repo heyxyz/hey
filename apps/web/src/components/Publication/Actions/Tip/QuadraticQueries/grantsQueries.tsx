@@ -47,36 +47,63 @@ export async function getRoundInfo(grantsRound: string) {
   return data.rounds[0];
 }
 
-export async function getRoundTippingData(grantsRound: string) {
+export async function getUserQuadraticTippingData(roundAddress: string, address: string) {
   const query = `
-    query getRoundTippingData($id: String!) {
-      round(id: $id) {
+  query GetUserQuadraticTippingData($roundAddressLower: String!, $addressLower: String!) {
+    quadraticTippings(where: {id: $roundAddressLower}) {
+      id
+      readyForPayout
+      distributions {
         id
-        createdAt
-        token
-        votingStrategy {
-          id
-          votes {
-            id
-            amount
-            from
-            to
-            version
-            token
-          }
-        }
-        roundEndTime
+      }
+      votes(where: {to: $addressLower}) {
+        projectId
+        amount
+        to
+        from
       }
     }
-  `;
-  const data = await request(query, { id: grantsRound });
-  return data.round;
+  }`;
+  const variables = {
+    roundAddressLower: roundAddress.toLowerCase(),
+    addressLower: address.toLowerCase()
+  };
+  const data = await request(query, variables);
+
+  return data.quadraticTippings;
 }
 
+// export async function getRoundTippingData(grantsRound: string) {
+//   const query = `
+//     query getRoundTippingData($id: String!) {
+//       round(id: $id) {
+//         id
+//         createdAt
+//         token
+//         votingStrategy {
+//           id
+//           votes {
+//             id
+//             amount
+//             from
+//             to
+//             version
+//             token
+//           }
+//         }
+//         roundEndTime
+//       }
+//     }
+//   `;
+//   const data = await request(query, { id: grantsRound });
+//   return data.round;
+// }
+
 export async function getCurrentActiveRounds(unixTimestamp: number) {
-  const query = `{
+  const query = `
+    query GetCurrentActiveRounds($unixTimestamp: String!) {
     rounds(
-      where: { roundEndTime_gt: "${unixTimestamp}" }
+      where: { roundEndTime_gt: $unixTimestamp }
       orderBy: createdAt
       orderDirection: desc
     ) {
@@ -86,22 +113,41 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
       token
       
     }
-  }`;
+  
+}`;
 
-  const data = await request(query);
+  const variables = {
+    unixTimestamp: unixTimestamp.toString()
+  };
+
+  const data = await request(query, variables);
+
   return data.rounds;
 }
 
-export async function getAllRounds() {
-  const query = `{
-    rounds(
-      orderBy: createdAt
-      orderDirection: desc
-    ) {
+export async function getRoundUserData(roundAddress: string, address: string) {
+  const query = `
+  query getRoundUserData($roundAddressLower: ID!, $addressLower: String!) {
+    rounds(where: {id: $roundAddressLower}) {
       id
+      roundStartTime
+      roundEndTime
+      votingStrategy {
+        votes(where: {to: $addressLower}) {
+          to
+          amount
+        }
+      }
     }
   }`;
-  const data = await request(query);
+
+  const variables = {
+    roundAddressLower: roundAddress.toLowerCase(),
+    addressLower: address.toLowerCase()
+  };
+
+  const data = await request(query, variables);
+
   return data.rounds;
 }
 
@@ -111,7 +157,7 @@ export async function getAllRounds() {
 
 export async function getPostQuadraticTipping(pubId: string, roundAddress: string) {
   const query = `
-  query GetQuadraticTipping($roundAddressLower: ID!, $postId: String!) {
+  query GetPostQuadraticTipping($roundAddressLower: ID!, $postId: String!) {
     quadraticTipping(id: $roundAddressLower) {
       id
       votes(where: {projectId: $postId}) {

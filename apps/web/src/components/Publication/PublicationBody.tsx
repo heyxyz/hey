@@ -38,7 +38,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
       const roundAddress = content && retrieveRoundAddress(content);
       if (roundAddress) {
         setRoundAddress(roundAddress);
-        console.log('Ethereum address: ', roundAddress);
       } else {
         setRoundAddress('');
       }
