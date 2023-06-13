@@ -37,7 +37,7 @@ export type SendMessageOptions = {
   fallback?: string;
   id?: string;
   preparedMessage?: PreparedMessage;
-  renderPreview?: () => JSX.Element;
+  renderPreview?: React.ReactNode;
 };
 
 export type PendingMessage = {
@@ -49,7 +49,7 @@ export type PendingMessage = {
   options?: SendMessageOptions;
   sent: Date;
   senderAddress: string;
-  render?: () => JSX.Element;
+  render?: React.ReactNode;
 };
 
 export type FailedMessage = Omit<PendingMessage, 'status'> & {

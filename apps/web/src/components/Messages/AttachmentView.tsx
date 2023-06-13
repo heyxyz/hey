@@ -1,11 +1,18 @@
 import { Image } from '@lenster/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import type { Attachment as TAttachment } from 'xmtp-content-type-remote-attachment';
 
 interface AttachmentProps {
   attachment: TAttachment;
 }
+
+/**
+ * Creating object URLs from blobs is non-deterministic, so we store the
+ * generated URLs in a cache so that they can be reused, which results in
+ * a more consistent rendering of images/data.
+ */
+const blobCache = new WeakMap<Uint8Array, string>();
 
 const isImage = (mimeType: string): boolean =>
   ['image/png', 'image/jpeg', 'image/gif'].includes(mimeType);
@@ -20,11 +27,18 @@ const Attachment: FC<AttachmentProps> = ({ attachment }) => {
     attachment.data = Uint8Array.from(Object.values(attachment.data));
   }
 
-  const objectURL = URL.createObjectURL(
-    new Blob([Buffer.from(attachment.data)], {
-      type: attachment.mimeType
-    })
-  );
+  if (!blobCache.get(attachment.data)) {
+    blobCache.set(
+      attachment.data,
+      URL.createObjectURL(
+        new Blob([Buffer.from(attachment.data)], {
+          type: attachment.mimeType
+        })
+      )
+    );
+  }
+
+  const objectURL = blobCache.get(attachment.data);
 
   if (isImage(attachment.mimeType)) {
     return (
@@ -37,7 +51,7 @@ const Attachment: FC<AttachmentProps> = ({ attachment }) => {
   }
 
   return (
-    <Link target="_blank" rel="noreferrer noopener" href={objectURL}>
+    <Link target="_blank" rel="noreferrer noopener" href={objectURL!}>
       {attachment.filename}
     </Link>
   );

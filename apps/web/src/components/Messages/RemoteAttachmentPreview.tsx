@@ -20,6 +20,7 @@ interface RemoteAttachmentPreviewProps {
   remoteAttachment: RemoteAttachment;
   profile: Profile | undefined;
   sentByMe: boolean;
+  preview?: React.ReactNode;
 }
 
 enum Status {
@@ -31,7 +32,8 @@ enum Status {
 const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   remoteAttachment,
   profile,
-  sentByMe
+  sentByMe,
+  preview
 }) => {
   const [status, setStatus] = useState<Status>(Status.UNLOADED);
   const [attachment, setAttachment] = useState<TAttachment | null>(null);
@@ -122,6 +124,13 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
     cachedAttachments,
     redactionReason
   ]);
+
+  // if preview exists, always use it. this should prevent any rendering
+  // quirks that may result when switching from the local preview to the
+  // remote preview
+  if (preview) {
+    return preview;
+  }
 
   return (
     <div className="mt-1 space-y-1">
