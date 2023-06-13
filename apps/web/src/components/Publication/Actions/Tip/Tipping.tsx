@@ -1,39 +1,45 @@
 import Markup from '@components/Shared/Markup';
-import Collectors from '@components/Shared/Modal/Collectors';
 import Uniswap from '@components/Shared/Uniswap';
-import { ClockIcon, CollectionIcon, UsersIcon } from '@heroicons/react/outline';
+import { ClockIcon, MinusIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-// import { Leafwatch } from 'lib/leafwatch';
 import onError from '@lib/onError';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { LensHub, QuadraticVoteCollectModule } from 'abis';
-import { LENSHUB_PROXY } from 'data/constants';
-import getEnvConfig from 'data/utils/getEnvConfig';
+import { RoundImplementation } from 'abis';
 import dayjs from 'dayjs';
+import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
-import type { ElectedMirror, Publication } from 'lens';
-import { CollectModules, useApprovedModuleAllowanceAmountQuery } from 'lens';
+import type { Publication } from 'lens';
+import { CollectModules } from 'lens';
 import getAssetAddress from 'lib/getAssetAddress';
 import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
 import type { Dispatch, FC } from 'react';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { Button, Modal, Spinner, WarningMessage } from 'ui';
-import { useAccount, useBalance, useContractRead, useContractWrite } from 'wagmi';
+import { Button, Spinner, WarningMessage } from 'ui';
+import {
+  useBalance,
+  useContractRead,
+  useContractWrite,
+  useSendTransaction,
+  useWaitForTransaction
+} from 'wagmi';
 
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
 import { getRoundInfo } from './QuadraticQueries/grantsQueries';
-import { getVotesbyPubId } from './QuadraticQueries/voteCollectQueries';
+import { encodePublicationId } from './utils';
+
 interface Props {
-  count: number;
-  setCount: Dispatch<number>;
+  address: string;
   publication: Publication;
-  electedMirror?: ElectedMirror;
-  setShowCollectModal?: Dispatch<boolean>;
+  setShowTipModal?: Dispatch<boolean>;
+  roundAddress: string;
+  tipCount: number;
+  tipTotal: BigNumber;
 }
 
 export interface QuadraticCollectModuleData {
@@ -66,228 +72,269 @@ const quadraticModuleSettings: QuadraticCollectModuleData = {
   }
 };
 
-const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirror, setShowCollectModal }) => {
-  const userSigNonce = useAppStore((state) => state.userSigNonce);
-  const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
+const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModal, tipTotal, tipCount }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [revenue, setRevenue] = useState(0);
-  const [hasCollectedByMe, setHasCollectedByMe] = useState(publication?.hasCollectedByMe);
-  const [showCollectorsModal, setShowCollectorsModal] = useState(false);
-  const [allowed, setAllowed] = useState(true);
-  const { address } = useAccount();
+  const [showWarningModal, setShowWarningModal] = useState(false);
+
   const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
 
-  const [moduleAllowed, setModuleAllowed] = useState(false);
+  const [votingStrategyAllowancePending, setVotingStrategyAllowancePending] = useState(false);
   const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
-  const [allAllowancesLoading, setAllAllowancesLoading] = useState(true);
-  const [postTipTotal, setPostTipTotal] = useState(0);
-  const [readyToDisplay, setReadyToDisplay] = useState(false);
 
-  useEffect(() => {
-    const fetchPostInfo = async () => {
-      if (address && publication?.id) {
-        const votes = await getVotesbyPubId(publication?.id);
-        let voteTipTotal = 0;
-        for (const vote of votes) {
-          voteTipTotal += parseFloat(vote?.amount);
-        }
-        setPostTipTotal(voteTipTotal);
-      }
-    };
-    fetchPostInfo();
-  }, [address, publication?.id]);
+  const [tipAmount, setTipAmount] = useState('0');
 
-  const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address,
-    token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
-    formatUnits: 18,
-    watch: true
-  });
-
-  let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(collectModule?.amount.value)) {
-    hasAmount = false;
-  } else {
-    hasAmount = true;
-  }
-
-  // const onCompleted = () => {
-  //   setRevenue(revenue + parseFloat(collectModule?.amount?.value));
-  //   setCount(count + 1);
-  //   setHasCollectedByMe(true);
-  //   toast.success(t`Collected successfully!`);
-  //   setTimeout(() => {
-  //     setShowCollectModal && setShowCollectModal(false);
-  //   }, 2000);
-
-  // };
-
-  // needs to change to subgraph
-  const { isFetching, refetch } = useContractRead({
-    address: getEnvConfig().QuadraticVoteCollectModuleAddress,
-    abi: QuadraticVoteCollectModule,
-    functionName: 'getPublicationData',
-    args: [parseInt(publication.profile?.id), parseInt(publication?.id.split('-')[1])]
-  });
-
-  const { isFetched: votingApprovalFetched } = useContractRead({
-    address: collectModule?.amount?.asset?.address,
-    abi: ['function allowance(address owner, address spender) view returns (uint256)'],
-    functionName: 'allowance',
-    args: [address, collectModule?.votingStrategy],
-    onSettled(data: any) {
-      setVotingStrategyAllowed(data?._hex !== '0x00');
-    }
-  });
-  // change to votingStrategy (both)
-  const { isLoading: writeLoading, write } = useContractWrite({
-    address: LENSHUB_PROXY,
-    abi: LensHub,
-    functionName: 'collectWithSig',
-    mode: 'recklesslyUnprepared',
-    // onSuccess: onCompleted,
-    onError
-  });
-
-  const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
-    variables: {
-      request: {
-        currencies: collectModule?.amount?.asset?.address,
-        followModules: [],
-        unknownCollectModules: [getEnvConfig().QuadraticVoteCollectModuleAddress],
-        referenceModules: []
-      }
-    },
-    skip: !collectModule?.amount?.asset?.address || !currentProfile,
-    onCompleted: (data) => {
-      setModuleAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+  const [roundInfoLoaded, setRoundInfoLoaded] = useState(false);
+  const [roundInfo, setRoundInfo] = useState({
+    id: '',
+    payoutStrategy: '',
+    roundEndTime: '',
+    roundStartTime: '',
+    token: '',
+    votingStrategy: {
+      id: ''
     }
   });
 
+  // REGULAR VERSON
+
+  // Get and store round info
+  // useEffect(() => {
+  //   async function fetchRoundInfo(roundAddress: string) {
+  //     try {
+  //       const round = await getRoundInfo(roundAddress);
+  //       if (round) {
+  //         setRoundInfo(round);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching round info:', error);
+  //       return null;
+  //     }
+  //   }
+
+  //   fetchRoundInfo(roundAddress);
+  // }, [roundAddress]);
+
+  // TEMPORARY VERSION- HARDCODED WMATIC
   useEffect(() => {
-    async function fetchRoundInfo(grantsRound: string) {
+    async function fetchRoundInfo(roundAddress: string) {
       try {
-        const roundInfo = await getRoundInfo(grantsRound);
-        return roundInfo;
+        const round = await getRoundInfo(roundAddress);
+        if (round) {
+          // Override the token address
+          const modifiedRound = {
+            ...round,
+            token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
+          };
+          setRoundInfo(modifiedRound);
+          setRoundInfoLoaded(true);
+        }
       } catch (error) {
         console.error('Error fetching round info:', error);
         return null;
       }
     }
+    fetchRoundInfo(roundAddress);
+  }, [roundAddress, address, publication?.id]);
 
-    const round = fetchRoundInfo('0x19ca73094619006f143277b8a1b90c4da5e26bb4');
-    console.log('roundInfo: ', round);
-  }, []);
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+    address: address as `0x${string}`,
+    token: roundInfo.token as `0x${string}`,
+    formatUnits: 18,
+    watch: true
+  });
 
-  // useEffect(() => {
-  //   if (moduleAllowed && votingStrategyAllowed && votingApprovalFetched) {
-  //     setAllowed(true);
-  //   } else {
-  //     setAllowed(false);
-  //   }
-  //   if (allowanceLoading || !votingApprovalFetched) {
-  //     setAllAllowancesLoading(true);
-  //   } else {
-  //     setAllAllowancesLoading(false);
-  //   }
-  //   if (!allAllowancesLoading) {
-  //     setReadyToDisplay(true);
-  //   } else {
-  //     setReadyToDisplay(false);
-  //   }
-  // }, [moduleAllowed, votingStrategyAllowed, allowanceLoading, votingApprovalFetched, allAllowancesLoading]);
+  let hasAmount = false;
+  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(tipAmount)) {
+    hasAmount = false;
+  } else {
+    hasAmount = true;
+  }
+
+  // **********
+  // CHECK VOTING STRATEGY ALLOWANCE
+  // **********
+  const { isFetched: votingApprovalFetched } = useContractRead({
+    address: roundInfo.token as `0x${string}`,
+    abi: ['function allowance(address owner, address spender) view returns (uint256)'],
+    functionName: 'allowance',
+    args: [address, roundInfo.votingStrategy.id],
+    onSettled(data: any) {
+      const hexTipAmount = ethers.BigNumber.from(tipAmount).toHexString();
+      const dataValue = data ? ethers.BigNumber.from(data._hex) : ethers.BigNumber.from(0);
+      const comparisonResult = dataValue.gt(hexTipAmount) && !dataValue.isZero();
+      setVotingStrategyAllowed(comparisonResult);
+    }
+  });
+
+  // **********
+  // ALLOWANCES
+  // **********
+  const {
+    data: txData,
+    isLoading: transactionLoading,
+    sendTransaction
+  } = useSendTransaction({
+    request: {},
+    mode: 'recklesslyUnprepared',
+    onError: (error) => {
+      toast.error(t`Error updating allowance: ${error.message}`);
+      setVotingStrategyAllowancePending(false);
+    }
+  });
+
+  const { isLoading: waitLoading } = useWaitForTransaction({
+    hash: txData?.hash,
+    onSuccess: () => {
+      toast.success(
+        votingStrategyAllowed ? t`Voting disabled successfully!` : t`Voting enabled successfully!`
+      );
+      setVotingStrategyAllowancePending(false);
+      setShowWarningModal(false);
+      setVotingStrategyAllowed(!votingStrategyAllowed);
+    },
+    onError
+  });
+
+  let encodedData;
+
+  if (roundInfo.token.length > 0 && publication?.id) {
+    const bytesIds = encodePublicationId(publication.id);
+    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
+    encodedData = ethers.utils.defaultAbiCoder.encode(
+      ['address', 'address', 'uint256', 'address', 'bytes32'],
+      [address, roundInfo.token, hexTipAmount, publication.profile.ownedBy, bytesIds]
+    );
+  }
+
+  const handleAllowance = (customAllowance?: string) => {
+    const abi = ['function approve(address spender, uint256 value)'];
+    let iface = new ethers.utils.Interface(abi);
+
+    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
+    let hexCustomAllowance;
+    if (customAllowance) {
+      hexCustomAllowance = ethers.utils.parseUnits(customAllowance!, 18).toHexString();
+    }
+    const approveVotingStrategy = iface.encodeFunctionData('approve', [
+      roundInfo.votingStrategy.id,
+      customAllowance ? hexCustomAllowance : hexTipAmount
+    ]);
+    setVotingStrategyAllowancePending(true);
+    sendTransaction?.({
+      recklesslySetUnpreparedRequest: {
+        from: address,
+        to: roundInfo.token as `0x${string}`,
+        data: approveVotingStrategy
+      }
+    });
+  };
+
+  const {
+    isLoading: writeLoading,
+    data,
+    write
+  } = useContractWrite({
+    address: roundAddress as `0x${string}`,
+    abi: RoundImplementation,
+    functionName: 'vote',
+    args: [[encodedData]],
+    overrides: {
+      from: address as `0x${string}`,
+      value: ethers.utils.parseEther(tipAmount)
+    },
+    mode: 'recklesslyUnprepared',
+    onSuccess: () => {
+      toast.success(t`Tip submitted successfully!`);
+      setShowTipModal!(false);
+    }
+  });
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetAddress(collectModule?.amount?.asset?.symbol)).then((res) => res),
-    { enabled: Boolean(collectModule?.amount) }
+    () => getCoingeckoPrice(getAssetAddress(roundInfo.token)).then((res) => res),
+    { enabled: tipTotal && tipTotal.gt(0) }
   );
 
-  const isLoading = isFetching || writeLoading || balanceLoading || allowanceLoading;
+  const isLoading = writeLoading || balanceLoading;
+
   const resetAmount = () => {
-    setCollectModule((prevState) => ({
-      ...prevState,
-      amount: {
-        ...prevState.amount,
-        value: quadraticModuleSettings.amount.value
-      }
-    }));
+    setTipAmount('0');
   };
 
-  return (
+  return roundInfoLoaded ? (
     <div className="p-5">
       <div className="mb-2 flex items-center space-x-2">
-        {currentProfile &&
-          (allowanceLoading ? (
-            <div className="shimmer h-[34px] w-28 rounded-lg" />
-          ) : allowed ? (
-            hasAmount ? (
-              <div className="flex w-full justify-between">
-                <input
-                  className="mr-2 w-4/6 rounded"
-                  type="number"
-                  step="0.0001"
-                  placeholder="How much do you want to tip?"
-                  value={collectModule.amount.value}
-                  onChange={(e) => {
-                    const value = e.target.value.trim();
-                    if (value === '' || value === '.') {
-                      setCollectModule((prevState) => ({
-                        ...prevState,
-                        amount: {
-                          ...prevState.amount,
-                          value: '0'
-                        }
-                      }));
-                    } else {
-                      setCollectModule((prevState) => ({
-                        ...prevState,
-                        amount: {
-                          ...prevState.amount,
-                          value: Math.max(parseFloat(value), 0).toString()
-                        }
-                      }));
-                    }
-                  }}
-                />
+        {currentProfile && hasAmount ? (
+          <div className="flex w-full flex-col">
+            <div className="flex items-stretch">
+              <input
+                className="mr-2 flex-grow rounded"
+                type="number"
+                step="0.0001"
+                placeholder="How much do you want to tip?"
+                value={tipAmount}
+                onChange={(e) => {
+                  const value = e.target.value.trim();
+                  if (value === '' || value === '.') {
+                    setTipAmount('0');
+                  } else {
+                    setTipAmount(Math.max(parseFloat(value), 0).toString());
+                  }
+                }}
+              />
 
+              <Button
+                onClick={votingStrategyAllowed ? () => write() : () => handleAllowance()}
+                disabled={isLoading || tipAmount === '0'}
+                icon={
+                  isLoading || transactionLoading || writeLoading || votingStrategyAllowancePending ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <TipsOutlineIcon color="white" />
+                  )
+                }
+                className="flex w-2/6 justify-center"
+              >
+                <div className="flex items-center">
+                  <Trans>{votingStrategyAllowed ? 'Tip!' : 'Approve Tip'}</Trans>
+                </div>
+              </Button>
+            </div>
+
+            {votingStrategyAllowed && (
+              <div className="mt-2 flex w-full justify-end text-xs">
                 <Button
-                  onClick={() => console.log('clicked')}
-                  disabled={isLoading}
-                  icon={isLoading ? <Spinner size="xs" /> : <TipsOutlineIcon color="white" />}
-                  className="flex w-2/6 justify-center"
+                  variant="warning"
+                  icon={
+                    (transactionLoading || waitLoading) && votingStrategyAllowed ? (
+                      <Spinner variant="warning" size="xs" />
+                    ) : (
+                      <MinusIcon className="h-4 w-4" />
+                    )
+                  }
+                  onClick={() => handleAllowance('0')}
                 >
-                  <div className="flex items-center">
-                    <Trans>Tip</Trans>
-                  </div>
+                  <Trans>Revoke Allowance</Trans>
                 </Button>
               </div>
-            ) : (
-              <div className="flex flex-1 items-center">
-                <div>
-                  <WarningMessage message={<Uniswap module={collectModule} />} />
-                </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-1 items-center">
+            <div>
+              <WarningMessage message={<Uniswap module={collectModule} />} />
+            </div>
 
-                <div className="mx-auto flex items-center">
-                  <div className="flex w-full justify-center">
-                    <Button className="text-center" onClick={resetAmount}>
-                      Reset Amount
-                    </Button>
-                  </div>
-                </div>
+            <div className="mx-auto flex items-center">
+              <div className="flex w-full justify-center">
+                <Button className="text-center" onClick={resetAmount}>
+                  Reset Amount
+                </Button>
               </div>
-            )
-          ) : null)}
+            </div>
+          </div>
+        )}
       </div>
-
-      {/* <AllowanceButton
-        title="Allow collect module"
-        module={allowanceData?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount}
-        allowed={allowed}
-        setAllowed={setAllowed}
-        readyToDisplay={readyToDisplay}
-        {...(collectModule ? { collectModule: collectModule } : {})}
-      /> */}
       <div className="space-y-1.5 pb-2">
         {publication?.metadata?.name && (
           <div className="text-xl font-bold">{publication?.metadata?.name}</div>
@@ -296,24 +343,23 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
           <Markup className="lt-text-gray-500 line-clamp-2">{publication?.metadata?.content}</Markup>
         )}
       </div>
-      {collectModule?.amount && (
+      {tipTotal && (
         <div className="flex items-center space-x-1.5 py-2">
           <img
             className="h-7 w-7"
             height={28}
             width={28}
-            src={getTokenImage(collectModule?.amount?.asset?.symbol)}
-            alt={collectModule?.amount?.asset?.symbol}
-            title={collectModule?.amount?.asset?.symbol}
+            src={getTokenImage('wmatic')}
+            alt={tipTotal.toString()}
+            title={tipTotal.toString()}
           />
           <span className="space-x-1">
-            <span className="text-2xl font-bold">{collectModule.amount.value}</span>
-            <span className="text-xs">{collectModule?.amount?.asset?.symbol}</span>
+            <span className="text-xs">{ethers.utils.formatEther(tipTotal)}</span>
             {usdPrice ? (
               <>
                 <span className="lt-text-gray-500 px-0.5">·</span>
                 <span className="lt-text-gray-500 text-xs font-bold">
-                  ${(parseFloat(collectModule.amount.value) * usdPrice).toFixed(5)}
+                  ${(parseInt(ethers.utils.formatEther(tipTotal)) * usdPrice).toFixed(5)}
                 </span>
               </>
             ) : null}
@@ -324,43 +370,24 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         <div className="item-center block space-y-1 sm:flex sm:space-x-5">
           <div className="flex items-center space-x-2">
             <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-            <button
-              className="font-bold"
-              type="button"
-              onClick={() => {
-                setShowCollectorsModal(!showCollectorsModal);
-                // Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECTORS);
-              }}
-            >
-              <div>
-                {humanize(count)} tips totaling {ethers.utils.formatEther(postTipTotal)}{' '}
-                {collectModule?.amount?.asset?.symbol}
-              </div>
-            </button>
-            <Modal
-              title={t`Collected by`}
-              icon={<CollectionIcon className="text-brand h-5 w-5" />}
-              show={showCollectorsModal}
-              onClose={() => setShowCollectorsModal(false)}
-            >
-              <Collectors
-                publicationId={
-                  publication.__typename === 'Mirror' ? publication?.mirrorOf?.id : publication?.id
-                }
-              />
-            </Modal>
+
+            <div>{humanize(tipCount)} tips</div>
           </div>
         </div>
-        {collectModule?.endTimestamp && (
+        {roundInfo.roundEndTime && (
           <div className="flex items-center space-x-2">
             <ClockIcon className="lt-text-gray-500 h-4 w-4" />
             <div className="space-x-1.5">
               <span>
                 <Trans>Round Ends:</Trans>
               </span>
-              <span className="font-bold text-gray-600" title={formatTime(collectModule?.endTimestamp)}>
-                {dayjs(collectModule?.endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                {dayjs(collectModule?.endTimestamp).format('hh:mm a')}
+
+              <span
+                className="font-bold text-gray-600"
+                title={formatTime(new Date(parseInt(roundInfo.roundEndTime) * 1000))}
+              >
+                {dayjs(parseInt(roundInfo.roundEndTime) * 1000).format('MMMM DD, YYYY')} at{' '}
+                {dayjs(parseInt(roundInfo.roundEndTime) * 1000).format('hh:mm a')}
               </span>
             </div>
           </div>
@@ -375,7 +402,9 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
         </div>
       )}
     </div>
+  ) : (
+    <div className="p-5">"Loading..."</div>
   );
 };
 
-export default QuadraticModule;
+export default Tipping;

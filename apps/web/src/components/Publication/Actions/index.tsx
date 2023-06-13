@@ -15,14 +15,14 @@ interface PublicationActionsProps {
   publication: Publication;
   electedMirror?: ElectedMirror;
   showCount?: boolean;
-  tippingEnabled?: boolean;
+  roundAddress?: string;
 }
 
 const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
   electedMirror,
   showCount = false,
-  tippingEnabled = false
+  roundAddress = ''
 }) => {
   const { allowed: modMode } = useModMode();
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -41,9 +41,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {collectModuleType !== 'RevertCollectModuleSettings' && (
         <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
       )}
-      {tippingEnabled && (
-        <Tip electedMirror={electedMirror} publication={publication} showCount={showCount} />
-      )}
+      {roundAddress.length > 0 && <Tip publication={publication} roundAddress={roundAddress} />}
       {modMode && <Mod publication={publication} isFullPublication={showCount} />}
     </span>
   );

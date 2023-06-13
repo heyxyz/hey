@@ -1,4 +1,4 @@
-import { getAllRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useState } from 'react';
@@ -15,11 +15,13 @@ const SelectQuadraticRoundMenu = ({
   const [roundArray, setRoundArray] = useState<{ id: string }[]>();
 
   useEffect(() => {
-    async function getRounds() {
-      const rounds = await getAllRounds();
+    async function getActiveRounds() {
+      const now = Math.floor(Date.now() / 1000);
+
+      const rounds = await getCurrentActiveRounds(now);
       setRoundArray(rounds);
     }
-    getRounds();
+    getActiveRounds();
   }, []);
 
   return (

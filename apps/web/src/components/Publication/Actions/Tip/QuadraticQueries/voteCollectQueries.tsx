@@ -11,7 +11,6 @@ function getProfileAndPubId(hexString: string): [string, string] {
 export async function getVotesbyPubId(hexPair: string) {
   const [profileId, pubId] = getProfileAndPubId(hexPair);
   const pubIdLower = pubId.toLowerCase();
-  console.log('pubIdLower: ', pubIdLower);
 
   const query = `
   {

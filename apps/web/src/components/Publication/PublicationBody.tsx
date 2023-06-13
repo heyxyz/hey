@@ -17,10 +17,10 @@ import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface PublicationBodyProps {
   publication: Publication;
-  setTippingEnabled?: Dispatch<SetStateAction<boolean>>;
+  setRoundAddress?: Dispatch<SetStateAction<string>>;
 }
 
-const PublicationBody: FC<PublicationBodyProps> = ({ publication, setTippingEnabled }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddress }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
@@ -28,19 +28,21 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setTippingEnab
   let content = publication?.metadata?.content;
 
   useEffect(() => {
-    function hasNotificationString(input: string): boolean {
-      const pattern = /Your post will be included in the 0x[\dA-Fa-f]{40} round\./;
-      return pattern.test(input);
+    function retrieveRoundAddress(input: string): string | null {
+      const pattern = /Your post will be included in the (0x[\dA-Fa-f]{40}) round\./;
+      const match = input.match(pattern);
+      return match ? match[1] : null;
     }
 
-    if (setTippingEnabled) {
-      if (content && hasNotificationString(content)) {
-        setTippingEnabled(true);
+    if (setRoundAddress) {
+      const roundAddress = content && retrieveRoundAddress(content);
+      if (roundAddress) {
+        setRoundAddress(roundAddress);
       } else {
-        setTippingEnabled(false);
+        setRoundAddress('');
       }
     }
-  }, [content, setTippingEnabled]);
+  }, [content, setRoundAddress]);
 
   if (snapshotProposalId) {
     content = content?.replace(getURLs(publication?.metadata?.content)[0], '');

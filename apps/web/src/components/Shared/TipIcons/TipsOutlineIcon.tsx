@@ -15,14 +15,14 @@ export default function TipsOutlineIcon({ color = '#EF4444' }) {
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.4"
+        strokeWidth="1.25"
       />
       <path
         d="M3.60001 15.75C2.85001 15.075 2.47501 14.175 2.47501 13.2C2.47501 11.325 3.97501 9.82501 5.85001 9.82501C7.72501 9.82501 7.42501 10.125 8.02501 10.575"
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.4"
+        strokeWidth="1.25"
       />
       <path d="M1.8 15.75H14.85" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
       <path
@@ -30,21 +30,21 @@ export default function TipsOutlineIcon({ color = '#EF4444' }) {
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.4"
+        strokeWidth="1.25"
       />
       <path
         d="M7.20001 8.025C7.42501 7.8 10.05 7.875 10.2 8.025"
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.4"
+        strokeWidth="1.25"
       />
       <path
         d="M13.65 2.25C13.65 2.25 12.15 3.45 11.7 3.675C10.95 3.975 6.97499 4.125 6.07499 4.275C5.24999 4.5 4.72499 4.95 4.42499 5.55C4.12499 6.15 3.67499 10.2 3.67499 10.2C3.67499 10.2 4.87499 9.375 6.89999 9.675C6.89999 9.675 6.89999 8.175 7.19999 8.025"
         stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.4"
+        strokeWidth="1.25"
       />
     </svg>
   );

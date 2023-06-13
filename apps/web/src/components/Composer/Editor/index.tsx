@@ -65,6 +65,7 @@ const RoundBanner: FC<BannerProps> = ({ selectedQuadraticRound, editor }) => {
     }
     editor.setEditable(false);
   }, [selectedQuadraticRound, editor]);
+
   return (
     <div className="relative">
       <PlainTextPlugin

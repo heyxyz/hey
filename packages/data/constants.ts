@@ -8,7 +8,8 @@ export const IS_PREVIEW = process.env.NEXT_PUBLIC_VERCEL_ENV === 'preview';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
-export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/bitbeckers/ql-dev';
+// export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/bitbeckers/ql-dev';
+export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/psparacino/quadratic-lenster-dev';
 export const SANDBOX_VOTES_COLLECT_URL =
   'https://api.thegraph.com/subgraphs/name/bitbeckers/vote-collect-dev';
 
