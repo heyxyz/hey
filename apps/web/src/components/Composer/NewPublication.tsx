@@ -72,7 +72,7 @@ import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
-import { Editor, RoundBanner } from './Editor';
+import { Editor } from './Editor';
 // import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {

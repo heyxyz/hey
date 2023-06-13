@@ -52,7 +52,6 @@ const RoundBanner: FC<BannerProps> = ({ selectedQuadraticRound, editor }) => {
     const prevQuadraticRound = prevQuadraticRoundRef.current;
 
     if (selectedQuadraticRound !== prevQuadraticRound) {
-
       const newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
       editor.update(() => {
         const p = $createParagraphNode();
