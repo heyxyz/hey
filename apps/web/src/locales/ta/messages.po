@@ -1542,10 +1542,15 @@ msgstr "விரும்பவில்லை"
 msgid "Like"
 msgstr "விரும்பு"
 
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Permalink.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+msgid "Copy post text"
+msgstr ""
 
 #: src/components/Publication/Actions/Menu/Translate.tsx
 #: src/components/Shared/Footer/index.tsx
