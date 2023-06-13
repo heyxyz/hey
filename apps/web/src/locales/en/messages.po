@@ -1549,6 +1549,10 @@ msgid "Copied to clipboard!"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
+msgid "Copy comment text"
+msgstr "Copy comment text"
+
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
 msgstr "Copy post text"
 

@@ -1549,6 +1549,10 @@ msgid "Copied to clipboard!"
 msgstr "已复制到剪贴板！"
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
+msgid "Copy comment text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
 msgstr ""
 
@@ -2922,4 +2926,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
