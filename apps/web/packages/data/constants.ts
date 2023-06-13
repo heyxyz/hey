@@ -4,7 +4,7 @@ import getEnvConfig from './utils/getEnvConfig';
 
 // Environments
 export const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-export const IS_UAT = process.env.APP_ENV === 'uat';
+export const IS_UAT = process.env.NEXT_PUBLIC_APP_ENV === 'uat';
 
 // Lens Network
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
