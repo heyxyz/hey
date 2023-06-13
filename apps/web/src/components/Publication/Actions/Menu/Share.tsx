@@ -3,7 +3,7 @@ import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans, t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
