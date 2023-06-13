@@ -18,6 +18,7 @@ const Wrapper: FC<WrapperProps> = ({
 }) => (
   <Card
     className={clsx('mt-3 cursor-auto', className, { 'p-5': !zeroPadding })}
+    forceRounded
     dataTestId={dataTestId}
     onClick={stopEventPropagation}
   >
