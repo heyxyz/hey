@@ -6,7 +6,11 @@ import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import type { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import {
+  ChatAlt2Icon,
+  MicrophoneIcon,
+  PencilAltIcon
+} from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -926,7 +930,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           )}
           <PollSettings />
-          <SpaceSettings />
+          {!isComment ? <SpaceSettings /> : null}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -941,13 +945,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="h-4 w-4" />
+              ) : showSpaceEditor ? (
+                <MicrophoneIcon className="h-4 w-4" />
               ) : (
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}
           >
-            {isComment ? t`Comment` : t`Post`}
+            {isComment
+              ? t`Comment`
+              : showSpaceEditor
+              ? t`Start Space`
+              : t`Post`}
           </Button>
         </div>
       </div>
