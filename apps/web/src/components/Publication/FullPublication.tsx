@@ -2,8 +2,8 @@ import { formatTime } from '@lib/formatTime';
 import dayjs from 'dayjs';
 import type { Publication } from 'lens';
 import getAppName from 'lib/getAppName';
-import { useState } from 'react';
 import type { FC } from 'react';
+import { useState } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
