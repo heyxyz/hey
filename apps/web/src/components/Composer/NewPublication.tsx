@@ -710,7 +710,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(showSpaceEditor
           ? [
               {
-                traitType: 'space',
+                traitType: 'audioSpace',
                 displayType: PublicationMetadataDisplayTypes.String,
                 value: JSON.stringify({
                   id: spaceId,
