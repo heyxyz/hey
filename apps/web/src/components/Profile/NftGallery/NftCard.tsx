@@ -2,7 +2,8 @@ import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Nft } from '@lenster/lens';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import Link from 'next/link';
-import { type FC, memo } from 'react';
+import type { FC } from 'react';
+import { memo } from 'react';
 
 interface NFTProps {
   nft: Nft;
