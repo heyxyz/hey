@@ -4,6 +4,7 @@ import type {
   Conversation,
   DecodedMessage
 } from '@xmtp/xmtp-js';
+import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 import { v4 as uuid } from 'uuid';
@@ -37,7 +38,7 @@ export type SendMessageOptions = {
   fallback?: string;
   id?: string;
   preparedMessage?: PreparedMessage;
-  renderPreview?: React.ReactNode;
+  renderPreview?: ReactNode;
 };
 
 export type PendingMessage = {
@@ -49,7 +50,7 @@ export type PendingMessage = {
   options?: SendMessageOptions;
   sent: Date;
   senderAddress: string;
-  render?: React.ReactNode;
+  render?: ReactNode;
 };
 
 export type FailedMessage = Omit<PendingMessage, 'status'> & {

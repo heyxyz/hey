@@ -2,7 +2,7 @@ import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@lenster/lens';
 import { Spinner } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   useAttachmentCachePersistStore,
@@ -20,7 +20,7 @@ interface RemoteAttachmentPreviewProps {
   remoteAttachment: RemoteAttachment;
   profile: Profile | undefined;
   sentByMe: boolean;
-  preview?: React.ReactNode;
+  preview?: ReactNode;
 }
 
 enum Status {

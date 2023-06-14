@@ -3,7 +3,7 @@ import { AnnotationIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 

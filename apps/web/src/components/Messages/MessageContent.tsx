@@ -6,8 +6,8 @@ import {
 } from '@components/utils/hooks/useSendOptimisticMessage';
 import type { Profile } from '@lenster/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import { type FC, useRef } from 'react';
-import React from 'react';
+import type { FC, ReactNode } from 'react';
+import { useRef } from 'react';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 import RemoteAttachmentPreview from './RemoteAttachmentPreview';
@@ -23,7 +23,7 @@ const MessageContent: FC<MessageContentProps> = ({
   profile,
   sentByMe
 }) => {
-  const previewRef = useRef<React.ReactNode | undefined>();
+  const previewRef = useRef<ReactNode | undefined>();
 
   if (message.error) {
     return <span>Error: {`${message.error}`}</span>;

@@ -60,7 +60,7 @@ const MessageTile: FC<MessageTileProps> = ({
   }
 
   // content to display to indicate message status
-  let statusContent: React.ReactNode = null;
+  let statusContent: ReactNode = null;
   if (isQueuedMessage(message)) {
     switch (message.status) {
       case 'failed':
