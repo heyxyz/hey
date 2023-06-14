@@ -8,7 +8,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -32,26 +32,24 @@ const Highlights: FC = () => {
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feedHighlights?.items;
+  const publications = data?.feedHighlights?.items ?? [];
   const pageInfo = data?.feedHighlights?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      }).then(({ data }) => {
-        setHasMore(data?.feedHighlights?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    }).then(({ data }) => {
+      setHasMore(data?.feedHighlights?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -80,13 +78,22 @@ const Highlights: FC = () => {
             </div>
           )
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.id}_${index}`}
-          publication={publication as Publication}
-        />
-      ))}
-      {hasMore && <span ref={observe} />}
+      <Virtuoso
+        useWindowScroll
+        className="virtual-feed"
+        data={publications}
+        endReached={onEndReached}
+        itemContent={(index, publication) => {
+          return (
+            <SinglePublication
+              key={`${publication.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              publication={publication as Publication}
+            />
+          );
+        }}
+      />
     </Card>
   );
 };
