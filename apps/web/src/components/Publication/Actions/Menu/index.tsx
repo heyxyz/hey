@@ -11,6 +11,7 @@ import { useAppStore } from 'src/store/app';
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
 import Report from './Report';
+import SeeLess from './SeeLess';
 import Share from './Share';
 import Translate from './Translate';
 
@@ -47,6 +48,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
+          {currentProfile ? <SeeLess publication={publication} /> : null}
           <Share publication={publication} />
           <Translate publication={publication} />
           <CopyPostText publication={publication} />
