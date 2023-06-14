@@ -12,9 +12,6 @@ const SpaceSettings: FC = () => {
   const setShowSpaceEditor = usePublicationStore(
     (state) => state.setShowSpaceEditor
   );
-  const resetSpaceConfig = usePublicationStore(
-    (state) => state.resetSpaceConfig
-  );
   const { on: isSpacesEnabled } = Growthbook.feature(FeatureFlag.Spaces);
 
   if (!isSpacesEnabled) {
@@ -27,7 +24,6 @@ const SpaceSettings: FC = () => {
         whileTap={{ scale: 0.9 }}
         type="button"
         onClick={() => {
-          resetSpaceConfig();
           setShowSpaceEditor(!showSpaceEditor);
         }}
         aria-label="Space"

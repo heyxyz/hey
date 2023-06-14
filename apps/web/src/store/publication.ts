@@ -48,12 +48,6 @@ interface PublicationState {
   resetPollConfig: () => void;
   showSpaceEditor: boolean;
   setShowSpaceEditor: (showSpaceEditor: boolean) => void;
-  spaceConfig: {
-    id: string;
-    host: string;
-  };
-  setSpaceConfig: (spaceConfig: { id: string; host: string }) => void;
-  resetSpaceConfig: () => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -112,8 +106,5 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, choices: ['', ''] } })),
   showSpaceEditor: false,
-  setShowSpaceEditor: (showSpaceEditor) => set(() => ({ showSpaceEditor })),
-  spaceConfig: { id: '', host: '' },
-  setSpaceConfig: (spaceConfig) => set(() => ({ spaceConfig })),
-  resetSpaceConfig: () => set(() => ({ spaceConfig: { id: '', host: '' } }))
+  setShowSpaceEditor: (showSpaceEditor) => set(() => ({ showSpaceEditor }))
 }));
