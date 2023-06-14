@@ -89,6 +89,7 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
+import SpaceSettings from './Actions/SpaceSettings';
 import Editor from './Editor';
 
 const Attachment = dynamic(
@@ -919,6 +920,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           )}
           <PollSettings />
+          <SpaceSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
