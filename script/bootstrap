@@ -31,6 +31,11 @@ echo "WORKER_ENV=development" > .dev.vars
 echo "IMAGEKIT_URL=https://ik.imagekit.io/lensterdev" >> .dev.vars
 cd ../../../
 # -------------------------------------
+echo "Updating packages/workers/spaces env vars 🌎"
+cd packages/workers/spaces
+echo "HUDDLE_API_KEY=VwTZ4AGTxme9snANex9tep3NwvVMGfYd" > .dev.vars
+cd ../../../
+# -------------------------------------
 echo "Installing dependencies 📦"
 pnpm install --frozen-lockfile
 echo "Dependencies installed 📦"

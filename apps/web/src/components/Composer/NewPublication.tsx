@@ -4,9 +4,14 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
+import useCreateSpace from '@components/utils/hooks/useCreateSpace';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import type { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import {
+  ChatAlt2Icon,
+  MicrophoneIcon,
+  PencilAltIcon
+} from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -89,6 +94,7 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
+import SpaceSettings from './Actions/SpaceSettings';
 import Editor from './Editor';
 
 const Attachment = dynamic(
@@ -132,10 +138,6 @@ interface NewPublicationProps {
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
-
-  // App store
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Modal store
@@ -143,62 +145,52 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     (state) => state.setShowNewPostModal
   );
 
+  // Nonce store
+  const { userSigNonce, setUserSigNonce } = useNonceStore((state) => state);
+
   // Publication store
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const setPublicationContent = usePublicationStore(
-    (state) => state.setPublicationContent
-  );
-  const quotedPublication = usePublicationStore(
-    (state) => state.quotedPublication
-  );
-  const setQuotedPublication = usePublicationStore(
-    (state) => state.setQuotedPublication
-  );
-  const audioPublication = usePublicationStore(
-    (state) => state.audioPublication
-  );
-  const attachments = usePublicationStore((state) => state.attachments);
-  const setAttachments = usePublicationStore((state) => state.setAttachments);
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const isUploading = usePublicationStore((state) => state.isUploading);
-  const videoThumbnail = usePublicationStore((state) => state.videoThumbnail);
-  const setVideoThumbnail = usePublicationStore(
-    (state) => state.setVideoThumbnail
-  );
-  const videoDurationInSeconds = usePublicationStore(
-    (state) => state.videoDurationInSeconds
-  );
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
-    (state) => state.setShowPollEditor
-  );
-  const pollConfig = usePublicationStore((state) => state.pollConfig);
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const {
+    publicationContent,
+    setPublicationContent,
+    quotedPublication,
+    setQuotedPublication,
+    audioPublication,
+    attachments,
+    setAttachments,
+    addAttachments,
+    isUploading,
+    videoThumbnail,
+    setVideoThumbnail,
+    videoDurationInSeconds,
+    showPollEditor,
+    setShowPollEditor,
+    resetPollConfig,
+    showSpaceEditor,
+    setShowSpaceEditor,
+    pollConfig
+  } = usePublicationStore((state) => state);
 
   // Transaction persist store
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+  const { txnQueue, setTxnQueue } = useTransactionPersistStore(
+    (state) => state
+  );
 
   // Collect module store
-  const collectModule = useCollectModuleStore((state) => state.collectModule);
-  const resetCollectSettings = useCollectModuleStore((state) => state.reset);
+  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
+    (state) => state
+  );
 
   // Reference module store
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
+  const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
+    useReferenceModuleStore((state) => state);
 
   // Access module store
-  const restricted = useAccessSettingsStore((state) => state.restricted);
-  const followToView = useAccessSettingsStore((state) => state.followToView);
-  const collectToView = useAccessSettingsStore((state) => state.collectToView);
-  const resetAccessSettings = useAccessSettingsStore((state) => state.reset);
+  const {
+    restricted,
+    followToView,
+    collectToView,
+    reset: resetAccessSettings
+  } = useAccessSettingsStore((state) => state);
 
   // States
   const [isLoading, setIsLoading] = useState(false);
@@ -208,6 +200,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const [createSpace] = useCreateSpace();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -234,6 +227,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
+    setShowSpaceEditor(false);
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -701,12 +695,30 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
+      // Create Space in Huddle
+      let spaceId = null;
+      if (showSpaceEditor) {
+        spaceId = await createSpace();
+      }
+
       const attributes: MetadataAttributeInput[] = [
         {
           traitType: 'type',
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
+        ...(showSpaceEditor
+          ? [
+              {
+                traitType: 'audioSpace',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: JSON.stringify({
+                  id: spaceId,
+                  host: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3'
+                })
+              }
+            ]
+          : []),
         ...(quotedPublication
           ? [
               {
@@ -911,6 +923,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           )}
           <PollSettings />
+          {!isComment ? <SpaceSettings /> : null}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -925,13 +938,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="h-4 w-4" />
+              ) : showSpaceEditor ? (
+                <MicrophoneIcon className="h-4 w-4" />
               ) : (
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}
           >
-            {isComment ? t`Comment` : t`Post`}
+            {isComment
+              ? t`Comment`
+              : showSpaceEditor
+              ? t`Start Space`
+              : t`Post`}
           </Button>
         </div>
       </div>
