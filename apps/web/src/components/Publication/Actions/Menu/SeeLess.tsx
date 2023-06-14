@@ -1,19 +1,48 @@
 import { Menu } from '@headlessui/react';
 import { EyeOffIcon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
+import type { Publication, PublicationDownvoteRequest } from '@lenster/lens';
+import {
+  useAddPublicationDownvoteMutation,
+  useRemovePublicationDownvoteMutation
+} from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import errorToast from '@lib/errorToast';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useGlobalAlertStateStore } from 'src/store/alerts';
+import { useAppStore } from 'src/store/app';
 
 interface SeeLessProps {
   publication: Publication;
 }
 
 const SeeLess: FC<SeeLessProps> = ({ publication }) => {
-  const setShowPublicationDeleteAlert = useGlobalAlertStateStore(
-    (state) => state.setShowPublicationDeleteAlert
-  );
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const request: PublicationDownvoteRequest = {
+    profileId: currentProfile?.id,
+    publicationId: publication.id
+  };
+
+  const [addPublicationDownVote] = useAddPublicationDownvoteMutation({
+    variables: { request },
+    onError: (error) => {
+      errorToast(error);
+    }
+  });
+
+  const [removePublicationDownVote] = useRemovePublicationDownvoteMutation({
+    variables: { request },
+    onError: (error) => {
+      errorToast(error);
+    }
+  });
+
+  const togglePublicationDownVote = async () => {
+    if (publication.downvoted) {
+      return await removePublicationDownVote();
+    }
+
+    return await addPublicationDownVote();
+  };
 
   return (
     <Menu.Item
@@ -26,7 +55,7 @@ const SeeLess: FC<SeeLessProps> = ({ publication }) => {
       }
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowPublicationDeleteAlert(true, publication);
+        togglePublicationDownVote();
       }}
     >
       <div className="flex items-center space-x-2">
