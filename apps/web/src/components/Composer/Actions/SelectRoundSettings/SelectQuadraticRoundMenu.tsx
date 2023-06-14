@@ -1,7 +1,7 @@
 import {
-  getCurrentActiveRounds,
-  getRoundInfo,
-  getRoundName
+  getCurrentActiveRounds
+  // getRoundInfo
+  // getRoundName
 } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
@@ -25,8 +25,8 @@ const SelectQuadraticRoundMenu = ({
       const rounds = await getCurrentActiveRounds(now);
 
       for (const round of rounds) {
-        const roundDetails = await getRoundInfo(round.id);
-        const { name } = await getRoundName(roundDetails.roundMetaPtr.pointer);
+        // const roundDetails = await getRoundInfo(round.id);
+        const name = '';
 
         setRoundArray((roundArray) => {
           const newArray = roundArray ?? [];
