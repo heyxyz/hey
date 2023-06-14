@@ -260,9 +260,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                 }
                 className="flex w-2/6 justify-center"
               >
-                <div className="flex items-center">
-                  <Trans>{roundContractAllowed ? 'Tip!' : 'Approve Tip'}</Trans>
-                </div>
+                <div className="flex items-center">{roundContractAllowed ? 'Tip!' : 'Approve Tip'}</div>
               </Button>
             </div>
 
