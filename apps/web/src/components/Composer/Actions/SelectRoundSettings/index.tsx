@@ -13,7 +13,7 @@ interface Props {
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
 }
 
-const SelectRoundSettings: FC<Props> = ({ selectedQuadraticRound, setSelectedQuadraticRound }) => {
+const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound }) => {
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
@@ -40,14 +40,11 @@ const SelectRoundSettings: FC<Props> = ({ selectedQuadraticRound, setSelectedQua
           reset();
         }}
       >
-        <div>
+        <div className="m-4">
           <SelectQuadraticRoundMenu
             setSelectedQuadraticRound={setSelectedQuadraticRound}
             setShowModal={setShowModal}
           />
-          {selectedQuadraticRound && (
-            <div className="flex items-center justify-center">{selectedQuadraticRound}</div>
-          )}
         </div>
       </Modal>
     </>

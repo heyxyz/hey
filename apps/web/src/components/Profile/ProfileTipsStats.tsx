@@ -1,15 +1,14 @@
 // import type { Publication } from 'lens';
 // import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import {
-  getRoundUserData,
   getCurrentActiveRounds,
+  getRoundUserData,
   getUserQuadraticTippingData
 } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import { ethers } from 'ethers';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { Card } from 'ui';
 import { useAccount } from 'wagmi';
 
 type Round = {
@@ -38,7 +37,7 @@ const PayoutStatus: FC<PayoutStatusProps> = ({ round }) => {
         </button>
       ) : (
         <button className="mx-auto w-60 rounded-md bg-purple-100 px-4 py-2 text-purple-300">
-          Payout not yot available
+          Payout not yet available
         </button>
       )}
     </div>
@@ -106,13 +105,15 @@ const RoundStats: FC<RoundStatsProps> = ({ showDetails, round }) => {
 export const ProfileTipsStats: FC = () => {
   const { address } = useAccount();
 
-  const [showDetails, setShowDetails] = useState<null | string>(null);
   const [activeRounds, setActiveRounds] = useState<Round[]>([]);
+  const [isMapVisible, setMapVisible] = useState<boolean>(false);
+  const [showDetails, setShowDetails] = useState<null | string>(null);
+  const now = Math.floor(Date.now() / 1000);
 
   useEffect(() => {
     async function getActiveRounds() {
-      const now = Math.floor(Date.now() / 1000);
-      const rounds = await getCurrentActiveRounds(now);
+      const oneWeekPrior = now - 604800;
+      const rounds = await getCurrentActiveRounds(oneWeekPrior);
 
       let newRounds: Round[] = [];
 
@@ -154,14 +155,15 @@ export const ProfileTipsStats: FC = () => {
         newRounds.push(newRound);
       }
 
-      newRounds.sort((a, b) => a.roundEndTime - b.roundEndTime);
+      // newRounds.sort((a, b) => a.roundEndTime - b.roundEndTime);
+      newRounds.sort((a, b) => b.roundEndTime - a.roundEndTime);
       setActiveRounds((prevRounds) => [
         ...prevRounds.filter((round) => !newRounds.some((newRound) => newRound.roundId === round.roundId)),
         ...newRounds
       ]);
     }
     getActiveRounds();
-  }, [address]);
+  }, [address, now]);
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();
@@ -178,35 +180,61 @@ export const ProfileTipsStats: FC = () => {
     return `${daysString} & ${hoursString}`;
   }
 
+  function abbreviateAddress(address: string) {
+    const len = address.length;
+    if (len > 16) {
+      return address.substring(0, 6) + '...' + address.substring(len - 4, len);
+    } else {
+      return address;
+    }
+  }
+
   return (
     <div>
       <div className="mb-2 flex flex-row items-center space-x-2 px-10">
         <TipsOutlineIcon color="gray" />
         <h3>Tips</h3>
+        <button onClick={() => setMapVisible(!isMapVisible)}>{isMapVisible ? '-' : '+'}</button>
       </div>
-      {activeRounds.map((round, index) => (
-        <div key={index} className="flex flex-col justify-center px-10 py-3">
-          <div className="mb-2 text-xs text-gray-500">Round: {round.roundId}</div>
-          <div className="flex flex-col justify-between">
-            <div className="flex flex-col justify-between text-sm text-gray-500">
-              <p className="mb-1">Received in total:</p>
-              <p>{ethers.utils.formatEther(round.receivedInTotal)} WMATIC</p>
+      {isMapVisible &&
+        activeRounds.map((round, index) => (
+          <div key={index} className="flex flex-col justify-center px-10 py-3">
+            <div className="mb-2 flex items-center space-x-4 text-xs text-gray-500">
+              <div>Round: {abbreviateAddress(round.roundId)}</div>
+              {round.roundEndTime > now ? (
+                <div className="rounded-md border-2 border-purple-500 px-2 py-1 text-sm font-bold text-purple-500">
+                  currently live!
+                </div>
+              ) : (
+                <div className="rounded-md border-2 border-gray-300 px-2 py-1 text-sm font-bold text-gray-300">
+                  round ended
+                </div>
+              )}
             </div>
-            <div className="item-center my-auto flex justify-between pt-3 text-xs text-gray-500">
-              <div>
-                <p>Round ends in {getTimeLeft(round.roundEndTime)}</p>
+            <div className="flex flex-col justify-between">
+              <div className="flex flex-col justify-between text-sm text-gray-500">
+                <p className="mb-1">Received in total:</p>
+                <p>{ethers.utils.formatEther(round.receivedInTotal)} WMATIC</p>
               </div>
-              <div className="mr-4">
-                <button onClick={() => setShowDetails(showDetails === round.roundId ? null : round.roundId)}>
-                  <p className="underline">{showDetails === round.roundId ? 'hide' : 'show'} details</p>
-                </button>
+              <div className="item-center my-auto flex justify-between pt-3 text-xs text-gray-500">
+                {round.roundEndTime > now && (
+                  <div>
+                    <p>Round ends in {getTimeLeft(round.roundEndTime)}</p>
+                  </div>
+                )}
+                <div className="mr-4">
+                  <button
+                    onClick={() => setShowDetails(showDetails === round.roundId ? null : round.roundId)}
+                  >
+                    <p className="underline">{showDetails === round.roundId ? 'hide' : 'show'} details</p>
+                  </button>
+                </div>
               </div>
+              <RoundStats showDetails={showDetails === round.roundId} round={round} />
             </div>
-            <RoundStats showDetails={showDetails === round.roundId} round={round} />
+            <hr className="mt-4 border-gray-200" />
           </div>
-          <hr className="mt-4 border-gray-200" />
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

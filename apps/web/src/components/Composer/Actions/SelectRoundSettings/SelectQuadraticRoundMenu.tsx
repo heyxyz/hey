@@ -1,4 +1,8 @@
-import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import {
+  getCurrentActiveRounds,
+  getRoundInfo,
+  getRoundName
+} from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
 import React, { useEffect, useState } from 'react';
@@ -12,14 +16,28 @@ const SelectQuadraticRoundMenu = ({
   setSelectedQuadraticRound,
   setShowModal
 }: SelectQuadraticRoundMenuProps) => {
-  const [roundArray, setRoundArray] = useState<{ id: string }[]>();
+  const [roundArray, setRoundArray] = useState<{ name: string; id: string }[]>();
 
   useEffect(() => {
     async function getActiveRounds() {
       const now = Math.floor(Date.now() / 1000);
 
       const rounds = await getCurrentActiveRounds(now);
-      setRoundArray(rounds);
+
+      for (const round of rounds) {
+        const roundDetails = await getRoundInfo(round.id);
+        const { name } = await getRoundName(roundDetails.roundMetaPtr.pointer);
+
+        setRoundArray((roundArray) => {
+          const newArray = roundArray ?? [];
+
+          if (!newArray.find((r) => r.id === round.id)) {
+            return [...newArray, { name: name, id: round.id }];
+          }
+
+          return newArray;
+        });
+      }
     }
     getActiveRounds();
   }, []);
@@ -47,7 +65,10 @@ const SelectQuadraticRoundMenu = ({
                       setShowModal(false);
                     }}
                   >
-                    {round.id}
+                    <div className="flex flex-col">
+                      <div className="flex justify-center">{round.name}</div>
+                      <div> {round.id}</div>
+                    </div>
                   </a>
                 )}
               </Menu.Item>

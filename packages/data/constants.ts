@@ -13,6 +13,8 @@ export const SANDBOX_GRANTS_URL = 'https://api.thegraph.com/subgraphs/name/pspar
 export const SANDBOX_VOTES_COLLECT_URL =
   'https://api.thegraph.com/subgraphs/name/bitbeckers/vote-collect-dev';
 
+export const CLOUDFLARE_IPFS_GATEWAY = 'https://cloudflare-ipfs.com/ipfs/';
+
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;

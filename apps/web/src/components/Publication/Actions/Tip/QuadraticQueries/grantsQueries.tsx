@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SANDBOX_GRANTS_URL } from 'data/constants';
+import { CLOUDFLARE_IPFS_GATEWAY, SANDBOX_GRANTS_URL } from 'data/constants';
 
 import { encodePublicationId } from '../utils';
 
@@ -41,6 +41,11 @@ export async function getRoundInfo(grantsRound: string) {
       }
       roundStartTime
       token
+      roundMetaPtr {
+        id
+        pointer
+        protocol
+      }
     }
   }`;
   const data = await request(query);
@@ -167,6 +172,7 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
         token
         round {
           id
+          roundEndTime
         }
         id
         from
@@ -183,4 +189,20 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
 
   const data = await request(query, variables);
   return data.quadraticTipping;
+}
+
+// ************
+// IPFS QUERIES
+// ************
+
+export async function getRoundName(roundMetaPtr: string) {
+  const query = `${CLOUDFLARE_IPFS_GATEWAY}/${roundMetaPtr}`;
+
+  try {
+    const response = await axios.get(query);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }

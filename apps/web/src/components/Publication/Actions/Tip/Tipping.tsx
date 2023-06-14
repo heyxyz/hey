@@ -1,5 +1,5 @@
 import Markup from '@components/Shared/Markup';
-import Uniswap from '@components/Shared/Uniswap';
+import Uniswap from '@components/Shared/UniswapTip';
 import { ClockIcon, MinusIcon, UsersIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { formatTime } from '@lib/formatTime';
@@ -12,7 +12,6 @@ import dayjs from 'dayjs';
 import type { BigNumber } from 'ethers';
 import { ethers } from 'ethers';
 import type { Publication } from 'lens';
-import { CollectModules } from 'lens';
 import getAssetAddress from 'lib/getAssetAddress';
 import getTokenImage from 'lib/getTokenImage';
 import humanize from 'lib/humanize';
@@ -42,44 +41,11 @@ interface Props {
   tipTotal: BigNumber;
 }
 
-export interface QuadraticCollectModuleData {
-  __typename?: string;
-  type: CollectModules;
-  contractAddress: any;
-  followerOnly: boolean;
-  endTimestamp: Date;
-  votingStrategy: string;
-  grantsRound: string;
-  amount: {
-    __typename?: string;
-    value: string;
-    asset: { __typename?: string; symbol: string; decimals: number; address: any };
-  };
-}
-
-const quadraticModuleSettings: QuadraticCollectModuleData = {
-  __typename: 'UnknownCollectModuleSettings',
-  type: CollectModules.UnknownCollectModule,
-  contractAddress: '',
-  followerOnly: false,
-  endTimestamp: new Date(0),
-  votingStrategy: '',
-  grantsRound: '',
-  amount: {
-    __typename: 'ModuleFeeAmount',
-    value: '0',
-    asset: { __typename: 'Erc20', symbol: 'WMATIC', decimals: 18, address: '' }
-  }
-};
-
 const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModal, tipTotal, tipCount }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showWarningModal, setShowWarningModal] = useState(false);
 
-  const [collectModule, setCollectModule] = useState<QuadraticCollectModuleData>(quadraticModuleSettings);
-
-  const [votingStrategyAllowancePending, setVotingStrategyAllowancePending] = useState(false);
-  const [votingStrategyAllowed, setVotingStrategyAllowed] = useState(false);
+  const [roundContractAllowancePending, setRoundContractAllowancePending] = useState(false);
+  const [roundContractAllowed, setRoundContractAllowed] = useState(false);
 
   const [tipAmount, setTipAmount] = useState('0');
 
@@ -162,7 +128,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
       const hexTipAmount = ethers.BigNumber.from(tipAmount).toHexString();
       const dataValue = data ? ethers.BigNumber.from(data._hex) : ethers.BigNumber.from(0);
       const comparisonResult = dataValue.gt(hexTipAmount) && !dataValue.isZero();
-      setVotingStrategyAllowed(comparisonResult);
+      setRoundContractAllowed(comparisonResult);
     }
   });
 
@@ -178,7 +144,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
     mode: 'recklesslyUnprepared',
     onError: (error) => {
       toast.error(t`Error updating allowance: ${error.message}`);
-      setVotingStrategyAllowancePending(false);
+      setRoundContractAllowancePending(false);
     }
   });
 
@@ -186,11 +152,10 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(
-        votingStrategyAllowed ? t`Voting disabled successfully!` : t`Voting enabled successfully!`
+        roundContractAllowed ? t`Voting disabled successfully!` : t`Voting enabled successfully!`
       );
-      setVotingStrategyAllowancePending(false);
-      setShowWarningModal(false);
-      setVotingStrategyAllowed(!votingStrategyAllowed);
+      setRoundContractAllowancePending(false);
+      setRoundContractAllowed(!roundContractAllowed);
     },
     onError
   });
@@ -219,7 +184,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
       roundInfo.votingStrategy.id,
       customAllowance ? hexCustomAllowance : hexTipAmount
     ]);
-    setVotingStrategyAllowancePending(true);
+    setRoundContractAllowancePending(true);
     sendTransaction?.({
       recklesslySetUnpreparedRequest: {
         from: address,
@@ -284,10 +249,10 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
               />
 
               <Button
-                onClick={votingStrategyAllowed ? () => write() : () => handleAllowance()}
+                onClick={roundContractAllowed ? () => write() : () => handleAllowance()}
                 disabled={isLoading || tipAmount === '0'}
                 icon={
-                  isLoading || transactionLoading || writeLoading || votingStrategyAllowancePending ? (
+                  isLoading || transactionLoading || writeLoading || roundContractAllowancePending ? (
                     <Spinner size="xs" />
                   ) : (
                     <TipsOutlineIcon color="white" />
@@ -296,17 +261,17 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                 className="flex w-2/6 justify-center"
               >
                 <div className="flex items-center">
-                  <Trans>{votingStrategyAllowed ? 'Tip!' : 'Approve Tip'}</Trans>
+                  <Trans>{roundContractAllowed ? 'Tip!' : 'Approve Tip'}</Trans>
                 </div>
               </Button>
             </div>
 
-            {votingStrategyAllowed && (
+            {roundContractAllowed && (
               <div className="mt-2 flex w-full justify-end text-xs">
                 <Button
                   variant="warning"
                   icon={
-                    (transactionLoading || waitLoading) && votingStrategyAllowed ? (
+                    (transactionLoading || waitLoading) && roundContractAllowed ? (
                       <Spinner variant="warning" size="xs" />
                     ) : (
                       <MinusIcon className="h-4 w-4" />
@@ -322,7 +287,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
         ) : (
           <div className="flex flex-1 items-center">
             <div>
-              <WarningMessage message={<Uniswap module={collectModule} />} />
+              <WarningMessage message={<Uniswap roundInfo={roundInfo} tipAmount={tipAmount} />} />
             </div>
 
             <div className="mx-auto flex items-center">
@@ -403,7 +368,10 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
       )}
     </div>
   ) : (
-    <div className="p-5">"Loading..."</div>
+    <div className="flex flex-col items-center justify-center space-y-4 p-10">
+      <Spinner variant="primary" size="lg" />
+      <p className="text-color-200 text-sm">Loading tipping data...</p>
+    </div>
   );
 };
 
