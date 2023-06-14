@@ -171,9 +171,7 @@ const Composer: FC<ComposerProps> = ({
         ContentTypeRemoteAttachment,
         {
           fallback: `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.`,
-          renderPreview: () => (
-            <AttachmentPreviewInline attachment={attachment} />
-          )
+          renderPreview: <AttachmentPreviewInline attachment={attachment} />
         }
       );
       setAttachment(null);

@@ -6,7 +6,7 @@ import getAvatar from '@lenster/lib/getAvatar';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 interface SpaceUserProps {
   peer: {
