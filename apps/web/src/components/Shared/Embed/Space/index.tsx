@@ -19,7 +19,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
   const [showPlayer, setShowPlayer] = useState(false);
   const { metadata } = publication;
   const space: SpaceMetadata = JSON.parse(
-    getPublicationAttribute(metadata.attributes, 'space')
+    getPublicationAttribute(metadata.attributes, 'audioSpace')
   );
 
   const { data, loading } = useProfilesQuery({
