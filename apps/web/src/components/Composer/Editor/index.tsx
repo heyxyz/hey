@@ -32,7 +32,6 @@ import { usePublicationStore } from 'src/store/publication';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
-
 interface Props {
   selectedQuadraticRound: string;
 }
@@ -77,7 +76,7 @@ const RoundBanner: FC<BannerProps> = ({ selectedQuadraticRound, editor }) => {
 };
 
 const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
-  const publicationContent = usePublicationStore((state) => state.publicationContent);
+  // const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
@@ -100,7 +99,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
       <LexicalComposer
         initialConfig={{
           namespace: 'content',
-          onError(error, editor) {
+          onError(error) {
             console.error(error);
           },
           editable: true,
