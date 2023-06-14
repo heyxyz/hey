@@ -157,6 +157,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
+  const showSpaceEditor = usePublicationStore((state) => state.showSpaceEditor);
+  const spaceConfig = usePublicationStore((state) => state.spaceConfig);
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
   );
@@ -708,6 +710,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
+        ...(showSpaceEditor
+          ? [
+              {
+                traitType: 'space',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: JSON.stringify({
+                  id: 'fci-ggbe-bxl',
+                  host: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3'
+                })
+              }
+            ]
+          : []),
         ...(quotedPublication
           ? [
               {
