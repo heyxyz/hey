@@ -67,7 +67,6 @@ const Attachments: FC<AttachmentsProps> = ({
 
   const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
-      alert(videoRef.current.duration.toFixed(2));
       setVideoDurationInSeconds(videoRef.current.duration.toFixed(2));
     }
   };

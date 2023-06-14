@@ -40,7 +40,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     metadata.attributes,
     'quotedPublicationId'
   );
-  const spaceObject = getPublicationAttribute(metadata.attributes, 'space');
+  const spaceObject = getPublicationAttribute(
+    metadata.attributes,
+    'audioSpace'
+  );
   const space: SpaceMetadata = Boolean(spaceObject)
     ? JSON.parse(spaceObject)
     : null;
