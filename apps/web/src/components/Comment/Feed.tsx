@@ -17,7 +17,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -69,23 +69,21 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const totalComments = hiddenRemovedComments + queuedCount;
   const canComment = publication?.canComment?.result;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
+    });
+  };
 
   return (
     <>
@@ -105,10 +103,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       )}
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
       {!error && !loading && totalComments !== 0 && (
-        <Card
-          className="divide-y-[1px] dark:divide-gray-700"
-          dataTestId="comments-feed"
-        >
+        <Card dataTestId="comments-feed">
           {txnQueue.map(
             (txn) =>
               txn?.type === OptmisticPublicationType.NewComment &&
@@ -118,16 +113,24 @@ const Feed: FC<FeedProps> = ({ publication }) => {
                 </div>
               )
           )}
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.hidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
-          )}
-          {hasMore && <span ref={observe} />}
+          <Virtuoso
+            useWindowScroll
+            className="virtual-feed"
+            data={comments}
+            endReached={onEndReached}
+            itemContent={(index, comment) => {
+              return comment?.__typename === 'Comment' &&
+                comment.hidden ? null : (
+                <SinglePublication
+                  key={`${publicationId}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === comments.length - 1}
+                  publication={comment as Comment}
+                  showType={false}
+                />
+              );
+            }}
+          />
         </Card>
       )}
     </>
