@@ -104,66 +104,71 @@ const RoundStats: FC<RoundStatsProps> = ({ showDetails, round }) => {
 
 export const ProfileTipsStats: FC = () => {
   const { address } = useAccount();
-
+  const now = Math.floor(Date.now() / 1000);
   const [activeRounds, setActiveRounds] = useState<Round[]>([]);
   const [isMapVisible, setMapVisible] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<null | string>(null);
-  const now = Math.floor(Date.now() / 1000);
+  const [dataFetched, setDataFetched] = useState<boolean>(false);
 
   useEffect(() => {
+    const now = Math.floor(Date.now() / 1000);
     async function getActiveRounds() {
-      const oneWeekPrior = now - 604800;
-      const rounds = await getCurrentActiveRounds(oneWeekPrior);
+      if (!dataFetched) {
+        const oneWeekPrior = now - 604800;
+        const rounds = await getCurrentActiveRounds(oneWeekPrior);
 
-      let newRounds: Round[] = [];
+        let newRounds: Round[] = [];
 
-      for (const round of rounds) {
-        const userRound = await getRoundUserData(round.id, address!);
+        for (const round of rounds) {
+          const userRound = await getRoundUserData(round.id, address!);
 
-        const quadraticTipping = await getUserQuadraticTippingData(round.id, address!);
-        const votes = quadraticTipping[0]?.votes;
-        const distributions = quadraticTipping[0]?.distributions;
+          const quadraticTipping = await getUserQuadraticTippingData(round.id, address!);
+          const votes = quadraticTipping[0]?.votes;
+          const distributions = quadraticTipping[0]?.distributions;
+          const uniquePosts = new Set();
+          const uniqueTippers = new Set();
+          let totalAmountTipped = 0;
+          let fundsDistributed = false;
 
-        const uniquePosts = new Set();
-        const uniqueTippers = new Set();
-        let totalAmountTipped = 0;
-        let fundsDistributed = false;
-
-        for (const vote of votes) {
-          uniquePosts.add(vote.projectId);
-          uniqueTippers.add(vote.from);
-          totalAmountTipped += Number(vote.amount);
-        }
-
-        for (const distribution of distributions) {
-          if (distribution.to.toLowerCase() === address!.toLowerCase()) {
-            fundsDistributed = true;
+          for (const vote of votes) {
+            uniquePosts.add(vote.projectId);
+            uniqueTippers.add(vote.from);
+            totalAmountTipped += Number(vote.amount);
           }
+          for (const distribution of distributions) {
+            if (distribution.address && distribution.address.toLowerCase() === address!.toLowerCase()) {
+              fundsDistributed = true;
+              break;
+            }
+          }
+
+          const newRound = {
+            roundId: round.id,
+            receivedInTotal: totalAmountTipped,
+            numberOfTippers: uniqueTippers.size,
+            postsInCurrentRound: uniquePosts.size,
+            totalNumberOfTips: votes.length,
+            roundStartTime: userRound[0].roundStartTime,
+            roundEndTime: userRound[0].roundEndTime,
+            readyForPayout: quadraticTipping[0].readyForPayout,
+            fundsDistributed: fundsDistributed
+          };
+
+          newRounds.push(newRound);
         }
-        const newRound = {
-          roundId: round.id,
-          receivedInTotal: totalAmountTipped,
-          numberOfTippers: uniqueTippers.size,
-          postsInCurrentRound: uniquePosts.size,
-          totalNumberOfTips: votes.length,
-          roundStartTime: userRound[0].roundStartTime,
-          roundEndTime: userRound[0].roundEndTime,
-          readyForPayout: quadraticTipping[0].readyForPayout,
-          fundsDistributed
-        };
 
-        newRounds.push(newRound);
+        // newRounds.sort((a, b) => a.roundEndTime - b.roundEndTime);
+        newRounds.sort((a, b) => b.roundEndTime - a.roundEndTime);
+        setActiveRounds((prevRounds) => [
+          ...prevRounds.filter((round) => !newRounds.some((newRound) => newRound.roundId === round.roundId)),
+          ...newRounds
+        ]);
       }
-
-      // newRounds.sort((a, b) => a.roundEndTime - b.roundEndTime);
-      newRounds.sort((a, b) => b.roundEndTime - a.roundEndTime);
-      setActiveRounds((prevRounds) => [
-        ...prevRounds.filter((round) => !newRounds.some((newRound) => newRound.roundId === round.roundId)),
-        ...newRounds
-      ]);
+      setDataFetched(true);
     }
+
     getActiveRounds();
-  }, [address, now]);
+  }, [address, dataFetched]);
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();
@@ -204,6 +209,10 @@ export const ProfileTipsStats: FC = () => {
               {round.roundEndTime > now ? (
                 <div className="rounded-md border-2 border-purple-500 px-2 py-1 text-sm font-bold text-purple-500">
                   currently live!
+                </div>
+              ) : round.fundsDistributed ? (
+                <div className="rounded-md border-2 border-red-300 px-2 py-1 text-sm font-bold text-red-300">
+                  payout released!
                 </div>
               ) : (
                 <div className="rounded-md border-2 border-gray-300 px-2 py-1 text-sm font-bold text-gray-300">

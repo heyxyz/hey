@@ -60,6 +60,8 @@ export async function getUserQuadraticTippingData(roundAddress: string, address:
       readyForPayout
       distributions {
         id
+        address
+        amount
       }
       votes(where: {to: $addressLower}) {
         projectId
