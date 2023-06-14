@@ -1,4 +1,4 @@
-import { MenuAlt2Icon } from '@heroicons/react/solid';
+import { MicrophoneIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data';
 import { Tooltip } from '@lenster/ui';
 import { Growthbook } from '@lib/growthbook';
@@ -8,11 +8,13 @@ import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 
 const SpaceSettings: FC = () => {
-  const showPollEditor = usePublicationStore((state) => state.showPollEditor);
-  const setShowPollEditor = usePublicationStore(
-    (state) => state.setShowPollEditor
+  const showSpaceEditor = usePublicationStore((state) => state.showSpaceEditor);
+  const setShowSpaceEditor = usePublicationStore(
+    (state) => state.setShowSpaceEditor
   );
-  const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
+  const resetSpaceConfig = usePublicationStore(
+    (state) => state.resetSpaceConfig
+  );
   const { on: isSpacesEnabled } = Growthbook.feature(FeatureFlag.Spaces);
 
   if (!isSpacesEnabled) {
@@ -25,12 +27,12 @@ const SpaceSettings: FC = () => {
         whileTap={{ scale: 0.9 }}
         type="button"
         onClick={() => {
-          resetPollConfig();
-          setShowPollEditor(!showPollEditor);
+          resetSpaceConfig();
+          setShowSpaceEditor(!showSpaceEditor);
         }}
         aria-label="Space"
       >
-        <MenuAlt2Icon className="text-brand h-5 w-5" />
+        <MicrophoneIcon className="text-brand h-5 w-5" />
       </motion.button>
     </Tooltip>
   );
