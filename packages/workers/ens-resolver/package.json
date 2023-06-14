@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "itty-router": "^4.0.9",
-    "viem": "^1.0.6"
+    "viem": "^1.0.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
