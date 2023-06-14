@@ -16,7 +16,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { ProfileFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
@@ -88,26 +88,24 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     skip: !profile?.id
   });
 
-  const publications = data?.publications?.items;
+  const publications = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -151,16 +149,26 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId={`profile-feed-type-${type.toLowerCase()}`}
     >
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          publication={publication as Publication}
-          showThread={
-            type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
-          }
-        />
-      ))}
-      {hasMore && <span ref={observe} />}
+      <Virtuoso
+        useWindowScroll
+        className="virtual-feed"
+        data={publications}
+        endReached={onEndReached}
+        itemContent={(index, publication) => {
+          return (
+            <SinglePublication
+              key={`${publication.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              publication={publication as Publication}
+              showThread={
+                type !== ProfileFeedType.Media &&
+                type !== ProfileFeedType.Collects
+              }
+            />
+          );
+        }}
+      />
     </Card>
   );
 };
