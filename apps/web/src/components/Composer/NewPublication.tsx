@@ -72,7 +72,8 @@ import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
-import Editor from './Editor';
+import { Editor } from './Editor';
+// import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
@@ -577,6 +578,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
+
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
