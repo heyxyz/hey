@@ -14,7 +14,7 @@ import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
 interface NoneRelevantFeedProps {
@@ -52,23 +52,21 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
   const pageInfo = data?.publications?.pageInfo;
   const totalComments = comments?.length;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    }).then(({ data }) => {
+      setHasMore(data?.publications?.items?.length > 0);
+    });
+  };
 
   if (totalComments === 0) {
     return null;
@@ -90,17 +88,25 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
         )}
       </Card>
       {showMore ? (
-        <Card className="divide-y-[1px] dark:divide-gray-700">
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.hidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
-          )}
-          {hasMore && <span ref={observe} />}
+        <Card>
+          <Virtuoso
+            useWindowScroll
+            className="virtual-feed"
+            data={comments}
+            endReached={onEndReached}
+            itemContent={(index, comment) => {
+              return comment?.__typename === 'Comment' &&
+                comment.hidden ? null : (
+                <SinglePublication
+                  key={`${publicationId}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === comments.length - 1}
+                  publication={comment as Comment}
+                  showType={false}
+                />
+              );
+            }}
+          />
         </Card>
       ) : null}
     </>

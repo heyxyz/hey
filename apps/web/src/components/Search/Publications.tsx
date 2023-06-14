@@ -87,7 +87,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card>
       <Virtuoso
         useWindowScroll
         className="virtual-feed"
