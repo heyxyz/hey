@@ -9118,6 +9118,15 @@ export type AddProfileInterestMutation = {
   addProfileInterests?: any | null;
 };
 
+export type AddPublicationDownvoteMutationVariables = Exact<{
+  request: PublicationDownvoteRequest;
+}>;
+
+export type AddPublicationDownvoteMutation = {
+  __typename?: 'Mutation';
+  addPublicationDownvote?: any | null;
+};
+
 export type AddReactionMutationVariables = Exact<{
   request: ReactionRequest;
 }>;
@@ -9896,6 +9905,15 @@ export type RemoveProfileInterestMutationVariables = Exact<{
 export type RemoveProfileInterestMutation = {
   __typename?: 'Mutation';
   removeProfileInterests?: any | null;
+};
+
+export type RemovePublicationDownvoteMutationVariables = Exact<{
+  request: PublicationDownvoteRequest;
+}>;
+
+export type RemovePublicationDownvoteMutation = {
+  __typename?: 'Mutation';
+  removePublicationDownvote?: any | null;
 };
 
 export type RemoveReactionMutationVariables = Exact<{
@@ -41754,6 +41772,54 @@ export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   AddProfileInterestMutation,
   AddProfileInterestMutationVariables
 >;
+export const AddPublicationDownvoteDocument = gql`
+  mutation AddPublicationDownvote($request: PublicationDownvoteRequest!) {
+    addPublicationDownvote(request: $request)
+  }
+`;
+export type AddPublicationDownvoteMutationFn = Apollo.MutationFunction<
+  AddPublicationDownvoteMutation,
+  AddPublicationDownvoteMutationVariables
+>;
+
+/**
+ * __useAddPublicationDownvoteMutation__
+ *
+ * To run a mutation, you first call `useAddPublicationDownvoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPublicationDownvoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPublicationDownvoteMutation, { data, loading, error }] = useAddPublicationDownvoteMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddPublicationDownvoteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddPublicationDownvoteMutation,
+    AddPublicationDownvoteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    AddPublicationDownvoteMutation,
+    AddPublicationDownvoteMutationVariables
+  >(AddPublicationDownvoteDocument, options);
+}
+export type AddPublicationDownvoteMutationHookResult = ReturnType<
+  typeof useAddPublicationDownvoteMutation
+>;
+export type AddPublicationDownvoteMutationResult =
+  Apollo.MutationResult<AddPublicationDownvoteMutation>;
+export type AddPublicationDownvoteMutationOptions = Apollo.BaseMutationOptions<
+  AddPublicationDownvoteMutation,
+  AddPublicationDownvoteMutationVariables
+>;
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
     addReaction(request: $request)
@@ -43827,6 +43893,55 @@ export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   RemoveProfileInterestMutation,
   RemoveProfileInterestMutationVariables
 >;
+export const RemovePublicationDownvoteDocument = gql`
+  mutation RemovePublicationDownvote($request: PublicationDownvoteRequest!) {
+    removePublicationDownvote(request: $request)
+  }
+`;
+export type RemovePublicationDownvoteMutationFn = Apollo.MutationFunction<
+  RemovePublicationDownvoteMutation,
+  RemovePublicationDownvoteMutationVariables
+>;
+
+/**
+ * __useRemovePublicationDownvoteMutation__
+ *
+ * To run a mutation, you first call `useRemovePublicationDownvoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePublicationDownvoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePublicationDownvoteMutation, { data, loading, error }] = useRemovePublicationDownvoteMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemovePublicationDownvoteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemovePublicationDownvoteMutation,
+    RemovePublicationDownvoteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RemovePublicationDownvoteMutation,
+    RemovePublicationDownvoteMutationVariables
+  >(RemovePublicationDownvoteDocument, options);
+}
+export type RemovePublicationDownvoteMutationHookResult = ReturnType<
+  typeof useRemovePublicationDownvoteMutation
+>;
+export type RemovePublicationDownvoteMutationResult =
+  Apollo.MutationResult<RemovePublicationDownvoteMutation>;
+export type RemovePublicationDownvoteMutationOptions =
+  Apollo.BaseMutationOptions<
+    RemovePublicationDownvoteMutation,
+    RemovePublicationDownvoteMutationVariables
+  >;
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {
     removeReaction(request: $request)
