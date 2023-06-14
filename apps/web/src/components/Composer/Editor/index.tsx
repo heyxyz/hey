@@ -23,17 +23,15 @@ import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import { focusManager } from '@tanstack/react-query';
 import Errors from 'data/errors';
-import type { LexicalCommand, LexicalEditor } from 'lexical';
-import { $createParagraphNode, $createTextNode, $getRoot, createCommand } from 'lexical';
+import type { LexicalEditor } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
-const QUADRATIC_ROUND_SELECTED_COMMAND: LexicalCommand<string> = createCommand();
-const UPDATE_EDITOR_CONTENT_COMMAND: LexicalCommand<string> = createCommand();
 
 interface Props {
   selectedQuadraticRound: string;
@@ -46,7 +44,6 @@ interface BannerProps {
 
 const RoundBanner: FC<BannerProps> = ({ selectedQuadraticRound, editor }) => {
   const prevQuadraticRoundRef = useRef('');
-  const [roundNotifications, setRoundNotifications] = useState<string>('');
 
   useEffect(() => {
     const prevQuadraticRound = prevQuadraticRoundRef.current;
@@ -85,8 +82,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
   const [editor] = useLexicalComposerContext();
-  const prevQuadraticRoundRef = useRef('');
-  const [roundNotifications, setRoundNotifications] = useState<string>('');
+
   focusManager;
 
   const handlePaste = async (pastedFiles: FileList) => {
