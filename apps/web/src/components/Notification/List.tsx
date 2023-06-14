@@ -133,7 +133,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     <Card>
       <Virtuoso
         useWindowScroll
-        className="virtual-notification-list"
+        className="virtual-feed"
         data={notifications}
         endReached={onEndReached}
         itemContent={(_, notification) => {

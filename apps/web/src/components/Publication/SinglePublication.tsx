@@ -1,6 +1,7 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
+import clsx from 'clsx';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -11,6 +12,8 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface SinglePublicationProps {
+  isFirst?: boolean;
+  isLast?: boolean;
   publication: Publication;
   feedItem?: FeedItem;
   showType?: boolean;
@@ -21,6 +24,8 @@ interface SinglePublicationProps {
 }
 
 const SinglePublication: FC<SinglePublicationProps> = ({
+  isFirst = false,
+  isLast = false,
   publication,
   feedItem,
   showType = true,
@@ -38,7 +43,11 @@ const SinglePublication: FC<SinglePublicationProps> = ({
 
   return (
     <PublicationWrapper
-      className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
+      className={clsx(
+        isFirst && 'rounded-t-xl',
+        isLast && 'rounded-b-xl',
+        'cursor-pointer p-5 hover:bg-gray-100 dark:hover:bg-gray-900'
+      )}
       publication={rootPublication}
     >
       {feedItem ? (

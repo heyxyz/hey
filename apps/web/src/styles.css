@@ -221,8 +221,8 @@ ul {
   @apply [&>div>div]:dark:divide-gray-700;
 }
 
-/* react-virtuoso - Virtual notifications list */
-.virtual-notification-list {
+/* react-virtuoso - Virtual feed for notifications and feed */
+.virtual-feed {
   @apply [&>div>div]:divide-y;
   @apply [&>div>div]:dark:divide-gray-700;
 }

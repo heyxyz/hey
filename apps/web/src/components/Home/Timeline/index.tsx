@@ -8,7 +8,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
@@ -61,26 +61,24 @@ const Timeline: FC = () => {
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feed?.items;
+  const publications = data?.feed?.items ?? [];
   const pageInfo = data?.feed?.pageInfo;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      }).then(({ data }) => {
-        setHasMore(data?.feed?.items?.length > 0);
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    }).then(({ data }) => {
+      setHasMore(data?.feed?.items?.length > 0);
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -100,7 +98,7 @@ const Timeline: FC = () => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card>
       {txnQueue.map(
         (txn) =>
           txn?.type === OptmisticPublicationType.NewPost && (
@@ -109,14 +107,23 @@ const Timeline: FC = () => {
             </div>
           )
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
-        />
-      ))}
-      {hasMore && <span ref={observe} />}
+      <Virtuoso
+        useWindowScroll
+        className="virtual-feed"
+        data={publications}
+        endReached={onEndReached}
+        itemContent={(index, publication) => {
+          return (
+            <SinglePublication
+              key={`${publication?.root.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              feedItem={publication as FeedItem}
+              publication={publication.root as Publication}
+            />
+          );
+        }}
+      />
     </Card>
   );
 };
