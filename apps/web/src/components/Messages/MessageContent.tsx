@@ -6,7 +6,8 @@ import {
 } from '@components/utils/hooks/useSendOptimisticMessage';
 import type { Profile } from '@lenster/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
+import { useRef } from 'react';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 import RemoteAttachmentPreview from './RemoteAttachmentPreview';
@@ -22,13 +23,22 @@ const MessageContent: FC<MessageContentProps> = ({
   profile,
   sentByMe
 }) => {
+  const previewRef = useRef<ReactNode | undefined>();
+
   if (message.error) {
     return <span>Error: {`${message.error}`}</span>;
   }
 
+  const hasQueuedMessagePreview = isQueuedMessage(message);
+
   // if message is pending, render a custom preview if available
-  if (isQueuedMessage(message) && message.render) {
-    return message.render();
+  if (hasQueuedMessagePreview && message.render) {
+    if (!previewRef.current) {
+      // store the message preview so that RemoteAttachmentPreview
+      // has access to it
+      previewRef.current = message.render;
+    }
+    return previewRef.current;
   }
 
   if (message.contentType.sameAs(ContentTypeRemoteAttachment)) {
@@ -37,6 +47,7 @@ const MessageContent: FC<MessageContentProps> = ({
         remoteAttachment={message.content}
         profile={profile}
         sentByMe={sentByMe}
+        preview={previewRef.current}
       />
     );
   }
