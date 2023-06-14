@@ -15,7 +15,7 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
@@ -85,55 +85,80 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     });
   };
 
-  return (
-    <>
-      {currentProfile && !publication?.hidden ? (
-        canComment ? (
-          <NewPublication publication={publication} />
-        ) : (
-          <CommentWarning />
-        )
-      ) : null}
-      {loading && <PublicationsShimmer />}
-      {!publication?.hidden && !loading && totalComments === 0 && (
+  const Wrapper = ({ children }: { children: ReactNode }) => {
+    return (
+      <>
+        {currentProfile && !publication?.hidden ? (
+          canComment ? (
+            <NewPublication publication={publication} />
+          ) : (
+            <CommentWarning />
+          )
+        ) : null}
+        {children}
+      </>
+    );
+  };
+
+  if (loading) {
+    return (
+      <Wrapper>
+        <PublicationsShimmer />
+      </Wrapper>
+    );
+  }
+
+  if (!publication?.hidden && totalComments === 0) {
+    return (
+      <Wrapper>
         <EmptyState
           message={t`Be the first one to comment!`}
           icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
         />
-      )}
-      <ErrorMessage title={t`Failed to load comment feed`} error={error} />
-      {!error && !loading && totalComments !== 0 && (
-        <Card dataTestId="comments-feed">
-          {txnQueue.map(
-            (txn) =>
-              txn?.type === OptmisticPublicationType.NewComment &&
-              txn?.parent === publication?.id && (
-                <div key={txn.id}>
-                  <QueuedPublication txn={txn} />
-                </div>
-              )
-          )}
-          <Virtuoso
-            useWindowScroll
-            className="virtual-feed"
-            data={comments}
-            endReached={onEndReached}
-            itemContent={(index, comment) => {
-              return comment?.__typename === 'Comment' &&
-                comment.hidden ? null : (
-                <SinglePublication
-                  key={`${publicationId}_${index}`}
-                  isFirst={index === 0}
-                  isLast={index === comments.length - 1}
-                  publication={comment as Comment}
-                  showType={false}
-                />
-              );
-            }}
-          />
-        </Card>
-      )}
-    </>
+      </Wrapper>
+    );
+  }
+
+  if (error) {
+    return (
+      <Wrapper>
+        <ErrorMessage title={t`Failed to load comment feed`} error={error} />
+      </Wrapper>
+    );
+  }
+
+  return (
+    <Wrapper>
+      <Card dataTestId="comments-feed">
+        {txnQueue.map(
+          (txn) =>
+            txn?.type === OptmisticPublicationType.NewComment &&
+            txn?.parent === publication?.id && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
+        <Virtuoso
+          useWindowScroll
+          className="virtual-feed"
+          data={comments}
+          endReached={onEndReached}
+          itemContent={(index, comment) => {
+            return comment?.__typename === 'Comment' &&
+              comment.hidden ? null : (
+              <SinglePublication
+                key={`${publicationId}_${index}`}
+                isFirst={index === 0}
+                isLast={index === comments.length - 1}
+                publication={comment as Comment}
+                showType={false}
+              />
+            );
+          }}
+        />
+      </Card>
+    </Wrapper>
   );
 };
 
