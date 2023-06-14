@@ -4,6 +4,7 @@ fragment MirrorFields on Mirror {
     ...ProfileFields
   }
   reaction(request: $reactionRequest)
+  downvoted(by: $profileId)
   hasCollectedByMe
   isGated
   isDataAvailability
@@ -40,6 +41,7 @@ fragment MirrorFields on Mirror {
       collectNftAddress
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      downvoted(by: $profileId)
       onChainContentURI
       isGated
       isDataAvailability

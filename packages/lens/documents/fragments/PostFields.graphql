@@ -5,6 +5,7 @@ fragment PostFields on Post {
   }
   reaction(request: $reactionRequest)
   mirrors(by: $profileId)
+  downvoted(by: $profileId)
   hasCollectedByMe
   onChainContentURI
   isGated
