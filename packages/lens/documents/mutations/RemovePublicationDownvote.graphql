@@ -1,0 +1,3 @@
+mutation RemovePublicationDownvote($request: PublicationDownvoteRequest!) {
+  removePublicationDownvote(request: $request)
+}
