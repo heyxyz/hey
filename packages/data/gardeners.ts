@@ -9,7 +9,8 @@ export const mainnetGardeners = [
   '0x87', // nakedwinnie
   '0x7a', // rooshee
   '0x33', // lovekosmas
-  '0x8e' // chaindoe
+  '0x8e', // chaindoe
+  '0x75' // hiroprotagonist
 ];
 
 export const testnetGardeners = [
@@ -23,5 +24,6 @@ export const testnetGardeners = [
   '0x87', // nakedwinnie
   '0x7a', // rooshee
   '0x33', // lovekosmas
-  '0x8e' // chaindoe
+  '0x8e', // chaindoe
+  '0x75' // hiroprotagonist
 ];
