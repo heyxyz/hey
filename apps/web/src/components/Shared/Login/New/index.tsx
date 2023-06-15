@@ -87,11 +87,11 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     } else if (error.data === '0x3eb64ab3') {
       return 'Handle length is invalid';
     } else if (error.data === '0x902815b9') {
-      return 'This handle is already taken, please chose another one';
+      return 'This handle is already taken, please choose another one';
     } else if (error.data === '0x2edfc66c') {
-      return 'This handle contains invalid characters, please chose another one';
+      return 'This handle contains invalid characters, please choose another one';
     } else if (error.data === '0x5e58454e') {
-      return 'This handle first character is invalid, please chose another one';
+      return 'This handle first character is invalid, please choose another one';
     } else if (error.data === '0x561a8587') {
       return 'Profile creator not allowlisted';
     } else if (error.message.includes('The transaction sender must be')) {
