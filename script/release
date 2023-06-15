@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#/ Usage: script/release
+#/ Release to all environments.
+
+git config user.name bigint
+git config user.email bigint@lenster.xyz
+
+branches=("testnet" "staging" "sandbox" "staging-sandbox")
+
+for branch in "${branches[@]}"
+do
+    echo "Releasing to $branch 🚀"
+    git pull origin main >> /dev/null
+    git checkout $branch
+    git merge main
+    git push origin $branch
+    git checkout main
+done
+
+echo "Done 🎉"
