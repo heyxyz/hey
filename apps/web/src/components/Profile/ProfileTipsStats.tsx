@@ -9,7 +9,6 @@ import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import { ethers } from 'ethers';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useAccount } from 'wagmi';
 
 type Round = {
   roundId: string;
@@ -102,8 +101,11 @@ const RoundStats: FC<RoundStatsProps> = ({ showDetails, round }) => {
   );
 };
 
-export const ProfileTipsStats: FC = () => {
-  const { address } = useAccount();
+interface ProfileTipsStatsProps {
+  ownedBy: string;
+}
+
+export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
   const now = Math.floor(Date.now() / 1000);
   const [activeRounds, setActiveRounds] = useState<Round[]>([]);
   const [isMapVisible, setMapVisible] = useState<boolean>(false);
@@ -120,9 +122,9 @@ export const ProfileTipsStats: FC = () => {
         let newRounds: Round[] = [];
 
         for (const round of rounds) {
-          const userRound = await getRoundUserData(round.id, address!);
+          const userRound = await getRoundUserData(round.id, ownedBy!);
 
-          const quadraticTipping = await getUserQuadraticTippingData(round.id, address!);
+          const quadraticTipping = await getUserQuadraticTippingData(round.id, ownedBy!);
           const votes = quadraticTipping[0]?.votes;
           const distributions = quadraticTipping[0]?.distributions;
           const uniquePosts = new Set();
@@ -136,7 +138,7 @@ export const ProfileTipsStats: FC = () => {
             totalAmountTipped += Number(vote.amount);
           }
           for (const distribution of distributions) {
-            if (distribution.address && distribution.address.toLowerCase() === address!.toLowerCase()) {
+            if (distribution.address && distribution.address.toLowerCase() === ownedBy!.toLowerCase()) {
               fundsDistributed = true;
               break;
             }
@@ -168,7 +170,7 @@ export const ProfileTipsStats: FC = () => {
     }
 
     getActiveRounds();
-  }, [address, dataFetched]);
+  }, [ownedBy, dataFetched]);
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();

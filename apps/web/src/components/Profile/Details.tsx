@@ -163,7 +163,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : null}
         </div>
         <div className="divider w-full" />
-        <div>{currentProfile?.id === profile?.id ? <ProfileTipsStats /> : null}</div>
+        {currentProfile?.ownedBy && <ProfileTipsStats ownedBy={currentProfile?.ownedBy} />}
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
