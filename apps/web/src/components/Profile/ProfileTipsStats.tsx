@@ -22,6 +22,13 @@ type Round = {
   fundsDistributed: boolean;
 };
 
+type RoundReturn = {
+  createdAt: string;
+  id: string;
+  roundEndTime: string;
+  token: string;
+};
+
 interface PayoutStatusProps {
   round: Round;
 }
@@ -111,20 +118,23 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
   const [isMapVisible, setMapVisible] = useState<boolean>(false);
   const [showDetails, setShowDetails] = useState<null | string>(null);
   const [dataFetched, setDataFetched] = useState<boolean>(false);
-
   useEffect(() => {
+    if (!ownedBy) {
+      return;
+    }
     const now = Math.floor(Date.now() / 1000);
-    async function getActiveRounds() {
+
+    const getActiveRounds = async () => {
       if (!dataFetched) {
         const oneWeekPrior = now - 604800;
         const rounds = await getCurrentActiveRounds(oneWeekPrior);
 
-        let newRounds: Round[] = [];
+        const roundPromises = rounds.map(async (round: RoundReturn) => {
+          const [userRound, quadraticTipping] = await Promise.all([
+            getRoundUserData(round.id, ownedBy!),
+            getUserQuadraticTippingData(round.id, ownedBy!)
+          ]);
 
-        for (const round of rounds) {
-          const userRound = await getRoundUserData(round.id, ownedBy!);
-
-          const quadraticTipping = await getUserQuadraticTippingData(round.id, ownedBy!);
           const votes = quadraticTipping[0]?.votes;
           const distributions = quadraticTipping[0]?.distributions;
           const uniquePosts = new Set();
@@ -144,7 +154,7 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
             }
           }
 
-          const newRound = {
+          return {
             roundId: round.id,
             receivedInTotal: totalAmountTipped,
             numberOfTippers: uniqueTippers.size,
@@ -155,19 +165,19 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
             readyForPayout: quadraticTipping[0].readyForPayout,
             fundsDistributed: fundsDistributed
           };
+        });
 
-          newRounds.push(newRound);
-        }
+        const newRounds = await Promise.all(roundPromises);
 
-        // newRounds.sort((a, b) => a.roundEndTime - b.roundEndTime);
         newRounds.sort((a, b) => b.roundEndTime - a.roundEndTime);
         setActiveRounds((prevRounds) => [
           ...prevRounds.filter((round) => !newRounds.some((newRound) => newRound.roundId === round.roundId)),
           ...newRounds
         ]);
+
+        setDataFetched(true);
       }
-      setDataFetched(true);
-    }
+    };
 
     getActiveRounds();
   }, [ownedBy, dataFetched]);
