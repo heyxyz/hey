@@ -12,8 +12,21 @@ test.describe('truncateUrl', () => {
     expect(truncateUrl(url, 20)).toEqual('example.com/path?ke…');
   });
 
-  test('do not truncate url that is exactly max length (after prefix stripped)', () => {
-    const url = 'https://example.com/pathname';
-    expect(truncateUrl(url, 20)).toEqual('example.com/pathname');
+  test('do not truncate url that is max length or shorter (after prefix stripped)', () => {
+    const maxLengthUrl = 'https://example.com/pathname';
+    const shortUrl = 'https://example.com/foo';
+    expect(truncateUrl(maxLengthUrl, 20)).toEqual('example.com/pathname');
+    expect(truncateUrl(shortUrl, 20)).toEqual('example.com/foo');
+  });
+
+  test('do not truncate *.lenster.xyz urls', () => {
+    const mainnetUrl = 'https://lenster.xyz/long/pathname/test';
+    const testnetUrl = 'https://testnet.lenster.xyz/long/pathname/test';
+    expect(truncateUrl(mainnetUrl, 20)).toEqual(
+      'lenster.xyz/long/pathname/test'
+    );
+    expect(truncateUrl(testnetUrl, 20)).toEqual(
+      'testnet.lenster.xyz/long/pathname/test'
+    );
   });
 });

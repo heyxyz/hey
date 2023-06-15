@@ -5,12 +5,14 @@
  * @returns truncated string
  */
 const truncateUrl = (url: string, maxLength: number): string => {
-  url = url.replace(/^(http|https):\/\//, '');
-  url = url.replace(/^www\./, '');
-  if (url.length > maxLength) {
-    return url.substring(0, maxLength - 1) + '…';
+  let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
+  if (new URL(url).hostname.endsWith('lenster.xyz')) {
+    return strippedUrl;
   }
-  return url;
+  if (strippedUrl.length > maxLength) {
+    return strippedUrl.substring(0, maxLength - 1) + '…';
+  }
+  return strippedUrl;
 };
 
 export default truncateUrl;
