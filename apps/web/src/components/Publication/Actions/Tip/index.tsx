@@ -11,7 +11,6 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'ui';
-import { useAccount } from 'wagmi';
 
 import { getPostQuadraticTipping, getRoundInfo } from './QuadraticQueries/grantsQueries';
 
@@ -24,7 +23,7 @@ interface TipProps {
 }
 
 const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
-  const { address } = useAccount();
+  const address = publication?.profile?.ownedBy;
   const [userTipCount, setUserTipCount] = useState(0);
   const [tipCount, setTipCount] = useState(0);
   const [tipTotal, setTipTotal] = useState(ethers.BigNumber.from(0));
