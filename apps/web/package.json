@@ -47,7 +47,7 @@
     "@lingui/react": "^4.2.1",
     "@lingui/swc-plugin": "^4.0.0",
     "@livepeer/react": "^2.5.5",
-    "@snapshot-labs/snapshot.js": "^0.4.97",
+    "@snapshot-labs/snapshot.js": "^0.4.98",
     "@tanstack/react-query": "^4.29.13",
     "@thirdweb-dev/storage": "^1.1.4",
     "@tippyjs/react": "^4.2.6",
