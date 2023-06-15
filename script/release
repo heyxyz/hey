@@ -10,7 +10,7 @@ branches=("testnet" "staging" "sandbox" "staging-sandbox")
 
 for branch in "${branches[@]}"
 do
-    echo "Syncing $branch branch with main branch 🔄"
+    echo "Releasing to $branch 🚀"
     git pull origin main >> /dev/null
     git checkout $branch
     git merge main
@@ -18,4 +18,4 @@ do
     git checkout main
 done
 
-echo "Branches synced 🎉"
+echo "Done 🎉"
