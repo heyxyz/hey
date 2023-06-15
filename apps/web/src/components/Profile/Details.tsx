@@ -36,7 +36,6 @@ import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import { ProfileTipsStats } from './ProfileTipsStats';
 
-
 interface DetailsProps {
   profile: Profile;
   following: boolean;
