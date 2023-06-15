@@ -7,4 +7,4 @@
 - `clean-branches` - Remove all local branches except protected ones.
 - `sort-package-json` - Sort package.json file.
 - `update-dependencies` - Update all dependencies to the latest version.
-- `release [testnet|staging|sandbox|staging-sandbox]` - Release to the specified environment.
+- `release` - Release to all environments.
