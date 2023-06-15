@@ -1,27 +1,18 @@
 #!/bin/bash
 
-#/ Usage: script/release.sh
-#/ Release to specified branches
-
-set -e
+#/ Usage: script/release
+#/ Release to all environments.
 
 branches=("testnet" "staging" "sandbox" "staging-sandbox")
 
-git config user.name lenster-bot
-git config user.email github-bot@lenster.xyz
-
 for branch in "${branches[@]}"
 do
+    echo "Syncing $branch branch with main branch 🔄"
+    git pull origin main >> /dev/null
     git checkout $branch
-
-    git fetch origin $branch  # Fetch latest changes from remote branch
-
-    git merge --no-edit --no-ff main
+    git merge main
     git push origin $branch
-
     git checkout main
-    git fetch origin main  # Fetch latest changes from remote main branch
-
-    git rebase $branch
-    git push origin main
 done
+
+echo "Branches synced 🎉"
