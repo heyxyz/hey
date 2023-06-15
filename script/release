@@ -14,11 +14,14 @@ for branch in "${branches[@]}"
 do
     git checkout $branch
 
+    git pull origin $branch  # Pull latest changes from remote branch
+
     git merge --no-edit --no-ff main
     git push origin $branch
 
     git checkout main
-    git rebase $branch
-done
+    git pull origin main  # Pull latest changes from remote main branch
 
-git push origin main
+    git rebase $branch
+    git push origin main
+done
