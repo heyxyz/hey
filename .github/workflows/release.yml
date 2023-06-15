@@ -1,11 +1,13 @@
 name: Release
 
 on:
+  schedule:
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
-  testnet:
-    name: Testnet
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
@@ -15,16 +17,13 @@ jobs:
           token: ${{ secrets.LENSTER_BOT_GH_TOKEN }}
 
       - name: Testnet
-        run: ./script/release/testnet
+        run: ./script/release testnet
 
       - name: Staging
-        run: ./script/release/staging
+        run: ./script/release staging
+
+      - name: Sandbox
+        run: ./script/release sandbox
 
       - name: Staging Sandbox
-        run: ./script/release/staging-sandbox
-
-      - name: Testnet
-        run: ./script/release/testnet
-
-      - name: Testnet
-        run: ./script/release/testnet
+        run: ./script/release staging-sandbox
