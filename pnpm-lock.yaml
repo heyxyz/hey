@@ -103,7 +103,7 @@ importers:
         version: 0.0.1
       '@huddle01/react':
         specifier: ^0.0.11
-        version: 0.0.11(@types/react@18.2.12)(mediasoup-client@3.6.84)
+        version: 0.0.11(@types/react@18.2.12)(mediasoup-client@3.6.85)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.6.0)(react-dom@18.2.0)(react@18.2.0)
@@ -139,7 +139,7 @@ importers:
         version: 0.11.1(@lexical/clipboard@0.11.1)(@lexical/selection@0.11.1)(lexical@0.11.1)
       '@lexical/react':
         specifier: ^0.11.1
-        version: 0.11.1(lexical@0.11.1)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.2)
+        version: 0.11.1(lexical@0.11.1)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.4)
       '@lexical/utils':
         specifier: ^0.11.1
         version: 0.11.1(lexical@0.11.1)
@@ -534,8 +534,8 @@ importers:
   packages/workers/ens-resolver:
     dependencies:
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
       viem:
         specifier: ^1.0.7
         version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
@@ -574,8 +574,8 @@ importers:
         specifier: ^0.0.23
         version: 0.0.23
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -599,8 +599,8 @@ importers:
         specifier: workspace:*
         version: link:../../bundlr
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -624,8 +624,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
       linkedom:
         specifier: ^0.14.26
         version: 0.14.26
@@ -670,8 +670,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
       viem:
         specifier: ^1.0.7
         version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
@@ -713,8 +713,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -735,8 +735,8 @@ importers:
         specifier: ^3.352.0
         version: 3.352.0
       itty-router:
-        specifier: ^4.0.10
-        version: 4.0.10
+        specifier: ^4.0.11
+        version: 4.0.11
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -4490,10 +4490,10 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.11(@types/react@18.2.12)(mediasoup-client@3.6.84):
+  /@huddle01/react@0.0.11(@types/react@18.2.12)(mediasoup-client@3.6.85):
     resolution: {integrity: sha512-QSMykix0+7UaSZyJUGzJXxvsS8aofgGto9CSD76de3RA89QsYeUfQIM0SPEGTnljOZ6MBo76dXTvEi+lstBoJw==}
     dependencies:
-      '@huddle01/web-core': 0.0.10(mediasoup-client@3.6.84)
+      '@huddle01/web-core': 0.0.10(mediasoup-client@3.6.85)
       '@xstate/inspect': 0.7.1(ws@8.13.0)(xstate@4.37.2)
       '@xstate/react': 3.2.2(@types/react@18.2.12)(react@18.2.0)(xstate@4.37.2)
       jotai: 2.1.1(react@18.2.0)
@@ -4512,13 +4512,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@huddle01/web-core@0.0.10(mediasoup-client@3.6.84):
+  /@huddle01/web-core@0.0.10(mediasoup-client@3.6.85):
     resolution: {integrity: sha512-4Q2XyVEtjC2xV5LB4963gQ16xKRPFT/JU9kGYXuRu/B1A4UOEc31VbeG0I8zRUq/1EBvAvBBak67EBYZ9waWyQ==}
     peerDependencies:
       mediasoup-client: ^3.6.80
     dependencies:
       axios: 1.4.0
-      mediasoup-client: 3.6.84
+      mediasoup-client: 3.6.85
       nanoid: 3.3.6
       socket.io-client: 4.6.2
       xstate: 4.37.2
@@ -4796,7 +4796,7 @@ packages:
       lexical: 0.11.1
     dev: false
 
-  /@lexical/react@0.11.1(lexical@0.11.1)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.2):
+  /@lexical/react@0.11.1(lexical@0.11.1)(react-dom@18.2.0)(react@18.2.0)(yjs@13.6.4):
     resolution: {integrity: sha512-iXZusD0Z+eqttuh8s58ZP3H+tn0V1JYOay/Xo3y6/N+UXJ3NpBfVXRQB97cY/861jezMgbmvcjXuhH/rlKCvSg==}
     peerDependencies:
       lexical: 0.11.1
@@ -4819,7 +4819,7 @@ packages:
       '@lexical/table': 0.11.1(lexical@0.11.1)
       '@lexical/text': 0.11.1(lexical@0.11.1)
       '@lexical/utils': 0.11.1(lexical@0.11.1)
-      '@lexical/yjs': 0.11.1(lexical@0.11.1)(yjs@13.6.2)
+      '@lexical/yjs': 0.11.1(lexical@0.11.1)(yjs@13.6.4)
       lexical: 0.11.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -4878,7 +4878,7 @@ packages:
       lexical: 0.11.1
     dev: false
 
-  /@lexical/yjs@0.11.1(lexical@0.11.1)(yjs@13.6.2):
+  /@lexical/yjs@0.11.1(lexical@0.11.1)(yjs@13.6.4):
     resolution: {integrity: sha512-69Q462s4roXN6S8mk/ogMRZNyqLY024w38RzMVvJkY/W7sz30vPNX1RyEDHvTjgBhPXQqhRgmDUPT2V3lE7dRg==}
     peerDependencies:
       lexical: 0.11.1
@@ -4886,7 +4886,7 @@ packages:
     dependencies:
       '@lexical/offset': 0.11.1(lexical@0.11.1)
       lexical: 0.11.1
-      yjs: 13.6.2
+      yjs: 13.6.4
     dev: false
 
   /@lingui/babel-plugin-extract-messages@4.2.1:
@@ -10451,8 +10451,8 @@ packages:
       it-batch: 1.0.9
     dev: false
 
-  /itty-router@4.0.10:
-    resolution: {integrity: sha512-2B8nfXlHpzRiCEp1uSULRoy1lyzzOmLvLYEcX+Jg2Io9Q7e6F+Lv/qwYv+qzR2z256PmCzaq6yrA+2dnXysy9g==}
+  /itty-router@4.0.11:
+    resolution: {integrity: sha512-I7lm8f76jHUwftzzsFJhYCOvueFFyNNZs9d8HfMP5e6SGGyiOc3sB6/wNGoETTZTVbAufq5M2KKGos+ZkhDW/A==}
     dev: false
 
   /jayson@4.1.0:
@@ -11030,9 +11030,9 @@ packages:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
     dev: false
 
-  /mediasoup-client@3.6.84:
-    resolution: {integrity: sha512-eWkL0/rBPr9Bd8+qz4EqeYUg3+NtHNyAielk2BxfRiOyyKhknb38RabIM3L7eh9mi8qupZ3O11W7OkLSx+XRfQ==}
-    engines: {node: '>=14'}
+  /mediasoup-client@3.6.85:
+    resolution: {integrity: sha512-fi76mHDR0KqIN+i99SOL2F2juHr+6Gl0olGL2xlu/R9N9wC/w3XGgf2XYSHmN4UmNuc/EAi4Pf0z6S9Y7Nl7jA==}
+    engines: {node: '>=16'}
     dependencies:
       '@types/debug': 4.1.8
       awaitqueue: 3.0.1(supports-color@9.3.1)
@@ -14672,8 +14672,8 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /yjs@13.6.2:
-    resolution: {integrity: sha512-shFc4JI8Hr3NqKYlS09xX6lyQwU3LvQlOXEkHK2aBa1T/luNLf0qHtoujgb9pRPxhIK0uevobHhDw0+AET1Vkw==}
+  /yjs@13.6.4:
+    resolution: {integrity: sha512-AirXWU/Qws6gmaz4MMluFqahweQUyLzX7QbjHmhyqbokQIki2WpE3F/NkUyOdcgEmfdTJKVys+LGgph6smZFbg==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
       lib0: 0.2.78
