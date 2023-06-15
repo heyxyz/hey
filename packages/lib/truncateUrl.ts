@@ -1,8 +1,8 @@
 /**
- * Truncate a string by character length and add ellipsis.
- * @param url string to truncate
+ * Strip a url, truncate it to a given max length and add ellipsis if truncated.
+ * @param url url to truncate
  * @param maxLength number of characters to truncate to
- * @returns truncated string
+ * @returns truncated url
  */
 const truncateUrl = (url: string, maxLength: number): string => {
   let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
