@@ -14,5 +14,17 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.LENSTER_BOT_GH_TOKEN }}
 
-      - name: Release testnet
-        run: ./script/release
+      - name: Testnet
+        run: ./script/release/testnet
+
+      - name: Staging
+        run: ./script/release/staging
+
+      - name: Staging Sandbox
+        run: ./script/release/staging-sandbox
+
+      - name: Testnet
+        run: ./script/release/testnet
+
+      - name: Testnet
+        run: ./script/release/testnet
