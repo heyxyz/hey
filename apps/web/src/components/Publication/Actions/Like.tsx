@@ -37,13 +37,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
-    (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) ===
+    (isMirror ? publication.mirrorOf.reaction : publication.reaction) ===
       'UPVOTE'
   );
   const [count, setCount] = useState(
     isMirror
-      ? publication?.mirrorOf?.stats?.totalUpvotes
-      : publication?.stats?.totalUpvotes
+      ? publication.mirrorOf.stats.totalUpvotes
+      : publication.stats.totalUpvotes
   );
 
   const onError = (error: any) => {

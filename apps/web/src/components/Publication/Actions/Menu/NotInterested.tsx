@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { EyeOffIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import type {
   Publication,
   PublicationProfileNotInterestedRequest
@@ -8,6 +8,8 @@ import {
   useAddPublicationProfileNotInterestedMutation,
   useRemovePublicationProfileNotInterestedMutation
 } from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
 import clsx from 'clsx';
@@ -19,30 +21,43 @@ interface NotInterestedProps {
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
+  const isMirror = publication.__typename === 'Mirror';
+  const notInterested = isMirror
+    ? publication.mirrorOf.downvoted
+    : publication.downvoted;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const request: PublicationProfileNotInterestedRequest = {
     profileId: currentProfile?.id,
     publicationId: publication.id
   };
 
+  const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
+    cache.modify({
+      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+      fields: { downvoted: () => notInterested }
+    });
+  };
+
+  const onError = (error: any) => {
+    errorToast(error);
+  };
+
   const [addPublicationProfileNotInterested] =
     useAddPublicationProfileNotInterestedMutation({
       variables: { request },
-      onError: (error) => {
-        errorToast(error);
-      }
+      onError,
+      update: (cache) => updateCache(cache, true)
     });
 
   const [removePublicationProfileNotInterested] =
     useRemovePublicationProfileNotInterestedMutation({
       variables: { request },
-      onError: (error) => {
-        errorToast(error);
-      }
+      onError,
+      update: (cache) => updateCache(cache, false)
     });
 
   const togglePublicationProfileNotInterested = async () => {
-    if (publication.downvoted) {
+    if (notInterested) {
       return await removePublicationProfileNotInterested();
     }
 
@@ -64,9 +79,9 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        {publication.downvoted ? (
+        {notInterested ? (
           <>
-            <EyeOffIcon className="h-4 w-4" />
+            <EyeIcon className="h-4 w-4" />
             <div>Undo Not Interested</div>
           </>
         ) : (
