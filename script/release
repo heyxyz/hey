@@ -3,6 +3,9 @@
 #/ Usage: script/release
 #/ Release to all environments.
 
+git config user.name bigint
+git config user.email bigint@lenster.xyz
+
 branches=("testnet" "staging" "sandbox" "staging-sandbox")
 
 for branch in "${branches[@]}"
