@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#/ Usage: script/bootstrap
+#/ Install dependencies and make sure everything is ready to go.
+
+set -e
+
+git config user.name github-actions[bot]
+git config user.email github-actions[bot]@users.noreply.github.com
+
+git checkout testenv
+
+git merge --no-edit --no-ff main
+git push origin testenv
+
+git checkout main
+git rebase testenv
+git push origin main
