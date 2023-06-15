@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "^3.352.0",
-    "itty-router": "^4.0.9"
+    "itty-router": "^4.0.10"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
