@@ -10,6 +10,7 @@ export const mainnetVerified = [
   '0x7a', // rooshee
   '0x33', // lovekosmas
   '0x8e', // chaindoe
+  '0x75', // hiroprotagonist
   '0x6d' // emily
 ];
 
@@ -22,5 +23,6 @@ export const testnetVerified = [
   '0x7a', // rooshee
   '0x33', // lovekosmas
   '0x8e', // chaindoe
+  '0x75', // hiroprotagonist
   '0x6d' // emily
 ];
