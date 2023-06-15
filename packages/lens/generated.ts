@@ -2331,7 +2331,7 @@ export type Mutation = {
   ach?: Maybe<Scalars['Void']['output']>;
   /** Adds profile interests to the given profile */
   addProfileInterests?: Maybe<Scalars['Void']['output']>;
-  addPublicationDownvote?: Maybe<Scalars['Void']['output']>;
+  addPublicationProfileNotInterested?: Maybe<Scalars['Void']['output']>;
   addReaction?: Maybe<Scalars['Void']['output']>;
   /** Add a voter to a zk community */
   addVoterToCommunity: ZkRelayerResult;
@@ -2388,7 +2388,7 @@ export type Mutation = {
   refresh: AuthenticationResult;
   /** Removes profile interests from the given profile */
   removeProfileInterests?: Maybe<Scalars['Void']['output']>;
-  removePublicationDownvote?: Maybe<Scalars['Void']['output']>;
+  removePublicationProfileNotInterested?: Maybe<Scalars['Void']['output']>;
   removeReaction?: Maybe<Scalars['Void']['output']>;
   reportPublication?: Maybe<Scalars['Void']['output']>;
   /** Update the name of an NFT gallery */
@@ -2407,8 +2407,8 @@ export type MutationAddProfileInterestsArgs = {
   request: AddProfileInterestsRequest;
 };
 
-export type MutationAddPublicationDownvoteArgs = {
-  request: PublicationDownvoteRequest;
+export type MutationAddPublicationProfileNotInterestedArgs = {
+  request: PublicationProfileNotInterestedRequest;
 };
 
 export type MutationAddReactionArgs = {
@@ -2629,8 +2629,8 @@ export type MutationRemoveProfileInterestsArgs = {
   request: RemoveProfileInterestsRequest;
 };
 
-export type MutationRemovePublicationDownvoteArgs = {
-  request: PublicationDownvoteRequest;
+export type MutationRemovePublicationProfileNotInterestedArgs = {
+  request: PublicationProfileNotInterestedRequest;
 };
 
 export type MutationRemoveReactionArgs = {
@@ -3473,13 +3473,6 @@ export enum PublicationContentWarning {
   Spoiler = 'SPOILER'
 }
 
-export type PublicationDownvoteRequest = {
-  /** Profile id to perform the action */
-  profileId: Scalars['ProfileId']['input'];
-  /** The internal publication id */
-  publicationId: Scalars['InternalPublicationId']['input'];
-};
-
 export type PublicationForSale = Comment | Post;
 
 /** The publication main focus */
@@ -3635,6 +3628,13 @@ export type PublicationMetadataV2Input = {
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   /** The metadata version. (1.0.0 | 2.0.0) */
   version: Scalars['String']['input'];
+};
+
+export type PublicationProfileNotInterestedRequest = {
+  /** Profile id to perform the action */
+  profileId: Scalars['ProfileId']['input'];
+  /** The internal publication id */
+  publicationId: Scalars['InternalPublicationId']['input'];
 };
 
 export type PublicationQueryRequest = {
@@ -9132,13 +9132,13 @@ export type AddProfileInterestMutation = {
   addProfileInterests?: any | null;
 };
 
-export type AddPublicationDownvoteMutationVariables = Exact<{
-  request: PublicationDownvoteRequest;
+export type AddPublicationProfileNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest;
 }>;
 
-export type AddPublicationDownvoteMutation = {
+export type AddPublicationProfileNotInterestedMutation = {
   __typename?: 'Mutation';
-  addPublicationDownvote?: any | null;
+  addPublicationProfileNotInterested?: any | null;
 };
 
 export type AddReactionMutationVariables = Exact<{
@@ -9921,13 +9921,13 @@ export type RemoveProfileInterestMutation = {
   removeProfileInterests?: any | null;
 };
 
-export type RemovePublicationDownvoteMutationVariables = Exact<{
-  request: PublicationDownvoteRequest;
+export type RemovePublicationProfileNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest;
 }>;
 
-export type RemovePublicationDownvoteMutation = {
+export type RemovePublicationProfileNotInterestedMutation = {
   __typename?: 'Mutation';
-  removePublicationDownvote?: any | null;
+  removePublicationProfileNotInterested?: any | null;
 };
 
 export type RemoveReactionMutationVariables = Exact<{
@@ -41889,54 +41889,58 @@ export type AddProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   AddProfileInterestMutation,
   AddProfileInterestMutationVariables
 >;
-export const AddPublicationDownvoteDocument = gql`
-  mutation AddPublicationDownvote($request: PublicationDownvoteRequest!) {
-    addPublicationDownvote(request: $request)
+export const AddPublicationProfileNotInterestedDocument = gql`
+  mutation AddPublicationProfileNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    addPublicationProfileNotInterested(request: $request)
   }
 `;
-export type AddPublicationDownvoteMutationFn = Apollo.MutationFunction<
-  AddPublicationDownvoteMutation,
-  AddPublicationDownvoteMutationVariables
->;
+export type AddPublicationProfileNotInterestedMutationFn =
+  Apollo.MutationFunction<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >;
 
 /**
- * __useAddPublicationDownvoteMutation__
+ * __useAddPublicationProfileNotInterestedMutation__
  *
- * To run a mutation, you first call `useAddPublicationDownvoteMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddPublicationDownvoteMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAddPublicationProfileNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPublicationProfileNotInterestedMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addPublicationDownvoteMutation, { data, loading, error }] = useAddPublicationDownvoteMutation({
+ * const [addPublicationProfileNotInterestedMutation, { data, loading, error }] = useAddPublicationProfileNotInterestedMutation({
  *   variables: {
  *      request: // value for 'request'
  *   },
  * });
  */
-export function useAddPublicationDownvoteMutation(
+export function useAddPublicationProfileNotInterestedMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    AddPublicationDownvoteMutation,
-    AddPublicationDownvoteMutationVariables
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<
-    AddPublicationDownvoteMutation,
-    AddPublicationDownvoteMutationVariables
-  >(AddPublicationDownvoteDocument, options);
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >(AddPublicationProfileNotInterestedDocument, options);
 }
-export type AddPublicationDownvoteMutationHookResult = ReturnType<
-  typeof useAddPublicationDownvoteMutation
+export type AddPublicationProfileNotInterestedMutationHookResult = ReturnType<
+  typeof useAddPublicationProfileNotInterestedMutation
 >;
-export type AddPublicationDownvoteMutationResult =
-  Apollo.MutationResult<AddPublicationDownvoteMutation>;
-export type AddPublicationDownvoteMutationOptions = Apollo.BaseMutationOptions<
-  AddPublicationDownvoteMutation,
-  AddPublicationDownvoteMutationVariables
->;
+export type AddPublicationProfileNotInterestedMutationResult =
+  Apollo.MutationResult<AddPublicationProfileNotInterestedMutation>;
+export type AddPublicationProfileNotInterestedMutationOptions =
+  Apollo.BaseMutationOptions<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >;
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
     addReaction(request: $request)
@@ -44010,54 +44014,56 @@ export type RemoveProfileInterestMutationOptions = Apollo.BaseMutationOptions<
   RemoveProfileInterestMutation,
   RemoveProfileInterestMutationVariables
 >;
-export const RemovePublicationDownvoteDocument = gql`
-  mutation RemovePublicationDownvote($request: PublicationDownvoteRequest!) {
-    removePublicationDownvote(request: $request)
+export const RemovePublicationProfileNotInterestedDocument = gql`
+  mutation RemovePublicationProfileNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    removePublicationProfileNotInterested(request: $request)
   }
 `;
-export type RemovePublicationDownvoteMutationFn = Apollo.MutationFunction<
-  RemovePublicationDownvoteMutation,
-  RemovePublicationDownvoteMutationVariables
->;
+export type RemovePublicationProfileNotInterestedMutationFn =
+  Apollo.MutationFunction<
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
+  >;
 
 /**
- * __useRemovePublicationDownvoteMutation__
+ * __useRemovePublicationProfileNotInterestedMutation__
  *
- * To run a mutation, you first call `useRemovePublicationDownvoteMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRemovePublicationDownvoteMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useRemovePublicationProfileNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePublicationProfileNotInterestedMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [removePublicationDownvoteMutation, { data, loading, error }] = useRemovePublicationDownvoteMutation({
+ * const [removePublicationProfileNotInterestedMutation, { data, loading, error }] = useRemovePublicationProfileNotInterestedMutation({
  *   variables: {
  *      request: // value for 'request'
  *   },
  * });
  */
-export function useRemovePublicationDownvoteMutation(
+export function useRemovePublicationProfileNotInterestedMutation(
   baseOptions?: Apollo.MutationHookOptions<
-    RemovePublicationDownvoteMutation,
-    RemovePublicationDownvoteMutationVariables
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
   return Apollo.useMutation<
-    RemovePublicationDownvoteMutation,
-    RemovePublicationDownvoteMutationVariables
-  >(RemovePublicationDownvoteDocument, options);
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
+  >(RemovePublicationProfileNotInterestedDocument, options);
 }
-export type RemovePublicationDownvoteMutationHookResult = ReturnType<
-  typeof useRemovePublicationDownvoteMutation
->;
-export type RemovePublicationDownvoteMutationResult =
-  Apollo.MutationResult<RemovePublicationDownvoteMutation>;
-export type RemovePublicationDownvoteMutationOptions =
+export type RemovePublicationProfileNotInterestedMutationHookResult =
+  ReturnType<typeof useRemovePublicationProfileNotInterestedMutation>;
+export type RemovePublicationProfileNotInterestedMutationResult =
+  Apollo.MutationResult<RemovePublicationProfileNotInterestedMutation>;
+export type RemovePublicationProfileNotInterestedMutationOptions =
   Apollo.BaseMutationOptions<
-    RemovePublicationDownvoteMutation,
-    RemovePublicationDownvoteMutationVariables
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
   >;
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {

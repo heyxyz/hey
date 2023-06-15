@@ -1,3 +1,0 @@
-mutation AddPublicationDownvote($request: PublicationDownvoteRequest!) {
-  addPublicationDownvote(request: $request)
-}
