@@ -85,7 +85,13 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     } else if (error.message.includes('Already has a Lens handle')) {
       return 'You already have a Lineaster handle';
     } else if (error.data === '0x3eb64ab3') {
-      return 'Handle too short';
+      return 'Handle length is invalid';
+    } else if (error.data === '0x902815b9') {
+      return 'This handle is already taken, please chose another one';
+    } else if (error.data === '0x2edfc66c') {
+      return 'This handle contains invalid characters, please chose another one';
+    } else if (error.data === '0x5e58454e') {
+      return 'This handle first character is invalid, please chose another one';
     } else if (error.data === '0x561a8587') {
       return 'Profile creator not allowlisted';
     } else if (error.message.includes('The transaction sender must be')) {
