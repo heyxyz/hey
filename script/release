@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#/ Usage: script/release.sh
+#/ Release to specified branches
+
+set -e
+
+branches=("testnet" "staging" "sandbox" "staging-sandbox")
+
+git config user.name lenster-bot
+git config user.email github-bot@lenster.xyz
+
+for branch in "${branches[@]}"
+do
+    git checkout $branch
+
+    git merge --no-edit --no-ff main
+    git push origin $branch
+
+    git checkout main
+    git rebase $branch
+done
+
+git push origin main
