@@ -74,7 +74,7 @@ const RoundStats: FC<RoundStatsProps> = ({ showDetails, round }) => {
             </div>
             <div className={topic}>
               <p className={category}>Total Tip Amount</p>
-              <p>{ethers.utils.formatEther(round.receivedInTotal)}</p>
+              <p>{ethers.utils.formatEther(round.receivedInTotal.toString())}</p>
             </div>
             <div className={`pt-3 ${topic}`}>
               <p className={category}>End of matching round</p>
@@ -225,7 +225,7 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
             <div className="flex flex-col justify-between">
               <div className="flex flex-col justify-between text-sm text-gray-500">
                 <p className="mb-1">Received in total:</p>
-                <p>{ethers.utils.formatEther(round.receivedInTotal)} WMATIC</p>
+                <p>{ethers.utils.formatEther(round.receivedInTotal.toString())} WMATIC</p>
               </div>
               <div className="item-center my-auto flex justify-between pt-3 text-xs text-gray-500">
                 {round.roundEndTime > now && (

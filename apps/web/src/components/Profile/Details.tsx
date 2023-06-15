@@ -36,6 +36,7 @@ import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import { ProfileTipsStats } from './ProfileTipsStats';
 
+
 interface DetailsProps {
   profile: Profile;
   following: boolean;
@@ -163,7 +164,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : null}
         </div>
         <div className="divider w-full" />
-        {currentProfile?.ownedBy && <ProfileTipsStats ownedBy={currentProfile?.ownedBy} />}
+        {profile?.ownedBy && <ProfileTipsStats ownedBy={profile?.ownedBy} />}
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers setShowMutualFollowersModal={setShowMutualFollowersModal} profile={profile} />
