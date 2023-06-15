@@ -1,18 +1,18 @@
 #!/bin/bash
 
-#/ Usage: script/bootstrap
-#/ Install dependencies and make sure everything is ready to go.
+#/ Usage: script/release/testnet
+#/ Relase to testnet
 
 set -e
 
 git config user.name lenster-bot
 git config user.email github-bot@lenster.xyz
 
-git checkout testenv
+git checkout testnet
 
 git merge --no-edit --no-ff main
-git push origin testenv
+git push origin testnet
 
 git checkout main
-git rebase testenv
+git rebase testnet
 git push origin main
