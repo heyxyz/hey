@@ -1,0 +1,17 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  testnet:
+    name: Testnet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Release testnet
+        run: ./script/release
