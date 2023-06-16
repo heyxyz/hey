@@ -1,5 +1,7 @@
-import { IS_MAINNET, mainnetStaffs, testnetStaffs } from '@lenster/data';
+import { IS_MAINNET } from '@lenster/data';
 import isGardener from '@lenster/lib/isGardener';
+import isLensTeamMember from '@lenster/lib/isLensTeamMember';
+import isStaff from '@lenster/lib/isStaff';
 import { Growthbook } from '@lib/growthbook';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -12,12 +14,12 @@ const FeatureFlagsProvider: FC = () => {
 
   useEffect(() => {
     if (currentProfile?.id) {
+      const profileId = currentProfile.id;
       Growthbook.setAttributes({
-        id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${currentProfile.id}`,
-        isGardener: IS_MAINNET ? isGardener(currentProfile.id) : false,
-        isStaff: IS_MAINNET
-          ? mainnetStaffs.includes(currentProfile.id)
-          : testnetStaffs.includes(currentProfile.id),
+        id: `${IS_MAINNET ? 'mainnet' : 'testnet'}-${profileId}`,
+        isGardener: isGardener(profileId),
+        isLensTeamMember: isLensTeamMember(profileId),
+        isStaff: isStaff(profileId),
         browser: window.navigator.userAgent
       });
     }
