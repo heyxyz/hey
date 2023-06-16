@@ -1,9 +1,11 @@
 import { IS_MAINNET, SPACES_WORKER_URL } from '@lenster/data';
 import axios from 'axios';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 type CreateSpaceResponse = string;
 
 const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
+  const accessToken = useReadLocalStorage('accessToken');
   const createSpace = async (): Promise<CreateSpaceResponse> => {
     try {
       const response = await axios({
@@ -11,7 +13,7 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
         method: 'POST',
         data: {
           isMainnet: IS_MAINNET,
-          accessToken: localStorage.getItem('accessToken')
+          accessToken
         }
       });
 
