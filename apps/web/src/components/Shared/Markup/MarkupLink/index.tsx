@@ -20,7 +20,9 @@ const MarkupLink = ({ href, title = href }: MarkupLinkProps) => {
     return <Hashtag href={href} title={title} />;
   }
 
-  return <ExternalLink href={href} title={title && truncateUrl(title, 30)} />;
+  return (
+    <ExternalLink href={href} title={title ? truncateUrl(title, 30) : title} />
+  );
 };
 
 export default MarkupLink;
