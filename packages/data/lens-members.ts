@@ -1,4 +1,4 @@
-export const aaveMembers = [
+export const mainnetLensTeamMembers = [
   '0x42', // miguelmtz
   '0x2b', // gareth
   '0xabd0', // helpfulbrother

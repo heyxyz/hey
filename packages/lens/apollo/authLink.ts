@@ -25,7 +25,7 @@ const clearStorage = () => {
 };
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem(Localstorage.AccessToken);
 
   if (!accessToken || accessToken === 'undefined') {
     clearStorage();
@@ -52,7 +52,9 @@ const authLink = new ApolloLink((operation, forward) => {
         operationName: 'Refresh',
         query: REFRESH_AUTHENTICATION_MUTATION,
         variables: {
-          request: { refreshToken: localStorage.getItem('refreshToken') }
+          request: {
+            refreshToken: localStorage.getItem(Localstorage.RefreshToken)
+          }
         }
       })
     })
