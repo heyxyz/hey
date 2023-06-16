@@ -112,6 +112,8 @@ const Timeline: FC = () => {
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication?.root.id}_${index}`}
+          isFirst={index === 0}
+          isLast={index === publications.length - 1}
           feedItem={publication as FeedItem}
           publication={publication.root as Publication}
         />
