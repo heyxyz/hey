@@ -2,16 +2,25 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { useAppStore } from 'src/store/app';
 import { FollowUnfollowSource } from 'src/tracking';
 
 const Suggested: FC = () => {
-  const { data, loading, error } = useRecommendedProfilesQuery();
+  const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const { data, loading, error } = useRecommendedProfilesQuery({
+    variables: {
+      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+    }
+  });
 
   if (loading) {
     return <Loader message={t`Loading suggested`} />;
