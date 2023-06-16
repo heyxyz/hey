@@ -95,6 +95,8 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
             comment?.__typename === 'Comment' && comment.hidden ? null : (
               <SinglePublication
                 key={`${publicationId}_${index}`}
+                isFirst={index === 0}
+                isLast={index === comments.length - 1}
                 publication={comment as Comment}
                 showType={false}
               />

@@ -95,6 +95,8 @@ const Feed: FC<FeedProps> = ({
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication.id}_${index}`}
+          isFirst={index === 0}
+          isLast={index === publications.length - 1}
           publication={publication as Publication}
         />
       ))}
