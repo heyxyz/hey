@@ -234,6 +234,8 @@ export type Query = {
   skins?: Maybe<Array<Maybe<Item>>>;
   space?: Maybe<Space>;
   spaces?: Maybe<Array<Maybe<Space>>>;
+  statement?: Maybe<Statement>;
+  statements?: Maybe<Array<Maybe<Statement>>>;
   strategies?: Maybe<Array<Maybe<StrategyItem>>>;
   strategy?: Maybe<StrategyItem>;
   subscriptions?: Maybe<Array<Maybe<Subscription>>>;
@@ -297,6 +299,18 @@ export type QuerySpacesArgs = {
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<SpaceWhere>;
+};
+
+export type QueryStatementArgs = {
+  id?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type QueryStatementsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<StatementsWhere>;
 };
 
 export type QueryStrategyArgs = {
@@ -422,6 +436,32 @@ export type SpaceVoting = {
 export type SpaceWhere = {
   id?: InputMaybe<Scalars['String']['input']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Statement = {
+  __typename?: 'Statement';
+  about?: Maybe<Scalars['String']['output']>;
+  created: Scalars['Int']['output'];
+  id: Scalars['String']['output'];
+  ipfs: Scalars['String']['output'];
+  space: Scalars['String']['output'];
+  statement?: Maybe<Scalars['String']['output']>;
+  updated: Scalars['Int']['output'];
+};
+
+export type StatementsWhere = {
+  created?: InputMaybe<Scalars['Int']['input']>;
+  created_gt?: InputMaybe<Scalars['Int']['input']>;
+  created_gte?: InputMaybe<Scalars['Int']['input']>;
+  created_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  created_lt?: InputMaybe<Scalars['Int']['input']>;
+  created_lte?: InputMaybe<Scalars['Int']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  ipfs?: InputMaybe<Scalars['String']['input']>;
+  ipfs_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  space?: InputMaybe<Scalars['String']['input']>;
+  space_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type Strategy = {
