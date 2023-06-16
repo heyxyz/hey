@@ -1,9 +1,9 @@
 import { GrowthBook } from '@growthbook/growthbook';
-import { GROWTHBOOK_KEY } from '@lenster/data';
+import { GROWTHBOOK_KEY, IS_PRODUCTION } from '@lenster/data';
 
 const growthbook = new GrowthBook({
   clientKey: GROWTHBOOK_KEY,
-  enableDevMode: false
+  enableDevMode: !IS_PRODUCTION
 });
 
 export const Growthbook = {

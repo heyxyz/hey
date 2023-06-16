@@ -22,6 +22,7 @@
     "@giphy/js-fetch-api": "^4.9.3",
     "@giphy/react-components": "^6.9.4",
     "@growthbook/growthbook": "^0.27.0",
+    "@growthbook/growthbook-react": "^0.17.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.1",
