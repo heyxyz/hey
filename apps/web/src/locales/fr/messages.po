@@ -19,12 +19,12 @@ msgstr ""
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
-msgstr "Soyez le premier à laisser un commentaire !"
-
-#: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "Échec du chargement des commentaires"
+
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr "Soyez le premier à laisser un commentaire !"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
@@ -281,6 +281,10 @@ msgstr ""
 msgid "Everyone can comment and mirror"
 msgstr ""
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr ""
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -301,6 +305,10 @@ msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
+msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr ""
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr ""
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr ""
 
@@ -443,11 +457,16 @@ msgid "Show Likes"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
+msgstr ""
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -1334,10 +1353,6 @@ msgstr ""
 #: src/components/Profile/Followerings.tsx
 #: src/components/Shared/UserPreview.tsx
 msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
-msgstr ""
-
-#: src/components/Profile/Followerings.tsx
-msgid "Following"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
@@ -2930,4 +2945,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
