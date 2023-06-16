@@ -20,6 +20,7 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { PUBLICATION } from 'src/tracking';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -44,6 +45,7 @@ const Choices: FC<ChoicesProps> = ({
     show: false,
     position: 0
   });
+  const accessToken = useReadLocalStorage('accessToken');
 
   const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;
@@ -101,7 +103,7 @@ const Choices: FC<ChoicesProps> = ({
         method: 'POST',
         data: {
           isMainnet: IS_MAINNET,
-          accessToken: localStorage.getItem('accessToken'),
+          accessToken,
           choice: position,
           profileId: currentProfile.id,
           snapshotId: id
