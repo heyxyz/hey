@@ -49,16 +49,17 @@ const Timeline: FC = () => {
   };
 
   // Variables
-  const profileId = seeThroughProfile?.id ?? currentProfile?.id;
   const request: FeedRequest = {
-    profileId,
+    profileId: seeThroughProfile?.id ?? currentProfile?.id,
     limit: 50,
     feedEventItemTypes: getFeedEventItems()
   };
-  const reactionRequest = currentProfile ? { profileId } : null;
+  const reactionRequest = currentProfile
+    ? { profileId: currentProfile?.id }
+    : null;
 
   const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId: currentProfile?.id }
   });
 
   const publications = data?.feed?.items;
@@ -74,7 +75,7 @@ const Timeline: FC = () => {
         variables: {
           request: { ...request, cursor: pageInfo?.next },
           reactionRequest,
-          profileId
+          profileId: currentProfile?.id
         }
       }).then(({ data }) => {
         setHasMore(data?.feed?.items?.length > 0);

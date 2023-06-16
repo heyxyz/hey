@@ -11,16 +11,20 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
+import { useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 const ForYou: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const seeThroughProfile = useTimelineStore(
+    (state) => state.seeThroughProfile
+  );
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationForYouRequest = {
-    for: currentProfile?.id,
+    for: seeThroughProfile?.id ?? currentProfile?.id,
     limit: 10
   };
   const reactionRequest = currentProfile
