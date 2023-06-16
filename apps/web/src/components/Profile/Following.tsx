@@ -71,7 +71,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
       <div className="divide-y dark:divide-gray-700">
         {followings?.map((following, index) => (
           <div
-            className={`p-5 ${
+            className={`p-5 dark:bg-black ${
               onProfileSelected && 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
             }`}
             key={following?.profile?.id}
@@ -92,6 +92,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
               showBio
               showFollow
               showUserPreview={false}
+              isModal
             />
           </div>
         ))}

@@ -28,6 +28,7 @@ interface UserProfileProps {
   showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
+  isModal?: boolean;
 
   // For data analytics
   followPosition?: number;
@@ -45,6 +46,7 @@ const UserProfile: FC<UserProfileProps> = ({
   showStatus = false,
   showUserPreview = true,
   timestamp = '',
+  isModal = false,
   followPosition,
   followSource
 }) => {
@@ -74,7 +76,16 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">{profile?.name ?? formatHandle(profile?.handle)}</div>
+          <div
+            className={clsx(
+              {
+                'text-gray-300': isModal
+              },
+              'truncate'
+            )}
+          >
+            {profile?.name ?? formatHandle(profile?.handle)}
+          </div>
         </div>
         {isVerified(profile?.id) && <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />}
         {showStatus && hasStatus ? (
@@ -82,7 +93,7 @@ const UserProfile: FC<UserProfileProps> = ({
             <span className="mx-1.5">·</span>
             <span className="flex max-w-[10rem] items-center space-x-1 text-xs">
               <span>{statusEmoji}</span>
-              <span className="truncate">{statusMessage}</span>
+              <span className="truncate">{statusMessage} 00</span>
             </span>
           </div>
         ) : null}
@@ -119,7 +130,13 @@ const UserProfile: FC<UserProfileProps> = ({
                 style={{ wordBreak: 'break-word' }}
                 className={clsx(isBig ? 'text-base' : 'text-sm', 'mt-2', 'linkify leading-6')}
               >
-                <Markup>{profile?.bio}</Markup>
+                <Markup
+                  className={clsx({
+                    'text-gray-300': isModal
+                  })}
+                >
+                  {profile?.bio}
+                </Markup>
               </div>
             )}
           </div>

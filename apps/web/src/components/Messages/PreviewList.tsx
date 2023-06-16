@@ -77,15 +77,15 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div className="font-bold">Messages</div>
           {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="h-6 w-6" />
+              <PlusCircleIcon className="h-6 w-6 hover:text-brand-500" />
             </button>
           )}
         </div>
-        <div className="flex">
+        <div className="flex uppercase">
           <div
             onClick={() => setSelectedTab('Following')}
             className={clsx(
-              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 ml-4 flex flex-1 cursor-pointer items-center justify-center rounded-[2px] p-2 font-bold',
               selectedTab === 'Following' ? 'bg-brand-100' : ''
             )}
           >
@@ -95,7 +95,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
           <div
             onClick={() => setSelectedTab('Requested')}
             className={clsx(
-              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded p-2 font-bold',
+              'text-brand tab-bg m-2 mr-4 flex flex-1 cursor-pointer items-center justify-center rounded-[2px] p-2 font-bold',
               selectedTab === 'Requested' ? 'bg-brand-100' : ''
             )}
           >
@@ -165,7 +165,7 @@ const PreviewList: FC<PreviewListProps> = ({ className, selectedConversationKey 
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
       >
-        <div className="w-full px-4 pt-4">
+        <div className="w-full px-4 py-4 dark:bg-black border-b border-b-gray-700">
           <Search
             modalWidthClassName="max-w-lg"
             placeholder={t`Search for someone to message...`}
