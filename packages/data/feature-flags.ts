@@ -43,6 +43,6 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.WTF2,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
   }
 ];

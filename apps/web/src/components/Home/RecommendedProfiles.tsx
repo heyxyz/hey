@@ -13,6 +13,9 @@ import { useState } from 'react';
 import { FollowUnfollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import { useAppStore } from 'src/store/app';
+import { FeatureFlag } from '@lenster/data';
 
 const Title = () => {
   return (
@@ -26,9 +29,14 @@ const Title = () => {
 };
 
 const RecommendedProfiles: FC = () => {
+  const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
+
   const { data, loading, error } = useRecommendedProfilesQuery({
-    variables: { options: { shuffle: false } }
+    variables: {
+      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+    }
   });
 
   if (loading) {
