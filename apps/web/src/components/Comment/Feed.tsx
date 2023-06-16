@@ -130,32 +130,34 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId="comments-feed"
-    >
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewComment &&
-          txn?.parent === publication?.id && (
-            <div key={txn.id}>
-              <QueuedPublication txn={txn} />
-            </div>
+    <Wrapper>
+      <Card
+        className="divide-y-[1px] dark:divide-gray-700"
+        dataTestId="comments-feed"
+      >
+        {txnQueue.map(
+          (txn) =>
+            txn?.type === OptmisticPublicationType.NewComment &&
+            txn?.parent === publication?.id && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
+        {comments?.map((comment, index) =>
+          comment?.__typename === 'Comment' && comment.hidden ? null : (
+            <SinglePublication
+              key={`${publicationId}_${index}`}
+              isFirst={index === 0}
+              isLast={index === comments.length - 1}
+              publication={comment as Comment}
+              showType={false}
+            />
           )
-      )}
-      {comments?.map((comment, index) =>
-        comment?.__typename === 'Comment' && comment.hidden ? null : (
-          <SinglePublication
-            key={`${publicationId}_${index}`}
-            isFirst={index === 0}
-            isLast={index === comments.length - 1}
-            publication={comment as Comment}
-            showType={false}
-          />
-        )
-      )}
-      {hasMore && <span ref={observe} />}
-    </Card>
+        )}
+        {hasMore && <span ref={observe} />}
+      </Card>
+    </Wrapper>
   );
 };
 
