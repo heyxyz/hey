@@ -2,17 +2,20 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
+import { FeatureFlag } from '@lenster/data';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
-import FeedType from './FeedType';
+import FeedType, { Type } from './FeedType';
+import ForYou from './ForYou';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
@@ -21,14 +24,17 @@ import SetProfile from './SetProfile';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
+  const isForYouEnabled = isFeatureEnabled(FeatureFlag.ForYou);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>(
-    'TIMELINE'
-  );
+  const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
+
+  useEffect(() => {
+    setFeedType(isForYouEnabled ? Type.FOR_YOU : Type.FOLLOWING);
+  }, [currentProfile, isForYouEnabled]);
 
   return (
     <>
@@ -40,7 +46,13 @@ const Home: NextPage = () => {
             <>
               <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === 'TIMELINE' ? <Timeline /> : <Highlights />}
+              {feedType === Type.FOR_YOU ? (
+                <ForYou />
+              ) : feedType === Type.FOLLOWING ? (
+                <Timeline />
+              ) : (
+                <Highlights />
+              )}
             </>
           ) : (
             <ExploreFeed />

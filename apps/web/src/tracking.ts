@@ -132,8 +132,9 @@ export const SYSTEM = {
 export const MISCELLANEOUS = {
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',
-  SWITCH_TIMELINE: 'Switch to timeline',
-  SWITCH_HIGHLIGHTS: 'Switch to highlights',
+  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
+  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
+  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',
   SELECT_LOCALE: 'Select locale',
   FOOTER: {
