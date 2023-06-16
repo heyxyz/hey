@@ -3,19 +3,19 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
+import { FeatureFlag } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
 import { FollowUnfollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { useAppStore } from 'src/store/app';
-import { FeatureFlag } from '@lenster/data';
 
 const Title = () => {
   return (
