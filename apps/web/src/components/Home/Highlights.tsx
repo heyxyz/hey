@@ -11,25 +11,28 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
+import { useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 const Highlights: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const seeThroughProfile = useTimelineStore(
+    (state) => state.seeThroughProfile
+  );
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: FeedHighlightsRequest = {
-    profileId: currentProfile?.id,
+    profileId: seeThroughProfile?.id ?? currentProfile?.id,
     limit: 10
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
-  const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request, reactionRequest, profileId: currentProfile?.id }
   });
 
   const publications = data?.feedHighlights?.items;
@@ -45,7 +48,7 @@ const Highlights: FC = () => {
         variables: {
           request: { ...request, cursor: pageInfo?.next },
           reactionRequest,
-          profileId
+          profileId: currentProfile?.id
         }
       }).then(({ data }) => {
         setHasMore(data?.feedHighlights?.items?.length > 0);
