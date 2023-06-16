@@ -14,27 +14,27 @@ export enum FeatureFlag {
 export const featureFlags = [
   {
     key: FeatureFlag.TrendingWidget,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.NftGallery,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.NftDetail,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.GatedLocales,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.Polls,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.Spaces,
-    enabledFor: mainnetStaffs
+    enabledFor: [...mainnetStaffs]
   },
   {
     key: FeatureFlag.ForYou,
