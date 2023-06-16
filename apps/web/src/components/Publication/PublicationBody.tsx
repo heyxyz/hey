@@ -10,7 +10,7 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
-import { Growthbook } from '@lib/growthbook';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false,
   quoted = false
 }) => {
-  const { on: isSpacesEnabled } = Growthbook.feature(FeatureFlag.Spaces);
+  const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
   const { id, metadata } = publication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
   const urls = getURLs(metadata?.content);

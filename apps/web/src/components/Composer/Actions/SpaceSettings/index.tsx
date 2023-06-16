@@ -1,7 +1,7 @@
 import { MicrophoneIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Tooltip } from '@lenster/ui';
-import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ const SpaceSettings: FC = () => {
   const setShowSpaceEditor = usePublicationStore(
     (state) => state.setShowSpaceEditor
   );
-  const { on: isSpacesEnabled } = Growthbook.feature(FeatureFlag.Spaces);
+  const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
 
   if (!isSpacesEnabled) {
     return null;
