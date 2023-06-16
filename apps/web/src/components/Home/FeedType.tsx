@@ -31,6 +31,16 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">
+        <TabButton
+          name={t`Following`}
+          icon={<UserGroupIcon className="h-4 w-4" />}
+          active={feedType === Type.FOLLOWING}
+          showOnSm={false}
+          onClick={() => {
+            setFeedType(Type.FOLLOWING);
+            Leafwatch.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
+          }}
+        />
         {isForYouEnabled && (
           <TabButton
             name={t`For you`}
@@ -43,16 +53,6 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             }}
           />
         )}
-        <TabButton
-          name={t`Following`}
-          icon={<UserGroupIcon className="h-4 w-4" />}
-          active={feedType === Type.FOLLOWING}
-          showOnSm={false}
-          onClick={() => {
-            setFeedType(Type.FOLLOWING);
-            Leafwatch.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
-          }}
-        />
         <TabButton
           name={t`Highlights`}
           icon={<LightBulbIcon className="h-4 w-4" />}
