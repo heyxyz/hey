@@ -2,12 +2,10 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { FeatureFlag } from '@lenster/data';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
@@ -24,17 +22,12 @@ import SetProfile from './SetProfile';
 import Timeline from './Timeline';
 
 const Home: NextPage = () => {
-  const isForYouEnabled = isFeatureEnabled(FeatureFlag.ForYou);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
-
-  useEffect(() => {
-    setFeedType(isForYouEnabled ? Type.FOR_YOU : Type.FOLLOWING);
-  }, [currentProfile, isForYouEnabled]);
 
   return (
     <>
