@@ -1,4 +1,4 @@
-import { aaveMembers } from './aave-members';
+import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
@@ -245,7 +245,7 @@ export const mainnetVerified = [
   '0x0636', // jenny
   '0xe2ae', // philand
   '0x01c173', // pancakesbrah
-  ...aaveMembers,
+  ...mainnetLensTeamMembers,
   ...mainnetStaffs
 ];
 
