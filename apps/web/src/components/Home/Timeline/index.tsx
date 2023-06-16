@@ -1,7 +1,7 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { UserGroupIcon } from '@heroicons/react/outline';
 import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
@@ -90,7 +90,7 @@ const Timeline: FC = () => {
     return (
       <EmptyState
         message={t`No posts yet!`}
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        icon={<UserGroupIcon className="text-brand h-8 w-8" />}
       />
     );
   }

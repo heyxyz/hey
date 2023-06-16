@@ -1,3 +1,4 @@
+import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export enum FeatureFlag {
@@ -38,7 +39,7 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.ForYou,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
   },
   {
     key: FeatureFlag.WTF2,

@@ -1,9 +1,9 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { LightBulbIcon } from '@heroicons/react/outline';
-import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
-import { useFeedHighlightsQuery } from '@lenster/lens';
+import { SparklesIcon } from '@heroicons/react/outline';
+import type { Publication, PublicationForYouRequest } from '@lenster/lens';
+import { useForYouQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -13,14 +13,14 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-const Highlights: FC = () => {
+const ForYou: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
-  const request: FeedHighlightsRequest = {
-    profileId: currentProfile?.id,
+  const request: PublicationForYouRequest = {
+    for: currentProfile?.id,
     limit: 10
   };
   const reactionRequest = currentProfile
@@ -28,12 +28,12 @@ const Highlights: FC = () => {
     : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
+  const { data, loading, error, fetchMore } = useForYouQuery({
     variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feedHighlights?.items;
-  const pageInfo = data?.feedHighlights?.pageInfo;
+  const publications = data?.forYou?.items;
+  const pageInfo = data?.forYou?.pageInfo;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -48,7 +48,7 @@ const Highlights: FC = () => {
           profileId
         }
       }).then(({ data }) => {
-        setHasMore(data?.feedHighlights?.items?.length > 0);
+        setHasMore(data?.forYou?.items?.length > 0);
       });
     }
   });
@@ -61,13 +61,13 @@ const Highlights: FC = () => {
     return (
       <EmptyState
         message={t`No posts yet!`}
-        icon={<LightBulbIcon className="text-brand h-8 w-8" />}
+        icon={<SparklesIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load highlights`} error={error} />;
+    return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
   return (
@@ -93,4 +93,4 @@ const Highlights: FC = () => {
   );
 };
 
-export default Highlights;
+export default ForYou;
