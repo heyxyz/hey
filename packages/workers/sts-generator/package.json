@@ -13,8 +13,8 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.352.0",
-    "itty-router": "^4.0.10"
+    "@aws-sdk/client-sts": "^3.353.0",
+    "itty-router": "^4.0.11"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
