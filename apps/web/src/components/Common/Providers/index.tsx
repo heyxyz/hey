@@ -18,7 +18,6 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
-import FeatureFlagsProvider from './FeatureFlagsProvider';
 import LanguageProvider from './LanguageProvider';
 import LeafwatchProvider from './LeafwatchProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
@@ -53,7 +52,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageProvider>
       <ErrorBoundary>
-        <FeatureFlagsProvider />
         <LeafwatchProvider />
         <WagmiConfig config={wagmiConfig}>
           <ApolloProvider client={apolloClient}>

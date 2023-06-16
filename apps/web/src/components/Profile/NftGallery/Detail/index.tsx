@@ -5,6 +5,7 @@ import { FeatureFlag } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import {
   Card,
   GridItemEight,
@@ -12,7 +13,6 @@ import {
   GridLayout,
   Image
 } from '@lenster/ui';
-import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -24,7 +24,7 @@ import { useEffectOnce } from 'usehooks-ts';
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
-  const { on: isNftDetailEnabled } = Growthbook.feature(FeatureFlag.NftDetail);
+  const isNftDetailEnabled = isFeatureEnabled(FeatureFlag.NftDetail);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'nft' });

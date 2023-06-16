@@ -18,7 +18,6 @@ export default async (spaceId: string, env: Env) => {
     );
 
     const isLiveResponse: IsLiveResponse = await huddleResponse.json();
-    console.log('huddleResponse', isLiveResponse);
 
     return new Response(
       JSON.stringify({

@@ -1,17 +1,12 @@
 import { S3 } from '@aws-sdk/client-s3';
-import { KillSwitch } from '@lenster/data';
 import {
   EVER_API,
-  IS_PRODUCTION,
   S3_BUCKET,
   STS_GENERATOR_WORKER_URL
 } from '@lenster/data/constants';
-import { ThirdwebStorage } from '@thirdweb-dev/storage';
 import axios from 'axios';
 import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
-
-import { Growthbook } from './growthbook';
 
 const FALLBACK_TYPE = 'image/jpeg';
 
@@ -60,24 +55,7 @@ const getS3Client = async (): Promise<S3> => {
  */
 const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
   try {
-    const { on: useThirdwebIpfs } = Growthbook.feature(
-      KillSwitch.UseThirdwebIpfs
-    );
     const files = Array.from(data);
-
-    if (useThirdwebIpfs || !IS_PRODUCTION) {
-      const storage = new ThirdwebStorage();
-      const uris = await storage.uploadBatch(files, {
-        uploadWithoutDirectory: true
-      });
-
-      return uris.map((uri: string, index) => {
-        return {
-          original: { url: uri, mimeType: data[index].type || FALLBACK_TYPE }
-        };
-      });
-    }
-
     const client = await getS3Client();
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
