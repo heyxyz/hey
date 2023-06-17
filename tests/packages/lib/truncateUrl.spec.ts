@@ -7,19 +7,19 @@ test.describe('truncateUrl', () => {
     expect(truncateUrl(url, 30)).toEqual('example.com/foo');
   });
 
-  test('truncate url that is longer than max length', () => {
+  test('should truncate url that is longer than max length', () => {
     const url = 'https://example.com/path?key=value';
     expect(truncateUrl(url, 20)).toEqual('example.com/path?ke…');
   });
 
-  test('do not truncate url that is max length or shorter (after prefix stripped)', () => {
+  test('should not truncate url that is max length or shorter (after prefix stripped)', () => {
     const maxLengthUrl = 'https://example.com/pathname';
     const shortUrl = 'https://example.com/foo';
     expect(truncateUrl(maxLengthUrl, 20)).toEqual('example.com/pathname');
     expect(truncateUrl(shortUrl, 20)).toEqual('example.com/foo');
   });
 
-  test('do not truncate *.lenster.xyz urls', () => {
+  test('should not truncate *.lenster.xyz urls', () => {
     const mainnetUrl = 'https://lenster.xyz/long/pathname/test';
     const testnetUrl = 'https://testnet.lenster.xyz/long/pathname/test';
     expect(truncateUrl(mainnetUrl, 20)).toEqual(
