@@ -12,6 +12,11 @@ interface QuoteProps {
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
+  const isMirror = publication.__typename === 'Mirror';
+  const publicationType = isMirror
+    ? publication.mirrorOf.__typename
+    : publication.__typename;
+
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
@@ -36,7 +41,11 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <AnnotationIcon className="h-4 w-4" />
         <div>
-          <Trans>Quote</Trans>
+          {publicationType === 'Comment' ? (
+            <Trans>Quote comment</Trans>
+          ) : (
+            <Trans>Quote post</Trans>
+          )}
         </div>
       </div>
     </Menu.Item>
