@@ -10,3 +10,4 @@ routes = [
 
 [env.production.vars]
 BUNDLR_PRIVATE_KEY = ""
+HUGGINGFACE_API_KEY = ""

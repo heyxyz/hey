@@ -592,6 +592,9 @@ importers:
       '@lenster/bundlr':
         specifier: workspace:*
         version: link:../../bundlr
+      '@lenster/lens':
+        specifier: workspace:*
+        version: link:../../lens
       itty-router:
         specifier: ^4.0.11
         version: 4.0.11
