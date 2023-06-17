@@ -1,6 +1,8 @@
 import Feed from '@components/Comment/Feed';
 import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
+import NewPublication from '@components/Composer/NewPublication';
+import CommentWarning from '@components/Shared/CommentWarning';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
@@ -58,6 +60,7 @@ const ViewPublication: NextPage = () => {
   }
 
   const { publication } = data as any;
+  const canComment = publication?.canComment?.result;
 
   return (
     <GridLayout>
@@ -74,6 +77,13 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
+        {currentProfile && !publication?.hidden ? (
+          canComment ? (
+            <NewPublication publication={publication} />
+          ) : (
+            <CommentWarning />
+          )
+        ) : null}
         <Feed publication={publication} />
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>
