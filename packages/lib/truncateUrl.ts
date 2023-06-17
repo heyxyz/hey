@@ -1,5 +1,6 @@
 /**
  * Strip a url, truncate it to a given max length and add ellipsis if truncated.
+ *
  * @param url url to truncate
  * @param maxLength number of characters to truncate to
  * @returns truncated url
