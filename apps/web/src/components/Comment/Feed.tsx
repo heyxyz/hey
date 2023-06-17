@@ -15,15 +15,12 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
-
-import NewPublication from '../Composer/NewPublication';
-import CommentWarning from '../Shared/CommentWarning';
 
 interface FeedProps {
   publication?: Publication;
@@ -87,78 +84,52 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     }
   });
 
-  const Wrapper = ({ children }: { children?: ReactNode }) => {
-    return (
-      <>
-        {currentProfile && !publication?.hidden ? (
-          canComment ? (
-            <NewPublication publication={publication} />
-          ) : (
-            <CommentWarning />
-          )
-        ) : null}
-        {children}
-      </>
-    );
-  };
-
   if (loading) {
-    return (
-      <Wrapper>
-        <PublicationsShimmer />
-      </Wrapper>
-    );
+    return <PublicationsShimmer />;
   }
 
   if (error) {
     return (
-      <Wrapper>
-        <ErrorMessage title={t`Failed to load comment feed`} error={error} />
-      </Wrapper>
+      <ErrorMessage title={t`Failed to load comment feed`} error={error} />
     );
   }
 
   if (!publication?.hidden && totalComments === 0) {
     return (
-      <Wrapper>
-        <EmptyState
-          message={t`Be the first one to comment!`}
-          icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
-        />
-      </Wrapper>
+      <EmptyState
+        message={t`Be the first one to comment!`}
+        icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
+      />
     );
   }
 
   return (
-    <>
-      <Wrapper />
-      <Card
-        className="divide-y-[1px] dark:divide-gray-700"
-        dataTestId="comments-feed"
-      >
-        {txnQueue.map(
-          (txn) =>
-            txn?.type === OptmisticPublicationType.NewComment &&
-            txn?.parent === publication?.id && (
-              <div key={txn.id}>
-                <QueuedPublication txn={txn} />
-              </div>
-            )
-        )}
-        {comments?.map((comment, index) =>
-          comment?.__typename === 'Comment' && comment.hidden ? null : (
-            <SinglePublication
-              key={`${publicationId}_${index}`}
-              isFirst={index === 0}
-              isLast={index === comments.length - 1}
-              publication={comment as Comment}
-              showType={false}
-            />
+    <Card
+      className="divide-y-[1px] dark:divide-gray-700"
+      dataTestId="comments-feed"
+    >
+      {txnQueue.map(
+        (txn) =>
+          txn?.type === OptmisticPublicationType.NewComment &&
+          txn?.parent === publication?.id && (
+            <div key={txn.id}>
+              <QueuedPublication txn={txn} />
+            </div>
           )
-        )}
-        {hasMore && <span ref={observe} />}
-      </Card>
-    </>
+      )}
+      {comments?.map((comment, index) =>
+        comment?.__typename === 'Comment' && comment.hidden ? null : (
+          <SinglePublication
+            key={`${publicationId}_${index}`}
+            isFirst={index === 0}
+            isLast={index === comments.length - 1}
+            publication={comment as Comment}
+            showType={false}
+          />
+        )
+      )}
+      {hasMore && <span ref={observe} />}
+    </Card>
   );
 };
 
