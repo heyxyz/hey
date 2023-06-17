@@ -30,7 +30,7 @@ export default async (request: IRequest, env: Env) => {
     if ('error' in taggerResponseJson) {
       labels = null;
     } else {
-      labels = taggerResponseJson[0].slice(0, 2).map((item: any) => item.label);
+      labels = taggerResponseJson.slice(0, 2).map((item: any) => item.label);
     }
 
     payload.tags = labels;
@@ -51,12 +51,7 @@ export default async (request: IRequest, env: Env) => {
 
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
       return new Response(
-        JSON.stringify({
-          success: true,
-          id: tx.id,
-          metadata: payload,
-          taggerResponseJson
-        })
+        JSON.stringify({ success: true, id: tx.id, metadata: payload })
       );
     } else {
       return new Response(
