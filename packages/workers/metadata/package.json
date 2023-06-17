@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@lenster/bundlr": "workspace:*",
+    "@lenster/lens": "workspace:*",
     "itty-router": "^4.0.11"
   },
   "devDependencies": {
