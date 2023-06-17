@@ -1,31 +1,23 @@
 # Feature Flags
 
-Lenster uses [GrowthBook](https://growthbook.io/) for feature flags. GrowthBook is a open-source feature flagging and A/B testing library.
-
-## Creating a feature flag _(only admins)_
-
-1. Go to the [GrowthBook dashboard](https://app.growthbook.io/features).
-2. Click the **Add Feature** button.
-3. Enter a feature key for the feature flag.
-4. Enter a description for the feature flag.
-5. Add tags to the feature flag. Tags are used to group related feature flags together.
-6. Click the **Create** button.
+Lenster uses feature flags to control the visibility of new features. This allows us to release new features to a subset of users and gradually roll them out to everyone.
 
 ## Using a feature flag
 
-### Add flag to `FeatureFlag` enum
+### Add flag to `FeatureFlag` enum and `featureFlags` object
 
 1. Go to `packages/data/feature-flags.ts`
 2. Add a new entry to the `FeatureFlag` enum.
+3. Add a new entry to the `featureFlags` object.
 
 ### In a component
 
 ```ts
-import { Growthbook } from '@lib/growthbook';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 
-const { on: isNewFeatureEnabled } = Growthbook.feature(FeatureFlag.NewFeature);
+const isNewFeatureEnabled = isFeatureEnabled(FeatureFlag.NewFeature);
 
-if (!NewFeature) {
+if (!isNewFeatureEnabled) {
   return null;
 }
 

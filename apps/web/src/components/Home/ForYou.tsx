@@ -1,9 +1,9 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { UserGroupIcon } from '@heroicons/react/outline';
-import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
-import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
+import { SparklesIcon } from '@heroicons/react/outline';
+import type { Publication, PublicationForYouRequest } from '@lenster/lens';
+import { useForYouQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -11,59 +11,33 @@ import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
-import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
+import { useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-const Timeline: FC = () => {
+const ForYou: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const feedEventFilters = useTimelinePersistStore(
-    (state) => state.feedEventFilters
-  );
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
   const [hasMore, setHasMore] = useState(true);
 
-  const getFeedEventItems = () => {
-    const filters: FeedEventItemType[] = [];
-    if (feedEventFilters.posts) {
-      filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
-    }
-    if (feedEventFilters.collects) {
-      filters.push(
-        FeedEventItemType.CollectPost,
-        FeedEventItemType.CollectComment
-      );
-    }
-    if (feedEventFilters.mirrors) {
-      filters.push(FeedEventItemType.Mirror);
-    }
-    if (feedEventFilters.likes) {
-      filters.push(
-        FeedEventItemType.ReactionPost,
-        FeedEventItemType.ReactionComment
-      );
-    }
-    return filters;
-  };
-
   // Variables
-  const request: FeedRequest = {
-    profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 50,
-    feedEventItemTypes: getFeedEventItems()
+  const request: PublicationForYouRequest = {
+    for: seeThroughProfile?.id ?? currentProfile?.id,
+    limit: 10
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
+  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId: currentProfile?.id }
+  const { data, loading, error, fetchMore } = useForYouQuery({
+    variables: { request, reactionRequest, profileId }
   });
 
-  const publications = data?.feed?.items;
-  const pageInfo = data?.feed?.pageInfo;
+  const publications = data?.forYou?.items;
+  const pageInfo = data?.forYou?.pageInfo;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -75,10 +49,10 @@ const Timeline: FC = () => {
         variables: {
           request: { ...request, cursor: pageInfo?.next },
           reactionRequest,
-          profileId: currentProfile?.id
+          profileId
         }
       }).then(({ data }) => {
-        setHasMore(data?.feed?.items?.length > 0);
+        setHasMore(data?.forYou?.items?.length > 0);
       });
     }
   });
@@ -91,13 +65,13 @@ const Timeline: FC = () => {
     return (
       <EmptyState
         message={t`No posts yet!`}
-        icon={<UserGroupIcon className="text-brand h-8 w-8" />}
+        icon={<SparklesIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
+    return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
   return (
@@ -112,11 +86,10 @@ const Timeline: FC = () => {
       )}
       {publications?.map((publication, index) => (
         <SinglePublication
-          key={`${publication?.root.id}_${index}`}
+          key={`${publication?.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
+          publication={publication as Publication}
         />
       ))}
       {hasMore && <span ref={observe} />}
@@ -124,4 +97,4 @@ const Timeline: FC = () => {
   );
 };
 
-export default Timeline;
+export default ForYou;

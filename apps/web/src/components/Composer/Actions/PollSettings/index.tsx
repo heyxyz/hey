@@ -1,7 +1,7 @@
 import { MenuAlt2Icon } from '@heroicons/react/solid';
 import { FeatureFlag } from '@lenster/data';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Tooltip } from '@lenster/ui';
-import { Growthbook } from '@lib/growthbook';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -13,7 +13,7 @@ const PollSettings: FC = () => {
     (state) => state.setShowPollEditor
   );
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const { on: isPollsEnabled } = Growthbook.feature(FeatureFlag.Polls);
+  const isPollsEnabled = isFeatureEnabled(FeatureFlag.Polls);
 
   if (!isPollsEnabled) {
     return null;

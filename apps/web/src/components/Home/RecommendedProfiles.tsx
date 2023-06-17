@@ -3,13 +3,16 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
+import { FeatureFlag } from '@lenster/data';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
 import { FollowUnfollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
@@ -26,9 +29,14 @@ const Title = () => {
 };
 
 const RecommendedProfiles: FC = () => {
+  const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
+
   const { data, loading, error } = useRecommendedProfilesQuery({
-    variables: { options: { shuffle: false } }
+    variables: {
+      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+    }
   });
 
   if (loading) {
