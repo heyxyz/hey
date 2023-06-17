@@ -60,7 +60,6 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
-import getTags from '@lenster/lib/getTags';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -779,7 +778,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         name: hasAudio
           ? audioPublication.title
           : `${getTitlePrefix()} by @${currentProfile?.handle}`,
-        tags: getTags(publicationContent),
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
         contentWarning: null,
