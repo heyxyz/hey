@@ -11,14 +11,17 @@ export default async (request: IRequest, env: Env) => {
 
     // Generate tags using HuggingFace API
     const taggerResponse = await fetch(
-      'https://api-inference.huggingface.co/models/yo/tagger',
+      'https://r35q1d9vdewm7xr4.us-east-1.aws.endpoints.huggingface.cloud',
       {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
           Authorization: `Bearer ${env.HUGGINGFACE_API_KEY}`
         },
-        body: JSON.stringify({ inputs: payload.content })
+        body: JSON.stringify({
+          inputs: payload.content,
+          parameters: { top_k: 2 }
+        })
       }
     );
 
@@ -48,7 +51,12 @@ export default async (request: IRequest, env: Env) => {
 
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
       return new Response(
-        JSON.stringify({ success: true, id: tx.id, metadata: payload })
+        JSON.stringify({
+          success: true,
+          id: tx.id,
+          metadata: payload,
+          taggerResponseJson
+        })
       );
     } else {
       return new Response(
