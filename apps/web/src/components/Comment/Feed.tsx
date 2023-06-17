@@ -87,7 +87,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     }
   });
 
-  const Wrapper = ({ children }: { children: ReactNode }) => {
+  const Wrapper = ({ children }: { children?: ReactNode }) => {
     return (
       <>
         {currentProfile && !publication?.hidden ? (
@@ -130,7 +130,8 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   return (
-    <Wrapper>
+    <>
+      <Wrapper />
       <Card
         className="divide-y-[1px] dark:divide-gray-700"
         dataTestId="comments-feed"
@@ -157,7 +158,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         )}
         {hasMore && <span ref={observe} />}
       </Card>
-    </Wrapper>
+    </>
   );
 };
 
