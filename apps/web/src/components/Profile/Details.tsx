@@ -5,6 +5,7 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
+import SuperfluidSubscribe from '@components/Superfluid';
 import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
@@ -166,6 +167,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <Markup>{profile?.bio}</Markup>
         </div>
       )}
+      <SuperfluidSubscribe profile={profile} />
       <div className="space-y-5">
         <Followerings profile={profile} />
         <div>

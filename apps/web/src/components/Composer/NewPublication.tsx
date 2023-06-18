@@ -15,6 +15,7 @@ import {
 import type {
   CollectCondition,
   EncryptedMetadata,
+  EoaOwnership,
   FollowCondition,
   LensEnvironment
 } from '@lens-protocol/sdk-gated';
@@ -46,6 +47,7 @@ import {
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
   ReferenceModules,
+  SuperfluidInflowsDocument,
   useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
@@ -58,7 +60,7 @@ import {
   useCreatePostViaDispatcherMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
+import { superfluidClient, useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
@@ -87,7 +89,7 @@ import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
-import type { NewLensterAttachment } from 'src/types';
+import type { InflowType, NewLensterAttachment } from 'src/types';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
@@ -188,6 +190,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     restricted,
     followToView,
     collectToView,
+    superfluidToView,
     reset: resetAccessSettings
   } = useAccessSettingsStore((state) => state);
 
@@ -620,20 +623,43 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
 
     // Create the access condition
+    const currentAddress = await walletClient.getAddress();
+    const { data: superfluidInflowsData } = await superfluidClient.query({
+      query: SuperfluidInflowsDocument,
+      variables: { id: currentAddress }
+    });
+    console.log('superfluidInflowsData', superfluidInflowsData, currentAddress);
+
+    const eoaAccessCondition: EoaOwnership = {
+      address: superfluidInflowsData.account.inflows.map(
+        (inflow: InflowType) => inflow.sender.id
+      )
+    };
+
+    // Create the access condition
     let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: {
-          criteria: [
-            { collect: collectAccessCondition },
-            { follow: followAccessCondition }
-          ]
-        }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
+    if (collectToView || followToView || superfluidToView) {
+      const criteria = [];
+
+      if (collectToView) {
+        criteria.push({ collect: collectAccessCondition });
+      }
+
+      if (followToView) {
+        criteria.push({ follow: followAccessCondition });
+      }
+
+      if (superfluidToView) {
+        criteria.push({ eoa: eoaAccessCondition });
+      }
+
+      accessCondition = { and: { criteria } };
+    } else {
+      if (collectToView) {
+        accessCondition = { collect: collectAccessCondition };
+      } else if (followToView) {
+        accessCondition = { follow: followAccessCondition };
+      }
     }
 
     // Generate the encrypted metadata and upload it to Arweave

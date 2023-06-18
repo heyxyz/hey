@@ -13,6 +13,8 @@ export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
 export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
+export const SUPERFLUID_SUBGRAPH =
+  'https://api.thegraph.com/subgraphs/name/superfluid-finance/protocol-v1-matic';
 
 export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 

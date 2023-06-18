@@ -7,6 +7,8 @@ interface AccessSettingsState {
   setCollectToView: (collectToView: boolean) => void;
   followToView: boolean;
   setFollowToView: (followToView: boolean) => void;
+  superfluidToView: boolean;
+  setSuperfluidToView: (superfluidToView: boolean) => void;
   hasConditions: () => boolean;
   reset: () => void;
 }
@@ -19,6 +21,9 @@ export const useAccessSettingsStore = create<AccessSettingsState>(
     setCollectToView: (collectToView) => set(() => ({ collectToView })),
     followToView: false,
     setFollowToView: (followToView) => set(() => ({ followToView })),
+    superfluidToView: false,
+    setSuperfluidToView: (superfluidToView) =>
+      set(() => ({ superfluidToView })),
     hasConditions: () => {
       const { followToView, collectToView } = get();
 

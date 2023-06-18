@@ -1,5 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
+import {
+  CollectionIcon,
+  CurrencyDollarIcon,
+  UsersIcon
+} from '@heroicons/react/outline';
 import { CollectModules } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -22,6 +26,12 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
   const collectToView = useAccessSettingsStore((state) => state.collectToView);
   const setCollectToView = useAccessSettingsStore(
     (state) => state.setCollectToView
+  );
+  const superfluidToView = useAccessSettingsStore(
+    (state) => state.superfluidToView
+  );
+  const setSuperfluidToView = useAccessSettingsStore(
+    (state) => state.setSuperfluidToView
   );
   const hasConditions = useAccessSettingsStore((state) => state.hasConditions);
   const reset = useAccessSettingsStore((state) => state.reset);
@@ -48,6 +58,15 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
       />
       {restricted && (
         <>
+          <Card className="mt-5 p-5">
+            <ToggleWithHelper
+              on={superfluidToView}
+              setOn={() => setSuperfluidToView(!superfluidToView)}
+              heading={t`Superfluid Subscribers`}
+              description={t`People need to subscribe to your content to be able to view it`}
+              icon={<CurrencyDollarIcon className="h-4 w-4" />}
+            />
+          </Card>
           <Card className="mt-5 p-5">
             <ToggleWithHelper
               on={collectToView}

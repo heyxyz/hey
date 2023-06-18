@@ -47,6 +47,8 @@
     "@lingui/swc-plugin": "^4.0.0",
     "@livepeer/react": "^2.5.8",
     "@snapshot-labs/snapshot.js": "^0.4.98",
+    "@superfluid-finance/tokenlist": "^1.1.0",
+    "@superfluid-finance/widget": "^0.0.4",
     "@tanstack/react-query": "^4.29.14",
     "@tippyjs/react": "^4.2.6",
     "@workers/snapshot-relay": "workspace:*",

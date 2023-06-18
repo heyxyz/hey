@@ -1,8 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
+import { SUPERFLUID_SUBGRAPH } from '@lenster/data';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://api-mumbai.lens.dev',
+  schema: ['https://api-mumbai.lens.dev', SUPERFLUID_SUBGRAPH],
   documents: './documents/**/*.graphql',
   generates: {
     'generated.ts': {

@@ -8,6 +8,12 @@ export interface NewLensterAttachment extends MediaSetWithoutOnChain {
   previewItem: string;
 }
 
+export interface InflowType {
+  id: string;
+  sender: {
+    id: string;
+  };
+}
 export interface UserSuggestion {
   uid: string;
   id: string;
