@@ -395,6 +395,7 @@ msgid "Popular"
 msgstr ""
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/Tags.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
 msgstr ""
@@ -575,6 +576,16 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr ""
+
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
 msgstr ""
@@ -603,14 +614,6 @@ msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
-msgstr ""
-
-#: src/components/Home/Trending.tsx
-msgid "Failed to load trending"
-msgstr ""
-
-#: src/components/Home/Trending.tsx
-msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
@@ -1609,10 +1612,6 @@ msgstr ""
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
 msgstr ""
-
-#: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
@@ -2851,6 +2850,10 @@ msgstr ""
 msgid "Collect module"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
+
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
 msgstr ""
@@ -2953,4 +2956,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

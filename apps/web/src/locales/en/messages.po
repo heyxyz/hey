@@ -395,6 +395,7 @@ msgid "Popular"
 msgstr ""
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/Tags.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
 msgstr ""
@@ -575,6 +576,16 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr ""
+
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
 msgstr "collected"
@@ -604,14 +615,6 @@ msgstr "mirrored"
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
 msgstr ""
-
-#: src/components/Home/Trending.tsx
-msgid "Failed to load trending"
-msgstr ""
-
-#: src/components/Home/Trending.tsx
-msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
-msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
@@ -1609,10 +1612,6 @@ msgstr ""
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
 msgstr "Unmirror"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
@@ -2850,6 +2849,10 @@ msgstr "Comment on"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr "Collect module"
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr "Tags"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"

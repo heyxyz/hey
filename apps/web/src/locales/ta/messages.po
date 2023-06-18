@@ -395,6 +395,7 @@ msgid "Popular"
 msgstr "பிரபலமானவை"
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/Tags.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
 msgstr "டிரெண்டிங்"
@@ -575,6 +576,16 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr "பரிந்துரைக்க எதுவும் இல்லை"
 
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
 msgstr "சேகரிக்கப்பட்டது"
@@ -604,14 +615,6 @@ msgstr ""
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
 msgstr "காலவரிசையை ஏற்றுவதில் தோல்வி"
-
-#: src/components/Home/Trending.tsx
-msgid "Failed to load trending"
-msgstr "டிரெண்டிங்கை ஏற்றுவதில் தோல்வி"
-
-#: src/components/Home/Trending.tsx
-msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
-msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
@@ -1609,10 +1612,6 @@ msgstr "மிரர்"
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
 msgstr ""
-
-#: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
@@ -2851,6 +2850,10 @@ msgstr ""
 msgid "Collect module"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
+
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
 msgstr "பரிவர்த்தனைகள்"
@@ -2953,4 +2956,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
