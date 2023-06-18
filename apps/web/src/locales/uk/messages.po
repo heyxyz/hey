@@ -1611,10 +1611,6 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
 msgstr ""
 

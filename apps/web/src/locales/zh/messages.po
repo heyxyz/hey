@@ -395,6 +395,7 @@ msgid "Popular"
 msgstr "热门"
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/Tags.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
 msgstr "热搜"
@@ -575,6 +576,16 @@ msgstr "正在加载推荐"
 msgid "Nothing to suggest"
 msgstr "没有可以推荐的内容"
 
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr "无法加载热搜"
+
+#: src/components/Home/Tags.tsx
+#: src/components/Home/Trending.tsx
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
 msgstr "已收藏"
@@ -604,14 +615,6 @@ msgstr "已转发"
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
 msgstr "加载时间线失败"
-
-#: src/components/Home/Trending.tsx
-msgid "Failed to load trending"
-msgstr "无法加载热搜"
-
-#: src/components/Home/Trending.tsx
-msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
-msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
@@ -1609,10 +1612,6 @@ msgstr "转发"
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
 msgstr ""
-
-#: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
@@ -2851,6 +2850,10 @@ msgstr "评论"
 msgid "Collect module"
 msgstr "收藏模块"
 
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
+
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
 msgstr "交易"
@@ -2953,4 +2956,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
