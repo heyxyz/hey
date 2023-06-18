@@ -9,7 +9,8 @@ export enum FeatureFlag {
   Polls = 'polls',
   Spaces = 'spaces',
   ForYou = 'for-you',
-  WTF2 = 'wtf2'
+  WTF2 = 'wtf2',
+  ExploreTags = 'explore-tags'
 }
 
 export const featureFlags = [
@@ -43,6 +44,10 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.WTF2,
+    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
+  },
+  {
+    key: FeatureFlag.ExploreTags,
     enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
   }
 ];

@@ -8,6 +8,9 @@ routes = [
 	{ pattern = "metadata.lenster.xyz", custom_domain = true }
 ]
 
+[placement]
+mode = "smart"
+
 [env.production.vars]
 BUNDLR_PRIVATE_KEY = ""
 HUGGINGFACE_API_KEY = ""

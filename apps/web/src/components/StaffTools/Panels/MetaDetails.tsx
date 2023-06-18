@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -7,25 +8,37 @@ interface MetaDetailsProps {
   title?: string;
   value: string;
   icon: ReactNode;
+  noFlex?: boolean;
 }
 
 const MetaDetails: FC<MetaDetailsProps> = ({
   children,
   title,
   value,
-  icon
+  icon,
+  noFlex = false
 }) => (
   <div
-    className="linkify flex cursor-pointer items-center gap-1 text-sm font-bold"
+    className={clsx(
+      noFlex ? '' : 'flex items-center gap-1',
+      'linkify cursor-pointer text-sm font-bold'
+    )}
     onClick={async () => {
       await navigator.clipboard.writeText(value);
       toast.success(t`Copied to clipboard!`);
     }}
     aria-hidden="true"
   >
-    {icon}
-    {title ? <div className="lt-text-gray-500">{title}:</div> : null}
-    <div>{children}</div>
+    <div className="flex items-center gap-1">
+      {icon}
+      {title ? (
+        <div className="lt-text-gray-500">
+          {title}
+          {noFlex ? '' : ':'}
+        </div>
+      ) : null}
+    </div>
+    <div className={clsx(noFlex ? 'mt-1' : '')}>{children}</div>
   </div>
 );
 
