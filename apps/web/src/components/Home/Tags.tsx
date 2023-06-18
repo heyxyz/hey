@@ -1,4 +1,4 @@
-import Beta from '@components/Shared/Badges/Beta';
+import Alpha from '@components/Shared/Badges/Alpha';
 import { TagIcon } from '@heroicons/react/outline';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
@@ -13,7 +13,7 @@ const Title = () => {
       <div>
         <Trans>Tags</Trans>
       </div>
-      <Beta />
+      <Alpha />
     </div>
   );
 };
