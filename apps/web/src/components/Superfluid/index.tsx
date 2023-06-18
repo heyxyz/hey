@@ -1,10 +1,10 @@
 import type { Profile } from '@lenster/lens';
 import { Button } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import tokenList from '@superfluid-finance/tokenlist';
-import SuperfluidWidget from '@superfluid-finance/widget';
 import * as React from 'react';
 
+import tokenList from '../../../node_modules/@superfluid-finance/tokenlist';
+import SuperfluidWidget from '../../../node_modules/@superfluid-finance/widget';
 import paymentDetails from './paymentDetails';
 
 interface SuperfluidSubscribeProps {
