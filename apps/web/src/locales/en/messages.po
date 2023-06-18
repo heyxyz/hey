@@ -395,7 +395,6 @@ msgid "Popular"
 msgstr ""
 
 #: src/components/Explore/index.tsx
-#: src/components/Home/Tags.tsx
 #: src/components/Home/Trending.tsx
 msgid "Trending"
 msgstr ""
@@ -577,14 +576,9 @@ msgid "Nothing to suggest"
 msgstr ""
 
 #: src/components/Home/Tags.tsx
-#: src/components/Home/Trending.tsx
-msgid "Failed to load trending"
-msgstr ""
-
-#: src/components/Home/Tags.tsx
-#: src/components/Home/Trending.tsx
-msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
-msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr "Tags"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -615,6 +609,14 @@ msgstr "mirrored"
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
 msgstr ""
+
+#: src/components/Home/Trending.tsx
+msgid "Failed to load trending"
+msgstr ""
+
+#: src/components/Home/Trending.tsx
+msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
@@ -2255,6 +2257,10 @@ msgstr ""
 msgid "Add author"
 msgstr ""
 
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha"
+msgstr "Alpha"
+
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
 msgstr ""
@@ -2849,10 +2855,6 @@ msgstr "Comment on"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr "Collect module"
-
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "Tags"
-msgstr "Tags"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
