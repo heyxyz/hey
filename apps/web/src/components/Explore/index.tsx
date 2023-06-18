@@ -94,8 +94,8 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isTrendingWidgetEnabled && <Trending />}
         {isExploreTagsEnabled && <Tags />}
+        {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
