@@ -1,77 +1,74 @@
-import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
-import { TrendingUpIcon } from '@heroicons/react/solid';
-import type { TagResult } from '@lenster/lens';
-import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Card, ErrorMessage } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
-import Link from 'next/link';
+import Beta from '@components/Shared/Badges/Beta';
+import { TagIcon } from '@heroicons/react/outline';
+import { Card } from '@lenster/ui';
+import { Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import type { FC } from 'react';
-import { MISCELLANEOUS } from 'src/tracking';
+import { useExploreStore } from 'src/store/explore';
 
 const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
-      <TrendingUpIcon className="h-4 w-4 text-green-500" />
+      <TagIcon className="h-4 w-4 text-pink-500" />
       <div>
-        <Trans>Trending</Trans>
+        <Trans>Tags</Trans>
       </div>
+      <Beta />
     </div>
   );
 };
 
 const Tags: FC = () => {
-  const { data, loading, error } = useTrendingQuery({
-    variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
-  });
+  const selectedTag = useExploreStore((state) => state.selectedTag);
+  const setSelectedTag = useExploreStore((state) => state.setSelectedTag);
 
-  if (loading) {
-    return (
-      <>
-        <Title />
-        <Card className="mb-4 space-y-4 p-5">
-          <TrendingTagShimmer />
-          <TrendingTagShimmer />
-          <TrendingTagShimmer />
-          <TrendingTagShimmer />
-          <TrendingTagShimmer />
-          <TrendingTagShimmer />
-        </Card>
-      </>
-    );
-  }
+  const tags = [
+    { tag: 'arts_&_culture', name: 'Arts & Culture' },
+    { tag: 'business_&_entrepreneurs', name: 'Business & Entrepreneurs' },
+    { tag: 'celebrity_&_pop_culture', name: 'Celebrity & Pop Culture' },
+    { tag: 'diaries_&_daily_life', name: 'Diaries & Daily Life' },
+    { tag: 'family', name: 'Family' },
+    { tag: 'fashion_&_style', name: 'Fashion & Style' },
+    { tag: 'filmtv&_video', name: 'Film & Video' },
+    { tag: 'fitness_&_health', name: 'Fitness & Health' },
+    { tag: 'food_&_dining', name: 'Food & Dining' },
+    { tag: 'gaming', name: 'Gaming' },
+    { tag: 'learning_&_educational', name: 'Learning & Educational' },
+    { tag: 'music', name: 'Music' },
+    { tag: 'news_&_social_concern', name: 'News & Social Concern' },
+    { tag: 'other_hobbies', name: 'Other Hobbies' },
+    { tag: 'relationships', name: 'Relationships' },
+    { tag: 'science_&_technology', name: 'Science & Technology' },
+    { tag: 'sports', name: 'Sports' },
+    { tag: 'travel_&_adventure', name: 'Travel & Adventure' },
+    { tag: 'youth_&_student_life', name: 'Youth & Student Life' }
+  ];
 
   return (
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title={t`Failed to load trending`} error={error} />
-        {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
-          tag?.tag !== '{}' ? (
-            <div key={tag?.tag}>
-              <Link
-                href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() =>
-                  Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
-                    trending_tag: tag?.tag
-                  })
-                }
+        {tags.map((tag) => (
+          <div key={tag.tag}>
+            <button
+              onClick={() => {
+                // Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                //   trending_tag: tag.tag
+                // });
+                setSelectedTag(tag.tag);
+              }}
+            >
+              <div
+                className={clsx(
+                  selectedTag === tag.tag ? 'text-pink-500' : 'text-gray-500',
+                  'font-bold'
+                )}
               >
-                <div className="font-bold">{tag?.tag}</div>
-                <div className="lt-text-gray-500 text-[12px]">
-                  {nFormatter(tag?.total)}{' '}
-                  <Plural
-                    value={tag?.total}
-                    zero="Publication"
-                    one="Publication"
-                    other="Publications"
-                  />
-                </div>
-              </Link>
-            </div>
-          ) : null
-        )}
+                {tag.name}
+              </div>
+            </button>
+          </div>
+        ))}
       </Card>
     </>
   );
