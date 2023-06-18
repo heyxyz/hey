@@ -39,6 +39,14 @@ msgid "Add restrictions on who can view this post"
 msgstr "Добавить ограничения на то, кто может просматривать эту публикацию"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Superfluid Subscribers"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to subscribe to your content to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr "Сначала включите функцию collect, чтобы использовать систему управления токенами на основе коллекта"
 
@@ -2901,6 +2909,10 @@ msgstr ""
 msgid "total follows"
 msgstr "всего подписок"
 
+#: src/components/Superfluid/index.tsx
+msgid "Subscribe $"
+msgstr ""
+
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr ""
@@ -2953,4 +2965,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

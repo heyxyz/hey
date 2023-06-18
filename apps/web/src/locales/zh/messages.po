@@ -39,6 +39,14 @@ msgid "Add restrictions on who can view this post"
 msgstr "限制谁可以看到这个帖子"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Superfluid Subscribers"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to subscribe to your content to be able to view it"
+msgstr ""
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr "您需要先启用收藏模块以便使用基于令牌的权限控制功能"
 
@@ -2901,6 +2909,10 @@ msgstr "总收藏数"
 msgid "total follows"
 msgstr "总关注数"
 
+#: src/components/Superfluid/index.tsx
+msgid "Subscribe $"
+msgstr ""
+
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr "图片大小必须小于 50MB"
@@ -2953,4 +2965,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

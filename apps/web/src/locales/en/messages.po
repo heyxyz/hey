@@ -39,6 +39,14 @@ msgid "Add restrictions on who can view this post"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "Superfluid Subscribers"
+msgstr "Superfluid Subscribers"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+msgid "People need to subscribe to your content to be able to view it"
+msgstr "People need to subscribe to your content to be able to view it"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Enable collect first to use collect based token gating"
 msgstr ""
 
@@ -2900,6 +2908,10 @@ msgstr "total collects"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr "total follows"
+
+#: src/components/Superfluid/index.tsx
+msgid "Subscribe $"
+msgstr "Subscribe $"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
