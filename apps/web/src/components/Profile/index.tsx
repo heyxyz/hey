@@ -6,8 +6,8 @@ import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
-import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -38,9 +38,7 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
-  const { on: isNftGalleryEnabled } = Growthbook.feature(
-    FeatureFlag.NftGallery
-  );
+  const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });

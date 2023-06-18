@@ -1,4 +1,4 @@
-export const aaveMembers = [
+export const mainnetLensTeamMembers = [
   '0x42', // miguelmtz
   '0x2b', // gareth
   '0xabd0', // helpfulbrother
@@ -10,7 +10,6 @@ export const aaveMembers = [
   '0x03', // aavegrants
   '0x02', // aaveaave
   '0x8e', // christina
-  '0x0b', // zer0dot
   '0x09', // nicolo
   '0xa1', // pealco
   '0x24', // bradorbradley
@@ -32,8 +31,6 @@ export const aaveMembers = [
   '0x35', // superproduct
   '0x6b46', // 0xgraham
   '0x8d68', // avadi
-  '0xadb2', // jameslondon
   '0x1044', // south
-  '0xd543', // mirran
-  '0x0ba3' // khaled
+  '0xd543' // mirran
 ];

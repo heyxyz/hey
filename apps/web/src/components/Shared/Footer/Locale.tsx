@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { FeatureFlag, Localstorage } from '@lenster/data';
-import { Growthbook } from '@lib/growthbook';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
@@ -14,9 +14,7 @@ import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
-  const { on: isGatedLocalesEnabled } = Growthbook.feature(
-    FeatureFlag.GatedLocales
-  );
+  const isGatedLocalesEnabled = isFeatureEnabled(FeatureFlag.GatedLocales);
   const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
     Object.entries(SUPPORTED_LOCALES).filter(([key]) =>

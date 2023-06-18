@@ -12,7 +12,8 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
-import FeedType from './FeedType';
+import FeedType, { Type } from './FeedType';
+import ForYou from './ForYou';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
@@ -22,9 +23,7 @@ import Timeline from './Timeline';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>(
-    'TIMELINE'
-  );
+  const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -40,7 +39,13 @@ const Home: NextPage = () => {
             <>
               <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === 'TIMELINE' ? <Timeline /> : <Highlights />}
+              {feedType === Type.FOR_YOU ? (
+                <ForYou />
+              ) : feedType === Type.FOLLOWING ? (
+                <Timeline />
+              ) : (
+                <Highlights />
+              )}
             </>
           ) : (
             <ExploreFeed />

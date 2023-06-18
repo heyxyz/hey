@@ -7,8 +7,8 @@ import { FeatureFlag } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
 import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Growthbook } from '@lib/growthbook';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -26,9 +26,7 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
-  const { on: isTrendingWidgetEnabled } = Growthbook.feature(
-    FeatureFlag.TrendingWidget
-  );
+  const isTrendingWidgetEnabled = isFeatureEnabled(FeatureFlag.TrendingWidget);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });

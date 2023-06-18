@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-14 00:08\n"
+"PO-Revision-Date: 2023-06-18 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -19,11 +19,11 @@ msgstr ""
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
+msgid "Failed to load comment feed"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
-msgid "Failed to load comment feed"
+msgid "Be the first one to comment!"
 msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
@@ -281,6 +281,10 @@ msgstr ""
 msgid "Everyone can comment and mirror"
 msgstr ""
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr ""
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -301,6 +305,10 @@ msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
+msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr ""
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr ""
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr ""
 
@@ -443,11 +457,16 @@ msgid "Show Likes"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
+msgstr ""
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -1337,10 +1356,6 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr ""
-
-#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
 
@@ -1596,7 +1611,15 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-msgid "Quote"
+#~ msgid "Quote"
+#~ msgstr "Quote"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote comment"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote post"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-14 00:08\n"
+"PO-Revision-Date: 2023-06-18 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
-msgstr "还没有人评论哦~快来抢沙发！"
-
-#: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "评论流加载失败"
+
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr "还没有人评论哦~快来抢沙发！"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
@@ -281,6 +281,10 @@ msgstr "好友的好友可以评论和转发"
 msgid "Everyone can comment and mirror"
 msgstr "所有人都可以评论和转发"
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr ""
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -302,6 +306,10 @@ msgstr "上传"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "请选择 1 个视频或最多 4 张照片。"
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr "评论"
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "发帖"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr "图像"
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr "为您推荐"
 
@@ -443,12 +457,17 @@ msgid "Show Likes"
 msgstr "显示点赞"
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
-msgstr "时间线"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "正在关注"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "精彩内容"
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -1337,10 +1356,6 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "正在关注"
-
-#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "关注者"
 
@@ -1596,7 +1611,15 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-msgid "Quote"
+#~ msgid "Quote"
+#~ msgstr "Quote"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote comment"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote post"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx

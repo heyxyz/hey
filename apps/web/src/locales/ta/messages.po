@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-14 00:08\n"
+"PO-Revision-Date: 2023-06-18 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
-msgstr "முதல் நபராக கருத்திடுக!"
-
-#: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr "முதல் நபராக கருத்திடுக!"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
@@ -281,6 +281,10 @@ msgstr "நண்பர்களின் நண்பர் கருத்த�
 msgid "Everyone can comment and mirror"
 msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr ""
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -302,6 +306,10 @@ msgstr "பதிவேற்றவும்"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr "கருத்துரை"
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "போஸ்ட்"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr "படங்கள்"
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr "உங்களுக்காக"
 
@@ -443,12 +457,17 @@ msgid "Show Likes"
 msgstr "விருப்பங்களைக் காட்டு"
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
-msgstr "காலவரிசை"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "பின்தொடர்கிறீர்கள்"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "ஹைலைட்ஸ்"
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -1337,10 +1356,6 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "பின்தொடர்கிறீர்கள்"
-
-#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "பின்பற்றுபவர்கள்"
 
@@ -1596,7 +1611,15 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-msgid "Quote"
+#~ msgid "Quote"
+#~ msgstr "Quote"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote comment"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote post"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx

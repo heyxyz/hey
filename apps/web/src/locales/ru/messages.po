@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-14 00:08\n"
+"PO-Revision-Date: 2023-06-18 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -19,12 +19,12 @@ msgstr ""
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
-msgstr "Будьте первым комментатором!"
-
-#: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "Не удалось загрузить комментарии"
+
+#: src/components/Comment/Feed.tsx
+msgid "Be the first one to comment!"
+msgstr "Будьте первым комментатором!"
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
@@ -196,7 +196,7 @@ msgstr "Лимит на коллект в течение первых 24 час�
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
-msgstr ""
+msgstr "Настройки коллектов"
 
 #: src/components/Composer/Actions/Giphy/GifSelector.tsx
 msgid "Search for GIFs"
@@ -281,6 +281,10 @@ msgstr "Друзья моих друзей могут комментироват
 msgid "Everyone can comment and mirror"
 msgstr "Любой может комментировать и репостить"
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr ""
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -302,6 +306,10 @@ msgstr "Загрузить"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "Пожалуйста, выберите либо 1 видео, либо до 4 фотографий."
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
+msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr "Прокомментировать"
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "Опубликовать"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr "Картинки"
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr "Для вас"
 
@@ -443,12 +457,17 @@ msgid "Show Likes"
 msgstr "Показать лайки"
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
-msgstr "Лента"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
+msgstr "Подписан"
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "Яркие моменты"
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -558,11 +577,11 @@ msgstr "Нечего предложить"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
-msgstr ""
+msgstr "коллектнуто"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "mirrored{0}"
-msgstr ""
+msgstr "миррорнуто{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "commented{0}{1}"
@@ -570,7 +589,7 @@ msgstr "прокомментировал{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected{0}"
-msgstr ""
+msgstr "коллектнуто{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
@@ -1337,10 +1356,6 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr ""
 
 #: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr "Подписан"
-
-#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr "Подписчики"
 
@@ -1414,7 +1429,7 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
-msgstr ""
+msgstr "Коллекция отзывов"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
@@ -1596,7 +1611,15 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-msgid "Quote"
+#~ msgid "Quote"
+#~ msgstr "Quote"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote comment"
+msgstr ""
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote post"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx

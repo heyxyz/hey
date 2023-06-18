@@ -22,9 +22,6 @@ import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-import NewPublication from '../Composer/NewPublication';
-import CommentWarning from '../Shared/CommentWarning';
-
 interface FeedProps {
   publication?: Publication;
 }
@@ -87,50 +84,52 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     }
   });
 
-  return (
-    <>
-      {currentProfile && !publication?.hidden ? (
-        canComment ? (
-          <NewPublication publication={publication} />
-        ) : (
-          <CommentWarning />
-        )
-      ) : null}
-      {loading && <PublicationsShimmer />}
-      {!publication?.hidden && !loading && totalComments === 0 && (
-        <EmptyState
-          message={t`Be the first one to comment!`}
-          icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
-        />
-      )}
+  if (loading) {
+    return <PublicationsShimmer />;
+  }
+
+  if (error) {
+    return (
       <ErrorMessage title={t`Failed to load comment feed`} error={error} />
-      {!error && !loading && totalComments !== 0 && (
-        <Card
-          className="divide-y-[1px] dark:divide-gray-700"
-          dataTestId="comments-feed"
-        >
-          {txnQueue.map(
-            (txn) =>
-              txn?.type === OptmisticPublicationType.NewComment &&
-              txn?.parent === publication?.id && (
-                <div key={txn.id}>
-                  <QueuedPublication txn={txn} />
-                </div>
-              )
-          )}
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.hidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
-          )}
-          {hasMore && <span ref={observe} />}
-        </Card>
+    );
+  }
+
+  if (!publication?.hidden && totalComments === 0) {
+    return (
+      <EmptyState
+        message={t`Be the first one to comment!`}
+        icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
+      />
+    );
+  }
+
+  return (
+    <Card
+      className="divide-y-[1px] dark:divide-gray-700"
+      dataTestId="comments-feed"
+    >
+      {txnQueue.map(
+        (txn) =>
+          txn?.type === OptmisticPublicationType.NewComment &&
+          txn?.parent === publication?.id && (
+            <div key={txn.id}>
+              <QueuedPublication txn={txn} />
+            </div>
+          )
       )}
-    </>
+      {comments?.map((comment, index) =>
+        comment?.__typename === 'Comment' && comment.hidden ? null : (
+          <SinglePublication
+            key={`${publicationId}_${index}`}
+            isFirst={index === 0}
+            isLast={index === comments.length - 1}
+            publication={comment as Comment}
+            showType={false}
+          />
+        )
+      )}
+      {hasMore && <span ref={observe} />}
+    </Card>
   );
 };
 

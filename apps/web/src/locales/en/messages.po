@@ -19,11 +19,11 @@ msgstr ""
 "X-Crowdin-File-ID: 9\n"
 
 #: src/components/Comment/Feed.tsx
-msgid "Be the first one to comment!"
+msgid "Failed to load comment feed"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
-msgid "Failed to load comment feed"
+msgid "Be the first one to comment!"
 msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
@@ -281,6 +281,10 @@ msgstr "Friend of friends can comment and mirror"
 msgid "Everyone can comment and mirror"
 msgstr "Everyone can comment and mirror"
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Space"
+msgstr "Space"
+
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -302,6 +306,10 @@ msgstr "Upload"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
+
+#: src/components/Composer/Editor/index.tsx
+msgid "What do you want to talk about?"
+msgstr "What do you want to talk about?"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -332,10 +340,15 @@ msgid "Comment"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+msgid "Start Space"
+msgstr "Start Space"
+
+#: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "Post"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
@@ -373,6 +386,7 @@ msgid "Images"
 msgstr ""
 
 #: src/components/Explore/index.tsx
+#: src/components/Home/FeedType.tsx
 msgid "For you"
 msgstr ""
 
@@ -443,12 +457,17 @@ msgid "Show Likes"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
-msgid "Timeline"
+#: src/components/Profile/Followerings.tsx
+msgid "Following"
 msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr ""
+
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr "Failed to load for you"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -1337,10 +1356,6 @@ msgid "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 msgstr "{0, plural, zero {Follower} one {Follower} other {Followers}}"
 
 #: src/components/Profile/Followerings.tsx
-msgid "Following"
-msgstr ""
-
-#: src/components/Profile/Followerings.tsx
 msgid "Followers"
 msgstr ""
 
@@ -1596,8 +1611,16 @@ msgid "Unmirror"
 msgstr "Unmirror"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-msgid "Quote"
-msgstr "Quote"
+#~ msgid "Quote"
+#~ msgstr "Quote"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote comment"
+msgstr "Quote comment"
+
+#: src/components/Publication/Actions/Share/Quote.tsx
+msgid "Quote post"
+msgstr "Quote post"
 
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
