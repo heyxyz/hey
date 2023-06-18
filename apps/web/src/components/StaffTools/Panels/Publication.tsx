@@ -50,14 +50,16 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             {publication?.collectModule?.type}
           </MetaDetails>
         ) : null}
-        {publication?.metadata.tags ? (
+        {publication?.metadata.tags.length > 0 ? (
           <MetaDetails
             icon={<TagIcon className="lt-text-gray-500 h-4 w-4" />}
             value={JSON.stringify(publication?.metadata?.tags)}
             title={t`Tags`}
             noFlex
           >
-            {JSON.stringify(publication?.metadata?.tags)}
+            {publication?.metadata?.tags.map((tag) => (
+              <div key={tag}>{tag}</div>
+            ))}
           </MetaDetails>
         ) : null}
       </div>
