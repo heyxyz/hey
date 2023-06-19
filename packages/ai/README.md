@@ -13,7 +13,7 @@
 Install the required packages:
 
 ```sh
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### Download the model
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Download the model from HuggingFace:
 
 ```sh
-python download_models.py
+python3 download_models.py
 ```
 
 ### Run the app
@@ -29,7 +29,7 @@ python download_models.py
 Run the app in port 8000:
 
 ```sh
-python app.py
+python3 app.py
 ```
 
 ## Setup with Docker
