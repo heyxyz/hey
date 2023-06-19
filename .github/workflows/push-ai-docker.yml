@@ -7,10 +7,10 @@ jobs:
   push:
     name: Push AI Docker Image
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/ai
     steps:
+      - uses: actions/checkout@v3
+        with:
+          path: packages/ai
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -23,6 +23,5 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          file: packages/ai/Dockerfile
           push: true
           tags: yoginth/ai:latest
