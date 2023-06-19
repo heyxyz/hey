@@ -27,7 +27,6 @@ def predictTopic(text):
 
     return topic_scores
 
-
 @app.route("/")
 def index():
     return "Welcome to Lenster AI ✨"
