@@ -3,7 +3,7 @@ name: Push AI Docker Image
 on:
   workflow_dispatch:
   push:
-    branches: [develop]
+    branches: [main]
     paths:
       - 'packages/ai/**'
 
