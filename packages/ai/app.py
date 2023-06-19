@@ -3,8 +3,6 @@ from flask import Flask, jsonify, request
 from scipy.special import expit
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 # Initialize the tagger model
 topic_hf = "models/tagger"
 topic_tokenizer = AutoTokenizer.from_pretrained(topic_hf)
