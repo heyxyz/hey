@@ -3,3 +3,4 @@ Requests
 scipy
 transformers
 torch
+python-dotenv

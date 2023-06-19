@@ -6,7 +6,7 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Initialize the model
-topic_hf = "models/topic_model"
+topic_hf = "models/tagger"
 topic_tokenizer = AutoTokenizer.from_pretrained(topic_hf)
 topic_model = AutoModelForSequenceClassification.from_pretrained(topic_hf)
 topic_class_mapping = topic_model.config.id2label
@@ -28,6 +28,11 @@ def predictTopic(text):
     return topic_scores
 
 
+@app.route("/")
+def index():
+    return "Welcome to Lenster AI ✨"
+
+
 # Health check
 @app.route("/ping", methods=["GET"])
 def ping():
@@ -46,7 +51,3 @@ def tagger():
         return jsonify({"topics": topic_scores})
     else:
         return jsonify({"topics": []})
-
-
-if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=8000)
