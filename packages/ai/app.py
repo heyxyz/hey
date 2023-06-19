@@ -5,13 +5,31 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Initialize the model
+# Initialize the tagger model
 topic_hf = "models/tagger"
 topic_tokenizer = AutoTokenizer.from_pretrained(topic_hf)
 topic_model = AutoModelForSequenceClassification.from_pretrained(topic_hf)
 topic_class_mapping = topic_model.config.id2label
 
+# Initialize the locale model
+locale_hf = "models/locale_detector"
+locale_tokenizer = AutoTokenizer.from_pretrained(locale_hf)
+locale_model = AutoModelForSequenceClassification.from_pretrained(locale_hf)
+locale_class_mapping = locale_model.config.id2label
+
+
 app = Flask(__name__)
+
+
+@app.route("/")
+def index():
+    return "Welcome to Lenster AI ✨"
+
+
+# Health check
+@app.route("/ping", methods=["GET"])
+def ping():
+    return jsonify({"ping": "pong"})
 
 
 def predictTopic(text):
@@ -27,16 +45,6 @@ def predictTopic(text):
 
     return topic_scores
 
-@app.route("/")
-def index():
-    return "Welcome to Lenster AI ✨"
-
-
-# Health check
-@app.route("/ping", methods=["GET"])
-def ping():
-    return jsonify({"ping": "pong"})
-
 
 # Extract topic from the text
 @app.route("/tagger", methods=["POST"])
@@ -50,3 +58,26 @@ def tagger():
         return jsonify({"topics": topic_scores})
     else:
         return jsonify({"topics": []})
+
+
+def predictLocale(text):
+    tokens = locale_tokenizer(text, return_tensors="pt")
+    output = locale_model(**tokens)
+    predictions = torch.nn.functional.softmax(output.logits, dim=-1)
+    _, preds = torch.max(predictions, dim=-1)
+
+    return locale_class_mapping[preds.item()]
+
+
+# Extract locale from the text
+@app.route("/locale", methods=["POST"])
+def locale():
+    data = request.get_json()
+    text = data["text"]
+
+    # Check if text has more than 5 words
+    if len(text.split()) > 5:
+        locale_scores = predictLocale(text)
+        return jsonify({"locale": locale_scores})
+    else:
+        return jsonify({"locale": None})
