@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        shell: bash
         working-directory: ./packages/ai
     steps:
       - name: Set up QEMU
@@ -24,5 +23,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          file: packages/ai/Dockerfile
           push: true
           tags: yoginth/ai:latest
