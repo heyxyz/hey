@@ -2,6 +2,10 @@ name: Push AI Docker Image
 
 on:
   workflow_dispatch:
+  push:
+    branches: [develop]
+    paths:
+      - 'packages/ai/**'
 
 jobs:
   push:
@@ -24,5 +28,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: packages/ai
+          file: packages/ai/Dockerfile
           push: true
           tags: yoginth/ai:latest
