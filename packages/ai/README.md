@@ -31,3 +31,17 @@ Run the app in port 8000:
 ```sh
 python app.py
 ```
+
+## Setup with Docker
+
+Pull the image from Docker Hub:
+
+```sh
+docker pull yoginth/ai:latest
+```
+
+Run the image:
+
+```sh
+docker run -p 5000:5000 yoginth/ai:latest
+```
