@@ -8,9 +8,10 @@ jobs:
     name: Push AI Docker Image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout files
+        uses: Bhacaz/checkout-files@v2
         with:
-          path: packages/ai
+          files: packages/ai
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
