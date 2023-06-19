@@ -3,13 +3,14 @@ name: Push AI Docker Image
 on:
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: ./packages/ai
+
 jobs:
   push:
     name: Push AI Docker Image
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./packages/ai
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
