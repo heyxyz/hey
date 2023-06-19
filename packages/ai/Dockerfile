@@ -15,6 +15,7 @@ WORKDIR /app
 # Copy source code
 COPY . .
 
+RUN ls
 # Install Python dependencies
 RUN pip install -r requirements.txt
 
