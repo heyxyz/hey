@@ -1,9 +1,5 @@
 import os
-import torch
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Using device: {device}")
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 if os.path.isdir("models/tagger") and os.listdir("models/tagger"):
     print("tagger model already downloaded.")
