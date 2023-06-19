@@ -21,7 +21,7 @@
     "clsx": "^1.2.1",
     "next": "^13.4.2",
     "react": "^18.2.0",
-    "react-hook-form": "^7.44.3",
+    "react-hook-form": "7.45.0-next.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {

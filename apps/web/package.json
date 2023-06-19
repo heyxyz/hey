@@ -69,7 +69,7 @@
     "react": "^18.2.0",
     "react-cool-inview": "^3.0.1",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.44.3",
+    "react-hook-form": "7.45.0-next.1",
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^8.0.7",
     "react-virtuoso": "^4.3.10",

@@ -11,7 +11,7 @@ export default async (request: IRequest, env: Env) => {
 
     // Generate tags using HuggingFace API
     const taggerResponse = await fetch(
-      'https://r35q1d9vdewm7xr4.us-east-1.aws.endpoints.huggingface.cloud',
+      'https://api-inference.huggingface.co/models/yo/tagger',
       {
         method: 'POST',
         headers: {
