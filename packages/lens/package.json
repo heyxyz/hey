@@ -20,8 +20,8 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^4.0.1",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
-    "@graphql-codegen/typescript": "^4.0.0",
-    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@lenster/config": "workspace:*",
     "@types/node": "^20.3.1",
