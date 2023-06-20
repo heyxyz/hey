@@ -19,7 +19,6 @@
     "start": "turbo run start --parallel",
     "test:dev": "turbo run test:dev",
     "test:e2e": "start-server-and-test start '4783|4784|8083|8085|8087' test:dev",
-    "test:nightly": "turbo run test:nightly",
     "typecheck": "turbo run typecheck --parallel",
     "typecheck:affected": "turbo run typecheck --parallel --filter=[origin/main]",
     "workers:deploy": "turbo run worker:deploy --parallel",
