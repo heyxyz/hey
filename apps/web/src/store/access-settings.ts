@@ -25,15 +25,16 @@ export const useAccessSettingsStore = create<AccessSettingsState>(
     setSuperfluidToView: (superfluidToView) =>
       set(() => ({ superfluidToView })),
     hasConditions: () => {
-      const { followToView, collectToView } = get();
+      const { followToView, collectToView, superfluidToView } = get();
 
-      return followToView || collectToView;
+      return followToView || collectToView || superfluidToView;
     },
     reset: () =>
       set(() => ({
         restricted: false,
         collectToView: false,
-        followToView: false
+        followToView: false,
+        superfluidToView: false
       }))
   })
 );
