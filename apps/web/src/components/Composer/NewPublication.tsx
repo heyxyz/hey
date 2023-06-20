@@ -626,18 +626,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const currentAddress = await walletClient.getAddress();
     const { data: superfluidInflowsData } = await superfluidClient.query({
       query: SuperfluidInflowsDocument,
-      variables: { id: currentAddress }
+      variables: { id: currentAddress.toString().toLowerCase() }
     });
     console.log('superfluidInflowsData', superfluidInflowsData, currentAddress);
-
+    const listOfSuperfluidAddresses = superfluidInflowsData.account.inflows.map(
+      (inflow: InflowType) => inflow.sender.id
+    );
     const eoaAccessCondition: EoaOwnership = {
-      address: superfluidInflowsData.account.inflows.map(
-        (inflow: InflowType) => inflow.sender.id
-      )
+      address: listOfSuperfluidAddresses
     };
 
     // Create the access condition
     let accessCondition: AccessConditionOutput = {};
+
     if (collectToView || followToView || superfluidToView) {
       const criteria = [];
 
@@ -653,7 +654,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         criteria.push({ eoa: eoaAccessCondition });
       }
 
-      accessCondition = { and: { criteria } };
+      if (criteria.length === 1) {
+        accessCondition = criteria[0];
+      } else {
+        accessCondition = { and: { criteria } };
+      }
     } else {
       if (collectToView) {
         accessCondition = { collect: collectAccessCondition };
@@ -661,6 +666,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         accessCondition = { follow: followAccessCondition };
       }
     }
+    if (superfluidToView) {
+      if (listOfSuperfluidAddresses.length > 1) {
+        accessCondition = {
+          or: {
+            criteria: listOfSuperfluidAddresses.map((address: string) => {
+              return { eoa: { address } };
+            })
+          }
+        };
+      } else if (listOfSuperfluidAddresses.length === 1) {
+        accessCondition = { eoa: { address: listOfSuperfluidAddresses[0] } };
+      }
+    }
+    console.log('accessCondition', accessCondition);
 
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
