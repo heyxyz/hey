@@ -821,6 +821,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : isRevertCollectModule);
 
       let arweaveId = null;
+      console.log('restricted', restricted);
       if (restricted) {
         arweaveId = await createTokenGatedMetadata(metadata);
       } else {
