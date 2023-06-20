@@ -779,7 +779,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : `${getTitlePrefix()} by @${currentProfile?.handle}`,
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
-        contentWarning: null,
         attributes,
         media: attachmentsInput,
         locale: null,
