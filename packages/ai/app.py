@@ -41,7 +41,10 @@ def predictTopic(text):
     ]
     topic_scores = sorted(topic_scores, key=lambda x: x["score"], reverse=True)
 
-    return topic_scores
+    # Extract the top two topics
+    top_topics = [topic_score["topic"] for topic_score in topic_scores[:2]]
+
+    return top_topics
 
 
 # Extract topic from the text
@@ -55,7 +58,7 @@ def tagger():
         topic_scores = predictTopic(text)
         return jsonify({"topics": topic_scores})
     else:
-        return jsonify({"topics": []})
+        return jsonify({"topics": None})
 
 
 def predictLocale(text):
