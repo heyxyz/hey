@@ -53,8 +53,7 @@ def tagger():
     data = request.get_json()
     text = data["text"]
 
-    # Check if text has more than 5 words
-    if len(text.split()) > 5:
+    if len(text.split()) > 4:
         topic_scores = predictTopic(text)
         return jsonify({"topics": topic_scores})
     else:
@@ -76,8 +75,7 @@ def locale():
     data = request.get_json()
     text = data["text"]
 
-    # Check if text has more than 5 words
-    if len(text.split()) > 5:
+    if len(text.split()) > 4:
         locale_scores = predictLocale(text)
         return jsonify({"locale": locale_scores})
     else:
