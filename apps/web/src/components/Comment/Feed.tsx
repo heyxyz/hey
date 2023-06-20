@@ -64,7 +64,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   ).length;
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
-  const canComment = publication?.canComment?.result;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
