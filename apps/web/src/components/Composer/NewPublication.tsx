@@ -66,7 +66,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
-import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
@@ -783,7 +782,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentWarning: null,
         attributes,
         media: attachmentsInput,
-        locale: getUserLocale(),
+        locale: null,
         appId: APP_NAME
       };
 

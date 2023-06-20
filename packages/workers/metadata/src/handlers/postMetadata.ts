@@ -8,32 +8,23 @@ export default async (request: IRequest, env: Env) => {
   try {
     const payload: PublicationMetadataV2Input = await request.json();
     const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
+    const aiUrl = 'https://ai.lenster.xyz';
+    const fetchPayload = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ text: payload.content })
+    };
 
-    // Generate tags using HuggingFace API
-    const taggerResponse = await fetch(
-      'https://r35q1d9vdewm7xr4.us-east-1.aws.endpoints.huggingface.cloud',
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          Authorization: `Bearer ${env.HUGGINGFACE_API_KEY}`
-        },
-        body: JSON.stringify({
-          inputs: payload.content,
-          parameters: { top_k: 2 }
-        })
-      }
-    );
+    const responses = await Promise.all([
+      fetch(`${aiUrl}/tagger`, fetchPayload),
+      fetch(`${aiUrl}/locale`, fetchPayload)
+    ]);
 
-    const taggerResponseJson: any = await taggerResponse.json();
-    let labels;
-    if ('error' in taggerResponseJson) {
-      labels = null;
-    } else {
-      labels = taggerResponseJson.slice(0, 2).map((item: any) => item.label);
-    }
+    const taggerResponseJson: any = await responses[0].json();
+    payload.tags = taggerResponseJson.topics;
 
-    payload.tags = labels;
+    const localeResponse: any = await responses[1].json();
+    payload.locale = localeResponse.locale;
 
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
