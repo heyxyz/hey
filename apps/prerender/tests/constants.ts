@@ -1,4 +1,1 @@
-export const isNightly = process.env.NIGHTLY === 'true';
-export const PRERENDER_BASE_URL = isNightly
-  ? 'https://prerender.lenster.xyz'
-  : 'http://localhost:4784';
+export const PRERENDER_BASE_URL = 'http://localhost:4784';
