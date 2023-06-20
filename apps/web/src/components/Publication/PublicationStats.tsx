@@ -26,8 +26,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
 
   const isMirror = publication.__typename === 'Mirror';
   const commentsCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfComments
-    : publication?.stats?.totalAmountOfComments;
+    ? publication?.mirrorOf?.stats?.commentsTotal
+    : publication?.stats?.commentsTotal;
   const mirrorCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
     : publication?.stats?.totalAmountOfMirrors;
