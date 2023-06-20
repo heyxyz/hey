@@ -79,3 +79,7 @@ def locale():
         return jsonify({"locale": locale_scores})
     else:
         return jsonify({"locale": None})
+
+
+if __name__ == "__main__":
+    app.run(debug=False)
