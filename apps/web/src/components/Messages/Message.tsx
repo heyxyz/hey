@@ -116,6 +116,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
       }
     }
     // only run this effect when messages changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   const fetchNextMessages = useCallback(() => {

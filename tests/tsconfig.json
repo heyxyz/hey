@@ -1,9 +1,0 @@
-{
-  "extends": "@lenster/config/base.tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "test/constants": ["constants.ts"]
-    }
-  }
-}
