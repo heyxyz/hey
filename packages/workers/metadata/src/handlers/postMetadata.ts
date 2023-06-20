@@ -8,7 +8,7 @@ export default async (request: IRequest, env: Env) => {
   try {
     const payload: PublicationMetadataV2Input = await request.json();
     const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
-    const aiUrl = 'https://ai.lenster.xyz';
+    const aiEndpoint = 'https://ai.lenster.xyz';
     const fetchPayload = {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -16,8 +16,8 @@ export default async (request: IRequest, env: Env) => {
     };
 
     const responses = await Promise.all([
-      fetch(`${aiUrl}/tagger`, fetchPayload),
-      fetch(`${aiUrl}/locale`, fetchPayload)
+      fetch(`${aiEndpoint}/tagger`, fetchPayload),
+      fetch(`${aiEndpoint}/locale`, fetchPayload)
     ]);
 
     const taggerResponseJson: any = await responses[0].json();
