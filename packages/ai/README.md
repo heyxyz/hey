@@ -43,5 +43,5 @@ docker pull yoginth/ai:latest
 Run the image:
 
 ```sh
-docker run -p 5000:5000 yoginth/ai:latest
+docker run -d -p 8000:8000 yoginth/ai:latest
 ```
