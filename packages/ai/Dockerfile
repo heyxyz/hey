@@ -3,5 +3,5 @@ WORKDIR /app
 COPY . .
 RUN pip3 install -r requirements.txt
 RUN python3 download_models.py
-EXPOSE 5000
+EXPOSE 8000
 CMD ["python3", "app.py"]
