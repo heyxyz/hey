@@ -1,27 +1,11 @@
-FROM ubuntu:latest
+FROM python:3.8-slim-buster
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Install dependencies
-RUN apt update && apt install -y \
-    python3 python3-pip \
-    && rm -rf /var/lib/apt/lists
-
-# Set working directory
 WORKDIR /app
 
-# Copy source code
-COPY . .
-
-RUN ls
-# Install Python dependencies
-RUN pip install -r requirements.txt
-
-# Download models
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 RUN python3 download_models.py
 
-# Expose port
-EXPOSE 5000
+COPY . .
 
-# Run the application
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD ["python3", "-m" , "flask", "run", "--host=0.0.0.0"]
