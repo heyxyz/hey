@@ -56,6 +56,9 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@playwright/test':
+        specifier: ^1.35.1
+        version: 1.35.1
       '@types/react':
         specifier: ^18.2.13
         version: 18.2.13
