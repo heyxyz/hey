@@ -1,5 +1,4 @@
 Flask
-Requests
 scipy
 transformers
 torch
