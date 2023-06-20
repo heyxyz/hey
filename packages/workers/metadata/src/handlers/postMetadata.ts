@@ -24,7 +24,9 @@ export default async (request: IRequest, env: Env) => {
     payload.tags = taggerResponseJson.topics;
 
     const localeResponse: any = await responses[1].json();
-    payload.locale = localeResponse.locale;
+    if (localeResponse.locale) {
+      payload.locale = localeResponse.locale;
+    }
 
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
