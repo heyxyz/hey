@@ -23,7 +23,7 @@ export type Incremental<T> =
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string };
+  ID: { input: string; output: string };
   String: { input: string; output: string };
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
@@ -442,6 +442,7 @@ export type Statement = {
   __typename?: 'Statement';
   about?: Maybe<Scalars['String']['output']>;
   created: Scalars['Int']['output'];
+  delegate?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   ipfs: Scalars['String']['output'];
   space: Scalars['String']['output'];
@@ -456,6 +457,8 @@ export type StatementsWhere = {
   created_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   created_lt?: InputMaybe<Scalars['Int']['input']>;
   created_lte?: InputMaybe<Scalars['Int']['input']>;
+  delegate?: InputMaybe<Scalars['String']['input']>;
+  delegate_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   id?: InputMaybe<Scalars['String']['input']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   ipfs?: InputMaybe<Scalars['String']['input']>;
