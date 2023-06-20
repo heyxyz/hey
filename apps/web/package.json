@@ -12,6 +12,7 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "start": "next start --port 4783",
+    "test:dev": "playwright test",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -90,6 +91,7 @@
     "@giphy/js-types": "^4.4.0",
     "@lenster/config": "workspace:*",
     "@lingui/cli": "^4.2.1",
+    "@playwright/test": "^1.35.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^20.3.1",

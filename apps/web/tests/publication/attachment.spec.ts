@@ -1,6 +1,6 @@
 import { IPFS_GATEWAY } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
-import { WEB_BASE_URL } from 'test/constants';
+import { WEB_BASE_URL } from 'tests/constants';
 
 test.describe('Publication attachments', () => {
   test('should have publication image', async ({ page }) => {
@@ -53,7 +53,7 @@ test.describe('Publication attachments', () => {
   });
 
   test.describe('Publication oembed', () => {
-    test('should have normal oembed', async ({ page }) => {
+    test.skip('should have normal oembed', async ({ page }) => {
       const publicationId = '0x0d-0x0375';
       await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 

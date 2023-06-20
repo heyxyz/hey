@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { WEB_BASE_URL } from 'test/constants';
+import { WEB_BASE_URL } from 'tests/constants';
 
 test.describe('Profile sidebar', () => {
   test.describe('Profile details', () => {

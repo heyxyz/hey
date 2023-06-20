@@ -1,6 +1,6 @@
 import { APP_NAME } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
-import { WEB_BASE_URL } from 'test/constants';
+import { WEB_BASE_URL } from 'tests/constants';
 
 test.describe('Publication', () => {
   test.beforeEach(async ({ page }) => {
@@ -62,7 +62,7 @@ test.describe('Publication', () => {
       const publicationMirrorStats = page
         .getByTestId('publication-0x0d-0x01')
         .getByTestId('mirror-stats');
-      await expect(publicationMirrorStats).toContainText('Mirror');
+      await expect(publicationMirrorStats).toContainText('Mirrors');
 
       // click mirror stats and check if it opens mirror modal
       await publicationMirrorStats.click();

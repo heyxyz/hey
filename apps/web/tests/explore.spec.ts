@@ -1,6 +1,6 @@
 import { APP_NAME } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
-import { WEB_BASE_URL } from 'test/constants';
+import { WEB_BASE_URL } from 'tests/constants';
 
 test.beforeEach(async ({ page }) => {
   await page.goto(`${WEB_BASE_URL}/explore`);
