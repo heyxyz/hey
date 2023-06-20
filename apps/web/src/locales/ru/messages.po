@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-18 00:10\n"
+"PO-Revision-Date: 2023-06-19 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -582,6 +582,11 @@ msgstr "Загружается предложенное"
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
 msgstr "Нечего предложить"
+
+#: src/components/Home/Tags.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -1619,10 +1624,6 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
 msgstr ""
 
@@ -2263,6 +2264,10 @@ msgstr "Добавить заголовок"
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
 msgstr "Добавить автора"
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha"
+msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"

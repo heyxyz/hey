@@ -19969,6 +19969,7 @@ export type CommentFieldsFragment = {
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -20292,6 +20293,7 @@ export type CommentFieldsFragment = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -20634,6 +20636,7 @@ export type CommentFieldsFragment = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -21059,6 +21062,7 @@ export type CommentFieldsFragment = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -21401,6 +21405,7 @@ export type CommentFieldsFragment = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -21738,6 +21743,7 @@ export type CommentFieldsFragment = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -22153,6 +22159,7 @@ export type CommentFieldsFragment = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -22492,6 +22499,7 @@ export type CommentFieldsFragment = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -22623,6 +22631,7 @@ export type MetadataFieldsFragment = {
   name?: string | null;
   content?: any | null;
   image?: any | null;
+  tags: Array<string>;
   attributes: Array<{
     __typename?: 'MetadataAttributeOutput';
     traitType?: string | null;
@@ -22946,6 +22955,7 @@ export type MirrorFieldsFragment = {
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -23352,6 +23362,7 @@ export type MirrorFieldsFragment = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -23699,6 +23710,7 @@ export type PostFieldsFragment = {
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -25508,6 +25520,7 @@ export type CommentFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -25844,6 +25857,7 @@ export type CommentFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -26193,6 +26207,7 @@ export type CommentFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -26632,6 +26647,7 @@ export type CommentFeedQuery = {
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -26977,6 +26993,7 @@ export type CommentFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -27320,6 +27337,7 @@ export type CommentFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -27745,6 +27763,7 @@ export type CommentFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -28090,6 +28109,7 @@ export type CommentFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -28469,6 +28489,7 @@ export type ExploreFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -28805,6 +28826,7 @@ export type ExploreFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -29154,6 +29176,7 @@ export type ExploreFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -29593,6 +29616,7 @@ export type ExploreFeedQuery = {
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -29938,6 +29962,7 @@ export type ExploreFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -30281,6 +30306,7 @@ export type ExploreFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -30706,6 +30732,7 @@ export type ExploreFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -31051,6 +31078,7 @@ export type ExploreFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -31389,6 +31417,7 @@ export type ExploreFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -31814,6 +31843,7 @@ export type ExploreFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -32153,6 +32183,7 @@ export type ExploreFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -32507,6 +32538,7 @@ export type FeedHighlightsQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -32843,6 +32875,7 @@ export type FeedHighlightsQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -33192,6 +33225,7 @@ export type FeedHighlightsQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -33631,6 +33665,7 @@ export type FeedHighlightsQuery = {
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -33976,6 +34011,7 @@ export type FeedHighlightsQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -34319,6 +34355,7 @@ export type FeedHighlightsQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -34744,6 +34781,7 @@ export type FeedHighlightsQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -35089,6 +35127,7 @@ export type FeedHighlightsQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -35427,6 +35466,7 @@ export type FeedHighlightsQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -35852,6 +35892,7 @@ export type FeedHighlightsQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -36191,6 +36232,7 @@ export type FeedHighlightsQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -36679,6 +36721,7 @@ export type ForYouQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -37015,6 +37058,7 @@ export type ForYouQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -37364,6 +37408,7 @@ export type ForYouQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -37803,6 +37848,7 @@ export type ForYouQuery = {
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -38148,6 +38194,7 @@ export type ForYouQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -38491,6 +38538,7 @@ export type ForYouQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -38916,6 +38964,7 @@ export type ForYouQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -39261,6 +39310,7 @@ export type ForYouQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -39599,6 +39649,7 @@ export type ForYouQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -40024,6 +40075,7 @@ export type ForYouQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -40363,6 +40415,7 @@ export type ForYouQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -41805,6 +41858,7 @@ export type ProfileFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -42141,6 +42195,7 @@ export type ProfileFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -42490,6 +42545,7 @@ export type ProfileFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -42929,6 +42985,7 @@ export type ProfileFeedQuery = {
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -43274,6 +43331,7 @@ export type ProfileFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -43617,6 +43675,7 @@ export type ProfileFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -44042,6 +44101,7 @@ export type ProfileFeedQuery = {
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -44387,6 +44447,7 @@ export type ProfileFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -44725,6 +44786,7 @@ export type ProfileFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -45150,6 +45212,7 @@ export type ProfileFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -45489,6 +45552,7 @@ export type ProfileFeedQuery = {
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -45973,6 +46037,7 @@ export type PublicationQuery = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -46302,6 +46367,7 @@ export type PublicationQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -46651,6 +46717,7 @@ export type PublicationQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -47076,6 +47143,7 @@ export type PublicationQuery = {
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -47421,6 +47489,7 @@ export type PublicationQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -47761,6 +47830,7 @@ export type PublicationQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -48186,6 +48256,7 @@ export type PublicationQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -48528,6 +48599,7 @@ export type PublicationQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -48872,6 +48944,7 @@ export type PublicationQuery = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -49287,6 +49360,7 @@ export type PublicationQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -49632,6 +49706,7 @@ export type PublicationQuery = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -50132,6 +50207,7 @@ export type SearchPublicationsQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -50468,6 +50544,7 @@ export type SearchPublicationsQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -50817,6 +50894,7 @@ export type SearchPublicationsQuery = {
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -51274,6 +51352,7 @@ export type SearchPublicationsQuery = {
                                   name?: string | null;
                                   content?: any | null;
                                   image?: any | null;
+                                  tags: Array<string>;
                                   attributes: Array<{
                                     __typename?: 'MetadataAttributeOutput';
                                     traitType?: string | null;
@@ -51626,6 +51705,7 @@ export type SearchPublicationsQuery = {
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -51969,6 +52049,7 @@ export type SearchPublicationsQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -52394,6 +52475,7 @@ export type SearchPublicationsQuery = {
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -52739,6 +52821,7 @@ export type SearchPublicationsQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -53082,6 +53165,7 @@ export type SearchPublicationsQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -53870,6 +53954,7 @@ export type TimelineQuery = {
               name?: string | null;
               content?: any | null;
               image?: any | null;
+              tags: Array<string>;
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput';
                 traitType?: string | null;
@@ -54206,6 +54291,7 @@ export type TimelineQuery = {
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -54555,6 +54641,7 @@ export type TimelineQuery = {
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -55006,6 +55093,7 @@ export type TimelineQuery = {
                                 name?: string | null;
                                 content?: any | null;
                                 image?: any | null;
+                                tags: Array<string>;
                                 attributes: Array<{
                                   __typename?: 'MetadataAttributeOutput';
                                   traitType?: string | null;
@@ -55351,6 +55439,7 @@ export type TimelineQuery = {
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -55694,6 +55783,7 @@ export type TimelineQuery = {
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -56119,6 +56209,7 @@ export type TimelineQuery = {
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -56464,6 +56555,7 @@ export type TimelineQuery = {
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -56804,6 +56896,7 @@ export type TimelineQuery = {
               name?: string | null;
               content?: any | null;
               image?: any | null;
+              tags: Array<string>;
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput';
                 traitType?: string | null;
@@ -57356,6 +57449,7 @@ export type TimelineQuery = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -57685,6 +57779,7 @@ export type TimelineQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -58034,6 +58129,7 @@ export type TimelineQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -58459,6 +58555,7 @@ export type TimelineQuery = {
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -58804,6 +58901,7 @@ export type TimelineQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -59144,6 +59242,7 @@ export type TimelineQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -59569,6 +59668,7 @@ export type TimelineQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -59911,6 +60011,7 @@ export type TimelineQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -60315,6 +60416,7 @@ export const MetadataFieldsFragmentDoc = gql`
     name
     content
     image
+    tags
     attributes {
       traitType
       value

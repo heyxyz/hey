@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-18 00:10\n"
+"PO-Revision-Date: 2023-06-19 00:09\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -581,6 +581,11 @@ msgstr ""
 
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
+msgstr ""
+
+#: src/components/Home/Tags.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
@@ -1619,10 +1624,6 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
 msgstr ""
 
@@ -2262,6 +2263,10 @@ msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
+msgstr ""
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha"
 msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx

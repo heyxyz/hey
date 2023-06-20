@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-18 00:10\n"
+"PO-Revision-Date: 2023-06-19 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -582,6 +582,11 @@ msgstr "正在加载推荐"
 #: src/components/Home/Suggested.tsx
 msgid "Nothing to suggest"
 msgstr "没有可以推荐的内容"
+
+#: src/components/Home/Tags.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -1619,10 +1624,6 @@ msgid "Unmirror"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
 msgstr ""
 
@@ -2263,6 +2264,10 @@ msgstr "添加标题"
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
 msgstr "添加作者"
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha"
+msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"

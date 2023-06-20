@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
+import Tags from '@components/Home/Tags';
 import Trending from '@components/Home/Trending';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
@@ -27,6 +28,7 @@ const Explore: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMainFocus>();
   const isTrendingWidgetEnabled = isFeatureEnabled(FeatureFlag.TrendingWidget);
+  const isExploreTagsEnabled = isFeatureEnabled(FeatureFlag.ExploreTags);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
@@ -92,6 +94,7 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
+        {isExploreTagsEnabled && <Tags />}
         {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />

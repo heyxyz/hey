@@ -17,6 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
+import { useExploreStore } from 'src/store/explore';
 
 interface FeedProps {
   focus?: PublicationMainFocus;
@@ -28,6 +29,7 @@ const Feed: FC<FeedProps> = ({
   feedType = PublicationSortCriteria.CuratedProfiles
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const selectedTag = useExploreStore((state) => state.selectedTag);
   const [hasMore, setHasMore] = useState(true);
 
   // Variables
@@ -35,7 +37,10 @@ const Feed: FC<FeedProps> = ({
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
     customFilters: [CustomFiltersTypes.Gardeners],
-    metadata: focus ? { mainContentFocus: [focus] } : null,
+    metadata: {
+      ...(focus && { mainContentFocus: [focus] }),
+      ...(selectedTag && { tags: { oneOf: [selectedTag] } })
+    },
     limit: 10
   };
   const reactionRequest = currentProfile
