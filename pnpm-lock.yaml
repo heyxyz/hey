@@ -165,11 +165,11 @@ importers:
         specifier: ^2.5.8
         version: 2.5.8(react-dom@18.2.0)(react@18.2.0)
       '@snapshot-labs/snapshot.js':
-        specifier: ^0.4.99
-        version: 0.4.99
+        specifier: ^0.4.100
+        version: 0.4.100
       '@tanstack/react-query':
-        specifier: ^4.29.14
-        version: 4.29.14(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.29.15
+        version: 4.29.15(react-dom@18.2.0)(react@18.2.0)
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
@@ -177,8 +177,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/workers/snapshot-relay
       '@xmtp/xmtp-js':
-        specifier: ^9.1.6
-        version: 9.1.6
+        specifier: ^9.1.7
+        version: 9.1.7
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -267,11 +267,11 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       viem:
-        specifier: ^1.0.7
-        version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.1
+        version: 1.1.1(typescript@5.1.3)(zod@3.21.4)
       wagmi:
         specifier: ^1.2.0
-        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4)
+        version: 1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4)
       xmtp-content-type-remote-attachment:
         specifier: ^1.0.7
         version: 1.0.7
@@ -340,8 +340,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       viem:
-        specifier: ^1.0.7
-        version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.1
+        version: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -469,8 +469,8 @@ importers:
         specifier: workspace:*
         version: link:../lens
       viem:
-        specifier: ^1.0.7
-        version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.1
+        version: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -540,8 +540,8 @@ importers:
         specifier: ^4.0.11
         version: 4.0.11
       viem:
-        specifier: ^1.0.7
-        version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.1
+        version: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -553,8 +553,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/freshdesk:
     devDependencies:
@@ -568,8 +568,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/leafwatch:
     dependencies:
@@ -593,8 +593,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/metadata:
     dependencies:
@@ -618,8 +618,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/oembed:
     dependencies:
@@ -646,8 +646,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/prerender:
     devDependencies:
@@ -661,8 +661,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/snapshot-relay:
     dependencies:
@@ -679,8 +679,8 @@ importers:
         specifier: ^4.0.11
         version: 4.0.11
       viem:
-        specifier: ^1.0.7
-        version: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.1
+        version: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -707,8 +707,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/spaces:
     dependencies:
@@ -732,8 +732,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
   packages/workers/sts-generator:
     dependencies:
@@ -754,8 +754,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3
       wrangler:
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.1.1
+        version: 3.1.1
 
 packages:
 
@@ -5505,8 +5505,8 @@ packages:
       tslib: 2.5.3
     dev: false
 
-  /@snapshot-labs/snapshot.js@0.4.99:
-    resolution: {integrity: sha512-qx1k/G3hmiE0rzCD8uTcaebfKW8oOMbnWcolD3upGbd8lai3+cgsXwrwsTRc88Z1AaUeOf5vqT/Zi2qVunrmmA==}
+  /@snapshot-labs/snapshot.js@0.4.100:
+    resolution: {integrity: sha512-/ATqoRGLBNGSSohmezyxSr6in/5dAA2KP+q4Dau/R76UuR0xRp0PvJaERzQYeqNUBcgMuAyXw0GOyl9E2TWAJw==}
     engines: {node: '>=14'}
     dependencies:
       '@ensdomains/eth-ens-namehash': 2.0.15
@@ -5742,8 +5742,8 @@ packages:
     resolution: {integrity: sha512-8C+hF6SFAb/TlFZyS9FItgNwrw4PMa7YeX+KQYe2ZAiEz6uzg6yIr+QBzPkUwZ/L0bXvGd1sufTm3wotoz+GwQ==}
     dev: false
 
-  /@tanstack/query-core@4.29.14:
-    resolution: {integrity: sha512-ElEAahtLWA7Y7c2Haw10KdEf2tx+XZl/Z8dmyWxZehxWK3TPL5qtXtb7kUEhvt/8u2cSP62fLxgh2qqzMMGnDQ==}
+  /@tanstack/query-core@4.29.15:
+    resolution: {integrity: sha512-Recc1d5rjHesKhzlH3Aw66v+vQxtB9OHEXP/vxgEcEJ0DwEpfe3EQ4id20vuBJHY2XRjfgWGmUs6ZgK6PSsTXA==}
     dev: false
 
   /@tanstack/query-persist-client-core@4.22.4(@tanstack/query-core@4.22.4):
@@ -5777,13 +5777,13 @@ packages:
       - '@tanstack/query-core'
     dev: false
 
-  /@tanstack/react-query-persist-client@4.29.12(@tanstack/react-query@4.29.14):
+  /@tanstack/react-query-persist-client@4.29.12(@tanstack/react-query@4.29.15):
     resolution: {integrity: sha512-rh6zZJB+3j8lr+YsEkVadnqmUELmqNFZQzGGsHS5col/YOjYsMe9ppqaUjIMJ2aXnFXye50sbe4KxHhSGoaNVw==}
     peerDependencies:
       '@tanstack/react-query': 4.29.12
     dependencies:
       '@tanstack/query-persist-client-core': 4.29.11
-      '@tanstack/react-query': 4.29.14(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.29.15(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@tanstack/react-query@4.22.4(react-dom@18.2.0)(react@18.2.0):
@@ -5804,8 +5804,8 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /@tanstack/react-query@4.29.14(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-wh4bd/QIy85YgTDBtj/7/9ZkpRX41QdZuUL8xKoSzuMCukXvAE1/oJ4p0F15lqQq9W3g2pgcbr2Aa+CNvqABhg==}
+  /@tanstack/react-query@4.29.15(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-1zDkv95ljuJ623hhbYU8YIprPW2x6774kh3IQNEuZav62+S+Zr26uUOrE2zGRp9I1uO5Liw/0uYB3dWXQP5+3Q==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -5816,7 +5816,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.29.14
+      '@tanstack/query-core': 4.29.15
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
@@ -6256,7 +6256,7 @@ packages:
       typescript: 5.1.3
     dev: false
 
-  /@wagmi/connectors@2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4):
+  /@wagmi/connectors@2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4):
     resolution: {integrity: sha512-pI1ed2V8dC8Gro0YbXrJedFj5U9HHD/zUe9MMUaV3ews2LY6qziSXZp9Dw6TKyiSJ5ANbRlZcl40AmSPozkZmw==}
     peerDependencies:
       '@wagmi/chains': '>=1.0.0'
@@ -6279,7 +6279,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -6292,7 +6292,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4):
+  /@wagmi/core@1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4):
     resolution: {integrity: sha512-7onf13u0atdXOnoitB+pivnIUPJman7Y8GITKkxwmcwJ3lpE1U/grYE7xHcKN7av7KEu0DozvKPhN7nJ/7OErw==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6302,11 +6302,11 @@ packages:
         optional: true
     dependencies:
       '@wagmi/chains': 1.1.0(typescript@5.1.3)
-      '@wagmi/connectors': 2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4)
+      '@wagmi/connectors': 2.2.0(@wagmi/chains@1.1.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.1(typescript@5.1.3)(zod@3.21.4)
       zustand: 4.3.8(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -6904,8 +6904,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@xmtp/xmtp-js@9.1.6:
-    resolution: {integrity: sha512-dS/xyaU5YuZJc5U0j0oyGyPpAtwt8cX843U/VbciF8kfos3f9+FdXYp+z5E6DeXlnp3ndS3u4RL7k0NuJd0suA==}
+  /@xmtp/xmtp-js@9.1.7:
+    resolution: {integrity: sha512-xTrEyuueF22986W7wZm6iwQDx1sSlhwQqQtdU1FnUAnkdLhcFLgZaDq3dfpzx2Cm4VdQWHSg3hgYXgAjuEZlug==}
     engines: {node: '>=18'}
     dependencies:
       '@noble/secp256k1': 1.7.1
@@ -7013,12 +7013,6 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: false
-
-  /acorn@8.8.2:
-    resolution: {integrity: sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-    dev: true
 
   /acorn@8.9.0:
     resolution: {integrity: sha512-jaVNAFBHNLXspO543WnNNPZFRtavh3skAkITqD0/2aeMkKZTN+254PyhwxFYrk3vQ1xfY+2wbesJMs/JC8/PwQ==}
@@ -7569,8 +7563,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001504
-      electron-to-chromium: 1.4.434
+      caniuse-lite: 1.0.30001506
+      electron-to-chromium: 1.4.435
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
     dev: false
@@ -7674,8 +7668,8 @@ packages:
   /caniuse-lite@1.0.30001498:
     resolution: {integrity: sha512-LFInN2zAwx3ANrGCDZ5AKKJroHqNKyjXitdV5zRIVIaQlXKj3GmxUKagoKsjqUfckpAObPCEWnk5EeMlyMWcgw==}
 
-  /caniuse-lite@1.0.30001504:
-    resolution: {integrity: sha512-5uo7eoOp2mKbWyfMXnGO9rJWOGU8duvzEiYITW+wivukL7yHH4gX9yuRaobu6El4jPxo6jKZfG+N6fB621GD/Q==}
+  /caniuse-lite@1.0.30001506:
+    resolution: {integrity: sha512-6XNEcpygZMCKaufIcgpQNZNf00GEqc7VQON+9Rd0K1bMYo8xhMZRAo5zpbnbMNizi4YNgIDAFrdykWsvY3H4Hw==}
     dev: false
 
   /capital-case@1.0.4:
@@ -8488,8 +8482,8 @@ packages:
   /electron-to-chromium@1.4.421:
     resolution: {integrity: sha512-wZOyn3s/aQOtLGAwXMZfteQPN68kgls2wDAnYOA8kCjBvKVrW5RwmWVspxJYTqrcN7Y263XJVsC66VCIGzDO3g==}
 
-  /electron-to-chromium@1.4.434:
-    resolution: {integrity: sha512-5Gvm09UZTQRaWrimRtWRO5rvaX6Kpk5WHAPKDa7A4Gj6NIPuJ8w8WNpnxCXdd+CJJt6RBU6tUw0KyULoW6XuHw==}
+  /electron-to-chromium@1.4.435:
+    resolution: {integrity: sha512-B0CBWVFhvoQCW/XtjRzgrmqcgVWg6RXOEM/dK59+wFV93BFGR6AeNKc4OyhM+T3IhJaOOG8o/V+33Y2mwJWtzw==}
     dev: false
 
   /elliptic@6.5.4:
@@ -11220,7 +11214,7 @@ packages:
     resolution: {integrity: sha512-aLOB8d26lOTn493GOv1LmpGHVLSxmeT4MixPG/k3Ze10j0wDKnMj8wsFgbZ6Q4cr1N4faf8O3IbNRJuQ+rLoJA==}
     engines: {node: '>=16.13'}
     dependencies:
-      acorn: 8.8.2
+      acorn: 8.9.0
       acorn-walk: 8.2.0
       better-sqlite3: 8.4.0
       capnp-ts: 0.7.0
@@ -14145,8 +14139,8 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /viem@1.0.7(typescript@5.1.3)(zod@3.21.4):
-    resolution: {integrity: sha512-P/T2Zn8+V74kxO2e2NdhNR/MBtldovssigvc36+7g3DgTeETKnSS1fMQdBl0jE+Atlal+M6cuJ2HcFY7U45o0Q==}
+  /viem@1.1.1(typescript@5.1.3)(zod@3.21.4):
+    resolution: {integrity: sha512-RVwDpDQYngaXRWnP3ZfmKHSis7ojN4q46mOApGRlfGrS/p56UD7/hA35zYxeq+X0dwVhCNhWuIqtV9XSsMtVfg==}
     peerDependencies:
       typescript: '>=5.0.4'
     dependencies:
@@ -14285,7 +14279,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4):
+  /wagmi@1.2.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4):
     resolution: {integrity: sha512-VSSBEVDMZAWIcWTlewC1XypHsWa1FdkdYXWdgu5pqTCqnW6JKWGsR5TbQY3poCIQoC7B2okisElZT2oVSYbA5Q==}
     peerDependencies:
       react: '>=17.0.0'
@@ -14296,14 +14290,14 @@ packages:
         optional: true
     dependencies:
       '@tanstack/query-sync-storage-persister': 4.29.11
-      '@tanstack/react-query': 4.29.14(react-dom@18.2.0)(react@18.2.0)
-      '@tanstack/react-query-persist-client': 4.29.12(@tanstack/react-query@4.29.14)
-      '@wagmi/core': 1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.0.7)(zod@3.21.4)
+      '@tanstack/react-query': 4.29.15(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query-persist-client': 4.29.12(@tanstack/react-query@4.29.15)
+      '@wagmi/core': 1.2.0(react@18.2.0)(typescript@5.1.3)(viem@1.1.1)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       react: 18.2.0
       typescript: 5.1.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.0.7(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.1(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -14488,8 +14482,8 @@ packages:
       '@cloudflare/workerd-windows-64': 1.20230518.0
     dev: true
 
-  /wrangler@3.1.0:
-    resolution: {integrity: sha512-oqVBJZoOQqSKxhgaPt4LcmtBf0FssIz/4F1VgjWOomeGQ3kN9pg3swPO0Zkf0aAphDodG9rekjrtccvKW7bSsA==}
+  /wrangler@3.1.1:
+    resolution: {integrity: sha512-iG6QGOt+qgSm7UroJ8IJ+JdXEcDcW7yp9ilP0V7alCGhKm8shqa/M1iyMOpukZSCSZo8Vmn5nH2C9OY1PR3dQQ==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
