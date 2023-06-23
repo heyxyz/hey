@@ -16,11 +16,11 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.15",
+    "@apollo/client": "^3.7.16",
     "@lenster/lib": "workspace:*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
-    "itty-router": "^4.0.11",
-    "viem": "^1.1.1"
+    "itty-router": "^4.0.13",
+    "viem": "^1.1.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
