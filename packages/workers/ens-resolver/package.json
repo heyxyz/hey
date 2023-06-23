@@ -13,8 +13,8 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "itty-router": "^4.0.11",
-    "viem": "^1.1.1"
+    "itty-router": "^4.0.13",
+    "viem": "^1.1.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
