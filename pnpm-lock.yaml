@@ -103,7 +103,7 @@ importers:
         version: 0.0.1
       '@huddle01/react':
         specifier: ^0.0.11
-        version: 0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.87)
+        version: 0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.89)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
@@ -201,8 +201,8 @@ importers:
         specifier: ^16.3.1
         version: 16.3.1
       framer-motion:
-        specifier: ^10.12.16
-        version: 10.12.16(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.12.17
+        version: 10.12.17(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.7.1
         version: 16.7.1
@@ -243,8 +243,8 @@ importers:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@18.2.13)(react@18.2.0)
       react-virtuoso:
-        specifier: ^4.3.10
-        version: 4.3.10(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.3.11
+        version: 4.3.11(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^3.0.3
         version: 3.0.3
@@ -267,11 +267,11 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       viem:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.6
+        version: 1.1.6(typescript@5.1.3)(zod@3.21.4)
       wagmi:
         specifier: ^1.2.1
-        version: 1.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4)
+        version: 1.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4)
       xmtp-content-type-remote-attachment:
         specifier: ^1.0.7
         version: 1.0.7
@@ -340,8 +340,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       viem:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.6
+        version: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -469,8 +469,8 @@ importers:
         specifier: workspace:*
         version: link:../lens
       viem:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.6
+        version: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -540,8 +540,8 @@ importers:
         specifier: ^4.0.13
         version: 4.0.13
       viem:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.6
+        version: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -679,8 +679,8 @@ importers:
         specifier: ^4.0.13
         version: 4.0.13
       viem:
-        specifier: ^1.1.4
-        version: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+        specifier: ^1.1.6
+        version: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0
@@ -4488,10 +4488,10 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.87):
+  /@huddle01/react@0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.89):
     resolution: {integrity: sha512-QSMykix0+7UaSZyJUGzJXxvsS8aofgGto9CSD76de3RA89QsYeUfQIM0SPEGTnljOZ6MBo76dXTvEi+lstBoJw==}
     dependencies:
-      '@huddle01/web-core': 0.0.10(mediasoup-client@3.6.87)
+      '@huddle01/web-core': 0.0.10(mediasoup-client@3.6.89)
       '@xstate/inspect': 0.7.1(ws@8.13.0)(xstate@4.37.2)
       '@xstate/react': 3.2.2(@types/react@18.2.13)(react@18.2.0)(xstate@4.37.2)
       jotai: 2.1.1(react@18.2.0)
@@ -4510,13 +4510,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@huddle01/web-core@0.0.10(mediasoup-client@3.6.87):
+  /@huddle01/web-core@0.0.10(mediasoup-client@3.6.89):
     resolution: {integrity: sha512-4Q2XyVEtjC2xV5LB4963gQ16xKRPFT/JU9kGYXuRu/B1A4UOEc31VbeG0I8zRUq/1EBvAvBBak67EBYZ9waWyQ==}
     peerDependencies:
       mediasoup-client: ^3.6.80
     dependencies:
       axios: 1.4.0
-      mediasoup-client: 3.6.87
+      mediasoup-client: 3.6.89
       nanoid: 3.3.6
       socket.io-client: 4.6.2
       xstate: 4.37.2
@@ -6218,7 +6218,7 @@ packages:
       typescript: 5.1.3
     dev: false
 
-  /@wagmi/connectors@2.3.0(@wagmi/chains@1.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4):
+  /@wagmi/connectors@2.3.0(@wagmi/chains@1.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-PXYiJrNwmfW7ZbyjW3SRhhTWrxJlThbOLZJ6+vwlgTwC0k5Qd8mfVxDfMKrjxYYGHK7j6d6mAdsk4iJgfE1Dhw==}
     peerDependencies:
       '@wagmi/chains': '>=1.2.0'
@@ -6241,7 +6241,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -6254,7 +6254,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.2.1(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4):
+  /@wagmi/core@1.2.1(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-t09se2nJfb9sp4UIYbqCkhzBqkNCJLsDBkaLtHFj9eS99wJ5Gtsui4hLPEuT6wTjLb5oF898KCr04721aJiNJw==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6264,11 +6264,11 @@ packages:
         optional: true
     dependencies:
       '@wagmi/chains': 1.2.0(typescript@5.1.3)
-      '@wagmi/connectors': 2.3.0(@wagmi/chains@1.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4)
+      '@wagmi/connectors': 2.3.0(@wagmi/chains@1.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.3
-      viem: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.6(typescript@5.1.3)(zod@3.21.4)
       zustand: 4.3.8(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -7525,7 +7525,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001506
+      caniuse-lite: 1.0.30001507
       electron-to-chromium: 1.4.439
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
@@ -7630,8 +7630,8 @@ packages:
   /caniuse-lite@1.0.30001498:
     resolution: {integrity: sha512-LFInN2zAwx3ANrGCDZ5AKKJroHqNKyjXitdV5zRIVIaQlXKj3GmxUKagoKsjqUfckpAObPCEWnk5EeMlyMWcgw==}
 
-  /caniuse-lite@1.0.30001506:
-    resolution: {integrity: sha512-6XNEcpygZMCKaufIcgpQNZNf00GEqc7VQON+9Rd0K1bMYo8xhMZRAo5zpbnbMNizi4YNgIDAFrdykWsvY3H4Hw==}
+  /caniuse-lite@1.0.30001507:
+    resolution: {integrity: sha512-SFpUDoSLCaE5XYL2jfqe9ova/pbQHEmbheDf5r4diNwbAgR3qxM9NQtfsiSscjqoya5K7kFcHPUQ+VsUkIJR4A==}
     dev: false
 
   /capital-case@1.0.4:
@@ -9445,8 +9445,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion@10.12.16(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-w/SfWEIWJkYSgRHYBmln7EhcNo31ao8Xexol8lGXf1pR/tlnBtf1HcxoUmEiEh6pacB4/geku5ami53AAQWHMQ==}
+  /framer-motion@10.12.17(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-IR+aAYntsyu6ofyxqQV4QYotmOqzcuKxhqNpfc3DXJjNWOPpOeSyH0A+In3IEBu49Yx/+PNht+YMeZSdCNaYbw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -10906,8 +10906,8 @@ packages:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
     dev: false
 
-  /mediasoup-client@3.6.87:
-    resolution: {integrity: sha512-W/aplJJmEJ5d6acgu3tjyfjKE0p1VuNEGu7tHyYhev34vGWwdyDikMYtv302LGy7err2q1/CQ1GYgChu2WN62A==}
+  /mediasoup-client@3.6.89:
+    resolution: {integrity: sha512-GGKktkWYE38KGCsFfejhZ2QxAFR7iuEMSd8+hEf504Iha9U4vPFFIniMOjYUsOfOX6af79+KUvqLMY3FuMNu9Q==}
     engines: {node: '>=16'}
     dependencies:
       '@types/debug': 4.1.8
@@ -12428,8 +12428,8 @@ packages:
       tslib: 2.5.3
     dev: false
 
-  /react-virtuoso@4.3.10(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/LDICLCmPRDMOheCKmuHj/U7CGjLT/WtMWZGfOothhhubQeWGbR6mtGyd+uD80Yw/n3ICZtYwERQZnTM8eC0ag==}
+  /react-virtuoso@4.3.11(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-0YrCvQ5GsIKRcN34GxrzhSJGuMNI+hGxWci5cTVuPQ8QWTEsrKfCyqm7YNBMmV3pu7onG1YVUBo86CyCXdejXg==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16 || >=17 || >= 18'
@@ -14109,8 +14109,8 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /viem@1.1.4(typescript@5.1.3)(zod@3.21.4):
-    resolution: {integrity: sha512-3bJkS60Sw6Rf6a2ydKDnDxAI0PTZK0yGoyux2nqPSBoXBL+w9hXPNcnm8Uf6FlKce5sQadVRfi2n6MrgzablxA==}
+  /viem@1.1.6(typescript@5.1.3)(zod@3.21.4):
+    resolution: {integrity: sha512-7nK3HMucLr1Yz0QnDXiD6viigKS6QeYD/YhRHpi3Bby/g0hCyZqK8+YJNtp3/Ri64tpl4kaTIeCScJWV2jqXHQ==}
     peerDependencies:
       typescript: '>=5.0.4'
     dependencies:
@@ -14249,7 +14249,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4):
+  /wagmi@1.2.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4):
     resolution: {integrity: sha512-lPV4+ktMYEjjPnQAY6YLy5wjJJVVboX4YzEqhL/xQrl0rwQBkOU8q17BVnOOn26LVGfAeeyBp2elSaebTLQQzA==}
     peerDependencies:
       react: '>=17.0.0'
@@ -14262,12 +14262,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.29.15
       '@tanstack/react-query': 4.29.15(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.29.15(@tanstack/react-query@4.29.15)
-      '@wagmi/core': 1.2.1(react@18.2.0)(typescript@5.1.3)(viem@1.1.4)(zod@3.21.4)
+      '@wagmi/core': 1.2.1(react@18.2.0)(typescript@5.1.3)(viem@1.1.6)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.3)(zod@3.21.4)
       react: 18.2.0
       typescript: 5.1.3
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.1.4(typescript@5.1.3)(zod@3.21.4)
+      viem: 1.1.6(typescript@5.1.3)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
