@@ -11,6 +11,7 @@
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "start": "pnpm dev",
     "typecheck": "tsc --pretty",
+    "test:dev": "vitest --run",
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@cloudflare/workers-types": "^4.20230518.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.1.3",
+    "vitest": "^0.32.2",
     "wrangler": "^3.1.1"
   }
 }
