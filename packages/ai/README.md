@@ -43,7 +43,7 @@ docker pull yoginth/ai:latest
 Run the image:
 
 ```sh
-docker run -d --name ai -p 8000:8000 yoginth/ai:latest
+docker run -d --restart always --name ai -p 8000:8000 yoginth/ai:latest
 ```
 
 Update the image:
@@ -52,5 +52,5 @@ Update the image:
 docker pull yoginth/ai:latest
 docker stop ai
 docker rm ai
-docker run -d --name ai -p 8000:8000 yoginth/ai:latest
+docker run -d --restart always --name ai -p 8000:8000 yoginth/ai:latest
 ```
