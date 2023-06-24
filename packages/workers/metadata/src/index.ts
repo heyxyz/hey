@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('say gm to metadata service 👋'));
+router.get('/', () => new Response('gm, to metadata service 👋'));
 router.post('/', postMetadata);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
