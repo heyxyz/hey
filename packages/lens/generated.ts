@@ -23,7 +23,7 @@ export type Incremental<T> =
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string };
+  ID: { input: string; output: string };
   String: { input: string; output: string };
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
@@ -3753,7 +3753,8 @@ export type PublicationStats = {
 
 /** The publication stats */
 export type PublicationStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
+  forSources?: InputMaybe<Array<Scalars['Sources']['input']>>;
 };
 
 /** The publication types */
@@ -5180,13 +5181,14 @@ export type CommentFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
-    totalAmountOfComments: number;
+    commentsTotal: number;
   };
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -5511,6 +5513,7 @@ export type CommentFieldsFragment = {
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -5638,7 +5641,7 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         mainPost:
           | {
@@ -5847,13 +5850,14 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -6060,7 +6064,7 @@ export type CommentFieldsFragment = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                   }
                 | {
@@ -6274,13 +6278,14 @@ export type CommentFieldsFragment = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -6617,13 +6622,14 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -6955,13 +6961,14 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -7161,7 +7168,7 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
             }
           | {
@@ -7372,13 +7379,14 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -7712,13 +7720,14 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -7850,6 +7859,7 @@ export type MetadataFieldsFragment = {
   name?: string | null;
   content?: any | null;
   image?: any | null;
+  tags: Array<string>;
   attributes: Array<{
     __typename?: 'MetadataAttributeOutput';
     traitType?: string | null;
@@ -8167,13 +8177,14 @@ export type MirrorFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
-    totalAmountOfComments: number;
+    commentsTotal: number;
   };
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -8367,7 +8378,7 @@ export type MirrorFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
       }
     | {
@@ -8575,13 +8586,14 @@ export type MirrorFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -8923,13 +8935,14 @@ export type PostFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
-    totalAmountOfComments: number;
+    commentsTotal: number;
   };
   metadata: {
     __typename?: 'MetadataOutput';
     name?: string | null;
     content?: any | null;
     image?: any | null;
+    tags: Array<string>;
     attributes: Array<{
       __typename?: 'MetadataAttributeOutput';
       traitType?: string | null;
@@ -9141,7 +9154,7 @@ export type StatsFieldsFragment = {
   totalUpvotes: number;
   totalAmountOfMirrors: number;
   totalAmountOfCollects: number;
-  totalAmountOfComments: number;
+  commentsTotal: number;
 };
 
 export type AddProfileInterestMutationVariables = Exact<{
@@ -10751,13 +10764,14 @@ export type CommentFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -11095,6 +11109,7 @@ export type CommentFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -11226,7 +11241,7 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 mainPost:
                   | {
@@ -11438,13 +11453,14 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -11657,7 +11673,7 @@ export type CommentFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                           }
                         | {
@@ -11879,13 +11895,14 @@ export type CommentFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -12225,13 +12242,14 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -12569,13 +12587,14 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -12782,7 +12801,7 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                     }
                   | {
@@ -12996,13 +13015,14 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -13342,13 +13362,14 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -13722,13 +13743,14 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -14066,6 +14088,7 @@ export type ExploreFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -14197,7 +14220,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 mainPost:
                   | {
@@ -14409,13 +14432,14 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -14628,7 +14652,7 @@ export type ExploreFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                           }
                         | {
@@ -14850,13 +14874,14 @@ export type ExploreFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -15196,13 +15221,14 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -15540,13 +15566,14 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -15753,7 +15780,7 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                     }
                   | {
@@ -15967,13 +15994,14 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -16313,13 +16341,14 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -16652,13 +16681,14 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -16865,7 +16895,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
               }
             | {
@@ -17079,13 +17109,14 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -17419,13 +17450,14 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -17774,13 +17806,14 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -18118,6 +18151,7 @@ export type FeedHighlightsQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -18249,7 +18283,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 mainPost:
                   | {
@@ -18461,13 +18495,14 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -18680,7 +18715,7 @@ export type FeedHighlightsQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                           }
                         | {
@@ -18902,13 +18937,14 @@ export type FeedHighlightsQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -19248,13 +19284,14 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -19592,13 +19629,14 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -19805,7 +19843,7 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                     }
                   | {
@@ -20019,13 +20057,14 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -20365,13 +20404,14 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -20704,13 +20744,14 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -20917,7 +20958,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
               }
             | {
@@ -21131,13 +21172,14 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -21471,13 +21513,14 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -21959,13 +22002,14 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -22302,6 +22346,7 @@ export type ForYouQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -22433,7 +22478,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 mainPost:
                   | {
@@ -22644,13 +22689,14 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -22862,7 +22908,7 @@ export type ForYouQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                           }
                         | {
@@ -23083,13 +23129,14 @@ export type ForYouQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -23428,13 +23475,14 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -23771,13 +23819,14 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -23983,7 +24032,7 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                     }
                   | {
@@ -24196,13 +24245,14 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -24541,13 +24591,14 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -24879,13 +24930,14 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -25091,7 +25143,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
               }
             | {
@@ -25304,13 +25356,14 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -25643,13 +25696,14 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -27086,13 +27140,14 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -27430,6 +27485,7 @@ export type ProfileFeedQuery = {
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -27561,7 +27617,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 mainPost:
                   | {
@@ -27773,13 +27829,14 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -27992,7 +28049,7 @@ export type ProfileFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                           }
                         | {
@@ -28214,13 +28271,14 @@ export type ProfileFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
-                              totalAmountOfComments: number;
+                              commentsTotal: number;
                             };
                             metadata: {
                               __typename?: 'MetadataOutput';
                               name?: string | null;
                               content?: any | null;
                               image?: any | null;
+                              tags: Array<string>;
                               attributes: Array<{
                                 __typename?: 'MetadataAttributeOutput';
                                 traitType?: string | null;
@@ -28560,13 +28618,14 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -28904,13 +28963,14 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -29117,7 +29177,7 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                     }
                   | {
@@ -29331,13 +29391,14 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
-                        totalAmountOfComments: number;
+                        commentsTotal: number;
                       };
                       metadata: {
                         __typename?: 'MetadataOutput';
                         name?: string | null;
                         content?: any | null;
                         image?: any | null;
+                        tags: Array<string>;
                         attributes: Array<{
                           __typename?: 'MetadataAttributeOutput';
                           traitType?: string | null;
@@ -29677,13 +29738,14 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -30016,13 +30078,14 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -30229,7 +30292,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
               }
             | {
@@ -30443,13 +30506,14 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
-                  totalAmountOfComments: number;
+                  commentsTotal: number;
                 };
                 metadata: {
                   __typename?: 'MetadataOutput';
                   name?: string | null;
                   content?: any | null;
                   image?: any | null;
+                  tags: Array<string>;
                   attributes: Array<{
                     __typename?: 'MetadataAttributeOutput';
                     traitType?: string | null;
@@ -30783,13 +30847,14 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
-            totalAmountOfComments: number;
+            commentsTotal: number;
           };
           metadata: {
             __typename?: 'MetadataOutput';
             name?: string | null;
             content?: any | null;
             image?: any | null;
+            tags: Array<string>;
             attributes: Array<{
               __typename?: 'MetadataAttributeOutput';
               traitType?: string | null;
@@ -31268,13 +31333,14 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -31605,6 +31671,7 @@ export type PublicationQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -31736,7 +31803,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               mainPost:
                 | {
@@ -31948,13 +32015,14 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -32161,7 +32229,7 @@ export type PublicationQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                         }
                       | {
@@ -32375,13 +32443,14 @@ export type PublicationQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -32721,13 +32790,14 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -33062,13 +33132,14 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -33275,7 +33346,7 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                   }
                 | {
@@ -33489,13 +33560,14 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -33832,13 +33904,14 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -34177,13 +34250,14 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -34383,7 +34457,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
             }
           | {
@@ -34594,13 +34668,14 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -34940,13 +35015,14 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -35441,13 +35517,14 @@ export type SearchPublicationsQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -35785,6 +35862,7 @@ export type SearchPublicationsQuery = {
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -35916,7 +35994,7 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     mainPost:
                       | {
@@ -36128,13 +36206,14 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -36353,7 +36432,7 @@ export type SearchPublicationsQuery = {
                                   totalUpvotes: number;
                                   totalAmountOfMirrors: number;
                                   totalAmountOfCollects: number;
-                                  totalAmountOfComments: number;
+                                  commentsTotal: number;
                                 };
                               }
                             | {
@@ -36587,13 +36666,14 @@ export type SearchPublicationsQuery = {
                                   totalUpvotes: number;
                                   totalAmountOfMirrors: number;
                                   totalAmountOfCollects: number;
-                                  totalAmountOfComments: number;
+                                  commentsTotal: number;
                                 };
                                 metadata: {
                                   __typename?: 'MetadataOutput';
                                   name?: string | null;
                                   content?: any | null;
                                   image?: any | null;
+                                  tags: Array<string>;
                                   attributes: Array<{
                                     __typename?: 'MetadataAttributeOutput';
                                     traitType?: string | null;
@@ -36940,13 +37020,14 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -37284,13 +37365,14 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -37497,7 +37579,7 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                         }
                       | {
@@ -37711,13 +37793,14 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -38057,13 +38140,14 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -38401,13 +38485,14 @@ export type SearchPublicationsQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -39169,13 +39254,14 @@ export type TimelineQuery = {
               totalUpvotes: number;
               totalAmountOfMirrors: number;
               totalAmountOfCollects: number;
-              totalAmountOfComments: number;
+              commentsTotal: number;
             };
             metadata: {
               __typename?: 'MetadataOutput';
               name?: string | null;
               content?: any | null;
               image?: any | null;
+              tags: Array<string>;
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput';
                 traitType?: string | null;
@@ -39513,6 +39599,7 @@ export type TimelineQuery = {
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -39644,7 +39731,7 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
-                    totalAmountOfComments: number;
+                    commentsTotal: number;
                   };
                   mainPost:
                     | {
@@ -39856,13 +39943,14 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
-                          totalAmountOfComments: number;
+                          commentsTotal: number;
                         };
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -40079,7 +40167,7 @@ export type TimelineQuery = {
                                 totalUpvotes: number;
                                 totalAmountOfMirrors: number;
                                 totalAmountOfCollects: number;
-                                totalAmountOfComments: number;
+                                commentsTotal: number;
                               };
                             }
                           | {
@@ -40309,13 +40397,14 @@ export type TimelineQuery = {
                                 totalUpvotes: number;
                                 totalAmountOfMirrors: number;
                                 totalAmountOfCollects: number;
-                                totalAmountOfComments: number;
+                                commentsTotal: number;
                               };
                               metadata: {
                                 __typename?: 'MetadataOutput';
                                 name?: string | null;
                                 content?: any | null;
                                 image?: any | null;
+                                tags: Array<string>;
                                 attributes: Array<{
                                   __typename?: 'MetadataAttributeOutput';
                                   traitType?: string | null;
@@ -40655,13 +40744,14 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
-                          totalAmountOfComments: number;
+                          commentsTotal: number;
                         };
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -40999,13 +41089,14 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
-                    totalAmountOfComments: number;
+                    commentsTotal: number;
                   };
                   metadata: {
                     __typename?: 'MetadataOutput';
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -41212,7 +41303,7 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
-                          totalAmountOfComments: number;
+                          commentsTotal: number;
                         };
                       }
                     | {
@@ -41426,13 +41517,14 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
-                          totalAmountOfComments: number;
+                          commentsTotal: number;
                         };
                         metadata: {
                           __typename?: 'MetadataOutput';
                           name?: string | null;
                           content?: any | null;
                           image?: any | null;
+                          tags: Array<string>;
                           attributes: Array<{
                             __typename?: 'MetadataAttributeOutput';
                             traitType?: string | null;
@@ -41772,13 +41864,14 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
-                    totalAmountOfComments: number;
+                    commentsTotal: number;
                   };
                   metadata: {
                     __typename?: 'MetadataOutput';
                     name?: string | null;
                     content?: any | null;
                     image?: any | null;
+                    tags: Array<string>;
                     attributes: Array<{
                       __typename?: 'MetadataAttributeOutput';
                       traitType?: string | null;
@@ -42113,13 +42206,14 @@ export type TimelineQuery = {
               totalUpvotes: number;
               totalAmountOfMirrors: number;
               totalAmountOfCollects: number;
-              totalAmountOfComments: number;
+              commentsTotal: number;
             };
             metadata: {
               __typename?: 'MetadataOutput';
               name?: string | null;
               content?: any | null;
               image?: any | null;
+              tags: Array<string>;
               attributes: Array<{
                 __typename?: 'MetadataAttributeOutput';
                 traitType?: string | null;
@@ -42666,13 +42760,14 @@ export type TimelineQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
-          totalAmountOfComments: number;
+          commentsTotal: number;
         };
         metadata: {
           __typename?: 'MetadataOutput';
           name?: string | null;
           content?: any | null;
           image?: any | null;
+          tags: Array<string>;
           attributes: Array<{
             __typename?: 'MetadataAttributeOutput';
             traitType?: string | null;
@@ -43003,6 +43098,7 @@ export type TimelineQuery = {
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -43134,7 +43230,7 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               mainPost:
                 | {
@@ -43346,13 +43442,14 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -43559,7 +43656,7 @@ export type TimelineQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                         }
                       | {
@@ -43773,13 +43870,14 @@ export type TimelineQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
-                            totalAmountOfComments: number;
+                            commentsTotal: number;
                           };
                           metadata: {
                             __typename?: 'MetadataOutput';
                             name?: string | null;
                             content?: any | null;
                             image?: any | null;
+                            tags: Array<string>;
                             attributes: Array<{
                               __typename?: 'MetadataAttributeOutput';
                               traitType?: string | null;
@@ -44119,13 +44217,14 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -44460,13 +44559,14 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -44673,7 +44773,7 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                   }
                 | {
@@ -44887,13 +44987,14 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
-                      totalAmountOfComments: number;
+                      commentsTotal: number;
                     };
                     metadata: {
                       __typename?: 'MetadataOutput';
                       name?: string | null;
                       content?: any | null;
                       image?: any | null;
+                      tags: Array<string>;
                       attributes: Array<{
                         __typename?: 'MetadataAttributeOutput';
                         traitType?: string | null;
@@ -45230,13 +45331,14 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
-                totalAmountOfComments: number;
+                commentsTotal: number;
               };
               metadata: {
                 __typename?: 'MetadataOutput';
                 name?: string | null;
                 content?: any | null;
                 image?: any | null;
+                tags: Array<string>;
                 attributes: Array<{
                   __typename?: 'MetadataAttributeOutput';
                   traitType?: string | null;
@@ -45606,7 +45708,7 @@ export const StatsFieldsFragmentDoc = gql`
     totalUpvotes
     totalAmountOfMirrors
     totalAmountOfCollects
-    totalAmountOfComments
+    commentsTotal(customFilters: GARDENERS)
   }
 `;
 export const SimpleConditionFieldsFragmentDoc = gql`
@@ -45641,6 +45743,7 @@ export const MetadataFieldsFragmentDoc = gql`
     name
     content
     image
+    tags
     attributes {
       traitType
       value

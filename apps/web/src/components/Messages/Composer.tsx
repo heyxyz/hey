@@ -209,6 +209,7 @@ const Composer: FC<ComposerProps> = ({
   useEffect(() => {
     setMessage(unsentMessage ?? '');
     // only run this effect when the conversation changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);
 
   const onChangeCallback = (value: string) => {

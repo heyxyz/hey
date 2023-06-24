@@ -1,0 +1,5 @@
+Flask
+scipy
+transformers
+torch
+python-dotenv

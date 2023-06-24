@@ -575,6 +575,11 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
+#: src/components/Home/Tags.tsx
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr "Tags"
+
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
 msgstr "collected"
@@ -1611,10 +1616,6 @@ msgid "Unmirror"
 msgstr "Unmirror"
 
 #: src/components/Publication/Actions/Share/Quote.tsx
-#~ msgid "Quote"
-#~ msgstr "Quote"
-
-#: src/components/Publication/Actions/Share/Quote.tsx
 msgid "Quote comment"
 msgstr "Quote comment"
 
@@ -2255,6 +2256,10 @@ msgstr ""
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
 msgstr ""
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha"
+msgstr "Alpha"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
