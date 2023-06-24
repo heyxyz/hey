@@ -1,3 +1,4 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type { PublicationsQueryRequest } from '@lenster/lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
@@ -7,7 +8,6 @@ import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Publications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

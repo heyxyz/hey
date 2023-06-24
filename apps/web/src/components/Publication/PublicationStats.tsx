@@ -6,6 +6,7 @@ import {
   HeartIcon,
   SwitchHorizontalIcon
 } from '@heroicons/react/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal } from '@lenster/ui';
@@ -13,7 +14,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 interface PublicationStatsProps {
   publication: Publication;

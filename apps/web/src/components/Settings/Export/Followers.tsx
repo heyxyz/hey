@@ -1,3 +1,4 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type { FollowersRequest } from '@lenster/lens';
 import { useFollowersLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
@@ -7,7 +8,6 @@ import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Followers: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

@@ -1,6 +1,7 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { CollectionIcon } from '@heroicons/react/outline';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type {
   Profile,
   Wallet,
@@ -12,7 +13,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowUnfollowSource } from 'src/tracking';
 
 import Loader from '../Loader';
 

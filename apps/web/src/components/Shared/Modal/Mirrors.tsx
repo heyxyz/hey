@@ -1,5 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile, ProfileQueryRequest } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
@@ -7,7 +8,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowUnfollowSource } from 'src/tracking';
 
 import Loader from '../Loader';
 

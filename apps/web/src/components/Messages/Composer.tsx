@@ -6,6 +6,7 @@ import type {
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
+import { MESSAGES } from '@lenster/data/tracking';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Button, Input } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -21,7 +22,6 @@ import {
   useAttachmentStore
 } from 'src/store/attachment';
 import { useMessagePersistStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
 import { useWindowSize } from 'usehooks-ts';
 import type {
   Attachment as TAttachment,

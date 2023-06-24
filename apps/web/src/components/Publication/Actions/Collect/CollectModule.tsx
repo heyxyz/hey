@@ -17,6 +17,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,
@@ -51,7 +52,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PUBLICATION } from 'src/tracking';
 import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,

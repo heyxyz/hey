@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useProfileSettingsQuery } from '@lenster/lens';
 import {
   Card,
@@ -17,7 +18,6 @@ import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

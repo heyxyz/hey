@@ -3,6 +3,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { PROFILE } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
@@ -26,7 +27,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PROFILE } from 'src/tracking';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';

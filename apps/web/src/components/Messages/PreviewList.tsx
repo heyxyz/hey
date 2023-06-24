@@ -7,6 +7,7 @@ import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { Errors } from '@lenster/data';
+import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
@@ -29,7 +30,6 @@ import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
 
 interface PreviewListProps {
   className?: string;

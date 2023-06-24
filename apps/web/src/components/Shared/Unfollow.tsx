@@ -1,6 +1,7 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { FollowNft } from '@lenster/abis';
 import { Errors } from '@lenster/data';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -16,7 +17,6 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {

@@ -1,4 +1,5 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
@@ -9,7 +10,6 @@ import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 import type { OptimisticTransaction } from 'src/types';
 import { object, string } from 'zod';
 

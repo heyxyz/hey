@@ -1,5 +1,6 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type {
   MutualFollowersProfilesQueryRequest,
   Profile
@@ -11,7 +12,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
-import { FollowUnfollowSource } from 'src/tracking';
 
 interface MutualFollowersListProps {
   profileId: string;

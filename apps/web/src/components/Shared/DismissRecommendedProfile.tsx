@@ -1,9 +1,9 @@
 import { XIcon } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useDismissRecommendedProfilesMutation } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { PROFILE } from 'src/tracking';
 
 interface DismissRecommendedProfileProps {
   profile: Profile;

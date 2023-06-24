@@ -5,12 +5,12 @@ import {
   PencilAltIcon,
   PhotographIcon
 } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
-import { PROFILE } from 'src/tracking';
 
 import MediaFilter from './Filters/MediaFilter';
 
