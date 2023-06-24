@@ -3,6 +3,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   Button,
   Card,
@@ -21,7 +22,6 @@ import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 

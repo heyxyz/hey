@@ -12,5 +12,6 @@ export * from './pride-hashtags';
 export * from './regex';
 export * from './staffs';
 export * from './storage';
+export * from './tracking';
 export * from './utils/getEnvConfig';
 export * from './verified';

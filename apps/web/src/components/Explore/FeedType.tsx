@@ -1,9 +1,9 @@
+import { EXPLORE } from '@lenster/data/tracking';
 import { PublicationMainFocus } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
-import { EXPLORE } from 'src/tracking';
 
 interface FeedLinkProps {
   name: string;

@@ -5,6 +5,7 @@ import {
   LENSHUB_PROXY,
   OLD_LENS_RELAYER_ADDRESS
 } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
@@ -21,7 +22,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleDispatcherProps {

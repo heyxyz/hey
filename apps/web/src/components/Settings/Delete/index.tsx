@@ -5,6 +5,7 @@ import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
 import {
   Button,
@@ -26,7 +27,6 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useDisconnect } from 'wagmi';
 

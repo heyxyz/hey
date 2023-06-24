@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -7,7 +8,6 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

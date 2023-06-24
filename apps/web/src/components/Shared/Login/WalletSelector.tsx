@@ -2,6 +2,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data';
+import { AUTH } from '@lenster/data/tracking';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
@@ -19,7 +20,6 @@ import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { AUTH } from 'src/tracking';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {

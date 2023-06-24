@@ -1,12 +1,12 @@
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { LogoutIcon } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {

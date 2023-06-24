@@ -2,6 +2,7 @@ import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors, Regex } from '@lenster/data';
 import { IS_MAINNET, LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type {
   NftImage,
   Profile,
@@ -30,7 +31,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
 import { object, string } from 'zod';

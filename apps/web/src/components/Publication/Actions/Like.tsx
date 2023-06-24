@@ -4,6 +4,7 @@ import {
   SunIcon as SunIconSolid
 } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {
   ReactionTypes,
@@ -25,7 +26,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 
 interface LikeProps {
   publication: Publication;

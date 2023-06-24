@@ -1,3 +1,4 @@
+import { PUBLICATION } from '@lenster/data/tracking';
 import { useHidePublicationMutation } from '@lenster/lens';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import { Alert } from '@lenster/ui';
@@ -6,7 +7,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
-import { PUBLICATION } from 'src/tracking';
 
 const DeletePublication: FC = () => {
   const showPublicationDeleteAlert = useGlobalAlertStateStore(

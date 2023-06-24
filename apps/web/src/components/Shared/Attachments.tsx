@@ -6,6 +6,7 @@ import {
   ATTACHMENT,
   STATIC_IMAGES_URL
 } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { MediaSet, Publication } from '@lenster/lens';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -17,7 +18,6 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { useUpdateEffect } from 'usehooks-ts';
 

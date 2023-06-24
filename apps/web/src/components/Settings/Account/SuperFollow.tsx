@@ -2,6 +2,7 @@ import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors, Regex } from '@lenster/data';
 import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -19,7 +20,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 

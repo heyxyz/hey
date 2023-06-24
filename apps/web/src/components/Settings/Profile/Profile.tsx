@@ -3,6 +3,7 @@ import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
 import { Errors, Regex } from '@lenster/data';
 import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {
@@ -42,7 +43,6 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';

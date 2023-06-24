@@ -3,12 +3,12 @@ import {
   ShieldCheckIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline';
+import { STAFFTOOLS } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppPersistStore } from 'src/store/app';
-import { STAFFTOOLS } from 'src/tracking';
 
 interface StaffModeProps {
   className?: string;

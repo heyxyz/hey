@@ -1,11 +1,11 @@
 import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import isPrideMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { PUBLICATION } from 'src/tracking';
 import type { MarkupLinkProps } from 'src/types';
 
 const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {

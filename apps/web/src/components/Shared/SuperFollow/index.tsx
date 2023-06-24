@@ -1,4 +1,5 @@
 import { StarIcon } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Button, Modal } from '@lenster/ui';
@@ -9,7 +10,6 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PROFILE } from 'src/tracking';
 
 import Loader from '../Loader';
 import Slug from '../Slug';

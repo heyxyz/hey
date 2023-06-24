@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
 import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -9,7 +10,6 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message={t`Loading GIFs`} />
