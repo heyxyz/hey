@@ -2,15 +2,19 @@ import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
+import { array, object, string } from 'zod';
 
-import { keysValidator } from '../helpers/keysValidator';
 import { resolverAbi } from '../resolverAbi';
 
 type ExtensionRequest = {
   addresses: string[];
 };
 
-const requiredKeys: (keyof ExtensionRequest)[] = ['addresses'];
+const validationSchema = object({
+  addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(50, {
+    message: 'Too many addresses!'
+  })
+});
 
 export default async (request: IRequest) => {
   const body = await request.json();
@@ -18,23 +22,20 @@ export default async (request: IRequest) => {
     return error(400, 'Bad request!');
   }
 
-  const { addresses } = body as ExtensionRequest;
+  const validation = validationSchema.safeParse(body);
 
-  const missingKeysError = keysValidator(requiredKeys, body);
-  if (missingKeysError) {
-    return missingKeysError;
-  }
-
-  if (addresses.length > 50) {
+  if (!validation.success) {
     return new Response(
-      JSON.stringify({ success: false, error: 'Too many addresses!' })
+      JSON.stringify({ success: false, error: validation.error.issues })
     );
   }
+
+  const { addresses } = body as ExtensionRequest;
 
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http()
+      transport: http('https://ethereum.rpc.thirdweb.com')
     });
 
     const data = await client.readContract({
