@@ -12,7 +12,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('say gm to spaces service 👋'));
+router.get('/', () => new Response('gm, to spaces service 👋'));
 router.get('/isLive/:spaceId', ({ params }, env) =>
   isLive(params.spaceId, env)
 );
