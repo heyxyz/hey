@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Localstorage } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   Button,
   Card,
@@ -15,7 +16,6 @@ import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';

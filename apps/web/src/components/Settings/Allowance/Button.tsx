@@ -1,4 +1,5 @@
 import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
@@ -9,7 +10,6 @@ import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { SETTINGS } from 'src/tracking';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {

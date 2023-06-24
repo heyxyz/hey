@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors, LENSHUB_PROXY } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
@@ -25,7 +26,6 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {

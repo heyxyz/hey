@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { FollowingRequest, Profile } from '@lenster/lens';
 import { useFollowingQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -9,7 +10,6 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { FollowUnfollowSource } from 'src/tracking';
 
 interface FollowingProps {
   profile: Profile;

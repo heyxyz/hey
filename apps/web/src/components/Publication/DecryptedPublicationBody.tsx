@@ -25,6 +25,7 @@ import {
   POLYGONSCAN_URL,
   RARIBLE_URL
 } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -42,7 +43,6 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PUBLICATION } from 'src/tracking';
 import { usePublicClient, useToken } from 'wagmi';
 
 interface DecryptMessageProps {

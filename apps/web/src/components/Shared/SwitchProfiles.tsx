@@ -1,6 +1,7 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { IS_MAINNET } from '@lenster/data';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -11,7 +12,6 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PROFILE } from 'src/tracking';
 
 const SwitchProfiles: FC = () => {
   const profiles = useAppStore((state) => state.profiles);

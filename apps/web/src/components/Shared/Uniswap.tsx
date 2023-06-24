@@ -1,10 +1,10 @@
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import getUniswapURL from '@lenster/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 interface UniswapProps {
   module: any;

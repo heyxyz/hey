@@ -2,6 +2,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { UsersIcon } from '@heroicons/react/outline';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { FollowersRequest, Profile, Wallet } from '@lenster/lens';
 import { useFollowersQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -11,7 +12,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
-import { FollowUnfollowSource } from 'src/tracking';
 
 interface FollowersProps {
   profile: Profile;
