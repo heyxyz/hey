@@ -17,8 +17,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       turbo:
-        specifier: ^1.10.5
-        version: 1.10.5
+        specifier: ^1.10.6
+        version: 1.10.6
 
   apps/prerender:
     dependencies:
@@ -60,8 +60,8 @@ importers:
         specifier: ^1.35.1
         version: 1.35.1
       '@types/react':
-        specifier: ^18.2.13
-        version: 18.2.13
+        specifier: ^18.2.14
+        version: 18.2.14
       '@types/react-dom':
         specifier: ^18.2.6
         version: 18.2.6
@@ -72,8 +72,8 @@ importers:
   apps/web:
     dependencies:
       '@aws-sdk/client-s3':
-        specifier: ^3.358.0
-        version: 3.358.0
+        specifier: ^3.359.0
+        version: 3.359.0
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -88,7 +88,7 @@ importers:
         version: 4.9.3
       '@giphy/react-components':
         specifier: ^6.9.4
-        version: 6.9.4(@babel/core@7.22.5)(@types/react@18.2.13)(react-dom@18.2.0)(react@18.2.0)
+        version: 6.9.4(@babel/core@7.22.5)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0)
       '@headlessui/react':
         specifier: ^1.7.15
         version: 1.7.15(react-dom@18.2.0)(react@18.2.0)
@@ -103,7 +103,7 @@ importers:
         version: 0.0.1
       '@huddle01/react':
         specifier: ^0.0.11
-        version: 0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.89)
+        version: 0.0.11(@types/react@18.2.14)(mediasoup-client@3.6.89)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
@@ -196,7 +196,7 @@ importers:
         version: 3.2.4
       dexie-react-hooks:
         specifier: ^1.1.6
-        version: 1.1.6(@types/react@18.2.13)(dexie@3.2.4)(react@18.2.0)
+        version: 1.1.6(@types/react@18.2.14)(dexie@3.2.4)(react@18.2.0)
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
@@ -241,7 +241,7 @@ importers:
         version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
       react-markdown:
         specifier: ^8.0.7
-        version: 8.0.7(@types/react@18.2.13)(react@18.2.0)
+        version: 8.0.7(@types/react@18.2.14)(react@18.2.0)
       react-virtuoso:
         specifier: ^4.3.11
         version: 4.3.11(react-dom@18.2.0)(react@18.2.0)
@@ -304,8 +304,8 @@ importers:
         specifier: ^20.3.1
         version: 20.3.1
       '@types/react':
-        specifier: ^18.2.13
-        version: 18.2.13
+        specifier: ^18.2.14
+        version: 18.2.14
       '@types/react-dom':
         specifier: ^18.2.6
         version: 18.2.6
@@ -417,8 +417,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       '@types/react':
-        specifier: ^18.2.13
-        version: 18.2.13
+        specifier: ^18.2.14
+        version: 18.2.14
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -528,8 +528,8 @@ importers:
         specifier: ^20.3.1
         version: 20.3.1
       '@types/react':
-        specifier: ^18.2.13
-        version: 18.2.13
+        specifier: ^18.2.14
+        version: 18.2.14
       typescript:
         specifier: ^5.1.3
         version: 5.1.3
@@ -738,8 +738,8 @@ importers:
   packages/workers/sts-generator:
     dependencies:
       '@aws-sdk/client-sts':
-        specifier: ^3.358.0
-        version: 3.358.0
+        specifier: ^3.359.0
+        version: 3.359.0
       itty-router:
         specifier: ^4.0.13
         version: 4.0.13
@@ -966,14 +966,14 @@ packages:
       tslib: 2.5.3
     dev: false
 
-  /@aws-sdk/client-s3@3.358.0:
-    resolution: {integrity: sha512-6YbCBd8m49vlYwOzIZv1l4OM3QTaSKrrL9p2qo9S68/4FSz0OWwm23b+UHQkMW7a5ipCPMPhCRfw/U1Sf0qWaw==}
+  /@aws-sdk/client-s3@3.359.0:
+    resolution: {integrity: sha512-Z/RRzM1o1uX0zs0ieBdaEIn9X5Jwl6Bk/fnTPmuWDHmgJUjv7OQ9Oa7BV4azBAW6JNQ6XW1SdJrrfsOdblJ8QA==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-crypto/sha1-browser': 3.0.0
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
-      '@aws-sdk/client-sts': 3.358.0
+      '@aws-sdk/client-sts': 3.359.0
       '@aws-sdk/config-resolver': 3.357.0
       '@aws-sdk/credential-provider-node': 3.358.0
       '@aws-sdk/eventstream-serde-browser': 3.357.0
@@ -1022,7 +1022,7 @@ packages:
       '@aws-sdk/xml-builder': 3.310.0
       '@smithy/protocol-http': 1.1.0
       '@smithy/types': 1.1.0
-      fast-xml-parser: 4.2.4
+      fast-xml-parser: 4.2.5
       tslib: 2.5.3
     transitivePeerDependencies:
       - '@aws-sdk/signature-v4-crt'
@@ -1111,8 +1111,8 @@ packages:
       - aws-crt
     dev: false
 
-  /@aws-sdk/client-sts@3.358.0:
-    resolution: {integrity: sha512-lBtle7UMBXXxp9LHcmNDwsQZoz1B0sE4F6F63sTv+U4fT/Uo8m0AcxUE0WFxAP687w8rg7dSqxJCbMCKrfVQPA==}
+  /@aws-sdk/client-sts@3.359.0:
+    resolution: {integrity: sha512-zpyui8hXvEUvq8MwzZsm51ni0intvPjtV8dgx10nVJnm605nqrLlAMGqQ1S/UxO7CVmhqWbh5dnGHEc//UJlsw==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-crypto/sha256-browser': 3.0.0
@@ -1150,7 +1150,7 @@ packages:
       '@aws-sdk/util-utf8': 3.310.0
       '@smithy/protocol-http': 1.1.0
       '@smithy/types': 1.1.0
-      fast-xml-parser: 4.2.4
+      fast-xml-parser: 4.2.5
       tslib: 2.5.3
     transitivePeerDependencies:
       - aws-crt
@@ -2583,7 +2583,7 @@ packages:
     resolution: {integrity: sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==}
     dev: false
 
-  /@emotion/react@11.9.3(@babel/core@7.22.5)(@types/react@18.2.13)(react@18.2.0):
+  /@emotion/react@11.9.3(@babel/core@7.22.5)(@types/react@18.2.14)(react@18.2.0):
     resolution: {integrity: sha512-g9Q1GcTOlzOEjqwuLF/Zd9LC+4FljjPjDfxSM7KmEakm+hsHXk+bYZ2q+/hTJzr0OUNkujo72pXLQvXj6H+GJQ==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -2602,7 +2602,7 @@ packages:
       '@emotion/serialize': 1.1.2
       '@emotion/utils': 1.2.1
       '@emotion/weak-memoize': 0.2.5
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
     dev: false
@@ -2635,7 +2635,7 @@ packages:
     resolution: {integrity: sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==}
     dev: false
 
-  /@emotion/styled@11.9.3(@babel/core@7.22.5)(@emotion/react@11.9.3)(@types/react@18.2.13)(react@18.2.0):
+  /@emotion/styled@11.9.3(@babel/core@7.22.5)(@emotion/react@11.9.3)(@types/react@18.2.14)(react@18.2.0):
     resolution: {integrity: sha512-o3sBNwbtoVz9v7WB1/Y/AmXl69YHmei2mrVnK7JgyBJ//Rst5yqPZCecEJlMlJrFeWHp+ki/54uN265V2pEcXA==}
     peerDependencies:
       '@babel/core': ^7.0.0
@@ -2652,10 +2652,10 @@ packages:
       '@babel/runtime': 7.22.5
       '@emotion/babel-plugin': 11.11.0
       '@emotion/is-prop-valid': 1.2.1
-      '@emotion/react': 11.9.3(@babel/core@7.22.5)(@types/react@18.2.13)(react@18.2.0)
+      '@emotion/react': 11.9.3(@babel/core@7.22.5)(@types/react@18.2.14)(react@18.2.0)
       '@emotion/serialize': 1.1.2
       '@emotion/utils': 1.2.1
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
       react: 18.2.0
     dev: false
 
@@ -3788,13 +3788,13 @@ packages:
       uuid: 9.0.0
     dev: false
 
-  /@giphy/react-components@6.9.4(@babel/core@7.22.5)(@types/react@18.2.13)(react-dom@18.2.0)(react@18.2.0):
+  /@giphy/react-components@6.9.4(@babel/core@7.22.5)(@types/react@18.2.14)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-Ql7dHnfCTgE5qWbzhqDYBwY+sjBlIxBZNGrSTMGOkEFKy9y2JIvJP7UKaXyYPNIluOZNGlnkP7EARY4uAJiDTQ==}
     peerDependencies:
       react: 16.10.2 - 18
     dependencies:
-      '@emotion/react': 11.9.3(@babel/core@7.22.5)(@types/react@18.2.13)(react@18.2.0)
-      '@emotion/styled': 11.9.3(@babel/core@7.22.5)(@emotion/react@11.9.3)(@types/react@18.2.13)(react@18.2.0)
+      '@emotion/react': 11.9.3(@babel/core@7.22.5)(@types/react@18.2.14)(react@18.2.0)
+      '@emotion/styled': 11.9.3(@babel/core@7.22.5)(@emotion/react@11.9.3)(@types/react@18.2.14)(react@18.2.0)
       '@giphy/js-analytics': 4.3.2
       '@giphy/js-brand': 2.3.2
       '@giphy/js-fetch-api': 4.9.3
@@ -4488,12 +4488,12 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.11(@types/react@18.2.13)(mediasoup-client@3.6.89):
+  /@huddle01/react@0.0.11(@types/react@18.2.14)(mediasoup-client@3.6.89):
     resolution: {integrity: sha512-QSMykix0+7UaSZyJUGzJXxvsS8aofgGto9CSD76de3RA89QsYeUfQIM0SPEGTnljOZ6MBo76dXTvEi+lstBoJw==}
     dependencies:
       '@huddle01/web-core': 0.0.10(mediasoup-client@3.6.89)
       '@xstate/inspect': 0.7.1(ws@8.13.0)(xstate@4.37.2)
-      '@xstate/react': 3.2.2(@types/react@18.2.13)(react@18.2.0)(xstate@4.37.2)
+      '@xstate/react': 3.2.2(@types/react@18.2.14)(react@18.2.0)(xstate@4.37.2)
       jotai: 2.1.1(react@18.2.0)
       jotai-xstate: 0.2.0(jotai@2.1.1)(xstate@4.37.2)
       react: 18.2.0
@@ -5985,11 +5985,11 @@ packages:
   /@types/react-dom@18.2.6:
     resolution: {integrity: sha512-2et4PDvg6PVCyS7fuTc4gPoksV58bW0RwSxWKcPRcHZf0PRUGq03TKcD/rUHe3azfV6/5/biUBJw+HhCQjaP0A==}
     dependencies:
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
     dev: true
 
-  /@types/react@18.2.13:
-    resolution: {integrity: sha512-vJ+zElvi/Zn9cVXB5slX2xL8PZodPCwPRDpittQdw43JR2AJ5k3vKdgJJyneV/cYgIbLQUwXa9JVDvUZXGba+Q==}
+  /@types/react@18.2.14:
+    resolution: {integrity: sha512-A0zjq+QN/O0Kpe30hA1GidzyFjatVvrpIvWLxD+xv67Vt91TWWgco9IvrJBkeyHm1trGaFS/FSGqPlhyeZRm0g==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
@@ -6900,7 +6900,7 @@ packages:
       xstate: 4.37.2
     dev: false
 
-  /@xstate/react@3.2.2(@types/react@18.2.13)(react@18.2.0)(xstate@4.37.2):
+  /@xstate/react@3.2.2(@types/react@18.2.14)(react@18.2.0)(xstate@4.37.2):
     resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
     peerDependencies:
       '@xstate/fsm': ^2.0.0
@@ -6913,7 +6913,7 @@ packages:
         optional: true
     dependencies:
       react: 18.2.0
-      use-isomorphic-layout-effect: 1.1.2(@types/react@18.2.13)(react@18.2.0)
+      use-isomorphic-layout-effect: 1.1.2(@types/react@18.2.14)(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
       xstate: 4.37.2
     transitivePeerDependencies:
@@ -7526,7 +7526,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001507
-      electron-to-chromium: 1.4.439
+      electron-to-chromium: 1.4.440
       node-releases: 2.0.12
       update-browserslist-db: 1.0.11(browserslist@4.21.9)
     dev: false
@@ -8285,14 +8285,14 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /dexie-react-hooks@1.1.6(@types/react@18.2.13)(dexie@3.2.4)(react@18.2.0):
+  /dexie-react-hooks@1.1.6(@types/react@18.2.14)(dexie@3.2.4)(react@18.2.0):
     resolution: {integrity: sha512-xSblWtmPwhafWNWMECsW7zMMmBu8goH3QqTxEfwBNoNG1mgsM0oFclippev7ss9HhKICqBwTjgqpscci5Ed4mA==}
     peerDependencies:
       '@types/react': '>=16'
       dexie: ^3.2 || ^4.0.1-alpha
       react: '>=16'
     dependencies:
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
       dexie: 3.2.4
       react: 18.2.0
     dev: false
@@ -8444,8 +8444,8 @@ packages:
   /electron-to-chromium@1.4.421:
     resolution: {integrity: sha512-wZOyn3s/aQOtLGAwXMZfteQPN68kgls2wDAnYOA8kCjBvKVrW5RwmWVspxJYTqrcN7Y263XJVsC66VCIGzDO3g==}
 
-  /electron-to-chromium@1.4.439:
-    resolution: {integrity: sha512-BHpErPSNhb9FB25+OwQP6mCAf3ZXfGbmuvc4LzBNVJwpCcXQJm++LerimocYRG9FRxUVRKZqaB7d0+pImSTPSg==}
+  /electron-to-chromium@1.4.440:
+    resolution: {integrity: sha512-r6dCgNpRhPwiWlxbHzZQ/d9swfPaEJGi8ekqRBwQYaR3WmA5VkqQfBWSDDjuJU1ntO+W9tHx8OHV/96Q8e0dVw==}
     dev: false
 
   /elliptic@6.5.4:
@@ -9312,8 +9312,8 @@ packages:
       punycode: 1.4.1
     dev: true
 
-  /fast-xml-parser@4.2.4:
-    resolution: {integrity: sha512-fbfMDvgBNIdDJLdLOwacjFAPYt67tr31H9ZhWSm45CDAxvd0I6WTlSOUo7K2P/K5sA5JgMKG64PI3DMcaFdWpQ==}
+  /fast-xml-parser@4.2.5:
+    resolution: {integrity: sha512-B9/wizE4WngqQftFPmdaMYlXoJlJOYxGQOanC77fq9k8+Z0v5dDSVh+3glErdIROP//s/jgb7ZuxKfB8nVyo0g==}
     hasBin: true
     dependencies:
       strnum: 1.0.5
@@ -12354,7 +12354,7 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-markdown@8.0.7(@types/react@18.2.13)(react@18.2.0):
+  /react-markdown@8.0.7(@types/react@18.2.14)(react@18.2.0):
     resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
     peerDependencies:
       '@types/react': '>=16'
@@ -12362,7 +12362,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/prop-types': 15.7.5
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.3
       hast-util-whitespace: 2.0.1
@@ -13683,65 +13683,65 @@ packages:
       safe-buffer: 5.2.1
     dev: true
 
-  /turbo-darwin-64@1.10.5:
-    resolution: {integrity: sha512-fIHu+fcW7upaZEfeneoRbZjdrcsj/NxUg7IjZZmlCjgbS9Ofl8RhRid5A1L31AUK3kkqRxzagHc4WZ5x4quBgg==}
+  /turbo-darwin-64@1.10.6:
+    resolution: {integrity: sha512-s2Gc7i9Ud+H9GDcrGJjPIyscJfzDGQ6il4Sl2snfvwngJs4/TaqKuBoX3HNt/7F4NiFRs7ZhlLV1/Yu9zGBRhw==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.10.5:
-    resolution: {integrity: sha512-uv0sDWizuxVvdSjaKvWdPdX4aZ8IZeYJwTJRZwLNRxZV56/1LZD65gyQIqsSNVRHuXI199yahmB+7PMJNpZFdw==}
+  /turbo-darwin-arm64@1.10.6:
+    resolution: {integrity: sha512-tgl70t5PBLyRcNTdP9N6NjvdvQ5LUk8Z60JGUhBhnc+oCOdA4pltrDJNPyel3tQAXXt1dDpl8pp9vUrbwoVyGg==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.10.5:
-    resolution: {integrity: sha512-hI0rErgwxNmuBCNGldhJkjSbb+mT+vjfmBVKcMI/bnBmu/KU7irCrKMe5Vas280teqBrC33GgVfXndJo2cJ1DA==}
+  /turbo-linux-64@1.10.6:
+    resolution: {integrity: sha512-h7eyAA3xtAVpamcYJYUwe0xm0LWdbv7/I7QiM09AZ67TTNpyUgqW8giFN3h793BHEQ2Rcnk9FNkpIbjWBbyamg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.10.5:
-    resolution: {integrity: sha512-JAygWZjTuD6e7w0KSGzy7UxYqeLIpGfZDne+4MGRc8I5VeWZ6i0HWTqhhIu2/A8AuklYcoj8LkOZxCnMOF3odQ==}
+  /turbo-linux-arm64@1.10.6:
+    resolution: {integrity: sha512-8cZhOeLqu3QZ27yLd6bw4FNaB8y5pLdWeRLJeiWHkIb/cptKnRKJFP+keBJzJi8ovaMqdBpabrxiBRN2lhau5Q==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.10.5:
-    resolution: {integrity: sha512-6w2GOKmlWEAl6QkC4c2j2ZLTwB+RK6oIDRT2KqF1m07KkY6pebEzbPZLHuP08QV+SE0t+prAn+kn7hkHYkwM+Q==}
+  /turbo-windows-64@1.10.6:
+    resolution: {integrity: sha512-qx5jcfCJodN1Mh0KtSVQau7pK8CxDvtif7+joPHI2HbQPAADgdUl0LHfA5tFHh6aWgfvhxbvIXqJd6v7Mqkj9g==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.10.5:
-    resolution: {integrity: sha512-3eeHRJPU+5zWa/iiikoBoPlNd74Y+L9lrG6ZsDZdzUYxNRTMrZbto1Bu1UF77t10TXeT9BsZRXjquKqrA7R7tg==}
+  /turbo-windows-arm64@1.10.6:
+    resolution: {integrity: sha512-vTQaRG3/s2XTreOBr6J9HKFtjzusvwGQg0GtuW2+9Z7fizdzP8MuhaDbN6FhKHcWC81PQPD61TBIKTVTsYOEZg==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.10.5:
-    resolution: {integrity: sha512-4yxHTrlugJhef4eXuyrPJtrgUZWlbcwmSb8iZL/5UzNjCmx+anOm1nfW2XFrZFKy4v0+/fUlqw8LkTgGVsOKaQ==}
+  /turbo@1.10.6:
+    resolution: {integrity: sha512-0/wbjw4HvmPP1abVWHTdeFRfCA9cn5oxCPP5bDixagLzvDgGWE3xfdlsyGmq779Ekr9vjtDPgC2Y4JlXEhyryw==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.5
-      turbo-darwin-arm64: 1.10.5
-      turbo-linux-64: 1.10.5
-      turbo-linux-arm64: 1.10.5
-      turbo-windows-64: 1.10.5
-      turbo-windows-arm64: 1.10.5
+      turbo-darwin-64: 1.10.6
+      turbo-darwin-arm64: 1.10.6
+      turbo-linux-64: 1.10.6
+      turbo-linux-arm64: 1.10.6
+      turbo-windows-64: 1.10.6
+      turbo-windows-arm64: 1.10.6
     dev: true
 
   /tus-js-client@3.1.0:
@@ -13983,7 +13983,7 @@ packages:
     resolution: {integrity: sha512-WHN8KDQblxd32odxeIgo83rdVDE2bvdkb86it7bMhYZwWKJz0+O0RK/eZiHYnM+zgt/U7hAHOlCQGfjjvSkw2g==}
     dev: true
 
-  /use-isomorphic-layout-effect@1.1.2(@types/react@18.2.13)(react@18.2.0):
+  /use-isomorphic-layout-effect@1.1.2(@types/react@18.2.14)(react@18.2.0):
     resolution: {integrity: sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==}
     peerDependencies:
       '@types/react': '*'
@@ -13992,7 +13992,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@types/react': 18.2.13
+      '@types/react': 18.2.14
       react: 18.2.0
     dev: false
 
