@@ -1,4 +1,5 @@
 import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -13,7 +14,6 @@ import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { FollowUnfollowSource } from 'src/tracking';
 
 import Follow from './Follow';
 import Markup from './Markup';

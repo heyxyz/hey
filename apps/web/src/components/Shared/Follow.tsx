@@ -1,6 +1,7 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -20,7 +21,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
-import { PROFILE } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {

@@ -1,4 +1,5 @@
 import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
+import { MOD } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
@@ -12,7 +13,6 @@ import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
-import { MOD } from 'src/tracking';
 
 interface ModActionProps {
   publication: Publication;

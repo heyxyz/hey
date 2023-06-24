@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -12,7 +13,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 import Loader from '../../Shared/Loader';
 

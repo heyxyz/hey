@@ -33,6 +33,7 @@ import {
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
 } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
@@ -86,7 +87,6 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';

@@ -1,11 +1,11 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { SYSTEM } from '@lenster/data/tracking';
 import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { SYSTEM } from 'src/tracking';
 import { useSwitchNetwork } from 'wagmi';
 
 interface SwitchNetworkProps {

@@ -4,12 +4,12 @@ import {
   UserGroupIcon
 } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
-import { MISCELLANEOUS } from 'src/tracking';
 
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';

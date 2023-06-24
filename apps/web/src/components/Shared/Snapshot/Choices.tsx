@@ -6,6 +6,7 @@ import {
   IS_MAINNET,
   SNAPSHOR_RELAY_WORKER_URL
 } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, Modal, Spinner } from '@lenster/ui';
@@ -19,7 +20,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 import { useReadLocalStorage } from 'usehooks-ts';
 
 import New from '../Badges/New';

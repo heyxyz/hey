@@ -1,10 +1,10 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
+import { SYSTEM } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { SYSTEM } from 'src/tracking';
 
 interface ThemeSwitchProps {
   onClick?: () => void;

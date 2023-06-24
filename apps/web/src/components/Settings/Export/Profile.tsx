@@ -1,3 +1,4 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type {
   Profile as TProfile,
   SingleProfileQueryRequest
@@ -10,7 +11,6 @@ import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Profile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

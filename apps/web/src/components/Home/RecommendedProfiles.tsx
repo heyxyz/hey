@@ -4,6 +4,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
 import { FeatureFlag } from '@lenster/data';
+import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -13,7 +14,6 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { FollowUnfollowSource, MISCELLANEOUS } from 'src/tracking';
 
 import Suggested from './Suggested';
 

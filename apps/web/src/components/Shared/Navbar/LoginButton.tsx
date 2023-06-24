@@ -1,9 +1,9 @@
+import { AUTH } from '@lenster/data/tracking';
 import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { AUTH } from 'src/tracking';
 
 const LoginButton: FC = () => {
   const setShowAuthModal = useGlobalModalStateStore(

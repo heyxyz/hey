@@ -19,6 +19,7 @@ import {
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@lenster/data/constants';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import getEnvConfig from '@lenster/data/utils/getEnvConfig';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
@@ -41,7 +42,6 @@ import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessageStore } from 'src/store/message';
-import { FollowUnfollowSource } from 'src/tracking';
 
 import Badges from './Badges';
 import Followerings from './Followerings';

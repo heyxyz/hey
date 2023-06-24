@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
 import { FeatureFlag, Localstorage } from '@lenster/data';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
@@ -8,7 +9,6 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
-import { MISCELLANEOUS } from 'src/tracking';
 
 import MenuTransition from '../MenuTransition';
 
