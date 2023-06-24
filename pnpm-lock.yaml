@@ -585,6 +585,9 @@ importers:
       itty-router:
         specifier: ^4.0.13
         version: 4.0.13
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230518.0

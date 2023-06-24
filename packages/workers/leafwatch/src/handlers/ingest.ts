@@ -1,9 +1,9 @@
 // @ts-ignore
 import { getTokenFromGCPServiceAccount } from '@sagi.io/workers-jwt';
 import { error, type IRequest } from 'itty-router';
+import { any, object, string } from 'zod';
 
 import getPrivateKey from '../helpers/getPrivateKey';
-import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
@@ -15,7 +15,14 @@ type ExtensionRequest = {
   properties?: string;
 };
 
-const requiredKeys: (keyof ExtensionRequest)[] = ['name'];
+const validationSchema = object({
+  name: string().min(1, { message: 'Name is required!' }),
+  user_id: string().nullable().optional(),
+  fingerprint: string().nullable().optional(),
+  referrer: string().nullable().optional(),
+  platform: string().nullable().optional(),
+  properties: any()
+});
 
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
@@ -23,13 +30,16 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
+  const validation = validationSchema.safeParse(body);
+
+  if (!validation.success) {
+    return new Response(
+      JSON.stringify({ success: false, error: validation.error.issues })
+    );
+  }
+
   const { name, user_id, fingerprint, referrer, platform, properties } =
     body as ExtensionRequest;
-
-  const missingKeysError = keysValidator(requiredKeys, body);
-  if (missingKeysError) {
-    return missingKeysError;
-  }
 
   try {
     // BigQuery details
