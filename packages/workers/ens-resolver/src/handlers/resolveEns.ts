@@ -35,7 +35,7 @@ export default async (request: IRequest) => {
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http()
+      transport: http('https://ethereum.rpc.thirdweb.com')
     });
 
     const data = await client.readContract({
