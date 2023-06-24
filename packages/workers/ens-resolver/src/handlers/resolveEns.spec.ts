@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 
-import { TEST_URL } from './src/constants';
+import { TEST_URL } from '../constants';
 
 test('should return welcome message', async () => {
   const getRequest = await fetch(TEST_URL);
