@@ -3,11 +3,11 @@
  *
  * @returns {boolean} True if the current month is June.
  */
-const isPrimeMonth = () => {
+const isPrideMonth = () => {
   const today = new Date();
   const month = today.getMonth();
 
   return month === 5;
 };
 
-export default isPrimeMonth;
+export default isPrideMonth;
