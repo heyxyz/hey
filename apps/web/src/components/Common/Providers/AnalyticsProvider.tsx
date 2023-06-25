@@ -4,11 +4,11 @@ import { PostHogProvider } from 'posthog-js/react';
 import type { FC, ReactNode } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
-interface LeafwatchProviderProps {
+interface AnalyticsProviderProps {
   children: ReactNode;
 }
 
-const LeafwatchProvider: FC<LeafwatchProviderProps> = ({ children }) => {
+const AnalyticsProvider: FC<AnalyticsProviderProps> = ({ children }) => {
   useEffectOnce(() => {
     posthog.init('phc_f0g6kMcxKrDGaFsKHhRknS7TKURWLWvdaOuo8fNBPwA', {
       api_host: 'https://app.posthog.com',
@@ -33,4 +33,4 @@ const LeafwatchProvider: FC<LeafwatchProviderProps> = ({ children }) => {
   return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
 };
 
-export default LeafwatchProvider;
+export default AnalyticsProvider;
