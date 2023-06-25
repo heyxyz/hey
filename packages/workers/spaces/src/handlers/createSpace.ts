@@ -2,8 +2,8 @@ import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
+import { boolean, object, string } from 'zod';
 
-import { keysValidator } from '../helpers/keysValidator';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
@@ -13,12 +13,13 @@ type ExtensionRequest = {
 
 type CreateRoomResponse = {
   message: string;
-  data: {
-    roomId: string;
-  };
+  data: { roomId: string };
 };
 
-const requiredKeys: (keyof ExtensionRequest)[] = ['isMainnet', 'accessToken'];
+const validationSchema = object({
+  isMainnet: boolean(),
+  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
+});
 
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
@@ -26,12 +27,15 @@ export default async (request: IRequest, env: Env) => {
     return error(400, 'Bad request!');
   }
 
-  const { isMainnet, accessToken } = body as ExtensionRequest;
+  const validation = validationSchema.safeParse(body);
 
-  const missingKeysError = keysValidator(requiredKeys, body);
-  if (missingKeysError) {
-    return missingKeysError;
+  if (!validation.success) {
+    return new Response(
+      JSON.stringify({ success: false, error: validation.error.issues })
+    );
   }
+
+  const { isMainnet, accessToken } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
