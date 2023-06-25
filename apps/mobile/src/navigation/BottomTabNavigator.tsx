@@ -4,9 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MotiView } from 'moti';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
-import tailwind from 'twrnc';
 
 import haptic from '../helpers/haptic';
+import tw from '../helpers/tailwind';
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme';
 import { ExploreStack } from './ExploreStack';
 import { HomeStack } from './HomeStack';
@@ -23,7 +23,7 @@ export const BottomTabNavigator: FC = () => {
   const screenOptions = useCallback<ScreenOptions>(
     ({ route }) => ({
       tabBarShowLabel: false,
-      tabBarStyle: tailwind`bg-black`,
+      tabBarStyle: tw`bg-black`,
       tabBarIcon: ({
         color,
         size,
@@ -38,7 +38,7 @@ export const BottomTabNavigator: FC = () => {
         if (route.name === 'HomeStack') {
           iconName = 'home-outline';
         } else if (route.name === 'ExploreStack') {
-          iconName = 'infinite-outline';
+          iconName = 'earth-outline';
         } else {
           iconName = 'globe';
         }
