@@ -26,11 +26,13 @@ const Timeline = () => {
   const publications = data?.explorePublications?.items as Publication[];
 
   return (
-    <View style={tailwind`mt-2 mx-3`}>
+    <View style={tailwind`mt-2`}>
       <FlashList
-        ItemSeparatorComponent={() => <View />}
+        ItemSeparatorComponent={() => (
+          <View style={tailwind`border-b border-gray-500`} />
+        )}
         renderItem={({ item }) => {
-          return <SinglePublication publication={item} />;
+          return <SinglePublication publication={item} style="m-5" />;
         }}
         estimatedItemSize={50}
         data={publications}
