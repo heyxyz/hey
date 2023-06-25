@@ -29,13 +29,6 @@ export const RootNavigator: FC = () => {
           />
         </Group>
       )}
-      <Group key="modals" screenOptions={{ presentation: 'modal' }}>
-        <Screen
-          name="SignIn"
-          component={SignInScreen}
-          options={{ title: 'sign_in' }}
-        />
-      </Group>
     </Navigator>
   );
 };
