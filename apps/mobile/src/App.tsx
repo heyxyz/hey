@@ -13,9 +13,9 @@ import type { FC } from 'react';
 import React from 'react';
 // eslint-disable-next-line import/no-duplicates
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import tailwind from 'twrnc';
 
-import { AppLoading } from './components/common/AppLoading';
+import { AppLoading } from './components/Shared/AppLoading';
+import tw from './helpers/tailwind';
 import { Navigation } from './navigation';
 
 const httpLink = new HttpLink({
@@ -33,7 +33,7 @@ const App: FC = () => {
   return (
     <ApolloProvider client={apolloClient}>
       <AppLoading>
-        <GestureHandlerRootView style={tailwind`flex-1`}>
+        <GestureHandlerRootView style={tw`flex-1`}>
           <Navigation />
         </GestureHandlerRootView>
       </AppLoading>

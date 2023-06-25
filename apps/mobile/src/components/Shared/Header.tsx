@@ -4,9 +4,9 @@ import { MotiPressable } from 'moti/interactions';
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
-import tailwind from 'twrnc';
 
 import haptic from '../../helpers/haptic';
+import tw from '../../helpers/tailwind';
 
 const Header: FC<HeaderTitleProps> = () => {
   const animatePress = useMemo(
@@ -19,9 +19,9 @@ const Header: FC<HeaderTitleProps> = () => {
   );
 
   return (
-    <View style={tailwind`flex flex-row justify-between w-full items-center`}>
-      <Text style={tailwind`text-white font-bold text-2xl`}>Gm</Text>
-      <View style={tailwind`flex flex-row items-center gap-x-5`}>
+    <View style={tw`flex flex-row justify-between w-full items-center`}>
+      <Text style={tw`text-white font-bold text-2xl`}>Gm</Text>
+      <View style={tw`flex flex-row items-center gap-x-5`}>
         <MotiPressable
           onPress={() => {
             haptic();
@@ -30,7 +30,7 @@ const Header: FC<HeaderTitleProps> = () => {
         >
           <Ionicons
             name="add-circle-outline"
-            style={tailwind`text-white`}
+            style={tw`text-white`}
             size={25}
           />
         </MotiPressable>
@@ -42,7 +42,7 @@ const Header: FC<HeaderTitleProps> = () => {
         >
           <Ionicons
             name="notifications-outline"
-            style={tailwind`text-white`}
+            style={tw`text-white`}
             size={23}
           />
         </MotiPressable>
