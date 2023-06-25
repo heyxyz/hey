@@ -1,10 +1,11 @@
 import type { Profile } from '@lenster/lens';
 import getAvatar from '@lenster/lib/getAvatar';
-import tw from '@lib/tailwind';
 import { Image } from 'expo-image';
 import type { FC } from 'react';
 import { memo } from 'react';
 import { Text, View } from 'react-native';
+
+import tw from '~/lib/tailwind';
 
 const styles = {
   name: tw.style('text-white font-bold', {

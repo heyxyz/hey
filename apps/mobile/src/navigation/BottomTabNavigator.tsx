@@ -1,12 +1,13 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useNavigationTheme } from '@hooks/navigation/useNavigationTheme';
-import haptic from '@lib/haptic';
-import tw from '@lib/tailwind';
 import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MotiView } from 'moti';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
+
+import { useNavigationTheme } from '~/hooks/navigation/useNavigationTheme';
+import haptic from '~/lib/haptic';
+import tw from '~/lib/tailwind';
 
 import { ExploreStack } from './ExploreStack';
 import { HomeStack } from './HomeStack';

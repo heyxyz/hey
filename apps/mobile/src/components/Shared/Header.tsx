@@ -1,11 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import haptic from '@lib/haptic';
-import tw from '@lib/tailwind';
 import type { HeaderTitleProps } from '@react-navigation/elements';
 import { MotiPressable } from 'moti/interactions';
 import type { FC } from 'react';
 import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
+
+import haptic from '~/lib/haptic';
+import tw from '~/lib/tailwind';
 
 const Header: FC<HeaderTitleProps> = () => {
   const animatePress = useMemo(

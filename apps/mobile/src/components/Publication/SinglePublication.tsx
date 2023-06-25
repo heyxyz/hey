@@ -1,9 +1,10 @@
-import UserProfile from '@components/Shared/UserProfile';
 import type { Publication } from '@lenster/lens';
-import tw from '@lib/tailwind';
 import type { FC } from 'react';
 import { Text, View } from 'react-native';
 import type { ClassInput } from 'twrnc/dist/esm/types';
+
+import UserProfile from '~/components/Shared/UserProfile';
+import tw from '~/lib/tailwind';
 
 const styles = {
   content: tw.style('text-white font-bold text-md leading-6', {

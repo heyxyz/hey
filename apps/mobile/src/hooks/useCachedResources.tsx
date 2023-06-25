@@ -11,9 +11,9 @@ export const useCachedResources = (): boolean => {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          'circular-normal': require('assets/fonts/CircularXXSub-Book.ttf'),
-          'circular-medium': require('assets/fonts/CircularXXSub-Medium.ttf'),
-          'circular-bold': require('assets/fonts/CircularXXSub-Bold.ttf')
+          'circular-normal': require('../../assets/fonts/CircularXXSub-Book.ttf'),
+          'circular-medium': require('../../assets/fonts/CircularXXSub-Medium.ttf'),
+          'circular-bold': require('../../assets/fonts/CircularXXSub-Bold.ttf')
         });
       } catch (error) {
         // We might want to provide this error information to an error reporting service

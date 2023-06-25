@@ -1,15 +1,16 @@
-import SinglePublication from '@components/Publication/SinglePublication';
-import Divider from '@components/UI/Divider';
 import type { ExplorePublicationRequest, Publication } from '@lenster/lens';
 import {
   CustomFiltersTypes,
   PublicationSortCriteria,
   useExploreFeedQuery
 } from '@lenster/lens';
-import tw from '@lib/tailwind';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { Dimensions, View } from 'react-native';
+
+import SinglePublication from '~/components/Publication/SinglePublication';
+import Divider from '~/components/UI/Divider';
+import tw from '~/lib/tailwind';
 
 const styles = {
   container: tw.style('flex-1 bg-black', {
