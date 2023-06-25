@@ -33,7 +33,10 @@
     "react": "18.2.0",
     "react-native": "0.71.8",
     "react-native-gesture-handler": "~2.9.0",
-    "twrnc": "^3.6.1"
+    "react-native-reanimated": "~2.14.4",
+    "react-native-safe-area-context": "4.5.0",
+    "twrnc": "^3.6.1",
+    "uuid": "3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

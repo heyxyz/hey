@@ -1,3 +1,7 @@
+import 'react-native-reanimated';
+// eslint-disable-next-line import/no-duplicates
+import 'react-native-gesture-handler';
+
 import {
   ApolloClient,
   ApolloProvider,
@@ -7,6 +11,7 @@ import {
 } from '@apollo/client';
 import type { FC } from 'react';
 import React from 'react';
+// eslint-disable-next-line import/no-duplicates
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import tailwind from 'twrnc';
 

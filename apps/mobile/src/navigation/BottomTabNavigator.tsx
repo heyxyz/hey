@@ -36,7 +36,7 @@ export const BottomTabNavigator: FC = () => {
         let iconName: keyof typeof Ionicons.glyphMap;
 
         if (route.name === 'HomeStack') {
-          iconName = 'bonfire-outline';
+          iconName = 'home-outline';
         } else if (route.name === 'ExploreStack') {
           iconName = 'infinite-outline';
         } else {
@@ -45,14 +45,8 @@ export const BottomTabNavigator: FC = () => {
 
         return (
           <MotiView
-            animate={{
-              opacity: 1,
-              scale: 1
-            }}
-            transition={{
-              type: 'spring',
-              delay: 50
-            }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'spring', delay: 50 }}
             from={{ opacity: 0.2 }}
           >
             <Ionicons
