@@ -15,6 +15,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
+    "@lenster/lens": "*",
     "@lenster/lib": "*",
     "@lenster/ui": "*",
     "@react-native-async-storage/async-storage": "1.17.11",
@@ -24,8 +25,10 @@
     "@react-navigation/stack": "^6.3.16",
     "@shopify/flash-list": "1.4.0",
     "expo": "~48.0.18",
+    "expo-font": "^11.1.1",
     "expo-haptics": "^12.2.1",
     "expo-image": "~1.0.1",
+    "expo-linear-gradient": "^12.1.2",
     "expo-linking": "^4.0.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",

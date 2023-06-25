@@ -5,9 +5,10 @@ import { MotiView } from 'moti';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
 
-import haptic from '../helpers/haptic';
-import tw from '../helpers/tailwind';
-import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme';
+import { useNavigationTheme } from '~/hooks/navigation/useNavigationTheme';
+import haptic from '~/lib/haptic';
+import tw from '~/lib/tailwind';
+
 import { ExploreStack } from './ExploreStack';
 import { HomeStack } from './HomeStack';
 

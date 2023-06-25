@@ -1,3 +1,9 @@
 {
-  "extends": "@lenster/config/react.tsconfig.json"
+  "extends": "@lenster/config/react.tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react-native",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  }
 }

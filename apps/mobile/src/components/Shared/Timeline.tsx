@@ -6,11 +6,17 @@ import {
 } from '@lenster/lens';
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
-import { View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 
-import tw from '../../helpers/tailwind';
-import SinglePublication from '../Publication/SinglePublication';
-import Divider from '../UI/Divider';
+import SinglePublication from '~/components/Publication/SinglePublication';
+import Divider from '~/components/UI/Divider';
+import tw from '~/lib/tailwind';
+
+const styles = {
+  container: tw.style('flex-1 bg-black', {
+    minHeight: Dimensions.get('screen').height
+  })
+};
 
 const Timeline = () => {
   const request: ExplorePublicationRequest = {
@@ -27,7 +33,7 @@ const Timeline = () => {
   const publications = data?.explorePublications?.items as Publication[];
 
   return (
-    <View style={tw`mt-2`}>
+    <View style={styles.container}>
       <FlashList
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => {
