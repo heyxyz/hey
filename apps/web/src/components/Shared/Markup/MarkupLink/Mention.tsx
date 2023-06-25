@@ -2,7 +2,7 @@ import { PUBLICATION } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { MarkupLinkProps } from 'src/types';
@@ -29,7 +29,7 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
       href={`/u/${formatHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.CLICK_MENTION, {
+        PostHog.track(PUBLICATION.CLICK_MENTION, {
           handle: formatHandle(handle)
         });
       }}

@@ -3,7 +3,7 @@ import SuperFollow from '@components/Settings/Account/SuperFollow';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -18,7 +18,7 @@ const AccountSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'account' });
+    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'account' });
   });
 
   if (!currentProfile) {

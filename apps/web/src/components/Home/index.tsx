@@ -4,7 +4,7 @@ import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'home' });
+    PostHog.track(PAGEVIEW, { page: 'home' });
   });
 
   return (

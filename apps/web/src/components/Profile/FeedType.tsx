@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { ProfileFeedType } from 'src/enums';
@@ -22,7 +22,7 @@ interface FeedTypeProps {
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
-    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+    PostHog.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
       profile_feed_type: type.toLowerCase()
     });
   };

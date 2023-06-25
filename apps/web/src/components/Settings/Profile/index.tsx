@@ -11,7 +11,7 @@ import {
   PageLoading,
   TabButton
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -30,7 +30,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   });
 
   const { data, loading, error } = useProfileSettingsQuery({

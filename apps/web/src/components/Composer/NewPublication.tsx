@@ -68,7 +68,7 @@ import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -239,7 +239,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       setShowNewPostModal(false);
     }
 
-    // Track in leafwatch
     const eventProperties = {
       publication_type: restricted ? 'token_gated' : 'public',
       publication_collect_module: collectModule.type,
@@ -255,7 +254,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? attachments.map((attachment) => attachment.original.mimeType)
           : null
     };
-    Leafwatch.track(
+    PostHog.track(
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
       eventProperties
     );

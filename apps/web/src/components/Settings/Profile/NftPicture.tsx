@@ -24,7 +24,7 @@ import {
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -75,7 +75,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
+    PostHog.track(SETTINGS.PROFILE.SET_NFT_PICTURE);
   };
 
   const onError = (error: any) => {
