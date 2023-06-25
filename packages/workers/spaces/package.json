@@ -2,7 +2,7 @@
   "name": "@workers/spaces",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8089",
     "lint": "eslint . --ext .ts",

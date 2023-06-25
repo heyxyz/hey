@@ -2,7 +2,7 @@
   "name": "@lenster/bundlr",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
