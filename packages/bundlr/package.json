@@ -15,7 +15,7 @@
     "viem": "^1.1.6"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "typescript": "^5.1.3"
   }
 }
