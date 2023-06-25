@@ -5,8 +5,8 @@ import type { FC } from 'react';
 import React, { useMemo } from 'react';
 import { Text, View } from 'react-native';
 
-import haptic from '../../helpers/haptic';
-import tw from '../../helpers/tailwind';
+import haptic from '~/lib/haptic';
+import tw from '~/lib/tailwind';
 
 const Header: FC<HeaderTitleProps> = () => {
   const animatePress = useMemo(
@@ -19,9 +19,9 @@ const Header: FC<HeaderTitleProps> = () => {
   );
 
   return (
-    <View style={tw`flex flex-row justify-between w-full items-center`}>
+    <View style={tw`flex-row justify-between w-full items-center`}>
       <Text style={tw`text-white font-bold text-2xl`}>Gm</Text>
-      <View style={tw`flex flex-row items-center gap-x-5`}>
+      <View style={tw`flex-row items-center gap-x-5`}>
         <MotiPressable
           onPress={() => {
             haptic();
