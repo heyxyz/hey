@@ -17649,7 +17649,7 @@ synckit@^0.8.5:
     "@pkgr/utils" "^2.3.1"
     tslib "^2.5.0"
 
-tailwindcss@^3.3.2:
+tailwindcss@>=2.0.0, tailwindcss@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.3.2.tgz#2f9e35d715fdf0bbf674d90147a0684d7054a2d3"
   integrity sha512-9jPkMiIBXvPc2KywkraqsUfbfj+dHDb+JPWtSJa9MLFdrPyazI7q6WX2sUrm7R9eVR7qqv3Pas7EvQFzxKnI6w==
@@ -18118,6 +18118,13 @@ tus-js-client@^3.0.1:
     lodash.throttle "^4.1.1"
     proper-lockfile "^4.1.2"
     url-parse "^1.5.7"
+
+twrnc@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/twrnc/-/twrnc-3.6.1.tgz#9c67075212ea5d5ee17a2fabedef243a56eb1252"
+  integrity sha512-50b790axXexv1ABEpetd+jwL1JTTvG/UiZGg8Mc3zFeKnhm1BVsg9C12oNI/Bos4vEsyIwkwHidj0uzI/NTtSw==
+  dependencies:
+    tailwindcss ">=2.0.0"
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"

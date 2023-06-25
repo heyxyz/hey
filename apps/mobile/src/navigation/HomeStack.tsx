@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import React from 'react';
 
 import Header from '../components/common/Header';
-import { DetailsScreen, HomeScreen } from '../screens';
+import { HomeScreen } from '../screens';
 import useMobileStore from '../store';
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>();
@@ -29,11 +29,6 @@ export const HomeStack: FC = () => {
           }
         }}
         component={HomeScreen}
-      />
-      <Screen
-        name="Details"
-        options={{ title: 'Details' }}
-        component={DetailsScreen}
       />
     </Navigator>
   );

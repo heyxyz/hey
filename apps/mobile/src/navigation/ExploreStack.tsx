@@ -19,9 +19,6 @@ export const ExploreStack: FC = () => {
           title: 'Explore',
           headerTitle: (props) => <Header {...props} />,
           headerShadowVisible: false,
-          // headerStyle: {
-          //   backgroundColor: theme.colors.background
-          // },
           animationEnabled: true,
           headerStyle: {
             backgroundColor: `${homeGradientColor}35`,

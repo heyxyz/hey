@@ -12,19 +12,12 @@ import {
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import type { FC } from 'react';
 import React from 'react';
-import { StyleSheet } from 'react-native';
 // eslint-disable-next-line import/no-duplicates
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import tailwind from 'twrnc';
 
 import { AppLoading } from './components';
 import { Navigation } from './navigation';
-import { NotificationsProvider } from './providers';
-
-const styles = StyleSheet.create({
-  gestureHandlerRootView: {
-    flex: 1
-  }
-});
 
 const httpLink = new HttpLink({
   uri: 'https://api.lens.dev',
@@ -40,9 +33,8 @@ const apolloClient = new ApolloClient({
 const App: FC = () => {
   return (
     <ApolloProvider client={apolloClient}>
-      <NotificationsProvider />
       <AppLoading>
-        <GestureHandlerRootView style={styles.gestureHandlerRootView}>
+        <GestureHandlerRootView style={tailwind`flex-1`}>
           <BottomSheetModalProvider>
             <Navigation />
           </BottomSheetModalProvider>

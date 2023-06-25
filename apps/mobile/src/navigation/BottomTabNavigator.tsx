@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MotiView } from 'moti';
 import type { FC } from 'react';
 import React, { useCallback } from 'react';
+import tailwind from 'twrnc';
 
-import { navigationTheme } from '../constants/theme';
 import haptic from '../helpers/haptic';
 import { useNavigationTheme } from '../hooks/navigation/useNavigationTheme';
 import { ExploreStack } from './ExploreStack';
@@ -23,7 +23,7 @@ export const BottomTabNavigator: FC = () => {
   const screenOptions = useCallback<ScreenOptions>(
     ({ route }) => ({
       tabBarShowLabel: false,
-      tabBarStyle: { backgroundColor: navigationTheme.colors.background },
+      tabBarStyle: tailwind`bg-black`,
       tabBarIcon: ({
         color,
         size,

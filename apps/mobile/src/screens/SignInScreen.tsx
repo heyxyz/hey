@@ -7,15 +7,8 @@ const SignInScreen: FC = () => {
   const { goBack } = useNavigation();
 
   return (
-    <View
-      style={{
-        flex: 1,
-        top: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-    >
-      <Text style={{ fontSize: 30 }}>This is a modal!</Text>
+    <View>
+      <Text>This is a modal!</Text>
       <Button onPress={() => goBack()} title="Dismiss" />
     </View>
   );
