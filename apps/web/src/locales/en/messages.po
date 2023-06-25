@@ -1987,10 +1987,6 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr "Your unique fingerprint"
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr "Export followers"
