@@ -6,6 +6,10 @@ import { posthog } from 'posthog-js';
  */
 export const PostHog = {
   track: (name: string, properties?: Record<string, unknown>) => {
+    if (window.location.hostname !== 'lenster.xyz') {
+      return;
+    }
+
     const user = JSON.parse(
       localStorage.getItem(Localstorage.LensterStore) ||
         JSON.stringify({ state: { profileId: null } })
