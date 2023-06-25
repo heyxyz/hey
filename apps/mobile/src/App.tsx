@@ -1,7 +1,3 @@
-import 'react-native-reanimated';
-// eslint-disable-next-line import/no-duplicates
-import 'react-native-gesture-handler';
-
 import {
   ApolloClient,
   ApolloProvider,
@@ -9,7 +5,6 @@ import {
   HttpLink,
   InMemoryCache
 } from '@apollo/client';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import type { FC } from 'react';
 import React from 'react';
 // eslint-disable-next-line import/no-duplicates
@@ -35,9 +30,7 @@ const App: FC = () => {
     <ApolloProvider client={apolloClient}>
       <AppLoading>
         <GestureHandlerRootView style={tailwind`flex-1`}>
-          <BottomSheetModalProvider>
-            <Navigation />
-          </BottomSheetModalProvider>
+          <Navigation />
         </GestureHandlerRootView>
       </AppLoading>
     </ApolloProvider>
