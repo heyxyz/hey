@@ -7,11 +7,8 @@ module.exports = function (api) {
       [
         'module-resolver',
         {
-          root: ['./'],
-          alias: {
-            '~assets': './assets',
-            '^~(.+)': './src/\\1'
-          },
+          root: ['src'],
+          alias: { '~': './src' },
           extensions: [
             '.ios.js',
             '.android.js',
