@@ -52,19 +52,23 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageProvider>
       <ErrorBoundary>
-        <LeafwatchProvider />
-        <WagmiConfig config={wagmiConfig}>
-          <ApolloProvider client={apolloClient}>
-            <UserSigNoncesProvider />
-            <QueryClientProvider client={queryClient}>
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider defaultTheme="light" attribute="class">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </LivepeerConfig>
-            </QueryClientProvider>
-          </ApolloProvider>
-        </WagmiConfig>
+        <LeafwatchProvider>
+          <WagmiConfig config={wagmiConfig}>
+            <ApolloProvider client={apolloClient}>
+              <UserSigNoncesProvider />
+              <QueryClientProvider client={queryClient}>
+                <LivepeerConfig
+                  client={livepeerClient}
+                  theme={getLivepeerTheme}
+                >
+                  <ThemeProvider defaultTheme="light" attribute="class">
+                    <Layout>{children}</Layout>
+                  </ThemeProvider>
+                </LivepeerConfig>
+              </QueryClientProvider>
+            </ApolloProvider>
+          </WagmiConfig>
+        </LeafwatchProvider>
       </ErrorBoundary>
     </LanguageProvider>
   );

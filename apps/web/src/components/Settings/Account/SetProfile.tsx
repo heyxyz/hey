@@ -13,7 +13,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -39,7 +39,7 @@ const SetProfile: FC = () => {
 
     setIsLoading(false);
     toast.success(t`Default profile updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    PostHog.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const onError = (error: any) => {

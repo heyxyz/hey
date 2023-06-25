@@ -4,7 +4,7 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
@@ -59,7 +59,7 @@ const Audio: FC<AudioProps> = ({
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
+      PostHog.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
         publication_id: publication?.id
       });
 
@@ -67,7 +67,7 @@ const Audio: FC<AudioProps> = ({
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
+    PostHog.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
       publication_id: publication?.id
     });
   };

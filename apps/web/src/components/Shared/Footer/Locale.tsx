@@ -3,7 +3,7 @@ import { GlobeAltIcon } from '@heroicons/react/outline';
 import { FeatureFlag, Localstorage } from '@lenster/data';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -48,7 +48,7 @@ const Locale: FC = () => {
               as="div"
               onClick={() => {
                 setLanguage(localeCode);
-                Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
+                PostHog.track(MISCELLANEOUS.SELECT_LOCALE, {
                   locale: localeCode
                 });
                 location.reload();

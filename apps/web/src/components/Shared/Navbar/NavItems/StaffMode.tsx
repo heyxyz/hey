@@ -4,7 +4,7 @@ import {
   ShieldExclamationIcon
 } from '@heroicons/react/outline';
 import { STAFFTOOLS } from '@lenster/data/tracking';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+    PostHog.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (

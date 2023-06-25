@@ -1,22 +1,36 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs';
-import type { FC } from 'react';
-import { useFingerprintStore } from 'src/store/fingerprint';
+import { IS_PRODUCTION } from '@lenster/data';
+import posthog from 'posthog-js';
+import { PostHogProvider } from 'posthog-js/react';
+import type { FC, ReactNode } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
-const LeafwatchProvider: FC = () => {
-  const setFingerprint = useFingerprintStore((state) => state.setFingerprint);
+interface LeafwatchProviderProps {
+  children: ReactNode;
+}
 
-  const saveFingerprint = async () => {
-    const fp = await FingerprintJS.load();
-    const { visitorId } = await fp.get();
-    setFingerprint(visitorId);
-  };
-
+const LeafwatchProvider: FC<LeafwatchProviderProps> = ({ children }) => {
   useEffectOnce(() => {
-    saveFingerprint();
+    posthog.init('phc_f0g6kMcxKrDGaFsKHhRknS7TKURWLWvdaOuo8fNBPwA', {
+      api_host: 'https://app.posthog.com',
+      request_batching: false,
+      autocapture: false,
+      capture_pageview: false,
+      cookie_name: 'lenster_hog',
+      persistence: 'localStorage',
+      persistence_name: 'lenster_features',
+      loaded: (posthog) => {
+        if (!IS_PRODUCTION) {
+          posthog.debug();
+        }
+      }
+    });
   });
 
-  return null;
+  useEffectOnce(() => {
+    // posthog.se('pageview');
+  });
+
+  return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
 };
 
 export default LeafwatchProvider;

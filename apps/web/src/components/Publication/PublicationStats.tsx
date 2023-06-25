@@ -10,7 +10,7 @@ import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -58,7 +58,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowMirrorsModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
+              PostHog.track(PUBLICATION.OPEN_MIRRORS, {
                 publication_id: publicationId
               });
             }}
@@ -90,7 +90,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowLikesModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_LIKES, {
+              PostHog.track(PUBLICATION.OPEN_LIKES, {
                 publication_id: publicationId
               });
             }}
@@ -122,7 +122,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             type="button"
             onClick={() => {
               setShowCollectorsModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
+              PostHog.track(PUBLICATION.OPEN_COLLECTORS, {
                 publication_id: publicationId
               });
             }}

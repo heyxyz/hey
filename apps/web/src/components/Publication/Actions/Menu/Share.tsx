@@ -3,7 +3,7 @@ import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -29,7 +29,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
           `${location.origin}/posts/${publication?.id}`
         );
         toast.success(t`Copied to clipboard!`);
-        Leafwatch.track(PUBLICATION.SHARE, {
+        PostHog.track(PUBLICATION.SHARE, {
           publication_id: publication.id
         });
       }}
