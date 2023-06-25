@@ -26,7 +26,7 @@ jobs:
 
       - name: Deploy 🚀
         run: |
-          yarn add wrangler -g
+          yarn global add wrangler
           yarn workers:deploy:affected
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
