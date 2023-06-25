@@ -6,7 +6,7 @@ import type { ElectedMirror, Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal, Tooltip } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -61,7 +61,7 @@ const Collect: FC<CollectProps> = ({
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            PostHog.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >

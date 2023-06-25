@@ -18,7 +18,7 @@ import {
   WarningMessage
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -44,7 +44,7 @@ const DeleteSettings: FC = () => {
   const { disconnect } = useDisconnect();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
   });
 
   const onCompleted = () => {

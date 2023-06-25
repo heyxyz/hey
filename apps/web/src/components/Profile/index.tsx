@@ -9,7 +9,7 @@ import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -41,7 +41,7 @@ const ViewProfile: NextPage = () => {
   const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
+    PostHog.track(PAGEVIEW, { page: 'profile' });
   });
 
   const handle = formatHandle(username as string, true);

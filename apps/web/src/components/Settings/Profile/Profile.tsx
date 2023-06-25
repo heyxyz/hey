@@ -35,7 +35,7 @@ import {
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -96,7 +96,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    PostHog.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const onError = (error: any) => {

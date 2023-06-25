@@ -10542,6 +10542,11 @@ fetch-retry@^4.1.1:
   resolved "https://registry.yarnpkg.com/fetch-retry/-/fetch-retry-4.1.1.tgz#fafe0bb22b54f4d0a9c788dff6dd7f8673ca63f3"
   integrity sha512-e6eB7zN6UBSwGVwrbWVH+gdLnkW9WwHhmq2YDK1Sh30pzx1onRVGBvogTlUeWxwTa+L86NYdo4hFkh7O8ZjSnA==
 
+fflate@^0.4.1:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.4.8.tgz#f90b82aefbd8ac174213abb338bd7ef848f0f5ae"
+  integrity sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==
+
 figures@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-3.2.0.tgz#625c18bd293c604dc4a8ddb2febf0c88341746af"
@@ -15359,6 +15364,13 @@ postcss@^8.3.5, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.24:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+posthog-js@^1.68.4:
+  version "1.68.4"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.68.4.tgz#c9ec6edc8f6f274970d4f05c4ffa3a2564581b1a"
+  integrity sha512-rHk4uk99nvWiDTU7P2mFdEfzFR6km0hvOpCR3tm/+F7kCJKs7QDkMblOZZHZultxM4wSNyB4neeohmnHjKYUhQ==
+  dependencies:
+    fflate "^0.4.1"
 
 preact@^10.12.0, preact@^10.5.9:
   version "10.15.1"
