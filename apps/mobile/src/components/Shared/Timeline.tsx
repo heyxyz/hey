@@ -7,9 +7,10 @@ import {
 import { FlashList } from '@shopify/flash-list';
 import React from 'react';
 import { View } from 'react-native';
-import tailwind from 'twrnc';
 
-import SinglePublication from '../../publication/SinglePublication';
+import tw from '../../helpers/tailwind';
+import SinglePublication from '../Publication/SinglePublication';
+import Divider from '../UI/Divider';
 
 const Timeline = () => {
   const request: ExplorePublicationRequest = {
@@ -26,11 +27,9 @@ const Timeline = () => {
   const publications = data?.explorePublications?.items as Publication[];
 
   return (
-    <View style={tailwind`mt-2`}>
+    <View style={tw`mt-2`}>
       <FlashList
-        ItemSeparatorComponent={() => (
-          <View style={tailwind`border-b border-gray-500`} />
-        )}
+        ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => {
           return <SinglePublication publication={item} style="m-5" />;
         }}

@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import type { FC } from 'react';
 import React from 'react';
 
-import Header from '../components/common/Header';
+import Header from '../components/Shared/Header';
 import { HomeScreen } from '../screens';
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>();
