@@ -1,4 +1,4 @@
-import type { Publication } from '@lenster/lens';
+import type { ExplorePublicationRequest, Publication } from '@lenster/lens';
 import {
   CustomFiltersTypes,
   PublicationSortCriteria,
@@ -12,7 +12,7 @@ import tailwind from 'twrnc';
 import SinglePublication from '../../publication/SinglePublication';
 
 const Timeline = () => {
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 50,
     noRandomize: false,
