@@ -7,7 +7,7 @@ import UserProfile from '~/components/Shared/UserProfile';
 import tw from '~/lib/tailwind';
 
 const styles = {
-  content: tw.style('text-white font-bold text-md leading-6', {
+  content: tw.style('text-white font-bold leading-6', {
     fontFamily: 'circular-medium'
   })
 };

@@ -4,10 +4,13 @@ import React from 'react';
 
 import Header from '~/components/Shared/Header';
 import { HomeScreen } from '~/screens/HomeScreen';
+import useMobileStore from '~/store/useMobileStore';
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>();
 
 export const HomeStack: FC = () => {
+  const homeGradientColor = useMobileStore((state) => state.homeGradientColor);
+
   return (
     <Navigator>
       <Screen
@@ -18,6 +21,7 @@ export const HomeStack: FC = () => {
           headerShadowVisible: false,
           animationEnabled: true,
           headerStyle: {
+            backgroundColor: homeGradientColor,
             shadowColor: 'transparent',
             elevation: 0
           }

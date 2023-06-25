@@ -4,10 +4,13 @@ import React from 'react';
 
 import Header from '~/components/Shared/Header';
 import { ExploreScreen } from '~/screens/ExploreScreen';
+import useMobileStore from '~/store/useMobileStore';
 
 const { Navigator, Screen } = createStackNavigator<ExploreStackParamList>();
 
 export const ExploreStack: FC = () => {
+  const homeGradientColor = useMobileStore((state) => state.homeGradientColor);
+
   return (
     <Navigator>
       <Screen
@@ -18,6 +21,7 @@ export const ExploreStack: FC = () => {
           headerShadowVisible: false,
           animationEnabled: true,
           headerStyle: {
+            backgroundColor: homeGradientColor,
             shadowColor: 'transparent',
             elevation: 0
           }
