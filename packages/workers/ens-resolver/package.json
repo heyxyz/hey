@@ -2,14 +2,14 @@
   "name": "@workers/ens-resolver",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8086",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "pnpm dev",
+    "start": "yarn dev",
     "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "typescript": "^5.1.3",
     "vitest": "^0.32.2",
     "wrangler": "^3.1.1"

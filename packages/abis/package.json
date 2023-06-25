@@ -2,7 +2,7 @@
   "name": "@lenster/abis",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts",
@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "typescript": "^5.1.3"
   }
 }

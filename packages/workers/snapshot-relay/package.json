@@ -2,7 +2,7 @@
   "name": "@workers/snapshot-relay",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
@@ -11,13 +11,13 @@
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "pnpm dev",
+    "start": "yarn dev",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "@apollo/client": "^3.7.16",
-    "@lenster/lib": "workspace:*",
+    "@lenster/lib": "*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.13",
     "viem": "^1.1.6"
@@ -29,7 +29,7 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "typescript": "^5.1.3",
     "wrangler": "^3.1.1"
   }

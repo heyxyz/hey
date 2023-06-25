@@ -2,7 +2,7 @@
   "name": "@lenster/lens",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "main": "generated.ts",
   "scripts": {
     "codegen": "graphql-codegen",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.16",
-    "@lenster/data": "workspace:*",
+    "@lenster/data": "*",
     "axios": "^1.4.0"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "@types/node": "^20.3.1",
     "typescript": "^5.1.3"
   }

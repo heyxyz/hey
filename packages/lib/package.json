@@ -2,7 +2,7 @@
   "name": "@lenster/lib",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
@@ -12,12 +12,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lenster/data": "workspace:*",
-    "@lenster/lens": "workspace:*",
+    "@lenster/data": "*",
+    "@lenster/lens": "*",
     "viem": "^1.1.6"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "@types/node": "^20.3.1",
     "typescript": "^5.1.3",
     "vitest": "^0.32.2"

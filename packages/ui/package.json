@@ -2,7 +2,7 @@
   "name": "@lenster/ui",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx",
@@ -15,8 +15,8 @@
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.1",
-    "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
+    "@lenster/data": "*",
+    "@lenster/lib": "*",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^1.2.1",
     "next": "^13.4.2",
@@ -25,7 +25,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "@types/node": "^20.3.1",
     "@types/react": "^18.2.14",
     "typescript": "^5.1.3"

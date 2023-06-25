@@ -2,7 +2,7 @@
   "name": "@workers/sts-generator",
   "version": "0.0.0",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "wrangler dev --port 8082",
     "lint": "eslint . --ext .ts",
@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@lenster/config": "workspace:*",
+    "@lenster/config": "*",
     "typescript": "^5.1.3",
     "wrangler": "^3.1.1"
   }

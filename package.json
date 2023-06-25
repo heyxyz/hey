@@ -2,13 +2,17 @@
   "name": "lenster",
   "version": "1.1.2-beta",
   "private": true,
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "packages/workers/*"
+  ],
   "scripts": {
     "build": "turbo run build --parallel",
     "codegen": "turbo run codegen --parallel",
     "dev": "turbo run dev --parallel",
     "i18n:extract": "turbo run extract",
-    "preinstall": "npx only-allow pnpm",
     "lint": "turbo run lint --parallel",
     "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
     "lint:fix": "turbo run lint:fix --parallel",
@@ -34,7 +38,7 @@
     "start-server-and-test": "^2.0.0",
     "turbo": "^1.10.6"
   },
-  "packageManager": "pnpm@8.5.0",
+  "packageManager": "yarn@1.22.19",
   "engines": {
     "node": ">=18.0.0"
   }
