@@ -11,7 +11,7 @@ import {
   GridLayout,
   Spinner
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Link from 'next/link';
@@ -69,7 +69,7 @@ const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
+    PostHog.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
   });
 
   const { data, loading, error } = useRelayQueuesQuery({

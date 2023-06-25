@@ -14,7 +14,7 @@ import {
   GridLayout,
   Image
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -27,7 +27,7 @@ const NFTDetail: FC = () => {
   const isNftDetailEnabled = isFeatureEnabled(FeatureFlag.NftDetail);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'nft' });
+    PostHog.track(PAGEVIEW, { page: 'nft' });
   });
 
   if (!isNftDetailEnabled || !currentProfile) {

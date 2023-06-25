@@ -3,7 +3,7 @@ import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -21,7 +21,7 @@ const DispatcherSettings: FC = () => {
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
+    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
   });
 
   const getTitleText = () => {

@@ -3,7 +3,7 @@ import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Button, Modal } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import dynamic from 'next/dynamic';
 import type { Dispatch, FC } from 'react';
@@ -55,7 +55,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
+          PostHog.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
         aria-label="Super Follow"
         icon={<StarIcon className="h-4 w-4" />}

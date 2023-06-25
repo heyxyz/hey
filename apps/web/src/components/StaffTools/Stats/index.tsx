@@ -24,7 +24,7 @@ import {
   Spinner
 } from '@lenster/ui';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
@@ -86,7 +86,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
+    PostHog.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
   const { data, loading, error } = useLensterStatsQuery({

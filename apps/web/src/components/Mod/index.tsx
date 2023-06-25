@@ -16,7 +16,7 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Mod: NextPage = () => {
   ]);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'mod' });
+    PostHog.track(PAGEVIEW, { page: 'mod' });
   });
 
   if (!isGardener(currentProfile?.id)) {

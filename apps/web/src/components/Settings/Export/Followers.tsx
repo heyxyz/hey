@@ -3,7 +3,7 @@ import type { FollowersRequest } from '@lenster/lens';
 import { useFollowersLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const Followers: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.FOLLOWERS);
+    PostHog.track(SETTINGS.EXPORT.FOLLOWERS);
     setExporting(true);
     const fetchFollowers = async (cursor?: string) => {
       const { data } = await exportFollowers({

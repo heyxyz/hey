@@ -15,7 +15,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { parseConversationKey } from '@lib/conversationKey';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -191,7 +191,7 @@ const MessagePage: NextPage = () => {
   } = useRouter();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'conversation' });
+    PostHog.track(PAGEVIEW, { page: 'conversation' });
   });
 
   // Need to have a login page for when there is no currentProfileId

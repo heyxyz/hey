@@ -3,7 +3,7 @@ import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
 import isPrideMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { MarkupLinkProps } from 'src/types';
@@ -24,7 +24,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             stopEventPropagation(event);
-            Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {
+            PostHog.track(PUBLICATION.CLICK_HASHTAG, {
               hashtag: title.slice(1)
             });
           }}

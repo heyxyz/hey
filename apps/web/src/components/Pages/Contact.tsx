@@ -17,7 +17,7 @@ import {
   TextArea,
   useZodForm
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -44,7 +44,7 @@ const Contact: FC = () => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'contact' });
+    PostHog.track(PAGEVIEW, { page: 'contact' });
   });
 
   const form = useZodForm({

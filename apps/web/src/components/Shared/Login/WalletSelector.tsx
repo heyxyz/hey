@@ -11,7 +11,7 @@ import {
 import getWalletDetails from '@lenster/lib/getWalletDetails';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
@@ -71,7 +71,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       if (account) {
         setHasConnected(true);
       }
-      Leafwatch.track(AUTH.CONNECT_WALLET, {
+      PostHog.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
     } catch (error) {
@@ -127,7 +127,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Leafwatch.track(AUTH.SIWL);
+      PostHog.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -167,7 +167,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         <button
           onClick={() => {
             disconnect?.();
-            Leafwatch.track(AUTH.CHANGE_WALLET);
+            PostHog.track(AUTH.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >
