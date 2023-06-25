@@ -10,7 +10,7 @@ interface AnalyticsProviderProps {
 
 const AnalyticsProvider: FC<AnalyticsProviderProps> = ({ children }) => {
   useEffectOnce(() => {
-    posthog.init('phc_f0g6kMcxKrDGaFsKHhRknS7TKURWLWvdaOuo8fNBPwA', {
+    posthog.init('phc_GrV2TJaJlKZiHbyI9GBVwxebu1DVYxrKVtySmQD427L', {
       api_host: 'https://app.posthog.com',
       request_batching: false,
       autocapture: false,
