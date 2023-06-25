@@ -1,8 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
+import SignInScreen from '@screens/SignInScreen';
 import type { FC } from 'react';
 import React from 'react';
 
-import SignInScreen from '../screens/SignInScreen';
 import { BottomTabNavigator } from './BottomTabNavigator';
 
 const { Navigator, Screen, Group } = createStackNavigator<RootStackParamList>();

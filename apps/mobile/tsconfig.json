@@ -1,3 +1,16 @@
 {
-  "extends": "@lenster/config/react.tsconfig.json"
+  "extends": "@lenster/config/react.tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components*": ["src/components*"],
+      "@screens*": ["src/screens*"],
+      "@navigation*": ["src/navigation*"],
+      "@types*": ["src/types*"],
+      "@lib*": ["src/lib*"],
+      "@hooks*": ["src/hooks*"],
+      "@constants*": ["src/constants*"]
+    },
+    "strictNullChecks": true
+  }
 }

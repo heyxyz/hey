@@ -1,9 +1,8 @@
+import Header from '@components/Shared/Header';
 import { createStackNavigator } from '@react-navigation/stack';
+import { HomeScreen } from '@screens/HomeScreen';
 import type { FC } from 'react';
 import React from 'react';
-
-import Header from '../components/Shared/Header';
-import { HomeScreen } from '../screens';
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>();
 

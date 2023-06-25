@@ -15,7 +15,7 @@ import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AppLoading } from './components/Shared/AppLoading';
-import tw from './helpers/tailwind';
+import tw from './lib/tailwind';
 import { Navigation } from './navigation';
 
 const httpLink = new HttpLink({
