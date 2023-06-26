@@ -12,6 +12,10 @@ const nextConfig = {
   async rewrites() {
     return [
       {
+        source: '/ingest/:path*',
+        destination: 'https://app.posthog.com/:path*'
+      },
+      {
         source: '/sitemap.xml',
         destination: 'https://sitemap.lenster.xyz/sitemap.xml'
       },
