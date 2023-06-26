@@ -12,7 +12,7 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import { usePublicationQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
@@ -33,7 +33,7 @@ const ViewPublication: NextPage = () => {
   } = useRouter();
 
   useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'publication' });
+    Leafwatch.track(PAGEVIEW, { page: 'publication' });
   });
 
   const { data, loading, error } = usePublicationQuery({

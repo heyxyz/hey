@@ -1,6 +1,6 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
 import { SYSTEM } from '@lenster/data/tracking';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
@@ -23,7 +23,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
       )}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        PostHog.track(SYSTEM.SWITCH_THEME, {
+        Leafwatch.track(SYSTEM.SWITCH_THEME, {
           mode: theme === 'light' ? 'dark' : 'light'
         });
         onClick?.();

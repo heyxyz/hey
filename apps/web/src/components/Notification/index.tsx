@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -29,7 +29,7 @@ const Notification: FC = () => {
   );
 
   useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'notifications' });
+    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
   });
 
   if (!currentProfile) {

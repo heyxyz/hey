@@ -11,7 +11,7 @@ import {
   useEnabledModulesQuery
 } from '@lenster/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -53,7 +53,7 @@ const AllowanceSettings: NextPage = () => {
     });
 
   useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
   });
 
   if (error || enabledModulesError) {

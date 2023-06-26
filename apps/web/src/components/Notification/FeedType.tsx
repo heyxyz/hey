@@ -7,7 +7,7 @@ import {
 } from '@heroicons/react/outline';
 import { NOTIFICATION } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';
@@ -20,7 +20,7 @@ interface FeedTypeProps {
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
-    PostHog.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
+    Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
   };

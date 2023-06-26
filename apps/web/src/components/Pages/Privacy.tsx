@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -10,7 +10,7 @@ import { useEffectOnce } from 'usehooks-ts';
 
 const Privacy: FC = () => {
   useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'privacy' });
+    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
   });
 
   const updatedAt = 'December 11, 2022';
