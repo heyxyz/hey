@@ -1,5 +1,6 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
+import useSendMessage from '@components/utils/hooks/useSendMessage';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -8,6 +9,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { Image } from '@lenster/ui';
+import { ContentTypeText } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
@@ -31,6 +33,8 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
   const url =
     (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
+
+  const { sendMessage } = useSendMessage(conversationKey ?? '');
 
   const setFollowingWrapped = useCallback(
     (following: boolean) => {
@@ -77,6 +81,33 @@ const MessageHeader: FC<MessageHeaderProps> = ({
       </div>
       {profile && (
         <div>
+          <img
+            src="/camera-video.svg"
+            onClick={async () => {
+              const apiCall = await fetch(
+                'https://api.huddle01.com/api/v1/create-room',
+                {
+                  method: 'POST',
+                  body: JSON.stringify({
+                    title: 'Huddle01 Meeting'
+                  }),
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': process.env.NEXT_PUBLIC_API_KEY || ''
+                  }
+                }
+              );
+              const data = await apiCall.json();
+              const { meetingLink } = data.data;
+              sendMessage(
+                `Join here for a call: ${meetingLink}`,
+                ContentTypeText,
+                ''
+              );
+              window.open(meetingLink, 'newwindow', 'width=1200, height=800');
+            }}
+            className="mb-2 mr-4 inline h-8 w-8 cursor-pointer"
+          />
           {!following ? (
             <Follow
               showText

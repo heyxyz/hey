@@ -52,7 +52,23 @@ const MessageContent: FC<MessageContentProps> = ({
     );
   }
 
-  return <Markup>{message.content}</Markup>;
+  const meetingUrlMatches = message.content.match(
+    /(https:\/\/lenster\.huddle01\.com\/\S+)/gi
+  );
+  const meetingLink = meetingUrlMatches ? meetingUrlMatches[0] : null;
+
+  return meetingLink ? (
+    <div>
+      {'Join here for a call: '}
+      <a
+        href={`javascript:window.open('${meetingLink}', 'newwindow', 'height=800,width=1200');`}
+      >
+        Click here
+      </a>
+    </div>
+  ) : (
+    <Markup>{message.content}</Markup>
+  );
 };
 
 export default MessageContent;
