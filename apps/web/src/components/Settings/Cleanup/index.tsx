@@ -10,7 +10,7 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
@@ -25,7 +25,7 @@ const CleanupSettings: NextPage = () => {
   const disconnectXmtp = useDisconnectXmtp();
 
   useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
   });
 
   if (!currentProfile) {

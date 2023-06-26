@@ -3,7 +3,7 @@ import { TranslateIcon } from '@heroicons/react/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -32,7 +32,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       href={getGoogleTranslateUrl(publication?.metadata?.content)}
       onClick={(event) => {
         stopEventPropagation(event);
-        PostHog.track(PUBLICATION.TRANSLATE, {
+        Leafwatch.track(PUBLICATION.TRANSLATE, {
           publication_id: publication.id
         });
       }}

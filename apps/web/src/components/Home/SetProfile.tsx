@@ -8,7 +8,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME } from '@lenster/data/constants';
 import { ONBOARDING } from '@lenster/data/tracking';
 import { Card } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -75,7 +75,7 @@ const SetProfile: FC = () => {
           <Link
             className="flex items-center space-x-2"
             onClick={() =>
-              PostHog.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
+              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
             href="/settings/interests"
           >
@@ -90,7 +90,7 @@ const SetProfile: FC = () => {
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
         <Link
-          onClick={() => PostHog.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
+          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
         >
           <Trans>Update profile now</Trans>

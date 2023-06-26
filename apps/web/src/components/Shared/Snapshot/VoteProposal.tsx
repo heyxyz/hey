@@ -5,7 +5,7 @@ import { APP_NAME, Errors } from '@lenster/data';
 import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import { Button, Spinner } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { snapshotClient } from '@lib/snapshotClient';
 import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
@@ -89,7 +89,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       });
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
-      PostHog.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: 'snapshot'
       });
