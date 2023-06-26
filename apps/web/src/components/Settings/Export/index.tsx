@@ -10,6 +10,7 @@ import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
+import Fingerprint from './Fingerprint';
 import Followers from './Followers';
 import Following from './Following';
 import Notifications from './Notifications';
@@ -39,6 +40,7 @@ const ExportSettings: NextPage = () => {
         <Notifications />
         <Following />
         <Followers />
+        <Fingerprint />
       </GridItemEight>
     </GridLayout>
   );
