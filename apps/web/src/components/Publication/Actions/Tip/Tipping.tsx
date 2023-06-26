@@ -241,7 +241,6 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                   let value = e.target.value.trim().replace(',', '.');
 
                   const splitValue = value.split('');
-                    console.log(splitValue)
                   if (splitValue[0].startsWith('0') && splitValue[0].length > 1) {
                     splitValue[0] = splitValue[0].slice(1);
                     value = splitValue.join('.');
@@ -258,7 +257,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                   }
 
                   const number = parseFloat(value) || 0;
-           
+
                   if (number < 0) {
                     alert('Input cannot be negative');
                   } else if (number > 1000000) {
