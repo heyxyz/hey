@@ -171,18 +171,15 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
     );
   }
 
-  const handleAllowance = (customAllowance?: string) => {
+  const handleAllowance = (revokeAllowance?: string) => {
     const abi = ['function approve(address spender, uint256 value)'];
     let iface = new ethers.utils.Interface(abi);
 
-    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
-    let hexCustomAllowance;
-    if (customAllowance) {
-      hexCustomAllowance = ethers.utils.parseUnits(customAllowance!, 18).toHexString();
-    }
+    const maxAllowance = ethers.constants.MaxUint256.toHexString();
+
     const approveVotingStrategy = iface.encodeFunctionData('approve', [
       roundInfo.votingStrategy.id,
-      customAllowance ? hexCustomAllowance : hexTipAmount
+      revokeAllowance ? revokeAllowance : maxAllowance
     ]);
     setRoundContractAllowancePending(true);
     sendTransaction?.({
@@ -236,18 +233,42 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                 className="mr-2 flex-grow rounded"
                 type="number"
                 step="0.0001"
+                min="0"
+                max="1000000"
                 placeholder="How much do you want to tip?"
                 value={tipAmount}
                 onChange={(e) => {
-                  const value = e.target.value.trim();
+                  let value = e.target.value.trim().replace(',', '.');
+
+                  const splitValue = value.split('');
+                    console.log(splitValue)
+                  if (splitValue[0].startsWith('0') && splitValue[0].length > 1) {
+                    splitValue[0] = splitValue[0].slice(1);
+                    value = splitValue.join('.');
+                  }
+
+                  if (splitValue.length > 2) {
+                    alert('Invalid input');
+                    return;
+                  }
+
                   if (value === '' || value === '.') {
                     setTipAmount('0');
+                    return;
+                  }
+
+                  const number = parseFloat(value) || 0;
+           
+                  if (number < 0) {
+                    alert('Input cannot be negative');
+                  } else if (number > 1000000) {
+                    alert('Input cannot be greater than 1,000,000');
                   } else {
-                    setTipAmount(Math.max(parseFloat(value), 0).toString());
+                    setTipAmount(number.toString());
                   }
                 }}
               />
-
+              {/* {console.log(tipAmount)} */}
               <Button
                 onClick={roundContractAllowed ? () => write() : () => handleAllowance()}
                 disabled={isLoading || tipAmount === '0'}
@@ -275,7 +296,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                       <MinusIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => handleAllowance('0')}
+                  onClick={() => handleAllowance(ethers.utils.parseUnits('0', 18).toHexString())}
                 >
                   <Trans>Revoke Allowance</Trans>
                 </Button>
