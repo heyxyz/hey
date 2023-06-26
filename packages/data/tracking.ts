@@ -1,157 +1,156 @@
 // Strings used for events tracking
 
-export const PAGEVIEW = 'Pageview';
 export const AUTH = {
-  LOGIN: 'User login',
-  LOGOUT: 'User logout',
-  SIWL: 'Sign in with Lens',
-  CONNECT_WALLET: 'Connect wallet',
-  CHANGE_WALLET: 'Change wallet'
+  LOGIN: 'user_login',
+  LOGOUT: 'user_logout',
+  SIWL: 'sign_in_with_lens',
+  CONNECT_WALLET: 'connect_wallet',
+  CHANGE_WALLET: 'change_wallet'
 };
 
 export const PROFILE = {
-  FOLLOW: 'Follow profile',
-  SUPER_FOLLOW: 'Super follow profile',
-  UNFOLLOW: 'Unfollow profile',
-  DISMISS_RECOMMENDED_PROFILE: 'Dismiss recommended profile',
-  OPEN_SUPER_FOLLOW: 'Open super follow modal',
-  OPEN_FOLLOWERS: 'Open followers modal',
-  OPEN_FOLLOWING: 'Open following modal',
-  SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
-  SWITCH_PROFILE: 'Switch profile',
-  LOGOUT: 'Profile logout'
+  FOLLOW: 'follow_profile',
+  SUPER_FOLLOW: 'super_follow_profile',
+  UNFOLLOW: 'unfollow_profile',
+  DISMISS_RECOMMENDED_PROFILE: 'dismiss_recommended_profile',
+  OPEN_SUPER_FOLLOW: 'open_super_follow_modal',
+  OPEN_FOLLOWERS: 'open_followers_modal',
+  OPEN_FOLLOWING: 'open_following_modal',
+  SWITCH_PROFILE_FEED_TAB: 'switch_profile_feed_tab',
+  SWITCH_PROFILE: 'switch_profile',
+  LOGOUT: 'profile_logout'
 };
 
 export const PUBLICATION = {
-  NEW_POST: 'New post',
-  NEW_COMMENT: 'New comment',
-  LIKE: 'Like publication',
-  UNLIKE: 'Unlike publication',
-  MIRROR: 'Mirror publication',
-  SHARE: 'Share publication',
-  TRANSLATE: 'Translate publication',
-  COPY_TEXT: 'Copy publication text',
-  DELETE: 'Delete publication',
-  REPORT: 'Report publication',
-  CLICK_OEMBED: 'Click publication oembed',
-  CLICK_HASHTAG: 'Click publication hashtag',
-  CLICK_MENTION: 'Click publication mention',
-  OPEN_LIKES: 'Open likes modal',
-  OPEN_MIRRORS: 'Open mirrors modal',
-  OPEN_COLLECTORS: 'Open collectors modal',
-  OPEN_GIFS: 'Open GIFs modal',
+  NEW_POST: 'new_post',
+  NEW_COMMENT: 'new_comment',
+  LIKE: 'like_publication',
+  UNLIKE: 'unlike_publication',
+  MIRROR: 'mirror_publication',
+  SHARE: 'share_publication',
+  TRANSLATE: 'translate_publication',
+  COPY_TEXT: 'copy_publication_text',
+  DELETE: 'delete_publication',
+  REPORT: 'report_publication',
+  CLICK_OEMBED: 'click_publication_oembed',
+  CLICK_HASHTAG: 'click_publication_hashtag',
+  CLICK_MENTION: 'click_publication_mention',
+  OPEN_LIKES: 'open_likes_modal',
+  OPEN_MIRRORS: 'open_mirrors_modal',
+  OPEN_COLLECTORS: 'open_collectors_modal',
+  OPEN_GIFS: 'open_gifs_modal',
   ATTACHMENT: {
     IMAGE: {
-      OPEN: 'Open image attachment'
+      OPEN: 'open_image_attachment'
     },
     AUDIO: {
-      PLAY: 'Play audio',
-      PAUSE: 'Pause audio'
+      PLAY: 'play_audio',
+      PAUSE: 'pause_audio'
     }
   },
   COLLECT_MODULE: {
-    OPEN_COLLECT: 'Open collect modal',
-    COLLECT: 'Collect publication',
-    OPEN_UNISWAP: 'Open Uniswap'
+    OPEN_COLLECT: 'open_collect_modal',
+    COLLECT: 'collect_publication',
+    OPEN_UNISWAP: 'open_uniswap'
   },
   TOKEN_GATED: {
-    CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
-    CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
-    DECRYPT: 'Decrypt token gated publication'
+    CHECKLIST_NAVIGATED_TO_COLLECT: 'decrypt_checklist_navigated_to_collect',
+    CHECKLIST_NAVIGATED_TO_TOKEN: 'decrypt_checklist_navigated_to_token',
+    CHECKLIST_NAVIGATED_TO_NFT: 'decrypt_checklist_navigated_to_nft',
+    DECRYPT: 'decrypt_token_gated_publication'
   },
   WIDGET: {
     SNAPSHOT: {
-      OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
-      VOTE: 'Snapshot: Vote'
+      OPEN_CAST_VOTE: 'snapshot_open_cast_vote_modal',
+      VOTE: 'snapshot_vote'
     }
   }
 };
 
 export const NOTIFICATION = {
-  SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
+  SWITCH_NOTIFICATION_TAB: 'switch_notifications_tab'
 };
 
 export const EXPLORE = {
-  SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
-  SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
+  SWITCH_EXPLORE_FEED_TAB: 'switch_explore_feed_tab',
+  SWITCH_EXPLORE_FEED_FOCUS: 'switch_explore_feed_focus'
 };
 
 export const MESSAGES = {
-  SEND: 'Send message',
-  OPEN_NEW_CONVERSATION: 'Open new conversation modal'
+  SEND: 'send_message',
+  OPEN_NEW_CONVERSATION: 'open_new_conversation_modal'
 };
 
 export const SETTINGS = {
   ACCOUNT: {
-    SET_DEFAULT_PROFILE: 'Set default profile',
-    SET_SUPER_FOLLOW: 'Set super follow'
+    SET_DEFAULT_PROFILE: 'set_default_profile',
+    SET_SUPER_FOLLOW: 'set_super_follow'
   },
   PROFILE: {
-    UPDATE: 'Update profile',
-    SET_NFT_PICTURE: 'Set NFT profile picture',
-    SET_PICTURE: 'Set profile picture',
-    SET_STATUS: 'Set profile status',
-    CLEAR_STATUS: 'Clear profile status'
+    UPDATE: 'update_profile',
+    SET_NFT_PICTURE: 'set_nft_profile_picture',
+    SET_PICTURE: 'set_profile_picture',
+    SET_STATUS: 'set_profile_status',
+    CLEAR_STATUS: 'clear_profile_status'
   },
   DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher',
-    UPDATE: 'Update dispatcher'
+    TOGGLE: 'toggle_dispatcher',
+    UPDATE: 'update_dispatcher'
   },
   ALLOWANCE: {
-    TOGGLE: 'Toggle allowance'
+    TOGGLE: 'toggle_allowance'
   },
   INTERESTS: {
-    ADD: 'Add profile interest',
-    REMOVE: 'Remove profile interest'
+    ADD: 'add_profile_interest',
+    REMOVE: 'remove_profile_interest'
   },
   EXPORT: {
-    PROFILE: 'Export profile',
-    PUBLICATIONS: 'Export publications',
-    NOTIFICATIONS: 'Export notifications',
-    FOLLOWING: 'Export following',
-    FOLLOWERS: 'Export followers'
+    PROFILE: 'export_profile',
+    PUBLICATIONS: 'export_publications',
+    NOTIFICATIONS: 'export_notifications',
+    FOLLOWING: 'export_following',
+    FOLLOWERS: 'export_followers'
   },
-  DELETE: 'Delete profile'
+  DELETE: 'delete_profile'
 };
 
 export const MOD = {
-  TOGGLE_MODE: 'Toggle mod mode',
-  REPORT: 'Mod report'
+  TOGGLE_MODE: 'toggle_mod_mode',
+  REPORT: 'mod_report'
 };
 
 export const STAFFTOOLS = {
-  TOGGLE_MODE: 'Toggle staff mode'
+  TOGGLE_MODE: 'toggle_staff_mode'
 };
 
 export const SYSTEM = {
-  SWITCH_THEME: 'Switch theme',
-  SWITCH_NETWORK: 'Switch network'
+  SWITCH_THEME: 'switch_theme',
+  SWITCH_NETWORK: 'switch_network'
 };
 
 export const MISCELLANEOUS = {
-  OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
-  OPEN_TRENDING_TAG: 'Open trending tag',
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
-  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
-  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
-  SELECT_USER_FEED: 'Select user feed',
-  SELECT_LOCALE: 'Select locale',
+  OPEN_RECOMMENDED_PROFILES: 'open_recommended_profiles_modal',
+  OPEN_TRENDING_TAG: 'open_trending_tag',
+  SWITCH_FOR_YOU_FEED: 'switch_to_for_you_feed',
+  SWITCH_FOLLOWING_FEED: 'switch_to_following_feed',
+  SWITCH_HIGHLIGHTS_FEED: 'switch_to_highlights_feed',
+  SELECT_USER_FEED: 'select_user_feed',
+  SELECT_LOCALE: 'select_locale',
   FOOTER: {
-    OPEN_DISCORD: 'Open Discord',
-    OPEN_GITHUB: 'Open GitHub',
-    OPEN_VERCEL: 'Open Vercel',
-    OPEN_STATUS: 'Open status',
-    OPEN_FEEDBACK: 'Open feedback',
-    OPEN_TRANSLATE: 'Open translate',
-    OPEN_DONATE: 'Open donate'
+    OPEN_DISCORD: 'open_discord',
+    OPEN_GITHUB: 'open_github',
+    OPEN_VERCEL: 'open_vercel',
+    OPEN_STATUS: 'open_status',
+    OPEN_FEEDBACK: 'open_feedback',
+    OPEN_TRANSLATE: 'open_translate',
+    OPEN_DONATE: 'open_donate'
   }
 };
 
 export const ONBOARDING = {
-  NAVIGATE_UPDATE_PROFILE: 'Navigate to update profile from onboarding',
+  NAVIGATE_UPDATE_PROFILE: 'navigate_to_update_profile_from_onboarding',
   NAVIGATE_UPDATE_PROFILE_INTERESTS:
-    'Navigate to update profile interests from onboarding'
+    'navigate_to_update_profile_interests_from_onboarding'
 };
 
 // enums

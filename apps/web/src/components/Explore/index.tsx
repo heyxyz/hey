@@ -6,7 +6,7 @@ import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { FeatureFlag } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
-import { EXPLORE, PAGEVIEW } from '@lenster/data/tracking';
+import { EXPLORE } from '@lenster/data/tracking';
 import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -18,7 +18,6 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 import FeedType from './FeedType';
@@ -29,10 +28,6 @@ const Explore: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMainFocus>();
   const isTrendingWidgetEnabled = isFeatureEnabled(FeatureFlag.TrendingWidget);
   const isExploreTagsEnabled = isFeatureEnabled(FeatureFlag.ExploreTags);
-
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  });
 
   const tabs = [
     { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
