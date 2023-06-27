@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-19 00:09\n"
+"PO-Revision-Date: 2023-06-27 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1985,10 +1985,6 @@ msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
-msgstr ""
-
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
 msgstr ""
 
 #: src/components/Settings/Export/Followers.tsx
