@@ -5,7 +5,7 @@ import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -51,7 +51,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       );
       setShowWarningModal(false);
       setAllowed(!allowed);
-      PostHog.track(SETTINGS.ALLOWANCE.TOGGLE, {
+      Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
         module: module.module,
         currency: module.currency,
         allowed: !allowed
