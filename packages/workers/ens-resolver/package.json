@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "itty-router": "^4.0.13",
-    "viem": "^1.1.7",
+    "viem": "^1.1.8",
     "zod": "^3.21.4"
   },
   "devDependencies": {
