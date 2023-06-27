@@ -9,24 +9,28 @@ export default async (request: IRequest, env: Env) => {
     const payload: PublicationMetadataV2Input = await request.json();
     const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY);
     if (payload.content?.length) {
-      const aiEndpoint = 'https://ai.lenster.xyz';
-      const fetchPayload = {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ text: payload.content })
-      };
+      try {
+        const aiEndpoint = 'https://ai.lenster.xyz';
+        const fetchPayload = {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ text: payload.content })
+        };
 
-      const responses = await Promise.all([
-        fetch(`${aiEndpoint}/tagger`, fetchPayload),
-        fetch(`${aiEndpoint}/locale`, fetchPayload)
-      ]);
+        const responses = await Promise.all([
+          fetch(`${aiEndpoint}/tagger`, fetchPayload),
+          fetch(`${aiEndpoint}/locale`, fetchPayload)
+        ]);
 
-      const taggerResponseJson: any = await responses[0].json();
-      payload.tags = taggerResponseJson.topics;
+        const taggerResponseJson: any = await responses[0].json();
+        payload.tags = taggerResponseJson.topics;
 
-      const localeResponse: any = await responses[1].json();
-      if (localeResponse.locale) {
-        payload.locale = localeResponse.locale;
+        const localeResponse: any = await responses[1].json();
+        if (localeResponse.locale) {
+          payload.locale = localeResponse.locale;
+        }
+      } catch (error) {
+        console.error('Failed to fetch AI data', error);
       }
     }
 
