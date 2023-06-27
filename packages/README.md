@@ -18,4 +18,5 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
   - [ENS Resolver](../packages/workers/ens-resolver/README.md) - Resolve Ethereum address to ENS names
   - [Oembed](../packages/workers/oembed/README.md) - Create rich embeds for URLs also proxy images
+  - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Lenster
   - [Spaces](../packages/workers/spaces/README.md) - Interact with Huddle API for Spaces

@@ -3,13 +3,11 @@ import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
 import { FeatureFlag } from '@lenster/data';
 import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -17,7 +15,7 @@ import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Cover from './Cover';
 import Details from './Details';
@@ -39,10 +37,6 @@ const ViewProfile: NextPage = () => {
       : ProfileFeedType.Feed
   );
   const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
-
-  useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'profile' });
-  });
 
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({

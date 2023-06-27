@@ -22,7 +22,7 @@ import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Button, ErrorMessage, Image, Modal, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
@@ -59,7 +59,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
-    PostHog.track(SETTINGS.PROFILE.SET_PICTURE);
+    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const onError = (error: any) => {
