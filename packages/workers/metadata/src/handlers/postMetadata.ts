@@ -22,9 +22,11 @@ export default async (request: IRequest, env: Env) => {
           fetch(`${aiEndpoint}/locale`, fetchPayload)
         ]);
 
+        // Append Tags to metadata
         const taggerResponseJson: any = await responses[0].json();
         payload.tags = taggerResponseJson.topics;
 
+        // Append Locale to metadata
         const localeResponse: any = await responses[1].json();
         if (localeResponse.locale) {
           payload.locale = localeResponse.locale;
