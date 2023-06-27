@@ -5,34 +5,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: fr\n"
+"Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2023-06-27 07:33\n"
 "Last-Translator: \n"
-"Language-Team: French\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language-Team: Ukrainian\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
 "X-Crowdin-Project: lenster\n"
 "X-Crowdin-Project-ID: 552311\n"
-"X-Crowdin-Language: fr\n"
+"X-Crowdin-Language: uk\n"
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 47\n"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
-msgstr "Échec du chargement des commentaires"
+msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Be the first one to comment!"
-msgstr "Soyez le premier à laisser un commentaire !"
+msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
-msgstr "Masquer plus de commentaires"
+msgstr ""
 
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Show more comments"
-msgstr "Afficher plus de commentaires"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -52,7 +52,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Followers can view"
-msgstr "Les abonnés peuvent voir"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "People need to follow you to be able to view it"
@@ -64,7 +64,7 @@ msgstr ""
 #: src/components/Messages/MessagesList.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
-msgstr "Annuler"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
@@ -84,7 +84,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access settings"
-msgstr "Accéder aux paramètres"
+msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
@@ -96,7 +96,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "File format not allowed."
-msgstr "Format de fichier non autorisé."
+msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
 #: src/components/utils/hooks/useUploadAttachments.tsx
@@ -132,7 +132,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Failed to load modules"
-msgstr "Échec du chargement des modules"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "This post can be collected"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Limited edition"
-msgstr "Édition limitée"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Make the collects exclusive"
@@ -148,7 +148,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectLimitConfig.tsx
 msgid "Collect limit"
-msgstr "Limite de collecte"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/FollowersConfig.tsx
 msgid "Who can collect"
@@ -263,7 +263,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "Everyone"
-msgstr "Tout le monde"
+msgstr ""
 
 #: src/components/Composer/Actions/ReferenceSettings/index.tsx
 msgid "My followers can comment and mirror"
@@ -514,7 +514,7 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Search"
-msgstr "Rechercher"
+msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
@@ -528,7 +528,7 @@ msgstr ""
 #: src/components/Home/SeeThroughLens.tsx
 #: src/components/Shared/Navbar/Search.tsx
 msgid "No matching users"
-msgstr "Aucun utilisateur correspondant"
+msgstr ""
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
@@ -624,7 +624,7 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending message"
-msgstr "Erreur lors de l'envoi du message"
+msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Type Something"
@@ -632,11 +632,11 @@ msgstr ""
 
 #: src/components/Messages/Composer.tsx
 msgid "Send"
-msgstr "Envoyer"
+msgstr ""
 
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
-msgstr "Chargement des messages"
+msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
@@ -668,11 +668,11 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
-msgstr "Chargement des conversations"
+msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Failed to load messages"
-msgstr "Échec du chargement des messages"
+msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Start messaging your Lens frens"
@@ -680,7 +680,7 @@ msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "New message"
-msgstr "Nouveau message"
+msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Search for someone to message..."
@@ -696,7 +696,7 @@ msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Select a conversation"
-msgstr "Sélectionnez une conversation"
+msgstr ""
 
 #: src/components/Messages/index.tsx
 msgid "Choose an existing conversation or create a new one to start messaging"
@@ -911,11 +911,11 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not be empty"
-msgstr "Le message ne doit pas être vide"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Message should not exceed 1000 characters"
-msgstr "Le message ne doit pas dépasser 1000 caractères"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Contact • {APP_NAME}"
