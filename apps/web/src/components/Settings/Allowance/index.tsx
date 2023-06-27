@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
   CollectModules,
@@ -11,14 +10,12 @@ import {
   useEnabledModulesQuery
 } from '@lenster/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import Allowance from './Allowance';
@@ -51,10 +48,6 @@ const AllowanceSettings: NextPage = () => {
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
       skip: !currentProfile?.id || enabledModulesLoading
     });
-
-  useEffectOnce(() => {
-    PostHog.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
-  });
 
   if (error || enabledModulesError) {
     return <Custom500 />;

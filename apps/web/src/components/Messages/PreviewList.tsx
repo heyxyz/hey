@@ -19,7 +19,7 @@ import {
 } from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -85,7 +85,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-    PostHog.track(MESSAGES.OPEN_NEW_CONVERSATION);
+    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = async (profile: Profile) => {

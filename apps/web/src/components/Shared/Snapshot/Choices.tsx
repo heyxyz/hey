@@ -11,7 +11,7 @@ import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, Modal, Spinner } from '@lenster/ui';
 import { getTimetoNow } from '@lib/formatTime';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
@@ -82,7 +82,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     setVoteConfig({ show: true, position });
-    PostHog.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
+    Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
       proposal_id: id
     });
   };
@@ -110,7 +110,7 @@ const Choices: FC<ChoicesProps> = ({
         }
       });
       refetch?.();
-      PostHog.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: APP_NAME.toLowerCase()
       });

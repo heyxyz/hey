@@ -14,7 +14,7 @@ import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -46,9 +46,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
     if (isOldDispatcherEnabled) {
-      PostHog.track(SETTINGS.DISPATCHER.UPDATE);
+      Leafwatch.track(SETTINGS.DISPATCHER.UPDATE);
     } else {
-      PostHog.track(SETTINGS.DISPATCHER.TOGGLE);
+      Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
     }
   };
 

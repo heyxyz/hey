@@ -3,7 +3,7 @@ import type { PublicationsQueryRequest } from '@lenster/lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -30,7 +30,7 @@ const Publications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    PostHog.track(SETTINGS.EXPORT.PUBLICATIONS);
+    Leafwatch.track(SETTINGS.EXPORT.PUBLICATIONS);
     setExporting(true);
     const fetchPublications = async (cursor?: string) => {
       const { data } = await exportPublications({
