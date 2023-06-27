@@ -7,7 +7,6 @@ import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 
 import SettingsSidebar from '../Sidebar';
-import Fingerprint from './Fingerprint';
 import Followers from './Followers';
 import Following from './Following';
 import Notifications from './Notifications';
@@ -33,7 +32,6 @@ const ExportSettings: NextPage = () => {
         <Notifications />
         <Following />
         <Followers />
-        <Fingerprint />
       </GridItemEight>
     </GridLayout>
   );
