@@ -12,7 +12,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
@@ -68,7 +68,7 @@ const Follow: FC<FollowProps> = ({
     setIsLoading(false);
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    PostHog.track(PROFILE.FOLLOW, {
+    Leafwatch.track(PROFILE.FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
       ...(followUnfollowPosition && { position: followUnfollowPosition }),

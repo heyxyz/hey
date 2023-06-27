@@ -52,7 +52,7 @@ const Tags: FC = () => {
           <div key={tag.tag}>
             <button
               onClick={() => {
-                // PostHog.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                // Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                 //   trending_tag: tag.tag
                 // });
                 setSelectedTag(tag.tag);

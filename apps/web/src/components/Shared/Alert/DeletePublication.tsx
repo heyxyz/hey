@@ -2,7 +2,7 @@ import { PUBLICATION } from '@lenster/data/tracking';
 import { useHidePublicationMutation } from '@lenster/lens';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import { Alert } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -22,7 +22,7 @@ const DeletePublication: FC = () => {
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
       setShowPublicationDeleteAlert(false, null);
-      PostHog.track(PUBLICATION.DELETE);
+      Leafwatch.track(PUBLICATION.DELETE);
       toast.success(t`Publication deleted successfully`);
     },
     update: (cache) => {

@@ -42,7 +42,7 @@ import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -130,7 +130,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    PostHog.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       collect_module: collectModule?.type,
       collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {

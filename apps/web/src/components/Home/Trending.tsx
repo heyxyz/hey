@@ -5,7 +5,7 @@ import type { TagResult } from '@lenster/lens';
 import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, ErrorMessage } from '@lenster/ui';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -53,7 +53,7 @@ const Trending: FC = () => {
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
                 onClick={() =>
-                  PostHog.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                  Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                     trending_tag: tag?.tag
                   })
                 }

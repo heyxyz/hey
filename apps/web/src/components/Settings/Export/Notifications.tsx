@@ -3,7 +3,7 @@ import type { NotificationRequest } from '@lenster/lens';
 import { useNotificationsLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { PostHog } from '@lib/posthog';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const Notifications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    PostHog.track(SETTINGS.EXPORT.NOTIFICATIONS);
+    Leafwatch.track(SETTINGS.EXPORT.NOTIFICATIONS);
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({
