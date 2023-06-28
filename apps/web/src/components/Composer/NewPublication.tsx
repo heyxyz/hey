@@ -71,6 +71,7 @@ import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
+import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 
 import Editor from './Editor';
 // import RoundBanner from './Editor/bannernode';
@@ -94,6 +95,15 @@ const AccessSettings = dynamic(() => import('@components/Composer/Actions/Access
 const SelectRoundSettings = dynamic(() => import('@components/Composer/Actions/SelectRoundSettings'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
+
+export interface QuadraticRound {
+  name: string;
+  description: string;
+  id: string;
+  endTime: Date;
+  token: string;
+  requirements: string[];
+}
 
 interface NewPublicationProps {
   publication: Publication;
@@ -144,8 +154,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+  // selectedQuadraticRound
   const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<string>('');
-
+  const [activeRounds, setActiveRounds] = useState<QuadraticRound[]>([]);
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
@@ -186,6 +197,40 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
     Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
+
+  useEffect(() => {
+    async function getActiveRounds() {
+      const now = Math.floor(Date.now() / 1000);
+
+      const rounds = await getCurrentActiveRounds(now);
+
+      for (const round of rounds) {
+        const { name } = round.roundMetaData;
+        const endTime = new Date(round.roundEndTime * 1000);
+
+        setActiveRounds((activeRounds) => {
+          const newArray = activeRounds ?? [];
+
+          if (!newArray.find((r) => r.id === round.id)) {
+            return [
+              ...newArray,
+              {
+                name: name,
+                description: round.roundMetaData.description,
+                id: round.id,
+                endTime,
+                token: round.token,
+                requirements: round.roundMetaData.requirements
+              }
+            ];
+          }
+
+          return newArray;
+        });
+      }
+    }
+    getActiveRounds();
+  }, []);
 
   useEffect(() => {
     setPublicationContentError('');
@@ -589,6 +634,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <SelectRoundSettings
             selectedQuadraticRound={selectedQuadraticRound}
             setSelectedQuadraticRound={setSelectedQuadraticRound}
+            activeRounds={activeRounds}
           />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">

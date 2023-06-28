@@ -1,46 +1,19 @@
-import {
-  getCurrentActiveRounds,
-  getRoundInfo
-} from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import type { QuadraticRound } from '@components/Composer/NewPublication';
 
 interface SelectQuadraticRoundMenuProps {
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  activeRounds: QuadraticRound[];
 }
 
 const SelectQuadraticRoundMenu = ({
   setSelectedQuadraticRound,
-  setShowModal
+  setShowModal,
+  activeRounds
 }: SelectQuadraticRoundMenuProps) => {
-  const [roundArray, setRoundArray] = useState<{ name: string; id: string }[]>();
-
-  useEffect(() => {
-    async function getActiveRounds() {
-      const now = Math.floor(Date.now() / 1000);
-
-      const rounds = await getCurrentActiveRounds(now);
-
-      for (const round of rounds) {
-        const roundDetails = await getRoundInfo(round.id);
-        const name = '';
-
-        setRoundArray((roundArray) => {
-          const newArray = roundArray ?? [];
-
-          if (!newArray.find((r) => r.id === round.id)) {
-            return [...newArray, { name: name, id: round.id }];
-          }
-
-          return newArray;
-        });
-      }
-    }
-    getActiveRounds();
-  }, []);
-
   return (
     <Menu as="div" className="flex flex-col items-center justify-center">
       <div className="flex items-center justify-center">
@@ -50,8 +23,8 @@ const SelectQuadraticRoundMenu = ({
       </div>
       <div className="relative flex items-center justify-center">
         <Menu.Items className="mt-2 origin-top divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-          {roundArray &&
-            roundArray.map((round) => (
+          {activeRounds &&
+            activeRounds.map((round: QuadraticRound) => (
               <Menu.Item key={round.id}>
                 {({ active }) => (
                   <a
@@ -64,9 +37,27 @@ const SelectQuadraticRoundMenu = ({
                       setShowModal(false);
                     }}
                   >
-                    <div className="flex flex-col">
-                      <div className="flex justify-center">{round.name}</div>
-                      <div> {round.id}</div>
+                    <div className="flex flex-col items-center">
+                      <div className="text-center text-lg font-bold">{round.name}</div>
+                      <div className="w-full text-left">
+                        <div className="text-sm italic text-gray-600">{round.description}</div>
+                        <div className="mt-2 text-sm">
+                          <span>Round Address: </span>
+                          <span className="text-xs">{round.id}</span>
+                        </div>
+                        <div className="text-sm">
+                          <span>End Time: </span>
+                          <span className="text-xs">{round.endTime.toLocaleString()}</span>
+                        </div>
+                        <div className="text-sm">
+                          <span>Token: </span>
+                          <span className="text-xs">{round.token}</span>
+                        </div>
+                        <div className="mt-1 text-sm">
+                          <span>Required text in order to join round: </span>
+                          <span className="text-xs">{round.requirements.join(', ')}</span>
+                        </div>
+                      </div>
                     </div>
                   </a>
                 )}

@@ -5,15 +5,17 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Modal, Tooltip } from 'ui';
+import type { QuadraticRound } from '@components/Composer/NewPublication';
 
 import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
 
 interface Props {
   selectedQuadraticRound: string;
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
+  activeRounds: QuadraticRound[];
 }
 
-const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound }) => {
+const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound, activeRounds }) => {
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
@@ -44,6 +46,7 @@ const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound }) => {
           <SelectQuadraticRoundMenu
             setSelectedQuadraticRound={setSelectedQuadraticRound}
             setShowModal={setShowModal}
+            activeRounds={activeRounds}
           />
         </div>
       </Modal>

@@ -118,10 +118,27 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
       roundEndTime
       createdAt
       token
+      roundMetaPtr {
+        id
+        pointer
+      }
       
     }
   
 }`;
+
+  const metadataQuery = `
+query GetRoundMetaData($pointer: String!) {
+  roundMetaData(id: $pointer) {
+    supportEmail
+    requirements
+    name
+    id
+    description
+  }
+}
+`;
+  let concatRounds = [];
 
   const variables = {
     unixTimestamp: unixTimestamp.toString()
@@ -129,7 +146,25 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
 
   const data = await request(query, variables);
 
-  return data.rounds;
+  const metaDataPromises = data.rounds.map((round: any) => {
+    const { pointer } = round.roundMetaPtr;
+    const metaDataVariables = {
+      pointer
+    };
+
+    return request(metadataQuery, metaDataVariables);
+  });
+
+  const metaDataResponses = await Promise.all(metaDataPromises);
+
+  for (let i = 0; i < data.rounds.length; i++) {
+    Object.assign(data.rounds[i], metaDataResponses[i]);
+    concatRounds.push(data.rounds[i]);
+  }
+
+  console.log(concatRounds);
+
+  return concatRounds;
 }
 
 export async function getRoundUserData(roundAddress: string, address: string) {
