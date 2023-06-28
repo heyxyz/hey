@@ -7,12 +7,14 @@ interface SelectQuadraticRoundMenuProps {
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   activeRounds: QuadraticRound[];
+  setManuallySelectedRound: Dispatch<SetStateAction<string>>;
 }
 
 const SelectQuadraticRoundMenu = ({
   setSelectedQuadraticRound,
   setShowModal,
-  activeRounds
+  activeRounds,
+  setManuallySelectedRound
 }: SelectQuadraticRoundMenuProps) => {
   return (
     <Menu as="div" className="flex flex-col items-center justify-center">
@@ -34,6 +36,7 @@ const SelectQuadraticRoundMenu = ({
                     href="#"
                     onClick={() => {
                       setSelectedQuadraticRound(round.id);
+                      setManuallySelectedRound(round.id);
                       setShowModal(false);
                     }}
                   >

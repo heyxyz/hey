@@ -162,8 +162,6 @@ query GetRoundMetaData($pointer: String!) {
     concatRounds.push(data.rounds[i]);
   }
 
-  console.log(concatRounds);
-
   return concatRounds;
 }
 

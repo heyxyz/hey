@@ -13,9 +13,14 @@ interface Props {
   selectedQuadraticRound: string;
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
   activeRounds: QuadraticRound[];
+  setManuallySelectedRound: Dispatch<SetStateAction<string>>;
 }
 
-const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound, activeRounds }) => {
+const SelectRoundSettings: FC<Props> = ({
+  setSelectedQuadraticRound,
+  activeRounds,
+  setManuallySelectedRound
+}) => {
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
@@ -47,6 +52,7 @@ const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound, activeRound
             setSelectedQuadraticRound={setSelectedQuadraticRound}
             setShowModal={setShowModal}
             activeRounds={activeRounds}
+            setManuallySelectedRound={setManuallySelectedRound}
           />
         </div>
       </Modal>

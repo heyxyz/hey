@@ -156,7 +156,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { data: signer } = useSigner();
   // selectedQuadraticRound
   const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<string>('');
+  const [requirementsMet, setRequirementsMet] = useState<boolean>(true);
+  const [manuallySelectedRound, setManuallySelectedRound] = useState<string>('');
   const [activeRounds, setActiveRounds] = useState<QuadraticRound[]>([]);
+
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
@@ -231,6 +234,38 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
     getActiveRounds();
   }, []);
+
+  useEffect(() => {
+    let found = false;
+
+    if (manuallySelectedRound) {
+      const round = activeRounds.find((round) => round.id === manuallySelectedRound);
+      if (round) {
+        if (round.requirements.length > 0) {
+          const allRequirementsMet = round.requirements.every((requirement) =>
+            publicationContent.includes(requirement)
+          );
+          setRequirementsMet(allRequirementsMet);
+        } else {
+          setRequirementsMet(true);
+        }
+      }
+    } else {
+      for (let round of activeRounds) {
+        if (round.requirements.some((requirement) => publicationContent.includes(requirement))) {
+          setSelectedQuadraticRound(round.id);
+          setRequirementsMet(true);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        setSelectedQuadraticRound('');
+        setRequirementsMet(true);
+      }
+    }
+  }, [publicationContent, activeRounds, manuallySelectedRound]);
 
   useEffect(() => {
     setPublicationContentError('');
@@ -634,12 +669,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <SelectRoundSettings
             selectedQuadraticRound={selectedQuadraticRound}
             setSelectedQuadraticRound={setSelectedQuadraticRound}
+            setManuallySelectedRound={setManuallySelectedRound}
             activeRounds={activeRounds}
           />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading || isUploading || videoThumbnail.uploading}
+            disabled={isLoading || isUploading || videoThumbnail.uploading || !requirementsMet}
             icon={
               isLoading ? (
                 <Spinner size="xs" />
