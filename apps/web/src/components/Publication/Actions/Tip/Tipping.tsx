@@ -48,7 +48,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
   const [roundContractAllowed, setRoundContractAllowed] = useState(false);
 
   const [tipAmount, setTipAmount] = useState('0');
-
+  const [inputValue, setInputValue] = useState('');
   const [roundInfoLoaded, setRoundInfoLoaded] = useState(false);
   const [roundInfo, setRoundInfo] = useState({
     id: '',
@@ -221,7 +221,35 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
 
   const resetAmount = () => {
     setTipAmount('0');
+    setInputValue('');
   };
+
+  function handleChange(e: any) {
+    let { value } = e.target;
+
+    setInputValue(value);
+
+    if (value === '' || value === '.') {
+      setTipAmount('0');
+      return;
+    }
+    if (/^0\d+(\.0*)?$/.test(value)) {
+      value = value.slice(1);
+      setInputValue(value);
+    }
+
+    const number = parseFloat(value) || 0;
+
+    if (number < 0) {
+      console.error('Input cannot be negative');
+      value = '0';
+    } else if (number > 1000000) {
+      console.error('Input cannot be greater than 1,000,000');
+      value = '1000000';
+    }
+
+    setTipAmount(value);
+  }
 
   return roundInfoLoaded ? (
     <div className="p-5">
@@ -236,38 +264,9 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                 min="0"
                 max="1000000"
                 placeholder="How much do you want to tip?"
-                value={tipAmount}
-                onChange={(e) => {
-                  let value = e.target.value.trim().replace(',', '.');
-
-                  const splitValue = value.split('');
-                  if (splitValue[0].startsWith('0') && splitValue[0].length > 1) {
-                    splitValue[0] = splitValue[0].slice(1);
-                    value = splitValue.join('.');
-                  }
-
-                  if (splitValue.length > 2) {
-                    alert('Invalid input');
-                    return;
-                  }
-
-                  if (value === '' || value === '.') {
-                    setTipAmount('0');
-                    return;
-                  }
-
-                  const number = parseFloat(value) || 0;
-
-                  if (number < 0) {
-                    alert('Input cannot be negative');
-                  } else if (number > 1000000) {
-                    alert('Input cannot be greater than 1,000,000');
-                  } else {
-                    setTipAmount(number.toString());
-                  }
-                }}
+                value={inputValue}
+                onChange={handleChange}
               />
-              {/* {console.log(tipAmount)} */}
               <Button
                 onClick={roundContractAllowed ? () => write() : () => handleAllowance()}
                 disabled={isLoading || tipAmount === '0'}
