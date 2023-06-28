@@ -220,7 +220,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const rounds = await getCurrentActiveRounds(now);
 
       for (const round of rounds) {
-        const { name } = round.roundMetaData;
         const endTime = new Date(round.roundEndTime * 1000);
 
         setActiveRounds((activeRounds) => {
@@ -230,7 +229,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             return [
               ...newArray,
               {
-                name: name,
+                name: round.roundMetaData.name,
                 description: round.roundMetaData.description,
                 id: round.id,
                 endTime,
@@ -264,7 +263,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
     } else {
       for (let round of activeRounds) {
-        if (round.requirements.some((requirement) => publicationContent.includes(requirement))) {
+        console.log('round', round);
+        if (
+          round.requirements.length !== 0 &&
+          !(round.requirements.length === 1 && round.requirements[0] === '') &&
+          round.requirements.some((requirement) => publicationContent.includes(requirement))
+        ) {
           setSelectedQuadraticRound(round);
           setRequirementsMet(true);
           found = true;

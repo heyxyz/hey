@@ -158,7 +158,21 @@ query GetRoundMetaData($pointer: String!) {
   const metaDataResponses = await Promise.all(metaDataPromises);
 
   for (let i = 0; i < data.rounds.length; i++) {
-    Object.assign(data.rounds[i], metaDataResponses[i]);
+    let metaData = metaDataResponses[i];
+
+    if (!metaData || !metaData.roundMetaData) {
+      metaData = {
+        roundMetaData: {
+          supportEmail: '',
+          requirements: [],
+          name: '',
+          id: '',
+          description: ''
+        }
+      };
+    }
+
+    Object.assign(data.rounds[i], metaData);
     concatRounds.push(data.rounds[i]);
   }
 
