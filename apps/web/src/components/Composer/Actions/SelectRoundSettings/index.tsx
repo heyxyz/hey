@@ -10,8 +10,8 @@ import { Modal, Tooltip } from 'ui';
 import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
 
 interface Props {
-  selectedQuadraticRound: string;
-  setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
+  selectedQuadraticRound: QuadraticRound;
+  setSelectedQuadraticRound: Dispatch<SetStateAction<QuadraticRound>>;
   activeRounds: QuadraticRound[];
   setManuallySelectedRound: Dispatch<SetStateAction<string>>;
 }

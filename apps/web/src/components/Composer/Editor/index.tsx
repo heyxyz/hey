@@ -21,10 +21,12 @@ import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
+import type { QuadraticRound } from '../NewPublication';
+
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 interface Props {
-  selectedQuadraticRound: string;
+  selectedQuadraticRound: QuadraticRound;
 }
 
 const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
@@ -46,17 +48,18 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
   };
 
   useEffect(() => {
-    prevQuadraticRoundRef.current = selectedQuadraticRound;
+    prevQuadraticRoundRef.current = selectedQuadraticRound.id;
   }, []);
 
   useEffect(() => {
     const prevQuadraticRound = prevQuadraticRoundRef.current;
 
-    if (selectedQuadraticRound !== prevQuadraticRound) {
+    if (selectedQuadraticRound.id !== prevQuadraticRound) {
       let newNotification: string;
 
-      if (selectedQuadraticRound !== '') {
-        newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
+      if (selectedQuadraticRound.id !== '') {
+        newNotification = `Your post will be included in the ${selectedQuadraticRound.id} round.`;
+
         editor.update(() => {
           const p = $createParagraphNode();
           p.append($createTextNode(newNotification));
@@ -71,7 +74,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
         });
       }
 
-      prevQuadraticRoundRef.current = selectedQuadraticRound;
+      prevQuadraticRoundRef.current = selectedQuadraticRound.id;
     }
   }, [selectedQuadraticRound, editor, publicationContent, setPublicationContent]);
 

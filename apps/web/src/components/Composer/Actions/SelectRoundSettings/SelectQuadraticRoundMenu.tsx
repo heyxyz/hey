@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 
 interface SelectQuadraticRoundMenuProps {
-  setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
+  setSelectedQuadraticRound: Dispatch<SetStateAction<QuadraticRound>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   activeRounds: QuadraticRound[];
   setManuallySelectedRound: Dispatch<SetStateAction<string>>;
@@ -35,7 +35,7 @@ const SelectQuadraticRoundMenu = ({
                     } group my-1 flex w-full items-center justify-center rounded-md bg-purple-300 px-2 py-2 text-sm hover:bg-purple-500`}
                     href="#"
                     onClick={() => {
-                      setSelectedQuadraticRound(round.id);
+                      setSelectedQuadraticRound(round);
                       setManuallySelectedRound(round.id);
                       setShowModal(false);
                     }}

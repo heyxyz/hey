@@ -3,7 +3,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import type { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon, PencilAltIcon, XIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -58,7 +58,7 @@ import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
@@ -69,11 +69,12 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Card, ErrorMessage, Spinner } from 'ui';
+import { Button, Card, ErrorMessage, Spinner, Tooltip } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
+import RequirementsNotification from './RequirementsNotification';
 // import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -155,7 +156,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const provider = useProvider();
   const { data: signer } = useSigner();
   // selectedQuadraticRound
-  const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<string>('');
+  const defaultRound = useMemo<QuadraticRound>(
+    () => ({
+      name: '',
+      description: '',
+      id: '',
+      endTime: new Date(),
+      token: '',
+      requirements: []
+    }),
+    []
+  );
+  const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<QuadraticRound>(defaultRound);
   const [requirementsMet, setRequirementsMet] = useState<boolean>(true);
   const [manuallySelectedRound, setManuallySelectedRound] = useState<string>('');
   const [activeRounds, setActiveRounds] = useState<QuadraticRound[]>([]);
@@ -253,7 +265,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     } else {
       for (let round of activeRounds) {
         if (round.requirements.some((requirement) => publicationContent.includes(requirement))) {
-          setSelectedQuadraticRound(round.id);
+          setSelectedQuadraticRound(round);
           setRequirementsMet(true);
           found = true;
           break;
@@ -261,11 +273,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       if (!found) {
-        setSelectedQuadraticRound('');
+        setSelectedQuadraticRound(defaultRound);
         setRequirementsMet(true);
       }
     }
-  }, [publicationContent, activeRounds, manuallySelectedRound]);
+  }, [publicationContent, activeRounds, manuallySelectedRound, defaultRound]);
 
   useEffect(() => {
     setPublicationContentError('');
@@ -672,6 +684,21 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             setManuallySelectedRound={setManuallySelectedRound}
             activeRounds={activeRounds}
           />
+          {selectedQuadraticRound.requirements.length > 0 && (
+            <RequirementsNotification selectedQuadraticRound={selectedQuadraticRound} />
+          )}
+          {selectedQuadraticRound !== defaultRound && (
+            <Tooltip placement="top" content={`remove post from joined round`}>
+              <XIcon
+                className="h-4 w-4 cursor-pointer"
+                color="#8B5CF6"
+                onClick={() => {
+                  setSelectedQuadraticRound(defaultRound);
+                  setManuallySelectedRound('');
+                }}
+              />
+            </Tooltip>
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
