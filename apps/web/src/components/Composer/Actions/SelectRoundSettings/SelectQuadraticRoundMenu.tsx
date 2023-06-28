@@ -1,7 +1,7 @@
+import type { QuadraticRound } from '@components/Composer/NewPublication';
 import { Menu } from '@headlessui/react';
 import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
-import type { QuadraticRound } from '@components/Composer/NewPublication';
 
 interface SelectQuadraticRoundMenuProps {
   setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;

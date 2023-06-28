@@ -1,3 +1,4 @@
+import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -71,7 +72,6 @@ import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
-import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 
 import Editor from './Editor';
 // import RoundBanner from './Editor/bannernode';

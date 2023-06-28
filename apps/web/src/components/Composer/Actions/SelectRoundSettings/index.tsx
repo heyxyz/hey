@@ -1,3 +1,4 @@
+import type { QuadraticRound } from '@components/Composer/NewPublication';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -5,7 +6,6 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { Modal, Tooltip } from 'ui';
-import type { QuadraticRound } from '@components/Composer/NewPublication';
 
 import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
 
