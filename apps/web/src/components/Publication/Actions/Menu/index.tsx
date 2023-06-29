@@ -8,6 +8,7 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
 import Report from './Report';
@@ -47,6 +48,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
+          {currentProfile ? <Bookmark publication={publication} /> : null}
           <Share publication={publication} />
           <Translate publication={publication} />
           <CopyPostText publication={publication} />

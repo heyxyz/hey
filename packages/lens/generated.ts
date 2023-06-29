@@ -5134,6 +5134,7 @@ export type CommentFieldsFragment = {
   id: any;
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
+  bookmarked: boolean;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
   isGated: boolean;
@@ -5466,6 +5467,7 @@ export type CommentFieldsFragment = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -6141,6 +6143,7 @@ export type CommentFieldsFragment = {
                     collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -6221,6 +6224,7 @@ export type CommentFieldsFragment = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -6567,6 +6571,7 @@ export type CommentFieldsFragment = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -7244,6 +7249,7 @@ export type CommentFieldsFragment = {
               collectNftAddress?: any | null;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
@@ -7321,6 +7327,7 @@ export type CommentFieldsFragment = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -7664,6 +7671,7 @@ export type CommentFieldsFragment = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -8453,6 +8461,7 @@ export type MirrorFieldsFragment = {
         collectNftAddress?: any | null;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
@@ -8527,6 +8536,7 @@ export type MirrorFieldsFragment = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -8875,6 +8885,7 @@ export type PostFieldsFragment = {
   id: any;
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
+  bookmarked: boolean;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
   isGated: boolean;
@@ -10703,6 +10714,7 @@ export type CommentFeedQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -11042,6 +11054,7 @@ export type CommentFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -11730,6 +11743,7 @@ export type CommentFeedQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -11816,6 +11830,7 @@ export type CommentFeedQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -12170,6 +12185,7 @@ export type CommentFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -12860,6 +12876,7 @@ export type CommentFeedQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -12940,6 +12957,7 @@ export type CommentFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -13286,6 +13304,7 @@ export type CommentFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -13672,6 +13691,7 @@ export type ExploreFeedQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -14011,6 +14031,7 @@ export type ExploreFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -14699,6 +14720,7 @@ export type ExploreFeedQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -14785,6 +14807,7 @@ export type ExploreFeedQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -15139,6 +15162,7 @@ export type ExploreFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -15829,6 +15853,7 @@ export type ExploreFeedQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -15909,6 +15934,7 @@ export type ExploreFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -16255,6 +16281,7 @@ export type ExploreFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -16940,6 +16967,7 @@ export type ExploreFeedQuery = {
                 collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -17020,6 +17048,7 @@ export type ExploreFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -17366,6 +17395,7 @@ export type ExploreFeedQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -17721,6 +17751,7 @@ export type FeedHighlightsQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -18060,6 +18091,7 @@ export type FeedHighlightsQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -18748,6 +18780,7 @@ export type FeedHighlightsQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -18834,6 +18867,7 @@ export type FeedHighlightsQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -19188,6 +19222,7 @@ export type FeedHighlightsQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -19878,6 +19913,7 @@ export type FeedHighlightsQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -19958,6 +19994,7 @@ export type FeedHighlightsQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -20304,6 +20341,7 @@ export type FeedHighlightsQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -20989,6 +21027,7 @@ export type FeedHighlightsQuery = {
                 collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -21069,6 +21108,7 @@ export type FeedHighlightsQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -21415,6 +21455,7 @@ export type FeedHighlightsQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -21904,6 +21945,7 @@ export type ForYouQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -22243,6 +22285,7 @@ export type ForYouQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -22931,6 +22974,7 @@ export type ForYouQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -23017,6 +23061,7 @@ export type ForYouQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -23371,6 +23416,7 @@ export type ForYouQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -24061,6 +24107,7 @@ export type ForYouQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -24141,6 +24188,7 @@ export type ForYouQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -24487,6 +24535,7 @@ export type ForYouQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -25172,6 +25221,7 @@ export type ForYouQuery = {
                 collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -25252,6 +25302,7 @@ export type ForYouQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -25598,6 +25649,7 @@ export type ForYouQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -27041,6 +27093,7 @@ export type ProfileFeedQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -27380,6 +27433,7 @@ export type ProfileFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -28068,6 +28122,7 @@ export type ProfileFeedQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -28154,6 +28209,7 @@ export type ProfileFeedQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -28508,6 +28564,7 @@ export type ProfileFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -29198,6 +29255,7 @@ export type ProfileFeedQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -29278,6 +29336,7 @@ export type ProfileFeedQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -29624,6 +29683,7 @@ export type ProfileFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -30309,6 +30369,7 @@ export type ProfileFeedQuery = {
                 collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -30389,6 +30450,7 @@ export type ProfileFeedQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -30735,6 +30797,7 @@ export type ProfileFeedQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -31215,6 +31278,7 @@ export type PublicationQuery = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -31555,6 +31619,7 @@ export type PublicationQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -32240,6 +32305,7 @@ export type PublicationQuery = {
                           collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -32320,6 +32386,7 @@ export type PublicationQuery = {
                           id: any;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -32666,6 +32733,7 @@ export type PublicationQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -33353,6 +33421,7 @@ export type PublicationQuery = {
                     collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -33433,6 +33502,7 @@ export type PublicationQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -33779,6 +33849,7 @@ export type PublicationQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -34463,6 +34534,7 @@ export type PublicationQuery = {
               collectNftAddress?: any | null;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
@@ -34540,6 +34612,7 @@ export type PublicationQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -34884,6 +34957,7 @@ export type PublicationQuery = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -35253,6 +35327,7 @@ export type PublicationsProfileBookmarksQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -35592,6 +35667,7 @@ export type PublicationsProfileBookmarksQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -36280,6 +36356,7 @@ export type PublicationsProfileBookmarksQuery = {
                             collectNftAddress?: any | null;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -36366,6 +36443,7 @@ export type PublicationsProfileBookmarksQuery = {
                             id: any;
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
+                            bookmarked: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -36720,6 +36798,7 @@ export type PublicationsProfileBookmarksQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -37410,6 +37489,7 @@ export type PublicationsProfileBookmarksQuery = {
                       collectNftAddress?: any | null;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -37490,6 +37570,7 @@ export type PublicationsProfileBookmarksQuery = {
                       id: any;
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
+                      bookmarked: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -37836,6 +37917,7 @@ export type PublicationsProfileBookmarksQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -38521,6 +38603,7 @@ export type PublicationsProfileBookmarksQuery = {
                 collectNftAddress?: any | null;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -38601,6 +38684,7 @@ export type PublicationsProfileBookmarksQuery = {
                 id: any;
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
+                bookmarked: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -38947,6 +39031,7 @@ export type PublicationsProfileBookmarksQuery = {
           id: any;
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
+          bookmarked: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -39436,6 +39521,7 @@ export type SearchPublicationsQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -39778,6 +39864,7 @@ export type SearchPublicationsQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -40466,6 +40553,7 @@ export type SearchPublicationsQuery = {
                                 collectNftAddress?: any | null;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
+                                bookmarked: boolean;
                                 onChainContentURI: string;
                                 isGated: boolean;
                                 isDataAvailability: boolean;
@@ -40558,6 +40646,7 @@ export type SearchPublicationsQuery = {
                                 id: any;
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
+                                bookmarked: boolean;
                                 hasCollectedByMe: boolean;
                                 onChainContentURI: string;
                                 isGated: boolean;
@@ -40931,6 +41020,7 @@ export type SearchPublicationsQuery = {
                           id: any;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -41621,6 +41711,7 @@ export type SearchPublicationsQuery = {
                           collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -41701,6 +41792,7 @@ export type SearchPublicationsQuery = {
                           id: any;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -42047,6 +42139,7 @@ export type SearchPublicationsQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -42394,6 +42487,7 @@ export type SearchPublicationsQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -43165,6 +43259,7 @@ export type TimelineQuery = {
             id: any;
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
+            bookmarked: boolean;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
             isGated: boolean;
@@ -43504,6 +43599,7 @@ export type TimelineQuery = {
                   id: any;
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
+                  bookmarked: boolean;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
                   isGated: boolean;
@@ -44192,6 +44288,7 @@ export type TimelineQuery = {
                               collectNftAddress?: any | null;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
+                              bookmarked: boolean;
                               onChainContentURI: string;
                               isGated: boolean;
                               isDataAvailability: boolean;
@@ -44282,6 +44379,7 @@ export type TimelineQuery = {
                               id: any;
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
+                              bookmarked: boolean;
                               hasCollectedByMe: boolean;
                               onChainContentURI: string;
                               isGated: boolean;
@@ -44644,6 +44742,7 @@ export type TimelineQuery = {
                         id: any;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
+                        bookmarked: boolean;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
@@ -45334,6 +45433,7 @@ export type TimelineQuery = {
                         collectNftAddress?: any | null;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
+                        bookmarked: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
                         isDataAvailability: boolean;
@@ -45414,6 +45514,7 @@ export type TimelineQuery = {
                         id: any;
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
+                        bookmarked: boolean;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
@@ -45760,6 +45861,7 @@ export type TimelineQuery = {
                   id: any;
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
+                  bookmarked: boolean;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
                   isGated: boolean;
@@ -46107,6 +46209,7 @@ export type TimelineQuery = {
             id: any;
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
+            bookmarked: boolean;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
             isGated: boolean;
@@ -46660,6 +46763,7 @@ export type TimelineQuery = {
         id: any;
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
+        bookmarked: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -46995,6 +47099,7 @@ export type TimelineQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -47680,6 +47785,7 @@ export type TimelineQuery = {
                           collectNftAddress?: any | null;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -47760,6 +47866,7 @@ export type TimelineQuery = {
                           id: any;
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
+                          bookmarked: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -48106,6 +48213,7 @@ export type TimelineQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -48793,6 +48901,7 @@ export type TimelineQuery = {
                     collectNftAddress?: any | null;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -48873,6 +48982,7 @@ export type TimelineQuery = {
                     id: any;
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
+                    bookmarked: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -49219,6 +49329,7 @@ export type TimelineQuery = {
               id: any;
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
+              bookmarked: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -49879,6 +49990,7 @@ export const PostFieldsFragmentDoc = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    bookmarked(by: $profileId)
     hasCollectedByMe
     onChainContentURI
     isGated
@@ -49955,6 +50067,7 @@ export const MirrorFieldsFragmentDoc = gql`
         collectNftAddress
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        bookmarked(by: $profileId)
         onChainContentURI
         isGated
         isDataAvailability
@@ -49992,6 +50105,7 @@ export const CommentFieldsFragmentDoc = gql`
     }
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
+    bookmarked(by: $profileId)
     hasCollectedByMe
     onChainContentURI
     isGated
@@ -50030,6 +50144,7 @@ export const CommentFieldsFragmentDoc = gql`
         }
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
+        bookmarked(by: $profileId)
         hasCollectedByMe
         onChainContentURI
         isGated

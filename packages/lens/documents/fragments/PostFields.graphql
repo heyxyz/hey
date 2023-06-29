@@ -5,6 +5,7 @@ fragment PostFields on Post {
   }
   reaction(request: $reactionRequest)
   mirrors(by: $profileId)
+  bookmarked(by: $profileId)
   hasCollectedByMe
   onChainContentURI
   isGated
