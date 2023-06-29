@@ -9,7 +9,7 @@ import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
 import { MESSAGES } from '@lenster/data/tracking';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Button, Input } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
@@ -187,7 +187,7 @@ const Composer: FC<ComposerProps> = ({
 
     if (sentAttachment !== null) {
       if (sentAttachment) {
-        Leafwatch.track(MESSAGES.SEND);
+        Mixpanel.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending attachment`);
       }
@@ -197,7 +197,7 @@ const Composer: FC<ComposerProps> = ({
 
     if (sentText !== null) {
       if (sentText) {
-        Leafwatch.track(MESSAGES.SEND);
+        Mixpanel.track(MESSAGES.SEND);
       } else {
         toast.error(t`Error sending message`);
       }

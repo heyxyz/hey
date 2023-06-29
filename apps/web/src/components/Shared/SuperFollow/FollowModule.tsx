@@ -18,7 +18,7 @@ import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -68,7 +68,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setFollowing(true);
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
-    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
       ...(followUnfollowPosition && { position: followUnfollowPosition }),
