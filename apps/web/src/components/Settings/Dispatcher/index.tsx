@@ -1,11 +1,14 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import ToggleDispatcher from './ToggleDispatcher';
@@ -16,6 +19,10 @@ const DispatcherSettings: FC = () => {
   const isOldDispatcherEnabled =
     currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
+  });
 
   const getTitleText = () => {
     if (canUseRelay) {

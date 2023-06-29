@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Slug from '@components/Shared/Slug';
 import UserProfile from '@components/Shared/UserProfile';
 import { FeatureFlag } from '@lenster/data';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -13,15 +14,21 @@ import {
   GridLayout,
   Image
 } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const profiles = useAppStore((state) => state.profiles);
   const isNftDetailEnabled = isFeatureEnabled(FeatureFlag.NftDetail);
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'nft' });
+  });
 
   if (!isNftDetailEnabled || !currentProfile) {
     return <Custom404 />;

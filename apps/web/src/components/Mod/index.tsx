@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
@@ -15,11 +16,13 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
@@ -45,6 +48,10 @@ const Mod: NextPage = () => {
   const [customFilters, setCustomFilters] = useState([
     CustomFiltersTypes.Gardeners
   ]);
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'mod' });
+  });
 
   if (!isGardener(currentProfile?.id)) {
     return <Custom404 />;
