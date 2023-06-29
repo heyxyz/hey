@@ -263,7 +263,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
     } else {
       for (let round of activeRounds) {
-        console.log('round', round);
         if (
           round.requirements.length !== 0 &&
           !(round.requirements.length === 1 && round.requirements[0] === '') &&
