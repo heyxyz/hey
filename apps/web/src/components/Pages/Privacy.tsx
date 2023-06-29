@@ -1,12 +1,19 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 
 const Privacy: FC = () => {
   const updatedAt = 'December 11, 2022';
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'privacy' });
+  });
 
   return (
     <>

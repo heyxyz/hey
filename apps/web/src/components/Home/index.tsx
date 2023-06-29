@@ -2,10 +2,13 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
@@ -21,6 +24,10 @@ import Timeline from './Timeline';
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'home' });
+  });
 
   return (
     <>

@@ -8,14 +8,17 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { usePublicationQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
@@ -28,6 +31,10 @@ const ViewPublication: NextPage = () => {
   const {
     query: { id }
   } = useRouter();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'publication' });
+  });
 
   const { data, loading, error } = usePublicationQuery({
     variables: {

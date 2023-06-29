@@ -1,6 +1,6 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { PUBLICATION } from '@lenster/data/tracking';
+import { PAGEVIEW, PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import { useReportPublicationMutation } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -18,6 +18,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
@@ -36,6 +37,10 @@ const Report: FC<ReportProps> = ({ publication }) => {
   const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
   const [type, setType] = useState(reportConfig?.type ?? '');
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'report' });
+  });
 
   const [
     createReport,

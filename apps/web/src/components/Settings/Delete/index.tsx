@@ -5,6 +5,7 @@ import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
 import {
   Button,
@@ -17,6 +18,7 @@ import {
   WarningMessage
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
+import { Mixpanel } from '@lib/mixpanel';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -25,6 +27,7 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
+import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 import SettingsSidebar from '../Sidebar';
@@ -39,6 +42,10 @@ const DeleteSettings: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+  });
 
   const onCompleted = () => {
     setCurrentProfile(null);
