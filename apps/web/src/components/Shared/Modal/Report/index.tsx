@@ -13,7 +13,7 @@ import {
   TextArea,
   useZodForm
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -42,7 +42,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, {
+      Mixpanel.track(PUBLICATION.REPORT, {
         report_publication_id: publication?.id
       });
     }
