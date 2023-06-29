@@ -2,14 +2,21 @@ import MetaTags from '@components/Common/MetaTags';
 import Signup from '@components/Shared/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 const NewProfile: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'new-profile' });
+  });
 
   if (!currentProfile) {
     return <Custom404 />;

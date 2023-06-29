@@ -10,10 +10,12 @@ import type {
 import useSendOptimisticMessage from '@components/utils/hooks/useSendOptimisticMessage';
 import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { parseConversationKey } from '@lib/conversationKey';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -22,6 +24,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Composer from './Composer';
 import MessagesList from './MessagesList';
@@ -186,6 +189,10 @@ const MessagePage: NextPage = () => {
   const {
     query: { conversationKey }
   } = useRouter();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'conversation' });
+  });
 
   // Need to have a login page for when there is no currentProfileId
   if (

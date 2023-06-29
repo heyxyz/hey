@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { Localstorage } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   Button,
   Card,
@@ -9,17 +10,23 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const disconnectXmtp = useDisconnectXmtp();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
+  });
 
   if (!currentProfile) {
     return <Custom404 />;
