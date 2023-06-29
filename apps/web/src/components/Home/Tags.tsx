@@ -52,7 +52,7 @@ const Tags: FC = () => {
           <div key={tag.tag}>
             <button
               onClick={() => {
-                // Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                // Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                 //   trending_tag: tag.tag
                 // });
                 setSelectedTag(tag.tag);

@@ -17,7 +17,7 @@ import hasGm from '@lenster/lib/hasGm';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -93,7 +93,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [addReaction] = useAddReactionMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.LIKE, eventProperties);
+      Mixpanel.track(PUBLICATION.LIKE, eventProperties);
     },
     onError: (error) => {
       setLiked(!liked);
@@ -104,9 +104,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   });
 
   const [removeReaction] = useRemoveReactionMutation({
-    onCompleted: () => {
-      Leafwatch.track(PUBLICATION.UNLIKE, eventProperties);
-    },
+    onCompleted: () => Mixpanel.track(PUBLICATION.UNLIKE, eventProperties),
     onError: (error) => {
       setLiked(!liked);
       setCount(count + 1);
