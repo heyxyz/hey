@@ -11,7 +11,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Unfollow: FC<UnfollowProps> = ({
     setIsLoading(false);
     setFollowing(false);
     toast.success(t`Unfollowed successfully!`);
-    Leafwatch.track(PROFILE.UNFOLLOW);
+    Mixpanel.track(PROFILE.UNFOLLOW);
   };
 
   const onError = (error: any) => {

@@ -9,7 +9,7 @@ import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -102,7 +102,7 @@ const RecommendedProfiles: FC = () => {
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+            Mixpanel.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
           <DotsCircleHorizontalIcon className="h-4 w-4" />

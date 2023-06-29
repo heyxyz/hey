@@ -3,7 +3,7 @@ import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -34,7 +34,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
           publication?.metadata?.content || ''
         );
         toast.success(t`Copied to clipboard!`);
-        Leafwatch.track(PUBLICATION.COPY_TEXT, {
+        Mixpanel.track(PUBLICATION.COPY_TEXT, {
           publication_id: publication.id
         });
       }}

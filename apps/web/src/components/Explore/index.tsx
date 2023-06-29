@@ -11,7 +11,7 @@ import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
@@ -59,7 +59,7 @@ const Explore: NextPage = () => {
                 key={tab.type}
                 defaultChecked={index === 1}
                 onClick={() => {
-                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                  Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
                     explore_feed_type: tab.type.toLowerCase()
                   });
                 }}

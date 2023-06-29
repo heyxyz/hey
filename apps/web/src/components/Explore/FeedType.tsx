@@ -1,6 +1,6 @@
 import { EXPLORE } from '@lenster/data/tracking';
 import { PublicationMainFocus } from '@lenster/lens';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
@@ -21,7 +21,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMainFocus);
-        Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
+        Mixpanel.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
           explore_feed_focus: (type ?? 'all_posts').toLowerCase()
         });
       }}
