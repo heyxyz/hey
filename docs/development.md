@@ -5,18 +5,18 @@
 ### Install dependencies
 
 ```bash
-pnpm install
+yarn install
 ```
 
 ### Run the development server
 
 ```bash
-pnpm dev
+yarn dev
 ```
 
 ### Run the production server
 
 ```bash
-pnpm build
-pnpm start
+yarn build
+yarn start
 ```

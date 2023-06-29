@@ -17,6 +17,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,
@@ -41,7 +42,7 @@ import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -51,7 +52,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PUBLICATION } from 'src/tracking';
 import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,
@@ -130,7 +130,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+    Mixpanel.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       collect_module: collectModule?.type,
       collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {

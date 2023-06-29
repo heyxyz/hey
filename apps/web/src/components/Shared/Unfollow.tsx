@@ -1,6 +1,7 @@
 import { UserRemoveIcon } from '@heroicons/react/outline';
 import { FollowNft } from '@lenster/abis';
 import { Errors } from '@lenster/data';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -10,13 +11,12 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PROFILE } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
@@ -50,7 +50,7 @@ const Unfollow: FC<UnfollowProps> = ({
     setIsLoading(false);
     setFollowing(false);
     toast.success(t`Unfollowed successfully!`);
-    Leafwatch.track(PROFILE.UNFOLLOW);
+    Mixpanel.track(PROFILE.UNFOLLOW);
   };
 
   const onError = (error: any) => {

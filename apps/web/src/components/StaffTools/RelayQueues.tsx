@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Errors } from '@lenster/data';
 import { APP_NAME, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useRelayQueuesQuery } from '@lenster/lens';
 import {
   Card,
@@ -10,13 +11,12 @@ import {
   GridLayout,
   Spinner
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from './Sidebar';
@@ -69,7 +69,7 @@ const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
+    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
   });
 
   const { data, loading, error } = useRelayQueuesQuery({

@@ -1,12 +1,12 @@
 import useModMode from '@components/utils/hooks/useModMode';
 import { LightningBoltIcon as LightningBoltIconOutline } from '@heroicons/react/outline';
 import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/solid';
-import { Leafwatch } from '@lib/leafwatch';
+import { MOD } from '@lenster/data/tracking';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppPersistStore } from 'src/store/app';
-import { MOD } from 'src/tracking';
 
 interface ModModeProps {
   className?: string;
@@ -18,7 +18,7 @@ const ModMode: FC<ModModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setModMode(!modMode);
-    Leafwatch.track(MOD.TOGGLE_MODE);
+    Mixpanel.track(MOD.TOGGLE_MODE);
   };
 
   return (

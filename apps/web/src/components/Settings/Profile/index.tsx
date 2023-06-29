@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useProfileSettingsQuery } from '@lenster/lens';
 import {
   Card,
@@ -10,14 +11,13 @@ import {
   PageLoading,
   TabButton
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -30,7 +30,7 @@ const ProfileSettings: NextPage = () => {
   const [settingsType, setSettingsType] = useState<'NFT' | 'AVATAR'>('AVATAR');
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   });
 
   const { data, loading, error } = useProfileSettingsQuery({

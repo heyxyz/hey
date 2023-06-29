@@ -3,6 +3,7 @@ import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {
@@ -21,7 +22,7 @@ import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Button, ErrorMessage, Image, Modal, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
@@ -29,7 +30,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import ImageCropperController from './ImageCropperController';
@@ -59,7 +59,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Avatar updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+    Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
   };
 
   const onError = (error: any) => {

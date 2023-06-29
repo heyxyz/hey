@@ -3,6 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
@@ -18,14 +19,13 @@ import {
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image, Input, Spinner } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { MISCELLANEOUS } from 'src/tracking';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -177,7 +177,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                      Mixpanel.track(MISCELLANEOUS.SELECT_USER_FEED, {
                         see_through_profile: profile?.id
                       });
                     }}

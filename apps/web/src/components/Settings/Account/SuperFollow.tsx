@@ -2,6 +2,7 @@ import { StarIcon, XIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors, Regex } from '@lenster/data';
 import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -12,14 +13,13 @@ import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
@@ -48,7 +48,7 @@ const SuperFollow: FC = () => {
 
     setIsLoading(false);
     toast.success(t`Super Follow updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const onError = (error: any) => {

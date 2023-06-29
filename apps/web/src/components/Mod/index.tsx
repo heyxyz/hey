@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
@@ -15,13 +16,12 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
@@ -50,7 +50,7 @@ const Mod: NextPage = () => {
   ]);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'mod' });
+    Mixpanel.track(PAGEVIEW, { page: 'mod' });
   });
 
   if (!isGardener(currentProfile?.id)) {

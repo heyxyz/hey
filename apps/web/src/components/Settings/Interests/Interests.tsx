@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
@@ -8,11 +9,10 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { Button } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 import Loader from '../../Shared/Loader';
 
@@ -35,11 +35,11 @@ const Interests: FC = () => {
 
   const { data, loading } = useProfileInterestsQuery();
   const [addProfileInterests] = useAddProfileInterestMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
+    onCompleted: () => Mixpanel.track(SETTINGS.INTERESTS.ADD),
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
+    onCompleted: () => Mixpanel.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 

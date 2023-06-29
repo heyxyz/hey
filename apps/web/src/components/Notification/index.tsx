@@ -1,13 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
-import { Leafwatch } from '@lib/leafwatch';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FeedType from './FeedType';
@@ -29,7 +29,7 @@ const Notification: FC = () => {
   );
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
+    Mixpanel.track(PAGEVIEW, { page: 'notifications' });
   });
 
   if (!currentProfile) {

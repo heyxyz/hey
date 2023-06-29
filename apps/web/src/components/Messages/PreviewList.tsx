@@ -7,6 +7,7 @@ import { useMessageDb } from '@components/utils/hooks/useMessageDb';
 import useMessagePreviews from '@components/utils/hooks/useMessagePreviews';
 import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { Errors } from '@lenster/data';
+import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
@@ -18,7 +19,7 @@ import {
 } from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -29,7 +30,6 @@ import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
-import { MESSAGES } from 'src/tracking';
 
 interface PreviewListProps {
   className?: string;
@@ -85,7 +85,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-    Leafwatch.track(MESSAGES.OPEN_NEW_CONVERSATION);
+    Mixpanel.track(MESSAGES.OPEN_NEW_CONVERSATION);
   };
 
   const onProfileSelected = async (profile: Profile) => {

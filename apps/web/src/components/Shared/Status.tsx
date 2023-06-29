@@ -2,6 +2,7 @@ import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { APP_NAME, LENS_PERIPHERY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -20,7 +21,7 @@ import {
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -28,7 +29,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
@@ -231,7 +231,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={async ({ status }) => {
           await editStatus(emoji, status);
-          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
+          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -249,7 +249,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               await editStatus('', '');
-              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

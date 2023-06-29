@@ -1,17 +1,17 @@
 import Loader from '@components/Shared/Loader';
 import { CollectionIcon } from '@heroicons/react/outline';
 import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { ElectedMirror, Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal, Tooltip } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { PUBLICATION } from 'src/tracking';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
   loading: () => <Loader message={t`Loading collect`} />
@@ -61,7 +61,7 @@ const Collect: FC<CollectProps> = ({
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowCollectModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+            Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
           }}
           aria-label="Collect"
         >

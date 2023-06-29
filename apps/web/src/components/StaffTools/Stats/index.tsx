@@ -13,6 +13,7 @@ import {
 import { PencilAltIcon } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data';
 import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { useLensterStatsQuery } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import {
@@ -23,13 +24,12 @@ import {
   Spinner
 } from '@lenster/ui';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import Custom404 from 'src/pages/404';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from '../Sidebar';
@@ -86,7 +86,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
+    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
   const { data, loading, error } = useLensterStatsQuery({

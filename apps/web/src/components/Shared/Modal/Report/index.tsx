@@ -1,5 +1,6 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
+import { PAGEVIEW, PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import { useReportPublicationMutation } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -12,12 +13,11 @@ import {
   TextArea,
   useZodForm
 } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PAGEVIEW, PUBLICATION } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -39,7 +39,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
   const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'report' });
+    Mixpanel.track(PAGEVIEW, { page: 'report' });
   });
 
   const [
@@ -47,7 +47,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useReportPublicationMutation({
     onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, {
+      Mixpanel.track(PUBLICATION.REPORT, {
         report_publication_id: publication?.id
       });
     }

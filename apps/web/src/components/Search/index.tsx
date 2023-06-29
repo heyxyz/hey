@@ -1,13 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
 import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Profiles from './Profiles';
@@ -20,7 +20,7 @@ const Search: NextPage = () => {
     : encodeURIComponent(query.q || '');
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'search' });
+    Mixpanel.track(PAGEVIEW, { page: 'search' });
   });
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as string)) {

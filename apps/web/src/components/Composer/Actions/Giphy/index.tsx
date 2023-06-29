@@ -1,15 +1,15 @@
 import Loader from '@components/Shared/Loader';
 import type { IGif } from '@giphy/js-types';
 import { PhotographIcon } from '@heroicons/react/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
 import { Modal, Tooltip } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import { PUBLICATION } from 'src/tracking';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
   loading: () => <Loader message={t`Loading GIFs`} />
@@ -31,7 +31,7 @@ const Giphy: FC<GiphyProps> = ({ setGifAttachment }) => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.OPEN_GIFS);
+            Mixpanel.track(PUBLICATION.OPEN_GIFS);
           }}
           disabled={attachments.length >= 4}
           aria-label="Choose GIFs"

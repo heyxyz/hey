@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-19 00:09\n"
+"PO-Revision-Date: 2023-06-27 07:33\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1986,10 +1986,6 @@ msgstr "禁用无签名交易"
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
-
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr "您的唯一指纹"
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"

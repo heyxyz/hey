@@ -3,6 +3,7 @@ import { StarIcon, UserIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { PROFILE } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
@@ -17,7 +18,7 @@ import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -26,7 +27,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PROFILE } from 'src/tracking';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
@@ -68,7 +68,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setFollowing(true);
     setShowFollowModal(false);
     toast.success(t`Followed successfully!`);
-    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
+    Mixpanel.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
       ...(followUnfollowPosition && { position: followUnfollowPosition }),

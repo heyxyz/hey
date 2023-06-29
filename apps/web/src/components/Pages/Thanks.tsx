@@ -2,12 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
-import { Leafwatch } from '@lib/leafwatch';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 interface BrandProps {
@@ -21,6 +21,10 @@ interface BrandProps {
 
 const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
   const { resolvedTheme } = useTheme();
+
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'thanks' });
+  });
 
   return (
     <div className="space-y-5 pt-10">
@@ -48,10 +52,6 @@ const Brand: FC<BrandProps> = ({ name, logo, url, size, type, children }) => {
 };
 
 const Thanks: FC = () => {
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'thanks' });
-  });
-
   return (
     <>
       <MetaTags title={t`Thanks • ${APP_NAME}`} />

@@ -3,12 +3,13 @@ import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
 import { FeatureFlag } from '@lenster/data';
 import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -16,7 +17,6 @@ import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Cover from './Cover';
@@ -38,12 +38,12 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
-  const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
+    Mixpanel.track(PAGEVIEW, { page: 'profile' });
   });
 
+  const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },

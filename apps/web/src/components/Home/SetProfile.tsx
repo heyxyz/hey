@@ -6,14 +6,14 @@ import {
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME } from '@lenster/data/constants';
+import { ONBOARDING } from '@lenster/data/tracking';
 import { Card } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { ONBOARDING } from 'src/tracking';
 
 interface StatusProps {
   finished: boolean;
@@ -75,7 +75,7 @@ const SetProfile: FC = () => {
           <Link
             className="flex items-center space-x-2"
             onClick={() =>
-              Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
+              Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE_INTERESTS)
             }
             href="/settings/interests"
           >
@@ -90,7 +90,7 @@ const SetProfile: FC = () => {
       <div className="flex items-center space-x-1.5 text-sm font-bold">
         <PencilAltIcon className="h-4 w-4" />
         <Link
-          onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
+          onClick={() => Mixpanel.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
         >
           <Trans>Update profile now</Trans>

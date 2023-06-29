@@ -1,9 +1,9 @@
 import { XIcon } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useDismissRecommendedProfilesMutation } from '@lenster/lens';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import type { FC } from 'react';
-import { PROFILE } from 'src/tracking';
 
 interface DismissRecommendedProfileProps {
   profile: Profile;
@@ -25,7 +25,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
 
   const handleDismiss = async () => {
     await dismissRecommendedProfile();
-    Leafwatch.track(PROFILE.DISMISS_RECOMMENDED_PROFILE, {
+    Mixpanel.track(PROFILE.DISMISS_RECOMMENDED_PROFILE, {
       ...(dismissSource && { dismiss_source: dismissSource }),
       ...(dismissPosition && { dismiss_position: dismissPosition }),
       dismiss_target: profile.id

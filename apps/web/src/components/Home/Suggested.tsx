@@ -3,6 +3,7 @@ import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -11,7 +12,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
-import { FollowUnfollowSource } from 'src/tracking';
 
 const Suggested: FC = () => {
   const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);

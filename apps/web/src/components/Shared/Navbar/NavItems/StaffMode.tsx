@@ -3,12 +3,12 @@ import {
   ShieldCheckIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline';
-import { Leafwatch } from '@lib/leafwatch';
+import { STAFFTOOLS } from '@lenster/data/tracking';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppPersistStore } from 'src/store/app';
-import { STAFFTOOLS } from 'src/tracking';
 
 interface StaffModeProps {
   className?: string;
@@ -20,7 +20,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (

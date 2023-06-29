@@ -6,11 +6,12 @@ import {
   IS_MAINNET,
   SNAPSHOR_RELAY_WORKER_URL
 } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, Modal, Spinner } from '@lenster/ui';
 import { getTimetoNow } from '@lib/formatTime';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
@@ -19,7 +20,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 import { useReadLocalStorage } from 'usehooks-ts';
 
 import New from '../Badges/New';
@@ -82,7 +82,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     setVoteConfig({ show: true, position });
-    Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
+    Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
       proposal_id: id
     });
   };
@@ -110,7 +110,7 @@ const Choices: FC<ChoicesProps> = ({
         }
       });
       refetch?.();
-      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: APP_NAME.toLowerCase()
       });

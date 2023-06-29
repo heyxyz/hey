@@ -33,6 +33,7 @@ import {
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
 } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
@@ -67,7 +68,7 @@ import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -86,7 +87,6 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
@@ -255,7 +255,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? attachments.map((attachment) => attachment.original.mimeType)
           : null
     };
-    Leafwatch.track(
+    Mixpanel.track(
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
       eventProperties
     );

@@ -1,14 +1,14 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { TrendingUpIcon } from '@heroicons/react/solid';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
 import type { TagResult } from '@lenster/lens';
 import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, ErrorMessage } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { MISCELLANEOUS } from 'src/tracking';
 
 const Title = () => {
   return (
@@ -53,7 +53,7 @@ const Trending: FC = () => {
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
                 onClick={() =>
-                  Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                  Mixpanel.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
                     trending_tag: tag?.tag
                   })
                 }

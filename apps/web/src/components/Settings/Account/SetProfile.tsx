@@ -3,6 +3,7 @@ import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -12,7 +13,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,7 +21,6 @@ import toast from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -39,7 +39,7 @@ const SetProfile: FC = () => {
 
     setIsLoading(false);
     toast.success(t`Default profile updated successfully!`);
-    Leafwatch.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
+    Mixpanel.track(SETTINGS.ACCOUNT.SET_DEFAULT_PROFILE);
   };
 
   const onError = (error: any) => {

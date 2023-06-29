@@ -1,13 +1,13 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type { PublicationsQueryRequest } from '@lenster/lens';
 import { PublicationTypes, useProfileFeedLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Publications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -30,7 +30,7 @@ const Publications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.PUBLICATIONS);
+    Mixpanel.track(SETTINGS.EXPORT.PUBLICATIONS);
     setExporting(true);
     const fetchPublications = async (cursor?: string) => {
       const { data } = await exportPublications({

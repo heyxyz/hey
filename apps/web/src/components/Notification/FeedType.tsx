@@ -5,12 +5,12 @@ import {
   CollectionIcon,
   HeartIcon
 } from '@heroicons/react/outline';
+import { NOTIFICATION } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { NotificationType } from 'src/enums';
-import { NOTIFICATION } from 'src/tracking';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<string>;
@@ -20,7 +20,7 @@ interface FeedTypeProps {
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
-    Leafwatch.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
+    Mixpanel.track(NOTIFICATION.SWITCH_NOTIFICATION_TAB, {
       notification_type: type.toLowerCase()
     });
   };

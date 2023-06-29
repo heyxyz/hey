@@ -37,7 +37,7 @@ echo "HUDDLE_API_KEY=VwTZ4AGTxme9snANex9tep3NwvVMGfYd" > .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-pnpm install --frozen-lockfile
+yarn install --frozen-lockfile
 echo "Dependencies installed 📦"
 # -------------------------------------
 echo "Installing playwright 🎭"
@@ -45,7 +45,7 @@ npx playwright install
 echo "Playwright installed 🎭"
 # -------------------------------------
 echo "GraphQL Codegen 🧬"
-pnpm codegen
+yarn codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"

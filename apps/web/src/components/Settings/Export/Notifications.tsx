@@ -1,13 +1,13 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type { NotificationRequest } from '@lenster/lens';
 import { useNotificationsLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Notifications: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -25,7 +25,7 @@ const Notifications: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.NOTIFICATIONS);
+    Mixpanel.track(SETTINGS.EXPORT.NOTIFICATIONS);
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({

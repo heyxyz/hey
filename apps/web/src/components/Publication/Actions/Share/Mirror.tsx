@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors, LENSHUB_PROXY } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
@@ -17,7 +18,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -25,7 +26,6 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { PUBLICATION } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
@@ -78,7 +78,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     setIsLoading(false);
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Leafwatch.track(PUBLICATION.MIRROR, {
+    Mixpanel.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
     });
   };

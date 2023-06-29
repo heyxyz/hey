@@ -25,6 +25,7 @@ import {
   POLYGONSCAN_URL,
   RARIBLE_URL
 } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -32,7 +33,7 @@ import getURLs from '@lenster/lib/getURLs';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
@@ -42,7 +43,6 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-import { PUBLICATION } from 'src/tracking';
 import { usePublicClient, useToken } from 'wagmi';
 
 interface DecryptMessageProps {
@@ -224,7 +224,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 href={`/posts/${collectCondition?.publicationId}`}
                 className="font-bold lowercase underline"
                 onClick={() =>
-                  Leafwatch.track(
+                  Mixpanel.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_COLLECT
                   )
                 }
@@ -271,7 +271,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
                 className="font-bold underline"
                 onClick={() =>
-                  Leafwatch.track(
+                  Mixpanel.track(
                     PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_TOKEN
                   )
                 }
@@ -296,7 +296,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
                   onClick={() =>
-                    Leafwatch.track(
+                    Mixpanel.track(
                       PUBLICATION.TOKEN_GATED.CHECKLIST_NAVIGATED_TO_NFT
                     )
                   }
@@ -336,7 +336,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         onClick={async (event) => {
           stopEventPropagation(event);
           await getDecryptedData();
-          Leafwatch.track(PUBLICATION.TOKEN_GATED.DECRYPT);
+          Mixpanel.track(PUBLICATION.TOKEN_GATED.DECRYPT);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">

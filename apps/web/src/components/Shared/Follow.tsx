@@ -1,6 +1,7 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -11,7 +12,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
@@ -20,7 +21,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
-import { PROFILE } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
@@ -68,7 +68,7 @@ const Follow: FC<FollowProps> = ({
     setIsLoading(false);
     setFollowing(true);
     toast.success(t`Followed successfully!`);
-    Leafwatch.track(PROFILE.FOLLOW, {
+    Mixpanel.track(PROFILE.FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
       ...(followUnfollowPosition && { position: followUnfollowPosition }),

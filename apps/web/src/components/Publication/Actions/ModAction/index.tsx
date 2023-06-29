@@ -1,4 +1,5 @@
 import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
+import { MOD } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
@@ -6,13 +7,12 @@ import {
 } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Button } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
-import { MOD } from 'src/tracking';
 
 interface ModActionProps {
   publication: Publication;
@@ -70,7 +70,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       icon={icon}
       onClick={async () => {
         await reportPublication({ type, subreason });
-        Leafwatch.track(MOD.REPORT, {
+        Mixpanel.track(MOD.REPORT, {
           report_reason: type,
           report_subreason: subreason,
           report_publication_id: publication?.id

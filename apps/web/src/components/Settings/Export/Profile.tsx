@@ -1,3 +1,4 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type {
   Profile as TProfile,
   SingleProfileQueryRequest
@@ -5,12 +6,11 @@ import type {
 import { useProfileLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Profile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -28,7 +28,7 @@ const Profile: FC = () => {
   });
 
   const handleExportClick = () => {
-    Leafwatch.track(SETTINGS.EXPORT.PROFILE);
+    Mixpanel.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

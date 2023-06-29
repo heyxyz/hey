@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
   CollectModules,
@@ -10,14 +11,13 @@ import {
   useEnabledModulesQuery
 } from '@lenster/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { PAGEVIEW } from 'src/tracking';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -46,15 +46,15 @@ const AllowanceSettings: NextPage = () => {
     error: enabledModulesError
   } = useEnabledModulesQuery();
 
+  useEffectOnce(() => {
+    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+  });
+
   const { data, loading, error, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },
       skip: !currentProfile?.id || enabledModulesLoading
     });
-
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
-  });
 
   if (error || enabledModulesError) {
     return <Custom500 />;

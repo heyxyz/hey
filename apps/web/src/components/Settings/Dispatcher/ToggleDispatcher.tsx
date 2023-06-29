@@ -5,6 +5,7 @@ import {
   LENSHUB_PROXY,
   OLD_LENS_RELAYER_ADDRESS
 } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
@@ -13,7 +14,7 @@ import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -21,7 +22,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { SETTINGS } from 'src/tracking';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface ToggleDispatcherProps {
@@ -46,9 +46,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
     if (isOldDispatcherEnabled) {
-      Leafwatch.track(SETTINGS.DISPATCHER.UPDATE);
+      Mixpanel.track(SETTINGS.DISPATCHER.UPDATE);
     } else {
-      Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
+      Mixpanel.track(SETTINGS.DISPATCHER.TOGGLE);
     }
   };
 

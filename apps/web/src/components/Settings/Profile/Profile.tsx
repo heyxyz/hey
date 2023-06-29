@@ -3,6 +3,7 @@ import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
 import { Errors, Regex } from '@lenster/data';
 import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {
@@ -34,7 +35,7 @@ import {
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
@@ -42,7 +43,6 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -96,7 +96,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    Leafwatch.track(SETTINGS.PROFILE.UPDATE);
+    Mixpanel.track(SETTINGS.PROFILE.UPDATE);
   };
 
   const onError = (error: any) => {

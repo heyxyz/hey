@@ -1,11 +1,11 @@
 import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import isPrimeMonth from '@lenster/lib/isPrideMonth';
+import { PUBLICATION } from '@lenster/data/tracking';
+import isPrideMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { PUBLICATION } from 'src/tracking';
 import type { MarkupLinkProps } from 'src/types';
 
 const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
@@ -15,7 +15,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
 
   const tag = title.slice(1).toLowerCase();
   const hasHashflag = hashflags.hasOwnProperty(tag);
-  const isPrideHashtag = isPrimeMonth() ? prideHashtags.includes(tag) : false;
+  const isPrideHashtag = isPrideMonth() ? prideHashtags.includes(tag) : false;
 
   return (
     <span className="inline-flex items-center space-x-1">
@@ -24,7 +24,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             stopEventPropagation(event);
-            Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {
+            Mixpanel.track(PUBLICATION.CLICK_HASHTAG, {
               hashtag: title.slice(1)
             });
           }}

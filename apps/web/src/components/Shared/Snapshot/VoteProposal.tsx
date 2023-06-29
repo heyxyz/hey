@@ -2,9 +2,10 @@ import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME, Errors } from '@lenster/data';
+import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import { Button, Spinner } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { snapshotClient } from '@lib/snapshotClient';
 import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +15,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { PUBLICATION } from 'src/tracking';
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -89,7 +89,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       });
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
-      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+      Mixpanel.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
         proposal_source: 'snapshot'
       });

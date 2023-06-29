@@ -1,13 +1,13 @@
+import { SETTINGS } from '@lenster/data/tracking';
 import type { FollowingRequest } from '@lenster/lens';
 import { useFollowingLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Leafwatch } from '@lib/leafwatch';
+import { Mixpanel } from '@lib/mixpanel';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { SETTINGS } from 'src/tracking';
 
 const Following: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -25,7 +25,7 @@ const Following: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Leafwatch.track(SETTINGS.EXPORT.FOLLOWING);
+    Mixpanel.track(SETTINGS.EXPORT.FOLLOWING);
     setExporting(true);
     const fetchFollowing = async (cursor?: string) => {
       const { data } = await exportFollowing({
