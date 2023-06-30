@@ -5,6 +5,7 @@ fragment CommentFields on Comment {
   }
   reaction(request: $reactionRequest)
   mirrors(by: $profileId)
+  bookmarked(by: $profileId)
   hasCollectedByMe
   onChainContentURI
   isGated
@@ -43,6 +44,7 @@ fragment CommentFields on Comment {
       }
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      bookmarked(by: $profileId)
       hasCollectedByMe
       onChainContentURI
       isGated

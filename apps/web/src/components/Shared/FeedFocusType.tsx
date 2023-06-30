@@ -10,12 +10,12 @@ interface FeedLinkProps {
   type?: PublicationMainFocus;
 }
 
-interface FeedTypeProps {
+interface FeedFocusTypeProps {
   setFocus: Dispatch<PublicationMainFocus>;
   focus?: PublicationMainFocus;
 }
 
-const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
+const FeedFocusType: FC<FeedFocusTypeProps> = ({ setFocus, focus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"
@@ -50,4 +50,4 @@ const FeedType: FC<FeedTypeProps> = ({ setFocus, focus }) => {
   );
 };
 
-export default FeedType;
+export default FeedFocusType;
