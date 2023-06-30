@@ -14,6 +14,7 @@ import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -22,6 +23,7 @@ interface BookmarkProps {
 }
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
+  const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const bookmarked = isMirror
     ? publication.mirrorOf.bookmarked
@@ -33,10 +35,19 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   };
 
   const updateCache = (cache: ApolloCache<any>, bookmarked: boolean) => {
+    const bookmarkedPublications = isMirror
+      ? publication?.mirrorOf
+      : publication;
+
     cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+      id: publicationKeyFields(bookmarkedPublications),
       fields: { bookmarked: () => bookmarked }
     });
+
+    // Remove bookmarked publication from bookmarks feed
+    if (pathname === '/bookmarks') {
+      cache.evict({ id: publicationKeyFields(bookmarkedPublications) });
+    }
   };
 
   const onError = (error: any) => {
