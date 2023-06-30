@@ -41,7 +41,15 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
 
     cache.modify({
       id: publicationKeyFields(bookmarkedPublications),
-      fields: { bookmarked: () => bookmarked }
+      fields: {
+        bookmarked: () => bookmarked,
+        stats: (stats) => ({
+          ...stats,
+          totalBookmarks: bookmarked
+            ? stats.totalBookmarks + 1
+            : stats.totalBookmarks - 1
+        })
+      }
     });
 
     // Remove bookmarked publication from bookmarks feed

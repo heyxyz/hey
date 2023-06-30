@@ -3870,6 +3870,8 @@ export type PublicationStats = {
   totalAmountOfComments: Scalars['Int']['output'];
   /** The total amount of mirrors */
   totalAmountOfMirrors: Scalars['Int']['output'];
+  /** The total amount of bookmarks */
+  totalBookmarks: Scalars['Int']['output'];
   /** The total amount of upvotes */
   totalDownvotes: Scalars['Int']['output'];
   /** The total amount of downvotes */
@@ -5334,6 +5336,7 @@ export type CommentFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
+    totalBookmarks: number;
     commentsTotal: number;
   };
   metadata: {
@@ -5794,6 +5797,7 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         mainPost:
@@ -6002,6 +6006,7 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -6216,6 +6221,7 @@ export type CommentFieldsFragment = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                   }
@@ -6430,6 +6436,7 @@ export type CommentFieldsFragment = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -6774,6 +6781,7 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -7112,6 +7120,7 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -7319,6 +7328,7 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
             }
@@ -7530,6 +7540,7 @@ export type CommentFieldsFragment = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -7871,6 +7882,7 @@ export type CommentFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -8327,6 +8339,7 @@ export type MirrorFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
+    totalBookmarks: number;
     commentsTotal: number;
   };
   metadata: {
@@ -8528,6 +8541,7 @@ export type MirrorFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
       }
@@ -8736,6 +8750,7 @@ export type MirrorFieldsFragment = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -9085,6 +9100,7 @@ export type PostFieldsFragment = {
     totalUpvotes: number;
     totalAmountOfMirrors: number;
     totalAmountOfCollects: number;
+    totalBookmarks: number;
     commentsTotal: number;
   };
   metadata: {
@@ -9304,6 +9320,7 @@ export type StatsFieldsFragment = {
   totalUpvotes: number;
   totalAmountOfMirrors: number;
   totalAmountOfCollects: number;
+  totalBookmarks: number;
   commentsTotal: number;
 };
 
@@ -10914,6 +10931,7 @@ export type CommentFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -11391,6 +11409,7 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -11602,6 +11621,7 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -11822,6 +11842,7 @@ export type CommentFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -12044,6 +12065,7 @@ export type CommentFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -12391,6 +12413,7 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -12735,6 +12758,7 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -12949,6 +12973,7 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -13163,6 +13188,7 @@ export type CommentFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -13510,6 +13536,7 @@ export type CommentFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -13891,6 +13918,7 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -14368,6 +14396,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -14579,6 +14608,7 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -14799,6 +14829,7 @@ export type ExploreFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -15021,6 +15052,7 @@ export type ExploreFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -15368,6 +15400,7 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -15712,6 +15745,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -15926,6 +15960,7 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -16140,6 +16175,7 @@ export type ExploreFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -16487,6 +16523,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -16826,6 +16863,7 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -17040,6 +17078,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
               }
@@ -17254,6 +17293,7 @@ export type ExploreFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -17595,6 +17635,7 @@ export type ExploreFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -17951,6 +17992,7 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -18428,6 +18470,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -18639,6 +18682,7 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -18859,6 +18903,7 @@ export type FeedHighlightsQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -19081,6 +19126,7 @@ export type FeedHighlightsQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -19428,6 +19474,7 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -19772,6 +19819,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -19986,6 +20034,7 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -20200,6 +20249,7 @@ export type FeedHighlightsQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -20547,6 +20597,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -20886,6 +20937,7 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -21100,6 +21152,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
               }
@@ -21314,6 +21367,7 @@ export type FeedHighlightsQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -21655,6 +21709,7 @@ export type FeedHighlightsQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -22145,6 +22200,7 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -22622,6 +22678,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -22833,6 +22890,7 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -23053,6 +23111,7 @@ export type ForYouQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -23275,6 +23334,7 @@ export type ForYouQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -23622,6 +23682,7 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -23966,6 +24027,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -24180,6 +24242,7 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -24394,6 +24457,7 @@ export type ForYouQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -24741,6 +24805,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -25080,6 +25145,7 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -25294,6 +25360,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
               }
@@ -25508,6 +25575,7 @@ export type ForYouQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -25849,6 +25917,7 @@ export type ForYouQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -27293,6 +27362,7 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -27770,6 +27840,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -27981,6 +28052,7 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -28201,6 +28273,7 @@ export type ProfileFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -28423,6 +28496,7 @@ export type ProfileFeedQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -28770,6 +28844,7 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -29114,6 +29189,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -29328,6 +29404,7 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -29542,6 +29619,7 @@ export type ProfileFeedQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -29889,6 +29967,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -30228,6 +30307,7 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -30442,6 +30522,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
               }
@@ -30656,6 +30737,7 @@ export type ProfileFeedQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -30997,6 +31079,7 @@ export type ProfileFeedQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -31483,6 +31566,7 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -31953,6 +32037,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               mainPost:
@@ -32164,6 +32249,7 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -32378,6 +32464,7 @@ export type PublicationQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                         }
@@ -32592,6 +32679,7 @@ export type PublicationQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                           metadata: {
@@ -32939,6 +33027,7 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -33280,6 +33369,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -33494,6 +33584,7 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                   }
@@ -33708,6 +33799,7 @@ export type PublicationQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -34052,6 +34144,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -34397,6 +34490,7 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -34604,6 +34698,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
             }
@@ -34815,6 +34910,7 @@ export type PublicationQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -35162,6 +35258,7 @@ export type PublicationQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -35527,6 +35624,7 @@ export type PublicationsProfileBookmarksQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -36004,6 +36102,7 @@ export type PublicationsProfileBookmarksQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 mainPost:
@@ -36215,6 +36314,7 @@ export type PublicationsProfileBookmarksQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -36435,6 +36535,7 @@ export type PublicationsProfileBookmarksQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                           }
@@ -36657,6 +36758,7 @@ export type PublicationsProfileBookmarksQuery = {
                               totalUpvotes: number;
                               totalAmountOfMirrors: number;
                               totalAmountOfCollects: number;
+                              totalBookmarks: number;
                               commentsTotal: number;
                             };
                             metadata: {
@@ -37004,6 +37106,7 @@ export type PublicationsProfileBookmarksQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -37348,6 +37451,7 @@ export type PublicationsProfileBookmarksQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -37562,6 +37666,7 @@ export type PublicationsProfileBookmarksQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                     }
@@ -37776,6 +37881,7 @@ export type PublicationsProfileBookmarksQuery = {
                         totalUpvotes: number;
                         totalAmountOfMirrors: number;
                         totalAmountOfCollects: number;
+                        totalBookmarks: number;
                         commentsTotal: number;
                       };
                       metadata: {
@@ -38123,6 +38229,7 @@ export type PublicationsProfileBookmarksQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -38462,6 +38569,7 @@ export type PublicationsProfileBookmarksQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -38676,6 +38784,7 @@ export type PublicationsProfileBookmarksQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
               }
@@ -38890,6 +38999,7 @@ export type PublicationsProfileBookmarksQuery = {
                   totalUpvotes: number;
                   totalAmountOfMirrors: number;
                   totalAmountOfCollects: number;
+                  totalBookmarks: number;
                   commentsTotal: number;
                 };
                 metadata: {
@@ -39231,6 +39341,7 @@ export type PublicationsProfileBookmarksQuery = {
             totalUpvotes: number;
             totalAmountOfMirrors: number;
             totalAmountOfCollects: number;
+            totalBookmarks: number;
             commentsTotal: number;
           };
           metadata: {
@@ -39724,6 +39835,7 @@ export type SearchPublicationsQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -40201,6 +40313,7 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     mainPost:
@@ -40412,6 +40525,7 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                           metadata: {
@@ -40638,6 +40752,7 @@ export type SearchPublicationsQuery = {
                                   totalUpvotes: number;
                                   totalAmountOfMirrors: number;
                                   totalAmountOfCollects: number;
+                                  totalBookmarks: number;
                                   commentsTotal: number;
                                 };
                               }
@@ -40872,6 +40987,7 @@ export type SearchPublicationsQuery = {
                                   totalUpvotes: number;
                                   totalAmountOfMirrors: number;
                                   totalAmountOfCollects: number;
+                                  totalBookmarks: number;
                                   commentsTotal: number;
                                 };
                                 metadata: {
@@ -41226,6 +41342,7 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                           metadata: {
@@ -41570,6 +41687,7 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -41784,6 +41902,7 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                         }
@@ -41998,6 +42117,7 @@ export type SearchPublicationsQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                           metadata: {
@@ -42345,6 +42465,7 @@ export type SearchPublicationsQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -42690,6 +42811,7 @@ export type SearchPublicationsQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -43459,6 +43581,7 @@ export type TimelineQuery = {
               totalUpvotes: number;
               totalAmountOfMirrors: number;
               totalAmountOfCollects: number;
+              totalBookmarks: number;
               commentsTotal: number;
             };
             metadata: {
@@ -43936,6 +44059,7 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
+                    totalBookmarks: number;
                     commentsTotal: number;
                   };
                   mainPost:
@@ -44147,6 +44271,7 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
+                          totalBookmarks: number;
                           commentsTotal: number;
                         };
                         metadata: {
@@ -44371,6 +44496,7 @@ export type TimelineQuery = {
                                 totalUpvotes: number;
                                 totalAmountOfMirrors: number;
                                 totalAmountOfCollects: number;
+                                totalBookmarks: number;
                                 commentsTotal: number;
                               };
                             }
@@ -44601,6 +44727,7 @@ export type TimelineQuery = {
                                 totalUpvotes: number;
                                 totalAmountOfMirrors: number;
                                 totalAmountOfCollects: number;
+                                totalBookmarks: number;
                                 commentsTotal: number;
                               };
                               metadata: {
@@ -44948,6 +45075,7 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
+                          totalBookmarks: number;
                           commentsTotal: number;
                         };
                         metadata: {
@@ -45292,6 +45420,7 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
+                    totalBookmarks: number;
                     commentsTotal: number;
                   };
                   metadata: {
@@ -45506,6 +45635,7 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
+                          totalBookmarks: number;
                           commentsTotal: number;
                         };
                       }
@@ -45720,6 +45850,7 @@ export type TimelineQuery = {
                           totalUpvotes: number;
                           totalAmountOfMirrors: number;
                           totalAmountOfCollects: number;
+                          totalBookmarks: number;
                           commentsTotal: number;
                         };
                         metadata: {
@@ -46067,6 +46198,7 @@ export type TimelineQuery = {
                     totalUpvotes: number;
                     totalAmountOfMirrors: number;
                     totalAmountOfCollects: number;
+                    totalBookmarks: number;
                     commentsTotal: number;
                   };
                   metadata: {
@@ -46409,6 +46541,7 @@ export type TimelineQuery = {
               totalUpvotes: number;
               totalAmountOfMirrors: number;
               totalAmountOfCollects: number;
+              totalBookmarks: number;
               commentsTotal: number;
             };
             metadata: {
@@ -46963,6 +47096,7 @@ export type TimelineQuery = {
           totalUpvotes: number;
           totalAmountOfMirrors: number;
           totalAmountOfCollects: number;
+          totalBookmarks: number;
           commentsTotal: number;
         };
         metadata: {
@@ -47433,6 +47567,7 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               mainPost:
@@ -47644,6 +47779,7 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -47858,6 +47994,7 @@ export type TimelineQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                         }
@@ -48072,6 +48209,7 @@ export type TimelineQuery = {
                             totalUpvotes: number;
                             totalAmountOfMirrors: number;
                             totalAmountOfCollects: number;
+                            totalBookmarks: number;
                             commentsTotal: number;
                           };
                           metadata: {
@@ -48419,6 +48557,7 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -48760,6 +48899,7 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -48974,6 +49114,7 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                   }
@@ -49188,6 +49329,7 @@ export type TimelineQuery = {
                       totalUpvotes: number;
                       totalAmountOfMirrors: number;
                       totalAmountOfCollects: number;
+                      totalBookmarks: number;
                       commentsTotal: number;
                     };
                     metadata: {
@@ -49532,6 +49674,7 @@ export type TimelineQuery = {
                 totalUpvotes: number;
                 totalAmountOfMirrors: number;
                 totalAmountOfCollects: number;
+                totalBookmarks: number;
                 commentsTotal: number;
               };
               metadata: {
@@ -49909,6 +50052,7 @@ export const StatsFieldsFragmentDoc = gql`
     totalUpvotes
     totalAmountOfMirrors
     totalAmountOfCollects
+    totalBookmarks
     commentsTotal(customFilters: GARDENERS)
   }
 `;

@@ -37,6 +37,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const collectCount = isMirror
     ? publication?.mirrorOf?.stats?.totalAmountOfCollects
     : publication?.stats?.totalAmountOfCollects;
+  const bookmarkCount = isMirror
+    ? publication?.mirrorOf?.stats?.totalBookmarks
+    : publication?.stats?.totalBookmarks;
   const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
 
   return (
@@ -147,6 +150,19 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <Collectors publicationId={publicationId} />
           </Modal>
         </>
+      )}
+      {bookmarkCount > 0 && (
+        <span data-testid="bookmark-stats">
+          <b className="text-black dark:text-white">
+            {nFormatter(bookmarkCount)}
+          </b>{' '}
+          <Plural
+            value={bookmarkCount}
+            zero="Bookmark"
+            one="Bookmark"
+            other="Bookmarks"
+          />
+        </span>
       )}
     </div>
   );
