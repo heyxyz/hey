@@ -13,9 +13,11 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 
 interface BookmarkProps {
@@ -66,6 +68,9 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     useAddPublicationProfileBookmarkMutation({
       variables: { request },
       onError,
+      onCompleted: () => {
+        toast.success(t`Publication bookmarked`);
+      },
       update: (cache) => updateCache(cache, true)
     });
 
@@ -73,6 +78,9 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     useRemovePublicationProfileBookmarkMutation({
       variables: { request },
       onError,
+      onCompleted: () => {
+        toast.success(t`Removed publication bookmark`);
+      },
       update: (cache) => updateCache(cache, false)
     });
 
