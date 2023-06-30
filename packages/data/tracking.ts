@@ -31,6 +31,7 @@ export const PUBLICATION = {
   SHARE: 'Share publication',
   TRANSLATE: 'Translate publication',
   COPY_TEXT: 'Copy publication text',
+  BOOKMARK: 'Bookmark publication',
   DELETE: 'Delete publication',
   REPORT: 'Report publication',
   CLICK_OEMBED: 'Click publication oembed',
