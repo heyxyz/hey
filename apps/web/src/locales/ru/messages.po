@@ -18,6 +18,18 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 47\n"
 
+#: src/components/Bookmarks/Feed.tsx
+msgid "No bookmarks yet!"
+msgstr ""
+
+#: src/components/Bookmarks/Feed.tsx
+msgid "Failed to load bookmark feed"
+msgstr ""
+
+#: src/components/Bookmarks/index.tsx
+msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "Не удалось загрузить комментарии"
@@ -358,32 +370,6 @@ msgstr "Публикаций пока еще нет!"
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
 msgstr "Не удалось загрузить новостную ленту"
-
-#: src/components/Explore/FeedType.tsx
-msgid "All posts"
-msgstr "Все публикации"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-msgid "Text"
-msgstr "Текст"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Video"
-msgstr "Видео"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Audio"
-msgstr "Аудио"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Images"
-msgstr "Картинки"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -740,12 +726,29 @@ msgid "Articles"
 msgstr "Статьи"
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Audio"
+msgstr "Аудио"
+
+#: src/components/Mod/index.tsx
 msgid "Embeds"
 msgstr "Встраивания"
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Images"
+msgstr "Картинки"
+
+#: src/components/Mod/index.tsx
 msgid "Links"
 msgstr "Ссылки"
+
+#: src/components/Mod/index.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Text"
+msgstr "Текст"
 
 #: src/components/Mod/index.tsx
 msgid "Videos"
@@ -1345,6 +1348,11 @@ msgstr ""
 msgid "NFTs"
 msgstr "NFTs"
 
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Video"
+msgstr "Видео"
+
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
@@ -1562,6 +1570,14 @@ msgstr ""
 msgid "Like"
 msgstr "Лайкнуть"
 
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Publication bookmarked"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Removed publication bookmark"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1574,6 +1590,14 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Marked as not Interested"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Undo Not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1681,6 +1705,10 @@ msgstr "Лайк от"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "{bookmarkCount, plural, zero {Bookmark} one {Bookmark} other {Bookmarks}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1987,6 +2015,10 @@ msgstr "Отключить транзакции без подписи"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Диспетчер • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr ""
@@ -2272,6 +2304,10 @@ msgstr "Вы не можете ответить на этот пост"
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "Загрузка смайликов"
+
+#: src/components/Shared/FeedFocusType.tsx
+msgid "All posts"
+msgstr "Все публикации"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
@@ -2593,6 +2629,10 @@ msgstr "Вошли как"
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "Еще"
+
+#: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
+msgid "Bookmarks"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
@@ -2954,4 +2994,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

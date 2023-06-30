@@ -72,7 +72,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Publication bookmarked`);
-        Mixpanel.track(PUBLICATION.BOOKMARK, {
+        Mixpanel.track(PUBLICATION.TOGGLE_BOOKMARK, {
           publication_id: publication.id,
           bookmarked: true
         });
@@ -86,7 +86,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Removed publication bookmark`);
-        Mixpanel.track(PUBLICATION.BOOKMARK, {
+        Mixpanel.track(PUBLICATION.TOGGLE_BOOKMARK, {
           publication_id: publication.id,
           bookmarked: false
         });
