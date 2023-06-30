@@ -57,8 +57,8 @@ export default async (request: IRequest, env: Env) => {
       headers: { 'Content-Type': 'application/json' },
       body: `
         INSERT INTO events (
-          actor,
           name,
+          actor,
           properties,
           fingerprint,
           country,
@@ -66,15 +66,15 @@ export default async (request: IRequest, env: Env) => {
           platform,
           user_agent
         ) VALUES (
-          '${actor}',
           '${name}',
-          '${properties}',
-          '${fingerprint}',
-          '${country}',
-          '${referrer}',
-          ${platform},
-          '${user_agent}'
-        );
+          ${actor ? `'${actor}'` : `NULL`},
+          ${properties ? `'${properties}'` : `NULL`},
+          ${fingerprint ? `'${fingerprint}'` : `NULL`},
+          ${country ? `'${country}'` : `NULL`},
+          ${referrer ? `'${referrer}'` : `NULL`},
+          ${platform ? `'${platform}'` : `NULL`},
+          ${user_agent ? `'${user_agent}'` : `NULL`}
+        )
       `
     });
 
