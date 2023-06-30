@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
 import Tags from '@components/Home/Tags';
 import Trending from '@components/Home/Trending';
+import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { FeatureFlag } from '@lenster/data';
@@ -21,7 +22,6 @@ import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
-import FeedType from './FeedType';
 
 const Explore: NextPage = () => {
   const router = useRouter();
@@ -83,7 +83,7 @@ const Explore: NextPage = () => {
               </Tab>
             ))}
           </Tab.List>
-          <FeedType setFocus={setFocus} focus={focus} />
+          <FeedFocusType setFocus={setFocus} focus={focus} />
           <Tab.Panels>
             {tabs.map((tab) => (
               <Tab.Panel key={tab.type}>

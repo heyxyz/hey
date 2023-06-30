@@ -2,12 +2,16 @@ import { Menu } from '@headlessui/react';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 
 import MenuTransition from '../MenuTransition';
+import Bookmarks from './NavItems/Bookmarks';
 import Contact from './NavItems/Contact';
 import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
   return (
     <Menu as="div" data-testid="nav-item-more">
       {({ open }) => (
@@ -30,6 +34,19 @@ const MoreNavItems: FC = () => {
               className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
               data-testid="nav-item-more-dropdown"
             >
+              {currentProfile ? (
+                <>
+                  <Menu.Item
+                    as="div"
+                    className={({ active }: { active: boolean }) =>
+                      clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <Bookmarks />
+                  </Menu.Item>
+                  <div className="divider" />
+                </>
+              ) : null}
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
