@@ -18,6 +18,18 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 47\n"
 
+#: src/components/Bookmarks/Feed.tsx
+msgid "No bookmarks yet!"
+msgstr ""
+
+#: src/components/Bookmarks/Feed.tsx
+msgid "Failed to load bookmark feed"
+msgstr ""
+
+#: src/components/Bookmarks/index.tsx
+msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
@@ -358,32 +370,6 @@ msgstr "இதுவரை பதிவுகள் இல்லை!"
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
 msgstr "எக்ஸ்ப்ளோர் ஃபீடை லோடு செய்வதில் தோல்வி ஏற்பட்டது"
-
-#: src/components/Explore/FeedType.tsx
-msgid "All posts"
-msgstr "அனைத்து பதிவுகள்"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-msgid "Text"
-msgstr "உரை"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Video"
-msgstr "காணொளி"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Audio"
-msgstr "ஒலி"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Images"
-msgstr "படங்கள்"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -740,12 +726,29 @@ msgid "Articles"
 msgstr ""
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Audio"
+msgstr "ஒலி"
+
+#: src/components/Mod/index.tsx
 msgid "Embeds"
 msgstr ""
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Images"
+msgstr "படங்கள்"
+
+#: src/components/Mod/index.tsx
 msgid "Links"
 msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Text"
+msgstr "உரை"
 
 #: src/components/Mod/index.tsx
 msgid "Videos"
@@ -1345,6 +1348,11 @@ msgstr "சேகரிக்கப்பட்டது"
 msgid "NFTs"
 msgstr "NFTகள்"
 
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Video"
+msgstr "காணொளி"
+
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
@@ -1562,6 +1570,14 @@ msgstr "விரும்பவில்லை"
 msgid "Like"
 msgstr "விரும்பு"
 
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Publication bookmarked"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Removed publication bookmark"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1574,6 +1590,14 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Marked as not Interested"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Undo Not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1681,6 +1705,10 @@ msgstr "இவர்களால் விரும்பப்பட்டத�
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "{bookmarkCount, plural, zero {Bookmark} one {Bookmark} other {Bookmarks}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1987,6 +2015,10 @@ msgstr "அடையாளமற்ற பரிவர்த்தனைகள�
 msgid "Dispatcher • {APP_NAME}"
 msgstr "டிஸ்பெட்சேர் • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr ""
@@ -2272,6 +2304,10 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
+
+#: src/components/Shared/FeedFocusType.tsx
+msgid "All posts"
+msgstr "அனைத்து பதிவுகள்"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
@@ -2593,6 +2629,10 @@ msgstr "உள்நுழைந்துள்ள கணக்கு"
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "மேலும்"
+
+#: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
+msgid "Bookmarks"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
@@ -2954,4 +2994,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

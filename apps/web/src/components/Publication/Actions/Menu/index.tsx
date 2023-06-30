@@ -11,6 +11,7 @@ import { useAppStore } from 'src/store/app';
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';
 import Delete from './Delete';
+import NotInterested from './NotInterested';
 import Report from './Report';
 import Share from './Share';
 import Translate from './Translate';
@@ -48,7 +49,12 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           ) : (
             <Report publication={publication} />
           )}
-          {currentProfile ? <Bookmark publication={publication} /> : null}
+          {currentProfile ? (
+            <>
+              <NotInterested publication={publication} />
+              <Bookmark publication={publication} />
+            </>
+          ) : null}
           <Share publication={publication} />
           <Translate publication={publication} />
           <CopyPostText publication={publication} />
