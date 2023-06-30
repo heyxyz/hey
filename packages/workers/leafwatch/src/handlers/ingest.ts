@@ -1,29 +1,28 @@
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
-import { object, string } from 'zod';
+import { any, object, string } from 'zod';
 
+import checkEventExistence from '../helpers/checkEventExistence';
 import type { Env } from '../types';
-
-const checkEventExistence = (obj: any, event: string): boolean => {
-  for (const key in obj) {
-    if (typeof obj[key] === 'object') {
-      if (checkEventExistence(obj[key], event)) {
-        return true;
-      }
-    } else if (obj[key] === event) {
-      return true;
-    }
-  }
-  return false;
-};
 
 type ExtensionRequest = {
   name: string;
+  actor?: string;
+  fingerprint?: string;
+  referrer?: string;
+  user_agent?: string;
+  platform?: 'web' | 'mobile';
+  properties?: string;
 };
 
 const validationSchema = object({
-  name: string()
+  name: string().min(1, { message: 'Name is required!' }),
+  actor: string().nullable().optional(),
+  fingerprint: string().nullable().optional(),
+  referrer: string().nullable().optional(),
+  platform: string().nullable().optional(),
+  properties: any()
 });
 
 export default async (request: IRequest, env: Env) => {
@@ -40,7 +39,8 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name } = body as ExtensionRequest;
+  const { name, actor, fingerprint, referrer, platform, properties } =
+    body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
     return new Response(
@@ -48,13 +48,33 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
+  const country = request.headers.get('cf-ipcountry');
+  const user_agent = request.headers.get('user-agent');
+
   try {
     await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: `
-        INSERT INTO events (actor_id, name, properties, fingerprint, country, referrer, user_agent)
-        VALUES ('actor1', '${name}', '{"prop1":"value1", "prop2":"value2"}', 'fingerprint1', 'USA', 'http://example.com', 'Mozilla/5.0');
+        INSERT INTO events (
+          actor,
+          name,
+          properties,
+          fingerprint,
+          country,
+          referrer,
+          platform,
+          user_agent
+        ) VALUES (
+          '${actor}',
+          '${name}',
+          '${properties}',
+          '${fingerprint}',
+          '${country}',
+          '${referrer}',
+          ${platform},
+          '${user_agent}'
+        );
       `
     });
 
