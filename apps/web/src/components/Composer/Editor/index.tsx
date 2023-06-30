@@ -15,7 +15,7 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import Errors from 'data/errors';
-import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot, LexicalEditor } from 'lexical';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
@@ -27,14 +27,15 @@ const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
 interface Props {
   selectedQuadraticRound: QuadraticRound;
+  editor: LexicalEditor;
 }
 
-const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
+const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
-  const [editor] = useLexicalComposerContext();
+  // const [editor] = useLexicalComposerContext();
   const prevQuadraticRoundRef = useRef('');
 
   const handlePaste = async (pastedFiles: FileList) => {
@@ -62,15 +63,27 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
 
         editor.update(() => {
           const p = $createParagraphNode();
-          p.append($createTextNode(newNotification));
-          $getRoot().append(p);
+          console.log('prev round', prevQuadraticRound);
+          p.append($createTextNode(newNotification).setMode('token'));
+          const notificationNode = $getRoot()
+            .getAllTextNodes()
+            .find((node) => {
+              return node
+                .getTextContent()
+                .includes(`Your post will be included in the ${prevQuadraticRound} round.`);
+            });
+          notificationNode ? notificationNode.replace(p) : $getRoot().append(p);
         });
       } else {
         // This needs to be updated to remove the node if seletecQuadraticRound is empty
         editor.update(() => {
-          const p = $createParagraphNode();
-          p.append($createTextNode('will be updated to delete'));
-          $getRoot().append(p);
+          const textNodes = $getRoot().getAllTextNodes();
+          textNodes.forEach((node) => {
+            if (node.getTextContent().includes(`Your post will be included in the`)) {
+              console.log('notification delete', newNotification);
+              node.replace($createTextNode(''));
+            }
+          });
         });
       }
 
