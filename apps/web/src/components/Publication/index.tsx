@@ -18,6 +18,7 @@ import { useAppStore } from 'src/store/app';
 import { PAGEVIEW } from 'src/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
+import { NotificationBanner } from './/NotificationBanner';
 import FullPublication from './FullPublication';
 import OnchainMeta from './OnchainMeta';
 import RelevantPeople from './RelevantPeople';
@@ -70,6 +71,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
+        <NotificationBanner publication={publication} showCount />
         <Feed publication={publication} />
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>

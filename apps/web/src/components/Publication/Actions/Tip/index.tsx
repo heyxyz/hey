@@ -24,7 +24,7 @@ interface TipProps {
 }
 
 const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
-  // const address = publication?.profile?.ownedBy;
+  const ownedBy = publication?.profile?.ownedBy;
   const { address } = useAccount();
   const [userTipCount, setUserTipCount] = useState(0);
   const [tipCount, setTipCount] = useState(0);
@@ -36,6 +36,7 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
     async function fetchPostQuadraticTipping() {
       try {
         const postQuadraticTipping = await getPostQuadraticTipping(publication?.id, roundAddress);
+
         const { roundEndTime } = await getRoundInfo(postQuadraticTipping.id);
         const now = Math.floor(Date.now() / 1000);
         roundEndTime > now ? setRoundOpen(true) : setRoundOpen(false);
@@ -47,7 +48,7 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
               const weiAmount = ethers.BigNumber.from(vote.amount);
               tipTotal = tipTotal.add(weiAmount);
             }
-            if (vote.from.toLowerCase() === address!.toLowerCase()) {
+            if (vote.from.toLowerCase() === ownedBy!.toLowerCase()) {
               tipCountFromUser++;
             }
           }
@@ -61,13 +62,13 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
       }
     }
     fetchPostQuadraticTipping();
-  }, [roundAddress, address, publication?.id]);
+  }, [roundAddress, ownedBy, publication?.id]);
 
   return (
     <>
       <div className="flex items-center space-x-1 text-red-500">
         <motion.button
-          disabled={!roundOpen}
+          disabled={!roundOpen || address === undefined}
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowTipModal(true);
@@ -93,9 +94,9 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
               >
                 <div className="flex">
                   {userTipCount > 0 ? (
-                    <TipsSolidIcon color={roundOpen ? '#EF4444' : '#FECACA'} />
+                    <TipsSolidIcon color={roundOpen && address !== undefined ? '#EF4444' : '#FECACA'} />
                   ) : (
-                    <TipsOutlineIcon color={roundOpen ? '#EF4444' : '#FECACA'} />
+                    <TipsOutlineIcon color={roundOpen && address !== undefined ? '#EF4444' : '#FECACA'} />
                   )}
                 </div>
               </Tooltip>
@@ -104,13 +105,25 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
         </motion.button>
         {tipCount > 0 && (
           <div>
-            <span className={`${roundOpen ? 'text-red-500' : 'text-red-200'} text-[11px] sm:text-xs`}>
+            <span
+              className={`${
+                roundOpen && address !== undefined ? 'text-red-500' : 'text-red-200'
+              } text-[11px] sm:text-xs`}
+            >
               {nFormatter(userTipCount)}
             </span>
-            <span className={`${roundOpen ? 'text-red-500' : 'text-red-200'} mx-1 text-[11px] sm:text-xs`}>
+            <span
+              className={`${
+                roundOpen && address !== undefined ? 'text-red-500' : 'text-red-200'
+              } mx-1 text-[11px] sm:text-xs`}
+            >
               |
             </span>
-            <span className={`${roundOpen ? 'text-red-500' : 'text-red-200'} text-[11px] sm:text-xs`}>
+            <span
+              className={`${
+                roundOpen && address !== undefined ? 'text-red-500' : 'text-red-200'
+              } text-[11px] sm:text-xs`}
+            >
               {nFormatter(tipCount)}
             </span>
           </div>

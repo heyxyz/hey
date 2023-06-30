@@ -15,20 +15,18 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import Errors from 'data/errors';
-import type { LexicalCommand } from 'lexical';
-import { $createParagraphNode, $createTextNode, $getRoot, createCommand } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
 
+import type { QuadraticRound } from '../NewPublication';
+
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
 
-const QUADRATIC_ROUND_SELECTED_COMMAND: LexicalCommand<string> = createCommand();
-const UPDATE_EDITOR_CONTENT_COMMAND: LexicalCommand<string> = createCommand();
-
 interface Props {
-  selectedQuadraticRound: string;
+  selectedQuadraticRound: QuadraticRound;
 }
 
 const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
@@ -38,7 +36,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
   const { handleUploadAttachments } = useUploadAttachments();
   const [editor] = useLexicalComposerContext();
   const prevQuadraticRoundRef = useRef('');
-  const [roundNotifications, setRoundNotifications] = useState<string>('');
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
@@ -51,43 +48,33 @@ const Editor: FC<Props> = ({ selectedQuadraticRound }) => {
   };
 
   useEffect(() => {
-    prevQuadraticRoundRef.current = selectedQuadraticRound;
+    prevQuadraticRoundRef.current = selectedQuadraticRound.id;
   }, []);
-
-  // useEffect(() => {
-  //   return editor.registerCommand(
-  //     INSERT_PARAGRAPH_COMMAND,
-  //     () => {
-  //       editor.dispatchCommand(INSERT_LINE_BREAK_COMMAND, false);
-  //       return true;
-  //     },
-  //     COMMAND_PRIORITY_NORMAL
-  //   );
-  // }, [editor]);
 
   useEffect(() => {
     const prevQuadraticRound = prevQuadraticRoundRef.current;
 
-    if (selectedQuadraticRound !== prevQuadraticRound) {
-      // editor.update(() => {
-      //   const root = $getRoot();
-      //   const textContent = root.getTextContent();
+    if (selectedQuadraticRound.id !== prevQuadraticRound) {
+      let newNotification: string;
 
-      //   const notificationString = `Your post will be included in the ${prevQuadraticRound} round.`;
-      //   const regex = new RegExp(notificationString.replace(/[$()*+.?[\\\]^{|}]/g, '\\$&'), 'g');
-      //   root.remove()
-      //   console.log('textContent', textContent);
-      // });
+      if (selectedQuadraticRound.id !== '') {
+        newNotification = `Your post will be included in the ${selectedQuadraticRound.id} round.`;
 
-      const newNotification = `Your post will be included in the ${selectedQuadraticRound} round.`;
+        editor.update(() => {
+          const p = $createParagraphNode();
+          p.append($createTextNode(newNotification));
+          $getRoot().append(p);
+        });
+      } else {
+        // This needs to be updated to remove the node if seletecQuadraticRound is empty
+        editor.update(() => {
+          const p = $createParagraphNode();
+          p.append($createTextNode('will be updated to delete'));
+          $getRoot().append(p);
+        });
+      }
 
-      editor.update(() => {
-        const p = $createParagraphNode();
-        p.append($createTextNode(newNotification));
-        $getRoot().append(p);
-      });
-
-      prevQuadraticRoundRef.current = selectedQuadraticRound;
+      prevQuadraticRoundRef.current = selectedQuadraticRound.id;
     }
   }, [selectedQuadraticRound, editor, publicationContent, setPublicationContent]);
 
