@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/solid';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   Publication,
   PublicationProfileBookmarkRequest
@@ -13,6 +14,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
+import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -70,6 +72,10 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Publication bookmarked`);
+        Mixpanel.track(PUBLICATION.BOOKMARK, {
+          publication_id: publication.id,
+          bookmarked: true
+        });
       },
       update: (cache) => updateCache(cache, true)
     });
@@ -80,6 +86,10 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Removed publication bookmark`);
+        Mixpanel.track(PUBLICATION.BOOKMARK, {
+          publication_id: publication.id,
+          bookmarked: false
+        });
       },
       update: (cache) => updateCache(cache, false)
     });
