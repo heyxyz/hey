@@ -7,7 +7,7 @@ test.describe('Publication attachments', () => {
     const publicationId = '0x0d-0x037d';
     await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
-    const imageURL = `${IPFS_GATEWAY}bafybeihztcpkzhzc3fddsc66r22hzsztja6blflygurlft7lmc4l44pnre`;
+    const imageURL = `https://bafybeihztcpkzhzc3fddsc66r22hzsztja6blflygurlft7lmc4l44pnre.ipfs-public.thirdwebcdn.com`;
     const publicationImage = page
       .getByTestId(`publication-${publicationId}`)
       .getByTestId(`attachment-image-${imageURL}`);
