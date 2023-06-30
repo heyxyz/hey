@@ -2,6 +2,7 @@ import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x9346', // decentralgames
   '0x019da0', // superfluid
   '0x01cae1', // coinbasewallet
   '0x01cbf6', // coinbase
