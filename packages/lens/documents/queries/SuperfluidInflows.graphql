@@ -7,9 +7,22 @@ query SuperfluidInflows($id: ID = "") {
     updatedAtTimestamp
     inflows {
       id
+      token {
+        name
+        symbol
+        underlyingToken {
+          name
+          symbol
+        }
+        id
+        decimals
+      }
+      deposit
+      currentFlowRate
       sender {
         id
       }
+      createdAtTimestamp
     }
   }
 }

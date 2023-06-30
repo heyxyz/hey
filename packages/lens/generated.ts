@@ -23,7 +23,7 @@ export type Incremental<T> =
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string };
+  ID: { input: string; output: string };
   String: { input: string; output: string };
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
@@ -7443,7 +7443,6 @@ export enum IndexSubscription_OrderBy {
   IndexValueUntilUpdatedAt = 'indexValueUntilUpdatedAt',
   IndexCreatedAtBlockNumber = 'index__createdAtBlockNumber',
   IndexCreatedAtTimestamp = 'index__createdAtTimestamp',
-  IndexId = 'index__id',
   IndexIndexId = 'index__indexId',
   IndexIndexValue = 'index__indexValue',
   IndexTotalAmountDistributedUntilUpdatedAt = 'index__totalAmountDistributedUntilUpdatedAt',
@@ -10991,7 +10990,8 @@ export type PublicationStats = {
 
 /** The publication stats */
 export type PublicationStatsCommentsTotalArgs = {
-  forSources: Array<Scalars['Sources']['input']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
+  forSources?: InputMaybe<Array<Scalars['Sources']['input']>>;
 };
 
 /** The publication types */
@@ -53725,6 +53725,21 @@ export type SuperfluidInflowsQuery = {
     inflows: Array<{
       __typename?: 'Stream';
       id: string;
+      deposit: any;
+      currentFlowRate: any;
+      createdAtTimestamp: any;
+      token: {
+        __typename?: 'Token';
+        name: string;
+        symbol: string;
+        id: string;
+        decimals: number;
+        underlyingToken?: {
+          __typename?: 'Token';
+          name: string;
+          symbol: string;
+        } | null;
+      };
       sender: { __typename?: 'Account'; id: string };
     }>;
   } | null;
@@ -65556,9 +65571,22 @@ export const SuperfluidInflowsDocument = gql`
       updatedAtTimestamp
       inflows {
         id
+        token {
+          name
+          symbol
+          underlyingToken {
+            name
+            symbol
+          }
+          id
+          decimals
+        }
+        deposit
+        currentFlowRate
         sender {
           id
         }
+        createdAtTimestamp
       }
     }
   }

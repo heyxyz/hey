@@ -1,6 +1,7 @@
 import {
   ChatAlt2Icon,
   CollectionIcon,
+  CurrencyDollarIcon,
   FilmIcon,
   PencilAltIcon,
   PhotographIcon
@@ -64,6 +65,13 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           active={feedType === ProfileFeedType.Nft}
           type={ProfileFeedType.Nft.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Nft)}
+        />
+        <TabButton
+          name={t`Subscribers`}
+          icon={<CurrencyDollarIcon className="h-4 w-4" />}
+          active={feedType === ProfileFeedType.Subscribers}
+          type={ProfileFeedType.Subscribers.toLowerCase()}
+          onClick={() => switchTab(ProfileFeedType.Subscribers)}
         />
       </div>
       <div>{feedType === ProfileFeedType.Media && <MediaFilter />}</div>

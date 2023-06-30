@@ -16,7 +16,8 @@ export enum ProfileFeedType {
   Replies = 'REPLIES',
   Media = 'MEDIA',
   Collects = 'COLLECTS',
-  Nft = 'NFT'
+  Nft = 'NFT',
+  Subscribers = 'SUBSCRIBERS'
 }
 
 export enum MessageTabs {
