@@ -5137,6 +5137,7 @@ export type CommentFieldsFragment = {
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   bookmarked: boolean;
+  notInterested: boolean;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
   isGated: boolean;
@@ -5471,6 +5472,7 @@ export type CommentFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -6149,6 +6151,7 @@ export type CommentFieldsFragment = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -6231,6 +6234,7 @@ export type CommentFieldsFragment = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -6579,6 +6583,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -7259,6 +7264,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
@@ -7338,6 +7344,7 @@ export type CommentFieldsFragment = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -7683,6 +7690,7 @@ export type CommentFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -8475,6 +8483,7 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         onChainContentURI: string;
         isGated: boolean;
         isDataAvailability: boolean;
@@ -8551,6 +8560,7 @@ export type MirrorFieldsFragment = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -8901,6 +8911,7 @@ export type PostFieldsFragment = {
   reaction?: ReactionTypes | null;
   mirrors: Array<any>;
   bookmarked: boolean;
+  notInterested: boolean;
   hasCollectedByMe: boolean;
   onChainContentURI: string;
   isGated: boolean;
@@ -9340,6 +9351,15 @@ export type AddPublicationProfileBookmarkMutationVariables = Exact<{
 export type AddPublicationProfileBookmarkMutation = {
   __typename?: 'Mutation';
   addPublicationProfileBookmark?: any | null;
+};
+
+export type AddPublicationProfileNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest;
+}>;
+
+export type AddPublicationProfileNotInterestedMutation = {
+  __typename?: 'Mutation';
+  addPublicationProfileNotInterested?: any | null;
 };
 
 export type AddReactionMutationVariables = Exact<{
@@ -10131,6 +10151,15 @@ export type RemovePublicationProfileBookmarkMutation = {
   removePublicationProfileBookmark?: any | null;
 };
 
+export type RemovePublicationProfileNotInterestedMutationVariables = Exact<{
+  request: PublicationProfileNotInterestedRequest;
+}>;
+
+export type RemovePublicationProfileNotInterestedMutation = {
+  __typename?: 'Mutation';
+  removePublicationProfileNotInterested?: any | null;
+};
+
 export type RemoveReactionMutationVariables = Exact<{
   request: ReactionRequest;
 }>;
@@ -10732,6 +10761,7 @@ export type CommentFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -11073,6 +11103,7 @@ export type CommentFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -11764,6 +11795,7 @@ export type CommentFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -11852,6 +11884,7 @@ export type CommentFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -12208,6 +12241,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -12901,6 +12935,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -12983,6 +13018,7 @@ export type CommentFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -13331,6 +13367,7 @@ export type CommentFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -13719,6 +13756,7 @@ export type ExploreFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -14060,6 +14098,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -14751,6 +14790,7 @@ export type ExploreFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -14839,6 +14879,7 @@ export type ExploreFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -15195,6 +15236,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -15888,6 +15930,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -15970,6 +16013,7 @@ export type ExploreFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -16318,6 +16362,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -17006,6 +17051,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -17088,6 +17134,7 @@ export type ExploreFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -17436,6 +17483,7 @@ export type ExploreFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -17793,6 +17841,7 @@ export type FeedHighlightsQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -18134,6 +18183,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -18825,6 +18875,7 @@ export type FeedHighlightsQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -18913,6 +18964,7 @@ export type FeedHighlightsQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -19269,6 +19321,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -19962,6 +20015,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -20044,6 +20098,7 @@ export type FeedHighlightsQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -20392,6 +20447,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -21080,6 +21136,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -21162,6 +21219,7 @@ export type FeedHighlightsQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -21510,6 +21568,7 @@ export type FeedHighlightsQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -22001,6 +22060,7 @@ export type ForYouQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -22342,6 +22402,7 @@ export type ForYouQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -23033,6 +23094,7 @@ export type ForYouQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -23121,6 +23183,7 @@ export type ForYouQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -23477,6 +23540,7 @@ export type ForYouQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -24170,6 +24234,7 @@ export type ForYouQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -24252,6 +24317,7 @@ export type ForYouQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -24600,6 +24666,7 @@ export type ForYouQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -25288,6 +25355,7 @@ export type ForYouQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -25370,6 +25438,7 @@ export type ForYouQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -25718,6 +25787,7 @@ export type ForYouQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -27163,6 +27233,7 @@ export type ProfileFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -27504,6 +27575,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -28195,6 +28267,7 @@ export type ProfileFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -28283,6 +28356,7 @@ export type ProfileFeedQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -28639,6 +28713,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -29332,6 +29407,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -29414,6 +29490,7 @@ export type ProfileFeedQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -29762,6 +29839,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -30450,6 +30528,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -30532,6 +30611,7 @@ export type ProfileFeedQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -30880,6 +30960,7 @@ export type ProfileFeedQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -31362,6 +31443,7 @@ export type PublicationQuery = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -31704,6 +31786,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -32392,6 +32475,7 @@ export type PublicationQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -32474,6 +32558,7 @@ export type PublicationQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -32822,6 +32907,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -33512,6 +33598,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -33594,6 +33681,7 @@ export type PublicationQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -33942,6 +34030,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -34629,6 +34718,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               onChainContentURI: string;
               isGated: boolean;
               isDataAvailability: boolean;
@@ -34708,6 +34798,7 @@ export type PublicationQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -35054,6 +35145,7 @@ export type PublicationQuery = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -35425,6 +35517,7 @@ export type PublicationsProfileBookmarksQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -35766,6 +35859,7 @@ export type PublicationsProfileBookmarksQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -36457,6 +36551,7 @@ export type PublicationsProfileBookmarksQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
                             isDataAvailability: boolean;
@@ -36545,6 +36640,7 @@ export type PublicationsProfileBookmarksQuery = {
                             reaction?: ReactionTypes | null;
                             mirrors: Array<any>;
                             bookmarked: boolean;
+                            notInterested: boolean;
                             hasCollectedByMe: boolean;
                             onChainContentURI: string;
                             isGated: boolean;
@@ -36901,6 +36997,7 @@ export type PublicationsProfileBookmarksQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -37594,6 +37691,7 @@ export type PublicationsProfileBookmarksQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
                       isDataAvailability: boolean;
@@ -37676,6 +37774,7 @@ export type PublicationsProfileBookmarksQuery = {
                       reaction?: ReactionTypes | null;
                       mirrors: Array<any>;
                       bookmarked: boolean;
+                      notInterested: boolean;
                       hasCollectedByMe: boolean;
                       onChainContentURI: string;
                       isGated: boolean;
@@ -38024,6 +38123,7 @@ export type PublicationsProfileBookmarksQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -38712,6 +38812,7 @@ export type PublicationsProfileBookmarksQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
                 isDataAvailability: boolean;
@@ -38794,6 +38895,7 @@ export type PublicationsProfileBookmarksQuery = {
                 reaction?: ReactionTypes | null;
                 mirrors: Array<any>;
                 bookmarked: boolean;
+                notInterested: boolean;
                 hasCollectedByMe: boolean;
                 onChainContentURI: string;
                 isGated: boolean;
@@ -39142,6 +39244,7 @@ export type PublicationsProfileBookmarksQuery = {
           reaction?: ReactionTypes | null;
           mirrors: Array<any>;
           bookmarked: boolean;
+          notInterested: boolean;
           hasCollectedByMe: boolean;
           onChainContentURI: string;
           isGated: boolean;
@@ -39633,6 +39736,7 @@ export type SearchPublicationsQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -39977,6 +40081,7 @@ export type SearchPublicationsQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -40668,6 +40773,7 @@ export type SearchPublicationsQuery = {
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 bookmarked: boolean;
+                                notInterested: boolean;
                                 onChainContentURI: string;
                                 isGated: boolean;
                                 isDataAvailability: boolean;
@@ -40762,6 +40868,7 @@ export type SearchPublicationsQuery = {
                                 reaction?: ReactionTypes | null;
                                 mirrors: Array<any>;
                                 bookmarked: boolean;
+                                notInterested: boolean;
                                 hasCollectedByMe: boolean;
                                 onChainContentURI: string;
                                 isGated: boolean;
@@ -41137,6 +41244,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -41830,6 +41938,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -41912,6 +42021,7 @@ export type SearchPublicationsQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -42260,6 +42370,7 @@ export type SearchPublicationsQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -42609,6 +42720,7 @@ export type SearchPublicationsQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -43382,6 +43494,7 @@ export type TimelineQuery = {
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             bookmarked: boolean;
+            notInterested: boolean;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
             isGated: boolean;
@@ -43723,6 +43836,7 @@ export type TimelineQuery = {
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   bookmarked: boolean;
+                  notInterested: boolean;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
                   isGated: boolean;
@@ -44414,6 +44528,7 @@ export type TimelineQuery = {
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               bookmarked: boolean;
+                              notInterested: boolean;
                               onChainContentURI: string;
                               isGated: boolean;
                               isDataAvailability: boolean;
@@ -44506,6 +44621,7 @@ export type TimelineQuery = {
                               reaction?: ReactionTypes | null;
                               mirrors: Array<any>;
                               bookmarked: boolean;
+                              notInterested: boolean;
                               hasCollectedByMe: boolean;
                               onChainContentURI: string;
                               isGated: boolean;
@@ -44870,6 +44986,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         bookmarked: boolean;
+                        notInterested: boolean;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
@@ -45563,6 +45680,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         bookmarked: boolean;
+                        notInterested: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
                         isDataAvailability: boolean;
@@ -45645,6 +45763,7 @@ export type TimelineQuery = {
                         reaction?: ReactionTypes | null;
                         mirrors: Array<any>;
                         bookmarked: boolean;
+                        notInterested: boolean;
                         hasCollectedByMe: boolean;
                         onChainContentURI: string;
                         isGated: boolean;
@@ -45993,6 +46112,7 @@ export type TimelineQuery = {
                   reaction?: ReactionTypes | null;
                   mirrors: Array<any>;
                   bookmarked: boolean;
+                  notInterested: boolean;
                   hasCollectedByMe: boolean;
                   onChainContentURI: string;
                   isGated: boolean;
@@ -46342,6 +46462,7 @@ export type TimelineQuery = {
             reaction?: ReactionTypes | null;
             mirrors: Array<any>;
             bookmarked: boolean;
+            notInterested: boolean;
             hasCollectedByMe: boolean;
             onChainContentURI: string;
             isGated: boolean;
@@ -46897,6 +47018,7 @@ export type TimelineQuery = {
         reaction?: ReactionTypes | null;
         mirrors: Array<any>;
         bookmarked: boolean;
+        notInterested: boolean;
         hasCollectedByMe: boolean;
         onChainContentURI: string;
         isGated: boolean;
@@ -47234,6 +47356,7 @@ export type TimelineQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -47922,6 +48045,7 @@ export type TimelineQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
                           isDataAvailability: boolean;
@@ -48004,6 +48128,7 @@ export type TimelineQuery = {
                           reaction?: ReactionTypes | null;
                           mirrors: Array<any>;
                           bookmarked: boolean;
+                          notInterested: boolean;
                           hasCollectedByMe: boolean;
                           onChainContentURI: string;
                           isGated: boolean;
@@ -48352,6 +48477,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -49042,6 +49168,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
                     isDataAvailability: boolean;
@@ -49124,6 +49251,7 @@ export type TimelineQuery = {
                     reaction?: ReactionTypes | null;
                     mirrors: Array<any>;
                     bookmarked: boolean;
+                    notInterested: boolean;
                     hasCollectedByMe: boolean;
                     onChainContentURI: string;
                     isGated: boolean;
@@ -49472,6 +49600,7 @@ export type TimelineQuery = {
               reaction?: ReactionTypes | null;
               mirrors: Array<any>;
               bookmarked: boolean;
+              notInterested: boolean;
               hasCollectedByMe: boolean;
               onChainContentURI: string;
               isGated: boolean;
@@ -50135,6 +50264,7 @@ export const PostFieldsFragmentDoc = gql`
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
     bookmarked(by: $profileId)
+    notInterested(by: $profileId)
     hasCollectedByMe
     onChainContentURI
     isGated
@@ -50212,6 +50342,7 @@ export const MirrorFieldsFragmentDoc = gql`
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         bookmarked(by: $profileId)
+        notInterested(by: $profileId)
         onChainContentURI
         isGated
         isDataAvailability
@@ -50250,6 +50381,7 @@ export const CommentFieldsFragmentDoc = gql`
     reaction(request: $reactionRequest)
     mirrors(by: $profileId)
     bookmarked(by: $profileId)
+    notInterested(by: $profileId)
     hasCollectedByMe
     onChainContentURI
     isGated
@@ -50289,6 +50421,7 @@ export const CommentFieldsFragmentDoc = gql`
         reaction(request: $reactionRequest)
         mirrors(by: $profileId)
         bookmarked(by: $profileId)
+        notInterested(by: $profileId)
         hasCollectedByMe
         onChainContentURI
         isGated
@@ -50445,6 +50578,58 @@ export type AddPublicationProfileBookmarkMutationOptions =
   Apollo.BaseMutationOptions<
     AddPublicationProfileBookmarkMutation,
     AddPublicationProfileBookmarkMutationVariables
+  >;
+export const AddPublicationProfileNotInterestedDocument = gql`
+  mutation AddPublicationProfileNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    addPublicationProfileNotInterested(request: $request)
+  }
+`;
+export type AddPublicationProfileNotInterestedMutationFn =
+  Apollo.MutationFunction<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >;
+
+/**
+ * __useAddPublicationProfileNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useAddPublicationProfileNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPublicationProfileNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPublicationProfileNotInterestedMutation, { data, loading, error }] = useAddPublicationProfileNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useAddPublicationProfileNotInterestedMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
+  >(AddPublicationProfileNotInterestedDocument, options);
+}
+export type AddPublicationProfileNotInterestedMutationHookResult = ReturnType<
+  typeof useAddPublicationProfileNotInterestedMutation
+>;
+export type AddPublicationProfileNotInterestedMutationResult =
+  Apollo.MutationResult<AddPublicationProfileNotInterestedMutation>;
+export type AddPublicationProfileNotInterestedMutationOptions =
+  Apollo.BaseMutationOptions<
+    AddPublicationProfileNotInterestedMutation,
+    AddPublicationProfileNotInterestedMutationVariables
   >;
 export const AddReactionDocument = gql`
   mutation AddReaction($request: ReactionRequest!) {
@@ -52570,6 +52755,57 @@ export type RemovePublicationProfileBookmarkMutationOptions =
   Apollo.BaseMutationOptions<
     RemovePublicationProfileBookmarkMutation,
     RemovePublicationProfileBookmarkMutationVariables
+  >;
+export const RemovePublicationProfileNotInterestedDocument = gql`
+  mutation RemovePublicationProfileNotInterested(
+    $request: PublicationProfileNotInterestedRequest!
+  ) {
+    removePublicationProfileNotInterested(request: $request)
+  }
+`;
+export type RemovePublicationProfileNotInterestedMutationFn =
+  Apollo.MutationFunction<
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
+  >;
+
+/**
+ * __useRemovePublicationProfileNotInterestedMutation__
+ *
+ * To run a mutation, you first call `useRemovePublicationProfileNotInterestedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemovePublicationProfileNotInterestedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removePublicationProfileNotInterestedMutation, { data, loading, error }] = useRemovePublicationProfileNotInterestedMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useRemovePublicationProfileNotInterestedMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
+  >(RemovePublicationProfileNotInterestedDocument, options);
+}
+export type RemovePublicationProfileNotInterestedMutationHookResult =
+  ReturnType<typeof useRemovePublicationProfileNotInterestedMutation>;
+export type RemovePublicationProfileNotInterestedMutationResult =
+  Apollo.MutationResult<RemovePublicationProfileNotInterestedMutation>;
+export type RemovePublicationProfileNotInterestedMutationOptions =
+  Apollo.BaseMutationOptions<
+    RemovePublicationProfileNotInterestedMutation,
+    RemovePublicationProfileNotInterestedMutationVariables
   >;
 export const RemoveReactionDocument = gql`
   mutation RemoveReaction($request: ReactionRequest!) {

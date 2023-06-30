@@ -18,6 +18,18 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 47\n"
 
+#: src/components/Bookmarks/Feed.tsx
+msgid "No bookmarks yet!"
+msgstr ""
+
+#: src/components/Bookmarks/Feed.tsx
+msgid "Failed to load bookmark feed"
+msgstr ""
+
+#: src/components/Bookmarks/index.tsx
+msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "评论流加载失败"
@@ -358,32 +370,6 @@ msgstr "暂无动态！"
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
 msgstr "内容流加载失败"
-
-#: src/components/Explore/FeedType.tsx
-msgid "All posts"
-msgstr "所有帖子"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-msgid "Text"
-msgstr "文本"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Video"
-msgstr "视频"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Audio"
-msgstr "音频"
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Images"
-msgstr "图像"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -740,12 +726,29 @@ msgid "Articles"
 msgstr "文章"
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Audio"
+msgstr "音频"
+
+#: src/components/Mod/index.tsx
 msgid "Embeds"
 msgstr "嵌入"
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Images"
+msgstr "图像"
+
+#: src/components/Mod/index.tsx
 msgid "Links"
 msgstr "链接"
+
+#: src/components/Mod/index.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Text"
+msgstr "文本"
 
 #: src/components/Mod/index.tsx
 msgid "Videos"
@@ -1345,6 +1348,11 @@ msgstr "已收藏"
 msgid "NFTs"
 msgstr "NFT"
 
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Video"
+msgstr "视频"
+
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
@@ -1562,6 +1570,14 @@ msgstr "取消点赞"
 msgid "Like"
 msgstr "点赞"
 
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Publication bookmarked"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Removed publication bookmark"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1574,6 +1590,14 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Marked as not Interested"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Undo Not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1681,6 +1705,10 @@ msgstr "点赞过的人"
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "{bookmarkCount, plural, zero {Bookmark} one {Bookmark} other {Bookmarks}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1987,6 +2015,10 @@ msgstr "禁用无签名交易"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr "导出关注者"
@@ -2272,6 +2304,10 @@ msgstr "您无法回复此帖子"
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "正在加载表情"
+
+#: src/components/Shared/FeedFocusType.tsx
+msgid "All posts"
+msgstr "所有帖子"
 
 #: src/components/Shared/Follow.tsx
 #: src/components/Shared/SuperFollow/FollowModule.tsx
@@ -2593,6 +2629,10 @@ msgstr "以... 身份登录"
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
 msgstr "更多"
+
+#: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
+msgid "Bookmarks"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
@@ -2954,4 +2994,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
