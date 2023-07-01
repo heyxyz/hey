@@ -68,7 +68,7 @@ import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -255,7 +255,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? attachments.map((attachment) => attachment.original.mimeType)
           : null
     };
-    Mixpanel.track(
+    Leafwatch.track(
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
       eventProperties
     );

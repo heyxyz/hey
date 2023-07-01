@@ -7,7 +7,7 @@ import { FeatureFlag } from '@lenster/data';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 
@@ -38,7 +38,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           showOnSm={false}
           onClick={() => {
             setFeedType(Type.FOLLOWING);
-            Mixpanel.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
+            Leafwatch.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
           }}
         />
         {isForYouEnabled && (
@@ -49,7 +49,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             showOnSm={false}
             onClick={() => {
               setFeedType(Type.FOR_YOU);
-              Mixpanel.track(MISCELLANEOUS.SWITCH_FOR_YOU_FEED);
+              Leafwatch.track(MISCELLANEOUS.SWITCH_FOR_YOU_FEED);
             }}
           />
         )}
@@ -60,7 +60,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           showOnSm={false}
           onClick={() => {
             setFeedType(Type.HIGHLIGHTS);
-            Mixpanel.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
+            Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
       </div>

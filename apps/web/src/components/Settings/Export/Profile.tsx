@@ -6,7 +6,7 @@ import type {
 import { useProfileLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ const Profile: FC = () => {
   });
 
   const handleExportClick = () => {
-    Mixpanel.track(SETTINGS.EXPORT.PROFILE);
+    Leafwatch.track(SETTINGS.EXPORT.PROFILE);
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

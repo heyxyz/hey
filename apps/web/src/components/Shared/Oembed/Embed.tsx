@@ -3,7 +3,7 @@ import { PUBLICATION } from '@lenster/data/tracking';
 import imageKit from '@lenster/lib/imageKit';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card, Image } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
 import type { OG } from 'src/types';
@@ -22,7 +22,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         href={og.url}
         onClick={(event) => {
           stopEventPropagation(event);
-          Mixpanel.track(PUBLICATION.CLICK_OEMBED, {
+          Leafwatch.track(PUBLICATION.CLICK_OEMBED, {
             url: og.url
           });
         }}

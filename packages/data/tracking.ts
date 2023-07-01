@@ -171,3 +171,19 @@ export enum FollowUnfollowSource {
   PROFILE_PAGE = 'profile_page',
   PROFILE_POPOVER = 'profile_popover'
 }
+
+export const ALL_EVENTS = {
+  PAGEVIEW,
+  ...AUTH,
+  ...PROFILE,
+  ...PUBLICATION,
+  ...NOTIFICATION,
+  ...EXPLORE,
+  ...MESSAGES,
+  ...SETTINGS,
+  ...MOD,
+  ...STAFFTOOLS,
+  ...SYSTEM,
+  ...MISCELLANEOUS,
+  ...ONBOARDING
+};

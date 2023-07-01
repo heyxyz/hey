@@ -13,7 +13,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -52,7 +52,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Marked as not Interested`);
-        Mixpanel.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
+        Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
           publication_id: publication.id,
           not_interested: true
         });
@@ -66,7 +66,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Undo Not Interested`);
-        Mixpanel.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
+        Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
           publication_id: publication.id,
           not_interested: false
         });

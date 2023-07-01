@@ -6,7 +6,7 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -34,7 +34,7 @@ const SwitchProfiles: FC = () => {
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
-            Mixpanel.track(PROFILE.SWITCH_PROFILE, {
+            Leafwatch.track(PROFILE.SWITCH_PROFILE, {
               switch_profile_to: selectedProfile.id
             });
           }}

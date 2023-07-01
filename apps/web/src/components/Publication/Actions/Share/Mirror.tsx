@@ -18,7 +18,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -78,7 +78,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     setIsLoading(false);
     setMirrored(true);
     toast.success(t`Post has been mirrored!`);
-    Mixpanel.track(PUBLICATION.MIRROR, {
+    Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
     });
   };

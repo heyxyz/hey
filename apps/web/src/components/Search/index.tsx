@@ -3,7 +3,7 @@ import Sidebar from '@components/Shared/Sidebar';
 import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -20,7 +20,7 @@ const Search: NextPage = () => {
     : encodeURIComponent(query.q || '');
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'search' });
+    Leafwatch.track(PAGEVIEW, { page: 'search' });
   });
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as string)) {

@@ -13,3 +13,4 @@ The following ports are exposed by the repository
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens-resolver.lenster.xyz   |
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.lenster.xyz         |
 | 8088 | Spaces worker              | http://localhost:8088 | https://spaces.lenster.xyz         |
+| 8089 | Leafwatch worker           | http://localhost:8089 | https://leafwatch.lenster.xyz      |

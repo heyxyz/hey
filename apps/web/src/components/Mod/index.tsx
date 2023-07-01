@@ -16,7 +16,7 @@ import {
   GridItemFour,
   GridLayout
 } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Mod: NextPage = () => {
   ]);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'mod' });
+    Leafwatch.track(PAGEVIEW, { page: 'mod' });
   });
 
   if (!isGardener(currentProfile?.id)) {
