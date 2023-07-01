@@ -36,11 +36,12 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
     });
   });
 };
+const notificationStyles = 'color:#a855f7;background-color:#d1a8fd;border:solid; #a855f7;border-width:2px;border-radius:200px;padding-left:5px;padding-right:5px;';
+
 const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
-  console.log(showNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
   const prevQuadraticRoundRef = useRef('');
@@ -61,7 +62,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
       editor.update(() => {
         const root = $getRoot();
         const notification = findNode(root.getAllTextNodes(), notificationKeys.current);
-        console.log('close', notification);
         notification?.replace($createTextNode(''));
         notificationKeys.current = [];
       });
@@ -85,13 +85,14 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
           const root = $getRoot();
           if (notificationKeys.current.length > 0) {
             const notificationNode = findNode(root.getAllTextNodes(), notificationKeys.current);
-            const newTextNode = $createTextNode(newNotification).setMode('token');
+            const newTextNode = $createTextNode(newNotification)
+              .setMode('token')
+              .setStyle(notificationStyles);
             notificationKeys.current.push(newTextNode.getKey());
             notificationNode?.replace(newTextNode);
           } else {
-            console.log(notificationKeys.current.length);
             const p = $createParagraphNode();
-            const textNode = $createTextNode(newNotification).setMode('token');
+            const textNode = $createTextNode(newNotification).setMode('token').setStyle(notificationStyles);
             notificationKeys?.current.push(textNode.getKey());
             p.append(textNode);
             root.append(p);
@@ -107,7 +108,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
                 return key == node.getKey();
               })
             ) {
-              node.replace($createTextNode(''));
+              node.replace($createTextNode());
               notificationKeys.current = [];
             }
           }
