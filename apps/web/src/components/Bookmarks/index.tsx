@@ -9,7 +9,7 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import type { PublicationMainFocus } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -24,7 +24,7 @@ const Bookmarks: NextPage = () => {
   const isTrendingWidgetEnabled = isFeatureEnabled(FeatureFlag.TrendingWidget);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'bookmarks' });
+    Leafwatch.track(PAGEVIEW, { page: 'bookmarks' });
   });
 
   return (

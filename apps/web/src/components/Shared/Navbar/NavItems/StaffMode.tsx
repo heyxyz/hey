@@ -4,7 +4,7 @@ import {
   ShieldExclamationIcon
 } from '@heroicons/react/outline';
 import { STAFFTOOLS } from '@lenster/data/tracking';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);
-    Mixpanel.track(STAFFTOOLS.TOGGLE_MODE);
+    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (

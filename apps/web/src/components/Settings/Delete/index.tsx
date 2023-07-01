@@ -18,7 +18,7 @@ import {
   WarningMessage
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -44,7 +44,7 @@ const DeleteSettings: FC = () => {
   const { disconnect } = useDisconnect();
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'delete' });
   });
 
   const onCompleted = () => {

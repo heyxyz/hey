@@ -1,7 +1,7 @@
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
 import getUniswapURL from '@lenster/lib/getUniswapURL';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -26,7 +26,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
       </div>
       <Link
         href={getUniswapURL(parseFloat(amount), assetAddress)}
-        onClick={() => Mixpanel.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
+        onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"
         rel="noreferrer noopener"

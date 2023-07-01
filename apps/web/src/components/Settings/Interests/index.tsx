@@ -4,7 +4,7 @@ import Beta from '@components/Shared/Badges/Beta';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -17,7 +17,7 @@ const InterestsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'interests' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'interests' });
   });
 
   if (!currentProfile) {

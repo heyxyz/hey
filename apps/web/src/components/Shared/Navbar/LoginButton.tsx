@@ -1,6 +1,6 @@
 import { AUTH } from '@lenster/data/tracking';
 import { Button } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -23,7 +23,7 @@ const LoginButton: FC = () => {
       }
       onClick={() => {
         setShowAuthModal(true);
-        Mixpanel.track(AUTH.LOGIN);
+        Leafwatch.track(AUTH.LOGIN);
       }}
       data-testid="login-button"
     >

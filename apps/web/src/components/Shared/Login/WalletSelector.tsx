@@ -11,7 +11,7 @@ import {
 import getWalletDetails from '@lenster/lib/getWalletDetails';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
@@ -71,7 +71,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       if (account) {
         setHasConnected(true);
       }
-      Mixpanel.track(AUTH.CONNECT_WALLET, {
+      Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
     } catch (error) {
@@ -127,7 +127,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         setCurrentProfile(currentProfile);
         setProfileId(currentProfile.id);
       }
-      Mixpanel.track(AUTH.SIWL);
+      Leafwatch.track(AUTH.SIWL);
     } catch (error) {
       console.error(error);
     } finally {
@@ -167,7 +167,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         <button
           onClick={() => {
             disconnect?.();
-            Mixpanel.track(AUTH.CHANGE_WALLET);
+            Leafwatch.track(AUTH.CHANGE_WALLET);
           }}
           className="flex items-center space-x-1 text-sm underline"
         >

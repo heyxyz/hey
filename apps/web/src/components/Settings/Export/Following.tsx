@@ -3,7 +3,7 @@ import type { FollowingRequest } from '@lenster/lens';
 import { useFollowingLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const Following: FC = () => {
   });
 
   const handleExportClick = async () => {
-    Mixpanel.track(SETTINGS.EXPORT.FOLLOWING);
+    Leafwatch.track(SETTINGS.EXPORT.FOLLOWING);
     setExporting(true);
     const fetchFollowing = async (cursor?: string) => {
       const { data } = await exportFollowing({
