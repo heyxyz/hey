@@ -36,7 +36,7 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.10.6"
+    "turbo": "^1.10.7"
   },
   "packageManager": "yarn@1.22.19",
   "engines": {
