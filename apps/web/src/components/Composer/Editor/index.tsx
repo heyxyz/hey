@@ -36,7 +36,8 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
     });
   });
 };
-const notificationStyles = 'color:#a855f7;background-color:#d1a8fd;border:solid; #a855f7;border-width:2px;border-radius:200px;padding-left:5px;padding-right:5px;';
+const notificationStyles =
+  'color:#eae2fc;background-color:#7c3aed;border-radius:200px;padding:1px 5px 1px 5px';
 
 const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
@@ -62,7 +63,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
       editor.update(() => {
         const root = $getRoot();
         const notification = findNode(root.getAllTextNodes(), notificationKeys.current);
-        notification?.replace($createTextNode(''));
+        notification?.remove();
         notificationKeys.current = [];
       });
     }
@@ -102,13 +103,17 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
         // This needs to be updated to remove the node if seletecQuadraticRound is empty
         editor.update(() => {
           const textNodes = $getRoot().getAllTextNodes();
+          console.log(textNodes, notificationKeys.current);
           for (const node of textNodes) {
+            console.log('in loop:', node);
             if (
               notificationKeys.current.find((key: string) => {
                 return key == node.getKey();
-              })
+              }) ||
+              node.getTextContent().includes('#ethccreq1')
             ) {
-              node.replace($createTextNode());
+              console.log('node', node);
+              node.remove();
               notificationKeys.current = [];
             }
           }
