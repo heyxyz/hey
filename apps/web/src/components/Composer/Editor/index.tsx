@@ -12,7 +12,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { t, Trans } from '@lingui/macro';
+import { select, t, Trans } from '@lingui/macro';
 import Errors from 'data/errors';
 import type { LexicalEditor, TextNode } from 'lexical';
 import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
@@ -35,6 +35,14 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
       return key == node.getKey();
     });
   });
+};
+
+const clearSelectedRound = (selectedQuadraticRound: QuadraticRound) => {
+  selectedQuadraticRound.name = '';
+  selectedQuadraticRound.description = '';
+  selectedQuadraticRound.id = '';
+  selectedQuadraticRound.token = '';
+  selectedQuadraticRound.requirements = [];
 };
 const notificationStyles =
   'color:#eae2fc;background-color:#7c3aed;border-radius:200px;padding:1px 5px 1px 5px';
@@ -98,25 +106,26 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
             p.append(textNode);
             root.append(p);
           }
+          toast.success('your post has been added to a round');
         });
       } else {
         // This needs to be updated to remove the node if seletecQuadraticRound is empty
         editor.update(() => {
           const textNodes = $getRoot().getAllTextNodes();
-          console.log(textNodes, notificationKeys.current);
           for (const node of textNodes) {
-            console.log('in loop:', node);
             if (
               notificationKeys.current.find((key: string) => {
-                return key == node.getKey();
+                if (key) {
+                  return key == node.getKey();
+                }
               }) ||
               node.getTextContent().includes('#ethccreq1')
             ) {
-              console.log('node', node);
               node.remove();
-              notificationKeys.current = [];
             }
           }
+          notificationKeys.current = [];
+          toast.error('Your post has been removed from the round.');
         });
       }
 
@@ -143,6 +152,24 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
             setPublicationContent(markdown);
+            const notificationNodes = $getRoot()
+              .getAllTextNodes()
+              .filter((node) =>
+                notificationKeys.current.find((key) => {
+                  if (key) {
+                    return node.getKey() == key;
+                  }
+                })
+              );
+            console.log(
+              notificationNodes,
+              notificationKeys.current,
+              $getRoot().getAllTextNodes(),
+              selectedQuadraticRound
+            );
+            if (notificationNodes.length == 0 && selectedQuadraticRound.id !== '') {
+              clearSelectedRound(selectedQuadraticRound);
+            }
           });
         }}
       />
