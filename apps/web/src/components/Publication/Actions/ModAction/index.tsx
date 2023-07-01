@@ -7,7 +7,7 @@ import {
 } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Button } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
@@ -70,7 +70,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       icon={icon}
       onClick={async () => {
         await reportPublication({ type, subreason });
-        Mixpanel.track(MOD.REPORT, {
+        Leafwatch.track(MOD.REPORT, {
           report_reason: type,
           report_subreason: subreason,
           report_publication_id: publication?.id

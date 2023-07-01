@@ -11,7 +11,7 @@ import {
   useEnabledModulesQuery
 } from '@lenster/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -47,7 +47,7 @@ const AllowanceSettings: NextPage = () => {
   } = useEnabledModulesQuery();
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
   });
 
   const { data, loading, error, refetch } =

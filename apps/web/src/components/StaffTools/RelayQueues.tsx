@@ -11,7 +11,7 @@ import {
   GridLayout,
   Spinner
 } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Link from 'next/link';
@@ -69,7 +69,7 @@ const RelayQueues: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
+    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
   });
 
   const { data, loading, error } = useRelayQueuesQuery({

@@ -24,7 +24,7 @@ import {
   Spinner
 } from '@lenster/ui';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
@@ -86,7 +86,7 @@ const Stats: NextPage = () => {
   const { allowed } = useStaffMode();
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
+    Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
   const { data, loading, error } = useLensterStatsQuery({

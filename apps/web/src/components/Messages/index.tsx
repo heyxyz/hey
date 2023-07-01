@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -13,7 +13,7 @@ import PreviewList from './PreviewList';
 
 const NoConversationSelected = () => {
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'messages' });
+    Leafwatch.track(PAGEVIEW, { page: 'messages' });
   });
 
   return (

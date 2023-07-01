@@ -13,7 +13,7 @@ import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -48,7 +48,7 @@ const SuperFollow: FC = () => {
 
     setIsLoading(false);
     toast.success(t`Super Follow updated successfully!`);
-    Mixpanel.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
+    Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
   const onError = (error: any) => {

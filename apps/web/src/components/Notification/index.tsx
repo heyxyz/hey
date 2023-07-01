@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -29,7 +29,7 @@ const Notification: FC = () => {
   );
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'notifications' });
+    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
   });
 
   if (!currentProfile) {
