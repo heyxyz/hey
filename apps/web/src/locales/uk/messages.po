@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-06-27 07:33\n"
+"PO-Revision-Date: 2023-07-01 00:11\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -17,6 +17,18 @@ msgstr ""
 "X-Crowdin-Language: uk\n"
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 47\n"
+
+#: src/components/Bookmarks/Feed.tsx
+msgid "No bookmarks yet!"
+msgstr ""
+
+#: src/components/Bookmarks/Feed.tsx
+msgid "Failed to load bookmark feed"
+msgstr ""
+
+#: src/components/Bookmarks/index.tsx
+msgid "Bookmarks • {APP_NAME}"
+msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
@@ -357,32 +369,6 @@ msgstr ""
 
 #: src/components/Explore/Feed.tsx
 msgid "Failed to load explore feed"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx
-msgid "All posts"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-msgid "Text"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Video"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Audio"
-msgstr ""
-
-#: src/components/Explore/FeedType.tsx
-#: src/components/Mod/index.tsx
-#: src/components/Profile/Filters/MediaFilter.tsx
-msgid "Images"
 msgstr ""
 
 #: src/components/Explore/index.tsx
@@ -740,11 +726,28 @@ msgid "Articles"
 msgstr ""
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Audio"
+msgstr ""
+
+#: src/components/Mod/index.tsx
 msgid "Embeds"
 msgstr ""
 
 #: src/components/Mod/index.tsx
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Images"
+msgstr ""
+
+#: src/components/Mod/index.tsx
 msgid "Links"
+msgstr ""
+
+#: src/components/Mod/index.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Text"
 msgstr ""
 
 #: src/components/Mod/index.tsx
@@ -1345,6 +1348,11 @@ msgstr ""
 msgid "NFTs"
 msgstr ""
 
+#: src/components/Profile/Filters/MediaFilter.tsx
+#: src/components/Shared/FeedFocusType.tsx
+msgid "Video"
+msgstr ""
+
 #: src/components/Profile/FollowDialog.tsx
 #: src/components/Profile/FollowDialog.tsx
 msgid "Not now"
@@ -1562,6 +1570,14 @@ msgstr ""
 msgid "Like"
 msgstr ""
 
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Publication bookmarked"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/Bookmark.tsx
+msgid "Removed publication bookmark"
+msgstr ""
+
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
@@ -1574,6 +1590,14 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy post text"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Marked as not Interested"
+msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
+msgid "Undo Not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1681,6 +1705,10 @@ msgstr ""
 
 #: src/components/Publication/PublicationStats.tsx
 msgid "{collectCount, plural, zero {Collect} one {Collect} other {Collects}}"
+msgstr ""
+
+#: src/components/Publication/PublicationStats.tsx
+msgid "{bookmarkCount, plural, zero {Bookmark} one {Bookmark} other {Bookmarks}}"
 msgstr ""
 
 #: src/components/Publication/QueuedPublication.tsx
@@ -1987,6 +2015,10 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
+#: src/components/Settings/Export/Fingerprint.tsx
+msgid "Your unique fingerprint"
+msgstr ""
+
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr ""
@@ -2271,6 +2303,10 @@ msgstr ""
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
+msgstr ""
+
+#: src/components/Shared/FeedFocusType.tsx
+msgid "All posts"
 msgstr ""
 
 #: src/components/Shared/Follow.tsx
@@ -2592,6 +2628,10 @@ msgstr ""
 
 #: src/components/Shared/Navbar/MoreNavItems.tsx
 msgid "More"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
+msgid "Bookmarks"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
