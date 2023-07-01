@@ -21,7 +21,7 @@ import {
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -231,7 +231,7 @@ const Status: FC = () => {
         className="space-y-4"
         onSubmit={async ({ status }) => {
           await editStatus(emoji, status);
-          Mixpanel.track(SETTINGS.PROFILE.SET_PICTURE);
+          Leafwatch.track(SETTINGS.PROFILE.SET_PICTURE);
         }}
       >
         <Input
@@ -249,7 +249,7 @@ const Status: FC = () => {
               setEmoji('');
               form.setValue('status', '');
               await editStatus('', '');
-              Mixpanel.track(SETTINGS.PROFILE.CLEAR_STATUS);
+              Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
             <Trans>Clear status</Trans>

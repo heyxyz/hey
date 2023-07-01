@@ -17,7 +17,7 @@ import {
   TextArea,
   useZodForm
 } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -48,7 +48,7 @@ const Contact: FC = () => {
   });
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'contact' });
+    Leafwatch.track(PAGEVIEW, { page: 'contact' });
   });
 
   const submitToFreshdesk = async (

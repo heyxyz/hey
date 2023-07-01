@@ -14,7 +14,7 @@ import {
   GridLayout,
   Image
 } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -27,7 +27,7 @@ const NFTDetail: FC = () => {
   const isNftDetailEnabled = isFeatureEnabled(FeatureFlag.NftDetail);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'nft' });
+    Leafwatch.track(PAGEVIEW, { page: 'nft' });
   });
 
   if (!isNftDetailEnabled || !currentProfile) {

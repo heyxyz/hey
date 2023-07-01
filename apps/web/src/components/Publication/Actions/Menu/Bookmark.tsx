@@ -14,7 +14,7 @@ import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import errorToast from '@lib/errorToast';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
@@ -72,7 +72,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Publication bookmarked`);
-        Mixpanel.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
           publication_id: publication.id,
           bookmarked: true
         });
@@ -86,7 +86,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError,
       onCompleted: () => {
         toast.success(t`Removed publication bookmark`);
-        Mixpanel.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
           publication_id: publication.id,
           bookmarked: false
         });

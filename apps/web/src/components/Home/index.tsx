@@ -4,7 +4,7 @@ import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'home' });
+    Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
   return (

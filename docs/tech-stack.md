@@ -18,6 +18,7 @@
 
 ## Telemetry
 
+- [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry tracking built in-house by Lenster
 - [Google BigQuery](https://cloud.google.com/bigquery) - Data warehouse to store telemetry data
 - [Hex Dashboards](https://hex.tech) - Hex dashboards to visualize telemetry data from BigQuery
 

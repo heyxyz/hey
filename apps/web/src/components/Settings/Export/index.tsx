@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
-import { Mixpanel } from '@lib/mixpanel';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -21,7 +21,7 @@ const ExportSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
-    Mixpanel.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
   });
 
   if (!currentProfile) {
