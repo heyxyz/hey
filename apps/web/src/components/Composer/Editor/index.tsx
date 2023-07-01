@@ -6,7 +6,6 @@ import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -15,7 +14,8 @@ import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { t, Trans } from '@lingui/macro';
 import Errors from 'data/errors';
-import { $createParagraphNode, $createTextNode, $getRoot, LexicalEditor } from 'lexical';
+import type { LexicalEditor, TextNode } from 'lexical';
+import { $createParagraphNode, $createTextNode, $getRoot } from 'lexical';
 import type { FC } from 'react';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-hot-toast';
@@ -29,14 +29,22 @@ interface Props {
   selectedQuadraticRound: QuadraticRound;
   editor: LexicalEditor;
 }
-
+const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
+  return nodeArray.find((node) => {
+    return keyArray.find((key: string) => {
+      return key == node.getKey();
+    });
+  });
+};
 const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
+  console.log(showNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
-  // const [editor] = useLexicalComposerContext();
   const prevQuadraticRoundRef = useRef('');
+  const notificationKeys = useRef<string[]>([]);
 
   const handlePaste = async (pastedFiles: FileList) => {
     if (attachments.length === 4 || attachments.length + pastedFiles.length > 4) {
@@ -47,6 +55,18 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
       await handleUploadAttachments(pastedFiles);
     }
   };
+
+  useEffect(() => {
+    if (showNewPostModal == false) {
+      editor.update(() => {
+        const root = $getRoot();
+        const notification = findNode(root.getAllTextNodes(), notificationKeys.current);
+        console.log('close', notification);
+        notification?.replace($createTextNode(''));
+        notificationKeys.current = [];
+      });
+    }
+  }, [showNewPostModal]);
 
   useEffect(() => {
     prevQuadraticRoundRef.current = selectedQuadraticRound.id;
@@ -62,28 +82,35 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor }) => {
         newNotification = `Your post will be included in the ${selectedQuadraticRound.id} round.`;
 
         editor.update(() => {
-          const p = $createParagraphNode();
-          console.log('prev round', prevQuadraticRound);
-          p.append($createTextNode(newNotification).setMode('token'));
-          const notificationNode = $getRoot()
-            .getAllTextNodes()
-            .find((node) => {
-              return node
-                .getTextContent()
-                .includes(`Your post will be included in the ${prevQuadraticRound} round.`);
-            });
-          notificationNode ? notificationNode.replace(p) : $getRoot().append(p);
+          const root = $getRoot();
+          if (notificationKeys.current.length > 0) {
+            const notificationNode = findNode(root.getAllTextNodes(), notificationKeys.current);
+            const newTextNode = $createTextNode(newNotification).setMode('token');
+            notificationKeys.current.push(newTextNode.getKey());
+            notificationNode?.replace(newTextNode);
+          } else {
+            console.log(notificationKeys.current.length);
+            const p = $createParagraphNode();
+            const textNode = $createTextNode(newNotification).setMode('token');
+            notificationKeys?.current.push(textNode.getKey());
+            p.append(textNode);
+            root.append(p);
+          }
         });
       } else {
         // This needs to be updated to remove the node if seletecQuadraticRound is empty
         editor.update(() => {
           const textNodes = $getRoot().getAllTextNodes();
-          textNodes.forEach((node) => {
-            if (node.getTextContent().includes(`Your post will be included in the`)) {
-              console.log('notification delete', newNotification);
+          for (const node of textNodes) {
+            if (
+              notificationKeys.current.find((key: string) => {
+                return key == node.getKey();
+              })
+            ) {
               node.replace($createTextNode(''));
+              notificationKeys.current = [];
             }
-          });
+          }
         });
       }
 

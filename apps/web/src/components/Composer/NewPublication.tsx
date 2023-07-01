@@ -120,6 +120,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
+  const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);
@@ -698,9 +699,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 onClick={() => {
                   setSelectedQuadraticRound(defaultRound);
                   setManuallySelectedRound('');
-                  editor.update(()=> {
-                    
-                  })
                 }}
               />
             </Tooltip>
