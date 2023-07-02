@@ -9,9 +9,9 @@
     "ios": "expo start --ios",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
+    "mobile:start": "expo start",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "expo start",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
