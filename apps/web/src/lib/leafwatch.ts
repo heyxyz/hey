@@ -28,6 +28,7 @@ export const Leafwatch = {
       actor: user.state.profileId,
       fingerprint: fingerprint.state.fingerprint,
       referrer: referrerDomain,
+      url: window.location.href,
       platform: 'web'
     });
 
