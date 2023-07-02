@@ -53,7 +53,7 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens';
-import { $getRoot } from 'lexical';
+import { $getRoot, TextNode } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
@@ -120,7 +120,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
-  const showNewPostModal = usePublicationStore((state) => state.showNewPostModal);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
   const setAttachments = usePublicationStore((state) => state.setAttachments);
@@ -156,6 +155,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+  const [notificationKeys, setNotificationKeys] = useState<string[]>([]);
   // selectedQuadraticRound
   const defaultRound = useMemo<QuadraticRound>(
     () => ({
@@ -177,11 +177,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
 
+  const removeUpdateListener = editor.registerMutationListener(TextNode, (mutatedNodes) => {
+    for (let key of notificationKeys) {
+      if (mutatedNodes.get(key) == 'destroyed') {
+        setSelectedQuadraticRound(defaultRound);
+        setManuallySelectedRound('');
+        setRequirementsMet(true);
+        return toast.error('Your post has been removed from the round', { id: 'copy' });
+      }
+    }
+  });
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
-
+    for (const key of notificationKeys) {
+      notificationKeys.pop();
+    }
+    setSelectedQuadraticRound(defaultRound);
     editor.update(() => {
       $getRoot().clear();
     });
@@ -521,6 +535,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const createPublication = async () => {
+    removeUpdateListener();
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -670,7 +685,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
-      <Editor selectedQuadraticRound={selectedQuadraticRound} editor={editor} />
+      <Editor
+        selectedQuadraticRound={selectedQuadraticRound}
+        editor={editor}
+        notificationKeys={notificationKeys}
+        setNotificationKeys={setNotificationKeys}
+      />
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
