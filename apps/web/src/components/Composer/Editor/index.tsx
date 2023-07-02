@@ -57,6 +57,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
   const attachments = usePublicationStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
   const prevQuadraticRoundRef = useRef('');
+  const prevQuadraticRequirementsRef = useRef<string[]>([]);
   // const notificationKeys = useRef<string[]>([]);
 
   const handlePaste = async (pastedFiles: FileList) => {
@@ -82,6 +83,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
 
   useEffect(() => {
     prevQuadraticRoundRef.current = selectedQuadraticRound.id;
+    prevQuadraticRequirementsRef.current = selectedQuadraticRound.requirements;
   }, []);
 
   useEffect(() => {
@@ -125,7 +127,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
                   return key == node.getKey();
                 }
               }) ||
-              node.getTextContent().includes('#ethccreq1')
+              prevQuadraticRequirementsRef.current.includes(node.getTextContent())
             ) {
               node.remove();
             }
@@ -135,6 +137,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
         });
       }
       prevQuadraticRoundRef.current = selectedQuadraticRound.id;
+      prevQuadraticRequirementsRef.current = selectedQuadraticRound.requirements;
     }
   }, [
     selectedQuadraticRound,
