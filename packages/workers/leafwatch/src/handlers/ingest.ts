@@ -10,6 +10,7 @@ type ExtensionRequest = {
   name: string;
   actor?: string;
   fingerprint?: string;
+  url?: string;
   referrer?: string;
   user_agent?: string;
   platform?: 'web' | 'mobile';
@@ -20,6 +21,7 @@ const validationSchema = object({
   name: string().min(1, { message: 'Name is required!' }),
   actor: string().nullable().optional(),
   fingerprint: string().nullable().optional(),
+  url: string().nullable().optional(),
   referrer: string().nullable().optional(),
   platform: string().nullable().optional(),
   properties: any()
@@ -39,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, actor, fingerprint, referrer, platform, properties } =
+  const { name, actor, fingerprint, url, referrer, platform, properties } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -61,6 +63,7 @@ export default async (request: IRequest, env: Env) => {
           actor,
           properties,
           fingerprint,
+          url,
           country,
           referrer,
           platform,
@@ -70,6 +73,7 @@ export default async (request: IRequest, env: Env) => {
           ${actor ? `'${actor}'` : null},
           ${properties ? `'${JSON.stringify(properties)}'` : null},
           ${fingerprint ? `'${fingerprint}'` : null},
+          ${url ? `'${url}'` : null},
           ${country ? `'${country}'` : null},
           ${referrer ? `'${referrer}'` : null},
           ${platform ? `'${platform}'` : null},
