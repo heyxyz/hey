@@ -4,10 +4,10 @@ import { WEB_BASE_URL } from 'tests/constants';
 
 test.describe('Publication attachments', () => {
   test('should have publication image', async ({ page }) => {
-    const publicationId = '0x0d-0x037d';
+    const publicationId = '0x01cd87-0x02';
     await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
 
-    const imageURL = `https://bafybeihztcpkzhzc3fddsc66r22hzsztja6blflygurlft7lmc4l44pnre.ipfs-public.thirdwebcdn.com`;
+    const imageURL = `https://ik.imagekit.io/lens/media-snapshot/1eb3e9ff8dcab75cb573dbd7e45a44bdb759c4dc67e615ecc58d95f8bef9ef06.png`;
     const publicationImage = page
       .getByTestId(`publication-${publicationId}`)
       .getByTestId(`attachment-image-${imageURL}`);
@@ -18,7 +18,7 @@ test.describe('Publication attachments', () => {
     const lightboxOpenOriginal = page.getByTestId('lightbox-open-original');
     await lightboxOpenOriginal.click();
     const newPage = await page.waitForEvent('popup');
-    await expect(newPage.url()).toBe(imageURL + '/');
+    await expect(newPage.url()).toBe(imageURL);
   });
 
   test('should have publication video', async ({ page }) => {
