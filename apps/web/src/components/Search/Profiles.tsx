@@ -10,7 +10,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
@@ -18,8 +17,6 @@ interface ProfilesProps {
 }
 
 const Profiles: FC<ProfilesProps> = ({ query }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: SearchQueryRequest = {
     query,
@@ -36,6 +33,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   const search = data?.search as ProfileSearchResult;
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -44,9 +42,6 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      const search = data?.search as ProfileSearchResult;
-      setHasMore(search?.items?.length > 0);
     });
   };
 

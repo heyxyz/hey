@@ -27,7 +27,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       ? publication?.mirrorOf?.id
       : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
   const [showMore, setShowMore] = useState(false);
 
   // Variables
@@ -50,6 +49,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
 
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
+  const hasMore = pageInfo?.next;
   const totalComments = comments?.length;
 
   const { observe } = useInView({
@@ -64,8 +64,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
       });
     }
   });

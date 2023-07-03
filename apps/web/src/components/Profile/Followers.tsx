@@ -9,7 +9,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
@@ -18,7 +17,6 @@ interface FollowersProps {
 }
 
 const Followers: FC<FollowersProps> = ({ profile }) => {
-  const [hasMore, setHasMore] = useState(true);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -31,6 +29,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
 
   const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -39,8 +38,6 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.followers?.items?.length > 0);
     });
   };
 

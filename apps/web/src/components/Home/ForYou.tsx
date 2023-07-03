@@ -7,7 +7,6 @@ import { useForYouQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -20,7 +19,6 @@ const ForYou: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationForYouRequest = {
@@ -38,6 +36,7 @@ const ForYou: FC = () => {
 
   const publications = data?.forYou?.items;
   const pageInfo = data?.forYou?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -51,8 +50,6 @@ const ForYou: FC = () => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.forYou?.items?.length > 0);
       });
     }
   });
