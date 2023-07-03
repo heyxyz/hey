@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
 
@@ -118,9 +119,7 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
       roundEndTime
       createdAt
       token
-      
     }
-  
 }`;
 
   const variables = {
@@ -208,3 +207,41 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
 //     throw error;
 //   }
 // }
+
+export const useQueryRoundsOverview = (roundIds?: string[]) => {
+  const mockData = [
+    {
+      name: 'Round 1',
+      id: '0x123',
+      totalTips: 2234,
+      totalPot: 239.21,
+      uniquePosts: 123,
+      averageTip: 12,
+      averageTipsPerPost: 182,
+      posts: [
+        {
+          publicationId: '0x02-0x01',
+          uniqueContributors: 2,
+          totalTippedInToken: 33
+        },
+        {
+          publicationId: 'x026a-0x02',
+          uniqueContributors: 2,
+          totalTippedInToken: 33
+        }
+      ]
+    },
+    {
+      name: 'Round 2',
+      id: '0x456',
+      totalTips: 1236,
+      totalPot: 212.21,
+      uniquePosts: 12,
+      averageTip: 28,
+      averageTipsPerPost: 140,
+      posts: []
+    }
+  ];
+
+  return useQuery(['rounds-overview', roundIds], async () => Promise.resolve(mockData));
+};
