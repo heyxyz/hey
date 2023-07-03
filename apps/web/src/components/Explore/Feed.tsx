@@ -14,7 +14,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 import { useExploreStore } from 'src/store/explore';
@@ -30,7 +29,6 @@ const Feed: FC<FeedProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedTag = useExploreStore((state) => state.selectedTag);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: ExplorePublicationRequest = {
@@ -54,6 +52,7 @@ const Feed: FC<FeedProps> = ({
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -67,8 +66,6 @@ const Feed: FC<FeedProps> = ({
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.explorePublications?.items?.length > 0);
       });
     }
   });

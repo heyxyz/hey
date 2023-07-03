@@ -1,9 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { SunIcon } from '@heroicons/react/outline';
 import { HeartIcon } from '@heroicons/react/solid';
 import type { NewReactionNotification } from '@lenster/lens';
-import hasGm from '@lenster/lib/hasGm';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
@@ -36,17 +34,12 @@ interface LikeNotificationProps {
 
 const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
   const typeName = notification?.publication?.__typename?.toLowerCase() || '';
-  const isGM = hasGm(notification?.publication?.metadata?.content);
 
   return (
     <div className="flex items-start justify-between">
       <div className="w-4/5 space-y-2">
         <div className="flex items-center space-x-3">
-          {isGM ? (
-            <SunIcon className="h-6 w-6 text-yellow-600/70" />
-          ) : (
-            <HeartIcon className="h-6 w-6 text-pink-500/70" />
-          )}
+          <HeartIcon className="h-6 w-6 text-pink-500/70" />
           <UserPreview profile={notification?.profile}>
             <NotificationProfileAvatar profile={notification?.profile} />
           </UserPreview>

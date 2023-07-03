@@ -13,6 +13,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
+import Bookmarks from './NavItems/Bookmarks';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
@@ -86,6 +87,10 @@ const MobileDrawerMenu: FC = () => {
             <Link href={'/settings'} onClick={closeDrawer}>
               <Settings className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
             </Link>
+            <Bookmarks
+              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
+              onClick={closeDrawer}
+            />
             {isGardener(currentProfile?.id) && (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />

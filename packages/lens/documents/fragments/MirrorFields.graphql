@@ -40,6 +40,8 @@ fragment MirrorFields on Mirror {
       collectNftAddress
       reaction(request: $reactionRequest)
       mirrors(by: $profileId)
+      bookmarked(by: $profileId)
+      notInterested(by: $profileId)
       onChainContentURI
       isGated
       isDataAvailability

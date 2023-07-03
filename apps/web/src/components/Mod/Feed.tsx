@@ -12,7 +12,7 @@ import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -32,7 +32,6 @@ const Feed: FC<FeedProps> = ({
   customFilters
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: ExplorePublicationRequest = {
@@ -56,6 +55,7 @@ const Feed: FC<FeedProps> = ({
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   useEffect(() => {
     setRefreshing(true);
@@ -75,8 +75,6 @@ const Feed: FC<FeedProps> = ({
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.explorePublications?.items?.length > 0);
       });
     }
   });
