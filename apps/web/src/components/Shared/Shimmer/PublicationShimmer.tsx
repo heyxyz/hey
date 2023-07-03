@@ -1,21 +1,25 @@
+import clsx from 'clsx';
 import type { FC } from 'react';
 
+import SmallUserProfileShimmer from './SmallUserProfileShimmer';
 import UserProfileShimmer from './UserProfileShimmer';
 
 interface PublicationShimmerProps {
   showActions?: boolean;
+  quoted?: boolean;
 }
 
 const PublicationShimmer: FC<PublicationShimmerProps> = ({
-  showActions = true
+  showActions = true,
+  quoted = false
 }) => {
   return (
     <div className="space-y-4 p-5">
       <div className="flex justify-between">
-        <UserProfileShimmer />
+        {quoted ? <SmallUserProfileShimmer /> : <UserProfileShimmer />}
         <div className="shimmer h-5 w-5 rounded-lg" />
       </div>
-      <div className="ml-[52px] space-y-4">
+      <div className={clsx(quoted ? '' : 'ml-[52px]', 'space-y-4')}>
         <div className="space-y-2">
           <div className="shimmer h-3 w-7/12 rounded-lg" />
           <div className="shimmer h-3 w-1/3 rounded-lg" />
