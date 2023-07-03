@@ -929,8 +929,8 @@ msgid "Contact {APP_NAME}"
 msgstr "Контакт {APP_NAME}"
 
 #: src/components/Pages/Contact.tsx
-msgid "Contact us to help you get the issue resolved."
-msgstr "Свяжитесь с нами, чтобы мы помогли вам разобраться с возникшей ситуацией."
+msgid "To get assistance, please use the contact form or join our Discord community."
+msgstr "Для получения помощи, пожалуйста, воспользуйтесь контактной формой или присоединитесь к нашему сообществу в Discord."
 
 #: src/components/Pages/Contact.tsx
 msgid "Your message has been sent!"

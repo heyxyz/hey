@@ -77,7 +77,7 @@ const Contact: FC = () => {
       <GridItemFour>
         <SettingsHelper
           heading={t`Contact ${APP_NAME}`}
-          description={t`Contact us to help you get the issue resolved.`}
+          description={t`To get assistance, please use the contact form or join our Discord community.`}
         />
       </GridItemFour>
       <GridItemEight>

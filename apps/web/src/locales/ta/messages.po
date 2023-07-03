@@ -929,8 +929,8 @@ msgid "Contact {APP_NAME}"
 msgstr "{APP_NAME} ஐத் தொடர்பு கொள்ளவும்"
 
 #: src/components/Pages/Contact.tsx
-msgid "Contact us to help you get the issue resolved."
-msgstr "சிக்கலைத் தீர்ப்பதற்கு உங்களுக்கு உதவ எங்களை தொடர்பு கொள்ளுங்கள்."
+msgid "To get assistance, please use the contact form or join our Discord community."
+msgstr "உதவி பெற தயவுசெய்து தொடர்பு படிவத்தை பயன்படுத்தவும் அல்லது எங்கள் Discord சமூகத்தில் சேரவும்."
 
 #: src/components/Pages/Contact.tsx
 msgid "Your message has been sent!"

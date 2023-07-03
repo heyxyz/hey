@@ -929,7 +929,7 @@ msgid "Contact {APP_NAME}"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
-msgid "Contact us to help you get the issue resolved."
+msgid "To get assistance, please use the contact form or join our Discord community."
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
