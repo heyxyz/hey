@@ -75,6 +75,7 @@ import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagm
 
 import Editor from './Editor';
 import RequirementsNotification from './RequirementsNotification';
+
 // import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -119,6 +120,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const [publicationContentUpdated, setPublicationContentUpdated] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
@@ -538,6 +540,36 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return await uploadToArweave(metadata);
   };
 
+  const insertHtml = async () => {
+    let notificationText: string | undefined;
+
+    editor.getEditorState().read(() => {
+      const textNodes = $getRoot().getAllTextNodes();
+      textNodes.find((node) => {
+        return notificationKeys.find((key: string) => {
+          return key == node.getKey();
+        });
+      });
+
+      notificationText = textNodes
+        .find((node) => {
+          return node.getTextContent().includes(selectedQuadraticRound.id);
+        })
+        ?.getTextContent();
+    });
+
+    if (notificationText) {
+      const index = publicationContent.indexOf(notificationText);
+      const newContent = `${publicationContent.slice(0, index)}
+        <span className="bg-red-500"> ${publicationContent.slice(
+          index,
+          index + notificationText.length
+        )} </span>`;
+      setPublicationContent(newContent);
+      setPublicationContentUpdated(true);
+    }
+  };
+
   const createPublication = async () => {
     removeUpdateListener();
     if (!currentProfile) {
@@ -671,6 +703,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
+  useEffect(() => {
+    if (publicationContentUpdated) {
+      createPublication();
+      setPublicationContentUpdated(false);
+    }
+  }, [publicationContentUpdated]);
+
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewLensterAttachment = {
       id: uuid(),
@@ -682,44 +721,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
     };
     addAttachments([attachment]);
-  };
-
-  const styling = 'bg-red-500';
-  const [newPublicationContent, setNewPublicationContent] = useState('');
-
-  useEffect(() => {
-    console.log('NEW PUB CONTENT: ', newPublicationContent);
-    setPublicationContent(newPublicationContent);
-    console.log('NewContent', publicationContent);
-  }, [newPublicationContent, setPublicationContent, setNewPublicationContent]);
-
-  const insertHtml = () => {
-    let notificationText: string | undefined;
-
-    editor.getEditorState().read(() => {
-      const textNodes = $getRoot().getAllTextNodes();
-      textNodes.find((node) => {
-        return notificationKeys.find((key: string) => {
-          return key == node.getKey();
-        });
-      });
-
-      notificationText = textNodes
-        .find((node) => {
-          return node.getTextContent().includes(selectedQuadraticRound.id);
-        })
-        ?.getTextContent();
-    });
-
-    if (notificationText) {
-      const index = publicationContent.indexOf(notificationText);
-      const newContent = `${publicationContent.slice(0, index)}
-        <span className="${styling}"> ${publicationContent.slice(
-        index,
-        index + notificationText.length
-      )} </span>`;
-      setNewPublicationContent(newContent);
-    }
   };
 
   const isLoading = loading || typedDataLoading || writeLoading;
@@ -778,10 +779,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
-            onClick={() => {
-              insertHtml();
-              createPublication();
-            }}
+            onClick={insertHtml}
           >
             {isComment ? t`Comment` : t`Post`}
           </Button>

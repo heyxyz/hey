@@ -10,7 +10,6 @@ import stripMarkdown from 'strip-markdown';
 
 import Code from './Code';
 import MarkupLink from './MarkupLink';
-import { PluggableList } from 'react-markdown/lib/react-markdown';
 
 const plugins = [
   [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode', 'html'] }],
@@ -36,7 +35,7 @@ const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
     <ReactMarkdown
       className={className}
       components={components}
-      rehypePlugins={rehypeRaw as any}
+      rehypePlugins={[rehypeRaw]}
       remarkPlugins={plugins}
     >
       {trimify(children)}
