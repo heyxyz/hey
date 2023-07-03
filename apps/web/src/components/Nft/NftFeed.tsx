@@ -8,7 +8,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { CHAIN_ID } from 'src/constants';
 import { mainnet } from 'wagmi/chains';
@@ -18,8 +17,6 @@ interface NftFeedProps {
 }
 
 const NftFeed: FC<NftFeedProps> = ({ profile }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
@@ -34,6 +31,7 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -43,8 +41,6 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
 
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.nfts?.items?.length > 0);
       });
     }
   });

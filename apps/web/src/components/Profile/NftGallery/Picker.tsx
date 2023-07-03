@@ -9,7 +9,6 @@ import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { toast } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -22,7 +21,6 @@ const Picker: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: NfTsRequest = {
@@ -38,6 +36,7 @@ const Picker: FC = () => {
 
   const nfts = data?.nfts?.items;
   const pageInfo = data?.nfts?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -47,8 +46,6 @@ const Picker: FC = () => {
 
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.nfts?.items?.length > 0);
       });
     }
   });

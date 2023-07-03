@@ -14,7 +14,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -24,7 +23,6 @@ interface PublicationsProps {
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: SearchQueryRequest = {
@@ -45,6 +43,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const search = data?.search as PublicationSearchResult;
   const publications = search?.items as Publication[];
   const pageInfo = search?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -58,9 +57,6 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        const search = data?.search as PublicationSearchResult;
-        setHasMore(search?.items?.length > 0);
       });
     }
   });

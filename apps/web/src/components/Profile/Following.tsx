@@ -8,7 +8,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface FollowingProps {
@@ -17,8 +16,6 @@ interface FollowingProps {
 }
 
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
 
@@ -29,6 +26,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
 
   const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -37,8 +35,6 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.following?.items?.length > 0);
     });
   };
 
