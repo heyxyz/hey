@@ -16,7 +16,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -39,7 +38,6 @@ const List: FC<ListProps> = ({ feedType }) => {
     (state) => state.highSignalNotificationFilter
   );
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   const getNotificationType = () => {
     switch (feedType) {
@@ -85,6 +83,7 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -93,8 +92,6 @@ const List: FC<ListProps> = ({ feedType }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.notifications?.items?.length > 0);
     });
   };
 

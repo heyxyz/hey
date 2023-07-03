@@ -10,7 +10,6 @@ import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -20,7 +19,6 @@ interface FeedProps {
 
 const Feed: FC<FeedProps> = ({ focus }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationsProfileBookmarkedQueryRequest = {
@@ -42,6 +40,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
 
   const publications = data?.publicationsProfileBookmarks?.items;
   const pageInfo = data?.publicationsProfileBookmarks?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -55,8 +54,6 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.publicationsProfileBookmarks?.items?.length > 0);
       });
     }
   });
