@@ -13,6 +13,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
+import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -26,6 +27,10 @@ const Bookmarks: NextPage = () => {
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'bookmarks' });
   });
+
+  if (!currentProfile) {
+    return <Custom404 />;
+  }
 
   return (
     <GridLayout>
