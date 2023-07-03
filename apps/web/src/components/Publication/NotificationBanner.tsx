@@ -7,6 +7,8 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Card } from 'ui/src/Card';
 
+import { getPostQuadraticTipping } from './Actions/Tip/QuadraticQueries/grantsQueries';
+
 interface Props {
   publication: Publication;
   showCount: boolean;
@@ -14,42 +16,30 @@ interface Props {
 
 // export const NotificationBanner: FC<Props> = ({ icon, publication, showCount }) => {
 export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
-  const [count, setCount] = useState(0);
   const [roundInfo, setRoundInfo] = useState<any>();
   const [votes, setVotes] = useState<any>([]);
   const [postTipTotal, setPostTipTotal] = useState(0);
-  const isMirror = publication.__typename === 'Mirror';
+
   const grantsRound = getEnvConfig().GrantsRound;
 
   useEffect(() => {
-    if (
-      isMirror
-        ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-        : publication?.stats?.totalAmountOfCollects
-    ) {
-      setCount(
-        publication.__typename === 'Mirror'
-          ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-          : publication?.stats?.totalAmountOfCollects
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
-  // useEffect(() => {
-  //   const getPostInfo = async () => {
-  //     const roundResults = await getRoundTippingData(grantsRound);
-  //     setRoundInfo(roundResults);
-
-  //     const votes = await getVotesbyPubId(publication.id);
-  //     setVotes(votes);
-  //     let voteTipTotal = 0;
-  //     for (const vote of votes) {
-  //       voteTipTotal += parseFloat(vote?.amount);
-  //     }
-  //     setPostTipTotal(voteTipTotal);
-  //   };
-  //   getPostInfo();
-  // }, [grantsRound, publication.id]);
+    const getPostInfo = async () => {
+      const roundResults = await getPostQuadraticTipping(publication.id, grantsRound);
+      if (!roundResults) {
+        return;
+      }
+      setRoundInfo(roundResults);
+      console.log('roundResults', roundResults);
+      const votes = roundResults?.votes || [];
+      setVotes(votes);
+      let voteTipTotal = 0;
+      for (const vote of votes) {
+        voteTipTotal += parseFloat(vote?.amount);
+      }
+      setPostTipTotal(voteTipTotal);
+    };
+    getPostInfo();
+  }, [grantsRound, publication.id]);
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
