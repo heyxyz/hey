@@ -11,7 +11,6 @@ import { useCollectorsQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -21,8 +20,6 @@ interface CollectorsProps {
 }
 
 const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: WhoCollectedPublicationRequest = {
     publicationId: publicationId,
@@ -36,6 +33,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
 
   const profiles = data?.whoCollectedPublication?.items;
   const pageInfo = data?.whoCollectedPublication?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -44,8 +42,6 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.whoCollectedPublication?.items?.length > 0);
     });
   };
 

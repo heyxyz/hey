@@ -9,7 +9,6 @@ import { useMutualFollowersQuery } from '@lenster/lens';
 import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -19,7 +18,6 @@ interface MutualFollowersListProps {
 
 const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: MutualFollowersProfilesQueryRequest = {
@@ -35,6 +33,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
 
   const profiles = data?.mutualFollowersProfiles?.items;
   const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -44,8 +43,6 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
 
       await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
-      }).then(({ data }) => {
-        setHasMore(data?.mutualFollowersProfiles?.items?.length > 0);
       });
     }
   });

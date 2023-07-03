@@ -7,7 +7,6 @@ import { useFeedHighlightsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -20,7 +19,6 @@ const Highlights: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: FeedHighlightsRequest = {
@@ -37,6 +35,7 @@ const Highlights: FC = () => {
 
   const publications = data?.feedHighlights?.items;
   const pageInfo = data?.feedHighlights?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -50,8 +49,6 @@ const Highlights: FC = () => {
           reactionRequest,
           profileId: currentProfile?.id
         }
-      }).then(({ data }) => {
-        setHasMore(data?.feedHighlights?.items?.length > 0);
       });
     }
   });
