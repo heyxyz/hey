@@ -42,9 +42,9 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
     });
   });
 };
-
+//#8B5CF6 #eae2fc
 const notificationStyles =
-  'color:#eae2fc;background-color:#7c3aed;border-radius:8px;font-size:15px;padding:5px 3px 3px 5px;white-space:pre;word-spacing:-.2ch;overflow:hidden;text-size:6px;bottom: 1px;left:1px;';
+  'color:#eae2fc;background-color:#8B5CF6;border-radius:8px;font-size:15px;padding:5px 3px 3px 5px;white-space:pre;word-spacing:-.2ch;overflow:hidden;text-size:6px;bottom: 1px;left:1px;';
 
 const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, setNotificationKeys }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
@@ -110,7 +110,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
             p.append(textNode);
             root.append(p);
           }
-          toast.success('your post has been added to a round');
+          toast.success('Your post has been added to a round.');
         });
       } else {
         editor.update(() => {
@@ -128,7 +128,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
             }
           }
           setNotificationKeys([]);
-          // clearSelectedRound(selectedQuadraticRound);
         });
       }
       prevQuadraticRoundRef.current = selectedQuadraticRound.id;
@@ -162,8 +161,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
             setPublicationContent(markdown);
-            // const html = $generateHtmlFromNodes(editor);
-            // setPublicationContent(html);
           });
         }}
       />

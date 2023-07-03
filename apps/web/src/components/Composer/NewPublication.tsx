@@ -185,7 +185,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         setSelectedQuadraticRound(defaultRound);
         setManuallySelectedRound('');
         setRequirementsMet(true);
-        return toast.error('Your post has been removed from the round', { id: 'copy' });
+        return toast.error('Your post has been removed from the round.', { id: 'copy' });
       }
     }
   });
