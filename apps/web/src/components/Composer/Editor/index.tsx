@@ -5,7 +5,11 @@ import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
-import { $convertToMarkdownString, TEXT_FORMAT_TRANSFORMERS } from '@lexical/markdown';
+import {
+  $convertToMarkdownString,
+  TEXT_FORMAT_TRANSFORMERS,
+  TEXT_MATCH_TRANSFORMERS
+} from '@lexical/markdown';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
@@ -23,7 +27,7 @@ import { usePublicationStore } from 'src/store/publication';
 
 import type { QuadraticRound } from '../NewPublication';
 
-const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];
+const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS, ...TEXT_MATCH_TRANSFORMERS];
 
 interface Props {
   selectedQuadraticRound: QuadraticRound;
@@ -39,14 +43,6 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
   });
 };
 
-const clearSelectedRound = (selectedQuadraticRound: QuadraticRound) => {
-  selectedQuadraticRound.name = '';
-  selectedQuadraticRound.description = '';
-  selectedQuadraticRound.endTime = new Date();
-  selectedQuadraticRound.id = '';
-  selectedQuadraticRound.token = '';
-  selectedQuadraticRound.requirements = [];
-};
 const notificationStyles =
   'color:#eae2fc;background-color:#7c3aed;border-radius:200px;padding:1px 5px 1px 5px';
 
@@ -92,7 +88,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
       let newNotification: string;
 
       if (selectedQuadraticRound.id !== '' && !editor.getEditorState().isEmpty()) {
-        newNotification = `Your post will be included in the ${selectedQuadraticRound.id} round.`;
+        newNotification = `Your post will be included in the ${selectedQuadraticRound.name} at address ${selectedQuadraticRound.id} round.`;
 
         editor.update(() => {
           const root = $getRoot();
@@ -117,7 +113,6 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
           toast.success('your post has been added to a round');
         });
       } else {
-        // This needs to be updated to remove the node if seletecQuadraticRound is empty
         editor.update(() => {
           const textNodes = $getRoot().getAllTextNodes();
           for (const node of textNodes) {
@@ -167,6 +162,8 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
             setPublicationContent(markdown);
+            // const html = $generateHtmlFromNodes(editor);
+            // setPublicationContent(html);
           });
         }}
       />

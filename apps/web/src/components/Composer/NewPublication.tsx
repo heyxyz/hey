@@ -684,6 +684,44 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     addAttachments([attachment]);
   };
 
+  const styling = 'bg-red-500';
+  const [newPublicationContent, setNewPublicationContent] = useState('');
+
+  useEffect(() => {
+    console.log('NEW PUB CONTENT: ', newPublicationContent);
+    setPublicationContent(newPublicationContent);
+    console.log('NewContent', publicationContent);
+  }, [newPublicationContent, setPublicationContent, setNewPublicationContent]);
+
+  const insertHtml = () => {
+    let notificationText: string | undefined;
+
+    editor.getEditorState().read(() => {
+      const textNodes = $getRoot().getAllTextNodes();
+      textNodes.find((node) => {
+        return notificationKeys.find((key: string) => {
+          return key == node.getKey();
+        });
+      });
+
+      notificationText = textNodes
+        .find((node) => {
+          return node.getTextContent().includes(selectedQuadraticRound.id);
+        })
+        ?.getTextContent();
+    });
+
+    if (notificationText) {
+      const index = publicationContent.indexOf(notificationText);
+      const newContent = `${publicationContent.slice(0, index)}
+        <span className="${styling}"> ${publicationContent.slice(
+        index,
+        index + notificationText.length
+      )} </span>`;
+      setNewPublicationContent(newContent);
+    }
+  };
+
   const isLoading = loading || typedDataLoading || writeLoading;
 
   return (
@@ -740,7 +778,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
-            onClick={createPublication}
+            onClick={() => {
+              insertHtml();
+              createPublication();
+            }}
           >
             {isComment ? t`Comment` : t`Post`}
           </Button>
