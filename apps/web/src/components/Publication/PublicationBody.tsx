@@ -29,13 +29,16 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
 
   useEffect(() => {
     function retrieveRoundAddress(input: string): string | null {
-      const pattern = /Your post will be included in the (0x[\dA-Fa-f]{40}) round\./;
-      const match = input.match(pattern);
-      return match ? match[1] : null;
+      const cleanInput = input.replace(/<[^>]*>?/gm, '');
+      const pattern = /Your post will be included in (.*?)(0x[\dA-Fa-f]{40})\./;
+
+      const match = cleanInput.match(pattern);
+      return match ? match[2] : null;
     }
 
-    if (setRoundAddress) {
+    if (content && setRoundAddress) {
       const roundAddress = content && retrieveRoundAddress(content);
+      console.log(roundAddress);
       if (roundAddress) {
         setRoundAddress(roundAddress);
       } else {
@@ -57,6 +60,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
       <Markup className={clsx({ 'line-clamp-5': showMore }, 'markup linkify text-md break-words')}>
         {content}
       </Markup>
+
       {showMore && (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
