@@ -44,7 +44,7 @@ const findNode = (nodeArray: TextNode[], keyArray: string[]) => {
 };
 
 const notificationStyles =
-  'color:#eae2fc;background-color:#7c3aed;border-radius:200px;padding:1px 5px 1px 5px';
+  'color:#eae2fc;background-color:#7c3aed;border-radius:8px;font-size:15px;padding:5px 3px 3px 5px;white-space:pre;word-spacing:-.2ch;overflow:hidden;text-size:6px;bottom: 1px;left:1px;';
 
 const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, setNotificationKeys }) => {
   const publicationContent = usePublicationStore((state) => state.publicationContent);
@@ -88,7 +88,7 @@ const Editor: FC<Props> = ({ selectedQuadraticRound, editor, notificationKeys, s
       let newNotification: string;
 
       if (selectedQuadraticRound.id !== '' && !editor.getEditorState().isEmpty()) {
-        newNotification = `Your post will be included in the ${selectedQuadraticRound.name} at address ${selectedQuadraticRound.id} round.`;
+        newNotification = `Your post will be included in ${selectedQuadraticRound.name} at address ${selectedQuadraticRound.id}.`;
 
         editor.update(() => {
           const root = $getRoot();
