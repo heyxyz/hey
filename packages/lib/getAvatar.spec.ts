@@ -12,7 +12,7 @@ describe('getAvatar', () => {
     expect(result).toBe(ipfsLink);
   });
 
-  test.skip('should return original avatar url when hostname is in skip list', () => {
+  test('should return original avatar url when hostname is in skip list', () => {
     const avatarUrl = 'https://avatar.tobi.sh/1.png';
     const profile = {
       picture: { uri: avatarUrl, original: { url: avatarUrl } }
