@@ -1,4 +1,7 @@
-import { AVATAR, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import {
+  LENS_MEDIA_SNAPSHOT_URL,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import imageKit from './imageKit';
@@ -15,15 +18,25 @@ describe('imageKit', () => {
     expect(result).toEqual(url);
   });
 
-  test.skip('should return a url with just the image url when no name is provided', () => {
-    const url = 'image.jpg';
-    const result = imageKit(url);
-    // expect(result).toEqual(`${USER_CONTENT_URL}/${url}`);
+  test('should return an empty string if url is null', () => {
+    expect(imageKit(null as any)).toBe('');
   });
 
-  test.skip('should return a url with the image url and name when name is provided', () => {
-    const url = 'image.jpg';
-    const result = imageKit(url, AVATAR);
-    // expect(result).toEqual(`${USER_CONTENT_URL}/${AVATAR}/${url}`);
+  test('should return the original url if it does not include LENS_MEDIA_SNAPSHOT_URL', () => {
+    const url = 'https://example.com/image.jpg';
+    expect(imageKit(url)).toBe(url);
+  });
+
+  test('should return the transformed url if it includes LENS_MEDIA_SNAPSHOT_URL', () => {
+    const originalUrl = `${LENS_MEDIA_SNAPSHOT_URL}/some-image.jpg`;
+    const transformedUrl = `${LENS_MEDIA_SNAPSHOT_URL}/transformed/some-image.jpg`;
+
+    expect(imageKit(originalUrl, 'transformed')).toBe(transformedUrl);
+  });
+
+  test('should return the original url if name is not provided', () => {
+    const originalUrl = 'https://lenster.com/some-image.jpg';
+
+    expect(imageKit(originalUrl)).toBe(originalUrl);
   });
 });
