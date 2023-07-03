@@ -24,7 +24,7 @@ def predictTopic(text):
     topic_scores = sorted(topic_scores, key=lambda x: x["score"], reverse=True)
 
     # Extract the top two topics
-    top_topics = [topic_score["topic"] for topic_score in topic_scores[:2]]
+    top_topics = [topic_score["topic"] for topic_score in topic_scores[:1]]
 
     return top_topics
 
@@ -35,7 +35,7 @@ def tagger():
     text = data["text"]
 
     if len(text.split()) > 4:
-        topic_scores = predictTopic(text)
-        return jsonify({"topics": topic_scores})
+        topics = predictTopic(text)
+        return jsonify({"topics": topics})
     else:
         return jsonify({"topics": None})
