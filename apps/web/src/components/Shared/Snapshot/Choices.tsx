@@ -20,7 +20,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { useReadLocalStorage } from 'usehooks-ts';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -45,7 +44,7 @@ const Choices: FC<ChoicesProps> = ({
     show: false,
     position: 0
   });
-  const accessToken = useReadLocalStorage('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
 
   const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;
