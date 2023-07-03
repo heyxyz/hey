@@ -1,8 +1,5 @@
-import { HeartIcon, SunIcon } from '@heroicons/react/outline';
-import {
-  HeartIcon as HeartIconSolid,
-  SunIcon as SunIconSolid
-} from '@heroicons/react/solid';
+import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
@@ -13,13 +10,11 @@ import {
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import hasGm from '@lenster/lib/hasGm';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -145,43 +140,22 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';
-  const { content } = publication.metadata;
-  const isGM = hasGm(content);
 
   return (
-    <div
-      className={clsx(
-        isGM ? 'text-yellow-600' : 'text-pink-500',
-        'flex items-center space-x-1'
-      )}
-    >
+    <div className="flex items-center space-x-1 text-pink-500">
       <motion.button
         whileTap={{ scale: 0.9 }}
-        animate={{
-          rotate: isGM && liked ? 90 : 0
-        }}
         onClick={createLike}
         aria-label="Like"
       >
-        <div
-          className={clsx(
-            isGM ? 'hover:bg-yellow-400/20' : 'hover:bg-pink-300/20',
-            'rounded-full p-1.5'
-          )}
-        >
+        <div className="rounded-full p-1.5 hover:bg-pink-300/20">
           <Tooltip
             placement="top"
             content={liked ? t`Unlike` : t`Like`}
             withDelay
           >
             {liked ? (
-              isGM ? (
-                <SunIconSolid className={iconClassName} />
-              ) : (
-                <HeartIconSolid className={iconClassName} />
-              )
-            ) : isGM ? (
-              <SunIcon className={iconClassName} />
+              <HeartIconSolid className={iconClassName} />
             ) : (
               <HeartIcon className={iconClassName} />
             )}
