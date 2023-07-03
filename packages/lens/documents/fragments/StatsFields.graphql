@@ -3,5 +3,6 @@ fragment StatsFields on PublicationStats {
   totalAmountOfMirrors
   totalAmountOfCollects
   totalBookmarks
+  totalAmountOfComments
   commentsTotal(customFilters: GARDENERS)
 }
