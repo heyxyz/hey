@@ -254,6 +254,8 @@ export interface RoundStats {
     totalTippedInToken: string;
   }[];
   roundMetaPtr: string;
+  roundStartTime: number;
+  roundEndTime: number;
 }
 
 export const useQueryQFRoundStats = () => {
@@ -269,6 +271,8 @@ export const useQueryQFRoundStats = () => {
         projectId
       }
       round {
+        roundStartTime
+        roundEndTime
         roundMetaPtr {
           pointer
         }
@@ -342,7 +346,9 @@ export const useQueryQFRoundStats = () => {
           averageTip: round.votes.length ? formatEther(tippedInRound.div(round.votes.length)) : '0',
           averageTipsPerPost: round.votes.length ? formatEther(tippedInRound.div(postsInRound.size)) : '0',
           posts: formattedPosts,
-          roundMetaPtr: round.round.roundMetaPtr.pointer
+          roundMetaPtr: round.round.roundMetaPtr.pointer,
+          roundStartTime: Number(round.round.roundStartTime),
+          roundEndTime: Number(round.round.roundEndTime)
         };
       }
 

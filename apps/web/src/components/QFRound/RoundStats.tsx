@@ -26,6 +26,8 @@ export const RoundStats = ({
   const mostPopularPosts = stats.posts.slice(0, numberOfPopularPosts);
   const otherPosts = stats.posts.slice(numberOfPopularPosts);
 
+  const endTime = new Date(stats.roundEndTime * 1000).toLocaleString();
+
   return (
     <div className="">
       <div className="mb-4 text-2xl font-extrabold uppercase">{metaData?.name || 'Loading...'}</div>
@@ -37,6 +39,7 @@ export const RoundStats = ({
         <Item title={t`Unique tippers`} value={stats.uniqueTippers} />
         <Item title={t`Average tip`} value={`$ ${stats.averageTip}`} />
         <Item title={t`Average tips per post`} value={stats.averageTipsPerPost} />
+        <Item title={t`Round end`} value={endTime} />
       </div>
       {!!stats.posts.length && (
         <div className="mt-4 space-y-4">
