@@ -1,6 +1,7 @@
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
+import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
 
 import checkEventExistence from '../helpers/checkEventExistence';
@@ -54,6 +55,8 @@ export default async (request: IRequest, env: Env) => {
   const user_agent = request.headers.get('user-agent');
 
   try {
+    let parser = new UAParser(user_agent || '');
+    let ua = parser.getResult();
     const response = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -67,7 +70,9 @@ export default async (request: IRequest, env: Env) => {
           country,
           referrer,
           platform,
-          user_agent
+          browser,
+          browser_version,
+          os
         ) VALUES (
           '${name}',
           ${actor ? `'${actor}'` : null},
@@ -77,7 +82,9 @@ export default async (request: IRequest, env: Env) => {
           ${country ? `'${country}'` : null},
           ${referrer ? `'${referrer}'` : null},
           ${platform ? `'${platform}'` : null},
-          ${user_agent ? `'${user_agent}'` : null}
+          ${ua.browser.name ? `'${ua.browser.name}'` : null},
+          ${ua.browser.version ? `'${ua.os.version}'` : null},
+          ${ua.os.name ? `'${ua.os.name}'` : null}
         )
       `
     });
