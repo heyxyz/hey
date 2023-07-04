@@ -1,4 +1,4 @@
-import { useQueryAllTimeStats } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import { useQueryQFRoundStats } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { t, Trans } from '@lingui/macro';
 import { Card } from 'ui';
 
@@ -10,7 +10,7 @@ const AllTimeStatsItem = ({ title, value }: { title: string; value: string | num
 );
 
 export const AllTimeStats = () => {
-  const { data: allTimeStats } = useQueryAllTimeStats();
+  const { data: allTimeStats } = useQueryQFRoundStats();
 
   return (
     <Card className="p-4">

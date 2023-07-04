@@ -256,7 +256,7 @@ export interface RoundStats {
   roundMetaPtr: string;
 }
 
-export const useQueryAllTimeStats = () => {
+export const useQueryQFRoundStats = () => {
   const query = `
   query GetAllTimeStats {
     quadraticTippings {

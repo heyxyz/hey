@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { useQueryAllTimeStats } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import { useQueryQFRoundStats } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { AllTimeStats } from '@components/QFRound/AllTimeStats';
 import { RoundStats } from '@components/QFRound/RoundStats';
 import Loading from '@components/Shared/Loading';
@@ -10,7 +10,7 @@ import Custom500 from 'src/pages/500';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 const ViewQFRound: NextPage = () => {
-  const { data, isLoading, isError } = useQueryAllTimeStats();
+  const { data, isLoading, isError } = useQueryQFRoundStats();
 
   if (isError) {
     return <Custom500 />;
