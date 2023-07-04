@@ -230,7 +230,6 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
       }
     }
   }`;
-
   const variables = {
     roundAddressLower: roundAddress.toLowerCase(),
     postId: encodePublicationId(pubId)
@@ -239,19 +238,3 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
   const data = await request(query, variables);
   return data.quadraticTipping;
 }
-
-// ************
-// IPFS QUERIES
-// ************
-
-// export async function getRoundName(roundMetaPtr: string) {
-//   const query = `${CLOUDFLARE_IPFS_GATEWAY}/${roundMetaPtr}`;
-
-//   try {
-//     const response = await axios.get(query);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }

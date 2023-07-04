@@ -30,7 +30,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
   useEffect(() => {
     function retrieveRoundAddress(input: string): string | null {
       const cleanInput = input.replace(/<[^>]*>?/gm, '');
-      const pattern = /Your post will be included in (.*?)(0x[\dA-Fa-f]{40})\./;
+      const pattern = /Your post will be included in (.*?)(0x[\dA-Fa-f]{40})(.*round\.|\.)/;
 
       const match = cleanInput.match(pattern);
       return match ? match[2] : null;
@@ -38,7 +38,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
 
     if (content && setRoundAddress) {
       const roundAddress = content && retrieveRoundAddress(content);
-      console.log(roundAddress);
       if (roundAddress) {
         setRoundAddress(roundAddress);
       } else {

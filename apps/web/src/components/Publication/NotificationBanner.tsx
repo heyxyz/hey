@@ -1,55 +1,46 @@
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
-import getEnvConfig from 'data/utils/getEnvConfig';
 import { ethers } from 'ethers';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Card } from 'ui/src/Card';
 
+import { getPostQuadraticTipping } from './Actions/Tip/QuadraticQueries/grantsQueries';
+
 interface Props {
   publication: Publication;
   showCount: boolean;
+  roundAddress?: string;
 }
 
 // export const NotificationBanner: FC<Props> = ({ icon, publication, showCount }) => {
-export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
-  const [count, setCount] = useState(0);
+export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAddress }) => {
   const [roundInfo, setRoundInfo] = useState<any>();
   const [votes, setVotes] = useState<any>([]);
   const [postTipTotal, setPostTipTotal] = useState(0);
-  const isMirror = publication.__typename === 'Mirror';
-  const grantsRound = getEnvConfig().GrantsRound;
 
   useEffect(() => {
-    if (
-      isMirror
-        ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-        : publication?.stats?.totalAmountOfCollects
-    ) {
-      setCount(
-        publication.__typename === 'Mirror'
-          ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-          : publication?.stats?.totalAmountOfCollects
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
-  // useEffect(() => {
-  //   const getPostInfo = async () => {
-  //     const roundResults = await getRoundTippingData(grantsRound);
-  //     setRoundInfo(roundResults);
+    const getPostInfo = async () => {
+      if (roundAddress) {
+        const roundResults = await getPostQuadraticTipping(publication.id, roundAddress);
 
-  //     const votes = await getVotesbyPubId(publication.id);
-  //     setVotes(votes);
-  //     let voteTipTotal = 0;
-  //     for (const vote of votes) {
-  //       voteTipTotal += parseFloat(vote?.amount);
-  //     }
-  //     setPostTipTotal(voteTipTotal);
-  //   };
-  //   getPostInfo();
-  // }, [grantsRound, publication.id]);
+        if (!roundResults) {
+          return;
+        }
+        setRoundInfo(roundResults);
+        console.log('roundResults', roundResults);
+        const votes = roundResults?.votes || [];
+        setVotes(votes);
+        let voteTipTotal = 0;
+        for (const vote of votes) {
+          voteTipTotal += parseFloat(vote?.amount);
+        }
+        setPostTipTotal(voteTipTotal);
+      }
+    };
+    getPostInfo();
+  }, [roundAddress, publication.id]);
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
 
@@ -86,7 +77,9 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount }) => {
         {roundInfo && (
           <div className="flex justify-between pt-3">
             <div className="my-auto flex items-center justify-between text-sm text-gray-500">
-              <p className="mr-3">This matching round will end in {getTimeLeft(roundInfo.roundEndTime)}</p>
+              <p className="mr-3">
+                This matching round will end in {getTimeLeft(roundInfo.votes[0].round.roundEndTime)}
+              </p>
               <QuestionMarkCircleIcon className={iconClassName} />
             </div>
           </div>
