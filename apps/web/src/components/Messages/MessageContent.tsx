@@ -52,9 +52,7 @@ const MessageContent: FC<MessageContentProps> = ({
     );
   }
 
-  const meetingUrlMatches = message.content.match(
-    /(https:\/\/lenster\.huddle01\.com\/\S+)/gi
-  );
+  const meetingUrlMatches = message.content.match(/(https?:\/\/.*)/);
   const meetingLink = meetingUrlMatches ? meetingUrlMatches[0] : null;
 
   return meetingLink ? (

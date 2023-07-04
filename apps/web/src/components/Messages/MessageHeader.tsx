@@ -98,13 +98,19 @@ const MessageHeader: FC<MessageHeaderProps> = ({
                 }
               );
               const data = await apiCall.json();
-              const { meetingLink } = data.data;
+              const { roomId } = data.data;
+              const currentUrl = window.location.href;
+              const url = currentUrl.match(/^https?:\/\/([^/]+)/)?.[0];
               sendMessage(
-                `Join here for a call: ${meetingLink}`,
+                `Join here for a call: ${url}/meet/${roomId}`,
                 ContentTypeText,
                 ''
               );
-              window.open(meetingLink, 'newwindow', 'width=1200, height=800');
+              window.open(
+                `/meet/${roomId}`,
+                'newwindow',
+                'width=1200, height=800'
+              );
             }}
             className="mb-2 mr-4 inline h-8 w-8 cursor-pointer"
           />
