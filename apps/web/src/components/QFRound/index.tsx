@@ -13,7 +13,7 @@ import Custom500 from 'src/pages/500';
 import { Card, GridItemEight, GridItemFour, GridLayout } from 'ui';
 
 const ViewQFRound: NextPage = () => {
-  const { data, isLoading, isError } = useQueryQFRoundStats();
+  const { data, isLoading, isError } = useQueryQFRoundStats({ refetchInterval: 60 * 1000 });
 
   const roundMetaPtrs = Object.values(data?.roundStatsByRound || {}).map((stats) => stats.roundMetaPtr);
 

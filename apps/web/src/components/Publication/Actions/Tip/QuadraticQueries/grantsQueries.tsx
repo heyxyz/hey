@@ -258,7 +258,7 @@ export interface RoundStats {
   roundEndTime: number;
 }
 
-export const useQueryQFRoundStats = () => {
+export const useQueryQFRoundStats = ({ refetchInterval }: { refetchInterval?: number } = {}) => {
   const query = `
   query GetAllTimeStats($unixTimestamp: String!) {
     quadraticTippings(
@@ -294,6 +294,7 @@ export const useQueryQFRoundStats = () => {
 
   return useQuery(['all-time-stats'], () => request(query, variables), {
     refetchOnMount: false,
+    refetchInterval,
     select: (data) => {
       let totalMatched = BigNumber.from(0);
       let totalTipped = BigNumber.from(0);
@@ -431,6 +432,7 @@ export const useGetRoundMetaDatas = (roundMetaPtrs: string[]) => {
       return request(query, variables);
     },
     {
+      keepPreviousData: true,
       refetchOnMount: false,
       select: (data) => {
         const result: Record<string, RoundMetaData> = {};
