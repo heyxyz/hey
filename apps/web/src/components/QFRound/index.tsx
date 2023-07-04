@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { useQueryAllTimeStats } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import { AllTimeStats } from '@components/QFRound/AllTimeStats';
 import { RoundStats } from '@components/QFRound/RoundStats';
+import Loading from '@components/Shared/Loading';
 import { APP_NAME } from 'data';
 import type { NextPage } from 'next';
 import Custom404 from 'src/pages/404';
@@ -16,7 +17,7 @@ const ViewQFRound: NextPage = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!data) {
