@@ -30,6 +30,7 @@ const cache = new InMemoryCache({
         forYou: createForYouFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
         publications: createPublicationsFieldPolicy(),
+        publicationsProfileBookmarks: createPublicationsFieldPolicy(),
         nfts: createNftsFieldPolicy(),
         notifications: createNotificationsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
