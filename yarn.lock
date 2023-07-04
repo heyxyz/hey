@@ -4269,6 +4269,11 @@
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.3.tgz#a136f83b0758698df454e328759dbd3d44555311"
   integrity sha512-NfQ4gyz38SL8sDNrSixxU2Os1a5xcdFxipAFxYEuLUlvU2uDwS4NUpsImcf1//SlWItCVMMLiylsxbmNMToV/g==
 
+"@types/ua-parser-js@^0.7.36":
+  version "0.7.36"
+  resolved "https://registry.yarnpkg.com/@types/ua-parser-js/-/ua-parser-js-0.7.36.tgz#9bd0b47f26b5a3151be21ba4ce9f5fa457c5f190"
+  integrity sha512-N1rW+njavs70y2cApeIw1vLMYXRwfBy+7trgavGuuTfOd7j1Yh7QTRc/yqsPl6ncokt72ZXuxEU0PiCp9bSwNQ==
+
 "@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
