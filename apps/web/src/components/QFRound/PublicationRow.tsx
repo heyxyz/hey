@@ -8,7 +8,7 @@ export const PublicationRow = ({
 }: {
   publicationId: string;
   uniqueContributors: number;
-  totalTipped: number;
+  totalTipped: string;
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { push } = useRouter();

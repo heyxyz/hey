@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
+import { BigNumber } from 'ethers';
+import { formatEther } from 'ethers/lib/utils';
 
-import { encodePublicationId } from '../utils';
+import { decodePublicationId, encodePublicationId } from '../utils';
 
 const apiClient = axios.create({
   baseURL: SANDBOX_GRANTS_URL,
@@ -208,40 +210,154 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
 //   }
 // }
 
-export const useQueryRoundsOverview = (roundIds?: string[]) => {
-  const mockData = [
-    {
-      name: 'Round 1',
-      id: '0x123',
-      totalTips: 2234,
-      totalPot: 239.21,
-      uniquePosts: 123,
-      averageTip: 12,
-      averageTipsPerPost: 182,
-      posts: [
-        {
-          publicationId: '0x02-0x01',
-          uniqueContributors: 2,
-          totalTippedInToken: 33
-        },
-        {
-          publicationId: 'x026a-0x02',
-          uniqueContributors: 2,
-          totalTippedInToken: 33
-        }
-      ]
-    },
-    {
-      name: 'Round 2',
-      id: '0x456',
-      totalTips: 1236,
-      totalPot: 212.21,
-      uniquePosts: 12,
-      averageTip: 28,
-      averageTipsPerPost: 140,
-      posts: []
-    }
-  ];
+export interface RoundStats {
+  totalMatched: string;
+  totalTipped: string;
+  uniqueTippers: number;
+  uniqueTippedPosts: number;
+  averageTip: string;
+  averageTipsPerPost: string;
+  posts: {
+    publicationId: string;
+    uniqueContributors: number;
+    totalTippedInToken: string;
+  }[];
+  roundMetaPtr: string;
+}
 
-  return useQuery(['rounds-overview', roundIds], async () => Promise.resolve(mockData));
+export const useQueryAllTimeStats = () => {
+  const query = `
+  query GetAllTimeStats {
+    quadraticTippings {
+      id
+      matchAmount
+      votes {
+        id
+        from
+        amount
+        projectId
+      }
+      round {
+        roundMetaPtr {
+          pointer
+        }
+      }
+    }
+    quadraticTippingDistributions {
+      amount
+    }
+  }`;
+
+  const variables = {};
+
+  return useQuery(['all-time-stats'], () => request(query, variables), {
+    refetchOnMount: false,
+    select: (data) => {
+      let totalMatched = BigNumber.from(0);
+      let totalTipped = BigNumber.from(0);
+      const tippersDictionary = new Set<string>();
+
+      const roundStatsByRound: Record<string, RoundStats> = {};
+
+      for (const round of data.quadraticTippings) {
+        let tippedInRound = BigNumber.from(0);
+        const tippersInRound = new Set<string>();
+        const postsInRound = new Set<string>();
+        const posts: Record<
+          string,
+          {
+            uniqueContributors: Set<string>;
+            totalTippedInToken: BigNumber;
+          }
+        > = {};
+
+        for (const vote of round.votes) {
+          tippersDictionary.add(vote.from);
+          tippersInRound.add(vote.from);
+          postsInRound.add(vote.projectId);
+          totalTipped = totalTipped.add(vote.amount);
+          tippedInRound = tippedInRound.add(vote.amount);
+
+          const publicationId = decodePublicationId(vote.projectId);
+
+          if (!posts[publicationId]) {
+            posts[publicationId] = {
+              uniqueContributors: new Set<string>([vote.from]),
+              totalTippedInToken: BigNumber.from(0)
+            };
+          } else {
+            posts[publicationId].totalTippedInToken = posts[publicationId].totalTippedInToken.add(
+              vote.amount
+            );
+            posts[publicationId].uniqueContributors.add(vote.from);
+          }
+        }
+
+        const formattedPosts = Object.entries(posts).map(
+          ([publicationId, { uniqueContributors, totalTippedInToken }]) => ({
+            publicationId,
+            uniqueContributors: uniqueContributors.size,
+            totalTippedInToken: formatEther(totalTippedInToken)
+          })
+        );
+
+        const matchedInRound = formatEther(round.matchAmount);
+
+        roundStatsByRound[round.id] = {
+          totalMatched: matchedInRound,
+          totalTipped: formatEther(tippedInRound),
+          uniqueTippers: tippersInRound.size,
+          uniqueTippedPosts: postsInRound.size,
+          averageTip: round.votes.length ? formatEther(tippedInRound.div(round.votes.length)) : '0',
+          averageTipsPerPost: round.votes.length ? formatEther(tippedInRound.div(postsInRound.size)) : '0',
+          posts: formattedPosts,
+          roundMetaPtr: round.round.roundMetaPtr.pointer
+        };
+      }
+
+      for (const dist of data.quadraticTippingDistributions) {
+        totalMatched = totalMatched.add(dist.amount);
+      }
+
+      return {
+        numberOfRounds: data.quadraticTippings.length as number,
+        totalMatched: formatEther(totalMatched),
+        totalTipped: formatEther(totalTipped),
+        totalTippers: Object.keys(tippersDictionary).length,
+        roundStatsByRound
+      };
+    }
+  });
+};
+
+interface RoundMetaData {
+  description: string;
+  id: string;
+  name: string;
+  requirements: string[];
+  supportEmail: string;
+}
+
+export const useGetRoundMeta = (roundMetaPtr: string) => {
+  const query = `
+    query GetRoundMeta($roundMetaPtr: String!) {
+      roundMetaData(id: $roundMetaPtr) {
+        description
+        id
+        name
+        requirements
+        supportEmail
+      }
+    }
+  `;
+  const variables = {
+    roundMetaPtr
+  };
+
+  return useQuery(['round-meta', roundMetaPtr], () => request(query, variables), {
+    refetchOnMount: false,
+    select: (data) => {
+      return data.roundMetaData as RoundMetaData;
+    }
+  });
 };
