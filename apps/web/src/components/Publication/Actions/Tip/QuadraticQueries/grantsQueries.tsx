@@ -293,13 +293,13 @@ export const useQueryAllTimeStats = () => {
           }
         }
 
-        const formattedPosts = Object.entries(posts).map(
-          ([publicationId, { uniqueContributors, totalTippedInToken }]) => ({
+        const formattedPosts = Object.entries(posts)
+          .map(([publicationId, { uniqueContributors, totalTippedInToken }]) => ({
             publicationId,
             uniqueContributors: uniqueContributors.size,
             totalTippedInToken: formatEther(totalTippedInToken)
-          })
-        );
+          }))
+          .sort((a, b) => Number(b.totalTippedInToken) - Number(a.totalTippedInToken));
 
         const matchedInRound = formatEther(round.matchAmount);
 

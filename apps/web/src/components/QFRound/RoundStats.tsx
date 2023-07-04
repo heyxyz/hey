@@ -11,8 +11,13 @@ const Item = ({ title, value }: { title: string; value: string | number }) => (
   </div>
 );
 
+const numberOfPopularPosts = 5;
+
 export const RoundStats = ({ stats }: { roundId: string; stats: RoundStatsType }) => {
   const { data: metaData } = useGetRoundMeta(stats.roundMetaPtr);
+
+  const mostPopularPosts = stats.posts.slice(0, numberOfPopularPosts);
+  const otherPosts = stats.posts.slice(numberOfPopularPosts);
 
   return (
     <div className="">
@@ -28,36 +33,40 @@ export const RoundStats = ({ stats }: { roundId: string; stats: RoundStatsType }
       </div>
       {!!stats.posts.length && (
         <div className="mt-4 space-y-4">
-          <div className="mt-4">
-            <div className="lt-text-gray-500 mb-2 text-sm">
-              <Trans>Most popular posts in round</Trans>
+          {!!mostPopularPosts.length && (
+            <div className="mt-4">
+              <div className="lt-text-gray-500 mb-2 text-sm">
+                <Trans>Most popular posts in round</Trans>
+              </div>
+              <Card className="divide-y-[1px] dark:divide-gray-700">
+                {mostPopularPosts.map(({ publicationId, uniqueContributors, totalTippedInToken }) => (
+                  <PublicationRow
+                    key={publicationId}
+                    publicationId={publicationId}
+                    totalTipped={totalTippedInToken}
+                    uniqueContributors={uniqueContributors}
+                  />
+                ))}
+              </Card>
             </div>
-            <Card className="divide-y-[1px] dark:divide-gray-700">
-              {stats.posts.map(({ publicationId, uniqueContributors, totalTippedInToken }) => (
-                <PublicationRow
-                  key={publicationId}
-                  publicationId={publicationId}
-                  totalTipped={totalTippedInToken}
-                  uniqueContributors={uniqueContributors}
-                />
-              ))}
-            </Card>
-          </div>
-          <div>
-            <div className="lt-text-gray-500 mb-2 text-sm">
-              <Trans>All posts in this round ({stats.posts.length})</Trans>
+          )}
+          {!!otherPosts.length && (
+            <div>
+              <div className="lt-text-gray-500 mb-2 text-sm">
+                <Trans>All posts in this round ({otherPosts.length})</Trans>
+              </div>
+              <Card className="divide-y-[1px] dark:divide-gray-700">
+                {otherPosts.map(({ publicationId, uniqueContributors, totalTippedInToken }) => (
+                  <PublicationRow
+                    key={publicationId}
+                    publicationId={publicationId}
+                    totalTipped={totalTippedInToken}
+                    uniqueContributors={uniqueContributors}
+                  />
+                ))}
+              </Card>
             </div>
-            <Card className="divide-y-[1px] dark:divide-gray-700">
-              {stats.posts.map(({ publicationId, uniqueContributors, totalTippedInToken }) => (
-                <PublicationRow
-                  key={publicationId}
-                  publicationId={publicationId}
-                  totalTipped={totalTippedInToken}
-                  uniqueContributors={uniqueContributors}
-                />
-              ))}
-            </Card>
-          </div>
+          )}
         </div>
       )}
     </div>
