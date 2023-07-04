@@ -1,5 +1,7 @@
-import type { RoundStats as RoundStatsType } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
-import { useGetRoundMeta } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import type {
+  RoundMetaData,
+  RoundStats as RoundStatsType
+} from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import PublicationRow from '@components/QFRound/PublicationRow';
 import { t, Trans } from '@lingui/macro';
 import { Card } from 'ui';
@@ -13,9 +15,14 @@ const Item = ({ title, value }: { title: string; value: string | number }) => (
 
 const numberOfPopularPosts = 5;
 
-export const RoundStats = ({ stats }: { roundId: string; stats: RoundStatsType }) => {
-  const { data: metaData } = useGetRoundMeta(stats.roundMetaPtr);
-
+export const RoundStats = ({
+  stats,
+  metaData
+}: {
+  roundId: string;
+  stats: RoundStatsType;
+  metaData: RoundMetaData;
+}) => {
   const mostPopularPosts = stats.posts.slice(0, numberOfPopularPosts);
   const otherPosts = stats.posts.slice(numberOfPopularPosts);
 

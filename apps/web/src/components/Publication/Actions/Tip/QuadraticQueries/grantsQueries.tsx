@@ -361,7 +361,7 @@ export const useQueryQFRoundStats = () => {
   });
 };
 
-interface RoundMetaData {
+export interface RoundMetaData {
   description: string;
   id: string;
   name: string;
@@ -369,7 +369,7 @@ interface RoundMetaData {
   supportEmail: string;
 }
 
-export const useGetRoundMeta = (roundMetaPtr: string) => {
+export const useGetRoundMetaData = (roundMetaPtr: string) => {
   const query = `
     query GetRoundMeta($roundMetaPtr: String!) {
       roundMetaData(id: $roundMetaPtr) {
@@ -390,5 +390,35 @@ export const useGetRoundMeta = (roundMetaPtr: string) => {
     select: (data) => {
       return data.roundMetaData as RoundMetaData;
     }
+  });
+};
+
+export const useGetRoundMetaDatas = (roundMetaPtrs: string[]) => {
+  const query = `
+    query GetRoundMeta($roundMetaPtrs: [String!]!) {
+      roundMetaDatas(where: {id_in: $roundMetaPtrs}) {
+        description
+        id
+        name
+        requirements
+        supportEmail
+      }
+}`;
+
+  const variables = {
+    roundMetaPtrs
+  };
+
+  return useQuery(['round-metas', roundMetaPtrs], () => request(query, variables), {
+    refetchOnMount: false,
+    select: (data) => {
+      const result: Record<string, RoundMetaData> = {};
+      for (const roundMeta of data.roundMetaDatas as RoundMetaData[]) {
+        result[roundMeta.id] = roundMeta;
+      }
+      console.log('metadatas', result);
+      return result;
+    },
+    enabled: roundMetaPtrs.length > 0
   });
 };
