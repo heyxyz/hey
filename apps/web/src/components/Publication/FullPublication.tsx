@@ -2,8 +2,7 @@ import { formatTime } from '@lib/formatTime';
 import dayjs from 'dayjs';
 import type { Publication } from 'lens';
 import getAppName from 'lib/getAppName';
-import type { FC } from 'react';
-import { useState } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -14,12 +13,13 @@ import PublicationType from './Type';
 
 interface FullPublicationProps {
   publication: Publication;
+  roundAddress?: string;
+  setRoundAddress?: Dispatch<SetStateAction<string>>;
 }
 
-const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+const FullPublication: FC<FullPublicationProps> = ({ publication, roundAddress, setRoundAddress }) => {
   const isMirror = publication.__typename === 'Mirror';
   const timestamp = isMirror ? publication?.mirrorOf?.createdAt : publication?.createdAt;
-  const [roundAddress, setRoundAddress] = useState('');
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
   const mirrorCount = isMirror
@@ -57,6 +57,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                 </>
               )}
               <div className="divider" />
+
               <PublicationActions publication={publication} showCount roundAddress={roundAddress} />
             </>
           )}

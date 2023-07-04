@@ -31,7 +31,8 @@ const Home: NextPage = () => {
   const WelcomeBanner = () => {
     return (
       <span className="mx-4 mt-3 flex items-center justify-between rounded-md bg-purple-500 p-5 text-lg font-medium text-white">
-        Welcome content lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Welcome to Quadratic Lenster! This project is a fork of Lenster and enables quadratic tipping via
+        quadratic funding rounds.
         <button
           type="button"
           className="ml-4 text-sm font-medium text-white underline"

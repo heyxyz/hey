@@ -11,7 +11,7 @@ import { usePublicationQuery } from 'lens';
 import formatHandle from 'lib/formatHandle';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -30,6 +30,8 @@ const ViewPublication: NextPage = () => {
   const {
     query: { id }
   } = useRouter();
+
+  const [roundAddress, setRoundAddress] = useState('');
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'publication' });
@@ -69,9 +71,13 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={publication} />
+          <FullPublication
+            publication={publication}
+            roundAddress={roundAddress}
+            setRoundAddress={setRoundAddress}
+          />
         </Card>
-        <NotificationBanner publication={publication} showCount />
+        <NotificationBanner publication={publication} roundAddress={roundAddress} showCount />
         <Feed publication={publication} />
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>

@@ -53,7 +53,7 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens';
-import { $getRoot } from 'lexical';
+import { $getRoot, TextNode } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
@@ -75,6 +75,7 @@ import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagm
 
 import Editor from './Editor';
 import RequirementsNotification from './RequirementsNotification';
+
 // import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -119,6 +120,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const [publicationContentUpdated, setPublicationContentUpdated] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
@@ -155,6 +157,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
+  const [notificationKeys, setNotificationKeys] = useState<string[]>([]);
   // selectedQuadraticRound
   const defaultRound = useMemo<QuadraticRound>(
     () => ({
@@ -176,11 +179,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
 
+  const removeUpdateListener = editor.registerMutationListener(TextNode, (mutatedNodes) => {
+    for (let key of notificationKeys) {
+      if (mutatedNodes.get(key) == 'destroyed') {
+        setSelectedQuadraticRound(defaultRound);
+        setManuallySelectedRound('');
+        setRequirementsMet(true);
+        return toast.error('Your post has been removed from the round.', { id: 'copy' });
+      }
+    }
+  });
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
-
+    for (const key of notificationKeys) {
+      notificationKeys.pop();
+    }
+    setSelectedQuadraticRound(defaultRound);
     editor.update(() => {
       $getRoot().clear();
     });
@@ -347,27 +364,31 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       referenceModuleData,
       deadline
     } = typedData.value;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-    const inputStruct = {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      ...(isComment && {
-        profileIdPointed: typedData.value.profileIdPointed,
-        pubIdPointed: typedData.value.pubIdPointed
-      }),
-      sig
-    };
-    setUserSigNonce(userSigNonce + 1);
-    const { data } = await broadcast({ variables: { request: { id, signature } } });
-    if (data?.broadcast.__typename === 'RelayError') {
-      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+    try {
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        profileId,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleInitData,
+        referenceModuleData,
+        ...(isComment && {
+          profileIdPointed: typedData.value.profileIdPointed,
+          pubIdPointed: typedData.value.pubIdPointed
+        }),
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -519,7 +540,38 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return await uploadToArweave(metadata);
   };
 
+  const insertHtml = async () => {
+    let notificationText: string | undefined;
+
+    editor.getEditorState().read(() => {
+      const textNodes = $getRoot().getAllTextNodes();
+      textNodes.find((node) => {
+        return notificationKeys.find((key: string) => {
+          return key == node.getKey();
+        });
+      });
+
+      notificationText = textNodes
+        .find((node) => {
+          return node.getTextContent().includes(selectedQuadraticRound.id);
+        })
+        ?.getTextContent();
+    });
+
+    if (notificationText) {
+      const index = publicationContent.indexOf(notificationText);
+      const newContent = `${publicationContent.slice(0, index)}
+        <span className="bg-red-500"> ${publicationContent.slice(
+          index,
+          index + notificationText.length
+        )} </span>`;
+      setPublicationContent(newContent);
+      setPublicationContentUpdated(true);
+    }
+  };
+
   const createPublication = async () => {
+    removeUpdateListener();
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -651,6 +703,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
+  useEffect(() => {
+    if (publicationContentUpdated) {
+      createPublication();
+      setPublicationContentUpdated(false);
+    }
+  }, [publicationContentUpdated]);
+
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewLensterAttachment = {
       id: uuid(),
@@ -669,7 +728,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
-      <Editor selectedQuadraticRound={selectedQuadraticRound} />
+      <Editor
+        selectedQuadraticRound={selectedQuadraticRound}
+        editor={editor}
+        notificationKeys={notificationKeys}
+        setNotificationKeys={setNotificationKeys}
+      />
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
@@ -715,7 +779,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
-            onClick={createPublication}
+            onClick={insertHtml}
           >
             {isComment ? t`Comment` : t`Post`}
           </Button>
