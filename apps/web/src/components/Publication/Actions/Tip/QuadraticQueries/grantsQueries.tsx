@@ -260,8 +260,12 @@ export interface RoundStats {
 
 export const useQueryQFRoundStats = () => {
   const query = `
-  query GetAllTimeStats {
-    quadraticTippings {
+  query GetAllTimeStats($unixTimestamp: String!) {
+    quadraticTippings(
+      orderBy: round__createdAt,
+      orderDirection:desc,
+      where: { round_: { roundEndTime_gte: $unixTimestamp } }
+    ) {
       id
       matchAmount
       votes {
@@ -283,7 +287,10 @@ export const useQueryQFRoundStats = () => {
     }
   }`;
 
-  const variables = {};
+  const unixNow = Math.floor(Date.now() / 1000).toString();
+  const variables = {
+    unixTimestamp: unixNow
+  };
 
   return useQuery(['all-time-stats'], () => request(query, variables), {
     refetchOnMount: false,
@@ -415,16 +422,23 @@ export const useGetRoundMetaDatas = (roundMetaPtrs: string[]) => {
     roundMetaPtrs
   };
 
-  return useQuery(['round-metas', roundMetaPtrs], () => request(query, variables), {
-    refetchOnMount: false,
-    select: (data) => {
-      const result: Record<string, RoundMetaData> = {};
-      for (const roundMeta of data.roundMetaDatas as RoundMetaData[]) {
-        result[roundMeta.id] = roundMeta;
+  return useQuery(
+    ['round-metas', roundMetaPtrs],
+    () => {
+      if (!roundMetaPtrs.length) {
+        return { roundMetaDatas: [] };
       }
-      console.log('metadatas', result);
-      return result;
+      return request(query, variables);
     },
-    enabled: roundMetaPtrs.length > 0
-  });
+    {
+      refetchOnMount: false,
+      select: (data) => {
+        const result: Record<string, RoundMetaData> = {};
+        for (const roundMeta of data.roundMetaDatas as RoundMetaData[]) {
+          result[roundMeta.id] = roundMeta;
+        }
+        return result;
+      }
+    }
+  );
 };

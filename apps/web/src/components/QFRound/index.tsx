@@ -35,6 +35,15 @@ const ViewQFRound: NextPage = () => {
     return <Custom404 />;
   }
 
+  if (data.numberOfRounds === 0) {
+    return (
+      <div className="p-4">
+        <MetaTags title={`Quadratic Funding Rounds • ${APP_NAME}`} />
+        <div className="text-center text-4xl font-bold">No rounds have been created yet. Come back soon!</div>
+      </div>
+    );
+  }
+
   return (
     <GridLayout>
       <MetaTags title={`Quadratic Funding Rounds • ${APP_NAME}`} />
