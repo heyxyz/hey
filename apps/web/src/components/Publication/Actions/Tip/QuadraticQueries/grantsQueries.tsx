@@ -121,8 +121,26 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
       roundEndTime
       createdAt
       token
+      roundMetaPtr {
+        id
+        pointer
+      }
+      
     }
 }`;
+
+  const metadataQuery = `
+query GetRoundMetaData($pointer: String!) {
+  roundMetaData(id: $pointer) {
+    supportEmail
+    requirements
+    name
+    id
+    description
+  }
+}
+`;
+  let concatRounds = [];
 
   const variables = {
     unixTimestamp: unixTimestamp.toString()
@@ -130,7 +148,37 @@ export async function getCurrentActiveRounds(unixTimestamp: number) {
 
   const data = await request(query, variables);
 
-  return data.rounds;
+  const metaDataPromises = data.rounds.map((round: any) => {
+    const { pointer } = round.roundMetaPtr;
+    const metaDataVariables = {
+      pointer
+    };
+
+    return request(metadataQuery, metaDataVariables);
+  });
+
+  const metaDataResponses = await Promise.all(metaDataPromises);
+
+  for (let i = 0; i < data.rounds.length; i++) {
+    let metaData = metaDataResponses[i];
+
+    if (!metaData || !metaData.roundMetaData) {
+      metaData = {
+        roundMetaData: {
+          supportEmail: '',
+          requirements: [],
+          name: '',
+          id: '',
+          description: ''
+        }
+      };
+    }
+
+    Object.assign(data.rounds[i], metaData);
+    concatRounds.push(data.rounds[i]);
+  }
+
+  return concatRounds;
 }
 
 export async function getRoundUserData(roundAddress: string, address: string) {
@@ -184,7 +232,6 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
       }
     }
   }`;
-
   const variables = {
     roundAddressLower: roundAddress.toLowerCase(),
     postId: encodePublicationId(pubId)
@@ -193,22 +240,6 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
   const data = await request(query, variables);
   return data.quadraticTipping;
 }
-
-// ************
-// IPFS QUERIES
-// ************
-
-// export async function getRoundName(roundMetaPtr: string) {
-//   const query = `${CLOUDFLARE_IPFS_GATEWAY}/${roundMetaPtr}`;
-
-//   try {
-//     const response = await axios.get(query);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
 
 export interface RoundStats {
   totalMatched: string;

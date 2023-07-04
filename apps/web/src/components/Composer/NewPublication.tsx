@@ -1,8 +1,9 @@
+import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import type { IGif } from '@giphy/js-types';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import { ChatAlt2Icon, PencilAltIcon, XIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -52,12 +53,12 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
 } from 'lens';
-import { $getRoot } from 'lexical';
+import { $getRoot, TextNode } from 'lexical';
 import getSignature from 'lib/getSignature';
 import getTags from 'lib/getTags';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAccessSettingsStore } from 'src/store/access-settings';
@@ -68,11 +69,13 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
-import { Button, Card, ErrorMessage, Spinner } from 'ui';
+import { Button, Card, ErrorMessage, Spinner, Tooltip } from 'ui';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
+import RequirementsNotification from './RequirementsNotification';
+
 // import RoundBanner from './Editor/bannernode';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
@@ -95,6 +98,15 @@ const SelectRoundSettings = dynamic(() => import('@components/Composer/Actions/S
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
 
+export interface QuadraticRound {
+  name: string;
+  description: string;
+  id: string;
+  endTime: Date;
+  token: string;
+  requirements: string[];
+}
+
 interface NewPublicationProps {
   publication: Publication;
 }
@@ -108,6 +120,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Publication store
   const publicationContent = usePublicationStore((state) => state.publicationContent);
   const setPublicationContent = usePublicationStore((state) => state.setPublicationContent);
+  const [publicationContentUpdated, setPublicationContentUpdated] = useState(false);
   const audioPublication = usePublicationStore((state) => state.audioPublication);
   const setShowNewPostModal = usePublicationStore((state) => state.setShowNewPostModal);
   const attachments = usePublicationStore((state) => state.attachments);
@@ -144,17 +157,47 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [editor] = useLexicalComposerContext();
   const provider = useProvider();
   const { data: signer } = useSigner();
-  const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<string>('');
+  const [notificationKeys, setNotificationKeys] = useState<string[]>([]);
+  // selectedQuadraticRound
+  const defaultRound = useMemo<QuadraticRound>(
+    () => ({
+      name: '',
+      description: '',
+      id: '',
+      endTime: new Date(),
+      token: '',
+      requirements: []
+    }),
+    []
+  );
+  const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<QuadraticRound>(defaultRound);
+  const [requirementsMet, setRequirementsMet] = useState<boolean>(true);
+  const [manuallySelectedRound, setManuallySelectedRound] = useState<string>('');
+  const [activeRounds, setActiveRounds] = useState<QuadraticRound[]>([]);
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(attachments[0]?.original.mimeType);
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(attachments[0]?.original.mimeType);
 
+  const removeUpdateListener = editor.registerMutationListener(TextNode, (mutatedNodes) => {
+    for (let key of notificationKeys) {
+      if (mutatedNodes.get(key) == 'destroyed') {
+        setSelectedQuadraticRound(defaultRound);
+        setManuallySelectedRound('');
+        setRequirementsMet(true);
+        return toast.error('Your post has been removed from the round.', { id: 'copy' });
+      }
+    }
+  });
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
-
+    for (const key of notificationKeys) {
+      notificationKeys.pop();
+    }
+    setSelectedQuadraticRound(defaultRound);
     editor.update(() => {
       $getRoot().clear();
     });
@@ -186,6 +229,75 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
     Mixpanel.track(isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST, eventProperties);
   };
+
+  useEffect(() => {
+    async function getActiveRounds() {
+      const now = Math.floor(Date.now() / 1000);
+
+      const rounds = await getCurrentActiveRounds(now);
+
+      for (const round of rounds) {
+        const endTime = new Date(round.roundEndTime * 1000);
+
+        setActiveRounds((activeRounds) => {
+          const newArray = activeRounds ?? [];
+
+          if (!newArray.find((r) => r.id === round.id)) {
+            return [
+              ...newArray,
+              {
+                name: round.roundMetaData.name,
+                description: round.roundMetaData.description,
+                id: round.id,
+                endTime,
+                token: round.token,
+                requirements: round.roundMetaData.requirements
+              }
+            ];
+          }
+
+          return newArray;
+        });
+      }
+    }
+    getActiveRounds();
+  }, []);
+
+  useEffect(() => {
+    let found = false;
+
+    if (manuallySelectedRound) {
+      const round = activeRounds.find((round) => round.id === manuallySelectedRound);
+      if (round) {
+        if (round.requirements.length > 0) {
+          const allRequirementsMet = round.requirements.every((requirement) =>
+            publicationContent.includes(requirement)
+          );
+          setRequirementsMet(allRequirementsMet);
+        } else {
+          setRequirementsMet(true);
+        }
+      }
+    } else {
+      for (let round of activeRounds) {
+        if (
+          round.requirements.length !== 0 &&
+          !(round.requirements.length === 1 && round.requirements[0] === '') &&
+          round.requirements.some((requirement) => publicationContent.includes(requirement))
+        ) {
+          setSelectedQuadraticRound(round);
+          setRequirementsMet(true);
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        setSelectedQuadraticRound(defaultRound);
+        setRequirementsMet(true);
+      }
+    }
+  }, [publicationContent, activeRounds, manuallySelectedRound, defaultRound]);
 
   useEffect(() => {
     setPublicationContentError('');
@@ -252,27 +364,31 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       referenceModuleData,
       deadline
     } = typedData.value;
-    const signature = await signTypedDataAsync(getSignature(typedData));
-    const { v, r, s } = splitSignature(signature);
-    const sig = { v, r, s, deadline };
-    const inputStruct = {
-      profileId,
-      contentURI,
-      collectModule,
-      collectModuleInitData,
-      referenceModule,
-      referenceModuleInitData,
-      referenceModuleData,
-      ...(isComment && {
-        profileIdPointed: typedData.value.profileIdPointed,
-        pubIdPointed: typedData.value.pubIdPointed
-      }),
-      sig
-    };
-    setUserSigNonce(userSigNonce + 1);
-    const { data } = await broadcast({ variables: { request: { id, signature } } });
-    if (data?.broadcast.__typename === 'RelayError') {
-      return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+    try {
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      const { v, r, s } = splitSignature(signature);
+      const sig = { v, r, s, deadline };
+      const inputStruct = {
+        profileId,
+        contentURI,
+        collectModule,
+        collectModuleInitData,
+        referenceModule,
+        referenceModuleInitData,
+        referenceModuleData,
+        ...(isComment && {
+          profileIdPointed: typedData.value.profileIdPointed,
+          pubIdPointed: typedData.value.pubIdPointed
+        }),
+        sig
+      };
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcast({ variables: { request: { id, signature } } });
+      if (data?.broadcast.__typename === 'RelayError') {
+        return write({ recklesslySetUnpreparedArgs: [inputStruct] });
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -424,7 +540,38 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return await uploadToArweave(metadata);
   };
 
+  const insertHtml = async () => {
+    let notificationText: string | undefined;
+
+    editor.getEditorState().read(() => {
+      const textNodes = $getRoot().getAllTextNodes();
+      textNodes.find((node) => {
+        return notificationKeys.find((key: string) => {
+          return key == node.getKey();
+        });
+      });
+
+      notificationText = textNodes
+        .find((node) => {
+          return node.getTextContent().includes(selectedQuadraticRound.id);
+        })
+        ?.getTextContent();
+    });
+
+    if (notificationText) {
+      const index = publicationContent.indexOf(notificationText);
+      const newContent = `${publicationContent.slice(0, index)}
+        <span className="bg-red-500"> ${publicationContent.slice(
+          index,
+          index + notificationText.length
+        )} </span>`;
+      setPublicationContent(newContent);
+      setPublicationContentUpdated(true);
+    }
+  };
+
   const createPublication = async () => {
+    removeUpdateListener();
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -556,6 +703,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
+  useEffect(() => {
+    if (publicationContentUpdated) {
+      createPublication();
+      setPublicationContentUpdated(false);
+    }
+  }, [publicationContentUpdated]);
+
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewLensterAttachment = {
       id: uuid(),
@@ -574,7 +728,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   return (
     <Card className={clsx({ 'rounded-none border-none': !isComment }, 'pb-3')}>
       {error && <ErrorMessage className="mb-3" title={t`Transaction failed!`} error={error} />}
-      <Editor selectedQuadraticRound={selectedQuadraticRound} />
+      <Editor
+        selectedQuadraticRound={selectedQuadraticRound}
+        editor={editor}
+        notificationKeys={notificationKeys}
+        setNotificationKeys={setNotificationKeys}
+      />
       {publicationContentError && (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">{publicationContentError}</div>
       )}
@@ -589,11 +748,28 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <SelectRoundSettings
             selectedQuadraticRound={selectedQuadraticRound}
             setSelectedQuadraticRound={setSelectedQuadraticRound}
+            setManuallySelectedRound={setManuallySelectedRound}
+            activeRounds={activeRounds}
           />
+          {selectedQuadraticRound.requirements.length > 0 && (
+            <RequirementsNotification selectedQuadraticRound={selectedQuadraticRound} />
+          )}
+          {selectedQuadraticRound !== defaultRound && (
+            <Tooltip placement="top" content={`remove post from joined round`}>
+              <XIcon
+                className="h-4 w-4 cursor-pointer"
+                color="#8B5CF6"
+                onClick={() => {
+                  setSelectedQuadraticRound(defaultRound);
+                  setManuallySelectedRound('');
+                }}
+              />
+            </Tooltip>
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
-            disabled={isLoading || isUploading || videoThumbnail.uploading}
+            disabled={isLoading || isUploading || videoThumbnail.uploading || !requirementsMet}
             icon={
               isLoading ? (
                 <Spinner size="xs" />
@@ -603,7 +779,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
-            onClick={createPublication}
+            onClick={insertHtml}
           >
             {isComment ? t`Comment` : t`Post`}
           </Button>

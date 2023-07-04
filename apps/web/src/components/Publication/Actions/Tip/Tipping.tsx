@@ -48,7 +48,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
   const [roundContractAllowed, setRoundContractAllowed] = useState(false);
 
   const [tipAmount, setTipAmount] = useState('0');
-
+  const [inputValue, setInputValue] = useState('');
   const [roundInfoLoaded, setRoundInfoLoaded] = useState(false);
   const [roundInfo, setRoundInfo] = useState({
     id: '',
@@ -171,18 +171,15 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
     );
   }
 
-  const handleAllowance = (customAllowance?: string) => {
+  const handleAllowance = (revokeAllowance?: string) => {
     const abi = ['function approve(address spender, uint256 value)'];
     let iface = new ethers.utils.Interface(abi);
 
-    const hexTipAmount = ethers.utils.parseUnits(tipAmount, 18).toHexString();
-    let hexCustomAllowance;
-    if (customAllowance) {
-      hexCustomAllowance = ethers.utils.parseUnits(customAllowance!, 18).toHexString();
-    }
+    const maxAllowance = ethers.constants.MaxUint256.toHexString();
+
     const approveVotingStrategy = iface.encodeFunctionData('approve', [
       roundInfo.votingStrategy.id,
-      customAllowance ? hexCustomAllowance : hexTipAmount
+      revokeAllowance ? revokeAllowance : maxAllowance
     ]);
     setRoundContractAllowancePending(true);
     sendTransaction?.({
@@ -224,7 +221,35 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
 
   const resetAmount = () => {
     setTipAmount('0');
+    setInputValue('');
   };
+
+  function handleChange(e: any) {
+    let { value } = e.target;
+
+    setInputValue(value);
+
+    if (value === '' || value === '.') {
+      setTipAmount('0');
+      return;
+    }
+    if (/^0\d+(\.0*)?$/.test(value)) {
+      value = value.slice(1);
+      setInputValue(value);
+    }
+
+    const number = parseFloat(value) || 0;
+
+    if (number < 0) {
+      console.error('Input cannot be negative');
+      value = '0';
+    } else if (number > 1000000) {
+      console.error('Input cannot be greater than 1,000,000');
+      value = '1000000';
+    }
+
+    setTipAmount(value);
+  }
 
   return roundInfoLoaded ? (
     <div className="p-5">
@@ -236,18 +261,12 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                 className="mr-2 flex-grow rounded"
                 type="number"
                 step="0.0001"
+                min="0"
+                max="1000000"
                 placeholder="How much do you want to tip?"
-                value={tipAmount}
-                onChange={(e) => {
-                  const value = e.target.value.trim();
-                  if (value === '' || value === '.') {
-                    setTipAmount('0');
-                  } else {
-                    setTipAmount(Math.max(parseFloat(value), 0).toString());
-                  }
-                }}
+                value={inputValue}
+                onChange={handleChange}
               />
-
               <Button
                 onClick={roundContractAllowed ? () => write() : () => handleAllowance()}
                 disabled={isLoading || tipAmount === '0'}
@@ -275,7 +294,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
                       <MinusIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => handleAllowance('0')}
+                  onClick={() => handleAllowance(ethers.utils.parseUnits('0', 18).toHexString())}
                 >
                   <Trans>Revoke Allowance</Trans>
                 </Button>

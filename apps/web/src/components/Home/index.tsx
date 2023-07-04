@@ -22,15 +22,33 @@ import Timeline from './Timeline';
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [feedType, setFeedType] = useState<'TIMELINE' | 'HIGHLIGHTS'>('TIMELINE');
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
 
   useEffect(() => {
     Mixpanel.track(PAGEVIEW, { page: 'home' });
   }, []);
 
+  const WelcomeBanner = () => {
+    return (
+      <span className="mx-4 mt-3 flex items-center justify-between rounded-md bg-purple-500 p-5 text-lg font-medium text-white">
+        Welcome to Quadratic Lenster! This project is a fork of Lenster and enables quadratic tipping via
+        quadratic funding rounds.
+        <button
+          type="button"
+          className="ml-4 text-sm font-medium text-white underline"
+          onClick={() => setShowWelcomeBanner(false)}
+        >
+          Dismiss
+        </button>
+      </span>
+    );
+  };
+
   return (
     <>
       <MetaTags />
       {!currentProfile && <Hero />}
+      {showWelcomeBanner && <WelcomeBanner />}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {currentProfile ? (

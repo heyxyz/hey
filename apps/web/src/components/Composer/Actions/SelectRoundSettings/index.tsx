@@ -1,3 +1,4 @@
+import type { QuadraticRound } from '@components/Composer/NewPublication';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -9,11 +10,17 @@ import { Modal, Tooltip } from 'ui';
 import SelectQuadraticRoundMenu from './SelectQuadraticRoundMenu';
 
 interface Props {
-  selectedQuadraticRound: string;
-  setSelectedQuadraticRound: Dispatch<SetStateAction<string>>;
+  selectedQuadraticRound: QuadraticRound;
+  setSelectedQuadraticRound: Dispatch<SetStateAction<QuadraticRound>>;
+  activeRounds: QuadraticRound[];
+  setManuallySelectedRound: Dispatch<SetStateAction<string>>;
 }
 
-const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound }) => {
+const SelectRoundSettings: FC<Props> = ({
+  setSelectedQuadraticRound,
+  activeRounds,
+  setManuallySelectedRound
+}) => {
   const reset = useCollectModuleStore((state) => state.reset);
   const [showModal, setShowModal] = useState(false);
 
@@ -44,6 +51,8 @@ const SelectRoundSettings: FC<Props> = ({ setSelectedQuadraticRound }) => {
           <SelectQuadraticRoundMenu
             setSelectedQuadraticRound={setSelectedQuadraticRound}
             setShowModal={setShowModal}
+            activeRounds={activeRounds}
+            setManuallySelectedRound={setManuallySelectedRound}
           />
         </div>
       </Modal>
