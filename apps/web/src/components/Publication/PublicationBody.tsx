@@ -17,10 +17,11 @@ import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface PublicationBodyProps {
   publication: Publication;
+  roundAddress?: string;
   setRoundAddress?: Dispatch<SetStateAction<string>>;
 }
 
-const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddress }) => {
+const PublicationBody: FC<PublicationBodyProps> = ({ publication, roundAddress, setRoundAddress }) => {
   const { pathname } = useRouter();
   const showMore = publication?.metadata?.content?.length > 450 && pathname !== '/posts/[id]';
   const hasURLs = getURLs(publication?.metadata?.content)?.length > 0;
@@ -33,18 +34,24 @@ const PublicationBody: FC<PublicationBodyProps> = ({ publication, setRoundAddres
       const pattern = /Your post will be included in (.*?)(0x[\dA-Fa-f]{40})(.*round\.|\.)/;
 
       const match = cleanInput.match(pattern);
+
       return match ? match[2] : null;
     }
 
-    if (content && setRoundAddress) {
-      const roundAddress = content && retrieveRoundAddress(content);
-      if (roundAddress) {
+    if (
+      content &&
+      setRoundAddress &&
+      publication.__typename === 'Post' &&
+      (!roundAddress || roundAddress === '')
+    ) {
+      const roundAddress = retrieveRoundAddress(content);
+      if (roundAddress && setRoundAddress) {
         setRoundAddress(roundAddress);
       } else {
         setRoundAddress('');
       }
     }
-  }, [content, setRoundAddress]);
+  }, [content, setRoundAddress, roundAddress, publication.__typename]);
 
   if (snapshotProposalId) {
     content = content?.replace(getURLs(publication?.metadata?.content)[0], '');

@@ -35,7 +35,12 @@ const FullPublication: FC<FullPublicationProps> = ({ publication, roundAddress, 
 
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
-      <PublicationType publication={publication} showType />
+      <PublicationType
+        publication={publication}
+        roundAddress={roundAddress}
+        setRoundAddress={setRoundAddress}
+        showType
+      />
       <div>
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">

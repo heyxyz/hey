@@ -1,6 +1,6 @@
 import type { FeedItem } from 'lens';
 import { stopEventPropagation } from 'lib/stopEventPropagation';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Collected from './Collected';
 import Combined from './Combined';
@@ -15,9 +15,11 @@ const getCanCombined = (aggregations: number[]) => {
 
 interface ActionTypeProps {
   feedItem: FeedItem;
+  roundAddress?: string;
+  setRoundAddress: Dispatch<SetStateAction<string>>;
 }
 
-const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
+const ActionType: FC<ActionTypeProps> = ({ feedItem, roundAddress, setRoundAddress }) => {
   const publication = feedItem.root;
   const isComment = publication.__typename === 'Comment';
   const showThread = isComment || (feedItem.comments?.length ?? 0 > 0);
@@ -28,7 +30,6 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
     feedItem.collects.length,
     feedItem.comments?.length ?? 0
   ]);
-
   return (
     <span onClick={stopEventPropagation} aria-hidden="true">
       {canCombined ? (
@@ -40,7 +41,9 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
           {feedItem.reactions.length && !isComment ? <Liked reactions={feedItem.reactions} /> : null}
         </>
       )}
-      {showThread ? <Commented feedItem={feedItem} /> : null}
+      {showThread ? (
+        <Commented feedItem={feedItem} roundAddress={roundAddress} setRoundAddress={setRoundAddress} />
+      ) : null}
     </span>
   );
 };
