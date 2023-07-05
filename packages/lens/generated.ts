@@ -3400,6 +3400,16 @@ export type ProfileFollowRevenueQueryRequest = {
   profileId: Scalars['ProfileId']['input'];
 };
 
+export type ProfileGuardianRequest = {
+  profileId: Scalars['ProfileId']['input'];
+};
+
+export type ProfileGuardianResult = {
+  __typename?: 'ProfileGuardianResult';
+  disablingProtectionTimestamp?: Maybe<Scalars['Int']['output']>;
+  protected: Scalars['Boolean']['output'];
+};
+
 export type ProfileMedia = MediaSet | NftImage;
 
 export type ProfileOnChainIdentityRequest = {
@@ -3982,6 +3992,7 @@ export type Query = {
   profile?: Maybe<Profile>;
   profileFollowModuleBeenRedeemed: Scalars['Boolean']['output'];
   profileFollowRevenue: FollowRevenueResult;
+  profileGuardianInformation: ProfileGuardianResult;
   /** Get the list of profile interests */
   profileInterests: Array<Scalars['ProfileInterest']['output']>;
   profileOnChainIdentity: Array<OnChainIdentity>;
@@ -4012,7 +4023,9 @@ export type Query = {
   /** Get a zk community by its id */
   zkCommunity?: Maybe<ZkCommunity>;
   /** Get a zk community members by communityId */
-  zkCommunityMembers?: Maybe<ZkCommunity>;
+  zkCommunityMembers?: Maybe<ZkCommunityMembersResult>;
+  /** Get the MerkleProof in a community for an zkIdentity */
+  zkCommunityMerkleProof?: Maybe<ZkCommunityMerkleProof>;
   /** Returns the latest poll for a given community */
   zkPoll: ZkPoll;
   /** Returns the latest poll for a given profile and community */
@@ -4022,7 +4035,7 @@ export type Query = {
   /** Returns the latest polls */
   zkPolls: Array<ZkPoll>;
   /** Returns the latest polls for a given community */
-  zkPollsByCommunity: Array<ZkPoll>;
+  zkPollsByCommunity: ZkPollsResult;
   /** Returns the latest polls for a given profile */
   zkPollsByProfile: Array<ZkPoll>;
 };
@@ -4163,6 +4176,10 @@ export type QueryProfileFollowRevenueArgs = {
   request: ProfileFollowRevenueQueryRequest;
 };
 
+export type QueryProfileGuardianInformationArgs = {
+  request: ProfileGuardianRequest;
+};
+
 export type QueryProfileOnChainIdentityArgs = {
   request: ProfileOnChainIdentityRequest;
 };
@@ -4249,6 +4266,10 @@ export type QueryZkCommunityArgs = {
 
 export type QueryZkCommunityMembersArgs = {
   request: ZkCommunityMembersRequest;
+};
+
+export type QueryZkCommunityMerkleProofArgs = {
+  request: ZkCommunityMerkleProofRequest;
 };
 
 export type QueryZkPollArgs = {
@@ -4872,13 +4893,52 @@ export type ZkCommunity = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
+/** The Zk Voting Community Member */
+export type ZkCommunityMember = {
+  __typename?: 'ZkCommunityMember';
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']['output'];
+  /** Member created at */
+  createdAt: Scalars['DateTime']['output'];
+  /** Member index */
+  index: Scalars['Float']['output'];
+  /** Member commitment */
+  memberCommitment: Scalars['ZkIdentityCommitment']['output'];
+};
+
 export type ZkCommunityMembersRequest = {
   /** The ZkCommunity id */
   communityId: Scalars['ZkCommunityId']['input'];
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The paginated zk community members result */
+export type ZkCommunityMembersResult = {
+  __typename?: 'ZkCommunityMembersResult';
+  items: Array<ZkCommunityMember>;
+  pageInfo: PaginatedResultInfo;
+};
+
+/** The Zk Voting Community MerkleProof */
+export type ZkCommunityMerkleProof = {
+  __typename?: 'ZkCommunityMerkleProof';
+  /** leaf */
+  leaf: Scalars['String']['output'];
+  /** The ZkCommunity merkle proof path */
+  pathIndices: Array<Scalars['Float']['output']>;
+  /** The ZkCommunity root */
+  root: Scalars['String']['output'];
+  /** The ZkCommunity merkle proof siblings */
+  siblings: Array<Scalars['String']['output']>;
+};
+
+/** The MerkleProof request for a specific community */
+export type ZkCommunityMerkleProofRequest = {
   /** The ZkCommunity id */
-  members?: InputMaybe<Scalars['ZkIdentityCommitment']['input']>;
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The identity commitment */
+  identity: Scalars['ZkIdentityCommitment']['input'];
 };
 
 export type ZkCommunityRequest = {
@@ -4961,6 +5021,13 @@ export type ZkPollStatus = {
 export type ZkPollsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
   limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The paginated zk community members result */
+export type ZkPollsResult = {
+  __typename?: 'ZkPollsResult';
+  items: Array<ZkPoll>;
+  pageInfo: PaginatedResultInfo;
 };
 
 export type ZkRelayError = {
