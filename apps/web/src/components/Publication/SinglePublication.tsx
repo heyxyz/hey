@@ -32,7 +32,6 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   const [roundAddress, setRoundAddress] = useState('');
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem ? (firstComment ? firstComment : feedItem?.root) : publication;
-
   return (
     <article
       className="cursor-pointer p-5 first:rounded-t-xl last:rounded-b-xl hover:bg-gray-100 dark:hover:bg-gray-900"
@@ -46,9 +45,15 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       aria-hidden="true"
     >
       {feedItem ? (
-        <ActionType feedItem={feedItem} />
+        <ActionType feedItem={feedItem} roundAddress={roundAddress} setRoundAddress={setRoundAddress} />
       ) : (
-        <PublicationType publication={publication} showType={showType} showThread={showThread} />
+        <PublicationType
+          publication={publication}
+          showType={showType}
+          showThread={showThread}
+          roundAddress={roundAddress}
+          setRoundAddress={setRoundAddress}
+        />
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
       <div className="ml-[53px]">
@@ -56,8 +61,12 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
-            <PublicationBody publication={rootPublication} setRoundAddress={setRoundAddress} />
-            {showActions && (
+            <PublicationBody
+              publication={rootPublication}
+              roundAddress={roundAddress}
+              setRoundAddress={setRoundAddress}
+            />
+            {showActions && roundAddress && (
               <PublicationActions
                 publication={rootPublication}
                 electedMirror={feedItem?.electedMirror as ElectedMirror}

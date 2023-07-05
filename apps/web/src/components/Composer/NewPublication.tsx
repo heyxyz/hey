@@ -745,12 +745,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <CollectSettings publication={publication} />
           <ReferenceSettings />
           <AccessSettings />
-          <SelectRoundSettings
-            selectedQuadraticRound={selectedQuadraticRound}
-            setSelectedQuadraticRound={setSelectedQuadraticRound}
-            setManuallySelectedRound={setManuallySelectedRound}
-            activeRounds={activeRounds}
-          />
+          {!isComment && (
+            <SelectRoundSettings
+              selectedQuadraticRound={selectedQuadraticRound}
+              setSelectedQuadraticRound={setSelectedQuadraticRound}
+              setManuallySelectedRound={setManuallySelectedRound}
+              activeRounds={activeRounds}
+            />
+          )}
           {selectedQuadraticRound.requirements.length > 0 && (
             <RequirementsNotification selectedQuadraticRound={selectedQuadraticRound} />
           )}

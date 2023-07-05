@@ -20,6 +20,7 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
   const [votes, setVotes] = useState<any>([]);
   const [postTipTotal, setPostTipTotal] = useState(0);
 
+  // Add check here if Post or Comment for getting roundInfo
   useEffect(() => {
     const getPostInfo = async () => {
       if (roundAddress) {
@@ -29,7 +30,6 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
           return;
         }
         setRoundInfo(roundResults);
-        console.log('roundResults', roundResults);
         const votes = roundResults?.votes || [];
         setVotes(votes);
         let voteTipTotal = 0;

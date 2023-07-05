@@ -384,7 +384,6 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
                 request: { publicationId: publication?.id, unknownModuleData: encodedData }
               }
             });
-            console.log('createCollectTypedData: ', result);
           }
         });
       } else {

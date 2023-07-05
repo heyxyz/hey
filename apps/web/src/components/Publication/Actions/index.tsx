@@ -41,7 +41,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {collectModuleType !== 'RevertCollectModuleSettings' && (
         <Collect electedMirror={electedMirror} publication={publication} showCount={showCount} />
       )}
-      {roundAddress.length > 0 && <Tip publication={publication} roundAddress={roundAddress} />}
+      {roundAddress.length > 0 && publication.__typename === 'Post' && (
+        <Tip publication={publication} roundAddress={roundAddress} />
+      )}
       {modMode && <Mod publication={publication} isFullPublication={showCount} />}
     </span>
   );

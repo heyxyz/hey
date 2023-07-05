@@ -1,6 +1,6 @@
 import type { Publication } from 'lens';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -9,11 +9,12 @@ import PublicationHeader from './PublicationHeader';
 
 interface ThreadBodyProps {
   publication: Publication;
+  roundAddress?: string;
+  setRoundAddress?: Dispatch<SetStateAction<string>>;
 }
 
-const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
+const ThreadBody: FC<ThreadBodyProps> = ({ publication, roundAddress, setRoundAddress }) => {
   const { push } = useRouter();
-
   return (
     <article
       onClick={() => {
@@ -32,8 +33,14 @@ const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {
             <HiddenPublication type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody publication={publication} />
-              <PublicationActions publication={publication} />
+              <PublicationBody
+                publication={publication}
+                roundAddress={roundAddress}
+                setRoundAddress={setRoundAddress}
+              />
+              {roundAddress && roundAddress.length > 0 && (
+                <PublicationActions publication={publication} roundAddress={roundAddress} />
+              )}
             </>
           )}
         </div>

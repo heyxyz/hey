@@ -64,34 +64,13 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
   // REGULAR VERSON
 
   // Get and store round info
-  // useEffect(() => {
-  //   async function fetchRoundInfo(roundAddress: string) {
-  //     try {
-  //       const round = await getRoundInfo(roundAddress);
-  //       if (round) {
-  //         setRoundInfo(round);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching round info:', error);
-  //       return null;
-  //     }
-  //   }
 
-  //   fetchRoundInfo(roundAddress);
-  // }, [roundAddress]);
-
-  // TEMPORARY VERSION- HARDCODED WMATIC
   useEffect(() => {
     async function fetchRoundInfo(roundAddress: string) {
       try {
         const round = await getRoundInfo(roundAddress);
         if (round) {
-          // Override the token address
-          const modifiedRound = {
-            ...round,
-            token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
-          };
-          setRoundInfo(modifiedRound);
+          setRoundInfo(round);
           setRoundInfoLoaded(true);
         }
       } catch (error) {
@@ -99,8 +78,31 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
         return null;
       }
     }
+
     fetchRoundInfo(roundAddress);
-  }, [roundAddress, address, publication?.id]);
+  }, [roundAddress]);
+
+  // TEMPORARY VERSION- HARDCODED WMATIC
+  // useEffect(() => {
+  //   async function fetchRoundInfo(roundAddress: string) {
+  //     try {
+  //       const round = await getRoundInfo(roundAddress);
+  //       if (round) {
+  //         // Override the token address
+  //         const modifiedRound = {
+  //           ...round,
+  //           token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
+  //         };
+  //         setRoundInfo(modifiedRound);
+  //         setRoundInfoLoaded(true);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching round info:', error);
+  //       return null;
+  //     }
+  //   }
+  //   fetchRoundInfo(roundAddress);
+  // }, [roundAddress, address, publication?.id]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address: address as `0x${string}`,

@@ -16,7 +16,7 @@ import { useAccount } from 'wagmi';
 import { getPostQuadraticTipping, getRoundInfo } from './QuadraticQueries/grantsQueries';
 
 const Tipping = dynamic(() => import('./Tipping'), {
-  loading: () => <Loader message={t`Loading collect`} />
+  loading: () => <Loader message={t`Loading tips`} />
 });
 interface TipProps {
   publication: Publication;

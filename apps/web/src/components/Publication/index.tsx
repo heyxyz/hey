@@ -59,7 +59,6 @@ const ViewPublication: NextPage = () => {
   }
 
   const { publication } = data as any;
-
   return (
     <GridLayout>
       <MetaTags
@@ -77,7 +76,9 @@ const ViewPublication: NextPage = () => {
             setRoundAddress={setRoundAddress}
           />
         </Card>
-        <NotificationBanner publication={publication} roundAddress={roundAddress} showCount />
+        {roundAddress.length > 0 && (
+          <NotificationBanner publication={publication} roundAddress={roundAddress} showCount />
+        )}
         <Feed publication={publication} />
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>
