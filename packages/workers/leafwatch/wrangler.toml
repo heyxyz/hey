@@ -10,3 +10,4 @@ routes = [
 
 [env.production.vars]
 CLICKHOUSE_REST_ENDPOINT = ""
+IPAPI_KEY = ""

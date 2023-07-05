@@ -1,6 +1,7 @@
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
+import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
 
 import checkEventExistence from '../helpers/checkEventExistence';
@@ -50,10 +51,28 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
+  const ip = request.headers.get('cf-connecting-ip');
   const country = request.headers.get('cf-ipcountry');
   const user_agent = request.headers.get('user-agent');
 
   try {
+    let parser = new UAParser(user_agent || '');
+    let ua = parser.getResult();
+
+    let ipData: {
+      city: string;
+      country: string;
+      regionName: string;
+    } | null = null;
+    try {
+      const ipResponse = await fetch(
+        `https://pro.ip-api.com/json/${ip}?key=${env.IPAPI_KEY}`
+      );
+      ipData = await ipResponse.json();
+    } catch (error) {
+      console.error('Failed to get IP data', error);
+    }
+
     const response = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -64,20 +83,28 @@ export default async (request: IRequest, env: Env) => {
           properties,
           fingerprint,
           url,
+          city,
           country,
+          region,
           referrer,
           platform,
-          user_agent
+          browser,
+          browser_version,
+          os
         ) VALUES (
           '${name}',
           ${actor ? `'${actor}'` : null},
           ${properties ? `'${JSON.stringify(properties)}'` : null},
           ${fingerprint ? `'${fingerprint}'` : null},
           ${url ? `'${url}'` : null},
-          ${country ? `'${country}'` : null},
+          ${ipData?.city ? `'${ipData?.city}'` : null},
+          ${ipData?.country ? `'${ipData?.country}'` : null},
+          ${ipData?.regionName ? `'${ipData?.regionName}'` : null},
           ${referrer ? `'${referrer}'` : null},
           ${platform ? `'${platform}'` : null},
-          ${user_agent ? `'${user_agent}'` : null}
+          ${ua.browser.name ? `'${ua.browser.name}'` : null},
+          ${ua.browser.version ? `'${ua.os.version}'` : null},
+          ${ua.os.name ? `'${ua.os.name}'` : null}
         )
       `
     });
