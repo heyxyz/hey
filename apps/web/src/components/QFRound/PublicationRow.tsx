@@ -1,14 +1,17 @@
+import type { MatchingUpdateEntry } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import SinglePublication from '@components/Publication/SinglePublication';
+import type { Publication } from 'lens';
 import { usePublicationQuery } from 'lens';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useAppStore } from 'src/store/app';
+
 export const PublicationRow = ({
   publicationId,
-  uniqueContributors,
-  totalTipped
+  matchingUpdateEntry
 }: {
   publicationId: string;
-  uniqueContributors: number;
-  totalTipped: string;
+  matchingUpdateEntry?: MatchingUpdateEntry;
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { push } = useRouter();
@@ -36,10 +39,18 @@ export const PublicationRow = ({
         push(`/posts/${publicationId}`);
       }}
     >
-      <div className="font-bold">{data.publication.metadata.content || data.publication.metadata.name}</div>
-      <div className="font-grey-700 text-brand-600">
-        {totalTipped} DAI by {uniqueContributors} tippers
-      </div>
+      <SinglePublication
+        showActions={false}
+        showThread={false}
+        publication={data.publication as Publication}
+      />
+      {matchingUpdateEntry && (
+        <div className="font-grey-700 text-brand-600">
+          $ {matchingUpdateEntry?.totalContributionsInUSD} by {matchingUpdateEntry?.uniqueContributorsCount}{' '}
+          tippers - receives {matchingUpdateEntry?.matchPoolPercentage * 100}% of matching funds ($
+          {matchingUpdateEntry?.matchAmountInUSD})
+        </div>
+      )}
     </div>
   );
 };

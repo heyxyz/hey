@@ -4,6 +4,7 @@ import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { createReactClient, LivepeerConfig, studioProvider } from '@livepeer/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { IS_MAINNET, LIVEPEER_TOKEN } from 'data/constants';
 import { ApolloProvider, webClient } from 'lens/apollo';
 import { ThemeProvider } from 'next-themes';
@@ -67,6 +68,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
                     <Layout>{children}</Layout>
                   </ThemeProvider>
                 </LivepeerConfig>
+                <ReactQueryDevtools />
               </QueryClientProvider>
             </ApolloProvider>
           </WagmiConfig>

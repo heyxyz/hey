@@ -256,6 +256,7 @@ export interface RoundStats {
   roundMetaPtr: string;
   roundStartTime: number;
   roundEndTime: number;
+  token: string;
 }
 
 export const useQueryQFRoundStats = ({ refetchInterval }: { refetchInterval?: number } = {}) => {
@@ -275,6 +276,7 @@ export const useQueryQFRoundStats = ({ refetchInterval }: { refetchInterval?: nu
         projectId
       }
       round {
+        token
         roundStartTime
         roundEndTime
         roundMetaPtr {
@@ -347,12 +349,13 @@ export const useQueryQFRoundStats = ({ refetchInterval }: { refetchInterval?: nu
         const matchedInRound = formatEther(round.matchAmount);
 
         roundStatsByRound[round.id] = {
+          token: round.round.token,
           totalMatched: matchedInRound,
           totalTipped: formatEther(tippedInRound),
           uniqueTippers: tippersInRound.size,
           uniqueTippedPosts: postsInRound.size,
           averageTip: round.votes.length ? formatEther(tippedInRound.div(round.votes.length)) : '0',
-          averageTipsPerPost: round.votes.length ? formatEther(tippedInRound.div(postsInRound.size)) : '0',
+          averageTipsPerPost: round.votes.length ? (round.votes.length / postsInRound.size).toString() : '0',
           posts: formattedPosts,
           roundMetaPtr: round.round.roundMetaPtr.pointer,
           roundStartTime: Number(round.round.roundStartTime),
@@ -441,6 +444,57 @@ export const useGetRoundMetaDatas = (roundMetaPtrs: string[]) => {
         }
         return result;
       }
+    }
+  );
+};
+
+export interface MatchingUpdateEntry {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  projectId: string;
+  matchAmountInUSD: number;
+  totalContributionsInUSD: number;
+  matchPoolPercentage: number;
+  matchAmountInToken: number;
+  uniqueContributorsCount: number;
+}
+
+export const useGetRoundMatchingUpdate = (roundId: string) => {
+  return useQuery(
+    ['round-matching-update', roundId],
+    () => {
+      return fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/80001/${roundId}`, {
+        method: 'POST'
+      }).then((res) => res.json() as Promise<{ data: MatchingUpdateEntry[] }>);
+    },
+    {
+      select: (data) => {
+        const totalTips = data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
+        const posts: Record<string, MatchingUpdateEntry> = {};
+
+        for (const entry of data.data) {
+          posts[entry.projectId] = entry;
+        }
+        return {
+          totalTips,
+          posts
+        };
+      }
+    }
+  );
+};
+
+export const useQueryTokenPrices = () => {
+  return useQuery(
+    ['token-prices'],
+    () => {
+      return fetch(
+        `https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`
+      ).then((res) => res.json());
+    },
+    {
+      refetchOnMount: false
     }
   );
 };
