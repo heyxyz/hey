@@ -72,7 +72,7 @@ const DropDownMenu: FC<DropDownProps> = ({ deviceType }) => {
             ? audioInputDevice?.label
             : audioOutputDevice?.label}
           <ChevronDownIcon
-            className="-mr-1 h-5 w-5 text-gray-400"
+            className="-mr-1 h-5 w-5 text-slate-500"
             aria-hidden="true"
           />
         </Menu.Button>

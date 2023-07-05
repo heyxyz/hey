@@ -1,11 +1,12 @@
 import { AdjustmentsIcon, UserIcon } from '@heroicons/react/outline';
 import { ArrowRightIcon } from '@heroicons/react/solid';
+import { useEventListener } from '@huddle01/react';
 import { useDisplayName } from '@huddle01/react/app-utils';
 import {
   useAudio,
-  useEventListener,
   useHuddle01,
   useLobby,
+  useMeetingMachine,
   useRoom,
   useVideo
 } from '@huddle01/react/hooks';
@@ -20,16 +21,15 @@ import DropDownMenu from './DropDownMenu';
 
 const Lobby: FC = () => {
   const { query } = useRouter();
-  const { initialize, roomState } = useHuddle01();
+  const { initialize } = useHuddle01();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { joinLobby, isLobbyJoined } = useLobby();
-  const { joinRoom, isRoomJoined } = useRoom();
+  const { joinRoom } = useRoom();
+  const { state } = useMeetingMachine();
   const { fetchVideoStream, stopVideoStream, stream: camStream } = useVideo();
   const { fetchAudioStream, stopAudioStream } = useAudio();
   const { setDisplayName } = useDisplayName();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [isCamOn, setIsCamOn] = useState(false);
-  const [isMicOn, setIsMicOn] = useState(false);
   const [displayUserName, setDisplayUserName] = useState<string>(
     currentProfile?.handle ?? ''
   );
@@ -38,19 +38,18 @@ const Lobby: FC = () => {
 
   useEffect(() => {
     if (query.roomid) {
-      initialize(process.env.NEXT_PUBLIC_PROJECT_ID!);
+      initialize('L-UtmOW84pscUfMWmRGCk2-dwngKPaoK');
       console.log(process.env.NEXT_PUBLIC_PROJECT_ID!);
       console.log('initialize called');
     }
   }, [query.roomid]);
 
   useEffect(() => {
-    console.log('roomState', roomState);
-    if (query.roomid && roomState === 'INIT') {
+    if (query.roomid && state.matches('Initialized')) {
       joinLobby(query.roomid as string);
       console.log('joinLobby');
     }
-  }, [roomState]);
+  }, [state.matches('Initialized')]);
 
   useEventListener('lobby:joined', async () => {
     console.log('lobby:joined');
@@ -68,16 +67,10 @@ const Lobby: FC = () => {
     }
   }, [isLobbyJoined]);
 
-  useEventListener('app:cam-on', (stream) => {
+  useEventListener('lobby:cam-on', () => {
     if (videoRef.current && camStream) {
-      videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = camStream;
     }
-    console.log('cam called');
-    setIsCamOn(true);
-  });
-
-  useEventListener('app:mic-on', () => {
-    setIsMicOn(true);
   });
 
   useEffect(() => {
@@ -91,7 +84,7 @@ const Lobby: FC = () => {
       <div className="flex w-[26.25rem] flex-col items-center justify-center gap-4">
         <div className="relative mx-auto flex w-fit items-center justify-center border-black bg-gray-900 text-center">
           <div className="flex w-[26rem] items-center justify-center rounded ">
-            {isCamOn ? (
+            {state.matches('Initialized.JoinedLobby.Cam.On') ? (
               <video ref={videoRef} autoPlay muted className="w-fit" />
             ) : (
               <img
@@ -104,7 +97,7 @@ const Lobby: FC = () => {
         </div>
         <div className="flex items-center justify-center self-stretch bg-gray-900 p-2">
           <div className="flex w-full flex-row items-center justify-center gap-8">
-            {!isCamOn ? (
+            {state.matches('Initialized.JoinedLobby.Cam.Off') ? (
               <button onClick={fetchVideoStream}>
                 {BasicIcons.inactive['cam']}
               </button>
@@ -112,13 +105,12 @@ const Lobby: FC = () => {
               <button
                 onClick={() => {
                   stopVideoStream();
-                  setIsCamOn(false);
                 }}
               >
                 {BasicIcons.active['cam']}
               </button>
             )}
-            {!isMicOn ? (
+            {state.matches('Initialized.JoinedLobby.Mic.Muted') ? (
               <button onClick={fetchAudioStream}>
                 {BasicIcons.inactive['mic']}
               </button>
@@ -126,14 +118,13 @@ const Lobby: FC = () => {
               <button
                 onClick={() => {
                   stopAudioStream();
-                  setIsMicOn(false);
                 }}
               >
                 {BasicIcons.active['mic']}
               </button>
             )}
             <button onClick={() => setShowSettings(!showSettings)}>
-              <AdjustmentsIcon className="h-6 w-6 text-slate-500" />
+              <AdjustmentsIcon className="h-6 w-6 text-[#845EEE]" />
             </button>
             <Modal show={showSettings} onClose={() => setShowSettings(false)}>
               <div className="rounded-xl bg-gray-900 p-5">
@@ -178,7 +169,7 @@ const Lobby: FC = () => {
         </div>
         <div className="flex w-full items-center">
           <button
-            className="mt-2 flex w-full items-center justify-center rounded-md bg-[#246BFD] p-2 text-slate-100"
+            className="bg- mt-2 flex w-full items-center justify-center rounded-md bg-[#845EEE] p-2 text-slate-100"
             onClick={async () => {
               joinRoom();
             }}
