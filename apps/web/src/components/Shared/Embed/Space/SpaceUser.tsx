@@ -12,8 +12,8 @@ interface SpaceUserProps {
   peer: {
     peerId: string;
     role: any;
-    mic: MediaStreamTrack;
-    cam: MediaStreamTrack;
+    mic: MediaStreamTrack | null;
+    cam: MediaStreamTrack | null;
     displayName: string;
   };
 }

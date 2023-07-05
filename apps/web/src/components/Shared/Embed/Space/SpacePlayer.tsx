@@ -7,7 +7,6 @@ import {
   useAudio,
   useHuddle01,
   useLobby,
-  useMeetingMachine,
   usePeers,
   useRoom
 } from '@huddle01/react/hooks';
@@ -43,7 +42,6 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const { joinRoom, leaveRoom, isRoomJoined } = useRoom();
   const { setDisplayName } = useDisplayName();
   const { peers } = usePeers();
-  const { state, send } = useMeetingMachine();
   const { address } = useAccount();
   const { metadata } = publication;
 
@@ -135,11 +133,11 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
       </div>
       {isRoomJoined ? (
         <div className="flex items-center justify-between space-x-2 border-t p-5">
-          {state.context.role === 'host' ? (
+          {Object.values(peers)[0].role === 'host' ? (
             <div className="flex items-center space-x-2">
               <Button
                 disabled={!produceAudio.isCallable}
-                onClick={() => produceAudio(micStream)}
+                onClick={() => produceAudio(micStream as MediaStream)}
               >
                 Talk
               </Button>
@@ -156,7 +154,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
           <Button
             variant="danger"
             disabled={!leaveRoom.isCallable}
-            onClick={() => send(['LEAVE_ROOM', 'LEAVE_LOBBY'])}
+            onClick={() => leaveRoom()}
           >
             Leave
           </Button>
