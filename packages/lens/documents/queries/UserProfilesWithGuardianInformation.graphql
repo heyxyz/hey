@@ -16,6 +16,6 @@ query UserProfilesWithGuardianInformation(
   }
   profileGuardianInformation(request: $profileGuardianInformationRequest) {
     protected
-    disablingProtectionTimestamp
+    # disablingProtectionTimestamp
   }
 }

@@ -50304,7 +50304,6 @@ export type UserProfilesWithGuardianInformationQuery = {
   profileGuardianInformation: {
     __typename?: 'ProfileGuardianResult';
     protected: boolean;
-    disablingProtectionTimestamp?: number | null;
   };
 };
 
@@ -56167,7 +56166,6 @@ export const UserProfilesWithGuardianInformationDocument = gql`
     }
     profileGuardianInformation(request: $profileGuardianInformationRequest) {
       protected
-      disablingProtectionTimestamp
     }
   }
   ${ProfileFieldsFragmentDoc}

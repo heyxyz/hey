@@ -8,11 +8,11 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
-  profileIsProtected: {
+  profileGuardianInformation: {
     isProtected: boolean;
     disablingProtectionTimestamp: number | null | undefined;
   };
-  setProfileIsProtected: ({
+  setProfileGuardianInformation: ({
     isProtected,
     disablingProtectionTimestamp
   }: {
@@ -26,13 +26,16 @@ export const useAppStore = create<AppState>((set) => ({
   setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
-  profileIsProtected: {
-    isProtected: false,
+  profileGuardianInformation: {
+    isProtected: true,
     disablingProtectionTimestamp: null
   },
-  setProfileIsProtected: ({ isProtected, disablingProtectionTimestamp }) =>
+  setProfileGuardianInformation: ({
+    isProtected,
+    disablingProtectionTimestamp
+  }) =>
     set(() => ({
-      profileIsProtected: { isProtected, disablingProtectionTimestamp }
+      profileGuardianInformation: { isProtected, disablingProtectionTimestamp }
     }))
 }));
 

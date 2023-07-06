@@ -28,10 +28,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileIsProtected = useAppStore(
-    (state) => state.setProfileIsProtected
+  const setProfileGuardianInformation = useAppStore(
+    (state) => state.setProfileGuardianInformation
   );
-  const profileIsProtected = useAppStore((state) => state.profileIsProtected);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -69,10 +68,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
-      setProfileIsProtected({
+      setProfileGuardianInformation({
         isProtected: data.profileGuardianInformation.protected,
-        disablingProtectionTimestamp:
-          data.profileGuardianInformation.disablingProtectionTimestamp
+        disablingProtectionTimestamp: null
       });
     },
     onError: () => {
@@ -107,7 +105,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
-      {JSON.stringify(profileIsProtected)}
       <Head>
         <meta
           name="theme-color"

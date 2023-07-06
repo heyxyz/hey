@@ -8,6 +8,7 @@ import {
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
+import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
@@ -16,38 +17,22 @@ import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
   // Report modal state
-  const showReportModal = useGlobalModalStateStore(
-    (state) => state.showReportModal
-  );
-  const reportingPublication = useGlobalModalStateStore(
-    (state) => state.reportingPublication
-  );
-  const setShowReportModal = useGlobalModalStateStore(
-    (state) => state.setShowReportModal
-  );
-  const showStatusModal = useGlobalModalStateStore(
-    (state) => state.showStatusModal
-  );
-  const setShowStatusModal = useGlobalModalStateStore(
-    (state) => state.setShowStatusModal
-  );
-  const showProfileSwitchModal = useGlobalModalStateStore(
-    (state) => state.showProfileSwitchModal
-  );
-  const setShowProfileSwitchModal = useGlobalModalStateStore(
-    (state) => state.setShowProfileSwitchModal
-  );
-  const showNewPostModal = useGlobalModalStateStore(
-    (state) => state.showNewPostModal
-  );
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const showAuthModal = useGlobalModalStateStore(
-    (state) => state.showAuthModal
-  );
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
+  const {
+    showReportModal,
+    reportingPublication,
+    setShowReportModal,
+    showStatusModal,
+    setShowStatusModal,
+    showProfileSwitchModal,
+    setShowProfileSwitchModal,
+    showNewPostModal,
+    setShowNewPostModal,
+    showAuthModal,
+    setShowAuthModal
+  } = useGlobalModalStateStore();
+
+  const profileGuardianInformation = useAppStore(
+    (state) => state.profileGuardianInformation
   );
 
   return (
@@ -69,6 +54,12 @@ const GlobalModals: FC = () => {
         onClose={() => setShowStatusModal(false)}
       >
         <Status />
+      </Modal>
+      <Modal
+        title={t`Protect your profile`}
+        show={!profileGuardianInformation.isProtected}
+      >
+        <SwitchProfiles />
       </Modal>
       <Modal
         title={t`Change Profile`}
