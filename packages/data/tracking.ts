@@ -20,6 +20,7 @@ export const PROFILE = {
   COPY_PROFILE_LINK: 'Copy profile link',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
+  PROTECT_PROFILE: 'Protect profile',
   LOGOUT: 'Profile logout'
 };
 

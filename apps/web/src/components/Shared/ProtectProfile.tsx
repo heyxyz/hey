@@ -1,6 +1,7 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data';
+import { PROFILE } from '@lenster/data/tracking';
 import {
   Button,
   GridItemEight,
@@ -9,6 +10,7 @@ import {
   Spinner
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -26,7 +28,10 @@ const ProtectProfile: FC = () => {
   const { data, write, isLoading } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'enableProfileGuardian',
+    functionName: 'enableTokenGuardian',
+    onSuccess: () => {
+      Leafwatch.track(PROFILE.PROTECT_PROFILE);
+    },
     onError: (error) => {
       errorToast(error);
     }
