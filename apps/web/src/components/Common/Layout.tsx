@@ -70,7 +70,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfileId(selectedUser?.id);
       setProfileGuardianInformation({
         isProtected: data.profileGuardianInformation.protected,
-        disablingProtectionTimestamp: null
+        disablingProtectionTimestamp:
+          data.profileGuardianInformation.disablingProtectionTimestamp
       });
     },
     onError: () => {

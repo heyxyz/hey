@@ -3406,7 +3406,7 @@ export type ProfileGuardianRequest = {
 
 export type ProfileGuardianResult = {
   __typename?: 'ProfileGuardianResult';
-  disablingProtectionTimestamp?: Maybe<Scalars['Int']['output']>;
+  disablingProtectionTimestamp?: Maybe<Scalars['DateTime']['output']>;
   protected: Scalars['Boolean']['output'];
 };
 
@@ -50304,6 +50304,7 @@ export type UserProfilesWithGuardianInformationQuery = {
   profileGuardianInformation: {
     __typename?: 'ProfileGuardianResult';
     protected: boolean;
+    disablingProtectionTimestamp?: any | null;
   };
 };
 
@@ -56166,6 +56167,7 @@ export const UserProfilesWithGuardianInformationDocument = gql`
     }
     profileGuardianInformation(request: $profileGuardianInformationRequest) {
       protected
+      disablingProtectionTimestamp
     }
   }
   ${ProfileFieldsFragmentDoc}

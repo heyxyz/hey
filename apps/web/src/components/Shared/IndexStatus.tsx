@@ -10,7 +10,7 @@ import { useState } from 'react';
 
 interface IndexStatusProps {
   type?: string;
-  txHash: string;
+  txHash: `0x${string}`;
   reload?: boolean;
 }
 
