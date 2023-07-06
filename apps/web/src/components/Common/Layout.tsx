@@ -69,7 +69,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
-      setProfileIsProtected(data.profileGuardianInformation.protected);
+      setProfileIsProtected({
+        isProtected: data.profileGuardianInformation.protected,
+        disablingProtectionTimestamp:
+          data.profileGuardianInformation.disablingProtectionTimestamp
+      });
     },
     onError: () => {
       setProfileId(null);
