@@ -58,7 +58,7 @@ const ProtectProfile: FC = () => {
               <Trans>Attention! Your profile is currently unlocked.</Trans>
             </div>
           </div>
-          <div className="font-bold text-red-500">
+          <div className="text-red-500">
             {isCoolOffPassed ? (
               <Trans>
                 Your profile protection disabled.
@@ -73,7 +73,10 @@ const ProtectProfile: FC = () => {
             ) : (
               <Trans>
                 Your profile protection disabling has been triggered. It will
-                take effect in <CountdownTimer targetDate={coolOffTime} />
+                take effect in{' '}
+                <b>
+                  <CountdownTimer targetDate={coolOffTime} />
+                </b>
               </Trans>
             )}
           </div>
