@@ -81,25 +81,23 @@ const ProtectProfile: FC = () => {
           </div>
         </GridItemEight>
         <GridItemFour className="mt-4 sm:ml-auto sm:mt-0">
-          <div>
-            {data?.hash ? (
-              <IndexStatus txHash={data?.hash} reload />
-            ) : (
-              <Button
-                disabled={isLoading}
-                icon={
-                  isLoading ? (
-                    <Spinner size="xs" className="mr-1" />
-                  ) : (
-                    <LockClosedIcon className="h-5 w-5" />
-                  )
-                }
-                onClick={() => write()}
-              >
-                <Trans>Protect now</Trans>
-              </Button>
-            )}
-          </div>
+          {data?.hash ? (
+            <IndexStatus txHash={data?.hash} reload />
+          ) : (
+            <Button
+              disabled={isLoading}
+              icon={
+                isLoading ? (
+                  <Spinner size="xs" className="mr-1" />
+                ) : (
+                  <LockClosedIcon className="h-5 w-5" />
+                )
+              }
+              onClick={() => write()}
+            >
+              <Trans>Protect now</Trans>
+            </Button>
+          )}
         </GridItemFour>
       </GridLayout>
     </div>
