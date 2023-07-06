@@ -2374,10 +2374,6 @@ msgid "Set status"
 msgstr "Установить статус"
 
 #: src/components/Shared/GlobalModals.tsx
-msgid "Profile Guardian"
-msgstr ""
-
-#: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
 msgstr "Изменить Профиль"
 
@@ -2716,23 +2712,11 @@ msgid "Attention! Your profile is currently unlocked."
 msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx
-msgid "Your profile is currently not protected. Please take action to protect your profile."
+msgid "Your profile protection disabled.<0>Learn more</0>"
 msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx
-msgid "You have exceeded the cool-off time to protect your profile."
-msgstr ""
-
-#: src/components/Shared/ProtectProfile.tsx
-msgid "Please note that an unlocked profile may be vulnerable to unauthorized access and misuse."
-msgstr ""
-
-#: src/components/Shared/ProtectProfile.tsx
-msgid "Take immediate action to protect your profile and secure your information."
-msgstr ""
-
-#: src/components/Shared/ProtectProfile.tsx
-msgid "Note: You have a cool-off time of {coolOffTime} to protect your profile. After that, your profile will be unlocked."
+msgid "Your profile protection disabling has been triggered. It will take effect in <0/>"
 msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx

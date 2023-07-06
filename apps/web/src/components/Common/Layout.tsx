@@ -1,4 +1,5 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
+import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@lenster/lens';
 import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
@@ -120,6 +121,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
+        <GlobalBanners />
         <BottomNavigation />
         {children}
       </div>

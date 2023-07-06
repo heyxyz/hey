@@ -3,17 +3,14 @@ import Report from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
-  LockClosedIcon,
   ShieldCheckIcon
 } from '@heroicons/react/outline';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
-import ProtectProfile from './ProtectProfile';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
@@ -32,10 +29,6 @@ const GlobalModals: FC = () => {
     showAuthModal,
     setShowAuthModal
   } = useGlobalModalStateStore();
-
-  const profileGuardianInformation = useAppStore(
-    (state) => state.profileGuardianInformation
-  );
 
   return (
     <>
@@ -56,13 +49,6 @@ const GlobalModals: FC = () => {
         onClose={() => setShowStatusModal(false)}
       >
         <Status />
-      </Modal>
-      <Modal
-        title={t`Profile Guardian`}
-        icon={<LockClosedIcon className="text-brand h-5 w-5" />}
-        show={!profileGuardianInformation.isProtected}
-      >
-        <ProtectProfile />
       </Modal>
       <Modal
         title={t`Change Profile`}

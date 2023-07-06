@@ -71,16 +71,6 @@ export const getTimetoNow = (date: Date) => {
 };
 
 /**
- * Formats a date as a string representing the elapsed time between the date and the current time.
- *
- * @param date The date to format.
- * @returns A string representing the elapsed time between the date and the current time in short format.
- */
-export const getTimeFromNowShort = (date: Date) => {
-  return dayjs(new Date(date)).fromNow(true);
-};
-
-/**
  * Formats a date as a string in the format used by Twitter.
  *
  * @param date The date to format.
