@@ -41,17 +41,12 @@ const ProtectProfile: FC = () => {
     return null;
   }
 
+  const coolOffDate =
+    profileGuardianInformation.disablingProtectionTimestamp as any;
   const coolOffTime = new Date(
-    new Date(
-      profileGuardianInformation.disablingProtectionTimestamp as any
-    ).getTime() +
-      5 * 60 * 100
+    new Date(coolOffDate).getTime() + 5 * 60 * 100
   ).toISOString();
-
-  const isCoolOffPassed =
-    new Date(
-      profileGuardianInformation.disablingProtectionTimestamp as any
-    ).getTime() < Date.now();
+  const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
   return (
     <div className="border-b border-red-300 bg-red-500/20">

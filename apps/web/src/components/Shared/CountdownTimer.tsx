@@ -8,14 +8,14 @@ type TimeLeft = {
   seconds: number;
 };
 
-type CountdownTimerProps = {
+interface CountdownTimerProps {
   targetDate: string;
-};
+}
 
 const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
   const getTimeLeft = (): TimeLeft => {
     const now = new Date().getTime();
-    const target = new Date(targetDate).getTime();
+    const target = new Date(targetDate).getTime() - 30000; // Subtract 30 seconds
     const timeDiff = target - now;
 
     if (timeDiff <= 0) {
