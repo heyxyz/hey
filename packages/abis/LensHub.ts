@@ -2,18 +2,25 @@ export const LensHub = [
   {
     inputs: [
       { internalType: 'address', name: 'followNFTImpl', type: 'address' },
-      { internalType: 'address', name: 'collectNFTImpl', type: 'address' }
+      { internalType: 'address', name: 'collectNFTImpl', type: 'address' },
+      {
+        internalType: 'uint256',
+        name: 'tokenGuardianCooldown',
+        type: 'uint256'
+      }
     ],
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
+  { inputs: [], name: 'AlreadyEnabled', type: 'error' },
   { inputs: [], name: 'CallerNotCollectNFT', type: 'error' },
   { inputs: [], name: 'CallerNotFollowNFT', type: 'error' },
-  { inputs: [], name: 'CannotInitImplementation', type: 'error' },
+  { inputs: [], name: 'DisablingAlreadyTriggered', type: 'error' },
   { inputs: [], name: 'DispatcherNotSet', type: 'error' },
   { inputs: [], name: 'EmergencyAdminCannotUnpause', type: 'error' },
+  { inputs: [], name: 'GuardianEnabled', type: 'error' },
   { inputs: [], name: 'InitParamsInvalid', type: 'error' },
-  { inputs: [], name: 'Initialized', type: 'error' },
+  { inputs: [], name: 'NotEOA', type: 'error' },
   { inputs: [], name: 'NotGovernance', type: 'error' },
   { inputs: [], name: 'NotGovernanceOrEmergencyAdmin', type: 'error' },
   { inputs: [], name: 'NotOwnerOrApproved', type: 'error' },
@@ -26,7 +33,6 @@ export const LensHub = [
   { inputs: [], name: 'PublishingPaused', type: 'error' },
   { inputs: [], name: 'SignatureExpired', type: 'error' },
   { inputs: [], name: 'SignatureInvalid', type: 'error' },
-  { inputs: [], name: 'ZeroSpender', type: 'error' },
   {
     anonymous: false,
     inputs: [
@@ -88,6 +94,13 @@ export const LensHub = [
     type: 'event'
   },
   {
+    inputs: [],
+    name: 'DANGER__disableTokenGuardian',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [
       { internalType: 'address', name: 'to', type: 'address' },
       { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
@@ -113,7 +126,7 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
       {
         components: [
           { internalType: 'uint8', name: 'v', type: 'uint8' },
@@ -122,13 +135,13 @@ export const LensHub = [
           { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct DataTypes.EIP712Signature',
-        name: 'sig',
+        name: '',
         type: 'tuple'
       }
     ],
     name: 'burnWithSig',
     outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'pure',
     type: 'function'
   },
   {
@@ -355,6 +368,13 @@ export const LensHub = [
       { internalType: 'address', name: 'to', type: 'address' }
     ],
     name: 'emitFollowNFTTransferEvent',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'enableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -613,14 +633,10 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'string', name: 'name', type: 'string' },
-      { internalType: 'string', name: 'symbol', type: 'string' },
-      { internalType: 'address', name: 'newGovernance', type: 'address' }
-    ],
-    name: 'initialize',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
+    name: 'getTokenGuardianDisablingTimestamp',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -801,8 +817,8 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'spender', type: 'address' },
-      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
       {
         components: [
           { internalType: 'uint8', name: 'v', type: 'uint8' },
@@ -811,7 +827,7 @@ export const LensHub = [
           { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct DataTypes.EIP712Signature',
-        name: 'sig',
+        name: '',
         type: 'tuple'
       }
     ],
@@ -822,9 +838,9 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'owner', type: 'address' },
-      { internalType: 'address', name: 'operator', type: 'address' },
-      { internalType: 'bool', name: 'approved', type: 'bool' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'bool', name: '', type: 'bool' },
       {
         components: [
           { internalType: 'uint8', name: 'v', type: 'uint8' },
@@ -833,13 +849,13 @@ export const LensHub = [
           { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct DataTypes.EIP712Signature',
-        name: 'sig',
+        name: '',
         type: 'tuple'
       }
     ],
     name: 'permitForAll',
     outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'pure',
     type: 'function'
   },
   {

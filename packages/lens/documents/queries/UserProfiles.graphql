@@ -1,5 +1,5 @@
-query UserProfiles($ownedBy: [EthereumAddress!]) {
-  profiles(request: { ownedBy: $ownedBy }) {
+query UserProfiles($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
     items {
       ...ProfileFields
       interests
