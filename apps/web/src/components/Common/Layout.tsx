@@ -1,7 +1,8 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
+import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@lenster/lens';
-import { useUserProfilesQuery } from '@lenster/lens';
+import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -11,6 +12,7 @@ import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -28,6 +30,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const setProfileGuardianInformation = useProfileGuardianInformationStore(
+    (state) => state.setProfileGuardianInformation
+  );
+  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
+    (state) => state.resetProfileGuardianInformation
+  );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -40,11 +48,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
+    resetProfileGuardianInformation();
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useUserProfilesQuery({
-    variables: { ownedBy: address },
+  const { loading } = useUserProfilesWithGuardianInformationQuery({
+    variables: {
+      profileGuardianInformationRequest: { profileId },
+      profilesRequest: { ownedBy: [address] }
+    },
     skip: !profileId,
     onCompleted: (data) => {
       const profiles = data?.profiles?.items
@@ -62,6 +74,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
+      setProfileGuardianInformation({
+        isProtected: data.profileGuardianInformation.protected,
+        disablingProtectionTimestamp:
+          data.profileGuardianInformation.disablingProtectionTimestamp
+      });
     },
     onError: () => {
       setProfileId(null);
@@ -109,6 +126,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
         <Navbar />
+        <GlobalBanners />
         <BottomNavigation />
         {children}
       </div>
