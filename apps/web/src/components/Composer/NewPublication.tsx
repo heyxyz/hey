@@ -145,7 +145,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 
   // Nonce store
-  const { userSigNonce, setUserSigNonce } = useNonceStore((state) => state);
+  const { userSigNonce, setUserSigNonce } = useNonceStore();
 
   // Publication store
   const {
@@ -167,7 +167,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     showSpaceEditor,
     setShowSpaceEditor,
     pollConfig
-  } = usePublicationStore((state) => state);
+  } = usePublicationStore();
 
   // Transaction persist store
   const { txnQueue, setTxnQueue } = useTransactionPersistStore(
@@ -181,7 +181,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Reference module store
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
-    useReferenceModuleStore((state) => state);
+    useReferenceModuleStore();
 
   // Access module store
   const {
@@ -189,7 +189,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     followToView,
     collectToView,
     reset: resetAccessSettings
-  } = useAccessSettingsStore((state) => state);
+  } = useAccessSettingsStore();
 
   // States
   const [isLoading, setIsLoading] = useState(false);

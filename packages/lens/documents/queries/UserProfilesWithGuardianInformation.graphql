@@ -1,0 +1,21 @@
+query UserProfilesWithGuardianInformation(
+  $profilesRequest: ProfileQueryRequest!
+  $profileGuardianInformationRequest: ProfileGuardianRequest!
+) {
+  profiles(request: $profilesRequest) {
+    items {
+      ...ProfileFields
+      interests
+      isDefault
+      dispatcher {
+        address
+        canUseRelay
+        sponsor
+      }
+    }
+  }
+  profileGuardianInformation(request: $profileGuardianInformationRequest) {
+    protected
+    disablingProtectionTimestamp
+  }
+}
