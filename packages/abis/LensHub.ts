@@ -5,7 +5,7 @@ export const LensHub = [
       { internalType: 'address', name: 'collectNFTImpl', type: 'address' },
       {
         internalType: 'uint256',
-        name: 'profileProtectionDelay',
+        name: 'tokenGuardianCooldown',
         type: 'uint256'
       }
     ],
@@ -95,7 +95,7 @@ export const LensHub = [
   },
   {
     inputs: [],
-    name: 'DANGER__disableProfileGuardian',
+    name: 'DANGER__disableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -374,7 +374,7 @@ export const LensHub = [
   },
   {
     inputs: [],
-    name: 'enableProfileGuardian',
+    name: 'enableTokenGuardian',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -547,13 +547,6 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
-    name: 'getProfileGuardianDisablingTimestamp',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [{ internalType: 'string', name: 'handle', type: 'string' }],
     name: 'getProfileIdByHandle',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
@@ -636,6 +629,13 @@ export const LensHub = [
     outputs: [
       { internalType: 'enum DataTypes.ProtocolState', name: '', type: 'uint8' }
     ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
+    name: 'getTokenGuardianDisablingTimestamp',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
