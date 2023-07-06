@@ -64,7 +64,7 @@ const ProtectProfile: FC = () => {
                 Your profile protection disabled.
                 <Link
                   className="ml-1.5 underline"
-                  href="https://docs.lens.xyz"
+                  href="https://github.com/lens-protocol/LIPs/blob/main/LIPs/lip-4.md"
                   target="_blank"
                 >
                   Learn more
