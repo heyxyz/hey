@@ -1,7 +1,13 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data';
-import { Button, Spinner } from '@lenster/ui';
+import {
+  Button,
+  GridItemEight,
+  GridItemFour,
+  GridLayout,
+  Spinner
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -43,53 +49,59 @@ const ProtectProfile: FC = () => {
     ).getTime() < Date.now();
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-y-5 border-b border-red-300 bg-red-500/20 p-5">
-      <div className="space-y-1">
-        <div className="flex items-center space-x-2 text-red-700">
-          <LockOpenIcon className="h-5 w-5" />
-          <div className="text-base font-bold sm:text-lg">
-            <Trans>Attention! Your profile is currently unlocked.</Trans>
-          </div>
-        </div>
-        <div className="font-bold text-red-500">
-          {isCoolOffPassed ? (
-            <Trans>
-              Your profile protection disabled.
-              <Link
-                className="ml-1.5 underline"
-                href="https://docs.lens.xyz"
-                target="_blank"
-              >
-                Learn more
-              </Link>
-            </Trans>
-          ) : (
-            <Trans>
-              Your profile protection disabling has been triggered. It will take
-              effect in <CountdownTimer targetDate={coolOffTime} />
-            </Trans>
-          )}
-        </div>
-      </div>
-      <div>
-        {data?.hash ? (
-          <IndexStatus txHash={data?.hash} reload />
-        ) : (
-          <Button
-            disabled={isLoading}
-            icon={
-              isLoading ? (
-                <Spinner size="xs" className="mr-1" />
+    <div className="border-b border-red-300 bg-red-500/20">
+      <GridLayout className="!p-5">
+        <GridItemEight className="!mb-0">
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2 text-red-700">
+              <LockOpenIcon className="h-5 w-5" />
+              <div className="text-base font-bold sm:text-lg">
+                <Trans>Attention! Your profile is currently unlocked.</Trans>
+              </div>
+            </div>
+            <div className="font-bold text-red-500">
+              {isCoolOffPassed ? (
+                <Trans>
+                  Your profile protection disabled.
+                  <Link
+                    className="ml-1.5 underline"
+                    href="https://docs.lens.xyz"
+                    target="_blank"
+                  >
+                    Learn more
+                  </Link>
+                </Trans>
               ) : (
-                <LockClosedIcon className="h-5 w-5" />
-              )
-            }
-            onClick={() => write()}
-          >
-            <Trans>Protect now</Trans>
-          </Button>
-        )}
-      </div>
+                <Trans>
+                  Your profile protection disabling has been triggered. It will
+                  take effect in <CountdownTimer targetDate={coolOffTime} />
+                </Trans>
+              )}
+            </div>
+          </div>
+        </GridItemEight>
+        <GridItemFour className="mt-4 sm:ml-auto sm:mt-0">
+          <div>
+            {data?.hash ? (
+              <IndexStatus txHash={data?.hash} reload />
+            ) : (
+              <Button
+                disabled={isLoading}
+                icon={
+                  isLoading ? (
+                    <Spinner size="xs" className="mr-1" />
+                  ) : (
+                    <LockClosedIcon className="h-5 w-5" />
+                  )
+                }
+                onClick={() => write()}
+              >
+                <Trans>Protect now</Trans>
+              </Button>
+            )}
+          </div>
+        </GridItemFour>
+      </GridLayout>
     </div>
   );
 };
