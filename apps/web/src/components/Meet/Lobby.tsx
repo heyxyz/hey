@@ -1,12 +1,11 @@
 import { AdjustmentsIcon, UserIcon } from '@heroicons/react/outline';
 import { ArrowRightIcon } from '@heroicons/react/solid';
-import { useEventListener } from '@huddle01/react';
 import { useDisplayName } from '@huddle01/react/app-utils';
 import {
   useAudio,
+  useEventListener,
   useHuddle01,
   useLobby,
-  useMeetingMachine,
   useRoom,
   useVideo
 } from '@huddle01/react/hooks';
@@ -15,62 +14,81 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useMeetPersistStore } from 'src/store/meet';
 
 import { BasicIcons } from './BasicIcons';
 import DropDownMenu from './DropDownMenu';
 
 const Lobby: FC = () => {
   const { query } = useRouter();
-  const { initialize } = useHuddle01();
+  const { initialize, roomState } = useHuddle01();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { joinLobby, isLobbyJoined } = useLobby();
   const { joinRoom } = useRoom();
-  const { state } = useMeetingMachine();
   const { fetchVideoStream, stopVideoStream, stream: camStream } = useVideo();
-  const { fetchAudioStream, stopAudioStream } = useAudio();
+  const { fetchAudioStream, stopAudioStream, stream: micStream } = useAudio();
   const { setDisplayName } = useDisplayName();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [displayUserName, setDisplayUserName] = useState<string>(
     currentProfile?.handle ?? ''
   );
-
+  const { isMicMuted, isCamOff, toggleMicMuted, toggleCamOff } =
+    useMeetPersistStore();
   const [showSettings, setShowSettings] = useState(false);
+  const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
 
   useEffect(() => {
     if (query.roomid) {
       initialize('L-UtmOW84pscUfMWmRGCk2-dwngKPaoK');
-      console.log(process.env.NEXT_PUBLIC_PROJECT_ID!);
-      console.log('initialize called');
     }
   }, [query.roomid]);
 
   useEffect(() => {
-    if (query.roomid && state.matches('Initialized')) {
+    if (query.roomid && roomState === 'INIT') {
+      toggleCamOff(true);
+      toggleMicMuted(true);
       joinLobby(query.roomid as string);
       console.log('joinLobby');
     }
-  }, [state.matches('Initialized')]);
+  }, [roomState, query.roomid]);
 
-  useEventListener('lobby:joined', async () => {
-    console.log('lobby:joined');
-    fetchVideoStream();
-    fetchAudioStream();
-    setDisplayName(currentProfile?.handle ?? '');
-  });
+  useEffect(() => {
+    console.log('roomState', roomState);
+  }, [roomState]);
 
   useEffect(() => {
     if (isLobbyJoined) {
-      console.log('lobby:joined');
-      fetchVideoStream();
-      fetchAudioStream();
-      setDisplayName(currentProfile?.handle ?? '');
+      async () => {
+        await fetchVideoStream();
+        await fetchAudioStream();
+      };
+      if (isJoinMeetingClicked) {
+        console.log(isCamOff);
+        joinRoom();
+      }
     }
   }, [isLobbyJoined]);
 
-  useEventListener('lobby:cam-on', () => {
-    if (videoRef.current && camStream) {
+  useEffect(() => {
+    if (camStream && videoRef.current) {
       videoRef.current.srcObject = camStream;
     }
+  }, [camStream]);
+
+  useEventListener('app:cam-on', async () => {
+    toggleCamOff(false);
+  });
+
+  useEventListener('app:cam-off', async () => {
+    toggleCamOff(true);
+  });
+
+  useEventListener('app:mic-on', async () => {
+    toggleMicMuted(false);
+  });
+
+  useEventListener('app:mic-off', async () => {
+    toggleMicMuted(true);
   });
 
   useEffect(() => {
@@ -84,8 +102,13 @@ const Lobby: FC = () => {
       <div className="flex w-[26.25rem] flex-col items-center justify-center gap-4">
         <div className="relative mx-auto flex w-fit items-center justify-center border-black bg-gray-900 text-center">
           <div className="flex w-[26rem] items-center justify-center rounded ">
-            {state.matches('Initialized.JoinedLobby.Cam.On') ? (
-              <video ref={videoRef} autoPlay muted className="w-fit" />
+            {camStream ? (
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                className="minh-w-full min-h-full object-cover"
+              />
             ) : (
               <img
                 src="/default-avatar.png"
@@ -97,7 +120,7 @@ const Lobby: FC = () => {
         </div>
         <div className="flex items-center justify-center self-stretch bg-gray-900 p-2">
           <div className="flex w-full flex-row items-center justify-center gap-8">
-            {state.matches('Initialized.JoinedLobby.Cam.Off') ? (
+            {!camStream ? (
               <button onClick={fetchVideoStream}>
                 {BasicIcons.inactive['cam']}
               </button>
@@ -110,7 +133,7 @@ const Lobby: FC = () => {
                 {BasicIcons.active['cam']}
               </button>
             )}
-            {state.matches('Initialized.JoinedLobby.Mic.Muted') ? (
+            {!micStream ? (
               <button onClick={fetchAudioStream}>
                 {BasicIcons.inactive['mic']}
               </button>
@@ -171,7 +194,12 @@ const Lobby: FC = () => {
           <button
             className="bg- mt-2 flex w-full items-center justify-center rounded-md bg-[#845EEE] p-2 text-slate-100"
             onClick={async () => {
-              joinRoom();
+              setIsJoinMeetingClicked(true);
+              if (roomState === 'LOBBY') {
+                joinRoom();
+              } else {
+                await joinLobby(query.roomid as string);
+              }
             }}
           >
             Start Meeting

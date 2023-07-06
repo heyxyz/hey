@@ -7,6 +7,10 @@ interface MeetPersistState {
   setVideoDevice: (videoDevice: MediaDeviceInfo) => void;
   audioOutputDevice: MediaDeviceInfo;
   setAudioOutputDevice: (audioOutputDevice: MediaDeviceInfo) => void;
+  isMicMuted: boolean;
+  toggleMicMuted: (isMicMuted: boolean) => void;
+  isCamOff: boolean;
+  toggleCamOff: (isCamOff: boolean) => void;
 }
 
 export const useMeetPersistStore = create<MeetPersistState>((set) => ({
@@ -16,5 +20,9 @@ export const useMeetPersistStore = create<MeetPersistState>((set) => ({
   setVideoDevice: (videoDevice) => set(() => ({ videoDevice })),
   audioOutputDevice: {} as MediaDeviceInfo,
   setAudioOutputDevice: (audioOutputDevice) =>
-    set(() => ({ audioOutputDevice }))
+    set(() => ({ audioOutputDevice })),
+  isMicMuted: true,
+  toggleMicMuted: (isMicMuted) => set(() => ({ isMicMuted })),
+  isCamOff: true,
+  toggleCamOff: (isCamOff) => set(() => ({ isCamOff }))
 }));

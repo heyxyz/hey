@@ -1,9 +1,10 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment, useEffect, useState } from 'react';
 import { useMeetPersistStore } from 'src/store/meet';
+
+import DeviceList from './DeviceList';
 
 type DropDownProps = {
   deviceType: 'audioInput' | 'video' | 'audioOutput';
@@ -87,92 +88,29 @@ const DropDownMenu: FC<DropDownProps> = ({ deviceType }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            {deviceType == 'video' &&
-              videoDevices.map((device) => (
-                <Menu.Item key={device.deviceId}>
-                  {({ active }) => (
-                    <button
-                      className={clsx(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
-                      key={device.deviceId}
-                      onClick={() => {
-                        navigator.mediaDevices
-                          .getUserMedia({
-                            video: { deviceId: device.deviceId }
-                          })
-                          .then(async (stream) => {
-                            for (const track of stream.getVideoTracks()) {
-                              track.stop();
-                            }
-                            setVideoDevice(device);
-                          });
-                      }}
-                    >
-                      {device.label}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            {deviceType == 'audioInput' &&
-              audioInputDevices.map((device) => (
-                <Menu.Item key={device.deviceId}>
-                  {({ active }) => (
-                    <button
-                      className={clsx(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
-                      key={device.deviceId}
-                      onClick={() => {
-                        navigator.mediaDevices
-                          .getUserMedia({
-                            audio: { deviceId: device.deviceId }
-                          })
-                          .then(async (stream) => {
-                            for (const track of stream.getAudioTracks()) {
-                              track.stop();
-                            }
-                            setAudioInputDevice(device);
-                          });
-                      }}
-                    >
-                      {device.label}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
-            {deviceType == 'audioOutput' &&
-              audioOutputDevices.map((device) => (
-                <Menu.Item key={device.deviceId}>
-                  {({ active }) => (
-                    <button
-                      className={clsx(
-                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm'
-                      )}
-                      key={device.deviceId}
-                      onClick={() => {
-                        navigator.mediaDevices
-                          .getUserMedia({
-                            audio: { deviceId: device.deviceId }
-                          })
-                          .then(async (stream) => {
-                            for (const track of stream.getAudioTracks()) {
-                              track.stop();
-                            }
-                            setAudioOutputDevice(device);
-                          });
-                      }}
-                    >
-                      {device.label}
-                    </button>
-                  )}
-                </Menu.Item>
-              ))}
+            {deviceType === 'video' && (
+              <DeviceList
+                devices={videoDevices}
+                deviceType="video"
+                setDevice={setVideoDevice}
+              />
+            )}
+            {deviceType === 'audioInput' && (
+              <DeviceList
+                devices={audioInputDevices}
+                deviceType="audio"
+                setDevice={setAudioInputDevice}
+              />
+            )}
+            {deviceType === 'audioOutput' && (
+              <DeviceList
+                devices={audioOutputDevices}
+                deviceType="audio"
+                setDevice={setAudioOutputDevice}
+              />
+            )}
           </div>
         </Menu.Items>
       </Transition>

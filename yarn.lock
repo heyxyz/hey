@@ -2577,30 +2577,26 @@
     superjson "^1.12.2"
     zod "^3.21.4"
 
-"@huddle01/react@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@huddle01/react/-/react-0.0.11.tgz#406aab1bd7fd8465e87d5c9ba31880e1f13d4318"
-  integrity sha512-QSMykix0+7UaSZyJUGzJXxvsS8aofgGto9CSD76de3RA89QsYeUfQIM0SPEGTnljOZ6MBo76dXTvEi+lstBoJw==
+"@huddle01/react@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@huddle01/react/-/react-0.0.12.tgz#d819b00d2606dd4f84ef06088e0f0b5a9c5a708e"
+  integrity sha512-nZpuLaN3FNJT5Gi4CDz/OsB7q5dS/IMOHX8rvitH6WJPelf01NzdNH+LGzF3IRJ68k9l4rXKwSE/yqD5lqfmzQ==
   dependencies:
-    "@huddle01/web-core" "^0.0.10"
-    "@xstate/inspect" "^0.7.1"
-    "@xstate/react" "^3.2.1"
+    "@huddle01/web-core" "0.0.14"
     jotai "^2.0.3"
-    jotai-xstate "^0.2.0"
     react "18.2.0"
     ws "^8.0.0"
-    xstate "^4.36.0"
 
-"@huddle01/web-core@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@huddle01/web-core/-/web-core-0.0.10.tgz#12ac780c5307a1431068b350bd9fbbfce140da36"
-  integrity sha512-4Q2XyVEtjC2xV5LB4963gQ16xKRPFT/JU9kGYXuRu/B1A4UOEc31VbeG0I8zRUq/1EBvAvBBak67EBYZ9waWyQ==
+"@huddle01/web-core@0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@huddle01/web-core/-/web-core-0.0.14.tgz#869450db033e1f975eb8620d8ad2cafcaab7aa74"
+  integrity sha512-ngTP7WDJjGIK6lf/KZNA0HBoaV5SdLVVUaYqRCWeuOxuS8vSIypWTjNVsqOOh9UB+oE4iZ/p8AuF5QhARGKlNw==
   dependencies:
-    axios "^1.3.3"
-    mediasoup-client "^3.6.80"
-    nanoid "^3.3.4"
-    socket.io-client "^4.6.0"
-    xstate "^4.36.0"
+    axios "^1.4.0"
+    mediasoup-client "^3.6.89"
+    nanoid "3.3.4"
+    socket.io-client "^4.7.1"
+    zod "^3.21.4"
 
 "@humanwhocodes/config-array@^0.11.10":
   version "0.11.10"
@@ -4945,21 +4941,6 @@
   resolved "https://registry.yarnpkg.com/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz#80224a6919272f405b87913ca13b92929bdf3c4d"
   integrity sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==
 
-"@xstate/inspect@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@xstate/inspect/-/inspect-0.7.1.tgz#db337fb0e34d5497a91cdbf085b7aff8ef254513"
-  integrity sha512-lEIi6cSvzA9f+GzaJMRVe4xnNjPY/oKdU8rjb+qxqUYx2evLuqysFu0XbPmEjMCwpfdIvG4FFsZJ7Ng7+k9UHw==
-  dependencies:
-    fast-safe-stringify "^2.1.1"
-
-"@xstate/react@^3.2.1":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@xstate/react/-/react-3.2.2.tgz#ddf0f9d75e2c19375b1e1b7335e72cb99762aed8"
-  integrity sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==
-  dependencies:
-    use-isomorphic-layout-effect "^1.1.2"
-    use-sync-external-store "^1.0.0"
-
 JSONStream@^1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -5289,7 +5270,7 @@ axios@^0.27.2:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
 
-axios@^1.3.3, axios@^1.3.4, axios@^1.4.0:
+axios@^1.3.4, axios@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
   integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
@@ -7279,7 +7260,7 @@ fast-redact@^3.0.0:
   resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-3.2.0.tgz#b1e2d39bc731376d28bde844454fa23e26919987"
   integrity sha512-zaTadChr+NekyzallAMXATXLOR8MNx3zqpZ0MUF2aGf4EathnG0f32VLODNlY8IuGY3HoRO2L6/6fSzNsLaHIw==
 
-fast-safe-stringify@^2.0.6, fast-safe-stringify@^2.1.1:
+fast-safe-stringify@^2.0.6:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.1.1.tgz#c406a83b6e70d9e35ce3b30a81141df30aeba884"
   integrity sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==
@@ -8379,11 +8360,6 @@ jose@^4.11.4:
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.14.4.tgz#59e09204e2670c3164ee24cbfe7115c6f8bff9ca"
   integrity sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==
 
-jotai-xstate@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/jotai-xstate/-/jotai-xstate-0.2.0.tgz#d2bbd5a49abc6b9d3723bff4be50f9ab26b736f1"
-  integrity sha512-y5d8OUnI+VchEQ3UJYXQ5/7fETqL2M9rW2GfBgVlLvrV7Wan7K0HHbRVjymWcZ9ItbTLtYxdkJo4p7l4A8TCWg==
-
 jotai@^2.0.3:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.2.1.tgz#0a95b88c5f3ea4fd656b5f79af6f84e895f84f5a"
@@ -8948,10 +8924,10 @@ mdn-data@2.0.14:
   resolved "https://registry.yarnpkg.com/mdn-data/-/mdn-data-2.0.14.tgz#7113fc4281917d63ce29b43446f701e68c25ba50"
   integrity sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==
 
-mediasoup-client@^3.6.80:
-  version "3.6.89"
-  resolved "https://registry.yarnpkg.com/mediasoup-client/-/mediasoup-client-3.6.89.tgz#8c877dd5843b97006b7802add409846229ec0a79"
-  integrity sha512-GGKktkWYE38KGCsFfejhZ2QxAFR7iuEMSd8+hEf504Iha9U4vPFFIniMOjYUsOfOX6af79+KUvqLMY3FuMNu9Q==
+mediasoup-client@^3.6.89:
+  version "3.6.93"
+  resolved "https://registry.yarnpkg.com/mediasoup-client/-/mediasoup-client-3.6.93.tgz#14628e364a22ffa09ee4c1d20de5e436a1470b8c"
+  integrity sha512-xzrVY00THiHIoHchNH+G0irG7cD+rqVfhIl190ELvlRvcAWATXBunZMI0rs5Vh4Z4sSE75Z4P0AgtYy1+fZ9pg==
   dependencies:
     "@types/debug" "^4.1.8"
     awaitqueue "^3.0.1"
@@ -8961,7 +8937,7 @@ mediasoup-client@^3.6.80:
     h264-profile-level-id "^1.0.1"
     queue-microtask "^1.2.3"
     sdp-transform "^2.14.1"
-    supports-color "^9.3.1"
+    supports-color "^9.4.0"
     ua-parser-js "^1.0.35"
 
 merge-stream@^2.0.0:
@@ -9380,6 +9356,11 @@ nano-css@^5.3.1:
     sourcemap-codec "^1.4.8"
     stacktrace-js "^2.0.2"
     stylis "^4.0.6"
+
+nanoid@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.4.tgz#730b67e3cd09e2deacf03c027c81c9d9dbc5e8ab"
+  integrity sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==
 
 nanoid@^3.3.3, nanoid@^3.3.4, nanoid@^3.3.6:
   version "3.3.6"
@@ -11007,7 +10988,7 @@ snake-case@^3.0.4:
     dot-case "^3.0.4"
     tslib "^2.0.3"
 
-socket.io-client@^4.6.0:
+socket.io-client@^4.7.1:
   version "4.7.1"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.7.1.tgz#48e5f703abe4fb0402182bcf9c06b7820fb3453b"
   integrity sha512-Qk3Xj8ekbnzKu3faejo4wk2MzXA029XppiXtTF/PkbTg+fcwaTw1PlDrTrrrU4mKoYC4dvlApOnSeyLCKwek2w==
@@ -11418,7 +11399,7 @@ supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
-supports-color@^9.3.1:
+supports-color@^9.4.0:
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-9.4.0.tgz#17bfcf686288f531db3dea3215510621ccb55954"
   integrity sha512-VL+lNrEoIXww1coLPOmiEmK/0sGigko5COxI09KzHc2VJXJsQ37UaQ+8quuxjDeA7+KnLGTWRyOXSLLR2Wb4jw==
@@ -11994,11 +11975,6 @@ urlpattern-polyfill@^9.0.0:
   resolved "https://registry.yarnpkg.com/urlpattern-polyfill/-/urlpattern-polyfill-9.0.0.tgz#bc7e386bb12fd7898b58d1509df21d3c29ab3460"
   integrity sha512-WHN8KDQblxd32odxeIgo83rdVDE2bvdkb86it7bMhYZwWKJz0+O0RK/eZiHYnM+zgt/U7hAHOlCQGfjjvSkw2g==
 
-use-isomorphic-layout-effect@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/use-isomorphic-layout-effect/-/use-isomorphic-layout-effect-1.1.2.tgz#497cefb13d863d687b08477d9e5a164ad8c1a6fb"
-  integrity sha512-49L8yCO3iGT/ZF9QttjwLF/ZD9Iwto5LnH5LmEdk/6cFmXddqi2ulF0edxTwjj+7mqvpVVGQWvbXZdn32wRSHA==
-
 use-resize-observer@^9.1.0:
   version "9.1.0"
   resolved "https://registry.yarnpkg.com/use-resize-observer/-/use-resize-observer-9.1.0.tgz#14735235cf3268569c1ea468f8a90c5789fc5c6c"
@@ -12006,7 +11982,7 @@ use-resize-observer@^9.1.0:
   dependencies:
     "@juggle/resize-observer" "^3.3.1"
 
-use-sync-external-store@1.2.0, use-sync-external-store@^1.0.0, use-sync-external-store@^1.2.0:
+use-sync-external-store@1.2.0, use-sync-external-store@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
@@ -12388,11 +12364,6 @@ xmtp-content-type-remote-attachment@^1.0.7:
     "@noble/secp256k1" "^1.7.1"
     "@xmtp/proto" "^3.15.0"
     "@xmtp/xmtp-js" "^7.12.0"
-
-xstate@^4.36.0:
-  version "4.38.0"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.38.0.tgz#94c4316bea8e9e7a2974c7c501e5306f6e17ac19"
-  integrity sha512-oFjw2YZPyu6HeO0JWCSqfhAALsjFPURsrD2FUFN3u213dWwYU68RFuLtSHco+cEUhpQFW+hRG3PNYgq8HatudQ==
 
 xtend@^4.0.1:
   version "4.0.2"
