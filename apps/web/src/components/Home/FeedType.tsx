@@ -1,6 +1,7 @@
-import { SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
+import { PuzzleIcon, SparklesIcon, ViewListIcon } from '@heroicons/react/outline';
 import { Mixpanel } from '@lib/mixpanel';
 import { t } from '@lingui/macro';
+import { useRouter } from 'next/router';
 import type { Dispatch, FC } from 'react';
 import { MISCELLANEOUS } from 'src/tracking';
 import { TabButton } from 'ui';
@@ -14,6 +15,7 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+  const router = useRouter();
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">
@@ -35,6 +37,15 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           onClick={() => {
             setFeedType('HIGHLIGHTS');
             Mixpanel.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS);
+          }}
+        />
+        <TabButton
+          name={t`Rounds Overview`}
+          icon={<PuzzleIcon className="h-4 w-4" />}
+          active={false}
+          showOnSm={false}
+          onClick={() => {
+            router.push('/rounds-overview');
           }}
         />
       </div>
