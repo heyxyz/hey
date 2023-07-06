@@ -1,0 +1,6 @@
+query ProfileGuardianInformation($request: ProfileGuardianRequest!) {
+  profileGuardianInformation(request: $request) {
+    protected
+    disablingProtectionTimestamp
+  }
+}

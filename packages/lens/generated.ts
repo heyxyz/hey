@@ -31449,6 +31449,19 @@ export type ProfileFeedQuery = {
   };
 };
 
+export type ProfileGuardianInformationQueryVariables = Exact<{
+  request: ProfileGuardianRequest;
+}>;
+
+export type ProfileGuardianInformationQuery = {
+  __typename?: 'Query';
+  profileGuardianInformation: {
+    __typename?: 'ProfileGuardianResult';
+    protected: boolean;
+    disablingProtectionTimestamp?: number | null;
+  };
+};
+
 export type ProfileInterestsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProfileInterestsQuery = {
@@ -55010,6 +55023,65 @@ export type ProfileFeedLazyQueryHookResult = ReturnType<
 export type ProfileFeedQueryResult = Apollo.QueryResult<
   ProfileFeedQuery,
   ProfileFeedQueryVariables
+>;
+export const ProfileGuardianInformationDocument = gql`
+  query ProfileGuardianInformation($request: ProfileGuardianRequest!) {
+    profileGuardianInformation(request: $request) {
+      protected
+      disablingProtectionTimestamp
+    }
+  }
+`;
+
+/**
+ * __useProfileGuardianInformationQuery__
+ *
+ * To run a query within a React component, call `useProfileGuardianInformationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileGuardianInformationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileGuardianInformationQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useProfileGuardianInformationQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileGuardianInformationQuery,
+    ProfileGuardianInformationQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ProfileGuardianInformationQuery,
+    ProfileGuardianInformationQueryVariables
+  >(ProfileGuardianInformationDocument, options);
+}
+export function useProfileGuardianInformationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileGuardianInformationQuery,
+    ProfileGuardianInformationQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ProfileGuardianInformationQuery,
+    ProfileGuardianInformationQueryVariables
+  >(ProfileGuardianInformationDocument, options);
+}
+export type ProfileGuardianInformationQueryHookResult = ReturnType<
+  typeof useProfileGuardianInformationQuery
+>;
+export type ProfileGuardianInformationLazyQueryHookResult = ReturnType<
+  typeof useProfileGuardianInformationLazyQuery
+>;
+export type ProfileGuardianInformationQueryResult = Apollo.QueryResult<
+  ProfileGuardianInformationQuery,
+  ProfileGuardianInformationQueryVariables
 >;
 export const ProfileInterestsDocument = gql`
   query ProfileInterests {
