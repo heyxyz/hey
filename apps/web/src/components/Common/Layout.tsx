@@ -32,6 +32,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfileGuardianInformation = useAppStore(
     (state) => state.setProfileGuardianInformation
   );
+  const resetProfileGuardianInformation = useAppStore(
+    (state) => state.resetProfileGuardianInformation
+  );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -44,6 +47,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
+    resetProfileGuardianInformation();
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address

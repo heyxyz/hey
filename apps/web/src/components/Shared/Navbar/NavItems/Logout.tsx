@@ -19,12 +19,16 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const disconnectXmtp = useDisconnectXmtp();
 
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const resetProfileGuardianInformation = useAppStore(
+    (state) => state.resetProfileGuardianInformation
+  );
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const logout = () => {
     Leafwatch.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
+    resetProfileGuardianInformation();
     setProfileId(null);
     resetAuthData();
     disconnect?.();

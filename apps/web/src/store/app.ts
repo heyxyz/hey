@@ -19,6 +19,7 @@ interface AppState {
     isProtected: boolean;
     disablingProtectionTimestamp: number | null | undefined;
   }) => void;
+  resetProfileGuardianInformation: () => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -36,6 +37,13 @@ export const useAppStore = create<AppState>((set) => ({
   }) =>
     set(() => ({
       profileGuardianInformation: { isProtected, disablingProtectionTimestamp }
+    })),
+  resetProfileGuardianInformation: () =>
+    set(() => ({
+      profileGuardianInformation: {
+        isProtected: true,
+        disablingProtectionTimestamp: null
+      }
     }))
 }));
 
