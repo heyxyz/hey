@@ -1396,6 +1396,17 @@ msgstr ""
 msgid "Failed to load following"
 msgstr ""
 
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Profile/Menu/Share.tsx
+msgid "Copy link"
+msgstr "Copy link"
+
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
 msgstr ""
@@ -1577,12 +1588,6 @@ msgstr "Publication bookmarked"
 #: src/components/Publication/Actions/Menu/Bookmark.tsx
 msgid "Removed publication bookmark"
 msgstr "Removed publication bookmark"
-
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 msgid "Copy comment text"
@@ -2369,6 +2374,10 @@ msgid "Set status"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Profile Guardian"
+msgstr "Profile Guardian"
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Change Profile"
 msgstr "Change Profile"
 
@@ -2701,6 +2710,34 @@ msgstr ""
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Attention! Your profile is currently unlocked."
+msgstr "Attention! Your profile is currently unlocked."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Your profile is currently not protected. Please take action to protect your profile."
+msgstr "Your profile is currently not protected. Please take action to protect your profile."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "You have exceeded the cool-off time to protect your profile."
+msgstr "You have exceeded the cool-off time to protect your profile."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Please note that an unlocked profile may be vulnerable to unauthorized access and misuse."
+msgstr "Please note that an unlocked profile may be vulnerable to unauthorized access and misuse."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Take immediate action to protect your profile and secure your information."
+msgstr "Take immediate action to protect your profile and secure your information."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Note: You have a cool-off time of {coolOffTime} to protect your profile. After that, your profile will be unlocked."
+msgstr "Note: You have a cool-off time of {coolOffTime} to protect your profile. After that, your profile will be unlocked."
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Protect now"
+msgstr "Protect now"
 
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
