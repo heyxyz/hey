@@ -1,6 +1,6 @@
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import { useEventListener } from '@huddle01/react';
-import { Video } from '@huddle01/react/components';
+import { Audio, Video } from '@huddle01/react/components';
 import {
   useAudio,
   useMeetingMachine,
@@ -91,6 +91,13 @@ const Meet: FC = () => {
                     src="/default-avatar.png"
                     alt="avatar"
                     className="mb-16 mt-16 h-32 w-32"
+                  />
+                )}
+                {peer.mic && (
+                  <Audio
+                    track={peer.mic}
+                    key={peer.peerId}
+                    peerId={peer.peerId}
                   />
                 )}
               </div>

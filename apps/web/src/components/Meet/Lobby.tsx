@@ -53,8 +53,8 @@ const Lobby: FC = () => {
 
   useEventListener('lobby:joined', async () => {
     console.log('lobby:joined');
-    await fetchVideoStream();
-    await fetchAudioStream();
+    fetchVideoStream();
+    fetchAudioStream();
     setDisplayName(currentProfile?.handle ?? '');
   });
 
