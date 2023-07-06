@@ -8,43 +8,13 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
-  profileGuardianInformation: {
-    isProtected: boolean;
-    disablingProtectionTimestamp: number | null | undefined;
-  };
-  setProfileGuardianInformation: ({
-    isProtected,
-    disablingProtectionTimestamp
-  }: {
-    isProtected: boolean;
-    disablingProtectionTimestamp: number | null | undefined;
-  }) => void;
-  resetProfileGuardianInformation: () => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
-  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
-  profileGuardianInformation: {
-    isProtected: true,
-    disablingProtectionTimestamp: null
-  },
-  setProfileGuardianInformation: ({
-    isProtected,
-    disablingProtectionTimestamp
-  }) =>
-    set(() => ({
-      profileGuardianInformation: { isProtected, disablingProtectionTimestamp }
-    })),
-  resetProfileGuardianInformation: () =>
-    set(() => ({
-      profileGuardianInformation: {
-        isProtected: true,
-        disablingProtectionTimestamp: null
-      }
-    }))
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
 }));
 
 interface AppPersistState {

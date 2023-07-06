@@ -14,14 +14,14 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite } from 'wagmi';
 
 import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const profileGuardianInformation = useAppStore(
+  const profileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.profileGuardianInformation
   );
 

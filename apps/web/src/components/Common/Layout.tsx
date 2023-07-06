@@ -12,6 +12,7 @@ import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -29,10 +30,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileGuardianInformation = useAppStore(
+  const setProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.setProfileGuardianInformation
   );
-  const resetProfileGuardianInformation = useAppStore(
+  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.resetProfileGuardianInformation
   );
   const profileId = useAppPersistStore((state) => state.profileId);
