@@ -1,7 +1,7 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@lenster/lens';
-import { useUserProfilesQuery } from '@lenster/lens';
+import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
@@ -28,6 +28,10 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const setProfileIsProtected = useAppStore(
+    (state) => state.setProfileIsProtected
+  );
+  const profileIsProtected = useAppStore((state) => state.profileIsProtected);
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
@@ -43,8 +47,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useUserProfilesQuery({
-    variables: { ownedBy: address },
+  const { loading } = useUserProfilesWithGuardianInformationQuery({
+    variables: {
+      profileGuardianInformationRequest: { profileId },
+      profilesRequest: { ownedBy: [address] }
+    },
     skip: !profileId,
     onCompleted: (data) => {
       const profiles = data?.profiles?.items
@@ -62,6 +69,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
+      setProfileIsProtected(data.profileGuardianInformation.protected);
     },
     onError: () => {
       setProfileId(null);
@@ -95,6 +103,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <>
+      {JSON.stringify(profileIsProtected)}
       <Head>
         <meta
           name="theme-color"

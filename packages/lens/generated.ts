@@ -31449,19 +31449,6 @@ export type ProfileFeedQuery = {
   };
 };
 
-export type ProfileGuardianInformationQueryVariables = Exact<{
-  request: ProfileGuardianRequest;
-}>;
-
-export type ProfileGuardianInformationQuery = {
-  __typename?: 'Query';
-  profileGuardianInformation: {
-    __typename?: 'ProfileGuardianResult';
-    protected: boolean;
-    disablingProtectionTimestamp?: number | null;
-  };
-};
-
 export type ProfileInterestsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProfileInterestsQuery = {
@@ -50180,10 +50167,7 @@ export type TrendingQuery = {
 };
 
 export type UserProfilesQueryVariables = Exact<{
-  ownedBy?: InputMaybe<
-    | Array<Scalars['EthereumAddress']['input']>
-    | Scalars['EthereumAddress']['input']
-  >;
+  request: ProfileQueryRequest;
 }>;
 
 export type UserProfilesQuery = {
@@ -50247,6 +50231,80 @@ export type UserProfilesQuery = {
         | { __typename: 'UnknownFollowModuleSettings' }
         | null;
     }>;
+  };
+};
+
+export type UserProfilesWithGuardianInformationQueryVariables = Exact<{
+  profilesRequest: ProfileQueryRequest;
+  profileGuardianInformationRequest: ProfileGuardianRequest;
+}>;
+
+export type UserProfilesWithGuardianInformationQuery = {
+  __typename?: 'Query';
+  profiles: {
+    __typename?: 'PaginatedProfileResult';
+    items: Array<{
+      __typename?: 'Profile';
+      interests?: Array<any> | null;
+      isDefault: boolean;
+      id: any;
+      name?: string | null;
+      handle: any;
+      bio?: string | null;
+      ownedBy: any;
+      isFollowedByMe: boolean;
+      dispatcher?: {
+        __typename?: 'Dispatcher';
+        address: any;
+        canUseRelay: boolean;
+        sponsor: boolean;
+      } | null;
+      stats: {
+        __typename?: 'ProfileStats';
+        totalFollowers: number;
+        totalFollowing: number;
+        totalPosts: number;
+        totalComments: number;
+        totalMirrors: number;
+      };
+      attributes?: Array<{
+        __typename?: 'Attribute';
+        traitType?: string | null;
+        key: string;
+        value: string;
+      }> | null;
+      picture?:
+        | {
+            __typename?: 'MediaSet';
+            original: { __typename?: 'Media'; url: any };
+          }
+        | {
+            __typename?: 'NftImage';
+            uri: any;
+            tokenId: string;
+            contractAddress: any;
+            chainId: number;
+          }
+        | null;
+      coverPicture?:
+        | {
+            __typename?: 'MediaSet';
+            original: { __typename?: 'Media'; url: any };
+          }
+        | { __typename?: 'NftImage' }
+        | null;
+      followModule?:
+        | { __typename: 'FeeFollowModuleSettings' }
+        | { __typename: 'ProfileFollowModuleSettings' }
+        | { __typename: 'RevertFollowModuleSettings' }
+        | { __typename: 'UnknownFollowModuleSettings' }
+        | null;
+    }>;
+  };
+  profileGuardianInformation: {
+    __typename?: 'ProfileGuardianResult';
+    protected: boolean;
+    disablingProtectionTimestamp?: number | null;
   };
 };
 
@@ -55024,65 +55082,6 @@ export type ProfileFeedQueryResult = Apollo.QueryResult<
   ProfileFeedQuery,
   ProfileFeedQueryVariables
 >;
-export const ProfileGuardianInformationDocument = gql`
-  query ProfileGuardianInformation($request: ProfileGuardianRequest!) {
-    profileGuardianInformation(request: $request) {
-      protected
-      disablingProtectionTimestamp
-    }
-  }
-`;
-
-/**
- * __useProfileGuardianInformationQuery__
- *
- * To run a query within a React component, call `useProfileGuardianInformationQuery` and pass it any options that fit your needs.
- * When your component renders, `useProfileGuardianInformationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProfileGuardianInformationQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useProfileGuardianInformationQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    ProfileGuardianInformationQuery,
-    ProfileGuardianInformationQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    ProfileGuardianInformationQuery,
-    ProfileGuardianInformationQueryVariables
-  >(ProfileGuardianInformationDocument, options);
-}
-export function useProfileGuardianInformationLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    ProfileGuardianInformationQuery,
-    ProfileGuardianInformationQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    ProfileGuardianInformationQuery,
-    ProfileGuardianInformationQueryVariables
-  >(ProfileGuardianInformationDocument, options);
-}
-export type ProfileGuardianInformationQueryHookResult = ReturnType<
-  typeof useProfileGuardianInformationQuery
->;
-export type ProfileGuardianInformationLazyQueryHookResult = ReturnType<
-  typeof useProfileGuardianInformationLazyQuery
->;
-export type ProfileGuardianInformationQueryResult = Apollo.QueryResult<
-  ProfileGuardianInformationQuery,
-  ProfileGuardianInformationQueryVariables
->;
 export const ProfileInterestsDocument = gql`
   query ProfileInterests {
     profileInterests
@@ -56082,8 +56081,8 @@ export type TrendingQueryResult = Apollo.QueryResult<
   TrendingQueryVariables
 >;
 export const UserProfilesDocument = gql`
-  query UserProfiles($ownedBy: [EthereumAddress!]) {
-    profiles(request: { ownedBy: $ownedBy }) {
+  query UserProfiles($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
       items {
         ...ProfileFields
         interests
@@ -56111,12 +56110,12 @@ export const UserProfilesDocument = gql`
  * @example
  * const { data, loading, error } = useUserProfilesQuery({
  *   variables: {
- *      ownedBy: // value for 'ownedBy'
+ *      request: // value for 'request'
  *   },
  * });
  */
 export function useUserProfilesQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     UserProfilesQuery,
     UserProfilesQueryVariables
   >
@@ -56148,6 +56147,82 @@ export type UserProfilesLazyQueryHookResult = ReturnType<
 export type UserProfilesQueryResult = Apollo.QueryResult<
   UserProfilesQuery,
   UserProfilesQueryVariables
+>;
+export const UserProfilesWithGuardianInformationDocument = gql`
+  query UserProfilesWithGuardianInformation(
+    $profilesRequest: ProfileQueryRequest!
+    $profileGuardianInformationRequest: ProfileGuardianRequest!
+  ) {
+    profiles(request: $profilesRequest) {
+      items {
+        ...ProfileFields
+        interests
+        isDefault
+        dispatcher {
+          address
+          canUseRelay
+          sponsor
+        }
+      }
+    }
+    profileGuardianInformation(request: $profileGuardianInformationRequest) {
+      protected
+      disablingProtectionTimestamp
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`;
+
+/**
+ * __useUserProfilesWithGuardianInformationQuery__
+ *
+ * To run a query within a React component, call `useUserProfilesWithGuardianInformationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserProfilesWithGuardianInformationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserProfilesWithGuardianInformationQuery({
+ *   variables: {
+ *      profilesRequest: // value for 'profilesRequest'
+ *      profileGuardianInformationRequest: // value for 'profileGuardianInformationRequest'
+ *   },
+ * });
+ */
+export function useUserProfilesWithGuardianInformationQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    UserProfilesWithGuardianInformationQuery,
+    UserProfilesWithGuardianInformationQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    UserProfilesWithGuardianInformationQuery,
+    UserProfilesWithGuardianInformationQueryVariables
+  >(UserProfilesWithGuardianInformationDocument, options);
+}
+export function useUserProfilesWithGuardianInformationLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    UserProfilesWithGuardianInformationQuery,
+    UserProfilesWithGuardianInformationQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    UserProfilesWithGuardianInformationQuery,
+    UserProfilesWithGuardianInformationQueryVariables
+  >(UserProfilesWithGuardianInformationDocument, options);
+}
+export type UserProfilesWithGuardianInformationQueryHookResult = ReturnType<
+  typeof useUserProfilesWithGuardianInformationQuery
+>;
+export type UserProfilesWithGuardianInformationLazyQueryHookResult = ReturnType<
+  typeof useUserProfilesWithGuardianInformationLazyQuery
+>;
+export type UserProfilesWithGuardianInformationQueryResult = Apollo.QueryResult<
+  UserProfilesWithGuardianInformationQuery,
+  UserProfilesWithGuardianInformationQueryVariables
 >;
 export const UserSigNoncesDocument = gql`
   query UserSigNonces {
