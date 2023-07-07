@@ -175,6 +175,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
   const [selectedQuadraticRound, setSelectedQuadraticRound] = useState<QuadraticRound>(defaultRound);
   const [requirementsMet, setRequirementsMet] = useState<boolean>(true);
+  const [requirementsStatus, setRequirementsStatus] = useState<Record<string, boolean>>({});
   const [manuallySelectedRound, setManuallySelectedRound] = useState<string>('');
   const [activeRounds, setActiveRounds] = useState<QuadraticRound[]>([]);
 
@@ -242,7 +243,23 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       for (const round of rounds) {
         const endTime = new Date(round.roundEndTime * 1000);
         const { matchAmount } = await getRoundQuadraticTipping(round.id);
+
+        // // TESTING ONLY
+        // const dummyDataRound: QuadraticRound = {
+        //   name: 'Dummy Data Round',
+        //   description: 'This is a dummy quadratic funding round.',
+        //   id: '0x1befac2c50dff44bdfca88c401258e08fdec8a15',
+        //   endTime: new Date('2023-12-31T23:59:59'),
+        //   token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+        //   matchAmount: '1000000000000000000',
+        //   requirements: ['#ethcc', '#gnosis']
+        // };
+
+        // DELETE ABOVE
+
         setActiveRounds((activeRounds) => {
+          // setActiveRounds(() => {
+          // const activeRounds = [dummyDataRound];
           const newArray = activeRounds ?? [];
 
           if (!newArray.find((r) => r.id === round.id)) {
@@ -274,9 +291,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const round = activeRounds.find((round) => round.id === manuallySelectedRound);
       if (round) {
         if (round.requirements.length > 0) {
-          const allRequirementsMet = round.requirements.every((requirement) =>
-            publicationContent.includes(requirement)
-          );
+          const newRequirementsStatus: Record<string, boolean> = {};
+          let allRequirementsMet = true;
+          for (const requirement of round.requirements) {
+            const isRequirementMet = publicationContent.includes(requirement);
+            newRequirementsStatus[requirement] = isRequirementMet;
+            if (!isRequirementMet) {
+              allRequirementsMet = false;
+            }
+          }
+          setRequirementsStatus(newRequirementsStatus);
           setRequirementsMet(allRequirementsMet);
         } else {
           setRequirementsMet(true);
@@ -286,16 +310,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       for (let round of activeRounds) {
         if (
           round.requirements.length !== 0 &&
-          !(round.requirements.length === 1 && round.requirements[0] === '') &&
-          round.requirements.some((requirement) => publicationContent.includes(requirement))
+          !(round.requirements.length === 1 && round.requirements[0] === '')
         ) {
-          setSelectedQuadraticRound(round);
-          setRequirementsMet(true);
-          found = true;
-          break;
+          const newRequirementsStatus: Record<string, boolean> = {};
+          let allRequirementsMet = true;
+          for (const requirement of round.requirements) {
+            const isRequirementMet = publicationContent.includes(requirement);
+            newRequirementsStatus[requirement] = isRequirementMet;
+            if (!isRequirementMet) {
+              allRequirementsMet = false;
+            }
+          }
+          if (allRequirementsMet) {
+            setSelectedQuadraticRound(round);
+            setRequirementsStatus(newRequirementsStatus);
+            setRequirementsMet(true);
+            found = true;
+            break;
+          }
         }
       }
-
       if (!found) {
         setSelectedQuadraticRound(defaultRound);
         setRequirementsMet(true);
@@ -758,7 +792,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             />
           )}
           {selectedQuadraticRound.requirements.length > 0 && (
-            <RoundInfoModal selectedQuadraticRound={selectedQuadraticRound} />
+            <RoundInfoModal
+              selectedQuadraticRound={selectedQuadraticRound}
+              requirementsStatus={requirementsStatus}
+            />
           )}
           {selectedQuadraticRound !== defaultRound && (
             <Tooltip placement="top" content={`remove post from joined round`}>

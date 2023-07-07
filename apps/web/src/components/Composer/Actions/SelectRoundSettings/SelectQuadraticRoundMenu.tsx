@@ -21,6 +21,18 @@ const SelectQuadraticRoundMenu = ({
 }: SelectQuadraticRoundMenuProps) => {
   const { chain } = useNetwork();
 
+  // const dummyDataRound: QuadraticRound = {
+  //   name: 'Dummy Data Round',
+  //   description: 'This is a dummy quadratic funding round.',
+  //   id: '0x1befac2c50dff44bdfca88c401258e08fdec8a15',
+  //   endTime: new Date('2023-12-31T23:59:59'),
+  //   token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+  //   matchAmount: '1000000000000000000',
+  //   requirements: ['#ethcc', '#gnosis']
+  // };
+
+  // const activeRounds = [dummyDataRound];
+
   return (
     <Menu as="div" className="flex flex-col items-center justify-center">
       <div className="flex items-center justify-center">

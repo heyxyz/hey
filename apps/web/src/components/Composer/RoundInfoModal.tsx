@@ -12,19 +12,14 @@ import { useNetwork } from 'wagmi';
 
 interface Props {
   selectedQuadraticRound: QuadraticRound;
+  requirementsStatus: Record<string, boolean>;
 }
 
-const RoundInfoModal: FC<Props> = ({ selectedQuadraticRound }) => {
+const RoundInfoModal: FC<Props> = ({ selectedQuadraticRound, requirementsStatus }) => {
   const [showModal, setShowModal] = useState(false);
   const { chain } = useNetwork();
 
   const { name, description, id, endTime, token, matchAmount, requirements } = selectedQuadraticRound;
-
-  const formattedRequirements = requirements.map((req, index) => (
-    <p key={index} className="text-sm text-gray-500">
-      {req}
-    </p>
-  ));
 
   const polygonScanLink = (address: string, type: string) => {
     let url = '';
@@ -71,7 +66,7 @@ const RoundInfoModal: FC<Props> = ({ selectedQuadraticRound }) => {
       >
         <div className="m-4">
           <div className="mb-4 border-b border-purple-200 pb-4">
-            <h2 className="text-lg font-semibold text-purple-700">About Round</h2>
+            <h2 className="text-lg font-semibold text-purple-500">About Round</h2>
             <p className="text-sm">{description}</p>
           </div>
           <div className="mb-4 border-b border-purple-200 pb-4">
@@ -82,6 +77,25 @@ const RoundInfoModal: FC<Props> = ({ selectedQuadraticRound }) => {
               </p>
             </Link>
           </div>
+          {(requirements.length !== 0 || requirements[0] !== '') && (
+            <div className="mb-4 border-b border-purple-200 pb-4">
+              <h2 className="text-md font-semibold text-purple-500">Round Required Text</h2>
+              <ul>
+                {Object.entries(requirementsStatus).map(([requirement, isMet]) => (
+                  <li key={requirement}>
+                    <div className=" flex items-center">
+                      {requirement}:{' '}
+                      {isMet ? (
+                        <div className="ml-2 italic text-green-500">requirement met!</div>
+                      ) : (
+                        <div className="ml-2 text-red-500">requirement not met</div>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="mb-4 border-b border-purple-200 pb-4">
             <h2 className="text-md font-semibold text-purple-500">Round Address</h2>
             <Link href={polygonScanLink(id, 'address')} target="blank">
@@ -93,13 +107,6 @@ const RoundInfoModal: FC<Props> = ({ selectedQuadraticRound }) => {
             <h2 className="text-md font-semibold text-purple-500">Round End</h2>
             <p className="text-sm">{endTime.toLocaleString()}</p>
           </div>
-          {requirements.length !== 0 ||
-            ([''] && (
-              <div>
-                <h2 className="text-md font-semibold text-purple-500">Requirements</h2>
-                {formattedRequirements}
-              </div>
-            ))}
         </div>
       </Modal>
     </>
