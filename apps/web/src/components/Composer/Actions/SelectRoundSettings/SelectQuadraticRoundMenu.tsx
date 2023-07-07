@@ -1,5 +1,7 @@
 import type { QuadraticRound } from '@components/Composer/NewPublication';
+import { getTokenName } from '@components/utils/getTokenName';
 import { Menu } from '@headlessui/react';
+import { formatEther } from 'ethers/lib/utils.js';
 import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 import { useNetwork } from 'wagmi';
@@ -18,51 +20,6 @@ const SelectQuadraticRoundMenu = ({
   setManuallySelectedRound
 }: SelectQuadraticRoundMenuProps) => {
   const { chain } = useNetwork();
-
-  const polygonScanLink = (address: string, type: string) => {
-    let url;
-    if (chain) {
-      switch (chain.id) {
-        case 80001:
-          if (type === 'address') {
-            url = `https://mumbai.polygonscan.com/address/${address}`;
-          } else {
-            url = `https://mumbai.polygonscan.com/token/${address}`;
-          }
-          break;
-        case 137:
-          if (type === 'address') {
-            url = `https://polygonscan.com/address/${address}`;
-          } else {
-            url = `https://polygonscan.com/token/${address}`;
-          }
-          break;
-      }
-    }
-    return url;
-  };
-
-  const getTokenName = (address: string) => {
-    let name;
-    if (chain) {
-      switch (chain.id) {
-        case 80001:
-          if (address == '0x9c3c9283d3e44854697cd22d3faa240cfb032889') {
-            name = 'WMATIC';
-          }
-          break;
-        case 137:
-          if (address == '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270') {
-            name = 'WMATIC';
-          }
-          break;
-        default:
-          name = 'View on block explorer';
-          break;
-      }
-      return name;
-    }
-  };
 
   return (
     <Menu as="div" className="flex flex-col items-center justify-center">
@@ -93,16 +50,18 @@ const SelectQuadraticRoundMenu = ({
                       <div className="w-full rounded-lg bg-white p-3 text-left shadow-md">
                         <div className="mb-2 text-sm italic text-gray-600">{round.description}</div>
                         <div className="mt-2 text-sm">
+                          <span className="font-semibold text-gray-800">Matching Amount: </span>
+                          <span className="text-gray-600">
+                            {formatEther(round.matchAmount)} {getTokenName(round.token, chain)}
+                          </span>
+                        </div>
+                        <div className="mt-2 text-sm">
                           <span className="font-semibold text-gray-800">Round Address: </span>
                           <span className="text-gray-600">{round.id}</span>
                         </div>
                         <div className="mt-2 text-sm">
                           <span className="font-semibold text-gray-800">Rounds Ends: </span>
                           <span className="text-gray-600">{round.endTime.toLocaleString()}</span>
-                        </div>
-                        <div className="mt-2 text-sm">
-                          <span className="font-semibold text-gray-800">Token: </span>
-                          <span className="text-gray-600">{getTokenName(round.token)}</span>
                         </div>
                         {round.requirements && round.requirements[0] !== '' && (
                           <div className="mt-2">

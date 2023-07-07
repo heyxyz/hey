@@ -1,4 +1,7 @@
-import { getCurrentActiveRounds } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import {
+  getCurrentActiveRounds,
+  getRoundQuadraticTipping
+} from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
@@ -74,9 +77,7 @@ import { v4 as uuid } from 'uuid';
 import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
-import RequirementsNotification from './RequirementsNotification';
-
-// import RoundBanner from './Editor/bannernode';
+import RoundInfoModal from './RoundInfoModal';
 
 const Attachment = dynamic(() => import('@components/Composer/Actions/Attachment'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
@@ -104,6 +105,7 @@ export interface QuadraticRound {
   id: string;
   endTime: Date;
   token: string;
+  matchAmount: string;
   requirements: string[];
 }
 
@@ -166,6 +168,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       id: '',
       endTime: new Date(),
       token: '',
+      matchAmount: '',
       requirements: []
     }),
     []
@@ -238,7 +241,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       for (const round of rounds) {
         const endTime = new Date(round.roundEndTime * 1000);
-
+        const { matchAmount } = await getRoundQuadraticTipping(round.id);
         setActiveRounds((activeRounds) => {
           const newArray = activeRounds ?? [];
 
@@ -251,6 +254,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 id: round.id,
                 endTime,
                 token: round.token,
+                matchAmount,
                 requirements: round.roundMetaData.requirements
               }
             ];
@@ -754,7 +758,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             />
           )}
           {selectedQuadraticRound.requirements.length > 0 && (
-            <RequirementsNotification selectedQuadraticRound={selectedQuadraticRound} />
+            <RoundInfoModal selectedQuadraticRound={selectedQuadraticRound} />
           )}
           {selectedQuadraticRound !== defaultRound && (
             <Tooltip placement="top" content={`remove post from joined round`}>
