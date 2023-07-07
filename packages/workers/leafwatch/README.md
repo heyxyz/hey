@@ -9,11 +9,16 @@ CREATE TABLE events (
   name String,
   properties Nullable(String),
   fingerprint Nullable(String),
-  country LowCardinality(String),
   referrer Nullable(String),
-  user_agent Nullable(String),
+  url Nullable(String),
   platform String,
-  created Datetime DEFAULT now()
+  browser Nullable(String),
+  browser_version Nullable(String),
+  os Nullable(String),
+  city Nullable(String),
+  region Nullable(String),
+  country LowCardinality(String),
+  created DateTime DEFAULT	now()
 ) ENGINE = MergeTree
 ORDER BY created;
 ```

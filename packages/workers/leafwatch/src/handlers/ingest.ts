@@ -52,7 +52,6 @@ export default async (request: IRequest, env: Env) => {
   }
 
   const ip = request.headers.get('cf-connecting-ip');
-  const country = request.headers.get('cf-ipcountry');
   const user_agent = request.headers.get('user-agent');
 
   try {

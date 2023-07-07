@@ -7,6 +7,7 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -19,12 +20,16 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const disconnectXmtp = useDisconnectXmtp();
 
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
+    (state) => state.resetProfileGuardianInformation
+  );
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const logout = () => {
     Leafwatch.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
+    resetProfileGuardianInformation();
     setProfileId(null);
     resetAuthData();
     disconnect?.();
