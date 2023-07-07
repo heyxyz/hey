@@ -1,5 +1,4 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
-import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@lenster/lens';
 import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
@@ -7,6 +6,7 @@ import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import resetAuthData from '@lib/resetAuthData';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
@@ -38,6 +38,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const { pathname } = useRouter();
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -125,9 +126,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
-        <Navbar />
-        <GlobalBanners />
-        <BottomNavigation />
+        {!pathname.includes('meet') && (
+          <>
+            <Navbar />
+            <BottomNavigation />{' '}
+          </>
+        )}
         {children}
       </div>
     </>

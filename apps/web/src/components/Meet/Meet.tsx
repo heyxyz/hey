@@ -11,6 +11,7 @@ import { Modal } from '@lenster/ui';
 import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useMeetPersistStore } from 'src/store/meet';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import AudioElem from './Audio';
 import { BasicIcons } from './BasicIcons';
@@ -35,8 +36,15 @@ const Meet: FC = () => {
     fetchVideoStream,
     stopVideoStream
   } = useVideo();
-  const { isMicMuted, isCamOff, toggleMicMuted, toggleCamOff } =
-    useMeetPersistStore();
+  const {
+    isMicMuted,
+    isCamOff,
+    toggleMicMuted,
+    toggleCamOff,
+    videoDevice,
+    audioInputDevice,
+    audioOutputDevice
+  } = useMeetPersistStore();
   const { peers } = usePeers();
   const [showSettings, setShowSettings] = useState(false);
 
@@ -69,17 +77,47 @@ const Meet: FC = () => {
   useEffect(() => {
     console.log('isCamOff', isCamOff);
     if (!isCamOff) {
-      fetchVideoStream();
+      fetchVideoStream(videoDevice.deviceId);
     }
   }, [isCamOff]);
 
   useEffect(() => {
-    console.log('Peers', { peers });
-  }, [peers]);
+    console.log('isCamOff', isCamOff);
+    if (!isMicMuted) {
+      fetchAudioStream(audioInputDevice.deviceId);
+    }
+  }, [isMicMuted]);
+
+  useEffect(() => {
+    if (micStream) {
+      toggleMicMuted(false);
+    }
+  }, [micStream]);
+
+  useUpdateEffect(() => {
+    if (!isCamOff) {
+      stopVideoStream();
+      fetchVideoStream(videoDevice.deviceId);
+    }
+  }, [videoDevice]);
+
+  useUpdateEffect(() => {
+    if (!isMicMuted) {
+      stopAudioStream();
+      fetchAudioStream(audioInputDevice.deviceId);
+    }
+  }, [audioInputDevice]);
+
+  useUpdateEffect(() => {
+    if (micStream) {
+      stopAudioStream();
+      fetchAudioStream(audioInputDevice.deviceId);
+    }
+  }, [audioOutputDevice]);
 
   return (
     <>
-      <div className="m-5 flex h-[80vh] items-center justify-center self-stretch">
+      <div className="my-10 flex h-[80vh] items-center justify-center self-stretch">
         {Object.values(peers).length == 0 ? (
           <div className="flex w-[60vw] items-center justify-center self-stretch">
             {!isCamOff ? (
@@ -146,7 +184,7 @@ const Meet: FC = () => {
           {isCamOff ? (
             <button
               onClick={() => {
-                fetchVideoStream();
+                fetchVideoStream(videoDevice.deviceId);
               }}
               className="h-10 w-10 rounded-xl"
             >
@@ -163,7 +201,7 @@ const Meet: FC = () => {
           {isMicMuted ? (
             <button
               onClick={() => {
-                fetchAudioStream();
+                fetchAudioStream(audioInputDevice.deviceId);
               }}
               className="h-10 w-10 rounded-xl"
             >
@@ -178,7 +216,10 @@ const Meet: FC = () => {
             </button>
           )}
           <button
-            onClick={leaveRoom}
+            onClick={() => {
+              leaveRoom();
+              window.close();
+            }}
             className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-800"
           >
             {BasicIcons.close}

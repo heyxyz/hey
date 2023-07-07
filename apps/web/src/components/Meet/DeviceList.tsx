@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+import { useAudio, useVideo } from '@huddle01/react/hooks';
 import clsx from 'clsx';
 import type { FC } from 'react';
 
@@ -13,6 +14,9 @@ const DeviceList: FC<DeviceListProps> = ({
   deviceType,
   setDevice
 }) => {
+  const { fetchVideoStream } = useVideo();
+  const { fetchAudioStream } = useAudio();
+
   return (
     <>
       {devices.map((device) => (
@@ -25,20 +29,7 @@ const DeviceList: FC<DeviceListProps> = ({
               )}
               key={device.deviceId}
               onClick={() => {
-                navigator.mediaDevices
-                  .getUserMedia({
-                    [deviceType]: { deviceId: device.deviceId }
-                  })
-                  .then(async (stream) => {
-                    const tracks =
-                      deviceType === 'video'
-                        ? stream.getVideoTracks()
-                        : stream.getAudioTracks();
-                    for (const track of tracks) {
-                      track.stop();
-                    }
-                    setDevice(device);
-                  });
+                setDevice(device);
               }}
             >
               {device.label}

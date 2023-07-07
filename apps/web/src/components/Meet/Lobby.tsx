@@ -15,6 +15,7 @@ import type { FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMeetPersistStore } from 'src/store/meet';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import { BasicIcons } from './BasicIcons';
 import DropDownMenu from './DropDownMenu';
@@ -32,7 +33,15 @@ const Lobby: FC = () => {
   const [displayUserName, setDisplayUserName] = useState<string>(
     currentProfile?.handle ?? ''
   );
-  const { toggleMicMuted, toggleCamOff } = useMeetPersistStore();
+  const {
+    toggleMicMuted,
+    toggleCamOff,
+    isMicMuted,
+    isCamOff,
+    videoDevice,
+    audioInputDevice,
+    audioOutputDevice
+  } = useMeetPersistStore();
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
@@ -42,25 +51,18 @@ const Lobby: FC = () => {
   }, [query.roomid]);
 
   useEffect(() => {
-    if (query.roomid && roomState === 'INIT') {
-      toggleCamOff(true);
-      toggleMicMuted(true);
-      joinLobby(query.roomid as string);
-      console.log('joinLobby');
-    }
-  }, [roomState, query.roomid]);
-
-  useEffect(() => {
     if (camStream && videoRef.current) {
       videoRef.current.srcObject = camStream;
     }
   }, [camStream]);
 
   useEventListener('app:cam-on', async () => {
+    console.log('On');
     toggleCamOff(false);
   });
 
   useEventListener('app:cam-off', async () => {
+    console.log('off');
     toggleCamOff(true);
   });
 
@@ -84,17 +86,35 @@ const Lobby: FC = () => {
     }
   }, [roomState]);
 
+  useUpdateEffect(() => {
+    if (!isMicMuted) {
+      fetchAudioStream(audioInputDevice.deviceId);
+    }
+  }, [audioInputDevice]);
+
+  useUpdateEffect(() => {
+    if (micStream) {
+      fetchAudioStream(audioInputDevice.deviceId);
+    }
+  }, [audioOutputDevice]);
+
+  useUpdateEffect(() => {
+    if (!isCamOff) {
+      fetchVideoStream(videoDevice.deviceId);
+    }
+  }, [videoDevice]);
+
   return (
-    <main className="bg-lobby flex h-[80vh] flex-col items-center justify-center text-slate-100">
-      <div className="flex w-[26.25rem] flex-col items-center justify-center gap-4">
-        <div className="relative mx-auto flex w-fit items-center justify-center border-black bg-gray-900 text-center">
-          <div className="flex w-[26rem] items-center justify-center rounded ">
+    <main className="bg-lobby flex h-screen flex-col items-center justify-center text-slate-100">
+      <div className="flex h-[35vh] w-[35vw] flex-col items-center justify-center gap-4">
+        <div className="relative mx-auto flex w-fit items-center justify-center rounded-lg border-black bg-gray-900 text-center">
+          <div className="flex h-[35vh] w-[35vw] items-center justify-center rounded-lg ">
             {camStream ? (
               <video
                 ref={videoRef}
                 autoPlay
                 muted
-                className="minh-w-full min-h-full object-cover"
+                className="min-h-full min-w-full self-stretch rounded-lg object-cover"
               />
             ) : (
               <img
@@ -108,20 +128,24 @@ const Lobby: FC = () => {
         <div className="flex items-center justify-center self-stretch bg-gray-900 p-2">
           <div className="flex w-full flex-row items-center justify-center gap-8">
             {!camStream ? (
-              <button onClick={fetchVideoStream}>
+              <button
+                onClick={() => {
+                  fetchVideoStream(videoDevice.deviceId);
+                }}
+              >
                 {BasicIcons.inactive['cam']}
               </button>
             ) : (
-              <button
-                onClick={() => {
-                  stopVideoStream();
-                }}
-              >
+              <button onClick={stopVideoStream}>
                 {BasicIcons.active['cam']}
               </button>
             )}
             {!micStream ? (
-              <button onClick={fetchAudioStream}>
+              <button
+                onClick={() => {
+                  fetchAudioStream(audioInputDevice.deviceId);
+                }}
+              >
                 {BasicIcons.inactive['mic']}
               </button>
             ) : (
