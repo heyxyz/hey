@@ -1,7 +1,10 @@
 import type { QuadraticRound } from '@components/Composer/NewPublication';
+import { getTokenName } from '@components/utils/getTokenName';
 import { Menu } from '@headlessui/react';
+import { formatEther } from 'ethers/lib/utils.js';
 import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
+import { useNetwork } from 'wagmi';
 
 interface SelectQuadraticRoundMenuProps {
   setSelectedQuadraticRound: Dispatch<SetStateAction<QuadraticRound>>;
@@ -16,6 +19,20 @@ const SelectQuadraticRoundMenu = ({
   activeRounds,
   setManuallySelectedRound
 }: SelectQuadraticRoundMenuProps) => {
+  const { chain } = useNetwork();
+
+  // const dummyDataRound: QuadraticRound = {
+  //   name: 'Dummy Data Round',
+  //   description: 'This is a dummy quadratic funding round.',
+  //   id: '0x1befac2c50dff44bdfca88c401258e08fdec8a15',
+  //   endTime: new Date('2023-12-31T23:59:59'),
+  //   token: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+  //   matchAmount: '1000000000000000000',
+  //   requirements: ['#ethcc', '#gnosis']
+  // };
+
+  // const activeRounds = [dummyDataRound];
+
   return (
     <Menu as="div" className="flex flex-col items-center justify-center">
       <div className="flex items-center justify-center">
@@ -32,7 +49,7 @@ const SelectQuadraticRoundMenu = ({
                   <a
                     className={`${
                       active ? 'bg-white text-white' : 'text-purple-500'
-                    } group my-1 flex w-full items-center justify-center rounded-md bg-purple-300 px-2 py-2 text-sm hover:bg-purple-500`}
+                    } group my-1 flex w-full items-center justify-center rounded-md text-sm hover:bg-purple-500`}
                     href="#"
                     onClick={() => {
                       setSelectedQuadraticRound(round);
@@ -40,26 +57,34 @@ const SelectQuadraticRoundMenu = ({
                       setShowModal(false);
                     }}
                   >
-                    <div className="flex flex-col items-center">
-                      <div className="text-center text-lg font-bold">{round.name}</div>
-                      <div className="w-full text-left">
-                        <div className="text-sm italic text-gray-600">{round.description}</div>
+                    <div className="flex flex-col items-center rounded-lg bg-purple-500 p-5 shadow-md transition-colors duration-200 hover:bg-purple-700">
+                      <div className="mb-3 text-center text-lg font-bold text-white">{round.name}</div>
+                      <div className="w-full rounded-lg bg-white p-3 text-left shadow-md">
+                        <div className="mb-2 text-sm italic text-gray-600">{round.description}</div>
                         <div className="mt-2 text-sm">
-                          <span>Round Address: </span>
-                          <span className="text-xs">{round.id}</span>
+                          <span className="font-semibold text-gray-800">Matching Amount: </span>
+                          <span className="text-gray-600">
+                            {formatEther(round.matchAmount)} {getTokenName(round.token, chain)}
+                          </span>
                         </div>
-                        <div className="text-sm">
-                          <span>End Time: </span>
-                          <span className="text-xs">{round.endTime.toLocaleString()}</span>
+                        <div className="mt-2 text-sm">
+                          <span className="font-semibold text-gray-800">Round Address: </span>
+                          <span className="text-gray-600">{round.id}</span>
                         </div>
-                        <div className="text-sm">
-                          <span>Token: </span>
-                          <span className="text-xs">{round.token}</span>
+                        <div className="mt-2 text-sm">
+                          <span className="font-semibold text-gray-800">Rounds Ends: </span>
+                          <span className="text-gray-600">{round.endTime.toLocaleString()}</span>
                         </div>
-                        <div className="mt-1 text-sm">
-                          <span>Required text in order to join round: </span>
-                          <span className="text-xs">{round.requirements.join(', ')}</span>
-                        </div>
+                        {round.requirements && round.requirements[0] !== '' && (
+                          <div className="mt-2">
+                            <div className="text-sm">
+                              <span className="font-semibold text-gray-800">
+                                Required text in order to join round:{' '}
+                              </span>
+                              <span className="text-gray-600">{round.requirements.join(', ')}</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </a>

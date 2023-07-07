@@ -241,6 +241,22 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
   return data.quadraticTipping;
 }
 
+export async function getRoundQuadraticTipping(roundAddress: string) {
+  const query = `
+  query GetRoundQuadraticTipping($roundAddressLower: ID!) {
+    quadraticTipping(id: $roundAddressLower) {
+      id
+      matchAmount
+    }
+  }`;
+  const variables = {
+    roundAddressLower: roundAddress.toLowerCase()
+  };
+
+  const data = await request(query, variables);
+  return data.quadraticTipping;
+}
+
 export interface RoundStats {
   totalMatched: string;
   totalTipped: string;
