@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Card } from 'ui/src/Card';
 
-import { getPostQuadraticTipping } from './Actions/Tip/QuadraticQueries/grantsQueries';
+import { getPostQuadraticTipping, getRoundInfo } from './Actions/Tip/QuadraticQueries/grantsQueries';
 
 interface Props {
   publication: Publication;
@@ -19,16 +19,19 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
   const [roundInfo, setRoundInfo] = useState<any>();
   const [votes, setVotes] = useState<any>([]);
   const [postTipTotal, setPostTipTotal] = useState(0);
+  const [roundEnd, setRoundEnd] = useState(0);
 
   // Add check here if Post or Comment for getting roundInfo
   useEffect(() => {
     const getPostInfo = async () => {
       if (roundAddress) {
         const roundResults = await getPostQuadraticTipping(publication.id, roundAddress);
+        const { roundEndTime } = await getRoundInfo(roundAddress);
 
         if (!roundResults) {
           return;
         }
+        setRoundEnd(roundEndTime);
         setRoundInfo(roundResults);
         const votes = roundResults?.votes || [];
         setVotes(votes);
@@ -60,6 +63,14 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
 
     return `${daysString} & ${hoursString}`;
   }
+
+  const getDaysAgo = (end: number) => {
+    const current = Date.now();
+    const diffTime = Math.abs(current - end * 1000);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
   return (
     <Card>
       <div className="justify-items-left m-3 grid space-y-2 p-5">
@@ -78,7 +89,9 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
           <div className="flex justify-between pt-3">
             <div className="my-auto flex items-center justify-between text-sm text-gray-500">
               <p className="mr-3">
-                This matching round will end in {getTimeLeft(roundInfo.votes[0].round.roundEndTime)}
+                {roundEnd !== 0 && Date.now() < roundEnd * 1000
+                  ? `This matching round will end in ${getTimeLeft(roundEnd)}`
+                  : `This round ended ${getDaysAgo(roundEnd)} day(s) ago.`}
               </p>
               <QuestionMarkCircleIcon className={iconClassName} />
             </div>
