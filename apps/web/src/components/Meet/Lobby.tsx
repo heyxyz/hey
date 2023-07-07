@@ -32,10 +32,8 @@ const Lobby: FC = () => {
   const [displayUserName, setDisplayUserName] = useState<string>(
     currentProfile?.handle ?? ''
   );
-  const { isMicMuted, isCamOff, toggleMicMuted, toggleCamOff } =
-    useMeetPersistStore();
+  const { toggleMicMuted, toggleCamOff } = useMeetPersistStore();
   const [showSettings, setShowSettings] = useState(false);
-  const [isJoinMeetingClicked, setIsJoinMeetingClicked] = useState(false);
 
   useEffect(() => {
     if (query.roomid) {
@@ -51,23 +49,6 @@ const Lobby: FC = () => {
       console.log('joinLobby');
     }
   }, [roomState, query.roomid]);
-
-  useEffect(() => {
-    console.log('roomState', roomState);
-  }, [roomState]);
-
-  useEffect(() => {
-    if (isLobbyJoined) {
-      async () => {
-        await fetchVideoStream();
-        await fetchAudioStream();
-      };
-      if (isJoinMeetingClicked) {
-        console.log(isCamOff);
-        joinRoom();
-      }
-    }
-  }, [isLobbyJoined]);
 
   useEffect(() => {
     if (camStream && videoRef.current) {
@@ -96,6 +77,12 @@ const Lobby: FC = () => {
       setDisplayName(displayUserName);
     }
   }, [displayUserName]);
+
+  useEffect(() => {
+    if (!isLobbyJoined) {
+      joinLobby(query.roomid as string);
+    }
+  }, [roomState]);
 
   return (
     <main className="bg-lobby flex h-[80vh] flex-col items-center justify-center text-slate-100">
@@ -194,11 +181,8 @@ const Lobby: FC = () => {
           <button
             className="bg- mt-2 flex w-full items-center justify-center rounded-md bg-[#845EEE] p-2 text-slate-100"
             onClick={async () => {
-              setIsJoinMeetingClicked(true);
-              if (roomState === 'LOBBY') {
+              if (isLobbyJoined) {
                 joinRoom();
-              } else {
-                await joinLobby(query.roomid as string);
               }
             }}
           >

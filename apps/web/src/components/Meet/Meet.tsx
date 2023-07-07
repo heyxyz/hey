@@ -19,7 +19,7 @@ import VideoElem from './Video';
 
 const Meet: FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { leaveRoom } = useRoom();
+  const { leaveRoom, isRoomJoined } = useRoom();
   const { roomState } = useHuddle01();
   const {
     produceAudio,
