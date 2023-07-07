@@ -599,10 +599,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (notificationText) {
       const index = publicationContent.indexOf(notificationText);
       const newContent = `${publicationContent.slice(0, index)}
-        <span className="bg-red-500"> ${publicationContent.slice(
-          index,
-          index + notificationText.length
-        )} </span>`;
+        <span> ${publicationContent.slice(index, index + notificationText.length)} </span>`;
       setPublicationContent(newContent);
       setPublicationContentUpdated(true);
     }
