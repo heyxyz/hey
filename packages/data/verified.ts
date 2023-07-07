@@ -2,6 +2,7 @@ import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x7cca', // songadaymann
   '0x01cd87', // curve
   '0x608f', // kwenta
   '0x9346', // decentralgames
