@@ -67,6 +67,9 @@ export const RoundStats = ({
     <div className="">
       <div className="mb-4 text-2xl font-extrabold uppercase">{metaData?.name || 'Loading...'}</div>
       {metaData?.description && <div className="mb-4">{metaData.description}</div>}
+      {!!metaData?.requirements.filter((x) => x !== '').length && (
+        <Item title={t`Required publication content`} value={metaData.requirements.join(', ')} />
+      )}
       <div className="flex w-full flex-wrap">
         <Item title={t`Total of all tips`} value={`$ ${matchingUpdate?.totalTips}`} />
         <Item
