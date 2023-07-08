@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build": "lingui compile; next build",
-    "dev": "lingui compile; next dev --port 4783",
+    "dev": "cmd /C \"lingui compile && set PORT=4783 && next dev\"",
     "extract": "lingui compile; lingui extract",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
