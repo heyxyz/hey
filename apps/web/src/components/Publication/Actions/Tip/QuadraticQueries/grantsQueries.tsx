@@ -476,26 +476,89 @@ export interface MatchingUpdateEntry {
   uniqueContributorsCount: number;
 }
 
+type ApiResult<T> = {
+  data: T;
+  success: boolean;
+};
+
 export const useGetRoundMatchingUpdate = (roundId: string) => {
   return useQuery(
     ['round-matching-update', roundId],
     () => {
-      return fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/80001/${roundId}`, {
-        method: 'POST'
-      }).then((res) => res.json() as Promise<{ data: MatchingUpdateEntry[] }>);
+      // TODO: Do not hardcode chainId
+      return axios.post<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/80001/${roundId}`
+      );
     },
     {
-      select: (data) => {
-        const totalTips = data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
+      select: (response) => {
+        const totalTips = response.data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
         const posts: Record<string, MatchingUpdateEntry> = {};
 
-        for (const entry of data.data) {
+        for (const entry of response.data.data) {
           posts[entry.projectId] = entry;
         }
         return {
           totalTips,
           posts
         };
+      }
+    }
+  );
+};
+
+export const useGetManyPublicationMatchData = (roundId: string, publicationIds: string[]) => {
+  return useQuery(
+    ['publication-match-data', roundId, publicationIds],
+    () => {
+      return axios.get<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/80001/${roundId}`,
+        {
+          params: {
+            projectId: publicationIds
+          }
+        }
+      );
+    },
+    {
+      select: (response) => {
+        console.log(response);
+        const result: Record<string, MatchingUpdateEntry> = {};
+
+        if (!response.data.success) {
+          return result;
+        }
+
+        for (const entry of response.data.data) {
+          result[entry.projectId] = entry;
+        }
+
+        return result;
+      }
+    }
+  );
+};
+
+export const useGetPublicationMatchData = (roundId: string, publicationId: string) => {
+  return useQuery(
+    ['publication-match-data', roundId, publicationId],
+    () => {
+      return axios.get<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/80001/${roundId}`,
+        {
+          params: {
+            projectId: [publicationId]
+          }
+        }
+      );
+    },
+    {
+      select: (response) => {
+        if (!response.data.success) {
+          return null;
+        }
+
+        return response.data.data[0];
       }
     }
   );

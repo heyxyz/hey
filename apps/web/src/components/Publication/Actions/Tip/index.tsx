@@ -13,7 +13,11 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'ui';
 import { useAccount } from 'wagmi';
 
-import { getPostQuadraticTipping, getRoundInfo } from './QuadraticQueries/grantsQueries';
+import {
+  getPostQuadraticTipping,
+  getRoundInfo,
+  useGetPublicationMatchData
+} from './QuadraticQueries/grantsQueries';
 
 const Tipping = dynamic(() => import('./Tipping'), {
   loading: () => <Loader message={t`Loading tips`} />
@@ -24,6 +28,7 @@ interface TipProps {
 }
 
 const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
+  const { data: matchingData } = useGetPublicationMatchData(roundAddress, publication.id);
   const ownedBy = publication?.profile?.ownedBy;
   const { address } = useAccount();
   const [userTipCount, setUserTipCount] = useState(0);
@@ -126,6 +131,17 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
             >
               {nFormatter(tipCount)}
             </span>
+            {matchingData && (
+              <span
+                className={`${
+                  roundOpen && address !== undefined ? 'text-red-500' : 'text-red-200'
+                } ml-3 text-[11px] sm:text-xs`}
+              >
+                {roundOpen
+                  ? `Match estimate $${matchingData.matchAmountInUSD}`
+                  : `Matched with $${matchingData.matchAmountInUSD}`}
+              </span>
+            )}
           </div>
         )}
       </div>
