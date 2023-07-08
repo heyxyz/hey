@@ -47,8 +47,9 @@ export const PublicationRow = ({
       {matchingUpdateEntry && (
         <div className="font-grey-700 text-brand-600">
           $ {matchingUpdateEntry?.totalContributionsInUSD} by {matchingUpdateEntry?.uniqueContributorsCount}{' '}
-          tippers - receives {matchingUpdateEntry?.matchPoolPercentage * 100}% of matching funds ($
-          {matchingUpdateEntry?.matchAmountInUSD})
+          tippers - receives {parseFloat((matchingUpdateEntry?.matchPoolPercentage * 100).toFixed(2))}% of
+          matching funds ($
+          {parseFloat(matchingUpdateEntry?.matchAmountInUSD.toFixed(2))})
         </div>
       )}
     </div>
