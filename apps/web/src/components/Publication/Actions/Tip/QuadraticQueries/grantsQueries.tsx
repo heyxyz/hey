@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import { useChainId } from 'wagmi';
 
 import { decodePublicationId, encodePublicationId } from '../utils';
 
@@ -477,12 +478,16 @@ export interface MatchingUpdateEntry {
 }
 
 export const useGetRoundMatchingUpdate = (roundId: string) => {
+  const chainId = useChainId();
   return useQuery(
     ['round-matching-update', roundId],
     () => {
-      return fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/80001/${roundId}`, {
-        method: 'POST'
-      }).then((res) => res.json() as Promise<{ data: MatchingUpdateEntry[] }>);
+      return fetch(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/${chainId}/${roundId}`,
+        {
+          method: 'POST'
+        }
+      ).then((res) => res.json() as Promise<{ data: MatchingUpdateEntry[] }>);
     },
     {
       select: (data) => {
