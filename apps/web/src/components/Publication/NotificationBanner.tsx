@@ -1,12 +1,16 @@
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Card } from 'ui/src/Card';
 
-import { getPostQuadraticTipping, getRoundInfo } from './Actions/Tip/QuadraticQueries/grantsQueries';
+import {
+  getPostQuadraticTipping,
+  getRoundInfo,
+  useGetPublicationMatchData
+} from './Actions/Tip/QuadraticQueries/grantsQueries';
 
 interface Props {
   publication: Publication;
@@ -16,9 +20,10 @@ interface Props {
 
 // export const NotificationBanner: FC<Props> = ({ icon, publication, showCount }) => {
 export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAddress }) => {
+  const { data: matchUpdate } = useGetPublicationMatchData(roundAddress, publication.id);
   const [roundInfo, setRoundInfo] = useState<any>();
   const [votes, setVotes] = useState<any>([]);
-  const [postTipTotal, setPostTipTotal] = useState(0);
+  const [postTipTotal, setPostTipTotal] = useState(BigNumber.from(0));
   const [roundEnd, setRoundEnd] = useState(0);
 
   // Add check here if Post or Comment for getting roundInfo
@@ -35,9 +40,12 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
         setRoundInfo(roundResults);
         const votes = roundResults?.votes || [];
         setVotes(votes);
-        let voteTipTotal = 0;
+        let voteTipTotal = BigNumber.from(0);
         for (const vote of votes) {
-          voteTipTotal += parseFloat(vote?.amount);
+          if (!vote) {
+            continue;
+          }
+          voteTipTotal = voteTipTotal.add(BigNumber.from(vote.amount));
         }
         setPostTipTotal(voteTipTotal);
       }
@@ -78,12 +86,15 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
           <div className="mt-1 flex">
             <TipsSolidIcon color="black" />
           </div>
-          <div className="ml-3">{`This post has received ${votes.length} tips!`}</div>
+          <div className="ml-3">
+            {`This post has received ${votes.length} ${votes.length === 1 ? 'tip' : 'tips'}! `}
+          </div>
         </div>
 
         <div>
           This post has received {ethers.utils.formatEther(postTipTotal)} in tips from {uniqueCollectors}{' '}
           users.
+          {matchUpdate && <span>{`It received $${matchUpdate.matchAmountInUSD} in matching.`}</span>}
         </div>
         {roundInfo && (
           <div className="flex justify-between pt-3">
