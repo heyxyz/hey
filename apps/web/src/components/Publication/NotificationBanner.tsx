@@ -94,7 +94,7 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
         <div>
           This post has received {ethers.utils.formatEther(postTipTotal)} in tips from {uniqueCollectors}{' '}
           users.
-          {matchUpdate && <span>{`It received $${matchUpdate.matchAmountInUSD} in matching.`}</span>}
+          {matchUpdate && <span>{` It received $${matchUpdate.matchAmountInUSD} in matching.`}</span>}
         </div>
         {roundInfo && (
           <div className="flex justify-between pt-3">
