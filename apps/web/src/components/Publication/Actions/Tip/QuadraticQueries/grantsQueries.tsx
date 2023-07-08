@@ -522,7 +522,6 @@ export const useGetManyPublicationMatchData = (roundId: string, publicationIds: 
     },
     {
       select: (response) => {
-        console.log(response);
         const result: Record<string, MatchingUpdateEntry> = {};
 
         if (!response.data.success) {
@@ -571,7 +570,6 @@ export const useQueryTokenPrices = () => {
   return useQuery(
     ['token-prices'],
     () => {
-      // TODO: Use axios
       return axios.get(
         `https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`
       );
