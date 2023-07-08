@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
+import { getTokenName } from '@components/utils/getTokenName';
 import { t } from '@lingui/macro';
 import { ethers } from 'ethers';
 import { motion } from 'framer-motion';
@@ -11,12 +12,13 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'ui';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 
 import {
   getPostQuadraticTipping,
   getRoundInfo,
-  useGetPublicationMatchData
+  useGetPublicationMatchData,
+  useGetRoundInfo
 } from './QuadraticQueries/grantsQueries';
 
 const Tipping = dynamic(() => import('./Tipping'), {
@@ -29,6 +31,8 @@ interface TipProps {
 
 const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
   const { data: matchingData } = useGetPublicationMatchData(roundAddress, publication.id);
+  const { data: roundInfo } = useGetRoundInfo(roundAddress);
+  const chainId = useChainId();
   const ownedBy = publication?.profile?.ownedBy;
   const { address } = useAccount();
   const [userTipCount, setUserTipCount] = useState(0);
@@ -138,8 +142,12 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
                 } ml-3 text-[11px] sm:text-xs`}
               >
                 {roundOpen
-                  ? `Match estimate $${matchingData.matchAmountInUSD}`
-                  : `Matched with $${matchingData.matchAmountInUSD}`}
+                  ? `Match estimate ${matchingData.matchAmountInToken} ${getTokenName(roundInfo.token, {
+                      id: chainId
+                    })}`
+                  : `Matched with ${matchingData.matchAmountInToken} ${getTokenName(roundInfo.token, {
+                      id: chainId
+                    })}`}
               </span>
             )}
           </div>
