@@ -52,9 +52,19 @@ export async function getRoundInfo(grantsRound: string) {
       }
     }
   }`;
+
   const data = await request(query);
   return data.rounds[0];
 }
+
+export const useGetRoundInfo = (grantsRound: string | undefined) => {
+  return useQuery(['getRoundInfo', grantsRound], async () => {
+    if (!grantsRound) {
+      return null;
+    }
+    return getRoundInfo(grantsRound);
+  });
+};
 
 export async function getUserQuadraticTippingData(roundAddress: string, address: string) {
   const query = `
@@ -240,6 +250,37 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
 
   const data = await request(query, variables);
   return data.quadraticTipping;
+}
+
+export function useGetPostQuadraticTipping(pubId: string, roundAddress: string | undefined) {
+  return useQuery(
+    ['getPostQuadraticTipping', pubId, roundAddress],
+    async () => {
+      if (!roundAddress) {
+        return null;
+      }
+      return getPostQuadraticTipping(pubId, roundAddress);
+    },
+    {
+      select: (data) => {
+        if (!data) {
+          return data;
+        }
+        const votes = data?.votes || [];
+        let voteTipTotal = BigNumber.from(0);
+        for (const vote of votes) {
+          if (!vote) {
+            continue;
+          }
+          voteTipTotal = voteTipTotal.add(BigNumber.from(vote.amount));
+        }
+        return {
+          ...data,
+          voteTipTotal
+        };
+      }
+    }
+  );
 }
 
 export async function getRoundQuadraticTipping(roundAddress: string) {
