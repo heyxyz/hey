@@ -3,6 +3,7 @@ import axios from 'axios';
 import { SANDBOX_GRANTS_URL } from 'data/constants';
 import { BigNumber } from 'ethers';
 import { formatEther } from 'ethers/lib/utils';
+import { useChainId } from 'wagmi';
 
 import { decodePublicationId, encodePublicationId } from '../utils';
 
@@ -482,12 +483,13 @@ type ApiResult<T> = {
 };
 
 export const useGetRoundMatchingUpdate = (roundId: string) => {
+  const chainId = useChainId();
   return useQuery(
     ['round-matching-update', roundId],
     () => {
       // TODO: Do not hardcode chainId
       return axios.post<ApiResult<MatchingUpdateEntry[]>>(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/80001/${roundId}`
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/${chainId}/${roundId}`
       );
     },
     {
@@ -508,11 +510,12 @@ export const useGetRoundMatchingUpdate = (roundId: string) => {
 };
 
 export const useGetManyPublicationMatchData = (roundId: string, publicationIds: string[]) => {
+  const chainId = useChainId();
   return useQuery(
     ['publication-match-data', roundId, publicationIds],
     () => {
       return axios.get<ApiResult<MatchingUpdateEntry[]>>(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/80001/${roundId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/${chainId}/${roundId}`,
         {
           params: {
             projectId: publicationIds
@@ -539,6 +542,7 @@ export const useGetManyPublicationMatchData = (roundId: string, publicationIds: 
 };
 
 export const useGetPublicationMatchData = (roundId: string | undefined, publicationId: string) => {
+  const chainId = useChainId();
   return useQuery(
     ['publication-match-data', roundId, publicationId],
     () => {
@@ -546,7 +550,7 @@ export const useGetPublicationMatchData = (roundId: string | undefined, publicat
         return null;
       }
       return axios.get<ApiResult<MatchingUpdateEntry[]>>(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/80001/${roundId}`,
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/${chainId}/${roundId}`,
         {
           params: {
             projectId: [publicationId]
@@ -570,9 +574,9 @@ export const useQueryTokenPrices = () => {
   return useQuery(
     ['token-prices'],
     () => {
-      return axios.get(
-        `https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`
-      );
+      return axios
+        .get(`https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`)
+        .then((response) => response.data);
     },
     {
       refetchOnMount: false
