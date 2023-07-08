@@ -1,12 +1,17 @@
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
+import { getTokenName } from '@components/utils/getTokenName';
 import { QuestionMarkCircleIcon } from '@heroicons/react/outline';
 import { ethers } from 'ethers';
 import type { Publication } from 'lens';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
 import { Card } from 'ui/src/Card';
+import { useChainId } from 'wagmi';
 
-import { getPostQuadraticTipping, getRoundInfo } from './Actions/Tip/QuadraticQueries/grantsQueries';
+import {
+  useGetPostQuadraticTipping,
+  useGetPublicationMatchData,
+  useGetRoundInfo
+} from './Actions/Tip/QuadraticQueries/grantsQueries';
 
 interface Props {
   publication: Publication;
@@ -16,38 +21,12 @@ interface Props {
 
 // export const NotificationBanner: FC<Props> = ({ icon, publication, showCount }) => {
 export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAddress }) => {
-  const [roundInfo, setRoundInfo] = useState<any>();
-  const [votes, setVotes] = useState<any>([]);
-  const [postTipTotal, setPostTipTotal] = useState(0);
-  const [roundEnd, setRoundEnd] = useState(0);
-
-  // Add check here if Post or Comment for getting roundInfo
-  useEffect(() => {
-    const getPostInfo = async () => {
-      if (roundAddress) {
-        const roundResults = await getPostQuadraticTipping(publication.id, roundAddress);
-        const { roundEndTime } = await getRoundInfo(roundAddress);
-
-        if (!roundResults) {
-          return;
-        }
-        setRoundEnd(roundEndTime);
-        setRoundInfo(roundResults);
-        const votes = roundResults?.votes || [];
-        setVotes(votes);
-        let voteTipTotal = 0;
-        for (const vote of votes) {
-          voteTipTotal += parseFloat(vote?.amount);
-        }
-        setPostTipTotal(voteTipTotal);
-      }
-    };
-    getPostInfo();
-  }, [roundAddress, publication.id]);
+  const { data: matchUpdate } = useGetPublicationMatchData(roundAddress, publication.id);
+  const { data: roundInfo } = useGetRoundInfo(roundAddress);
+  const { data: postQuadraticTipping } = useGetPostQuadraticTipping(publication.id, roundAddress);
+  const chainId = useChainId();
 
   const iconClassName = showCount ? 'w-[17px] sm:w-[20px]' : 'w-[15px] sm:w-[18px]';
-
-  const uniqueCollectors = new Set(votes.map((vote: any) => vote?.collector)).size;
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();
@@ -78,20 +57,27 @@ export const NotificationBanner: FC<Props> = ({ publication, showCount, roundAdd
           <div className="mt-1 flex">
             <TipsSolidIcon color="black" />
           </div>
-          <div className="ml-3">{`This post has received ${votes.length} tips!`}</div>
+          <div className="ml-3">
+            {`This post has received ${postQuadraticTipping?.votes.length} ${
+              postQuadraticTipping?.votes.length === 1 ? 'tip' : 'tips'
+            }! `}
+          </div>
         </div>
 
-        <div>
-          This post has received {ethers.utils.formatEther(postTipTotal)} in tips from {uniqueCollectors}{' '}
-          users.
-        </div>
+        {!!(matchUpdate && roundInfo) && (
+          <div>
+            This post has received {ethers.utils.formatEther(postQuadraticTipping?.voteTipTotal)} in tips from{' '}
+            {matchUpdate.uniqueContributorsCount} users. It received {matchUpdate.matchAmountInToken}{' '}
+            {getTokenName(roundInfo.token, { id: chainId })} in matching.
+          </div>
+        )}
         {roundInfo && (
           <div className="flex justify-between pt-3">
             <div className="my-auto flex items-center justify-between text-sm text-gray-500">
               <p className="mr-3">
-                {roundEnd !== 0 && Date.now() < roundEnd * 1000
-                  ? `This matching round will end in ${getTimeLeft(roundEnd)}`
-                  : `This round ended ${getDaysAgo(roundEnd)} day(s) ago.`}
+                {roundInfo.roundEndTime !== 0 && Date.now() < roundInfo.roundEndTime * 1000
+                  ? `This matching round will end in ${getTimeLeft(roundInfo.roundEndTime)}`
+                  : `This round ended ${getDaysAgo(roundInfo.roundEndTime)} day(s) ago.`}
               </p>
               <QuestionMarkCircleIcon className={iconClassName} />
             </div>
