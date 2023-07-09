@@ -74,7 +74,7 @@ import { PUBLICATION } from 'src/tracking';
 import type { NewLensterAttachment } from 'src/types';
 import { Button, Card, ErrorMessage, Spinner, Tooltip } from 'ui';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
+import { useChainId, useContractWrite, useProvider, useSigner, useSignTypedData } from 'wagmi';
 
 import Editor from './Editor';
 import RoundInfoModal from './RoundInfoModal';
@@ -114,6 +114,7 @@ interface NewPublicationProps {
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
+  const chainId = useChainId();
   // App store
   const userSigNonce = useAppStore((state) => state.userSigNonce);
   const setUserSigNonce = useAppStore((state) => state.setUserSigNonce);
@@ -238,11 +239,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     async function getActiveRounds() {
       const now = Math.floor(Date.now() / 1000);
 
-      const rounds = await getCurrentActiveRounds(now);
+      const rounds = await getCurrentActiveRounds(chainId, now);
 
       for (const round of rounds) {
         const endTime = new Date(round.roundEndTime * 1000);
-        const { matchAmount } = await getRoundQuadraticTipping(round.id);
+        const { matchAmount } = await getRoundQuadraticTipping(chainId, round.id);
 
         // // TESTING ONLY
         // const dummyDataRound: QuadraticRound = {
@@ -282,7 +283,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
     }
     getActiveRounds();
-  }, []);
+  }, [chainId]);
 
   useEffect(() => {
     let found = false;

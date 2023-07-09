@@ -22,6 +22,7 @@ import { useAppStore } from 'src/store/app';
 import { Button, Spinner, WarningMessage } from 'ui';
 import {
   useBalance,
+  useChainId,
   useContractRead,
   useContractWrite,
   useSendTransaction,
@@ -65,10 +66,12 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
 
   // Get and store round info
 
+  const chainId = useChainId();
+
   useEffect(() => {
     async function fetchRoundInfo(roundAddress: string) {
       try {
-        const round = await getRoundInfo(roundAddress);
+        const round = await getRoundInfo(chainId, roundAddress);
         if (round) {
           setRoundInfo(round);
           setRoundInfoLoaded(true);
@@ -80,7 +83,7 @@ const Tipping: FC<Props> = ({ address, publication, roundAddress, setShowTipModa
     }
 
     fetchRoundInfo(roundAddress);
-  }, [roundAddress]);
+  }, [roundAddress, chainId]);
 
   // TEMPORARY VERSION- HARDCODED WMATIC
   // useEffect(() => {

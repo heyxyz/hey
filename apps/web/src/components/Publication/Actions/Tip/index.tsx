@@ -44,9 +44,9 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
   useEffect(() => {
     async function fetchPostQuadraticTipping() {
       try {
-        const postQuadraticTipping = await getPostQuadraticTipping(publication?.id, roundAddress);
+        const postQuadraticTipping = await getPostQuadraticTipping(chainId, publication?.id, roundAddress);
 
-        const { roundEndTime } = await getRoundInfo(postQuadraticTipping.id);
+        const { roundEndTime } = await getRoundInfo(chainId, postQuadraticTipping.id);
         const now = Math.floor(Date.now() / 1000);
         roundEndTime > now ? setRoundOpen(true) : setRoundOpen(false);
         let tipTotal = ethers.BigNumber.from(0);
@@ -71,7 +71,7 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
       }
     }
     fetchPostQuadraticTipping();
-  }, [roundAddress, ownedBy, publication?.id]);
+  }, [roundAddress, ownedBy, publication?.id, chainId]);
 
   return (
     <>

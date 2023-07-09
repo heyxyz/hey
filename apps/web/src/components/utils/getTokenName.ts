@@ -1,5 +1,8 @@
 export const getTokenName = (address: string, chain: any) => {
   let name;
+  if (!address) {
+    return '';
+  }
   if (chain) {
     switch (chain.id) {
       case 80001:

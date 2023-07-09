@@ -42,7 +42,14 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { Button, Modal, Spinner, WarningMessage } from 'ui';
-import { useAccount, useBalance, useContractRead, useContractWrite, useSignTypedData } from 'wagmi';
+import {
+  useAccount,
+  useBalance,
+  useChainId,
+  useContractRead,
+  useContractWrite,
+  useSignTypedData
+} from 'wagmi';
 
 import TipsOutlineIcon from '../../../Shared/TipIcons/TipsOutlineIcon';
 import { getRoundInfo } from '../Tip/QuadraticQueries/grantsQueries';
@@ -187,10 +194,12 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
 
   // const percentageCollected = (count / parseInt(collectModule?.collectLimit)) * 100;
 
+  const chainId = useChainId();
+
   useEffect(() => {
     async function fetchRoundInfo(grantsRound: string) {
       try {
-        const roundInfo = await getRoundInfo(grantsRound);
+        const roundInfo = await getRoundInfo(chainId, grantsRound);
         return roundInfo;
       } catch (error) {
         console.error('Error fetching round info:', error);
@@ -235,7 +244,7 @@ const QuadraticModule: FC<Props> = ({ count, setCount, publication, electedMirro
     if (!isFetching && collectModule === quadraticModuleSettings) {
       updateCollectModule();
     }
-  }, [isFetching, collectModule, refetch]);
+  }, [isFetching, collectModule, refetch, chainId]);
 
   const { data: allowanceData, loading: allowanceLoading } = useApprovedModuleAllowanceAmountQuery({
     variables: {

@@ -9,6 +9,7 @@ import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import { ethers } from 'ethers';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { useChainId } from 'wagmi';
 
 type Round = {
   roundId: string;
@@ -113,6 +114,7 @@ interface ProfileTipsStatsProps {
 }
 
 export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
+  const chainId = useChainId();
   const now = Math.floor(Date.now() / 1000);
   const [activeRounds, setActiveRounds] = useState<Round[]>([]);
   const [isMapVisible, setMapVisible] = useState<boolean>(false);
@@ -127,12 +129,12 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
     const getActiveRounds = async () => {
       if (!dataFetched) {
         const oneWeekPrior = now - 604800;
-        const rounds = await getCurrentActiveRounds(oneWeekPrior);
+        const rounds = await getCurrentActiveRounds(chainId, oneWeekPrior);
 
         const roundPromises = rounds.map(async (round: RoundReturn) => {
           const [userRound, quadraticTipping] = await Promise.all([
-            getRoundUserData(round.id, ownedBy!),
-            getUserQuadraticTippingData(round.id, ownedBy!)
+            getRoundUserData(chainId, round.id, ownedBy!),
+            getUserQuadraticTippingData(chainId, round.id, ownedBy!)
           ]);
 
           const votes = quadraticTipping[0]?.votes;
@@ -180,7 +182,7 @@ export const ProfileTipsStats: FC<ProfileTipsStatsProps> = ({ ownedBy }) => {
     };
 
     getActiveRounds();
-  }, [ownedBy, dataFetched]);
+  }, [ownedBy, dataFetched, chainId]);
 
   function getTimeLeft(timestamp: number): string {
     const now = new Date();
