@@ -513,6 +513,7 @@ export interface MatchingUpdateEntry {
   projectId: string;
   matchAmountInUSD: number;
   totalContributionsInUSD: number;
+  totalContributionsInToken: string;
   matchPoolPercentage: number;
   matchAmountInToken: number;
   uniqueContributorsCount: number;
@@ -526,23 +527,23 @@ type ApiResult<T> = {
 export const useGetRoundMatchingUpdate = (roundId: string) => {
   const chainId = useChainId();
   return useQuery(
-    ['round-matching-update', roundId],
+    ['round-matching-overview', roundId],
     () => {
       // TODO: Do not hardcode chainId
-      return axios.post<ApiResult<MatchingUpdateEntry[]>>(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/${chainId}/${roundId}`
+      return axios.get<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/${chainId}/${roundId}`
       );
     },
     {
       select: (response) => {
-        const totalTips = response.data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
         const posts: Record<string, MatchingUpdateEntry> = {};
 
-        for (const entry of response.data.data) {
-          posts[entry.projectId] = entry;
+        if (Array.isArray(response.data.data)) {
+          for (const entry of response.data.data) {
+            posts[entry.projectId] = entry;
+          }
         }
         return {
-          totalTips,
           posts
         };
       }
@@ -621,6 +622,36 @@ export const useQueryTokenPrices = () => {
     },
     {
       refetchOnMount: false
+    }
+  );
+};
+
+export interface QFContributionSummary {
+  contributionCount: number;
+  uniqueContributors: number;
+  totalContributionsInUSD?: number;
+  averageUSDContribution?: number;
+  totalTippedInToken: string;
+  averageTipInToken: string;
+}
+
+export const useGetQFContributionSummary = (roundId: string) => {
+  const chainId = useChainId();
+  return useQuery(
+    ['qf-contribution-summary', roundId],
+    () => {
+      return axios.get<ApiResult<QFContributionSummary>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/summary/round/${chainId}/${roundId}`
+      );
+    },
+    {
+      refetchOnMount: false,
+      select: (response) => {
+        if (!response.data.success) {
+          return null;
+        }
+        return response.data.data;
+      }
     }
   );
 };
