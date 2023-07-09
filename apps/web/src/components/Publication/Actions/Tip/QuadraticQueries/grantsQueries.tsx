@@ -52,9 +52,19 @@ export async function getRoundInfo(grantsRound: string) {
       }
     }
   }`;
+
   const data = await request(query);
   return data.rounds[0];
 }
+
+export const useGetRoundInfo = (grantsRound: string | undefined) => {
+  return useQuery(['getRoundInfo', grantsRound], async () => {
+    if (!grantsRound) {
+      return null;
+    }
+    return getRoundInfo(grantsRound);
+  });
+};
 
 export async function getUserQuadraticTippingData(roundAddress: string, address: string) {
   const query = `
@@ -240,6 +250,37 @@ export async function getPostQuadraticTipping(pubId: string, roundAddress: strin
 
   const data = await request(query, variables);
   return data.quadraticTipping;
+}
+
+export function useGetPostQuadraticTipping(pubId: string, roundAddress: string | undefined) {
+  return useQuery(
+    ['getPostQuadraticTipping', pubId, roundAddress],
+    async () => {
+      if (!roundAddress) {
+        return null;
+      }
+      return getPostQuadraticTipping(pubId, roundAddress);
+    },
+    {
+      select: (data) => {
+        if (!data) {
+          return data;
+        }
+        const votes = data?.votes || [];
+        let voteTipTotal = BigNumber.from(0);
+        for (const vote of votes) {
+          if (!vote) {
+            continue;
+          }
+          voteTipTotal = voteTipTotal.add(BigNumber.from(vote.amount));
+        }
+        return {
+          ...data,
+          voteTipTotal
+        };
+      }
+    }
+  );
 }
 
 export async function getRoundQuadraticTipping(roundAddress: string) {
@@ -477,24 +518,27 @@ export interface MatchingUpdateEntry {
   uniqueContributorsCount: number;
 }
 
+type ApiResult<T> = {
+  data: T;
+  success: boolean;
+};
+
 export const useGetRoundMatchingUpdate = (roundId: string) => {
   const chainId = useChainId();
   return useQuery(
     ['round-matching-update', roundId],
     () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/${chainId}/${roundId}`,
-        {
-          method: 'POST'
-        }
-      ).then((res) => res.json() as Promise<{ data: MatchingUpdateEntry[] }>);
+      // TODO: Do not hardcode chainId
+      return axios.post<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/update/match/round/${chainId}/${roundId}`
+      );
     },
     {
-      select: (data) => {
-        const totalTips = data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
+      select: (response) => {
+        const totalTips = response.data.data.reduce((acc, curr) => acc + curr.totalContributionsInUSD, 0);
         const posts: Record<string, MatchingUpdateEntry> = {};
 
-        for (const entry of data.data) {
+        for (const entry of response.data.data) {
           posts[entry.projectId] = entry;
         }
         return {
@@ -506,13 +550,74 @@ export const useGetRoundMatchingUpdate = (roundId: string) => {
   );
 };
 
+export const useGetManyPublicationMatchData = (roundId: string, publicationIds: string[]) => {
+  const chainId = useChainId();
+  return useQuery(
+    ['publication-match-data', roundId, publicationIds],
+    () => {
+      return axios.get<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/${chainId}/${roundId}`,
+        {
+          params: {
+            projectId: publicationIds
+          }
+        }
+      );
+    },
+    {
+      select: (response) => {
+        const result: Record<string, MatchingUpdateEntry> = {};
+
+        if (!response.data.success) {
+          return result;
+        }
+
+        for (const entry of response.data.data) {
+          result[entry.projectId] = entry;
+        }
+
+        return result;
+      }
+    }
+  );
+};
+
+export const useGetPublicationMatchData = (roundId: string | undefined, publicationId: string) => {
+  const chainId = useChainId();
+  return useQuery(
+    ['publication-match-data', roundId, publicationId],
+    () => {
+      if (!roundId) {
+        return null;
+      }
+      return axios.get<ApiResult<MatchingUpdateEntry[]>>(
+        `${process.env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/data/match/round/projectIds/${chainId}/${roundId}`,
+        {
+          params: {
+            projectId: [publicationId]
+          }
+        }
+      );
+    },
+    {
+      select: (response) => {
+        if (!response?.data.success) {
+          return null;
+        }
+
+        return response.data.data[0];
+      }
+    }
+  );
+};
+
 export const useQueryTokenPrices = () => {
   return useQuery(
     ['token-prices'],
     () => {
-      return fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`
-      ).then((res) => res.json());
+      return axios
+        .get(`https://api.coingecko.com/api/v3/simple/price?ids=weth%2Cmatic-network%2Cdai&vs_currencies=usd`)
+        .then((response) => response.data);
     },
     {
       refetchOnMount: false

@@ -1,6 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import TipsOutlineIcon from '@components/Shared/TipIcons/TipsOutlineIcon';
 import TipsSolidIcon from '@components/Shared/TipIcons/TipsSolidIcon';
+import { getTokenName } from '@components/utils/getTokenName';
 import { t } from '@lingui/macro';
 import { ethers } from 'ethers';
 import { motion } from 'framer-motion';
@@ -11,9 +12,14 @@ import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Modal, Tooltip } from 'ui';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 
-import { getPostQuadraticTipping, getRoundInfo } from './QuadraticQueries/grantsQueries';
+import {
+  getPostQuadraticTipping,
+  getRoundInfo,
+  useGetPublicationMatchData,
+  useGetRoundInfo
+} from './QuadraticQueries/grantsQueries';
 
 const Tipping = dynamic(() => import('./Tipping'), {
   loading: () => <Loader message={t`Loading tips`} />
@@ -24,6 +30,9 @@ interface TipProps {
 }
 
 const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
+  const { data: matchingData } = useGetPublicationMatchData(roundAddress, publication.id);
+  const { data: roundInfo } = useGetRoundInfo(roundAddress);
+  const chainId = useChainId();
   const ownedBy = publication?.profile?.ownedBy;
   const { address } = useAccount();
   const [userTipCount, setUserTipCount] = useState(0);
@@ -126,6 +135,21 @@ const Tip: FC<TipProps> = ({ publication, roundAddress }) => {
             >
               {nFormatter(tipCount)}
             </span>
+            {matchingData && (
+              <span
+                className={`${
+                  roundOpen && address !== undefined ? 'text-red-500' : 'text-red-200'
+                } ml-3 text-[11px] sm:text-xs`}
+              >
+                {roundOpen
+                  ? `Match estimate ${matchingData.matchAmountInToken} ${getTokenName(roundInfo.token, {
+                      id: chainId
+                    })}`
+                  : `Matched with ${matchingData.matchAmountInToken} ${getTokenName(roundInfo.token, {
+                      id: chainId
+                    })}`}
+              </span>
+            )}
           </div>
         )}
       </div>
