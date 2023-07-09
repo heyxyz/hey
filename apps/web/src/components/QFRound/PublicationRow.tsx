@@ -1,19 +1,26 @@
 import type { MatchingUpdateEntry } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
+import { useGetRoundInfo } from '@components/Publication/Actions/Tip/QuadraticQueries/grantsQueries';
 import SinglePublication from '@components/Publication/SinglePublication';
+import { getTokenName } from '@components/utils/getTokenName';
 import type { Publication } from 'lens';
 import { usePublicationQuery } from 'lens';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useAppStore } from 'src/store/app';
+import { useChainId } from 'wagmi';
 
 export const PublicationRow = ({
   publicationId,
-  matchingUpdateEntry
+  matchingUpdateEntry,
+  roundAddress
 }: {
   publicationId: string;
+  roundAddress: string;
   matchingUpdateEntry?: MatchingUpdateEntry;
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const chainId = useChainId();
+  const { data: roundInfo } = useGetRoundInfo(roundAddress);
   const { push } = useRouter();
 
   const { data, loading, error } = usePublicationQuery({
@@ -32,6 +39,8 @@ export const PublicationRow = ({
     return null;
   }
 
+  const tokenName = getTokenName(roundInfo?.token, { id: chainId });
+
   return (
     <div
       className="cursor-pointer p-4  hover:bg-gray-100"
@@ -44,11 +53,12 @@ export const PublicationRow = ({
         showThread={false}
         publication={data.publication as Publication}
       />
-      {matchingUpdateEntry && (
+      {!!(matchingUpdateEntry && roundInfo) && (
         <div className="font-grey-700 text-brand-600">
-          $ {matchingUpdateEntry?.totalContributionsInUSD} by {matchingUpdateEntry?.uniqueContributorsCount}{' '}
-          tippers - receives {matchingUpdateEntry?.matchPoolPercentage * 100}% of matching funds ($
-          {matchingUpdateEntry?.matchAmountInUSD})
+          {matchingUpdateEntry?.totalContributionsInToken} {tokenName} by{' '}
+          {matchingUpdateEntry?.uniqueContributorsCount} tippers - receives{' '}
+          {parseFloat((matchingUpdateEntry?.matchPoolPercentage * 100).toFixed(2))}% of matching funds (
+          {matchingUpdateEntry.matchAmountInToken} {tokenName})
         </div>
       )}
     </div>
