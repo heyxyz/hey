@@ -646,6 +646,7 @@ export const useGetQFContributionSummary = (roundId: string) => {
     },
     {
       refetchOnMount: false,
+      refetchInterval: 60 * 1000,
       select: (response) => {
         if (!response.data.success) {
           return null;
