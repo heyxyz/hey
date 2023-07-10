@@ -87,25 +87,28 @@ const Lobby: FC = () => {
   }, [roomState]);
 
   useUpdateEffect(() => {
+    if (!isCamOff) {
+      stopVideoStream();
+      fetchVideoStream(videoDevice.deviceId);
+    }
+  }, [videoDevice]);
+
+  useUpdateEffect(() => {
     if (!isMicMuted) {
+      stopAudioStream();
       fetchAudioStream(audioInputDevice.deviceId);
     }
   }, [audioInputDevice]);
 
   useUpdateEffect(() => {
     if (micStream) {
+      stopAudioStream();
       fetchAudioStream(audioInputDevice.deviceId);
     }
   }, [audioOutputDevice]);
 
-  useUpdateEffect(() => {
-    if (!isCamOff) {
-      fetchVideoStream(videoDevice.deviceId);
-    }
-  }, [videoDevice]);
-
   return (
-    <main className="bg-lobby flex h-screen flex-col items-center justify-center text-slate-100">
+    <main className="bg-lobby flex h-screen flex-col items-center justify-center">
       <div className="flex h-[35vh] w-[35vw] flex-col items-center justify-center gap-4">
         <div className="relative mx-auto flex w-fit items-center justify-center rounded-lg border-black bg-gray-900 text-center">
           <div className="flex h-[35vh] w-[35vw] items-center justify-center rounded-lg ">
@@ -184,17 +187,17 @@ const Lobby: FC = () => {
             </Modal>
           </div>
         </div>
-        <div className="flex w-full items-center outline-none">
-          <div className="flex w-full flex-col justify-center gap-1 outline-none">
+        <div className="flex w-full items-center">
+          <div className="flex w-full flex-col justify-center gap-1">
             Set a display name
-            <div className="gap- flex w-full items-center rounded-[10px] border border-zinc-800 px-3 text-slate-300 outline-none backdrop-blur-[400px] focus-within:border-slate-600">
+            <div className="gap- flex w-full items-center rounded-[10px] border border-zinc-800 pl-3 text-slate-300 backdrop-blur-[400px]">
               <div className="mr-2">
                 <UserIcon className="h-6 w-6 text-slate-100" />
               </div>
               <input
                 type="text"
                 placeholder="Enter your name"
-                className="flex-1 bg-transparent py-3"
+                className="flex-1 rounded-lg border-transparent bg-transparent py-3 outline-none focus-within:border-transparent focus:border-transparent focus-visible:border-transparent"
                 value={displayUserName}
                 onChange={(e) => setDisplayUserName(e.target.value)}
               />
