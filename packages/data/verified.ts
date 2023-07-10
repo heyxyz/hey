@@ -249,6 +249,7 @@ export const mainnetVerified = [
   '0x0636', // jenny
   '0xe2ae', // philand
   '0x01c173', // pancakesbrah
+  '0x01ce1c', // takoprotocol
   ...mainnetLensTeamMembers,
   ...mainnetStaffs
 ];
