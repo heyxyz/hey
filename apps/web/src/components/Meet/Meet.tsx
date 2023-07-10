@@ -2,7 +2,6 @@ import { AdjustmentsIcon } from '@heroicons/react/outline';
 import {
   useAudio,
   useEventListener,
-  useHuddle01,
   usePeers,
   useRoom,
   useVideo
