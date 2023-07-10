@@ -1,4 +1,4 @@
-import { AdjustmentsIcon, UserIcon } from '@heroicons/react/outline';
+import { UserIcon } from '@heroicons/react/outline';
 import { ArrowRightIcon } from '@heroicons/react/solid';
 import { useDisplayName } from '@huddle01/react/app-utils';
 import {
@@ -9,20 +9,21 @@ import {
   useRoom,
   useVideo
 } from '@huddle01/react/hooks';
-import { Modal } from '@lenster/ui';
+import { clsx } from 'clsx';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMeetPersistStore } from 'src/store/meet';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { BasicIcons } from './BasicIcons';
-import DropDownMenu from './DropDownMenu';
+import { BasicIcons } from '../BasicIcons';
+import SwitchDeviceMenu from '../SwitchDeviceMenu';
 
-const Lobby: FC = () => {
-  const { query } = useRouter();
-  const { initialize, roomState } = useHuddle01();
+const Lobby: NextPage = () => {
+  const { query, push } = useRouter();
+  const { initialize } = useHuddle01();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { joinLobby, isLobbyJoined } = useLobby();
   const { joinRoom } = useRoom();
@@ -42,7 +43,8 @@ const Lobby: FC = () => {
     audioInputDevice,
     audioOutputDevice
   } = useMeetPersistStore();
-  const [showSettings, setShowSettings] = useState(false);
+
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     if (query.roomid) {
@@ -81,10 +83,8 @@ const Lobby: FC = () => {
   }, [displayUserName]);
 
   useEffect(() => {
-    if (!isLobbyJoined) {
-      joinLobby(query.roomid as string);
-    }
-  }, [roomState]);
+    joinLobby(query.roomid as string);
+  }, []);
 
   useUpdateEffect(() => {
     if (!isCamOff) {
@@ -107,10 +107,19 @@ const Lobby: FC = () => {
     }
   }, [audioOutputDevice]);
 
+  useEventListener('room:joined', () => {
+    push(`/meet/${query.roomid}`);
+  });
+
   return (
     <main className="bg-lobby flex h-screen flex-col items-center justify-center">
       <div className="flex h-[35vh] w-[35vw] flex-col items-center justify-center gap-4">
-        <div className="relative mx-auto flex w-fit items-center justify-center rounded-lg border-black bg-gray-900 text-center">
+        <div
+          className={clsx(
+            resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+            'relative mx-auto flex w-fit items-center justify-center rounded-lg text-center'
+          )}
+        >
           <div className="flex h-[35vh] w-[35vw] items-center justify-center rounded-lg ">
             {camStream ? (
               <video
@@ -121,25 +130,37 @@ const Lobby: FC = () => {
               />
             ) : (
               <img
-                src="/default-avatar.png"
+                src="/default-avatar.svg"
                 alt="avatar"
                 className="mb-16 mt-16 h-24 w-24"
               />
             )}
           </div>
         </div>
-        <div className="flex items-center justify-center self-stretch bg-gray-900 p-2">
+        <div
+          className={clsx(
+            resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+            'flex items-center justify-center self-stretch rounded-lg p-2'
+          )}
+        >
           <div className="flex w-full flex-row items-center justify-center gap-8">
             {!camStream ? (
               <button
                 onClick={() => {
                   fetchVideoStream(videoDevice.deviceId);
                 }}
+                className="bg-brand-500 flex h-10 w-10 items-center justify-center rounded-xl"
               >
                 {BasicIcons.inactive['cam']}
               </button>
             ) : (
-              <button onClick={stopVideoStream}>
+              <button
+                onClick={stopVideoStream}
+                className={clsx(
+                  resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+                  'flex h-10 w-10 items-center justify-center rounded-xl'
+                )}
+              >
                 {BasicIcons.active['cam']}
               </button>
             )}
@@ -148,6 +169,7 @@ const Lobby: FC = () => {
                 onClick={() => {
                   fetchAudioStream(audioInputDevice.deviceId);
                 }}
+                className="bg-brand-500 flex h-10 w-10 items-center justify-center rounded-xl"
               >
                 {BasicIcons.inactive['mic']}
               </button>
@@ -156,48 +178,40 @@ const Lobby: FC = () => {
                 onClick={() => {
                   stopAudioStream();
                 }}
+                className={clsx(
+                  resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+                  'flex h-10 w-10 items-center justify-center rounded-xl'
+                )}
               >
                 {BasicIcons.active['mic']}
               </button>
             )}
-            <button onClick={() => setShowSettings(!showSettings)}>
-              <AdjustmentsIcon className="h-6 w-6 text-[#845EEE]" />
-            </button>
-            <Modal show={showSettings} onClose={() => setShowSettings(false)}>
-              <div className="rounded-xl bg-gray-900 p-5">
-                <div className="flex items-center gap-2 self-stretch text-slate-500">
-                  {BasicIcons.active['cam']}
-                  <div className="flex h-[2.75rem] items-center justify-between self-stretch">
-                    <DropDownMenu deviceType={'video'} />
-                  </div>
-                </div>
-                <div className="mt-5 flex items-center gap-2 self-stretch text-slate-500">
-                  {BasicIcons.active['mic']}
-                  <div className="flex h-[2.75rem] items-center justify-between self-stretch">
-                    <DropDownMenu deviceType={'audioInput'} />
-                  </div>
-                </div>
-                <div className="mt-5 flex items-center gap-2 self-stretch text-slate-500">
-                  {BasicIcons.speaker}
-                  <div className="flex h-[2.75rem] items-center justify-between self-stretch">
-                    <DropDownMenu deviceType={'audioOutput'} />
-                  </div>
-                </div>
-              </div>
-            </Modal>
+            <SwitchDeviceMenu />
           </div>
         </div>
         <div className="flex w-full items-center">
           <div className="flex w-full flex-col justify-center gap-1">
             Set a display name
-            <div className="gap- flex w-full items-center rounded-[10px] border border-zinc-800 pl-3 text-slate-300 backdrop-blur-[400px]">
+            <div
+              className={clsx(
+                resolvedTheme == 'dark' ? 'text-slate-300' : 'text-gray-900',
+                'gap- flex w-full items-center rounded-[10px] border border-zinc-800 pl-3 backdrop-blur-[400px]'
+              )}
+            >
               <div className="mr-2">
-                <UserIcon className="h-6 w-6 text-slate-100" />
+                <UserIcon
+                  className={clsx(
+                    resolvedTheme == 'dark'
+                      ? 'text-slate-100'
+                      : 'text-gray-900',
+                    'h-6 w-6'
+                  )}
+                />
               </div>
               <input
                 type="text"
                 placeholder="Enter your name"
-                className="flex-1 rounded-lg border-transparent bg-transparent py-3 outline-none focus-within:border-transparent focus:border-transparent focus-visible:border-transparent"
+                className="flex-1 rounded-lg border-transparent bg-transparent py-3 outline-none focus-within:outline-none hover:outline-none focus:border-transparent focus:outline-none"
                 value={displayUserName}
                 onChange={(e) => setDisplayUserName(e.target.value)}
               />
@@ -206,7 +220,7 @@ const Lobby: FC = () => {
         </div>
         <div className="flex w-full items-center">
           <button
-            className="bg- mt-2 flex w-full items-center justify-center rounded-md bg-[#845EEE] p-2 text-slate-100"
+            className="bg- bg-brand-500 mt-2 flex w-full items-center justify-center rounded-md p-2 text-slate-100"
             onClick={async () => {
               if (isLobbyJoined) {
                 joinRoom();

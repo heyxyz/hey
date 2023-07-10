@@ -1,13 +1,22 @@
 import { useRoom } from '@huddle01/react/hooks';
 import type { NextPage } from 'next';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
-import Lobby from './Lobby';
 import Meet from './Meet';
 
-const Main: NextPage = () => {
+const MeetRoom: NextPage = () => {
   const { isRoomJoined } = useRoom();
+  const { push, query } = useRouter();
 
-  return isRoomJoined ? <Meet /> : <Lobby />;
+  useEffect(() => {
+    if (!isRoomJoined) {
+      push(`/meet/${query.roomid}/lobby`);
+      return;
+    }
+  }, []);
+
+  return <Meet />;
 };
 
-export default Main;
+export default MeetRoom;

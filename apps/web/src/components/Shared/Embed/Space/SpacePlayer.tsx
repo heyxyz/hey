@@ -31,7 +31,7 @@ interface SpacePlayerProps {
 const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [accessToken, setAccessToken] = useState('');
-  const { initialize, isInitialized } = useHuddle01();
+  const { initialize, isInitialized, me } = useHuddle01();
   const { joinLobby, isLobbyJoined } = useLobby();
   const {
     fetchAudioStream,
@@ -133,7 +133,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
       </div>
       {isRoomJoined ? (
         <div className="flex items-center justify-between space-x-2 border-t p-5">
-          {Object.values(peers)[0].role === 'host' ? (
+          {me.role === 'host' ? (
             <div className="flex items-center space-x-2">
               <Button
                 disabled={!produceAudio.isCallable}

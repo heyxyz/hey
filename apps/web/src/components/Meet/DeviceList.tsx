@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
-import { useAudio, useVideo } from '@huddle01/react/hooks';
 import clsx from 'clsx';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
 type DeviceListProps = {
@@ -9,13 +9,8 @@ type DeviceListProps = {
   setDevice: (device: MediaDeviceInfo) => void;
 };
 
-const DeviceList: FC<DeviceListProps> = ({
-  devices,
-  deviceType,
-  setDevice
-}) => {
-  const { fetchVideoStream } = useVideo();
-  const { fetchAudioStream } = useAudio();
+const DeviceList: FC<DeviceListProps> = ({ devices, setDevice }) => {
+  const { resolvedTheme } = useTheme();
 
   return (
     <>
@@ -24,8 +19,12 @@ const DeviceList: FC<DeviceListProps> = ({
           {({ active }) => (
             <button
               className={clsx(
-                active ? 'bg-black text-slate-500' : 'text-slate-500',
-                'block px-4 py-2 text-sm'
+                'flex h-full w-full justify-start rounded-lg px-4 py-2 text-sm ',
+                !active
+                  ? 'text-slate-500'
+                  : resolvedTheme == 'dark'
+                  ? 'bg-black text-slate-100'
+                  : 'bg-brand-500 text-brand-100'
               )}
               key={device.deviceId}
               onClick={() => {

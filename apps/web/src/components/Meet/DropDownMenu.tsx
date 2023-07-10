@@ -1,5 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import clsx from 'clsx';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { Fragment, useEffect, useState } from 'react';
 import { useMeetPersistStore } from 'src/store/meet';
@@ -27,6 +29,8 @@ const DropDownMenu: FC<DropDownProps> = ({ deviceType }) => {
   const [audioOutputDevices, setAudioOutputDevices] = useState<
     MediaDeviceInfo[]
   >([]);
+
+  const { resolvedTheme } = useTheme();
 
   const listMediaDevices = async () => {
     try {
@@ -66,7 +70,14 @@ const DropDownMenu: FC<DropDownProps> = ({ deviceType }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-slate-500 shadow-sm ring-1 ring-inset">
+        <Menu.Button
+          className={clsx(
+            resolvedTheme == 'dark'
+              ? 'bg-gray-900 text-slate-500'
+              : 'bg-brand-100 text-brand-500',
+            'inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset'
+          )}
+        >
           {deviceType == 'video'
             ? videoDevice?.label
             : deviceType == 'audioInput'
@@ -88,8 +99,13 @@ const DropDownMenu: FC<DropDownProps> = ({ deviceType }) => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-gray-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
+        <Menu.Items
+          className={clsx(
+            resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+            'absolute right-0 z-10 mt-2 w-full origin-top-right rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'
+          )}
+        >
+          <div className="">
             {deviceType === 'video' && (
               <DeviceList
                 devices={videoDevices}
