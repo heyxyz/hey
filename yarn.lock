@@ -2577,20 +2577,20 @@
     superjson "^1.12.2"
     zod "^3.21.4"
 
-"@huddle01/react@0.0.13-beta.2":
-  version "0.0.13-beta.2"
-  resolved "https://registry.yarnpkg.com/@huddle01/react/-/react-0.0.13-beta.2.tgz#0b56297a2881ccb8d61e00550ef46257151f0a20"
-  integrity sha512-Ehgi5A1Om23DEY5Sl4du9fld76ON7xjX31FPRI0l8fd7JL/qw0Y+AwZspmgCQxdNyTRfSskp/IKGyLhfG6ZBDw==
+"@huddle01/react@0.0.13-beta.5":
+  version "0.0.13-beta.5"
+  resolved "https://registry.yarnpkg.com/@huddle01/react/-/react-0.0.13-beta.5.tgz#d3647545f4c2b3f62d704be9b33fd90fc5348919"
+  integrity sha512-2Ns2RXp8hUumK4j+M39gUMPwvI+DuUt0PHWAO2uFaRc60j0X6uByFGEx6P1cmPKy61bFRBfJRJtisKFkn+I0og==
   dependencies:
-    "@huddle01/web-core" "0.0.15-beta.2"
+    "@huddle01/web-core" "0.0.15-beta.4"
     jotai "^2.0.3"
     react "18.2.0"
     ws "^8.0.0"
 
-"@huddle01/web-core@0.0.15-beta.2":
-  version "0.0.15-beta.2"
-  resolved "https://registry.yarnpkg.com/@huddle01/web-core/-/web-core-0.0.15-beta.2.tgz#df75233f83bb3232869f27883a9f5199c3595e6a"
-  integrity sha512-+mkID0SKt99AWcnVTVXngTnIFh/SBEDXVRqsdlvOr3LmM7WuWWdmV9ZfrK2KahrRbJKDkGmEQrqop+JHltRg0A==
+"@huddle01/web-core@0.0.15-beta.4":
+  version "0.0.15-beta.4"
+  resolved "https://registry.yarnpkg.com/@huddle01/web-core/-/web-core-0.0.15-beta.4.tgz#64c430835d60db3bdccd5d8325850a8d58a2f0a6"
+  integrity sha512-2PSmtqBeHVODc4AoSQ8u3wUsMitJ7c71a3JcBJGgkLlF1kMinW/VsQaZrEVR39yXKcw5BH4bKL+mcjyqPiKqoQ==
   dependencies:
     axios "^1.4.0"
     mediasoup-client "^3.6.89"
