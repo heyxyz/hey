@@ -16,7 +16,7 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Metadata](../packages/workers/metadata/README.md) - Create metadata on Arweave via Bundlr
   - [Freshdesk](../packages/workers/freshdesk/README.md) - Create Freshdesk tickets
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
-  - [ENS Resolver](../packages/workers/ens-resolver/README.md) - Resolve Ethereum address to ENS names
+  - [ENS Resolver](../packages/workers/ens/README.md) - Resolve Ethereum address to ENS names
   - [Oembed](../packages/workers/oembed/README.md) - Create rich embeds for URLs also proxy images
   - [Spaces](../packages/workers/spaces/README.md) - Interact with Huddle API for Spaces
   - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Lenster
