@@ -151,7 +151,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     audioPublication,
     attachments,
     setAttachments,
-    addAttachments,
     isUploading,
     videoThumbnail,
     setVideoThumbnail,

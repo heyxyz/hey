@@ -13,13 +13,13 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.363.0",
+    "@aws-sdk/client-sts": "^3.369.0",
     "itty-router": "^4.0.13"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230518.0",
+    "@cloudflare/workers-types": "^4.20230710.0",
     "@lenster/config": "*",
     "typescript": "^5.1.6",
-    "wrangler": "^3.1.1"
+    "wrangler": "^3.1.2"
   }
 }
