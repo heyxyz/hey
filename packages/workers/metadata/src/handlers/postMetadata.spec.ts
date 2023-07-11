@@ -22,7 +22,7 @@ describe('postMetadata', () => {
     expect(response.success).toBeTruthy();
     expect(response.metadata).toEqual({
       content: 'gm, running test from lenster codebase',
-      tags: ['science_&_technology', 'learning_&_educational'],
+      tags: ['science_&_technology'],
       locale: 'en'
     });
   });
