@@ -3,6 +3,6 @@ main = "src/index.ts"
 compatibility_date = "2023-01-25"
 
 routes = [
-  "lenster.xyz/u/*",
-  "lenster.xyz/posts/*"
+  { pattern = "lenster.xyz/u/*", zone_name = "lenster.xyz" },
+  { pattern = "lenster.xyz/posts/*", zone_name = "lenster.xyz" }
 ]
