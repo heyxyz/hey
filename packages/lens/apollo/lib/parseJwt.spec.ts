@@ -1,5 +1,6 @@
-import { parseJwt } from '@lenster/lens/apollo/lib';
 import { describe, expect, test } from 'vitest';
+
+import parseJwt from './parseJwt';
 
 describe('parseJwt', () => {
   test('should parse and return token expiration time', () => {

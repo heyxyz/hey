@@ -17,26 +17,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Bootstrap 📦
         run: script/bootstrap
 
       - name: Typecheck 🔡
-        run: yarn typecheck:affected
+        run: pnpm typecheck:affected
 
       - name: Lint 🪩
-        run: yarn lint:affected
+        run: pnpm lint:affected
 
       - name: Prettier ✨
-        run: yarn prettier:affected
+        run: pnpm prettier:affected
 
       - name: Build 🎁
-        run: yarn build
+        run: pnpm build
 
       - name: Run Tests 🧪
-        run: yarn test:e2e
+        run: pnpm test:e2e

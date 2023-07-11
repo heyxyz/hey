@@ -10,7 +10,7 @@
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "yarn dev",
+    "start": "pnpm dev",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
   },
@@ -18,13 +18,13 @@
     "@apollo/client": "^3.7.17",
     "@lenster/data": "*",
     "@lenster/lib": "*",
-    "itty-router": "^4.0.13",
+    "itty-router": "^4.0.14",
     "viem": "^1.2.7"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230518.0",
+    "@cloudflare/workers-types": "^4.20230710.0",
     "@lenster/config": "*",
     "typescript": "^5.1.6",
-    "wrangler": "^3.1.1"
+    "wrangler": "^3.1.2"
   }
 }
