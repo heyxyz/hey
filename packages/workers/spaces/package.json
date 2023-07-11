@@ -15,7 +15,7 @@
   "dependencies": {
     "@lenster/lib": "*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
-    "itty-router": "^4.0.13",
+    "itty-router": "^4.0.14",
     "zod": "^3.21.4"
   },
   "devDependencies": {

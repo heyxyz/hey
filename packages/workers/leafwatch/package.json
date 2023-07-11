@@ -15,7 +15,7 @@
   "dependencies": {
     "@lenster/data": "*",
     "@lenster/lib": "*",
-    "itty-router": "^4.0.13",
+    "itty-router": "^4.0.14",
     "ua-parser-js": "^1.0.35",
     "zod": "^3.21.4"
   },
