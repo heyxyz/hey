@@ -15,7 +15,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "itty-router": "^4.0.13",
+    "itty-router": "^4.0.14",
     "viem": "^1.2.7",
     "zod": "^3.21.4"
   },
