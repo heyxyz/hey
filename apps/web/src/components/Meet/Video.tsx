@@ -34,6 +34,7 @@ const VideoElem = ({ track }: { track: MediaStreamTrack }) => {
       className="min-h-full min-w-full rounded-lg object-cover"
       ref={videoRef}
       autoPlay
+      style={{ transform: 'rotateY(180deg)' }}
     />
   );
 };

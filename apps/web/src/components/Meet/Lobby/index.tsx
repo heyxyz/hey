@@ -21,6 +21,10 @@ import { useUpdateEffect } from 'usehooks-ts';
 import { BasicIcons } from '../BasicIcons';
 import SwitchDeviceMenu from '../SwitchDeviceMenu';
 
+type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
+  setSinkId: (id: string) => void;
+};
+
 const Lobby: NextPage = () => {
   const { query, push } = useRouter();
   const { initialize } = useHuddle01();
@@ -43,6 +47,8 @@ const Lobby: NextPage = () => {
     audioInputDevice,
     audioOutputDevice
   } = useMeetPersistStore();
+
+  const [audio] = useState(new Audio() as HTMLAudioElementWithSetSinkId);
 
   const { resolvedTheme } = useTheme();
 
@@ -101,10 +107,7 @@ const Lobby: NextPage = () => {
   }, [audioInputDevice]);
 
   useUpdateEffect(() => {
-    if (micStream) {
-      stopAudioStream();
-      fetchAudioStream(audioInputDevice.deviceId);
-    }
+    audio.setSinkId(audioOutputDevice.deviceId);
   }, [audioOutputDevice]);
 
   useEventListener('room:joined', () => {

@@ -1,6 +1,7 @@
 import {
   useAudio,
   useEventListener,
+  useHuddle01,
   usePeers,
   useRoom,
   useVideo
@@ -8,7 +9,7 @@ import {
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMeetPersistStore } from 'src/store/meet';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -16,6 +17,10 @@ import AudioElem from './Audio';
 import { BasicIcons } from './BasicIcons';
 import SwitchDeviceMenu from './SwitchDeviceMenu';
 import VideoElem from './Video';
+
+type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
+  setSinkId: (id: string) => void;
+};
 
 const Meet: FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -44,7 +49,10 @@ const Meet: FC = () => {
     audioOutputDevice
   } = useMeetPersistStore();
   const { peers } = usePeers();
+  const { me } = useHuddle01();
   const { resolvedTheme } = useTheme();
+
+  const [audio] = useState(new Audio() as HTMLAudioElementWithSetSinkId);
 
   useEventListener('app:cam-on', async () => {
     toggleCamOff(false);
@@ -111,10 +119,7 @@ const Meet: FC = () => {
   }, [audioInputDevice]);
 
   useUpdateEffect(() => {
-    if (micStream) {
-      stopAudioStream();
-      fetchAudioStream(audioInputDevice.deviceId);
-    }
+    audio.setSinkId(audioOutputDevice.deviceId);
   }, [audioOutputDevice]);
 
   return (
@@ -127,7 +132,7 @@ const Meet: FC = () => {
                 ? 'my-10 h-full w-[60vw]'
                 : 'h-[50vh] w-[40vw]',
               resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
-              'flex flex-shrink-0 items-center justify-center rounded-lg'
+              'relative flex flex-shrink-0 items-center justify-center rounded-lg'
             )}
           >
             {!isCamOff ? (
@@ -136,6 +141,7 @@ const Meet: FC = () => {
                 autoPlay
                 muted
                 className="h-full w-full rounded-lg object-cover"
+                style={{ transform: 'rotateY(180deg)' }}
               />
             ) : (
               <img
@@ -144,14 +150,25 @@ const Meet: FC = () => {
                 className="mb-16 mt-16 h-32 w-32"
               />
             )}
+            <div
+              className={clsx(
+                resolvedTheme == 'dark'
+                  ? 'bg-gray-900 text-slate-100'
+                  : 'text-brand-500 bg-brand-100',
+                'absolute bottom-1 left-1 rounded-lg p-1'
+              )}
+            >
+              {me.displayName ?? 'Me'}
+            </div>
           </div>
 
-          {Object.values(peers).map(({ cam, peerId, mic }) => (
+          {Object.values(peers).map(({ cam, peerId, mic, displayName }) => (
             <div
               key={peerId}
-              className={`flex h-[50vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg ${
-                cam ? 'bg-transparent' : 'bg-gray-900'
-              }`}
+              className={clsx(
+                resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+                'relative flex h-[50vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg'
+              )}
             >
               {cam ? (
                 <VideoElem track={cam} key={peerId} />
@@ -164,6 +181,16 @@ const Meet: FC = () => {
                 />
               )}
               {mic && <AudioElem track={mic} key={peerId} />}
+              <div
+                className={clsx(
+                  resolvedTheme == 'dark'
+                    ? 'bg-gray-900 text-slate-100'
+                    : 'text-brand-500 bg-brand-100',
+                  'absolute bottom-1 left-1 rounded-lg p-1'
+                )}
+              >
+                {displayName ?? 'Me'}
+              </div>
             </div>
           ))}
         </div>
