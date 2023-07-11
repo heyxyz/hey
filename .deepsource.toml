@@ -6,7 +6,7 @@ exclude_patterns = [
   ".github",
   ".husky",
   ".vscode",
-  "yarn.lock",
+  "pnpm-lock.yaml",
   "packages/lens/generated.ts",
   "packages/workers/snapshot-relay/generated.ts",
 ]

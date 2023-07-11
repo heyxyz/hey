@@ -9,7 +9,7 @@
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "yarn dev",
+    "start": "pnpm dev",
     "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
