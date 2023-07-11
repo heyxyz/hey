@@ -1,5 +1,5 @@
 {
-  "name": "@workers/ens-resolver",
+  "name": "@workers/ens",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
