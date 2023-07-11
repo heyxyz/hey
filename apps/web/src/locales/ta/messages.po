@@ -210,26 +210,6 @@ msgstr "முதல் 24 மணிநேரத்திற்கு சேக�
 msgid "Collect settings"
 msgstr "சேகரிப்பு அமைப்புகள்"
 
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
-msgid "Search for GIFs"
-msgstr "GIF களைத் தேடுங்கள்"
-
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
-msgid "No GIFs found."
-msgstr "GIF கள் எதுவும் காணப்படவில்லை."
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "Loading GIFs"
-msgstr "GIFகளை ஏற்றுகிறது"
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "GIF"
-msgstr ""
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "Select GIF"
-msgstr "GIF ஐத் தேர்ந்தெடுக்கவும்"
-
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -1950,50 +1930,77 @@ msgstr "செயலி அமைப்புகள்"
 msgid "Note: Cleaning will log you out"
 msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
 
-#: src/components/Settings/Delete/index.tsx
-msgid "Delete Profile • {APP_NAME}"
-msgstr "சுயவிவரத்தை நீக்கு • {APP_NAME}"
-
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
 msgstr "Google அல்லது Bing போன்ற தேடுபொறிகளில் சில கணக்குத் தகவல்கள் இன்னும் கிடைக்கக்கூடும்."
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Your @handle will be released immediately after deleting the account."
 msgstr "கணக்கை நீக்கிய உடனேயே உங்கள் @handle வெளியிடப்படும்."
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Deleting..."
 msgstr "நீக்குகிறது..."
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr "உங்கள் கணக்கை நீக்கவும்"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
 msgstr "ஆபத்தான இடம்"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
 msgstr "நீங்கள் எல்லா விளைவுகளையும் படித்துவிட்டீர்கள் என்பதை உறுதிசெய்து, எப்படியும் உங்கள் கணக்கை நீக்க விரும்புகிறீர்கள்"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 msgid "Yes, delete my account"
 msgstr "ஆம், எனது கணக்கை நீக்கவும்"
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Disable profile guardian"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "This will disable the Profile Guardian and allow you to do some actions like transfer, burn and approve without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "A 7-day Security Cooldown Period need to be elapsed for the Profile Guardian to become effectively disabled."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "After the Profile Guardian is effectively disabled, you will be able to execute approvals and transfers without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Unprotecting..."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Unprotect your profile"
+msgstr ""
+
+#: src/components/Settings/Danger/index.tsx
+msgid "Delete Profile • {APP_NAME}"
+msgstr "சுயவிவரத்தை நீக்கு • {APP_NAME}"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -3015,4 +3022,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

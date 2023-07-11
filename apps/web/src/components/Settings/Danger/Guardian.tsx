@@ -96,30 +96,22 @@ const GuardianSettings: FC = () => {
       </div>
       <p>
         <Trans>
-          This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including Lenster.
-          All your data will be wiped out immediately and you won't be able to
-          get it back.
+          This will disable the Profile Guardian and allow you to do some
+          actions like transfer, burn and approve without restrictions.
         </Trans>
       </p>
       <div className="text-lg font-bold">What else you should know</div>
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           <Trans>
-            You cannot restore your Lens profile if it was accidentally or
-            wrongfully deleted.
+            A 7-day Security Cooldown Period need to be elapsed for the Profile
+            Guardian to become effectively disabled.
           </Trans>
         </p>
         <p className="py-3">
           <Trans>
-            Some account information may still be available in search engines,
-            such as Google or Bing.
-          </Trans>
-        </p>
-        <p className="py-3">
-          <Trans>
-            Your @handle will be released immediately after deleting the
-            account.
+            After the Profile Guardian is effectively disabled, you will be able
+            to execute approvals and transfers without restrictions.
           </Trans>
         </p>
       </div>
