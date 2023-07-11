@@ -1,4 +1,4 @@
-query Snapshot($id: String, $where: VoteWhere) {
+query Proposal($id: String, $where: VoteWhere) {
   proposal(id: $id) {
     id
     author
