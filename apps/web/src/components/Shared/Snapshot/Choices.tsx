@@ -1,25 +1,22 @@
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outline';
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
-import {
-  APP_NAME,
-  Errors,
-  IS_MAINNET,
-  SNAPSHOR_RELAY_WORKER_URL
-} from '@lenster/data';
+import { APP_NAME, Errors, SNAPSHOT_SEQUNECER_URL } from '@lenster/data';
 import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
+import type { Proposal, Vote } from '@lenster/snapshot';
+import generateTypedData from '@lenster/snapshot/lib/generateTypedData';
 import { Card, Modal, Spinner } from '@lenster/ui';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
-import type { Proposal, Vote } from '@workers/snapshot-relay';
 import axios from 'axios';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useSignTypedData } from 'wagmi';
 
 import New from '../Badges/New';
 import VoteProposal from './VoteProposal';
@@ -44,7 +41,7 @@ const Choices: FC<ChoicesProps> = ({
     show: false,
     position: 0
   });
-  const accessToken = localStorage.getItem('accessToken');
+  const { signTypedDataAsync } = useSignTypedData({});
 
   const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;
@@ -97,17 +94,30 @@ const Choices: FC<ChoicesProps> = ({
 
     try {
       setVoteSubmitting(true);
+      const typedData = generateTypedData(
+        proposal,
+        position,
+        currentProfile.ownedBy
+      );
+      const signature = await signTypedDataAsync({
+        primaryType: 'Vote',
+        ...typedData
+      });
+
       await axios({
-        url: `${SNAPSHOR_RELAY_WORKER_URL}/votePoll`,
+        url: SNAPSHOT_SEQUNECER_URL,
         method: 'POST',
         data: {
-          isMainnet: IS_MAINNET,
-          accessToken,
-          choice: position,
-          profileId: currentProfile.id,
-          snapshotId: id
+          address: currentProfile?.ownedBy,
+          sig: signature,
+          data: {
+            domain: typedData.domain,
+            types: typedData.types,
+            message: typedData.message
+          }
         }
       });
+
       refetch?.();
       Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
         proposal_id: id,
