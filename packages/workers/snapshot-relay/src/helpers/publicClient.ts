@@ -8,7 +8,7 @@ import { polygon, polygonMumbai } from 'viem/chains';
  */
 const publicClient = (isMainnet: boolean): any => {
   return createPublicClient({
-    chain: isMainnet ? polygon : polygonMumbai,
+    chain: (isMainnet ? polygon : polygonMumbai) as any,
     transport: http()
   });
 };
