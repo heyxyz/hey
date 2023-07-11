@@ -22,7 +22,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     client: webClient,
     variables: {
       id: proposalId,
-      where: { voter: currentProfile?.ownedBy }
+      where: { proposal: proposalId, voter: currentProfile?.ownedBy }
     }
   });
 
