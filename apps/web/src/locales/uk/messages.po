@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-01 00:11\n"
+"PO-Revision-Date: 2023-07-07 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -1396,6 +1396,17 @@ msgstr ""
 msgid "Failed to load following"
 msgstr ""
 
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Profile/Menu/Share.tsx
+msgid "Copy link"
+msgstr ""
+
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
 msgstr ""
@@ -1576,12 +1587,6 @@ msgstr ""
 
 #: src/components/Publication/Actions/Menu/Bookmark.tsx
 msgid "Removed publication bookmark"
-msgstr ""
-
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
@@ -2700,6 +2705,22 @@ msgstr ""
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
+msgstr ""
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Attention! Your profile is currently unlocked."
+msgstr ""
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Your profile protection disabled.<0>Learn more</0>"
+msgstr ""
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Your profile protection disabling has been triggered. It will take effect in <0><1/></0>"
+msgstr ""
+
+#: src/components/Shared/ProtectProfile.tsx
+msgid "Protect now"
 msgstr ""
 
 #: src/components/Shared/ReferralAlert.tsx
