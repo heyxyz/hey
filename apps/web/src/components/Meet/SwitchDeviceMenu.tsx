@@ -43,12 +43,12 @@ const SwitchDeviceMenu: FC = () => {
               <DropDownMenu deviceType={'audioInput'} />
             </div>
           </div>
-          <div className="mt-5 flex items-center gap-2 self-stretch text-slate-500">
+          {/* <div className="mt-5 flex items-center gap-2 self-stretch text-slate-500">
             {BasicIcons.speaker}
             <div className="flex h-[2.75rem] items-center justify-between self-stretch">
               <DropDownMenu deviceType={'audioOutput'} />
             </div>
-          </div>
+          </div> */}
         </div>
       </Modal>
     </>
