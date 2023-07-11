@@ -27,7 +27,7 @@ const { chains, publicClient } = configureChains(
   [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
 
-const connectors = [
+const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new WalletConnectConnector({
     options: { projectId: WALLETCONNECT_PROJECT_ID },

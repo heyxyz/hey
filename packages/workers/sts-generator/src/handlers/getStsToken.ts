@@ -25,7 +25,7 @@ const params = {
   }`
 };
 
-export default async (request: IRequest, env: Env) => {
+export default async (_request: IRequest, env: Env) => {
   try {
     const accessKeyId = env.EVER_ACCESS_KEY;
     const secretAccessKey = env.EVER_ACCESS_SECRET;
@@ -36,20 +36,21 @@ export default async (request: IRequest, env: Env) => {
       credentials: { accessKeyId, secretAccessKey }
     });
 
-    const data = await stsClient.send(
-      new AssumeRoleCommand({
-        ...params,
-        RoleArn: undefined,
-        RoleSessionName: undefined
-      })
-    );
+    const command = new AssumeRoleCommand({
+      ...params,
+      RoleArn: undefined,
+      RoleSessionName: undefined
+    });
+
+    // @ts-ignore
+    const { Credentials: credentials } = await stsClient.send(command);
 
     return new Response(
       JSON.stringify({
         success: true,
-        accessKeyId: data.Credentials?.AccessKeyId,
-        secretAccessKey: data.Credentials?.SecretAccessKey,
-        sessionToken: data.Credentials?.SessionToken
+        accessKeyId: credentials?.AccessKeyId,
+        secretAccessKey: credentials?.SecretAccessKey,
+        sessionToken: credentials?.SessionToken
       })
     );
   } catch (error) {
