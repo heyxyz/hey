@@ -6,7 +6,6 @@ import { useProfilesQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 import Loader from '../Loader';
@@ -16,8 +15,6 @@ interface MirrorsProps {
 }
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
-  const [hasMore, setHasMore] = useState(true);
-
   // Variables
   const request: ProfileQueryRequest = {
     whoMirroredPublicationId: publicationId,
@@ -31,6 +28,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
 
   const profiles = data?.profiles?.items;
   const pageInfo = data?.profiles?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const onEndReached = async () => {
     if (!hasMore) {
@@ -39,8 +37,6 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
 
     await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
-    }).then(({ data }) => {
-      setHasMore(data?.profiles?.items?.length > 0);
     });
   };
 

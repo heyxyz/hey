@@ -34,8 +34,8 @@ const SinglePublication: FC<PublicationProps> = ({
 
   // Stats
   const commentsCount = isMirror
-    ? publication.mirrorOf.stats.commentsTotal
-    : stats.commentsTotal;
+    ? publication.mirrorOf.stats.totalAmountOfComments
+    : stats.totalAmountOfComments;
   const likesCount = isMirror
     ? publication.mirrorOf.stats.totalUpvotes
     : stats.totalUpvotes;

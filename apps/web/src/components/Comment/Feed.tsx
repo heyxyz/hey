@@ -16,7 +16,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -33,7 +32,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const [hasMore, setHasMore] = useState(true);
 
   // Variables
   const request: PublicationsQueryRequest = {
@@ -55,6 +53,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   const comments = data?.publications?.items ?? [];
   const pageInfo = data?.publications?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const queuedCount = txnQueue.filter(
     (o) => o.type === OptmisticPublicationType.NewComment
@@ -77,8 +76,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
       });
     }
   });

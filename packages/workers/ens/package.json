@@ -1,0 +1,29 @@
+{
+  "name": "@workers/ens",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8086",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "yarn dev",
+    "test:dev": "vitest --run",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.13",
+    "viem": "^1.2.7",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230518.0",
+    "@lenster/config": "*",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0",
+    "wrangler": "^3.1.2"
+  }
+}

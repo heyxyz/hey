@@ -109,7 +109,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
-        variables: { ownedBy: address }
+        variables: { request: { ownedBy: [address] } }
       });
 
       if (profilesData?.profiles?.items?.length === 0) {

@@ -7,7 +7,6 @@ import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -23,7 +22,6 @@ const Timeline: FC = () => {
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
-  const [hasMore, setHasMore] = useState(true);
 
   const getFeedEventItems = () => {
     const filters: FeedEventItemType[] = [];
@@ -64,6 +62,7 @@ const Timeline: FC = () => {
 
   const publications = data?.feed?.items;
   const pageInfo = data?.feed?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -77,8 +76,6 @@ const Timeline: FC = () => {
           reactionRequest,
           profileId: currentProfile?.id
         }
-      }).then(({ data }) => {
-        setHasMore(data?.feed?.items?.length > 0);
       });
     }
   });

@@ -21,13 +21,21 @@ export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Snapshot
+export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
 export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'
   : 'https://testnet.snapshot.org';
-export const LENSTER_POLLS_SPACE = 'polls.lenster.xyz';
+export const MAINNET_SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
+export const TESTNET_SNAPSHOT_SEQUNECER_URL =
+  'https://testnet.seq.snapshot.org';
+export const SNAPSHOT_SEQUNECER_URL = IS_MAINNET
+  ? MAINNET_SNAPSHOT_SEQUNECER_URL
+  : TESTNET_SNAPSHOT_SEQUNECER_URL;
+export const MAINNET_SNAPSHOT_URL = 'https://snapshot.org';
+export const TESTNET_SNAPSHOT_URL = 'https://demo.snapshot.org';
 export const SNAPSHOT_URL = IS_MAINNET
-  ? 'https://snapshot.org'
-  : 'https://demo.snapshot.org';
+  ? MAINNET_SNAPSHOT_URL
+  : TESTNET_SNAPSHOT_URL;
 
 // Application
 export const APP_NAME = 'Lenster';
@@ -85,6 +93,9 @@ export const OEMBED_WORKER_URL = IS_PRODUCTION
 export const SPACES_WORKER_URL = IS_PRODUCTION
   ? 'https://spaces.lenster.xyz'
   : 'http://localhost:8088';
+export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
+  ? 'https://leafwatch.lenster.xyz'
+  : 'http://localhost:8089';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

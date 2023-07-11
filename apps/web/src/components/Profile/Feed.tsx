@@ -15,7 +15,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -35,7 +34,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
-  const [hasMore, setHasMore] = useState(true);
 
   const getMediaFilters = () => {
     let filters: PublicationMainFocus[] = [];
@@ -90,6 +88,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
 
   const publications = data?.publications?.items;
   const pageInfo = data?.publications?.pageInfo;
+  const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
@@ -103,8 +102,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           reactionRequest,
           profileId
         }
-      }).then(({ data }) => {
-        setHasMore(data?.publications?.items?.length > 0);
       });
     }
   });
@@ -162,7 +159,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           }
         />
       ))}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

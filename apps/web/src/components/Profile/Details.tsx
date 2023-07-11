@@ -45,6 +45,7 @@ import { useMessageStore } from 'src/store/message';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 
@@ -168,7 +169,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       )}
       <div className="space-y-5">
         <Followerings profile={profile} />
-        <div>
+        <div className="flex items-center space-x-2">
           {currentProfile?.id === profile?.id ? (
             <Link href="/settings">
               <Button
@@ -181,7 +182,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             </Link>
           ) : followType !== 'RevertFollowModuleSettings' ? (
             following ? (
-              <div className="flex space-x-2">
+              <>
                 <Unfollow
                   profile={profile}
                   setFollowing={setFollowing}
@@ -194,30 +195,25 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                     again
                   />
                 )}
-                {currentProfile && <Message onClick={onMessageClick} />}
-              </div>
+              </>
             ) : followType === 'FeeFollowModuleSettings' ? (
-              <div className="flex space-x-2">
-                <SuperFollow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                  showText
-                />
-                {currentProfile && <Message onClick={onMessageClick} />}
-              </div>
+              <SuperFollow
+                profile={profile}
+                setFollowing={setFollowing}
+                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                showText
+              />
             ) : (
-              <div className="flex space-x-2">
-                <Follow
-                  profile={profile}
-                  setFollowing={setFollowing}
-                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
-                  showText
-                />
-                {currentProfile && <Message onClick={onMessageClick} />}
-              </div>
+              <Follow
+                profile={profile}
+                setFollowing={setFollowing}
+                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                showText
+              />
             )
           ) : null}
+          {currentProfile && <Message onClick={onMessageClick} />}
+          <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile?.id && (
           <>

@@ -18,7 +18,7 @@ const Quote: FC<QuoteProps> = ({ publicationId }) => {
   if (loading) {
     return (
       <Wrapper zeroPadding>
-        <PublicationShimmer showActions={false} />
+        <PublicationShimmer showActions={false} quoted />
       </Wrapper>
     );
   }

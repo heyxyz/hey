@@ -1,0 +1,5 @@
+mutation RemovePublicationProfileBookmark(
+  $request: PublicationProfileBookmarkRequest!
+) {
+  removePublicationProfileBookmark(request: $request)
+}
