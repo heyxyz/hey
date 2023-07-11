@@ -216,7 +216,7 @@ const MentionsPlugin: FC = () => {
               name: sanitizeDisplayName(user?.name),
               handle: user?.handle,
               picture: getUserPicture(user)
-            } as Record<string, string>)
+            }) as Record<string, string>
         );
         setResults(profilesResults);
       });
