@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMeetPersistStore } from 'src/store/meet';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -17,10 +17,6 @@ import AudioElem from './Audio';
 import { BasicIcons } from './BasicIcons';
 import SwitchDeviceMenu from './SwitchDeviceMenu';
 import VideoElem from './Video';
-
-type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
-  setSinkId: (id: string) => void;
-};
 
 const Meet: FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -45,14 +41,11 @@ const Meet: FC = () => {
     toggleMicMuted,
     toggleCamOff,
     videoDevice,
-    audioInputDevice,
-    audioOutputDevice
+    audioInputDevice
   } = useMeetPersistStore();
   const { peers } = usePeers();
   const { me } = useHuddle01();
   const { resolvedTheme } = useTheme();
-
-  const [audio] = useState(new Audio() as HTMLAudioElementWithSetSinkId);
 
   useEventListener('app:cam-on', async () => {
     toggleCamOff(false);
@@ -117,10 +110,6 @@ const Meet: FC = () => {
       fetchAudioStream(audioInputDevice.deviceId);
     }
   }, [audioInputDevice]);
-
-  useUpdateEffect(() => {
-    audio.setSinkId(audioOutputDevice.deviceId);
-  }, [audioOutputDevice]);
 
   return (
     <>

@@ -1,5 +1,6 @@
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import { describe, expect, test } from 'vitest';
+
+import { publicationKeyFields } from './keyFields';
 
 describe('keyFields', () => {
   describe('publicationKeyFields', () => {

@@ -100,10 +100,6 @@ progress::-moz-progress-bar {
   scrollbar-width: none;
 }
 
-.giphy-gif {
-  @apply !rounded-none;
-}
-
 .page-center {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
