@@ -1,13 +1,10 @@
-import { LENSTER_POLLS_SPACE, ZERO_ADDRESS } from '@lenster/data';
-import generateSnapshotAccount from '@lenster/lib/generateSnapshotAccount';
+import { LENSTER_POLLS_SPACE } from '@lenster/data';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { Proposal, Vote } from '@lenster/snapshot';
+import { useProposalQuery } from '@lenster/snapshot';
+import { webClient } from '@lenster/snapshot/apollo';
 import { Spinner } from '@lenster/ui';
-import getSnapshotProposal from '@lib/getSnapshotProposal';
-import getSnapshotSpace from '@lib/getSnapshotSpace';
-import { useQuery } from '@tanstack/react-query';
-import type { Proposal, Vote } from '@workers/snapshot-relay';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Wrapper from '../Embed/Wrapper';
@@ -20,33 +17,16 @@ interface SnapshotProps {
 
 const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [voterAddress, setVoterAddress] = useState<string>(ZERO_ADDRESS);
 
-  const { isLoading: spaceLoading } = useQuery(['space', proposalId], () =>
-    getSnapshotSpace(proposalId).then(async (res) => {
-      if (res.spaceId === LENSTER_POLLS_SPACE) {
-        const { address } = await generateSnapshotAccount({
-          ownedBy: currentProfile?.ownedBy,
-          profileId: currentProfile?.id,
-          proposalId
-        });
+  const { data, loading, error, refetch } = useProposalQuery({
+    client: webClient,
+    variables: {
+      id: proposalId,
+      where: { voter: currentProfile?.ownedBy }
+    }
+  });
 
-        setVoterAddress(address);
-      } else {
-        setVoterAddress(currentProfile?.ownedBy);
-      }
-
-      return res;
-    })
-  );
-
-  const { data, isLoading, error, refetch } = useQuery(
-    ['poll', proposalId, voterAddress],
-    () => getSnapshotProposal(proposalId, voterAddress).then((res) => res),
-    { enabled: !spaceLoading }
-  );
-
-  if (spaceLoading || isLoading) {
+  if (loading) {
     // TODO: Add skeleton loader here
     return (
       <Wrapper>
@@ -57,11 +37,11 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     );
   }
 
-  if (!data.success || error) {
+  if (!data?.proposal || error) {
     return null;
   }
 
-  const { proposal, votes } = data.poll;
+  const { proposal, votes } = data;
   const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
 
   if (!proposal) {

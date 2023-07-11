@@ -1,14 +1,16 @@
+import {
+  LENSTER_POLLS_SPACE,
+  MAINNET_SNAPSHOT_SEQUNECER_URL,
+  MAINNET_SNAPSHOT_URL,
+  TESTNET_SNAPSHOT_SEQUNECER_URL,
+  TESTNET_SNAPSHOT_URL
+} from '@lenster/data/constants';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 
 import {
-  LENSTER_POLLS_SPACE,
   MAINNET_PROPOSAL_CREATOR_ADDRESS,
-  MAINNET_SNAPSHOT_INTERFACE_URL,
-  MAINNET_SNAPSHOT_SEQUNECER_API,
-  TESTNET_PROPOSAL_CREATOR_ADDRESS,
-  TESTNET_SNAPSHOT_INTERFACE_URL,
-  TESTNET_SNAPSHOT_SEQUNECER_API
+  TESTNET_PROPOSAL_CREATOR_ADDRESS
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
@@ -56,11 +58,9 @@ export default async (request: IRequest, env: Env) => {
   }
 
   const sequencerUrl = isMainnet
-    ? MAINNET_SNAPSHOT_SEQUNECER_API
-    : TESTNET_SNAPSHOT_SEQUNECER_API;
-  const snapshotUrl = isMainnet
-    ? MAINNET_SNAPSHOT_INTERFACE_URL
-    : TESTNET_SNAPSHOT_INTERFACE_URL;
+    ? MAINNET_SNAPSHOT_SEQUNECER_URL
+    : TESTNET_SNAPSHOT_SEQUNECER_URL;
+  const snapshotUrl = isMainnet ? MAINNET_SNAPSHOT_URL : TESTNET_SNAPSHOT_URL;
   const relayerAddress = isMainnet
     ? MAINNET_PROPOSAL_CREATOR_ADDRESS
     : TESTNET_PROPOSAL_CREATOR_ADDRESS;
