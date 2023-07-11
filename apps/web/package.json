@@ -20,8 +20,6 @@
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
     "@fingerprintjs/fingerprintjs": "^3.4.2",
-    "@giphy/js-fetch-api": "^5.0.0",
-    "@giphy/react-components": "^7.1.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.1",
@@ -88,7 +86,6 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@giphy/js-types": "^4.4.0",
     "@lenster/config": "*",
     "@lingui/cli": "^4.3.0",
     "@playwright/test": "^1.35.1",
