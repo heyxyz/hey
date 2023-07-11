@@ -13,7 +13,7 @@ const walletClient = (privateKey: string, isMainnet: boolean): any => {
 
   return createWalletClient({
     account,
-    chain: isMainnet ? polygon : polygonMumbai,
+    chain: (isMainnet ? polygon : polygonMumbai) as any,
     transport: http()
   });
 };
