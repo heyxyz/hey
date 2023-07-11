@@ -606,12 +606,12 @@ export type Vp = {
   vp_state?: Maybe<Scalars['String']['output']>;
 };
 
-export type SnapshotQueryVariables = Exact<{
+export type ProposalQueryVariables = Exact<{
   id?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<VoteWhere>;
 }>;
 
-export type SnapshotQuery = {
+export type ProposalQuery = {
   __typename?: 'Query';
   proposal?: {
     __typename?: 'Proposal';
@@ -650,8 +650,8 @@ export type SpaceQuery = {
   } | null;
 };
 
-export const SnapshotDocument = gql`
-  query Snapshot($id: String, $where: VoteWhere) {
+export const ProposalDocument = gql`
+  query Proposal($id: String, $where: VoteWhere) {
     proposal(id: $id) {
       id
       author
@@ -682,50 +682,50 @@ export const SnapshotDocument = gql`
 `;
 
 /**
- * __useSnapshotQuery__
+ * __useProposalQuery__
  *
- * To run a query within a React component, call `useSnapshotQuery` and pass it any options that fit your needs.
- * When your component renders, `useSnapshotQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useProposalQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProposalQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useSnapshotQuery({
+ * const { data, loading, error } = useProposalQuery({
  *   variables: {
  *      id: // value for 'id'
  *      where: // value for 'where'
  *   },
  * });
  */
-export function useSnapshotQuery(
-  baseOptions?: Apollo.QueryHookOptions<SnapshotQuery, SnapshotQueryVariables>
+export function useProposalQuery(
+  baseOptions?: Apollo.QueryHookOptions<ProposalQuery, ProposalQueryVariables>
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<SnapshotQuery, SnapshotQueryVariables>(
-    SnapshotDocument,
+  return Apollo.useQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
     options
   );
 }
-export function useSnapshotLazyQuery(
+export function useProposalLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    SnapshotQuery,
-    SnapshotQueryVariables
+    ProposalQuery,
+    ProposalQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<SnapshotQuery, SnapshotQueryVariables>(
-    SnapshotDocument,
+  return Apollo.useLazyQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
     options
   );
 }
-export type SnapshotQueryHookResult = ReturnType<typeof useSnapshotQuery>;
-export type SnapshotLazyQueryHookResult = ReturnType<
-  typeof useSnapshotLazyQuery
+export type ProposalQueryHookResult = ReturnType<typeof useProposalQuery>;
+export type ProposalLazyQueryHookResult = ReturnType<
+  typeof useProposalLazyQuery
 >;
-export type SnapshotQueryResult = Apollo.QueryResult<
-  SnapshotQuery,
-  SnapshotQueryVariables
+export type ProposalQueryResult = Apollo.QueryResult<
+  ProposalQuery,
+  ProposalQueryVariables
 >;
 export const SpaceDocument = gql`
   query Space($id: String) {

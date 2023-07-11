@@ -17,18 +17,13 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
+    "@lenster/data": "*",
     "@lenster/lib": "*",
-    "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.13",
     "viem": "^1.2.7"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230518.0",
-    "@graphql-codegen/cli": "^4.0.1",
-    "@graphql-codegen/fragment-matcher": "^5.0.0",
-    "@graphql-codegen/typescript": "^4.0.1",
-    "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@lenster/config": "*",
     "typescript": "^5.1.6",
     "wrangler": "^3.1.1"
