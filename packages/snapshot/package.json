@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/lens",
+  "name": "@lenster/snapshot",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -10,7 +10,6 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "test:dev": "vitest --run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -26,7 +25,6 @@
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@lenster/config": "*",
     "@types/node": "^20.3.3",
-    "typescript": "^5.1.6",
-    "vitest": "^0.33.0"
+    "typescript": "^5.1.6"
   }
 }

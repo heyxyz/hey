@@ -16,10 +16,10 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.363.0",
+    "@aws-sdk/client-s3": "^3.367.0",
     "@dnd-kit/core": "^6.0.8",
     "@dnd-kit/sortable": "^7.0.2",
-    "@fingerprintjs/fingerprintjs": "^3.4.1",
+    "@fingerprintjs/fingerprintjs": "^3.4.2",
     "@giphy/js-fetch-api": "^5.0.0",
     "@giphy/react-components": "^7.1.0",
     "@headlessui/react": "^1.7.15",
@@ -33,6 +33,7 @@
     "@lenster/image-cropper": "*",
     "@lenster/lens": "*",
     "@lenster/lib": "*",
+    "@lenster/snapshot": "*",
     "@lenster/ui": "*",
     "@lexical/code": "^0.11.1",
     "@lexical/hashtag": "^0.11.1",
@@ -47,7 +48,6 @@
     "@lingui/react": "^4.3.0",
     "@lingui/swc-plugin": "^4.0.0",
     "@livepeer/react": "^2.5.8",
-    "@snapshot-labs/snapshot.js": "^0.4.101",
     "@tanstack/react-query": "^4.29.19",
     "@tippyjs/react": "^4.2.6",
     "@workers/snapshot-relay": "*",

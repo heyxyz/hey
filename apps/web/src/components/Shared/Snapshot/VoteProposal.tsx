@@ -1,20 +1,19 @@
-import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { APP_NAME, Errors } from '@lenster/data';
+import { Errors, SNAPSHOT_SEQUNECER_URL } from '@lenster/data';
 import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
+import type { Proposal } from '@lenster/snapshot';
+import generateTypedData from '@lenster/snapshot/lib/generateTypedData';
 import { Button, Spinner } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { snapshotClient } from '@lib/snapshotClient';
-import type { ProposalType } from '@snapshot-labs/snapshot.js/dist/sign/types';
 import { useQuery } from '@tanstack/react-query';
-import type { Proposal } from '@workers/snapshot-relay';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useSignTypedData } from 'wagmi';
 
 interface VoteProposalProps {
   proposal: Proposal;
@@ -34,7 +33,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [voteSubmitting, setVoteSubmitting] = useState(false);
-  const { data: walletClient } = useEthersWalletClient();
+  const { signTypedDataAsync } = useSignTypedData({});
 
   const {
     id,
@@ -80,13 +79,30 @@ const VoteProposal: FC<VoteProposalProps> = ({
   const sign = async (position: number) => {
     try {
       setVoteSubmitting(true);
-      await snapshotClient.vote(walletClient as any, currentProfile?.ownedBy, {
-        space: space?.id as string,
-        proposal: id as `0x${string}`,
-        type: type as ProposalType,
-        choice: position,
-        app: APP_NAME.toLowerCase()
+      const typedData = generateTypedData(
+        proposal,
+        position,
+        currentProfile?.ownedBy
+      );
+      const signature = await signTypedDataAsync({
+        primaryType: 'Vote',
+        ...typedData
       });
+
+      await axios({
+        url: SNAPSHOT_SEQUNECER_URL,
+        method: 'POST',
+        data: {
+          address: currentProfile?.ownedBy,
+          sig: signature,
+          data: {
+            domain: typedData.domain,
+            types: typedData.types,
+            message: typedData.message
+          }
+        }
+      });
+
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
       Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
