@@ -6,7 +6,6 @@ import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
 import useCreateSpace from '@components/utils/hooks/useCreateSpace';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
-import type { IGif } from '@giphy/js-types';
 import {
   ChatAlt2Icon,
   MicrophoneIcon,
@@ -87,7 +86,6 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import type { NewLensterAttachment } from 'src/types';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
@@ -102,9 +100,6 @@ const Attachment = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
-const Giphy = dynamic(() => import('@components/Composer/Actions/Giphy'), {
-  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-});
 const CollectSettings = dynamic(
   () => import('@components/Composer/Actions/CollectSettings'),
   {
@@ -864,19 +859,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
-  const setGifAttachment = (gif: IGif) => {
-    const attachment: NewLensterAttachment = {
-      id: uuid(),
-      previewItem: gif.images.original.url,
-      original: {
-        url: gif.images.original.url,
-        mimeType: 'image/gif',
-        altTag: gif.title
-      }
-    };
-    addAttachments([attachment]);
-  };
-
   const isSubmitDisabledByPoll = showPollEditor
     ? !pollConfig.choices.length ||
       pollConfig.choices.some((choice) => !choice.length)
@@ -911,7 +893,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
-          <Giphy setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {!publication?.isDataAvailability && (
             <>
               <CollectSettings />
