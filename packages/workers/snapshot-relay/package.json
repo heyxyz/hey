@@ -18,7 +18,7 @@
     "@apollo/client": "^3.7.17",
     "@lenster/data": "*",
     "@lenster/lib": "*",
-    "itty-router": "^4.0.13",
+    "itty-router": "^4.0.14",
     "viem": "^1.2.7"
   },
   "devDependencies": {
