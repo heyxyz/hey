@@ -5,7 +5,6 @@
   "license": "AGPL-3.0",
   "main": "generated.ts",
   "scripts": {
-    "codegen": "graphql-codegen",
     "dev": "wrangler dev --port 8085",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
