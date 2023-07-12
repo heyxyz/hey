@@ -1,7 +1,7 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data';
-import { PROFILE } from '@lenster/data/tracking';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   Button,
   GridItemEight,
@@ -30,7 +30,7 @@ const ProtectProfile: FC = () => {
     abi: LensHub,
     functionName: 'enableTokenGuardian',
     onSuccess: () => {
-      Leafwatch.track(PROFILE.PROTECT_PROFILE);
+      Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE);
     },
     onError: (error) => {
       errorToast(error);
