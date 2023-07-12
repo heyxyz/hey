@@ -210,6 +210,22 @@ msgstr "24小时限时收藏"
 msgid "Collect settings"
 msgstr "收藏设置"
 
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""

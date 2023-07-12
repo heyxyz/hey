@@ -210,6 +210,22 @@ msgstr "Лимит на коллект в течение первых 24 час�
 msgid "Collect settings"
 msgstr "Настройки коллектов"
 
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
