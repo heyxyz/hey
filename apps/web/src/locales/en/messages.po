@@ -1965,12 +1965,10 @@ msgid "Danger Zone"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
 msgid "Yes, delete my account"
 msgstr ""
 
@@ -1991,12 +1989,20 @@ msgid "After the Profile Guardian is effectively disabled, you will be able to e
 msgstr "After the Profile Guardian is effectively disabled, you will be able to execute approvals and transfers without restrictions."
 
 #: src/components/Settings/Danger/Guardian.tsx
-msgid "Unprotecting..."
-msgstr "Unprotecting..."
+msgid "Disabling..."
+msgstr "Disabling..."
 
 #: src/components/Settings/Danger/Guardian.tsx
-msgid "Unprotect your profile"
-msgstr "Unprotect your profile"
+msgid "Disable now"
+msgstr "Disable now"
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Confirm that you have read all consequences and want to disable the Profile Guardian."
+msgstr "Confirm that you have read all consequences and want to disable the Profile Guardian."
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Yes, disable"
+msgstr "Yes, disable"
 
 #: src/components/Settings/Danger/index.tsx
 msgid "Delete Profile • {APP_NAME}"
