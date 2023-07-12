@@ -1,6 +1,7 @@
 export interface IGif {
   id: string;
   title: string;
+  slug: string;
   images: {
     original: {
       url: string;

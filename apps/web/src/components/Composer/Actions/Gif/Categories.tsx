@@ -1,14 +1,32 @@
+import { GIPHY_KEY } from '@lenster/data';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import type { FC } from 'react';
 import type { Category } from 'src/types/giphy';
 
 interface CategoriesProps {
-  categories: Category[];
   setSearchText: (searchText: string) => void;
 }
 
-const Categories: FC<CategoriesProps> = ({ categories, setSearchText }) => {
+const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
+  const fetchGiphyCategories = async () => {
+    try {
+      const response = await axios('https://api.giphy.com/v1/gifs/categories', {
+        params: { api_key: GIPHY_KEY }
+      });
+
+      return response.data.data;
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const { data: categories } = useQuery(['gifCategories'], () =>
+    fetchGiphyCategories().then((res) => res)
+  );
+
   return (
-    <div className="flex h-[45vh] overflow-y-auto overflow-x-hidden">
+    <div className="flex h-[45vh] w-full overflow-y-auto overflow-x-hidden">
       <div className="grid w-full grid-cols-2 gap-1">
         {categories?.map((category: Category) => (
           <button
