@@ -21,18 +21,16 @@ const GifSelector: FC<GifSelectorProps> = ({
   const debouncedGifInput = useDebounce<string>(searchText, 500);
 
   return (
-    <div>
+    <>
       <div className="m-3">
         <Input
           type="text"
           placeholder={t`Search for GIFs`}
           value={searchText}
-          onChange={(event) => {
-            setSearchText(event.target.value);
-          }}
+          onChange={(event) => setSearchText(event.target.value)}
         />
       </div>
-      <div className="max-h-[45vh] overflow-y-auto">
+      <div className="max-h-[45vh] overflow-y-auto rounded-b-xl">
         {debouncedGifInput ? (
           <Gifs
             debouncedGifInput={debouncedGifInput}
@@ -44,7 +42,7 @@ const GifSelector: FC<GifSelectorProps> = ({
           <Categories setSearchText={setSearchText} />
         )}
       </div>
-    </div>
+    </>
   );
 };
 
