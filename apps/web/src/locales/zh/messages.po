@@ -210,26 +210,6 @@ msgstr "24小时限时收藏"
 msgid "Collect settings"
 msgstr "收藏设置"
 
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
-msgid "Search for GIFs"
-msgstr "搜索动图"
-
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
-msgid "No GIFs found."
-msgstr "未找到GIF图片"
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "Loading GIFs"
-msgstr "正在加载动图"
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "GIF"
-msgstr "GIF 动图"
-
-#: src/components/Composer/Actions/Giphy/index.tsx
-msgid "Select GIF"
-msgstr "请选择GIF图片"
-
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -1950,50 +1930,77 @@ msgstr "应用程序设置"
 msgid "Note: Cleaning will log you out"
 msgstr "注意：清理功能将会使您登出"
 
-#: src/components/Settings/Delete/index.tsx
-msgid "Delete Profile • {APP_NAME}"
-msgstr "删除个人账户 • {APP_NAME}"
-
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr "这将删除你的Lens账户"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr "这将永久地删除你在Lens协议上的个人资料NFT。你将无法使用任何建立在Lens上的应用程序，包括Lenster。你的所有数据将立即被抹去并且无法被取回。"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 msgstr "如果您的Lens账户被意外或错误地删除，您无法恢复它。"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
 msgstr "某些账户信息可能仍可在搜索引擎中找到，例如 Google 或 Bing。"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Your @handle will be released immediately after deleting the account."
 msgstr "您的 @handle 将在删除账户后立即被释放。"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Deleting..."
 msgstr "正在删除..."
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr "删除您的账户"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
 msgstr "危险区"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
 msgstr "确认您已阅读所有后果并且无论如何都想要删除您的账户"
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 msgid "Yes, delete my account"
 msgstr "是的，删除我的账户"
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Disable profile guardian"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "This will disable the Profile Guardian and allow you to do some actions like transfer, burn and approve without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "A 7-day Security Cooldown Period need to be elapsed for the Profile Guardian to become effectively disabled."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "After the Profile Guardian is effectively disabled, you will be able to execute approvals and transfers without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Unprotecting..."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Unprotect your profile"
+msgstr ""
+
+#: src/components/Settings/Danger/index.tsx
+msgid "Delete Profile • {APP_NAME}"
+msgstr "删除个人账户 • {APP_NAME}"
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -3015,4 +3022,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
