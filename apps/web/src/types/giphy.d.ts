@@ -6,7 +6,10 @@ export interface IGif {
     original: {
       url: string;
     };
-    original_still?: {
+    original_still: {
+      url: string;
+    };
+    original?: {
       url: string;
     };
   };

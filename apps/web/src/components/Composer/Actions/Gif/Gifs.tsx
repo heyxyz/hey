@@ -54,7 +54,7 @@ const Gifs: FC<CategoriesProps> = ({
             <img
               className="h-32 w-full cursor-pointer object-cover"
               height={128}
-              src={gif?.images?.original_still?.url}
+              src={gif?.images?.original?.url}
               alt={gif.slug}
               draggable={false}
             />
