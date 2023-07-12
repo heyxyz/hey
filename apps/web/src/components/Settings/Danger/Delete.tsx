@@ -4,10 +4,12 @@ import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
+import { Leafwatch } from '@lib/leafwatch';
 import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -18,17 +20,18 @@ import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const [showWarningModal, setShowWarningModal] = useState(false);
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
 
   const onCompleted = () => {
+    Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
     setCurrentProfile(null);
     setProfileId(null);
     disconnectXmtp();
