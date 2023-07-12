@@ -20,7 +20,6 @@ export const PROFILE = {
   COPY_PROFILE_LINK: 'Copy profile link',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE: 'Switch profile',
-  PROTECT_PROFILE: 'Protect profile',
   LOGOUT: 'Profile logout'
 };
 
@@ -116,7 +115,11 @@ export const SETTINGS = {
     FOLLOWING: 'Export following',
     FOLLOWERS: 'Export followers'
   },
-  DELETE: 'Delete profile'
+  DANGER: {
+    PROTECT_PROFILE: 'Protect profile',
+    UNPROTECT_PROFILE: 'Unprotect profile',
+    DELETE_PROFILE: 'Delete profile'
+  }
 };
 
 export const MOD = {

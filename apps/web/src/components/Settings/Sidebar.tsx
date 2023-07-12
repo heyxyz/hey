@@ -70,7 +70,7 @@ const SettingsSidebar: FC = () => {
               </div>
             ),
             icon: <ExclamationIcon className="h-4 w-4 text-red-500" />,
-            url: '/settings/delete'
+            url: '/settings/danger'
           }
         ]}
       />
