@@ -35,11 +35,24 @@ const Gifs: FC<CategoriesProps> = ({
     }
   };
 
-  const { data: gifs } = useInfiniteQuery({
+  const { data: gifs, isFetching } = useInfiniteQuery({
     queryKey: ['gifs', debouncedGifInput],
     queryFn: ({ pageParam = 0 }) => fetchGifs(debouncedGifInput, pageParam),
     enabled: !!debouncedGifInput
   });
+
+  if (isFetching) {
+    return (
+      <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
+        {Array.from(Array(12).keys()).map((_, index) => (
+          <div
+            key={index}
+            className="shimmer h-32 w-full cursor-pointer object-cover"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
