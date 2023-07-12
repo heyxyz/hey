@@ -1965,12 +1965,10 @@ msgid "Danger Zone"
 msgstr "ஆபத்தான இடம்"
 
 #: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
 msgstr "நீங்கள் எல்லா விளைவுகளையும் படித்துவிட்டீர்கள் என்பதை உறுதிசெய்து, எப்படியும் உங்கள் கணக்கை நீக்க விரும்புகிறீர்கள்"
 
 #: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
 msgid "Yes, delete my account"
 msgstr "ஆம், எனது கணக்கை நீக்கவும்"
 
@@ -1991,11 +1989,19 @@ msgid "After the Profile Guardian is effectively disabled, you will be able to e
 msgstr ""
 
 #: src/components/Settings/Danger/Guardian.tsx
-msgid "Unprotecting..."
+msgid "Disabling..."
 msgstr ""
 
 #: src/components/Settings/Danger/Guardian.tsx
-msgid "Unprotect your profile"
+msgid "Disable now"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Confirm that you have read all consequences and want to disable the Profile Guardian."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Yes, disable"
 msgstr ""
 
 #: src/components/Settings/Danger/index.tsx
