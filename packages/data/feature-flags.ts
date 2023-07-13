@@ -6,7 +6,6 @@ export enum FeatureFlag {
   NftGallery = 'nft-gallery',
   NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
-  Polls = 'polls',
   Spaces = 'spaces',
   ForYou = 'for-you',
   WTF2 = 'wtf2',
@@ -28,10 +27,6 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.GatedLocales,
-    enabledFor: [...mainnetStaffs]
-  },
-  {
-    key: FeatureFlag.Polls,
     enabledFor: [...mainnetStaffs]
   },
   {

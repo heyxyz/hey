@@ -1,6 +1,4 @@
 import { MenuAlt2Icon } from '@heroicons/react/solid';
-import { FeatureFlag } from '@lenster/data';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -13,11 +11,6 @@ const PollSettings: FC = () => {
     (state) => state.setShowPollEditor
   );
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
-  const isPollsEnabled = isFeatureEnabled(FeatureFlag.Polls);
-
-  if (!isPollsEnabled) {
-    return null;
-  }
 
   return (
     <Tooltip placement="top" content={t`Poll`}>
