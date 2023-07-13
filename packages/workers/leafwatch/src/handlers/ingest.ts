@@ -11,10 +11,10 @@ type ExtensionRequest = {
   name: string;
   actor?: string;
   fingerprint?: string;
-  url?: string;
+  url: string;
   referrer?: string;
   user_agent?: string;
-  platform?: 'web' | 'mobile';
+  platform: 'web' | 'mobile';
   properties?: string;
 };
 
@@ -22,9 +22,9 @@ const validationSchema = object({
   name: string().min(1, { message: 'Name is required!' }),
   actor: string().nullable().optional(),
   fingerprint: string().nullable().optional(),
-  url: string().nullable().optional(),
+  url: string(),
   referrer: string().nullable().optional(),
-  platform: string().nullable().optional(),
+  platform: string(),
   properties: any()
 });
 
@@ -55,9 +55,9 @@ export default async (request: IRequest, env: Env) => {
   const user_agent = request.headers.get('user-agent');
 
   try {
-    let parser = new UAParser(user_agent || '');
-    let ua = parser.getResult();
-
+    // Extract IP data
+    const parser = new UAParser(user_agent || '');
+    const ua = parser.getResult();
     let ipData: {
       city: string;
       country: string;
@@ -71,6 +71,14 @@ export default async (request: IRequest, env: Env) => {
     } catch (error) {
       console.error('Failed to get IP data', error);
     }
+
+    // Extract UTM parameters
+    const parsedUrl = new URL(url);
+    const utmSource = parsedUrl.searchParams.get('utm_source') || null;
+    const utmMedium = parsedUrl.searchParams.get('utm_medium') || null;
+    const utmCampaign = parsedUrl.searchParams.get('utm_campaign') || null;
+    const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
+    const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
     const response = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
       method: 'POST',
@@ -89,7 +97,12 @@ export default async (request: IRequest, env: Env) => {
           platform,
           browser,
           browser_version,
-          os
+          os,
+          utm_source,
+          utm_medium,
+          utm_campaign,
+          utm_term,
+          utm_content
         ) VALUES (
           '${name}',
           ${actor ? `'${actor}'` : null},
@@ -103,7 +116,12 @@ export default async (request: IRequest, env: Env) => {
           ${platform ? `'${platform}'` : null},
           ${ua.browser.name ? `'${ua.browser.name}'` : null},
           ${ua.browser.version ? `'${ua.os.version}'` : null},
-          ${ua.os.name ? `'${ua.os.name}'` : null}
+          ${ua.os.name ? `'${ua.os.name}'` : null},
+          ${utmSource ? `'${utmSource}'` : null},
+          ${utmMedium ? `'${utmMedium}'` : null},
+          ${utmCampaign ? `'${utmCampaign}'` : null},
+          ${utmTerm ? `'${utmTerm}'` : null},
+          ${utmContent ? `'${utmContent}'` : null}
         )
       `
     });
