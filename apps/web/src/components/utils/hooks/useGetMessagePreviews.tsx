@@ -93,10 +93,13 @@ const useGetMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [client, conversations, currentProfile?.id]);
 
-  useEffect(() => {
-    setHasSyncedMessages(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, currentProfile?.id);
+  useEffect(
+    () => {
+      setHasSyncedMessages(false);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    currentProfile?.id
+  );
 
   return {
     loading,
