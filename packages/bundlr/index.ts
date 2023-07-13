@@ -25,7 +25,10 @@ export class Secp256k1 {
   readonly signatureType = 3;
   public readonly pk: string;
 
-  constructor(protected _key: string, pk: Buffer) {
+  constructor(
+    protected _key: string,
+    pk: Buffer
+  ) {
     this.pk = pk.toString('hex');
   }
 }
