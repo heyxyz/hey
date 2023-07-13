@@ -253,7 +253,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_attachment_types:
         attachments.length > 0
           ? attachments.map((attachment) => attachment.original.mimeType)
-          : null
+          : null,
+      publication_has_poll: showPollEditor
     };
     Leafwatch.track(
       isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
