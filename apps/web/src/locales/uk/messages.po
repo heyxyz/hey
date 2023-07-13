@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-07 00:10\n"
+"PO-Revision-Date: 2023-07-13 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -210,23 +210,19 @@ msgstr ""
 msgid "Collect settings"
 msgstr ""
 
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
 msgid "Search for GIFs"
 msgstr ""
 
-#: src/components/Composer/Actions/Giphy/GifSelector.tsx
-msgid "No GIFs found."
-msgstr ""
-
-#: src/components/Composer/Actions/Giphy/index.tsx
+#: src/components/Composer/Actions/Gif/index.tsx
 msgid "Loading GIFs"
 msgstr ""
 
-#: src/components/Composer/Actions/Giphy/index.tsx
+#: src/components/Composer/Actions/Gif/index.tsx
 msgid "GIF"
 msgstr ""
 
-#: src/components/Composer/Actions/Giphy/index.tsx
+#: src/components/Composer/Actions/Gif/index.tsx
 msgid "Select GIF"
 msgstr ""
 
@@ -1950,49 +1946,82 @@ msgstr ""
 msgid "Note: Cleaning will log you out"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
-msgid "Delete Profile • {APP_NAME}"
-msgstr ""
-
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Some account information may still be available in search engines, such as Google or Bing."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Your @handle will be released immediately after deleting the account."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Deleting..."
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Danger Zone"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
 msgstr ""
 
-#: src/components/Settings/Delete/index.tsx
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Yes, delete my account"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Disable profile guardian"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "This will disable the Profile Guardian and allow you to do some actions like transfer, burn and approve without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "A 7-day Security Cooldown Period need to be elapsed for the Profile Guardian to become effectively disabled."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "After the Profile Guardian is effectively disabled, you will be able to execute approvals and transfers without restrictions."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Disabling..."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Disable now"
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Confirm that you have read all consequences and want to disable the Profile Guardian."
+msgstr ""
+
+#: src/components/Settings/Danger/Guardian.tsx
+msgid "Yes, disable"
+msgstr ""
+
+#: src/components/Settings/Danger/index.tsx
+msgid "Delete Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
