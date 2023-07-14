@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -265,11 +261,11 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       viem:
-        specifier: ^1.2.7
-        version: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
       wagmi:
         specifier: ^1.3.8
-        version: 1.3.8(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4)
+        version: 1.3.8(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4)
       xmtp-content-type-remote-attachment:
         specifier: ^1.0.7
         version: 1.0.7
@@ -335,8 +331,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       viem:
-        specifier: ^1.2.7
-        version: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: '*'
@@ -467,8 +463,8 @@ importers:
         specifier: '*'
         version: link:../lens
       viem:
-        specifier: ^1.2.7
-        version: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
         specifier: '*'
@@ -575,8 +571,8 @@ importers:
         specifier: ^4.0.14
         version: 4.0.14
       viem:
-        specifier: ^1.2.7
-        version: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -735,8 +731,8 @@ importers:
         specifier: ^4.0.14
         version: 4.0.14
       viem:
-        specifier: ^1.2.7
-        version: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+        specifier: ^1.2.14
+        version: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230710.1
@@ -5595,7 +5591,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.7.3
-      viem: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -5620,14 +5616,14 @@ packages:
     resolution: {integrity: sha512-bcKpo1oj54hGholplGLpqPHRbIsnbixFtc06nwuNM5/dwSXOq/AAYoIBRsBmnZJSdfeNW5rnff7NTAz3ZCqR9Q==}
     dependencies:
       '@noble/curves': 1.0.0
-      '@noble/hashes': 1.3.1
+      '@noble/hashes': 1.3.0
       '@scure/base': 1.1.1
     dev: false
 
   /@scure/bip39@1.2.0:
     resolution: {integrity: sha512-SX/uKq52cuxm4YFXWFaVByaSHJh2w3BnokVSeUJVCv6K7WulT9u2BuNRBhuFl8vAuYnzx9bEu9WgpcNYTrYieg==}
     dependencies:
-      '@noble/hashes': 1.3.1
+      '@noble/hashes': 1.3.0
       '@scure/base': 1.1.1
     dev: false
 
@@ -6763,7 +6759,7 @@ packages:
       typescript: 5.1.6
     dev: false
 
-  /@wagmi/connectors@2.6.6(@wagmi/chains@1.5.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4):
+  /@wagmi/connectors@2.6.6(@wagmi/chains@1.5.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4):
     resolution: {integrity: sha512-/o1c/TCivQs8DOAUOcQvY2UIt3p2mWOAHi39D0LC74+ncpXzLC5/gyaWU38qnTxPM8s/PmTmaWDgz+VhICXrag==}
     peerDependencies:
       '@wagmi/chains': '>=1.3.0'
@@ -6787,7 +6783,7 @@ packages:
       abitype: 0.8.7(typescript@5.1.6)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -6799,7 +6795,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.3.7(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4):
+  /@wagmi/core@1.3.7(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4):
     resolution: {integrity: sha512-ens31RwICdrbRanNYwlJs0DAw/LOqUPQm6qXsmEciOENT4w+7pC959LXU9xfaOADWVMekeLDmRqAGCszTNIXAg==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6809,11 +6805,11 @@ packages:
         optional: true
     dependencies:
       '@wagmi/chains': 1.5.0(typescript@5.1.6)
-      '@wagmi/connectors': 2.6.6(@wagmi/chains@1.5.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4)
+      '@wagmi/connectors': 2.6.6(@wagmi/chains@1.5.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.6)(zod@3.21.4)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.14(typescript@5.1.6)(zod@3.21.4)
       zustand: 4.3.9(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -9126,7 +9122,7 @@ packages:
       eslint: 8.44.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.44.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.0.0)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.44.0)
       eslint-plugin-react: 7.32.2(eslint@8.44.0)
       eslint-plugin-react-hooks: 5.0.0-canary-7118f5dd7-20230705(eslint@8.44.0)
@@ -9157,7 +9153,7 @@ packages:
       enhanced-resolve: 5.15.0
       eslint: 8.44.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.0.0)(eslint@8.44.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
       is-core-module: 2.12.1
@@ -9200,36 +9196,7 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-module-utils@2.8.0(@typescript-eslint/parser@6.0.0)(eslint-import-resolver-node@0.3.7)(eslint@8.44.0):
-    resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
-    engines: {node: '>=4'}
-    peerDependencies:
-      '@typescript-eslint/parser': '*'
-      eslint: '*'
-      eslint-import-resolver-node: '*'
-      eslint-import-resolver-typescript: '*'
-      eslint-import-resolver-webpack: '*'
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
-      eslint:
-        optional: true
-      eslint-import-resolver-node:
-        optional: true
-      eslint-import-resolver-typescript:
-        optional: true
-      eslint-import-resolver-webpack:
-        optional: true
-    dependencies:
-      '@typescript-eslint/parser': 6.0.0(eslint@8.44.0)(typescript@5.1.6)
-      debug: 3.2.7
-      eslint: 8.44.0
-      eslint-import-resolver-node: 0.3.7
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@6.0.0)(eslint@8.44.0):
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -9239,7 +9206,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 6.0.0(eslint@8.44.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 5.62.0(eslint@8.44.0)(typescript@5.1.6)
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -9247,7 +9214,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.44.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.0.0)(eslint-import-resolver-node@0.3.7)(eslint@8.44.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.44.0)
       has: 1.0.3
       is-core-module: 2.12.1
       is-glob: 4.0.3
@@ -14515,8 +14482,8 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /viem@1.2.7(typescript@5.1.6)(zod@3.21.4):
-    resolution: {integrity: sha512-LUhyKUfzTMbSEATpEfcSjivzqksQLvTA7ZxLsaXFLVIOMXq/Dx4bxngK9SJ/OvZJfmhOyvt8a6XNBR2JX1yKeQ==}
+  /viem@1.2.14(typescript@5.1.6)(zod@3.21.4):
+    resolution: {integrity: sha512-Hak+NGxdm+vRyt/cV8NbTlW1IRPKAmJBCx1SZZIc1uNVA/Rs6eN0Nh7mB8MbmA3FLJ0ymD/dSbB4MI9GGbGCgA==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -14657,7 +14624,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.3.8(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4):
+  /wagmi@1.3.8(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4):
     resolution: {integrity: sha512-RCfcE+Q+yhyfq7j5u7KQRz2KXUMAMexu0Y2kr8z81t4fmDlU5C+OEVQ6NFoUzAzEsJpznpQjZgsfpHKeFm17hQ==}
     peerDependencies:
       react: '>=17.0.0'
@@ -14670,12 +14637,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.29.19
       '@tanstack/react-query': 4.29.19(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.29.19(@tanstack/react-query@4.29.19)
-      '@wagmi/core': 1.3.7(react@18.2.0)(typescript@5.1.6)(viem@1.2.7)(zod@3.21.4)
+      '@wagmi/core': 1.3.7(react@18.2.0)(typescript@5.1.6)(viem@1.2.14)(zod@3.21.4)
       abitype: 0.8.7(typescript@5.1.6)(zod@3.21.4)
       react: 18.2.0
       typescript: 5.1.6
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.2.7(typescript@5.1.6)(zod@3.21.4)
+      viem: 1.2.14(typescript@5.1.6)(zod@3.21.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -15111,3 +15078,7 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
