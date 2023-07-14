@@ -100,8 +100,8 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@huddle01/react':
-        specifier: 0.0.13-beta.5
-        version: 0.0.13-beta.5
+        specifier: 0.0.13-beta.6
+        version: 0.0.13-beta.6
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
@@ -4140,10 +4140,10 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.13-beta.5:
-    resolution: {integrity: sha512-2Ns2RXp8hUumK4j+M39gUMPwvI+DuUt0PHWAO2uFaRc60j0X6uByFGEx6P1cmPKy61bFRBfJRJtisKFkn+I0og==}
+  /@huddle01/react@0.0.13-beta.6:
+    resolution: {integrity: sha512-fqKnkf4IY08wC6KtZGlYLDdN9b/ODQ39QY3VjqEeQgoG5ivuTOmjR5n41x2Nvk367wU3fpJ13kkc1aJMS0v5MQ==}
     dependencies:
-      '@huddle01/web-core': 0.0.15-beta.4
+      '@huddle01/web-core': 0.0.15-beta.5
       jotai: 2.2.2(react@18.2.0)
       react: 18.2.0
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
@@ -4154,8 +4154,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@huddle01/web-core@0.0.15-beta.4:
-    resolution: {integrity: sha512-2PSmtqBeHVODc4AoSQ8u3wUsMitJ7c71a3JcBJGgkLlF1kMinW/VsQaZrEVR39yXKcw5BH4bKL+mcjyqPiKqoQ==}
+  /@huddle01/web-core@0.0.15-beta.5:
+    resolution: {integrity: sha512-QTH0fWtTGWkisUwKrDrZtdW/vG8tVH6sB7KrfVwQdAmNM2g8HPhv0S8LcAfi+WJqyU+i6R9dLnPz3aXQ39zuJA==}
     dependencies:
       axios: 1.4.0
       mediasoup-client: 3.6.95

@@ -134,9 +134,9 @@ const Meet: FC = () => {
               />
             ) : (
               <img
-                src="/default-avatar.svg"
+                src={me.avatarUrl ? `${me.avatarUrl}` : `/default-avatar.svg`}
                 alt="avatar"
-                className="mb-16 mt-16 h-32 w-32"
+                className="mb-16 mt-16 h-32 w-32 rounded-full"
               />
             )}
             <div
@@ -151,37 +151,39 @@ const Meet: FC = () => {
             </div>
           </div>
 
-          {Object.values(peers).map(({ cam, peerId, mic, displayName }) => (
-            <div
-              key={peerId}
-              className={clsx(
-                resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
-                'relative flex h-[50vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg'
-              )}
-            >
-              {cam ? (
-                <VideoElem track={cam} key={peerId} />
-              ) : (
-                <img
-                  key={peerId}
-                  src="/default-avatar.svg"
-                  alt="avatar"
-                  className="mb-16 mt-16 h-32 w-32"
-                />
-              )}
-              {mic && <AudioElem track={mic} key={peerId} />}
+          {Object.values(peers).map(
+            ({ cam, peerId, mic, displayName, avatarUrl }) => (
               <div
+                key={peerId}
                 className={clsx(
-                  resolvedTheme == 'dark'
-                    ? 'bg-gray-900 text-slate-100'
-                    : 'text-brand-500 bg-brand-100',
-                  'absolute bottom-1 left-1 rounded-lg p-1'
+                  resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
+                  'relative flex h-[50vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg'
                 )}
               >
-                {displayName ?? 'Me'}
+                {cam ? (
+                  <VideoElem track={cam} key={peerId} />
+                ) : (
+                  <img
+                    key={peerId}
+                    src={avatarUrl ? `${avatarUrl}` : `/default-avatar.svg`}
+                    alt="avatar"
+                    className="mb-16 mt-16 h-32 w-32 rounded-full"
+                  />
+                )}
+                {mic && <AudioElem track={mic} key={peerId} />}
+                <div
+                  className={clsx(
+                    resolvedTheme == 'dark'
+                      ? 'bg-gray-900 text-slate-100'
+                      : 'text-brand-500 bg-brand-100',
+                    'absolute bottom-1 left-1 rounded-lg p-1'
+                  )}
+                >
+                  {displayName ?? 'Me'}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
       <div className="flex items-center justify-center self-stretch">

@@ -1,6 +1,6 @@
 import { UserIcon } from '@heroicons/react/outline';
 import { ArrowRightIcon } from '@heroicons/react/solid';
-import { useDisplayName } from '@huddle01/react/app-utils';
+import { useAppUtils } from '@huddle01/react/app-utils';
 import {
   useAudio,
   useEventListener,
@@ -21,19 +21,15 @@ import { useUpdateEffect } from 'usehooks-ts';
 import { BasicIcons } from '../BasicIcons';
 import SwitchDeviceMenu from '../SwitchDeviceMenu';
 
-type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
-  setSinkId: (id: string) => void;
-};
-
 const Lobby: NextPage = () => {
   const { query, push } = useRouter();
-  const { initialize } = useHuddle01();
+  const { initialize, me } = useHuddle01();
   const videoRef = useRef<HTMLVideoElement>(null);
   const { joinLobby, isLobbyJoined } = useLobby();
   const { joinRoom } = useRoom();
   const { fetchVideoStream, stopVideoStream, stream: camStream } = useVideo();
   const { fetchAudioStream, stopAudioStream, stream: micStream } = useAudio();
-  const { setDisplayName } = useDisplayName();
+  const { setDisplayName, changeAvatarUrl } = useAppUtils();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [displayUserName, setDisplayUserName] = useState<string>(
     currentProfile?.handle ?? ''
@@ -44,11 +40,8 @@ const Lobby: NextPage = () => {
     isMicMuted,
     isCamOff,
     videoDevice,
-    audioInputDevice,
-    audioOutputDevice
+    audioInputDevice
   } = useMeetPersistStore();
-
-  const [audio] = useState(new Audio() as HTMLAudioElementWithSetSinkId);
 
   const { resolvedTheme } = useTheme();
 
@@ -83,10 +76,28 @@ const Lobby: NextPage = () => {
   });
 
   useEffect(() => {
-    if (displayUserName) {
-      setDisplayName(displayUserName);
+    setDisplayName(displayUserName);
+  }, [setDisplayName.isCallable]);
+
+  useEffect(() => {
+    const profilePicture = currentProfile?.picture;
+    console.log('profilePicture', profilePicture);
+    if (profilePicture?.__typename == 'MediaSet') {
+      const avatarUrl = profilePicture?.original?.url;
+      console.log('avatarURL', avatarUrl);
+      if (avatarUrl && changeAvatarUrl.isCallable) {
+        changeAvatarUrl(avatarUrl);
+      }
+    } else if (profilePicture?.__typename == 'NftImage') {
+      const avatarUrl = profilePicture?.uri;
+      console.log('avatarURL', avatarUrl);
+      if (avatarUrl && changeAvatarUrl.isCallable) {
+        changeAvatarUrl(avatarUrl);
+      }
+    } else {
+      console.log('Not Found');
     }
-  }, [displayUserName]);
+  }, [changeAvatarUrl.isCallable]);
 
   useEffect(() => {
     joinLobby(query.roomid as string);
@@ -105,10 +116,6 @@ const Lobby: NextPage = () => {
       fetchAudioStream(audioInputDevice.deviceId);
     }
   }, [audioInputDevice]);
-
-  useUpdateEffect(() => {
-    audio.setSinkId(audioOutputDevice.deviceId);
-  }, [audioOutputDevice]);
 
   useEventListener('room:joined', () => {
     push(`/meet/${query.roomid}`);
@@ -133,9 +140,9 @@ const Lobby: NextPage = () => {
               />
             ) : (
               <img
-                src="/default-avatar.svg"
+                src={me.avatarUrl ? `${me.avatarUrl}` : `/default-avatar.svg`}
                 alt="avatar"
-                className="mb-16 mt-16 h-24 w-24"
+                className="mb-16 mt-16 h-24 w-24 rounded-full"
               />
             )}
           </div>
