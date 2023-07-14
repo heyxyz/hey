@@ -14,7 +14,7 @@
   "dependencies": {
     "@lenster/data": "*",
     "@lenster/lens": "*",
-    "viem": "^1.2.7"
+    "viem": "^1.2.14"
   },
   "devDependencies": {
     "@lenster/config": "*",

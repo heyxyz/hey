@@ -19,7 +19,7 @@
     "@lenster/data": "*",
     "@lenster/lib": "*",
     "itty-router": "^4.0.14",
-    "viem": "^1.2.7"
+    "viem": "^1.2.14"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230710.1",
