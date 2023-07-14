@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-07 00:10\n"
+"PO-Revision-Date: 2023-07-13 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -209,6 +209,22 @@ msgstr "24小时限时收藏"
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
 msgstr "收藏设置"
+
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
+msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
@@ -1375,6 +1391,10 @@ msgstr "没有关注任何人。"
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
 msgstr "未能加载正在关注的人"
+
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx

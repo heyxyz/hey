@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-07 00:10\n"
+"PO-Revision-Date: 2023-07-13 00:10\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -209,6 +209,22 @@ msgstr "முதல் 24 மணிநேரத்திற்கு சேக�
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
 msgstr "சேகரிப்பு அமைப்புகள்"
+
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
+msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
@@ -1375,6 +1391,10 @@ msgstr "யாரையும் பின்பற்றவில்லை."
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
 msgstr "பின்பற்றுபவர்களை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx

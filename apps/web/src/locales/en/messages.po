@@ -210,6 +210,22 @@ msgstr ""
 msgid "Collect settings"
 msgstr ""
 
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr "Search for GIFs"
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr "Loading GIFs"
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr "GIF"
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
+msgstr "Select GIF"
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr "{0, plural, zero {day} one {day} other {days}}"
@@ -1375,6 +1391,10 @@ msgstr ""
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
 msgstr ""
+
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr "Invited by <0/>"
 
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx

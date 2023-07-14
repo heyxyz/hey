@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-08 00:11\n"
+"PO-Revision-Date: 2023-07-13 00:10\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -208,6 +208,22 @@ msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/GifSelector.tsx
+msgid "Search for GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Loading GIFs"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "GIF"
+msgstr ""
+
+#: src/components/Composer/Actions/Gif/index.tsx
+msgid "Select GIF"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
@@ -1374,6 +1390,10 @@ msgstr ""
 
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
+msgstr ""
+
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
