@@ -216,7 +216,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {currentProfile && <Message onClick={onMessageClick} />}
           <ProfileMenu profile={profile} />
         </div>
-        {profile.invitedBy ? <InvitedBy profile={profile.invitedBy} /> : null}
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers
@@ -349,6 +348,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           )}
         </div>
       </div>
+      {profile.invitedBy ? (
+        <>
+          <div className="divider w-full" />
+          <InvitedBy profile={profile.invitedBy} />
+        </>
+      ) : null}
       <Badges profile={profile} />
       {isStaff(currentProfile?.id) && staffMode && (
         <ProfileStaffTool profile={profile} />
