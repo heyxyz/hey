@@ -98,6 +98,20 @@ test.describe('Profile sidebar', () => {
     });
   });
 
+  test.describe('Profile invited by', () => {
+    test('should have invited by', async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/u/rightpoc`);
+      const invitedBy = page.getByTestId('profile-invited-by');
+      await expect(invitedBy).toContainText('Invited by @michaelnm');
+    });
+
+    test('should not have invited by', async ({ page }) => {
+      await page.goto(`${WEB_BASE_URL}/u/yoginth`);
+      const invitedBy = page.getByTestId('profile-invited-by');
+      await expect(invitedBy).not.toBeVisible();
+    });
+  });
+
   // test for badges
   test.describe('Profile badges', () => {
     test.beforeEach(async ({ page }) => {

@@ -4,6 +4,22 @@ query Profile($request: SingleProfileQueryRequest!, $who: ProfileId) {
     metadata
     followNftAddress
     isFollowing(who: $who)
+    invitedBy {
+      handle
+      picture {
+        ... on MediaSet {
+          original {
+            url
+          }
+        }
+        ... on NftImage {
+          uri
+          tokenId
+          contractAddress
+          chainId
+        }
+      }
+    }
     dispatcher {
       address
       canUseRelay
