@@ -1392,6 +1392,10 @@ msgstr "ни на кого не подписан."
 msgid "Failed to load following"
 msgstr "Не удалось загрузить подписки"
 
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr ""
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -3044,4 +3048,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
