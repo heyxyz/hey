@@ -45,6 +45,7 @@ import { useMessageStore } from 'src/store/message';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
@@ -215,6 +216,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {currentProfile && <Message onClick={onMessageClick} />}
           <ProfileMenu profile={profile} />
         </div>
+        {profile.invitedBy ? <InvitedBy profile={profile.invitedBy} /> : null}
         {currentProfile?.id !== profile?.id && (
           <>
             <MutualFollowers

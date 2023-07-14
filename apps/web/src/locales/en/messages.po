@@ -1392,6 +1392,10 @@ msgstr ""
 msgid "Failed to load following"
 msgstr ""
 
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr "Invited by <0/>"
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
