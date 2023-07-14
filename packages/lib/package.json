@@ -14,11 +14,11 @@
   "dependencies": {
     "@lenster/data": "*",
     "@lenster/lens": "*",
-    "viem": "^1.2.7"
+    "viem": "^1.2.14"
   },
   "devDependencies": {
     "@lenster/config": "*",
-    "@types/node": "^20.4.1",
+    "@types/node": "^20.4.2",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   }

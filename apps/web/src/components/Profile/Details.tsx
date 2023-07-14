@@ -45,6 +45,7 @@ import { useMessageStore } from 'src/store/message';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
+import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
@@ -347,6 +348,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           )}
         </div>
       </div>
+      {profile.invitedBy ? (
+        <>
+          <div className="divider w-full" />
+          <InvitedBy profile={profile.invitedBy} />
+        </>
+      ) : null}
       <Badges profile={profile} />
       {isStaff(currentProfile?.id) && staffMode && (
         <ProfileStaffTool profile={profile} />
