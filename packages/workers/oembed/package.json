@@ -21,7 +21,7 @@
     "linkedom": "^0.14.26"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230710.0",
+    "@cloudflare/workers-types": "^4.20230710.1",
     "@lenster/config": "*",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
