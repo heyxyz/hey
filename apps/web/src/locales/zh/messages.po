@@ -1392,6 +1392,10 @@ msgstr "没有关注任何人。"
 msgid "Failed to load following"
 msgstr "未能加载正在关注的人"
 
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
+msgstr ""
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -3044,4 +3048,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
