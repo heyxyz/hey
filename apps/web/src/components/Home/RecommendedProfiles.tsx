@@ -3,7 +3,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { FeatureFlag } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';

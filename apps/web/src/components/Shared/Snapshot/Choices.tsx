@@ -1,6 +1,7 @@
 import { CheckCircleIcon as CheckCircleIconOutline } from '@heroicons/react/outline';
 import { CheckCircleIcon, MenuAlt2Icon } from '@heroicons/react/solid';
-import { APP_NAME, Errors, SNAPSHOT_SEQUNECER_URL } from '@lenster/data';
+import { APP_NAME, SNAPSHOT_SEQUNECER_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';

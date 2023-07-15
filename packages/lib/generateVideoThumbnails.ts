@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@lenster/data';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 
 const canvasImageFromVideo = (
   file: File,

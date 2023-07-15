@@ -1,8 +1,8 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { ExclamationIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
-import { Errors } from '@lenster/data';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';

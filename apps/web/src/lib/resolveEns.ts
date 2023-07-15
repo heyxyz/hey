@@ -1,4 +1,4 @@
-import { ENS_RESOLVER_WORKER_URL } from '@lenster/data';
+import { ENS_RESOLVER_WORKER_URL } from '@lenster/data/constants';
 import axios from 'axios';
 
 export const resolveEns = async (addresses: string[]) => {

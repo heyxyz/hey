@@ -2,7 +2,7 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
