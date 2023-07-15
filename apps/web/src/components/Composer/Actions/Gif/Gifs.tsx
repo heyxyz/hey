@@ -1,4 +1,4 @@
-import { GIPHY_KEY } from '@lenster/data';
+import { GIPHY_KEY } from '@lenster/data/constants';
 import axios from 'axios';
 import type { FC } from 'react';
 import type { IGif } from 'src/types/giphy';

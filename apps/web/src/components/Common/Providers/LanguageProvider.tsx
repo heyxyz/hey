@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data';
+import { Localstorage } from '@lenster/data/storage';
 import { i18n } from '@lingui/core';
 import { detect, fromStorage } from '@lingui/detect-locale';
 import { I18nProvider } from '@lingui/react';

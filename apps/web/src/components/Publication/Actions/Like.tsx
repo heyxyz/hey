@@ -1,6 +1,6 @@
 import { HeartIcon } from '@heroicons/react/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
-import { Errors } from '@lenster/data';
+import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {

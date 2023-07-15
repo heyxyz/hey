@@ -1,4 +1,4 @@
-import { SNAPSHOT_URL } from '@lenster/data';
+import { SNAPSHOT_URL } from '@lenster/data/constants';
 import formatAddress from '@lenster/lib/formatAddress';
 import type { Proposal } from '@lenster/snapshot';
 import { Image } from '@lenster/ui';

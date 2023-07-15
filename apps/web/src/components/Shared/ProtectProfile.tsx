@@ -1,6 +1,6 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
   Button,

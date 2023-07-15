@@ -1,4 +1,5 @@
-import { LEAFWATCH_WORKER_URL, Localstorage } from '@lenster/data';
+import { LEAFWATCH_WORKER_URL } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
 
 let worker: Worker;
 
