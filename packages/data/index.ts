@@ -1,7 +1,6 @@
 export * from './apps';
 export * from './constants';
 export * from './contracts';
-export * from './contracts';
 export * from './errors';
 export * from './errors';
 export * from './feature-flags';
