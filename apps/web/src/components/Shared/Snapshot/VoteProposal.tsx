@@ -35,17 +35,8 @@ const VoteProposal: FC<VoteProposalProps> = ({
   const [voteSubmitting, setVoteSubmitting] = useState(false);
   const { signTypedDataAsync } = useSignTypedData({});
 
-  const {
-    id,
-    choices,
-    snapshot,
-    network,
-    strategies,
-    space,
-    state,
-    symbol,
-    type
-  } = proposal;
+  const { id, choices, snapshot, network, strategies, space, state, symbol } =
+    proposal;
   const choice = choices[voteConfig.position - 1];
 
   const getVotingPower = async () => {
