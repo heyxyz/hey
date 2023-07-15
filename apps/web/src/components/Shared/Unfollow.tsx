@@ -118,7 +118,7 @@ const Unfollow: FC<UnfollowProps> = ({
         )
       }
     >
-      {showText && t`Unfollow`}
+      {showText && t`Following`}
     </Button>
   );
 };

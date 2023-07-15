@@ -440,6 +440,7 @@ msgstr "Показать лайки"
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/Unfollow.tsx
 msgid "Following"
 msgstr "Подписан"
 
@@ -2881,10 +2882,6 @@ msgstr ""
 msgid "Unfollowed successfully!"
 msgstr "Отписались успешно!"
 
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollow"
-msgstr "Отписаться"
-
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
@@ -3048,4 +3045,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
