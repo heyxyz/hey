@@ -3,7 +3,7 @@ import {
   SparklesIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';

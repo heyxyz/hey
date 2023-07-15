@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data';
+import { Localstorage } from '@lenster/data/storage';
 
 /**
  * Checks if the access token and refresh token are available in local storage

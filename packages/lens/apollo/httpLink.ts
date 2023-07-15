@@ -1,5 +1,5 @@
 import { HttpLink } from '@apollo/client';
-import { API_URL } from '@lenster/data';
+import { API_URL } from '@lenster/data/constants';
 
 const httpLink = new HttpLink({
   uri: API_URL,

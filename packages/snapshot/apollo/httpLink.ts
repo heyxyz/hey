@@ -1,5 +1,5 @@
 import { HttpLink } from '@apollo/client';
-import { SNAPSHOT_HUB_URL } from '@lenster/data';
+import { SNAPSHOT_HUB_URL } from '@lenster/data/constants';
 
 const httpLink = new HttpLink({
   uri: `${SNAPSHOT_HUB_URL}/graphql`,

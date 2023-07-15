@@ -1,4 +1,4 @@
-import { IS_MAINNET, SPACES_WORKER_URL } from '@lenster/data';
+import { IS_MAINNET, SPACES_WORKER_URL } from '@lenster/data/constants';
 import axios from 'axios';
 
 type CreateSpaceResponse = string;

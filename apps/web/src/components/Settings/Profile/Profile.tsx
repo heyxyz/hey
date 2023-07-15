@@ -1,8 +1,9 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
-import { Errors, Regex } from '@lenster/data';
 import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';

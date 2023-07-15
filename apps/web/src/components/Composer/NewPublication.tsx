@@ -23,7 +23,6 @@ import type {
   CreatePublicPostRequest
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { LensHub } from '@lenster/abis';
-import { Errors } from '@lenster/data';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -32,6 +31,7 @@ import {
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
 } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   CreatePublicCommentRequest,

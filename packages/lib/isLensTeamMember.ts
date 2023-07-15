@@ -1,4 +1,4 @@
-import { mainnetLensTeamMembers } from '@lenster/data';
+import { mainnetLensTeamMembers } from '@lenster/data/lens-members';
 
 /**
  * Checks whether a profile is a Lens team member or not.
