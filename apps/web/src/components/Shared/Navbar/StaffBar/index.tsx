@@ -36,7 +36,6 @@ const StaffBar: FC = () => {
               'h-4 w-4'
             )}
           />
-          {IS_PRODUCTION.toString()}
           <Badge>
             {IS_PRODUCTION ? 'prod' : 'dev'}{' '}
             <span className="text-[10px]">
