@@ -1,5 +1,6 @@
 import { error } from 'itty-router';
 
+import filteredEvents from '../helpers/filteredNames';
 import generateDateRangeDict from '../helpers/generateDateRangeDict';
 import type { Env } from '../types';
 
@@ -21,6 +22,7 @@ export default async (id: string, env: Env) => {
             count(*) AS event_count
           FROM events
           WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
+          AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
           GROUP BY event_date
           ORDER BY event_date;
         `
