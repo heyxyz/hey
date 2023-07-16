@@ -1,6 +1,8 @@
-import { PUBLICATION } from '@lenster/data/tracking';
+import { PROFILE, PUBLICATION } from '@lenster/data/tracking';
 
 const filteredEvents = [
+  PROFILE.FOLLOW,
+  PROFILE.SUPER_FOLLOW,
   PUBLICATION.LIKE,
   PUBLICATION.NEW_POST,
   PUBLICATION.NEW_COMMENT,
