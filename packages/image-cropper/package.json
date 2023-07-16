@@ -11,7 +11,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "clsx": "^1.2.1",
+    "clsx": "^2.0.0",
     "normalize-wheel": "^1.0.1",
     "rc-slider": "^10.2.1",
     "react": "^18.2.0"
