@@ -1,0 +1,12 @@
+import { PUBLICATION } from '@lenster/data/tracking';
+
+const filteredEvents = [
+  PUBLICATION.LIKE,
+  PUBLICATION.NEW_POST,
+  PUBLICATION.NEW_COMMENT,
+  PUBLICATION.MIRROR,
+  PUBLICATION.COLLECT_MODULE.COLLECT,
+  PUBLICATION.WIDGET.SNAPSHOT.VOTE
+];
+
+export default filteredEvents;
