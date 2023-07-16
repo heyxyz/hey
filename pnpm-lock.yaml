@@ -565,6 +565,31 @@ importers:
         specifier: ^5.1.6
         version: 5.1.6
 
+  packages/workers/achievements:
+    dependencies:
+      '@lenster/data':
+        specifier: '*'
+        version: link:../../data
+      '@lenster/lib':
+        specifier: '*'
+        version: link:../../lib
+      itty-router:
+        specifier: ^4.0.14
+        version: 4.0.14
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230710.1
+        version: 4.20230710.1
+      '@lenster/config':
+        specifier: '*'
+        version: link:../../config
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      wrangler:
+        specifier: ^3.2.0
+        version: 3.2.0
+
   packages/workers/ens:
     dependencies:
       itty-router:
