@@ -18,8 +18,6 @@ echo "Branch created 🎉"
 # Update dependencies in package.json
 echo "Updating dependencies in package.json 📦"
 pnpm update --interactive --recursive --latest
-# Wait for user to finish updating dependencies
-read -p "Press enter to continue"
 # Clean up pnpm-lock.yaml file and install dependencies
 rm pnpm-lock.yaml && pnpm install
 # Git operations
