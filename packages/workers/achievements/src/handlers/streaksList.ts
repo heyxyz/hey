@@ -36,11 +36,17 @@ export default async (id: string, date: string, env: Env) => {
     const json: {
       data: [string, string][];
     } = await streaksResponse.json();
+    const list = json.data.map(([event, date]) => ({ event, date }));
 
     let response = new Response(
       JSON.stringify({
         success: true,
-        data: json.data.map(([event, date]) => ({ event, date }))
+        data: list.sort((a, b) => {
+          const dateA = new Date(a.date);
+          const dateB = new Date(b.date);
+
+          return dateB.getTime() - dateA.getTime();
+        })
       })
     );
 
