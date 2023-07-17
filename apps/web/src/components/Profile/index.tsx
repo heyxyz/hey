@@ -1,7 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
-import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import {
+  APP_NAME,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -144,7 +148,9 @@ const ViewProfile: NextPage = () => {
               <NftFeed profile={profile as Profile} />
             )
           ) : null}
-          {feedType === ProfileFeedType.Stats && isAchievementsEnabled ? (
+          {feedType === ProfileFeedType.Stats &&
+          IS_MAINNET &&
+          isAchievementsEnabled ? (
             <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
