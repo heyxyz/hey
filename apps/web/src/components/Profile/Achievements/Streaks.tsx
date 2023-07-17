@@ -1,4 +1,5 @@
 import type { Profile } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -35,17 +36,18 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   );
 
   return (
-    <ActivityCalendar
-      data={data as Activity[]}
-      loading={isLoading}
-      colorScheme="light"
-      blockRadius={50}
-      hideColorLegend
-      labels={{
-        totalCount: `{{count}} activities in ${new Date().getFullYear()}`
-      }}
-      theme={{ light: ['#ede9fe', '#7c3aed'] }}
-    />
+    <Card className="p-5">
+      <ActivityCalendar
+        data={data as Activity[]}
+        loading={isLoading}
+        colorScheme="light"
+        blockRadius={50}
+        labels={{
+          totalCount: `{{count}} activities in ${new Date().getFullYear()}`
+        }}
+        theme={{ light: ['#ede9fe', '#7c3aed'] }}
+      />
+    </Card>
   );
 };
 

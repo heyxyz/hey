@@ -9,7 +9,7 @@ interface AchievementsProps {
 
 const Achievements: FC<AchievementsProps> = ({ profile }) => {
   return (
-    <div className="space-y-4 pt-5">
+    <div className="space-y-4">
       <Streaks profile={profile} />
     </div>
   );
