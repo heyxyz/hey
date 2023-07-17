@@ -1,11 +1,15 @@
 import {
+  ChartBarIcon,
   ChatAlt2Icon,
   CollectionIcon,
   FilmIcon,
   PencilAltIcon,
   PhotographIcon
 } from '@heroicons/react/outline';
+import { IS_MAINNET } from '@lenster/data/constants';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PROFILE } from '@lenster/data/tracking';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -20,11 +24,17 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
+  const isAchievementsEnabled = isFeatureEnabled(FeatureFlag.Achievements);
+
   const switchTab = (type: string) => {
     setFeedType(type);
-    Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
-      profile_feed_type: type.toLowerCase()
-    });
+    if (type === ProfileFeedType.Stats.toLowerCase()) {
+      Leafwatch.track(PROFILE.SWITCH_PROFILE_STATS_TAB);
+    } else {
+      Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
+        profile_feed_type: type.toLowerCase()
+      });
+    }
   };
 
   return (
@@ -65,6 +75,15 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           type={ProfileFeedType.Nft.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Nft)}
         />
+        {IS_MAINNET && isAchievementsEnabled && (
+          <TabButton
+            name={t`Stats`}
+            icon={<ChartBarIcon className="h-4 w-4" />}
+            active={feedType === ProfileFeedType.Stats}
+            type={ProfileFeedType.Stats.toLowerCase()}
+            onClick={() => switchTab(ProfileFeedType.Stats)}
+          />
+        )}
       </div>
       <div>{feedType === ProfileFeedType.Media && <MediaFilter />}</div>
     </div>

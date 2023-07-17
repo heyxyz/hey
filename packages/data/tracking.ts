@@ -19,6 +19,7 @@ export const PROFILE = {
   OPEN_FOLLOWING: 'Open following modal',
   COPY_PROFILE_LINK: 'Copy profile link',
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
+  SWITCH_PROFILE_STATS_TAB: 'Switch profile stats tab',
   SWITCH_PROFILE: 'Switch profile',
   LOGOUT: 'Profile logout'
 };
