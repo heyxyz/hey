@@ -19,6 +19,7 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
+import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
@@ -44,6 +45,7 @@ const ViewProfile: NextPage = () => {
   });
 
   const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
+  const isAchievementsEnabled = isFeatureEnabled(FeatureFlag.Achievements);
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },
@@ -141,6 +143,9 @@ const ViewProfile: NextPage = () => {
             ) : (
               <NftFeed profile={profile as Profile} />
             )
+          ) : null}
+          {feedType === ProfileFeedType.Stats && isAchievementsEnabled ? (
+            <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
       </GridLayout>
