@@ -1,6 +1,7 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import streaks from './handlers/streaks';
+import streaksCalendar from './handlers/streaksCalendar';
+import streaksList from './handlers/streaksList';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -12,7 +13,12 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to achievements service 👋'));
-router.get('/streaks/:id', ({ params }, env) => streaks(params.id, env));
+router.get('/streaks/:id', ({ params }, env) =>
+  streaksCalendar(params.id, env)
+);
+router.get('/streaks/:id/:date', ({ params }, env) =>
+  streaksList(params.id, params.date, env)
+);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
