@@ -1,7 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import NftFeed from '@components/Nft/NftFeed';
-import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import {
+  APP_NAME,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -19,6 +23,7 @@ import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
+import Achievements from './Achievements';
 import Cover from './Cover';
 import Details from './Details';
 import Feed from './Feed';
@@ -32,9 +37,16 @@ const ViewProfile: NextPage = () => {
     query: { username, type, followIntent }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const lowerCaseProfileFeedType = [
+    ProfileFeedType.Feed.toLowerCase(),
+    ProfileFeedType.Replies.toLowerCase(),
+    ProfileFeedType.Media.toLowerCase(),
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Nft.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
+  ];
   const [feedType, setFeedType] = useState(
-    type &&
-      ['feed', 'replies', 'media', 'collects', 'nft'].includes(type as string)
+    type && lowerCaseProfileFeedType.includes(type as string)
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
@@ -44,6 +56,7 @@ const ViewProfile: NextPage = () => {
   });
 
   const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
+  const isAchievementsEnabled = isFeatureEnabled(FeatureFlag.Achievements);
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },
@@ -141,6 +154,11 @@ const ViewProfile: NextPage = () => {
             ) : (
               <NftFeed profile={profile as Profile} />
             )
+          ) : null}
+          {feedType === ProfileFeedType.Stats &&
+          IS_MAINNET &&
+          isAchievementsEnabled ? (
+            <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
       </GridLayout>
