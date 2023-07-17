@@ -1,4 +1,5 @@
 import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
 import { Card } from '@lenster/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -36,14 +37,16 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   );
 
   return (
-    <Card className="p-5">
+    <Card className="p-6">
       <ActivityCalendar
         data={data as Activity[]}
         loading={isLoading}
         colorScheme="light"
         blockRadius={50}
         labels={{
-          totalCount: `{{count}} activities in ${new Date().getFullYear()}`
+          totalCount: `@${formatHandle(
+            profile.handle
+          )} has {{count}} activities in ${new Date().getFullYear()}`
         }}
         theme={{ light: ['#ede9fe', '#7c3aed'] }}
       />
