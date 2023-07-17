@@ -1,3 +1,4 @@
+import { ACHIEVEMENTS_WORKER_URL } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card } from '@lenster/ui';
@@ -15,7 +16,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
       const response = await axios(
-        `https://achievements.lenster.xyz/streaks/${profile.id}`
+        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}`
       );
 
       const outputData = Object.entries(response.data.data).map(
