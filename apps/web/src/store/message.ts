@@ -140,7 +140,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  selectedTab: 'Inbox',
+  selectedTab: MessageTabs.Inbox,
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
