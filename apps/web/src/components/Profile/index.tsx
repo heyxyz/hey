@@ -37,9 +37,16 @@ const ViewProfile: NextPage = () => {
     query: { username, type, followIntent }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const lowerCaseProfileFeedType = [
+    ProfileFeedType.Feed.toLowerCase(),
+    ProfileFeedType.Replies.toLowerCase(),
+    ProfileFeedType.Media.toLowerCase(),
+    ProfileFeedType.Collects.toLowerCase(),
+    ProfileFeedType.Nft.toLowerCase(),
+    ProfileFeedType.Stats.toLowerCase()
+  ];
   const [feedType, setFeedType] = useState(
-    type &&
-      ['feed', 'replies', 'media', 'collects', 'nft'].includes(type as string)
+    type && lowerCaseProfileFeedType.includes(type as string)
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
