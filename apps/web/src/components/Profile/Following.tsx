@@ -72,7 +72,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
         error={error}
       />
       <Virtuoso
-        className="virtual-profile-list"
+        className="virtual-profile-list -z-50"
         data={followings}
         endReached={onEndReached}
         itemContent={(index, following) => {
