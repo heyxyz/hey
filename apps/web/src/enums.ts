@@ -21,8 +21,6 @@ export enum ProfileFeedType {
 }
 
 export enum MessageTabs {
-  All = 'All',
-  Lens = 'Lens',
-  Other = 'Other',
-  Requests = 'Requests'
+  Inbox = 'Inbox',
+  Following = 'Following'
 }

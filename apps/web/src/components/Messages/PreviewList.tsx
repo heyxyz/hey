@@ -20,7 +20,7 @@ import {
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -48,14 +48,8 @@ const PreviewList: FC<PreviewListProps> = ({
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
-  const {
-    authenticating,
-    loading,
-    messages,
-    profilesToShow,
-    requestedCount,
-    profilesError
-  } = useMessagePreviews();
+  const { authenticating, loading, messages, profilesToShow, profilesError } =
+    useMessagePreviews();
 
   const { loading: previewsLoading, progress: previewsProgress } =
     useGetMessagePreviews();
@@ -96,8 +90,8 @@ const PreviewList: FC<PreviewListProps> = ({
     );
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
-      ? MessageTabs.Lens
-      : MessageTabs.Requests;
+      ? MessageTabs.Following
+      : MessageTabs.Inbox;
     setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
     setShowSearchModal(false);
@@ -130,46 +124,20 @@ const PreviewList: FC<PreviewListProps> = ({
           <div className="flex space-x-2">
             <TabButton
               className="p-2 px-4"
-              name={'All'}
-              active={selectedTab === 'All'}
-              onClick={() => setSelectedTab('All')}
+              name={MessageTabs.Inbox}
+              active={selectedTab === MessageTabs.Inbox}
+              onClick={() => setSelectedTab(MessageTabs.Inbox)}
               showOnSm
             />
             <TabButton
               className="p-2 px-4"
-              name={'Lens'}
-              active={selectedTab === 'Lens'}
-              onClick={() => setSelectedTab('Lens')}
-              showOnSm
-            />
-            <TabButton
-              className="p-2 px-4"
-              name={'Other'}
-              active={selectedTab === 'Other'}
-              onClick={() => setSelectedTab('Other')}
+              name={MessageTabs.Following}
+              active={selectedTab === MessageTabs.Following}
+              onClick={() => setSelectedTab(MessageTabs.Following)}
               showOnSm
             />
           </div>
-          <TabButton
-            className="p-2 px-4"
-            name={
-              requestedCount > 99
-                ? '99+'
-                : `${requestedCount.toString()} Requests`
-            }
-            active={selectedTab === MessageTabs.Requests}
-            onClick={() => setSelectedTab(MessageTabs.Requests)}
-            showOnSm
-          />
         </div>
-        {selectedTab === MessageTabs.Requests ? (
-          <div className="bg-yellow-100 p-2 px-5 text-sm text-yellow-800">
-            <Trans>
-              These conversations are from Lens profiles that you don't
-              currently follow.
-            </Trans>
-          </div>
-        ) : null}
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
             <div className="flex h-full grow items-center justify-center">
