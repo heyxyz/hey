@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "Follows you"
 
@@ -1344,6 +1349,12 @@ msgstr "Collected"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "Stats"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -2593,10 +2604,6 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
@@ -2955,11 +2962,6 @@ msgstr "Stafftools | Relay queues • {APP_NAME}"
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
 msgstr "Relay queues"
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "Stats"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
