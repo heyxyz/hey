@@ -13,7 +13,7 @@ import {
   LocationMarkerIcon,
   UsersIcon
 } from '@heroicons/react/outline';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
@@ -26,6 +26,7 @@ import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import isScam from '@lenster/lib/isScam';
 import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -131,6 +132,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               <BadgeCheckIcon
                 className="text-brand h-6 w-6"
                 data-testid="profile-verified-badge"
+              />
+            </Tooltip>
+          )}
+          {isScam(profile?.id) && (
+            <Tooltip content={t`Scam`}>
+              <ExclamationCircleIcon
+                className="h-6 w-6 text-red-500"
+                data-testid="profile-scam-badge"
               />
             </Tooltip>
           )}
