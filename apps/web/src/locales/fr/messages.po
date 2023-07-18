@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
 msgstr ""
@@ -1521,6 +1526,10 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
+msgstr ""
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
