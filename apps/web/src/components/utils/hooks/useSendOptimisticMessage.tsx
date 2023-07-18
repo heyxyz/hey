@@ -1,4 +1,3 @@
-import { parseConversationKey } from '@lib/conversationKey';
 import type {
   ContentTypeId,
   Conversation,
@@ -104,23 +103,18 @@ const useSendOptimisticMessage = (
 
     let conversation;
 
-    if (!missingXmtpAuth && !conversations.has(conversationKey)) {
+    const existingConversation =
+      conversations.get(conversationKey) ||
+      conversations.get(conversationKey?.split('/')[0]);
+
+    if (!missingXmtpAuth && !existingConversation) {
       const conversationId = conversationKey?.split('/')[0];
 
-      const conversationXmtpId =
-        parseConversationKey(conversationKey)?.conversationId ?? '';
+      conversation = await client.conversations.newConversation(conversationId);
 
-      conversation =
-        conversationXmtpId !== ''
-          ? await client.conversations.newConversation(conversationId, {
-              conversationId: conversationXmtpId,
-              metadata: {}
-            })
-          : await client.conversations.newConversation(conversationId);
-
-      addConversation(conversationKey, conversation);
+      addConversation(conversationId, conversation);
     } else {
-      conversation = conversations.get(conversationKey);
+      conversation = existingConversation;
     }
 
     if (!conversation) {
