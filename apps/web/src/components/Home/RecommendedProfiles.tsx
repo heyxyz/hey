@@ -14,6 +14,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useTimelineStore } from 'src/store/timeline';
 
 import Suggested from './Suggested';
 
@@ -31,11 +32,18 @@ const Title = () => {
 const RecommendedProfiles: FC = () => {
   const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const seeThroughProfile = useTimelineStore(
+    (state) => state.seeThroughProfile
+  );
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
 
   const { data, loading, error } = useRecommendedProfilesQuery({
     variables: {
-      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+      options: {
+        profileId: isWTF2Enabled
+          ? seeThroughProfile?.id ?? currentProfile?.id
+          : null
+      }
     }
   });
 
