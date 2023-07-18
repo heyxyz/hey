@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
 msgstr "诈骗"
@@ -1522,6 +1527,10 @@ msgstr "画廊只允许 50 件藏品"
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"

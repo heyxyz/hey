@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Scam"
 msgstr "ஊழல்"
@@ -1522,6 +1527,10 @@ msgstr "கேலரிக்கு 50 பொருட்கள் மட்ட�
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
