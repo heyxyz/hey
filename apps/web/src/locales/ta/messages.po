@@ -1314,6 +1314,16 @@ msgid "Verified"
 msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "உங்களைப் பின்தொடர்கிறார்"
 
@@ -1344,6 +1354,12 @@ msgstr "சேகரிக்கப்பட்டது"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr "NFTகள்"
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "புள்ளிவிவரங்கள்"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -1511,6 +1527,10 @@ msgstr "கேலரிக்கு 50 பொருட்கள் மட்ட�
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -2593,10 +2613,6 @@ msgid "Violence"
 msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
 
@@ -2956,11 +2972,6 @@ msgstr "பணியாளர் கருவிகள் | ரிலே வர�
 msgid "Relay queues"
 msgstr "ரிலே வரிசைகள்"
 
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "புள்ளிவிவரங்கள்"
-
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr "பணியாளர் கருவிகள் | புள்ளிவிவரங்கள் • {APP_NAME}"
@@ -3045,4 +3056,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

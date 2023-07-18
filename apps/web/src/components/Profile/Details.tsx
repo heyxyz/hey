@@ -13,7 +13,7 @@ import {
   LocationMarkerIcon,
   UsersIcon
 } from '@heroicons/react/outline';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
@@ -26,6 +26,8 @@ import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getScamDetails from '@lenster/lib/getScamDetails';
+import isScam from '@lenster/lib/isScam';
 import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -46,6 +48,7 @@ import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
+import ScamWarning from './ScamWarning';
 
 interface DetailsProps {
   profile: Profile;
@@ -126,6 +129,21 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             </Tooltip>
           )}
+          {isScam(profile?.id) && (
+            <Tooltip
+              content={
+                getScamDetails(profile?.id)?.identifiedOn
+                  ? t`Scam indentified on ${getScamDetails(profile?.id)
+                      ?.identifiedOn}`
+                  : t`Scam`
+              }
+            >
+              <ExclamationCircleIcon
+                className="h-6 w-6 text-red-500"
+                data-testid="profile-scam-badge"
+              />
+            </Tooltip>
+          )}
         </div>
         <div
           className="flex items-center space-x-3"
@@ -161,6 +179,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </div>
       )}
       <div className="space-y-5">
+        <ScamWarning profile={profile} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile?.id ? (
