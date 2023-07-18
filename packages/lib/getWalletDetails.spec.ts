@@ -12,6 +12,14 @@ describe('getWalletDetails', () => {
     );
   });
 
+  test('should return correct details for Coinbase Waller', () => {
+    const walletDetails = getWalletDetails('Coinbase Wallet');
+    expect(walletDetails.name).toBe('Coinbase Wallet');
+    expect(walletDetails.logo).toBe(
+      `${STATIC_IMAGES_URL}/wallets/coinbase.svg`
+    );
+  });
+
   test('should return correct details for name other than WalletConnect', () => {
     const walletDetails = getWalletDetails('SomeOtherWallet');
     expect(walletDetails.name).toBe('SomeOtherWallet');
