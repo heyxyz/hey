@@ -83,7 +83,9 @@ export const EXPLORE = {
 
 export const MESSAGES = {
   SEND: 'Send message',
-  OPEN_NEW_CONVERSATION: 'Open new conversation modal'
+  OPEN_NEW_CONVERSATION: 'Open new conversation modal',
+  SWITCH_INBOX_TAB: 'Switch DM inbox tab',
+  SWITCH_FOLLOWING_TAB: 'Switch DM following tab'
 };
 
 export const SETTINGS = {
