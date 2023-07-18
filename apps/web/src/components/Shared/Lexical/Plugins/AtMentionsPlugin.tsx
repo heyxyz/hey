@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, ShieldExclamationIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import { AVATAR } from '@lenster/data/constants';
 import type {
   MediaSet,
@@ -165,7 +165,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
               <BadgeCheckIcon className="text-brand h-4 w-4" />
             )}
             {isScam(option.id) && (
-              <ShieldExclamationIcon className="h-4 w-4 text-red-500" />
+              <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             )}
           </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>

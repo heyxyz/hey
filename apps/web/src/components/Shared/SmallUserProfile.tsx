@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, ShieldExclamationIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -48,7 +48,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
       )}
       {isScam(profile?.id) && (
-        <ShieldExclamationIcon className="ml-1 h-4 w-4 text-red-500" />
+        <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
       )}
       <Slug
         className="ml-2 text-sm"

@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, ShieldExclamationIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -92,7 +92,7 @@ const Preview: FC<PreviewProps> = ({
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
                 )}
                 {isScam(profile?.id) && (
-                  <ShieldExclamationIcon className="h-4 w-4 min-w-fit text-red-500" />
+                  <ExclamationCircleIcon className="h-4 w-4 min-w-fit text-red-500" />
                 )}
               </div>
               {message?.sent && (

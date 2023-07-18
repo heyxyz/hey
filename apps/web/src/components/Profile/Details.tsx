@@ -13,7 +13,7 @@ import {
   LocationMarkerIcon,
   UsersIcon
 } from '@heroicons/react/outline';
-import { BadgeCheckIcon, ShieldExclamationIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
@@ -137,7 +137,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           )}
           {isScam(profile?.id) && (
             <Tooltip content={t`Scam`}>
-              <ShieldExclamationIcon
+              <ExclamationCircleIcon
                 className="h-6 w-6 text-red-500"
                 data-testid="profile-scam-badge"
               />
