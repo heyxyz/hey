@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Profile/Details.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "诈骗"
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "关注了您"
 
@@ -1344,6 +1349,12 @@ msgstr "已收藏"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr "NFT"
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "统计数据"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -2593,10 +2604,6 @@ msgid "Violence"
 msgstr "暴力"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "诈骗"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "冒充"
 
@@ -2956,11 +2963,6 @@ msgstr "员工工具 |中继队列 • {APP_NAME}"
 msgid "Relay queues"
 msgstr "中继服务队列"
 
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "统计数据"
-
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr "员工工具 |统计 • {APP_NAME}"
@@ -3045,4 +3047,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

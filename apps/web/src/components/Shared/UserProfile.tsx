@@ -1,8 +1,9 @@
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import isScam from '@lenster/lib/isScam';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
@@ -82,6 +83,9 @@ const UserProfile: FC<UserProfileProps> = ({
         </div>
         {isVerified(profile?.id) && (
           <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
+        )}
+        {isScam(profile?.id) && (
+          <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
         )}
         {showStatus && hasStatus ? (
           <div className="lt-text-gray-500 flex items-center">

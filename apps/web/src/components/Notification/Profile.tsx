@@ -1,7 +1,8 @@
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isScam from '@lenster/lib/isScam';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
@@ -41,6 +42,9 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       </div>
       {isVerified(profile?.id) && (
         <BadgeCheckIcon className="text-brand h-4 w-4" />
+      )}
+      {isScam(profile?.id) && (
+        <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
       )}
     </Link>
   );

@@ -1314,6 +1314,11 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr ""
 
@@ -1343,6 +1348,12 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
 msgstr ""
 
 #: src/components/Profile/Filters/MediaFilter.tsx
@@ -2593,10 +2604,6 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
@@ -2956,11 +2963,6 @@ msgstr ""
 msgid "Relay queues"
 msgstr ""
 
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr ""
-
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
 msgstr ""
@@ -3045,4 +3047,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
