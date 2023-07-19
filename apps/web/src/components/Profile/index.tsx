@@ -56,7 +56,6 @@ const ViewProfile: NextPage = () => {
   });
 
   const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
-  const isAchievementsEnabled = isFeatureEnabled(FeatureFlag.Achievements);
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },
@@ -155,9 +154,7 @@ const ViewProfile: NextPage = () => {
               <NftFeed profile={profile as Profile} />
             )
           ) : null}
-          {feedType === ProfileFeedType.Stats &&
-          IS_MAINNET &&
-          isAchievementsEnabled ? (
+          {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />
           ) : null}
         </GridItemEight>
