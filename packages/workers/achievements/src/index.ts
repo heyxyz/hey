@@ -1,5 +1,6 @@
 import { createCors, error, json, Router } from 'itty-router';
 
+import hasUsedLenster from './handlers/hasUsedLenster';
 import streaksCalendar from './handlers/streaksCalendar';
 import streaksList from './handlers/streaksList';
 import type { Env } from './types';
@@ -13,6 +14,9 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to achievements service 👋'));
+router.get('/hasUsedLenster/:id', ({ params }, env) =>
+  hasUsedLenster(params.id, env)
+);
 router.get('/streaks/:id', ({ params }, env) =>
   streaksCalendar(params.id, env)
 );
