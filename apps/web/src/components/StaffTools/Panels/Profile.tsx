@@ -7,15 +7,16 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
-import { APP_NAME } from '@lenster/data/constants';
+import { ACHIEVEMENTS_WORKER_URL, APP_NAME } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getFollowModule from '@lenster/lib/getFollowModule';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -26,6 +27,23 @@ interface ProfileStaffToolProps {
 }
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
+  const getHasUsedLenster = async () => {
+    try {
+      const response = await axios(
+        `${ACHIEVEMENTS_WORKER_URL}/hasUsedLenster/${profile.id}`
+      );
+
+      return response.data.hasUsedLenster;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const { data: hasUsedLenster } = useQuery(
+    ['hasUsedLenster', profile.id],
+    () => getHasUsedLenster().then((res) => res)
+  );
+
   return (
     <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5">
       <div className="flex items-center space-x-2 text-yellow-600">
@@ -35,7 +53,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {getProfileAttribute(profile?.attributes, 'app') === APP_NAME && (
+        {hasUsedLenster ? (
           <MetaDetails
             icon={
               <img
@@ -50,7 +68,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           >
             <Trans>{APP_NAME} account</Trans>
           </MetaDetails>
-        )}
+        ) : null}
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.id}
