@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-16 00:11\n"
+"PO-Revision-Date: 2023-07-19 00:12\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -1314,6 +1314,16 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr ""
 
@@ -1343,6 +1353,12 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
 msgstr ""
 
 #: src/components/Profile/Filters/MediaFilter.tsx
@@ -1510,6 +1526,10 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
+msgstr ""
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -2593,10 +2613,6 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
@@ -2954,11 +2970,6 @@ msgstr ""
 #: src/components/StaffTools/RelayQueues.tsx
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
-msgstr ""
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
 msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx
