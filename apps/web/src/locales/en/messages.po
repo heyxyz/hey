@@ -1321,8 +1321,8 @@ msgid "Voted on a poll"
 msgstr "Voted on a poll"
 
 #: src/components/Profile/Achievements/StreaksList.tsx
-msgid "Events today"
-msgstr "Events today"
+msgid "Latest events"
+msgstr "Latest events"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
