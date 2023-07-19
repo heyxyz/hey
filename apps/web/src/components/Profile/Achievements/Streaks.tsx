@@ -33,7 +33,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(['streaks', profile.id], () =>
+  const { data, isLoading } = useQuery(['streaksCalendar', profile.id], () =>
     fetchStreaks().then((res) => res)
   );
 
