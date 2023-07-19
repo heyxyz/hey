@@ -104,7 +104,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
         <CalendarIcon className="text-brand h-6 w-6" />
         <span>
-          <Trans>Events today</Trans>
+          <Trans>Latest events</Trans>
         </span>
       </div>
       <div className="divider" />
