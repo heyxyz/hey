@@ -91,6 +91,14 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     );
   }
 
+  if (!data.length) {
+    return (
+      <Card className="p-6">
+        <div>No events today</div>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
