@@ -16,7 +16,8 @@ export default async (id: string, date: string, env: Env) => {
         headers: { 'Content-Type': 'application/json' },
         cf: { cacheTtl: 600, cacheEverything: true },
         body: `
-          SELECT 
+          SELECT
+            id,
             name,
             created
           FROM events
@@ -34,9 +35,9 @@ export default async (id: string, date: string, env: Env) => {
     }
 
     const json: {
-      data: [string, string][];
+      data: [string, string, string][];
     } = await streaksResponse.json();
-    const list = json.data.map(([event, date]) => ({ event, date }));
+    const list = json.data.map(([id, event, date]) => ({ id, event, date }));
 
     let response = new Response(
       JSON.stringify({
