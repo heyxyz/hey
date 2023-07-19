@@ -96,8 +96,8 @@ const useGetMessagePreviews = () => {
   useEffect(
     () => {
       setHasSyncedMessages(false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     currentProfile?.id
   );
 
