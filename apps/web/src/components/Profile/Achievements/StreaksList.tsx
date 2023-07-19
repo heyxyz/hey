@@ -25,7 +25,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
       const response = await axios(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/2023-07-19`
+        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/latest`
       );
 
       return response.data.data;

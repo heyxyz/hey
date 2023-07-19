@@ -9,22 +9,36 @@ export default async (id: string, date: string, env: Env) => {
   }
 
   try {
+    const query = `
+      SELECT
+        id,
+        name,
+        created
+      FROM events
+      WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
+      AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
+      ${
+        date === 'latest'
+          ? `
+        AND DATE(created) = (
+          SELECT MAX(DATE(created))
+          FROM events
+          WHERE actor = '${id}' 
+          AND created >= now() - INTERVAL 1 YEAR
+          AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
+        )
+      `
+          : ''
+      };
+    `;
+
     const streaksResponse = await fetch(
       `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         cf: { cacheTtl: 600, cacheEverything: true },
-        body: `
-          SELECT
-            id,
-            name,
-            created
-          FROM events
-          WHERE actor = '${id}' AND created >= now() - INTERVAL 1 YEAR
-          AND name IN (${filteredEvents.map((name) => `'${name}'`).join(',')})
-          AND DATE(created) = '${date}';
-        `
+        body: query
       }
     );
 
