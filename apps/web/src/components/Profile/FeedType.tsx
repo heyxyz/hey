@@ -7,9 +7,7 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PROFILE } from '@lenster/data/tracking';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -24,8 +22,6 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
-  const isAchievementsEnabled = isFeatureEnabled(FeatureFlag.Achievements);
-
   const switchTab = (type: string) => {
     setFeedType(type);
     if (type === ProfileFeedType.Stats.toLowerCase()) {
@@ -75,7 +71,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           type={ProfileFeedType.Nft.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Nft)}
         />
-        {IS_MAINNET && isAchievementsEnabled && (
+        {IS_MAINNET && (
           <TabButton
             name={t`Stats`}
             icon={<ChartBarIcon className="h-4 w-4" />}
