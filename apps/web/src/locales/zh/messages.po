@@ -2939,10 +2939,6 @@ msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#~ msgid "{APP_NAME} account"
-#~ msgstr "{APP_NAME} 帐号"
-
-#: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr "员工工具"

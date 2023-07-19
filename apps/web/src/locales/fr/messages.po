@@ -2939,10 +2939,6 @@ msgid "Swap in Uniswap"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-#~ msgid "{APP_NAME} account"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr ""
