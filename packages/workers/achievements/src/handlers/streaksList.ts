@@ -32,7 +32,7 @@ export default async (id: string, date: string, env: Env) => {
       };
     `;
 
-    const streaksResponse = await fetch(
+    const clickhouseResponse = await fetch(
       `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
       {
         method: 'POST',
@@ -42,7 +42,7 @@ export default async (id: string, date: string, env: Env) => {
       }
     );
 
-    if (streaksResponse.status !== 200) {
+    if (clickhouseResponse.status !== 200) {
       return new Response(
         JSON.stringify({ success: false, error: 'Status code is not 200!' })
       );
@@ -50,7 +50,7 @@ export default async (id: string, date: string, env: Env) => {
 
     const json: {
       data: [string, string, string][];
-    } = await streaksResponse.json();
+    } = await clickhouseResponse.json();
     const list = json.data.map(([id, event, date]) => ({ id, event, date }));
 
     let response = new Response(
@@ -70,7 +70,7 @@ export default async (id: string, date: string, env: Env) => {
 
     return response;
   } catch (error) {
-    console.error('Failed to get streaks', error);
+    console.error('Failed to get streaksList', error);
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );
