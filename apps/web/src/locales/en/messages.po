@@ -646,10 +646,6 @@ msgid "Loading..."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
 msgstr ""
 
@@ -1291,6 +1287,42 @@ msgstr "Questions about the Terms should be sent to us at terms@lenster.xyz"
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
 msgstr "Thanks • {APP_NAME}"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr "Followed a profile"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr "Super followed a profile"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr "Liked a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr "Created a new post"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr "Commented on a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr "Mirrored a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr "Collected a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr "Voted on a poll"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Events today"
+msgstr "Events today"
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"

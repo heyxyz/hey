@@ -646,10 +646,6 @@ msgid "Loading..."
 msgstr "Загрузка..."
 
 #: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr "В этих диалогах участвуют профили Lens, на которые вы в данный момент не подписаны."
-
-#: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
 msgstr "Загрузка диалогов"
 
@@ -1291,6 +1287,42 @@ msgstr "Вопросы об Условиях следует направлять
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
 msgstr "Спасибо • {APP_NAME}"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Events today"
+msgstr ""
 
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
@@ -3056,4 +3088,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-
