@@ -212,8 +212,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           {
             key: 'statusMessage',
             value: getProfileAttribute(profile?.attributes, 'statusMessage')
-          },
-          { key: 'app', value: APP_NAME }
+          }
         ],
         version: '1.0.0',
         metadata_id: uuid()
