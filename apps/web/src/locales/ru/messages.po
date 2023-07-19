@@ -2939,13 +2939,17 @@ msgid "Swap in Uniswap"
 msgstr "Обмен в Uniswap"
 
 #: src/components/StaffTools/Panels/Profile.tsx
+#~ msgid "{APP_NAME} account"
+#~ msgstr "{APP_NAME} аккаунт"
+
+#: src/components/StaffTools/Panels/Profile.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr "Панель управления"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
-msgstr "{APP_NAME} аккаунт"
+msgid "Has used {APP_NAME}"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
