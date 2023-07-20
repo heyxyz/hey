@@ -15,7 +15,9 @@
   "dependencies": {
     "@lenster/data": "*",
     "@lenster/lib": "*",
-    "itty-router": "^4.0.14"
+    "@supabase/supabase-js": "^2.26.0",
+    "itty-router": "^4.0.14",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230717.0",
