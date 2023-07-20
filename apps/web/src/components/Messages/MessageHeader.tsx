@@ -103,7 +103,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               const url = currentUrl.match(/^https?:\/\/([^/]+)/)?.[0];
               sendMessage(
                 `Join here for a call: ${url}/meet/${roomId}`,
-                ContentTypeText,
+                ContentTypeText
               );
               window.open(
                 `/meet/${roomId}`,
