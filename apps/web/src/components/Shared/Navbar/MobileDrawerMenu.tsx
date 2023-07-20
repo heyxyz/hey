@@ -1,7 +1,9 @@
 import { XIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import isGardener from '@lenster/lib/isGardener';
 import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
@@ -34,6 +36,7 @@ const MobileDrawerMenu: FC = () => {
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
+  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -91,7 +94,9 @@ const MobileDrawerMenu: FC = () => {
             <Link href={'/settings'} onClick={closeDrawer}>
               <Settings className={clsx(itemClass, 'px-4')} />
             </Link>
-            <Communities className={itemClass} onClick={closeDrawer} />
+            {isCommunitiesEnabled && (
+              <Communities className={itemClass} onClick={closeDrawer} />
+            )}
             <Bookmarks className={itemClass} onClick={closeDrawer} />
             {isGardener(currentProfile?.id) && (
               <Link href="/mod" onClick={closeDrawer}>
