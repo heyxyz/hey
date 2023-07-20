@@ -44,19 +44,21 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+      {commentsCount > 0 && (
+        <span data-testid="comment-stats">
+          <b className="text-black dark:text-white">
+            {nFormatter(commentsCount)}
+          </b>{' '}
+          <Plural
+            value={commentsCount}
+            zero="Comment"
+            one="Comment"
+            other="Comments"
+          />
+        </span>
+      )}
       {mirrorCount > 0 && (
         <>
-          <span data-testid="comment-stats">
-            <b className="text-black dark:text-white">
-              {nFormatter(commentsCount)}
-            </b>{' '}
-            <Plural
-              value={commentsCount}
-              zero="Comment"
-              one="Comment"
-              other="Comments"
-            />
-          </span>
           <button
             type="button"
             onClick={() => {
