@@ -84,8 +84,11 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             )}
           </>
         )}
+        <MoreComments
+          rootPublicationId={rootPublication.id}
+          comments={feedItem?.comments ?? []}
+        />
       </div>
-      <MoreComments comments={feedItem?.comments ?? []} />
     </PublicationWrapper>
   );
 };
