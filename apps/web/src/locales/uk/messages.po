@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-19 00:12\n"
+"PO-Revision-Date: 2023-07-20 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -643,10 +643,6 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -1290,6 +1286,42 @@ msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Latest events"
 msgstr ""
 
 #: src/components/Profile/Badges/Ens.tsx
@@ -2912,7 +2944,7 @@ msgid "Staff tool"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
+msgid "Has used {APP_NAME}"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
