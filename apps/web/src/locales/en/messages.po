@@ -46,6 +46,47 @@ msgstr "Hide more comments"
 msgid "Show more comments"
 msgstr "Show more comments"
 
+#: src/components/Communities/NewCommunity.tsx
+msgid "Name should not be empty"
+msgstr "Name should not be empty"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Slug should not be empty"
+msgstr "Slug should not be empty"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "New Community • {APP_NAME}"
+msgstr "New Community • {APP_NAME}"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Create a new community"
+msgstr "Create a new community"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Create a new community and start sharing with the world."
+msgstr "Create a new community and start sharing with the world."
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Community Name"
+msgstr "Community Name"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Slug"
+msgstr "Slug"
+
+#: src/components/Communities/NewCommunity.tsx
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Describe your community"
+msgstr "Describe your community"
+
+#: src/components/Communities/NewCommunity.tsx
+msgid "Create Community"
+msgstr "Create Community"
+
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr ""
@@ -2202,6 +2243,14 @@ msgstr "Exported <0>{0}</0> publications"
 msgid "Download publications"
 msgstr "Download publications"
 
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary access token"
+msgstr "Your temporary access token"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary refresh token"
+msgstr "Your temporary refresh token"
+
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "Interests settings • {APP_NAME}"
@@ -2701,10 +2750,6 @@ msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/index.tsx
-msgid "Description"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 
@@ -2720,6 +2765,10 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
 msgid "Bookmarks"
 msgstr "Bookmarks"
+
+#: src/components/Shared/Navbar/NavItems/Communities.tsx
+msgid "Communities"
+msgstr "Communities"
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
