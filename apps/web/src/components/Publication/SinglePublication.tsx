@@ -10,6 +10,7 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
+import MoreComments from './MoreComments';
 
 interface SinglePublicationProps {
   publication: Publication;
@@ -84,6 +85,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
           </>
         )}
       </div>
+      <MoreComments comments={feedItem?.comments ?? []} />
     </PublicationWrapper>
   );
 };
