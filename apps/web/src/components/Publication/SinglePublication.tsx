@@ -7,10 +7,10 @@ import type { FC } from 'react';
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
 import HiddenPublication from './HiddenPublication';
+import MoreComments from './MoreComments';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
-import MoreComments from './MoreComments';
 
 interface SinglePublicationProps {
   publication: Publication;
