@@ -1,24 +1,9 @@
-import ActionType from '@components/Home/Timeline/EventType';
-import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type {
-  Comment,
-  ElectedMirror,
-  FeedItem,
-  Publication
-} from '@lenster/lens';
-import clsx from 'clsx';
-import type { FC, ReactNode } from 'react';
-
-import PublicationActions from './Actions';
-import ModAction from './Actions/ModAction';
-import HiddenPublication from './HiddenPublication';
-import PublicationBody from './PublicationBody';
-import PublicationHeader from './PublicationHeader';
-import PublicationType from './Type';
-import { Image } from '@lenster/ui';
+import type { Comment } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import { Image } from '@lenster/ui';
 import Link from 'next/link';
+import type { FC, ReactNode } from 'react';
 
 interface MoreCommentsProps {
   rootPublicationId: string;
