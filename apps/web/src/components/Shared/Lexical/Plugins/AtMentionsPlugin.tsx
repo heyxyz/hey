@@ -1,4 +1,4 @@
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import { AVATAR } from '@lenster/data/constants';
 import type {
   MediaSet,
@@ -10,6 +10,7 @@ import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import imageKit from '@lenster/lib/imageKit';
+import isScam from '@lenster/lib/isScam';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -162,6 +163,9 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
             <span>{option.name}</span>
             {isVerified(option.id) && (
               <BadgeCheckIcon className="text-brand h-4 w-4" />
+            )}
+            {isScam(option.id) && (
+              <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             )}
           </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>

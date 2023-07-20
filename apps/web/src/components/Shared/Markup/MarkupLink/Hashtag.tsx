@@ -1,5 +1,6 @@
-import { hashflags, prideHashtags } from '@lenster/data';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { hashflags } from '@lenster/data/hashflags';
+import { prideHashtags } from '@lenster/data/pride-hashtags';
 import { PUBLICATION } from '@lenster/data/tracking';
 import isPrideMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';

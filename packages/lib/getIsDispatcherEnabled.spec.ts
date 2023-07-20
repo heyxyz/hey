@@ -1,4 +1,4 @@
-import { OLD_LENS_RELAYER_ADDRESS } from '@lenster/data';
+import { OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import getIsDispatcherEnabled from './getIsDispatcherEnabled';

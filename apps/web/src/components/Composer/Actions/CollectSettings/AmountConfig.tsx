@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/outline';
-import { DEFAULT_COLLECT_TOKEN } from '@lenster/data';
+import { DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
 import type { Erc20 } from '@lenster/lens';
 import { CollectModules } from '@lenster/lens';
 import { Input } from '@lenster/ui';

@@ -6,10 +6,11 @@ import { Localstorage } from '@lenster/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
+import { MessageTabs } from 'src/enums';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'All' | 'Lens' | 'Other' | 'Requests';
+export type TabValues = 'Inbox' | 'Following';
 
 interface MessageState {
   client: Client | undefined;
@@ -139,7 +140,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  selectedTab: 'All',
+  selectedTab: MessageTabs.Inbox,
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
@@ -160,7 +161,7 @@ export const useMessageStore = create<MessageState>((set) => ({
         messages: new Map(),
         messageProfiles: new Map(),
         previewMessages: new Map(),
-        selectedTab: 'All',
+        selectedTab: MessageTabs.Inbox,
         previewMessagesNonLens: new Map(),
         ensNames: new Map()
       };

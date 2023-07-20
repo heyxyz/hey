@@ -1,4 +1,4 @@
-import { LENSTER_POLLS_SPACE } from '@lenster/data';
+import { LENSTER_POLLS_SPACE } from '@lenster/data/constants';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { Proposal, Vote } from '@lenster/snapshot';
 import { useProposalQuery } from '@lenster/snapshot';

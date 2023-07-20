@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-13 00:10\n"
+"PO-Revision-Date: 2023-07-20 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -440,6 +440,7 @@ msgstr "விருப்பங்களைக் காட்டு"
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/Unfollow.tsx
 msgid "Following"
 msgstr "பின்தொடர்கிறீர்கள்"
 
@@ -643,10 +644,6 @@ msgstr "இதுதான் உரையாடலின் ஆரம்பம�
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
 msgstr "ஏற்றுகிறது..."
-
-#: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr "இந்த உரையாடல்கள் நீங்கள் தற்போது பின்பற்றாத லென்ஸ் சுயவிவரங்களிலிருந்து வந்தவை."
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
@@ -1291,6 +1288,42 @@ msgstr "விதிமுறைகள்பற்றிய கேள்வி�
 msgid "Thanks • {APP_NAME}"
 msgstr "நன்றி • {APP_NAME}"
 
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Latest events"
+msgstr ""
+
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
 msgstr "ENS பெயர்:"
@@ -1311,6 +1344,16 @@ msgstr "Worldcoin சரிபார்க்கப்பட்டது"
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
 msgstr "சரிபார்க்கப்பட்டது"
+
+#: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
@@ -1343,6 +1386,12 @@ msgstr "சேகரிக்கப்பட்டது"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr "NFTகள்"
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "புள்ளிவிவரங்கள்"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -1510,6 +1559,10 @@ msgstr "கேலரிக்கு 50 பொருட்கள் மட்ட�
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -2592,10 +2645,6 @@ msgid "Violence"
 msgstr "வன்முறை"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
 
@@ -2881,10 +2930,6 @@ msgstr ""
 msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
 
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollow"
-msgstr "பின்தொடராதே"
-
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
@@ -2899,8 +2944,8 @@ msgid "Staff tool"
 msgstr "பணியாளர் கருவி"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
-msgstr "{APP_NAME} கணக்கு"
+msgid "Has used {APP_NAME}"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
@@ -2958,11 +3003,6 @@ msgstr "பணியாளர் கருவிகள் | ரிலே வர�
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
 msgstr "ரிலே வரிசைகள்"
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "புள்ளிவிவரங்கள்"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
@@ -3048,3 +3088,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+

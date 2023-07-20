@@ -1,6 +1,6 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
-import useSendMessage from '@components/utils/hooks/useSendMessage';
+import useSendOptimisticMessage from '@components/utils/hooks/useSendOptimisticMessage';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -34,7 +34,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   const url =
     (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
 
-  const { sendMessage } = useSendMessage(conversationKey ?? '');
+  const { sendMessage } = useSendOptimisticMessage(conversationKey ?? '');
 
   const setFollowingWrapped = useCallback(
     (following: boolean) => {
@@ -104,7 +104,6 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               sendMessage(
                 `Join here for a call: ${url}/meet/${roomId}`,
                 ContentTypeText,
-                ''
               );
               window.open(
                 `/meet/${roomId}`,

@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
-import { FeatureFlag, Localstorage } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
+import { Localstorage } from '@lenster/data/storage';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';

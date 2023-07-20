@@ -20,10 +20,10 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230710.1",
+    "@cloudflare/workers-types": "^4.20230717.0",
     "@lenster/config": "*",
     "@types/ua-parser-js": "^0.7.36",
     "typescript": "^5.1.6",
-    "wrangler": "^3.2.0"
+    "wrangler": "^3.3.0"
   }
 }

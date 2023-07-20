@@ -105,7 +105,7 @@ const useMessagePreviews = () => {
   useEffect(() => {
     const getEns = async () => {
       if (
-        (selectedTab === 'Other' || selectedTab === 'All') &&
+        selectedTab === MessageTabs.Inbox &&
         ensNames.size < nonLensProfiles.size
       ) {
         const chunks = chunkArray(
@@ -302,14 +302,16 @@ const useMessagePreviews = () => {
       otherProfiles.set(key, {} as Profile);
     });
 
-    if (selectedTab === MessageTabs.Lens) {
+    if (selectedTab === MessageTabs.Following) {
       setProfilesToShow(partitionedProfiles[0]);
-    } else if (selectedTab === MessageTabs.Requests) {
-      setProfilesToShow(partitionedProfiles[1]);
-    } else if (selectedTab === MessageTabs.Other) {
-      setProfilesToShow(otherProfiles);
     } else {
-      setProfilesToShow(new Map([...partitionedProfiles[0], ...otherProfiles]));
+      setProfilesToShow(
+        new Map([
+          ...partitionedProfiles[0],
+          ...partitionedProfiles[1],
+          ...otherProfiles
+        ])
+      );
     }
 
     setRequestedCount(partitionedProfiles[1].size);

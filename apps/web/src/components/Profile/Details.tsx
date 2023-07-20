@@ -13,7 +13,7 @@ import {
   LocationMarkerIcon,
   UsersIcon
 } from '@heroicons/react/outline';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
@@ -26,6 +26,8 @@ import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getScamDetails from '@lenster/lib/getScamDetails';
+import isScam from '@lenster/lib/isScam';
 import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -38,10 +40,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { MessageTabs } from 'src/enums';
 import { useAppStore } from 'src/store/app';
-import type { TabValues } from 'src/store/message';
-import { useMessageStore } from 'src/store/message';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -49,6 +48,7 @@ import InvitedBy from './InvitedBy';
 import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
+import ScamWarning from './ScamWarning';
 
 interface DetailsProps {
   profile: Profile;
@@ -66,7 +66,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const router = useRouter();
 
   const { persistProfile } = useMessageDb();
-  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
 
   const onMessageClick = () => {
     if (!currentProfile) {
@@ -78,10 +77,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       conversationId
     );
     persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile.isFollowedByMe
-      ? MessageTabs.Lens
-      : MessageTabs.Requests;
-    setSelectedTab(selectedTab);
     router.push(`/messages/${conversationKey}`);
   };
 
@@ -134,6 +129,21 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             </Tooltip>
           )}
+          {isScam(profile?.id) && (
+            <Tooltip
+              content={
+                getScamDetails(profile?.id)?.identifiedOn
+                  ? t`Scam indentified on ${getScamDetails(profile?.id)
+                      ?.identifiedOn}`
+                  : t`Scam`
+              }
+            >
+              <ExclamationCircleIcon
+                className="h-6 w-6 text-red-500"
+                data-testid="profile-scam-badge"
+              />
+            </Tooltip>
+          )}
         </div>
         <div
           className="flex items-center space-x-3"
@@ -169,6 +179,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </div>
       )}
       <div className="space-y-5">
+        <ScamWarning profile={profile} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === profile?.id ? (

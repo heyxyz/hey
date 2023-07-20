@@ -16,12 +16,17 @@ const getWalletDetails = (name: string): WalletDetails => {
     WalletConnect: {
       name: 'WalletConnect',
       logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`
+    },
+    'Coinbase Wallet': {
+      name: 'Coinbase Wallet',
+      logo: `${STATIC_IMAGES_URL}/wallets/coinbase.svg`
     }
   };
   const defaultDetails: WalletDetails = {
     name,
     logo: `${STATIC_IMAGES_URL}/wallets/browser-wallet.svg`
   };
+
   return walletDetails[name] || defaultDetails;
 };
 
