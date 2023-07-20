@@ -4,20 +4,17 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useAppStore } from 'src/store/app';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<boolean>;
   profile: Profile;
-  variant?: 'xs' | 'sm';
 }
 
 const MutualFollowers: FC<MutualFollowersProps> = ({
   setShowMutualFollowersModal,
-  profile,
-  variant = 'sm'
+  profile
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
@@ -37,13 +34,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
-      className={clsx(
-        'lt-text-gray-500 flex cursor-pointer items-center space-x-2.5',
-        {
-          'text-sm': variant === 'sm',
-          'text-xs': variant === 'xs'
-        }
-      )}
+      className="lt-text-gray-500 flex cursor-pointer items-center space-x-2.5 text-sm"
       onClick={() => setShowMutualFollowersModal?.(true)}
       aria-hidden="true"
     >
