@@ -14,3 +14,5 @@ The following ports are exposed by the repository
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.lenster.xyz         |
 | 8088 | Spaces worker              | http://localhost:8088 | https://spaces.lenster.xyz         |
 | 8089 | Leafwatch worker           | http://localhost:8089 | https://leafwatch.lenster.xyz      |
+| 8090 | Achievements worker        | http://localhost:8090 | https://achievements.lenster.xyz   |
+| 8091 | Communities worker         | http://localhost:8091 | https://communities.lenster.xyz    |
