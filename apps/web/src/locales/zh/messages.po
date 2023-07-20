@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-13 00:10\n"
+"PO-Revision-Date: 2023-07-20 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -440,6 +440,7 @@ msgstr "显示点赞"
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/Unfollow.tsx
 msgid "Following"
 msgstr "正在关注"
 
@@ -643,10 +644,6 @@ msgstr "这是对话的开始"
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
 msgstr "加载中..."
-
-#: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
-msgstr "这些消息来自您目前未关注的Lens用户。"
 
 #: src/components/Messages/PreviewList.tsx
 msgid "Loading conversations"
@@ -1291,6 +1288,42 @@ msgstr "有关条款的问题请发送至 terms@lenster.xyz"
 msgid "Thanks • {APP_NAME}"
 msgstr "谢谢 • {APP_NAME}"
 
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Latest events"
+msgstr ""
+
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
 msgstr "ENS 域名："
@@ -1311,6 +1344,16 @@ msgstr "世界币已验证"
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
 msgstr "已验证"
+
+#: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "诈骗"
 
 #: src/components/Profile/Details.tsx
 msgid "Follows you"
@@ -1343,6 +1386,12 @@ msgstr "已收藏"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr "NFT"
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "统计数据"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -1510,6 +1559,10 @@ msgstr "画廊只允许 50 件藏品"
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -2592,10 +2645,6 @@ msgid "Violence"
 msgstr "暴力"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "诈骗"
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "冒充"
 
@@ -2881,10 +2930,6 @@ msgstr "创建个人账户"
 msgid "Unfollowed successfully!"
 msgstr "取消关注成功！"
 
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollow"
-msgstr "取消关注"
-
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
@@ -2899,8 +2944,8 @@ msgid "Staff tool"
 msgstr "员工工具"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
-msgstr "{APP_NAME} 帐号"
+msgid "Has used {APP_NAME}"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
@@ -2958,11 +3003,6 @@ msgstr "员工工具 |中继队列 • {APP_NAME}"
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
 msgstr "中继服务队列"
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "统计数据"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"
@@ -3048,3 +3088,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+

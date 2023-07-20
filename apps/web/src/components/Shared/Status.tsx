@@ -1,7 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
-import { Errors } from '@lenster/data';
-import { APP_NAME, LENS_PERIPHERY } from '@lenster/data/constants';
+import { LENS_PERIPHERY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
 import {
@@ -186,8 +186,7 @@ const Status: FC = () => {
             value: getProfileAttribute(profile?.attributes, 'hasPrideLogo')
           },
           { key: 'statusEmoji', value: emoji },
-          { key: 'statusMessage', value: status },
-          { key: 'app', value: APP_NAME }
+          { key: 'statusMessage', value: status }
         ],
         version: '1.0.0',
         metadata_id: uuid()

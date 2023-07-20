@@ -1,6 +1,6 @@
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
-import { Errors } from '@lenster/data';
+import { Errors } from '@lenster/data/errors';
 import type { NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,

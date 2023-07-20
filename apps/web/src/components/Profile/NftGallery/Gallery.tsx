@@ -1,7 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { DotsVerticalIcon } from '@heroicons/react/outline';
-import { Errors } from '@lenster/data';
+import { Errors } from '@lenster/data/errors';
 import type { Nft, NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,

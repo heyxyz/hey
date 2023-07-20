@@ -3,7 +3,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { FeatureFlag } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
@@ -14,6 +14,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useTimelineStore } from 'src/store/timeline';
 
 import Suggested from './Suggested';
 
@@ -31,11 +32,18 @@ const Title = () => {
 const RecommendedProfiles: FC = () => {
   const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const seeThroughProfile = useTimelineStore(
+    (state) => state.seeThroughProfile
+  );
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
 
   const { data, loading, error } = useRecommendedProfilesQuery({
     variables: {
-      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+      options: {
+        profileId: isWTF2Enabled
+          ? seeThroughProfile?.id ?? currentProfile?.id
+          : null
+      }
     }
   });
 

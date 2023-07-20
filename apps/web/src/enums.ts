@@ -16,12 +16,11 @@ export enum ProfileFeedType {
   Replies = 'REPLIES',
   Media = 'MEDIA',
   Collects = 'COLLECTS',
-  Nft = 'NFT'
+  Nft = 'NFT',
+  Stats = 'STATS'
 }
 
 export enum MessageTabs {
-  All = 'All',
-  Lens = 'Lens',
-  Other = 'Other',
-  Requests = 'Requests'
+  Inbox = 'Inbox',
+  Following = 'Following'
 }

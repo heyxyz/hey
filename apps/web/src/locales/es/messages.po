@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-13 00:10\n"
+"PO-Revision-Date: 2023-07-20 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -440,6 +440,7 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/Unfollow.tsx
 msgid "Following"
 msgstr ""
 
@@ -642,10 +643,6 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -1291,6 +1288,42 @@ msgstr ""
 msgid "Thanks • {APP_NAME}"
 msgstr ""
 
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr ""
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Latest events"
+msgstr ""
+
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
 msgstr ""
@@ -1310,6 +1343,16 @@ msgstr ""
 #: src/components/Profile/Details.tsx
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
@@ -1342,6 +1385,12 @@ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
+msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
 msgstr ""
 
 #: src/components/Profile/Filters/MediaFilter.tsx
@@ -1390,6 +1439,10 @@ msgstr ""
 
 #: src/components/Profile/Following.tsx
 msgid "Failed to load following"
+msgstr ""
+
+#: src/components/Profile/InvitedBy.tsx
+msgid "Invited by <0/>"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
@@ -1505,6 +1558,10 @@ msgstr ""
 
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
+msgstr ""
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -2588,10 +2645,6 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
@@ -2877,10 +2930,6 @@ msgstr ""
 msgid "Unfollowed successfully!"
 msgstr ""
 
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollow"
-msgstr ""
-
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
 msgstr ""
@@ -2895,7 +2944,7 @@ msgid "Staff tool"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
+msgid "Has used {APP_NAME}"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile.tsx
@@ -2953,11 +3002,6 @@ msgstr ""
 #: src/components/StaffTools/RelayQueues.tsx
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
-msgstr ""
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
 msgstr ""
 
 #: src/components/StaffTools/Stats/index.tsx

@@ -96,6 +96,7 @@ export const SPACES_WORKER_URL = IS_PRODUCTION
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
   : 'http://localhost:8089';
+export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

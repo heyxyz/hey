@@ -1,5 +1,5 @@
 import { MicrophoneIcon } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';

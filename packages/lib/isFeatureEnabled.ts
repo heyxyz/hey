@@ -1,4 +1,6 @@
-import { featureFlags, IS_MAINNET, Localstorage } from '@lenster/data';
+import { IS_MAINNET } from '@lenster/data/constants';
+import { featureFlags } from '@lenster/data/feature-flags';
+import { Localstorage } from '@lenster/data/storage';
 
 /**
  * Returns whether a given feature is enabled for a given profile ID.

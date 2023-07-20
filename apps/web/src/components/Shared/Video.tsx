@@ -1,6 +1,6 @@
 import 'plyr-react/plyr.css';
 
-import { IPFS_GATEWAY } from '@lenster/data';
+import { IPFS_GATEWAY } from '@lenster/data/constants';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Player } from '@livepeer/react';

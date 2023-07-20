@@ -1,4 +1,4 @@
-import { GIPHY_KEY } from '@lenster/data';
+import { GIPHY_KEY } from '@lenster/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';

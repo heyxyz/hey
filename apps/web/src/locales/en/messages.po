@@ -440,6 +440,7 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
+#: src/components/Shared/Unfollow.tsx
 msgid "Following"
 msgstr ""
 
@@ -642,10 +643,6 @@ msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Loading..."
-msgstr ""
-
-#: src/components/Messages/PreviewList.tsx
-msgid "These conversations are from Lens profiles that you don't currently follow."
 msgstr ""
 
 #: src/components/Messages/PreviewList.tsx
@@ -1291,6 +1288,42 @@ msgstr "Questions about the Terms should be sent to us at terms@lenster.xyz"
 msgid "Thanks • {APP_NAME}"
 msgstr "Thanks • {APP_NAME}"
 
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Followed a profile"
+msgstr "Followed a profile"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Super followed a profile"
+msgstr "Super followed a profile"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Liked a publication"
+msgstr "Liked a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Created a new post"
+msgstr "Created a new post"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Commented on a publication"
+msgstr "Commented on a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Mirrored a publication"
+msgstr "Mirrored a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Collected a publication"
+msgstr "Collected a publication"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Voted on a poll"
+msgstr "Voted on a poll"
+
+#: src/components/Profile/Achievements/StreaksList.tsx
+msgid "Latest events"
+msgstr "Latest events"
+
 #: src/components/Profile/Badges/Ens.tsx
 msgid "ENS name:"
 msgstr ""
@@ -1310,6 +1343,16 @@ msgstr ""
 #: src/components/Profile/Details.tsx
 #: src/components/Settings/Account/Verification.tsx
 msgid "Verified"
+msgstr ""
+
+#: src/components/Profile/Details.tsx
+msgid "Scam indentified on {0}"
+msgstr "Scam indentified on {0}"
+
+#: src/components/Profile/Details.tsx
+#: src/components/Profile/ScamWarning.tsx
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
@@ -1343,6 +1386,12 @@ msgstr "Collected"
 #: src/components/Profile/FeedType.tsx
 msgid "NFTs"
 msgstr ""
+
+#: src/components/Profile/FeedType.tsx
+#: src/components/StaffTools/Sidebar.tsx
+#: src/components/StaffTools/Stats/index.tsx
+msgid "Stats"
+msgstr "Stats"
 
 #: src/components/Profile/Filters/MediaFilter.tsx
 #: src/components/Shared/FeedFocusType.tsx
@@ -1510,6 +1559,10 @@ msgstr "Only 50 items allowed for gallery"
 #: src/components/Profile/NftGallery/ReviewSelection.tsx
 msgid "No collectables selected!"
 msgstr "No collectables selected!"
+
+#: src/components/Profile/ScamWarning.tsx
+msgid "Profile is marked as scam!"
+msgstr "Profile is marked as scam!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -2592,10 +2645,6 @@ msgid "Violence"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
@@ -2881,10 +2930,6 @@ msgstr "Create Profile"
 msgid "Unfollowed successfully!"
 msgstr ""
 
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollow"
-msgstr ""
-
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
 msgstr "You don't have enough <0>{currency}</0>"
@@ -2899,8 +2944,8 @@ msgid "Staff tool"
 msgstr "Staff tool"
 
 #: src/components/StaffTools/Panels/Profile.tsx
-msgid "{APP_NAME} account"
-msgstr "{APP_NAME} account"
+msgid "Has used {APP_NAME}"
+msgstr "Has used {APP_NAME}"
 
 #: src/components/StaffTools/Panels/Profile.tsx
 msgid "Profile ID"
@@ -2958,11 +3003,6 @@ msgstr "Stafftools | Relay queues • {APP_NAME}"
 #: src/components/StaffTools/Sidebar.tsx
 msgid "Relay queues"
 msgstr "Relay queues"
-
-#: src/components/StaffTools/Sidebar.tsx
-#: src/components/StaffTools/Stats/index.tsx
-msgid "Stats"
-msgstr "Stats"
 
 #: src/components/StaffTools/Stats/index.tsx
 msgid "Stafftools | Stats • {APP_NAME}"

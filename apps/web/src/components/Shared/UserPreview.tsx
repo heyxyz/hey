@@ -1,9 +1,10 @@
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isScam from '@lenster/lib/isScam';
 import isVerified from '@lenster/lib/isVerified';
 import nFormatter from '@lenster/lib/nFormatter';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -65,6 +66,9 @@ const UserPreview: FC<UserPreviewProps> = ({
         </div>
         {isVerified(lazyProfile?.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
+        )}
+        {isScam(lazyProfile?.id) && (
+          <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
         )}
       </div>
       <Slug

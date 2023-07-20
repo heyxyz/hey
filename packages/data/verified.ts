@@ -2,6 +2,8 @@ import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0xe5aa', // creators
+  '0x01cddb', // build
   '0x01ce98', // bear
   '0x016bfd', // huddle01
   '0x7cca', // songadaymann
