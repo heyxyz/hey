@@ -119,7 +119,7 @@ const Contact: FC = () => {
                     submitting ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilAltIcon className="h-4 w-4" />
+                      <PencilAltIcon className="h-5 w-5" />
                     )
                   }
                 >

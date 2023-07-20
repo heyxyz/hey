@@ -1,11 +1,14 @@
 import { XIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import isGardener from '@lenster/lib/isGardener';
 import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
+import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -14,6 +17,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
+import Communities from './NavItems/Communities';
 import Contact from './NavItems/Contact';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
@@ -32,10 +36,13 @@ const MobileDrawerMenu: FC = () => {
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
+  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
   };
+
+  const itemClass = 'py-3 hover:bg-gray-100 dark:hover:bg-gray-800';
 
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
@@ -69,10 +76,10 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           {profiles.length > 1 && (
-            <SwitchProfile className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
+            <SwitchProfile className={clsx(itemClass, 'px-4')} />
           )}
           <div className="divider" />
-          <Status className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
+          <Status className={clsx(itemClass, 'px-4')} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
@@ -82,38 +89,29 @@ const MobileDrawerMenu: FC = () => {
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               onClick={closeDrawer}
             >
-              <YourProfile className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
+              <YourProfile className={clsx(itemClass, 'px-4')} />
             </Link>
             <Link href={'/settings'} onClick={closeDrawer}>
-              <Settings className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
+              <Settings className={clsx(itemClass, 'px-4')} />
             </Link>
-            <Bookmarks
-              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
-              onClick={closeDrawer}
-            />
+            {isCommunitiesEnabled && (
+              <Communities className={itemClass} onClick={closeDrawer} />
+            )}
+            <Bookmarks className={itemClass} onClick={closeDrawer} />
             {isGardener(currentProfile?.id) && (
               <Link href="/mod" onClick={closeDrawer}>
-                <Mod className="px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-800" />
+                <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
             )}
-            <ThemeSwitch
-              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
-              onClick={closeDrawer}
-            />
+            <ThemeSwitch className={itemClass} onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Contact
-              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
-              onClick={closeDrawer}
-            />
-            <ReportBug
-              className="py-3 hover:bg-gray-100 dark:hover:bg-gray-800"
-              onClick={closeDrawer}
-            />
+            <Contact className={itemClass} onClick={closeDrawer} />
+            <ReportBug className={itemClass} onClick={closeDrawer} />
           </div>
           <div className="divider" />
         </div>
