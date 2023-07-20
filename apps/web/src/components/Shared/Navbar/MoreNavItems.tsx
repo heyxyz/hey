@@ -6,6 +6,7 @@ import { useAppStore } from 'src/store/app';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
+import Communities from './NavItems/Communities';
 import Contact from './NavItems/Contact';
 import ReportBug from './NavItems/ReportBug';
 
@@ -36,6 +37,14 @@ const MoreNavItems: FC = () => {
             >
               {currentProfile ? (
                 <>
+                  <Menu.Item
+                    as="div"
+                    className={({ active }: { active: boolean }) =>
+                      clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                    }
+                  >
+                    <Communities />
+                  </Menu.Item>
                   <Menu.Item
                     as="div"
                     className={({ active }: { active: boolean }) =>
