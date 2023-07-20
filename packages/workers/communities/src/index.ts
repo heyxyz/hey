@@ -3,6 +3,7 @@ import { createCors, error, json, Router } from 'itty-router';
 import createCommunity from './handlers/createCommunity';
 import getCommunity from './handlers/getCommunity';
 import joinCommunity from './handlers/joinCommunity';
+import updateCommunity from './handlers/updateCommunity';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -15,6 +16,7 @@ const router = Router();
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to communities service 👋'));
 router.post('/create', createCommunity);
+router.post('/update', updateCommunity);
 router.post('/join', joinCommunity);
 router.get('/communities/:slug', ({ params }, env) =>
   getCommunity(params.slug, env)
