@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 
+import Details from './Details';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewCommunity: NextPage = () => {
@@ -63,7 +64,9 @@ const ViewCommunity: NextPage = () => {
         <MetaTags title={`c/${community.slug} • ${APP_NAME}`} />
       )}
       <GridLayout className="pt-6">
-        <GridItemFour>{JSON.stringify(community)}</GridItemFour>
+        <GridItemFour>
+          <Details community={community} />
+        </GridItemFour>
         <GridItemEight className="space-y-5">
           {JSON.stringify(community)}
         </GridItemEight>

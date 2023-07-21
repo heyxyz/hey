@@ -346,7 +346,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 href={`https://twitter.com/${getProfileAttribute(
                   profile?.attributes,
                   'twitter'
-                )}`}
+                )?.replace('https://twitter.com/', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
