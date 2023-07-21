@@ -1,3 +1,4 @@
+import Beta from '@components/Shared/Badges/Beta';
 import { UserGroupIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -35,6 +36,7 @@ const CommunitySettings: FC = () => {
             <span>
               <Trans>Choose community</Trans>
             </span>
+            <Beta />
           </div>
         }
         icon={<UserGroupIcon className="text-brand h-5 w-5" />}
