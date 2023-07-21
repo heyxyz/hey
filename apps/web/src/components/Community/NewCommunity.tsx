@@ -20,6 +20,7 @@ import {
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -34,6 +35,7 @@ const newContactSchema = object({
 });
 
 const NewCommunity: FC = () => {
+  const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [submitting, setSubmitting] = useState(false);
   const [avatar, setAvatar] = useState<string | null>(null);
@@ -70,7 +72,7 @@ const NewCommunity: FC = () => {
       });
 
       if (data.success) {
-        // setSubmitted(true);
+        push(`/c/${slug}`);
       }
     } finally {
       setSubmitting(false);
