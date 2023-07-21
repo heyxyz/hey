@@ -2450,6 +2450,14 @@ msgstr "புதியது"
 msgid "You can't reply to this post"
 msgstr "இந்த இடுகைக்கு நீங்கள் பதிலளிக்க முடியாது"
 
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
