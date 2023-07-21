@@ -38,7 +38,6 @@ export default async (slug: string, env: Env) => {
 
     return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
     throw error;
   }
 };

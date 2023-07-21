@@ -26,9 +26,6 @@ export default async (communityId: string, offset: string, env: Env) => {
 
     return new Response(JSON.stringify(result.rows));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

@@ -57,9 +57,6 @@ export default async (request: IRequest, env: Env) => {
 
     return new Response(JSON.stringify(data));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
