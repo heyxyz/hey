@@ -1,7 +1,7 @@
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { MarkupLinkProps } from '@lenster/types/misc';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { MarkupLinkProps } from 'src/types';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   if (!href) {
