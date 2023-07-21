@@ -17,7 +17,7 @@ export default async (communityId: string, offset: string, env: Env) => {
         SELECT id, profile_id
         FROM memberships
         WHERE community_id = $1
-        LIMIT 20 OFFSET $2;      
+        LIMIT 20 OFFSET $2;
       `,
       values: [communityId, offset]
     };
