@@ -25,8 +25,10 @@ export default async (request: IRequest, env: Env) => {
         // Append Tags to metadata
         const taggerResponseJson: any = await responses[0].json();
         payload.tags = [
-          ...(payload.tags as string[]),
-          ...taggerResponseJson.topics
+          ...new Set([
+            ...(payload.tags || []),
+            ...(taggerResponseJson.topics || [])
+          ])
         ];
 
         // Append Locale to metadata
