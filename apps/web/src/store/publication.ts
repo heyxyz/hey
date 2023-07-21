@@ -1,4 +1,5 @@
 import type { Publication } from '@lenster/lens';
+import type { Community } from '@lenster/types/communities';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { create } from 'zustand';
 
@@ -48,6 +49,8 @@ interface PublicationState {
   resetPollConfig: () => void;
   showSpaceEditor: boolean;
   setShowSpaceEditor: (showSpaceEditor: boolean) => void;
+  community: Community | null;
+  setCommunity: (community: Community | null) => void;
 }
 
 export const usePublicationStore = create<PublicationState>((set) => ({
@@ -106,5 +109,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, choices: ['', ''] } })),
   showSpaceEditor: false,
-  setShowSpaceEditor: (showSpaceEditor) => set(() => ({ showSpaceEditor }))
+  setShowSpaceEditor: (showSpaceEditor) => set(() => ({ showSpaceEditor })),
+  community: null,
+  setCommunity: (community) => set(() => ({ community }))
 }));
