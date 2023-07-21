@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -58,6 +59,7 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
         accessToken: localStorage.getItem('accessToken')
       });
       setIsMember(!isMember);
+      toast.success(t`Successfully joined the community`);
     } catch (error) {
       onError(error);
     } finally {
