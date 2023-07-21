@@ -11,11 +11,11 @@ import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { SpaceMetadata } from 'src/types';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 

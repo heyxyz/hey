@@ -2,13 +2,13 @@ import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { ChatAlt2Icon } from '@heroicons/react/solid';
 import type { NewCommentNotification } from '@lenster/lens';
+import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { MessageDescriptor } from 'src/types';
 
 import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
 

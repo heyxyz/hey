@@ -1,8 +1,8 @@
 import { GIPHY_KEY } from '@lenster/data/constants';
+import type { Category } from '@lenster/types/giphy';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
-import type { Category } from 'src/types/giphy';
 
 interface CategoriesProps {
   setSearchText: (searchText: string) => void;

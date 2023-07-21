@@ -9,13 +9,13 @@ import {
 import UserPreview from '@components/Shared/UserPreview';
 import { CollectionIcon } from '@heroicons/react/solid';
 import type { NewCollectNotification } from '@lenster/lens';
+import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
-import type { MessageDescriptor } from 'src/types';
 
 import CollectedAmount from './Amount';
 import CollectedContent from './Content';
