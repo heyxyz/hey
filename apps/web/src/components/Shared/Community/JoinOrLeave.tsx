@@ -4,25 +4,24 @@ import type { Community } from '@lenster/types/communities';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { t } from '@lingui/macro';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-interface JoinProps {
+interface JoinOrLeaveProps {
   community: Community;
 }
 
-const JoinOrLeave: FC<JoinProps> = ({ community }) => {
+const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
   const [isMember, setIsMember] = useState(false);
-  const queryClient = useQueryClient();
 
   const fetchIsMember = async () => {
     try {
