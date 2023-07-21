@@ -21,17 +21,17 @@ router.get('/', () => new Response('gm, to communities service 👋'));
 router.post('/create', createCommunity);
 router.post('/update', updateCommunity);
 router.post('/joinOrLeave', joinOrLeaveCommunity);
-router.get('/communities/get/:profileId/:offset', ({ params }, env) =>
-  getCommunities(params.profileId, params.offset, env)
-);
 router.get('/communities/:slug', ({ params }, env) =>
   getCommunity(params.slug, env)
 );
+router.get('/communities/get/:profileId/:offset', ({ params }, env) =>
+  getCommunities(params.profileId, params.offset, env)
+);
+router.get('/communities/members/:communityId/:offset', ({ params }, env) =>
+  getMembers(params.communityId, params.offset, env)
+);
 router.get('/communities/isMember/:communityId/:profileId', ({ params }, env) =>
   isMember(params.communityId, params.profileId, env)
-);
-router.get('/communities/:slug/members/:offset', ({ params }, env) =>
-  getMembers(params.slug, params.offset, env)
 );
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
