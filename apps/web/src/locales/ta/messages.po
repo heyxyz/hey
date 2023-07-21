@@ -2451,6 +2451,14 @@ msgid "You can't reply to this post"
 msgstr "இந்த இடுகைக்கு நீங்கள் பதிலளிக்க முடியாது"
 
 #: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Successfully left the community"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Successfully joined the community"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
 msgid "Leave"
 msgstr ""
 

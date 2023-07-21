@@ -13,7 +13,7 @@ import Custom500 from 'src/pages/500';
 
 import Details from './Details';
 import Feed from './Feed';
-import ProfilePageShimmer from './Shimmer';
+import CommunityPageShimmer from './Shimmer';
 
 const ViewCommunity: NextPage = () => {
   const {
@@ -46,7 +46,7 @@ const ViewCommunity: NextPage = () => {
   }
 
   if (isLoading) {
-    return <ProfilePageShimmer />;
+    return <CommunityPageShimmer />;
   }
 
   if (!data) {
