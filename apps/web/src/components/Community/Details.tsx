@@ -1,7 +1,5 @@
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
-import { useMessageDb } from '@components/utils/hooks/useMessageDb';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { CogIcon } from '@heroicons/react/outline';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -10,7 +8,6 @@ import type { Community } from '@lenster/types/communities';
 import { Button, Image, LightBox } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -22,14 +19,8 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ community }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showMutualFollowersModal, setShowMutualFollowersModal] =
-    useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
-  const router = useRouter();
-
-  const { persistProfile } = useMessageDb();
 
   const MetaDetails = ({
     children,
