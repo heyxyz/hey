@@ -3,7 +3,8 @@ import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import type { Community } from '@lenster/types/communities';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,6 +21,24 @@ const JoinOrLeave: FC<JoinProps> = ({ community }) => {
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isMember, setIsMember] = useState(false);
+  const queryClient = useQueryClient();
+
+  const fetchIsMember = async () => {
+    try {
+      const response = await axios(
+        `${COMMUNITIES_WORKER_URL}/communities/isMember/${community.id}/${currentProfile?.id}`
+      );
+
+      setIsMember(response.data?.isMember);
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const { isLoading: loading } = useQuery(['communityFoll', community.id], () =>
+    fetchIsMember().then((res) => res)
+  );
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -39,6 +58,7 @@ const JoinOrLeave: FC<JoinProps> = ({ community }) => {
         profileId: currentProfile.id,
         accessToken: localStorage.getItem('accessToken')
       });
+      setIsMember(!isMember);
     } catch (error) {
       onError(error);
     } finally {
@@ -46,18 +66,27 @@ const JoinOrLeave: FC<JoinProps> = ({ community }) => {
     }
   };
 
+  if (loading) {
+    return <div className="shimmer h-[34px] w-28 rounded-lg" />;
+  }
+
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
       outline
+      variant={isMember ? 'danger' : 'primary'}
       onClick={joinCommunity}
       aria-label="Join"
       disabled={isLoading}
       icon={
-        isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />
+        isLoading ? (
+          <Spinner size="xs" variant={isMember ? 'danger' : 'primary'} />
+        ) : (
+          <UserAddIcon className="h-4 w-4" />
+        )
       }
     >
-      <Trans>Join</Trans>
+      {isMember ? t`Leave` : t`Join`}
     </Button>
   );
 };
