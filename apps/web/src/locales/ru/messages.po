@@ -2450,6 +2450,14 @@ msgstr "Новый"
 msgid "You can't reply to this post"
 msgstr "Вы не можете ответить на этот пост"
 
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "Загрузка смайликов"
