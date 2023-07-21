@@ -1,3 +1,3 @@
-import NewCommunity from '@components/Communities/NewCommunity';
+import NewCommunity from '@components/Community/NewCommunity';
 
 export default NewCommunity;
