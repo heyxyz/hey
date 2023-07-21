@@ -46,44 +46,57 @@ msgstr "隐藏更多评论"
 msgid "Show more comments"
 msgstr "显示更多评论"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/Details.tsx
+msgid "Edit Community"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+msgid "No posts on this community yet!"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr "内容流加载失败"
+
+#: src/components/Community/NewCommunity.tsx
 msgid "Name should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "New Community • {APP_NAME}"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Community Name"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "描述"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Describe your community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create Community"
 msgstr ""
 
@@ -403,10 +416,6 @@ msgstr "发帖"
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
 msgstr "暂无动态！"
-
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
-msgstr "内容流加载失败"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -3137,4 +3146,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
