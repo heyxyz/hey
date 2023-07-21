@@ -51,21 +51,28 @@ export default async (request: IRequest, env: Env) => {
       .eq('profile_id', profileId);
 
     if (existing && existing.length > 0) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Already a member!' })
-      );
+      const { data: leave, error: leaveError } = await supabase
+        .from(MEMBERSHIPS_TABLE)
+        .delete()
+        .eq('community_id', communityId);
+
+      if (leaveError) {
+        throw error;
+      }
+
+      return new Response(JSON.stringify(leave));
     }
 
-    const { data, error } = await supabase
+    const { data: join, error: joinError } = await supabase
       .from(MEMBERSHIPS_TABLE)
       .upsert({ community_id: communityId, profile_id: profileId })
       .select();
 
-    if (error) {
+    if (joinError) {
       throw error;
     }
 
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(join));
   } catch (error) {
     console.error('Failed to create metadata data', error);
     return new Response(
