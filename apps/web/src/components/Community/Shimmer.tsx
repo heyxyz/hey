@@ -2,7 +2,7 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import type { FC } from 'react';
 
-const ProfilePageShimmer: FC = () => {
+const CommunityPageShimmer: FC = () => {
   return (
     <GridLayout className="pt-6">
       <GridItemFour>
@@ -44,16 +44,10 @@ const ProfilePageShimmer: FC = () => {
         </div>
       </GridItemFour>
       <GridItemEight>
-        <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
-          <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-          <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-          <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-          <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
-        </div>
         <PublicationsShimmer />
       </GridItemEight>
     </GridLayout>
   );
 };
 
-export default ProfilePageShimmer;
+export default CommunityPageShimmer;
