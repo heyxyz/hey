@@ -72,8 +72,8 @@ const NewCommunity: FC = () => {
         }
       });
 
-      if (data.success) {
-        push(`/c/${slug}`);
+      if (data.slug) {
+        push(`/c/${data.slug}`);
       }
     } finally {
       setSubmitting(false);
