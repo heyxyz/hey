@@ -59,7 +59,11 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
         accessToken: localStorage.getItem('accessToken')
       });
       setIsMember(!isMember);
-      toast.success(t`Successfully joined the community`);
+      toast.success(
+        isMember
+          ? t`Successfully left the community`
+          : t`Successfully joined the community`
+      );
     } catch (error) {
       onError(error);
     } finally {
