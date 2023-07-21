@@ -12,7 +12,7 @@ interface PreferencesState {
 export const usePreferencesStore = create(
   persist<PreferencesState>(
     (set) => ({
-      highSignalNotificationFilter: true,
+      highSignalNotificationFilter: false,
       setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
         set(() => ({ highSignalNotificationFilter }))
     }),
