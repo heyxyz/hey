@@ -3,6 +3,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PlusIcon } from '@heroicons/react/outline';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
+import { Localstorage } from '@lenster/data/storage';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import {
@@ -67,7 +68,7 @@ const NewCommunity: FC = () => {
           slug,
           description,
           avatar: avatar || `https://avatar.tobi.sh/${slug}`,
-          accessToken: localStorage.getItem('accessToken')
+          accessToken: localStorage.getItem(Localstorage.AccessToken)
         }
       });
 

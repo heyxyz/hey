@@ -1,10 +1,11 @@
+import { Localstorage } from '@lenster/data/storage';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 const Tokens: FC = () => {
-  const accessToken = localStorage.getItem('accessToken');
-  const refreshToken = localStorage.getItem('refreshToken');
+  const accessToken = localStorage.getItem(Localstorage.AccessToken);
+  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
 
   return (
     <>
