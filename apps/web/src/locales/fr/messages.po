@@ -2450,6 +2450,14 @@ msgstr ""
 msgid "You can't reply to this post"
 msgstr ""
 
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr ""
