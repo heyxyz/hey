@@ -1,10 +1,9 @@
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Community } from '@lenster/types/communities';
-import { createClient } from '@supabase/supabase-js';
 import { error, type IRequest } from 'itty-router';
+import { Client } from 'pg';
 import { object, string } from 'zod';
 
-import { COMMUNITIES_TABLE } from '../constants';
 import type { Env } from '../types';
 
 type ExtensionRequest = Community & {
@@ -45,23 +44,27 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_KEY);
+    const client = new Client(env.DB_URL);
+    await client.connect();
 
-    const { data, error } = await supabase
-      .from(COMMUNITIES_TABLE)
-      .update({ name, slug, description, avatar })
-      .eq('id', id)
-      .select();
+    const query = {
+      text: `
+        UPDATE communities
+        SET
+          name = $1,
+          slug = $2,
+          description = $3,
+          avatar = $4
+        WHERE id = $5
+        RETURNING *;
+      `,
+      values: [name, slug, description, avatar, id]
+    };
 
-    if (error) {
-      throw error;
-    }
+    const result = await client.query(query);
 
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
