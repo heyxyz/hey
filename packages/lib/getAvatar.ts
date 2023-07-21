@@ -13,6 +13,7 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  */
 const getAvatar = (profile: any, namedTransform = AVATAR): string => {
   const avatarUrl =
+    profile?.avatar ??
     profile?.picture?.original?.url ??
     profile?.picture?.uri ??
     getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
