@@ -12,6 +12,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 
 import Details from './Details';
+import Feed from './Feed';
 import ProfilePageShimmer from './Shimmer';
 
 const ViewCommunity: NextPage = () => {
@@ -68,7 +69,7 @@ const ViewCommunity: NextPage = () => {
           <Details community={community} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          {JSON.stringify(community)}
+          <Feed communityId={community.id} />
         </GridItemEight>
       </GridLayout>
     </>

@@ -46,44 +46,57 @@ msgstr "Hide more comments"
 msgid "Show more comments"
 msgstr "Show more comments"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/Details.tsx
+msgid "Edit Community"
+msgstr "Edit Community"
+
+#: src/components/Community/Feed.tsx
+msgid "No posts on this community yet!"
+msgstr "No posts on this community yet!"
+
+#: src/components/Community/Feed.tsx
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr ""
+
+#: src/components/Community/NewCommunity.tsx
 msgid "Name should not be empty"
 msgstr "Name should not be empty"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug should not be empty"
 msgstr "Slug should not be empty"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "New Community • {APP_NAME}"
 msgstr "New Community • {APP_NAME}"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community"
 msgstr "Create a new community"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr "Create a new community and start sharing with the world."
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Community Name"
 msgstr "Community Name"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug"
 msgstr "Slug"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Describe your community"
 msgstr "Describe your community"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create Community"
 msgstr "Create Community"
 
@@ -402,10 +415,6 @@ msgstr "Post"
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
-
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
 msgstr ""
 
 #: src/components/Explore/index.tsx
