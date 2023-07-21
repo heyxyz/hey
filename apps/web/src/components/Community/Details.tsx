@@ -1,3 +1,4 @@
+import JoinOrLeave from '@components/Shared/Community/JoinOrLeave';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { CogIcon } from '@heroicons/react/outline';
@@ -94,7 +95,9 @@ const Details: FC<DetailsProps> = ({ community }) => {
                 <Trans>Edit Community</Trans>
               </Button>
             </Link>
-          ) : null}
+          ) : (
+            <JoinOrLeave community={community} />
+          )}
         </div>
         <div className="divider w-full" />
         <div className="space-y-2">

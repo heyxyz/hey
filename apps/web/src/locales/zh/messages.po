@@ -2450,6 +2450,14 @@ msgstr "新的"
 msgid "You can't reply to this post"
 msgstr "您无法回复此帖子"
 
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Community/JoinOrLeave.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "正在加载表情"
