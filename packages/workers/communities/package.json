@@ -16,14 +16,15 @@
     "@lenster/data": "*",
     "@lenster/lib": "*",
     "@lenster/types": "*",
-    "@supabase/supabase-js": "^2.26.0",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.14",
+    "pg": "^8.11.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230717.1",
     "@lenster/config": "*",
+    "@types/pg": "^8.10.2",
     "typescript": "^5.1.6",
     "wrangler": "^3.3.0"
   }

@@ -21,16 +21,14 @@ router.get('/', () => new Response('gm, to communities service 👋'));
 router.post('/create', createCommunity);
 router.post('/update', updateCommunity);
 router.post('/joinOrLeave', joinOrLeaveCommunity);
-router.get('/communities/:slug', ({ params }, env) =>
-  getCommunity(params.slug, env)
-);
-router.get('/communities/get/:profileId/:offset', ({ params }, env) =>
+router.get('/:slug', ({ params }, env) => getCommunity(params.slug, env));
+router.get('/get/:profileId/:offset', ({ params }, env) =>
   getCommunities(params.profileId, params.offset, env)
 );
-router.get('/communities/members/:communityId/:offset', ({ params }, env) =>
+router.get('/members/:communityId/:offset', ({ params }, env) =>
   getMembers(params.communityId, params.offset, env)
 );
-router.get('/communities/isMember/:communityId/:profileId', ({ params }, env) =>
+router.get('/isMember/:communityId/:profileId', ({ params }, env) =>
   isMember(params.communityId, params.profileId, env)
 );
 

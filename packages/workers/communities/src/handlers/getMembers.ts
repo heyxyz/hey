@@ -1,7 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import { error } from 'itty-router';
+import { Client } from 'pg';
 
-import { MEMBERSHIPS_TABLE } from '../constants';
 import type { Env } from '../types';
 
 export default async (communityId: string, offset: string, env: Env) => {
@@ -10,23 +9,23 @@ export default async (communityId: string, offset: string, env: Env) => {
   }
 
   try {
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_KEY);
+    const client = new Client(env.DB_URL);
+    await client.connect();
 
-    const { data, error } = await supabase
-      .from(MEMBERSHIPS_TABLE)
-      .select('id, profile_id')
-      .eq('community_id', communityId)
-      .range(parseInt(offset), parseInt(offset) + 10);
+    const query = {
+      text: `
+        SELECT id, profile_id
+        FROM memberships
+        WHERE community_id = $1
+        LIMIT 20 OFFSET $2;
+      `,
+      values: [communityId, offset]
+    };
 
-    if (error) {
-      throw error;
-    }
+    const result = await client.query(query);
 
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(result.rows));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
