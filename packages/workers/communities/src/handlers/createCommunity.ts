@@ -1,4 +1,5 @@
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import type { Community } from '@lenster/types/communities';
 import { createClient } from '@supabase/supabase-js';
 import { error, type IRequest } from 'itty-router';
 import { object, string } from 'zod';
@@ -6,11 +7,7 @@ import { object, string } from 'zod';
 import { COMMUNITIES_TABLE } from '../constants';
 import type { Env } from '../types';
 
-type ExtensionRequest = {
-  name: string;
-  slug: string;
-  description?: string;
-  image?: string;
+type ExtensionRequest = Community & {
   accessToken: string;
 };
 
@@ -18,7 +15,7 @@ const validationSchema = object({
   name: string().min(1, { message: 'Name is required!' }),
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
-  image: string().optional().nullable(),
+  avatar: string().optional().nullable(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
 });
 
@@ -36,7 +33,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, slug, description, image, accessToken } =
+  const { name, slug, description, avatar, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -51,7 +48,7 @@ export default async (request: IRequest, env: Env) => {
 
     const { data, error } = await supabase
       .from(COMMUNITIES_TABLE)
-      .insert({ name, slug, description, image })
+      .insert({ name, slug, description, avatar })
       .select();
 
     if (error) {
