@@ -1,5 +1,6 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
 import type { Community } from '@lenster/types/communities';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
@@ -57,7 +58,7 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
         communityId: community.id,
         profileId: currentProfile.id,
         join: !isMember,
-        accessToken: localStorage.getItem('accessToken')
+        accessToken: localStorage.getItem(Localstorage.AccessToken)
       });
       setIsMember(!isMember);
       toast.success(
