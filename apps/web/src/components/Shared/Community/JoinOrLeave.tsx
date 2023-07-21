@@ -56,6 +56,7 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
       await axios.post(`${COMMUNITIES_WORKER_URL}/joinOrLeave`, {
         communityId: community.id,
         profileId: currentProfile.id,
+        join: !isMember,
         accessToken: localStorage.getItem('accessToken')
       });
       setIsMember(!isMember);

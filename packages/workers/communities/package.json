@@ -16,7 +16,6 @@
     "@lenster/data": "*",
     "@lenster/lib": "*",
     "@lenster/types": "*",
-    "@supabase/supabase-js": "^2.26.0",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.14",
     "pg": "^8.11.1",
