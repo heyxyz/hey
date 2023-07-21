@@ -60,6 +60,8 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
+import type { IGif } from '@lenster/types/giphy';
+import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -86,8 +88,6 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import type { NewLensterAttachment } from 'src/types';
-import type { IGif } from 'src/types/giphy';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';

@@ -1,8 +1,8 @@
+import type { IGif } from '@lenster/types/giphy';
 import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
-import type { IGif } from 'src/types/giphy';
 import { useDebounce } from 'usehooks-ts';
 
 import Categories from './Categories';
