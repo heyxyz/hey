@@ -1,0 +1,22 @@
+{
+  "name": "@lenster/types",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "@lenster/lens": "*"
+  },
+  "devDependencies": {
+    "@lenster/config": "*",
+    "@types/node": "^20.4.2",
+    "typescript": "^5.1.6"
+  }
+}

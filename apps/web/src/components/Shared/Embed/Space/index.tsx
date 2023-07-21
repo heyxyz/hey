@@ -3,10 +3,10 @@ import { MicrophoneIcon } from '@heroicons/react/outline';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
+import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Button, Modal } from '@lenster/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
-import type { SpaceMetadata } from 'src/types';
 
 import Wrapper from '../Wrapper';
 import SpacePlayer from './SpacePlayer';

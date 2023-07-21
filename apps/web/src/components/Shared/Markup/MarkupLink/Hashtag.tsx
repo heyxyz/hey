@@ -4,10 +4,10 @@ import { prideHashtags } from '@lenster/data/pride-hashtags';
 import { PUBLICATION } from '@lenster/data/tracking';
 import isPrideMonth from '@lenster/lib/isPrideMonth';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { MarkupLinkProps } from '@lenster/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { MarkupLinkProps } from 'src/types';
 
 const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
   if (!title) {
