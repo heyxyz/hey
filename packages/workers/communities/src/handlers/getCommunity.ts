@@ -1,7 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import { error } from 'itty-router';
+import { Client } from 'pg';
 
-import { COMMUNITIES_TABLE, MEMBERSHIPS_TABLE } from '../constants';
 import type { Env } from '../types';
 
 export default async (slug: string, env: Env) => {
@@ -10,33 +9,35 @@ export default async (slug: string, env: Env) => {
   }
 
   try {
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_KEY);
+    const client = new Client(env.DB_URL);
+    await client.connect();
 
-    const { data: community, error: communityError } = await supabase
-      .from(COMMUNITIES_TABLE)
-      .select('*')
-      .eq('slug', slug)
-      .single();
-
-    const { count, error: membershipsError } = await supabase
-      .from(MEMBERSHIPS_TABLE)
-      .select('*', { count: 'exact', head: true })
-      .eq('community_id', community.id);
-
-    if (communityError || membershipsError) {
-      throw error;
-    }
-
-    const mergedData = {
-      ...community,
-      members_count: count
+    const query = {
+      text: `
+        SELECT
+          c.*,
+          COALESCE(m.members_count, 0) AS members_count
+        FROM
+          communities AS c
+        LEFT JOIN (
+          SELECT
+            community_id,
+            COUNT(profile_id) AS members_count
+          FROM
+            memberships
+          GROUP BY
+            community_id
+        ) AS m ON c.id = m.community_id
+        WHERE
+          c.slug = $1;
+      `,
+      values: [slug]
     };
 
-    return new Response(JSON.stringify(mergedData));
+    const result = await client.query(query);
+
+    return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

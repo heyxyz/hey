@@ -1,20 +1,21 @@
 import validateLensAccount from '@lenster/lib/validateLensAccount';
-import { createClient } from '@supabase/supabase-js';
 import { error, type IRequest } from 'itty-router';
-import { object, string } from 'zod';
+import { Client } from 'pg';
+import { boolean, object, string } from 'zod';
 
-import { MEMBERSHIPS_TABLE } from '../constants';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
   communityId: string;
   profileId: string;
+  join: boolean;
   accessToken: string;
 };
 
 const validationSchema = object({
   communityId: string().uuid(),
   profileId: string(),
+  join: boolean(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
 });
 
@@ -32,7 +33,8 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { communityId, profileId, accessToken } = body as ExtensionRequest;
+  const { communityId, profileId, join, accessToken } =
+    body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
@@ -42,42 +44,35 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_KEY);
+    const client = new Client(env.DB_URL);
+    await client.connect();
 
-    const { data: existing } = await supabase
-      .from(MEMBERSHIPS_TABLE)
-      .select()
-      .eq('community_id', communityId)
-      .eq('profile_id', profileId);
+    let query;
 
-    if (existing && existing.length > 0) {
-      const { data: leave, error: leaveError } = await supabase
-        .from(MEMBERSHIPS_TABLE)
-        .delete()
-        .eq('community_id', communityId)
-        .select();
-
-      if (leaveError) {
-        throw error;
-      }
-
-      return new Response(JSON.stringify(leave));
+    if (join) {
+      query = {
+        text: `
+          INSERT INTO memberships (id, profile_id, community_id)
+          VALUES ($1, $2, $3)
+          RETURNING *
+        `,
+        values: [`${profileId}_${communityId}`, profileId, communityId]
+      };
+    } else {
+      query = {
+        text: `
+          DELETE FROM memberships
+          WHERE profile_id = $1 AND community_id = $2
+          RETURNING *
+        `,
+        values: [profileId, communityId]
+      };
     }
 
-    const { data: join, error: joinError } = await supabase
-      .from(MEMBERSHIPS_TABLE)
-      .insert({ community_id: communityId, profile_id: profileId })
-      .select();
+    const result = await client.query(query);
 
-    if (joinError) {
-      throw error;
-    }
-
-    return new Response(JSON.stringify(join));
+    return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

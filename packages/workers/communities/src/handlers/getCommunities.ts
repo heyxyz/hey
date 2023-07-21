@@ -1,7 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
 import { error } from 'itty-router';
+import { Client } from 'pg';
 
-import { MEMBERSHIPS_TABLE } from '../constants';
 import type { Env } from '../types';
 
 export default async (profileId: string, offset: string, env: Env) => {
@@ -10,23 +9,38 @@ export default async (profileId: string, offset: string, env: Env) => {
   }
 
   try {
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_KEY);
+    const client = new Client(env.DB_URL);
+    await client.connect();
 
-    const { data, error } = await supabase
-      .from(MEMBERSHIPS_TABLE)
-      .select('id, community:communities(*)')
-      .eq('profile_id', profileId)
-      .range(parseInt(offset), parseInt(offset) + 10);
+    const query = {
+      text: `
+        SELECT
+          m.id,
+          c.*,
+          COALESCE(mc.members_count, 0) AS members_count
+        FROM
+          memberships AS m
+        JOIN communities AS c ON m.community_id = c.id
+        LEFT JOIN (
+          SELECT
+            community_id,
+            COUNT(profile_id) AS members_count
+          FROM
+            memberships
+          GROUP BY
+            community_id
+        ) AS mc ON m.community_id = mc.community_id
+        WHERE
+          m.profile_id = $1
+        LIMIT 10 OFFSET $2;    
+      `,
+      values: [profileId, offset]
+    };
 
-    if (error) {
-      throw error;
-    }
+    const result = await client.query(query);
 
-    return new Response(JSON.stringify(data));
+    return new Response(JSON.stringify(result.rows));
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
