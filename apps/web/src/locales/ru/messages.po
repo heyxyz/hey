@@ -46,44 +46,57 @@ msgstr "Скрыть комментарии"
 msgid "Show more comments"
 msgstr "Показать больше комментариев"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/Details.tsx
+msgid "Edit Community"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+msgid "No posts on this community yet!"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr "Не удалось загрузить новостную ленту"
+
+#: src/components/Community/NewCommunity.tsx
 msgid "Name should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "New Community • {APP_NAME}"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Community Name"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "Описание"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Describe your community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create Community"
 msgstr ""
 
@@ -403,10 +416,6 @@ msgstr "Опубликовать"
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
 msgstr "Публикаций пока еще нет!"
-
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
-msgstr "Не удалось загрузить новостную ленту"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -3137,4 +3146,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

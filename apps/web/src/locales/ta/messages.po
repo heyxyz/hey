@@ -46,44 +46,57 @@ msgstr "மேலும் கருத்துகளை மறை"
 msgid "Show more comments"
 msgstr "மேலும் கருத்துகளைக் காட்டு"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/Details.tsx
+msgid "Edit Community"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+msgid "No posts on this community yet!"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr "எக்ஸ்ப்ளோர் ஃபீடை லோடு செய்வதில் தோல்வி ஏற்பட்டது"
+
+#: src/components/Community/NewCommunity.tsx
 msgid "Name should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "New Community • {APP_NAME}"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Community Name"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "விளக்கம்"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Describe your community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create Community"
 msgstr ""
 
@@ -403,10 +416,6 @@ msgstr "போஸ்ட்"
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
 msgstr "இதுவரை பதிவுகள் இல்லை!"
-
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
-msgstr "எக்ஸ்ப்ளோர் ஃபீடை லோடு செய்வதில் தோல்வி ஏற்பட்டது"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -3137,4 +3146,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
