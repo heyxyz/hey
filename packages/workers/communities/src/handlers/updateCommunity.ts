@@ -1,4 +1,5 @@
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import type { Community } from '@lenster/types/communities';
 import { createClient } from '@supabase/supabase-js';
 import { error, type IRequest } from 'itty-router';
 import { object, string } from 'zod';
@@ -6,12 +7,7 @@ import { object, string } from 'zod';
 import { COMMUNITIES_TABLE } from '../constants';
 import type { Env } from '../types';
 
-type ExtensionRequest = {
-  id: string;
-  name: string;
-  slug: string;
-  description?: string;
-  image?: string;
+type ExtensionRequest = Community & {
   accessToken: string;
 };
 
@@ -38,7 +34,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, name, slug, description, image, accessToken } =
+  const { id, name, slug, description, avatar, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -53,7 +49,7 @@ export default async (request: IRequest, env: Env) => {
 
     const { data, error } = await supabase
       .from(COMMUNITIES_TABLE)
-      .update({ name, slug, description, image })
+      .update({ name, slug, description, avatar })
       .eq('id', id)
       .select();
 

@@ -36,7 +36,7 @@ const newContactSchema = object({
 const NewCommunity: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [submitting, setSubmitting] = useState(false);
-  const [image, setImage] = useState<string | null>(null);
+  const [avatar, setAvatar] = useState<string | null>(null);
   const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   const form = useZodForm({
@@ -64,7 +64,7 @@ const NewCommunity: FC = () => {
           name,
           slug,
           description,
-          image: image || `https://avatar.tobi.sh/${slug}`,
+          avatar: avatar || `https://avatar.tobi.sh/${slug}`,
           accessToken: localStorage.getItem('accessToken')
         }
       });
