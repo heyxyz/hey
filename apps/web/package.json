@@ -47,7 +47,7 @@
     "@lingui/react": "^4.3.0",
     "@lingui/swc-plugin": "^4.0.0",
     "@livepeer/react": "^2.8.0",
-    "@tanstack/react-query": "^4.30.0",
+    "@tanstack/react-query": "^4.32.0",
     "@tippyjs/react": "^4.2.6",
     "@workers/snapshot-relay": "*",
     "@xmtp/xmtp-js": "^10.0.0",
