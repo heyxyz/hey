@@ -4,8 +4,8 @@ import { error } from 'itty-router';
 import { MEMBERSHIPS_TABLE } from '../constants';
 import type { Env } from '../types';
 
-export default async (communityId: string, offset: string, env: Env) => {
-  if (!communityId) {
+export default async (profileId: string, offset: string, env: Env) => {
+  if (!profileId) {
     return error(400, 'Bad request!');
   }
 
@@ -14,8 +14,8 @@ export default async (communityId: string, offset: string, env: Env) => {
 
     const { data, error } = await supabase
       .from(MEMBERSHIPS_TABLE)
-      .select('id, profile_id')
-      .eq('community_id', communityId)
+      .select('id, community:communities(*)')
+      .eq('profile_id', profileId)
       .range(parseInt(offset), parseInt(offset) + 10);
 
     if (error) {

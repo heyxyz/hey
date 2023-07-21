@@ -54,7 +54,8 @@ export default async (request: IRequest, env: Env) => {
       const { data: leave, error: leaveError } = await supabase
         .from(MEMBERSHIPS_TABLE)
         .delete()
-        .eq('community_id', communityId);
+        .eq('community_id', communityId)
+        .select();
 
       if (leaveError) {
         throw error;
@@ -65,7 +66,7 @@ export default async (request: IRequest, env: Env) => {
 
     const { data: join, error: joinError } = await supabase
       .from(MEMBERSHIPS_TABLE)
-      .upsert({ community_id: communityId, profile_id: profileId })
+      .insert({ community_id: communityId, profile_id: profileId })
       .select();
 
     if (joinError) {
