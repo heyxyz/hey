@@ -51,7 +51,9 @@ const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+});
 const apolloClient = webClient;
 
 const Providers = ({ children }: { children: ReactNode }) => {
