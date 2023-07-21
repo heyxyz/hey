@@ -46,44 +46,57 @@ msgstr "Masquer plus de commentaires"
 msgid "Show more comments"
 msgstr "Afficher plus de commentaires"
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/Details.tsx
+msgid "Edit Community"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+msgid "No posts on this community yet!"
+msgstr ""
+
+#: src/components/Community/Feed.tsx
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr ""
+
+#: src/components/Community/NewCommunity.tsx
 msgid "Name should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "New Community • {APP_NAME}"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Community Name"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Slug"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Describe your community"
 msgstr ""
 
-#: src/components/Communities/NewCommunity.tsx
+#: src/components/Community/NewCommunity.tsx
 msgid "Create Community"
 msgstr ""
 
@@ -402,10 +415,6 @@ msgstr ""
 #: src/components/Home/Timeline/index.tsx
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
-msgstr ""
-
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
 msgstr ""
 
 #: src/components/Explore/index.tsx
@@ -3137,4 +3146,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
