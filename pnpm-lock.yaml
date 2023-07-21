@@ -620,6 +620,9 @@ importers:
       '@lenster/lib':
         specifier: '*'
         version: link:../../lib
+      '@lenster/types':
+        specifier: '*'
+        version: link:../../types
       '@supabase/supabase-js':
         specifier: ^2.26.0
         version: 2.26.0

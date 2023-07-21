@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import type { Community } from '@lenster/types/communities';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -50,7 +51,7 @@ const ViewCommunity: NextPage = () => {
     return <Custom404 />;
   }
 
-  const community = data;
+  const community: Community = data;
 
   return (
     <>
