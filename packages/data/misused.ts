@@ -2,7 +2,8 @@ export enum MisuseType {
   Scam = 'Scam',
   Impersonated = 'Impersonated',
   Hacked = 'Hacked',
-  Trademark = 'Trademark'
+  Phishing = 'Phishing',
+  TrademarkViolation = 'Trademark violation'
 }
 
 export const misused: {
@@ -21,7 +22,7 @@ export const misused: {
   {
     // safewallet
     id: '0x011c4c',
-    type: MisuseType.Impersonated,
+    type: MisuseType.TrademarkViolation,
     identifiedOn: 'Jul 17, 2023',
     description: null
   }
