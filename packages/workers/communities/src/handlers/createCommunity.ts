@@ -15,6 +15,7 @@ const validationSchema = object({
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
   avatar: string().optional().nullable(),
+  admin: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
 });
 
@@ -32,7 +33,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, slug, description, avatar, accessToken } =
+  const { name, slug, description, avatar, admin, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -46,18 +47,32 @@ export default async (request: IRequest, env: Env) => {
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    const query = {
+    // Create community
+    const createQuery = {
       text: `
-        INSERT INTO communities(name, slug, description, avatar)
-        VALUES($1, $2, $3, $4)
+        INSERT INTO communities(name, slug, description, avatar, admin)
+        VALUES($1, $2, $3, $4, $5)
         RETURNING *
       `,
-      values: [name, slug, description, avatar]
+      values: [name, slug, description, avatar, admin]
     };
 
-    const result = await client.query(query);
+    const createResult = await client.query(createQuery);
 
-    return new Response(JSON.stringify(result.rows[0]));
+    // Join admin to community
+    const communityId = createResult.rows[0].id;
+    const joinAdminQuery = {
+      text: `
+        INSERT INTO memberships (id, profile_id, community_id)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+      `,
+      values: [`${admin}_${communityId}`, admin, communityId]
+    };
+
+    await client.query(joinAdminQuery);
+
+    return new Response(JSON.stringify(createResult.rows[0]));
   } catch (error) {
     throw error;
   }
