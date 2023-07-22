@@ -2,6 +2,7 @@ import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x01ce77', // web3academy_
   '0xe5aa', // creators
   '0x01cddb', // build
   '0x01ce98', // bear
