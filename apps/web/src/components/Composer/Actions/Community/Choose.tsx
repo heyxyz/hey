@@ -1,13 +1,15 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import getAvatar from '@lenster/lib/getAvatar';
+import humanize from '@lenster/lib/humanize';
 import type { Community } from '@lenster/types/communities';
 import { Image } from '@lenster/ui';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
-import { useQuery } from 'wagmi';
 
 interface ChooseProps {
   setShowModal: Dispatch<boolean>;
@@ -51,7 +53,7 @@ const Choose: FC<ChooseProps> = ({ setShowModal }) => {
             setShowModal(false);
           }}
         >
-          <span className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <Image
               className="h-10 w-10 rounded-lg border dark:border-gray-700"
               height={20}
@@ -59,11 +61,20 @@ const Choose: FC<ChooseProps> = ({ setShowModal }) => {
               src={getAvatar(community)}
               alt={community.slug}
             />
-            <div>
-              <div className="truncate">{community.name ?? community.slug}</div>
-              <div>{community.members_count} members</div>
+            <div className="flex flex-col items-start">
+              <div
+                className={clsx(
+                  { 'font-bold': community.id === selectedCommunity?.id },
+                  'truncate'
+                )}
+              >
+                {community.name ?? community.slug}
+              </div>
+              <div className="text-sm font-bold">
+                {humanize(community.members_count as number)} members
+              </div>
             </div>
-          </span>
+          </div>
           {community.id === selectedCommunity?.id && (
             <CheckCircleIcon className="h-5 w-5 text-green-500" />
           )}
