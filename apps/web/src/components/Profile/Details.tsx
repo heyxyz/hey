@@ -25,9 +25,9 @@ import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import getMisuseDetails from '@lenster/lib/getMisuseDetails';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import getScamDetails from '@lenster/lib/getScamDetails';
-import isScam from '@lenster/lib/isScam';
+import hasMisused from '@lenster/lib/hasMisused';
 import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -96,6 +96,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   );
 
   const followType = profile?.followModule?.__typename;
+  const misuseDetails = getMisuseDetails(profile.id);
 
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
@@ -121,7 +122,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             {sanitizeDisplayName(profile?.name) ??
               formatHandle(profile?.handle)}
           </div>
-          {isVerified(profile?.id) && (
+          {isVerified(profile.id) && (
             <Tooltip content={t`Verified`}>
               <BadgeCheckIcon
                 className="text-brand h-6 w-6"
@@ -129,15 +130,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             </Tooltip>
           )}
-          {isScam(profile?.id) && (
-            <Tooltip
-              content={
-                getScamDetails(profile?.id)?.identifiedOn
-                  ? t`Scam indentified on ${getScamDetails(profile?.id)
-                      ?.identifiedOn}`
-                  : t`Scam`
-              }
-            >
+          {hasMisused(profile.id) && (
+            <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon
                 className="h-6 w-6 text-red-500"
                 data-testid="profile-scam-badge"
@@ -162,7 +156,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             />
           )}
           {currentProfile &&
-            currentProfile?.id !== profile?.id &&
+            currentProfile?.id !== profile.id &&
             profile?.isFollowing && (
               <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
                 <Trans>Follows you</Trans>
@@ -182,7 +176,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <ScamWarning profile={profile} />
         <Followerings profile={profile} />
         <div className="flex items-center space-x-2">
-          {currentProfile?.id === profile?.id ? (
+          {currentProfile?.id === profile.id ? (
             <Link href="/settings">
               <Button
                 variant="secondary"
@@ -227,7 +221,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {currentProfile && <Message onClick={onMessageClick} />}
           <ProfileMenu profile={profile} />
         </div>
-        {currentProfile?.id !== profile?.id && (
+        {currentProfile?.id !== profile.id && (
           <>
             <MutualFollowers
               setShowMutualFollowersModal={setShowMutualFollowersModal}
@@ -239,7 +233,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
             >
-              <MutualFollowersList profileId={profile?.id} />
+              <MutualFollowersList profileId={profile.id} />
             </Modal>
           </>
         )}
@@ -249,15 +243,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             icon={<HashtagIcon className="h-4 w-4" />}
             dataTestId="profile-meta-id"
           >
-            <Tooltip content={`#${profile?.id}`}>
+            <Tooltip content={`#${profile.id}`}>
               <Link
                 href={`${RARIBLE_URL}/token/polygon/${
                   getEnvConfig().lensHubProxyAddress
-                }:${parseInt(profile?.id)}`}
+                }:${parseInt(profile.id)}`}
                 target="_blank"
                 rel="noreferrer"
               >
-                {parseInt(profile?.id)}
+                {parseInt(profile.id)}
               </Link>
             </Tooltip>
           </MetaDetails>
