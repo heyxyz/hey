@@ -67,7 +67,9 @@ export default async (request: IRequest, env: Env) => {
 
     const result = await client.query(query);
 
-    return new Response(JSON.stringify(result.rows[0]));
+    return new Response(
+      JSON.stringify({ success: true, id: result.rows[0].community_id })
+    );
   } catch (error) {
     throw error;
   }
