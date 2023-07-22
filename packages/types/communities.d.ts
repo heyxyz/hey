@@ -8,6 +8,6 @@ export interface Community {
   twitter?: string;
   website?: string;
   nsfw?: boolean;
-  profile?: string;
+  admin?: string;
   created_at: string;
 }
