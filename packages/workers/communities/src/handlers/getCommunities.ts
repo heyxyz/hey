@@ -32,7 +32,7 @@ export default async (profileId: string, offset: string, env: Env) => {
         ) AS mc ON m.community_id = mc.community_id
         WHERE
           m.profile_id = $1
-        LIMIT 10 OFFSET $2;    
+        LIMIT 10 OFFSET $2;
       `,
       values: [profileId, offset]
     };

@@ -1,6 +1,7 @@
 import { createCors, error, json, Router } from 'itty-router';
 
 import createCommunity from './handlers/createCommunity';
+import getAllCommunityIds from './handlers/getAllCommunityIds';
 import getCommunities from './handlers/getCommunities';
 import getCommunity from './handlers/getCommunity';
 import getMembers from './handlers/getMembers';
@@ -26,6 +27,9 @@ router.post('/staffPick', staffPickCommunity);
 router.get('/:slug', ({ params }, env) => getCommunity(params.slug, env));
 router.get('/get/:profileId/:offset', ({ params }, env) =>
   getCommunities(params.profileId, params.offset, env)
+);
+router.get('/getIds/:profileId', ({ params }, env) =>
+  getAllCommunityIds(params.profileId, env)
 );
 router.get('/members/:communityId/:offset', ({ params }, env) =>
   getMembers(params.communityId, params.offset, env)
