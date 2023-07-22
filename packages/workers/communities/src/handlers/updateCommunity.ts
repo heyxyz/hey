@@ -1,5 +1,7 @@
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Community } from '@lenster/types/communities';
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { object, string } from 'zod';
@@ -16,6 +18,7 @@ const validationSchema = object({
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
   image: string().optional().nullable(),
+  admin: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
 });
 
@@ -33,7 +36,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, name, slug, description, avatar, accessToken } =
+  const { id, name, slug, description, avatar, admin, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -41,6 +44,14 @@ export default async (request: IRequest, env: Env) => {
     if (!isAuthenticated) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid access token!' })
+      );
+    }
+
+    const { payload } = jwt.decode(accessToken);
+    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, true);
+    if (!hasOwned) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid profile ID' })
       );
     }
 
