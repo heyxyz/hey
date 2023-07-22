@@ -47,32 +47,27 @@ export default async (request: IRequest, env: Env) => {
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    // Create community
-    const createQuery = {
+    const query = {
       text: `
-        INSERT INTO communities(name, slug, description, avatar, admin)
-        VALUES($1, $2, $3, $4, $5)
-        RETURNING *
+        WITH inserted_community AS (
+          INSERT INTO communities(name, slug, description, avatar, admin)
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING id
+        ),
+        joined_admin AS (
+          INSERT INTO memberships (id, profile_id, community_id)
+          SELECT $6 || inserted_community.id, $5, inserted_community.id
+          FROM inserted_community
+          RETURNING *
+        )
+        SELECT * FROM joined_admin;
       `,
-      values: [name, slug, description, avatar, admin]
+      values: [name, slug, description, avatar, admin, `${admin}_`]
     };
 
-    const createResult = await client.query(createQuery);
+    const result = await client.query(query);
 
-    // Join admin to community
-    const communityId = createResult.rows[0].id;
-    const joinAdminQuery = {
-      text: `
-        INSERT INTO memberships (id, profile_id, community_id)
-        VALUES ($1, $2, $3)
-        RETURNING *;
-      `,
-      values: [`${admin}_${communityId}`, admin, communityId]
-    };
-
-    await client.query(joinAdminQuery);
-
-    return new Response(JSON.stringify(createResult.rows[0]));
+    return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
     throw error;
   }
