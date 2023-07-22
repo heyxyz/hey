@@ -166,7 +166,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetPollConfig,
     showSpaceEditor,
     setShowSpaceEditor,
-    pollConfig
+    pollConfig,
+    community,
+    setCommunity
   } = usePublicationStore();
 
   // Transaction persist store
@@ -233,6 +235,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       type: '',
       uploading: false
     });
+    setCommunity(null);
     resetCollectSettings();
     resetAccessSettings();
     if (!isComment) {
@@ -781,6 +784,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : `${getTitlePrefix()} by @${currentProfile?.handle}`,
         animation_url: getAnimationUrl(),
         mainContentFocus: getMainContentFocus(),
+        tags: community ? [community.id] : [],
         attributes,
         media: attachmentsInput,
         locale: getUserLocale(),
