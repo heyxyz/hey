@@ -13,6 +13,13 @@ export const misused: {
   description: string | null;
 }[] = [
   {
+    // web3academy
+    id: '0x661b',
+    type: MisuseType.Impersonated,
+    identifiedOn: 'June 20, 2023',
+    description: null
+  },
+  {
     // xmtp_
     id: '0xc358',
     type: MisuseType.Scam,
