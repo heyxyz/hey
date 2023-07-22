@@ -6,6 +6,7 @@ import getCommunity from './handlers/getCommunity';
 import getMembers from './handlers/getMembers';
 import isMember from './handlers/isMember';
 import joinOrLeaveCommunity from './handlers/joinOrLeaveCommunity';
+import staffPickCommunity from './handlers/staffPickCommunity';
 import updateCommunity from './handlers/updateCommunity';
 import type { Env } from './types';
 
@@ -21,6 +22,7 @@ router.get('/', () => new Response('gm, to communities service 👋'));
 router.post('/create', createCommunity);
 router.post('/update', updateCommunity);
 router.post('/joinOrLeave', joinOrLeaveCommunity);
+router.post('/staffPick', staffPickCommunity);
 router.get('/:slug', ({ params }, env) => getCommunity(params.slug, env));
 router.get('/get/:profileId/:offset', ({ params }, env) =>
   getCommunities(params.profileId, params.offset, env)
