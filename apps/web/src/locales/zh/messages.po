@@ -59,44 +59,64 @@ msgstr ""
 msgid "Failed to load explore feed"
 msgstr "内容流加载失败"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/Members/List.tsx
+msgid "Loading members"
+msgstr ""
+
+#: src/components/Community/Members/List.tsx
+msgid "doesn’t have any members."
+msgstr ""
+
+#: src/components/Community/Members/List.tsx
+msgid "Failed to load members"
+msgstr ""
+
+#: src/components/Community/Members/index.tsx
+msgid "{0, plural, zero {Member} one {Member} other {Members}}"
+msgstr ""
+
+#: src/components/Community/Members/index.tsx
+msgid "Members"
+msgstr ""
+
+#: src/components/Community/New.tsx
 msgid "Name should not be empty"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "New Community • {APP_NAME}"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create a new community"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Community Name"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Slug"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "描述"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Describe your community"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create Community"
 msgstr ""
 
@@ -263,6 +283,14 @@ msgstr "24小时限时收藏"
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
 msgstr "收藏设置"
+
+#: src/components/Composer/Actions/Community/index.tsx
+msgid "Select community"
+msgstr ""
+
+#: src/components/Composer/Actions/Community/index.tsx
+msgid "Choose community"
+msgstr ""
 
 #: src/components/Composer/Actions/Gif/GifSelector.tsx
 msgid "Search for GIFs"
@@ -1396,16 +1424,6 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "诈骗"
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "关注了您"
 
@@ -1611,7 +1629,7 @@ msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -2719,6 +2737,10 @@ msgid "Violence"
 msgstr "暴力"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "诈骗"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
 msgstr "冒充"
 
@@ -3162,4 +3184,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
