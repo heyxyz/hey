@@ -59,44 +59,64 @@ msgstr "No posts on this community yet!"
 msgid "Failed to load explore feed"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/Members/List.tsx
+msgid "Loading members"
+msgstr "Loading members"
+
+#: src/components/Community/Members/List.tsx
+msgid "doesn’t have any members."
+msgstr "doesn’t have any members."
+
+#: src/components/Community/Members/List.tsx
+msgid "Failed to load members"
+msgstr "Failed to load members"
+
+#: src/components/Community/Members/index.tsx
+msgid "{0, plural, zero {Member} one {Member} other {Members}}"
+msgstr "{0, plural, zero {Member} one {Member} other {Members}}"
+
+#: src/components/Community/Members/index.tsx
+msgid "Members"
+msgstr "Members"
+
+#: src/components/Community/New.tsx
 msgid "Name should not be empty"
 msgstr "Name should not be empty"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Slug should not be empty"
 msgstr "Slug should not be empty"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "New Community • {APP_NAME}"
 msgstr "New Community • {APP_NAME}"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create a new community"
 msgstr "Create a new community"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create a new community and start sharing with the world."
 msgstr "Create a new community and start sharing with the world."
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Community Name"
 msgstr "Community Name"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Slug"
 msgstr "Slug"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr ""
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Describe your community"
 msgstr "Describe your community"
 
-#: src/components/Community/NewCommunity.tsx
+#: src/components/Community/New.tsx
 msgid "Create Community"
 msgstr "Create Community"
 
@@ -263,6 +283,14 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
 msgstr ""
+
+#: src/components/Composer/Actions/Community/index.tsx
+msgid "Select community"
+msgstr "Select community"
+
+#: src/components/Composer/Actions/Community/index.tsx
+msgid "Choose community"
+msgstr "Choose community"
 
 #: src/components/Composer/Actions/Gif/GifSelector.tsx
 msgid "Search for GIFs"
@@ -1396,16 +1424,6 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr "Scam indentified on {0}"
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "Follows you"
 
@@ -1611,8 +1629,8 @@ msgid "No collectables selected!"
 msgstr "No collectables selected!"
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
-msgstr "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
+msgstr "Profile is marked as {0}!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -2716,6 +2734,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
