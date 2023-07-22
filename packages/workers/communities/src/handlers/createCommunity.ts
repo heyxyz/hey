@@ -15,6 +15,7 @@ const validationSchema = object({
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
   avatar: string().optional().nullable(),
+  admin: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
 });
 
@@ -32,7 +33,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, slug, description, avatar, accessToken } =
+  const { name, slug, description, avatar, admin, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -48,16 +49,27 @@ export default async (request: IRequest, env: Env) => {
 
     const query = {
       text: `
-        INSERT INTO communities(name, slug, description, avatar)
-        VALUES($1, $2, $3, $4)
-        RETURNING *
+        WITH inserted_community AS (
+          INSERT INTO communities(name, slug, description, avatar, admin)
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING id
+        ),
+        joined_admin AS (
+          INSERT INTO memberships (id, profile_id, community_id)
+          SELECT $6 || inserted_community.id, $5, inserted_community.id
+          FROM inserted_community
+          RETURNING *
+        )
+        SELECT * FROM joined_admin;
       `,
-      values: [name, slug, description, avatar]
+      values: [name, slug, description, avatar, admin, `${admin}_`]
     };
 
     const result = await client.query(query);
 
-    return new Response(JSON.stringify(result.rows[0]));
+    return new Response(
+      JSON.stringify({ success: true, id: result.rows[0].community_id })
+    );
   } catch (error) {
     throw error;
   }
