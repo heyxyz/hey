@@ -24,7 +24,7 @@ export default async (profileId: string, offset: string, env: Env) => {
         LEFT JOIN (
           SELECT
             community_id,
-            COUNT(profile_id) AS members_count
+            COUNT(profile_id)::integer AS members_count
           FROM
             memberships
           GROUP BY

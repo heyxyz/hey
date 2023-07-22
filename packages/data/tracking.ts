@@ -173,6 +173,7 @@ export enum FollowUnfollowSource {
   COLLECTORS_MODAL = 'collectors_modal',
   FOLLOWERS_MODAL = 'followers_modal',
   FOLLOWING_MODAL = 'following_modal',
+  COMMUNITY_MEMBERS_MODAL = 'community_members_modal',
   MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
   PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
   DIRECT_MESSAGE_HEADER = 'direct_message_header',

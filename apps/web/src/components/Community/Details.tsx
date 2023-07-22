@@ -14,6 +14,8 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import Members from './Members';
+
 interface DetailsProps {
   community: Community;
 }
@@ -84,6 +86,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
         </div>
       )}
       <div className="space-y-5">
+        <Members community={community} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === community?.profile ? (
             <Link href="/settings">
