@@ -9,8 +9,8 @@ import type {
 import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import hasMisused from '@lenster/lib/hasMisused';
 import imageKit from '@lenster/lib/imageKit';
-import isScam from '@lenster/lib/isScam';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -164,7 +164,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
             {isVerified(option.id) && (
               <BadgeCheckIcon className="text-brand h-4 w-4" />
             )}
-            {isScam(option.id) && (
+            {hasMisused(option.id) && (
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             )}
           </div>
