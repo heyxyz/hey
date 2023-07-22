@@ -68,6 +68,7 @@ const NewCommunity: FC = () => {
           slug,
           description,
           avatar: avatar || `https://avatar.tobi.sh/${slug}`,
+          admin: currentProfile.id,
           accessToken: localStorage.getItem(Localstorage.AccessToken)
         }
       });
