@@ -16,7 +16,7 @@ export default async (slug: string, env: Env) => {
       text: `
         SELECT
           c.*,
-          COALESCE(m.members_count, 0) AS members_count
+          COALESCE(m.members_count, 0)::integer AS members_count
         FROM
           communities AS c
         LEFT JOIN (
