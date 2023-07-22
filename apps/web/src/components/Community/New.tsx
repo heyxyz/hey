@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PlusIcon } from '@heroicons/react/outline';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { Localstorage } from '@lenster/data/storage';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -24,6 +25,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -73,9 +75,11 @@ const NewCommunity: FC = () => {
         }
       });
 
-      if (data.slug) {
-        push(`/c/${data.slug}`);
+      if (data.id) {
+        push(`/c/${slug}`);
       }
+    } catch {
+      toast.error(Errors.SomethingWentWrong);
     } finally {
       setSubmitting(false);
     }
