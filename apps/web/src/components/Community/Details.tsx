@@ -88,7 +88,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
       <div className="space-y-5">
         <Members community={community} />
         <div className="flex items-center space-x-2">
-          {currentProfile?.id === community?.profile ? (
+          {currentProfile?.id === community.admin ? (
             <Link href="/settings">
               <Button
                 variant="secondary"

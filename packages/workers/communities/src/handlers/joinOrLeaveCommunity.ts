@@ -1,4 +1,6 @@
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
@@ -41,6 +43,14 @@ export default async (request: IRequest, env: Env) => {
     if (!isAuthenticated) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid access token!' })
+      );
+    }
+
+    const { payload } = jwt.decode(accessToken);
+    const hasOwned = await hasOwnedLensProfiles(payload.id, profileId, true);
+    if (!hasOwned) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid profile ID' })
       );
     }
 
