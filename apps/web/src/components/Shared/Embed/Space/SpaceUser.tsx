@@ -3,7 +3,7 @@ import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isScam from '@lenster/lib/isScam';
+import hasMisused from '@lenster/lib/hasMisused';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
@@ -54,7 +54,7 @@ const SpaceUser: FC<SpaceUserProps> = ({ peer }) => {
       {isVerified(profile?.id) && (
         <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
       )}
-      {isScam(profile?.id) && (
+      {hasMisused(profile?.id) && (
         <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
       )}
     </div>

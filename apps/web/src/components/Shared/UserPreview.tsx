@@ -4,7 +4,7 @@ import type { Profile } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isScam from '@lenster/lib/isScam';
+import hasMisused from '@lenster/lib/hasMisused';
 import isVerified from '@lenster/lib/isVerified';
 import nFormatter from '@lenster/lib/nFormatter';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -64,10 +64,10 @@ const UserPreview: FC<UserPreviewProps> = ({
           {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
-        {isVerified(lazyProfile?.id) && (
+        {isVerified(lazyProfile.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
         )}
-        {isScam(lazyProfile?.id) && (
+        {hasMisused(lazyProfile.id) && (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
         )}
       </div>

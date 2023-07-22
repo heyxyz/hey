@@ -44,7 +44,7 @@ const SeeThroughLens: FC = () => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
-      const profileId = feedItem.root?.profile?.id;
+      const profileId = feedItem.root?.profile.id;
       if (
         !uniqueProfileIds.includes(profileId) &&
         profileId !== seeThroughProfile?.id &&
@@ -178,7 +178,7 @@ const SeeThroughLens: FC = () => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
                       Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED, {
-                        see_through_profile: profile?.id
+                        see_through_profile: profile.id
                       });
                     }}
                   >
