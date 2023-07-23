@@ -1,12 +1,13 @@
 import JoinOrLeave from '@components/Shared/Community/JoinOrLeave';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
-import { CogIcon } from '@heroicons/react/outline';
+import { CalendarIcon, CogIcon } from '@heroicons/react/outline';
 import { EXPANDED_AVATAR, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import getAvatar from '@lenster/lib/getAvatar';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import type { Community } from '@lenster/types/communities';
 import { Button, Image, LightBox } from '@lenster/ui';
+import { formatDate } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -118,7 +119,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
                   alt="Website"
                 />
               }
-              dataTestId="profile-meta-website"
+              dataTestId="community-meta-website"
             >
               <Link
                 href={`https://${community.website
@@ -154,7 +155,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
                   />
                 )
               }
-              dataTestId="profile-meta-twitter"
+              dataTestId="community-meta-twitter"
             >
               <Link
                 href={`https://twitter.com/${community.twitter?.replace(
@@ -168,6 +169,14 @@ const Details: FC<DetailsProps> = ({ community }) => {
               </Link>
             </MetaDetails>
           )}
+          <MetaDetails
+            icon={<CalendarIcon className="h-4 w-4" />}
+            dataTestId="community-meta-twitter"
+          >
+            <Trans>
+              Created on {formatDate(new Date(community.created_at))}
+            </Trans>
+          </MetaDetails>
         </div>
         <Rules rules={community.rules} />
       </div>

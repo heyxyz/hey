@@ -1,7 +1,6 @@
 import type { Publication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
-import { formatTime } from '@lib/formatTime';
-import dayjs from 'dayjs';
+import { formatDate, formatTime } from '@lib/formatTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -46,7 +45,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
               <PublicationBody publication={publication} />
               <div className="lt-text-gray-500 my-3 text-sm">
                 <span title={formatTime(timestamp)}>
-                  {dayjs(new Date(timestamp)).format('hh:mm A · MMM D, YYYY')}
+                  {formatDate(new Date(timestamp), 'hh:mm A · MMM D, YYYY')}
                 </span>
                 {publication?.appId ? (
                   <span> · Posted via {getAppName(publication?.appId)}</span>
