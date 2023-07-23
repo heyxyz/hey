@@ -1,7 +1,7 @@
 import { error } from 'itty-router';
 import { Client } from 'pg';
 
-import type { Env } from '../types';
+import type { Env } from '../../types';
 
 export default async (communityId: string, profileId: string, env: Env) => {
   if (!communityId || !profileId) {
