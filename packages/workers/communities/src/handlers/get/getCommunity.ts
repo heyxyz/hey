@@ -1,7 +1,7 @@
 import { error } from 'itty-router';
 import { Client } from 'pg';
 
-import type { Env } from '../types';
+import type { Env } from '../../types';
 
 export default async (identifier: string, type: 'id' | 'slug', env: Env) => {
   if (!identifier) {

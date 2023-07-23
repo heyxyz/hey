@@ -5,7 +5,7 @@ import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../types';
+import type { Env } from '../../types';
 
 type ExtensionRequest = {
   communityId: string;
@@ -72,7 +72,12 @@ export default async (request: IRequest, env: Env) => {
       query = {
         text: `
           DELETE FROM memberships
-          WHERE profile_id = $1 AND community_id = $2
+          WHERE profile_id = $1
+          AND community_id = $2
+          AND NOT EXISTS (
+            SELECT 1 FROM communities
+            WHERE id = $2 AND admin = $1
+          )
           RETURNING *
         `,
         values: [profileId, communityId]
