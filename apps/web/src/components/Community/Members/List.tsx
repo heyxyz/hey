@@ -24,7 +24,7 @@ const MembersList: FC<MembersListProps> = ({ community }) => {
   const fetchMembers = async () => {
     try {
       const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/members/${community.id}/${offset}`
+        `${COMMUNITIES_WORKER_URL}/getMembers/${community.id}/${offset}`
       );
 
       const profileIds = response.data.map(
