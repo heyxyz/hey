@@ -1,11 +1,11 @@
 import { createCors, error, json, Router } from 'itty-router';
 
 import createCommunity from './handlers/createCommunity';
-import getAllCommunityIds from './handlers/getAllCommunityIds';
 import getCommunities from './handlers/getCommunities';
 import getCommunity from './handlers/getCommunity';
+import getCommunityIds from './handlers/getCommunityIds';
+import getIsMember from './handlers/getIsMember';
 import getMembers from './handlers/getMembers';
-import isMember from './handlers/isMember';
 import joinOrLeaveCommunity from './handlers/joinOrLeaveCommunity';
 import staffPickCommunity from './handlers/staffPickCommunity';
 import updateCommunity from './handlers/updateCommunity';
@@ -24,18 +24,23 @@ router.post('/create', createCommunity);
 router.post('/update', updateCommunity);
 router.post('/joinOrLeave', joinOrLeaveCommunity);
 router.post('/staffPick', staffPickCommunity);
-router.get('/:slug', ({ params }, env) => getCommunity(params.slug, env));
-router.get('/get/:profileId/:offset', ({ params }, env) =>
+router.get('/getCommunityById/:identifier', ({ params }, env) =>
+  getCommunity(params.identifier, 'id', env)
+);
+router.get('/getCommunityBySlug/:identifier', ({ params }, env) =>
+  getCommunity(params.identifier, 'slug', env)
+);
+router.get('/getCommunities/:profileId/:offset', ({ params }, env) =>
   getCommunities(params.profileId, params.offset, env)
 );
-router.get('/getIds/:profileId', ({ params }, env) =>
-  getAllCommunityIds(params.profileId, env)
+router.get('/getCommunityIds/:profileId', ({ params }, env) =>
+  getCommunityIds(params.profileId, env)
 );
-router.get('/members/:communityId/:offset', ({ params }, env) =>
+router.get('/getMembers/:communityId/:offset', ({ params }, env) =>
   getMembers(params.communityId, params.offset, env)
 );
-router.get('/isMember/:communityId/:profileId', ({ params }, env) =>
-  isMember(params.communityId, params.profileId, env)
+router.get('/getIsMember/:communityId/:profileId', ({ params }, env) =>
+  getIsMember(params.communityId, params.profileId, env)
 );
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>

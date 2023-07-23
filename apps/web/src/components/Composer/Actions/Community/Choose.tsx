@@ -23,7 +23,7 @@ const Choose: FC<ChooseProps> = ({ setShowModal }) => {
   const fetchCommunities = async () => {
     try {
       const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/get/${currentProfile?.id}/0`
+        `${COMMUNITIES_WORKER_URL}/getCommunities/${currentProfile?.id}/0`
       );
 
       return response.data;

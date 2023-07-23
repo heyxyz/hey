@@ -23,7 +23,9 @@ const ViewCommunity: NextPage = () => {
 
   const fetchCommunity = async () => {
     try {
-      const response = await axios(`${COMMUNITIES_WORKER_URL}/${slug}`);
+      const response = await axios(
+        `${COMMUNITIES_WORKER_URL}/getCommunityBySlug/${slug}`
+      );
 
       return response.data;
     } catch (error) {
