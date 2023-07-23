@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
 import Members from './Members';
+import Rules from './Rules';
 
 interface DetailsProps {
   community: Community;
@@ -168,6 +169,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
             </MetaDetails>
           )}
         </div>
+        <Rules rules={community.rules} />
       </div>
     </div>
   );
