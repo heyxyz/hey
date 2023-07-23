@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@lenster/config": "*",
-    "@types/node": "^20.4.3",
+    "@types/node": "^20.4.4",
     "typescript": "^5.1.6"
   }
 }
