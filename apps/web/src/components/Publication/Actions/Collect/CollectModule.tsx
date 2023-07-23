@@ -40,12 +40,11 @@ import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
-import { formatTime } from '@lib/formatTime';
+import { formatDate, formatTime } from '@lib/formatTime';
 import getCoingeckoPrice from '@lib/getCoingeckoPrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
@@ -468,8 +467,8 @@ const CollectModule: FC<CollectModuleProps> = ({
                   className="font-bold text-gray-600"
                   title={formatTime(endTimestamp)}
                 >
-                  {dayjs(endTimestamp).format('MMMM DD, YYYY')} at{' '}
-                  {dayjs(endTimestamp).format('hh:mm a')}
+                  {formatDate(endTimestamp, 'MMMM DD, YYYY')} at{' '}
+                  {formatDate(endTimestamp, 'hh:mm a')}
                 </span>
               </div>
             </div>

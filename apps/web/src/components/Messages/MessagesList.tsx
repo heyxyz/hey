@@ -10,23 +10,21 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { Card, Image } from '@lenster/ui';
-import { formatTime } from '@lib/formatTime';
+import {
+  formatDate,
+  formatTime,
+  getTimeFromNow,
+  isOnSameDay
+} from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
-import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
 import { memo, useEffect, useRef } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useMessageStore } from 'src/store/message';
 
 import MessageContent from './MessageContent';
-
-const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
-  return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
-};
-
-const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
 
 interface MessageTileProps {
   url?: string;
@@ -78,12 +76,12 @@ const MessageTile: FC<MessageTileProps> = ({
         );
         break;
       case 'pending':
-        statusContent = dayjs(message.sent).fromNow();
+        statusContent = getTimeFromNow(message.sent);
         break;
     }
   } else {
     // message has been successfully sent
-    statusContent = dayjs(message.sent).fromNow();
+    statusContent = getTimeFromNow(message.sent);
   }
 
   return (

@@ -50,6 +50,10 @@ msgstr "Show more comments"
 msgid "Edit Community"
 msgstr "Edit Community"
 
+#: src/components/Community/Details.tsx
+msgid "Created on {0}"
+msgstr "Created on {0}"
+
 #: src/components/Community/Feed.tsx
 msgid "No posts on this community yet!"
 msgstr "No posts on this community yet!"
