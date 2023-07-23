@@ -1,3 +1,10 @@
+export interface Rule {
+  id: string;
+  title: string;
+  description: string;
+  created_at: string;
+}
+
 export interface Community {
   id: string;
   name: string;
@@ -10,4 +17,5 @@ export interface Community {
   nsfw?: boolean;
   admin: string;
   created_at: string;
+  rules?: Rule[];
 }
