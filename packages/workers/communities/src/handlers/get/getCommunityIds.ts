@@ -1,10 +1,10 @@
 import { error } from 'itty-router';
 import { Client } from 'pg';
 
-import type { Env } from '../types';
+import type { Env } from '../../types';
 
-export default async (communityId: string, offset: string, env: Env) => {
-  if (!communityId) {
+export default async (profileId: string, env: Env) => {
+  if (!profileId) {
     return error(400, 'Bad request!');
   }
 
@@ -14,17 +14,17 @@ export default async (communityId: string, offset: string, env: Env) => {
 
     const query = {
       text: `
-        SELECT id, profile_id
+        SELECT community_id as id
         FROM memberships
-        WHERE community_id = $1
-        LIMIT 20 OFFSET $2;
+        WHERE profile_id = $1;
       `,
-      values: [communityId, offset]
+      values: [profileId]
     };
 
     const result = await client.query(query);
+    const ids = result.rows.map((row) => row.id);
 
-    return new Response(JSON.stringify(result.rows));
+    return new Response(JSON.stringify(ids));
   } catch (error) {
     throw error;
   }
