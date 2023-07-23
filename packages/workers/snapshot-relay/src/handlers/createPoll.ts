@@ -19,11 +19,11 @@ import walletClient from '../helpers/walletClient';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
-  isMainnet: boolean;
   title: string;
   description: string;
   choices: string[];
   length: number;
+  isMainnet: boolean;
 };
 
 type SnapshotResponse = {
