@@ -50,6 +50,10 @@ msgstr "Afficher plus de commentaires"
 msgid "Edit Community"
 msgstr ""
 
+#: src/components/Community/Details.tsx
+msgid "Created on {0}"
+msgstr ""
+
 #: src/components/Community/Feed.tsx
 msgid "No posts on this community yet!"
 msgstr ""
@@ -3184,4 +3188,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
