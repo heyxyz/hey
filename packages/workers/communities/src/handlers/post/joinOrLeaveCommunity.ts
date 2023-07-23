@@ -12,13 +12,15 @@ type ExtensionRequest = {
   profileId: string;
   join: boolean;
   accessToken: string;
+  isMainnet: boolean;
 };
 
 const validationSchema = object({
   communityId: string().uuid(),
   profileId: string(),
   join: boolean(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
+  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  isMainnet: boolean()
 });
 
 export default async (request: IRequest, env: Env) => {
@@ -35,11 +37,11 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { communityId, profileId, join, accessToken } =
+  const { communityId, profileId, join, accessToken, isMainnet } =
     body as ExtensionRequest;
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, true);
+    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid access token!' })
@@ -47,7 +49,11 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, profileId, true);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })
