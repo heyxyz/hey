@@ -17,14 +17,14 @@ export const misused: {
     id: '0x661b',
     type: MisuseType.Impersonated,
     identifiedOn: 'June 20, 2023',
-    description: null
+    description: 'Original account is @web3academy_'
   },
   {
     // xmtp_
     id: '0xc358',
-    type: MisuseType.Scam,
+    type: MisuseType.TrademarkViolation,
     identifiedOn: null,
-    description: null
+    description: 'Original account is @xmtplabs'
   },
   {
     // safewallet
