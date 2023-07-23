@@ -1,4 +1,5 @@
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data/constants';
+import { SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data/constants';
+import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import axios from 'axios';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
@@ -18,11 +19,11 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         url: `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
         method: 'POST',
         data: {
-          isMainnet: IS_MAINNET,
           title: `Poll by @${currentProfile?.handle}`,
           description: publicationContent,
           choices: pollConfig.choices,
-          length: pollConfig.length
+          length: pollConfig.length,
+          ...getBasicWorkerPayload()
         }
       });
 

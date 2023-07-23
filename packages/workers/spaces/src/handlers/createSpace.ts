@@ -7,8 +7,8 @@ import { boolean, object, string } from 'zod';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
-  isMainnet: boolean;
   accessToken: string;
+  isMainnet: boolean;
 };
 
 type CreateRoomResponse = {
@@ -17,8 +17,8 @@ type CreateRoomResponse = {
 };
 
 const validationSchema = object({
-  isMainnet: boolean(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
+  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  isMainnet: boolean()
 });
 
 export default async (request: IRequest, env: Env) => {
@@ -35,7 +35,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { isMainnet, accessToken } = body as ExtensionRequest;
+  const { accessToken, isMainnet } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
