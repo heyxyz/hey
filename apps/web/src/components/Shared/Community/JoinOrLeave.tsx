@@ -28,7 +28,7 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
   const fetchIsMember = async () => {
     try {
       const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/isMember/${community.id}/${currentProfile?.id}`
+        `${COMMUNITIES_WORKER_URL}/getIsMember/${community.id}/${currentProfile?.id}`
       );
 
       setIsMember(response.data?.isMember);
