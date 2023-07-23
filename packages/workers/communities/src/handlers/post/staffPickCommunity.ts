@@ -3,7 +3,7 @@ import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
-import { object, string } from 'zod';
+import { boolean, object, string } from 'zod';
 
 import type { Env } from '../../types';
 
@@ -11,12 +11,14 @@ type ExtensionRequest = {
   id: string;
   type: 'add' | 'remove';
   accessToken: string;
+  isMainnet: boolean;
 };
 
 const validationSchema = object({
   id: string().uuid(),
   type: string().regex(/^(add|remove)$/),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
+  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  isMainnet: boolean()
 });
 
 export default async (request: IRequest, env: Env) => {
@@ -33,10 +35,10 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, type, accessToken } = body as ExtensionRequest;
+  const { id, type, accessToken, isMainnet } = body as ExtensionRequest;
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, true);
+    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid access token!' })
