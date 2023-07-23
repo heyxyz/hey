@@ -1,20 +1,16 @@
-import { IS_MAINNET, SPACES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
+import { SPACES_WORKER_URL } from '@lenster/data/constants';
+import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import axios from 'axios';
 
 type CreateSpaceResponse = string;
 
 const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
   const createSpace = async (): Promise<CreateSpaceResponse> => {
     try {
       const response = await axios({
         url: `${SPACES_WORKER_URL}/createSpace`,
         method: 'POST',
-        data: {
-          isMainnet: IS_MAINNET,
-          accessToken
-        }
+        data: getBasicWorkerPayload()
       });
 
       return response.data.spaceId;

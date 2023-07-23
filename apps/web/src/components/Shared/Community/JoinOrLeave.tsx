@@ -1,9 +1,9 @@
 import { UserAddIcon } from '@heroicons/react/outline';
-import { COMMUNITIES_WORKER_URL, IS_MAINNET } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
+import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import type { Community } from '@lenster/types/communities';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
+import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -58,8 +58,7 @@ const JoinOrLeave: FC<JoinOrLeaveProps> = ({ community }) => {
         communityId: community.id,
         profileId: currentProfile.id,
         join: !isMember,
-        accessToken: localStorage.getItem(Localstorage.AccessToken),
-        isMainnet: IS_MAINNET
+        ...getBasicWorkerPayload()
       });
       setIsMember(!isMember);
       toast.success(
