@@ -3,8 +3,8 @@ import { Client } from 'pg';
 
 import type { Env } from '../types';
 
-export default async (slug: string, env: Env) => {
-  if (!slug) {
+export default async (identifier: string, type: 'id' | 'slug', env: Env) => {
+  if (!identifier) {
     return error(400, 'Bad request!');
   }
 
@@ -29,9 +29,9 @@ export default async (slug: string, env: Env) => {
             community_id
         ) AS m ON c.id = m.community_id
         WHERE
-          c.slug = $1;
+          ${type === 'id' ? 'c.id' : 'c.slug'} = $1;
       `,
-      values: [slug]
+      values: [identifier]
     };
 
     const result = await client.query(query);
