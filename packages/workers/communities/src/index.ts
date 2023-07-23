@@ -1,14 +1,14 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import createCommunity from './handlers/createCommunity';
-import getCommunities from './handlers/getCommunities';
-import getCommunity from './handlers/getCommunity';
-import getCommunityIds from './handlers/getCommunityIds';
-import getIsMember from './handlers/getIsMember';
-import getMembers from './handlers/getMembers';
-import joinOrLeaveCommunity from './handlers/joinOrLeaveCommunity';
-import staffPickCommunity from './handlers/staffPickCommunity';
-import updateCommunity from './handlers/updateCommunity';
+import getCommunities from './handlers/get/getCommunities';
+import getCommunity from './handlers/get/getCommunity';
+import getCommunityIds from './handlers/get/getCommunityIds';
+import getIsMember from './handlers/get/getIsMember';
+import getMembers from './handlers/get/getMembers';
+import createCommunity from './handlers/post/createCommunity';
+import joinOrLeaveCommunity from './handlers/post/joinOrLeaveCommunity';
+import staffPickCommunity from './handlers/post/staffPickCommunity';
+import updateCommunity from './handlers/post/updateCommunity';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({

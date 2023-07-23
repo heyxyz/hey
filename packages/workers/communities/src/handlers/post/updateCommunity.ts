@@ -6,7 +6,7 @@ import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { object, string } from 'zod';
 
-import type { Env } from '../types';
+import type { Env } from '../../types';
 
 type ExtensionRequest = Community & {
   accessToken: string;
