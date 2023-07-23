@@ -2,6 +2,7 @@ import { mainnetLensTeamMembers } from './lens-members';
 import { mainnetStaffs } from './staffs';
 
 export const mainnetVerified = [
+  '0x01cc3e', // discoxyz
   '0x016b0b', // xmtplabs
   '0x01c018', // linea
   '0x01d116', // safe
