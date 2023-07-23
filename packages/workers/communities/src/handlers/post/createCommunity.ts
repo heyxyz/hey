@@ -4,12 +4,13 @@ import type { Community } from '@lenster/types/communities';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
-import { object, string } from 'zod';
+import { boolean, object, string } from 'zod';
 
 import type { Env } from '../../types';
 
 type ExtensionRequest = Community & {
   accessToken: string;
+  isMainnet: boolean;
 };
 
 const validationSchema = object({
@@ -18,7 +19,8 @@ const validationSchema = object({
   description: string().optional().nullable(),
   avatar: string().optional().nullable(),
   admin: string(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/)
+  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  isMainnet: boolean()
 });
 
 export default async (request: IRequest, env: Env) => {
@@ -35,11 +37,11 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, slug, description, avatar, admin, accessToken } =
+  const { name, slug, description, avatar, admin, accessToken, isMainnet } =
     body as ExtensionRequest;
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, true);
+    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid access token!' })
@@ -47,7 +49,7 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, true);
+    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, isMainnet);
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })

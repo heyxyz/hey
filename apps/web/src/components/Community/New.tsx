@@ -1,7 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PlusIcon } from '@heroicons/react/outline';
-import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import {
+  APP_NAME,
+  COMMUNITIES_WORKER_URL,
+  IS_MAINNET
+} from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { Localstorage } from '@lenster/data/storage';
@@ -71,7 +75,8 @@ const NewCommunity: FC = () => {
           description,
           avatar: avatar || `https://avatar.tobi.sh/${slug}`,
           admin: currentProfile.id,
-          accessToken: localStorage.getItem(Localstorage.AccessToken)
+          accessToken: localStorage.getItem(Localstorage.AccessToken),
+          isMainnet: IS_MAINNET
         }
       });
 
