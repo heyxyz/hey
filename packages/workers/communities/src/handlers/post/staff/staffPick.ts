@@ -5,7 +5,7 @@ import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../../types';
+import type { Env } from '../../../types';
 
 type ExtensionRequest = {
   id: string;
