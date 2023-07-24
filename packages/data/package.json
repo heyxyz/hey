@@ -15,5 +15,8 @@
     "@lenster/config": "*",
     "@types/node": "^20.4.4",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.1"
   }
 }
