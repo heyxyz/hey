@@ -5,10 +5,9 @@ import getCommunity from './handlers/get/getCommunity';
 import getCommunityIds from './handlers/get/getCommunityIds';
 import getIsMember from './handlers/get/getIsMember';
 import getMembers from './handlers/get/getMembers';
-import createCommunity from './handlers/post/createCommunity';
-import joinOrLeaveCommunity from './handlers/post/joinOrLeaveCommunity';
-import staffPickCommunity from './handlers/post/staffPickCommunity';
-import updateCommunity from './handlers/post/updateCommunity';
+import createOrUpdate from './handlers/post/createOrUpdate';
+import joinOrLeave from './handlers/post/joinOrLeave';
+import staffPick from './handlers/post/staffPick';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -20,10 +19,9 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to communities service 👋'));
-router.post('/create', createCommunity);
-router.post('/update', updateCommunity);
-router.post('/joinOrLeave', joinOrLeaveCommunity);
-router.post('/staffPick', staffPickCommunity);
+router.post('/createOrUpdate', createOrUpdate);
+router.post('/joinOrLeave', joinOrLeave);
+router.post('/staffPick', staffPick);
 router.get('/getCommunityById/:identifier', ({ params }, env) =>
   getCommunity(params.identifier, 'id', env)
 );
