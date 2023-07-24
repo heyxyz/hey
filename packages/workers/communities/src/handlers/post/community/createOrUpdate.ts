@@ -9,6 +9,7 @@ import { boolean, object, string } from 'zod';
 import type { Env } from '../../../types';
 
 type ExtensionRequest = Community & {
+  profileId: string;
   accessToken: string;
   isMainnet: boolean;
 };
@@ -22,7 +23,7 @@ const validationSchema = object({
   nsfw: boolean().optional().nullable(),
   twitter: string().optional().nullable(),
   website: string().optional().nullable(),
-  admin: string(),
+  profileId: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -50,7 +51,7 @@ export default async (request: IRequest, env: Env) => {
     nsfw,
     twitter,
     website,
-    admin,
+    profileId,
     accessToken,
     isMainnet
   } = body as ExtensionRequest;
@@ -64,7 +65,11 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, isMainnet);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })
@@ -77,7 +82,7 @@ export default async (request: IRequest, env: Env) => {
     const createQuery = {
       text: `
         WITH inserted_community AS (
-          INSERT INTO communities(name, slug, description, avatar, admin)
+          INSERT INTO communities(name, slug, description, avatar, profileId)
           VALUES ($1, $2, $3, $4, $5)
           RETURNING id
         ),
@@ -89,7 +94,7 @@ export default async (request: IRequest, env: Env) => {
         )
         SELECT * FROM joined_admin;
       `,
-      values: [name, slug, description, avatar, admin, `${admin}_`]
+      values: [name, slug, description, avatar, profileId, `${profileId}_`]
     };
 
     const updateQuery = {
