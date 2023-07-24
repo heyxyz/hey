@@ -11,7 +11,7 @@ import type { Env } from '../../../types';
 
 type ExtensionRequest = Rule & {
   communityId: string;
-  admin: string;
+  profileId: string;
   accessToken: string;
   isMainnet: boolean;
 };
@@ -21,7 +21,7 @@ const validationSchema = object({
   title: string().min(1, { message: 'Title is required!' }),
   description: string().min(1, { message: 'Description is required!' }),
   communityId: string().uuid(),
-  admin: string(),
+  profileId: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -40,8 +40,15 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, title, description, communityId, admin, accessToken, isMainnet } =
-    body as ExtensionRequest;
+  const {
+    id,
+    title,
+    description,
+    communityId,
+    profileId,
+    accessToken,
+    isMainnet
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -52,14 +59,18 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, isMainnet);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })
       );
     }
 
-    const isAdmin = await isCommunityAdmin(env, admin, communityId);
+    const isAdmin = await isCommunityAdmin(env, profileId, communityId);
     if (!isAdmin) {
       return new Response(
         JSON.stringify({ success: false, error: 'Not a community admin!' })
