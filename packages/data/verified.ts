@@ -46,9 +46,7 @@ export const mainnetVerified = [
   '0x018d04', // dumpling
   '0x01ac9b', // gho
   '0x01aca7', // finiliar
-  '0x8d68', // avadi
   '0xadb2', // jameslondon
-  '0x1044', // south
   '0xd6', // figue_me
   '0x01a681', // kanav_kariya
   '0x01a2d4', // jakeowen
