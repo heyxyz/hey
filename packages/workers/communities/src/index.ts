@@ -6,8 +6,8 @@ import getCommunityIds from './handlers/get/getCommunityIds';
 import getIsMember from './handlers/get/getIsMember';
 import getMembers from './handlers/get/getMembers';
 import createOrUpdate from './handlers/post/createOrUpdate';
-import joinOrLeaveCommunity from './handlers/post/joinOrLeaveCommunity';
-import staffPickCommunity from './handlers/post/staffPickCommunity';
+import joinOrLeave from './handlers/post/joinOrLeave';
+import staffPick from './handlers/post/staffPick';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -20,8 +20,8 @@ const router = Router();
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to communities service 👋'));
 router.post('/createOrUpdate', createOrUpdate);
-router.post('/joinOrLeave', joinOrLeaveCommunity);
-router.post('/staffPick', staffPickCommunity);
+router.post('/joinOrLeave', joinOrLeave);
+router.post('/staffPick', staffPick);
 router.get('/getCommunityById/:identifier', ({ params }, env) =>
   getCommunity(params.identifier, 'id', env)
 );
