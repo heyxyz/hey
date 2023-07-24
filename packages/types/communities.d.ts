@@ -17,5 +17,6 @@ export interface Community {
   nsfw?: boolean;
   admin: string;
   created_at: string;
+  staffpicked_at?: string;
   rules?: Rule[];
 }

@@ -19,6 +19,9 @@ const validationSchema = object({
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
   image: string().optional().nullable(),
+  nsfw: boolean().optional().nullable(),
+  twitter: string().optional().nullable(),
+  website: string().optional().nullable(),
   admin: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
@@ -38,8 +41,19 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, name, slug, description, avatar, admin, accessToken, isMainnet } =
-    body as ExtensionRequest;
+  const {
+    id,
+    name,
+    slug,
+    description,
+    avatar,
+    nsfw,
+    twitter,
+    website,
+    admin,
+    accessToken,
+    isMainnet
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -64,14 +78,17 @@ export default async (request: IRequest, env: Env) => {
       text: `
         UPDATE communities
         SET
-          name = $1,
-          slug = $2,
-          description = $3,
-          avatar = $4
-        WHERE id = $5
+          name = $2,
+          slug = $3,
+          description = $4,
+          avatar = $5,
+          nsfw = $6,
+          twitter = $7,
+          website = $8
+        WHERE id = $1
         RETURNING *;
       `,
-      values: [name, slug, description, avatar, id]
+      values: [id, name, slug, description, avatar, nsfw, twitter, website]
     };
 
     const result = await client.query(query);
