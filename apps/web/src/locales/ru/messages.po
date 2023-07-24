@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-23 00:10\n"
+"PO-Revision-Date: 2023-07-24 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Bookmarks/Feed.tsx
 msgid "No bookmarks yet!"
-msgstr ""
+msgstr "Заметок пока нет!"
 
 #: src/components/Bookmarks/Feed.tsx
 msgid "Failed to load bookmark feed"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
-msgstr ""
+msgstr "Заметки • {APP_NAME}"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
@@ -418,7 +418,7 @@ msgstr "Что происходит?"
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
-msgstr ""
+msgstr "Момока в настоящее время находится в бета-версии - в это время некоторые действия недоступны для всех профилей."
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -643,7 +643,7 @@ msgstr "Нечего предложить"
 #: src/components/Home/Tags.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -705,11 +705,11 @@ msgstr "Загрузка сообщений"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
-msgstr ""
+msgstr "Не доставлено"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Retry"
-msgstr ""
+msgstr "Повторить"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -959,7 +959,7 @@ msgstr "<0><1/> упомянул вас в <2>сообщении</2></0>"
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> сделал миррор вашего <2>комментария</2></0>"
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
@@ -969,7 +969,7 @@ msgstr ""
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> сделал миррор вашего <2>поста</2></0>"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1526,7 +1526,7 @@ msgstr "Скопировано в буфер обмена!"
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
-msgstr ""
+msgstr "Копировать ссылку"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
@@ -1570,7 +1570,7 @@ msgstr "Необходимо указать название галереи"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
-msgstr ""
+msgstr "Выберите предметы коллекта для своей галереи"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
@@ -1578,7 +1578,7 @@ msgstr "Коллекция отзывов"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
-msgstr ""
+msgstr "Выберите предметы коллекта, которые вы хотите, чтобы другие увидели"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
@@ -1638,7 +1638,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr ""
+msgstr "Коллект сделан успешно!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1700,7 +1700,7 @@ msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Unlike"
-msgstr ""
+msgstr "Не нравится"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1763,7 +1763,7 @@ msgstr ""
 #: src/components/Publication/Actions/Share/Mirror.tsx
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "Mirror"
-msgstr ""
+msgstr "Миррор"
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
@@ -1779,7 +1779,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
-msgstr ""
+msgstr "{0} Мирроров"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1923,7 +1923,7 @@ msgstr "Неверный Ethereum-адрес"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Super Follow updated successfully!"
-msgstr ""
+msgstr "Super Follow успешно обновлен!"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -2184,7 +2184,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
-msgstr ""
+msgstr "Экспорт подписчиков"
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export all your followers to a JSON file."
@@ -2196,7 +2196,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Download followers"
-msgstr ""
+msgstr "Загрузить подписчиков"
 
 #: src/components/Settings/Export/Followers.tsx
 #: src/components/Settings/Export/Following.tsx
@@ -3024,7 +3024,7 @@ msgstr "Сменить сеть"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
-msgstr ""
+msgstr "Создать профиль"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
@@ -3138,11 +3138,11 @@ msgstr "всего подписок"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
-msgstr ""
+msgstr "Размер изображения не должен превышать 50 Мб"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
-msgstr ""
+msgstr "Размер видео не должен превышать 200MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
@@ -3188,3 +3188,4 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
+
