@@ -1,3 +1,4 @@
+import Markup from '@components/Shared/Markup';
 import type { Profile } from '@lenster/lens';
 import getMisuseDetails from '@lenster/lib/getMisuseDetails';
 import { Card } from '@lenster/ui';
@@ -28,7 +29,7 @@ const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
         </p>
       </div>
       {misuseDetails?.description ? (
-        <p className="text-sm">{misuseDetails?.description}</p>
+        <Markup className="text-sm">{misuseDetails?.description}</Markup>
       ) : null}
       {misuseDetails?.identifiedOn ? (
         <p className="text-sm italic">
