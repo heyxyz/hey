@@ -654,6 +654,9 @@ importers:
 
   packages/workers/ens:
     dependencies:
+      '@lenster/lib':
+        specifier: '*'
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
