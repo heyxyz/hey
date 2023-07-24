@@ -17,7 +17,8 @@ export const misused: {
     id: '0x661b',
     type: MisuseType.Impersonated,
     identifiedOn: 'June 20, 2023',
-    description: 'Original account is @web3academy_'
+    description:
+      'Original account owner has established a new profile: @web3academy_'
   },
   {
     // xmtp_
