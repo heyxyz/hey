@@ -63,17 +63,20 @@ const NewCommunity: FC = () => {
   ) => {
     setSubmitting(true);
     try {
-      const { data } = await axios(`${COMMUNITIES_WORKER_URL}/createOrUpdate`, {
-        method: 'POST',
-        data: {
-          name,
-          slug,
-          description,
-          avatar: avatar || `https://avatar.tobi.sh/${slug}`,
-          admin: currentProfile.id,
-          ...getBasicWorkerPayload()
+      const { data } = await axios(
+        `${COMMUNITIES_WORKER_URL}/community/createOrUpdate`,
+        {
+          method: 'POST',
+          data: {
+            name,
+            slug,
+            description,
+            avatar: avatar || `https://avatar.tobi.sh/${slug}`,
+            admin: currentProfile.id,
+            ...getBasicWorkerPayload()
+          }
         }
-      });
+      );
 
       if (data.id) {
         push(`/c/${slug}`);
