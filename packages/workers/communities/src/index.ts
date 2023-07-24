@@ -20,10 +20,19 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to communities service 👋'));
-router.post('/createOrUpdateCommunity', createOrUpdateCommunity);
-router.post('/createOrUpdateRules', createOrUpdateRules);
-router.post('/joinOrLeave', joinOrLeave);
-router.post('/staffPick', staffPick);
+
+// POST
+// Community
+router.post('/community/createOrUpdate', createOrUpdateCommunity);
+router.post('/community/joinOrLeave', joinOrLeave);
+
+// Rule
+router.post('/rule/createOrUpdate', createOrUpdateRules);
+
+// Staff
+router.post('/staff/pick', staffPick);
+
+// GET
 router.get('/getCommunityById/:identifier', ({ params }, env) =>
   getCommunity(params.identifier, 'id', env)
 );

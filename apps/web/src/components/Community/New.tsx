@@ -64,7 +64,7 @@ const NewCommunity: FC = () => {
     setSubmitting(true);
     try {
       const { data } = await axios(
-        `${COMMUNITIES_WORKER_URL}/createOrUpdateCommunity`,
+        `${COMMUNITIES_WORKER_URL}/community/createOrUpdate`,
         {
           method: 'POST',
           data: {
