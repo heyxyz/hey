@@ -8,6 +8,7 @@ import getMembers from './handlers/get/getMembers';
 import createOrUpdateCommunity from './handlers/post/community/createOrUpdate';
 import joinOrLeave from './handlers/post/community/joinOrLeave';
 import createOrUpdateRules from './handlers/post/rule/createOrUpdate';
+import deleteRule from './handlers/post/rule/delete';
 import staffPick from './handlers/post/staff/staffPick';
 import type { Env } from './types';
 
@@ -28,6 +29,7 @@ router.post('/community/joinOrLeave', joinOrLeave);
 
 // Rule
 router.post('/rule/createOrUpdate', createOrUpdateRules);
+router.post('/rule/delete', deleteRule);
 
 // Staff
 router.post('/staff/pick', staffPick);
