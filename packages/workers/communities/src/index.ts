@@ -5,10 +5,10 @@ import getCommunity from './handlers/get/getCommunity';
 import getCommunityIds from './handlers/get/getCommunityIds';
 import getIsMember from './handlers/get/getIsMember';
 import getMembers from './handlers/get/getMembers';
-import createOrUpdateCommunity from './handlers/post/createOrUpdateCommunity';
-import createOrUpdateRules from './handlers/post/createOrUpdateRules';
-import joinOrLeave from './handlers/post/joinOrLeave';
-import staffPick from './handlers/post/staffPick';
+import createOrUpdateCommunity from './handlers/post/community/createOrUpdate';
+import joinOrLeave from './handlers/post/community/joinOrLeave';
+import createOrUpdateRules from './handlers/post/rule/createOrUpdate';
+import staffPick from './handlers/post/staff/staffPick';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({

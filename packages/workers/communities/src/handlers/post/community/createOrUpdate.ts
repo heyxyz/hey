@@ -1,26 +1,27 @@
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
-import type { Rule } from '@lenster/types/communities';
+import type { Community } from '@lenster/types/communities';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import isCommunityAdmin from '../../helpers/isCommunityAdmin';
-import type { Env } from '../../types';
+import type { Env } from '../../../types';
 
-type ExtensionRequest = Rule & {
-  communityId: string;
-  admin: string;
+type ExtensionRequest = Community & {
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
   id: string().uuid().optional().nullable(),
-  title: string().min(1, { message: 'Title is required!' }),
-  description: string().min(1, { message: 'Description is required!' }),
-  communityId: string().uuid(),
+  name: string().min(1, { message: 'Name is required!' }),
+  slug: string().min(1, { message: 'Slug is required!' }),
+  description: string().optional().nullable(),
+  image: string().optional().nullable(),
+  nsfw: boolean().optional().nullable(),
+  twitter: string().optional().nullable(),
+  website: string().optional().nullable(),
   admin: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
@@ -40,8 +41,19 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, title, description, communityId, admin, accessToken, isMainnet } =
-    body as ExtensionRequest;
+  const {
+    id,
+    name,
+    slug,
+    description,
+    avatar,
+    nsfw,
+    twitter,
+    website,
+    admin,
+    accessToken,
+    isMainnet
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -59,33 +71,41 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    const isAdmin = await isCommunityAdmin(env, admin, communityId);
-    if (!isAdmin) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Not a community admin!' })
-      );
-    }
-
     const client = new Client(env.DB_URL);
     await client.connect();
 
     const createQuery = {
       text: `
-        INSERT INTO rules (title, description, community_id)
-        VALUES ($1, $2, $3)
-        RETURNING *;
+        WITH inserted_community AS (
+          INSERT INTO communities(name, slug, description, avatar, admin)
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING id
+        ),
+        joined_admin AS (
+          INSERT INTO memberships (id, profile_id, community_id)
+          SELECT $6 || inserted_community.id, $5, inserted_community.id
+          FROM inserted_community
+          RETURNING *
+        )
+        SELECT * FROM joined_admin;
       `,
-      values: [title, description, communityId]
+      values: [name, slug, description, avatar, admin, `${admin}_`]
     };
 
     const updateQuery = {
       text: `
-        UPDATE rules
-        SET title = $2, description = $3
-        WHERE id = $1 AND community_id = $4
+        UPDATE communities
+        SET
+          name = $2,
+          description = $3,
+          avatar = $4,
+          nsfw = $5,
+          twitter = $6,
+          website = $7
+        WHERE id = $1
         RETURNING *;
       `,
-      values: [id, title, description, communityId]
+      values: [id, name, description, avatar, nsfw, twitter, website]
     };
 
     const result = await client.query(id ? updateQuery : createQuery);
