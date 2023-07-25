@@ -135,8 +135,6 @@ async function main() {
     } catch (error) {
       console.error('Error:', error);
     }
-
-    // console.log(`Total number of IDs: ${allResponses.length}`);
   } else {
     console.log('Error occurred while making the GraphQL requests.');
   }
