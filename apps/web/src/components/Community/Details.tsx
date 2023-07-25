@@ -27,8 +27,6 @@ const Details: FC<DetailsProps> = ({ community }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
-  console.log(currentProfile?.id, community.admin);
-
   const MetaDetails = ({
     children,
     icon,
