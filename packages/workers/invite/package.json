@@ -1,0 +1,26 @@
+{
+  "name": "@workers/invite",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8092",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@lenster/data": "*",
+    "itty-router": "^4.0.14",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230717.1",
+    "@lenster/config": "*",
+    "typescript": "^5.1.6",
+    "wrangler": "^3.3.0"
+  }
+}
