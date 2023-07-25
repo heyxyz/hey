@@ -1,5 +1,5 @@
 import { TicketIcon } from '@heroicons/react/outline';
-import { INVITE_WORKER_URL } from '@lenster/data/constants';
+import { INVITE_WORKER_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { Regex } from '@lenster/data/regex';
 import { INVITE } from '@lenster/data/tracking';
 import { Button, EmptyState, Form, Input, useZodForm } from '@lenster/ui';
@@ -7,7 +7,7 @@ import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { object, string } from 'zod';
 
@@ -23,6 +23,8 @@ interface InviteProps {
 }
 
 const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
+  const [inviting, setInviting] = useState(false);
+
   const form = useZodForm({
     schema: inviteSchema
   });
@@ -43,6 +45,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
 
   const invite = async (address: string) => {
     try {
+      setInviting(true);
       const data = await axios.post(INVITE_WORKER_URL, {
         address,
         ...getBasicWorkerPayload()
@@ -59,15 +62,31 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       return toast.error(t`Address already invited!`);
     } catch {
       return toast.error(t`Failed to invite!`);
+    } finally {
+      setInviting(false);
     }
   };
 
   return (
-    <div>
-      <div className="text-lg">
-        <Trans>
-          You have <b>{invitesLeft} invites</b> left!
-        </Trans>
+    <div className="w-full">
+      <div className="flex flex-col items-center justify-center space-y-2 text-center">
+        <img
+          src={`${STATIC_IMAGES_URL}/emojis/handshake.png`}
+          alt="Invite"
+          className="h-16 w-16"
+        />
+        <div className="text-xl">Invite a Fren</div>
+        <p className="lt-text-gray-500">
+          <Trans>
+            Send these invites to your friends so they can create an account.
+            You can invite a user only once.
+          </Trans>
+        </p>
+        <div className="pt-2 font-mono text-lg">
+          <Trans>
+            <b>{invitesLeft} invites</b> available!
+          </Trans>
+        </div>
       </div>
       <Form
         form={form}
@@ -78,12 +97,13 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       >
         <Input
           className="text-sm"
-          label={t`Enter Ethereum address`}
           type="text"
           placeholder="0x3A5bd...5e3"
           {...form.register('address')}
         />
-        <Button type="submit">Invite</Button>
+        <Button type="submit" disabled={inviting}>
+          <Trans>Invite</Trans>
+        </Button>
       </Form>
     </div>
   );
