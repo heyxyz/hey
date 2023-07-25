@@ -7,13 +7,13 @@ import { boolean, object, string } from 'zod';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
-  addresses: string[];
+  address: string;
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
-  addresses: string().array(),
+  address: string(),
   accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
@@ -32,7 +32,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { addresses, accessToken, isMainnet } = body as ExtensionRequest;
+  const { address, accessToken, isMainnet } = body as ExtensionRequest;
 
   try {
     const mutation = `
@@ -41,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
       }
     `;
     const response = await fetch(
-      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Staging,
+      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         method: 'POST',
         headers: {
@@ -52,7 +52,7 @@ export default async (request: IRequest, env: Env) => {
           query: mutation,
           variables: {
             request: {
-              invites: addresses,
+              invites: [address],
               secret: env.SHARED_LENS_INVITE_SECRET
             }
           }
@@ -60,13 +60,20 @@ export default async (request: IRequest, env: Env) => {
       }
     );
 
-    const inviteResponse = await response.json();
+    const inviteResponse: {
+      errors: any;
+    } = await response.json();
+
+    console.log(JSON.stringify(inviteResponse.errors));
+
+    if (!inviteResponse.errors) {
+      return new Response(
+        JSON.stringify({ success: true, alreadyInvited: false })
+      );
+    }
 
     return new Response(
-      JSON.stringify({
-        success: true,
-        data: inviteResponse
-      })
+      JSON.stringify({ success: false, alreadyInvited: true })
     );
   } catch (error) {
     throw error;

@@ -139,6 +139,11 @@ export const SYSTEM = {
   SWITCH_NETWORK: 'Switch network'
 };
 
+export const INVITE = {
+  INVITE: 'Invite address',
+  SWITCH_INVITE_TAB: 'Switch invite tab'
+};
+
 export const MISCELLANEOUS = {
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',

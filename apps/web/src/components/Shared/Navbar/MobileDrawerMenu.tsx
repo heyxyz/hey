@@ -19,6 +19,7 @@ import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
 import Communities from './NavItems/Communities';
 import Contact from './NavItems/Contact';
+import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import ModMode from './NavItems/ModMode';
@@ -103,6 +104,7 @@ const MobileDrawerMenu: FC = () => {
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
             )}
+            <Invites className={itemClass} />
             <ThemeSwitch className={itemClass} onClick={closeDrawer} />
           </div>
           <div className="divider" />

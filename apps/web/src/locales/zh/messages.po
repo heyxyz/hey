@@ -1914,10 +1914,12 @@ msgid "Invalid amount"
 msgstr "无效的金额"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr "以太坊地址应在 42 个字符以内"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
 
@@ -2568,6 +2570,11 @@ msgstr "登录"
 msgid "Create post"
 msgstr "创建贴子"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} 索引中"
@@ -2667,6 +2674,46 @@ msgstr "还没有人收藏。"
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
 msgstr "无法加载收藏者"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
+msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -3188,4 +3235,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

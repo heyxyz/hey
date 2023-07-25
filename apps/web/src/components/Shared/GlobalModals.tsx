@@ -3,7 +3,8 @@ import Report from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
-  ShieldCheckIcon
+  ShieldCheckIcon,
+  TicketIcon
 } from '@heroicons/react/outline';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -11,6 +12,7 @@ import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
+import Invites from './Modal/Invites';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
@@ -27,7 +29,9 @@ const GlobalModals: FC = () => {
     showNewPostModal,
     setShowNewPostModal,
     showAuthModal,
-    setShowAuthModal
+    setShowAuthModal,
+    showInvitesModal,
+    setShowInvitesModal
   } = useGlobalModalStateStore();
 
   return (
@@ -74,6 +78,14 @@ const GlobalModals: FC = () => {
         onClose={() => setShowNewPostModal(false)}
       >
         <NewPublication />
+      </Modal>
+      <Modal
+        title={t`Invites`}
+        icon={<TicketIcon className="text-brand h-5 w-5" />}
+        show={showInvitesModal}
+        onClose={() => setShowInvitesModal(false)}
+      >
+        <Invites />
       </Modal>
     </>
   );
