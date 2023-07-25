@@ -41,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
       }
     `;
     const response = await fetch(
-      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Staging,
+      isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         method: 'POST',
         headers: {
