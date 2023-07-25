@@ -1,4 +1,5 @@
 export const mainnetLensTeamMembers = [
+  '0x5c95', // 2irl4u
   '0x0efa', // ya7ya
   '0x42', // miguelmtz
   '0x2b', // gareth
