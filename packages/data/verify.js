@@ -21,12 +21,11 @@ async function main() {
     }
   `;
 
-  const url = 'https://api.lens.dev/';
+  const url = 'https://api.lens.dev';
   const allResponses = [];
 
   let cursor = null;
   while (true) {
-    // const fetch = await import('node-fetch');
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -78,7 +77,6 @@ async function main() {
         const regex =
           /export const mainnetVerified = \[[\S\s]*?mainnetLensTeamMembers,[\S\s]*?...mainnetStaffs\n];/;
         const match = tsData.match(regex);
-        // console.log('match:', match);
 
         if (match) {
           // Extract existing profiles from verified.ts
@@ -88,8 +86,6 @@ async function main() {
               .map((line) => line.trim())
               .slice(1, -3)
           );
-
-          // console.log('existingProfiles:', existingProfiles);
 
           const regex = /'0x([\dA-Fa-f]+)'/g;
 
