@@ -2704,14 +2704,6 @@ msgid "Invite"
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invited.tsx
-#~ msgid "Loading invided addresses"
-#~ msgstr ""
-
-#: src/components/Shared/Modal/Invites/Invited.tsx
-#~ msgid "Failed to load invited addresses"
-#~ msgstr ""
-
-#: src/components/Shared/Modal/Invites/Invited.tsx
 msgid "You haven't invited anyone."
 msgstr ""
 
