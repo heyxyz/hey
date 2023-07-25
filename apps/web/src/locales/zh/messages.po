@@ -2568,6 +2568,11 @@ msgstr "登录"
 msgid "Create post"
 msgstr "创建贴子"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} 索引中"
@@ -2667,6 +2672,18 @@ msgstr "还没有人收藏。"
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
 msgstr "无法加载收藏者"
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Loading invided addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Failed to load invited addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -3188,4 +3205,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

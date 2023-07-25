@@ -2568,6 +2568,11 @@ msgstr "Вход"
 msgid "Create post"
 msgstr "Создать публикацию"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} Индексация"
@@ -2667,6 +2672,18 @@ msgstr "Нет пользователей, сделавших коллект."
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
 msgstr "Не удалось загрузить пользователей, сделавших коллект"
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Loading invided addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Failed to load invited addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -3188,4 +3205,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

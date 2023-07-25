@@ -2568,6 +2568,11 @@ msgstr "புகுபதிகை"
 msgid "Create post"
 msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} இண்டெக்ஸ் ஆகிறது"
@@ -2667,6 +2672,18 @@ msgstr "சேகரிப்பாளர்கள் இல்லை."
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
 msgstr "சேகரிப்பாளர்களை ஏற்றுவதில் தோல்வி"
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Loading invided addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Failed to load invited addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
@@ -3188,4 +3205,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

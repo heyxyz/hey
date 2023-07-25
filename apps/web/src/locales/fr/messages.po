@@ -2568,6 +2568,11 @@ msgstr ""
 msgid "Create post"
 msgstr ""
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr ""
@@ -2666,6 +2671,18 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Loading invided addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "Failed to load invited addresses"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
 msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
@@ -3188,4 +3205,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
