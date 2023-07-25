@@ -22,3 +22,10 @@ jobs:
 
       - name: Run script 📜
         run: node packages/data/verify-profiles.js
+
+      - name: Commit & Push changes 📤
+        uses: actions-js/push@master
+        with:
+          message: 'chore(cron): verify profiles'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
