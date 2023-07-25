@@ -9901,6 +9901,12 @@ export type HidePublicationMutation = {
   hidePublication?: any | null;
 };
 
+export type InviteMutationVariables = Exact<{
+  request: InviteRequest;
+}>;
+
+export type InviteMutation = { __typename?: 'Mutation'; invite?: any | null };
+
 export type ProxyActionMutationVariables = Exact<{
   request: ProxyActionRequest;
 }>;
@@ -25986,6 +25992,21 @@ export type HasTxHashBeenIndexedQuery = {
         } | null;
       };
 };
+
+export type InvitedQueryVariables = Exact<{ [key: string]: never }>;
+
+export type InvitedQuery = {
+  __typename?: 'Query';
+  invited: Array<{
+    __typename?: 'InvitedResult';
+    address: any;
+    when?: any | null;
+  }>;
+};
+
+export type InvitesLeftQueryVariables = Exact<{ [key: string]: never }>;
+
+export type InvitesLeftQuery = { __typename?: 'Query'; invitesLeft: number };
 
 export type LensterStatsQueryVariables = Exact<{
   request?: InputMaybe<GlobalProtocolStatsRequest>;
@@ -52597,6 +52618,51 @@ export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<
   HidePublicationMutation,
   HidePublicationMutationVariables
 >;
+export const InviteDocument = gql`
+  mutation Invite($request: InviteRequest!) {
+    invite(request: $request)
+  }
+`;
+export type InviteMutationFn = Apollo.MutationFunction<
+  InviteMutation,
+  InviteMutationVariables
+>;
+
+/**
+ * __useInviteMutation__
+ *
+ * To run a mutation, you first call `useInviteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInviteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [inviteMutation, { data, loading, error }] = useInviteMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useInviteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InviteMutation,
+    InviteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<InviteMutation, InviteMutationVariables>(
+    InviteDocument,
+    options
+  );
+}
+export type InviteMutationHookResult = ReturnType<typeof useInviteMutation>;
+export type InviteMutationResult = Apollo.MutationResult<InviteMutation>;
+export type InviteMutationOptions = Apollo.BaseMutationOptions<
+  InviteMutation,
+  InviteMutationVariables
+>;
 export const ProxyActionDocument = gql`
   mutation ProxyAction($request: ProxyActionRequest!) {
     proxyAction(request: $request)
@@ -53997,6 +54063,107 @@ export type HasTxHashBeenIndexedLazyQueryHookResult = ReturnType<
 export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
   HasTxHashBeenIndexedQuery,
   HasTxHashBeenIndexedQueryVariables
+>;
+export const InvitedDocument = gql`
+  query Invited {
+    invited {
+      address
+      when
+    }
+  }
+`;
+
+/**
+ * __useInvitedQuery__
+ *
+ * To run a query within a React component, call `useInvitedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInvitedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInvitedQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useInvitedQuery(
+  baseOptions?: Apollo.QueryHookOptions<InvitedQuery, InvitedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<InvitedQuery, InvitedQueryVariables>(
+    InvitedDocument,
+    options
+  );
+}
+export function useInvitedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<InvitedQuery, InvitedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<InvitedQuery, InvitedQueryVariables>(
+    InvitedDocument,
+    options
+  );
+}
+export type InvitedQueryHookResult = ReturnType<typeof useInvitedQuery>;
+export type InvitedLazyQueryHookResult = ReturnType<typeof useInvitedLazyQuery>;
+export type InvitedQueryResult = Apollo.QueryResult<
+  InvitedQuery,
+  InvitedQueryVariables
+>;
+export const InvitesLeftDocument = gql`
+  query InvitesLeft {
+    invitesLeft
+  }
+`;
+
+/**
+ * __useInvitesLeftQuery__
+ *
+ * To run a query within a React component, call `useInvitesLeftQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInvitesLeftQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInvitesLeftQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useInvitesLeftQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    InvitesLeftQuery,
+    InvitesLeftQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<InvitesLeftQuery, InvitesLeftQueryVariables>(
+    InvitesLeftDocument,
+    options
+  );
+}
+export function useInvitesLeftLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    InvitesLeftQuery,
+    InvitesLeftQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<InvitesLeftQuery, InvitesLeftQueryVariables>(
+    InvitesLeftDocument,
+    options
+  );
+}
+export type InvitesLeftQueryHookResult = ReturnType<typeof useInvitesLeftQuery>;
+export type InvitesLeftLazyQueryHookResult = ReturnType<
+  typeof useInvitesLeftLazyQuery
+>;
+export type InvitesLeftQueryResult = Apollo.QueryResult<
+  InvitesLeftQuery,
+  InvitesLeftQueryVariables
 >;
 export const LensterStatsDocument = gql`
   query LensterStats($request: GlobalProtocolStatsRequest) {

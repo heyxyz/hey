@@ -1,0 +1,6 @@
+query Invited {
+  invited {
+    address
+    when
+  }
+}

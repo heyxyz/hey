@@ -3,7 +3,8 @@ import Report from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
-  ShieldCheckIcon
+  ShieldCheckIcon,
+  TicketIcon
 } from '@heroicons/react/outline';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -80,6 +81,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         title={t`Invites`}
+        icon={<TicketIcon className="text-brand h-5 w-5" />}
         show={showInvitesModal}
         onClose={() => setShowInvitesModal(false)}
       >

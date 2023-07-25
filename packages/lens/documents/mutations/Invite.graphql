@@ -1,0 +1,3 @@
+mutation Invite($request: InviteRequest!) {
+  invite(request: $request)
+}
