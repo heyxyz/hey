@@ -69,8 +69,7 @@ export default async (id: string, date: string, env: Env) => {
     response.headers.set('Cache-Control', 'max-age=600');
 
     return response;
-  } catch (error) {
-    console.error('Failed to get streaksList', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

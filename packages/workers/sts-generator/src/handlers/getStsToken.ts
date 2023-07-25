@@ -53,8 +53,7 @@ export default async (_request: IRequest, env: Env) => {
         sessionToken: credentials?.SessionToken
       })
     );
-  } catch (error) {
-    console.error('Failed to get STS data', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

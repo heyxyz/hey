@@ -9,8 +9,7 @@ export default async (request: IRequest, env: Env) => {
     const data = await getMetadata(url as string, env);
 
     return new Response(JSON.stringify({ success: true, oembed: data }));
-  } catch (error) {
-    console.error('Failed to get oembed data', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

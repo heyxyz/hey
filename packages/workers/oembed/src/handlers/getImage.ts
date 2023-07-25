@@ -22,8 +22,7 @@ export default async (request: IRequest, env: Env) => {
     );
 
     return new Response(image.body);
-  } catch (error) {
-    console.error('Failed to get oembed data', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

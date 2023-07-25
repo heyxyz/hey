@@ -47,8 +47,7 @@ export default async (request: IRequest) => {
     });
 
     return new Response(JSON.stringify({ success: true, data }));
-  } catch (error) {
-    console.error('Failed to resolve ENS', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

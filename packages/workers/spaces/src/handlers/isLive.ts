@@ -25,8 +25,7 @@ export default async (spaceId: string, env: Env) => {
         isLive: isLiveResponse.roomId === spaceId
       })
     );
-  } catch (error) {
-    console.error('Failed to get room isLive', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

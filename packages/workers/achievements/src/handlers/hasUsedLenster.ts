@@ -39,8 +39,7 @@ export default async (id: string, env: Env) => {
     response.headers.set('Cache-Control', 'max-age=600');
 
     return response;
-  } catch (error) {
-    console.error('Failed to get hasUsedLenster', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, error: 'Something went wrong!' })
     );

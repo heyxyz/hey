@@ -51,8 +51,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
     return new Response(JSON.stringify({ success: true }), {
       headers
     });
-  } catch (error) {
-    console.error('Failed to send email', error);
+  } catch {
     return new Response(
       JSON.stringify({ success: false, message: 'Something went wrong!' }),
       { headers }

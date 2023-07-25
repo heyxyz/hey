@@ -27,9 +27,7 @@ const initialConfig = {
     EmojiNode
   ],
   editorState: null,
-  onError: (error: Error) => {
-    console.error(error);
-  }
+  onError: () => {}
 };
 
 const withLexicalContext = (Component: FC<any>) => {
