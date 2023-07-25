@@ -27,5 +27,6 @@ jobs:
         uses: actions-js/push@master
         with:
           message: 'chore(cron): verify profiles'
+          author_email: '69431456+bigint@users.noreply.github.com'
           github_token: ${{ secrets.BIGINT_GH_TOKEN }}
           force: true
