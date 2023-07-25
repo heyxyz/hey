@@ -38,7 +38,6 @@ const MobileDrawerMenu: FC = () => {
     (state) => state.setShowMobileDrawer
   );
   const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
-  const isInvitesEnabled = isFeatureEnabled(FeatureFlag.Invites);
 
   const closeDrawer = () => {
     setShowMobileDrawer(false);
@@ -105,7 +104,7 @@ const MobileDrawerMenu: FC = () => {
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
             )}
-            {isInvitesEnabled && <Invites className={itemClass} />}
+            <Invites className={itemClass} />
             <ThemeSwitch className={itemClass} onClick={closeDrawer} />
           </div>
           <div className="divider" />

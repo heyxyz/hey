@@ -1,9 +1,7 @@
 import { Menu } from '@headlessui/react';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import isGardener from '@lenster/lib/isGardener';
 import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
@@ -37,7 +35,6 @@ const SignedUser: FC = () => {
   const showMobileDrawer = useGlobalModalStateStore(
     (state) => state.showMobileDrawer
   );
-  const isInvitesEnabled = isFeatureEnabled(FeatureFlag.Invites);
 
   const Avatar = () => (
     <Image
@@ -138,16 +135,14 @@ const SignedUser: FC = () => {
                 <Mod />
               </Menu.Item>
             )}
-            {isInvitesEnabled && (
-              <Menu.Item
-                as="div"
-                className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
-                }
-              >
-                <Invites />
-              </Menu.Item>
-            )}
+            <Menu.Item
+              as="div"
+              className={({ active }: { active: boolean }) =>
+                clsx({ 'dropdown-active': active }, 'menu-item')
+              }
+            >
+              <Invites />
+            </Menu.Item>
             <Menu.Item
               as="div"
               className={({ active }) =>
