@@ -125,8 +125,7 @@ const Choices: FC<ChoicesProps> = ({
         proposal_source: APP_NAME.toLowerCase()
       });
       toast.success(t`Your vote has been casted!`);
-    } catch (error) {
-      console.error('Failed to vote on snapshot', error);
+    } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {
       setVoteSubmitting(false);

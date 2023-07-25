@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
@@ -68,9 +69,7 @@ export default async (request: IRequest, env: Env) => {
         `https://pro.ip-api.com/json/${ip}?key=${env.IPAPI_KEY}`
       );
       ipData = await ipResponse.json();
-    } catch (error) {
-      console.error('Failed to get IP data', error);
-    }
+    } catch {}
 
     // Extract UTM parameters
     const parsedUrl = new URL(url);
@@ -128,15 +127,12 @@ export default async (request: IRequest, env: Env) => {
 
     if (response.status !== 200) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Status code is not 200!' })
+        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
       );
     }
 
     return new Response(JSON.stringify({ success: true }));
   } catch (error) {
-    console.error('Failed to ingest', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

@@ -23,8 +23,7 @@ const parseJwt = (
 } => {
   try {
     return JSON.parse(decoded(token.split('.')[1]));
-  } catch (error) {
-    console.error('Failed to parse JWT', error);
+  } catch {
     return {
       id: '',
       role: '',

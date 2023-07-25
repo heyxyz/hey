@@ -21,8 +21,7 @@ const getSnapshotProposalId = (url: string[]): string | null => {
     const proposalId = parsedUrl.hash.match(/\/proposal\/(0x[\dA-Fa-f]{64})/);
 
     return proposalId?.[1] || null;
-  } catch (error) {
-    console.error('Failed to parse Snapshot URL', error);
+  } catch {
     return null;
   }
 };
