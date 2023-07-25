@@ -78,8 +78,8 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         <div className="text-xl">Invite a Fren</div>
         <p className="lt-text-gray-500">
           <Trans>
-            Send these invites to your friends so they can create an account.
-            You can invite a user only once.
+            Send invites to your frens so they can create an Lens account. You
+            can invite a user only once.
           </Trans>
         </p>
         <div className="pt-2 font-mono text-lg">
