@@ -36,9 +36,7 @@ export default async (request: IRequest, env: Env) => {
         if (localeResponse.locale) {
           payload.locale = localeResponse.locale;
         }
-      } catch (error) {
-        console.error('Failed to fetch AI data', error);
-      }
+      } catch {}
     }
 
     const tx = createData(JSON.stringify(payload), signer, {
@@ -65,9 +63,6 @@ export default async (request: IRequest, env: Env) => {
       );
     }
   } catch (error) {
-    console.error('Failed to create metadata data', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

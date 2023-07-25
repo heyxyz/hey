@@ -75,9 +75,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch {}
   };
 
   const handleSign = async () => {
@@ -132,8 +130,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         setProfileId(currentProfile.id);
       }
       Leafwatch.track(AUTH.SIWL);
-    } catch (error) {
-      console.error(error);
+    } catch {
     } finally {
       setIsLoading(false);
       if (!keepModal) {

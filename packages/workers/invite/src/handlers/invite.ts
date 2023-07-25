@@ -1,4 +1,5 @@
 import { LensEndpoint } from '@lenster/data/lens-endpoints';
+import { Regex } from '@lenster/data/regex';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 import { boolean, object, string } from 'zod';
@@ -13,7 +14,7 @@ type ExtensionRequest = {
 
 const validationSchema = object({
   addresses: string().array(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 
@@ -67,9 +68,7 @@ export default async (request: IRequest, env: Env) => {
         data: inviteResponse
       })
     );
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

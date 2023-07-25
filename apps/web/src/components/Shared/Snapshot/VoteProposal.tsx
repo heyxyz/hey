@@ -101,8 +101,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
         proposal_id: id,
         proposal_source: 'snapshot'
       });
-    } catch (error) {
-      console.error('Failed to vote on snapshot proposal', error);
+    } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {
       setVoteSubmitting(false);

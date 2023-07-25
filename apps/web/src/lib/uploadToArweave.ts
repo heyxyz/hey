@@ -23,8 +23,7 @@ const uploadToArweave = async (data: any): Promise<string> => {
     const { id }: { id: string } = upload?.data;
 
     return id;
-  } catch (error) {
-    console.error('Failed to upload to Arweave', error);
+  } catch {
     toast.error(Errors.SomethingWentWrong);
     throw new Error(Errors.SomethingWentWrong);
   }

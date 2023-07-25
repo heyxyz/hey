@@ -19,8 +19,7 @@ const getCoingeckoPrice = async (address: string) => {
     );
 
     return response.data[address].usd;
-  } catch (error) {
-    console.error('Failed to get price from Coingecko API', error);
+  } catch {
     return 0;
   }
 };

@@ -84,8 +84,7 @@ const useUploadAttachments = () => {
           );
           updateAttachments(attachmentsIPFS);
         }
-      } catch (error) {
-        console.error('Failed to upload attachments', error);
+      } catch {
         removeAttachments(attachmentIds);
         toast.error(t`Something went wrong while uploading!`);
       }

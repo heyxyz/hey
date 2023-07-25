@@ -139,9 +139,6 @@ export default async (request: IRequest, env: Env) => {
       })
     );
   } catch (error) {
-    console.error('Failed to create poll', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
