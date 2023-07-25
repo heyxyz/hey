@@ -27,5 +27,5 @@ jobs:
         uses: actions-js/push@master
         with:
           message: 'chore(cron): verify profiles'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.BIGINT_GH_TOKEN }}
           force: true
