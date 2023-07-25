@@ -1,4 +1,5 @@
-query Invited {
+query Invites {
+  invitesLeft
   invited {
     address
     when

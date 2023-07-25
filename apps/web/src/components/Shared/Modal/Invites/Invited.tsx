@@ -1,27 +1,18 @@
-import Loader from '@components/Shared/Loader';
 import { TicketIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { useInvitedQuery } from '@lenster/lens';
+import type { InvitedResult } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
-import { EmptyState, ErrorMessage, Input } from '@lenster/ui';
+import { EmptyState, Input } from '@lenster/ui';
 import { formatDate } from '@lib/formatTime';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
-const Invited: FC = () => {
-  const { data, loading, error } = useInvitedQuery();
+interface InvitedProps {
+  invited: InvitedResult[];
+}
 
-  if (loading) {
-    return <Loader message={t`Loading invided addresses`} />;
-  }
-
-  if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load invited addresses`} error={error} />
-    );
-  }
-
-  if (data?.invited?.length === 0) {
+const Invited: FC<InvitedProps> = ({ invited }) => {
+  if (invited?.length === 0) {
     return (
       <EmptyState
         message={
@@ -37,7 +28,17 @@ const Invited: FC = () => {
 
   return (
     <div className="space-y-3">
-      {data?.invited.map((invite, key) => (
+      <div>
+        <Trans>
+          You have already invited{' '}
+          <b>
+            {invited.length}
+            {invited.length >= 50 ? '+' : null} addresses
+          </b>
+          !
+        </Trans>
+      </div>
+      {invited.map((invite, key) => (
         <div key={key}>
           <Input
             className="text-sm"
