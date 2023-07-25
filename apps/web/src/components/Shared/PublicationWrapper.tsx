@@ -1,5 +1,6 @@
 import type { Publication } from '@lenster/lens';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 
@@ -17,7 +18,10 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
   const { push } = useRouter();
 
   return (
-    <article
+    <motion.article
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className={clsx(className)}
       onClick={() => {
         const selection = window.getSelection();
@@ -29,7 +33,7 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
       aria-hidden="true"
     >
       {children}
-    </article>
+    </motion.article>
   );
 };
 

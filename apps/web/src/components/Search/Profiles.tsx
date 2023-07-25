@@ -9,6 +9,7 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
@@ -74,9 +75,15 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
       endReached={onEndReached}
       itemContent={(_, profile) => {
         return (
-          <Card key={profile?.id} className="p-5">
-            <UserProfile profile={profile} showBio isBig />
-          </Card>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <Card key={profile?.id} className="p-5">
+              <UserProfile profile={profile} showBio isBig />
+            </Card>
+          </motion.div>
         );
       }}
     />
