@@ -698,6 +698,31 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
 
+  packages/workers/invite:
+    dependencies:
+      '@lenster/data':
+        specifier: '*'
+        version: link:../../data
+      itty-router:
+        specifier: ^4.0.14
+        version: 4.0.14
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230717.1
+        version: 4.20230717.1
+      '@lenster/config':
+        specifier: '*'
+        version: link:../../config
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
+      wrangler:
+        specifier: ^3.3.0
+        version: 3.3.0
+
   packages/workers/leafwatch:
     dependencies:
       '@lenster/data':
@@ -8192,7 +8217,7 @@ packages:
     resolution: {integrity: sha512-XKxXAC3HVPv7r674zP0VC3RTXz+/JKhfyw94ljvF80yynK6VkTnqE3jMuN8b3dUVmmc43TjyxjW4KTsmB3c86g==}
     dependencies:
       debug: 4.3.4(supports-color@9.4.0)
-      tslib: 2.6.0
+      tslib: 2.6.1
     transitivePeerDependencies:
       - supports-color
     dev: true
