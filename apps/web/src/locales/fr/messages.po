@@ -2676,10 +2676,6 @@ msgid "Failed to load collectors"
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invite.tsx
-msgid "You don't have any invites left!"
-msgstr ""
-
-#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invited successfully!"
 msgstr ""
 
@@ -2696,7 +2692,7 @@ msgid "Send invites to your frens so they can create an Lens account. You can in
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invite.tsx
-msgid "<0>{invitesLeft} invites</0> available!"
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invite.tsx
@@ -2708,7 +2704,7 @@ msgid "You haven't invited anyone."
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invited.tsx
-msgid "You have already invited <0>{0}{1} addresses</0>!"
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/index.tsx

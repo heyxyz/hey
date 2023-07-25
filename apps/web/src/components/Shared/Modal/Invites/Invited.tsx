@@ -4,7 +4,7 @@ import type { InvitedResult } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import { EmptyState, Input } from '@lenster/ui';
 import { formatDate } from '@lib/formatTime';
-import { Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface InvitedProps {
@@ -33,7 +33,13 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
           You have already invited{' '}
           <b>
             {invited.length}
-            {invited.length >= 50 ? '+' : null} addresses
+            {invited.length >= 50 ? '+' : null}{' '}
+            <Plural
+              value={invited.length}
+              zero="address"
+              one="address"
+              other="addresses"
+            />
           </b>
           !
         </Trans>

@@ -4,7 +4,7 @@ import { INVITE } from '@lenster/data/tracking';
 import { Button, Form, Input, useZodForm } from '@lenster/ui';
 import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -69,7 +69,16 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         </p>
         <div className="pt-2 font-mono text-lg">
           <Trans>
-            <b>{invitesLeft} invites</b> available!
+            <b>
+              {invitesLeft}{' '}
+              <Plural
+                value={invitesLeft}
+                zero="invite"
+                one="invite"
+                other="invites"
+              />
+            </b>{' '}
+            available!
           </Trans>
         </div>
       </div>
