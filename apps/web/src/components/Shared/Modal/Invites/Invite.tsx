@@ -1,8 +1,7 @@
-import { TicketIcon } from '@heroicons/react/outline';
 import { INVITE_WORKER_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { Regex } from '@lenster/data/regex';
 import { INVITE } from '@lenster/data/tracking';
-import { Button, EmptyState, Form, Input, useZodForm } from '@lenster/ui';
+import { Button, Form, Input, useZodForm } from '@lenster/ui';
 import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -28,20 +27,6 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   const form = useZodForm({
     schema: inviteSchema
   });
-
-  if (invitesLeft === 0) {
-    return (
-      <EmptyState
-        message={
-          <div>
-            <Trans>You don't have any invites left!</Trans>
-          </div>
-        }
-        icon={<TicketIcon className="text-brand h-8 w-8" />}
-        hideCard
-      />
-    );
-  }
 
   const invite = async (address: string) => {
     try {
@@ -88,23 +73,25 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
           </Trans>
         </div>
       </div>
-      <Form
-        form={form}
-        className="mt-5 space-y-4"
-        onSubmit={async ({ address }) => {
-          await invite(address);
-        }}
-      >
-        <Input
-          className="text-sm"
-          type="text"
-          placeholder="0x3A5bd...5e3"
-          {...form.register('address')}
-        />
-        <Button type="submit" disabled={inviting}>
-          <Trans>Invite</Trans>
-        </Button>
-      </Form>
+      {invitesLeft !== 0 ? (
+        <Form
+          form={form}
+          className="mt-5 space-y-4"
+          onSubmit={async ({ address }) => {
+            await invite(address);
+          }}
+        >
+          <Input
+            className="text-sm"
+            type="text"
+            placeholder="0x3A5bd...5e3"
+            {...form.register('address')}
+          />
+          <Button type="submit" disabled={inviting}>
+            <Trans>Invite</Trans>
+          </Button>
+        </Form>
+      ) : null}
     </div>
   );
 };
