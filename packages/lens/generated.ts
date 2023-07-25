@@ -9901,12 +9901,6 @@ export type HidePublicationMutation = {
   hidePublication?: any | null;
 };
 
-export type InviteMutationVariables = Exact<{
-  request: InviteRequest;
-}>;
-
-export type InviteMutation = { __typename?: 'Mutation'; invite?: any | null };
-
 export type ProxyActionMutationVariables = Exact<{
   request: ProxyActionRequest;
 }>;
@@ -52617,51 +52611,6 @@ export type HidePublicationMutationResult =
 export type HidePublicationMutationOptions = Apollo.BaseMutationOptions<
   HidePublicationMutation,
   HidePublicationMutationVariables
->;
-export const InviteDocument = gql`
-  mutation Invite($request: InviteRequest!) {
-    invite(request: $request)
-  }
-`;
-export type InviteMutationFn = Apollo.MutationFunction<
-  InviteMutation,
-  InviteMutationVariables
->;
-
-/**
- * __useInviteMutation__
- *
- * To run a mutation, you first call `useInviteMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInviteMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [inviteMutation, { data, loading, error }] = useInviteMutation({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useInviteMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    InviteMutation,
-    InviteMutationVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<InviteMutation, InviteMutationVariables>(
-    InviteDocument,
-    options
-  );
-}
-export type InviteMutationHookResult = ReturnType<typeof useInviteMutation>;
-export type InviteMutationResult = Apollo.MutationResult<InviteMutation>;
-export type InviteMutationOptions = Apollo.BaseMutationOptions<
-  InviteMutation,
-  InviteMutationVariables
 >;
 export const ProxyActionDocument = gql`
   mutation ProxyAction($request: ProxyActionRequest!) {
