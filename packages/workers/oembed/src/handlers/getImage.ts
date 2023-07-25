@@ -22,9 +22,7 @@ export default async (request: IRequest, env: Env) => {
     );
 
     return new Response(image.body);
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

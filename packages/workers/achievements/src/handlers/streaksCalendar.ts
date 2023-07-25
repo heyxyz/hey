@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { error } from 'itty-router';
 
 import filteredEvents from '../helpers/filteredNames';
@@ -31,7 +32,7 @@ export default async (id: string, env: Env) => {
 
     if (clickhouseResponse.status !== 200) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Status code is not 200!' })
+        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
       );
     }
 
@@ -55,9 +56,7 @@ export default async (id: string, env: Env) => {
     response.headers.set('Cache-Control', 'max-age=600');
 
     return response;
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

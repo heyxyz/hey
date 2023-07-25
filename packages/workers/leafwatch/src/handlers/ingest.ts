@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
@@ -126,14 +127,12 @@ export default async (request: IRequest, env: Env) => {
 
     if (response.status !== 200) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Status code is not 200!' })
+        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
       );
     }
 
     return new Response(JSON.stringify({ success: true }));
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

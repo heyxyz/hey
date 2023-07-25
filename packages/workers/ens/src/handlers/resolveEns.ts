@@ -47,9 +47,7 @@ export default async (request: IRequest) => {
     });
 
     return new Response(JSON.stringify({ success: true, data }));
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

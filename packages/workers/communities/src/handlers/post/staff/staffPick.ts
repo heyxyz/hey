@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { adminAddresses } from '@lenster/data/staffs';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -41,7 +42,7 @@ export default async (request: IRequest, env: Env) => {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid access token!' })
+        JSON.stringify({ success: false, error: Errors.InvalidAccesstoken })
       );
     }
 
@@ -49,7 +50,7 @@ export default async (request: IRequest, env: Env) => {
 
     if (!adminAddresses.includes(payload.id)) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Unauthorized!' })
+        JSON.stringify({ success: false, error: Errors.NotAStaff })
       );
     }
 

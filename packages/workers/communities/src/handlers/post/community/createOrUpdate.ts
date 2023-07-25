@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Community } from '@lenster/types/communities';
@@ -60,7 +61,7 @@ export default async (request: IRequest, env: Env) => {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid access token!' })
+        JSON.stringify({ success: false, error: Errors.InvalidAccesstoken })
       );
     }
 
@@ -72,7 +73,7 @@ export default async (request: IRequest, env: Env) => {
     );
     if (!hasOwned) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid profile ID' })
+        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
       );
     }
 

@@ -62,9 +62,7 @@ export default async (request: IRequest, env: Env) => {
         JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes })
       );
     }
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };

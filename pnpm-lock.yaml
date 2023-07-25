@@ -864,6 +864,9 @@ importers:
 
   packages/workers/spaces:
     dependencies:
+      '@lenster/data':
+        specifier: '*'
+        version: link:../../data
       '@lenster/lib':
         specifier: '*'
         version: link:../../lib

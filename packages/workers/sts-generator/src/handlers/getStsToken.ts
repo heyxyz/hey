@@ -53,9 +53,7 @@ export default async (_request: IRequest, env: Env) => {
         sessionToken: credentials?.SessionToken
       })
     );
-  } catch {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+  } catch (error) {
+    throw error;
   }
 };
