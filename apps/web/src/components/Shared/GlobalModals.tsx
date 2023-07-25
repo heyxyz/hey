@@ -11,6 +11,7 @@ import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
+import Invites from './Modal/Invites';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
@@ -27,7 +28,9 @@ const GlobalModals: FC = () => {
     showNewPostModal,
     setShowNewPostModal,
     showAuthModal,
-    setShowAuthModal
+    setShowAuthModal,
+    showInvitesModal,
+    setShowInvitesModal
   } = useGlobalModalStateStore();
 
   return (
@@ -74,6 +77,13 @@ const GlobalModals: FC = () => {
         onClose={() => setShowNewPostModal(false)}
       >
         <NewPublication />
+      </Modal>
+      <Modal
+        title={t`Invites`}
+        show={showInvitesModal}
+        onClose={() => setShowInvitesModal(false)}
+      >
+        <Invites />
       </Modal>
     </>
   );
