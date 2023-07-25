@@ -46,7 +46,8 @@ export default async (request: IRequest, env: Env) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${accessToken}`,
+          'User-agent': 'Lenster'
         },
         body: JSON.stringify({
           query: mutation,
@@ -63,8 +64,6 @@ export default async (request: IRequest, env: Env) => {
     const inviteResponse: {
       errors: any;
     } = await response.json();
-
-    console.log(JSON.stringify(inviteResponse.errors));
 
     if (!inviteResponse.errors) {
       return new Response(
