@@ -1,4 +1,6 @@
 import { TicketIcon } from '@heroicons/react/outline';
+import { INVITE } from '@lenster/data/tracking';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -19,7 +21,10 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
-      onClick={() => setShowInvitesModal(true)}
+      onClick={() => {
+        setShowInvitesModal(true);
+        Leafwatch.track(INVITE.OPEN_INVITE);
+      }}
     >
       <TicketIcon className="h-4 w-4" />
       <div>
