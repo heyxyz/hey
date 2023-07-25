@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Rule } from '@lenster/types/communities';
@@ -23,7 +24,7 @@ const validationSchema = object({
   description: string().min(1, { message: 'Description is required!' }),
   communityId: string().uuid(),
   profileId: string(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 

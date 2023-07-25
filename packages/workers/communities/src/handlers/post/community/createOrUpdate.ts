@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Community } from '@lenster/types/communities';
@@ -25,7 +26,7 @@ const validationSchema = object({
   twitter: string().optional().nullable(),
   website: string().optional().nullable(),
   profileId: string(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 

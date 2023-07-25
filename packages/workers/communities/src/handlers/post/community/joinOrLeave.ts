@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -20,7 +21,7 @@ const validationSchema = object({
   communityId: string().uuid(),
   profileId: string(),
   join: boolean(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 

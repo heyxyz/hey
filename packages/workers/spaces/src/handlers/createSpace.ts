@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
@@ -18,7 +19,7 @@ type CreateRoomResponse = {
 };
 
 const validationSchema = object({
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 

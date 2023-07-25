@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import type { Rule } from '@lenster/types/communities';
@@ -21,7 +22,7 @@ const validationSchema = object({
   id: string().uuid().optional().nullable(),
   communityId: string().uuid(),
   profileId: string(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 

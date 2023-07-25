@@ -10,5 +10,6 @@ export const Regex = {
   santiizeHandle: /[^\d .A-Za-z]/g,
   profileNameValidator: new RegExp('^[^' + RESTRICTED_SYMBOLS + ']+$'),
   profileNameFilter: new RegExp('[' + RESTRICTED_SYMBOLS + ']', 'gu'),
-  gm: /\bgm\b/i
+  gm: /\bgm\b/i,
+  accessToken: /^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/
 };
