@@ -125,6 +125,12 @@ export const SETTINGS = {
   }
 };
 
+export const INVITE = {
+  OPEN_INVITE: 'Open invite modal',
+  SWITCH_INVITE_TAB: 'Switch invite tab',
+  INVITE: 'Invite address'
+};
+
 export const MOD = {
   TOGGLE_MODE: 'Toggle mod mode',
   REPORT: 'Mod report'
@@ -137,12 +143,6 @@ export const STAFFTOOLS = {
 export const SYSTEM = {
   SWITCH_THEME: 'Switch theme',
   SWITCH_NETWORK: 'Switch network'
-};
-
-export const INVITE = {
-  OPEN_INVITE: 'Open invite modal',
-  SWITCH_INVITE_TAB: 'Switch invite tab',
-  INVITE: 'Invite address'
 };
 
 export const MISCELLANEOUS = {
@@ -196,6 +196,7 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...MESSAGES,
   ...SETTINGS,
+  ...INVITE,
   ...MOD,
   ...STAFFTOOLS,
   ...SYSTEM,
