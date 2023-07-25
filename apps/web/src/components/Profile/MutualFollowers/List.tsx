@@ -8,6 +8,7 @@ import type {
 import { useMutualFollowersQuery } from '@lenster/lens';
 import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -61,7 +62,13 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
 
       <div className="divide-y dark:divide-gray-700">
         {profiles?.map((profile, index) => (
-          <div className="p-5" key={profile?.id}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="p-5"
+            key={profile?.id}
+          >
             <UserProfile
               profile={profile as Profile}
               isFollowing={profile?.isFollowedByMe}
@@ -71,7 +78,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
               showFollow
               showUserPreview={false}
             />
-          </div>
+          </motion.div>
         ))}
       </div>
       {hasMore && <span ref={observe} />}

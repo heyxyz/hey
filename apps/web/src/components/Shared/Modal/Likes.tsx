@@ -5,6 +5,7 @@ import type { Profile, WhoReactedPublicationRequest } from '@lenster/lens';
 import { useLikesQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
@@ -69,7 +70,12 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
         endReached={onEndReached}
         itemContent={(index, like) => {
           return (
-            <div className="p-5">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
               <UserProfile
                 profile={like?.profile as Profile}
                 isFollowing={like?.profile?.isFollowedByMe}
@@ -79,7 +85,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
                 showFollow
                 showUserPreview={false}
               />
-            </div>
+            </motion.div>
           );
         }}
       />
