@@ -202,9 +202,7 @@ const useSendOptimisticMessage = (
     try {
       // send prepared message
       await prepared.send();
-    } catch (error) {
-      console.error('Failed to send message', error);
-
+    } catch {
       // update message externally
       options?.onUpdate?.(id, {
         status: 'failed',

@@ -1,3 +1,5 @@
+import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
@@ -17,7 +19,7 @@ type CreateRoomResponse = {
 };
 
 const validationSchema = object({
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 
@@ -41,7 +43,7 @@ export default async (request: IRequest, env: Env) => {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid access token!' })
+        JSON.stringify({ success: false, error: Errors.InvalidAccesstoken })
       );
     }
 
@@ -76,9 +78,6 @@ export default async (request: IRequest, env: Env) => {
       })
     );
   } catch (error) {
-    console.error('Failed to create space', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

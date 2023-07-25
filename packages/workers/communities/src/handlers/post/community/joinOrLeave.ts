@@ -1,3 +1,5 @@
+import { Errors } from '@lenster/data/errors';
+import { Regex } from '@lenster/data/regex';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -19,7 +21,7 @@ const validationSchema = object({
   communityId: string().uuid(),
   profileId: string(),
   join: boolean(),
-  accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
+  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 
@@ -44,7 +46,7 @@ export default async (request: IRequest, env: Env) => {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
     if (!isAuthenticated) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid access token!' })
+        JSON.stringify({ success: false, error: Errors.InvalidAccesstoken })
       );
     }
 
@@ -56,7 +58,7 @@ export default async (request: IRequest, env: Env) => {
     );
     if (!hasOwned) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Invalid profile ID' })
+        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
       );
     }
 

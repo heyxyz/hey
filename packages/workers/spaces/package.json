@@ -13,6 +13,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
+    "@lenster/data": "*",
     "@lenster/lib": "*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.14",
