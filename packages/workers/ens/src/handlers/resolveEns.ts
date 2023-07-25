@@ -1,3 +1,4 @@
+import getRpc from '@lenster/lib/getRpc';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
 import { createPublicClient, http } from 'viem';
@@ -35,7 +36,7 @@ export default async (request: IRequest) => {
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http('https://ethereum.rpc.thirdweb.com')
+      transport: http(getRpc(1))
     });
 
     const data = await client.readContract({

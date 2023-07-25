@@ -7,6 +7,7 @@ import { useFollowingQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
@@ -77,7 +78,10 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
         endReached={onEndReached}
         itemContent={(index, following) => {
           return (
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               className={`p-5 ${
                 onProfileSelected &&
                 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
@@ -101,7 +105,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 showFollow
                 showUserPreview={false}
               />
-            </div>
+            </motion.div>
           );
         }}
       />

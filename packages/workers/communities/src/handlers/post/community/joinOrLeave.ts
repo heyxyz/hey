@@ -1,24 +1,24 @@
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
-import type { Community } from '@lenster/types/communities';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../../types';
+import type { Env } from '../../../types';
 
-type ExtensionRequest = Community & {
+type ExtensionRequest = {
+  communityId: string;
+  profileId: string;
+  join: boolean;
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
-  name: string().min(1, { message: 'Name is required!' }),
-  slug: string().min(1, { message: 'Slug is required!' }),
-  description: string().optional().nullable(),
-  avatar: string().optional().nullable(),
-  admin: string(),
+  communityId: string().uuid(),
+  profileId: string(),
+  join: boolean(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -37,7 +37,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, slug, description, avatar, admin, accessToken, isMainnet } =
+  const { communityId, profileId, join, accessToken, isMainnet } =
     body as ExtensionRequest;
 
   try {
@@ -49,7 +49,11 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, isMainnet);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })
@@ -59,29 +63,36 @@ export default async (request: IRequest, env: Env) => {
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    const query = {
-      text: `
-        WITH inserted_community AS (
-          INSERT INTO communities(name, slug, description, avatar, admin)
-          VALUES ($1, $2, $3, $4, $5)
-          RETURNING id
-        ),
-        joined_admin AS (
+    let query;
+
+    if (join) {
+      query = {
+        text: `
           INSERT INTO memberships (id, profile_id, community_id)
-          SELECT $6 || inserted_community.id, $5, inserted_community.id
-          FROM inserted_community
+          VALUES ($1, $2, $3)
           RETURNING *
-        )
-        SELECT * FROM joined_admin;
-      `,
-      values: [name, slug, description, avatar, admin, `${admin}_`]
-    };
+        `,
+        values: [`${profileId}_${communityId}`, profileId, communityId]
+      };
+    } else {
+      query = {
+        text: `
+          DELETE FROM memberships
+          WHERE profile_id = $1
+          AND community_id = $2
+          AND NOT EXISTS (
+            SELECT 1 FROM communities
+            WHERE id = $2 AND admin = $1
+          )
+          RETURNING *
+        `,
+        values: [profileId, communityId]
+      };
+    }
 
     const result = await client.query(query);
 
-    return new Response(
-      JSON.stringify({ success: true, id: result.rows[0].community_id })
-    );
+    return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {
     throw error;
   }

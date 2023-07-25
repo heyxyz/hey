@@ -10,6 +10,7 @@ import type {
 import { useCollectorsQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
@@ -77,7 +78,12 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
         endReached={onEndReached}
         itemContent={(index, wallet) => {
           return (
-            <div className="p-5">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
               {wallet?.defaultProfile ? (
                 <UserProfile
                   profile={wallet?.defaultProfile as Profile}
@@ -91,7 +97,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
               ) : (
                 <WalletProfile wallet={wallet as Wallet} />
               )}
-            </div>
+            </motion.div>
           );
         }}
       />

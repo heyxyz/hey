@@ -5,10 +5,11 @@ import getCommunity from './handlers/get/getCommunity';
 import getCommunityIds from './handlers/get/getCommunityIds';
 import getIsMember from './handlers/get/getIsMember';
 import getMembers from './handlers/get/getMembers';
-import createCommunity from './handlers/post/createCommunity';
-import joinOrLeaveCommunity from './handlers/post/joinOrLeaveCommunity';
-import staffPickCommunity from './handlers/post/staffPickCommunity';
-import updateCommunity from './handlers/post/updateCommunity';
+import createOrUpdateCommunity from './handlers/post/community/createOrUpdate';
+import joinOrLeave from './handlers/post/community/joinOrLeave';
+import createOrUpdateRules from './handlers/post/rule/createOrUpdate';
+import deleteRule from './handlers/post/rule/delete';
+import staffPick from './handlers/post/staff/staffPick';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -20,10 +21,20 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to communities service 👋'));
-router.post('/create', createCommunity);
-router.post('/update', updateCommunity);
-router.post('/joinOrLeave', joinOrLeaveCommunity);
-router.post('/staffPick', staffPickCommunity);
+
+// POST
+// Community
+router.post('/community/createOrUpdate', createOrUpdateCommunity);
+router.post('/community/joinOrLeave', joinOrLeave);
+
+// Rule
+router.post('/rule/createOrUpdate', createOrUpdateRules);
+router.post('/rule/delete', deleteRule);
+
+// Staff
+router.post('/staff/pick', staffPick);
+
+// GET
 router.get('/getCommunityById/:identifier', ({ params }, env) =>
   getCommunity(params.identifier, 'id', env)
 );

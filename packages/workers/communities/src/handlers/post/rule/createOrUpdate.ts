@@ -1,24 +1,27 @@
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import type { Rule } from '@lenster/types/communities';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../../types';
+import isCommunityAdmin from '../../../helpers/isCommunityAdmin';
+import type { Env } from '../../../types';
 
-type ExtensionRequest = {
+type ExtensionRequest = Rule & {
   communityId: string;
   profileId: string;
-  join: boolean;
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
+  id: string().uuid().optional().nullable(),
+  title: string().min(1, { message: 'Title is required!' }),
+  description: string().min(1, { message: 'Description is required!' }),
   communityId: string().uuid(),
   profileId: string(),
-  join: boolean(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -37,8 +40,15 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { communityId, profileId, join, accessToken, isMainnet } =
-    body as ExtensionRequest;
+  const {
+    id,
+    title,
+    description,
+    communityId,
+    profileId,
+    accessToken,
+    isMainnet
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -60,37 +70,36 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
+    const isAdmin = await isCommunityAdmin(env, profileId, communityId);
+    if (!isAdmin) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Not a community admin!' })
+      );
+    }
+
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    let query;
+    const createQuery = {
+      text: `
+        INSERT INTO rules (title, description, community_id)
+        VALUES ($1, $2, $3)
+        RETURNING *;
+      `,
+      values: [title, description, communityId]
+    };
 
-    if (join) {
-      query = {
-        text: `
-          INSERT INTO memberships (id, profile_id, community_id)
-          VALUES ($1, $2, $3)
-          RETURNING *
-        `,
-        values: [`${profileId}_${communityId}`, profileId, communityId]
-      };
-    } else {
-      query = {
-        text: `
-          DELETE FROM memberships
-          WHERE profile_id = $1
-          AND community_id = $2
-          AND NOT EXISTS (
-            SELECT 1 FROM communities
-            WHERE id = $2 AND admin = $1
-          )
-          RETURNING *
-        `,
-        values: [profileId, communityId]
-      };
-    }
+    const updateQuery = {
+      text: `
+        UPDATE rules
+        SET title = $2, description = $3
+        WHERE id = $1 AND community_id = $4
+        RETURNING *;
+      `,
+      values: [id, title, description, communityId]
+    };
 
-    const result = await client.query(query);
+    const result = await client.query(id ? updateQuery : createQuery);
 
     return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {

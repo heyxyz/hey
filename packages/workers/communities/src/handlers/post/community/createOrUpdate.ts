@@ -6,15 +6,16 @@ import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../../types';
+import type { Env } from '../../../types';
 
 type ExtensionRequest = Community & {
+  profileId: string;
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
-  id: string().uuid(),
+  id: string().uuid().optional().nullable(),
   name: string().min(1, { message: 'Name is required!' }),
   slug: string().min(1, { message: 'Slug is required!' }),
   description: string().optional().nullable(),
@@ -22,7 +23,7 @@ const validationSchema = object({
   nsfw: boolean().optional().nullable(),
   twitter: string().optional().nullable(),
   website: string().optional().nullable(),
-  admin: string(),
+  profileId: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -50,7 +51,7 @@ export default async (request: IRequest, env: Env) => {
     nsfw,
     twitter,
     website,
-    admin,
+    profileId,
     accessToken,
     isMainnet
   } = body as ExtensionRequest;
@@ -64,7 +65,11 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, admin, isMainnet);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
     if (!hasOwned) {
       return new Response(
         JSON.stringify({ success: false, error: 'Invalid profile ID' })
@@ -74,24 +79,41 @@ export default async (request: IRequest, env: Env) => {
     const client = new Client(env.DB_URL);
     await client.connect();
 
-    const query = {
+    const createQuery = {
+      text: `
+        WITH inserted_community AS (
+          INSERT INTO communities(name, slug, description, avatar, profileId)
+          VALUES ($1, $2, $3, $4, $5)
+          RETURNING id
+        ),
+        joined_admin AS (
+          INSERT INTO memberships (id, profile_id, community_id)
+          SELECT $6 || inserted_community.id, $5, inserted_community.id
+          FROM inserted_community
+          RETURNING *
+        )
+        SELECT * FROM joined_admin;
+      `,
+      values: [name, slug, description, avatar, profileId, `${profileId}_`]
+    };
+
+    const updateQuery = {
       text: `
         UPDATE communities
         SET
           name = $2,
-          slug = $3,
-          description = $4,
-          avatar = $5,
-          nsfw = $6,
-          twitter = $7,
-          website = $8
+          description = $3,
+          avatar = $4,
+          nsfw = $5,
+          twitter = $6,
+          website = $7
         WHERE id = $1
         RETURNING *;
       `,
-      values: [id, name, slug, description, avatar, nsfw, twitter, website]
+      values: [id, name, description, avatar, nsfw, twitter, website]
     };
 
-    const result = await client.query(query);
+    const result = await client.query(id ? updateQuery : createQuery);
 
     return new Response(JSON.stringify(result.rows[0]));
   } catch (error) {

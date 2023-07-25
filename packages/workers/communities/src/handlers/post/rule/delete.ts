@@ -1,22 +1,25 @@
-import { adminAddresses } from '@lenster/data/staffs';
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import type { Rule } from '@lenster/types/communities';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { error, type IRequest } from 'itty-router';
 import { Client } from 'pg';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../../types';
+import isCommunityAdmin from '../../../helpers/isCommunityAdmin';
+import type { Env } from '../../../types';
 
-type ExtensionRequest = {
-  id: string;
-  type: 'add' | 'remove';
+type ExtensionRequest = Rule & {
+  communityId: string;
+  profileId: string;
   accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
-  id: string().uuid(),
-  type: string().regex(/^(add|remove)$/),
+  id: string().uuid().optional().nullable(),
+  communityId: string().uuid(),
+  profileId: string(),
   accessToken: string().regex(/^([\w=]+)\.([\w=]+)\.([\w+/=\-]*)/),
   isMainnet: boolean()
 });
@@ -35,7 +38,8 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { id, type, accessToken, isMainnet } = body as ExtensionRequest;
+  const { id, communityId, profileId, accessToken, isMainnet } =
+    body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -46,10 +50,21 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-
-    if (!adminAddresses.includes(payload.id)) {
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.id,
+      profileId,
+      isMainnet
+    );
+    if (!hasOwned) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Unauthorized!' })
+        JSON.stringify({ success: false, error: 'Invalid profile ID' })
+      );
+    }
+
+    const isAdmin = await isCommunityAdmin(env, profileId, communityId);
+    if (!isAdmin) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Not a community admin!' })
       );
     }
 
@@ -58,12 +73,11 @@ export default async (request: IRequest, env: Env) => {
 
     const query = {
       text: `
-        UPDATE communities
-        SET staffpicked_at = $1
-        WHERE id = $2
+        DELETE FROM rules
+        WHERE id = $1
         RETURNING *;
       `,
-      values: [type === 'add' ? new Date() : null, id]
+      values: [id]
     };
 
     const result = await client.query(query);

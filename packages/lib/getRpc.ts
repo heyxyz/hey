@@ -1,13 +1,13 @@
 export const polygonRpcs = [
-  'https://polygon.rpc.thirdweb.com',
+  'https://polygon.publicnode.com',
   'https://rpc.ankr.com/polygon'
 ];
 export const mumbaiRpcs = [
-  'https://mumbai.rpc.thirdweb.com',
+  'https://polygon-mumbai-bor.publicnode.com',
   'https://rpc.ankr.com/polygon_mumbai'
 ];
 export const ethereumRpcs = [
-  'https://ethereum.rpc.thirdweb.com',
+  'https://ethereum.publicnode.com',
   'https://rpc.ankr.com/eth'
 ];
 

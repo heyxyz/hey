@@ -8,6 +8,7 @@ import { useFollowersQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
@@ -77,7 +78,12 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
         endReached={onEndReached}
         itemContent={(index, follower) => {
           return (
-            <div className="p-5">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
               {follower?.wallet?.defaultProfile ? (
                 <UserProfile
                   profile={follower?.wallet?.defaultProfile as Profile}
@@ -93,7 +99,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
               ) : (
                 <WalletProfile wallet={follower?.wallet as Wallet} />
               )}
-            </div>
+            </motion.div>
           );
         }}
       />

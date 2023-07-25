@@ -11,6 +11,7 @@ import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -84,7 +85,10 @@ const RecommendedProfiles: FC = () => {
             error={error}
           />
           {data?.recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
-            <div
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               key={profile?.id}
               className="flex items-center space-x-3 truncate"
             >
@@ -102,7 +106,7 @@ const RecommendedProfiles: FC = () => {
                 dismissPosition={index + 1}
                 dismissSource={FollowUnfollowSource.WHO_TO_FOLLOW}
               />
-            </div>
+            </motion.div>
           ))}
         </div>
         <button
