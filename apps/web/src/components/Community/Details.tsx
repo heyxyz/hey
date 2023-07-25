@@ -27,6 +27,8 @@ const Details: FC<DetailsProps> = ({ community }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
+  console.log(currentProfile?.id, community.admin);
+
   const MetaDetails = ({
     children,
     icon,
@@ -91,7 +93,7 @@ const Details: FC<DetailsProps> = ({ community }) => {
         <Members community={community} />
         <div className="flex items-center space-x-2">
           {currentProfile?.id === community.admin ? (
-            <Link href="/settings">
+            <Link href={`/c/${community.slug}/settings`}>
               <Button
                 variant="secondary"
                 icon={<CogIcon className="h-5 w-5" />}
