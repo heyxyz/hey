@@ -25987,6 +25987,18 @@ export type HasTxHashBeenIndexedQuery = {
       };
 };
 
+export type InvitesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type InvitesQuery = {
+  __typename?: 'Query';
+  invitesLeft: number;
+  invited: Array<{
+    __typename?: 'InvitedResult';
+    address: any;
+    when?: any | null;
+  }>;
+};
+
 export type LensterStatsQueryVariables = Exact<{
   request?: InputMaybe<GlobalProtocolStatsRequest>;
 }>;
@@ -53997,6 +54009,55 @@ export type HasTxHashBeenIndexedLazyQueryHookResult = ReturnType<
 export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
   HasTxHashBeenIndexedQuery,
   HasTxHashBeenIndexedQueryVariables
+>;
+export const InvitesDocument = gql`
+  query Invites {
+    invitesLeft
+    invited {
+      address
+      when
+    }
+  }
+`;
+
+/**
+ * __useInvitesQuery__
+ *
+ * To run a query within a React component, call `useInvitesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInvitesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInvitesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useInvitesQuery(
+  baseOptions?: Apollo.QueryHookOptions<InvitesQuery, InvitesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<InvitesQuery, InvitesQueryVariables>(
+    InvitesDocument,
+    options
+  );
+}
+export function useInvitesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<InvitesQuery, InvitesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<InvitesQuery, InvitesQueryVariables>(
+    InvitesDocument,
+    options
+  );
+}
+export type InvitesQueryHookResult = ReturnType<typeof useInvitesQuery>;
+export type InvitesLazyQueryHookResult = ReturnType<typeof useInvitesLazyQuery>;
+export type InvitesQueryResult = Apollo.QueryResult<
+  InvitesQuery,
+  InvitesQueryVariables
 >;
 export const LensterStatsDocument = gql`
   query LensterStats($request: GlobalProtocolStatsRequest) {
