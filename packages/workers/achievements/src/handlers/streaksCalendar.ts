@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { error } from 'itty-router';
 
 import filteredEvents from '../helpers/filteredNames';
@@ -31,7 +32,7 @@ export default async (id: string, env: Env) => {
 
     if (clickhouseResponse.status !== 200) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Status code is not 200!' })
+        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
       );
     }
 
@@ -56,9 +57,6 @@ export default async (id: string, env: Env) => {
 
     return response;
   } catch (error) {
-    console.error('Failed to get streaksCalendar', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

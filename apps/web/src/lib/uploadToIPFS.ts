@@ -106,8 +106,7 @@ export const uploadFileToIPFS = async (
         mimeType: file.type || FALLBACK_TYPE
       }
     };
-  } catch (error) {
-    console.error('Failed to upload file to IPFS', error);
+  } catch {
     return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };

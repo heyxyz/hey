@@ -26,9 +26,6 @@ export default async (spaceId: string, env: Env) => {
       })
     );
   } catch (error) {
-    console.error('Failed to get room isLive', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };
