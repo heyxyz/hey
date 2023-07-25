@@ -127,7 +127,6 @@ export const SETTINGS = {
 
 export const INVITE = {
   OPEN_INVITE: 'Open invite modal',
-  SWITCH_INVITE_TAB: 'Switch invite tab',
   INVITE: 'Invite address'
 };
 
