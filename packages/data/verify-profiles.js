@@ -75,7 +75,7 @@ async function main() {
       const formattedProfileIds =
         'export const verified = [\n  ' +
         profileIDs.map((id) => `'${id}'`).join(',\n  ') +
-        '\n];\n'; // Added \n here
+        '\n];\n';
 
       // Write the string to a file
       fs.writeFile('verified.ts', formattedProfileIds, (err) => {
