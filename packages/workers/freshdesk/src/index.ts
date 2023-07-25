@@ -15,9 +15,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
         success: false,
         message: 'Only POST requests are supported'
       }),
-      {
-        headers
-      }
+      { headers }
     );
   }
 
