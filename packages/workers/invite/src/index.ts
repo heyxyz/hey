@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('gm, to spaces service 👋'));
+router.get('/', () => new Response('gm, to invite service 👋'));
 router.post('/', invite);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
