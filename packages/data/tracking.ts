@@ -140,8 +140,9 @@ export const SYSTEM = {
 };
 
 export const INVITE = {
-  INVITE: 'Invite address',
-  SWITCH_INVITE_TAB: 'Switch invite tab'
+  OPEN_INVITE: 'Open invite modal',
+  SWITCH_INVITE_TAB: 'Switch invite tab',
+  INVITE: 'Invite address'
 };
 
 export const MISCELLANEOUS = {
