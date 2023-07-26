@@ -19,6 +19,7 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
   const handleDelete = async () => {
     try {
       setIsLoading(true);
+      // TODO: Make API call here
     } catch (error) {
       return toast.error(Errors.SomethingWentWrong);
     } finally {
@@ -30,11 +31,11 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
     <Card className="space-y-5 p-5">
       <CommunityProfile community={community as Community} />
       <div className="text-lg font-bold text-red-500">
-        <Trans>This will delete your Lens Community</Trans>
+        <Trans>This will delete your community</Trans>
       </div>
       <p>
         <Trans>
-          This will permanently delete your Community on the Lenster. Your
+          This will permanently delete your community. Your
           community members will not be able to access this community. All your
           community data will be wiped out immediately and you won't be able to
           get it back.
@@ -44,7 +45,7 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           <Trans>
-            You cannot restore your Lenster Community if it was accidentally or
+            You cannot restore your community if it was accidentally or
             wrongfully deleted.
           </Trans>
         </p>
@@ -61,7 +62,7 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
         disabled={isLoading}
         onClick={() => setShowWarningModal(true)}
       >
-        {isLoading ? t`Deleting...` : t`Delete your account`}
+        {isLoading ? t`Deleting...` : t`Delete your community`}
       </Button>
       <Modal
         title={t`Danger Zone`}
@@ -76,7 +77,7 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
               <div className="leading-6">
                 <Trans>
                   Confirm that you have read all consequences and want to delete
-                  your account anyway
+                  your community anyway
                 </Trans>
               </div>
             }
