@@ -16,3 +16,4 @@ The following ports are exposed by the repository
 | 8089 | Leafwatch worker           | http://localhost:8089 | https://leafwatch.lenster.xyz      |
 | 8090 | Achievements worker        | http://localhost:8090 | https://achievements.lenster.xyz   |
 | 8091 | Communities worker         | http://localhost:8091 | https://communities.lenster.xyz    |
+| 8092 | Invite worker              | http://localhost:8092 | https://invite.lenster.xyz         |
