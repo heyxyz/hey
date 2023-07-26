@@ -88,6 +88,7 @@ msgid "Name should not be empty"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
@@ -108,20 +109,142 @@ msgid "Community Name"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "விளக்கம்"
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Describe your community"
 msgstr ""
 
 #: src/components/Community/New.tsx
 msgid "Create Community"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name should not exceed 100 characters"
+msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community name must not contain restricted symbols"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Invalid website"
+msgstr "தவறான இணையதளம்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter should not exceed 100 characters"
+msgstr "ட்விட்டர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "description should not exceed 260 characters"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community updated"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Id"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr "பெயர்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr "இணையதளம்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr "ட்விட்டர்"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Status.tsx
+msgid "Save"
+msgstr "சேமி"
+
+#: src/components/Community/Settings/Community/index.tsx
+#: src/components/Community/Settings/Danger/index.tsx
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr "அமைப்புகளை ஏற்றுகிறது"
+
+#: src/components/Community/Settings/Community/index.tsx
+msgid "Community Settings • {APP_NAME}"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will delete your community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your community. Your community members will not be able to access this community. All your community data will be wiped out immediately and you won't be able to get it back."
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "You cannot restore your community if it was accidentally or wrongfully deleted."
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Delete your community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Deleting..."
+msgstr "நீக்குகிறது..."
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "ஆபத்தான இடம்"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Confirm that you have read all consequences and want to delete your community anyway"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Yes, delete my community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/index.tsx
+msgid "Delete Community • {APP_NAME}"
+msgstr ""
+
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr "சுயவிவரம்"
+
+#: src/components/Community/Settings/Sidebar.tsx
+msgid "Rules"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
@@ -155,18 +278,6 @@ msgstr "அதைப் பார்க்க மக்கள் உங்கள
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "ரத்து"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-#: src/components/Shared/Status.tsx
-msgid "Save"
-msgstr "சேமி"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access"
@@ -2098,18 +2209,8 @@ msgid "Your @handle will be released immediately after deleting the account."
 msgstr "கணக்கை நீக்கிய உடனேயே உங்கள் @handle வெளியிடப்படும்."
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "Deleting..."
-msgstr "நீக்குகிறது..."
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr "உங்கள் கணக்கை நீக்கவும்"
-
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "ஆபத்தான இடம்"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2323,24 +2424,12 @@ msgid "Profile picture crop preview"
 msgstr "சுயவிவரப் படம் திருத்து முன்னோட்டம்"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name should not exceed 100 characters"
-msgstr "பெயர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile name must not contain restricted symbols"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
 msgstr "இருப்பிடம் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Invalid website"
-msgstr "தவறான இணையதளம்"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "ட்விட்டர் 100 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2351,20 +2440,8 @@ msgid "Profile Id"
 msgstr "சுயவிவர ஐடி"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name"
-msgstr "பெயர்"
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
 msgstr "இடம்"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Website"
-msgstr "இணையதளம்"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "ட்விட்டர்"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -2387,16 +2464,8 @@ msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow ever
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr "அமைப்புகளை ஏற்றுகிறது"
-
-#: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
 msgstr "சுயவிவர அமைப்புகள் • {APP_NAME}"
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Profile"
-msgstr "சுயவிவரம்"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
@@ -3235,4 +3304,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
