@@ -18,15 +18,17 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { useAppStore } from 'src/store/app';
 
 import SettingsSidebar from '../Sidebar';
 import Picture from './Picture';
 import ProfileSettingsForm from './Profile';
 
-const ProfileSettings: NextPage = () => {
+const CommunitySettings: NextPage = () => {
   const {
     query: { slug }
   } = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   const fetchCommunity = async () => {
@@ -57,7 +59,7 @@ const ProfileSettings: NextPage = () => {
     return <PageLoading message={t`Loading settings`} />;
   }
 
-  if (!data) {
+  if (!data || data.admin !== currentProfile?.id) {
     return <Custom404 />;
   }
 
@@ -79,4 +81,4 @@ const ProfileSettings: NextPage = () => {
   );
 };
 
-export default ProfileSettings;
+export default CommunitySettings;

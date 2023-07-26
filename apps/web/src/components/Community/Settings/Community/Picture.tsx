@@ -1,4 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
+import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/outline';
 import { AVATAR, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -16,8 +17,6 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-
-import ImageCropperController from './ImageCropperController';
 
 interface PictureProps {
   community: Community;

@@ -8,15 +8,12 @@ import {
 import type { Community } from '@lenster/types/communities';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
 
 interface SidebarProps {
   community: Community;
 }
 
 const SettingsSidebar: FC<SidebarProps> = ({ community }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
       <div className="pb-3">

@@ -1,8 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { Community } from '@lenster/types/communities';
 import {
   GridItemEight,
@@ -34,7 +32,6 @@ const DangerSettings: NextPage = () => {
   const {
     query: { slug }
   } = useRouter();
-  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   const fetchCommunity = async () => {
     try {
@@ -52,20 +49,12 @@ const DangerSettings: NextPage = () => {
     fetchCommunity().then((res) => res)
   );
 
-  if (!isCommunitiesEnabled) {
-    return <Custom404 />;
-  }
-
   if (error) {
     return <Custom500 />;
   }
 
   if (isLoading) {
     return <PageLoading message={t`Loading settings`} />;
-  }
-
-  if (!data) {
-    return <Custom404 />;
   }
 
   const community: Community = data;

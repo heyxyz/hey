@@ -1,3 +1,3 @@
-import ProfileSettings from '@components/Community/Settings/Profile';
+import CommunitySettings from '@components/Community/Settings/Community';
 
-export default ProfileSettings;
+export default CommunitySettings;
