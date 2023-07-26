@@ -38,7 +38,7 @@ cd ../../../
 # -------------------------------------
 echo "Updating packages/workers/ipfs env vars 🌎"
 cd packages/workers/ipfs
-echo "IPFS_GATEWAY=https://gateway.pinata.cloud" > .dev.vars
+echo "IPFS_GATEWAY=https://gateway.ipfs.io" > .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
