@@ -22,9 +22,8 @@ export default async (slug: string, env: Env) => {
     };
 
     const result = await client.query(query);
-    const communutites = result.rows;
 
-    return new Response(JSON.stringify(communutites));
+    return new Response(JSON.stringify(result.rows));
   } catch (error) {
     throw error;
   }
