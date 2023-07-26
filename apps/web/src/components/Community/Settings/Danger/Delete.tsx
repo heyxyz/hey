@@ -35,10 +35,9 @@ const DeleteSettings: FC<DeleteProps> = ({ community }) => {
       </div>
       <p>
         <Trans>
-          This will permanently delete your community. Your
-          community members will not be able to access this community. All your
-          community data will be wiped out immediately and you won't be able to
-          get it back.
+          This will permanently delete your community. Your community members
+          will not be able to access this community. All your community data
+          will be wiped out immediately and you won't be able to get it back.
         </Trans>
       </p>
       <div className="text-lg font-bold">What else you should know</div>
