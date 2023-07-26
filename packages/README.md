@@ -23,3 +23,4 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Lenster
   - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Lenster
   - [Communities](../packages/workers/communities/README.md) - Communities API for Lenster
+  - [Invite](../packages/workers/invite/README.md) - Invite API for Lenster
