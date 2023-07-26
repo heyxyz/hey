@@ -88,6 +88,7 @@ msgid "Name should not be empty"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug should not be empty"
 msgstr ""
 
@@ -108,20 +109,142 @@ msgid "Community Name"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr "描述"
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Describe your community"
 msgstr ""
 
 #: src/components/Community/New.tsx
 msgid "Create Community"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name should not exceed 100 characters"
+msgstr "昵称不得超过 100 个字符"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community name must not contain restricted symbols"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Invalid website"
+msgstr "无效的网站"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter should not exceed 100 characters"
+msgstr "Twitter 不应超过 100 个字符"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "description should not exceed 260 characters"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community updated"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Id"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr "名称"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr "网站"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr "推特"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Status.tsx
+msgid "Save"
+msgstr "保存"
+
+#: src/components/Community/Settings/Community/index.tsx
+#: src/components/Community/Settings/Danger/index.tsx
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr "正在加载设置..."
+
+#: src/components/Community/Settings/Community/index.tsx
+msgid "Community Settings • {APP_NAME}"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will delete your community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your community. Your community members will not be able to access this community. All your community data will be wiped out immediately and you won't be able to get it back."
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "You cannot restore your community if it was accidentally or wrongfully deleted."
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Delete your community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Deleting..."
+msgstr "正在删除..."
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "危险区"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Confirm that you have read all consequences and want to delete your community anyway"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Yes, delete my community"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/index.tsx
+msgid "Delete Community • {APP_NAME}"
+msgstr ""
+
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr "个人资料"
+
+#: src/components/Community/Settings/Sidebar.tsx
+msgid "Rules"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
@@ -155,18 +278,6 @@ msgstr "用户需要先关注你才能浏览它"
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "取消"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-#: src/components/Shared/Status.tsx
-msgid "Save"
-msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access"
@@ -2098,18 +2209,8 @@ msgid "Your @handle will be released immediately after deleting the account."
 msgstr "您的 @handle 将在删除账户后立即被释放。"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "Deleting..."
-msgstr "正在删除..."
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr "删除您的账户"
-
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "危险区"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2323,24 +2424,12 @@ msgid "Profile picture crop preview"
 msgstr "个人资料头像裁剪预览"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name should not exceed 100 characters"
-msgstr "昵称不得超过 100 个字符"
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile name must not contain restricted symbols"
 msgstr "个人账户姓名不得包含受限符号"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
 msgstr "位置的描述不应超过 100 个字符"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Invalid website"
-msgstr "无效的网站"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Twitter 不应超过 100 个字符"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2351,20 +2440,8 @@ msgid "Profile Id"
 msgstr "个人账户ID"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name"
-msgstr "名称"
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
 msgstr "位置"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Website"
-msgstr "网站"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "推特"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -2387,16 +2464,8 @@ msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow ever
 msgstr "打开此选项来展示您对LGBTQ的支持并且每天展示  {APP_NAME} 彩虹的图标。"
 
 #: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr "正在加载设置..."
-
-#: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
 msgstr "个人资料设置 • {APP_NAME}"
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Profile"
-msgstr "个人资料"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
@@ -3235,4 +3304,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
