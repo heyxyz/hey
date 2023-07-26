@@ -1,11 +1,10 @@
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import getAvatar from '@lenster/lib/getAvatar';
 import humanize from '@lenster/lib/humanize';
 import type { Community } from '@lenster/types/communities';
 import { Image } from '@lenster/ui';
+import fetchCommunities from '@lib/communities/fetchCommunities';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import clsx from 'clsx';
 import type { Dispatch, FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -20,25 +19,19 @@ const Choose: FC<ChooseProps> = ({ setShowModal }) => {
   const selectedCommunity = usePublicationStore((state) => state.community);
   const setCommunity = usePublicationStore((state) => state.setCommunity);
 
-  const fetchCommunities = async () => {
-    try {
-      const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/getCommunities/${currentProfile?.id}/0`
-      );
-
-      return response.data;
-    } catch (error) {
-      return [];
-    }
-  };
-
   const { data, isLoading } = useQuery(
     ['communities', currentProfile?.id],
-    () => fetchCommunities().then((res) => res)
+    () => fetchCommunities(currentProfile?.id).then((res) => res)
   );
 
   if (isLoading) {
+    // TODO: Add loading state
     return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    // TODO: Add empty state
+    return <div>No communities found</div>;
   }
 
   return (

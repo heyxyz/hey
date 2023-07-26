@@ -43,7 +43,7 @@ const Picture: FC<PictureProps> = ({ community }) => {
       setIsLoading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
-      const { data } = await axios(`${COMMUNITIES_WORKER_URL}/createOrUpdate`, {
+      await axios(`${COMMUNITIES_WORKER_URL}/createOrUpdate`, {
         method: 'POST',
         data: {
           id: community?.id,

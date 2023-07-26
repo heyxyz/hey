@@ -1,19 +1,18 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import type { Community } from '@lenster/types/communities';
 import {
   GridItemEight,
   GridItemFour,
   GridLayout,
   PageLoading
 } from '@lenster/ui';
+import fetchCommunity from '@lib/communities/fetchCommunity';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
@@ -39,20 +38,8 @@ const DangerSettings: NextPage = () => {
     query: { slug }
   } = useRouter();
 
-  const fetchCommunity = async () => {
-    try {
-      const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/getCommunityBySlug/${slug}`
-      );
-
-      return response.data;
-    } catch (error) {
-      return [];
-    }
-  };
-
   const { data, isLoading, error } = useQuery(['community', slug], () =>
-    fetchCommunity().then((res) => res)
+    fetchCommunity(slug as string).then((res) => res)
   );
 
   if (!isCommunitiesEnabled) {
@@ -67,9 +54,9 @@ const DangerSettings: NextPage = () => {
     return <PageLoading message={t`Loading settings`} />;
   }
 
-  const community: Community = data;
+  const community = data;
 
-  if (!currentProfile) {
+  if (!currentProfile || !community || community.admin !== currentProfile.id) {
     return <Custom404 />;
   }
 

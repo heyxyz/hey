@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { Community } from '@lenster/types/communities';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import fetchCommunity from '@lib/communities/fetchCommunity';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
@@ -21,20 +21,8 @@ const ViewCommunity: NextPage = () => {
   } = useRouter();
   const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
-  const fetchCommunity = async () => {
-    try {
-      const response = await axios(
-        `${COMMUNITIES_WORKER_URL}/getCommunityBySlug/${slug}`
-      );
-
-      return response.data;
-    } catch (error) {
-      return [];
-    }
-  };
-
   const { data, isLoading, error } = useQuery(['community', slug], () =>
-    fetchCommunity().then((res) => res)
+    fetchCommunity(slug as string).then((res) => res)
   );
 
   if (!isCommunitiesEnabled) {
