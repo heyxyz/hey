@@ -14,9 +14,9 @@ export default async (slug: string, env: Env) => {
 
     const query = {
       text: `
-      SELECT *
-      FROM communities
-      WHERE slug LIKE '%' || $1 || '%'; 
+        SELECT *
+        FROM communities
+        WHERE slug LIKE '%' || $1 || '%'; 
       `,
       values: [slug]
     };
