@@ -12,7 +12,7 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, ipfs service 👋'));
-router.get('/ipfs/:hash', ({ params }, env) => proxyIpfs(params.hash, env));
+router.get('/ipfs/:hash+', ({ params }, env) => proxyIpfs(params.hash, env));
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
