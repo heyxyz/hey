@@ -3,6 +3,7 @@ import { createCors, error, json, Router } from 'itty-router';
 import getCommunities from './handlers/get/getCommunities';
 import getCommunity from './handlers/get/getCommunity';
 import getCommunityIds from './handlers/get/getCommunityIds';
+import getCommunitySlugs from './handlers/get/getCommunitySlugs';
 import getIsMember from './handlers/get/getIsMember';
 import getMembers from './handlers/get/getMembers';
 import createOrUpdateCommunity from './handlers/post/community/createOrUpdate';
@@ -52,6 +53,9 @@ router.get('/getMembers/:communityId/:offset', ({ params }, env) =>
 );
 router.get('/getIsMember/:communityId/:profileId', ({ params }, env) =>
   getIsMember(params.communityId, params.profileId, env)
+);
+router.get('/getCommunitySlugs/:slug', ({ params }, env) =>
+  getCommunitySlugs(params.slug, env)
 );
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
