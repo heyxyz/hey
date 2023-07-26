@@ -18,13 +18,13 @@
     "axios": "^1.4.0"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@lenster/config": "*",
-    "@types/node": "^20.4.4",
+    "@types/node": "^20.4.5",
     "typescript": "^5.1.6"
   }
 }

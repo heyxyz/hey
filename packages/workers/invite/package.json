@@ -18,7 +18,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230717.1",
+    "@cloudflare/workers-types": "^4.20230724.0",
     "@lenster/config": "*",
     "typescript": "^5.1.6",
     "wrangler": "^3.3.0"
