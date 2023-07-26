@@ -22,7 +22,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230717.1",
+    "@cloudflare/workers-types": "^4.20230724.0",
     "@lenster/config": "*",
     "@types/pg": "^8.10.2",
     "typescript": "^5.1.6",
