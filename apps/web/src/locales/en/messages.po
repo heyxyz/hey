@@ -88,6 +88,7 @@ msgid "Name should not be empty"
 msgstr "Name should not be empty"
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug should not be empty"
 msgstr "Slug should not be empty"
 
@@ -108,21 +109,143 @@ msgid "Community Name"
 msgstr "Community Name"
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Slug"
 msgstr "Slug"
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Description"
 msgstr ""
 
 #: src/components/Community/New.tsx
+#: src/components/Community/Settings/Community/Profile.tsx
 msgid "Describe your community"
 msgstr "Describe your community"
 
 #: src/components/Community/New.tsx
 msgid "Create Community"
 msgstr "Create Community"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community name must not contain restricted symbols"
+msgstr "Community name must not contain restricted symbols"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Invalid website"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter should not exceed 100 characters"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "description should not exceed 260 characters"
+msgstr "description should not exceed 260 characters"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Community updated"
+msgstr "Community updated"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+msgid "Id"
+msgstr "Id"
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr ""
+
+#: src/components/Community/Settings/Community/Profile.tsx
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Status.tsx
+msgid "Save"
+msgstr ""
+
+#: src/components/Community/Settings/Community/index.tsx
+#: src/components/Community/Settings/Danger/index.tsx
+#: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr ""
+
+#: src/components/Community/Settings/Community/index.tsx
+msgid "Community Settings • {APP_NAME}"
+msgstr "Community Settings • {APP_NAME}"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will delete your community"
+msgstr "This will delete your community"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your community. Your community members will not be able to access this community. All your community data will be wiped out immediately and you won't be able to get it back."
+msgstr "This will permanently delete your community. Your community members will not be able to access this community. All your community data will be wiped out immediately and you won't be able to get it back."
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "You cannot restore your community if it was accidentally or wrongfully deleted."
+msgstr "You cannot restore your community if it was accidentally or wrongfully deleted."
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Delete your community"
+msgstr "Delete your community"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Deleting..."
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Confirm that you have read all consequences and want to delete your community anyway"
+msgstr "Confirm that you have read all consequences and want to delete your community anyway"
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Yes, delete my community"
+msgstr "Yes, delete my community"
+
+#: src/components/Community/Settings/Danger/index.tsx
+msgid "Delete Community • {APP_NAME}"
+msgstr "Delete Community • {APP_NAME}"
+
+#: src/components/Community/Settings/Sidebar.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr ""
+
+#: src/components/Community/Settings/Sidebar.tsx
+msgid "Rules"
+msgstr "Rules"
 
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
@@ -154,18 +277,6 @@ msgstr ""
 #: src/components/Messages/MessagesList.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
-msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-#: src/components/Shared/Status.tsx
-msgid "Save"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
@@ -2098,17 +2209,7 @@ msgid "Your @handle will be released immediately after deleting the account."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "Deleting..."
-msgstr ""
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
-msgstr ""
-
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2323,23 +2424,11 @@ msgid "Profile picture crop preview"
 msgstr "Profile picture crop preview"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name should not exceed 100 characters"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile name must not contain restricted symbols"
 msgstr "Profile name must not contain restricted symbols"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Invalid website"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2351,19 +2440,7 @@ msgid "Profile Id"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Name"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Website"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2387,16 +2464,8 @@ msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow ever
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr ""
-
-#: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
 msgstr "Profile settings • {APP_NAME}"
-
-#: src/components/Settings/Sidebar.tsx
-msgid "Profile"
-msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"

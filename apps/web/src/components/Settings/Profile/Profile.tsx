@@ -1,4 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
+import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
 import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
@@ -47,8 +48,6 @@ import { useAppStore } from 'src/store/app';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
-
-import ImageCropperController from './ImageCropperController';
 
 const editProfileSchema = object({
   name: string()
