@@ -72,22 +72,25 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ community }) => {
   ) => {
     setSubmitting(true);
     try {
-      const { data } = await axios(`${COMMUNITIES_WORKER_URL}/createOrUpdate`, {
-        method: 'POST',
-        data: {
-          id: community?.id,
-          name,
-          slug,
-          website,
-          twitter,
-          description,
-          admin: currentProfile?.id,
-          ...getBasicWorkerPayload()
+      const { data } = await axios(
+        `${COMMUNITIES_WORKER_URL}/community/createOrUpdate`,
+        {
+          method: 'POST',
+          data: {
+            id: community?.id,
+            name,
+            slug,
+            website,
+            twitter,
+            description,
+            profileId: currentProfile?.id,
+            ...getBasicWorkerPayload()
+          }
         }
-      });
+      );
 
       if (data.id) {
-        push(`/c/${slug}`);
+        toast.success(t`Community updated`);
       }
     } catch (error) {
       toast.error(Errors.SomethingWentWrong);
