@@ -1,6 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { Community } from '@lenster/types/communities';
 import {
   GridItemEight,
@@ -24,9 +26,13 @@ import DeleteSettings from './Delete';
 
 const DangerSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'danger' });
+    Leafwatch.track(PAGEVIEW, {
+      page: 'community-settings',
+      subpage: 'danger'
+    });
   });
 
   const {
@@ -48,6 +54,10 @@ const DangerSettings: NextPage = () => {
   const { data, isLoading, error } = useQuery(['community', slug], () =>
     fetchCommunity().then((res) => res)
   );
+
+  if (!isCommunitiesEnabled) {
+    return <Custom404 />;
+  }
 
   if (error) {
     return <Custom500 />;

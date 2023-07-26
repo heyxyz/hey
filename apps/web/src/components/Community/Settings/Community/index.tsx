@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import { FeatureFlag } from '@lenster/data/feature-flags';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { Community } from '@lenster/types/communities';
 import {
@@ -10,6 +11,7 @@ import {
   GridLayout,
   PageLoading
 } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -19,6 +21,7 @@ import React from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
+import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import Picture from './Picture';
@@ -30,6 +33,13 @@ const CommunitySettings: NextPage = () => {
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
+
+  useEffectOnce(() => {
+    Leafwatch.track(PAGEVIEW, {
+      page: 'community-settings',
+      subpage: 'profile'
+    });
+  });
 
   const fetchCommunity = async () => {
     try {

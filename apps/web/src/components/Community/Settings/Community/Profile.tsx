@@ -1,9 +1,7 @@
 import { PencilIcon } from '@heroicons/react/outline';
 import { COMMUNITIES_WORKER_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { Regex } from '@lenster/data/regex';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { Community } from '@lenster/types/communities';
 import {
   Button,
@@ -21,7 +19,6 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { object, string, union } from 'zod';
 
@@ -54,9 +51,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ community }) => {
   const { push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [submitting, setSubmitting] = useState(false);
-  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
-
-  const isCommunityAdmin = currentProfile?.id === community?.admin;
 
   const form = useZodForm({
     schema: editProfileSchema,
@@ -68,10 +62,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ community }) => {
       description: community?.description ?? ''
     }
   });
-
-  if (!currentProfile || !isCommunitiesEnabled || !isCommunityAdmin) {
-    return <Custom404 />;
-  }
 
   const editProfile = async (
     name: string,
@@ -91,7 +81,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ community }) => {
           website,
           twitter,
           description,
-          admin: currentProfile.id,
+          admin: currentProfile?.id,
           ...getBasicWorkerPayload()
         }
       });
