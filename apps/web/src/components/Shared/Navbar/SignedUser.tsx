@@ -16,6 +16,7 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
+import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import ModMode from './NavItems/ModMode';
@@ -134,6 +135,14 @@ const SignedUser: FC = () => {
                 <Mod />
               </Menu.Item>
             )}
+            <Menu.Item
+              as="div"
+              className={({ active }: { active: boolean }) =>
+                clsx({ 'dropdown-active': active }, 'menu-item')
+              }
+            >
+              <Invites />
+            </Menu.Item>
             <Menu.Item
               as="div"
               className={({ active }) =>

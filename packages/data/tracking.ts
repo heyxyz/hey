@@ -125,6 +125,11 @@ export const SETTINGS = {
   }
 };
 
+export const INVITE = {
+  OPEN_INVITE: 'Open invite modal',
+  INVITE: 'Invite address'
+};
+
 export const MOD = {
   TOGGLE_MODE: 'Toggle mod mode',
   REPORT: 'Mod report'
@@ -190,6 +195,7 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...MESSAGES,
   ...SETTINGS,
+  ...INVITE,
   ...MOD,
   ...STAFFTOOLS,
   ...SYSTEM,

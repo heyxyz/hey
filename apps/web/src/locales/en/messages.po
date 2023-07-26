@@ -1914,10 +1914,12 @@ msgid "Invalid amount"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr ""
 
@@ -2568,6 +2570,11 @@ msgstr ""
 msgid "Create post"
 msgstr ""
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr "Invites"
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr ""
@@ -2667,6 +2674,46 @@ msgstr ""
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
 msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr "Invited successfully!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr "Address already invited!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr "Failed to invite!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr "Invite"
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr "You haven't invited anyone."
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr "Loading invites"
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
+msgstr "Failed to load invites"
 
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
