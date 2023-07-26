@@ -4,7 +4,6 @@ import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import {
-  Card,
   GridItemEight,
   GridItemFour,
   GridLayout,
@@ -23,7 +22,6 @@ import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Picture from './Picture';
 import ProfileSettingsForm from './Profile';
 
 const CommunitySettings: NextPage = () => {
@@ -70,9 +68,6 @@ const CommunitySettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight className="space-y-5">
         <ProfileSettingsForm community={community as any} />
-        <Card className="space-y-5 p-5">
-          <Picture community={community as any} />
-        </Card>
       </GridItemEight>
     </GridLayout>
   );
