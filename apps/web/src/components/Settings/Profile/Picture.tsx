@@ -1,4 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
+import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
@@ -31,8 +32,6 @@ import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
-
-import ImageCropperController from './ImageCropperController';
 
 interface PictureProps {
   profile: Profile & { picture: MediaSet & NftImage };
