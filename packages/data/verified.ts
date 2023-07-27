@@ -1,4 +1,5 @@
 export const verified = [
+  '0x73b1',
   '0x011791',
   '0x01a57f',
   '0x0186e6',
