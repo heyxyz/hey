@@ -38,9 +38,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const walletAuthenticated = useAppPersistStore(
-    (state) => state.walletAuthenticated
-  );
   const setWalletAuthenticated = useAppPersistStore(
     (state) => state.setWalletAuthenticated
   );
