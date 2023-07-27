@@ -40,7 +40,7 @@ const nextConfig = {
       },
       {
         source: '/donate',
-        destination: 'https://bounties.gitcoin.co/grants/5007/lenster',
+        destination: 'https://giveth.io/project/lenster?utm_source=lenster',
         permanent: true
       },
       {
