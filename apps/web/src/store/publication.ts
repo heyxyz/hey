@@ -47,8 +47,6 @@ interface PublicationState {
   };
   setPollConfig: (pollConfig: { length: number; choices: string[] }) => void;
   resetPollConfig: () => void;
-  showSpaceEditor: boolean;
-  setShowSpaceEditor: (showSpaceEditor: boolean) => void;
   community: Community | null;
   setCommunity: (community: Community | null) => void;
 }
@@ -108,8 +106,6 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   resetPollConfig: () =>
     set(() => ({ pollConfig: { length: 1, choices: ['', ''] } })),
-  showSpaceEditor: false,
-  setShowSpaceEditor: (showSpaceEditor) => set(() => ({ showSpaceEditor })),
   community: null,
   setCommunity: (community) => set(() => ({ community }))
 }));

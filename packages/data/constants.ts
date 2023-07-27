@@ -92,19 +92,16 @@ export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.lenster.xyz'
   : 'http://localhost:8087';
-export const SPACES_WORKER_URL = IS_PRODUCTION
-  ? 'https://spaces.lenster.xyz'
-  : 'http://localhost:8088';
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
-  : 'http://localhost:8089';
+  : 'http://localhost:8088';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 export const COMMUNITIES_WORKER_URL = IS_PRODUCTION
   ? 'https://communities.lenster.xyz'
   : 'http://localhost:8091';
 export const INVITE_WORKER_URL = IS_PRODUCTION
   ? 'https://invite.lenster.xyz'
-  : 'http://localhost:8092';
+  : 'http://localhost:8090';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
