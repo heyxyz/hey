@@ -104,7 +104,7 @@ const MobileDrawerMenu: FC = () => {
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
             )}
-            <Invites className={itemClass} />
+            <Invites className={clsx(itemClass, 'px-4')} />
             <ThemeSwitch className={itemClass} onClick={closeDrawer} />
           </div>
           <div className="divider" />
