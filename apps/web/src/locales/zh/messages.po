@@ -210,13 +210,13 @@ msgid "You cannot restore your community if it was accidentally or wrongfully de
 msgstr ""
 
 #: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Delete your community"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Deleting..."
 msgstr "正在删除..."
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Delete your community"
+msgstr ""
 
 #: src/components/Community/Settings/Danger/Delete.tsx
 #: src/components/Community/Settings/Sidebar.tsx
@@ -2281,10 +2281,6 @@ msgstr "禁用无签名交易"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr ""
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr "导出关注者"
@@ -3304,4 +3300,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
