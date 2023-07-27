@@ -152,6 +152,7 @@ export const MISCELLANEOUS = {
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',
   SELECT_LOCALE: 'Select locale',
+  OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_GITHUB: 'Open GitHub',
