@@ -12,8 +12,6 @@ The following ports are exposed by the repository
 | 8085 | Snapshot relay worker      | http://localhost:8085 | https://snapshot-relay.lenster.xyz |
 | 8086 | ENS resolver worker        | http://localhost:8086 | https://ens.lenster.xyz            |
 | 8087 | Oembed worker              | http://localhost:8087 | https://oembed.lenster.xyz         |
-| 8088 | Spaces worker              | http://localhost:8088 | https://spaces.lenster.xyz         |
-| 8089 | Leafwatch worker           | http://localhost:8089 | https://leafwatch.lenster.xyz      |
-| 8090 | Achievements worker        | http://localhost:8090 | https://achievements.lenster.xyz   |
-| 8091 | Communities worker         | http://localhost:8091 | https://communities.lenster.xyz    |
-| 8092 | Invite worker              | http://localhost:8092 | https://invite.lenster.xyz         |
+| 8088 | Leafwatch worker           | http://localhost:8088 | https://leafwatch.lenster.xyz      |
+| 8089 | Achievements worker        | http://localhost:8089 | https://achievements.lenster.xyz   |
+| 8090 | Invite worker              | http://localhost:8090 | https://invite.lenster.xyz         |
