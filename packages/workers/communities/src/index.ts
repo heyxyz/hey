@@ -8,7 +8,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('gm, to community service 👋'));
+router.get('/', () => new Response('gm, to communities service 👋'));
 
 const routerHandleStack = (request: Request, ctx: ExecutionContext) =>
   router.handle(request, ctx).then(json);
