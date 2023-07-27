@@ -1,8 +1,8 @@
-name = "community"
+name = "communities"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 
 routes = [
-	{ pattern = "community.lenster.xyz", custom_domain = true }
+	{ pattern = "communities.lenster.xyz", custom_domain = true }
 ]
 
