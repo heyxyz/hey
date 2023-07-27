@@ -486,10 +486,6 @@ msgstr "好友的好友可以评论和转发"
 msgid "Everyone can comment and mirror"
 msgstr "所有人都可以评论和转发"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -511,10 +507,6 @@ msgstr "上传"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "请选择 1 个视频或最多 4 张照片。"
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -543,10 +535,6 @@ msgstr "交易失败！"
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "评论"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
