@@ -80,9 +80,6 @@ importers:
       '@dnd-kit/sortable':
         specifier: ^7.0.2
         version: 7.0.2(@dnd-kit/core@6.0.8)(react@18.2.0)
-      '@fingerprintjs/fingerprintjs':
-        specifier: ^4.0.0
-        version: 4.0.0
       '@headlessui/react':
         specifier: ^1.7.15
         version: 1.7.15(react-dom@18.2.0)(react@18.2.0)
@@ -3470,12 +3467,6 @@ packages:
       '@ethersproject/logger': 5.7.0
       '@ethersproject/properties': 5.7.0
       '@ethersproject/strings': 5.7.0
-    dev: false
-
-  /@fingerprintjs/fingerprintjs@4.0.0:
-    resolution: {integrity: sha512-TEwyYUqEEaVcv4w+KCpQZw7I3bHAiyv/CmRM5/Ouz0DTQHGXjKaEAcNvtL2kOTc2wS5sX+gHVlMymfRm5phACQ==}
-    dependencies:
-      tslib: 2.6.1
     dev: false
 
   /@floating-ui/core@1.3.1:

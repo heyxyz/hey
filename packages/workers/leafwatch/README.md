@@ -8,7 +8,6 @@ CREATE TABLE events (
   actor Nullable(String),
   name String,
   properties Nullable(String),
-  fingerprint Nullable(String),
   referrer Nullable(String),
   url Nullable(String),
   platform String,

@@ -11,7 +11,6 @@ import type { Env } from '../types';
 type ExtensionRequest = {
   name: string;
   actor?: string;
-  fingerprint?: string;
   url: string;
   referrer?: string;
   user_agent?: string;
@@ -22,7 +21,6 @@ type ExtensionRequest = {
 const validationSchema = object({
   name: string().min(1, { message: 'Name is required!' }),
   actor: string().nullable().optional(),
-  fingerprint: string().nullable().optional(),
   url: string(),
   referrer: string().nullable().optional(),
   platform: string(),
@@ -43,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, actor, fingerprint, url, referrer, platform, properties } =
+  const { name, actor, url, referrer, platform, properties } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -87,7 +85,6 @@ export default async (request: IRequest, env: Env) => {
           name,
           actor,
           properties,
-          fingerprint,
           url,
           city,
           country,
@@ -106,7 +103,6 @@ export default async (request: IRequest, env: Env) => {
           '${name}',
           ${actor ? `'${actor}'` : null},
           ${properties ? `'${JSON.stringify(properties)}'` : null},
-          ${fingerprint ? `'${fingerprint}'` : null},
           ${url ? `'${url}'` : null},
           ${ipData?.city ? `'${ipData?.city}'` : null},
           ${ipData?.country ? `'${ipData?.country}'` : null},

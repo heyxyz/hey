@@ -210,12 +210,12 @@ msgid "You cannot restore your community if it was accidentally or wrongfully de
 msgstr ""
 
 #: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Delete your community"
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Deleting..."
 msgstr ""
 
 #: src/components/Community/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Delete.tsx
-msgid "Deleting..."
+msgid "Delete your community"
 msgstr ""
 
 #: src/components/Community/Settings/Danger/Delete.tsx
@@ -2281,10 +2281,6 @@ msgstr ""
 msgid "Dispatcher • {APP_NAME}"
 msgstr ""
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr ""
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr ""
@@ -3304,4 +3300,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-
