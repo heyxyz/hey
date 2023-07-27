@@ -20,6 +20,7 @@ import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
+import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -60,7 +61,9 @@ const Home: NextPage = () => {
               <SetProfile />
               <RecommendedProfiles />
             </>
-          ) : null}
+          ) : (
+            <Waitlist />
+          )}
           <Footer />
         </GridItemFour>
       </GridLayout>
