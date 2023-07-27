@@ -486,10 +486,6 @@ msgstr "நண்பர்களின் நண்பர் கருத்த�
 msgid "Everyone can comment and mirror"
 msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -511,10 +507,6 @@ msgstr "பதிவேற்றவும்"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -543,10 +535,6 @@ msgstr "பணப்பரிமாற்றம் தோல்வி அடை�
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "கருத்துரை"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"

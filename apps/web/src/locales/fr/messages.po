@@ -486,10 +486,6 @@ msgstr ""
 msgid "Everyone can comment and mirror"
 msgstr ""
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -510,10 +506,6 @@ msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
-msgstr ""
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
 msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
@@ -542,10 +534,6 @@ msgstr ""
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
-msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
