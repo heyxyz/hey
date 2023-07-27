@@ -49,7 +49,7 @@ import Link from 'next/link';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
+import { useAppPersistStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useUpdateEffect } from 'usehooks-ts';
 import {
@@ -76,7 +76,9 @@ const CollectModule: FC<CollectModuleProps> = ({
 }) => {
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const walletAuthenticated = useAppPersistStore(
+    (state) => state.walletAuthenticated
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
@@ -173,7 +175,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           referenceModules: []
         }
       },
-      skip: !assetAddress || !currentProfile,
+      skip: !assetAddress || !walletAuthenticated,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
         setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
       }
@@ -264,7 +266,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   };
 
   const createCollect = async () => {
-    if (!currentProfile) {
+    if (!walletAuthenticated) {
       return toast.error(Errors.SignWallet);
     }
 
@@ -496,7 +498,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           )}
         </div>
         <div className="flex items-center space-x-2">
-          {currentProfile &&
+          {walletAuthenticated &&
           (!hasCollectedByMe ||
             (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
             allowanceLoading || balanceLoading ? (

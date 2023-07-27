@@ -20,6 +20,8 @@ export const useAppStore = create<AppState>((set) => ({
 interface AppPersistState {
   profileId: string | null;
   setProfileId: (profileId: string | null) => void;
+  walletAuthenticated: boolean;
+  setWalletAuthenticated: (walletAuthenticated: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   modMode: boolean;
@@ -31,6 +33,9 @@ export const useAppPersistStore = create(
     (set) => ({
       profileId: null,
       setProfileId: (profileId) => set(() => ({ profileId })),
+      walletAuthenticated: false,
+      setWalletAuthenticated: (walletAuthenticated) =>
+        set(() => ({ walletAuthenticated })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       modMode: false,

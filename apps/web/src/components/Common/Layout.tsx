@@ -38,6 +38,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const walletAuthenticated = useAppPersistStore(
+    (state) => state.walletAuthenticated
+  );
+  const setWalletAuthenticated = useAppPersistStore(
+    (state) => state.setWalletAuthenticated
+  );
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -48,6 +54,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
+    setWalletAuthenticated(false);
     resetProfileGuardianInformation();
   };
 
@@ -59,6 +66,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     },
     skip: !profileId,
     onCompleted: (data) => {
+      setWalletAuthenticated(true);
       const profiles = data?.profiles?.items
         ?.slice()
         ?.sort((a, b) => Number(a.id) - Number(b.id))

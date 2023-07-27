@@ -24,6 +24,9 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     (state) => state.resetProfileGuardianInformation
   );
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setWalletAuthenticated = useAppPersistStore(
+    (state) => state.setWalletAuthenticated
+  );
 
   const logout = () => {
     Leafwatch.track(PROFILE.LOGOUT);
@@ -31,6 +34,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     setCurrentProfile(null);
     resetProfileGuardianInformation();
     setProfileId(null);
+    setWalletAuthenticated(false);
     resetAuthData();
     disconnect?.();
   };

@@ -7,7 +7,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import EnableDispatcher from './EnableDispatcher';
@@ -23,6 +23,9 @@ import Timeline from './Timeline';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const walletAuthenticated = useAppPersistStore(
+    (state) => state.walletAuthenticated
+  );
   const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
 
   useEffectOnce(() => {
@@ -32,7 +35,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
-      {!currentProfile && <Hero />}
+      {!walletAuthenticated && <Hero />}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {currentProfile ? (

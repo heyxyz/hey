@@ -33,16 +33,15 @@ import {
 
 interface WalletSelectorProps {
   setHasConnected: Dispatch<boolean>;
-  setHasProfile: Dispatch<boolean>;
 }
 
-const WalletSelector: FC<WalletSelectorProps> = ({
-  setHasConnected,
-  setHasProfile
-}) => {
+const WalletSelector: FC<WalletSelectorProps> = ({ setHasConnected }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setWalletAuthenticated = useAppPersistStore(
+    (state) => state.setWalletAuthenticated
+  );
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -79,7 +78,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const handleSign = async () => {
-    let keepModal = false;
     try {
       setIsLoading(true);
       // Get challenge
@@ -114,10 +112,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         variables: { request: { ownedBy: [address] } }
       });
 
-      if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile(false);
-        keepModal = true;
-      } else {
+      setWalletAuthenticated(true);
+      if (profilesData?.profiles?.items?.length !== 0) {
         const profiles: any = profilesData?.profiles?.items
           ?.slice()
           ?.sort((a, b) => Number(a.id) - Number(b.id))
@@ -133,9 +129,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {
     } finally {
       setIsLoading(false);
-      if (!keepModal) {
-        setShowAuthModal(false);
-      }
+      setShowAuthModal(false);
     }
   };
 
