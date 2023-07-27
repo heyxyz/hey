@@ -46,207 +46,6 @@ msgstr "Скрыть комментарии"
 msgid "Show more comments"
 msgstr "Показать больше комментариев"
 
-#: src/components/Community/Details.tsx
-msgid "Edit Community"
-msgstr ""
-
-#: src/components/Community/Details.tsx
-msgid "Created on {0}"
-msgstr ""
-
-#: src/components/Community/Feed.tsx
-msgid "No posts on this community yet!"
-msgstr ""
-
-#: src/components/Community/Feed.tsx
-#: src/components/Explore/Feed.tsx
-msgid "Failed to load explore feed"
-msgstr "Не удалось загрузить новостную ленту"
-
-#: src/components/Community/Members/List.tsx
-msgid "Loading members"
-msgstr ""
-
-#: src/components/Community/Members/List.tsx
-msgid "doesn’t have any members."
-msgstr ""
-
-#: src/components/Community/Members/List.tsx
-msgid "Failed to load members"
-msgstr ""
-
-#: src/components/Community/Members/index.tsx
-msgid "{0, plural, zero {Member} one {Member} other {Members}}"
-msgstr ""
-
-#: src/components/Community/Members/index.tsx
-msgid "Members"
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "Name should not be empty"
-msgstr ""
-
-#: src/components/Community/New.tsx
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Slug should not be empty"
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "New Community • {APP_NAME}"
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "Create a new community"
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "Create a new community and start sharing with the world."
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "Community Name"
-msgstr ""
-
-#: src/components/Community/New.tsx
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Slug"
-msgstr ""
-
-#: src/components/Community/New.tsx
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Description"
-msgstr "Описание"
-
-#: src/components/Community/New.tsx
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Describe your community"
-msgstr ""
-
-#: src/components/Community/New.tsx
-msgid "Create Community"
-msgstr ""
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Name should not exceed 100 characters"
-msgstr "Имя не должно превышать 100 символов"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Community name must not contain restricted symbols"
-msgstr ""
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Invalid website"
-msgstr "Недействительный веб-сайт"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Твиттер не должен превышать 100 символов"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "description should not exceed 260 characters"
-msgstr ""
-
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Community updated"
-msgstr ""
-
-#: src/components/Community/Settings/Community/Profile.tsx
-msgid "Id"
-msgstr ""
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Name"
-msgstr "Имя"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Website"
-msgstr "Веб-сайт"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "Твиттер"
-
-#: src/components/Community/Settings/Community/Profile.tsx
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-#: src/components/Shared/Status.tsx
-msgid "Save"
-msgstr "Сохранить"
-
-#: src/components/Community/Settings/Community/index.tsx
-#: src/components/Community/Settings/Danger/index.tsx
-#: src/components/Settings/Profile/index.tsx
-msgid "Loading settings"
-msgstr "Загрузка настроек"
-
-#: src/components/Community/Settings/Community/index.tsx
-msgid "Community Settings • {APP_NAME}"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "This will delete your community"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your community. Your community members will not be able to access this community. All your community data will be wiped out immediately and you won't be able to get it back."
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "You cannot restore your community if it was accidentally or wrongfully deleted."
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Delete.tsx
-msgid "Deleting..."
-msgstr "Удаление..."
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Delete your community"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-#: src/components/Community/Settings/Sidebar.tsx
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "Опасная зона"
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Confirm that you have read all consequences and want to delete your community anyway"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Yes, delete my community"
-msgstr ""
-
-#: src/components/Community/Settings/Danger/index.tsx
-msgid "Delete Community • {APP_NAME}"
-msgstr ""
-
-#: src/components/Community/Settings/Sidebar.tsx
-#: src/components/Settings/Sidebar.tsx
-msgid "Profile"
-msgstr "Профиль"
-
-#: src/components/Community/Settings/Sidebar.tsx
-msgid "Rules"
-msgstr ""
-
 #: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
 msgid "Add restrictions on who can view this post"
 msgstr "Добавить ограничения на то, кто может просматривать эту публикацию"
@@ -278,6 +77,18 @@ msgstr "Для просмотра человек должен подписать
 #: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Cancel"
 msgstr "Отменить"
+
+#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
+#: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Settings/Account/SetProfile.tsx
+#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/Picture.tsx
+#: src/components/Settings/Profile/Profile.tsx
+#: src/components/Shared/Status.tsx
+msgid "Save"
+msgstr "Сохранить"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 msgid "Access"
@@ -398,14 +209,6 @@ msgstr "Лимит на коллект в течение первых 24 час�
 #: src/components/Composer/Actions/CollectSettings/index.tsx
 msgid "Collect settings"
 msgstr "Настройки коллектов"
-
-#: src/components/Composer/Actions/Community/index.tsx
-msgid "Select community"
-msgstr ""
-
-#: src/components/Composer/Actions/Community/index.tsx
-msgid "Choose community"
-msgstr ""
 
 #: src/components/Composer/Actions/Gif/GifSelector.tsx
 msgid "Search for GIFs"
@@ -547,6 +350,10 @@ msgstr "Опубликовать"
 #: src/components/Mod/Feed.tsx
 msgid "No posts yet!"
 msgstr "Публикаций пока еще нет!"
+
+#: src/components/Explore/Feed.tsx
+msgid "Failed to load explore feed"
+msgstr "Не удалось загрузить новостную ленту"
 
 #: src/components/Explore/index.tsx
 #: src/components/Home/FeedType.tsx
@@ -2197,8 +2004,18 @@ msgid "Your @handle will be released immediately after deleting the account."
 msgstr "Ваш @псевдоним станет свободным сразу после удаления вашей учетной записи."
 
 #: src/components/Settings/Danger/Delete.tsx
+msgid "Deleting..."
+msgstr "Удаление..."
+
+#: src/components/Settings/Danger/Delete.tsx
 msgid "Delete your account"
 msgstr "Удалить учетную запись"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
+#: src/components/Settings/Sidebar.tsx
+msgid "Danger Zone"
+msgstr "Опасная зона"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2408,12 +2225,24 @@ msgid "Profile picture crop preview"
 msgstr "Предварительный просмотр обрезанной аватарки"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Name should not exceed 100 characters"
+msgstr "Имя не должно превышать 100 символов"
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Profile name must not contain restricted symbols"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Location should not exceed 100 characters"
 msgstr "Местоположение не должно превышать 100 символов"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Invalid website"
+msgstr "Недействительный веб-сайт"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter should not exceed 100 characters"
+msgstr "Твиттер не должен превышать 100 символов"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2424,8 +2253,20 @@ msgid "Profile Id"
 msgstr "ID профиля"
 
 #: src/components/Settings/Profile/Profile.tsx
+msgid "Name"
+msgstr "Имя"
+
+#: src/components/Settings/Profile/Profile.tsx
 msgid "Location"
 msgstr "Местоположение"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Website"
+msgstr "Веб-сайт"
+
+#: src/components/Settings/Profile/Profile.tsx
+msgid "Twitter"
+msgstr "Твиттер"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -2448,8 +2289,16 @@ msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow ever
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
+msgid "Loading settings"
+msgstr "Загрузка настроек"
+
+#: src/components/Settings/Profile/index.tsx
 msgid "Profile settings • {APP_NAME}"
 msgstr "Настройки профиля • {APP_NAME}"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Profile"
+msgstr "Профиль"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
@@ -2526,22 +2375,6 @@ msgstr "Новый"
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
 msgstr "Вы не можете ответить на этот пост"
-
-#: src/components/Shared/Community/JoinOrLeave.tsx
-msgid "Successfully left the community"
-msgstr ""
-
-#: src/components/Shared/Community/JoinOrLeave.tsx
-msgid "Successfully joined the community"
-msgstr ""
-
-#: src/components/Shared/Community/JoinOrLeave.tsx
-msgid "Leave"
-msgstr ""
-
-#: src/components/Shared/Community/JoinOrLeave.tsx
-msgid "Join"
-msgstr ""
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
@@ -2899,6 +2732,10 @@ msgstr "Публикация успешно обжалована!"
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Failed to report"
 msgstr "Не удалось отправить жалобу"
+
+#: src/components/Shared/Modal/Report/index.tsx
+msgid "Description"
+msgstr "Описание"
 
 #: src/components/Shared/Modal/Report/index.tsx
 msgid "Please provide additional details"
