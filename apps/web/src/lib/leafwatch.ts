@@ -12,10 +12,6 @@ if (typeof Worker !== 'undefined') {
  */
 export const Leafwatch = {
   track: (name: string, properties?: Record<string, unknown>) => {
-    const fingerprint = JSON.parse(
-      localStorage.getItem(Localstorage.FingerprintStore) ||
-        JSON.stringify({ state: { fingerprint: null } })
-    );
     const user = JSON.parse(
       localStorage.getItem(Localstorage.LensterStore) ||
         JSON.stringify({ state: { profileId: null } })
@@ -27,7 +23,6 @@ export const Leafwatch = {
       name,
       properties,
       actor: user.state.profileId,
-      fingerprint: fingerprint.state.fingerprint,
       referrer: referrerDomain,
       url: window.location.href,
       platform: 'web'

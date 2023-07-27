@@ -210,13 +210,13 @@ msgid "You cannot restore your community if it was accidentally or wrongfully de
 msgstr "You cannot restore your community if it was accidentally or wrongfully deleted."
 
 #: src/components/Community/Settings/Danger/Delete.tsx
-msgid "Delete your community"
-msgstr "Delete your community"
-
-#: src/components/Community/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Deleting..."
 msgstr ""
+
+#: src/components/Community/Settings/Danger/Delete.tsx
+msgid "Delete your community"
+msgstr "Delete your community"
 
 #: src/components/Community/Settings/Danger/Delete.tsx
 #: src/components/Community/Settings/Sidebar.tsx
@@ -2280,10 +2280,6 @@ msgstr "Disable Signless Transactions"
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
-
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr "Your unique fingerprint"
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
