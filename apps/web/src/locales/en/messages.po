@@ -589,6 +589,10 @@ msgstr ""
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
+msgstr "Join waitlist"
+
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
 msgstr "Error sending attachment"

@@ -11,7 +11,7 @@ const Waitlist: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
+      className="!border-brand-600 !bg-brand-50 text-brand-600 dark:bg-brand-900 mb-4 space-y-4 p-5"
     >
       <img
         src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
