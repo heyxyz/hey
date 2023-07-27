@@ -589,6 +589,10 @@ msgstr "டிரெண்டிங்கை ஏற்றுவதில் த�
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
+msgstr ""
+
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
 msgstr ""
