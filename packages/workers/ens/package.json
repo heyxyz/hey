@@ -17,7 +17,7 @@
   "dependencies": {
     "@lenster/lib": "*",
     "itty-router": "^4.0.14",
-    "viem": "^1.4.1",
+    "viem": "^1.4.2",
     "zod": "^3.21.4"
   },
   "devDependencies": {
@@ -25,6 +25,6 @@
     "@lenster/config": "*",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
-    "wrangler": "^3.3.0"
+    "wrangler": "^3.4.0"
   }
 }

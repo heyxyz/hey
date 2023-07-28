@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "^1.7.16",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.1.1",
     "@lenster/data": "*",
