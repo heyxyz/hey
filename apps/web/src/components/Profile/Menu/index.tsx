@@ -6,6 +6,7 @@ import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 
+import Report from './Report';
 import Share from './Share';
 
 interface ProfileMenuProps {
@@ -32,6 +33,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           data-testid={`profile-${profile.id}-menu-items`}
         >
           <Share profile={profile} />
+          <Report />
         </Menu.Items>
       </MenuTransition>
     </Menu>
