@@ -1,7 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { FlagIcon } from '@heroicons/react/outline';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Modal } from '@lenster/ui';
+import { Modal, Radio } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { type FC } from 'react';
@@ -14,14 +13,10 @@ const Report: FC = () => {
     <>
       <Menu.Item
         as="div"
-        className={({ active }) =>
-          clsx(
-            { 'dropdown-active': active },
-            'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
-          )
+        className={() =>
+          clsx('m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
         }
-        onClick={async (event) => {
-          stopEventPropagation(event);
+        onClick={async () => {
           setReportProfile(true);
         }}
       >
@@ -34,11 +29,19 @@ const Report: FC = () => {
       </Menu.Item>
       <Modal
         title="Report Profile"
+        icon={<FlagIcon className="text-brand h-5 w-5" />}
         show={ReportProfile}
         onClose={() => setReportProfile(false)}
       >
         <div className="p-5">
-          <p>Hi</p>
+          <Radio
+            title="Misleading Account"
+            message="Impersonation or false claims about identity or affiliation"
+          />
+          <Radio
+            title="Frequently Posts Unwanted Content"
+            message="Spam; excessive mentions or replies"
+          />
         </div>
       </Modal>
     </>
