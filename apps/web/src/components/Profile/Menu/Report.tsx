@@ -33,17 +33,27 @@ const Report: FC = () => {
         show={ReportProfile}
         onClose={() => setReportProfile(false)}
       >
-        <div className="p-5">
-          <Radio
-            title="Misleading Account"
-            message="Impersonation or false claims about identity or affiliation"
-            name="reportReason"
-          />
-          <Radio
-            title="Frequently Posts Unwanted Content"
-            message="Spam; excessive mentions or replies"
-            name="reportReason"
-          />
+        <div className="flex h-full flex-col justify-between p-5">
+          <div>
+            <Radio
+              title="Misleading Account"
+              message="Impersonation or false claims about identity or affiliation"
+              name="reportReason"
+            />
+            <Radio
+              title="Frequently Posts Unwanted Content"
+              message="Spam; excessive mentions or replies"
+              name="reportReason"
+            />
+          </div>
+          <div className="mt-4 flex justify-center">
+            <button
+              className="rounded-md bg-gray-300 p-1 px-2 text-white hover:bg-gray-400"
+              onClick={() => alert('gm 🚀')}
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </Modal>
     </>
