@@ -37,10 +37,12 @@ const Report: FC = () => {
           <Radio
             title="Misleading Account"
             message="Impersonation or false claims about identity or affiliation"
+            name="reportReason"
           />
           <Radio
             title="Frequently Posts Unwanted Content"
             message="Spam; excessive mentions or replies"
+            name="reportReason"
           />
         </div>
       </Modal>

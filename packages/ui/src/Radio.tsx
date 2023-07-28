@@ -5,9 +5,15 @@ interface RadioProps {
   title?: string;
   message?: ReactNode;
   className?: string;
+  name: string;
 }
 
-export const Radio: FC<RadioProps> = ({ title, message, className = '' }) => {
+export const Radio: FC<RadioProps> = ({
+  title,
+  message,
+  className = '',
+  name
+}) => {
   if (!message) {
     return null;
   }
@@ -16,7 +22,8 @@ export const Radio: FC<RadioProps> = ({ title, message, className = '' }) => {
     <div className={clsx('flex items-center space-x-2 p-2', className)}>
       <input
         type="radio"
-        className="text-brand dark:text-brand h-4 w-4 focus:outline-none"
+        name={name}
+        className="text-brand dark:text-brand !important h-4 w-4 focus:outline-none focus:ring-0"
       />
       <div>
         <h3 className="text-base font-medium">{title}</h3>
