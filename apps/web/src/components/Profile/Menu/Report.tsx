@@ -13,7 +13,7 @@ const Report: FC = () => {
     <button
       type="button"
       className={clsx(
-        'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+        'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm hover:bg-gray-300/20'
       )}
       onClick={() => setReportProfileModal(true)}
     >
