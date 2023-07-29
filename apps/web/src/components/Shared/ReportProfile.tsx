@@ -1,4 +1,4 @@
-import { Radio } from '@lenster/ui';
+import { Button, Radio } from '@lenster/ui';
 import { type FC } from 'react';
 
 const Report: FC = () => {
@@ -17,12 +17,9 @@ const Report: FC = () => {
         />
       </div>
       <div className="mt-4 flex justify-center">
-        <button
-          className="rounded-md bg-gray-300 p-1 px-2 text-white hover:bg-gray-400"
-          onClick={() => alert('gm 🚀')}
-        >
+        <Button type="submit" onClick={() => alert('gm 🚀')}>
           Submit
-        </button>
+        </Button>
       </div>
     </div>
   );
