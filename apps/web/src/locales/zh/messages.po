@@ -2758,10 +2758,6 @@ msgstr "更多"
 msgid "Bookmarks"
 msgstr ""
 
-#: src/components/Shared/Navbar/NavItems/Communities.tsx
-msgid "Communities"
-msgstr ""
-
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
 msgstr "联系我们"
@@ -3129,4 +3125,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

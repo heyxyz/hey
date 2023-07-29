@@ -2758,10 +2758,6 @@ msgstr ""
 msgid "Bookmarks"
 msgstr "Bookmarks"
 
-#: src/components/Shared/Navbar/NavItems/Communities.tsx
-msgid "Communities"
-msgstr "Communities"
-
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
 msgid "Contact"
 msgstr ""
