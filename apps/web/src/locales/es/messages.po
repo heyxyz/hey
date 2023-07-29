@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-28 00:08\n"
+"PO-Revision-Date: 2023-07-29 14:26\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -2756,10 +2756,6 @@ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Bookmarks.tsx
 msgid "Bookmarks"
-msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/Communities.tsx
-msgid "Communities"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Contact.tsx
