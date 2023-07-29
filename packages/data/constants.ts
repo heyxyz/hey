@@ -96,9 +96,6 @@ export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
   : 'http://localhost:8088';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
-export const COMMUNITIES_WORKER_URL = IS_PRODUCTION
-  ? 'https://communities.lenster.xyz'
-  : 'http://localhost:8091';
 export const INVITE_WORKER_URL = IS_PRODUCTION
   ? 'https://invite.lenster.xyz'
   : 'http://localhost:8090';

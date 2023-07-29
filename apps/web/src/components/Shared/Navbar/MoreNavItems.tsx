@@ -1,6 +1,4 @@
 import { Menu } from '@headlessui/react';
-import { FeatureFlag } from '@lenster/data/feature-flags';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -8,13 +6,11 @@ import { useAppStore } from 'src/store/app';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
-import Communities from './NavItems/Communities';
 import Contact from './NavItems/Contact';
 import ReportBug from './NavItems/ReportBug';
 
 const MoreNavItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isCommunitiesEnabled = isFeatureEnabled(FeatureFlag.Communities);
 
   return (
     <Menu as="div" data-testid="nav-item-more">
@@ -40,16 +36,6 @@ const MoreNavItems: FC = () => {
             >
               {currentProfile ? (
                 <>
-                  {isCommunitiesEnabled && (
-                    <Menu.Item
-                      as="div"
-                      className={({ active }: { active: boolean }) =>
-                        clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
-                      }
-                    >
-                      <Communities />
-                    </Menu.Item>
-                  )}
                   <Menu.Item
                     as="div"
                     className={({ active }: { active: boolean }) =>
