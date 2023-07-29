@@ -1,62 +1,29 @@
-import { Menu } from '@headlessui/react';
 import { FlagIcon } from '@heroicons/react/outline';
-import { Modal, Radio } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { type FC } from 'react';
-import { useState } from 'react';
+import { useGlobalModalStateStore } from 'src/store/modals';
 
 const Report: FC = () => {
-  const [ReportProfile, setReportProfile] = useState(false);
+  const setReportProfileModal = useGlobalModalStateStore(
+    (state) => state.setReportProfileModal
+  );
 
   return (
-    <>
-      <Menu.Item
-        as="div"
-        className={() =>
-          clsx('m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm')
-        }
-        onClick={async () => {
-          setReportProfile(true);
-        }}
-      >
-        <div className="flex items-center space-x-2">
-          <FlagIcon className="h-4 w-4" />
-          <div>
-            <Trans>Report Profile</Trans>
-          </div>
+    <button
+      type="button"
+      className={clsx(
+        'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+      )}
+      onClick={() => setReportProfileModal(true)}
+    >
+      <div className="flex items-center space-x-2">
+        <FlagIcon className="h-4 w-4" />
+        <div>
+          <Trans>Report Profile</Trans>
         </div>
-      </Menu.Item>
-      <Modal
-        title="Report Profile"
-        icon={<FlagIcon className="text-brand h-5 w-5" />}
-        show={ReportProfile}
-        onClose={() => setReportProfile(false)}
-      >
-        <div className="flex h-full flex-col justify-between p-5">
-          <div>
-            <Radio
-              title="Misleading Account"
-              message="Impersonation or false claims about identity or affiliation"
-              name="reportReason"
-            />
-            <Radio
-              title="Frequently Posts Unwanted Content"
-              message="Spam; excessive mentions or replies"
-              name="reportReason"
-            />
-          </div>
-          <div className="mt-4 flex justify-center">
-            <button
-              className="rounded-md bg-gray-300 p-1 px-2 text-white hover:bg-gray-400"
-              onClick={() => alert('gm 🚀')}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      </Modal>
-    </>
+      </div>
+    </button>
   );
 };
 

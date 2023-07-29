@@ -22,6 +22,8 @@ interface GlobalModalState {
   setShowMobileDrawer: (showMobileDrawer: boolean) => void;
   showInvitesModal: boolean;
   setShowInvitesModal: (showInvitesModal: boolean) => void;
+  reportProfileModal: boolean;
+  setReportProfileModal: (reportProfileModal: boolean) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
@@ -42,5 +44,8 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showMobileDrawer: false,
   setShowMobileDrawer: (showMobileDrawer) => set(() => ({ showMobileDrawer })),
   showInvitesModal: false,
-  setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal }))
+  setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal })),
+  reportProfileModal: false,
+  setReportProfileModal: (reportProfileModal) =>
+    set(() => ({ reportProfileModal }))
 }));

@@ -13,6 +13,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
 import Invites from './Modal/Invites';
+import ReportProfile from './ReportProfile';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
@@ -31,7 +32,9 @@ const GlobalModals: FC = () => {
     showAuthModal,
     setShowAuthModal,
     showInvitesModal,
-    setShowInvitesModal
+    setShowInvitesModal,
+    reportProfileModal,
+    setReportProfileModal
   } = useGlobalModalStateStore();
 
   return (
@@ -86,6 +89,13 @@ const GlobalModals: FC = () => {
         onClose={() => setShowInvitesModal(false)}
       >
         <Invites />
+      </Modal>
+      <Modal
+        title={t`Report Profile`}
+        show={reportProfileModal}
+        onClose={() => setReportProfileModal(false)}
+      >
+        <ReportProfile />
       </Modal>
     </>
   );
