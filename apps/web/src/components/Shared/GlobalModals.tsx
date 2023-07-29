@@ -3,6 +3,7 @@ import Report from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
+  FlagIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/outline';
@@ -92,6 +93,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         title={t`Report Profile`}
+        icon={<FlagIcon className="text-brand h-5 w-5" />}
         show={reportProfileModal}
         onClose={() => setReportProfileModal(false)}
       >

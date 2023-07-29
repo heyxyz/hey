@@ -23,7 +23,7 @@ export const Radio: FC<RadioProps> = ({
       <input
         type="radio"
         name={name}
-        className="text-brand dark:text-brand h-4 w-4"
+        className="text-brand dark:text-brand h-4 w-4 border focus:ring-0 focus:ring-offset-0"
       />
       <div>
         <h3 className="text-base font-medium">{title}</h3>
