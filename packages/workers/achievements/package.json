@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@lenster/data": "*",
-    "@lenster/lib": "*",
     "itty-router": "^4.0.14"
   },
   "devDependencies": {
