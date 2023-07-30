@@ -33,7 +33,6 @@ const Share: FC<ShareProps> = ({ profile }) => {
         Leafwatch.track(PROFILE.COPY_PROFILE_LINK, {
           profile_id: profile.id
         });
-        alert(profile.id);
       }}
     >
       <div className="flex items-center space-x-2">

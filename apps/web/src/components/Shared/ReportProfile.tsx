@@ -12,6 +12,7 @@ const reportSchema = object({
 
 const Report: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [hasText, setHasText] = useState(false);
   const [isRadioSelected, setIsRadioSelected] = useState(false);
 
   const form = useZodForm({
@@ -22,7 +23,20 @@ const Report: FC = () => {
       <Form
         form={form}
         onSubmit={async ({ report }) => {
-          alert(report);
+          if (hasText) {
+            const validationResult = reportSchema.safeParse({
+              report: report
+            });
+            if (!validationResult.success) {
+              const errorMessage = validationResult.error?.message;
+              if (errorMessage) {
+                alert(errorMessage);
+                return;
+              }
+            }
+          }
+
+          alert('hi');
         }}
       >
         <div className="space-y-2">
@@ -45,6 +59,7 @@ const Report: FC = () => {
             label={t`Add details to report`}
             placeholder={t`Enter a reason or any other details here...`}
             {...form.register('report')}
+            onChange={() => setHasText(true)}
           />
         </div>
         <div className="flex justify-center">
