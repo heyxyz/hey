@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import useXmtpClient from './useXmtpClient';
 
-export type ConversationStream = Promise<Stream<Conversation>>;
+type ConversationStream = Promise<Stream<Conversation>>;
 
 /**
  * This hook listens for new conversations in real-time and calls the passed

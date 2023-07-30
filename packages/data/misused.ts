@@ -1,8 +1,5 @@
 export enum MisuseType {
-  Scam = 'Scam',
   Impersonated = 'Impersonated',
-  Hacked = 'Hacked',
-  Phishing = 'Phishing',
   TrademarkViolation = 'Trademark violation'
 }
 

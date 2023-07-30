@@ -11,7 +11,7 @@ for (const [k, v] of Object.entries(map)) {
   map[v] = k;
 }
 
-export const getSignatureAndId = async (
+const getSignatureAndId = async (
   item: DataItem,
   signer: EthereumSigner
 ): Promise<{ signature: Buffer; id: Buffer }> => {
