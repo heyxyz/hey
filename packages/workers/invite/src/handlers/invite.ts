@@ -1,4 +1,4 @@
-import { LensEndpoint } from '@lenster/data/lens-endpoints';
+import LensEndpoint from '@lenster/data/lens-endpoints';
 import { Regex } from '@lenster/data/regex';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
