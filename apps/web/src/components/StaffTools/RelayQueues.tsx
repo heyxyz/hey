@@ -27,7 +27,7 @@ interface RelayProps {
   relayer: string;
 }
 
-export const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
+const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
   function getRelayerName(name: string): string {
     const words = name.split('_');
     const capitalizedWords = words.map(

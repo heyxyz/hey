@@ -31,12 +31,6 @@ importers:
       '@lenster/lib':
         specifier: '*'
         version: link:../../packages/lib
-      axios:
-        specifier: ^1.4.0
-        version: 1.4.0
-      dotenv:
-        specifier: ^16.3.1
-        version: 16.3.1
       next:
         specifier: ^13.4.12
         version: 13.4.12(react-dom@18.2.0)(react@18.2.0)
@@ -161,9 +155,6 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
-      '@workers/snapshot-relay':
-        specifier: '*'
-        version: link:../../packages/workers/snapshot-relay
       '@xmtp/xmtp-js':
         specifier: ^10.1.0
         version: 10.1.0
@@ -185,9 +176,6 @@ importers:
       dexie-react-hooks:
         specifier: ^1.1.6
         version: 1.1.6(@types/react@18.2.17)(dexie@3.2.4)(react@18.2.0)
-      dotenv:
-        specifier: ^16.3.1
-        version: 16.3.1
       framer-motion:
         specifier: ^10.15.0
         version: 10.15.0(react-dom@18.2.0)(react@18.2.0)
@@ -484,9 +472,6 @@ importers:
       '@lenster/data':
         specifier: '*'
         version: link:../data
-      axios:
-        specifier: ^1.4.0
-        version: 1.4.0
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -583,9 +568,6 @@ importers:
       '@lenster/data':
         specifier: '*'
         version: link:../../data
-      '@lenster/lib':
-        specifier: '*'
-        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
@@ -701,9 +683,6 @@ importers:
       '@lenster/data':
         specifier: '*'
         version: link:../../data
-      '@lenster/lib':
-        specifier: '*'
-        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
@@ -763,9 +742,6 @@ importers:
       '@cfworker/base64url':
         specifier: ^1.12.5
         version: 1.12.5
-      '@lenster/lib':
-        specifier: '*'
-        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
@@ -806,15 +782,9 @@ importers:
 
   packages/workers/snapshot-relay:
     dependencies:
-      '@apollo/client':
-        specifier: ^3.7.17
-        version: 3.7.17(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
       '@lenster/data':
         specifier: '*'
         version: link:../../data
-      '@lenster/lib':
-        specifier: '*'
-        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
@@ -8805,6 +8775,7 @@ packages:
   /dotenv@16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
+    dev: true
 
   /drbg.js@1.0.1:
     resolution: {integrity: sha512-F4wZ06PvqxYLFEZKkFxTDcns9oFNk34hvmJSEwdzsxVQ8YI5YaxtACgQatkYgv2VI2CFkUd2Y+xosPQnHv809g==}

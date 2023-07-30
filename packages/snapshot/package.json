@@ -14,8 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.17",
-    "@lenster/data": "*",
-    "axios": "^1.4.0"
+    "@lenster/data": "*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",

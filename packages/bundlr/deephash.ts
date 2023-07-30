@@ -1,7 +1,7 @@
-export type DeepHashChunk = Uint8Array | AsyncIterable<Buffer> | DeepHashChunks;
-export type DeepHashChunks = DeepHashChunk[];
+type DeepHashChunk = Uint8Array | AsyncIterable<Buffer> | DeepHashChunks;
+type DeepHashChunks = DeepHashChunk[];
 
-export const deepHash = async (data: DeepHashChunk): Promise<Uint8Array> => {
+const deepHash = async (data: DeepHashChunk): Promise<Uint8Array> => {
   if (
     // @ts-expect-error
     typeof data[Symbol.asyncIterator as keyof AsyncIterable<Buffer>] ===
