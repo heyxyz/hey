@@ -1427,6 +1427,11 @@ msgstr ""
 msgid "Invited by <0/>"
 msgstr "Invited by <0/>"
 
+#: src/components/Profile/Menu/Report.tsx
+#: src/components/Shared/GlobalModals.tsx
+msgid "Report Profile"
+msgstr "Report Profile"
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -2849,6 +2854,22 @@ msgstr "Protect now"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Misleading Account"
+msgstr "Misleading Account"
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Impersonation or false claims about identity or affiliation"
+msgstr "Impersonation or false claims about identity or affiliation"
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Frequently Posts Unwanted Content"
+msgstr "Frequently Posts Unwanted Content"
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Spam; excessive mentions or replies"
+msgstr "Spam; excessive mentions or replies"
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"

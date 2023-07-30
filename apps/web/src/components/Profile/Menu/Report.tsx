@@ -5,8 +5,8 @@ import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 const Report: FC = () => {
-  const setReportProfileModal = useGlobalModalStateStore(
-    (state) => state.setReportProfileModal
+  const setShowReportProfileModal = useGlobalModalStateStore(
+    (state) => state.setShowReportProfileModal
   );
 
   return (
@@ -15,7 +15,7 @@ const Report: FC = () => {
       className={clsx(
         'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm hover:bg-gray-300/20'
       )}
-      onClick={() => setReportProfileModal(true)}
+      onClick={() => setShowReportProfileModal(true)}
     >
       <div className="flex items-center space-x-2">
         <FlagIcon className="h-4 w-4" />

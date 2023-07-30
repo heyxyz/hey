@@ -1427,6 +1427,11 @@ msgstr "未能加载正在关注的人"
 msgid "Invited by <0/>"
 msgstr ""
 
+#: src/components/Profile/Menu/Report.tsx
+#: src/components/Shared/GlobalModals.tsx
+msgid "Report Profile"
+msgstr ""
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -2850,6 +2855,22 @@ msgstr ""
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
 
+#: src/components/Shared/ReportProfile.tsx
+msgid "Misleading Account"
+msgstr ""
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Impersonation or false claims about identity or affiliation"
+msgstr ""
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Frequently Posts Unwanted Content"
+msgstr ""
+
+#: src/components/Shared/ReportProfile.tsx
+msgid "Spam; excessive mentions or replies"
+msgstr ""
+
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
 msgstr "这项投票已经关闭！"
@@ -3129,4 +3150,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

@@ -6,13 +6,15 @@ interface RadioProps {
   message?: ReactNode;
   className?: string;
   name: string;
+  onChange?: () => void;
 }
 
 export const Radio: FC<RadioProps> = ({
   title,
   message,
   className = '',
-  name
+  name,
+  onChange
 }) => {
   if (!message) {
     return null;
@@ -24,6 +26,7 @@ export const Radio: FC<RadioProps> = ({
         type="radio"
         name={name}
         className="text-brand dark:text-brand h-4 w-4 border focus:ring-0 focus:ring-offset-0"
+        onChange={onChange}
       />
       <div>
         <h3 className="text-base font-medium">{title}</h3>
