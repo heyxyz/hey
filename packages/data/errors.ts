@@ -1,6 +1,5 @@
 export enum Errors {
   SomethingWentWrong = 'Something went wrong!',
   SignWallet = 'Please sign in your wallet.',
-  StatusCodeIsNot200 = 'Status code is not 200!',
-  InvalidAccesstoken = 'Invalid access token!'
+  StatusCodeIsNot200 = 'Status code is not 200!'
 }

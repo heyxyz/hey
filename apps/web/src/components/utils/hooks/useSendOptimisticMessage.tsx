@@ -29,9 +29,7 @@ function makePromise<T = void>() {
   };
 }
 
-export type PreparedMessage = Awaited<
-  ReturnType<Conversation['prepareMessage']>
->;
+type PreparedMessage = Awaited<ReturnType<Conversation['prepareMessage']>>;
 
 export type SendMessageOptions = {
   fallback?: string;
@@ -58,8 +56,7 @@ export type FailedMessage = Omit<PendingMessage, 'status'> & {
   cancel: () => void;
 };
 
-export type MessageQueue = (PendingMessage | FailedMessage)[];
-export type PendingQueueItem = {
+type PendingQueueItem = {
   message: PendingMessage;
   resolve: (value: boolean) => void;
 };
@@ -75,7 +72,7 @@ export const isQueuedMessage = (
   return 'status' in message;
 };
 
-export type UseSendOptimisticMessageOptions = {
+type UseSendOptimisticMessageOptions = {
   onCancel?: (id: string) => void;
   onQueue?: (message: PendingMessage | FailedMessage) => void;
   onUpdate?: (id: string, message: PendingMessage | FailedMessage) => void;

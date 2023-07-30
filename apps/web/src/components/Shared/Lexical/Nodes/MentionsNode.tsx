@@ -3,14 +3,13 @@ import type {
   DOMConversionOutput,
   DOMExportOutput,
   EditorConfig,
-  LexicalNode,
   NodeKey,
   SerializedTextNode,
   Spread
 } from 'lexical';
 import { TextNode } from 'lexical';
 
-export type SerializedMentionNode = Spread<
+type SerializedMentionNode = Spread<
   { mentionName: string; type: 'mention'; version: 1 },
   SerializedTextNode
 >;
@@ -105,10 +104,4 @@ const convertMentionElement = (
   }
 
   return null;
-};
-
-export const $isMentionNode = (
-  node: LexicalNode | null | undefined
-): node is MentionNode => {
-  return node instanceof MentionNode;
 };

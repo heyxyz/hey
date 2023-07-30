@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "@cfworker/base64url": "^1.12.5",
-    "@lenster/lib": "*",
     "itty-router": "^4.0.14",
     "linkedom": "^0.15.1"
   },
