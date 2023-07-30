@@ -4,9 +4,9 @@ import { type FC, useState } from 'react';
 import { object, string } from 'zod';
 
 const reportProfileSchema = object({
-  report: string()
-    .min(10, { message: t`Report should not be empty` })
-    .max(300, { message: t`Report should not exceed 300 characters` })
+  report: string().max(300, {
+    message: t`Report should not exceed 300 characters`
+  })
 });
 
 const Report: FC = () => {
@@ -21,7 +21,7 @@ const Report: FC = () => {
       <Form
         form={form}
         onSubmit={async ({}) => {
-          alert('report');
+          alert('Submitted');
         }}
       >
         <div className="space-y-2">
