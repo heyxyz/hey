@@ -28,13 +28,13 @@ const Report: FC = () => {
         <div className="space-y-2">
           <Radio
             title={t`Misleading Account`}
-            message={t`Impersonation or false claims about identity or affiliation`}
+            value={t`Impersonation or false claims about identity or affiliation`}
             name="reportReason"
             onChange={() => setIsRadioSelected(true)}
           />
           <Radio
             title={t`Frequently Posts Unwanted Content`}
-            message={t`Spam; excessive mentions or replies`}
+            value={t`Spam; excessive mentions or replies`}
             name="reportReason"
             onChange={() => setIsRadioSelected(true)}
           />

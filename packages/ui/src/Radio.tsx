@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 
 interface RadioProps {
   title?: string;
-  message?: ReactNode;
+  value?: ReactNode;
   className?: string;
   name: string;
   onChange?: () => void;
@@ -11,12 +11,12 @@ interface RadioProps {
 
 export const Radio: FC<RadioProps> = ({
   title,
-  message,
+  value,
   className = '',
   name,
   onChange
 }) => {
-  if (!message) {
+  if (!value) {
     return null;
   }
 
@@ -31,7 +31,7 @@ export const Radio: FC<RadioProps> = ({
       <div>
         <h3 className="text-base font-medium">{title}</h3>
         <div className="flex items-center space-x-2">
-          <div className="text-sm">{message}</div>
+          <div className="text-sm">{value}</div>
         </div>
       </div>
     </div>
