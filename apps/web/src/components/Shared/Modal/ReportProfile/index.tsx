@@ -33,13 +33,21 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
       >
         <div className="space-y-5">
           <Radio
-            title={t`Misleading Account`}
+            title={
+              <span className="font-medium">
+                <Trans>Misleading Account</Trans>
+              </span>
+            }
             value={t`Impersonation or false claims about identity or affiliation`}
             name="reportReason"
             onChange={() => setIsRadioSelected(true)}
           />
           <Radio
-            title={t`Frequently Posts Unwanted Content`}
+            title={
+              <span className="font-medium">
+                <Trans>Frequently Posts Unwanted Content</Trans>
+              </span>
+            }
             value={t`Spam; excessive mentions or replies`}
             name="reportReason"
             onChange={() => setIsRadioSelected(true)}
