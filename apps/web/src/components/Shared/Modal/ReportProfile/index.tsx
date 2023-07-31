@@ -9,9 +9,11 @@ const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
 
 const reportReportProfileSchema = object({
   type: ReportType,
-  description: string().max(300, {
-    message: t`Report should not exceed 300 characters`
-  })
+  description: string()
+    .max(300, {
+      message: t`Report should not exceed 300 characters`
+    })
+    .optional()
 });
 
 interface ReportProfileProps {
@@ -40,6 +42,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
               </span>
             }
             description={t`Impersonation or false claims about identity or affiliation`}
+            value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
           />
           <Radio
@@ -49,6 +52,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
               </span>
             }
             description={t`Spam; excessive mentions or replies`}
+            value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
           />
         </div>
@@ -65,7 +69,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           type="submit"
           variant="primary"
           icon={<PencilAltIcon className="h-4 w-4" />}
-          // disabled={!form.formState.isValid}
+          disabled={!form.formState.isValid}
         >
           <Trans>Report</Trans>
         </Button>

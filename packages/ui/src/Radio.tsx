@@ -5,14 +5,12 @@ import { forwardRef, useId } from 'react';
 interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   heading: ReactNode;
   description?: ReactNode;
-  name: string;
   className?: string;
 }
 
 export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
   heading,
   description,
-  name,
   className = '',
   ...rest
 }) {
@@ -23,7 +21,6 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
       <input
         id={id}
         type="radio"
-        name={name}
         className="text-brand dark:text-brand h-4 w-4 border focus:ring-0 focus:ring-offset-0"
         {...rest}
       />
