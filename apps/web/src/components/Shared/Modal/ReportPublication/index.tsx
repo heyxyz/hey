@@ -22,7 +22,7 @@ import { object, string } from 'zod';
 
 import Reason from './Reason';
 
-const newReportSchema = object({
+const newReportPublicationSchema = object({
   additionalComments: string().max(260, {
     message: t`Additional comments should not exceed 260 characters`
   })
@@ -52,7 +52,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   });
 
   const form = useZodForm({
-    schema: newReportSchema
+    schema: newReportPublicationSchema
   });
 
   const reportPublication = (additionalComments: string | null) => {

@@ -1,26 +1,22 @@
 import clsx from 'clsx';
-import { type FC, type ReactNode, useId } from 'react';
+import type { InputHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, useId } from 'react';
 
-interface RadioProps {
-  title: ReactNode;
-  value?: ReactNode;
-  className?: string;
+interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+  heading: ReactNode;
+  description?: ReactNode;
   name: string;
-  onChange?: () => void;
+  className?: string;
 }
 
-export const Radio: FC<RadioProps> = ({
-  title,
-  value,
-  className = '',
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
+  heading,
+  description,
   name,
-  onChange
-}) => {
+  className = '',
+  ...rest
+}) {
   const id = useId();
-
-  if (!title) {
-    return null;
-  }
 
   return (
     <div className={clsx('flex items-center space-x-3', className)}>
@@ -29,12 +25,12 @@ export const Radio: FC<RadioProps> = ({
         type="radio"
         name={name}
         className="text-brand dark:text-brand h-4 w-4 border focus:ring-0 focus:ring-offset-0"
-        onChange={onChange}
+        {...rest}
       />
       <label htmlFor={id}>
-        <div>{title}</div>
-        {value ? <div className="text-sm">{value}</div> : null}
+        <div>{heading}</div>
+        {description ? <div className="text-sm">{description}</div> : null}
       </label>
     </div>
   );
-};
+});
