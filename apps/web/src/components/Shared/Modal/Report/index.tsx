@@ -105,21 +105,20 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                   placeholder={t`Please provide additional details`}
                   {...form.register('additionalComments')}
                 />
-                <div className="ml-auto">
-                  <Button
-                    type="submit"
-                    disabled={submitLoading}
-                    icon={
-                      submitLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <PencilAltIcon className="h-4 w-4" />
-                      )
-                    }
-                  >
-                    <Trans>Report</Trans>
-                  </Button>
-                </div>
+                <Button
+                  className="flex w-full justify-center"
+                  type="submit"
+                  disabled={submitLoading}
+                  icon={
+                    submitLoading ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <PencilAltIcon className="h-4 w-4" />
+                    )
+                  }
+                >
+                  <Trans>Report</Trans>
+                </Button>
               </>
             )}
           </Form>
