@@ -2,7 +2,7 @@ import { PencilAltIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import { Button, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { object, string, z } from 'zod';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
@@ -44,6 +44,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             description={t`Impersonation or false claims about identity or affiliation`}
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
+            checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
           />
           <Radio
             heading={
@@ -54,6 +55,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             description={t`Spam; excessive mentions or replies`}
             value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
+            checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
           />
         </div>
         <div className="divider my-5" />
