@@ -42,7 +42,7 @@ interface StatBoxProps {
   title: string;
 }
 
-export const StatBox: FC<StatBoxProps> = ({
+const StatBox: FC<StatBoxProps> = ({
   icon,
   value,
   todayValue,

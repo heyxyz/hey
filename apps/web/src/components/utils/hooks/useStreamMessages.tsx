@@ -2,7 +2,7 @@ import type { DecodedMessage, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useRef } from 'react';
 import { useMessageStore } from 'src/store/message';
 
-export type MessageStream = Promise<Stream<DecodedMessage>>;
+type MessageStream = Promise<Stream<DecodedMessage>>;
 
 const useStreamMessages = (
   conversationKey: string,
