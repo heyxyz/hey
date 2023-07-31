@@ -1,6 +1,8 @@
 import { PencilAltIcon } from '@heroicons/react/outline';
+import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { Button, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { object, string, z } from 'zod';
@@ -32,6 +34,11 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         form={form}
         onSubmit={({ type, description }) => {
           console.log({ type, description, profile: profile?.id });
+          Leafwatch.track(PROFILE.REPORT_PROFILE, {
+            type,
+            description,
+            profile: profile?.id
+          });
         }}
       >
         <div className="space-y-5">
