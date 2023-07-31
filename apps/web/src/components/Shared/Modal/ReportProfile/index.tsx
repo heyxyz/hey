@@ -4,7 +4,8 @@ import type { Profile } from '@lenster/lens';
 import { Button, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import React, { useState } from 'react';
+import { type FC } from 'react';
 import { object, string, z } from 'zod';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
@@ -27,12 +28,16 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
     schema: reportReportProfileSchema
   });
 
+  const [isRadioSelected, setIsRadioSelected] = useState(false);
+
   return (
     <div className="flex flex-col space-y-2 p-5">
       <Form
         className="space-y-4"
         form={form}
-        onSubmit={({ type, description }) => {
+        onSubmit={() => {
+          const data = form.getValues();
+          const { type, description } = data;
           console.log({ type, description, profile: profile?.id });
           Leafwatch.track(PROFILE.REPORT_PROFILE, {
             type,
@@ -52,6 +57,10 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
+            onChange={() => {
+              form.setValue('type', ReportType.Enum.MISLEADING_ACCOUNT);
+              setIsRadioSelected(true);
+            }}
           />
           <Radio
             heading={
@@ -63,6 +72,10 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
+            onChange={() => {
+              form.setValue('type', ReportType.Enum.UNWANTED_CONTENT);
+              setIsRadioSelected(true);
+            }}
           />
         </div>
         <div className="divider my-5" />
@@ -78,7 +91,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           type="submit"
           variant="primary"
           icon={<PencilAltIcon className="h-4 w-4" />}
-          disabled={!form.formState.isValid}
+          disabled={!isRadioSelected}
         >
           <Trans>Report</Trans>
         </Button>
