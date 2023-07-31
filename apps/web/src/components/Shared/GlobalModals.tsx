@@ -1,5 +1,5 @@
 import NewPublication from '@components/Composer/NewPublication';
-import ReportPublication from '@components/Shared/Modal/Report';
+import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
