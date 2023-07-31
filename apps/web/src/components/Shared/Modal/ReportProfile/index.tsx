@@ -6,6 +6,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import React, { useState } from 'react';
 import { type FC } from 'react';
+import toast from 'react-hot-toast';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { object, string, z } from 'zod';
 
 const ReportType = z.enum(['MISLEADING_ACCOUNT', 'UNWANTED_CONTENT']);
@@ -24,6 +26,10 @@ interface ReportProfileProps {
 }
 
 const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
+  const setShowReportProfileModal = useGlobalModalStateStore(
+    (state) => state.setShowReportProfileModal
+  );
+
   const form = useZodForm({
     schema: reportReportProfileSchema
   });
@@ -44,6 +50,8 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             description,
             profile: profile?.id
           });
+          setShowReportProfileModal(false, null);
+          toast.success(t`Reported Successfully!`);
         }}
       >
         <div className="space-y-5">
