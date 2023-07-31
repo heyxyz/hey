@@ -35,6 +35,7 @@ const GlobalModals: FC = () => {
     showInvitesModal,
     setShowInvitesModal,
     showReportProfileModal,
+    reportingProfile,
     setShowReportProfileModal
   } = useGlobalModalStateStore();
 
@@ -95,9 +96,9 @@ const GlobalModals: FC = () => {
         title={t`Report Profile`}
         icon={<FlagIcon className="text-brand h-5 w-5" />}
         show={showReportProfileModal}
-        onClose={() => setShowReportProfileModal(false)}
+        onClose={() => setShowReportProfileModal(false, reportingProfile)}
       >
-        <ReportProfile />
+        <ReportProfile profile={reportingProfile?.id} />
       </Modal>
     </>
   );

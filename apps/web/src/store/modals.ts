@@ -1,4 +1,4 @@
-import type { Publication } from '@lenster/lens';
+import type { Profile, Publication } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {
@@ -23,7 +23,11 @@ interface GlobalModalState {
   showInvitesModal: boolean;
   setShowInvitesModal: (showInvitesModal: boolean) => void;
   showReportProfileModal: boolean;
-  setShowReportProfileModal: (reportProfileModal: boolean) => void;
+  reportingProfile: Profile | null;
+  setShowReportProfileModal: (
+    reportProfileModal: boolean,
+    reportingProfile: Profile | null
+  ) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
@@ -46,6 +50,7 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showInvitesModal: false,
   setShowInvitesModal: (showInvitesModal) => set(() => ({ showInvitesModal })),
   showReportProfileModal: false,
-  setShowReportProfileModal: (showReportProfileModal) =>
-    set(() => ({ showReportProfileModal }))
+  reportingProfile: null,
+  setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
+    set(() => ({ showReportProfileModal, reportingProfile }))
 }));

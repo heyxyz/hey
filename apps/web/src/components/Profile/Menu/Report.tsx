@@ -1,10 +1,15 @@
 import { FlagIcon } from '@heroicons/react/outline';
+import type { Profile } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { type FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-const Report: FC = () => {
+interface ReportProfileProps {
+  profile: Profile;
+}
+
+const Report: FC<ReportProfileProps> = ({ profile }) => {
   const setShowReportProfileModal = useGlobalModalStateStore(
     (state) => state.setShowReportProfileModal
   );
@@ -15,7 +20,7 @@ const Report: FC = () => {
       className={clsx(
         'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm hover:bg-gray-300/20'
       )}
-      onClick={() => setShowReportProfileModal(true)}
+      onClick={() => setShowReportProfileModal(true, profile)}
     >
       <div className="flex items-center space-x-2">
         <FlagIcon className="h-4 w-4" />

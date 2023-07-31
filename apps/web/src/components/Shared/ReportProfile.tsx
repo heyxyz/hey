@@ -1,7 +1,12 @@
+import type { Profile } from '@lenster/lens';
 import { Button, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { type FC, useState } from 'react';
 import { object, string } from 'zod';
+
+interface ReportProfileProps {
+  profile: Profile;
+}
 
 const reportProfileSchema = object({
   report: string().max(300, {
@@ -9,7 +14,7 @@ const reportProfileSchema = object({
   })
 });
 
-const Report: FC = () => {
+const Report: FC<ReportProfileProps> = ({ profile }) => {
   const [isRadioSelected, setIsRadioSelected] = useState(false);
 
   const form = useZodForm({
@@ -20,8 +25,8 @@ const Report: FC = () => {
     <div className="flex flex-col space-y-2 p-3">
       <Form
         form={form}
-        onSubmit={async ({}) => {
-          alert('Submitted');
+        onSubmit={() => {
+          alert('Submitted' + profile?.id);
         }}
       >
         <div className="space-y-2">
