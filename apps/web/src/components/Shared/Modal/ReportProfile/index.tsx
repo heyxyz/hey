@@ -4,17 +4,17 @@ import { t } from '@lingui/macro';
 import { type FC, useState } from 'react';
 import { object, string } from 'zod';
 
-interface ReportProfileProps {
-  profile: Profile;
-}
-
 const reportProfileSchema = object({
   report: string().max(300, {
     message: t`Report should not exceed 300 characters`
   })
 });
 
-const Report: FC<ReportProfileProps> = ({ profile }) => {
+interface ReportProfileProps {
+  profile: Profile | null;
+}
+
+const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
   const [isRadioSelected, setIsRadioSelected] = useState(false);
 
   const form = useZodForm({
@@ -22,14 +22,14 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
   });
 
   return (
-    <div className="flex flex-col space-y-2 p-3">
+    <div className="flex flex-col space-y-2 p-5">
       <Form
         form={form}
         onSubmit={() => {
           alert('Submitted' + profile?.id);
         }}
       >
-        <div className="space-y-2">
+        <div className="space-y-5">
           <Radio
             title={t`Misleading Account`}
             value={t`Impersonation or false claims about identity or affiliation`}
@@ -42,28 +42,25 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
             name="reportReason"
             onChange={() => setIsRadioSelected(true)}
           />
+          <div>
+            <TextArea
+              label={t`Add details to report`}
+              placeholder={t`Enter a reason or any other details here...`}
+              {...form.register('report')}
+            />
+          </div>
         </div>
-
-        <div className="flex flex-col p-2">
-          <TextArea
-            label={t`Add details to report`}
-            placeholder={t`Enter a reason or any other details here...`}
-            {...form.register('report')}
-          />
-        </div>
-        <div className="flex justify-center">
-          <Button
-            type="submit"
-            variant="primary"
-            className="w-full"
-            disabled={!isRadioSelected}
-          >
-            Submit
-          </Button>
-        </div>
+        <Button
+          type="submit"
+          variant="primary"
+          className="w-full"
+          disabled={!isRadioSelected}
+        >
+          Submit
+        </Button>
       </Form>
     </div>
   );
 };
 
-export default Report;
+export default ReportProfile;

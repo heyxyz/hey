@@ -21,7 +21,7 @@ export const Radio: FC<RadioProps> = ({
   }
 
   return (
-    <div className={clsx('flex items-center space-x-2 p-2', className)}>
+    <div className={clsx('flex items-center space-x-2', className)}>
       <input
         type="radio"
         name={name}

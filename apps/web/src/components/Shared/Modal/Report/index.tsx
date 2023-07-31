@@ -17,7 +17,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -30,13 +29,12 @@ const newReportSchema = object({
 });
 
 interface ReportProps {
-  publication: Publication;
+  publication: Publication | null;
 }
 
-const Report: FC<ReportProps> = ({ publication }) => {
-  const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
-  const [type, setType] = useState(reportConfig?.type ?? '');
-  const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
+const ReportPublication: FC<ReportProps> = ({ publication }) => {
+  const [type, setType] = useState('');
+  const [subReason, setSubReason] = useState('');
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'report' });
@@ -131,4 +129,4 @@ const Report: FC<ReportProps> = ({ publication }) => {
   );
 };
 
-export default Report;
+export default ReportPublication;

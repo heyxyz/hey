@@ -1,9 +1,8 @@
 import NewPublication from '@components/Composer/NewPublication';
-import Report from '@components/Shared/Modal/Report';
+import ReportPublication from '@components/Shared/Modal/Report';
 import {
   ArrowCircleRightIcon,
   EmojiHappyIcon,
-  FlagIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/outline';
@@ -14,16 +13,16 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
 import Invites from './Modal/Invites';
-import ReportProfile from './ReportProfile';
+import ReportProfile from './Modal/ReportProfile';
 import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
   // Report modal state
   const {
-    showReportModal,
+    showPublicationReportModal,
     reportingPublication,
-    setShowReportModal,
+    setShowPublicationReportModal,
     showStatusModal,
     setShowStatusModal,
     showProfileSwitchModal,
@@ -41,16 +40,24 @@ const GlobalModals: FC = () => {
 
   return (
     <>
-      {reportingPublication ? (
-        <Modal
-          title={t`Report`}
-          icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
-          show={showReportModal}
-          onClose={() => setShowReportModal(false, reportingPublication)}
-        >
-          <Report publication={reportingPublication} />
-        </Modal>
-      ) : null}
+      <Modal
+        title={t`Report Publication`}
+        icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
+        show={showPublicationReportModal}
+        onClose={() =>
+          setShowPublicationReportModal(false, reportingPublication)
+        }
+      >
+        <ReportPublication publication={reportingPublication} />
+      </Modal>
+      <Modal
+        title={t`Report Profile`}
+        icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
+        show={showReportProfileModal}
+        onClose={() => setShowReportProfileModal(false, reportingProfile)}
+      >
+        <ReportProfile profile={reportingProfile} />
+      </Modal>
       <Modal
         title={t`Set status`}
         icon={<EmojiHappyIcon className="text-brand h-5 w-5" />}
@@ -91,14 +98,6 @@ const GlobalModals: FC = () => {
         onClose={() => setShowInvitesModal(false)}
       >
         <Invites />
-      </Modal>
-      <Modal
-        title={t`Report Profile`}
-        icon={<FlagIcon className="text-brand h-5 w-5" />}
-        show={showReportProfileModal}
-        onClose={() => setShowReportProfileModal(false, reportingProfile)}
-      >
-        <ReportProfile profile={reportingProfile?.id} />
       </Modal>
     </>
   );
