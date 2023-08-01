@@ -81,10 +81,10 @@ const UserProfile: FC<UserProfileProps> = ({
               formatHandle(profile?.handle)}
           </div>
         </div>
-        {isVerified(profile?.id) && (
+        {isVerified(profile.id) && (
           <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
         )}
-        {hasMisused(profile?.id) && (
+        {hasMisused(profile.id) && (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
         )}
         {showStatus && hasStatus ? (
@@ -149,7 +149,7 @@ const UserProfile: FC<UserProfileProps> = ({
   return (
     <div
       className="flex items-center justify-between"
-      data-testid={`user-profile-${profile?.id}`}
+      data-testid={`user-profile-${profile.id}`}
     >
       {linkToProfile ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>

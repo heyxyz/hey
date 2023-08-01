@@ -5,7 +5,6 @@ import type { Profile } from '@lenster/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import React from 'react';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -52,9 +51,12 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           toast.success(t`Reported Successfully!`);
         }}
       >
-        <Card className="p-3">
-          <UserProfile profile={profile as Profile} showUserPreview={false} />
-        </Card>
+        {profile ? (
+          <Card className="p-3">
+            <UserProfile profile={profile as Profile} showUserPreview={false} />
+          </Card>
+        ) : null}
+
         <div className="space-y-5">
           <Radio
             heading={
