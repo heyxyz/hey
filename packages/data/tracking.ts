@@ -21,6 +21,7 @@ export const PROFILE = {
   SWITCH_PROFILE_FEED_TAB: 'Switch profile feed tab',
   SWITCH_PROFILE_STATS_TAB: 'Switch profile stats tab',
   SWITCH_PROFILE: 'Switch profile',
+  REPORT_PROFILE: 'Report profile',
   LOGOUT: 'Profile logout'
 };
 
