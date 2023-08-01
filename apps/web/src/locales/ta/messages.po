@@ -2443,9 +2443,8 @@ msgid "Perform mod actions on this publication."
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr "புகார்"
+msgid "Report Publication"
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2634,119 +2633,156 @@ msgstr "மிரர்கள் இல்லை."
 msgid "Failed to load mirrors"
 msgstr "மிரர்களை ஏற்றுவதில் தோல்வி"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Report should not exceed 300 characters"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Reported Successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Misleading Account"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Impersonation or false claims about identity or affiliation"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Frequently Posts Unwanted Content"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Spam; excessive mentions or replies"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Add details to report"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Enter a reason or any other details here..."
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Report"
+msgstr "புகார்"
+
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select type"
 msgstr "வகையைத் தேர்ந்தெடுக்கவும்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Illegal"
 msgstr "சட்டவிரோதமானது"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fraud"
 msgstr "மோசடி"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Sensitive"
 msgstr "உணர்திறன்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Spam"
 msgstr "ஸ்பேம்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Reason"
 msgstr "காரணம்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select sub reason"
 msgstr "துணை காரணத்தைத் தேர்ந்தெடுக்கவும்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Animal Abuse"
 msgstr "விலங்கு வன்கொடுமை"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Direct Threat"
 msgstr "நேரடி அச்சுறுத்தல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Human Abuse"
 msgstr "மனித வன்கொடுமை"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Threat Individual"
 msgstr "தனிநபர் அச்சுறுத்தல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Violence"
 msgstr "வன்முறை"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Scam"
 msgstr "ஊழல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Impersonation"
 msgstr "ஆள்மாறாட்டம்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "NSFW"
 msgstr "என்எஸ்எஃப்டபிள்யூ"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Offensive"
 msgstr "வெறுக்கத்தக்க"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fake engagement"
 msgstr "போலியான ஈடுபாடு"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Low signal"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr "அல்காரிதம் சூழ்ச்சிசெய்தல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misleading"
 msgstr "தவறாக வழிநடத்துதல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misuse hashtags"
 msgstr "ஹேஷ்டேக்குகளை தவறாகப் பயன்படுத்துதல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Repetitive"
 msgstr "தொடர்ச்சியாகச் செய்தல்"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Something else"
 msgstr "வேறு ஏதாவது"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Unrelated"
 msgstr "தொடர்பில்லாத"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr "கூடுதல் கருத்துகள் 260 எழுத்துகளுக்கு மிகாமல் இருக்க வேண்டும்"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Publication reported successfully!"
 msgstr "இடுகை வெற்றிகரமாக புகார் செய்யப்பட்டது!"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Failed to report"
 msgstr "புகாரளிக்க முடியவில்லை"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Description"
 msgstr "விளக்கம்"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "கூடுதல் விவரங்களை வழங்கவும்"
 
@@ -2850,22 +2886,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
-
-#: src/components/Shared/ReportProfile.tsx
-msgid "Misleading Account"
-msgstr ""
-
-#: src/components/Shared/ReportProfile.tsx
-msgid "Impersonation or false claims about identity or affiliation"
-msgstr ""
-
-#: src/components/Shared/ReportProfile.tsx
-msgid "Frequently Posts Unwanted Content"
-msgstr ""
-
-#: src/components/Shared/ReportProfile.tsx
-msgid "Spam; excessive mentions or replies"
-msgstr ""
 
 #: src/components/Shared/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
