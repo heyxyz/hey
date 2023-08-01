@@ -1,7 +1,8 @@
+import UserProfile from '@components/Shared/UserProfile';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
-import { Button, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
+import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import React, { useState } from 'react';
@@ -53,6 +54,9 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           toast.success(t`Reported Successfully!`);
         }}
       >
+        <Card className="p-3">
+          <UserProfile profile={profile as Profile} showUserPreview={false} />
+        </Card>
         <div className="space-y-5">
           <Radio
             heading={
