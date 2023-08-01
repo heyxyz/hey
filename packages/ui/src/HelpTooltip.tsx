@@ -1,3 +1,5 @@
+import 'tippy.js/dist/tippy.css';
+
 import { InformationCircleIcon } from '@heroicons/react/outline';
 import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
