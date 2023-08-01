@@ -6,6 +6,7 @@ This folder contains all the shared packages that are used in the Lenster projec
 - [Bundlr](./bundlr/README.md) - Create bundles on Arweave
 - [Config](./config/README.md) - ESlint and TypeScript config
 - [Data](./data/README.md) - Data like constants, storage, etc.
+- [Types](./types/README.md) - Shared types
 - [Image Cropper](./image-cropper/README.md) - Image cropper avatar and cover
 - [Lens](./lens/README.md) - Lens GraphQL client, helpers, and documents
 - [Lib](./lib/README.md) - Shared libraries
@@ -18,5 +19,6 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
   - [ENS Resolver](../packages/workers/ens/README.md) - Resolve Ethereum address to ENS names
   - [Oembed](../packages/workers/oembed/README.md) - Create rich embeds for URLs also proxy images
-  - [Spaces](../packages/workers/spaces/README.md) - Interact with Huddle API for Spaces
   - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Lenster
+  - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Lenster
+  - [Invite](../packages/workers/invite/README.md) - Invite API for Lenster

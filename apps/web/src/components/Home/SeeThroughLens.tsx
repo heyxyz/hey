@@ -22,6 +22,7 @@ import { Image, Input, Spinner } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -44,7 +45,7 @@ const SeeThroughLens: FC = () => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
-      const profileId = feedItem.root?.profile?.id;
+      const profileId = feedItem.root?.profile.id;
       if (
         !uniqueProfileIds.includes(profileId) &&
         profileId !== seeThroughProfile?.id &&
@@ -166,7 +167,10 @@ const SeeThroughLens: FC = () => {
               <>
                 {profiles.map((profile: Profile) => (
                   <Menu.Item
-                    as="div"
+                    as={motion.div}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
@@ -178,7 +182,7 @@ const SeeThroughLens: FC = () => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
                       Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED, {
-                        see_through_profile: profile?.id
+                        see_through_profile: profile.id
                       });
                     }}
                   >

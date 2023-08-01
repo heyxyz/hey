@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8089",
+    "dev": "wrangler dev --port 8088",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
@@ -14,16 +14,15 @@
   },
   "dependencies": {
     "@lenster/data": "*",
-    "@lenster/lib": "*",
     "itty-router": "^4.0.14",
     "ua-parser-js": "^1.0.35",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230717.0",
+    "@cloudflare/workers-types": "^4.20230724.0",
     "@lenster/config": "*",
     "@types/ua-parser-js": "^0.7.36",
     "typescript": "^5.1.6",
-    "wrangler": "^3.3.0"
+    "wrangler": "^3.4.0"
   }
 }

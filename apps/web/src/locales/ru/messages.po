@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-20 00:09\n"
+"PO-Revision-Date: 2023-07-29 14:26\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Bookmarks/Feed.tsx
 msgid "No bookmarks yet!"
-msgstr ""
+msgstr "Заметок пока нет!"
 
 #: src/components/Bookmarks/Feed.tsx
 msgid "Failed to load bookmark feed"
@@ -28,7 +28,7 @@ msgstr ""
 
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
-msgstr ""
+msgstr "Заметки • {APP_NAME}"
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
@@ -289,10 +289,6 @@ msgstr "Друзья моих друзей могут комментироват
 msgid "Everyone can comment and mirror"
 msgstr "Любой может комментировать и репостить"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -316,10 +312,6 @@ msgid "Please choose either 1 video or up to 4 photos."
 msgstr "Пожалуйста, выберите либо 1 видео, либо до 4 фотографий."
 
 #: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr ""
-
-#: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
 msgstr "Задать вопрос..."
 
@@ -332,7 +324,7 @@ msgstr "Что происходит?"
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
-msgstr ""
+msgstr "Момока в настоящее время находится в бета-версии - в это время некоторые действия недоступны для всех профилей."
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
@@ -346,10 +338,6 @@ msgstr "Транзакция не удалась!"
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "Прокомментировать"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
@@ -561,7 +549,7 @@ msgstr "Нечего предложить"
 #: src/components/Home/Tags.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
 msgid "collected"
@@ -601,6 +589,10 @@ msgstr "Не удалось загрузить тренды"
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
+msgstr ""
+
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
 msgstr ""
@@ -623,11 +615,11 @@ msgstr "Загрузка сообщений"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
-msgstr ""
+msgstr "Не доставлено"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Retry"
-msgstr ""
+msgstr "Повторить"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "This fren hasn't enabled DMs yet"
@@ -877,7 +869,7 @@ msgstr "<0><1/> упомянул вас в <2>сообщении</2></0>"
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>comment</2></0>"
-msgstr ""
+msgstr "<0><1/> сделал миррор вашего <2>комментария</2></0>"
 
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
@@ -887,7 +879,7 @@ msgstr ""
 #. js-lingui-explicit-id
 #: src/components/Notification/Type/MirrorNotification.tsx
 msgid "<0><1/> mirrored your <2>post</2></0>"
-msgstr ""
+msgstr "<0><1/> сделал миррор вашего <2>поста</2></0>"
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1346,16 +1338,6 @@ msgid "Verified"
 msgstr "Подтверждён"
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "Мошенничество"
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "Подписан на вас"
 
@@ -1454,7 +1436,7 @@ msgstr "Скопировано в буфер обмена!"
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
-msgstr ""
+msgstr "Копировать ссылку"
 
 #: src/components/Profile/MutualFollowers/List.tsx
 msgid "Loading mutual followers"
@@ -1498,7 +1480,7 @@ msgstr "Необходимо указать название галереи"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles for your gallery"
-msgstr ""
+msgstr "Выберите предметы коллекта для своей галереи"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Review collection"
@@ -1506,7 +1488,7 @@ msgstr "Коллекция отзывов"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "Select collectibles you want others to see"
-msgstr ""
+msgstr "Выберите предметы коллекта, которые вы хотите, чтобы другие увидели"
 
 #: src/components/Profile/NftGallery/Create.tsx
 msgid "What's your gallery name?"
@@ -1561,12 +1543,12 @@ msgid "No collectables selected!"
 msgstr ""
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
-msgstr ""
+msgstr "Коллект сделан успешно!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 #: src/components/Publication/Actions/Collect/index.tsx
@@ -1628,7 +1610,7 @@ msgstr "{0} Комментариев"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Unlike"
-msgstr ""
+msgstr "Не нравится"
 
 #: src/components/Publication/Actions/Like.tsx
 msgid "Like"
@@ -1691,7 +1673,7 @@ msgstr ""
 #: src/components/Publication/Actions/Share/Mirror.tsx
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "Mirror"
-msgstr ""
+msgstr "Миррор"
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Unmirror"
@@ -1707,7 +1689,7 @@ msgstr ""
 
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
-msgstr ""
+msgstr "{0} Мирроров"
 
 #: src/components/Publication/DecryptedPublicationBody.tsx
 msgid "To view this..."
@@ -1842,16 +1824,18 @@ msgid "Invalid amount"
 msgstr "Неверная сумма"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr "Ethereum-адрес должен содержать не более 42 символов"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr "Неверный Ethereum-адрес"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Super Follow updated successfully!"
-msgstr ""
+msgstr "Super Follow успешно обновлен!"
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Loading super follow settings"
@@ -2106,13 +2090,9 @@ msgstr "Отключить транзакции без подписи"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Диспетчер • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr ""
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
-msgstr ""
+msgstr "Экспорт подписчиков"
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export all your followers to a JSON file."
@@ -2124,7 +2104,7 @@ msgstr ""
 
 #: src/components/Settings/Export/Followers.tsx
 msgid "Download followers"
-msgstr ""
+msgstr "Загрузить подписчиков"
 
 #: src/components/Settings/Export/Followers.tsx
 #: src/components/Settings/Export/Following.tsx
@@ -2201,6 +2181,14 @@ msgstr "Экспортировано <0>{0}</0> публикаций"
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
 msgstr "Скачать публикации"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary access token"
+msgstr ""
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary refresh token"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2472,6 +2460,11 @@ msgstr "Вход"
 msgid "Create post"
 msgstr "Создать публикацию"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} Индексация"
@@ -2562,14 +2555,54 @@ msgstr ""
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Loading collectors"
-msgstr ""
+msgstr "Загрузка пользователей, сделавших коллект"
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "No collectors."
-msgstr ""
+msgstr "Нет пользователей, сделавших коллект."
 
 #: src/components/Shared/Modal/Collectors.tsx
 msgid "Failed to load collectors"
+msgstr "Не удалось загрузить пользователей, сделавших коллект"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
 msgstr ""
 
 #: src/components/Shared/Modal/Likes.tsx
@@ -2586,15 +2619,15 @@ msgstr "Не удалось загрузить лайки"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Loading mirrors"
-msgstr ""
+msgstr "Загрузка мирроров"
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "No mirrors."
-msgstr ""
+msgstr "Нет мирроров."
 
 #: src/components/Shared/Modal/Mirrors.tsx
 msgid "Failed to load mirrors"
-msgstr ""
+msgstr "Не удалось загрузить мирроры"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Select type"
@@ -2643,6 +2676,10 @@ msgstr ""
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
 msgstr "Насилие"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "Мошенничество"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
@@ -2924,7 +2961,7 @@ msgstr "Сменить сеть"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
-msgstr ""
+msgstr "Создать профиль"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
@@ -3038,11 +3075,11 @@ msgstr "всего подписок"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
-msgstr ""
+msgstr "Размер изображения не должен превышать 50 Мб"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
-msgstr ""
+msgstr "Размер видео не должен превышать 200MB"
 
 #: src/components/utils/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"

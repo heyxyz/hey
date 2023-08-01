@@ -1,3 +1,4 @@
+import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
 import { error } from 'itty-router';
@@ -10,7 +11,6 @@ import type { Env } from '../types';
 type ExtensionRequest = {
   name: string;
   actor?: string;
-  fingerprint?: string;
   url: string;
   referrer?: string;
   user_agent?: string;
@@ -21,7 +21,6 @@ type ExtensionRequest = {
 const validationSchema = object({
   name: string().min(1, { message: 'Name is required!' }),
   actor: string().nullable().optional(),
-  fingerprint: string().nullable().optional(),
   url: string(),
   referrer: string().nullable().optional(),
   platform: string(),
@@ -42,7 +41,7 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { name, actor, fingerprint, url, referrer, platform, properties } =
+  const { name, actor, url, referrer, platform, properties } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -68,9 +67,7 @@ export default async (request: IRequest, env: Env) => {
         `https://pro.ip-api.com/json/${ip}?key=${env.IPAPI_KEY}`
       );
       ipData = await ipResponse.json();
-    } catch (error) {
-      console.error('Failed to get IP data', error);
-    }
+    } catch {}
 
     // Extract UTM parameters
     const parsedUrl = new URL(url);
@@ -88,7 +85,6 @@ export default async (request: IRequest, env: Env) => {
           name,
           actor,
           properties,
-          fingerprint,
           url,
           city,
           country,
@@ -107,7 +103,6 @@ export default async (request: IRequest, env: Env) => {
           '${name}',
           ${actor ? `'${actor}'` : null},
           ${properties ? `'${JSON.stringify(properties)}'` : null},
-          ${fingerprint ? `'${fingerprint}'` : null},
           ${url ? `'${url}'` : null},
           ${ipData?.city ? `'${ipData?.city}'` : null},
           ${ipData?.country ? `'${ipData?.country}'` : null},
@@ -128,15 +123,12 @@ export default async (request: IRequest, env: Env) => {
 
     if (response.status !== 200) {
       return new Response(
-        JSON.stringify({ success: false, error: 'Status code is not 200!' })
+        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
       );
     }
 
     return new Response(JSON.stringify({ success: true }));
   } catch (error) {
-    console.error('Failed to ingest', error);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Something went wrong!' })
-    );
+    throw error;
   }
 };

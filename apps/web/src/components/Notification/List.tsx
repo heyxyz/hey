@@ -15,6 +15,7 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationType } from 'src/enums';
@@ -135,7 +136,12 @@ const List: FC<ListProps> = ({ feedType }) => {
         endReached={onEndReached}
         itemContent={(_, notification) => {
           return (
-            <div className="p-5">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
               {notification.__typename === 'NewFollowerNotification' && (
                 <FollowerNotification
                   notification={notification as NewFollowerNotification}
@@ -166,7 +172,7 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as NewCollectNotification}
                 />
               )}
-            </div>
+            </motion.div>
           );
         }}
       />

@@ -2,6 +2,7 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
 import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
+import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
 import { Spinner } from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -9,7 +10,6 @@ import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import type { MediaSetWithoutOnChain } from 'src/types';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -94,9 +94,7 @@ const ChooseThumbnail: FC = () => {
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
-    } catch (error) {
-      console.error('Failed to generate thumbnails', error);
-    }
+    } catch {}
   };
 
   useUpdateEffect(() => {
@@ -131,8 +129,7 @@ const ChooseThumbnail: FC = () => {
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
-      } catch (error) {
-        console.error('Failed to upload thumbnail', error);
+      } catch {
         toast.error(t`Failed to upload thumbnail`);
       } finally {
         setImageUploading(false);

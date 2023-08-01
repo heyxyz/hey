@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-20 00:09\n"
+"PO-Revision-Date: 2023-07-29 14:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -289,10 +289,6 @@ msgstr "好友的好友可以评论和转发"
 msgid "Everyone can comment and mirror"
 msgstr "所有人都可以评论和转发"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -314,10 +310,6 @@ msgstr "上传"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "请选择 1 个视频或最多 4 张照片。"
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -346,10 +338,6 @@ msgstr "交易失败！"
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "评论"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
@@ -599,6 +587,10 @@ msgstr "无法加载热搜"
 
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
@@ -1346,16 +1338,6 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "诈骗"
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "关注了您"
 
@@ -1561,7 +1543,7 @@ msgid "No collectables selected!"
 msgstr "没有选择收藏品！"
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1842,10 +1824,12 @@ msgid "Invalid amount"
 msgstr "无效的金额"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr "以太坊地址应在 42 个字符以内"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
 
@@ -2106,10 +2090,6 @@ msgstr "禁用无签名交易"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "调度员 • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr ""
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr "导出关注者"
@@ -2201,6 +2181,14 @@ msgstr "导出 <0>{0}</0>帖子"
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
 msgstr "下载帖子"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary access token"
+msgstr ""
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary refresh token"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2472,6 +2460,11 @@ msgstr "登录"
 msgid "Create post"
 msgstr "创建贴子"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} 索引中"
@@ -2572,6 +2565,46 @@ msgstr "还没有人收藏。"
 msgid "Failed to load collectors"
 msgstr "无法加载收藏者"
 
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
+msgstr ""
+
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
 msgstr "正在加载点赞数"
@@ -2643,6 +2676,10 @@ msgstr "威胁个人"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
 msgstr "暴力"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "诈骗"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"

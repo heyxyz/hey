@@ -66,7 +66,9 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const RARIBLE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com';
-export const IPFS_GATEWAY = 'https://gateway.ipfscdn.io/ipfs/';
+export const IPFS_GATEWAY = IS_PRODUCTION
+  ? 'https://ipfs.lenster.xyz/ipfs/'
+  : 'http://localhost:8093/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
@@ -90,13 +92,13 @@ export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.lenster.xyz'
   : 'http://localhost:8087';
-export const SPACES_WORKER_URL = IS_PRODUCTION
-  ? 'https://spaces.lenster.xyz'
-  : 'http://localhost:8088';
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
-  : 'http://localhost:8089';
+  : 'http://localhost:8088';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
+export const INVITE_WORKER_URL = IS_PRODUCTION
+  ? 'https://invite.lenster.xyz'
+  : 'http://localhost:8090';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

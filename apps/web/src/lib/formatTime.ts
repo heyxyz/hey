@@ -9,6 +9,25 @@ dayjs.extend(utc);
 dayjs.extend(dayjsTwitter);
 
 /**
+ * Formats a date as a string in the format used by the application.
+ * @param date The date to format.
+ * @returns A string in the application date format.
+ */
+export const formatDate = (date?: Date, format = 'MMMM D, YYYY') => {
+  return dayjs(date).format(format);
+};
+
+/**
+ * Checks if a date is on the same day as another date.
+ * @param date1 The first date to compare.
+ * @param date2 The second date to compare.
+ * @returns True if the dates are on the same day, false otherwise.
+ */
+export const isOnSameDay = (date1?: Date, date2?: Date): boolean => {
+  return dayjs(date1).format('YYYYMMDD') === dayjs(date2).format('YYYYMMDD');
+};
+
+/**
  * Formats a date using the 'medium' date and time styles of the current locale.
  *
  * @param date The date to format.

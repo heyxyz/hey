@@ -125,6 +125,11 @@ export const SETTINGS = {
   }
 };
 
+export const INVITE = {
+  OPEN_INVITE: 'Open invite modal',
+  INVITE: 'Invite address'
+};
+
 export const MOD = {
   TOGGLE_MODE: 'Toggle mod mode',
   REPORT: 'Mod report'
@@ -147,6 +152,7 @@ export const MISCELLANEOUS = {
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',
   SELECT_LOCALE: 'Select locale',
+  OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_GITHUB: 'Open GitHub',
@@ -189,6 +195,7 @@ export const ALL_EVENTS = {
   ...EXPLORE,
   ...MESSAGES,
   ...SETTINGS,
+  ...INVITE,
   ...MOD,
   ...STAFFTOOLS,
   ...SYSTEM,

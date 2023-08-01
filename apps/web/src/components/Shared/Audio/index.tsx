@@ -4,13 +4,13 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import type { OptimisticTransaction } from '@lenster/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
-import type { OptimisticTransaction } from 'src/types';
 import { object, string } from 'zod';
 
 import CoverImage from './CoverImage';

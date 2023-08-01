@@ -10,12 +10,12 @@ import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Fingerprint from './Fingerprint';
 import Followers from './Followers';
 import Following from './Following';
 import Notifications from './Notifications';
 import Profile from './Profile';
 import Publications from './Publications';
+import Tokens from './Tokens';
 
 const ExportSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -40,7 +40,7 @@ const ExportSettings: NextPage = () => {
         <Notifications />
         <Following />
         <Followers />
-        <Fingerprint />
+        <Tokens />
       </GridItemEight>
     </GridLayout>
   );

@@ -1,9 +1,9 @@
+import type { NewLensterAttachment } from '@lenster/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/publication';
-import type { NewLensterAttachment } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {
@@ -84,8 +84,7 @@ const useUploadAttachments = () => {
           );
           updateAttachments(attachmentsIPFS);
         }
-      } catch (error) {
-        console.error('Failed to upload attachments', error);
+      } catch {
         removeAttachments(attachmentIds);
         toast.error(t`Something went wrong while uploading!`);
       }

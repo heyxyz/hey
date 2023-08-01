@@ -11,7 +11,7 @@ const validateLensAccount = async (accessToken: string, isMainnet: boolean) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-agent': 'Lenster-Snapshot-Relay'
+        'User-agent': 'Lenster'
       },
       body: JSON.stringify({
         query: `

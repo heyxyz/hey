@@ -289,10 +289,6 @@ msgstr "Friend of friends can comment and mirror"
 msgid "Everyone can comment and mirror"
 msgstr "Everyone can comment and mirror"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr "Space"
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -314,10 +310,6 @@ msgstr "Upload"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr ""
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr "What do you want to talk about?"
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -346,10 +338,6 @@ msgstr ""
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr "Start Space"
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
@@ -600,6 +588,10 @@ msgstr ""
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
+msgstr "Join waitlist"
 
 #: src/components/Messages/Composer.tsx
 msgid "Error sending attachment"
@@ -1346,16 +1338,6 @@ msgid "Verified"
 msgstr ""
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr "Scam indentified on {0}"
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "Follows you"
 
@@ -1561,8 +1543,8 @@ msgid "No collectables selected!"
 msgstr "No collectables selected!"
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
-msgstr "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
+msgstr "Profile is marked as {0}!"
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
@@ -1842,10 +1824,12 @@ msgid "Invalid amount"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr ""
 
@@ -2106,10 +2090,6 @@ msgstr "Disable Signless Transactions"
 msgid "Dispatcher • {APP_NAME}"
 msgstr "Dispatcher • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr "Your unique fingerprint"
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr "Export followers"
@@ -2201,6 +2181,14 @@ msgstr "Exported <0>{0}</0> publications"
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
 msgstr "Download publications"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary access token"
+msgstr "Your temporary access token"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary refresh token"
+msgstr "Your temporary refresh token"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2472,6 +2460,11 @@ msgstr ""
 msgid "Create post"
 msgstr ""
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr "Invites"
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr ""
@@ -2572,6 +2565,46 @@ msgstr ""
 msgid "Failed to load collectors"
 msgstr ""
 
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr "Invited successfully!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr "Address already invited!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr "Failed to invite!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr "Invite"
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr "You haven't invited anyone."
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr "Loading invites"
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
+msgstr "Failed to load invites"
+
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
 msgstr ""
@@ -2642,6 +2675,10 @@ msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
+msgstr ""
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
 msgstr ""
 
 #: src/components/Shared/Modal/Report/Reason.tsx

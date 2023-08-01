@@ -15,8 +15,8 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `;
 
 const clearStorage = () => {
-  localStorage.removeItem('accessToken');
-  localStorage.removeItem('refreshToken');
+  localStorage.removeItem(Localstorage.AccessToken);
+  localStorage.removeItem(Localstorage.RefreshToken);
   localStorage.removeItem(Localstorage.LensterStore);
   localStorage.removeItem(Localstorage.TransactionStore);
   localStorage.removeItem(Localstorage.MessageStore);
@@ -67,8 +67,8 @@ const authLink = new ApolloLink((operation, forward) => {
           }
         });
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem(Localstorage.AccessToken, accessToken);
+        localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
         return toPromise(forward(operation));
       })

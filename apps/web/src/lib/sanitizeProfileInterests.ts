@@ -1,4 +1,4 @@
-import type { ProfileInterest } from 'src/types';
+import type { ProfileInterest } from '@lenster/types/misc';
 
 /**
  * Sanitizes an array of profile interests by grouping them into categories and subcategories.

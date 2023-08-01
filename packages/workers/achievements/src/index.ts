@@ -34,8 +34,7 @@ const handleFetch = async (
 ) => {
   try {
     return await routerHandleStack(request, env, ctx);
-  } catch (error_) {
-    console.error('Failed to handle request', error_);
+  } catch {
     return error(500);
   }
 };

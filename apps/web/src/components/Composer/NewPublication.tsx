@@ -4,13 +4,8 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import useCreatePoll from '@components/utils/hooks/useCreatePoll';
-import useCreateSpace from '@components/utils/hooks/useCreateSpace';
 import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
-import {
-  ChatAlt2Icon,
-  MicrophoneIcon,
-  PencilAltIcon
-} from '@heroicons/react/outline';
+import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -60,6 +55,8 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
+import type { IGif } from '@lenster/types/giphy';
+import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -86,14 +83,11 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import type { NewLensterAttachment } from 'src/types';
-import type { IGif } from 'src/types/giphy';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
-import SpaceSettings from './Actions/SpaceSettings';
 import Editor from './Editor';
 
 const Attachment = dynamic(
@@ -164,8 +158,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
-    showSpaceEditor,
-    setShowSpaceEditor,
     pollConfig
   } = usePublicationStore();
 
@@ -199,7 +191,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
-  const [createSpace] = useCreateSpace();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -226,7 +217,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
-    setShowSpaceEditor(false);
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -695,30 +685,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      // Create Space in Huddle
-      let spaceId = null;
-      if (showSpaceEditor) {
-        spaceId = await createSpace();
-      }
-
       const attributes: MetadataAttributeInput[] = [
         {
           traitType: 'type',
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
-        ...(showSpaceEditor
-          ? [
-              {
-                traitType: 'audioSpace',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: JSON.stringify({
-                  id: spaceId,
-                  host: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3'
-                })
-              }
-            ]
-          : []),
         ...(quotedPublication
           ? [
               {
@@ -921,7 +893,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           )}
           <PollSettings />
-          {!isComment ? <SpaceSettings /> : null}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -936,19 +907,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 <Spinner size="xs" />
               ) : isComment ? (
                 <ChatAlt2Icon className="h-4 w-4" />
-              ) : showSpaceEditor ? (
-                <MicrophoneIcon className="h-4 w-4" />
               ) : (
                 <PencilAltIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}
           >
-            {isComment
-              ? t`Comment`
-              : showSpaceEditor
-              ? t`Start Space`
-              : t`Post`}
+            {isComment ? t`Comment` : t`Post`}
           </Button>
         </div>
       </div>

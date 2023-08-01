@@ -2,6 +2,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data/errors';
+import { Localstorage } from '@lenster/data/storage';
 import { AUTH } from '@lenster/data/tracking';
 import {
   useAuthenticateMutation,
@@ -74,9 +75,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
-    } catch (error) {
-      console.error(error);
-    }
+    } catch {}
   };
 
   const handleSign = async () => {
@@ -101,9 +100,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const auth = await authenticate({
         variables: { request: { address, signature } }
       });
-      localStorage.setItem('accessToken', auth.data?.authenticate.accessToken);
       localStorage.setItem(
-        'refreshToken',
+        Localstorage.AccessToken,
+        auth.data?.authenticate.accessToken
+      );
+      localStorage.setItem(
+        Localstorage.RefreshToken,
         auth.data?.authenticate.refreshToken
       );
 
@@ -128,8 +130,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         setProfileId(currentProfile.id);
       }
       Leafwatch.track(AUTH.SIWL);
-    } catch (error) {
-      console.error(error);
+    } catch {
     } finally {
       setIsLoading(false);
       if (!keepModal) {

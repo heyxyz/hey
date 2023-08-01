@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import useXmtpClient from './useXmtpClient';
 
-export type AllMessagesStream = Promise<AsyncGenerator<DecodedMessage>>;
+type AllMessagesStream = Promise<AsyncGenerator<DecodedMessage>>;
 
 /**
  * This hook streams new messages from all conversations on mount and exposes

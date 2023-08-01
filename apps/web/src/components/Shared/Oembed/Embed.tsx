@@ -2,11 +2,11 @@ import { ATTACHMENT } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
 import imageKit from '@lenster/lib/imageKit';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { OG } from '@lenster/types/misc';
 import { Card, Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import type { OG } from 'src/types';
 
 interface EmbedProps {
   og: OG;

@@ -9,6 +9,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { Card, Input, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -111,7 +112,10 @@ const Search: FC<SearchProps> = ({
             ) : (
               <>
                 {profiles.map((profile: Profile) => (
-                  <div
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                     key={profile?.handle}
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
@@ -130,7 +134,7 @@ const Search: FC<SearchProps> = ({
                       profile={profile}
                       showUserPreview={false}
                     />
-                  </div>
+                  </motion.div>
                 ))}
                 {profiles.length === 0 && (
                   <div className="px-4 py-2">

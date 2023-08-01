@@ -4,8 +4,8 @@ import {
   S3_BUCKET,
   STS_GENERATOR_WORKER_URL
 } from '@lenster/data/constants';
+import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
 import axios from 'axios';
-import type { MediaSetWithoutOnChain } from 'src/types';
 import { v4 as uuid } from 'uuid';
 
 const FALLBACK_TYPE = 'image/jpeg';
@@ -106,8 +106,7 @@ export const uploadFileToIPFS = async (
         mimeType: file.type || FALLBACK_TYPE
       }
     };
-  } catch (error) {
-    console.error('Failed to upload file to IPFS', error);
+  } catch {
     return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };

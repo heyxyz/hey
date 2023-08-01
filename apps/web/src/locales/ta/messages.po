@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-20 00:09\n"
+"PO-Revision-Date: 2023-07-29 14:26\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -289,10 +289,6 @@ msgstr "நண்பர்களின் நண்பர் கருத்த�
 msgid "Everyone can comment and mirror"
 msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Space"
-msgstr ""
-
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
 msgid "Failed to upload thumbnail"
@@ -314,10 +310,6 @@ msgstr "பதிவேற்றவும்"
 #: src/components/Composer/Editor/index.tsx
 msgid "Please choose either 1 video or up to 4 photos."
 msgstr "1 வீடியோ அல்லது 4 புகைப்படங்கள் வரை தேர்வு செய்யவும்."
-
-#: src/components/Composer/Editor/index.tsx
-msgid "What do you want to talk about?"
-msgstr ""
 
 #: src/components/Composer/Editor/index.tsx
 msgid "Ask a question..."
@@ -346,10 +338,6 @@ msgstr "பணப்பரிமாற்றம் தோல்வி அடை�
 #: src/components/Publication/Actions/Comment.tsx
 msgid "Comment"
 msgstr "கருத்துரை"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Start Space"
-msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
@@ -599,6 +587,10 @@ msgstr "டிரெண்டிங்கை ஏற்றுவதில் த�
 
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
+#: src/components/Home/Waitlist.tsx
+msgid "Join waitlist"
 msgstr ""
 
 #: src/components/Messages/Composer.tsx
@@ -1346,16 +1338,6 @@ msgid "Verified"
 msgstr "சரிபார்க்கப்பட்டது"
 
 #: src/components/Profile/Details.tsx
-msgid "Scam indentified on {0}"
-msgstr ""
-
-#: src/components/Profile/Details.tsx
-#: src/components/Profile/ScamWarning.tsx
-#: src/components/Shared/Modal/Report/Reason.tsx
-msgid "Scam"
-msgstr "ஊழல்"
-
-#: src/components/Profile/Details.tsx
 msgid "Follows you"
 msgstr "உங்களைப் பின்தொடர்கிறார்"
 
@@ -1561,7 +1543,7 @@ msgid "No collectables selected!"
 msgstr "சேகரிப்புகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை!"
 
 #: src/components/Profile/ScamWarning.tsx
-msgid "Profile is marked as scam!"
+msgid "Profile is marked as {0}!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
@@ -1842,10 +1824,12 @@ msgid "Invalid amount"
 msgstr "தவறான தொகை"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Ethereum address should be within 42 characters"
 msgstr "Ethereum முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Shared/Modal/Invites/Invite.tsx
 msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
 
@@ -2106,10 +2090,6 @@ msgstr "அடையாளமற்ற பரிவர்த்தனைகள�
 msgid "Dispatcher • {APP_NAME}"
 msgstr "டிஸ்பெட்சேர் • {APP_NAME}"
 
-#: src/components/Settings/Export/Fingerprint.tsx
-msgid "Your unique fingerprint"
-msgstr ""
-
 #: src/components/Settings/Export/Followers.tsx
 msgid "Export followers"
 msgstr ""
@@ -2201,6 +2181,14 @@ msgstr ""
 #: src/components/Settings/Export/Publications.tsx
 msgid "Download publications"
 msgstr "வெளியீடுகளைப் பதிவிறக்கவும்"
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary access token"
+msgstr ""
+
+#: src/components/Settings/Export/Tokens.tsx
+msgid "Your temporary refresh token"
+msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2472,6 +2460,11 @@ msgstr "புகுபதிகை"
 msgid "Create post"
 msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
+#: src/components/Shared/GlobalModals.tsx
+#: src/components/Shared/Navbar/NavItems/Invites.tsx
+msgid "Invites"
+msgstr ""
+
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr "{type} இண்டெக்ஸ் ஆகிறது"
@@ -2572,6 +2565,46 @@ msgstr "சேகரிப்பாளர்கள் இல்லை."
 msgid "Failed to load collectors"
 msgstr "சேகரிப்பாளர்களை ஏற்றுவதில் தோல்வி"
 
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invited successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Address already invited!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Failed to invite!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "<0>{invitesLeft} {invitesLeft, plural, zero {invite} one {invite} other {invites}}</0> available!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invite.tsx
+msgid "Invite"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You haven't invited anyone."
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/Invited.tsx
+msgid "You have already invited <0>{0}{1} {2, plural, zero {address} one {address} other {addresses}}</0>!"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Loading invites"
+msgstr ""
+
+#: src/components/Shared/Modal/Invites/index.tsx
+msgid "Failed to load invites"
+msgstr ""
+
 #: src/components/Shared/Modal/Likes.tsx
 msgid "Loading likes"
 msgstr "விருப்பங்களை ஏற்றுகிறது"
@@ -2643,6 +2676,10 @@ msgstr "தனிநபர் அச்சுறுத்தல்"
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Violence"
 msgstr "வன்முறை"
+
+#: src/components/Shared/Modal/Report/Reason.tsx
+msgid "Scam"
+msgstr "ஊழல்"
 
 #: src/components/Shared/Modal/Report/Reason.tsx
 msgid "Impersonation"
