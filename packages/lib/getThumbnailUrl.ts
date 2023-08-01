@@ -10,14 +10,14 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  * @returns The thumbnail URL.
  */
 const getThumbnailUrl = (metadata?: MetadataOutput): string => {
-  const fallbackUrl = `${STATIC_IMAGES_URL}/placeholder.webp`;
+  const fallbackUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
 
   if (!metadata) {
     return fallbackUrl;
   }
 
-  const { cover, image } = metadata;
-  const url = cover?.original?.url || image || fallbackUrl;
+  const { cover } = metadata;
+  const url = cover?.original?.url || fallbackUrl;
 
   return sanitizeDStorageUrl(url);
 };
