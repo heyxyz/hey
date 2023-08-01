@@ -3,11 +3,11 @@ import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
-  ATTACHMENT,
-  STATIC_IMAGES_URL
+  ATTACHMENT
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { MediaSet, Publication } from '@lenster/lens';
+import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -86,21 +86,6 @@ const Attachments: FC<AttachmentsProps> = ({
     );
   };
 
-  const getThumbnailUrl = () => {
-    const metadata = publication?.metadata;
-    const hasNoThumbnail = metadata?.media[0].original.url === metadata?.image;
-
-    if (hasNoThumbnail) {
-      return `${STATIC_IMAGES_URL}/thumbnail.png`;
-    }
-
-    return (
-      metadata?.cover?.original.url ||
-      metadata?.image ||
-      `${STATIC_IMAGES_URL}/thumbnail.png`
-    );
-  };
-
   const slicedAttachments = attachments?.some((e: any) =>
     ALLOWED_VIDEO_TYPES.includes(e?.original?.mimeType)
   )
@@ -169,7 +154,10 @@ const Attachments: FC<AttachmentsProps> = ({
                       <ChooseThumbnail />
                     </>
                   ) : (
-                    <Video src={url} poster={getThumbnailUrl()} />
+                    <Video
+                      src={url}
+                      poster={getThumbnailUrl(publication?.metadata)}
+                    />
                   )
                 ) : isAudio ? (
                   <Audio

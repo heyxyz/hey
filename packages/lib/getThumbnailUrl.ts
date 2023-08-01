@@ -17,7 +17,7 @@ const getThumbnailUrl = (metadata?: MetadataOutput): string => {
   }
 
   const { cover, image } = metadata;
-  const url = cover?.original?.url ?? image ?? fallbackUrl;
+  const url = cover?.original?.url || image || fallbackUrl;
 
   return sanitizeDStorageUrl(url);
 };
