@@ -5,7 +5,9 @@ import type { Profile } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
+import { useAppStore } from 'src/store/app';
 
+import Report from './Report';
 import Share from './Share';
 
 interface ProfileMenuProps {
@@ -13,6 +15,8 @@ interface ProfileMenuProps {
 }
 
 const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
   return (
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
@@ -32,6 +36,9 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           data-testid={`profile-${profile.id}-menu-items`}
         >
           <Share profile={profile} />
+          {currentProfile && currentProfile?.id !== profile.id && (
+            <Report profile={profile} />
+          )}
         </Menu.Items>
       </MenuTransition>
     </Menu>
