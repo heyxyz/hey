@@ -5,7 +5,7 @@ import type { Profile } from '@lenster/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import React, { useState } from 'react';
+import React from 'react';
 import { type FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -34,8 +34,6 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
   const form = useZodForm({
     schema: reportReportProfileSchema
   });
-
-  const [isRadioSelected, setIsRadioSelected] = useState(false);
 
   return (
     <div className="flex flex-col space-y-2 p-5">
@@ -70,7 +68,6 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
             onChange={() => {
               form.setValue('type', ReportType.Enum.MISLEADING_ACCOUNT);
-              setIsRadioSelected(true);
             }}
           />
           <Radio
@@ -85,7 +82,6 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
             onChange={() => {
               form.setValue('type', ReportType.Enum.UNWANTED_CONTENT);
-              setIsRadioSelected(true);
             }}
           />
         </div>
@@ -102,7 +98,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           type="submit"
           variant="primary"
           icon={<PencilAltIcon className="h-4 w-4" />}
-          disabled={!isRadioSelected}
+          disabled={!form.watch('type')}
         >
           <Trans>Report</Trans>
         </Button>
