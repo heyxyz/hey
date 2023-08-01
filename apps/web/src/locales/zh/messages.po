@@ -1427,6 +1427,11 @@ msgstr "未能加载正在关注的人"
 msgid "Invited by <0/>"
 msgstr ""
 
+#: src/components/Profile/Menu/Report.tsx
+#: src/components/Shared/GlobalModals.tsx
+msgid "Report Profile"
+msgstr ""
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -2438,9 +2443,8 @@ msgid "Perform mod actions on this publication."
 msgstr "对该帖子进行管理"
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr "报告"
+msgid "Report Publication"
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2629,119 +2633,156 @@ msgstr "没有转帖。"
 msgid "Failed to load mirrors"
 msgstr "加载转帖数失败"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Report should not exceed 300 characters"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Reported Successfully!"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Misleading Account"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Impersonation or false claims about identity or affiliation"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Frequently Posts Unwanted Content"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Spam; excessive mentions or replies"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Add details to report"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Enter a reason or any other details here..."
+msgstr ""
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Report"
+msgstr "报告"
+
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select type"
 msgstr "选择类型"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Illegal"
 msgstr "非法"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fraud"
 msgstr "欺诈"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Sensitive"
 msgstr "敏感内容"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Spam"
 msgstr "垃圾信息"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Reason"
 msgstr "原因"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select sub reason"
 msgstr "选择次级原因"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Animal Abuse"
 msgstr "虐待动物"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Direct Threat"
 msgstr "直接威胁"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Human Abuse"
 msgstr "虐待人类"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Threat Individual"
 msgstr "威胁个人"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Violence"
 msgstr "暴力"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Scam"
 msgstr "诈骗"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Impersonation"
 msgstr "冒充"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "NSFW"
 msgstr "不宜在工作场所观看"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Offensive"
 msgstr "冒犯性内容"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fake engagement"
 msgstr "虚假交互"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Low signal"
 msgstr "底信号（质量）"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr "算法操纵"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misleading"
 msgstr "误导"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misuse hashtags"
 msgstr "滥用标签"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Repetitive"
 msgstr "重复性内容"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Something else"
 msgstr "其他"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Unrelated"
 msgstr "内容无关"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr "补充信息不应超过 260 个字符"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Publication reported successfully!"
 msgstr "帖子发布成功！"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Failed to report"
 msgstr "举报失败"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Description"
 msgstr "描述"
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "请提供更多详细信息"
 
@@ -3125,4 +3166,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

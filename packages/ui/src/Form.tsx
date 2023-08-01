@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
 import type { ComponentProps, FC } from 'react';
 import type {
   FieldValues,
@@ -67,7 +68,7 @@ export const Form = <T extends FieldValues>({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset
-          className={`flex flex-col ${className}`}
+          className={clsx('flex flex-col', className)}
           disabled={form.formState.isSubmitting}
         >
           {children}

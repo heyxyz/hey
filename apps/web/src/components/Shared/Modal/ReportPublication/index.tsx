@@ -17,26 +17,24 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 import Reason from './Reason';
 
-const newReportSchema = object({
+const newReportPublicationSchema = object({
   additionalComments: string().max(260, {
     message: t`Additional comments should not exceed 260 characters`
   })
 });
 
 interface ReportProps {
-  publication: Publication;
+  publication: Publication | null;
 }
 
-const Report: FC<ReportProps> = ({ publication }) => {
-  const reportConfig = useGlobalModalStateStore((state) => state.reportConfig);
-  const [type, setType] = useState(reportConfig?.type ?? '');
-  const [subReason, setSubReason] = useState(reportConfig?.subReason ?? '');
+const ReportPublication: FC<ReportProps> = ({ publication }) => {
+  const [type, setType] = useState('');
+  const [subReason, setSubReason] = useState('');
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'report' });
@@ -54,7 +52,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
   });
 
   const form = useZodForm({
-    schema: newReportSchema
+    schema: newReportPublicationSchema
   });
 
   const reportPublication = (additionalComments: string | null) => {
@@ -107,21 +105,20 @@ const Report: FC<ReportProps> = ({ publication }) => {
                   placeholder={t`Please provide additional details`}
                   {...form.register('additionalComments')}
                 />
-                <div className="ml-auto">
-                  <Button
-                    type="submit"
-                    disabled={submitLoading}
-                    icon={
-                      submitLoading ? (
-                        <Spinner size="xs" />
-                      ) : (
-                        <PencilAltIcon className="h-4 w-4" />
-                      )
-                    }
-                  >
-                    <Trans>Report</Trans>
-                  </Button>
-                </div>
+                <Button
+                  className="flex w-full justify-center"
+                  type="submit"
+                  disabled={submitLoading}
+                  icon={
+                    submitLoading ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <PencilAltIcon className="h-4 w-4" />
+                    )
+                  }
+                >
+                  <Trans>Report</Trans>
+                </Button>
               </>
             )}
           </Form>
@@ -131,4 +128,4 @@ const Report: FC<ReportProps> = ({ publication }) => {
   );
 };
 
-export default Report;
+export default ReportPublication;
