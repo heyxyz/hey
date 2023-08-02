@@ -4,12 +4,9 @@ import circluarStd from '@lib/lensterFont';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 
-const Providers = dynamic(
-  () => import('@components/Common/Providers/Old_index'),
-  {
-    ssr: false
-  }
-);
+const Providers = dynamic(() => import('@components/Common/Providers'), {
+  ssr: false
+});
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
