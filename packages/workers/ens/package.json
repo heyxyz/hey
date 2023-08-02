@@ -15,14 +15,14 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@lenster/lib": "*",
+    "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.14",
     "viem": "^1.5.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230724.0",
-    "@lenster/config": "*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
     "wrangler": "^3.4.0"
