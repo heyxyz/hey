@@ -13,12 +13,12 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@lenster/data": "*",
+    "@lenster/data": "workspace:*",
     "itty-router": "^4.0.14"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230724.0",
-    "@lenster/config": "*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
     "wrangler": "^3.4.0"
   }

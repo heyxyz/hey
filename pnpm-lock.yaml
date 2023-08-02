@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -23,13 +27,13 @@ importers:
   apps/prerender:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/data
       '@lenster/lens':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/lens
       '@lenster/lib':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/lib
       next:
         specifier: ^13.4.12
@@ -48,7 +52,7 @@ importers:
         version: 1.1.2(typescript@5.1.6)
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/config
       '@playwright/test':
         specifier: ^1.36.2
@@ -87,28 +91,28 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
       '@lenster/abis':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/abis
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/data
       '@lenster/image-cropper':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/image-cropper
       '@lenster/lens':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/lens
       '@lenster/lib':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/lib
       '@lenster/snapshot':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/snapshot
       '@lenster/types':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/types
       '@lenster/ui':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/ui
       '@lexical/code':
         specifier: ^0.11.3
@@ -262,7 +266,7 @@ importers:
         version: 4.4.0(@types/react@18.2.18)(react@18.2.0)
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/config
       '@lingui/cli':
         specifier: ^4.3.0
@@ -304,7 +308,7 @@ importers:
   packages/abis:
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       typescript:
         specifier: ^5.1.6
@@ -320,7 +324,7 @@ importers:
         version: 1.5.0(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       typescript:
         specifier: ^5.1.6
@@ -359,7 +363,7 @@ importers:
   packages/data:
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -387,7 +391,7 @@ importers:
         version: 18.2.0
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -408,7 +412,7 @@ importers:
         specifier: ^3.7.17
         version: 3.7.17(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data
       axios:
         specifier: ^1.4.0
@@ -430,7 +434,7 @@ importers:
         specifier: ^3.3.7
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.7.1)
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -445,17 +449,17 @@ importers:
   packages/lib:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data
       '@lenster/lens':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../lens
       viem:
         specifier: ^1.5.0
         version: 1.5.0(typescript@5.1.6)(zod@3.21.4)
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -473,7 +477,7 @@ importers:
         specifier: ^3.7.17
         version: 3.7.17(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data
     devDependencies:
       '@graphql-codegen/cli':
@@ -492,7 +496,7 @@ importers:
         specifier: ^3.3.7
         version: 3.3.7(graphql-tag@2.12.6)(graphql@16.7.1)
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -504,11 +508,11 @@ importers:
   packages/types:
     dependencies:
       '@lenster/lens':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../lens
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -529,10 +533,10 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1(react-hook-form@7.45.2)
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../data
       '@lenster/lib':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../lib
       '@tippyjs/react':
         specifier: ^4.2.6
@@ -554,7 +558,7 @@ importers:
         version: 3.21.4
     devDependencies:
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../config
       '@types/node':
         specifier: ^20.4.5
@@ -569,7 +573,7 @@ importers:
   packages/workers/achievements:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../data
       itty-router:
         specifier: ^4.0.14
@@ -579,7 +583,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -591,7 +595,7 @@ importers:
   packages/workers/ens:
     dependencies:
       '@lenster/lib':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../lib
       itty-router:
         specifier: ^4.0.14
@@ -607,7 +611,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -625,7 +629,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -637,7 +641,7 @@ importers:
   packages/workers/invite:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../data
       itty-router:
         specifier: ^4.0.14
@@ -650,7 +654,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -669,7 +673,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -684,7 +688,7 @@ importers:
   packages/workers/leafwatch:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../data
       itty-router:
         specifier: ^4.0.14
@@ -700,7 +704,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       '@types/ua-parser-js':
         specifier: ^0.7.36
@@ -715,10 +719,10 @@ importers:
   packages/workers/metadata:
     dependencies:
       '@lenster/bundlr':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../bundlr
       '@lenster/lens':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../lens
       itty-router:
         specifier: ^4.0.14
@@ -728,7 +732,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -756,7 +760,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -774,7 +778,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -786,7 +790,7 @@ importers:
   packages/workers/snapshot-relay:
     dependencies:
       '@lenster/data':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../data
       itty-router:
         specifier: ^4.0.14
@@ -799,7 +803,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -821,7 +825,7 @@ importers:
         specifier: ^4.20230724.0
         version: 4.20230724.0
       '@lenster/config':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../config
       typescript:
         specifier: ^5.1.6
@@ -2300,6 +2304,7 @@ packages:
 
   /@emotion/memoize@0.7.4:
     resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -7865,6 +7870,7 @@ packages:
 
   /bip66@1.1.5:
     resolution: {integrity: sha512-nemMHz95EmS38a26XbbdxIYj5csHd3RMP3H5bwQknX0WYHF01qhpufP42mLOwVICuH2JmhIhXiWs89MfUGL7Xw==}
+    requiresBuild: true
     dependencies:
       safe-buffer: 5.2.1
     dev: false
@@ -7934,6 +7940,7 @@ packages:
 
   /browserify-aes@1.2.0:
     resolution: {integrity: sha512-+7CHXqGuspUn/Sl5aO7Ea0xWGAtETPXNSAjHo48JfLdPWcMng33Xe4znFvQweqc/uzk5zSOI3H52CYnjCfb5hA==}
+    requiresBuild: true
     dependencies:
       buffer-xor: 1.0.3
       cipher-base: 1.0.4
@@ -7993,6 +8000,7 @@ packages:
 
   /buffer-xor@1.0.3:
     resolution: {integrity: sha512-571s0T7nZWK6vB67HI5dyUF7wXiNcfaPPPTl6zYCNApANjIvYJTg7hlud/+cJpdAhS7dVzqMLmfhfHR3rAcOjQ==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -8236,6 +8244,7 @@ packages:
 
   /cipher-base@1.0.4:
     resolution: {integrity: sha512-Kkht5ye6ZGmwv40uUDZztayT2ThLQGfnj/T71N/XzeZeo3nf8foyW7zGTsPYkEya3m5f3cAypH+qe7YOrM1U2Q==}
+    requiresBuild: true
     dependencies:
       inherits: 2.0.4
       safe-buffer: 5.2.1
@@ -8439,6 +8448,7 @@ packages:
 
   /create-hash@1.2.0:
     resolution: {integrity: sha512-z00bCGNHDG8mHAkP7CtT1qVu+bFQUPjYq/4Iv3C3kWjTFV10zIjfSoeqXo9Asws8gwSHDGj/hl2u4OGIjapeCg==}
+    requiresBuild: true
     dependencies:
       cipher-base: 1.0.4
       inherits: 2.0.4
@@ -8450,6 +8460,7 @@ packages:
 
   /create-hmac@1.1.7:
     resolution: {integrity: sha512-MJG9liiZ+ogc4TzUwuvbER1JRdgvUFSB5+VR/g5h82fGaIRWMWddtKBHi7/sVhfjQZ6SehlyhvQYrcYkaUIpLg==}
+    requiresBuild: true
     dependencies:
       cipher-base: 1.0.4
       create-hash: 1.2.0
@@ -8791,6 +8802,7 @@ packages:
   /drbg.js@1.0.1:
     resolution: {integrity: sha512-F4wZ06PvqxYLFEZKkFxTDcns9oFNk34hvmJSEwdzsxVQ8YI5YaxtACgQatkYgv2VI2CFkUd2Y+xosPQnHv809g==}
     engines: {node: '>=0.10'}
+    requiresBuild: true
     dependencies:
       browserify-aes: 1.2.0
       create-hash: 1.2.0
@@ -9063,7 +9075,7 @@ packages:
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.46.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.46.0)
       eslint-plugin-react: 7.33.1(eslint@8.46.0)
       eslint-plugin-react-hooks: 5.0.0-canary-7118f5dd7-20230705(eslint@8.46.0)
@@ -9094,7 +9106,7 @@ packages:
       enhanced-resolve: 5.15.0
       eslint: 8.46.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.2.1)(eslint@8.46.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
       is-core-module: 2.12.1
@@ -9137,7 +9149,36 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0):
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-node@0.3.7)(eslint@8.46.0):
+    resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
+      debug: 3.2.7
+      eslint: 8.46.0
+      eslint-import-resolver-node: 0.3.7
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@6.2.1)(eslint@8.46.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -9147,7 +9188,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 5.62.0(eslint@8.46.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 6.2.1(eslint@8.46.0)(typescript@5.1.6)
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -9155,7 +9196,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.46.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-node@0.3.7)(eslint@8.46.0)
       has: 1.0.3
       is-core-module: 2.12.1
       is-glob: 4.0.3
@@ -9551,6 +9592,7 @@ packages:
 
   /evp_bytestokey@1.0.3:
     resolution: {integrity: sha512-/f2Go4TognH/KvCISP7OUsHn85hT9nUkxxA9BEWxFn+Oj9o8ZNLm/40hdlgSLyuOimsrTKLUMEorQexp/aPQeA==}
+    requiresBuild: true
     dependencies:
       md5.js: 1.3.5
       safe-buffer: 5.2.1
@@ -10130,6 +10172,7 @@ packages:
   /hash-base@3.1.0:
     resolution: {integrity: sha512-1nmYp/rhMDiE7AYkDw+lLwlAzz0AntGIe51F3RfFfEqyQ3feY2eI/NcwC6umIQVOASPMsWJLJScWKSSvzL9IVA==}
     engines: {node: '>=4'}
+    requiresBuild: true
     dependencies:
       inherits: 2.0.4
       readable-stream: 3.6.2
@@ -11130,6 +11173,7 @@ packages:
 
   /md5.js@1.3.5:
     resolution: {integrity: sha512-xitP+WxNPcTTOgnTJcrhM0xvdPepipPSf3I8EIpGKeFLjt3PlJLIDG3u8EX53ZIubkb+5U2+3rELYpEhHhzdkg==}
+    requiresBuild: true
     dependencies:
       hash-base: 3.1.0
       inherits: 2.0.4
@@ -12986,6 +13030,7 @@ packages:
 
   /ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
+    requiresBuild: true
     dependencies:
       hash-base: 3.1.0
       inherits: 2.0.4
@@ -14960,7 +15005,3 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
