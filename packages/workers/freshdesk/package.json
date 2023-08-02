@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230724.0",
-    "@lenster/config": "*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
     "wrangler": "^3.4.0"
   }

@@ -12,12 +12,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lenster/data": "*",
-    "@lenster/lens": "*",
+    "@lenster/data": "workspace:*",
+    "@lenster/lens": "workspace:*",
     "viem": "^1.5.0"
   },
   "devDependencies": {
-    "@lenster/config": "*",
+    "@lenster/config": "workspace:*",
     "@types/node": "^20.4.5",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
