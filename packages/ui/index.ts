@@ -12,6 +12,7 @@ export { Input } from './src/Input';
 export { LightBox } from './src/LightBox';
 export { Modal } from './src/Modal';
 export { PageLoading } from './src/PageLoading';
+export { Radio } from './src/Radio';
 export { Spinner } from './src/Spinner';
 export { default as TabButton } from './src/TabButton';
 export { TextArea } from './src/TextArea';

@@ -14,14 +14,13 @@ describe('getThumbnailUrl', () => {
     cover: {
       original: { url: 'https://example.com/cover.png' },
       onChain: { url: null }
-    },
-    image: 'https://example.com/image.png'
+    }
   };
 
-  test('should return an placeholder if no metadata is provided', () => {
+  test('should return an thumbnail if no metadata is provided', () => {
     const metadata = undefined;
     const result = getThumbnailUrl(metadata);
-    const expectedUrl = `${STATIC_IMAGES_URL}/placeholder.webp`;
+    const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
     expect(result).toEqual(expectedUrl);
   });
 
@@ -34,13 +33,7 @@ describe('getThumbnailUrl', () => {
   test('should return the image URL if no original cover URL is available', () => {
     const metadata = { ...mockMetadata, cover: undefined };
     const result = getThumbnailUrl(metadata);
-    expect(result).toEqual('https://example.com/image.png');
-  });
-
-  test('should return the static placeholder URL if no cover or image URLs are available', () => {
-    const metadata = { cover: undefined, image: undefined };
-    const expectedUrl = `${STATIC_IMAGES_URL}/placeholder.webp`;
-    const result = getThumbnailUrl(metadata as MetadataOutput);
+    const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
     expect(result).toEqual(expectedUrl);
   });
 });

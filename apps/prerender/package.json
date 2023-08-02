@@ -15,9 +15,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lenster/data": "*",
-    "@lenster/lens": "*",
-    "@lenster/lib": "*",
+    "@lenster/data": "workspace:*",
+    "@lenster/lens": "workspace:*",
+    "@lenster/lib": "workspace:*",
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,8 +25,8 @@
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@lenster/config": "*",
-    "@lenster/lens": "*",
+    "@lenster/config": "workspace:*",
+    "@lenster/lens": "workspace:*",
     "@playwright/test": "^1.36.2",
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",

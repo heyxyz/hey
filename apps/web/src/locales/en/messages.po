@@ -1427,6 +1427,11 @@ msgstr ""
 msgid "Invited by <0/>"
 msgstr "Invited by <0/>"
 
+#: src/components/Profile/Menu/Report.tsx
+#: src/components/Shared/GlobalModals.tsx
+msgid "Report Profile"
+msgstr "Report Profile"
+
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -2438,9 +2443,8 @@ msgid "Perform mod actions on this publication."
 msgstr "Perform mod actions on this publication."
 
 #: src/components/Shared/GlobalModals.tsx
-#: src/components/Shared/Modal/Report/index.tsx
-msgid "Report"
-msgstr ""
+msgid "Report Publication"
+msgstr "Report Publication"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Status.tsx
@@ -2629,119 +2633,156 @@ msgstr ""
 msgid "Failed to load mirrors"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Report should not exceed 300 characters"
+msgstr "Report should not exceed 300 characters"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Reported Successfully!"
+msgstr "Reported Successfully!"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Misleading Account"
+msgstr "Misleading Account"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Impersonation or false claims about identity or affiliation"
+msgstr "Impersonation or false claims about identity or affiliation"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Frequently Posts Unwanted Content"
+msgstr "Frequently Posts Unwanted Content"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Spam; excessive mentions or replies"
+msgstr "Spam; excessive mentions or replies"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Add details to report"
+msgstr "Add details to report"
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+msgid "Enter a reason or any other details here..."
+msgstr "Enter a reason or any other details here..."
+
+#: src/components/Shared/Modal/ReportProfile/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Report"
+msgstr ""
+
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select type"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Illegal"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fraud"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Sensitive"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Spam"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Reason"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Select sub reason"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Animal Abuse"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Direct Threat"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Human Abuse"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Threat Individual"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Violence"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Scam"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Impersonation"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "NSFW"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Offensive"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Fake engagement"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Low signal"
 msgstr "Low signal"
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Algorithm manipulation"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misleading"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Misuse hashtags"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Repetitive"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Something else"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/Reason.tsx
+#: src/components/Shared/Modal/ReportPublication/Reason.tsx
 msgid "Unrelated"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Additional comments should not exceed 260 characters"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Publication reported successfully!"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Failed to report"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Description"
 msgstr ""
 
-#: src/components/Shared/Modal/Report/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 

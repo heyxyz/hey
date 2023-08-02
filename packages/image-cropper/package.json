@@ -17,7 +17,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@lenster/config": "*",
+    "@lenster/config": "workspace:*",
     "@types/node": "^20.4.5",
     "@types/normalize-wheel": "^1.0.1",
     "@types/react": "^18.2.18",
