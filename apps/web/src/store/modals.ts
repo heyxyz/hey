@@ -26,6 +26,8 @@ interface GlobalModalState {
     reportProfileModal: boolean,
     reportingProfile: Profile | null
   ) => void;
+  showNewSpacesModal: boolean;
+  setShowNewSpacesModal: (showNewSpacesModal: boolean) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
@@ -55,5 +57,8 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showReportProfileModal: false,
   reportingProfile: null,
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
-    set(() => ({ showReportProfileModal, reportingProfile }))
+    set(() => ({ showReportProfileModal, reportingProfile })),
+  showNewSpacesModal: false,
+  setShowNewSpacesModal: (showNewSpacesModal) =>
+    set(() => ({ showNewSpacesModal }))
 }));

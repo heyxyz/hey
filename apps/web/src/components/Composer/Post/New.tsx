@@ -19,9 +19,16 @@ const NewPost: FC = () => {
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   );
+  const setShowNewSpacesModal = useGlobalModalStateStore(
+    (state) => state.setShowNewSpacesModal
+  );
 
   const openModal = () => {
     setShowNewPostModal(true);
+  };
+
+  const openSpacesModal = () => {
+    setShowNewSpacesModal(true);
   };
 
   useEffectOnce(() => {
@@ -42,6 +49,7 @@ const NewPost: FC = () => {
 
       setShowNewPostModal(true);
       setPublicationContent(content);
+      setShowNewSpacesModal(true);
     }
   });
 
@@ -64,6 +72,12 @@ const NewPost: FC = () => {
             <Trans>What's happening?</Trans>
           </span>
         </button>
+        <Image
+          src="/spaces.png"
+          className="h-9 w-9 cursor-pointer"
+          onClick={() => openSpacesModal()}
+          alt={formatHandle(currentProfile?.handle)}
+        />
       </div>
     </Card>
   );

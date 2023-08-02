@@ -1,4 +1,5 @@
 import NewPublication from '@components/Composer/NewPublication';
+import NewSpaces from '@components/Composer/NewSpaces';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowCircleRightIcon,
@@ -35,7 +36,9 @@ const GlobalModals: FC = () => {
     setShowInvitesModal,
     showReportProfileModal,
     reportingProfile,
-    setShowReportProfileModal
+    setShowReportProfileModal,
+    showNewSpacesModal,
+    setShowNewSpacesModal
   } = useGlobalModalStateStore();
 
   return (
@@ -98,6 +101,14 @@ const GlobalModals: FC = () => {
         onClose={() => setShowInvitesModal(false)}
       >
         <Invites />
+      </Modal>
+      <Modal
+        title={t`Create Spaces`}
+        size="md"
+        show={showNewSpacesModal}
+        onClose={() => setShowNewSpacesModal(false)}
+      >
+        <NewSpaces />
       </Modal>
     </>
   );

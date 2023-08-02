@@ -1,6 +1,6 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
-import useSendMessage from '@components/utils/hooks/useSendMessage';
+import useSendMessage from '@components/utils/hooks/useSendOptimisticMessage';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -101,8 +101,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
               const { meetingLink } = data.data;
               sendMessage(
                 `Join here for a call: ${meetingLink}`,
-                ContentTypeText,
-                ''
+                ContentTypeText
               );
               window.open(meetingLink, 'newwindow', 'width=1200, height=800');
             }}
