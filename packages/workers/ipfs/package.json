@@ -18,10 +18,10 @@
     "itty-router": "^4.0.14"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230724.0",
+    "@cloudflare/workers-types": "^4.20230801.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
-    "vitest": "^0.33.0",
+    "vitest": "^0.34.1",
     "wrangler": "^3.4.0"
   }
 }
