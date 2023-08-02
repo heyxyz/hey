@@ -4,6 +4,10 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 const nextConfig = {
   transpilePackages: ['data'],
   reactStrictMode: false,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false };
+    return config;
+  },
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true,
