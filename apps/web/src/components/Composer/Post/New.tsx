@@ -4,6 +4,7 @@ import getAvatar from '@lenster/lib/getAvatar';
 import { Card, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -30,6 +31,8 @@ const NewPost: FC = () => {
   const openSpacesModal = () => {
     setShowNewSpacesModal(true);
   };
+
+  const { resolvedTheme } = useTheme();
 
   useEffectOnce(() => {
     if (isReady && query.text) {
@@ -73,7 +76,7 @@ const NewPost: FC = () => {
           </span>
         </button>
         <Image
-          src="/spaces.png"
+          src={`/${resolvedTheme}-mic-icon.png`}
           className="h-9 w-9 cursor-pointer"
           onClick={() => openSpacesModal()}
           alt={formatHandle(currentProfile?.handle)}

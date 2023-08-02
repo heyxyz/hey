@@ -61,6 +61,7 @@ import {
   Button,
   Card,
   ErrorMessage,
+  Image,
   Input,
   Spinner,
   Toggle
@@ -834,7 +835,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               setOn={() => setIsRecordingOn(!isRecordingOn)}
             />
           </div>
-          <div className="flex flex-col items-start text-neutral-500">
+          <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
             Record Spaces
           </div>
           <div className="flex items-center justify-center">
@@ -850,17 +851,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           </div>
           <div>
             <Toggle
-              on={isRecordingOn}
-              setOn={() => setIsRecordingOn(!isRecordingOn)}
+              on={isTokenGated}
+              setOn={() => setIsTokenGated(!isTokenGated)}
             />
           </div>
           <div className="flex items-start gap-1">
-            <div className="flex flex-col items-start text-neutral-500">
+            <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
               Token gate with
             </div>
             <Menu as="div" className="relative">
               <Menu.Button className="flex items-start gap-1">
-                <span className="flex items-start gap-1">
+                <span className="flex items-start gap-1 text-neutral-500 dark:text-neutral-300">
                   {selectedDropdown.length > 0
                     ? selectedDropdown
                     : 'have a lens profile'}
@@ -869,7 +870,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               </Menu.Button>
               <MenuTransition>
                 <Menu.Items
-                  className="light:bg-brand-500 absolute right-0 mt-2 w-56 origin-top-right divide-y rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-900"
+                  className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none dark:bg-gray-900"
                   style={{ display: isMenuOpen ? 'block' : 'none' }}
                 >
                   <Menu.Item
@@ -877,48 +878,73 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
-                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-400'
+                        'flex items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
                       )
                     }
                     onClick={() => setSelectedDropdown('have a lens profile')}
                   >
                     <span>have a lens profile</span>
+                    {(selectedDropdown === 'have a lens profile' ||
+                      selectedDropdown === '') && (
+                      <Image
+                        src="/check-icon.png"
+                        className="relative h-5 w-5"
+                      />
+                    )}
                   </Menu.Item>
                   <Menu.Item
                     as="label"
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
-                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-400'
+                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
                       )
                     }
                     onClick={() => setSelectedDropdown('follow a lens profile')}
                   >
                     <span>follow a lens profile</span>
+                    {selectedDropdown === 'follow a lens profile' && (
+                      <Image
+                        src="/check-icon.png"
+                        className="relative h-5 w-5"
+                      />
+                    )}
                   </Menu.Item>
                   <Menu.Item
                     as="label"
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
-                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-400'
+                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
                       )
                     }
                     onClick={() => setSelectedDropdown('collect a post')}
                   >
                     <span>collect a post</span>
+                    {selectedDropdown === 'collect a post' && (
+                      <Image
+                        src="/check-icon.png"
+                        className="relative h-5 w-5"
+                      />
+                    )}
                   </Menu.Item>
                   <Menu.Item
                     as="label"
                     className={({ active }) =>
                       clsx(
                         { 'dropdown-active': active },
-                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-400'
+                        'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
                       )
                     }
                     onClick={() => setSelectedDropdown('mirror a post')}
                   >
                     <span>mirror a post</span>
+                    {selectedDropdown === 'mirror a post' && (
+                      <Image
+                        src="/check-icon.png"
+                        className="relative h-5 w-5"
+                      />
+                    )}
                   </Menu.Item>
                 </Menu.Items>
               </MenuTransition>
