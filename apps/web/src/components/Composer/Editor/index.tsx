@@ -4,7 +4,6 @@ import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
 import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
-import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Errors } from '@lenster/data/errors';
 import {
   $convertToMarkdownString,
@@ -26,6 +25,7 @@ import {
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/publication';
 
 const TRANSFORMERS = [...TEXT_FORMAT_TRANSFORMERS];

@@ -3,8 +3,6 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import useCreatePoll from '@components/utils/hooks/useCreatePoll';
-import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
   CollectCondition,
@@ -75,6 +73,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
+import useCreatePoll from 'src/hooks/useCreatePoll';
+import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';

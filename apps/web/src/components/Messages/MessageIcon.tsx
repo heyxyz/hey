@@ -1,10 +1,10 @@
-import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import { MailIcon } from '@heroicons/react/outline';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
+import useXmtpClient from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/app';
 import { useMessagePersistStore } from 'src/store/message';
 

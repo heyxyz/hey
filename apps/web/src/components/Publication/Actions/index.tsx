@@ -1,7 +1,7 @@
-import useModMode from '@components/utils/hooks/useModMode';
 import type { ElectedMirror, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
+import useModMode from 'src/hooks/useModMode';
 import { useAppStore } from 'src/store/app';
 
 import Collect from './Collect';

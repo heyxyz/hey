@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -16,6 +15,7 @@ import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
+import useStaffMode from 'src/hooks/useStaffMode';
 import Custom404 from 'src/pages/404';
 import { useEffectOnce } from 'usehooks-ts';
 

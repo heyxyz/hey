@@ -1,4 +1,3 @@
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   ShieldCheckIcon,
   ShieldExclamationIcon
@@ -8,6 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import useStaffMode from 'src/hooks/useStaffMode';
 import { useModePersistStore } from 'src/store/mode';
 
 interface StaffModeProps {

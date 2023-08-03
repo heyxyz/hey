@@ -1,4 +1,3 @@
-import useModMode from '@components/utils/hooks/useModMode';
 import { LightningBoltIcon as LightningBoltIconOutline } from '@heroicons/react/outline';
 import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/solid';
 import { MOD } from '@lenster/data/tracking';
@@ -6,6 +5,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import useModMode from 'src/hooks/useModMode';
 import { useModePersistStore } from 'src/store/mode';
 
 interface ModModeProps {

@@ -1,14 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
-import useGetMessages from '@components/utils/hooks/useGetMessages';
-import { useGetProfile } from '@components/utils/hooks/useMessageDb';
-import type {
-  FailedMessage,
-  PendingMessage
-} from '@components/utils/hooks/useSendOptimisticMessage';
-import useSendOptimisticMessage from '@components/utils/hooks/useSendOptimisticMessage';
-import useStreamMessages from '@components/utils/hooks/useStreamMessages';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -21,6 +13,14 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import useGetMessages from 'src/hooks/useGetMessages';
+import { useGetProfile } from 'src/hooks/useMessageDb';
+import type {
+  FailedMessage,
+  PendingMessage
+} from 'src/hooks/useSendOptimisticMessage';
+import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
+import useStreamMessages from 'src/hooks/useStreamMessages';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
