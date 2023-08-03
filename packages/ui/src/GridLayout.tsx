@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 
 interface GridProps {
@@ -13,9 +14,12 @@ export const GridLayout: FC<GridProps> = ({
 }) => {
   return (
     <div
-      className={`container mx-auto max-w-screen-xl grow px-0 pb-2 pt-8 sm:px-5 ${className}`}
+      className={clsx(
+        'container mx-auto max-w-screen-xl grow px-0 pb-2 pt-8 sm:px-5',
+        className
+      )}
     >
-      <div className={`grid grid-cols-12 lg:gap-8 ${classNameChild}`}>
+      <div className={clsx('grid grid-cols-12 lg:gap-8', classNameChild)}>
         {children}
       </div>
     </div>
@@ -24,7 +28,9 @@ export const GridLayout: FC<GridProps> = ({
 
 export const GridItemFour: FC<GridProps> = ({ children, className = '' }) => {
   return (
-    <div className={`col-span-12 md:col-span-12 lg:col-span-4 ${className}`}>
+    <div
+      className={clsx('col-span-12 md:col-span-12 lg:col-span-4', className)}
+    >
       {children}
     </div>
   );
@@ -33,7 +39,10 @@ export const GridItemFour: FC<GridProps> = ({ children, className = '' }) => {
 export const GridItemEight: FC<GridProps> = ({ children, className = '' }) => {
   return (
     <div
-      className={`col-span-12 mb-5 md:col-span-12 lg:col-span-8 ${className}`}
+      className={clsx(
+        'col-span-12 mb-5 md:col-span-12 lg:col-span-8',
+        className
+      )}
     >
       {children}
     </div>
