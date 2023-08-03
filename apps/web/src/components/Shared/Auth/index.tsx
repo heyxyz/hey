@@ -78,6 +78,7 @@ const Login: FC = () => {
       signOut();
       return toast.error(t`Please connect to your wallet`);
     }
+
     try {
       setLoading(true);
       const challenge = await loadChallenge({
@@ -98,23 +99,22 @@ const Login: FC = () => {
       const accessToken = result.data?.authenticate.accessToken;
       const refreshToken = result.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-      const { data: channelsData } = await getProfiles({
-        variables: {
-          request: { ownedBy: [address] }
-        }
+      const { data: profilesData } = await getProfiles({
+        variables: { request: { ownedBy: [address] } }
       });
+
       if (
-        !channelsData?.profiles ||
-        channelsData?.profiles?.items.length === 0
+        !profilesData?.profiles ||
+        profilesData?.profiles?.items.length === 0
       ) {
         setCurrentProfile(null);
         setProfileId(null);
       } else {
-        const channels = channelsData?.profiles?.items as Profile[];
-        const defaultChannel = channels.find((channel) => channel.isDefault);
-        setProfiles(channels);
-        setCurrentProfile(defaultChannel ?? channels[0]);
-        setProfileId(defaultChannel?.id ?? channels[0].id);
+        const profiles = profilesData?.profiles?.items as Profile[];
+        const defaultProfile = profiles.find((profile) => profile.isDefault);
+        setProfiles(profiles);
+        setCurrentProfile(defaultProfile ?? profiles[0]);
+        setProfileId(defaultProfile?.id ?? profiles[0].id);
         if (router.query?.next) {
           router.push(router.query?.next as string);
         }
