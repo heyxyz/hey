@@ -1,13 +1,13 @@
 import Markup from '@components/Shared/Markup';
-import {
-  type FailedMessage,
-  isQueuedMessage,
-  type PendingMessage
-} from '@components/utils/hooks/useSendOptimisticMessage';
 import type { Profile } from '@lenster/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
 import { useRef } from 'react';
+import {
+  type FailedMessage,
+  isQueuedMessage,
+  type PendingMessage
+} from 'src/hooks/useSendOptimisticMessage';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
 import RemoteAttachmentPreview from './RemoteAttachmentPreview';

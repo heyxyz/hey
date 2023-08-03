@@ -1,6 +1,5 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { Disclosure } from '@headlessui/react';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
@@ -11,6 +10,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import useStaffMode from 'src/hooks/useStaffMode';
 import { useAppStore } from 'src/store/app';
 
 import MenuItems from './MenuItems';

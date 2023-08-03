@@ -1,11 +1,11 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
-import useModMode from '@components/utils/hooks/useModMode';
 import { XIcon } from '@heroicons/react/outline';
 import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import useModMode from 'src/hooks/useModMode';
 import { usePublicationStore } from 'src/store/publication';
 
 import PublicationMenu from './Actions/Menu';

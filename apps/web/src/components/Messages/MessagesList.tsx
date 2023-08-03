@@ -1,8 +1,3 @@
-import {
-  type FailedMessage,
-  isQueuedMessage,
-  type PendingMessage
-} from '@components/utils/hooks/useSendOptimisticMessage';
 import { ClockIcon, EmojiSadIcon } from '@heroicons/react/outline';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
@@ -22,6 +17,11 @@ import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { memo, useEffect, useRef } from 'react';
 import { useInView } from 'react-cool-inview';
+import {
+  type FailedMessage,
+  isQueuedMessage,
+  type PendingMessage
+} from 'src/hooks/useSendOptimisticMessage';
 import { useMessageStore } from 'src/store/message';
 
 import MessageContent from './MessageContent';

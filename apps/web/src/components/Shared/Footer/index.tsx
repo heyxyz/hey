@@ -1,10 +1,10 @@
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import { APP_NAME } from '@lenster/data/constants';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import useStaffMode from 'src/hooks/useStaffMode';
 
 import Locale from './Locale';
 

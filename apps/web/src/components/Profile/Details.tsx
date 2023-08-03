@@ -5,8 +5,6 @@ import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
-import { useMessageDb } from '@components/utils/hooks/useMessageDb';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   CogIcon,
   HashtagIcon,
@@ -40,6 +38,8 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useMessageDb } from 'src/hooks/useMessageDb';
+import useStaffMode from 'src/hooks/useStaffMode';
 import { useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
