@@ -5,8 +5,8 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import { useProfileSettingsQuery } from '@lenster/lens';
 import {
   Card,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   PageLoading,
   TabButton
@@ -59,10 +59,10 @@ const ProfileSettings: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Profile settings • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+      </GridItemThree>
+      <GridItemSix className="space-y-5">
         <ProfileSettingsForm profile={profile as any} />
         <Card className="space-y-5 p-5">
           <div className="flex items-center space-x-2">
@@ -85,7 +85,7 @@ const ProfileSettings: NextPage = () => {
             <Picture profile={profile as any} />
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

@@ -5,8 +5,8 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   Button,
   Card,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout
 } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -40,10 +40,10 @@ const CleanupSettings: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Cleanup settings • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card className="p-5">
           <div className="space-y-5">
             <div className="text-lg font-bold">
@@ -107,7 +107,7 @@ const CleanupSettings: NextPage = () => {
             </div>
           </div>
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

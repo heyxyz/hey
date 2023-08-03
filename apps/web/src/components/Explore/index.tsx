@@ -11,7 +11,7 @@ import { EXPLORE, PAGEVIEW } from '@lenster/data/tracking';
 import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
@@ -47,7 +47,7 @@ const Explore: NextPage = () => {
         title={t`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <Tab.Group
           defaultIndex={Number(router.query.tab)}
           onChange={(index) => {
@@ -92,13 +92,13 @@ const Explore: NextPage = () => {
             ))}
           </Tab.Panels>
         </Tab.Group>
-      </GridItemEight>
-      <GridItemFour>
+      </GridItemSix>
+      <GridItemThree>
         {isExploreTagsEnabled && <Tags />}
         {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };

@@ -1,5 +1,5 @@
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import type { FC } from 'react';
 
 const ProfilePageShimmer: FC = () => {
@@ -7,7 +7,7 @@ const ProfilePageShimmer: FC = () => {
     <>
       <div className="shimmer h-52 sm:h-80" />
       <GridLayout className="pt-6">
-        <GridItemFour>
+        <GridItemThree>
           <div className="mb-4 space-y-9 px-5 sm:px-0">
             <div className="relative -mt-24 h-32 w-32 bg-gray-100 sm:-mt-32 sm:h-52 sm:w-52">
               <div className="shimmer h-32 w-32 rounded-xl ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52" />
@@ -44,8 +44,8 @@ const ProfilePageShimmer: FC = () => {
               </div>
             </div>
           </div>
-        </GridItemFour>
-        <GridItemEight>
+        </GridItemThree>
+        <GridItemSix>
           <div className="mb-5 mt-3 flex gap-3 px-5 sm:mt-0 sm:px-0">
             <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
             <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
@@ -53,7 +53,7 @@ const ProfilePageShimmer: FC = () => {
             <div className="shimmer h-8 w-14 rounded-lg sm:w-28" />
           </div>
           <PublicationsShimmer />
-        </GridItemEight>
+        </GridItemSix>
       </GridLayout>
     </>
   );

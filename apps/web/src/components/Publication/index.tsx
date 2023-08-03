@@ -10,7 +10,7 @@ import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { usePublicationQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -73,7 +73,7 @@ const ViewPublication: NextPage = () => {
             : APP_NAME
         }
       />
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <Card>
           <FullPublication publication={publication} />
         </Card>
@@ -86,8 +86,8 @@ const ViewPublication: NextPage = () => {
         ) : null}
         <Feed publication={publication} />
         <NoneRelevantFeed publication={publication} />
-      </GridItemEight>
-      <GridItemFour className="space-y-5">
+      </GridItemSix>
+      <GridItemThree className="space-y-5">
         <Card as="aside" className="p-5" dataTestId="poster-profile">
           <UserProfile
             profile={
@@ -102,7 +102,7 @@ const ViewPublication: NextPage = () => {
         <OnchainMeta publication={publication} />
         {staffMode && <PublicationStaffTool publication={publication} />}
         <Footer />
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };

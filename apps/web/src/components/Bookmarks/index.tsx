@@ -8,7 +8,7 @@ import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { PublicationMainFocus } from '@lenster/lens';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -35,15 +35,15 @@ const Bookmarks: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Bookmarks • ${APP_NAME}`} />
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <FeedFocusType setFocus={setFocus} focus={focus} />
         <Feed focus={focus} />
-      </GridItemEight>
-      <GridItemFour>
+      </GridItemSix>
+      <GridItemThree>
         {isTrendingWidgetEnabled && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };

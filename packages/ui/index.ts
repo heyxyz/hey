@@ -5,7 +5,7 @@ export { Checkbox } from './src/Checkbox';
 export { EmptyState } from './src/EmptyState';
 export { ErrorMessage } from './src/ErrorMessage';
 export { FieldError, Form, useZodForm } from './src/Form';
-export { GridItemEight, GridItemFour, GridLayout } from './src/GridLayout';
+export { GridItemSix, GridItemThree, GridLayout } from './src/GridLayout';
 export { default as HelpTooltip } from './src/HelpTooltip';
 export { Image } from './src/Image';
 export { Input } from './src/Input';

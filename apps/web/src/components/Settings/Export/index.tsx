@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -31,17 +31,17 @@ const ExportSettings: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Account settings • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+      </GridItemThree>
+      <GridItemSix className="space-y-5">
         <Profile />
         <Publications />
         <Notifications />
         <Following />
         <Followers />
         <Tokens />
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

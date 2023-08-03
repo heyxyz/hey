@@ -19,7 +19,6 @@ import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
-import Navbar from '../Shared/Navbar';
 
 interface LayoutProps {
   children: ReactNode;
@@ -126,7 +125,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">
-        <Navbar />
+        {/* <Navbar /> */}
         <GlobalBanners />
         <BottomNavigation />
         {children}

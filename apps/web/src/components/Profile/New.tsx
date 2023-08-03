@@ -3,7 +3,7 @@ import Signup from '@components/Shared/Login/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -25,17 +25,17 @@ const NewProfile: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Create Profile • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsHelper
           heading="Create profile"
           description={t`Create new decentralized profile`}
         />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card className="p-5">
           <Signup />
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

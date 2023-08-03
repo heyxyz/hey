@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
 import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -31,7 +31,7 @@ const Search: NextPage = () => {
     <>
       <MetaTags />
       <GridLayout>
-        <GridItemFour>
+        <GridItemThree>
           <Sidebar
             items={[
               {
@@ -48,11 +48,11 @@ const Search: NextPage = () => {
               }
             ]}
           />
-        </GridItemFour>
-        <GridItemEight>
+        </GridItemThree>
+        <GridItemSix>
           {query.type === 'profiles' && <Profiles query={query.q} />}
           {query.type === 'pubs' && <Publications query={query.q} />}
-        </GridItemEight>
+        </GridItemSix>
       </GridLayout>
     </>
   );

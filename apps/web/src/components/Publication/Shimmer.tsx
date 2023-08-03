@@ -2,19 +2,19 @@ import Footer from '@components/Shared/Footer';
 import PublicationShimmer from '@components/Shared/Shimmer/PublicationShimmer';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import type { FC } from 'react';
 
 const PublicationPageShimmer: FC = () => {
   return (
     <GridLayout>
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <Card>
           <PublicationShimmer />
         </Card>
         <PublicationsShimmer />
-      </GridItemEight>
-      <GridItemFour className="space-y-5">
+      </GridItemSix>
+      <GridItemThree className="space-y-5">
         <Card className="p-5">
           <UserProfileShimmer />
         </Card>
@@ -30,7 +30,7 @@ const PublicationPageShimmer: FC = () => {
           <div className="shimmer h-3 w-1/4 rounded-lg" />
         </Card>
         <Footer />
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };

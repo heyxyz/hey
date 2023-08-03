@@ -5,8 +5,8 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import { useRelayQueuesQuery } from '@lenster/lens';
 import {
   Card,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   Spinner
 } from '@lenster/ui';
@@ -90,10 +90,10 @@ const RelayQueues: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Stafftools | Relay queues • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <StaffToolsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+      </GridItemThree>
+      <GridItemSix className="space-y-5">
         <Card className="p-5">
           {error ? (
             <b className="text-red-500">{Errors.SomethingWentWrong}</b>
@@ -119,7 +119,7 @@ const RelayQueues: NextPage = () => {
             </section>
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

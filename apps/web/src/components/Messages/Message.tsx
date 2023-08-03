@@ -5,7 +5,7 @@ import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import { Card, GridItemEight, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridLayout } from '@lenster/ui';
 import { parseConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -150,7 +150,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
         className="xs:hidden sm:hidden md:hidden lg:block"
         selectedConversationKey={conversationKey}
       />
-      <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
+      <GridItemSix className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
         <Card className="flex h-[87vh] flex-col justify-between">
           {showLoading ? (
             <div className="flex h-full grow items-center justify-center">
@@ -179,7 +179,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
             </>
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

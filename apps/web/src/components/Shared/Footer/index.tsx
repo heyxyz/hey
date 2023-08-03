@@ -13,7 +13,7 @@ const Footer: FC = () => {
 
   return (
     <footer
-      className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`}
+      className={`sticky text-sm leading-7 ${staffMode ? 'top-10' : 'top-8'}`}
       data-testid="footer"
     >
       <div className={'mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0'}>

@@ -9,8 +9,8 @@ import getAvatar from '@lenster/lib/getAvatar';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import {
   Card,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   Image
 } from '@lenster/ui';
@@ -37,7 +37,7 @@ const NFTDetail: FC = () => {
   return (
     <GridLayout className="pt-6">
       <MetaTags title="Subscape #363" />
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <Card className="p-4">
           <img
             width={500}
@@ -48,8 +48,8 @@ const NFTDetail: FC = () => {
             draggable={false}
           />
         </Card>
-      </GridItemEight>
-      <GridItemFour className="space-y-4">
+      </GridItemSix>
+      <GridItemThree className="space-y-4">
         <Card className="p-4">
           <h1>Subscape #363</h1>
           <Slug className="text-xs" slug="Subscapes" />
@@ -185,7 +185,7 @@ const NFTDetail: FC = () => {
             </Link>
           </div>
         </Card>
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };

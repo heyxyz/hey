@@ -10,7 +10,7 @@ import {
   Card,
   EmptyState,
   ErrorMessage,
-  GridItemFour,
+  GridItemThree,
   Modal,
   TabButton
 } from '@lenster/ui';
@@ -98,7 +98,7 @@ const PreviewList: FC<PreviewListProps> = ({
   };
 
   return (
-    <GridItemFour
+    <GridItemThree
       className={clsx(
         'xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]',
         className
@@ -216,7 +216,7 @@ const PreviewList: FC<PreviewListProps> = ({
           />
         )}
       </Modal>
-    </GridItemFour>
+    </GridItemThree>
   );
 };
 

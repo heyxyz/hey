@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { Card, GridItemEight, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -45,11 +45,11 @@ const Messages: NextPage = () => {
     <GridLayout classNameChild="md:gap-8">
       <MetaTags title={t`Messages • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight className="xs:hidden xs:mx-2 mb-0 sm:mx-2 sm:hidden sm:h-[76vh] md:col-span-8 md:hidden md:h-[80vh] lg:block xl:h-[84vh]">
+      <GridItemSix className="xs:hidden xs:mx-2 mb-0 sm:mx-2 sm:hidden sm:h-[76vh] md:col-span-8 md:hidden md:h-[80vh] lg:block xl:h-[84vh]">
         <Card className="h-full">
           <NoConversationSelected />
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

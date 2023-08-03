@@ -17,8 +17,8 @@ import { useLensterStatsQuery } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import {
   Card,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   Spinner
 } from '@lenster/ui';
@@ -125,10 +125,10 @@ const Stats: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Stafftools | Stats • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <StaffToolsSidebar />
-      </GridItemFour>
-      <GridItemEight className="space-y-5">
+      </GridItemThree>
+      <GridItemSix className="space-y-5">
         <Card className="p-5">
           {error ? (
             <b className="text-red-500">{Errors.SomethingWentWrong}</b>
@@ -214,7 +214,7 @@ const Stats: NextPage = () => {
             </section>
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

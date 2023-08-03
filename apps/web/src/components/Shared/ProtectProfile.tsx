@@ -4,8 +4,8 @@ import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
   Button,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   Spinner
 } from '@lenster/ui';
@@ -51,7 +51,7 @@ const ProtectProfile: FC = () => {
   return (
     <div className="border-b border-red-300 bg-red-500/20">
       <GridLayout className="!p-5">
-        <GridItemEight className="!mb-0 space-y-1">
+        <GridItemSix className="!mb-0 space-y-1">
           <div className="flex items-center space-x-2 text-red-700">
             <LockOpenIcon className="h-5 w-5" />
             <div className="text-base font-bold sm:text-lg">
@@ -80,8 +80,8 @@ const ProtectProfile: FC = () => {
               </Trans>
             )}
           </div>
-        </GridItemEight>
-        <GridItemFour className="mt-5 flex items-center sm:ml-auto sm:mt-0">
+        </GridItemSix>
+        <GridItemThree className="mt-5 flex items-center sm:ml-auto sm:mt-0">
           {data?.hash ? (
             <IndexStatus txHash={data?.hash} reload />
           ) : (
@@ -99,7 +99,7 @@ const ProtectProfile: FC = () => {
               <Trans>Protect now</Trans>
             </Button>
           )}
-        </GridItemFour>
+        </GridItemThree>
       </GridLayout>
     </div>
   );

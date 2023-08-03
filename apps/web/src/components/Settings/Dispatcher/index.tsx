@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -58,10 +58,10 @@ const DispatcherSettings: FC = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Dispatcher • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card className="linkify space-y-2 p-5">
           <div className="flex items-center space-x-2">
             <div className="text-lg font-bold">{getTitleText()}</div>
@@ -69,7 +69,7 @@ const DispatcherSettings: FC = () => {
           <div className="pb-2">{getDescription()}</div>
           <ToggleDispatcher />
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

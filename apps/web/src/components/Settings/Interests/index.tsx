@@ -3,7 +3,7 @@ import Interests from '@components/Settings/Interests/Interests';
 import Beta from '@components/Shared/Badges/Beta';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -27,10 +27,10 @@ const InterestsSettings: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Interests settings • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card className="p-5">
           <div className="space-y-5">
             <div className="flex items-center space-x-2">
@@ -50,7 +50,7 @@ const InterestsSettings: NextPage = () => {
           <div className="divider my-5" />
           <Interests />
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

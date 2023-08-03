@@ -9,8 +9,8 @@ import {
   Card,
   EmptyState,
   Form,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout,
   Input,
   Spinner,
@@ -74,13 +74,13 @@ const Contact: FC = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Contact • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsHelper
           heading={t`Contact ${APP_NAME}`}
           description={t`Contact us to help you get the issue resolved.`}
         />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card>
           {submitted ? (
             <EmptyState
@@ -129,7 +129,7 @@ const Contact: FC = () => {
             </Form>
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

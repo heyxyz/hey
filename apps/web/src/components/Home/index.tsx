@@ -3,7 +3,7 @@ import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -35,11 +35,11 @@ const Home: NextPage = () => {
       <MetaTags />
       {!currentProfile && <Hero />}
       <GridLayout>
-        <GridItemEight className="space-y-5">
+        <GridItemSix className="space-y-5">
           {currentProfile ? (
             <>
-              <NewPost />
               <FeedType feedType={feedType} setFeedType={setFeedType} />
+              <NewPost />
               {feedType === Type.FOR_YOU ? (
                 <ForYou />
               ) : feedType === Type.FOLLOWING ? (
@@ -51,8 +51,8 @@ const Home: NextPage = () => {
           ) : (
             <ExploreFeed />
           )}
-        </GridItemEight>
-        <GridItemFour>
+        </GridItemSix>
+        <GridItemThree hideDivider>
           {currentProfile ? (
             <>
               <EnableDispatcher />
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
             <Waitlist />
           )}
           <Footer />
-        </GridItemFour>
+        </GridItemThree>
       </GridLayout>
     </>
   );

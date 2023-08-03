@@ -12,7 +12,7 @@ import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
+import { GridItemSix, GridItemThree, GridLayout, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -131,14 +131,14 @@ const ViewProfile: NextPage = () => {
         }
       />
       <GridLayout className="pt-6">
-        <GridItemFour>
+        <GridItemThree>
           <Details
             profile={profile as Profile}
             following={Boolean(following)}
             setFollowing={setFollowing}
           />
-        </GridItemFour>
-        <GridItemEight className="space-y-5">
+        </GridItemThree>
+        <GridItemSix className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
           {currentProfile?.id === profile?.id ? <NewPost /> : null}
           {(feedType === ProfileFeedType.Feed ||
@@ -157,7 +157,7 @@ const ViewProfile: NextPage = () => {
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />
           ) : null}
-        </GridItemEight>
+        </GridItemSix>
       </GridLayout>
     </>
   );

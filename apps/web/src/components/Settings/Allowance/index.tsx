@@ -10,7 +10,7 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   useEnabledModulesQuery
 } from '@lenster/lens';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { Card, GridItemSix, GridItemThree, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -67,10 +67,10 @@ const AllowanceSettings: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Allowance settings • ${APP_NAME}`} />
-      <GridItemFour>
+      <GridItemThree>
         <SettingsSidebar />
-      </GridItemFour>
-      <GridItemEight>
+      </GridItemThree>
+      <GridItemSix>
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-5">
@@ -118,7 +118,7 @@ const AllowanceSettings: NextPage = () => {
             <Allowance allowance={data} />
           )}
         </Card>
-      </GridItemEight>
+      </GridItemSix>
     </GridLayout>
   );
 };

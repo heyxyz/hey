@@ -12,8 +12,8 @@ import {
   Button,
   Card,
   Checkbox,
-  GridItemEight,
-  GridItemFour,
+  GridItemSix,
+  GridItemThree,
   GridLayout
 } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -78,7 +78,7 @@ const Mod: NextPage = () => {
   return (
     <GridLayout>
       <MetaTags title={t`Mod Center • ${APP_NAME}`} />
-      <GridItemEight className="space-y-5">
+      <GridItemSix className="space-y-5">
         <Feed
           refresh={refresh}
           setRefreshing={setRefreshing}
@@ -86,8 +86,8 @@ const Mod: NextPage = () => {
           mainContentFocus={mainContentFocus}
           customFilters={customFilters}
         />
-      </GridItemEight>
-      <GridItemFour>
+      </GridItemSix>
+      <GridItemThree>
         <Card className="p-5">
           <Button
             disabled={refresing}
@@ -213,7 +213,7 @@ const Mod: NextPage = () => {
           </div>
         </Card>
         <Footer />
-      </GridItemFour>
+      </GridItemThree>
     </GridLayout>
   );
 };
