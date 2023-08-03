@@ -1,8 +1,3 @@
-import type {
-  AllowedContent,
-  SendMessageContent,
-  SendMessageOptions
-} from '@components/utils/hooks/useSendOptimisticMessage';
 import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
 import { XIcon } from '@heroicons/react/solid';
 import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
@@ -17,6 +12,11 @@ import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import type {
+  AllowedContent,
+  SendMessageContent,
+  SendMessageOptions
+} from 'src/hooks/useSendOptimisticMessage';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore

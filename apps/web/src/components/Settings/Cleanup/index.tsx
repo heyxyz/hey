@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { APP_NAME } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -14,6 +13,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
+import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -102,32 +102,6 @@ const CleanupSettings: NextPage = () => {
                   toast.success(t`Cleared DM keys`);
                 }}
               >
-                <Trans>Cleanup</Trans>
-              </Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <b>
-                  <Trans>Feature flags cache</Trans>
-                </b>
-                <div className="lt-text-gray-500 text-xs font-bold">
-                  <Trans>Clean your feature flags cache</Trans>
-                </div>
-              </div>
-              <Button onClick={() => cleanup(Localstorage.FeaturesCache)}>
-                <Trans>Cleanup</Trans>
-              </Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <b className="text-red-500">
-                  <Trans>App settings</Trans>
-                </b>
-                <div className="lt-text-gray-500 text-xs font-bold">
-                  <Trans>Note: Cleaning will log you out</Trans>
-                </div>
-              </div>
-              <Button onClick={() => cleanup(Localstorage.LensterStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

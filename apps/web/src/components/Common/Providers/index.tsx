@@ -1,10 +1,5 @@
-import {
-  APP_NAME,
-  IS_MAINNET,
-  WALLETCONNECT_PROJECT_ID
-} from '@lenster/data/constants';
-import { ApolloProvider, webClient } from '@lenster/lens/apollo';
-import getRpc from '@lenster/lib/getRpc';
+import { ApolloProvider, lensApolloClient } from '@lenster/lens/apollo';
+import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -14,37 +9,12 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import LanguageProvider from './LanguageProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
-
-const { chains, publicClient } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai, mainnet],
-  [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
-);
-
-const connectors: any = [
-  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
-  new WalletConnectConnector({
-    options: { projectId: WALLETCONNECT_PROJECT_ID },
-    chains
-  })
-];
-
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient
-});
+import Web3Provider from './Web3Provider';
 
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
@@ -53,14 +23,13 @@ const livepeerClient = createReactClient({
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
-const apolloClient = webClient;
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <LanguageProvider>
       <ErrorBoundary>
-        <WagmiConfig config={wagmiConfig}>
-          <ApolloProvider client={apolloClient}>
+        <Web3Provider>
+          <ApolloProvider client={lensApolloClient(authLink)}>
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
@@ -70,7 +39,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
               </LivepeerConfig>
             </QueryClientProvider>
           </ApolloProvider>
-        </WagmiConfig>
+        </Web3Provider>
       </ErrorBoundary>
     </LanguageProvider>
   );

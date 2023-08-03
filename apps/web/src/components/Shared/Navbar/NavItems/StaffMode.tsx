@@ -1,4 +1,3 @@
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   ShieldCheckIcon,
   ShieldExclamationIcon
@@ -8,7 +7,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import useStaffMode from 'src/hooks/useStaffMode';
+import { useModePersistStore } from 'src/store/mode';
 
 interface StaffModeProps {
   className?: string;
@@ -16,7 +16,7 @@ interface StaffModeProps {
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const { allowed: staffMode } = useStaffMode();
-  const setStaffMode = useAppPersistStore((state) => state.setStaffMode);
+  const setStaffMode = useModePersistStore((state) => state.setStaffMode);
 
   const toggleStaffMode = () => {
     setStaffMode(!staffMode);

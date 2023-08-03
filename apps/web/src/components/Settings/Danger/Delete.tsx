@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
@@ -15,7 +14,9 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
+import { useAppStore } from 'src/store/app';
+import useAuthPersistStore from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
@@ -24,7 +25,7 @@ const DeleteSettings: FC = () => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const setProfileId = useAuthPersistStore((state) => state.setProfileId);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();

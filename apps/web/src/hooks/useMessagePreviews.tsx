@@ -1,4 +1,3 @@
-import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@lenster/lens';
 import { useProfilesLazyQuery } from '@lenster/lens';
 import buildConversationId from '@lib/buildConversationId';
@@ -13,6 +12,7 @@ import { DecodedMessage } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { MessageTabs } from 'src/enums';
+import useXmtpClient from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 

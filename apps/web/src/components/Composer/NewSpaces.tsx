@@ -2,9 +2,6 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import MenuTransition from '@components/Shared/MenuTransition';
-import useCreatePoll from '@components/utils/hooks/useCreatePoll';
-import useCreateSpace from '@components/utils/hooks/useCreateSpace';
-import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
 import { Menu } from '@headlessui/react';
 import { MicrophoneIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -94,6 +91,9 @@ import { useEffectOnce } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
+import useCreatePoll from '../../hooks/useCreatePoll';
+import useCreateSpace from '../../hooks/useCreateSpace';
+import useEthersWalletClient from '../../hooks/useEthersWalletClient';
 import Editor from './Editor';
 
 interface NewPublicationProps {
