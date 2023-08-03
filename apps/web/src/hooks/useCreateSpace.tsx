@@ -12,7 +12,7 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
         method: 'POST',
         data: getBasicWorkerPayload()
       });
-
+      console.log('spaces response', response.data);
       return response.data;
     } catch (error) {
       throw error;

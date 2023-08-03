@@ -53,7 +53,7 @@ const SpacePlayer: FC<SpacePlayerProps> = ({ publication, space }) => {
   });
 
   useEffectOnce(() => {
-    initialize('u7iRM97r22gySZASwaz3kqLdZFFJfqE6');
+    initialize('TxG-OolMwGeCoZPzX660e65wwuU2MP83');
   });
 
   useUpdateEffect(() => {

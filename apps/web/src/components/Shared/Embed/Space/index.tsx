@@ -1,15 +1,16 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import { MicrophoneIcon } from '@heroicons/react/outline';
+import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import type { SpaceMetadata } from '@lenster/types/spaces';
-import { Button, Modal } from '@lenster/ui';
+import { Button, Spinner } from '@lenster/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import Wrapper from '../Wrapper';
-import SpacePlayer from './SpacePlayer';
 
 interface SpaceProps {
   publication: Publication;
@@ -17,7 +18,17 @@ interface SpaceProps {
 
 const Space: FC<SpaceProps> = ({ publication }) => {
   const [showPlayer, setShowPlayer] = useState(false);
+  const [accessToken, setAccessToken] = useState('');
+  const { address } = useAccount();
   const { metadata } = publication;
+
+  const { signMessage, isLoading: signing } = useSignMessage({
+    onSuccess: async (data) => {
+      const token = await getLensAccessToken(data, address as string);
+      setAccessToken(token.accessToken);
+    }
+  });
+
   const space: SpaceMetadata = JSON.parse(
     getPublicationAttribute(metadata.attributes, 'audioSpace')
   );
@@ -33,7 +44,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
   }
 
   const hostProfile = data?.profiles?.items?.find(
-    (profile) => profile?.ownedBy === space.host && profile?.isDefault
+    (profile) => profile?.ownedBy === space.host
   ) as Profile;
 
   return (
@@ -43,27 +54,22 @@ const Space: FC<SpaceProps> = ({ publication }) => {
         <b className="text-lg">{metadata.content}</b>
         <Button
           className="!mt-4 flex w-full justify-center"
-          icon={<MicrophoneIcon className="h-5 w-5" />}
-          onClick={() => setShowPlayer(true)}
+          disabled={signing}
+          icon={
+            signing ? (
+              <Spinner size="xs" className="mr-1" />
+            ) : (
+              <MicrophoneIcon className="h-5 w-5" />
+            )
+          }
+          onClick={async () => {
+            const msg = await getLensMessage(address as string);
+            signMessage({ message: msg.message });
+          }}
         >
           Open Space
         </Button>
       </div>
-      <Modal
-        show={showPlayer}
-        onClose={() => setShowPlayer(false)}
-        size="md"
-        title="Space"
-        icon={<MicrophoneIcon className="text-brand h-5 w-5" />}
-      >
-        <SpacePlayer
-          publication={publication}
-          space={{
-            id: space.id,
-            host: hostProfile
-          }}
-        />
-      </Modal>
     </Wrapper>
   );
 };

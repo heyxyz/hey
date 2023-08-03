@@ -106,8 +106,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
+  const setShowNewSpacesModal = useGlobalModalStateStore(
+    (state) => state.setShowNewSpacesModal
   );
 
   // Nonce store
@@ -188,6 +188,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContent('');
     setQuotedPublication(null);
     setShowSpaceEditor(false);
+    setShowNewSpacesModal(false);
 
     // Track in leafwatch
     const eventProperties = {
