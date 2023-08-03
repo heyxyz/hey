@@ -1,9 +1,9 @@
-import useXmtpClient from '@components/utils/hooks/useXmtpClient';
 import type { Profile } from '@lenster/lens';
 import { Spinner } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import useXmtpClient from 'src/hooks/useXmtpClient';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore

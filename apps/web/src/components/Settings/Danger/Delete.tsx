@@ -1,5 +1,4 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { useDisconnectXmtp } from '@components/utils/hooks/useXmtpClient';
 import { ExclamationIcon, TrashIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
@@ -15,6 +14,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/app';
 import useAuthPersistStore from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';

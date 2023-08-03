@@ -1,12 +1,12 @@
-import type {
-  FailedMessage,
-  PendingMessage
-} from '@components/utils/hooks/useSendOptimisticMessage';
 import { Localstorage } from '@lenster/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
 import { MessageTabs } from 'src/enums';
+import type {
+  FailedMessage,
+  PendingMessage
+} from 'src/hooks/useSendOptimisticMessage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

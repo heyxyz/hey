@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags';
-import useStaffMode from '@components/utils/hooks/useStaffMode';
 import {
   ArrowDownIcon,
   ArrowUpIcon,
@@ -29,6 +28,7 @@ import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
+import useStaffMode from 'src/hooks/useStaffMode';
 import Custom404 from 'src/pages/404';
 import { useEffectOnce } from 'usehooks-ts';
 
