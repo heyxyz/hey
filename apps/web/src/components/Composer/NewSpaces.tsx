@@ -810,8 +810,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <Editor />
       {selectedDropdown.length > 0 &&
         selectedDropdown !== 'have a lens profile' && (
-          <div className="flex w-full items-center gap-2 border-t border-neutral-800 px-4 py-3">
-            <div className="flex items-center gap-3">
+          <div className="flex w-full items-center gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
+            <div className="flex items-center gap-3 text-neutral-500">
               {selectedDropdown === 'follow a lens profile'
                 ? 'Enter Lens profile link'
                 : 'Enter Lens post link'}
@@ -823,11 +823,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                     ? 'profile'
                     : 'post'
                 } link`}
+                className="placeholder-neutral-400"
               />
             </div>
           </div>
         )}
-      <div className="block items-center border-t border-neutral-800 px-5 pt-3 sm:flex">
+      <div className="block items-center border-t border-neutral-200 px-5 pt-3 dark:border-neutral-800 sm:flex">
         <div className="flex flex-[0_0_1] gap-2 space-x-1">
           <div>
             <Toggle
