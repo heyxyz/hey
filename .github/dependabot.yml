@@ -1,111 +1,111 @@
 version: 2
 updates:
-  - package-ecosystem: "pnpm"
-    directory: "/apps/web"
+  - package-ecosystem: 'pnpm'
+    directory: '/apps/web'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/apps/prerender"
+  - package-ecosystem: 'pnpm'
+    directory: '/apps/prerender'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/abis"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/abis'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/bundlr"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/bundlr'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/config"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/config'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/data"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/data'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/image-cropper"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/image-cropper'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/lens"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/lens'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/lib"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/lib'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/snapshot"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/snapshot'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/types"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/types'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/achievements"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/achievements'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/ens"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/ens'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/freshdesk"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/freshdesk'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/invite"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/invite'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/ipfs"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/ipfs'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/leafwatch"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/leafwatch'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/metadata"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/metadata'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/oembed"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/oembed'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/prerender"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/prerender'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/snapshot-relay"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/snapshot-relay'
     schedule:
-      interval: "daily"
+      interval: 'daily'
 
-  - package-ecosystem: "pnpm"
-    directory: "/packages/workers/sts-generator"
+  - package-ecosystem: 'pnpm'
+    directory: '/packages/workers/sts-generator'
     schedule:
-      interval: "daily"
+      interval: 'daily'
