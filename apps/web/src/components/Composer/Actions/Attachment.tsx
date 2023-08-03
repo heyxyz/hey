@@ -1,5 +1,4 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import useUploadAttachments from '@components/utils/hooks/useUploadAttachments';
 import { Menu } from '@headlessui/react';
 import {
   MusicNoteIcon,
@@ -18,6 +17,7 @@ import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/publication';
 import { useOnClickOutside } from 'usehooks-ts';
 const Attachment: FC = () => {

@@ -16,10 +16,10 @@ import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-i
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
+import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
-import { useDisconnectXmtp } from '../utils/hooks/useXmtpClient';
 
 interface LayoutProps {
   children: ReactNode;

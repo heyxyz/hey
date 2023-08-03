@@ -1,8 +1,6 @@
 import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
-import useEthersWalletClient from '@components/utils/hooks/useEthersWalletClient';
-import useNft from '@components/utils/hooks/useNft';
 import {
   CollectionIcon,
   DatabaseIcon,
@@ -41,6 +39,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
+import useNft from 'src/hooks/useNft';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicClient, useToken } from 'wagmi';
