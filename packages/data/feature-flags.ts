@@ -8,7 +8,8 @@ export enum FeatureFlag {
   GatedLocales = 'gated-locales',
   ForYou = 'for-you',
   WTF2 = 'wtf2',
-  ExploreTags = 'explore-tags'
+  ExploreTags = 'explore-tags',
+  Spaces = 'spaces'
 }
 
 export const featureFlags = [
@@ -39,5 +40,9 @@ export const featureFlags = [
   {
     key: FeatureFlag.ExploreTags,
     enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
+  },
+  {
+    key: FeatureFlag.Spaces,
+    enabledFor: ['0x0d']
   }
 ];
