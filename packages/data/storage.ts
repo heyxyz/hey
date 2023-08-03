@@ -1,7 +1,6 @@
 // Localstorage keys
 export const Localstorage = {
-  AccessToken: 'accessToken',
-  RefreshToken: 'refreshToken',
+  AuthStore: 'auth.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
   LensterStore: 'lenster.store',
