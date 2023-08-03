@@ -11,7 +11,7 @@ const resetAuthData = () => {
   localStorage.removeItem(Localstorage.MessageStore);
   localStorage.removeItem(Localstorage.AttachmentCache);
   localStorage.removeItem(Localstorage.AttachmentStore);
-  localStorage.removeItem(Localstorage.FeaturesCache);
+  localStorage.removeItem(Localstorage.NonceStore);
 };
 
 export default resetAuthData;

@@ -1,10 +1,11 @@
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { hydrateAuthTokens } from 'src/store/auth';
+import useAuthPersistStore from 'src/store/auth';
 
 const Tokens: FC = () => {
-  const { accessToken, refreshToken } = hydrateAuthTokens();
+  const accessToken = useAuthPersistStore((state) => state.accessToken);
+  const refreshToken = useAuthPersistStore((state) => state.refreshToken);
 
   return (
     <>
