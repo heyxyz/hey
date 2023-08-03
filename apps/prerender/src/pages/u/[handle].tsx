@@ -5,7 +5,7 @@ import {
   ProfileDocument,
   ProfileFeedDocument
 } from '@lenster/lens';
-import { nodeClient } from '@lenster/lens/apollo';
+import { lensApolloClient } from '@lenster/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {
@@ -31,7 +31,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     processedHandle =
       handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
   }
-  const { data: profileData } = await nodeClient.query({
+  const { data: profileData } = await lensApolloClient().query({
     query: ProfileDocument,
     variables: { request: { handle: processedHandle } }
   });
@@ -40,7 +40,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const profileId = profileData.profile.id;
     const reactionRequest = { profileId };
 
-    const { data: profilePublicationsData } = await nodeClient.query({
+    const { data: profilePublicationsData } = await lensApolloClient().query({
       query: ProfileFeedDocument,
       variables: {
         request: {

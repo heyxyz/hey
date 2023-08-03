@@ -6,7 +6,7 @@ import {
   CustomFiltersTypes,
   PublicationDocument
 } from '@lenster/lens';
-import { nodeClient } from '@lenster/lens/apollo';
+import { lensApolloClient } from '@lenster/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {
@@ -25,7 +25,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const { data: publicationData } = await nodeClient.query({
+  const { data: publicationData } = await lensApolloClient().query({
     query: PublicationDocument,
     variables: { request: { publicationId: id } }
   });
@@ -39,7 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         ? publication.mirrorOf.id
         : publication.id;
 
-    const { data: commentsData } = await nodeClient.query({
+    const { data: commentsData } = await lensApolloClient().query({
       query: CommentFeedDocument,
       variables: {
         request: {

@@ -1,3 +1,3 @@
-import webClient from './webClient';
+import snapshotApolloClient from './client';
 
-export { webClient };
+export { snapshotApolloClient };

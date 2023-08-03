@@ -1951,7 +1951,6 @@ msgstr "இண்டெக்ஸ் செய்யப்படாத உங்�
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "துப்புரவு"
@@ -1975,14 +1974,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Feature flags cache"
-msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Clean your feature flags cache"
-msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -3166,4 +3157,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
