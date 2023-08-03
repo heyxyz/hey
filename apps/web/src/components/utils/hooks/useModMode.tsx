@@ -1,9 +1,10 @@
 import isGardener from '@lenster/lib/isGardener';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/app';
+import { useModePersistStore } from 'src/store/mode';
 
 const useModMode = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const modMode = useAppPersistStore((state) => state.modMode);
+  const modMode = useModePersistStore((state) => state.modMode);
   const allowed = currentProfile
     ? isGardener(currentProfile?.id) && modMode
     : false;

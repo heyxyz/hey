@@ -3,7 +3,7 @@ export const Localstorage = {
   AuthStore: 'auth.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
-  LensterStore: 'lenster.store',
+  ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
   NonceStore: 'nonce.store',
   PreferencesStore: 'preferences.store',
