@@ -77,6 +77,9 @@ const Footer: FC = () => {
         >
           <Trans>Translate</Trans>
         </Link>
+        <Link href="/dmca">
+          <Trans>DMCA</Trans>
+        </Link>
       </div>
       <div className="mt-2 flex space-x-4">
         <Locale />
