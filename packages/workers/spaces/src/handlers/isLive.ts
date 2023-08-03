@@ -12,7 +12,7 @@ export default async (spaceId: string, env: Env) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': 'Lgiukg7CvVMxgdlMRUnOGoWqzRmBv85i'
+          'x-api-key': env.HUDDLE_API_KEY
         }
       }
     );

@@ -2,7 +2,6 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import AudioSpaces from '@components/Spaces';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -36,7 +35,7 @@ const Home: NextPage = () => {
       <MetaTags />
       {!currentProfile && <Hero />}
       <GridLayout>
-        <AudioSpaces />
+        {/* <AudioSpaces /> */}
         <GridItemEight className="space-y-5">
           {currentProfile ? (
             <>

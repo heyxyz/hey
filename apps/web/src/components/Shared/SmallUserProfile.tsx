@@ -44,10 +44,10 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       <div className="truncate">
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
-      {isVerified(profile?.id) && (
+      {isVerified(profile.id) && (
         <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
       )}
-      {hasMisused(profile?.id) && (
+      {hasMisused(profile.id) && (
         <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
       )}
       <Slug

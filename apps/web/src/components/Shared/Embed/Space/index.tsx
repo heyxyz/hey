@@ -7,7 +7,6 @@ import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Button, Spinner } from '@lenster/ui';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 
 import Wrapper from '../Wrapper';
@@ -17,15 +16,12 @@ interface SpaceProps {
 }
 
 const Space: FC<SpaceProps> = ({ publication }) => {
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [accessToken, setAccessToken] = useState('');
   const { address } = useAccount();
   const { metadata } = publication;
 
   const { signMessage, isLoading: signing } = useSignMessage({
     onSuccess: async (data) => {
       const token = await getLensAccessToken(data, address as string);
-      setAccessToken(token.accessToken);
     }
   });
 

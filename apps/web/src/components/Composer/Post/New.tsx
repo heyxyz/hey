@@ -1,4 +1,4 @@
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { MicrophoneIcon, PencilAltIcon } from '@heroicons/react/outline';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Card, Image } from '@lenster/ui';
@@ -30,6 +30,7 @@ const NewPost: FC = () => {
 
   const openSpacesModal = () => {
     setShowNewSpacesModal(true);
+    openModal();
   };
 
   const { resolvedTheme } = useTheme();
@@ -52,7 +53,6 @@ const NewPost: FC = () => {
 
       setShowNewPostModal(true);
       setPublicationContent(content);
-      setShowNewSpacesModal(true);
     }
   });
 
@@ -75,12 +75,12 @@ const NewPost: FC = () => {
             <Trans>What's happening?</Trans>
           </span>
         </button>
-        <Image
-          src={`/${resolvedTheme}-mic-icon.png`}
-          className="h-9 w-9 cursor-pointer"
-          onClick={() => openSpacesModal()}
-          alt={formatHandle(currentProfile?.handle)}
-        />
+        <div className="inline-flex h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900">
+          <MicrophoneIcon
+            className="relative h-6 w-6 cursor-pointer"
+            onClick={() => openSpacesModal()}
+          />
+        </div>
       </div>
     </Card>
   );

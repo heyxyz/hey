@@ -43,6 +43,6 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.Spaces,
-    enabledFor: ['0x016ae5']
+    enabledFor: ['0x016ae5', '0x0d']
   }
 ];
