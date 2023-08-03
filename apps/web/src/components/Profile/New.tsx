@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import Signup from '@components/Shared/Login/New';
+import Signup from '@components/Shared/Auth/New';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';

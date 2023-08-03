@@ -11,7 +11,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-import Login from './Login';
+import Login from './Auth';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Status from './Status';

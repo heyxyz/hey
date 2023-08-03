@@ -1,13 +1,16 @@
+import type { ApolloLink } from '@apollo/client';
 import { ApolloClient, from } from '@apollo/client';
 
-import authLink from './authLink';
 import cache from './cache';
 import httpLink from './httpLink';
 import retryLink from './retryLink';
 
-const webClient = new ApolloClient({
-  link: from([authLink, retryLink, httpLink]),
-  cache: cache
-});
+const webClient = (authLink?: ApolloLink) =>
+  new ApolloClient({
+    link: authLink
+      ? from([authLink, retryLink, httpLink])
+      : from([retryLink, httpLink]),
+    cache
+  });
 
 export default webClient;

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import LoginButton from './LoginButton';
+import Login from '../Auth';
 import SignedUser from './SignedUser';
 
 export const NextLink = ({ href, children, ...rest }: Record<string, any>) => (
@@ -15,7 +15,7 @@ const MenuItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   if (!currentProfile) {
-    return <LoginButton />;
+    return <Login />;
   }
 
   return <SignedUser />;

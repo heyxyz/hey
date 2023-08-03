@@ -4,10 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply overflow-y-scroll;
-}
-
 body {
   @apply bg-gray-50;
   @apply dark:bg-black;
