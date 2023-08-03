@@ -1,0 +1,39 @@
+tasks:
+  - name: Bootstrap
+    init: script/bootstrap
+    command: pnpm dev
+
+ports:
+  - port: 4783
+    onOpen: open-preview
+    description: Web app
+  - port: 4784
+    onOpen: ignore
+    description: Prerender app
+  - port: 8082
+    onOpen: ignore
+    description: STS token generator worker
+  - port: 8083
+    onOpen: ignore
+    description: Metadata worker
+  - port: 8084
+    onOpen: ignore
+    description: Freshdesk worker
+  - port: 8085
+    onOpen: ignore
+    description: Snapshot relay worker
+  - port: 8086
+    onOpen: ignore
+    description: ENS resolver worker
+  - port: 8087
+    onOpen: ignore
+    description: Oembed worker
+  - port: 8088
+    onOpen: ignore
+    description: Leafwatch worker
+  - port: 8089
+    onOpen: ignore
+    description: Achievements worker
+  - port: 8090
+    onOpen: ignore
+    description: Invite worker
