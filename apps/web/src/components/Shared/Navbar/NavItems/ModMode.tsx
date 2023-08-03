@@ -6,7 +6,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useModePersistStore } from 'src/store/mode';
 
 interface ModModeProps {
   className?: string;
@@ -14,7 +14,7 @@ interface ModModeProps {
 
 const ModMode: FC<ModModeProps> = ({ className = '' }) => {
   const { allowed: modMode } = useModMode();
-  const setModMode = useAppPersistStore((state) => state.setModMode);
+  const setModMode = useModePersistStore((state) => state.setModMode);
 
   const toggleStaffMode = () => {
     setModMode(!modMode);

@@ -1,7 +1,5 @@
-import { Localstorage } from '@lenster/data/storage';
 import type { Profile } from '@lenster/lens';
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface AppState {
   profiles: Profile[] | [];
@@ -16,22 +14,3 @@ export const useAppStore = create<AppState>((set) => ({
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
 }));
-
-interface AppPersistState {
-  staffMode: boolean;
-  setStaffMode: (staffMode: boolean) => void;
-  modMode: boolean;
-  setModMode: (modMode: boolean) => void;
-}
-
-export const useAppPersistStore = create(
-  persist<AppPersistState>(
-    (set) => ({
-      staffMode: false,
-      setStaffMode: (staffMode) => set(() => ({ staffMode })),
-      modMode: false,
-      setModMode: (modMode) => set(() => ({ modMode }))
-    }),
-    { name: Localstorage.LensterStore }
-  )
-);

@@ -105,19 +105,6 @@ const CleanupSettings: NextPage = () => {
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <b className="text-red-500">
-                  <Trans>App settings</Trans>
-                </b>
-                <div className="lt-text-gray-500 text-xs font-bold">
-                  <Trans>Note: Cleaning will log you out</Trans>
-                </div>
-              </div>
-              <Button onClick={() => cleanup(Localstorage.LensterStore)}>
-                <Trans>Cleanup</Trans>
-              </Button>
-            </div>
           </div>
         </Card>
       </GridItemEight>
