@@ -1,4 +1,6 @@
 import '../styles.css';
+import '@rainbow-me/rainbowkit/styles.css';
+import 'tippy.js/dist/tippy.css';
 
 import circluarStd from '@lib/lensterFont';
 import type { AppProps } from 'next/app';
