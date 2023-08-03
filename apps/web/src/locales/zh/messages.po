@@ -1951,7 +1951,6 @@ msgstr "清理未被索引的帖子或评论"
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "清理"
@@ -1975,14 +1974,6 @@ msgstr "清理您的私信加密密钥"
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Feature flags cache"
-msgstr "特性标志缓存"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Clean your feature flags cache"
-msgstr "清除您的特性标志缓存"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"
@@ -3166,4 +3157,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-
