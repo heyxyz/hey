@@ -18,8 +18,6 @@ export const useAppStore = create<AppState>((set) => ({
 }));
 
 interface AppPersistState {
-  profileId: string | null;
-  setProfileId: (profileId: string | null) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   modMode: boolean;
@@ -29,8 +27,6 @@ interface AppPersistState {
 export const useAppPersistStore = create(
   persist<AppPersistState>(
     (set) => ({
-      profileId: null,
-      setProfileId: (profileId) => set(() => ({ profileId })),
       staffMode: false,
       setStaffMode: (staffMode) => set(() => ({ staffMode })),
       modMode: false,

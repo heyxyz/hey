@@ -1,7 +1,6 @@
 // Localstorage keys
 export const Localstorage = {
-  AccessToken: 'accessToken',
-  RefreshToken: 'refreshToken',
+  AuthStore: 'auth.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
   LensterStore: 'lenster.store',
@@ -11,6 +10,5 @@ export const Localstorage = {
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
   MessageStore: 'message.store',
-  LocaleStore: 'locale.store',
-  FeaturesCache: 'gbFeaturesCache'
+  LocaleStore: 'locale.store'
 };

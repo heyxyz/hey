@@ -69,6 +69,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.7.17
+        version: 3.7.17(graphql@16.7.1)(react-dom@18.2.0)(react@18.2.0)
       '@aws-sdk/client-s3':
         specifier: ^3.383.0
         version: 3.383.0

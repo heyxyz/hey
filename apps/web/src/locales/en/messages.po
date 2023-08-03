@@ -1951,7 +1951,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr ""
@@ -1975,14 +1974,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Feature flags cache"
-msgstr "Feature flags cache"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Clean your feature flags cache"
-msgstr "Clean your feature flags cache"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "App settings"

@@ -1,11 +1,11 @@
-import { Localstorage } from '@lenster/data/storage';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
+import useAuthPersistStore from 'src/store/auth';
 
 const Tokens: FC = () => {
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
-  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
+  const accessToken = useAuthPersistStore((state) => state.accessToken);
+  const refreshToken = useAuthPersistStore((state) => state.refreshToken);
 
   return (
     <>
