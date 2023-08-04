@@ -2,13 +2,13 @@
 
 👍🎉 Thank you for your interest in contributing to Lenster! 🎉👍
 
-Lenster is an open-source project maintained by [Lenster team](https://github.com/lensterxyz). We appreciate your interest and efforts to contribute to Lenster.
+Lenster is an open-source project and a composable, decentralized, and permissionless social media web app built with Lens Protocol maintained by [Lenster team](https://github.com/lensterxyz). We appreciate your interest and efforts to contribute to Lenster.
 
 Anyone can be a contributor. Either you found a typo, or you have an awesome feature request you could implement, we encourage you to create a Merge Request.
 
 All efforts to contribute are highly appreciated, we recommend you talk to a maintainer prior to spending a lot of time making a merge request that may not align with the project roadmap.
 
-## Values
+## Add Values to Lenster Community 
 
 - **Be the change** - Don't wait for anything, if you want something ship it but make sure it is sustainable for the long term.
 - **Pride in product** - We ask ourselves whether we will use the feature if it goes live before creating it.
