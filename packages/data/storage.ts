@@ -2,7 +2,7 @@
 export const Localstorage = {
   AccessToken: 'accessToken',
   RefreshToken: 'refreshToken',
-  AuthStore: 'auth.store',
+  AppStore: 'app.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
   ModeStore: 'mode.store',
