@@ -12,5 +12,6 @@ export const Localstorage = {
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
   MessageStore: 'message.store',
-  LocaleStore: 'locale.store'
+  LocaleStore: 'locale.store',
+  AlgorithmStore: 'algorithm.store'
 };
