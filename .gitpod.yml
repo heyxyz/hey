@@ -3,6 +3,12 @@ tasks:
     init: script/bootstrap
     command: pnpm dev
 
+github:
+  prebuilds:
+    master: false
+    pullRequests: false
+    addComment: true
+
 ports:
   - port: 4783
     onOpen: open-preview
