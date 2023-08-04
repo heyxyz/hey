@@ -189,9 +189,6 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
-      js-cookie:
-        specifier: ^3.0.5
-        version: 3.0.5
       lexical:
         specifier: ^0.11.3
         version: 0.11.3
@@ -283,9 +280,6 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.4
         version: 0.5.4(tailwindcss@3.3.3)
-      '@types/js-cookie':
-        specifier: ^3.0.3
-        version: 3.0.3
       '@types/node':
         specifier: ^20.4.7
         version: 20.4.7
@@ -423,9 +417,6 @@ importers:
       axios:
         specifier: ^1.4.0
         version: 1.4.0
-      js-cookie:
-        specifier: ^3.0.5
-        version: 3.0.5
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -445,9 +436,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@types/js-cookie':
-        specifier: ^3.0.3
-        version: 3.0.3
       '@types/node':
         specifier: ^20.4.7
         version: 20.4.7
@@ -6607,10 +6595,6 @@ packages:
     dependencies:
       '@types/istanbul-lib-report': 3.0.0
 
-  /@types/js-cookie@3.0.3:
-    resolution: {integrity: sha512-Xe7IImK09HP1sv2M/aI+48a20VX+TdRJucfq4vfRVy6nWN8PYPOEnlMRSgxJAgYQIXJVL8dZ4/ilAM7dWNaOww==}
-    dev: true
-
   /@types/js-yaml@4.0.5:
     resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
     dev: true
@@ -11000,11 +10984,6 @@ packages:
 
   /js-base64@3.7.5:
     resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
-    dev: false
-
-  /js-cookie@3.0.5:
-    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
-    engines: {node: '>=14'}
     dev: false
 
   /js-sha3@0.8.0:
