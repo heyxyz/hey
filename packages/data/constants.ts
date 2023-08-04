@@ -68,7 +68,7 @@ export const RARIBLE_URL = IS_MAINNET
   : 'https://testnet.rarible.com';
 export const IPFS_GATEWAY = IS_PRODUCTION
   ? 'https://ipfs.lenster.xyz/ipfs/'
-  : 'http://localhost:8093/ipfs/';
+  : 'http://localhost:8091/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
