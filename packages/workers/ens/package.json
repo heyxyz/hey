@@ -17,7 +17,7 @@
   "dependencies": {
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.14",
-    "viem": "^1.5.2",
+    "viem": "^1.5.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
