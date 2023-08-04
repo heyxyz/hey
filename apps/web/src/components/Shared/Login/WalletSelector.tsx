@@ -106,8 +106,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const refreshToken = auth.data?.authenticate.refreshToken;
 
       const cookiesOption: CookieAttributes = {
-        domain: ".lens.dev",
-      }
+        domain: '.lens.dev'
+      };
       Cookies.set(Cookie.AccessToken, accessToken, cookiesOption);
       Cookies.set(Cookie.RefreshToken, refreshToken, cookiesOption);
 

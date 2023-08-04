@@ -66,8 +66,8 @@ const authLink = new ApolloLink((operation, forward) => {
           }
         });
         const cookiesOption: CookieAttributes = {
-          domain: ".lens.dev",
-        }
+          domain: '.lens.dev'
+        };
         Cookies.set(Cookie.AccessToken, accessToken, cookiesOption);
         Cookies.set(Cookie.RefreshToken, refreshToken, cookiesOption);
 
