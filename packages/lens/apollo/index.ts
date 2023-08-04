@@ -6,13 +6,14 @@ import {
   useQuery
 } from '@apollo/client';
 
-import lensApolloClient from './client';
+import { lensApolloNodeClient, lensApolloWebClient } from './client';
 
 export {
   ApolloCache,
   ApolloProvider,
   gql,
-  lensApolloClient,
+  lensApolloNodeClient,
+  lensApolloWebClient,
   useApolloClient,
   useQuery
 };

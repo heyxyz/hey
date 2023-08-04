@@ -12,3 +12,8 @@ export const Localstorage = {
   MessageStore: 'message.store',
   LocaleStore: 'locale.store'
 };
+
+export const Cookie = {
+  AccessToken: 'accessToken',
+  RefreshToken: 'refreshToken'
+};
