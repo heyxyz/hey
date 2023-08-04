@@ -5,13 +5,14 @@ import cache from './cache';
 import httpLink from './httpLink';
 import retryLink from './retryLink';
 
-// make useAuthLink optional and default to false
-const lensApolloClient = ({ useAuthLink = false } = {}) => {
-  const links = useAuthLink
-    ? [authLink, retryLink, httpLink]
-    : [retryLink, httpLink];
+const lensApolloWebClient = new ApolloClient({
+  link: from([authLink, retryLink, httpLink]),
+  cache
+});
 
-  return new ApolloClient({ link: from(links), cache });
-};
+const lensApolloNodeClient = new ApolloClient({
+  link: from([retryLink, httpLink]),
+  cache
+});
 
-export default lensApolloClient;
+export { lensApolloNodeClient, lensApolloWebClient };

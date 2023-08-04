@@ -1,4 +1,4 @@
-import { ApolloProvider, lensApolloClient } from '@lenster/lens/apollo';
+import { ApolloProvider, lensApolloWebClient } from '@lenster/lens/apollo';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -28,7 +28,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <LanguageProvider>
       <ErrorBoundary>
         <Web3Provider>
-          <ApolloProvider client={lensApolloClient({ useAuthLink: true })}>
+          <ApolloProvider client={lensApolloWebClient}>
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
