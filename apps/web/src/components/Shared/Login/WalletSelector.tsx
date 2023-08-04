@@ -19,8 +19,7 @@ import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { useAppStore } from 'src/store/app';
-import { useAuthPersistStore } from 'src/store/auth';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
@@ -43,7 +42,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 }) => {
   const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAuthPersistStore((state) => state.setProfileId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );

@@ -10,7 +10,7 @@ import { Localstorage } from '@lenster/data/storage';
  */
 const isFeatureEnabled = (featureKey: string): boolean => {
   const user = JSON.parse(
-    localStorage.getItem(Localstorage.AuthStore) ||
+    localStorage.getItem(Localstorage.AppStore) ||
       JSON.stringify({ state: { profileId: null } })
   );
   const feature = featureFlags.find((f) => f.key === featureKey);
