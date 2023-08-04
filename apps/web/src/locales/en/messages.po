@@ -344,6 +344,7 @@ msgid "Post"
 msgstr "Post"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -376,6 +377,11 @@ msgstr ""
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "Explore • {APP_NAME}"
+
+#: src/components/Home/AlgorithmicFeed.tsx
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr "Failed to load for you"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -436,9 +442,9 @@ msgstr ""
 msgid "Highlights"
 msgstr ""
 
-#: src/components/Home/ForYou.tsx
-msgid "Failed to load for you"
-msgstr "Failed to load for you"
+#: src/components/Home/FeedType.tsx
+msgid "Recommended"
+msgstr "Recommended"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
