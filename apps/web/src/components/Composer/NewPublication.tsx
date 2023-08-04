@@ -3,7 +3,15 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import MenuTransition from '@components/Shared/MenuTransition';
+import { Menu } from '@headlessui/react';
+import {
+  ChatAlt2Icon,
+  CheckIcon,
+  ChevronDownIcon,
+  MicrophoneIcon,
+  PencilAltIcon
+} from '@heroicons/react/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -55,7 +63,15 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+import {
+  Button,
+  Card,
+  ErrorMessage,
+  Image,
+  Input,
+  Spinner,
+  Toggle
+} from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -87,6 +103,7 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
+import useCreateSpace from '../../hooks/useCreateSpace';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 
@@ -137,6 +154,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
+  const setShowNewSpacesModal = useGlobalModalStateStore(
+    (state) => state.setShowNewSpacesModal
+  );
+  const showNewSpacesModal = useGlobalModalStateStore(
+    (state) => state.showNewSpacesModal
+  );
 
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
@@ -186,11 +209,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
+  const [isRecordingOn, setIsRecordingOn] = useState(false);
+  const [isTokenGated, setIsTokenGated] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedDropdown, setSelectedDropdown] = useState<string>('');
 
   const [editor] = useLexicalComposerContext();
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const [createSpace] = useCreateSpace();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -228,6 +256,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (!isComment) {
       setShowNewPostModal(false);
     }
+    setShowNewSpacesModal(false);
 
     // Track in leafwatch
     const eventProperties = {
@@ -685,12 +714,30 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
+      // Create Space in Huddle
+      let spaceId = null;
+      if (showNewSpacesModal) {
+        spaceId = await createSpace();
+      }
+
       const attributes: MetadataAttributeInput[] = [
         {
           traitType: 'type',
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
+        ...(showNewSpacesModal
+          ? [
+              {
+                traitType: 'audioSpace',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: JSON.stringify({
+                  id: spaceId,
+                  host: currentProfile.ownedBy
+                })
+              }
+            ]
+          : []),
         ...(quotedPublication
           ? [
               {
@@ -881,42 +928,208 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <QuotedPublication publication={quotedPublication} isNew />
         </Wrapper>
       ) : null}
-      <div className="block items-center px-5 sm:flex">
-        <div className="flex items-center space-x-4">
-          <Attachment />
-          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {!publication?.isDataAvailability && (
-            <>
-              <CollectSettings />
-              <ReferenceSettings />
-              <AccessSettings />
-            </>
-          )}
-          <PollSettings />
+      {showNewSpacesModal ? (
+        <div>
+          {selectedDropdown.length > 0 &&
+            selectedDropdown !== 'have a lens profile' && (
+              <div className="flex w-full items-center gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
+                <div className="flex items-center gap-3 text-neutral-500">
+                  {selectedDropdown === 'follow a lens profile'
+                    ? 'Enter Lens profile link'
+                    : 'Enter Lens post link'}
+                </div>
+                <div className="flex flex-[1_0_0] items-center gap-1 px-3">
+                  <Input
+                    placeholder={`Lens ${
+                      selectedDropdown === 'follow a lens profile'
+                        ? 'profile'
+                        : 'post'
+                    } link`}
+                    className="placeholder-neutral-400"
+                  />
+                </div>
+              </div>
+            )}
+          <div className="block items-center border-t border-neutral-200 px-5 pt-3 dark:border-neutral-800 sm:flex">
+            <div className="flex flex-[0_0_1] gap-2 space-x-1">
+              <div>
+                <Toggle
+                  on={isRecordingOn}
+                  setOn={() => setIsRecordingOn(!isRecordingOn)}
+                />
+              </div>
+              <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
+                Record Spaces
+              </div>
+              <div className="flex items-center justify-center">
+                <svg
+                  width="2"
+                  height="20"
+                  viewBox="0 0 2 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M1 0V20" stroke="#262626" strokeWidth="1.5" />
+                </svg>
+              </div>
+              <div>
+                <Toggle
+                  on={isTokenGated}
+                  setOn={() => setIsTokenGated(!isTokenGated)}
+                />
+              </div>
+              <div className="flex items-start gap-1">
+                <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
+                  Token gate with
+                </div>
+                <Menu as="div" className="relative">
+                  <Menu.Button className="flex items-start gap-1">
+                    <span className="flex items-start gap-1 text-neutral-500 dark:text-neutral-300">
+                      {selectedDropdown.length > 0
+                        ? selectedDropdown
+                        : 'have a lens profile'}
+                    </span>
+                    <ChevronDownIcon className="h-6 w-6" />
+                  </Menu.Button>
+                  <MenuTransition>
+                    <Menu.Items
+                      className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none dark:bg-gray-900"
+                      style={{ display: isMenuOpen ? 'block' : 'none' }}
+                    >
+                      <Menu.Item
+                        as="label"
+                        className={({ active }) =>
+                          clsx(
+                            { 'dropdown-active': active },
+                            'flex items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
+                          )
+                        }
+                        onClick={() =>
+                          setSelectedDropdown('have a lens profile')
+                        }
+                      >
+                        <span>have a lens profile</span>
+                        {(selectedDropdown === 'have a lens profile' ||
+                          selectedDropdown === '') && (
+                          <Image
+                            src="/check-icon.png"
+                            className="relative h-5 w-5"
+                          />
+                        )}
+                      </Menu.Item>
+                      <Menu.Item
+                        as="label"
+                        className={({ active }) =>
+                          clsx(
+                            { 'dropdown-active': active },
+                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
+                          )
+                        }
+                        onClick={() =>
+                          setSelectedDropdown('follow a lens profile')
+                        }
+                      >
+                        <span>follow a lens profile</span>
+                        {selectedDropdown === 'follow a lens profile' && (
+                          <Image
+                            src="/check-icon.png"
+                            className="relative h-5 w-5"
+                          />
+                        )}
+                      </Menu.Item>
+                      <Menu.Item
+                        as="label"
+                        className={({ active }) =>
+                          clsx(
+                            { 'dropdown-active': active },
+                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
+                          )
+                        }
+                        onClick={() => setSelectedDropdown('collect a post')}
+                      >
+                        <span>collect a post</span>
+                        {selectedDropdown === 'collect a post' && (
+                          <CheckIcon className="relative h-5 w-5" />
+                        )}
+                      </Menu.Item>
+                      <Menu.Item
+                        as="label"
+                        className={({ active }) =>
+                          clsx(
+                            { 'dropdown-active': active },
+                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
+                          )
+                        }
+                        onClick={() => setSelectedDropdown('mirror a post')}
+                      >
+                        <span>mirror a post</span>
+                        {selectedDropdown === 'mirror a post' && (
+                          <Image
+                            src="/check-icon.png"
+                            className="relative h-5 w-5"
+                          />
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+                  </MenuTransition>
+                </Menu>
+              </div>
+            </div>
+            <div className="ml-auto pt-2 sm:pt-0">
+              <Button
+                disabled={isLoading}
+                icon={
+                  isLoading ? (
+                    <Spinner size="xs" />
+                  ) : (
+                    <MicrophoneIcon className="h-4 w-4" />
+                  )
+                }
+                onClick={createPublication}
+              >
+                Create spaces
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="ml-auto pt-2 sm:pt-0">
-          <Button
-            disabled={
-              isLoading ||
-              isUploading ||
-              isSubmitDisabledByPoll ||
-              videoThumbnail.uploading
-            }
-            icon={
-              isLoading ? (
-                <Spinner size="xs" />
-              ) : isComment ? (
-                <ChatAlt2Icon className="h-4 w-4" />
-              ) : (
-                <PencilAltIcon className="h-4 w-4" />
-              )
-            }
-            onClick={createPublication}
-          >
-            {isComment ? t`Comment` : t`Post`}
-          </Button>
+      ) : (
+        <div className="block items-center px-5 sm:flex">
+          <div className="flex items-center space-x-4">
+            <Attachment />
+            <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+            {!publication?.isDataAvailability && (
+              <>
+                <CollectSettings />
+                <ReferenceSettings />
+                <AccessSettings />
+              </>
+            )}
+            <PollSettings />
+          </div>
+          <div className="ml-auto pt-2 sm:pt-0">
+            <Button
+              disabled={
+                isLoading ||
+                isUploading ||
+                isSubmitDisabledByPoll ||
+                videoThumbnail.uploading
+              }
+              icon={
+                isLoading ? (
+                  <Spinner size="xs" />
+                ) : isComment ? (
+                  <ChatAlt2Icon className="h-4 w-4" />
+                ) : (
+                  <PencilAltIcon className="h-4 w-4" />
+                )
+              }
+              onClick={createPublication}
+            >
+              {isComment ? t`Comment` : t`Post`}
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
       <div className="px-5">
         <Attachments attachments={attachments} isNew />
       </div>
