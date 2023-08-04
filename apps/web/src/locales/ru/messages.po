@@ -344,6 +344,7 @@ msgid "Post"
 msgstr "Опубликовать"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -376,6 +377,11 @@ msgstr "Интересно"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "Исследуйте • {APP_NAME}"
+
+#: src/components/Home/AlgorithmicFeed.tsx
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -436,8 +442,8 @@ msgstr "Подписан"
 msgid "Highlights"
 msgstr "Яркие моменты"
 
-#: src/components/Home/ForYou.tsx
-msgid "Failed to load for you"
+#: src/components/Home/FeedType.tsx
+msgid "Recommended"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
