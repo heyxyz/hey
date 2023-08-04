@@ -7,12 +7,14 @@ import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
+import { HomeFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
+import AlgorithmicFeed from './AlgorithmicFeed';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
-import FeedType, { Type } from './FeedType';
+import FeedType from './FeedType';
 import ForYou from './ForYou';
 import Hero from './Hero';
 import Highlights from './Highlights';
@@ -24,7 +26,10 @@ import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
+  const [feedType, setFeedType] = useState<HomeFeedType>(
+    HomeFeedType.FOLLOWING
+  );
+  const [isAlgorithmicFeed, setIsAlgorithmicFeed] = useState<boolean>(false);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -39,14 +44,20 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === Type.FOR_YOU ? (
+              <FeedType
+                feedType={feedType}
+                setFeedType={setFeedType}
+                setIsAlgorithmicFeed={setIsAlgorithmicFeed}
+              />
+              {feedType === HomeFeedType.FOR_YOU ? (
                 <ForYou />
-              ) : feedType === Type.FOLLOWING ? (
+              ) : feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
-              ) : (
+              ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
-              )}
+              ) : isAlgorithmicFeed ? (
+                <AlgorithmicFeed feedType={feedType} />
+              ) : null}
             </>
           ) : (
             <ExploreFeed />
