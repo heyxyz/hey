@@ -1,5 +1,7 @@
 // Localstorage keys
 export const Localstorage = {
+  AccessToken: 'accessToken',
+  RefreshToken: 'refreshToken',
   AuthStore: 'auth.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
@@ -11,9 +13,4 @@ export const Localstorage = {
   TimelineStore: 'timeline.store',
   MessageStore: 'message.store',
   LocaleStore: 'locale.store'
-};
-
-export const Cookie = {
-  AccessToken: 'accessToken',
-  RefreshToken: 'refreshToken'
 };

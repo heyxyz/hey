@@ -2,7 +2,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data/errors';
-import { Cookie } from '@lenster/data/storage';
+import { Localstorage } from '@lenster/data/storage';
 import { AUTH } from '@lenster/data/tracking';
 import {
   useAuthenticateMutation,
@@ -15,7 +15,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import Cookies, { CookieAttributes } from 'js-cookie';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -105,11 +104,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
 
-      const cookiesOption: CookieAttributes = {
-        domain: '.lens.dev'
-      };
-      Cookies.set(Cookie.AccessToken, accessToken, cookiesOption);
-      Cookies.set(Cookie.RefreshToken, refreshToken, cookiesOption);
+      localStorage.setItem(Localstorage.AccessToken, accessToken);
+      localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
