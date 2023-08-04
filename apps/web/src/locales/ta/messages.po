@@ -344,6 +344,7 @@ msgid "Post"
 msgstr "போஸ்ட்"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -376,6 +377,11 @@ msgstr "கவர்ச்சியான"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
+
+#: src/components/Home/AlgorithmicFeed.tsx
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -436,8 +442,8 @@ msgstr "பின்தொடர்கிறீர்கள்"
 msgid "Highlights"
 msgstr "ஹைலைட்ஸ்"
 
-#: src/components/Home/ForYou.tsx
-msgid "Failed to load for you"
+#: src/components/Home/FeedType.tsx
+msgid "Recommended"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
