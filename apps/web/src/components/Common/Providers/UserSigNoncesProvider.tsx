@@ -1,7 +1,7 @@
 import { useUserSigNoncesQuery } from '@lenster/lens';
 import type { FC } from 'react';
 import { isSupported, share } from 'shared-zustand';
-import useAuthPersistStore from 'src/store/auth';
+import { useAuthPersistStore } from 'src/store/auth';
 import { useNonceStore } from 'src/store/nonce';
 
 const UserSigNoncesProvider: FC = () => {

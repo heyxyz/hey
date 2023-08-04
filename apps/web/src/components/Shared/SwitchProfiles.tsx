@@ -11,7 +11,7 @@ import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import useAuthPersistStore from 'src/store/auth';
+import { useAuthPersistStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 const SwitchProfiles: FC = () => {

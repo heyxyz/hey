@@ -1,11 +1,12 @@
+import { Cookie } from '@lenster/data/storage';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
-import useAuthPersistStore from 'src/store/auth';
 
 const Tokens: FC = () => {
-  const accessToken = useAuthPersistStore((state) => state.accessToken);
-  const refreshToken = useAuthPersistStore((state) => state.refreshToken);
+  const accessToken = Cookies.get(Cookie.AccessToken);
+  const refreshToken = Cookies.get(Cookie.RefreshToken);
 
   return (
     <>
