@@ -1,8 +1,7 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@lenster/data/constants';
-import { Cookie, Localstorage } from '@lenster/data/storage';
+import { Localstorage } from '@lenster/data/storage';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 import { parseJwt } from './lib';
 
@@ -27,8 +26,8 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `;
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = Cookies.get(Cookie.AccessToken);
-  const refreshToken = Cookies.get(Cookie.RefreshToken);
+  const accessToken = localStorage.getItem(Localstorage.AccessToken);
+  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
 
   if (!accessToken || !refreshToken) {
     resetAuthData();
@@ -65,8 +64,9 @@ const authLink = new ApolloLink((operation, forward) => {
             'x-access-token': `Bearer ${result?.data?.refresh?.accessToken}`
           }
         });
-        Cookies.set(Cookie.AccessToken, accessToken);
-        Cookies.set(Cookie.RefreshToken, refreshToken);
+
+        localStorage.setItem(Localstorage.AccessToken, accessToken);
+        localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
         return toPromise(forward(operation));
       })

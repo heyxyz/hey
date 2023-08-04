@@ -1,12 +1,11 @@
-import { Cookie } from '@lenster/data/storage';
+import { Localstorage } from '@lenster/data/storage';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
-import Cookies from 'js-cookie';
 import type { FC } from 'react';
 
 const Tokens: FC = () => {
-  const accessToken = Cookies.get(Cookie.AccessToken);
-  const refreshToken = Cookies.get(Cookie.RefreshToken);
+  const accessToken = localStorage.getItem(Localstorage.AccessToken);
+  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
 
   return (
     <>
