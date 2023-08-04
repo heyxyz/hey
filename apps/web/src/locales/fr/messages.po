@@ -111,7 +111,7 @@ msgid "File format not allowed."
 msgstr "Format de fichier non autorisé."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr ""
 
@@ -1660,7 +1660,15 @@ msgid "Mod actions"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Reporting publication..."
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Error reporting publication"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
@@ -1669,6 +1677,10 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Poor content & Stop Sponsor"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
@@ -1950,7 +1962,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr ""
@@ -1973,14 +1984,6 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "App settings"
-msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Note: Cleaning will log you out"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -3105,15 +3108,15 @@ msgstr ""
 msgid "total follows"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr ""
 
@@ -3157,4 +3160,3 @@ msgstr ""
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr ""
-

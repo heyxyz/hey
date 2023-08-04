@@ -111,7 +111,7 @@ msgid "File format not allowed."
 msgstr "கோப்பு வடிவம் அனுமதிக்கப்படவில்லை."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
@@ -1660,8 +1660,16 @@ msgid "Mod actions"
 msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Reporting publication..."
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
 msgstr "இடுகை வெற்றிகரமாகப் புகார் செய்யப்பட்டது"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Error reporting publication"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Poor content"
@@ -1670,6 +1678,10 @@ msgstr ""
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
 msgstr "ஸ்பான்சரை நிறுத்து"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Poor content & Stop Sponsor"
+msgstr ""
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Post has been mirrored!"
@@ -1950,7 +1962,6 @@ msgstr "இண்டெக்ஸ் செய்யப்படாத உங்�
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "துப்புரவு"
@@ -1974,14 +1985,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "App settings"
-msgstr "செயலி அமைப்புகள்"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Note: Cleaning will log you out"
-msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
@@ -3105,15 +3108,15 @@ msgstr "மொத்த சேகரிப்புகள்"
 msgid "total follows"
 msgstr "மொத்த பின்பற்றுபவர்கள்"
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
@@ -3157,4 +3160,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
