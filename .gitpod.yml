@@ -43,3 +43,6 @@ ports:
   - port: 8090
     onOpen: ignore
     description: Invite worker
+  - port: 8091
+    onOpen: ignore
+    description: IPFS worker
