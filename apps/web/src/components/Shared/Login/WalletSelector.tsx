@@ -2,6 +2,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/outline';
 import { XCircleIcon } from '@heroicons/react/solid';
 import { Errors } from '@lenster/data/errors';
+import { Cookie } from '@lenster/data/storage';
 import { AUTH } from '@lenster/data/tracking';
 import {
   useAuthenticateMutation,
@@ -14,12 +15,13 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import Cookies from 'js-cookie';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppStore } from 'src/store/app';
-import useAuthPersistStore, { signIn } from 'src/store/auth';
+import { useAuthPersistStore } from 'src/store/auth';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
@@ -102,7 +104,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-      signIn({ accessToken, refreshToken });
+
+      Cookies.set(Cookie.AccessToken, accessToken);
+      Cookies.set(Cookie.RefreshToken, refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
