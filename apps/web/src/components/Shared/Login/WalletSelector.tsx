@@ -15,7 +15,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import Cookies from 'js-cookie';
+import Cookies, { CookieAttributes } from 'js-cookie';
 import type { Dispatch, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -105,8 +105,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
 
-      Cookies.set(Cookie.AccessToken, accessToken);
-      Cookies.set(Cookie.RefreshToken, refreshToken);
+      const cookiesOption: CookieAttributes = {
+        domain: ".lens.dev",
+      }
+      Cookies.set(Cookie.AccessToken, accessToken, cookiesOption);
+      Cookies.set(Cookie.RefreshToken, refreshToken, cookiesOption);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({

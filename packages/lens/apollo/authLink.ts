@@ -2,7 +2,7 @@ import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@lenster/data/constants';
 import { Cookie, Localstorage } from '@lenster/data/storage';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import Cookies, { CookieAttributes } from 'js-cookie';
 
 import { parseJwt } from './lib';
 
@@ -65,8 +65,11 @@ const authLink = new ApolloLink((operation, forward) => {
             'x-access-token': `Bearer ${result?.data?.refresh?.accessToken}`
           }
         });
-        Cookies.set(Cookie.AccessToken, accessToken);
-        Cookies.set(Cookie.RefreshToken, refreshToken);
+        const cookiesOption: CookieAttributes = {
+          domain: ".lens.dev",
+        }
+        Cookies.set(Cookie.AccessToken, accessToken, cookiesOption);
+        Cookies.set(Cookie.RefreshToken, refreshToken, cookiesOption);
 
         return toPromise(forward(operation));
       })
