@@ -4,7 +4,6 @@ import getAvatar from '@lenster/lib/getAvatar';
 import { Card, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -32,8 +31,6 @@ const NewPost: FC = () => {
     setShowNewSpacesModal(true);
     openModal();
   };
-
-  const { resolvedTheme } = useTheme();
 
   useEffectOnce(() => {
     if (isReady && query.text) {

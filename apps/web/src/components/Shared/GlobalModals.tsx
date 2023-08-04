@@ -36,7 +36,6 @@ const GlobalModals: FC = () => {
     showReportProfileModal,
     reportingProfile,
     setShowReportProfileModal,
-    showNewSpacesModal,
     setShowNewSpacesModal
   } = useGlobalModalStateStore();
 

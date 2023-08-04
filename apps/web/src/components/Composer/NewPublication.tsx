@@ -3,12 +3,8 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import MenuTransition from '@components/Shared/MenuTransition';
-import { Menu } from '@headlessui/react';
 import {
   ChatAlt2Icon,
-  CheckIcon,
-  ChevronDownIcon,
   MicrophoneIcon,
   PencilAltIcon
 } from '@heroicons/react/outline';
@@ -63,15 +59,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
-import {
-  Button,
-  Card,
-  ErrorMessage,
-  Image,
-  Input,
-  Spinner,
-  Toggle
-} from '@lenster/ui';
+import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -80,7 +68,7 @@ import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -136,6 +124,12 @@ const AccessSettings = dynamic(
 );
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
+const SpaceSettings = dynamic(
+  () => import('@components/Composer/Actions/SpaceSettings'),
   {
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
@@ -929,169 +923,23 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       {showNewSpacesModal ? (
-        <div>
-          {selectedDropdown.length > 0 &&
-            selectedDropdown !== 'have a lens profile' && (
-              <div className="flex w-full items-center gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
-                <div className="flex items-center gap-3 text-neutral-500">
-                  {selectedDropdown === 'follow a lens profile'
-                    ? 'Enter Lens profile link'
-                    : 'Enter Lens post link'}
-                </div>
-                <div className="flex flex-[1_0_0] items-center gap-1 px-3">
-                  <Input
-                    placeholder={`Lens ${
-                      selectedDropdown === 'follow a lens profile'
-                        ? 'profile'
-                        : 'post'
-                    } link`}
-                    className="placeholder-neutral-400"
-                  />
-                </div>
-              </div>
-            )}
-          <div className="block items-center border-t border-neutral-200 px-5 pt-3 dark:border-neutral-800 sm:flex">
-            <div className="flex flex-[0_0_1] gap-2 space-x-1">
-              <div>
-                <Toggle
-                  on={isRecordingOn}
-                  setOn={() => setIsRecordingOn(!isRecordingOn)}
-                />
-              </div>
-              <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
-                Record Spaces
-              </div>
-              <div className="flex items-center justify-center">
-                <svg
-                  width="2"
-                  height="20"
-                  viewBox="0 0 2 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M1 0V20" stroke="#262626" strokeWidth="1.5" />
-                </svg>
-              </div>
-              <div>
-                <Toggle
-                  on={isTokenGated}
-                  setOn={() => setIsTokenGated(!isTokenGated)}
-                />
-              </div>
-              <div className="flex items-start gap-1">
-                <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
-                  Token gate with
-                </div>
-                <Menu as="div" className="relative">
-                  <Menu.Button className="flex items-start gap-1">
-                    <span className="flex items-start gap-1 text-neutral-500 dark:text-neutral-300">
-                      {selectedDropdown.length > 0
-                        ? selectedDropdown
-                        : 'have a lens profile'}
-                    </span>
-                    <ChevronDownIcon className="h-6 w-6" />
-                  </Menu.Button>
-                  <MenuTransition>
-                    <Menu.Items
-                      className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none dark:bg-gray-900"
-                      style={{ display: isMenuOpen ? 'block' : 'none' }}
-                    >
-                      <Menu.Item
-                        as="label"
-                        className={({ active }) =>
-                          clsx(
-                            { 'dropdown-active': active },
-                            'flex items-center justify-between gap-3 px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
-                          )
-                        }
-                        onClick={() =>
-                          setSelectedDropdown('have a lens profile')
-                        }
-                      >
-                        <span>have a lens profile</span>
-                        {(selectedDropdown === 'have a lens profile' ||
-                          selectedDropdown === '') && (
-                          <Image
-                            src="/check-icon.png"
-                            className="relative h-5 w-5"
-                          />
-                        )}
-                      </Menu.Item>
-                      <Menu.Item
-                        as="label"
-                        className={({ active }) =>
-                          clsx(
-                            { 'dropdown-active': active },
-                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
-                          )
-                        }
-                        onClick={() =>
-                          setSelectedDropdown('follow a lens profile')
-                        }
-                      >
-                        <span>follow a lens profile</span>
-                        {selectedDropdown === 'follow a lens profile' && (
-                          <Image
-                            src="/check-icon.png"
-                            className="relative h-5 w-5"
-                          />
-                        )}
-                      </Menu.Item>
-                      <Menu.Item
-                        as="label"
-                        className={({ active }) =>
-                          clsx(
-                            { 'dropdown-active': active },
-                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
-                          )
-                        }
-                        onClick={() => setSelectedDropdown('collect a post')}
-                      >
-                        <span>collect a post</span>
-                        {selectedDropdown === 'collect a post' && (
-                          <CheckIcon className="relative h-5 w-5" />
-                        )}
-                      </Menu.Item>
-                      <Menu.Item
-                        as="label"
-                        className={({ active }) =>
-                          clsx(
-                            { 'dropdown-active': active },
-                            'flex items-center justify-between px-4 py-3 text-sm text-neutral-600 dark:text-neutral-400'
-                          )
-                        }
-                        onClick={() => setSelectedDropdown('mirror a post')}
-                      >
-                        <span>mirror a post</span>
-                        {selectedDropdown === 'mirror a post' && (
-                          <Image
-                            src="/check-icon.png"
-                            className="relative h-5 w-5"
-                          />
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </MenuTransition>
-                </Menu>
-              </div>
-            </div>
-            <div className="ml-auto pt-2 sm:pt-0">
-              <Button
-                disabled={isLoading}
-                icon={
-                  isLoading ? (
-                    <Spinner size="xs" />
-                  ) : (
-                    <MicrophoneIcon className="h-4 w-4" />
-                  )
-                }
-                onClick={createPublication}
-              >
-                Create spaces
-              </Button>
-            </div>
+        <SpaceSettings>
+          <div className="ml-auto pt-2 sm:pt-0">
+            <Button
+              disabled={isLoading}
+              icon={
+                isLoading ? (
+                  <Spinner size="xs" />
+                ) : (
+                  <MicrophoneIcon className="h-4 w-4" />
+                )
+              }
+              onClick={createPublication}
+            >
+              <Trans>Create spaces</Trans>
+            </Button>
           </div>
-        </div>
+        </SpaceSettings>
       ) : (
         <div className="block items-center px-5 sm:flex">
           <div className="flex items-center space-x-4">
