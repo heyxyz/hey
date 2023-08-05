@@ -1,0 +1,8 @@
+export enum HomeFeedType {
+  FOR_YOU = 'FOR_YOU',
+  FOLLOWING = 'FOLLOWING',
+  HIGHLIGHTS = 'HIGHLIGHTS',
+  // Thirdparty Algorithms
+  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
+  K3L_POPULAR = 'K3L_POPULAR'
+}
