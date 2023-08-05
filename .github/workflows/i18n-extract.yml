@@ -1,0 +1,33 @@
+name: i18n extract
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  extract:
+    name: i18n extract
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.BIGINT_GH_TOKEN }}
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Run script 📜
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm i18n:extract
+
+      - name: Commit & Push changes 📤
+        uses: actions-js/push@master
+        with:
+          message: 'chore(cron): i18n extract'
+          github_token: ${{ secrets.BIGINT_GH_TOKEN }}
