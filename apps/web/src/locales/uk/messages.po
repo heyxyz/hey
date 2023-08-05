@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-04 00:09\n"
+"PO-Revision-Date: 2023-08-05 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -111,7 +111,7 @@ msgid "File format not allowed."
 msgstr ""
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr ""
 
@@ -344,6 +344,7 @@ msgid "Post"
 msgstr ""
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -375,6 +376,11 @@ msgstr ""
 
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
+msgstr ""
+
+#: src/components/Home/AlgorithmicFeed.tsx
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
 msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
@@ -436,8 +442,8 @@ msgstr ""
 msgid "Highlights"
 msgstr ""
 
-#: src/components/Home/ForYou.tsx
-msgid "Failed to load for you"
+#: src/components/Home/FeedType.tsx
+msgid "Recommended"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -1660,7 +1666,15 @@ msgid "Mod actions"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Reporting publication..."
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Error reporting publication"
 msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
@@ -1669,6 +1683,10 @@ msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Poor content & Stop Sponsor"
 msgstr ""
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
@@ -1950,7 +1968,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr ""
@@ -1973,14 +1990,6 @@ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
-msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "App settings"
-msgstr ""
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Note: Cleaning will log you out"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -3105,15 +3114,15 @@ msgstr ""
 msgid "total follows"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr ""
 
