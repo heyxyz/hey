@@ -14,7 +14,6 @@ export default async (
 
   try {
     let ids: string[] = [];
-    console.log(provider);
     switch (provider) {
       case 'k3l':
         ids = await k3lFeed(strategy, limit, offset);
