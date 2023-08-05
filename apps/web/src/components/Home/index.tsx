@@ -2,12 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
+import { HomeFeedType } from '@lenster/data/enums';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import { HomeFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 

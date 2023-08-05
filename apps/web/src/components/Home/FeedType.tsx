@@ -3,6 +3,7 @@ import {
   SparklesIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
+import { HomeFeedType } from '@lenster/data/enums';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -10,8 +11,9 @@ import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
-import { HomeFeedType } from 'src/enums';
 
+import Algorithms from './Algorithms';
+import Tabs from './Algorithms/Tabs';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
@@ -67,22 +69,18 @@ const FeedType: FC<FeedTypeProps> = ({
           }}
         />
         {isAlgorithmicFeedEnabled && (
-          <TabButton
-            name={t`Recommended`}
-            icon={<LightBulbIcon className="h-4 w-4" />}
-            active={feedType === HomeFeedType.K3L_RECOMMENDED}
-            showOnSm={false}
-            onClick={() => {
-              setFeedType(HomeFeedType.K3L_RECOMMENDED);
-              setIsAlgorithmicFeed(true);
-              // Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
-            }}
+          <Tabs
+            feedType={feedType}
+            setFeedType={setFeedType}
+            setIsAlgorithmicFeed={setIsAlgorithmicFeed}
           />
         )}
       </div>
       <div className="flex items-center space-x-4">
-        <SeeThroughLens />
+        {(feedType === HomeFeedType.FOLLOWING ||
+          feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
+        {isAlgorithmicFeedEnabled && <Algorithms />}
       </div>
     </div>
   );

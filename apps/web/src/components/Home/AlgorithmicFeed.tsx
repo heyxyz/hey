@@ -1,6 +1,7 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/outline';
+import { HomeFeedType } from '@lenster/data/enums';
 import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
 import { useProfileFeedQuery } from '@lenster/lens';
 import type { K3lFeedType } from '@lenster/types/algorithms';
@@ -9,7 +10,6 @@ import k3lFeed from '@lib/feed-algorithms/k3lFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
-import { HomeFeedType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 
 interface AlgorithmicFeedProps {
