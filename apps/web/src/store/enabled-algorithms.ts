@@ -5,18 +5,14 @@ import { persist } from 'zustand/middleware';
 
 interface EnabledAlgorithmsPerisistState {
   enabledAlgorithms: HomeFeedType[];
-  isEnabled: (algorithm: HomeFeedType) => boolean;
   enableAlgorithm: (algorithm: HomeFeedType) => void;
   disableAlgorithm: (algorithm: HomeFeedType) => void;
 }
 
 export const useEnabledAlgorithmsPersistStore = create(
   persist<EnabledAlgorithmsPerisistState>(
-    (set, get) => ({
+    (set) => ({
       enabledAlgorithms: [],
-      isEnabled: (algorithm) => {
-        return get().enabledAlgorithms.includes(algorithm);
-      },
       enableAlgorithm: (algorithm) => {
         console.log('enableAlgorithm', algorithm);
         set((state) => ({

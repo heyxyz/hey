@@ -13,6 +13,7 @@ import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 
 import Algorithms from './Algorithms';
+import Tabs from './Algorithms/Tabs';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
@@ -67,9 +68,17 @@ const FeedType: FC<FeedTypeProps> = ({
             Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
+        {isAlgorithmicFeedEnabled && (
+          <Tabs
+            feedType={feedType}
+            setFeedType={setFeedType}
+            setIsAlgorithmicFeed={setIsAlgorithmicFeed}
+          />
+        )}
       </div>
       <div className="flex items-center space-x-4">
-        <SeeThroughLens />
+        {(feedType === HomeFeedType.FOLLOWING ||
+          feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
         {isAlgorithmicFeedEnabled && <Algorithms />}
       </div>

@@ -13,9 +13,6 @@ const List: FC = () => {
   const disableAlgorithm = useEnabledAlgorithmsPersistStore(
     (state) => state.disableAlgorithm
   );
-  const isEnabled = useEnabledAlgorithmsPersistStore(
-    (state) => state.isEnabled
-  );
 
   return (
     <div className="divide-y-[1px] dark:divide-gray-700">
@@ -41,9 +38,9 @@ const List: FC = () => {
             </div>
           </div>
           <Toggle
-            on={isEnabled(algorithm.feedType)}
+            on={enabledAlgorithms.includes(algorithm.feedType)}
             setOn={() => {
-              if (!isEnabled(algorithm.feedType)) {
+              if (!enabledAlgorithms.includes(algorithm.feedType)) {
                 enableAlgorithm(algorithm.feedType);
               } else {
                 disableAlgorithm(algorithm.feedType);
