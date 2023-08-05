@@ -25,7 +25,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: Run script 📜
+      - name: Install dependencies and extract i18n 📦
         run: |
           pnpm install --frozen-lockfile
           pnpm i18n:extract
