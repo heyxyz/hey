@@ -15,19 +15,20 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
     (state) => state.enabledAlgorithms
   );
+  const sanitizedEnabledAlgorithms = algorithms.filter((a) => {
+    return enabledAlgorithms.includes(a.feedType);
+  });
+
+  if (sanitizedEnabledAlgorithms.length === 0) {
+    return null;
+  }
 
   return (
     <div className="flex flex-wrap gap-3 sm:px-0">
-      {enabledAlgorithms.map((algo: HomeFeedType) => {
-        const algorithm = algorithms.find((a) => a.feedType === algo);
-
-        if (!algorithm) {
-          return null;
-        }
-
+      {sanitizedEnabledAlgorithms.map((algorithm) => {
         return (
           <TabButton
-            key={algorithm.name}
+            key={algorithm.feedType}
             name={algorithm.name}
             icon={
               <img
