@@ -383,6 +383,11 @@ msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -441,10 +446,6 @@ msgstr "பின்தொடர்கிறீர்கள்"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "ஹைலைட்ஸ்"
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
-msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -3166,4 +3167,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-

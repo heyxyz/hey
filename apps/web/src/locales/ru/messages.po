@@ -383,6 +383,11 @@ msgstr "Исследуйте • {APP_NAME}"
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -441,10 +446,6 @@ msgstr "Подписан"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "Яркие моменты"
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
-msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -3166,4 +3167,3 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
-

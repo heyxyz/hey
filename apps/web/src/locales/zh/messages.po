@@ -383,6 +383,11 @@ msgstr "看看别人都在干吗？ • {APP_NAME}"
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -441,10 +446,6 @@ msgstr "正在关注"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "精彩内容"
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
-msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -3166,4 +3167,3 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
-

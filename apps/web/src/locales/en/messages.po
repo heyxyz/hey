@@ -383,6 +383,11 @@ msgstr "Explore • {APP_NAME}"
 msgid "Failed to load for you"
 msgstr "Failed to load for you"
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr "Algorithms"
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -441,10 +446,6 @@ msgstr ""
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr ""
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
-msgstr "Recommended"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
