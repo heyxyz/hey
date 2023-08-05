@@ -21,7 +21,7 @@ const List: FC = () => {
           key={algorithm.feedType}
           className="flex items-center justify-between p-5"
         >
-          <div className="space-y-2">
+          <div className="mr-5 space-y-2">
             <div className="flex items-center space-x-2">
               <img
                 className="h-10 w-10 rounded-lg"
@@ -33,7 +33,7 @@ const List: FC = () => {
                 <div className="text-sm">by {algorithm.by}</div>
               </div>
             </div>
-            <div className="lt-text-gray-500 text-sm">
+            <div className="lt-text-gray-500 max-w-sm text-sm">
               {algorithm.description}
             </div>
           </div>

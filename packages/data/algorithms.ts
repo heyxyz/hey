@@ -11,28 +11,29 @@ export const algorithms: {
   {
     name: 'K3L Recommended',
     feedType: HomeFeedType.K3L_RECOMMENDED,
-    description: 'Recommended for you based on your interests',
+    description: 'New and interesting content powered by AI + EigenTrust.',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
   },
   {
     name: 'K3L Popular',
     feedType: HomeFeedType.K3L_POPULAR,
-    description: 'Popular in your network',
+    description: 'Posts sorted by top ranked profiles engagement.',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
   },
   {
     name: 'K3L Recent',
     feedType: HomeFeedType.K3L_RECENT,
-    description: 'Recent in your network',
+    description: 'Recent posts sorted by time of posting.',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
   },
   {
     name: 'K3L Crowdsourced',
     feedType: HomeFeedType.K3L_CROWDSOURCED,
-    description: 'Crowdsourced by your network',
+    description:
+      'Posts that garnered much interest interactions weighted by the reputation of the interacting parties.',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
   }
