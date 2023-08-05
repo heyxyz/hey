@@ -454,6 +454,9 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../lens
+      axios:
+        specifier: ^1.4.0
+        version: 1.4.0
       viem:
         specifier: ^1.5.3
         version: 1.5.3(typescript@5.1.6)(zod@3.21.4)
