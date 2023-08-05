@@ -9,45 +9,43 @@ import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 interface FeedTypeProps {
   setFeedType: Dispatch<HomeFeedType>;
   feedType: HomeFeedType;
-  setIsAlgorithmicFeed: Dispatch<boolean>;
 }
 
-const Tabs: FC<FeedTypeProps> = ({
-  setFeedType,
-  feedType,
-  setIsAlgorithmicFeed
-}) => {
+const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
     (state) => state.enabledAlgorithms
   );
 
   return (
-    <>
+    <div className="flex flex-wrap gap-3 sm:px-0">
       {enabledAlgorithms.map((algo: HomeFeedType) => {
         const algorithm = algorithms.find((a) => a.feedType === algo);
 
+        if (!algorithm) {
+          return null;
+        }
+
         return (
           <TabButton
-            key={algorithm?.name}
-            name={algorithm?.name as string}
+            key={algorithm.name}
+            name={algorithm.name}
             icon={
               <img
                 className="h-4 w-4 rounded"
-                src={algorithm?.image}
-                alt={algorithm?.name}
+                src={algorithm.image}
+                alt={algorithm.name}
               />
             }
-            active={feedType === algorithm?.feedType}
-            showOnSm={false}
+            active={feedType === algorithm.feedType}
+            showOnSm
             onClick={() => {
-              setFeedType(algorithm?.feedType as HomeFeedType);
-              setIsAlgorithmicFeed(true);
+              setFeedType(algorithm.feedType as HomeFeedType);
               Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
             }}
           />
         );
       })}
-    </>
+    </div>
   );
 };
 
