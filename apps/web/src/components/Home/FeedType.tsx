@@ -3,6 +3,7 @@ import {
   SparklesIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
+import { HomeFeedType } from '@lenster/data/enums';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -10,7 +11,6 @@ import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
-import { HomeFeedType } from 'src/enums';
 
 import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';

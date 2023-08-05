@@ -27,7 +27,7 @@ const Algorithms: FC = () => {
         show={showAlgorithmsModal}
         onClose={() => setShowAlgorithmsModal(false)}
       >
-        <List setShowAlgorithmsModal={setShowAlgorithmsModal} />
+        <List />
       </Modal>
     </>
   );

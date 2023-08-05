@@ -1,11 +1,59 @@
+import { algorithms } from '@lenster/data/algorithms';
+import { Toggle } from '@lenster/ui';
 import { type FC } from 'react';
+import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
-interface ListProps {
-  setShowAlgorithmsModal: (show: boolean) => void;
-}
+const List: FC = () => {
+  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+    (state) => state.enabledAlgorithms
+  );
+  const enableAlgorithm = useEnabledAlgorithmsPersistStore(
+    (state) => state.enableAlgorithm
+  );
+  const disableAlgorithm = useEnabledAlgorithmsPersistStore(
+    (state) => state.disableAlgorithm
+  );
+  const isEnabled = useEnabledAlgorithmsPersistStore(
+    (state) => state.isEnabled
+  );
 
-const List: FC<ListProps> = ({ setShowAlgorithmsModal }) => {
-  return <div className="p-5">gm</div>;
+  return (
+    <div className="divide-y-[1px] dark:divide-gray-700">
+      {algorithms.map((algorithm) => (
+        <div
+          key={algorithm.feedType}
+          className="flex items-center justify-between p-5"
+        >
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <img
+                className="h-10 w-10 rounded-lg"
+                src={algorithm.image}
+                alt={algorithm.name}
+              />
+              <div>
+                <b>{algorithm.name}</b>
+                <div className="text-sm">by {algorithm.by}</div>
+              </div>
+            </div>
+            <div className="lt-text-gray-500 text-sm">
+              {algorithm.description}
+            </div>
+          </div>
+          <Toggle
+            on={isEnabled(algorithm.feedType)}
+            setOn={() => {
+              if (!isEnabled(algorithm.feedType)) {
+                enableAlgorithm(algorithm.feedType);
+              } else {
+                disableAlgorithm(algorithm.feedType);
+              }
+            }}
+          />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default List;
