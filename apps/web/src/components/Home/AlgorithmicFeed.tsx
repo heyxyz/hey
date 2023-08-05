@@ -43,7 +43,8 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
 
   const { data, loading, error } = useProfileFeedQuery({
     variables: { request, reactionRequest, profileId },
-    skip: !publicationIds
+    skip: !publicationIds,
+    fetchPolicy: 'no-cache'
   });
 
   const publications = data?.publications?.items;
