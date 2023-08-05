@@ -12,6 +12,7 @@ import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 import { HomeFeedType } from 'src/enums';
 
+import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
@@ -66,23 +67,11 @@ const FeedType: FC<FeedTypeProps> = ({
             Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
-        {isAlgorithmicFeedEnabled && (
-          <TabButton
-            name={t`Recommended`}
-            icon={<LightBulbIcon className="h-4 w-4" />}
-            active={feedType === HomeFeedType.K3L_RECOMMENDED}
-            showOnSm={false}
-            onClick={() => {
-              setFeedType(HomeFeedType.K3L_RECOMMENDED);
-              setIsAlgorithmicFeed(true);
-              // Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
-            }}
-          />
-        )}
       </div>
       <div className="flex items-center space-x-4">
         <SeeThroughLens />
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
+        {isAlgorithmicFeedEnabled && <Algorithms />}
       </div>
     </div>
   );
