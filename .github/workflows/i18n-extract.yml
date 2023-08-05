@@ -16,10 +16,14 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.BIGINT_GH_TOKEN }}
 
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
+          cache: 'pnpm'
 
       - name: Run script 📜
         run: |
