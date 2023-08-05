@@ -13,21 +13,15 @@ import { t } from '@lingui/macro';
 import type { Dispatch, FC } from 'react';
 
 import Algorithms from './Algorithms';
-import Tabs from './Algorithms/Tabs';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<HomeFeedType>;
   feedType: HomeFeedType;
-  setIsAlgorithmicFeed: Dispatch<boolean>;
 }
 
-const FeedType: FC<FeedTypeProps> = ({
-  setFeedType,
-  feedType,
-  setIsAlgorithmicFeed
-}) => {
+const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const isForYouEnabled = isFeatureEnabled(FeatureFlag.ForYou);
   const isAlgorithmicFeedEnabled = isFeatureEnabled(
     FeatureFlag.AlgorithmicFeed
@@ -40,7 +34,6 @@ const FeedType: FC<FeedTypeProps> = ({
           name={t`Following`}
           icon={<UserGroupIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.FOLLOWING}
-          showOnSm={false}
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
             Leafwatch.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
@@ -51,7 +44,6 @@ const FeedType: FC<FeedTypeProps> = ({
             name={t`For you`}
             icon={<SparklesIcon className="h-4 w-4" />}
             active={feedType === HomeFeedType.FOR_YOU}
-            showOnSm={false}
             onClick={() => {
               setFeedType(HomeFeedType.FOR_YOU);
               Leafwatch.track(MISCELLANEOUS.SWITCH_FOR_YOU_FEED);
@@ -62,19 +54,11 @@ const FeedType: FC<FeedTypeProps> = ({
           name={t`Highlights`}
           icon={<LightBulbIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.HIGHLIGHTS}
-          showOnSm={false}
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
             Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
-        {isAlgorithmicFeedEnabled && (
-          <Tabs
-            feedType={feedType}
-            setFeedType={setFeedType}
-            setIsAlgorithmicFeed={setIsAlgorithmicFeed}
-          />
-        )}
       </div>
       <div className="flex items-center space-x-4">
         {(feedType === HomeFeedType.FOLLOWING ||
