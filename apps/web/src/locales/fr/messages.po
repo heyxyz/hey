@@ -3017,44 +3017,60 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Followship Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Engagement Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Influencer Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Creator Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/index.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Has used {APP_NAME}"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Profile ID"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Address"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "NFT address"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Can use relay"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Gas sponsored"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Follow module"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Metadata"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Open"
 msgstr ""
 
