@@ -21,12 +21,12 @@
     "clsx": "^2.0.0",
     "next": "^13.4.12",
     "react": "^18.2.0",
-    "react-hook-form": "^7.45.3",
+    "react-hook-form": "^7.45.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
-    "@types/node": "^20.4.7",
+    "@types/node": "^20.4.8",
     "@types/react": "^18.2.18",
     "typescript": "^5.1.6"
   }
