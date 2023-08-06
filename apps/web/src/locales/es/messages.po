@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-05 00:09\n"
+"PO-Revision-Date: 2023-08-06 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -383,6 +383,11 @@ msgstr ""
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -440,10 +445,6 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
