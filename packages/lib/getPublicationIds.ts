@@ -1,9 +1,9 @@
 import { ALGORITHMS_WORKER_URL } from '@lenster/data/constants';
 import axios from 'axios';
 
-const getIdsByAlgorithm = async (provider: string, strategy: string) => {
+const getPublicationIds = async (provider: string, strategy: string) => {
   try {
-    const response = await axios(ALGORITHMS_WORKER_URL, {
+    const response = await axios(`${ALGORITHMS_WORKER_URL}/publicationIds`, {
       params: { provider, strategy }
     });
 
@@ -13,4 +13,4 @@ const getIdsByAlgorithm = async (provider: string, strategy: string) => {
   }
 };
 
-export default getIdsByAlgorithm;
+export default getPublicationIds;

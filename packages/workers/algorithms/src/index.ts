@@ -1,6 +1,6 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import getIdsByAlgorithm from './handlers/getIdsByAlgorithm';
+import getPublicationIds from './handlers/getPublicationIds';
 import type { Env } from './types';
 
 const { preflight, corsify } = createCors({
@@ -12,7 +12,9 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to algorithms service 👋'));
-router.get('/ids', (request, env) => getIdsByAlgorithm(request, env));
+router.get('/publicationIds', (request, env) =>
+  getPublicationIds(request, env)
+);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
