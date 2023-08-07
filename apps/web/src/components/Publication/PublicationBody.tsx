@@ -8,6 +8,7 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -61,11 +62,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showQuotedPublication &&
     !quoted;
 
-  if (showOembed && urls.length === 1) {
-    let indexOfUrl = content.indexOf(urls[0]);
-    if (indexOfUrl === content.length - urls[0].length) {
-      content = content?.replace(urls[0], '');
-    }
+  if (showOembed) {
+    content = removeUrlAtEnd(urls, content);
   }
 
   return (
