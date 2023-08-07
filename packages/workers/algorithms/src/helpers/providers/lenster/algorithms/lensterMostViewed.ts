@@ -32,11 +32,12 @@ const lensterMostViewed = async (
     `;
     const response = await clickhouseQuery(query, env);
 
-    return response.map((row) => {
-      const url = row[0];
-      const id = url.split('/').pop();
-      return id;
-    });
+    const ids = response.map((row) => row[0]);
+    const randomIds = ids
+      .sort(() => Math.random() - Math.random())
+      .slice(0, parseInt(limit));
+
+    return randomIds;
   } catch (error) {
     console.log(error);
     return [];
