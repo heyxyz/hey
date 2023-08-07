@@ -4,10 +4,7 @@ import axios from 'axios';
 const getIdsByAlgorithm = async (provider: string, strategy: string) => {
   try {
     const response = await axios(ALGORITHMS_WORKER_URL, {
-      params: {
-        provider,
-        strategy
-      }
+      params: { provider, strategy }
     });
 
     return response.data.success ? response.data.ids : [];
