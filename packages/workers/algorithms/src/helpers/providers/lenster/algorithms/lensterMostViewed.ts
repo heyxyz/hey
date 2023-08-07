@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { PAGEVIEW } from '@lenster/data/tracking';
 
 import type { Env } from '../../../../types';
 import clickhouseQuery from '../clickhouseQuery';
@@ -20,7 +21,7 @@ const lensterMostViewed = async (
       FROM
           events
       WHERE
-          name = 'Pageview'
+          name = '${PAGEVIEW}'
           AND url LIKE 'https://lenster.xyz/posts/%'
           AND created >= now() - INTERVAL 1 DAY
       GROUP BY

@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import { PUBLICATION } from '@lenster/data/tracking';
 
 import type { Env } from '../../../../types';
 import clickhouseQuery from '../clickhouseQuery';
@@ -13,6 +14,17 @@ const lensterMostInteracted = async (
   }
 
   try {
+    const interactionEvents = [
+      PUBLICATION.MIRROR,
+      PUBLICATION.LIKE,
+      PUBLICATION.COPY_TEXT,
+      PUBLICATION.TOGGLE_BOOKMARK,
+      PUBLICATION.OPEN_LIKES,
+      PUBLICATION.OPEN_MIRRORS,
+      PUBLICATION.OPEN_COLLECTORS,
+      PUBLICATION.COLLECT_MODULE.COLLECT
+    ];
+
     const query = `
       SELECT
           IFNULL(JSONExtractString(properties, 'publication_id'), JSONExtractString(properties, 'collect_publication_id')) AS publication_id,
@@ -20,8 +32,7 @@ const lensterMostInteracted = async (
       FROM
           events
       WHERE
-          name IN ('Mirror publication', 'Like publication', 'Copy publication text', 'Toggle publication bookmark',
-                  'Open likes modal', 'Open mirrors modal', 'Open collectors modal', 'Collect publication')
+          name IN (${interactionEvents.map((name) => `'${name}'`).join(',')})
           AND (JSONHas(properties, 'publication_id') OR JSONHas(properties, 'collect_publication_id'))
           AND created >= now() - INTERVAL 1 DAY
       GROUP BY
