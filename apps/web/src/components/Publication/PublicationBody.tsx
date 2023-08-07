@@ -61,6 +61,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showQuotedPublication &&
     !quoted;
 
+  if (showOembed && urls.length === 1) {
+    let indexOfUrl = content.indexOf(urls[0]);
+    if (indexOfUrl === content.length - urls[0].length) {
+      content = content?.replace(urls[0], '');
+    }
+  }
+
   return (
     <div className="break-words">
       <Markup
