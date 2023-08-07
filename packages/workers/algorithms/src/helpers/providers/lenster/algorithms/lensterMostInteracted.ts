@@ -5,11 +5,11 @@ import type { Env } from '../../../../types';
 import clickhouseQuery from '../clickhouseQuery';
 
 const lensterMostInteracted = async (
-  limit: string,
-  offset: string,
+  limit: number,
+  offset: number,
   env: Env
 ): Promise<any[]> => {
-  if (parseInt(limit) > 500) {
+  if (limit > 500) {
     throw new Error(Errors.Limit500);
   }
 
@@ -50,14 +50,10 @@ const lensterMostInteracted = async (
       OFFSET ${offset};
     `;
     const response = await clickhouseQuery(query, env);
-    const ids = response.map((row) => {
-      const url = row[0];
-      const id = url.split('/').pop();
-      return id;
-    });
+    const ids = response.map((row) => row[0]);
     const randomIds = ids
       .sort(() => Math.random() - Math.random())
-      .slice(0, parseInt(limit));
+      .slice(0, limit);
 
     return randomIds;
   } catch (error) {
