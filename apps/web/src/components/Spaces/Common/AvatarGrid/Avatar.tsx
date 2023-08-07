@@ -1,8 +1,6 @@
 import React from 'react';
 
-type Props = {};
-
-const Avatar = (props: Props) => {
+const Avatar = () => {
   return (
     <div className="inline-flex w-16 flex-col items-center justify-start gap-1">
       <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-violet-500" />

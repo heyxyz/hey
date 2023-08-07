@@ -4,9 +4,7 @@ import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import SpacesWindowBottomBar from './SpacesWindowBottomBar';
 import SpaceWindowHeader from './SpaceWindowHeader';
 
-type Props = {};
-
-const SpacesWindow = (props: Props) => {
+const SpacesWindow = () => {
   return (
     // First 2 divs are for positioning the window based on the winodw size of different devices
     <div className="fixed inset-0 top-auto z-20 mx-auto flex flex h-fit w-full grow">

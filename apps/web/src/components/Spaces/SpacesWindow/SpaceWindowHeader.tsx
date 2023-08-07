@@ -3,9 +3,7 @@ import React from 'react';
 
 import Icons from '../Common/assets/Icons';
 
-type Props = {};
-
-const SpaceWindowHeader = (props: Props) => {
+const SpaceWindowHeader = () => {
   return (
     <div className="border-b border-neutral-700 pb-3">
       {/* Nav */}

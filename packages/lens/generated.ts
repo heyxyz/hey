@@ -3816,7 +3816,8 @@ export type PublicationStatsCommentsTotalArgs = {
 export enum PublicationTypes {
   Comment = 'COMMENT',
   Mirror = 'MIRROR',
-  Post = 'POST'
+  Post = 'POST',
+  Spaces = 'SPACES'
 }
 
 export type PublicationValidateMetadataResult = {

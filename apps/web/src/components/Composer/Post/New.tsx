@@ -1,6 +1,9 @@
 import { MicrophoneIcon, PencilAltIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data/feature-flags';
+import { PublicationTypes } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
@@ -13,23 +16,20 @@ import { useEffectOnce } from 'usehooks-ts';
 const NewPost: FC = () => {
   const { query, isReady, push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
+  const setShowNewModal = useGlobalModalStateStore(
+    (state) => state.setShowNewModal
   );
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
   );
-  const setShowNewSpacesModal = useGlobalModalStateStore(
-    (state) => state.setShowNewSpacesModal
-  );
+  const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
 
   const openModal = () => {
-    setShowNewPostModal(true);
+    setShowNewModal(true, PublicationTypes.Post);
   };
 
   const openSpacesModal = () => {
-    setShowNewSpacesModal(true);
-    openModal();
+    setShowNewModal(true, PublicationTypes.Spaces);
   };
 
   useEffectOnce(() => {
@@ -48,7 +48,7 @@ const NewPost: FC = () => {
         processedHashtags ? ` ${processedHashtags} ` : ''
       }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
 
-      setShowNewPostModal(true);
+      setShowNewModal(true, PublicationTypes.Post);
       setPublicationContent(content);
     }
   });
@@ -72,12 +72,14 @@ const NewPost: FC = () => {
             <Trans>What's happening?</Trans>
           </span>
         </button>
-        <div className="inline-flex h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900">
-          <MicrophoneIcon
-            className="relative h-6 w-6 cursor-pointer"
-            onClick={() => openSpacesModal()}
-          />
-        </div>
+        {isSpacesEnabled && (
+          <div className="inline-flex h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900">
+            <MicrophoneIcon
+              className="relative h-5 w-5 cursor-pointer"
+              onClick={() => openSpacesModal()}
+            />
+          </div>
+        )}
       </div>
     </Card>
   );

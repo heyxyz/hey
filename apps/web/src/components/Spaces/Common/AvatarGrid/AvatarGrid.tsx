@@ -2,9 +2,7 @@ import React from 'react';
 
 import Avatar from './Avatar';
 
-type Props = {};
-
-const AvatarGrid = (props: Props) => {
+const AvatarGrid = () => {
   return (
     <div className="">
       <div className="border-b border-neutral-800 pb-6">

@@ -42,6 +42,7 @@ import {
   PublicationDocument,
   PublicationMainFocus,
   PublicationMetadataDisplayTypes,
+  PublicationTypes,
   ReferenceModules,
   useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
@@ -68,7 +69,7 @@ import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -144,16 +145,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  // Modal store
-  const setShowNewPostModal = useGlobalModalStateStore(
-    (state) => state.setShowNewPostModal
-  );
-  const setShowNewSpacesModal = useGlobalModalStateStore(
-    (state) => state.setShowNewSpacesModal
-  );
-  const showNewSpacesModal = useGlobalModalStateStore(
-    (state) => state.showNewSpacesModal
-  );
+  const { setShowNewModal, showNewModal, modalPublicationType } =
+    useGlobalModalStateStore();
 
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
@@ -203,10 +196,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
-  const [isRecordingOn, setIsRecordingOn] = useState(false);
-  const [isTokenGated, setIsTokenGated] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedDropdown, setSelectedDropdown] = useState<string>('');
 
   const [editor] = useLexicalComposerContext();
   const publicClient = usePublicClient();
@@ -248,9 +237,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetCollectSettings();
     resetAccessSettings();
     if (!isComment) {
-      setShowNewPostModal(false);
+      setShowNewModal(false, PublicationTypes.Post);
     }
-    setShowNewSpacesModal(false);
+    setShowNewModal(false, PublicationTypes.Spaces);
 
     // Track in leafwatch
     const eventProperties = {
@@ -710,7 +699,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Create Space in Huddle
       let spaceId = null;
-      if (showNewSpacesModal) {
+      if (showNewModal && modalPublicationType === PublicationTypes.Spaces) {
         spaceId = await createSpace();
       }
 
@@ -720,7 +709,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
-        ...(showNewSpacesModal
+        ...(showNewModal && modalPublicationType === PublicationTypes.Spaces
           ? [
               {
                 traitType: 'audioSpace',
@@ -922,26 +911,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <QuotedPublication publication={quotedPublication} isNew />
         </Wrapper>
       ) : null}
-      {showNewSpacesModal ? (
-        <SpaceSettings>
-          <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={isLoading}
-              icon={
-                isLoading ? (
-                  <Spinner size="xs" />
-                ) : (
-                  <MicrophoneIcon className="h-4 w-4" />
-                )
-              }
-              onClick={createPublication}
-            >
-              <Trans>Create spaces</Trans>
-            </Button>
-          </div>
-        </SpaceSettings>
-      ) : (
-        <div className="block items-center px-5 sm:flex">
+      <div className="block items-center px-5 sm:flex">
+        {showNewModal && modalPublicationType === PublicationTypes.Spaces ? (
+          <SpaceSettings />
+        ) : (
           <div className="flex items-center space-x-4">
             <Attachment />
             <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
@@ -954,30 +927,37 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             )}
             <PollSettings />
           </div>
-          <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={
-                isLoading ||
-                isUploading ||
-                isSubmitDisabledByPoll ||
-                videoThumbnail.uploading
-              }
-              icon={
-                isLoading ? (
-                  <Spinner size="xs" />
-                ) : isComment ? (
-                  <ChatAlt2Icon className="h-4 w-4" />
-                ) : (
-                  <PencilAltIcon className="h-4 w-4" />
-                )
-              }
-              onClick={createPublication}
-            >
-              {isComment ? t`Comment` : t`Post`}
-            </Button>
-          </div>
+        )}
+        <div className="ml-auto pt-2 sm:pt-0">
+          <Button
+            disabled={
+              isLoading ||
+              isUploading ||
+              isSubmitDisabledByPoll ||
+              videoThumbnail.uploading
+            }
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : isComment ? (
+                <ChatAlt2Icon className="h-4 w-4" />
+              ) : showNewModal &&
+                modalPublicationType === PublicationTypes.Spaces ? (
+                <MicrophoneIcon className="h-4 w-4" />
+              ) : (
+                <PencilAltIcon className="h-4 w-4" />
+              )
+            }
+            onClick={createPublication}
+          >
+            {isComment
+              ? t`Comment`
+              : showNewModal && modalPublicationType === PublicationTypes.Spaces
+              ? t`Create spaces`
+              : t`Post`}
+          </Button>
         </div>
-      )}
+      </div>
       <div className="px-5">
         <Attachments attachments={attachments} isNew />
       </div>

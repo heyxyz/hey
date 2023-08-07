@@ -5,10 +5,12 @@ import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -33,6 +35,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const urls = getURLs(metadata?.content);
   const hasURLs = urls?.length > 0;
   const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
+  const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
   const quotedPublicationId = getPublicationAttribute(
     metadata.attributes,
     'quotedPublicationId'
@@ -61,7 +64,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
-  if (Boolean(space?.id)) {
+  if (Boolean(space?.id) && isSpacesEnabled) {
     return <Space publication={publication} />;
   }
 

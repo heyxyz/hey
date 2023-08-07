@@ -6,6 +6,7 @@ import {
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/outline';
+import { PublicationTypes } from '@lenster/lens';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -27,16 +28,15 @@ const GlobalModals: FC = () => {
     setShowStatusModal,
     showProfileSwitchModal,
     setShowProfileSwitchModal,
-    showNewPostModal,
-    setShowNewPostModal,
+    showNewModal,
     showAuthModal,
+    setShowNewModal,
     setShowAuthModal,
     showInvitesModal,
     setShowInvitesModal,
     showReportProfileModal,
     reportingProfile,
-    setShowReportProfileModal,
-    setShowNewSpacesModal
+    setShowReportProfileModal
   } = useGlobalModalStateStore();
 
   return (
@@ -87,10 +87,9 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Create post`}
         size="md"
-        show={showNewPostModal}
+        show={showNewModal}
         onClose={() => {
-          setShowNewPostModal(false);
-          setShowNewSpacesModal(false);
+          setShowNewModal(false, PublicationTypes.Post);
         }}
       >
         <NewPublication />

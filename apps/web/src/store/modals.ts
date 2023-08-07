@@ -1,11 +1,16 @@
 import type { Profile, Publication } from '@lenster/lens';
+import { PublicationTypes } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {
   showAuthModal: boolean;
   setShowAuthModal: (showAuthModal: boolean) => void;
-  showNewPostModal: boolean;
-  setShowNewPostModal: (showNewPostModal: boolean) => void;
+  showNewModal: boolean;
+  modalPublicationType: PublicationTypes;
+  setShowNewModal: (
+    showNewModal: boolean,
+    modalPublicationType: PublicationTypes
+  ) => void;
   showStatusModal: boolean;
   setShowStatusModal: (showStatusModal: boolean) => void;
   showProfileSwitchModal: boolean;
@@ -26,15 +31,15 @@ interface GlobalModalState {
     reportProfileModal: boolean,
     reportingProfile: Profile | null
   ) => void;
-  showNewSpacesModal: boolean;
-  setShowNewSpacesModal: (showNewSpacesModal: boolean) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showAuthModal: false,
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
-  showNewPostModal: false,
-  setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
+  showNewModal: false,
+  modalPublicationType: PublicationTypes.Post,
+  setShowNewModal: (showNewModal, modalPublicationType) =>
+    set(() => ({ showNewModal, modalPublicationType })),
   showPublicationReportModal: false,
   showStatusModal: false,
   setShowStatusModal: (showStatusModal) => set(() => ({ showStatusModal })),
@@ -57,8 +62,5 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showReportProfileModal: false,
   reportingProfile: null,
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
-    set(() => ({ showReportProfileModal, reportingProfile })),
-  showNewSpacesModal: false,
-  setShowNewSpacesModal: (showNewSpacesModal) =>
-    set(() => ({ showNewSpacesModal }))
+    set(() => ({ showReportProfileModal, reportingProfile }))
 }));

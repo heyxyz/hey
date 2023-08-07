@@ -2,9 +2,7 @@ import React from 'react';
 
 import Icons from '../Common/assets/Icons';
 
-type Props = {};
-
-const SpacesWindowBottomBar = (props: Props) => {
+const SpacesWindowBottomBar = () => {
   return (
     <div className="flex justify-between pt-4">
       <div>{Icons.mic.false}</div>
