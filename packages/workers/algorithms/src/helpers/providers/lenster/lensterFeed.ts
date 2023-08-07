@@ -1,4 +1,5 @@
 import type { Env } from '../../../types';
+import lensterMostInteracted from './algorithms/lensterMostInteracted';
 import lensterMostViewed from './algorithms/lensterMostViewed';
 
 const lensterFeed = async (
@@ -8,8 +9,10 @@ const lensterFeed = async (
   env: Env
 ) => {
   switch (strategy) {
-    case 'most-viewed':
+    case 'mostviewed':
       return await lensterMostViewed(limit, offset, env);
+    case 'mostinteracted':
+      return await lensterMostInteracted(limit, offset, env);
     default:
       return [];
   }
