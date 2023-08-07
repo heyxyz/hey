@@ -4,8 +4,8 @@ import lensterMostViewed from './algorithms/lensterMostViewed';
 
 const lensterFeed = async (
   strategy: string,
-  limit: string,
-  offset: string,
+  limit: number,
+  offset: number,
   env: Env
 ) => {
   switch (strategy) {
