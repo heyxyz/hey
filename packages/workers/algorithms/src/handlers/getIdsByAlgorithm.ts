@@ -1,18 +1,24 @@
-import { error } from 'itty-router';
+import type { IRequest } from 'itty-router';
 
 import k3lFeed from '../helpers/providers/k3lFeed';
 import lensterFeed from '../helpers/providers/lenster/lensterFeed';
 import type { Env } from '../types';
 
-export default async (
-  provider: string,
-  strategy: string,
-  limit: string,
-  offset = '0',
-  env: Env
-) => {
-  if (!provider || !strategy) {
-    return error(400, 'Bad request!');
+export default async (request: IRequest, env: Env) => {
+  const { provider, strategy, limit, offset } = request.query as {
+    provider: string;
+    strategy: string;
+    limit: string;
+    offset: string;
+  };
+
+  if (!provider || !strategy || !limit || !offset) {
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message: 'Missing required parameters!'
+      })
+    );
   }
 
   try {
@@ -25,7 +31,12 @@ export default async (
         ids = await lensterFeed(strategy, limit, offset, env);
         break;
       default:
-        error(400, 'Bad request!');
+        return new Response(
+          JSON.stringify({
+            success: false,
+            message: 'Invalid provider'
+          })
+        );
     }
 
     let response = new Response(JSON.stringify({ success: true, ids }));

@@ -12,15 +12,7 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to algorithms service 👋'));
-router.get('/:provider/:strategy/:limit/:offser', ({ params }, env) =>
-  getIdsByAlgorithm(
-    params.provider,
-    params.strategy,
-    params.limit,
-    params.offset,
-    env
-  )
-);
+router.get('/ids', (request, env) => getIdsByAlgorithm(request, env));
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);

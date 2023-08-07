@@ -4,6 +4,9 @@ const k3lFeed = async (strategy: string, limit: string, offset: string) => {
       `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}`,
       { headers: { 'User-Agent': 'Lenster' } }
     );
+    console.log(
+      `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}`
+    );
     const json: {
       postId: string;
     }[] = await response.json();
