@@ -17,6 +17,14 @@ export const algorithms: {
     by: 'Lenster'
   },
   {
+    name: 'Most Interacted',
+    feedType: HomeFeedType.LENSTER_MOSTINTERACTED,
+    description:
+      'Most interacted posts sorted by the number of interactions in the last 24 hours in Lenster.',
+    image: `${STATIC_IMAGES_URL}/algorithms/lenster-mostinteracted.png`,
+    by: 'Lenster'
+  },
+  {
     name: 'Recommended',
     feedType: HomeFeedType.K3L_RECOMMENDED,
     description: 'New and interesting content powered by AI + EigenTrust.',

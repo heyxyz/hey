@@ -33,6 +33,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           feedType.replace('K3L_', '').toLowerCase()
         ).then((data) => data);
       case HomeFeedType.LENSTER_MOSTVIEWED:
+      case HomeFeedType.LENSTER_MOSTINTERACTED:
         return getIdsByAlgorithm(
           'lenster',
           feedType.replace('LENSTER_', '').toLowerCase()
