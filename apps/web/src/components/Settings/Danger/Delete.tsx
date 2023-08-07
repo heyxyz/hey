@@ -6,17 +6,16 @@ import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
+import resetAuthData from '@lenster/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import resetAuthData from '@lib/resetAuthData';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
-import { useAppStore } from 'src/store/app';
-import useAuthPersistStore from 'src/store/auth';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
@@ -25,7 +24,7 @@ const DeleteSettings: FC = () => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAuthPersistStore((state) => state.setProfileId);
+  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();

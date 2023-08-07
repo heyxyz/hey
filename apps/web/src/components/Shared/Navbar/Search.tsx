@@ -12,8 +12,8 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
-import { useRef, useState } from 'react';
-import { useOnClickOutside } from 'usehooks-ts';
+import { useEffect, useRef, useState } from 'react';
+import { useDebounce, useOnClickOutside } from 'usehooks-ts';
 
 import UserProfile from '../UserProfile';
 
@@ -33,6 +33,7 @@ const Search: FC<SearchProps> = ({
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
   const dropdownRef = useRef(null);
+  const debouncedSearchText = useDebounce<string>(searchText, 500);
 
   useOnClickOutside(dropdownRef, () => setSearchText(''));
 
@@ -42,18 +43,6 @@ const Search: FC<SearchProps> = ({
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
     setSearchText(keyword);
-    if (pathname !== '/search' && !hideDropdown) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: keyword,
-            customFilters: [CustomFiltersTypes.Gardeners],
-            limit: 8
-          }
-        }
-      });
-    }
   };
 
   const handleKeyDown = (evt: ChangeEvent<HTMLFormElement>) => {
@@ -65,6 +54,21 @@ const Search: FC<SearchProps> = ({
     }
     setSearchText('');
   };
+
+  useEffect(() => {
+    if (pathname !== '/search' && !hideDropdown) {
+      searchUsers({
+        variables: {
+          request: {
+            type: SearchRequestTypes.Profile,
+            query: debouncedSearchText,
+            customFilters: [CustomFiltersTypes.Gardeners],
+            limit: 8
+          }
+        }
+      });
+    }
+  }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.search as ProfileSearchResult;
   const isProfileSearchResult =

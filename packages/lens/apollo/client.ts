@@ -1,16 +1,18 @@
-import type { ApolloLink } from '@apollo/client';
 import { ApolloClient, from } from '@apollo/client';
 
+import authLink from './authLink';
 import cache from './cache';
 import httpLink from './httpLink';
 import retryLink from './retryLink';
 
-const lensApolloClient = (authLink?: ApolloLink) =>
-  new ApolloClient({
-    link: authLink
-      ? from([authLink, retryLink, httpLink])
-      : from([retryLink, httpLink]),
-    cache
-  });
+const lensApolloWebClient = new ApolloClient({
+  link: from([authLink, retryLink, httpLink]),
+  cache
+});
 
-export default lensApolloClient;
+const lensApolloNodeClient = new ApolloClient({
+  link: from([retryLink, httpLink]),
+  cache
+});
+
+export { lensApolloNodeClient, lensApolloWebClient };

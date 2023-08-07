@@ -13,7 +13,7 @@ if (typeof Worker !== 'undefined') {
 export const Leafwatch = {
   track: (name: string, properties?: Record<string, unknown>) => {
     const user = JSON.parse(
-      localStorage.getItem(Localstorage.AuthStore) ||
+      localStorage.getItem(Localstorage.AppStore) ||
         JSON.stringify({ state: { profileId: null } })
     );
     const { referrer } = document;

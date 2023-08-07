@@ -1,8 +1,8 @@
 import { IS_MAINNET } from '@lenster/data/constants';
-import { hydrateAuthTokens } from 'src/store/auth';
+import { Localstorage } from '@lenster/data/storage';
 
 const getBasicWorkerPayload = () => {
-  const { accessToken } = hydrateAuthTokens();
+  const accessToken = localStorage.getItem(Localstorage.AccessToken);
 
   return { accessToken, isMainnet: IS_MAINNET };
 };

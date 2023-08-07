@@ -7,7 +7,11 @@ import {
   PhotographIcon
 } from '@heroicons/react/outline';
 import { ShieldCheckIcon } from '@heroicons/react/solid';
-import { ACHIEVEMENTS_WORKER_URL, APP_NAME } from '@lenster/data/constants';
+import {
+  ACHIEVEMENTS_WORKER_URL,
+  APP_NAME,
+  IS_MAINNET
+} from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -20,7 +24,8 @@ import axios from 'axios';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-import MetaDetails from './MetaDetails';
+import MetaDetails from '../MetaDetails';
+import Rank from './Rank';
 
 interface ProfileStaffToolProps {
   profile: Profile;
@@ -122,6 +127,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             <Trans>Open</Trans>
           </Link>
         </MetaDetails>
+        {IS_MAINNET && <Rank profile={profile} />}
       </div>
     </Card>
   );

@@ -3,7 +3,10 @@ import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import Spaces from '@components/Spaces';
+import { HomeFeedType } from '@lenster/data/enums';
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -12,9 +15,11 @@ import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
 import { useEffectOnce } from 'usehooks-ts';
 
+import AlgorithmicFeed from './AlgorithmicFeed';
+import Tabs from './Algorithms/Tabs';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
-import FeedType, { Type } from './FeedType';
+import FeedType from './FeedType';
 import ForYou from './ForYou';
 import Hero from './Hero';
 import Highlights from './Highlights';
@@ -26,8 +31,13 @@ import Waitlist from './Waitlist';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [feedType, setFeedType] = useState<Type>(Type.FOLLOWING);
   const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
+  const [feedType, setFeedType] = useState<HomeFeedType>(
+    HomeFeedType.FOLLOWING
+  );
+  const isAlgorithmicFeedEnabled = isFeatureEnabled(
+    FeatureFlag.AlgorithmicFeed
+  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -43,13 +53,20 @@ const Home: NextPage = () => {
           {currentProfile ? (
             <>
               <NewPost />
-              <FeedType feedType={feedType} setFeedType={setFeedType} />
-              {feedType === Type.FOR_YOU ? (
+              <div className="space-y-3">
+                <FeedType feedType={feedType} setFeedType={setFeedType} />
+                {isAlgorithmicFeedEnabled && (
+                  <Tabs feedType={feedType} setFeedType={setFeedType} />
+                )}
+              </div>
+              {feedType === HomeFeedType.FOR_YOU ? (
                 <ForYou />
-              ) : feedType === Type.FOLLOWING ? (
+              ) : feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
-              ) : (
+              ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
+              ) : (
+                <AlgorithmicFeed feedType={feedType} />
               )}
             </>
           ) : (

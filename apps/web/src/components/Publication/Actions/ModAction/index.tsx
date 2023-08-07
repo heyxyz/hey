@@ -45,36 +45,45 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
         }
       },
       onCompleted: () => {
-        toast.success(t`Publication reported successfully`);
         setShowModActionAlert(false, null);
       }
     });
   };
 
-  const ReportButton = ({
-    type,
-    subreason,
-    icon,
-    label
-  }: {
-    type: string;
-    subreason: string;
+  interface ReportButtonProps {
+    config: {
+      type: string;
+      subreason: string;
+    }[];
     icon: ReactNode;
     label: string;
-  }) => (
+  }
+
+  const ReportButton: FC<ReportButtonProps> = ({ config, icon, label }) => (
     <Button
       disabled={loading}
       variant="warning"
       size="sm"
       outline
       icon={icon}
-      onClick={async () => {
-        await reportPublication({ type, subreason });
-        Leafwatch.track(MOD.REPORT, {
-          report_reason: type,
-          report_subreason: subreason,
-          report_publication_id: publication?.id
-        });
+      onClick={() => {
+        toast.promise(
+          Promise.all(
+            config.map(async ({ type, subreason }) => {
+              await reportPublication({ type, subreason });
+              Leafwatch.track(MOD.REPORT, {
+                report_reason: type,
+                report_subreason: subreason,
+                report_publication_id: publication?.id
+              });
+            })
+          ),
+          {
+            loading: t`Reporting publication...`,
+            success: t`Publication reported successfully`,
+            error: t`Error reporting publication`
+          }
+        );
       }}
     >
       {label}
@@ -88,16 +97,38 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
       aria-hidden="true"
     >
       <ReportButton
-        type="spamReason"
-        subreason={PublicationReportingSpamSubreason.FakeEngagement}
+        config={[
+          {
+            type: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.FakeEngagement
+          }
+        ]}
         icon={<DocumentTextIcon className="h-4 w-4" />}
         label={t`Poor content`}
       />
       <ReportButton
-        type="spamReason"
-        subreason={PublicationReportingSpamSubreason.LowSignal}
+        config={[
+          {
+            type: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.LowSignal
+          }
+        ]}
         icon={<CashIcon className="h-4 w-4" />}
         label={t`Stop Sponsor`}
+      />
+      <ReportButton
+        config={[
+          {
+            type: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.FakeEngagement
+          },
+          {
+            type: 'spamReason',
+            subreason: PublicationReportingSpamSubreason.LowSignal
+          }
+        ]}
+        icon={<CashIcon className="h-4 w-4" />}
+        label={t`Poor content & Stop Sponsor`}
       />
     </span>
   );

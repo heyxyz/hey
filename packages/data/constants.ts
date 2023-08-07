@@ -68,7 +68,7 @@ export const RARIBLE_URL = IS_MAINNET
   : 'https://testnet.rarible.com';
 export const IPFS_GATEWAY = IS_PRODUCTION
   ? 'https://ipfs.lenster.xyz/ipfs/'
-  : 'http://localhost:8093/ipfs/';
+  : 'http://localhost:8091/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
@@ -102,6 +102,9 @@ export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 export const INVITE_WORKER_URL = IS_PRODUCTION
   ? 'https://invite.lenster.xyz'
   : 'http://localhost:8090';
+export const ALGORITHMS_WORKER_URL = IS_PRODUCTION
+  ? 'https://algorithms.lenster.xyz'
+  : 'http://localhost:8092';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

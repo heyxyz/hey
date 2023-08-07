@@ -15,7 +15,7 @@ interface RelevantPeopleProps {
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   const mentions =
-    publication?.metadata?.content?.match(Regex.allHandles, '$1[~$2]') ?? [];
+    publication?.metadata?.content?.match(Regex.mention, '$1[~$2]') ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');

@@ -28,6 +28,7 @@ import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
@@ -351,6 +352,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
+  let { content } = publication ?? {};
+  const urls = getURLs(content);
+  content = removeUrlAtEnd(urls, content);
 
   return (
     <div className="break-words">
@@ -360,7 +364,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           'markup linkify text-md break-words'
         )}
       >
-        {publication?.content}
+        {content}
       </Markup>
       {showMore && (
         <div className="mt-4 flex items-center space-x-1 text-sm font-bold text-gray-500">
@@ -372,10 +376,8 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
       )}
       {publication?.media?.length ? (
         <Attachments attachments={publication?.media} />
-      ) : publication?.content ? (
-        getURLs(publication?.content)?.length > 0 && (
-          <Oembed url={getURLs(publication?.content)[0]} />
-        )
+      ) : content ? (
+        urls.length > 0 && <Oembed url={urls[0]} />
       ) : null}
     </div>
   );

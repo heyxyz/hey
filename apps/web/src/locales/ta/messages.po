@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-04 00:09\n"
+"PO-Revision-Date: 2023-08-07 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -111,7 +111,7 @@ msgid "File format not allowed."
 msgstr "கோப்பு வடிவம் அனுமதிக்கப்படவில்லை."
 
 #: src/components/Composer/Actions/Attachment.tsx
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Something went wrong while uploading!"
 msgstr "பதிவேற்றும்போது ஏதோ தவறு ஏற்பட்டது!"
 
@@ -344,6 +344,7 @@ msgid "Post"
 msgstr "போஸ்ட்"
 
 #: src/components/Explore/Feed.tsx
+#: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 #: src/components/Home/Highlights.tsx
 #: src/components/Home/Timeline/index.tsx
@@ -376,6 +377,16 @@ msgstr "கவர்ச்சியான"
 #: src/components/Explore/index.tsx
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
+
+#: src/components/Home/AlgorithmicFeed.tsx
+#: src/components/Home/ForYou.tsx
+msgid "Failed to load for you"
+msgstr ""
+
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -435,10 +446,6 @@ msgstr "பின்தொடர்கிறீர்கள்"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "ஹைலைட்ஸ்"
-
-#: src/components/Home/ForYou.tsx
-msgid "Failed to load for you"
-msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -1660,8 +1667,16 @@ msgid "Mod actions"
 msgstr "மதிப்பீட்டாளர் செயல்கள்"
 
 #: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Reporting publication..."
+msgstr ""
+
+#: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Publication reported successfully"
 msgstr "இடுகை வெற்றிகரமாகப் புகார் செய்யப்பட்டது"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Error reporting publication"
+msgstr ""
 
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Poor content"
@@ -1670,6 +1685,10 @@ msgstr ""
 #: src/components/Publication/Actions/ModAction/index.tsx
 msgid "Stop Sponsor"
 msgstr "ஸ்பான்சரை நிறுத்து"
+
+#: src/components/Publication/Actions/ModAction/index.tsx
+msgid "Poor content & Stop Sponsor"
+msgstr ""
 
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Post has been mirrored!"
@@ -1950,7 +1969,6 @@ msgstr "இண்டெக்ஸ் செய்யப்படாத உங்�
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Cleanup/index.tsx
-#: src/components/Settings/Cleanup/index.tsx
 #: src/components/Settings/Sidebar.tsx
 msgid "Cleanup"
 msgstr "துப்புரவு"
@@ -1974,14 +1992,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "App settings"
-msgstr "செயலி அமைப்புகள்"
-
-#: src/components/Settings/Cleanup/index.tsx
-msgid "Note: Cleaning will log you out"
-msgstr "குறிப்பு: சுத்தம் செய்வது உங்களை வெளியேற்றும்"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
@@ -3007,44 +3017,60 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Followship Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Engagement Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Influencer Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Creator Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/index.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr "பணியாளர் கருவி"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Has used {APP_NAME}"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Profile ID"
 msgstr "சுயவிவர ஐடி"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Address"
 msgstr "முகவரி"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "NFT address"
 msgstr "NFT முகவரி"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Can use relay"
 msgstr "ரிலே பயன்படுத்தலாம்"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Gas sponsored"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Follow module"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Metadata"
 msgstr "மீத்தரவு"
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Open"
 msgstr "திறக்கவும்"
 
@@ -3105,15 +3131,15 @@ msgstr "மொத்த சேகரிப்புகள்"
 msgid "total follows"
 msgstr "மொத்த பின்பற்றுபவர்கள்"
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Video size should be less than 200MB"
 msgstr ""
 
-#: src/components/utils/hooks/useUploadAttachments.tsx
+#: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
@@ -3157,4 +3183,3 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
-
