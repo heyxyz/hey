@@ -32,6 +32,8 @@
     "@lenster/types": "workspace:*",
     "@lenster/ui": "workspace:*",
     "@lexical/code": "^0.11.3",
+    "@lexical/list": "^0.11.3",
+    "@lexical/rich-text": "^0.11.3",
     "@lexical/hashtag": "^0.11.3",
     "@lexical/link": "^0.11.3",
     "@lexical/markdown": "^0.11.3",
