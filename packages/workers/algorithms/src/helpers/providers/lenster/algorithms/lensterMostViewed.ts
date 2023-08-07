@@ -1,3 +1,5 @@
+import { Errors } from '@lenster/data/errors';
+
 import type { Env } from '../../../../types';
 import clickhouseQuery from '../clickhouseQuery';
 
@@ -6,6 +8,10 @@ const lensterMostViewed = async (
   offset: string,
   env: Env
 ): Promise<any[]> => {
+  if (parseInt(limit) > 500) {
+    throw new Error(Errors.Limit500);
+  }
+
   try {
     const query = `
       SELECT
