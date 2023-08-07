@@ -1,12 +1,15 @@
 import { error } from 'itty-router';
 
-import k3lFeed from '../helpers/k3lFeed';
+import k3lFeed from '../helpers/providers/k3lFeed';
+import lensterFeed from '../helpers/providers/lenster/lensterFeed';
+import type { Env } from '../types';
 
 export default async (
   provider: string,
   strategy: string,
   limit: string,
-  offset = '0'
+  offset = '0',
+  env: Env
 ) => {
   if (!provider || !strategy) {
     return error(400, 'Bad request!');
@@ -17,6 +20,8 @@ export default async (
     switch (provider) {
       case 'k3l':
         ids = await k3lFeed(strategy, limit, offset);
+      case 'lenster':
+        ids = await lensterFeed(strategy, limit, offset, env);
       default:
         error(400, 'Bad request!');
     }
