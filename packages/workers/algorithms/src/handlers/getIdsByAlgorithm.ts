@@ -20,8 +20,10 @@ export default async (
     switch (provider) {
       case 'k3l':
         ids = await k3lFeed(strategy, limit, offset);
+        break;
       case 'lenster':
         ids = await lensterFeed(strategy, limit, offset, env);
+        break;
       default:
         error(400, 'Bad request!');
     }
