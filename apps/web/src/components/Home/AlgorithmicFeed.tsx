@@ -4,7 +4,7 @@ import { SparklesIcon } from '@heroicons/react/outline';
 import { HomeFeedType } from '@lenster/data/enums';
 import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
 import { useProfileFeedQuery } from '@lenster/lens';
-import getIdsByAlgorithm from '@lenster/lib/getIdsByAlgorithm';
+import getPublicationIds from '@lenster/lib/getPublicationIds';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -28,13 +28,13 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
       case HomeFeedType.K3L_POPULAR:
       case HomeFeedType.K3L_RECENT:
       case HomeFeedType.K3L_CROWDSOURCED:
-        return getIdsByAlgorithm(
+        return getPublicationIds(
           'k3l',
           feedType.replace('K3L_', '').toLowerCase()
         ).then((data) => data);
       case HomeFeedType.LENSTER_MOSTVIEWED:
       case HomeFeedType.LENSTER_MOSTINTERACTED:
-        return getIdsByAlgorithm(
+        return getPublicationIds(
           'lenster',
           feedType.replace('LENSTER_', '').toLowerCase()
         ).then((data) => data);
