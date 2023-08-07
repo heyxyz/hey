@@ -28,8 +28,15 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
       case HomeFeedType.K3L_POPULAR:
       case HomeFeedType.K3L_RECENT:
       case HomeFeedType.K3L_CROWDSOURCED:
-        const strategy = feedType.replace('K3L_', '').toLowerCase();
-        return getIdsByAlgorithm('k3l', strategy).then((data) => data);
+        return getIdsByAlgorithm(
+          'k3l',
+          feedType.replace('K3L_', '').toLowerCase()
+        ).then((data) => data);
+      case HomeFeedType.LENSTER_MOSTVIEWED:
+        return getIdsByAlgorithm(
+          'lenster',
+          feedType.replace('LENSTER_', '').toLowerCase()
+        ).then((data) => data);
       default:
         return [];
     }

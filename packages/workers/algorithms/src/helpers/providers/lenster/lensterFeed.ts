@@ -8,7 +8,7 @@ const lensterFeed = async (
   env: Env
 ) => {
   switch (strategy) {
-    case 'most-viewed':
+    case 'mostviewed':
       return await lensterMostViewed(limit, offset, env);
     default:
       return [];
