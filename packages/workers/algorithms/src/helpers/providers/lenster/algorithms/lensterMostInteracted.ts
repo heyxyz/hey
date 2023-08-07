@@ -50,11 +50,7 @@ const lensterMostInteracted = async (
       OFFSET ${offset};
     `;
     const response = await clickhouseQuery(query, env);
-    const ids = response.map((row) => {
-      const url = row[0];
-      const id = url.split('/').pop();
-      return id;
-    });
+    const ids = response.map((row) => row[0]);
     const randomIds = ids
       .sort(() => Math.random() - Math.random())
       .slice(0, limit);
