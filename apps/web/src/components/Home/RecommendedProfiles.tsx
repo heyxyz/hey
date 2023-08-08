@@ -75,6 +75,10 @@ const RecommendedProfiles: FC = () => {
     );
   }
 
+  const recommendedProfiles = data?.recommendedProfiles.filter(
+    (profile) => !profile.isFollowedByMe
+  );
+
   return (
     <>
       <Title />
@@ -84,7 +88,7 @@ const RecommendedProfiles: FC = () => {
             title={t`Failed to load recommendations`}
             error={error}
           />
-          {data?.recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
+          {recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
