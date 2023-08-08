@@ -48,8 +48,7 @@ export const algorithms: {
   {
     name: 'Crowdsourced',
     feedType: HomeFeedType.K3L_CROWDSOURCED,
-    description:
-      'Posts that garnered much interest interactions weighted by the reputation of the interacting parties.',
+    description: 'Quality content decided by community engagement',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
   }
