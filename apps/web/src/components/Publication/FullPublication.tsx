@@ -1,7 +1,7 @@
 import type { Publication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
-import type { FC } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
 import HiddenPublication from './HiddenPublication';
@@ -15,6 +15,7 @@ interface FullPublicationProps {
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+  const publicationRef = useRef<HTMLDivElement>(null);
   const isMirror = publication.__typename === 'Mirror';
   const timestamp = isMirror
     ? publication?.mirrorOf?.createdAt
@@ -32,10 +33,18 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
+  useEffect(() => {
+    if (publicationRef?.current) {
+      // this is added because our header is sticky
+      publicationRef.current.style.scrollMargin = '70px';
+      publicationRef.current.scrollIntoView();
+    }
+  }, [publicationRef.current]);
+
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
-      <div>
+      <div ref={publicationRef}>
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
