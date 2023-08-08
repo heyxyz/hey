@@ -77,6 +77,18 @@ export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
 };
 
+export const HOME = {
+  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
+  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
+  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
+  SELECT_USER_FEED: 'Select user feed',
+  ALGORITHMS: {
+    OPEN_ALGORITHMS: 'Open algorithms modal',
+    TOGGLE_ALGORITHM: 'Toggle algorithm',
+    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
+  }
+};
+
 export const EXPLORE = {
   SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
   SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
@@ -148,10 +160,6 @@ export const SYSTEM = {
 export const MISCELLANEOUS = {
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
-  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
-  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
-  SELECT_USER_FEED: 'Select user feed',
   SELECT_LOCALE: 'Select locale',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   FOOTER: {
@@ -193,6 +201,7 @@ export const ALL_EVENTS = {
   ...PROFILE,
   ...PUBLICATION,
   ...NOTIFICATION,
+  ...HOME,
   ...EXPLORE,
   ...MESSAGES,
   ...SETTINGS,

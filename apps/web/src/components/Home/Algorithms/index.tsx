@@ -1,5 +1,7 @@
 import { SparklesIcon } from '@heroicons/react/outline';
+import { HOME } from '@lenster/data/tracking';
 import { Modal, Tooltip } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { type FC, useState } from 'react';
 
@@ -14,7 +16,7 @@ const Algorithms: FC = () => {
         className="rounded-md p-1 hover:bg-gray-300/20"
         onClick={() => {
           setShowAlgorithmsModal(true);
-          // Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
+          Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
         }}
       >
         <Tooltip placement="top" content={t`Algorithms`}>
