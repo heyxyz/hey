@@ -1,5 +1,7 @@
 import { algorithms } from '@lenster/data/algorithms';
+import { HOME } from '@lenster/data/tracking';
 import { Toggle } from '@lenster/ui';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
@@ -40,11 +42,16 @@ const List: FC = () => {
           <Toggle
             on={enabledAlgorithms.includes(algorithm.feedType)}
             setOn={() => {
-              if (!enabledAlgorithms.includes(algorithm.feedType)) {
+              const enabled = enabledAlgorithms.includes(algorithm.feedType);
+              if (!enabled) {
                 enableAlgorithm(algorithm.feedType);
               } else {
                 disableAlgorithm(algorithm.feedType);
               }
+              Leafwatch.track(HOME.ALGORITHMS.TOGGLE_ALGORITHM, {
+                algorithm: algorithm.feedType,
+                enabled: !enabled
+              });
             }}
           />
         </div>

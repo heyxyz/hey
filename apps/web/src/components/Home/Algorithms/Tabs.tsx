@@ -1,6 +1,6 @@
 import { algorithms } from '@lenster/data/algorithms';
 import type { HomeFeedType } from '@lenster/data/enums';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
+import { HOME } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC } from 'react';
@@ -41,7 +41,9 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             showOnSm
             onClick={() => {
               setFeedType(algorithm.feedType as HomeFeedType);
-              Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
+              Leafwatch.track(HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED, {
+                algorithm: algorithm.feedType
+              });
             }}
           />
         );
