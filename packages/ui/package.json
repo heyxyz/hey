@@ -19,7 +19,7 @@
     "@lenster/lib": "workspace:*",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^2.0.0",
-    "next": "^13.4.12",
+    "next": "^13.4.13",
     "react": "^18.2.0",
     "react-hook-form": "^7.45.4",
     "zod": "^3.21.4"
