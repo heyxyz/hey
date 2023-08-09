@@ -34,11 +34,13 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   useEffect(() => {
-    if (publicationRef?.current) {
-      // this is added because our header is sticky
-      publicationRef.current.style.scrollMargin = '70px';
-      publicationRef.current.scrollIntoView();
-    }
+    setTimeout(() => {
+      if (publicationRef?.current) {
+        // this is added because our header is sticky
+        publicationRef.current.style.scrollMargin = '70px';
+        publicationRef.current.scrollIntoView();
+      }
+    }, 500);
   }, [publicationRef.current]);
 
   return (
