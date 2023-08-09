@@ -1,4 +1,4 @@
-import { HomeFeedType } from '@lenster/data/enums';
+import { AlgorithmProvider, HomeFeedType } from '@lenster/data/enums';
 import getPublicationIds from '@lenster/lib/getPublicationIds';
 
 /**
@@ -13,13 +13,13 @@ const getAlgorithmicFeed = async (feedType: HomeFeedType) => {
     case HomeFeedType.K3L_RECENT:
     case HomeFeedType.K3L_CROWDSOURCED:
       return getPublicationIds(
-        'k3l',
+        AlgorithmProvider.K3L,
         feedType.replace('K3L_', '').toLowerCase()
       ).then((data) => data);
     case HomeFeedType.LENSTER_MOSTVIEWED:
     case HomeFeedType.LENSTER_MOSTINTERACTED:
       return getPublicationIds(
-        'lenster',
+        AlgorithmProvider.LENSTER,
         feedType.replace('LENSTER_', '').toLowerCase()
       ).then((data) => data);
     default:
