@@ -595,28 +595,6 @@ importers:
         specifier: ^3.5.0
         version: 3.5.0
 
-  packages/workers/algorithms:
-    dependencies:
-      '@lenster/data':
-        specifier: workspace:*
-        version: link:../../data
-      itty-router:
-        specifier: ^4.0.14
-        version: 4.0.14
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20230807.0
-        version: 4.20230807.0
-      '@lenster/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-      wrangler:
-        specifier: ^3.5.0
-        version: 3.5.0
-
   packages/workers/ens:
     dependencies:
       '@lenster/lib':
@@ -644,6 +622,28 @@ importers:
       vitest:
         specifier: ^0.34.1
         version: 0.34.1
+      wrangler:
+        specifier: ^3.5.0
+        version: 3.5.0
+
+  packages/workers/feeds:
+    dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../data
+      itty-router:
+        specifier: ^4.0.14
+        version: 4.0.14
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230807.0
+        version: 4.20230807.0
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.1.6
+        version: 5.1.6
       wrangler:
         specifier: ^3.5.0
         version: 3.5.0

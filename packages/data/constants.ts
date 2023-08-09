@@ -99,8 +99,8 @@ export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 export const INVITE_WORKER_URL = IS_PRODUCTION
   ? 'https://invite.lenster.xyz'
   : 'http://localhost:8090';
-export const ALGORITHMS_WORKER_URL = IS_PRODUCTION
-  ? 'https://algorithms.lenster.xyz'
+export const FEEDS_WORKER_URL = IS_PRODUCTION
+  ? 'https://feeds.lenster.xyz'
   : 'http://localhost:8092';
 
 // Tokens / Keys
