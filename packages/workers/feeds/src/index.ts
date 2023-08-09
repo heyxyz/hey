@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('gm, to algorithms service 👋'));
+router.get('/', () => new Response('gm, to feeds service 👋'));
 router.get('/publicationIds', (request, env) =>
   getPublicationIds(request, env)
 );

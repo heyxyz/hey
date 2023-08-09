@@ -10,3 +10,8 @@ export enum HomeFeedType {
   LENSTER_MOSTVIEWED = 'LENSTER_MOSTVIEWED',
   LENSTER_MOSTINTERACTED = 'LENSTER_MOSTINTERACTED'
 }
+
+export const AlgorithmProvider = {
+  K3L: 'k3l',
+  LENSTER: 'lenster'
+};
