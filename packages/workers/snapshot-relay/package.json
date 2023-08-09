@@ -17,7 +17,7 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "itty-router": "^4.0.14",
-    "viem": "^1.5.3"
+    "viem": "^1.5.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230807.0",

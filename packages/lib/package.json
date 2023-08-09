@@ -15,11 +15,11 @@
     "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
     "axios": "^1.4.0",
-    "viem": "^1.5.3"
+    "viem": "^1.5.4"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
-    "@types/node": "^20.4.8",
+    "@types/node": "^20.4.9",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
   }
