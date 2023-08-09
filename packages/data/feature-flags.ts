@@ -9,8 +9,7 @@ export enum FeatureFlag {
   ForYou = 'for-you',
   WTF2 = 'wtf2',
   ExploreTags = 'explore-tags',
-  Spaces = 'spaces',
-  AlgorithmicFeed = 'algorithmic-feed'
+  Spaces = 'spaces'
 }
 
 export const featureFlags = [
@@ -45,14 +44,5 @@ export const featureFlags = [
   {
     key: FeatureFlag.Spaces,
     enabledFor: ['0x0d']
-  },
-  {
-    key: FeatureFlag.AlgorithmicFeed,
-    enabledFor: [
-      ...mainnetStaffs,
-      ...mainnetLensTeamMembers,
-      '0x01a10d',
-      '0x01cc4f'
-    ]
   }
 ];

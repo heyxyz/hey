@@ -24,9 +24,6 @@ interface FeedTypeProps {
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const isForYouEnabled = isFeatureEnabled(FeatureFlag.ForYou);
-  const isAlgorithmicFeedEnabled = isFeatureEnabled(
-    FeatureFlag.AlgorithmicFeed
-  );
 
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
@@ -65,7 +62,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         {(feedType === HomeFeedType.FOLLOWING ||
           feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
-        {IS_MAINNET && isAlgorithmicFeedEnabled && <Algorithms />}
+        {IS_MAINNET && <Algorithms />}
       </div>
     </div>
   );

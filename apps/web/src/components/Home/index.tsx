@@ -3,9 +3,7 @@ import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import { HomeFeedType } from '@lenster/data/enums';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -32,9 +30,6 @@ const Home: NextPage = () => {
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
   );
-  const isAlgorithmicFeedEnabled = isFeatureEnabled(
-    FeatureFlag.AlgorithmicFeed
-  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
@@ -51,9 +46,7 @@ const Home: NextPage = () => {
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
-                {isAlgorithmicFeedEnabled && (
-                  <Tabs feedType={feedType} setFeedType={setFeedType} />
-                )}
+                <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
               {feedType === HomeFeedType.FOR_YOU ? (
                 <ForYou />
