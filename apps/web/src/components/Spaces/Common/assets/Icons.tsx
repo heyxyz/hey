@@ -23,6 +23,48 @@ export const Icons = {
       />
     </svg>
   ),
+  speaking: (
+    <svg
+      width="20"
+      height="21"
+      viewBox="0 0 20 21"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="10"
+        cy="10.1499"
+        r="9.04661"
+        fill="#8B5CF6"
+        stroke="#525252"
+        stroke-width="1.90678"
+      />
+      <rect
+        x="5.93359"
+        y="6.08252"
+        width="2.0339"
+        height="8.13559"
+        rx="1.01695"
+        fill="white"
+      />
+      <rect
+        x="8.9834"
+        y="7.09961"
+        width="2.0339"
+        height="6.10169"
+        rx="1.01695"
+        fill="white"
+      />
+      <rect
+        x="12.0352"
+        y="6.59082"
+        width="2.0339"
+        height="7.11864"
+        rx="1.01695"
+        fill="white"
+      />
+    </svg>
+  ),
   dot: (
     <svg
       width="7"
