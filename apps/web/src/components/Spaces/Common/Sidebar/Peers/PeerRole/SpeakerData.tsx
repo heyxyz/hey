@@ -1,3 +1,4 @@
+import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import React from 'react';
 
@@ -11,6 +12,7 @@ const Speaker: React.FC<SpeakerDataProps> = ({ peerId }) => {
   const { changePeerRole, kickPeer } = useAcl();
   const { leaveRoom } = useRoom();
   const { me } = useHuddle01();
+  const { sendData } = useAppUtils();
 
   return (
     <>
@@ -21,7 +23,10 @@ const Speaker: React.FC<SpeakerDataProps> = ({ peerId }) => {
             title="Invite as Co-Host"
             variant="normal"
             onClick={() => {
-              changePeerRole(peerId, 'coHost');
+              sendData([peerId], {
+                requestType: 'coHost-invitation',
+                peerId: peerId
+              });
             }}
           />
         </div>

@@ -1,12 +1,12 @@
-import React from 'react';
-
-import {Icons} from '../Common/assets/Icons';
-import getAvatar from '@lenster/lib/getAvatar';
+import { useHuddle01, usePeers } from '@huddle01/react/hooks';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
+import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
+import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
-import { usePeers, useHuddle01 } from '@huddle01/react/hooks';
+
+import { Icons } from '../Common/assets/Icons';
 
 type Props = {};
 
@@ -20,7 +20,7 @@ const SpacesSummary = (props: Props) => {
       request: { ownedBy: [space.host] }
     }
   });
-  
+
   const hostProfile = data?.profiles?.items?.find(
     (profile) => profile?.ownedBy === space.host
   ) as Profile;
@@ -29,9 +29,10 @@ const SpacesSummary = (props: Props) => {
     <div className="flex items-center justify-between pt-4">
       <div className="flex items-center gap-2">
         {Icons.speaking}
-        <Image 
+        <Image
           src={getAvatar(hostProfile)}
-         className="aspect-square h-4 w-4 rounded-full bg-blue-500" />
+          className="aspect-square h-4 w-4 rounded-full bg-blue-500"
+        />
         <div className="text-sm font-normal leading-none text-neutral-200">
           {hostProfile.handle}
         </div>
@@ -42,7 +43,10 @@ const SpacesSummary = (props: Props) => {
           <div className="aspect-square h-3 w-3 -translate-x-1/2 rounded-full bg-yellow-500" />
           <div className="aspect-square h-3 w-3 -translate-x-full rounded-full bg-blue-500 " />
         </div>
-        <div>{Object.keys(peers).filter((peerId) => peerId !== me.meId).length + 1}+</div>
+        <div>
+          {Object.keys(peers).filter((peerId) => peerId !== me.meId).length + 1}
+          +
+        </div>
       </div>
     </div>
   );

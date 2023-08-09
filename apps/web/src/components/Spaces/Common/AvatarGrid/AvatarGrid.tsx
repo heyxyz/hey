@@ -15,7 +15,7 @@ const AvatarGrid = (props: Props) => {
   ).length;
 
   return (
-    <div className="min-w-[28rem]">
+    <div className="min-w-[24rem]">
       <div className="border-b border-neutral-800 pb-6">
         <div className="inline-flex grid min-h-[6rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
           {showSpacesWindow && me.role !== 'listener' && (

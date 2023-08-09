@@ -1,3 +1,4 @@
+import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import React from 'react';
 
@@ -11,6 +12,16 @@ const ListenersData: React.FC<ListenersDataProps> = ({ peerId }) => {
   const { changePeerRole, kickPeer } = useAcl();
   const { leaveRoom } = useRoom();
   const { me } = useHuddle01();
+  const { sendData } = useAppUtils();
+
+  const sendInvitation = (
+    invitationType: 'speaker-invitation' | 'coHost-invitation'
+  ) => {
+    sendData([peerId], {
+      requestType: invitationType,
+      peerId: peerId
+    });
+  };
 
   return (
     <>
@@ -21,7 +32,7 @@ const ListenersData: React.FC<ListenersDataProps> = ({ peerId }) => {
             title="Invite as Co-Host"
             variant="normal"
             onClick={() => {
-              changePeerRole(peerId, 'coHost');
+              sendInvitation('coHost-invitation');
             }}
           />
         </div>
@@ -33,7 +44,7 @@ const ListenersData: React.FC<ListenersDataProps> = ({ peerId }) => {
             title="Invite as Speaker"
             variant="normal"
             onClick={() => {
-              changePeerRole(peerId, 'speaker');
+              sendInvitation('speaker-invitation');
             }}
           />
           <Strip
@@ -46,16 +57,14 @@ const ListenersData: React.FC<ListenersDataProps> = ({ peerId }) => {
           />
         </div>
       ) : (
-        <div>
-          <Strip
-            type="leave"
-            title="Leave the spaces"
-            variant="danger"
-            onClick={() => {
-              leaveRoom();
-            }}
-          />
-        </div>
+        <Strip
+          type="leave"
+          title="Leave the spaces"
+          variant="danger"
+          onClick={() => {
+            leaveRoom();
+          }}
+        />
       )}
     </>
   );

@@ -19,7 +19,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
   return (
     <aside
       className={clsx(
-        'mr-1 max-h-[40vh] min-h-[40vh] w-[20vw] flex-col rounded-xl border border-neutral-500 bg-neutral-900 transition-all duration-300 ease-out',
+        'mr-1 min-h-[40vh] w-[20vw] flex-col rounded-xl border border-neutral-500 bg-neutral-900 transition-all duration-300 ease-out',
         isSidebarOpen ? 'flex' : 'hidden'
       )}
     >

@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug';
-import { useEventListener, useRoom, useHuddle01 } from '@huddle01/react/hooks';
+import { useEventListener, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -9,8 +9,6 @@ import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
 import { Icons } from '../Common/assets/Icons';
-import Dropdown from '../Common/Dropdown';
-import Sidebar from '../Common/Sidebar/Sidebar';
 
 type Props = {
   isExpanded?: boolean;
@@ -68,7 +66,9 @@ const SpaceWindowHeader = ({ isExpanded, setIsExpanded }: Props) => {
                   End Spaces
                 </button>
               ) : (
-                <button className="text-sm text-violet-500" onClick={leaveRoom}>Leave room</button>
+                <button className="text-sm text-violet-500" onClick={leaveRoom}>
+                  Leave room
+                </button>
               ))}
           </div>
         </div>
