@@ -1,3 +1,4 @@
+import { AlgorithmProvider } from '@lenster/data/enums';
 import type { IRequest } from 'itty-router';
 
 import k3lFeed from '../helpers/providers/k3l/k3lFeed';
@@ -26,10 +27,10 @@ export default async (request: IRequest, env: Env) => {
   try {
     let ids: string[] = [];
     switch (provider) {
-      case 'k3l':
+      case AlgorithmProvider.K3L:
         ids = await k3lFeed(strategy, limit, offset);
         break;
-      case 'lenster':
+      case AlgorithmProvider.LENSTER:
         ids = await lensterFeed(strategy, limit, offset, env);
         break;
       default:
