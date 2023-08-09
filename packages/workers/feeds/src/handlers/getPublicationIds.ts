@@ -1,6 +1,6 @@
 import type { IRequest } from 'itty-router';
 
-import k3lFeed from '../helpers/providers/k3lFeed';
+import k3lFeed from '../helpers/providers/k3l/k3lFeed';
 import lensterFeed from '../helpers/providers/lenster/lensterFeed';
 import type { Env } from '../types';
 
@@ -34,10 +34,7 @@ export default async (request: IRequest, env: Env) => {
         break;
       default:
         return new Response(
-          JSON.stringify({
-            success: false,
-            message: 'Invalid provider'
-          })
+          JSON.stringify({ success: false, message: 'Invalid provider' })
         );
     }
 
