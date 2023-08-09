@@ -1,11 +1,11 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/outline';
-import { HomeFeedType } from '@lenster/data/enums';
+import type { HomeFeedType } from '@lenster/data/enums';
 import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
 import { useProfileFeedQuery } from '@lenster/lens';
-import getPublicationIds from '@lenster/lib/getPublicationIds';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
@@ -22,26 +22,9 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     data: publicationIds,
     isLoading: algoLoading,
     error: algoError
-  } = useQuery(['algorithmicFeed', feedType], () => {
-    switch (feedType) {
-      case HomeFeedType.K3L_RECOMMENDED:
-      case HomeFeedType.K3L_POPULAR:
-      case HomeFeedType.K3L_RECENT:
-      case HomeFeedType.K3L_CROWDSOURCED:
-        return getPublicationIds(
-          'k3l',
-          feedType.replace('K3L_', '').toLowerCase()
-        ).then((data) => data);
-      case HomeFeedType.LENSTER_MOSTVIEWED:
-      case HomeFeedType.LENSTER_MOSTINTERACTED:
-        return getPublicationIds(
-          'lenster',
-          feedType.replace('LENSTER_', '').toLowerCase()
-        ).then((data) => data);
-      default:
-        return [];
-    }
-  });
+  } = useQuery(['algorithmicFeed', feedType], () =>
+    getAlgorithmicFeed(feedType)
+  );
 
   const request: PublicationsQueryRequest = { publicationIds, limit: 20 };
   const reactionRequest = currentProfile
