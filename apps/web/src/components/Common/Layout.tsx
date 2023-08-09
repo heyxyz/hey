@@ -1,6 +1,7 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import SpacesWindow from '@components/Spaces/SpacesWindow/SpacesWindow';
 import type { Profile } from '@lenster/lens';
 import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
 import resetAuthData from '@lenster/lib/resetAuthData';
@@ -13,6 +14,7 @@ import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
+import { useSpacesStore } from 'src/store/spaces';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -20,6 +22,7 @@ import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
+import Spaces from '../Spaces';
 
 interface LayoutProps {
   children: ReactNode;
@@ -38,6 +41,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
   const profileId = useAppPersistStore((state) => state.profileId);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
+  const showSpacesWindow = useSpacesStore((state) => state.showSpacesWindow);
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -120,6 +125,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
+      {showSpacesLobby && <Spaces />}
+      {showSpacesWindow && <SpacesWindow />}
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

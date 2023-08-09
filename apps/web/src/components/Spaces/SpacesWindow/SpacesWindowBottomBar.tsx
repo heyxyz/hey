@@ -1,8 +1,14 @@
+import { useHuddle01, usePeers } from '@huddle01/react/hooks';
 import React from 'react';
 
-import Icons from '../Common/assets/Icons';
+import { Icons } from '../Common/assets/Icons';
 
-const SpacesWindowBottomBar = () => {
+type Props = {};
+
+const SpacesWindowBottomBar = (props: Props) => {
+  const { peers } = usePeers();
+  const { me } = useHuddle01();
+
   return (
     <div className="flex justify-between pt-4">
       <div>{Icons.mic.false}</div>
@@ -11,7 +17,7 @@ const SpacesWindowBottomBar = () => {
         <div>{Icons.reaction}</div>
         <div className="flex h-full items-center gap-2 rounded-lg bg-neutral-800 px-2 font-normal text-neutral-500">
           <span>{Icons.people}</span>
-          12
+          {Object.keys(peers).filter((peerId) => peerId !== me.meId).length + 1}
         </div>
       </div>
     </div>

@@ -5,9 +5,12 @@ type Props = {} & React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-const SpacesButton = ({ children }: Props) => {
+const SpacesButton = ({ children, ...props }: Props) => {
   return (
-    <button className="rounded-lg bg-violet-500 px-8 py-2 text-sm text-white">
+    <button
+      className="rounded-lg bg-violet-500 px-8 py-2 text-sm text-white"
+      {...props}
+    >
       {children}
     </button>
   );

@@ -73,12 +73,7 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        spaceId: createRoomResponse.data.roomId
-      })
-    );
+    return new Response(createRoomResponse.data.roomId);
   } catch (error) {
     throw error;
   }

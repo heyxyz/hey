@@ -26,6 +26,11 @@ const Space: FC<SpaceProps> = ({ publication }) => {
     (state) => state.setLensAccessToken
   );
   const lensAccessToken = useSpacesStore((state) => state.lensAccessToken);
+  const setSpace = useSpacesStore((state) => state.setSpace);
+
+  const space: SpaceMetadata = JSON.parse(
+    getPublicationAttribute(metadata.attributes, 'audioSpace')
+  );
 
   const { signMessage, isLoading: signing } = useSignMessage({
     onSuccess: async (data) => {
@@ -33,13 +38,13 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       if (token.accessToken) {
         setShowSpacesLobby(true);
         setLensAccessToken(token.accessToken);
+        setSpace({
+          ...space,
+          title: metadata.content
+        });
       }
     }
   });
-
-  const space: SpaceMetadata = JSON.parse(
-    getPublicationAttribute(metadata.attributes, 'audioSpace')
-  );
 
   const { data, loading } = useProfilesQuery({
     variables: {
@@ -73,6 +78,10 @@ const Space: FC<SpaceProps> = ({ publication }) => {
           onClick={async () => {
             if (lensAccessToken) {
               setShowSpacesLobby(true);
+              setSpace({
+                ...space,
+                title: metadata.content
+              });
               return;
             }
             const msg = await getLensMessage(address as string);
