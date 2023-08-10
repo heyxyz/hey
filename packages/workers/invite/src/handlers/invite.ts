@@ -1,7 +1,7 @@
+import { Errors } from '@lenster/data/errors';
 import LensEndpoint from '@lenster/data/lens-endpoints';
 import { Regex } from '@lenster/data/regex';
 import type { IRequest } from 'itty-router';
-import { error } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
 import type { Env } from '../types';
@@ -21,7 +21,9 @@ const validationSchema = object({
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
   if (!body) {
-    return error(400, 'Bad request!');
+    return new Response(
+      JSON.stringify({ success: false, error: Errors.NoBody })
+    );
   }
 
   const validation = validationSchema.safeParse(body);

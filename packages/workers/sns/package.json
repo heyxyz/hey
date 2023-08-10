@@ -1,31 +1,26 @@
 {
-  "name": "@workers/ens",
+  "name": "@workers/sns",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "wrangler dev --port 8086",
+    "dev": "wrangler dev --port 8093",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "start": "pnpm dev",
-    "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
     "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.14",
-    "viem": "^1.5.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230807.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
-    "vitest": "^0.34.1",
     "wrangler": "^3.4.0"
   }
 }
