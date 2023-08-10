@@ -11,10 +11,6 @@ export default async (request: IRequest, env: Env) => {
   const limit = (parseInt(request.query?.limit as string) || 50) as number;
   const offset = (parseInt(request.query?.offset as string) || 0) as number;
 
-  console.log(
-    `provider: ${provider}, strategy: ${strategy}, limit: ${limit}, offset: ${offset}`
-  );
-
   if (!provider || !strategy) {
     return new Response(
       JSON.stringify({
