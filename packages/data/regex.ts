@@ -1,7 +1,7 @@
 const RESTRICTED_SYMBOLS = '☑️✓✔✅';
 
 export const Regex = {
-  url: /(http|https):\/\/([\w+.?])+([\w!#$%&'()*+,./:;=?@\\^~\-]*)?/g,
+  url: /[\w#%+.:=@~-]{1,256}\.[\d()a-z]{1,6}\b([\w#%&()+./:=?@~-]*)?/gi,
   mention: /@[\w.\-]{1,30}[\w-]/g,
   hashtag: /(#\w*[A-Za-z]\w*)/g,
   ethereumAddress: /^(0x)?[\da-f]{40}$/i,
