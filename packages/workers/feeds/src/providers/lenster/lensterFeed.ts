@@ -1,4 +1,4 @@
-import type { Env } from '../../../types';
+import type { Env } from '../../types';
 import lensterMostInteracted from './algorithms/lensterMostInteracted';
 import lensterMostViewed from './algorithms/lensterMostViewed';
 
