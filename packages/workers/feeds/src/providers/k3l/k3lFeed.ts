@@ -1,3 +1,5 @@
+import randomizeIds from '../../helpers/randomizeIds';
+
 const k3lFeed = async (strategy: string, limit: number, offset: number) => {
   try {
     const response = await fetch(
@@ -7,9 +9,9 @@ const k3lFeed = async (strategy: string, limit: number, offset: number) => {
     const json: {
       postId: string;
     }[] = await response.json();
-    const postIds = json.map((item: any) => item.postId);
+    const ids = json.map((item: any) => item.postId);
 
-    return postIds;
+    return randomizeIds(ids);
   } catch (error) {
     console.log(error);
     return [];
