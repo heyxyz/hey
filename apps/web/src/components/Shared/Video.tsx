@@ -1,6 +1,5 @@
 import 'plyr-react/plyr.css';
 
-import { IPFS_GATEWAY } from '@lenster/data/constants';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Player } from '@livepeer/react';
@@ -23,7 +22,6 @@ const Video: FC<VideoProps> = ({ src, poster }) => {
         showPipButton={false}
         showUploadingIndicator={false}
         controls={{ defaultVolume: 1 }}
-        autoUrlUpload={{ fallback: true, ipfsGateway: IPFS_GATEWAY }}
       />
     </div>
   );

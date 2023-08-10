@@ -24,19 +24,21 @@ const lensterMostInteracted = async (
       PUBLICATION.OPEN_LIKES,
       PUBLICATION.OPEN_MIRRORS,
       PUBLICATION.OPEN_COLLECTORS,
+      PUBLICATION.CLICK_OEMBED,
+      PUBLICATION.COLLECT_MODULE.COLLECT,
       PUBLICATION.ATTACHMENT.AUDIO.PLAY,
-      PUBLICATION.COLLECT_MODULE.COLLECT
+      PUBLICATION.ATTACHMENT.IMAGE.OPEN
     ];
 
     const query = `
       SELECT
-          IFNULL(JSONExtractString(properties, 'publication_id'), JSONExtractString(properties, 'collect_publication_id')) AS publication_id,
+          IFNULL(JSONExtractString(properties, 'publication_id')) AS publication_id,
           COUNT(*) AS interaction_count
       FROM
           events
       WHERE
           name IN (${interactionEvents.map((name) => `'${name}'`).join(',')})
-          AND (JSONHas(properties, 'publication_id') OR JSONHas(properties, 'collect_publication_id'))
+          AND (JSONHas(properties, 'publication_id')
           AND created >= now() - INTERVAL 1 DAY
       GROUP BY
           publication_id
