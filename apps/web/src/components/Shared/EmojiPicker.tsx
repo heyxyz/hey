@@ -4,7 +4,7 @@ import EmojiPicker, { Theme } from 'emoji-picker-react';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
-import MenuTransition from '../MenuTransition';
+import MenuTransition from './MenuTransition';
 
 interface CustomEmojiPickerProps {
   emoji?: string | null;
