@@ -89,7 +89,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showOembed ? <Oembed url={urls[0]} /> : null}
+      {showOembed ? (
+        <Oembed url={urls[0]} publicationId={publication.id} />
+      ) : null}
       {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />
       ) : null}

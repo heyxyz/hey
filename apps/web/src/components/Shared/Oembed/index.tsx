@@ -9,9 +9,10 @@ import Player from './Player';
 
 interface OembedProps {
   url?: string;
+  publicationId?: string;
 }
 
-const Oembed: FC<OembedProps> = ({ url }) => {
+const Oembed: FC<OembedProps> = ({ url, publicationId }) => {
   const { isLoading, error, data } = useQuery(
     [url],
     () =>
@@ -41,7 +42,11 @@ const Oembed: FC<OembedProps> = ({ url }) => {
     return null;
   }
 
-  return og.html ? <Player og={og} /> : <Embed og={og} />;
+  return og.html ? (
+    <Player og={og} />
+  ) : (
+    <Embed og={og} publicationId={publicationId} />
+  );
 };
 
 export default Oembed;
