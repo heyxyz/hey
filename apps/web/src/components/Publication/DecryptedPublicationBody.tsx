@@ -377,7 +377,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
       {publication?.media?.length ? (
         <Attachments attachments={publication?.media} />
       ) : content ? (
-        urls.length > 0 && <Oembed url={urls[0]} />
+        urls.length > 0 && (
+          <Oembed url={urls[0]} publicationId={encryptedPublication.id} />
+        )
       ) : null}
     </div>
   );
