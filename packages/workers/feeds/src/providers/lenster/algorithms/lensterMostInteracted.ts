@@ -1,7 +1,8 @@
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 
-import type { Env } from '../../../../types';
+import randomizeIds from '../../../helpers/randomizeIds';
+import type { Env } from '../../../types';
 import clickhouseQuery from '../clickhouseQuery';
 
 const interactionAndWeights = {
@@ -63,11 +64,8 @@ const lensterMostInteracted = async (
     `;
     const response = await clickhouseQuery(query, env);
     const ids = response.map((row) => row[0]);
-    const randomIds = ids
-      .sort(() => Math.random() - Math.random())
-      .slice(0, limit);
 
-    return randomIds;
+    return randomizeIds(ids);
   } catch (error) {
     console.log(error);
     return [];
