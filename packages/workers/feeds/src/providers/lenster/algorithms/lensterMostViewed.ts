@@ -1,8 +1,9 @@
 import { Errors } from '@lenster/data/errors';
 import { PAGEVIEW } from '@lenster/data/tracking';
 
-import type { Env } from '../../../../types';
-import removeParamsFromString from '../../../removeParamsFromString';
+import randomizeIds from '../../../helpers/randomizeIds';
+import removeParamsFromString from '../../../helpers/removeParamsFromString';
+import type { Env } from '../../../types';
 import clickhouseQuery from '../clickhouseQuery';
 
 const lensterMostViewed = async (
@@ -40,11 +41,8 @@ const lensterMostViewed = async (
 
       return removeParamsFromString(id);
     });
-    const randomIds = ids
-      .sort(() => Math.random() - Math.random())
-      .slice(0, limit);
 
-    return randomIds;
+    return randomizeIds(ids);
   } catch (error) {
     console.log(error);
     return [];
