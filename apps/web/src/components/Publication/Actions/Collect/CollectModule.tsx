@@ -130,8 +130,8 @@ const CollectModule: FC<CollectModuleProps> = ({
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
+      publication_id: publication?.id,
       collect_module: collectModule?.type,
-      collect_publication_id: publication?.id,
       ...(!isRevertCollectModule && {
         collect_amount: amount,
         collect_currency: currency,
