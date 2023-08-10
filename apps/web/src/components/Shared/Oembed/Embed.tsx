@@ -10,9 +10,10 @@ import type { FC } from 'react';
 
 interface EmbedProps {
   og: OG;
+  publicationId?: string;
 }
 
-const Embed: FC<EmbedProps> = ({ og }) => {
+const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   return (
     <div
       className="mt-4 text-sm sm:w-4/6"
@@ -23,6 +24,7 @@ const Embed: FC<EmbedProps> = ({ og }) => {
         onClick={(event) => {
           stopEventPropagation(event);
           Leafwatch.track(PUBLICATION.CLICK_OEMBED, {
+            ...(publicationId && { publication_id: publicationId }),
             url: og.url
           });
         }}
