@@ -1,4 +1,5 @@
 export const verified = [
+  '0x01d7ea',
   '0x01cc4f',
   '0x01d371',
   '0x01cc67',
@@ -148,7 +149,6 @@ export const verified = [
   '0x5805',
   '0x018ccc',
   '0xf71a',
-  '0x014c1f',
   '0x014c1f',
   '0x01873a',
   '0xf2a3',
