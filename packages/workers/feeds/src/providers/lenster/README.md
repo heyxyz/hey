@@ -1,4 +1,4 @@
 # Lenster Algorithms
 
-- [MostViewed](./MostViewed.md)
-- [MostInteracted](./MostInteracted.md)
+- [MostViewed](./docs/MostViewed.md)
+- [MostInteracted](./docs/MostInteracted.md)
