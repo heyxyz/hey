@@ -1,0 +1,12 @@
+name = "sns"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "sns.lenster.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+SHARED_LENS_INVITE_SECRET = ""
