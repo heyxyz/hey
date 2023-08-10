@@ -149,6 +149,7 @@ export const verified = [
   '0x018ccc',
   '0xf71a',
   '0x014c1f',
+  '0x014c1f',
   '0x01873a',
   '0xf2a3',
   '0xa518',
