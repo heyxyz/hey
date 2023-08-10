@@ -1,6 +1,6 @@
+import { Errors } from '@lenster/data/errors';
 import getRpc from '@lenster/lib/getRpc';
 import type { IRequest } from 'itty-router';
-import { error } from 'itty-router';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
@@ -20,7 +20,9 @@ const validationSchema = object({
 export default async (request: IRequest) => {
   const body = await request.json();
   if (!body) {
-    return error(400, 'Bad request!');
+    return new Response(
+      JSON.stringify({ success: false, error: Errors.NoBody })
+    );
   }
 
   const validation = validationSchema.safeParse(body);
