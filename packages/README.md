@@ -23,3 +23,4 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Lenster
   - [Invite](../packages/workers/invite/README.md) - Invite API for Lenster
   - [IPFS](../packages/workers/ipfs/README.md) - IPFS cached gateway for Lenster
+  - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Lenster
