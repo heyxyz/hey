@@ -180,6 +180,9 @@ importers:
       dexie-react-hooks:
         specifier: ^1.1.6
         version: 1.1.6(@types/react@18.2.19)(dexie@3.2.4)(react@18.2.0)
+      emoji-picker-react:
+        specifier: ^4.4.10
+        version: 4.4.10(react@18.2.0)
       framer-motion:
         specifier: ^10.15.1
         version: 10.15.1(react-dom@18.2.0)(react@18.2.0)
@@ -8956,6 +8959,16 @@ packages:
       inherits: 2.0.4
       minimalistic-assert: 1.0.1
       minimalistic-crypto-utils: 1.0.1
+    dev: false
+
+  /emoji-picker-react@4.4.10(react@18.2.0):
+    resolution: {integrity: sha512-/5o57w8BKiCHklyqfYCeUlm00R9tdm2ZmJd0p6Q3/Ul7E7eMh+/FduuRFn3UVQCl5F6i4kOdREMz7EJ7YI1vMg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+    dependencies:
+      clsx: 1.2.1
+      react: 18.2.0
     dev: false
 
   /emoji-regex@8.0.0:
