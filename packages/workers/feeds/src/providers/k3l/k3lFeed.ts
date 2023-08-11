@@ -1,21 +1,17 @@
-import randomizeIds from '../../helpers/randomizeIds';
+import k3lGlobalFeed from './algorithms/k3lGlobalFeed';
+import k3lPersonalFeed from './algorithms/k3lPersonalFeed';
 
-const k3lFeed = async (strategy: string, limit: number, offset: number) => {
-  try {
-    const response = await fetch(
-      `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}`,
-      { headers: { 'User-Agent': 'Lenster' } }
-    );
-    const json: {
-      postId: string;
-    }[] = await response.json();
-    const ids = json.map((item: any) => item.postId);
-
-    return randomizeIds(ids);
-  } catch (error) {
-    console.log(error);
-    return [];
+const k3lFeed = async (
+  strategy: string,
+  profile: string,
+  limit: number,
+  offset: number
+) => {
+  if (profile) {
+    return await k3lPersonalFeed(strategy, profile, limit, offset);
   }
+
+  return await k3lGlobalFeed(strategy, limit, offset);
 };
 
 export default k3lFeed;
