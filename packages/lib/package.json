@@ -15,7 +15,7 @@
     "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
     "axios": "^1.4.0",
-    "viem": "^1.5.4"
+    "viem": "^1.6.0"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",

@@ -28,7 +28,7 @@
   "devDependencies": {
     "husky": "^8.0.3",
     "prettier": "^3.0.1",
-    "prettier-plugin-tailwindcss": "^0.5.1",
+    "prettier-plugin-tailwindcss": "^0.5.2",
     "start-server-and-test": "^2.0.0",
     "turbo": "^1.10.12"
   },
