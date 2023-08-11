@@ -1,7 +1,9 @@
+import { GlobeIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { algorithms } from '@lenster/data/algorithms';
 import { HOME } from '@lenster/data/tracking';
-import { Toggle } from '@lenster/ui';
+import { Toggle, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { t } from '@lingui/macro';
 import { type FC } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
@@ -31,7 +33,23 @@ const List: FC = () => {
                 alt={algorithm.name}
               />
               <div>
-                <b>{algorithm.name}</b>
+                <div className="flex items-center space-x-1.5">
+                  <b>{algorithm.name}</b>
+                  <Tooltip
+                    placement="top"
+                    content={
+                      algorithm.isPersonalized ? t`Personalized` : t`Global`
+                    }
+                  >
+                    <div className="text-brand">
+                      {algorithm.isPersonalized ? (
+                        <UserCircleIcon className="h-4 w-4" />
+                      ) : (
+                        <GlobeIcon className="h-4 w-4" />
+                      )}
+                    </div>
+                  </Tooltip>
+                </div>
                 <div className="text-sm">by {algorithm.by}</div>
               </div>
             </div>
