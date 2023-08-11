@@ -237,8 +237,9 @@ ul {
   @apply bg-clip-text text-transparent;
 }
 
+/* emoji-picker-react */
 .EmojiPickerReact {
-  --epr-search-border-color: #8b5cf7 !important;
+  --epr-search-border-color: #8b5cf6 !important;
   --epr-category-icon-active-color: transparent !important;
   --epr-emoji-hover-color: #8b5cf722 !important;
   --epr-focus-bg-color: #8b5cf722 !important;

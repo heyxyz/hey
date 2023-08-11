@@ -1,4 +1,5 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import EmojiPicker, { Theme } from 'emoji-picker-react';
 import { useTheme } from 'next-themes';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -20,18 +21,18 @@ const CustomEmojiPicker: FC<CustomEmojiPickerProps> = ({
 
   return (
     <div className="relative">
-      <div
+      <button
         onClick={(e) => {
           e.preventDefault();
-          e.stopPropagation();
+          stopEventPropagation(e);
           setShowEmojiPicker(!showEmojiPicker);
         }}
-        className="rounded-md p-1 hover:bg-gray-300/20"
+        className="flex rounded-md p-1 hover:bg-gray-300/20"
       >
         {emoji ? <span>{emoji}</span> : <EmojiHappyIcon className="h-5 w-5" />}
-      </div>
+      </button>
       {showEmojiPicker && (
-        <div className="fixed left-[20px] z-[5] mt-[10px] rounded-xl border shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+        <div className="fixed z-[5] mt-[10px] rounded-xl border shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
           <EmojiPicker
             onEmojiClick={(emojiData) => {
               setShowEmojiPicker(false);
@@ -39,6 +40,7 @@ const CustomEmojiPicker: FC<CustomEmojiPickerProps> = ({
             }}
             height={320}
             theme={resolvedTheme === 'dark' ? Theme['DARK'] : Theme['LIGHT']}
+            lazyLoadEmojis
           />
         </div>
       )}
