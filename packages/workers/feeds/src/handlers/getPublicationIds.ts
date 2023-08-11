@@ -8,6 +8,7 @@ import type { Env } from '../types';
 export default async (request: IRequest, env: Env) => {
   const provider = request.query.provider as string;
   const strategy = request.query.strategy as string;
+  const profile = request.query.profile as string;
   const limit = (parseInt(request.query?.limit as string) || 50) as number;
   const offset = (parseInt(request.query?.offset as string) || 0) as number;
 
@@ -24,7 +25,7 @@ export default async (request: IRequest, env: Env) => {
     let ids: string[] = [];
     switch (provider) {
       case AlgorithmProvider.K3L:
-        ids = await k3lFeed(strategy, limit, offset);
+        ids = await k3lFeed(strategy, profile, limit, offset);
         break;
       case AlgorithmProvider.LENSTER:
         ids = await lensterFeed(strategy, limit, offset, env);
