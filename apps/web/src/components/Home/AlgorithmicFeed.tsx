@@ -22,8 +22,8 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     data: publicationIds,
     isLoading: algoLoading,
     error: algoError
-  } = useQuery(['algorithmicFeed', feedType], () =>
-    getAlgorithmicFeed(feedType)
+  } = useQuery(['algorithmicFeed', feedType, currentProfile?.id], () =>
+    getAlgorithmicFeed(feedType, currentProfile)
   );
 
   const request: PublicationsQueryRequest = { publicationIds, limit: 20 };

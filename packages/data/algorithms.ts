@@ -7,6 +7,7 @@ export const algorithms: {
   description: string;
   image: string;
   by: string;
+  isPersonalized?: boolean;
 }[] = [
   {
     name: 'Most Viewed',
@@ -51,5 +52,13 @@ export const algorithms: {
     description: 'Quality content decided by community engagement',
     image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
     by: 'Karma3Labs'
+  },
+  {
+    name: 'Following',
+    feedType: HomeFeedType.K3L_FOLLOWING,
+    description: 'Personalized feed based on who you follow.',
+    image: `${STATIC_IMAGES_URL}/algorithms/k3l.png`,
+    by: 'Karma3Labs',
+    isPersonalized: true
   }
 ];
