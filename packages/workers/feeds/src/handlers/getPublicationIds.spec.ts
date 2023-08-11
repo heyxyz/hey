@@ -39,5 +39,13 @@ describe('getPublicationIds', () => {
       const response: Response = await getRequest.json();
       expect(response.ids.length).toBe(50);
     });
+
+    test('should return ids for k3l provider, following strategy and profile', async () => {
+      const getRequest = await fetch(
+        `${TEST_URL}/ids?provider=k3l&strategy=following&profile=yoginth.lens`
+      );
+      const response: Response = await getRequest.json();
+      expect(response.ids.length).toBe(50);
+    });
   });
 });
