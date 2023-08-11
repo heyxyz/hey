@@ -33,11 +33,20 @@ const List: FC = () => {
                 alt={algorithm.name}
               />
               <div>
-                <div className='flex items-center space-x-1.5'>
+                <div className="flex items-center space-x-1.5">
                   <b>{algorithm.name}</b>
-                  <Tooltip placement='top' content={algorithm.isPersonalized ? t`Personalized` : t`Global`}>
-                    <div className='text-brand'>
-                      {algorithm.isPersonalized ? <UserCircleIcon className='h-4 w-4' /> : <GlobeIcon className='h-4 w-4' />}
+                  <Tooltip
+                    placement="top"
+                    content={
+                      algorithm.isPersonalized ? t`Personalized` : t`Global`
+                    }
+                  >
+                    <div className="text-brand">
+                      {algorithm.isPersonalized ? (
+                        <UserCircleIcon className="h-4 w-4" />
+                      ) : (
+                        <GlobeIcon className="h-4 w-4" />
+                      )}
                     </div>
                   </Tooltip>
                 </div>

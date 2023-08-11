@@ -8,7 +8,11 @@ import axios from 'axios';
  * @param profile The profile (lens id or handle) to get the feed for
  * @returns The publication ids
  */
-const getPublicationIds = async (provider: string, strategy: string, profile?: string) => {
+const getPublicationIds = async (
+  provider: string,
+  strategy: string,
+  profile?: string
+) => {
   try {
     const response = await axios(`${FEEDS_WORKER_URL}/ids`, {
       params: { provider, strategy, ...(profile ? { profile } : {}) }

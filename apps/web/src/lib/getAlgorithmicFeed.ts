@@ -8,7 +8,10 @@ import getPublicationIds from '@lenster/lib/getPublicationIds';
  * @param profile The lens profile to get the feed for
  * @returns The algorithmic feed
  */
-const getAlgorithmicFeed = async (feedType: HomeFeedType, profile: Profile | null) => {
+const getAlgorithmicFeed = async (
+  feedType: HomeFeedType,
+  profile: Profile | null
+) => {
   switch (feedType) {
     case HomeFeedType.K3L_RECOMMENDED:
     case HomeFeedType.K3L_POPULAR:
