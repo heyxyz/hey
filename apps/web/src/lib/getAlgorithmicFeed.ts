@@ -1,5 +1,5 @@
 import { AlgorithmProvider, HomeFeedType } from '@lenster/data/enums';
-import { Profile } from '@lenster/lens';
+import type { Profile } from '@lenster/lens';
 import getPublicationIds from '@lenster/lib/getPublicationIds';
 
 /**
