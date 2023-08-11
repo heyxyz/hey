@@ -383,6 +383,14 @@ msgstr "Explore • {APP_NAME}"
 msgid "Failed to load for you"
 msgstr "Failed to load for you"
 
+#: src/components/Home/Algorithms/List.tsx
+msgid "Personalized"
+msgstr "Personalized"
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Global"
+msgstr "Global"
+
 #: src/components/Home/Algorithms/index.tsx
 #: src/components/Home/Algorithms/index.tsx
 msgid "Algorithms"
