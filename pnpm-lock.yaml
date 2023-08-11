@@ -647,6 +647,9 @@ importers:
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
+      vitest:
+        specifier: ^0.34.1
+        version: 0.34.1
       wrangler:
         specifier: ^3.4.0
         version: 3.4.0
