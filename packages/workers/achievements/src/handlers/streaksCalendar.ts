@@ -1,5 +1,4 @@
 import { Errors } from '@lenster/data/errors';
-import { error } from 'itty-router';
 
 import filteredEvents from '../helpers/filteredNames';
 import generateDateRangeDict from '../helpers/generateDateRangeDict';
@@ -7,7 +6,9 @@ import type { Env } from '../types';
 
 export default async (id: string, env: Env) => {
   if (!id) {
-    return error(400, 'Bad request!');
+    return new Response(
+      JSON.stringify({ success: false, error: Errors.NoBody })
+    );
   }
 
   try {

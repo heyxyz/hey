@@ -1,4 +1,4 @@
-import type { Env } from '../../../types';
+import type { Env } from '../../types';
 
 const clickhouseQuery = async (query: string, env: Env) => {
   try {

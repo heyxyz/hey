@@ -1,7 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import type { IRequest } from 'itty-router';
-import { error } from 'itty-router';
 import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
 
@@ -30,7 +29,9 @@ const validationSchema = object({
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
   if (!body) {
-    return error(400, 'Bad request!');
+    return new Response(
+      JSON.stringify({ success: false, error: Errors.NoBody })
+    );
   }
 
   const validation = validationSchema.safeParse(body);
