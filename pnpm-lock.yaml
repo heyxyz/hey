@@ -848,6 +848,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.14
         version: 4.0.14
