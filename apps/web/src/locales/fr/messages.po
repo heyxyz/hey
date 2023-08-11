@@ -383,6 +383,14 @@ msgstr ""
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/List.tsx
+msgid "Personalized"
+msgstr ""
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Global"
+msgstr ""
+
 #: src/components/Home/Algorithms/index.tsx
 #: src/components/Home/Algorithms/index.tsx
 msgid "Algorithms"
