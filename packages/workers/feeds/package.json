@@ -9,6 +9,8 @@
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "pnpm dev",
+    "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
     "worker:deploy": "wrangler deploy"
   },
@@ -20,6 +22,7 @@
     "@cloudflare/workers-types": "^4.20230807.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.1.6",
+    "vitest": "^0.34.1",
     "wrangler": "^3.4.0"
   }
 }
