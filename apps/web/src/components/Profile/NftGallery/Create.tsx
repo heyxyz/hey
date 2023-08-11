@@ -38,6 +38,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
@@ -275,7 +276,11 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         )}
         <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
           {currentStep === 'NAME' ? (
-            <EmojiPicker setEmoji={(emoji) => onPickEmoji(emoji)} />
+            <EmojiPicker
+              showEmojiPicker={showEmojiPicker}
+              setShowEmojiPicker={setShowEmojiPicker}
+              setEmoji={(emoji) => onPickEmoji(emoji)}
+            />
           ) : (
             <Trans>{gallery.items.length} selected</Trans>
           )}

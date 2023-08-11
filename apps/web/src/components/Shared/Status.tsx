@@ -49,6 +49,7 @@ const Status: FC = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -223,8 +224,12 @@ const Status: FC = () => {
     );
   }
 
+  const closeEmojiPicker = () => {
+    setShowEmojiPicker(false);
+  };
+
   return (
-    <div className="space-y-5 p-5">
+    <div onClick={closeEmojiPicker} className="space-y-5 p-5">
       <Form
         form={form}
         className="space-y-4"
@@ -234,7 +239,14 @@ const Status: FC = () => {
         }}
       >
         <Input
-          prefix={<EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
+          prefix={
+            <EmojiPicker
+              showEmojiPicker={showEmojiPicker}
+              emoji={emoji}
+              setEmoji={setEmoji}
+              setShowEmojiPicker={setShowEmojiPicker}
+            />
+          }
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />

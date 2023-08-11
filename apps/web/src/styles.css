@@ -236,3 +236,14 @@ ul {
   );
   @apply bg-clip-text text-transparent;
 }
+
+.EmojiPickerReact {
+  --epr-search-border-color: #8b5cf7 !important;
+  --epr-category-icon-active-color: transparent !important;
+  --epr-emoji-hover-color: #8b5cf722 !important;
+  --epr-focus-bg-color: #8b5cf722 !important;
+}
+
+.EmojiPickerReact .epr-category-nav > button.epr-cat-btn {
+  filter: hue-rotate(45deg);
+}
