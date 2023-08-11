@@ -12,9 +12,7 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to feeds service 👋'));
-router.get('/publicationIds', (request, env) =>
-  getPublicationIds(request, env)
-);
+router.get('/ids', (request, env) => getPublicationIds(request, env));
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);

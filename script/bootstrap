@@ -41,7 +41,7 @@ pnpm install --frozen-lockfile
 echo "Dependencies installed 📦"
 # -------------------------------------
 echo "Installing playwright 🎭"
-npx --yes playwright install
+pnpx playwright install
 echo "Playwright installed 🎭"
 # -------------------------------------
 echo "GraphQL Codegen 🧬"
