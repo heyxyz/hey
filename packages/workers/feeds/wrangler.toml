@@ -7,3 +7,6 @@ node_compat = true
 routes = [
 	{ pattern = "feeds.lenster.xyz", custom_domain = true }
 ]
+
+[env.production.vars]
+CLICKHOUSE_REST_ENDPOINT = ""

@@ -68,6 +68,7 @@ const Search: FC<SearchProps> = ({
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
 
   const searchResult = searchUsersData?.search as ProfileSearchResult;
