@@ -17,7 +17,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({ emoji, setEmoji }) => {
         {emoji ? <span>{emoji}</span> : <EmojiHappyIcon className="h-5 w-5" />}
       </Menu.Button>
       <MenuTransition>
-        <div className="fixed z-[5] mt-1 w-2/4 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+        <div className="fixed z-[5] mt-1 w-2/4 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
           <List setEmoji={setEmoji} />
         </div>
       </MenuTransition>

@@ -1,11 +1,14 @@
+import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import type { Emoji } from '@lenster/types/misc';
-import { ErrorMessage } from '@lenster/ui';
+import { ErrorMessage, Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { clsx } from 'clsx';
+import type { ChangeEvent, FC } from 'react';
+import { useState } from 'react';
 
 import Loader from '../Loader';
 
@@ -14,6 +17,7 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ setEmoji }) => {
+  const [searchText, setSearchText] = useState('');
   const { isLoading, error, data } = useQuery(['emojisData'], () =>
     axios({
       url: `${STATIC_ASSETS_URL}/emoji.json`
@@ -37,18 +41,57 @@ const List: FC<ListProps> = ({ setEmoji }) => {
     return <Loader message={t`Loading emojis`} />;
   }
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  let filteredEmojis = data;
+  if (searchText.length > 2) {
+    filteredEmojis = data.filter((emoji: any) => {
+      return emoji.description.toLowerCase().includes(searchText.toLowerCase());
+    });
+  }
+
   return (
-    <div className="grid max-h-[20rem] grid-cols-7 overflow-y-auto p-5 text-lg">
-      {data.map((emoji: Emoji) => (
-        <button
-          className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
-          key={emoji.emoji}
-          type="button"
-          onClick={() => setEmoji(emoji.emoji)}
-        >
-          {emoji.emoji}
-        </button>
-      ))}
+    <div>
+      <div
+        aria-hidden="true"
+        className="w-full p-2 pb-0 pt-4"
+        data-testid="emoji-search"
+      >
+        <form>
+          <Input
+            autoFocus
+            type="text"
+            className="px-3 py-2 text-sm"
+            placeholder={'Search'}
+            value={searchText}
+            iconLeft={<SearchIcon />}
+            iconRight={
+              <XIcon
+                className={clsx(
+                  'cursor-pointer',
+                  searchText ? 'visible' : 'invisible'
+                )}
+                onClick={() => setSearchText('')}
+              />
+            }
+            onChange={onChange}
+          />
+        </form>
+      </div>
+      <div className="grid max-h-[20rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
+        {filteredEmojis.map((emoji: Emoji) => (
+          <button
+            className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+            key={emoji.emoji}
+            type="button"
+            onClick={() => setEmoji(emoji.emoji)}
+          >
+            {emoji.emoji}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
