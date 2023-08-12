@@ -1,6 +1,7 @@
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { Emoji } from '@lenster/types/misc';
 import { ErrorMessage, Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -61,6 +62,10 @@ const List: FC<ListProps> = ({ setEmoji }) => {
     <div>
       <div className="w-full p-2 pb-0 pt-4" data-testid="emoji-search">
         <Input
+          onClick={(e) => {
+            e.preventDefault();
+            stopEventPropagation(e);
+          }}
           ref={inputRef}
           autoFocus
           type="text"
@@ -74,7 +79,11 @@ const List: FC<ListProps> = ({ setEmoji }) => {
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
-              onClick={() => setSearchText('')}
+              onClick={(e) => {
+                e.preventDefault();
+                stopEventPropagation(e);
+                setSearchText('');
+              }}
             />
           }
           onChange={onChange}
