@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { clsx } from 'clsx';
 import type { ChangeEvent, FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Loader from '../Loader';
 
@@ -17,12 +17,28 @@ interface ListProps {
 }
 
 const List: FC<ListProps> = ({ setEmoji }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState('');
   const { isLoading, error, data } = useQuery(['emojisData'], () =>
     axios({
       url: `${STATIC_ASSETS_URL}/emoji.json`
     }).then((res) => res.data)
   );
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  let filteredEmojis = data;
+  if (searchText.length > 2) {
+    filteredEmojis = data.filter((emoji: any) => {
+      return emoji.description.toLowerCase().includes(searchText.toLowerCase());
+    });
+  }
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   if (error) {
     return (
@@ -41,21 +57,11 @@ const List: FC<ListProps> = ({ setEmoji }) => {
     return <Loader message={t`Loading emojis`} />;
   }
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
-  let filteredEmojis = data;
-  if (searchText.length > 2) {
-    filteredEmojis = data.filter((emoji: any) => {
-      return emoji.description.toLowerCase().includes(searchText.toLowerCase());
-    });
-  }
-
   return (
     <div>
       <div className="w-full p-2 pb-0 pt-4" data-testid="emoji-search">
         <Input
+          ref={inputRef}
           autoFocus
           type="text"
           className="px-3 py-2 text-sm"

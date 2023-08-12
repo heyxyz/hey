@@ -1,4 +1,5 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 import List from './List';
@@ -19,7 +20,11 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
   return (
     <div className="relative">
       <div
-        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        onClick={(e) => {
+          e.preventDefault();
+          stopEventPropagation(e);
+          setShowEmojiPicker(!showEmojiPicker);
+        }}
         className="rounded-md p-1 hover:bg-gray-300/20"
       >
         {emoji ? <span>{emoji}</span> : <EmojiHappyIcon className="h-5 w-5" />}

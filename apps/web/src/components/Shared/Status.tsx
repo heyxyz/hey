@@ -225,7 +225,7 @@ const Status: FC = () => {
   }
 
   return (
-    <div className="space-y-5 p-5">
+    <div onClick={() => setShowEmojiPicker(false)} className="space-y-5 p-5">
       <Form
         form={form}
         className="space-y-4"
