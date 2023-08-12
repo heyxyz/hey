@@ -49,6 +49,7 @@ const Status: FC = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -234,7 +235,14 @@ const Status: FC = () => {
         }}
       >
         <Input
-          prefix={<EmojiPicker emoji={emoji} setEmoji={setEmoji} />}
+          prefix={
+            <EmojiPicker
+              setShowEmojiPicker={setShowEmojiPicker}
+              showEmojiPicker={showEmojiPicker}
+              emoji={emoji}
+              setEmoji={setEmoji}
+            />
+          }
           placeholder={t`What's happening?`}
           {...form.register('status')}
         />

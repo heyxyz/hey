@@ -54,33 +54,27 @@ const List: FC<ListProps> = ({ setEmoji }) => {
 
   return (
     <div>
-      <div
-        aria-hidden="true"
-        className="w-full p-2 pb-0 pt-4"
-        data-testid="emoji-search"
-      >
-        <form>
-          <Input
-            autoFocus
-            type="text"
-            className="px-3 py-2 text-sm"
-            placeholder={'Search'}
-            value={searchText}
-            iconLeft={<SearchIcon />}
-            iconRight={
-              <XIcon
-                className={clsx(
-                  'cursor-pointer',
-                  searchText ? 'visible' : 'invisible'
-                )}
-                onClick={() => setSearchText('')}
-              />
-            }
-            onChange={onChange}
-          />
-        </form>
+      <div className="w-full p-2 pb-0 pt-4" data-testid="emoji-search">
+        <Input
+          autoFocus
+          type="text"
+          className="px-3 py-2 text-sm"
+          placeholder={'Search...'}
+          value={searchText}
+          iconLeft={<SearchIcon />}
+          iconRight={
+            <XIcon
+              className={clsx(
+                'cursor-pointer',
+                searchText ? 'visible' : 'invisible'
+              )}
+              onClick={() => setSearchText('')}
+            />
+          }
+          onChange={onChange}
+        />
       </div>
-      <div className="grid max-h-[20rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
+      <div className="grid max-h-[16rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
         {filteredEmojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
