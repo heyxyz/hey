@@ -85,7 +85,7 @@ const useMessagePreviews = () => {
       const newPreviewMessages = new Map(previewMessages);
       for (const msg of rawPreviewMessages) {
         const existing = newPreviewMessages.get(msg.conversationKey);
-        // Only update the cache if the new messsage is newer
+        // Only update the cache if the new message is newer
         if (!existing || msg.sent > existing.sent) {
           const message = await DecodedMessage.fromBytes(
             msg.messageBytes,
