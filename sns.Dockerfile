@@ -19,7 +19,7 @@ EXPOSE 5001
 COPY . .
 
 # Copy the environment file
-COPY .env.example .env
+COPY packages/sns/.env.example .env
 
 # Start the application
 CMD ["pnpm", "start"]
