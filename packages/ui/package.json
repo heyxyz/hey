@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
-    "@types/node": "^20.4.9",
-    "@types/react": "^18.2.19",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
     "typescript": "^5.1.6"
   }
 }

@@ -3,11 +3,11 @@ import type { HomeFeedType } from '@lenster/data/enums';
 import { HOME } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<HomeFeedType>;
+  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
   feedType: HomeFeedType;
 }
 

@@ -6,12 +6,12 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Button, Image } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FollowModalProps {
   profile: Profile;
-  setShowFollowModal: Dispatch<boolean>;
-  setFollowing: Dispatch<boolean | null>;
+  setShowFollowModal: Dispatch<SetStateAction<boolean>>;
+  setFollowing: (following: boolean) => void;
 }
 
 const FollowModal: FC<FollowModalProps> = ({

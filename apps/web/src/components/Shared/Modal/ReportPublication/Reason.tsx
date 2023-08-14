@@ -5,11 +5,11 @@ import {
   PublicationReportingSpamSubreason
 } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface ReasonProps {
-  setType: Dispatch<string>;
-  setSubReason: Dispatch<string>;
+  setType: Dispatch<SetStateAction<string>>;
+  setSubReason: Dispatch<SetStateAction<string>>;
   type: string;
   subReason: string;
 }

@@ -22,7 +22,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -35,8 +35,8 @@ import Uniswap from '../Uniswap';
 
 interface FollowModuleProps {
   profile: Profile;
-  setFollowing: Dispatch<boolean>;
-  setShowFollowModal: Dispatch<boolean>;
+  setFollowing: (following: boolean) => void;
+  setShowFollowModal: Dispatch<SetStateAction<boolean>>;
   again: boolean;
 
   // For data analytics
