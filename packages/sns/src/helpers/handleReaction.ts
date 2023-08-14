@@ -9,20 +9,21 @@ const handleReaction = async (data: ReactionData) => {
   const { serverPubId, reaction } = data;
   const clickhouse = createClickHouseClient();
 
-  if (reaction === 'UPVOTE') {
-    const query = `
+  // Check if the publication exists before updating
+  const checkQuery = `
+    SELECT id FROM firehose WHERE id = '${serverPubId}' LIMIT 1;
+  `;
+  const existsResult = await clickhouse.query(checkQuery).toPromise();
+
+  if (existsResult.length > 0) {
+    const updateQuery = `
       ALTER TABLE firehose
-      UPDATE likesCount = likesCount + 1
+      UPDATE likesCount = likesCount ${reaction === 'UPVOTE' ? '+' : '-'} 1
       WHERE id = '${serverPubId}';
     `;
-    await clickhouse.query(query).toPromise();
+    await clickhouse.query(updateQuery).toPromise();
   } else {
-    const query = `
-      ALTER TABLE firehose
-      UPDATE likesCount = likesCount - 1
-      WHERE id = '${serverPubId}';
-    `;
-    await clickhouse.query(query).toPromise();
+    console.log(`Publication with serverPubId ${serverPubId} not found.`);
   }
 };
 
