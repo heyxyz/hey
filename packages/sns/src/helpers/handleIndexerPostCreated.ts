@@ -1,6 +1,20 @@
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-
 import createClickHouseClient from './createClickHouseClient';
+
+const IPFS_GATEWAY = 'https://ipfs.lenster.xyz/ipfs/';
+const ARWEAVE_GATEWAY = 'https://arweave.net/';
+const sanitizeDStorageUrl = (hash?: string): string => {
+  if (!hash) {
+    return '';
+  }
+
+  let link = hash.replace(/^Qm[1-9A-Za-z]{44}/gm, `${IPFS_GATEWAY}${hash}`);
+  link = link.replace('https://ipfs.io/ipfs/', IPFS_GATEWAY);
+  link = link.replace('ipfs://ipfs/', IPFS_GATEWAY);
+  link = link.replace('ipfs://', IPFS_GATEWAY);
+  link = link.replace('ar://', ARWEAVE_GATEWAY);
+
+  return link;
+};
 
 interface IndexerPostCreated {
   profileId?: string;
@@ -24,6 +38,7 @@ const handleIndexerPostCreated = async (data: IndexerPostCreated) => {
     referenceModuleReturnData,
     timestamp
   } = data;
+  console.log(sanitizeDStorageUrl(contentURI));
 
   // Extract metadata
   let metadata;

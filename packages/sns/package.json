@@ -22,7 +22,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@lenster/lib": "workspace:*",
     "@lenster/config": "workspace:*",
     "@types/node": "^20.5.0",
     "esbuild": "^0.19.2",
