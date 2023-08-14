@@ -36,7 +36,7 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import type { Dispatch, FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import useStaffMode from 'src/hooks/useStaffMode';
@@ -53,7 +53,7 @@ import ScamWarning from './ScamWarning';
 interface DetailsProps {
   profile: Profile;
   following: boolean;
-  setFollowing: Dispatch<boolean>;
+  setFollowing: (following: boolean) => void;
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {

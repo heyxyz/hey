@@ -83,7 +83,7 @@ const Explore: NextPage = () => {
               </Tab>
             ))}
           </Tab.List>
-          <FeedFocusType setFocus={setFocus} focus={focus} />
+          <FeedFocusType focus={focus} setFocus={setFocus} />
           <Tab.Panels>
             {tabs.map((tab) => (
               <Tab.Panel key={tab.type}>
