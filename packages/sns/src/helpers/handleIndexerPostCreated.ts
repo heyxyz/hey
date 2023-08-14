@@ -38,7 +38,6 @@ const handleIndexerPostCreated = async (data: IndexerPostCreated) => {
     referenceModuleReturnData,
     timestamp
   } = data;
-  console.log(sanitizeDStorageUrl(contentURI));
 
   // Extract metadata
   let metadata;

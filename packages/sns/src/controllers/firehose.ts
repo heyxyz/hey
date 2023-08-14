@@ -23,14 +23,16 @@ const firehose = async (request: FastifyRequest) => {
   }
 
   try {
-    const payload = JSON.parse(JSON.stringify(body));
+    const payload: unknown = JSON.parse(JSON.stringify(body));
+    const json = snsMessageSchema.parse(payload);
 
-    if (payload.Type === 'SubscriptionConfirmation') {
-      await fetch(payload.SubscribeURL);
+    if (json.Type === 'SubscriptionConfirmation') {
+      await fetch(json.SubscribeURL);
     }
 
-    if (payload.Type === 'Notification') {
-      const { type, data } = payload.Message;
+    if (json.Type === 'Notification') {
+      const { type, data } = JSON.parse(json.Message);
+      console.log('type', type);
 
       if (type === 'INDEXER_POST_CREATED') {
         await handleIndexerPostCreated(data);
