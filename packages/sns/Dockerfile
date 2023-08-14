@@ -18,7 +18,7 @@ WORKDIR /usr/app
 ARG APP_ENV
 COPY --from=builder /app/build ./build
 COPY package.json ./
-COPY .env.$APP_ENV .env
+COPY .env.example .env
 RUN npm install -g pnpm
 RUN pnpm install --prod
 USER node
