@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy the package.json and pnpm-workspace.yaml (if applicable)
 COPY ../../package.json .
-COPY ../../pnpm-workspace.yaml .   # Modify if using a different configuration file
+COPY ../../pnpm-workspace.yaml .
 
 # Install pnpm globally
 RUN npm install -g pnpm
