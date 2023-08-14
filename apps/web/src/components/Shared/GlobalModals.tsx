@@ -12,6 +12,7 @@ import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 import Login from './Login';
+import WrongNetwork from './Login/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Status from './Status';
@@ -21,6 +22,8 @@ const GlobalModals: FC = () => {
   // Report modal state
   const {
     showPublicationReportModal,
+    showWrongNetworkModal,
+    setShowWrongNetworkModal,
     reportingPublication,
     setShowPublicationReportModal,
     showStatusModal,
@@ -98,6 +101,14 @@ const GlobalModals: FC = () => {
         onClose={() => setShowInvitesModal(false)}
       >
         <Invites />
+      </Modal>
+      <Modal
+        title={t`Wrong Network`}
+        show={showWrongNetworkModal}
+        onClose={() => setShowWrongNetworkModal(false)}
+        dataTestId="wrong-network-modal"
+      >
+        <WrongNetwork />
       </Modal>
     </>
   );
