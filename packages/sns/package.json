@@ -4,7 +4,6 @@
   "type": "module",
   "scripts": {
     "build": "esbuild `find src \\( -name '*.ts' \\)` --platform=node --outdir=build --resolve-extensions=.js",
-    "build:docker:prod": "docker build . -t lenster-sns --build-arg APP_ENV=production",
     "dev": "tsx watch src .env | pino-pretty --colorize",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
