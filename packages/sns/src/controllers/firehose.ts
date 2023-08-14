@@ -1,8 +1,10 @@
 import type { FastifyRequest } from 'fastify';
 
+import handleIndexerCommentCreated from '../helpers/handleIndexerCommentCreated';
+import handleIndexerMirrorCreated from '../helpers/handleIndexerMirrorCreated';
 import handleIndexerPostCreated from '../helpers/handleIndexerPostCreated';
 import handlePublicationHidden from '../helpers/handlePublicationHidden';
-import handleReaction from '../helpers/handleReaction';
+import handlePublicationReaction from '../helpers/handlePublicationReaction';
 
 const firehose = async (request: FastifyRequest) => {
   const body = await request.body;
@@ -26,7 +28,11 @@ const firehose = async (request: FastifyRequest) => {
       } else if (type === 'PUBLICATION_HIDDEN') {
         await handlePublicationHidden(data);
       } else if (type === 'PUBLICATION_REACTION') {
-        await handleReaction(data);
+        await handlePublicationReaction(data);
+      } else if (type === 'INDEXER_MIRROR_CREATED') {
+        await handleIndexerMirrorCreated(data);
+      } else if (type === 'INDEXER_COMMENT_CREATED') {
+        await handleIndexerCommentCreated(data);
       } else {
         return { success: true };
       }
