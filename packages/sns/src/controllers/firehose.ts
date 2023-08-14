@@ -25,7 +25,7 @@ const firehose = async (request: FastifyRequest) => {
   try {
     const json = JSON.parse(JSON.stringify(body));
 
-    console.log('gmgmgmgmg', json.Type);
+    console.log('gmgmgmgmg', json);
 
     if (json.Type === 'SubscriptionConfirmation') {
       await fetch(json.SubscribeURL);
