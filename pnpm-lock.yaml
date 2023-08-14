@@ -531,9 +531,6 @@ importers:
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -878,31 +875,6 @@ importers:
       viem:
         specifier: ^1.6.0
         version: 1.6.0(typescript@5.1.6)(zod@3.21.4)
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20230807.0
-        version: 4.20230807.0
-      '@lenster/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-      wrangler:
-        specifier: ^3.4.0
-        version: 3.4.0
-
-  packages/workers/sns:
-    dependencies:
-      '@lenster/data':
-        specifier: workspace:*
-        version: link:../../data
-      itty-router:
-        specifier: ^4.0.14
-        version: 4.0.14
-      zod:
-        specifier: ^3.21.4
-        version: 3.21.4
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230807.0
