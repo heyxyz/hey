@@ -4,11 +4,11 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
-import type { Dispatch, FC, ReactNode } from 'react';
+import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useAppStore } from 'src/store/app';
 
 interface MutualFollowersProps {
-  setShowMutualFollowersModal?: Dispatch<boolean>;
+  setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;
   profile: Profile;
 }
 
