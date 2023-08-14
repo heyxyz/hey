@@ -1,20 +1,8 @@
 import type { FastifyRequest } from 'fastify';
-import { z } from 'zod';
 
 import handleIndexerPostCreated from '../helpers/handleIndexerPostCreated';
 import handlePublicationHidden from '../helpers/handlePublicationHidden';
-
-const snsMessageSchema = z.discriminatedUnion('Type', [
-  z.object({
-    Type: z.literal('Notification'),
-    Message: z.string()
-  }),
-
-  z.object({
-    Type: z.literal('SubscriptionConfirmation'),
-    SubscribeURL: z.string()
-  })
-]);
+import handleReaction from '../helpers/handleReaction';
 
 const firehose = async (request: FastifyRequest) => {
   const body = await request.body;
@@ -37,6 +25,8 @@ const firehose = async (request: FastifyRequest) => {
         await handleIndexerPostCreated(data);
       } else if (type === 'PUBLICATION_HIDDEN') {
         await handlePublicationHidden(data);
+      } else if (type === 'PUBLICATION_REACTION') {
+        await handleReaction(data);
       } else {
         return { success: true };
       }
