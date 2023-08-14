@@ -35,8 +35,8 @@ const handleIndexerPostCreated = async (data: IndexerPostCreated) => {
   const clickhouse = createClickHouseClient();
   const query = `
     INSERT INTO firehose (
+      id,
       profileId,
-      pubId,
       contentURI,
       metadata,
       collectModule,
@@ -45,8 +45,8 @@ const handleIndexerPostCreated = async (data: IndexerPostCreated) => {
       referenceModuleReturnData,
       timestamp
     ) VALUES (
-      ${profileId ? `'${profileId}'` : null},
       ${serverPubId ? `'${serverPubId}'` : null},
+      ${profileId ? `'${profileId}'` : null},
       ${contentURI ? `'${contentURI}'` : null},
       ${metadata ? `'${JSON.stringify(metadata)}'` : null},
       ${collectModule ? `'${collectModule}'` : null},
