@@ -9,7 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { clsx } from 'clsx';
 import type { ChangeEvent, FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 
 import Loader from '../Loader';
 
@@ -37,9 +38,9 @@ const List: FC<ListProps> = ({ setEmoji }) => {
     });
   }
 
-  useEffect(() => {
+  useEffectOnce(() => {
     inputRef.current?.focus();
-  }, []);
+  });
 
   if (error) {
     return (
