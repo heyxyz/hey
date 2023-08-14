@@ -23,9 +23,9 @@ const firehose = async (request: FastifyRequest) => {
   }
 
   try {
-    const payload = JSON.parse(JSON.stringify(body));
-    console.log('payload', typeof body);
-    const json = snsMessageSchema.parse(payload);
+    const json = JSON.parse(JSON.stringify(body));
+
+    console.log('gmgmgmgmg', json.Type);
 
     if (json.Type === 'SubscriptionConfirmation') {
       await fetch(json.SubscribeURL);
