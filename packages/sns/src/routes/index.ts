@@ -7,7 +7,7 @@ const routes: FastifyPluginAsync = async (server) => {
     return 'gm, to sns service 👋';
   });
 
-  server.post('/', async function (request) {
+  server.post('/firehose', async function (request) {
     return firehose(request);
   });
 };
