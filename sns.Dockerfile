@@ -22,4 +22,4 @@ COPY . .
 COPY packages/sns/.env.example .env
 
 # Start the application
-CMD ["pnpm", "start"]
+CMD ["pnpm", "run", "start", "--filter", "@lenster/sns"]
