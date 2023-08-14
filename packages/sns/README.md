@@ -12,10 +12,10 @@ CREATE TABLE firehose (
   collectModuleReturnData Nullable(String),
   referenceModule Nullable(String),
   referenceModuleReturnData Nullable(String),
-  likesCount Nullable(UInt32),
-  commentsCount Nullable(UInt32),
-  mirrorsCount Nullable(UInt32),
-  collectsCount Nullable(UInt32),
+  likesCount Nullable(UInt32) DEFAULT 0,
+  commentsCount Nullable(UInt32) DEFAULT 0,
+  mirrorsCount Nullable(UInt32) DEFAULT 0,
+  collectsCount Nullable(UInt32) DEFAULT 0,
   timestamp DateTime
 ) ENGINE = MergeTree
 ORDER BY timestamp;
