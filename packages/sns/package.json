@@ -1,0 +1,35 @@
+{
+  "name": "@lenster/sns",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "typecheck": "tsc --pretty",
+    "build": "esbuild `find src \\( -name '*.ts' \\)` --platform=node --outdir=build --resolve-extensions=.js",
+    "build:docker:prod": "docker build . -t lenster-sns --build-arg APP_ENV=production",
+    "start": "node build",
+    "dev": "tsx watch src .env | pino-pretty --colorize"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.23.5",
+    "ajv": "^8.11.2",
+    "dotenv": "^16.0.3",
+    "env-schema": "^5.1.1",
+    "fastify": "^4.10.2",
+    "fastify-plugin": "^3.0.1"
+  },
+  "devDependencies": {
+    "@lenster/config": "workspace:*",
+    "@types/node": "^18.11.15",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "esbuild": "^0.14.54",
+    "pino-pretty": "^8.1.0",
+    "prettier": "^2.8.0",
+    "tsx": "^3.12.1",
+    "typescript": "^4.9.3"
+  }
+}
