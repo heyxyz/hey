@@ -1,7 +1,7 @@
 FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 
@@ -9,7 +9,7 @@ FROM node:18-alpine AS builder
 ARG APP_ENV
 WORKDIR /app
 COPY . .
-COPY .env.$APP_ENV .env
+COPY .env.example .env
 COPY --from=deps /app/node_modules ./node_modules
 RUN npm run build
 
