@@ -10,7 +10,7 @@ const handlePublicationHidden = async (data: PublicationHidden) => {
   const clickhouse = createClickHouseClient();
   const query = `
     ALTER TABLE firehose
-    DELETE WHERE pubId = '${serverPubId}';
+    DELETE WHERE id = '${serverPubId}';
   `;
   await clickhouse.query(query).toPromise();
 };
