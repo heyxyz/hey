@@ -3,13 +3,13 @@ import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
 import { CollectModules } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
 interface BasicSettingsProps {
-  setShowModal: Dispatch<boolean>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {

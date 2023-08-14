@@ -3,7 +3,7 @@ import { PublicationMainFocus } from '@lenster/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FeedLinkProps {
   name: string;
@@ -11,11 +11,11 @@ interface FeedLinkProps {
 }
 
 interface FeedFocusTypeProps {
-  setFocus: Dispatch<PublicationMainFocus>;
   focus?: PublicationMainFocus;
+  setFocus: Dispatch<SetStateAction<PublicationMainFocus | undefined>>;
 }
 
-const FeedFocusType: FC<FeedFocusTypeProps> = ({ setFocus, focus }) => {
+const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
   const FeedLink: FC<FeedLinkProps> = ({ name, type }) => (
     <button
       type="button"

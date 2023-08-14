@@ -1,7 +1,7 @@
 import type { IGif } from '@lenster/types/giphy';
 import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
 
@@ -10,7 +10,7 @@ import Gifs from './Gifs';
 
 interface GifSelectorProps {
   setGifAttachment: (gif: IGif) => void;
-  setShowModal: Dispatch<boolean>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const GifSelector: FC<GifSelectorProps> = ({
