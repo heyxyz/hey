@@ -23,8 +23,8 @@ const firehose = async (request: FastifyRequest) => {
   }
 
   try {
-    const payload: unknown = JSON.parse(JSON.stringify(body));
-    console.log('payload', typeof payload);
+    const payload = JSON.parse(JSON.stringify(body));
+    console.log('payload', typeof body);
     const json = snsMessageSchema.parse(payload);
 
     if (json.Type === 'SubscriptionConfirmation') {
