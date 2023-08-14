@@ -538,9 +538,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@lenster/data':
-        specifier: workspace:*
-        version: link:../data
       '@types/node':
         specifier: ^20.5.0
         version: 20.5.0

@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
-    "@lenster/data": "workspace:*",
     "@types/node": "^20.5.0",
     "esbuild": "^0.19.2",
     "pino-pretty": "^10.2.0",

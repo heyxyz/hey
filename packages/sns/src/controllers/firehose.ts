@@ -1,4 +1,3 @@
-import { Errors } from '@lenster/data/errors';
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
@@ -17,7 +16,7 @@ const snsMessageSchema = z.discriminatedUnion('Type', [
 const firehose = async (request: FastifyRequest) => {
   const body = await request.body;
   if (!body) {
-    return { success: false, error: Errors.NoBody };
+    return { success: false, error: 'No body provided!' };
   }
 
   try {
