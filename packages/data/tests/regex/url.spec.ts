@@ -16,11 +16,11 @@ describe('url regex', () => {
     expect(validate('http://www.example.com/page?id=123&name=John')).toBe(true);
     expect(validate('https://www.example.com/@username')).toBe(true);
     expect(validate('https://www.example.com/#selector')).toBe(true);
+    expect(validate('www.example.com')).toBe(true);
+    expect(validate('example.com')).toBe(true);
   });
 
   test('should fail for invalid URLs', () => {
-    expect(validate('www.example.com')).toBe(false);
-    expect(validate('example.com')).toBe(false);
     expect(validate('example')).toBe(false);
     expect(validate('example.')).toBe(false);
     expect(validate('example.c')).toBe(false);

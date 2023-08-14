@@ -11,14 +11,14 @@ import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<HomeFeedType>;
+  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
   feedType: HomeFeedType;
 }
 

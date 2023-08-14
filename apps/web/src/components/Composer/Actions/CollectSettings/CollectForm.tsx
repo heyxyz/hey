@@ -3,7 +3,7 @@ import { CollectModules, useEnabledModulesQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -15,7 +15,7 @@ import SplitConfig from './SplitConfig';
 import TimeLimitConfig from './TimeLimitConfig';
 
 interface CollectFormProps {
-  setShowModal: Dispatch<boolean>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {

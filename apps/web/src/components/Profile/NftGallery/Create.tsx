@@ -13,7 +13,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import trimify from '@lenster/lib/trimify';
 import { Button, Modal, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -30,7 +30,7 @@ enum CreateSteps {
 
 interface CreateProps {
   showModal: boolean;
-  setShowModal: Dispatch<boolean>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
