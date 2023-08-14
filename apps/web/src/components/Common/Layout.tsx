@@ -10,7 +10,6 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
@@ -80,16 +79,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           data.profileGuardianInformation.disablingProtectionTimestamp
       });
     },
-    onError: () => setProfileId(null)
+    onError: () => {
+      setProfileId(null);
+    }
   });
 
   const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount =
       currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {
