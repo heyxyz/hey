@@ -11,13 +11,13 @@ import { PROFILE } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { ProfileFeedType } from 'src/enums';
 
 import MediaFilter from './Filters/MediaFilter';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<string>;
+  setFeedType: Dispatch<SetStateAction<string>>;
   feedType: string;
 }
 

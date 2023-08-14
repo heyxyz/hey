@@ -1,10 +1,10 @@
 import { Switch } from '@headlessui/react';
 import clsx from 'clsx';
-import type { Dispatch, FC } from 'react';
+import type { FC } from 'react';
 
 interface ToggleProps {
   on: boolean;
-  setOn: Dispatch<boolean>;
+  setOn: (on: boolean) => void;
 }
 
 export const Toggle: FC<ToggleProps> = ({ on, setOn }) => {

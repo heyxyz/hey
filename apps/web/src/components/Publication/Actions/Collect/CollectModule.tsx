@@ -46,7 +46,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -63,7 +63,7 @@ import Splits from './Splits';
 
 interface CollectModuleProps {
   count: number;
-  setCount: Dispatch<number>;
+  setCount: Dispatch<SetStateAction<number>>;
   publication: Publication;
   electedMirror?: ElectedMirror;
 }
