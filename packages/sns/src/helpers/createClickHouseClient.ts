@@ -1,6 +1,6 @@
 import { ClickHouse } from 'clickhouse';
 
-import server from '../server';
+import server from '../server.js';
 
 const createClickHouseClient = () => {
   return new ClickHouse({
