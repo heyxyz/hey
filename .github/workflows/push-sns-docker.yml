@@ -28,7 +28,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: packages/sns
           file: sns.Dockerfile
           push: true
           tags: yoginth/sns:latest
