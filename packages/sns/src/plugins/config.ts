@@ -17,7 +17,9 @@ const ConfigSchema = Type.Strict(
     NODE_ENV: Type.Enum(NodeEnv),
     LOG_LEVEL: Type.String(),
     API_HOST: Type.String(),
-    API_PORT: Type.String()
+    API_PORT: Type.String(),
+    CLICKHOUSE_USERNAME: Type.String(),
+    CLICKHOUSE_PASSWORD: Type.String()
   })
 );
 

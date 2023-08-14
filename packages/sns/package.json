@@ -3,19 +3,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build": "esbuild `find src \\( -name '*.ts' \\)` --platform=node --outdir=build --resolve-extensions=.js",
+    "build:docker:prod": "docker build . -t lenster-sns --build-arg APP_ENV=production",
+    "dev": "tsx watch src .env | pino-pretty --colorize",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "typecheck": "tsc --pretty",
-    "build": "esbuild `find src \\( -name '*.ts' \\)` --platform=node --outdir=build --resolve-extensions=.js",
-    "build:docker:prod": "docker build . -t lenster-sns --build-arg APP_ENV=production",
     "start": "node build",
-    "dev": "tsx watch src .env | pino-pretty --colorize"
+    "typecheck": "tsc --pretty"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.31.1",
     "ajv": "^8.12.0",
+    "clickhouse": "^2.6.0",
     "dotenv": "^16.0.3",
     "env-schema": "^5.2.0",
     "fastify": "^4.21.0",
@@ -24,6 +25,7 @@
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
+    "@lenster/data": "workspace:*",
     "@types/node": "^20.5.0",
     "esbuild": "^0.19.2",
     "pino-pretty": "^10.2.0",

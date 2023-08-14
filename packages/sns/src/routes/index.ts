@@ -1,6 +1,6 @@
 import type { FastifyPluginAsync } from 'fastify';
 
-import firehose from '../controllers/firehost';
+import firehose from '../controllers/firehose';
 
 const routes: FastifyPluginAsync = async (server) => {
   server.get('/', async function () {
