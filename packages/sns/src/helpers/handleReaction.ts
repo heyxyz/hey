@@ -1,26 +1,26 @@
 import createClickHouseClient from './createClickHouseClient';
 
 interface ReactionData {
-  profileId: string;
+  serverPubId: string;
   reaction: string;
 }
 
 const handleReaction = async (data: ReactionData) => {
-  const { profileId, reaction } = data;
+  const { serverPubId, reaction } = data;
   const clickhouse = createClickHouseClient();
 
   if (reaction === 'UPVOTE') {
     const query = `
       ALTER TABLE firehose
       UPDATE likesCount = likesCount + 1
-      WHERE profileId = '${profileId}';
+      WHERE id = '${serverPubId}';
     `;
     await clickhouse.query(query).toPromise();
   } else {
     const query = `
       ALTER TABLE firehose
       UPDATE likesCount = likesCount - 1
-      WHERE profileId = '${profileId}';
+      WHERE id = '${serverPubId}';
     `;
     await clickhouse.query(query).toPromise();
   }
