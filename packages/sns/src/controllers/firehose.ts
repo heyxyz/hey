@@ -1,6 +1,9 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
+import handleIndexerPostCreated from '../helpers/handleIndexerPostCreated';
+import handlePublicationHidden from '../helpers/handlePublicationHidden';
+
 const snsMessageSchema = z.discriminatedUnion('Type', [
   z.object({
     Type: z.literal('Notification'),
@@ -29,10 +32,17 @@ const firehose = async (request: FastifyRequest) => {
 
     if (json.Type === 'Notification') {
       const { type, data } = JSON.parse(json.Message);
-      console.log({ type, data });
 
-      return { success: true };
+      if (type === 'INDEXER_POST_CREATED') {
+        await handleIndexerPostCreated(data);
+      } else if (type === 'PUBLICATION_HIDDEN') {
+        await handlePublicationHidden(data);
+      } else {
+        return { success: true };
+      }
     }
+
+    return { success: true };
   } catch (error) {
     throw error;
   }
