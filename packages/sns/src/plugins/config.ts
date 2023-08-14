@@ -40,7 +40,7 @@ const configPlugin: FastifyPluginAsync = async (server) => {
         JSON.stringify(validate.errors, null, 2)
     );
   }
-  server.decorate('config', process.env);
+  server.decorate('config', process.env as any);
 };
 
 declare module 'fastify' {

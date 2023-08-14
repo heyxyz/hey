@@ -1,22 +1,15 @@
-import { Type } from '@sinclair/typebox';
 import type { FastifyPluginAsync } from 'fastify';
 
+import firehose from '../controllers/firehost';
+
 const routes: FastifyPluginAsync = async (server) => {
-  server.get(
-    '/',
-    {
-      schema: {
-        response: {
-          200: Type.Object({
-            hello: Type.String()
-          })
-        }
-      }
-    },
-    async function () {
-      return { hello: 'world' };
-    }
-  );
+  server.get('/', async function () {
+    return 'gm, to sns service 👋';
+  });
+
+  server.post('/', async function (request) {
+    return firehose(request);
+  });
 };
 
 export default routes;

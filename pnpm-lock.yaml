@@ -528,6 +528,9 @@ importers:
       fastify-plugin:
         specifier: ^4.5.1
         version: 4.5.1
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
