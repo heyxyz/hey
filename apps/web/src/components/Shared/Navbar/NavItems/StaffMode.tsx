@@ -21,6 +21,7 @@ interface StaffModeProps {
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = useAccessStore((state) => state.staffMode);
+  const setStaffMode = useAccessStore((state) => state.setStaffMode);
 
   const toggleStaffMode = async () => {
     toast.promise(
@@ -31,12 +32,15 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       }),
       {
         loading: t`Toggling staff mode...`,
-        success: t`Staff mode toggled!`,
+        success: () => {
+          setStaffMode(!staffMode);
+          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
+
+          return t`Staff mode toggled!`;
+        },
         error: t`Failed to toggle staff mode!`
       }
     );
-
-    Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
   return (
