@@ -26,7 +26,6 @@ import getAvatar from '@lenster/lib/getAvatar';
 import getMisuseDetails from '@lenster/lib/getMisuseDetails';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasMisused from '@lenster/lib/hasMisused';
-import isStaff from '@lenster/lib/isStaff';
 import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
@@ -40,6 +39,7 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import useStaffMode from 'src/hooks/useStaffMode';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
@@ -58,6 +58,7 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isStaff = useAccessStore((state) => state.isStaff);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
@@ -360,9 +361,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff(currentProfile?.id) && staffMode && (
-        <ProfileStaffTool profile={profile} />
-      )}
+      {isStaff && staffMode && <ProfileStaffTool profile={profile} />}
     </div>
   );
 };
