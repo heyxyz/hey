@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@lenster/data": "workspace:*",
-    "itty-router": "^4.0.15"
+    "itty-router": "^4.0.15",
+    "zod": "^3.22.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230814.0",
