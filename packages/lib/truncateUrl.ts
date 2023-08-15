@@ -7,17 +7,13 @@
  */
 const truncateUrl = (url: string, maxLength: number): string => {
   let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
-  try {
-    if (strippedUrl !== url && new URL(url).hostname.endsWith('lenster.xyz')) {
-      return strippedUrl;
-    }
-    if (strippedUrl.length > maxLength) {
-      return strippedUrl.substring(0, maxLength - 1) + '…';
-    }
+  if (new URL(url).hostname.endsWith('lenster.xyz')) {
     return strippedUrl;
-  } catch (error: any) {
-    return url;
   }
+  if (strippedUrl.length > maxLength) {
+    return strippedUrl.substring(0, maxLength - 1) + '…';
+  }
+  return strippedUrl;
 };
 
 export default truncateUrl;
