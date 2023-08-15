@@ -22,7 +22,9 @@ const AccessProvider: FC = () => {
     }
   };
 
-  useQuery(['access', profileId], () => fetchAccess());
+  useQuery(['access', profileId], () => fetchAccess(), {
+    enabled: Boolean(profileId)
+  });
 
   return null;
 };
