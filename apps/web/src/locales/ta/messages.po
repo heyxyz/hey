@@ -2837,14 +2837,6 @@ msgstr "வெளியேறு"
 msgid "Moderation"
 msgstr "மிதவாக்கம்"
 
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Disable mod mode"
-#~ msgstr "மதிப்பீட்டாளர் பயன்முறையை முடக்கு"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Enable mod mode"
-#~ msgstr "மதிப்பீட்டாளர் பயன்முறையை இயக்கு"
-
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
@@ -2852,14 +2844,6 @@ msgstr "ஒரு பிழையைப் புகாரளிக்கவு�
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
 msgstr "அமைப்புகள்"
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Disable staff mode"
-#~ msgstr "பணியாளர் பயன்முறையை முடக்கு"
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Enable staff mode"
-#~ msgstr "பணியாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Toggling staff mode..."
