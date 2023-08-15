@@ -13,8 +13,8 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to access service 👋'));
-router.get('/access/:id', ({ params }, env) => getAccess(params.id, env));
-router.post('/access', updateAccess);
+router.get('/:id', ({ params }, env) => getAccess(params.id, env));
+router.post('/', updateAccess);
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json);
