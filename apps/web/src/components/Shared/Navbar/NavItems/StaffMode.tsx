@@ -2,24 +2,40 @@ import {
   ShieldCheckIcon,
   ShieldExclamationIcon
 } from '@heroicons/react/outline';
+import { ACCESS_WORKER_URL } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
 import { STAFFTOOLS } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import axios from 'axios';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import useStaffMode from 'src/hooks/useStaffMode';
-import { useModePersistStore } from 'src/store/mode';
+import { toast } from 'react-hot-toast';
+import { useAccessStore } from 'src/store/access';
+import { useAppStore } from 'src/store/app';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const { allowed: staffMode } = useStaffMode();
-  const setStaffMode = useModePersistStore((state) => state.setStaffMode);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const staffMode = useAccessStore((state) => state.staffMode);
 
-  const toggleStaffMode = () => {
-    setStaffMode(!staffMode);
+  const toggleStaffMode = async () => {
+    toast.promise(
+      axios.post(`${ACCESS_WORKER_URL}/staffMode`, {
+        id: currentProfile?.id,
+        enabled: !staffMode,
+        accessToken: localStorage.getItem(Localstorage.AccessToken)
+      }),
+      {
+        loading: t`Toggling staff mode...`,
+        success: t`Staff mode toggled!`,
+        error: t`Failed to toggle staff mode!`
+      }
+    );
+
     Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
   };
 
