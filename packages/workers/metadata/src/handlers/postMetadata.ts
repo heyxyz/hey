@@ -1,5 +1,6 @@
 import { createData, EthereumSigner } from '@lenster/bundlr';
 import type { PublicationMetadataV2Input } from '@lenster/lens';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 
 import type { Env } from '../types';
@@ -54,13 +55,9 @@ export default async (request: IRequest, env: Env) => {
     });
 
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
-      return new Response(
-        JSON.stringify({ success: true, id: tx.id, metadata: payload })
-      );
+      return response({ success: true, id: tx.id, metadata: payload });
     } else {
-      return new Response(
-        JSON.stringify({ success: false, message: 'Bundlr error!', bundlrRes })
-      );
+      return response({ success: false, message: 'Bundlr error!', bundlrRes });
     }
   } catch (error) {
     throw error;

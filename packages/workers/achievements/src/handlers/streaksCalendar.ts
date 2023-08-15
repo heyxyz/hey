@@ -1,4 +1,5 @@
 import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
 
 import filteredEvents from '../helpers/filteredNames';
 import generateDateRangeDict from '../helpers/generateDateRangeDict';
@@ -6,9 +7,7 @@ import type { Env } from '../types';
 
 export default async (id: string, env: Env) => {
   if (!id) {
-    return new Response(
-      JSON.stringify({ success: false, error: Errors.NoBody })
-    );
+    return response({ success: false, error: Errors.NoBody });
   }
 
   try {
@@ -32,9 +31,7 @@ export default async (id: string, env: Env) => {
     );
 
     if (clickhouseResponse.status !== 200) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-      );
+      return response({ success: false, error: Errors.StatusCodeIsNot200 });
     }
 
     const json: {
@@ -49,14 +46,7 @@ export default async (id: string, env: Env) => {
 
     const allDatesData = { ...generateDateRangeDict(), ...eventData };
 
-    let response = new Response(
-      JSON.stringify({ success: true, data: allDatesData })
-    );
-
-    // Cache for 10 minutes
-    response.headers.set('Cache-Control', 'max-age=600');
-
-    return response;
+    return response({ success: true, data: allDatesData });
   } catch (error) {
     throw error;
   }

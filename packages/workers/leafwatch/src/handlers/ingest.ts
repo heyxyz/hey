@@ -1,5 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
@@ -29,26 +30,20 @@ const validationSchema = object({
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
   if (!body) {
-    return new Response(
-      JSON.stringify({ success: false, error: Errors.NoBody })
-    );
+    return response({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return new Response(
-      JSON.stringify({ success: false, error: validation.error.issues })
-    );
+    return response({ success: false, error: validation.error.issues });
   }
 
   const { name, actor, url, referrer, platform, properties } =
     body as ExtensionRequest;
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Invalid event!' })
-    );
+    return response({ success: false, error: 'Invalid event!' });
   }
 
   const ip = request.headers.get('cf-connecting-ip');
@@ -78,7 +73,7 @@ export default async (request: IRequest, env: Env) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
-    const response = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
+    const clickhouseResponse = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: `
@@ -122,13 +117,11 @@ export default async (request: IRequest, env: Env) => {
       `
     });
 
-    if (response.status !== 200) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-      );
+    if (clickhouseResponse.status !== 200) {
+      return response({ success: false, error: Errors.StatusCodeIsNot200 });
     }
 
-    return new Response(JSON.stringify({ success: true }));
+    return response({ success: true });
   } catch (error) {
     throw error;
   }

@@ -6,6 +6,7 @@ import {
   TESTNET_SNAPSHOT_URL
 } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 
 import {
@@ -46,9 +47,7 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
   if (!body) {
-    return new Response(
-      JSON.stringify({ success: false, error: Errors.NoBody })
-    );
+    return response({ success: false, error: Errors.NoBody });
   }
 
   const { isMainnet, title, description, choices, length } =
@@ -116,7 +115,7 @@ export default async (request: IRequest, env: Env) => {
       ...typedData
     });
 
-    const response = await fetch(sequencerUrl, {
+    const sequencerResponse = await fetch(sequencerUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -126,20 +125,16 @@ export default async (request: IRequest, env: Env) => {
       })
     });
 
-    const snapshotResponse: SnapshotResponse = await response.json();
+    const snapshotResponse: SnapshotResponse = await sequencerResponse.json();
 
     if (!snapshotResponse.id) {
-      return new Response(
-        JSON.stringify({ success: false, response: snapshotResponse })
-      );
+      return response({ success: false, response: snapshotResponse });
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
-      })
-    );
+    return response({
+      success: true,
+      snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
+    });
   } catch (error) {
     throw error;
   }
