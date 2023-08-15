@@ -7,7 +7,6 @@ import {
   PublicationMainFocus,
   PublicationTypes
 } from '@lenster/lens';
-import isGardener from '@lenster/lib/isGardener';
 import {
   Button,
   Card,
@@ -21,13 +20,13 @@ import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
-import { useAppStore } from 'src/store/app';
+import { useAccessStore } from 'src/store/access';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Mod: NextPage = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
+  const isGardener = useAccessStore((state) => state.isGardener);
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
@@ -53,7 +52,7 @@ const Mod: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
   });
 
-  if (!isGardener(currentProfile?.id)) {
+  if (!isGardener) {
     return <Custom404 />;
   }
 

@@ -2,7 +2,6 @@ import { XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isGardener from '@lenster/lib/isGardener';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -32,6 +31,7 @@ const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isStaff = useAccessStore((state) => state.isStaff);
+  const isGardener = useAccessStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -93,7 +93,7 @@ const MobileDrawerMenu: FC = () => {
               <Settings className={clsx(itemClass, 'px-4')} />
             </Link>
             <Bookmarks className={itemClass} onClick={closeDrawer} />
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
@@ -118,7 +118,7 @@ const MobileDrawerMenu: FC = () => {
             <Logout onClick={closeDrawer} className="py-3" />
           </div>
           <div className="divider" />
-          {isGardener(currentProfile?.id) && (
+          {isGardener && (
             <>
               <div
                 onClick={closeDrawer}

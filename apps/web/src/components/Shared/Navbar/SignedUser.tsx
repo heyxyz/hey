@@ -2,7 +2,6 @@ import { Menu } from '@headlessui/react';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isGardener from '@lenster/lib/isGardener';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
@@ -30,6 +29,7 @@ import YourProfile from './NavItems/YourProfile';
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isStaff = useAccessStore((state) => state.isStaff);
+  const isGardener = useAccessStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -125,7 +125,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Menu.Item
                 as={NextLink}
                 href={'/mod'}
@@ -161,7 +161,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
