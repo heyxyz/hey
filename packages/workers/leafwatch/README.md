@@ -22,7 +22,7 @@ CREATE TABLE events (
   utm_campaign Nullable(String),
   utm_term Nullable(String),
   utm_content Nullable(String),
-  created DateTime DEFAULT	now()
+  created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
 ```
