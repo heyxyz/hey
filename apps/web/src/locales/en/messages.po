@@ -2813,6 +2813,22 @@ msgstr "Bookmarks"
 msgid "Contact"
 msgstr ""
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr "Toggling gardener mode..."
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr "Gardener mode toggled!"
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr "Failed to toggle gardener mode!"
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr "Gardener mode"
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr ""
@@ -2822,12 +2838,12 @@ msgid "Moderation"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr "Disable mod mode"
+#~ msgid "Disable mod mode"
+#~ msgstr "Disable mod mode"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
-msgstr "Enable mod mode"
+#~ msgid "Enable mod mode"
+#~ msgstr "Enable mod mode"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2838,12 +2854,28 @@ msgid "Settings"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
-msgstr ""
+#~ msgid "Disable staff mode"
+#~ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
-msgstr ""
+#~ msgid "Enable staff mode"
+#~ msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Toggling staff mode..."
+msgstr "Toggling staff mode..."
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode toggled!"
+msgstr "Staff mode toggled!"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr "Failed to toggle staff mode!"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
+msgstr "Staff mode"
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
