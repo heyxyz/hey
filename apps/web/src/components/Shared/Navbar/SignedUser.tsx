@@ -16,10 +16,10 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
+import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
-import ModMode from './NavItems/ModMode';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
@@ -171,7 +171,7 @@ const SignedUser: FC = () => {
                   )
                 }
               >
-                <ModMode />
+                <GardenerMode />
               </Menu.Item>
             )}
             {isStaff && (

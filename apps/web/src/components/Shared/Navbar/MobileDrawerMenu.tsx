@@ -16,10 +16,10 @@ import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
 import Contact from './NavItems/Contact';
+import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
-import ModMode from './NavItems/ModMode';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -125,7 +125,7 @@ const MobileDrawerMenu: FC = () => {
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <ModMode className="py-3" />
+                <GardenerMode className="py-3" />
               </div>
               <div className="divider" />
             </>

@@ -1,7 +1,5 @@
-import {
-  ShieldCheckIcon,
-  ShieldExclamationIcon
-} from '@heroicons/react/outline';
+import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/outline';
+import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/solid';
 import { ACCESS_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { STAFFTOOLS } from '@lenster/data/tracking';
@@ -52,20 +50,13 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       )}
     >
       {staffMode ? (
-        <>
-          <ShieldExclamationIcon className="h-4 w-4 text-green-600" />
-          <div>
-            <Trans>Disable staff mode</Trans>
-          </div>
-        </>
+        <ShieldCheckIconSolid className="h-4 w-4 text-green-600" />
       ) : (
-        <>
-          <ShieldCheckIcon className="h-4 w-4 text-red-500" />
-          <div>
-            <Trans>Enable staff mode</Trans>
-          </div>
-        </>
+        <ShieldCheckIconOutline className="h-4 w-4 text-red-500" />
       )}
+      <div>
+        <Trans>Staff mode</Trans>
+      </div>
     </button>
   );
 };
