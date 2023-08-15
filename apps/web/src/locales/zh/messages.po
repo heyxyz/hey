@@ -2813,6 +2813,22 @@ msgstr ""
 msgid "Contact"
 msgstr "联系我们"
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr "登出"
@@ -2822,12 +2838,12 @@ msgid "Moderation"
 msgstr "适度"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr "关闭管理模式"
+#~ msgid "Disable mod mode"
+#~ msgstr "关闭管理模式"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
-msgstr "启用管理模式"
+#~ msgid "Enable mod mode"
+#~ msgstr "启用管理模式"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2838,12 +2854,28 @@ msgid "Settings"
 msgstr "设置"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
-msgstr "禁用员工模式"
+#~ msgid "Disable staff mode"
+#~ msgstr "禁用员工模式"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
-msgstr "启用员工模式"
+#~ msgid "Enable staff mode"
+#~ msgstr "启用员工模式"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Toggling staff mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"

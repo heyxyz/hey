@@ -2813,6 +2813,22 @@ msgstr ""
 msgid "Contact"
 msgstr "தொடர்புகொள்ளவும்"
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr "வெளியேறு"
@@ -2822,12 +2838,12 @@ msgid "Moderation"
 msgstr "மிதவாக்கம்"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr "மதிப்பீட்டாளர் பயன்முறையை முடக்கு"
+#~ msgid "Disable mod mode"
+#~ msgstr "மதிப்பீட்டாளர் பயன்முறையை முடக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
-msgstr "மதிப்பீட்டாளர் பயன்முறையை இயக்கு"
+#~ msgid "Enable mod mode"
+#~ msgstr "மதிப்பீட்டாளர் பயன்முறையை இயக்கு"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2838,12 +2854,28 @@ msgid "Settings"
 msgstr "அமைப்புகள்"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
-msgstr "பணியாளர் பயன்முறையை முடக்கு"
+#~ msgid "Disable staff mode"
+#~ msgstr "பணியாளர் பயன்முறையை முடக்கு"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
-msgstr "பணியாளர் பயன்முறையை இயக்கு"
+#~ msgid "Enable staff mode"
+#~ msgstr "பணியாளர் பயன்முறையை இயக்கு"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Toggling staff mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
