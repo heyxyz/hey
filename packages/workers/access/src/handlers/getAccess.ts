@@ -27,16 +27,24 @@ export default async (id: string, env: Env) => {
       data: [string, boolean, boolean, boolean][];
     } = await clickhouseResponse.json();
 
+    if (json.data.length) {
+      return response({
+        success: true,
+        result: {
+          id: json.data[0][0],
+          isStaff: json.data[0][1],
+          isGardener: json.data[0][2],
+          isTrustedMember: json.data[0][3]
+        }
+      });
+    }
+
     return response({
       success: true,
-      result: {
-        id: json.data[0][0],
-        isStaff: json.data[0][1],
-        isGardener: json.data[0][2],
-        isTrustedMember: json.data[0][3]
-      }
+      result: { isStaff: false, isGardener: false, isTrustedMember: false }
     });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
