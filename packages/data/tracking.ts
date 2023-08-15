@@ -143,9 +143,9 @@ export const INVITE = {
   INVITE: 'Invite address'
 };
 
-export const MOD = {
-  TOGGLE_MODE: 'Toggle mod mode',
-  REPORT: 'Mod report'
+export const GARDENER = {
+  TOGGLE_MODE: 'Toggle gardener mode',
+  REPORT: 'Gardener report'
 };
 
 export const STAFFTOOLS = {
@@ -206,7 +206,7 @@ export const ALL_EVENTS = {
   ...MESSAGES,
   ...SETTINGS,
   ...INVITE,
-  ...MOD,
+  ...GARDENER,
   ...STAFFTOOLS,
   ...SYSTEM,
   ...MISCELLANEOUS,

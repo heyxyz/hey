@@ -2837,14 +2837,6 @@ msgstr ""
 msgid "Moderation"
 msgstr ""
 
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Disable mod mode"
-#~ msgstr "Disable mod mode"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Enable mod mode"
-#~ msgstr "Enable mod mode"
-
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr ""
@@ -2852,14 +2844,6 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
 msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Disable staff mode"
-#~ msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Enable staff mode"
-#~ msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Toggling staff mode..."

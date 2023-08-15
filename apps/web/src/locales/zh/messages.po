@@ -2837,14 +2837,6 @@ msgstr "登出"
 msgid "Moderation"
 msgstr "适度"
 
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Disable mod mode"
-#~ msgstr "关闭管理模式"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-#~ msgid "Enable mod mode"
-#~ msgstr "启用管理模式"
-
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
 msgstr "报告错误"
@@ -2852,14 +2844,6 @@ msgstr "报告错误"
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
 msgid "Settings"
 msgstr "设置"
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Disable staff mode"
-#~ msgstr "禁用员工模式"
-
-#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-#~ msgid "Enable staff mode"
-#~ msgstr "启用员工模式"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
 msgid "Toggling staff mode..."
