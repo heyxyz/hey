@@ -15,7 +15,15 @@ export default async (id: string, env: Env) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         cf: { cacheTtl: 600, cacheEverything: true },
-        body: `SELECT * FROM rights WHERE id = '${id}';`
+        body: `
+          SELECT
+            id,
+            is_staff,
+            is_gardener,
+            is_trusted_member,
+            staff_mode,
+            gardener_mode
+          FROM rights WHERE id = '${id}';`
       }
     );
 
@@ -24,18 +32,21 @@ export default async (id: string, env: Env) => {
     }
 
     const json: {
-      data: [string, boolean, boolean, boolean][];
+      data: any[];
     } = await clickhouseResponse.json();
 
     if (json.data.length) {
       const data = json.data[0];
+
       return response({
         success: true,
         result: {
           id: data[0],
           isStaff: data[1],
           isGardener: data[2],
-          isTrustedMember: data[3]
+          isTrustedMember: data[3],
+          staffMode: data[4],
+          gardenerMode: data[5]
         }
       });
     }

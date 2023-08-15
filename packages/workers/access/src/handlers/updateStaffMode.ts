@@ -1,6 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
-import { adminAddresses } from '@lenster/data/staffs';
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -11,17 +11,13 @@ import type { Env } from '../types';
 
 type ExtensionRequest = {
   id: string;
-  isStaff?: boolean;
-  isGardener?: boolean;
-  isTrustedMember?: boolean;
+  enabled: boolean;
   accessToken: string;
 };
 
 const validationSchema = object({
   id: string(),
-  isStaff: boolean().optional(),
-  isGardener: boolean().optional(),
-  isTrustedMember: boolean().optional(),
+  enabled: boolean(),
   accessToken: string().regex(Regex.accessToken)
 });
 
@@ -37,8 +33,7 @@ export default async (request: IRequest, env: Env) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, isGardener, isStaff, isTrustedMember, accessToken } =
-    body as ExtensionRequest;
+  const { id, enabled, accessToken } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
@@ -47,8 +42,11 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    if (!adminAddresses.includes(payload.id)) {
-      return response({ success: false, error: Errors.NotAdmin });
+    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
+    if (!hasOwned) {
+      return new Response(
+        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
+      );
     }
 
     const clickhouseResponse = await fetch(
@@ -56,7 +54,7 @@ export default async (request: IRequest, env: Env) => {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: `SELECT * FROM rights WHERE id = '${id}';`
+        body: `SELECT is_staff FROM rights WHERE id = '${id}';`
       }
     );
 
@@ -66,7 +64,8 @@ export default async (request: IRequest, env: Env) => {
 
     const json: { data: any[] } = await clickhouseResponse.json();
 
-    if (json.data.length) {
+    // Check if the user is_staff
+    if (json.data.length && json.data[0][0]) {
       const updateResponse = await fetch(
         `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
         {
@@ -74,10 +73,7 @@ export default async (request: IRequest, env: Env) => {
           headers: { 'Content-Type': 'application/json' },
           body: `
             ALTER TABLE rights
-            UPDATE
-              is_staff = ${isStaff ?? json.data[0][1]},
-              is_gardener = ${isGardener ?? json.data[0][2]},
-              is_trusted_member = ${isTrustedMember ?? json.data[0][3]}
+            UPDATE staff_mode = ${enabled}
             WHERE id = '${id}';
           `
         }
@@ -87,32 +83,10 @@ export default async (request: IRequest, env: Env) => {
         return response({ success: false, error: Errors.StatusCodeIsNot200 });
       }
 
-      return response({ success: true });
-    } else {
-      // insert new record
-      const insertResponse = await fetch(
-        `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: `
-            INSERT INTO rights (id, is_staff, is_gardener, is_trusted_member)
-            VALUES (
-              '${id}',
-              ${isStaff ?? false},
-              ${isGardener ?? false},
-              ${isTrustedMember ?? false}
-            );
-          `
-        }
-      );
-
-      if (insertResponse.status !== 200) {
-        return response({ success: false, error: Errors.StatusCodeIsNot200 });
-      }
-
-      return response({ success: true });
+      return response({ success: true, enabled });
     }
+
+    return response({ success: true });
   } catch (error) {
     throw error;
   }
