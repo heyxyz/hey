@@ -609,6 +609,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -665,6 +668,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -705,6 +711,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -727,6 +736,9 @@ importers:
 
   packages/workers/ipfs:
     dependencies:
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -752,6 +764,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -786,6 +801,9 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../../lens
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -811,6 +829,9 @@ importers:
       '@cfworker/base64url':
         specifier: ^1.12.5
         version: 1.12.5
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -854,6 +875,9 @@ importers:
       '@lenster/data':
         specifier: workspace:*
         version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
@@ -879,6 +903,9 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.391.0
         version: 3.391.0
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
       itty-router:
         specifier: ^4.0.15
         version: 4.0.15
