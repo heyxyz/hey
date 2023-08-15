@@ -2,7 +2,7 @@ import { LightningBoltIcon as LightningBoltIconOutline } from '@heroicons/react/
 import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/solid';
 import { ACCESS_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
-import { MOD } from '@lenster/data/tracking';
+import { GARDENER } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
@@ -32,7 +32,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         loading: t`Toggling gardener mode...`,
         success: () => {
           setGardenerMode(!gardenerMode);
-          Leafwatch.track(MOD.TOGGLE_MODE);
+          Leafwatch.track(GARDENER.TOGGLE_MODE);
 
           return t`Gardener mode toggled!`;
         },
