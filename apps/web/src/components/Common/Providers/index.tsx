@@ -11,6 +11,7 @@ import type { ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
+import AccessProvider from './AccessProvider';
 import LanguageProvider from './LanguageProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
 import Web3Provider from './Web3Provider';
@@ -31,6 +32,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <ApolloProvider client={lensApolloWebClient}>
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
+              <AccessProvider />
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
                 <ThemeProvider defaultTheme="light" attribute="class">
                   <Layout>{children}</Layout>

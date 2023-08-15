@@ -1,5 +1,4 @@
 import { mainnetLensTeamMembers } from './lens-members';
-import { mainnetStaffs } from './staffs';
 
 export enum FeatureFlag {
   TrendingWidget = 'trending-widget',
@@ -15,31 +14,31 @@ export enum FeatureFlag {
 export const featureFlags = [
   {
     key: FeatureFlag.TrendingWidget,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: []
   },
   {
     key: FeatureFlag.NftGallery,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: []
   },
   {
     key: FeatureFlag.NftDetail,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: []
   },
   {
     key: FeatureFlag.GatedLocales,
-    enabledFor: [...mainnetStaffs]
+    enabledFor: []
   },
   {
     key: FeatureFlag.ForYou,
-    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
+    enabledFor: [...mainnetLensTeamMembers]
   },
   {
     key: FeatureFlag.WTF2,
-    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
+    enabledFor: [...mainnetLensTeamMembers]
   },
   {
     key: FeatureFlag.ExploreTags,
-    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
+    enabledFor: [...mainnetLensTeamMembers]
   },
   {
     key: FeatureFlag.Spaces,
