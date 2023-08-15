@@ -7,7 +7,13 @@ import { useAppPersistStore } from 'src/store/app';
 
 const AccessProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);
-  const setIsStaff = useAccessStore((state) => state.setIsStaff);
+  const {
+    setIsStaff,
+    setIsGardener,
+    setIsTrustedMember,
+    setStaffMode,
+    setGardenerMode
+  } = useAccessStore();
 
   const fetchAccess = async () => {
     try {
@@ -16,10 +22,12 @@ const AccessProvider: FC = () => {
 
       if (data.success) {
         setIsStaff(data.result.isStaff);
+        setIsGardener(data.result.isGardener);
+        setIsTrustedMember(data.result.isTrustedMember);
+        setStaffMode(data.result.staffMode);
+        setGardenerMode(data.result.gardenerMode);
       }
-    } catch (error) {
-      setIsStaff(false);
-    }
+    } catch {}
   };
 
   useQuery(['access', profileId], () => fetchAccess(), {

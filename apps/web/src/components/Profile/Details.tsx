@@ -38,7 +38,6 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import useStaffMode from 'src/hooks/useStaffMode';
 import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 
@@ -59,10 +58,10 @@ interface DetailsProps {
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isStaff = useAccessStore((state) => state.isStaff);
+  const staffMode = useAccessStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
