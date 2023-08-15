@@ -5,7 +5,7 @@ import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import useModMode from 'src/hooks/useModMode';
+import { useAccessStore } from 'src/store/access';
 import { usePublicationStore } from 'src/store/publication';
 
 import PublicationMenu from './Actions/Menu';
@@ -27,7 +27,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const { allowed: modMode } = useModMode();
+  const gardenerMode = useAccessStore((state) => state.gardenerMode);
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
@@ -62,7 +62,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {modMode && <Source publication={publication} />}
+        {gardenerMode && <Source publication={publication} />}
         {!publication.hidden && !quoted && (
           <PublicationMenu publication={publication} />
         )}

@@ -4,12 +4,12 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import useStaffMode from 'src/hooks/useStaffMode';
+import { useAccessStore } from 'src/store/access';
 
 import Locale from './Locale';
 
 const Footer: FC = () => {
-  const { allowed: staffMode } = useStaffMode();
+  const staffMode = useAccessStore((state) => state.staffMode);
 
   return (
     <footer
