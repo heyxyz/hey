@@ -3,12 +3,12 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import isGardener from '@lenster/lib/isGardener';
-import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -31,6 +31,7 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isStaff = useAccessStore((state) => state.isStaff);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -129,7 +130,7 @@ const MobileDrawerMenu: FC = () => {
               <div className="divider" />
             </>
           )}
-          {isStaff(currentProfile?.id) && (
+          {isStaff && (
             <>
               <div
                 onClick={closeDrawer}
