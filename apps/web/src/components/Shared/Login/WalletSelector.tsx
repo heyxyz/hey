@@ -47,6 +47,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnectorLoading, setIsConnectorLoading] = useState<
+    Map<string, boolean>
+  >(new Map());
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -68,6 +71,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
   const onConnect = async (connector: Connector) => {
     try {
+      setIsConnectorLoading(
+        new Map(isConnectorLoading.set(connector.id, true))
+      );
       const account = await connectAsync({ connector });
       if (account) {
         setHasConnected(true);
@@ -75,7 +81,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
-    } catch {}
+    } catch {
+    } finally {
+      setIsConnectorLoading(
+        new Map(isConnectorLoading.set(connector.id, false))
+      );
+    }
   };
 
   const handleSign = async () => {
@@ -211,14 +222,19 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                 : getWalletDetails(connector.name).name}
               {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
-            <img
-              src={getWalletDetails(connector.name).logo}
-              draggable={false}
-              className="h-6 w-6"
-              height={24}
-              width={24}
-              alt={connector.id}
-            />
+            <div className="flex items-center space-x-4">
+              {isConnectorLoading.get(connector.id) && (
+                <Spinner className="mr-0.5" size="xs" />
+              )}
+              <img
+                src={getWalletDetails(connector.name).logo}
+                draggable={false}
+                className="h-6 w-6"
+                height={24}
+                width={24}
+                alt={connector.id}
+              />
+            </div>
           </button>
         );
       })}
