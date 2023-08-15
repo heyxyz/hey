@@ -1,3 +1,4 @@
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 
 import getMetadata from '../helper/getMetadata';
@@ -8,7 +9,7 @@ export default async (request: IRequest, env: Env) => {
     const url = request.query.url as string;
     const data = await getMetadata(url as string, env);
 
-    return new Response(JSON.stringify({ success: true, oembed: data }));
+    return response({ success: true, oembed: data });
   } catch (error) {
     throw error;
   }

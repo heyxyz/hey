@@ -1,12 +1,11 @@
 import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
 
 import type { Env } from '../types';
 
 export default async (id: string, env: Env) => {
   if (!id) {
-    return new Response(
-      JSON.stringify({ success: false, error: Errors.NoBody })
-    );
+    return response({ success: false, error: Errors.NoBody });
   }
 
   try {
@@ -21,26 +20,22 @@ export default async (id: string, env: Env) => {
     );
 
     if (clickhouseResponse.status !== 200) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-      );
+      return response({ success: false, error: Errors.StatusCodeIsNot200 });
     }
 
     const json: {
       data: [string, boolean, boolean, boolean][];
     } = await clickhouseResponse.json();
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        result: {
-          id: json.data[0][0],
-          isStaff: json.data[0][1],
-          isGardener: json.data[0][2],
-          isTrustedMember: json.data[0][3]
-        }
-      })
-    );
+    return response({
+      success: true,
+      result: {
+        id: json.data[0][0],
+        isStaff: json.data[0][1],
+        isGardener: json.data[0][2],
+        isTrustedMember: json.data[0][3]
+      }
+    });
   } catch (error) {
     throw error;
   }

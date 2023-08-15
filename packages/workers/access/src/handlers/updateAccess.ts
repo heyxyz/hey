@@ -1,6 +1,7 @@
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
+import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
@@ -27,17 +28,13 @@ const validationSchema = object({
 export default async (request: IRequest, env: Env) => {
   const body = await request.json();
   if (!body) {
-    return new Response(
-      JSON.stringify({ success: false, error: Errors.NoBody })
-    );
+    return response({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return new Response(
-      JSON.stringify({ success: false, error: validation.error.issues })
-    );
+    return response({ success: false, error: validation.error.issues });
   }
 
   const { id, isGardener, isStaff, isTrustedMember, accessToken } =
@@ -46,16 +43,12 @@ export default async (request: IRequest, env: Env) => {
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
     if (!isAuthenticated) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidAccesstoken })
-      );
+      return response({ success: false, error: Errors.InvalidAccesstoken });
     }
 
     const { payload } = jwt.decode(accessToken);
     if (!adminAddresses.includes(payload.id)) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.NotAdmin })
-      );
+      return response({ success: false, error: Errors.NotAdmin });
     }
 
     const clickhouseResponse = await fetch(
@@ -68,9 +61,7 @@ export default async (request: IRequest, env: Env) => {
     );
 
     if (clickhouseResponse.status !== 200) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-      );
+      return response({ success: false, error: Errors.StatusCodeIsNot200 });
     }
 
     const json: {
@@ -95,12 +86,10 @@ export default async (request: IRequest, env: Env) => {
       );
 
       if (updateResponse.status !== 200) {
-        return new Response(
-          JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-        );
+        return response({ success: false, error: Errors.StatusCodeIsNot200 });
       }
 
-      return new Response(JSON.stringify({ success: true }));
+      return response({ success: true });
     } else {
       // insert new record
       const insertResponse = await fetch(
@@ -121,12 +110,10 @@ export default async (request: IRequest, env: Env) => {
       );
 
       if (insertResponse.status !== 200) {
-        return new Response(
-          JSON.stringify({ success: false, error: Errors.StatusCodeIsNot200 })
-        );
+        return response({ success: false, error: Errors.StatusCodeIsNot200 });
       }
 
-      return new Response(JSON.stringify({ success: true }));
+      return response({ success: true });
     }
   } catch (error) {
     throw error;

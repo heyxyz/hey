@@ -1,4 +1,5 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 
 import type { Env } from '../types';
@@ -45,14 +46,12 @@ export default async (_request: IRequest, env: Env) => {
     // @ts-ignore
     const { Credentials: credentials } = await stsClient.send(command);
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        accessKeyId: credentials?.AccessKeyId,
-        secretAccessKey: credentials?.SecretAccessKey,
-        sessionToken: credentials?.SessionToken
-      })
-    );
+    return response({
+      success: true,
+      accessKeyId: credentials?.AccessKeyId,
+      secretAccessKey: credentials?.SecretAccessKey,
+      sessionToken: credentials?.SessionToken
+    });
   } catch (error) {
     throw error;
   }
