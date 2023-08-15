@@ -1,5 +1,3 @@
-import { Regex } from '@lenster/data/regex';
-
 /**
  * Returns an array of URLs found in the specified text.
  *
@@ -11,7 +9,7 @@ const getURLs = (text: string): string[] => {
     return [];
   }
 
-  const urlRegex = Regex.url;
+  const urlRegex = /(((https?:\/\/)|(www\.))\S+)/g;
   return text.match(urlRegex) || [];
 };
 
