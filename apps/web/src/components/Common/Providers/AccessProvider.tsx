@@ -17,7 +17,7 @@ const AccessProvider: FC = () => {
 
   const fetchAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/${profileId}`);
+      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profileId}`);
       const { data } = response;
 
       setIsStaff(data.result?.is_staff || false);

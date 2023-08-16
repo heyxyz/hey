@@ -42,7 +42,7 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const getAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/${profile.id}`);
+      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profile.id}`);
       const { data } = response;
 
       setIsStaff(data.result?.is_staff || false);
@@ -63,7 +63,7 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const updateAccess = async (type: AccessType) => {
     toast.promise(
-      axios.post(ACCESS_WORKER_URL, {
+      axios.post(`${ACCESS_WORKER_URL}/rights`, {
         id: profile.id,
         ...(type === Type.STAFF && { isStaff: !isStaff }),
         ...(type === Type.GARDENER && { isGardener: !isGardener }),
