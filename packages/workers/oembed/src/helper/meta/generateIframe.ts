@@ -50,14 +50,15 @@ const generateIframe = (
 
       return null;
     case 'open.spotify.com':
+      const spotifySize = `style="max-width: 560px;" width="100%"`;
       if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
-        return `<iframe src="${spotifyUrl}" width="560" height="155" allow="encrypted-media"></iframe>`;
+        return `<iframe src="${spotifyUrl}" ${spotifySize}  height="155" allow="encrypted-media"></iframe>`;
       }
 
       if (spotifyPlaylistUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
-        return `<iframe src="${spotifyUrl}" width="560" height="155" allow="encrypted-media"></iframe>`;
+        return `<iframe src="${spotifyUrl}" ${spotifySize}  height="380" allow="encrypted-media"></iframe>`;
       }
 
       return null;
