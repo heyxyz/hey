@@ -47,6 +47,7 @@ const Access: FC<RankProps> = ({ profile }) => {
       const response = await axios(`${ACCESS_WORKER_URL}/rights/${profile.id}`);
       const { data } = response;
 
+      setIsVerified(data.result?.is_verified || false);
       setIsStaff(data.result?.is_staff || false);
       setIsGardener(data.result?.is_gardener || false);
       setIsTrustedMember(data.result?.is_trusted_member || false);
