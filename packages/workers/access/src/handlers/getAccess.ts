@@ -20,7 +20,6 @@ export default async (id: string, env: Env) => {
 
     return response({ success: true, result: data });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
