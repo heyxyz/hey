@@ -4,6 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
+    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > src/database.types.ts; pnpm lint:fix",
     "dev": "wrangler dev --port 8093",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --fix --ext .ts",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
+    "@supabase/supabase-js": "^2.32.0",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "itty-router": "^4.0.17",
     "zod": "^3.22.1"

@@ -12,27 +12,36 @@ const AccessProvider: FC = () => {
     setIsGardener,
     setIsTrustedMember,
     setStaffMode,
-    setGardenerMode
+    setGardenerMode,
+    setVerifiedMembers
   } = useAccessStore();
 
   const fetchAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/${profileId}`);
+      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profileId}`);
       const { data } = response;
 
-      if (data.success) {
-        setIsStaff(data.result.isStaff);
-        setIsGardener(data.result.isGardener);
-        setIsTrustedMember(data.result.isTrustedMember);
-        setStaffMode(data.result.staffMode);
-        setGardenerMode(data.result.gardenerMode);
-      }
+      setIsStaff(data.result?.is_staff || false);
+      setIsGardener(data.result?.is_gardener || false);
+      setIsTrustedMember(data.result?.is_trusted_member || false);
+      setStaffMode(data.result?.staff_mode || false);
+      setGardenerMode(data.result?.gardener_mode || false);
     } catch {}
   };
 
   useQuery(['access', profileId], () => fetchAccess(), {
     enabled: Boolean(profileId)
   });
+
+  const fetchVerifiedMembers = async () => {
+    try {
+      const response = await axios(`${ACCESS_WORKER_URL}/verified`);
+      const { data } = response;
+      setVerifiedMembers(data.result || []);
+    } catch {}
+  };
+
+  useQuery(['verifiedMembers'], () => fetchVerifiedMembers());
 
   return null;
 };

@@ -11,6 +11,9 @@ interface AccessState {
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
   setGardenerMode: (gardenerMode: boolean) => void;
+  verifiedMembers: string[];
+  setVerifiedMembers: (verifiedMembers: string[]) => void;
+  resetAccess: () => void;
 }
 
 export const useAccessStore = create<AccessState>((set) => ({
@@ -23,5 +26,17 @@ export const useAccessStore = create<AccessState>((set) => ({
   staffMode: false,
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,
-  setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode }))
+  setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
+  verifiedMembers: [],
+  setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
+  resetAccess: () =>
+    set(() => ({
+      isStaff: false,
+      isGardener: false,
+      isTrustedMember: false,
+      staffMode: false,
+      gardenerMode: false
+    }))
 }));
+
+export const verifiedMembers = () => useAccessStore.getState().verifiedMembers;
