@@ -12,8 +12,5 @@ kv_namespaces = [
   { binding = "ACCESS", id = "52cc9d21444249fc81a6c340f6ca6251", preview_id = "52cc9d21444249fc81a6c340f6ca6251" }
 ]
 
-[placement]
-mode = "smart"
-
 [env.production.vars]
 SUPABASE_KEY = ""
