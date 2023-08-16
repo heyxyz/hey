@@ -47,9 +47,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [isConnectorLoading, setIsConnectorLoading] = useState<
-    Map<string, boolean>
-  >(new Map());
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -58,7 +55,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
   const isMounted = useIsMounted();
   const { chain } = useNetwork();
-  const { connectors, error, connectAsync } = useConnect({ chainId: CHAIN_ID });
+  const {
+    connectors,
+    error,
+    connectAsync,
+    isLoading: isConnectLoading,
+    pendingConnector
+  } = useConnect({ chainId: CHAIN_ID });
+
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
@@ -71,9 +75,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
   const onConnect = async (connector: Connector) => {
     try {
-      setIsConnectorLoading(
-        new Map(isConnectorLoading.set(connector.id, true))
-      );
       const account = await connectAsync({ connector });
       if (account) {
         setHasConnected(true);
@@ -81,12 +82,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
       });
-    } catch {
-    } finally {
-      setIsConnectorLoading(
-        new Map(isConnectorLoading.set(connector.id, false))
-      );
-    }
+    } catch {}
   };
 
   const handleSign = async () => {
@@ -223,7 +219,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <div className="flex items-center space-x-4">
-              {isConnectorLoading.get(connector.id) && (
+              {isConnectLoading && pendingConnector?.id === connector.id && (
                 <Spinner className="mr-0.5" size="xs" />
               )}
               <img
