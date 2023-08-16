@@ -7,22 +7,41 @@ import { useAppPersistStore } from 'src/store/app';
 
 const AccessProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);
-  const setIsStaff = useAccessStore((state) => state.setIsStaff);
+  const {
+    setIsStaff,
+    setIsGardener,
+    setIsTrustedMember,
+    setStaffMode,
+    setGardenerMode,
+    setVerifiedMembers
+  } = useAccessStore();
 
   const fetchAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/${profileId}`);
+      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profileId}`);
       const { data } = response;
 
-      if (data.success) {
-        setIsStaff(data.result.isStaff);
-      }
-    } catch (error) {
-      setIsStaff(false);
-    }
+      setIsStaff(data.result?.is_staff || false);
+      setIsGardener(data.result?.is_gardener || false);
+      setIsTrustedMember(data.result?.is_trusted_member || false);
+      setStaffMode(data.result?.staff_mode || false);
+      setGardenerMode(data.result?.gardener_mode || false);
+    } catch {}
   };
 
-  useQuery(['access', profileId], () => fetchAccess());
+  useQuery(['access', profileId], () => fetchAccess(), {
+    enabled: Boolean(profileId)
+  });
+
+  const fetchVerifiedMembers = async () => {
+    try {
+      const response = await axios(`${ACCESS_WORKER_URL}/verified`);
+      const { data } = response;
+      setVerifiedMembers(data.result || []);
+    } catch {}
+  };
+
+  useQuery(['verifiedMembers'], () => fetchVerifiedMembers());
 
   return null;
 };

@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-12 00:07\n"
+"PO-Revision-Date: 2023-08-16 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -91,6 +91,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Access"
 msgstr ""
 
@@ -2812,20 +2813,28 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
@@ -2837,11 +2846,19 @@ msgid "Settings"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
+msgid "Toggling staff mode..."
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
+msgid "Staff mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
@@ -3023,6 +3040,37 @@ msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Updating access..."
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Access updated"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Error updating access"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Is staff member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Is gardener member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Is trusted member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Scores"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx

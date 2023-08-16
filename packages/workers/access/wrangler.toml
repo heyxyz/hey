@@ -8,8 +8,9 @@ routes = [
 	{ pattern = "access.lenster.xyz", custom_domain = true }
 ]
 
-[placement]
-mode = "smart"
+kv_namespaces = [
+  { binding = "ACCESS", id = "52cc9d21444249fc81a6c340f6ca6251", preview_id = "52cc9d21444249fc81a6c340f6ca6251" }
+]
 
 [env.production.vars]
-CLICKHOUSE_REST_ENDPOINT = ""
+SUPABASE_KEY = ""

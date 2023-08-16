@@ -25,6 +25,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
+import Access from './Access';
 import Rank from './Rank';
 
 interface ProfileStaffToolProps {
@@ -127,8 +128,13 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             <Trans>Open</Trans>
           </Link>
         </MetaDetails>
-        {IS_MAINNET && <Rank profile={profile} />}
       </div>
+      {IS_MAINNET && (
+        <>
+          <Rank profile={profile} />
+          <Access profile={profile} />
+        </>
+      )}
     </Card>
   );
 };
