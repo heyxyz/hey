@@ -64,7 +64,7 @@ export default async (request: IRequest, env: Env) => {
       throw error;
     }
 
-    return response({ success: true, data });
+    return response({ success: true, result: data });
   } catch (error) {
     throw error;
   }

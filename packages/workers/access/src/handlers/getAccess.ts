@@ -18,7 +18,7 @@ export default async (id: string, env: Env) => {
       .eq('id', id)
       .single();
 
-    return response({ success: true, data });
+    return response({ success: true, result: data });
   } catch (error) {
     console.error(error);
     throw error;
