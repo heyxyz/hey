@@ -18,19 +18,7 @@ export default async (id: string, env: Env) => {
       .eq('id', id)
       .single();
 
-    return response({
-      success: true,
-      result: data
-        ? {
-            id: data.id,
-            isStaff: data.is_staff,
-            isGardener: data.is_gardener,
-            isTrustedMember: data.is_trusted_member,
-            staffMode: data.staff_mode,
-            gardenerMode: data.gardener_mode
-          }
-        : null
-    });
+    return response({ success: true, data });
   } catch (error) {
     console.error(error);
     throw error;
