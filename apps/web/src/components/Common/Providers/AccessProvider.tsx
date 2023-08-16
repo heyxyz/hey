@@ -20,7 +20,7 @@ const AccessProvider: FC = () => {
       const response = await axios(`${ACCESS_WORKER_URL}/${profileId}`);
       const { data } = response;
 
-      if (data.success) {
+      if (data.result) {
         setIsStaff(data.result.is_staff);
         setIsGardener(data.result.is_gardener);
         setIsTrustedMember(data.result.is_trusted_member);
