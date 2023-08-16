@@ -3043,6 +3043,21 @@ msgid "Swap in Uniswap"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#~ msgid "Is staff member"
+#~ msgstr "Is staff member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#~ msgid "Is gardener member"
+#~ msgstr "Is gardener member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#~ msgid "Is trusted member"
+#~ msgstr "Is trusted member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
 msgstr "Updating access..."
 
@@ -3056,18 +3071,23 @@ msgstr "Error updating access"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is staff member"
-msgstr "Is staff member"
+msgid "Verified member"
+msgstr "Verified member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is gardener member"
-msgstr "Is gardener member"
+msgid "Staff member"
+msgstr "Staff member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is trusted member"
-msgstr "Is trusted member"
+msgid "Gardener member"
+msgstr "Gardener member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Trusted member"
+msgstr "Trusted member"
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
