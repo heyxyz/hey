@@ -17,6 +17,7 @@ import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import ForYou from './ForYou';
+import Gitcoin from './Gitcoin';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
@@ -63,6 +64,7 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
+          <Gitcoin />
           {currentProfile ? (
             <>
               <EnableDispatcher />
