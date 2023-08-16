@@ -2264,7 +2264,7 @@ msgid "Invalid website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
+msgid "X handle must not exceed 100 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2288,7 +2288,7 @@ msgid "Website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
+msgid "X"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
