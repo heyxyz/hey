@@ -456,6 +456,10 @@ msgstr "正在关注"
 msgid "Highlights"
 msgstr "精彩内容"
 
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr ""
+
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
 msgstr "欢迎来到 {APP_NAME} 👋"
