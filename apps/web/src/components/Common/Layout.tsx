@@ -11,6 +11,7 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
+import { useAccessStore } from 'src/store/access';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
@@ -33,6 +34,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.setProfileGuardianInformation
   );
+  const resetAccess = useAccessStore((state) => state.resetAccess);
   const resetProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.resetProfileGuardianInformation
   );
@@ -48,6 +50,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
+    resetAccess();
     resetProfileGuardianInformation();
   };
 
