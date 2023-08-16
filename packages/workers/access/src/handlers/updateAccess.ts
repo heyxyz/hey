@@ -68,13 +68,12 @@ export default async (request: IRequest, env: Env) => {
       .select()
       .single();
 
-    if (data?.is_verified) {
-      await env.verified.delete('list');
-    }
-
     if (error) {
       throw error;
     }
+
+    // Clear cache in Cloudflare KV
+    await env.ACCESS.delete('verified-list');
 
     return response({ success: true, result: data });
   } catch (error) {

@@ -1,4 +1,4 @@
 export interface Env {
   SUPABASE_KEY: string;
-  verified: KVNamespace;
+  ACCESS: KVNamespace;
 }

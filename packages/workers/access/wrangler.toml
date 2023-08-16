@@ -9,7 +9,7 @@ routes = [
 ]
 
 kv_namespaces = [
-  { binding = "verified", id = "046ead0c80e3409eace106c2b21aa94c", preview_id = "046ead0c80e3409eace106c2b21aa94c" }
+  { binding = "verified", id = "52cc9d21444249fc81a6c340f6ca6251", preview_id = "52cc9d21444249fc81a6c340f6ca6251" }
 ]
 
 [placement]
