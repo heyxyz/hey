@@ -16,7 +16,7 @@ const Gitcoin: FC = () => {
       <img
         src={`${STATIC_IMAGES_URL}/brands/gitcoin.svg`}
         alt="Gitcoin emoji"
-        className="mx-auto h-14 w-14"
+        className="mx-auto h-12 w-12"
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">
