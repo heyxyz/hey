@@ -18,7 +18,7 @@
     "@lenster/bundlr": "workspace:*",
     "@lenster/lens": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "itty-router": "^4.0.15"
+    "itty-router": "^4.0.17"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230814.0",
