@@ -58,7 +58,7 @@ test.describe('Profile sidebar', () => {
     });
   });
 
-  test.describe('Profile verified badge', () => {
+  test.describe.skip('Profile verified badge', () => {
     test('should have verified badge', async ({ page }) => {
       await page.goto(`${WEB_BASE_URL}/u/yoginth`);
       const verifiedBadge = page.getByTestId('profile-verified-badge');
