@@ -15,6 +15,7 @@ type ExtensionRequest = {
   isStaff?: boolean;
   isGardener?: boolean;
   isTrustedMember?: boolean;
+  isVerified?: boolean;
   accessToken: string;
 };
 
@@ -23,6 +24,7 @@ const validationSchema = object({
   isStaff: boolean().optional(),
   isGardener: boolean().optional(),
   isTrustedMember: boolean().optional(),
+  isVerified: boolean().optional(),
   accessToken: string().regex(Regex.accessToken)
 });
 
@@ -38,7 +40,7 @@ export default async (request: IRequest, env: Env) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, isGardener, isStaff, isTrustedMember, accessToken } =
+  const { id, isGardener, isStaff, isTrustedMember, isVerified, accessToken } =
     body as ExtensionRequest;
 
   try {
@@ -60,10 +62,15 @@ export default async (request: IRequest, env: Env) => {
         id,
         is_staff: isStaff,
         is_gardener: isGardener,
-        is_trusted_member: isTrustedMember
+        is_trusted_member: isTrustedMember,
+        is_verified: isVerified
       })
       .select()
       .single();
+
+    if (data?.is_verified) {
+      await env.verified.delete('list');
+    }
 
     if (error) {
       throw error;
