@@ -26,7 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({
       <DropdownMenu.Content
         sideOffset={5}
         align={align}
-        className="bg-custom-3 relative rounded-xl"
+        className="relative left-1/2 z-50 mr-8 -translate-x-1/2 transform"
       >
         {children}
       </DropdownMenu.Content>

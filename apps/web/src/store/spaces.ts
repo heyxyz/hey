@@ -13,6 +13,8 @@ interface SpacesState {
   setIsRecordingOn: (isRecordingOn: boolean) => void;
   isTokenGated: boolean;
   setIsTokenGated: (isTokenGated: boolean) => void;
+  myReaction: string;
+  setMyReaction: (myReaction: string) => void;
   space: {
     id: string;
     host: string;
@@ -82,5 +84,7 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   removeRequestedPeers: (peerId) =>
     set((state) => ({
       requestedPeers: state.requestedPeers.filter((id) => id !== peerId)
-    }))
+    })),
+  myReaction: '',
+  setMyReaction: (myReaction) => set(() => ({ myReaction }))
 }));
