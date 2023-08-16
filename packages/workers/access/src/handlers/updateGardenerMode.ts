@@ -7,6 +7,7 @@ import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
+import createSupabaseClient from '../helpers/createSupabaseClient';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
@@ -49,44 +50,21 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    const clickhouseResponse = await fetch(
-      `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: `SELECT is_gardener FROM rights WHERE id = '${id}';`
-      }
-    );
+    const client = createSupabaseClient(env);
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
+    const { data, error } = await client
+      .from('rights')
+      .update({ gardener_mode: enabled })
+      .eq('is_gardener', true)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
     }
 
-    const json: { data: any[] } = await clickhouseResponse.json();
-
-    // Check if the user is_gardener
-    if (json.data.length && json.data[0][0]) {
-      const updateResponse = await fetch(
-        `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: `
-            ALTER TABLE rights
-            UPDATE gardener_mode = ${enabled}
-            WHERE id = '${id}';
-          `
-        }
-      );
-
-      if (updateResponse.status !== 200) {
-        return response({ success: false, error: Errors.StatusCodeIsNot200 });
-      }
-
-      return response({ success: true, enabled });
-    }
-
-    return response({ success: true });
+    return response({ success: true, result: data });
   } catch (error) {
     throw error;
   }
