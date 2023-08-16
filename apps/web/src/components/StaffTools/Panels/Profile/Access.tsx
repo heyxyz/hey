@@ -46,9 +46,9 @@ const Access: FC<RankProps> = ({ profile }) => {
       const { data } = response;
 
       if (data.success) {
-        setIsStaff(data.result.isStaff);
-        setIsGardener(data.result.isGardener);
-        setIsTrustedMember(data.result.isTrustedMember);
+        setIsStaff(data.result.is_staff);
+        setIsGardener(data.result.is_gardener);
+        setIsTrustedMember(data.result.is_trusted_member);
       }
 
       return data.result;
