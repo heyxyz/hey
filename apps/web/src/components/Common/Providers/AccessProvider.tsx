@@ -21,11 +21,11 @@ const AccessProvider: FC = () => {
       const { data } = response;
 
       if (data.success) {
-        setIsStaff(data.result.isStaff);
-        setIsGardener(data.result.isGardener);
-        setIsTrustedMember(data.result.isTrustedMember);
-        setStaffMode(data.result.staffMode);
-        setGardenerMode(data.result.gardenerMode);
+        setIsStaff(data.result.is_staff);
+        setIsGardener(data.result.is_gardener);
+        setIsTrustedMember(data.result.is_trusted_member);
+        setStaffMode(data.result.staff_mode);
+        setGardenerMode(data.result.gardener_mode);
       }
     } catch {}
   };
