@@ -251,16 +251,16 @@ importers:
         version: 9.0.0
       viem:
         specifier: ^1.6.0
-        version: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+        version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
       wagmi:
         specifier: ^1.3.10
-        version: 1.3.10(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0)
+        version: 1.3.10(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1)
       xmtp-content-type-remote-attachment:
         specifier: ^1.0.7
         version: 1.0.7
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
       zustand:
         specifier: ^4.4.1
         version: 4.4.1(@types/react@18.2.20)(react@18.2.0)
@@ -294,10 +294,10 @@ importers:
         version: 9.0.2
       autoprefixer:
         specifier: ^10.4.15
-        version: 10.4.15(postcss@8.4.27)
+        version: 10.4.15(postcss@8.4.28)
       postcss:
-        specifier: ^8.4.27
-        version: 8.4.27
+        specifier: ^8.4.28
+        version: 8.4.28
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
@@ -321,7 +321,7 @@ importers:
         version: 3.0.1
       viem:
         specifier: ^1.6.0
-        version: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+        version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -459,7 +459,7 @@ importers:
         version: 1.4.0
       viem:
         specifier: ^1.6.0
-        version: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+        version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -557,8 +557,8 @@ importers:
         specifier: ^7.45.4
         version: 7.45.4(react@18.2.0)
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -585,11 +585,11 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -613,8 +613,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -638,14 +638,14 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       viem:
         specifier: ^1.6.0
-        version: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+        version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -672,8 +672,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -715,11 +715,11 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -740,8 +740,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -768,14 +768,14 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       ua-parser-js:
         specifier: ^1.0.35
         version: 1.0.35
       zod:
-        specifier: ^3.22.0
-        version: 3.22.0
+        specifier: ^3.22.1
+        version: 3.22.1
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -805,8 +805,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -833,8 +833,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       linkedom:
         specifier: ^0.15.1
         version: 0.15.1
@@ -879,11 +879,11 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
       viem:
         specifier: ^1.6.0
-        version: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+        version: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -907,8 +907,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.15
-        version: 4.0.15
+        specifier: ^4.0.17
+        version: 4.0.17
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -5847,10 +5847,10 @@ packages:
     resolution: {integrity: sha512-0xd7qez0AQ+MbHatZTlI1gu5vkG8r7MYRUJAHPAHJBmGLs16zpkrpAVLvjQKQOqaXPDUBwOiJzNc00znHSCVBw==}
     dev: true
 
-  /@safe-global/safe-apps-provider@0.17.1(typescript@5.1.6)(zod@3.22.0):
+  /@safe-global/safe-apps-provider@0.17.1(typescript@5.1.6)(zod@3.22.1):
     resolution: {integrity: sha512-lYfRqrbbK1aKU1/UGkYWc/X7PgySYcumXKc5FB2uuwAs2Ghj8uETuW5BrwPqyjBknRxutFbTv+gth/JzjxAhdQ==}
     dependencies:
-      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.1.6)(zod@3.22.0)
+      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.1.6)(zod@3.22.1)
       events: 3.3.0
     transitivePeerDependencies:
       - bufferutil
@@ -5860,11 +5860,11 @@ packages:
       - zod
     dev: false
 
-  /@safe-global/safe-apps-sdk@8.0.0(typescript@5.1.6)(zod@3.22.0):
+  /@safe-global/safe-apps-sdk@8.0.0(typescript@5.1.6)(zod@3.22.1):
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.8.0
-      viem: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+      viem: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -6982,7 +6982,7 @@ packages:
       typescript: 5.1.6
     dev: false
 
-  /@wagmi/connectors@2.7.0(@wagmi/chains@1.7.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0):
+  /@wagmi/connectors@2.7.0(@wagmi/chains@1.7.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1):
     resolution: {integrity: sha512-1KOL0HTJl5kzSC/YdKwFwiokr6poUQn1V/tcT0TpG3iH2x0lSM7FTkvCjVVY/6lKzTXrLlo9y2aE7AsOPnkvqg==}
     peerDependencies:
       '@wagmi/chains': '>=1.7.0'
@@ -6996,17 +6996,17 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.7.1
       '@ledgerhq/connect-kit-loader': 1.1.1
-      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.1.6)(zod@3.22.0)
-      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.1.6)(zod@3.22.0)
+      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.1.6)(zod@3.22.1)
+      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.1.6)(zod@3.22.1)
       '@wagmi/chains': 1.7.0(typescript@5.1.6)
       '@walletconnect/ethereum-provider': 2.9.2(@walletconnect/modal@2.6.1)
       '@walletconnect/legacy-provider': 2.0.0
       '@walletconnect/modal': 2.6.1(react@18.2.0)
       '@walletconnect/utils': 2.9.2
-      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.0)
+      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.1)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+      viem: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -7018,7 +7018,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.3.9(@types/react@18.2.20)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0):
+  /@wagmi/core@1.3.9(@types/react@18.2.20)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1):
     resolution: {integrity: sha512-SrnABCrsDvhiMCLLLyzyHnZbEumsFT/XWlJJQZeyEDcixL95R7XQwOaaoRI4MpNilCtMtu3jzN57tA5Z2iA+kw==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -7028,11 +7028,11 @@ packages:
         optional: true
     dependencies:
       '@wagmi/chains': 1.7.0(typescript@5.1.6)
-      '@wagmi/connectors': 2.7.0(@wagmi/chains@1.7.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0)
-      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.0)
+      '@wagmi/connectors': 2.7.0(@wagmi/chains@1.7.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1)
+      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.1)
       eventemitter3: 4.0.7
       typescript: 5.1.6
-      viem: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+      viem: 1.6.0(typescript@5.1.6)(zod@3.22.1)
       zustand: 4.4.1(@types/react@18.2.20)(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -7657,7 +7657,7 @@ packages:
       through: 2.3.8
     dev: false
 
-  /abitype@0.8.7(typescript@5.1.6)(zod@3.22.0):
+  /abitype@0.8.7(typescript@5.1.6)(zod@3.22.1):
     resolution: {integrity: sha512-wQ7hV8Yg/yKmGyFpqrNZufCxbszDe5es4AZGYPBitocfSqXtjrTG9JMWFcc4N30ukl2ve48aBTwt7NJxVQdU3w==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -7667,10 +7667,10 @@ packages:
         optional: true
     dependencies:
       typescript: 5.1.6
-      zod: 3.22.0
+      zod: 3.22.1
     dev: false
 
-  /abitype@0.9.3(typescript@5.1.6)(zod@3.22.0):
+  /abitype@0.9.3(typescript@5.1.6)(zod@3.22.1):
     resolution: {integrity: sha512-dz4qCQLurx97FQhnb/EIYTk/ldQ+oafEDUqC0VVIeQS1Q48/YWt/9YNfMmp9SLFqN41ktxny3c8aYxHjmFIB/w==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -7682,7 +7682,7 @@ packages:
         optional: true
     dependencies:
       typescript: 5.1.6
-      zod: 3.22.0
+      zod: 3.22.1
     dev: false
 
   /acorn-import-assertions@1.9.0(acorn@8.10.0):
@@ -7959,7 +7959,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /autoprefixer@10.4.15(postcss@8.4.27):
+  /autoprefixer@10.4.15(postcss@8.4.28):
     resolution: {integrity: sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -7971,7 +7971,7 @@ packages:
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.27
+      postcss: 8.4.28
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -10861,8 +10861,8 @@ packages:
     resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
     dev: false
 
-  /itty-router@4.0.15:
-    resolution: {integrity: sha512-hmjl7IPrMBRkOi5jPPfztHlm/XpQ62S37782oz14+LTmeih3fGRyB61aC/nh9ocmb7RExjESgTHE9UZIYT/qxQ==}
+  /itty-router@4.0.17:
+    resolution: {integrity: sha512-Fu/GO3MFX6Hwd+QF1/BFjoFpPQKh2Bu4DtBdse5kECcUwldNBrZqgwq0IariLrP67iADGlzkHIlOWwJ8F4SJ4A==}
     dev: false
 
   /jayson@4.1.0:
@@ -11086,8 +11086,8 @@ packages:
     resolution: {integrity: sha512-ixp8+5D9UJueZSjh9a7Z0eiiKm8MZmf//+mr0rZSCXermhdIcn1lglDGbff1KGwO1ONnFlycWJV12m8Zvtgggg==}
     dev: false
 
-  /lib0@0.2.81:
-    resolution: {integrity: sha512-BX/mji6F698AsG4sWOGYmb6XX4uRBlPsPbC6cvFPf/gUlP4hRlYQrZEOsfj7PMbd26lufCjLxCXyEUtyESmjgA==}
+  /lib0@0.2.82:
+    resolution: {integrity: sha512-sZJeggxq56weXHnBc37dXNnYKGPvdR75zKxGHNc8gLE+ldKCbc4whk0JY2cV17lxuBFtvRd4dIsSh6Cfz7slUw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
@@ -11688,7 +11688,7 @@ packages:
       workerd: 1.20230724.0
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
       youch: 3.2.3
-      zod: 3.22.0
+      zod: 3.22.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -12418,29 +12418,29 @@ packages:
   /pofile@1.1.4:
     resolution: {integrity: sha512-r6Q21sKsY1AjTVVjOuU02VYKVNQGJNQHjTIvs4dEbeuuYfxgYk/DGD2mqqq4RDaVkwdSq0VEtmQUOPe/wH8X3g==}
 
-  /postcss-import@15.1.0(postcss@8.4.27):
+  /postcss-import@15.1.0(postcss@8.4.28):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.27
+      postcss: 8.4.28
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.4
     dev: true
 
-  /postcss-js@4.0.1(postcss@8.4.27):
+  /postcss-js@4.0.1(postcss@8.4.28):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.27
+      postcss: 8.4.28
     dev: true
 
-  /postcss-load-config@4.0.1(postcss@8.4.27):
+  /postcss-load-config@4.0.1(postcss@8.4.28):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -12453,17 +12453,17 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.27
+      postcss: 8.4.28
       yaml: 2.3.1
     dev: true
 
-  /postcss-nested@6.0.1(postcss@8.4.27):
+  /postcss-nested@6.0.1(postcss@8.4.28):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.27
+      postcss: 8.4.28
       postcss-selector-parser: 6.0.13
     dev: true
 
@@ -12488,8 +12488,8 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
-  /postcss@8.4.27:
-    resolution: {integrity: sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==}
+  /postcss@8.4.28:
+    resolution: {integrity: sha512-Z7V5j0cq8oEKyejIKfpD8b4eBy9cwW2JWPk0+fB1HOAMsfHbnAXLLS+PfVWlzMSLQaWttKDt607I0XHmpE67Vw==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -13896,11 +13896,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
-      postcss: 8.4.27
-      postcss-import: 15.1.0(postcss@8.4.27)
-      postcss-js: 4.0.1(postcss@8.4.27)
-      postcss-load-config: 4.0.1(postcss@8.4.27)
-      postcss-nested: 6.0.1(postcss@8.4.27)
+      postcss: 8.4.28
+      postcss-import: 15.1.0(postcss@8.4.28)
+      postcss-js: 4.0.1(postcss@8.4.28)
+      postcss-load-config: 4.0.1(postcss@8.4.28)
+      postcss-nested: 6.0.1(postcss@8.4.28)
       postcss-selector-parser: 6.0.13
       resolve: 1.22.4
       sucrase: 3.34.0
@@ -14580,7 +14580,7 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /viem@1.6.0(typescript@5.1.6)(zod@3.22.0):
+  /viem@1.6.0(typescript@5.1.6)(zod@3.22.1):
     resolution: {integrity: sha512-ae9Twkd0q2Qlj4yYpWjb4DzYAhKY0ibEpRH8FJaTywZXNpTjFidSdBaT0CVn1BaH7O7cnX4/O47zvDUMGJD1AA==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -14595,7 +14595,7 @@ packages:
       '@scure/bip39': 1.2.0
       '@types/ws': 8.5.5
       '@wagmi/chains': 1.6.0(typescript@5.1.6)
-      abitype: 0.9.3(typescript@5.1.6)(zod@3.22.0)
+      abitype: 0.9.3(typescript@5.1.6)(zod@3.22.1)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       typescript: 5.1.6
       ws: 8.12.0
@@ -14657,7 +14657,7 @@ packages:
     dependencies:
       '@types/node': 20.5.0
       esbuild: 0.18.20
-      postcss: 8.4.27
+      postcss: 8.4.28
       rollup: 3.27.2
     optionalDependencies:
       fsevents: 2.3.2
@@ -14728,7 +14728,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.3.10(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0):
+  /wagmi@1.3.10(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1):
     resolution: {integrity: sha512-MMGJcnxOmeUZWDmzUxgRGcB1cqxbJoSFSa+pNY4vBCWMz0n4ptpE5F8FKISLCx+BGoDwsaz2ldcMALcdJZ+29w==}
     peerDependencies:
       react: '>=17.0.0'
@@ -14741,12 +14741,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.32.6
       '@tanstack/react-query': 4.32.6(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.32.6(@tanstack/react-query@4.32.6)
-      '@wagmi/core': 1.3.9(@types/react@18.2.20)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.0)
-      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.0)
+      '@wagmi/core': 1.3.9(@types/react@18.2.20)(react@18.2.0)(typescript@5.1.6)(viem@1.6.0)(zod@3.22.1)
+      abitype: 0.8.7(typescript@5.1.6)(zod@3.22.1)
       react: 18.2.0
       typescript: 5.1.6
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.6.0(typescript@5.1.6)(zod@3.22.0)
+      viem: 1.6.0(typescript@5.1.6)(zod@3.22.1)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -15111,7 +15111,7 @@ packages:
     resolution: {integrity: sha512-mCZTh4kjvUS2DnaktsYN6wLH3WZCJBLqrTdkWh1bIDpA/sB/GNFaLA/dyVJj2Hc7KwONuuoC/vWe9bwBBosZLQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
-      lib0: 0.2.81
+      lib0: 0.2.82
     dev: false
 
   /yocto-queue@0.1.0:
@@ -15146,8 +15146,8 @@ packages:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
     dev: false
 
-  /zod@3.22.0:
-    resolution: {integrity: sha512-y5KZY/ssf5n7hCGDGGtcJO/EBJEm5Pa+QQvFBeyMOtnFYOSflalxIFFvdaYevPhePcmcKC4aTbFkCcXN7D0O8Q==}
+  /zod@3.22.1:
+    resolution: {integrity: sha512-+qUhAMl414+Elh+fRNtpU+byrwjDFOS1N7NioLY+tSlcADTx4TkCUua/hxJvxwDXcV4397/nZ420jy4n4+3WUg==}
 
   /zustand@4.4.1(@types/react@18.2.20)(react@18.2.0):
     resolution: {integrity: sha512-QCPfstAS4EBiTQzlaGP1gmorkh/UL1Leaj2tdj+zZCZ/9bm0WS7sI2wnfD5lpOszFqWJ1DcPnGoY8RDL61uokw==}
