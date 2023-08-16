@@ -73,7 +73,7 @@ const NewPost: FC = () => {
           </span>
         </button>
         {isSpacesEnabled && (
-          <div className="inline-flex h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900">
+          <div className="hidden h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900 sm:inline-flex">
             <MicrophoneIcon
               className="relative h-5 w-5 cursor-pointer"
               onClick={() => openSpacesModal()}
