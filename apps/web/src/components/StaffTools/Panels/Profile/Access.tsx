@@ -45,13 +45,13 @@ const Access: FC<RankProps> = ({ profile }) => {
       const response = await axios(`${ACCESS_WORKER_URL}/${profile.id}`);
       const { data } = response;
 
-      if (data.success) {
+      if (data.result) {
         setIsStaff(data.result.is_staff);
         setIsGardener(data.result.is_gardener);
         setIsTrustedMember(data.result.is_trusted_member);
       }
 
-      return data.result;
+      return data.success;
     } catch (error) {
       return false;
     }
