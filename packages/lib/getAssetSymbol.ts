@@ -15,10 +15,10 @@ const TOKEN_SYMBOLS: TokenSymbolMap = {
 };
 
 /**
- * Returns the address of a given token symbol.
+ * Returns the symbol of a given token symbol.
  *
  * @param symbol The symbol of the token.
- * @returns The address of the token.
+ * @returns The symbol of the token.
  */
 const getAssetSymbol = (symbol: string): string => {
   return TOKEN_SYMBOLS[symbol] ?? 'MATIC';
