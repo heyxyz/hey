@@ -9,8 +9,10 @@ const knownSites = [
 
 const pickUrlSites = ['open.spotify.com'];
 
-const spotifyUrlRegex =
+const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
+const spotifyPlaylistUrlRegex =
+  /^ht{2}ps?:\/{2}open\.spotify\.com\/playlist\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const oohlalaUrlRegex =
   /^ht{2}ps?:\/{2}oohlala\.xyz\/playlist\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 const soundCloudRegex =
@@ -48,8 +50,13 @@ const generateIframe = (
 
       return null;
     case 'open.spotify.com':
-      if (spotifyUrlRegex.test(url)) {
+      if (spotifyTrackUrlRegex.test(url)) {
         const spotifyUrl = pickedUrl.replace('/track', '/embed/track');
+        return `<iframe src="${spotifyUrl}" width="560" height="155" allow="encrypted-media"></iframe>`;
+      }
+
+      if (spotifyPlaylistUrlRegex.test(url)) {
+        const spotifyUrl = pickedUrl.replace('/playlist', '/embed/playlist');
         return `<iframe src="${spotifyUrl}" width="560" height="155" allow="encrypted-media"></iframe>`;
       }
 
