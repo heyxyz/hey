@@ -18,11 +18,11 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.NftGallery,
-    enabledFor: ['0x0d']
+    enabledFor: ['0x0d', '0x014309']
   },
   {
     key: FeatureFlag.NftDetail,
-    enabledFor: ['0x0d']
+    enabledFor: ['0x0d', '0x014309']
   },
   {
     key: FeatureFlag.GatedLocales,
