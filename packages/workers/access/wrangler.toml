@@ -8,6 +8,10 @@ routes = [
 	{ pattern = "access.lenster.xyz", custom_domain = true }
 ]
 
+kv_namespaces = [
+  { binding = "verified", id = "046ead0c80e3409eace106c2b21aa94c", preview_id = "046ead0c80e3409eace106c2b21aa94c" }
+]
+
 [placement]
 mode = "smart"
 

@@ -11,30 +11,30 @@ export interface Database {
     Tables: {
       rights: {
         Row: {
-          created_at: string;
           gardener_mode: boolean;
           id: string;
           is_gardener: boolean;
           is_staff: boolean;
           is_trusted_member: boolean;
+          is_verified: boolean;
           staff_mode: boolean;
         };
         Insert: {
-          created_at?: string;
           gardener_mode?: boolean;
           id: string;
           is_gardener?: boolean;
           is_staff?: boolean;
           is_trusted_member?: boolean;
+          is_verified?: boolean;
           staff_mode?: boolean;
         };
         Update: {
-          created_at?: string;
           gardener_mode?: boolean;
           id?: string;
           is_gardener?: boolean;
           is_staff?: boolean;
           is_trusted_member?: boolean;
+          is_verified?: boolean;
           staff_mode?: boolean;
         };
         Relationships: [];
