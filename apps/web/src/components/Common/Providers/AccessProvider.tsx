@@ -20,13 +20,11 @@ const AccessProvider: FC = () => {
       const response = await axios(`${ACCESS_WORKER_URL}/${profileId}`);
       const { data } = response;
 
-      if (data.result) {
-        setIsStaff(data.result.is_staff);
-        setIsGardener(data.result.is_gardener);
-        setIsTrustedMember(data.result.is_trusted_member);
-        setStaffMode(data.result.staff_mode);
-        setGardenerMode(data.result.gardener_mode);
-      }
+      setIsStaff(data.result?.is_staff || false);
+      setIsGardener(data.result?.is_gardener || false);
+      setIsTrustedMember(data.result?.is_trusted_member || false);
+      setStaffMode(data.result?.staff_mode || false);
+      setGardenerMode(data.result?.gardener_mode || false);
     } catch {}
   };
 
