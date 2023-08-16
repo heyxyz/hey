@@ -3047,21 +3047,6 @@ msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is staff member"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is gardener member"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is trusted member"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
 msgstr ""
 
