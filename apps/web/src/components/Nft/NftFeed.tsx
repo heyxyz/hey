@@ -14,15 +14,30 @@ import { mainnet } from 'wagmi/chains';
 
 interface NftFeedProps {
   profile: Profile;
+  getNftsOnAllChains?: boolean;
+  onNftClick?: (nft?: Nft) => void;
+  hideDetail?: boolean;
+  nftSelected?: Nft;
 }
 
-const NftFeed: FC<NftFeedProps> = ({ profile }) => {
+const NftFeed: FC<NftFeedProps> = ({
+  profile,
+  getNftsOnAllChains,
+  onNftClick,
+  hideDetail,
+  nftSelected
+}) => {
   // Variables
-  const request: NfTsRequest = {
-    chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
-    ownerAddress: profile?.ownedBy,
-    limit: 10
-  };
+  let request: NfTsRequest = getNftsOnAllChains
+    ? {
+        ownerAddress: profile?.ownedBy,
+        limit: 10
+      }
+    : {
+        chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
+        ownerAddress: profile?.ownedBy,
+        limit: 10
+      };
 
   const { data, loading, error, fetchMore } = useNftFeedQuery({
     variables: { request },
@@ -72,12 +87,20 @@ const NftFeed: FC<NftFeedProps> = ({ profile }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {nfts?.map((nft) => (
-        <div key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}>
-          <SingleNft nft={nft as Nft} />
-        </div>
-      ))}
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
+      {nfts?.map((nft) => {
+        const key = `${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`;
+        const selectedNftKey = `${nftSelected?.chainId}_${nftSelected?.contractAddress}_${nftSelected?.tokenId}`;
+        return (
+          <div onClick={() => onNftClick && onNftClick(nft as Nft)} key={key}>
+            <SingleNft
+              isSelected={key === selectedNftKey}
+              linkToDetail={!hideDetail}
+              nft={nft as Nft}
+            />
+          </div>
+        );
+      })}
       {hasMore && <span ref={observe} />}
     </div>
   );

@@ -1,4 +1,5 @@
 import NewPublication from '@components/Composer/NewPublication';
+import NftAvatarModal from '@components/Settings/Profile/NftAvatarModal';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowCircleRightIcon,
@@ -35,7 +36,9 @@ const GlobalModals: FC = () => {
     setShowInvitesModal,
     showReportProfileModal,
     reportingProfile,
-    setShowReportProfileModal
+    setShowReportProfileModal,
+    showNftAvatarModal,
+    setShowNftAvatarModal
   } = useGlobalModalStateStore();
 
   return (
@@ -98,6 +101,14 @@ const GlobalModals: FC = () => {
         onClose={() => setShowInvitesModal(false)}
       >
         <Invites />
+      </Modal>
+      <Modal
+        size="lg"
+        title={t`Select a NFT`}
+        show={showNftAvatarModal}
+        onClose={() => setShowNftAvatarModal(false)}
+      >
+        <NftAvatarModal />
       </Modal>
     </>
   );
