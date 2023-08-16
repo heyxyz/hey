@@ -12,4 +12,4 @@ routes = [
 mode = "smart"
 
 [env.production.vars]
-CLICKHOUSE_REST_ENDPOINT = ""
+SUPABASE_KEY = ""

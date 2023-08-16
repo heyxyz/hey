@@ -57,6 +57,7 @@ export const OLD_LENS_RELAYER_ADDRESS =
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
+export const SUPABASE_URL = 'https://nberpnnqcqfnrzjpnisb.supabase.co';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;

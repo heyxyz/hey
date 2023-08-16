@@ -7,6 +7,7 @@ import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
+import createSupabaseClient from '../helpers/createSupabaseClient';
 import type { Env } from '../types';
 
 type ExtensionRequest = {
@@ -51,68 +52,24 @@ export default async (request: IRequest, env: Env) => {
       return response({ success: false, error: Errors.NotAdmin });
     }
 
-    const clickhouseResponse = await fetch(
-      `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: `SELECT * FROM rights WHERE id = '${id}';`
-      }
-    );
+    const client = createSupabaseClient(env);
 
-    if (clickhouseResponse.status !== 200) {
-      return response({ success: false, error: Errors.StatusCodeIsNot200 });
+    const { data, error } = await client
+      .from('rights')
+      .upsert({
+        id,
+        is_staff: isStaff,
+        is_gardener: isGardener,
+        is_trusted_member: isTrustedMember
+      })
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
     }
 
-    const json: { data: any[] } = await clickhouseResponse.json();
-
-    if (json.data.length) {
-      const updateResponse = await fetch(
-        `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: `
-            ALTER TABLE rights
-            UPDATE
-              is_staff = ${isStaff ?? json.data[0][1]},
-              is_gardener = ${isGardener ?? json.data[0][2]},
-              is_trusted_member = ${isTrustedMember ?? json.data[0][3]}
-            WHERE id = '${id}';
-          `
-        }
-      );
-
-      if (updateResponse.status !== 200) {
-        return response({ success: false, error: Errors.StatusCodeIsNot200 });
-      }
-
-      return response({ success: true });
-    } else {
-      // insert new record
-      const insertResponse = await fetch(
-        `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: `
-            INSERT INTO rights (id, is_staff, is_gardener, is_trusted_member)
-            VALUES (
-              '${id}',
-              ${isStaff ?? false},
-              ${isGardener ?? false},
-              ${isTrustedMember ?? false}
-            );
-          `
-        }
-      );
-
-      if (insertResponse.status !== 200) {
-        return response({ success: false, error: Errors.StatusCodeIsNot200 });
-      }
-
-      return response({ success: true });
-    }
+    return response({ success: true, result: data });
   } catch (error) {
     throw error;
   }
