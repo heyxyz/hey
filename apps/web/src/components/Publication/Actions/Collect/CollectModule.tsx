@@ -41,7 +41,7 @@ import humanize from '@lenster/lib/humanize';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
-import getCoingeckoPrice from '@lib/getCoingeckoPrice';
+import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -194,8 +194,8 @@ const CollectModule: FC<CollectModuleProps> = ({
     });
 
   const { data: usdPrice } = useQuery(
-    ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetSymbol(currency)).then((res) => res),
+    ['redstoneData'],
+    () => getRedstonePrice(getAssetSymbol(currency)).then((res) => res),
     { enabled: Boolean(amount) }
   );
 
