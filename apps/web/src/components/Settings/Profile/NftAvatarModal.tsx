@@ -1,11 +1,10 @@
-import NftFeed from '@components/Nft/NftFeed';
+import Picker from '@components/Profile/NftGallery/Picker';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
-  type Nft,
   type UpdateProfileImageRequest,
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
@@ -22,6 +21,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 
@@ -32,7 +32,8 @@ const NftAvatarModal: FC = () => {
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const [isLoading, setIsLoading] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [nftSelected, setNftSelected] = useState<Nft | undefined>();
+  const gallery = useNftGalleryStore((state) => state.gallery);
+
   const { signMessageAsync } = useSignMessage();
 
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
@@ -94,10 +95,6 @@ const NftAvatarModal: FC = () => {
       onError
     });
 
-  const onNftClick = (nft?: Nft) => {
-    setNftSelected(nft);
-  };
-
   const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
@@ -115,13 +112,13 @@ const NftAvatarModal: FC = () => {
   };
 
   const setAvatar = async () => {
-    if (!currentProfile || !nftSelected) {
+    if (!currentProfile || gallery.items.length === 0) {
       return toast.error(Errors.SignWallet);
     }
 
     try {
       setIsLoading(true);
-      const { contractAddress, tokenId, chainId } = nftSelected;
+      const { contractAddress, tokenId, chainId } = gallery.items[0];
       const challengeRes = await loadChallenge({
         variables: {
           request: {
@@ -167,7 +164,7 @@ const NftAvatarModal: FC = () => {
   };
 
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex flex-col">
       {error && (
         <ErrorMessage
           className="mb-3"
@@ -176,20 +173,12 @@ const NftAvatarModal: FC = () => {
         />
       )}
       <div className="mb-4 mr-1 flex h-[70vh] overflow-y-scroll">
-        {currentProfile && (
-          <NftFeed
-            onNftClick={onNftClick}
-            getNftsOnAllChains={true}
-            profile={currentProfile}
-            hideDetail={true}
-            nftSelected={nftSelected}
-          />
-        )}
+        {currentProfile && <Picker onlyAllowOne={true} />}
       </div>
-      <div className="ml-auto flex items-center space-x-2">
+      <div className="ml-auto flex items-center space-x-2 p-4">
         <Button
           onClick={setAvatar}
-          disabled={isLoading || !nftSelected?.contractAddress}
+          disabled={isLoading || gallery.items.length === 0}
           icon={
             isLoading ? (
               <Spinner size="xs" />
