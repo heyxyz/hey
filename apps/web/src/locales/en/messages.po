@@ -456,6 +456,10 @@ msgstr ""
 msgid "Highlights"
 msgstr ""
 
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr "Contribute now"
+
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
 msgstr ""
