@@ -34,7 +34,7 @@ import {
 } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
-import getAssetAddress from '@lenster/lib/getAssetAddress';
+import getAssetSymbol from '@lenster/lib/getAssetSymbol';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';
@@ -195,7 +195,7 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const { data: usdPrice } = useQuery(
     ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetAddress(currency)).then((res) => res),
+    () => getCoingeckoPrice(getAssetSymbol(currency)).then((res) => res),
     { enabled: Boolean(amount) }
   );
 
