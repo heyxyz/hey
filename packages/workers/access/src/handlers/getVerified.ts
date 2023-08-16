@@ -6,7 +6,7 @@ import type { Env } from '../types';
 
 export default async (_: IRequest, env: Env) => {
   try {
-    const cache = await env.verified.get('list');
+    const cache = await env.ACCESS.get('verified-list');
 
     if (!cache) {
       const client = createSupabaseClient(env);
@@ -17,7 +17,7 @@ export default async (_: IRequest, env: Env) => {
         .eq('is_verified', true);
 
       const ids = data?.map((right) => right.id);
-      await env.verified.put('list', JSON.stringify(ids));
+      await env.ACCESS.put('verified-list', JSON.stringify(ids));
 
       return response({ success: true, result: ids });
     }
