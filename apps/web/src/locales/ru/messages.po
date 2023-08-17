@@ -2227,22 +2227,6 @@ msgid "Select a NFT"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Contract address should be within 42 characters"
-#~ msgstr "Адрес контракта должен быть в пределах 42 символов"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Invalid Contract address"
-#~ msgstr "Неверный адрес контракта"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Contract Address"
-#~ msgstr "Адрес контракта"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Token Id"
-#~ msgstr "Идентификатор токена"
-
-#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Choose NFT Avatar"
 msgstr ""
 
