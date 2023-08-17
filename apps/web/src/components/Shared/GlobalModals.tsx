@@ -36,7 +36,6 @@ const GlobalModals: FC = () => {
     showReportProfileModal,
     reportingProfile,
     setShowReportProfileModal,
-    showDiscardModal,
     setShowDiscardModal
   } = useGlobalModalStateStore();
 
@@ -86,12 +85,10 @@ const GlobalModals: FC = () => {
         <Login />
       </Modal>
       <Modal
-        title={showDiscardModal ? t`Discard post` : t`Create post`}
+        title={t`Create post`}
         size="md"
         show={showNewPostModal}
-        onClose={
-          !showDiscardModal ? () => setShowDiscardModal(true) : undefined
-        }
+        onClose={() => setShowDiscardModal(true)}
       >
         <NewPublication />
       </Modal>

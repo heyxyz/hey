@@ -139,9 +139,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
   );
-  const showDiscardModal = useGlobalModalStateStore(
-    (state) => state.showDiscardModal
-  );
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
@@ -884,10 +881,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetAccessSettings();
   });
 
-  if (showDiscardModal) {
-    return <Discard onDiscard={onDiscardClick} />;
-  }
-
   return (
     <Card
       className={clsx(
@@ -953,6 +946,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <div className="px-5">
         <Attachments attachments={attachments} isNew />
       </div>
+      <Discard onDiscard={onDiscardClick} />
     </Card>
   );
 };
