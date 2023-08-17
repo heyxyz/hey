@@ -26,7 +26,7 @@ import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 
 interface NftAvatarModalProps {
   showNftAvatarModal: boolean;
-  setShowNftAvatarModal: Dispatch<SetStateAction<boolean>>
+  setShowNftAvatarModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const NftAvatarModal: FC<NftAvatarModalProps> = ({
