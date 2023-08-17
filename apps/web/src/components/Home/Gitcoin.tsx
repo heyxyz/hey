@@ -1,7 +1,6 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
-import { Button, Card } from '@lenster/ui';
+import { Card } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -11,27 +10,25 @@ const Gitcoin: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-4 !border-gray-600 bg-gradient-to-r from-gray-500 to-gray-600 p-5 text-white dark:bg-gray-900"
+      className="mb-4 space-y-4 !border-[#27bdce] bg-[#27bdce]/20 p-5 text-[#1396a5] dark:bg-[#27bdce]/50"
     >
       <img
-        src={`${STATIC_IMAGES_URL}/brands/gitcoin.svg`}
+        src={`${STATIC_IMAGES_URL}/brands/gitcoin.png`}
         alt="Gitcoin emoji"
-        className="mx-auto h-12 w-12"
+        className="mx-auto h-14"
       />
-      <div className="space-y-3 text-center">
+      <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
           Support Lenster on Gitcoin Grants Round 18
         </div>
         <div>
-          <Link href="https://lenster.xyz/gitcoin" target="_blank">
-            <Button
-              className="shadow-lg"
-              icon={<ArrowRightIcon className="h-4 w-4" />}
-              onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
-              variant="secondary"
-            >
-              <Trans>Contribute now</Trans>
-            </Button>
+          <Link
+            href="https://lenster.xyz/gitcoin"
+            className="font-bold underline"
+            target="_blank"
+            onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
+          >
+            <Trans>Contribute now</Trans>
           </Link>
         </div>
       </div>
