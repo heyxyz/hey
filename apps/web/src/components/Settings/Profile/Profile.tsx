@@ -314,7 +314,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           <Input
             label={t`X`}
             type="text"
-            prefix="https://twitter.com"
+            prefix="https://x.com"
             placeholder="gavin"
             {...form.register('twitter')}
           />
