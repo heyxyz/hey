@@ -66,6 +66,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -854,6 +855,21 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     ? !pollConfig.choices.length ||
       pollConfig.choices.some((choice) => !choice.length)
     : false;
+
+  useUnmountEffect(() => {
+    setPublicationContent('');
+    setQuotedPublication(null);
+    setShowPollEditor(false);
+    resetPollConfig();
+    setAttachments([]);
+    setVideoThumbnail({
+      url: '',
+      type: '',
+      uploading: false
+    });
+    resetCollectSettings();
+    resetAccessSettings();
+  });
 
   return (
     <Card
