@@ -35,7 +35,7 @@ progress::-moz-progress-bar {
 }
 
 .menu-item {
-  @apply m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200;
+  @apply m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200;
 }
 
 .text-brand {
