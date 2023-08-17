@@ -313,12 +313,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </MetaDetails>
           )}
-          {getProfileAttribute(profile?.attributes, 'twitter') && (
+          {getProfileAttribute(profile?.attributes, 'x') && (
             <MetaDetails
               icon={
                 resolvedTheme === 'dark' ? (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/twitter-light.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-dark.svg`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
@@ -326,7 +326,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   />
                 ) : (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/twitter-dark.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-light.svg`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
@@ -334,18 +334,18 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   />
                 )
               }
-              dataTestId="profile-meta-twitter"
+              dataTestId="profile-meta-x"
             >
               <Link
-                href={`https://twitter.com/${getProfileAttribute(
+                href={`https://x.com/${getProfileAttribute(
                   profile?.attributes,
-                  'twitter'
-                )?.replace('https://twitter.com/', '')}`}
+                  'x'
+                )?.replace('https://x.com/', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getProfileAttribute(profile?.attributes, 'twitter')?.replace(
-                  'https://twitter.com/',
+                {getProfileAttribute(profile?.attributes, 'x')?.replace(
+                  'https://x.com/',
                   ''
                 )}
               </Link>

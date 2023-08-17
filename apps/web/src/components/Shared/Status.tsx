@@ -159,7 +159,7 @@ const Status: FC = () => {
                 ![
                   'location',
                   'website',
-                  'twitter',
+                  'x',
                   'hasPrideLogo',
                   'statusEmoji',
                   'statusMessage',
@@ -176,9 +176,9 @@ const Status: FC = () => {
             value: getProfileAttribute(profile?.attributes, 'website')
           },
           {
-            key: 'twitter',
-            value: getProfileAttribute(profile?.attributes, 'twitter')?.replace(
-              'https://twitter.com/',
+            key: 'x',
+            value: getProfileAttribute(profile?.attributes, 'x')?.replace(
+              'https://x.com/',
               ''
             )
           },

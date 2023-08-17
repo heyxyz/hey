@@ -64,7 +64,7 @@ const editProfileSchema = object({
     string().regex(Regex.url, { message: t`Invalid website` }),
     string().max(0)
   ]),
-  twitter: string().max(100, {
+  x: string().max(100, {
     message: t`X handle must not exceed 100 characters`
   }),
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
@@ -160,8 +160,8 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       name: profile?.name ?? '',
       location: getProfileAttribute(profile?.attributes, 'location'),
       website: getProfileAttribute(profile?.attributes, 'website'),
-      twitter: getProfileAttribute(profile?.attributes, 'twitter')?.replace(
-        /(https:\/\/)?twitter\.com\//,
+      x: getProfileAttribute(profile?.attributes, 'x')?.replace(
+        /(https:\/\/)?x\.com\//,
         ''
       ),
       bio: profile?.bio ?? ''
@@ -172,7 +172,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     name: string,
     location: string | null,
     website?: string | null,
-    twitter?: string | null,
+    x?: string | null,
     bio?: string | null
   ) => {
     if (!currentProfile) {
@@ -192,7 +192,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 ![
                   'location',
                   'website',
-                  'twitter',
+                  'x',
                   'hasPrideLogo',
                   'statusEmoji',
                   'statusMessage',
@@ -202,7 +202,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             .map(({ key, value }) => ({ key, value })) ?? []),
           { key: 'location', value: location },
           { key: 'website', value: website },
-          { key: 'twitter', value: twitter },
+          { key: 'x', value: x },
           { key: 'hasPrideLogo', value: pride },
           {
             key: 'statusEmoji',
@@ -276,8 +276,8 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         <Form
           form={form}
           className="space-y-4"
-          onSubmit={({ name, location, website, twitter, bio }) => {
-            editProfile(name, location, website, twitter, bio);
+          onSubmit={({ name, location, website, x, bio }) => {
+            editProfile(name, location, website, x, bio);
           }}
         >
           {error && (
@@ -316,7 +316,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             type="text"
             prefix="https://x.com"
             placeholder="gavin"
-            {...form.register('twitter')}
+            {...form.register('x')}
           />
           <TextArea
             label={t`Bio`}
