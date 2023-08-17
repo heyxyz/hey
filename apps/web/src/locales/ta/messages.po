@@ -83,7 +83,7 @@ msgstr "ரத்து"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -329,7 +329,7 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -2217,26 +2217,34 @@ msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr "தவறான ஒப்பந்த முகவரி"
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "சுயவிவரப் சுயவிவரப் வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது!"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr "ஒப்பந்த முகவரி"
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr "டோக்கன் ஐடி"
+#~ msgid "Contract address should be within 42 characters"
+#~ msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
+
+#: src/components/Settings/Profile/NftPicture.tsx
+#~ msgid "Invalid Contract address"
+#~ msgstr "தவறான ஒப்பந்த முகவரி"
+
+#: src/components/Settings/Profile/NftPicture.tsx
+#~ msgid "Contract Address"
+#~ msgstr "ஒப்பந்த முகவரி"
+
+#: src/components/Settings/Profile/NftPicture.tsx
+#~ msgid "Token Id"
+#~ msgstr "டோக்கன் ஐடி"
+
+#: src/components/Settings/Profile/NftPicture.tsx
+msgid "Choose NFT Avatar"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
