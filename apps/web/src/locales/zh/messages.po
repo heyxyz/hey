@@ -2256,8 +2256,8 @@ msgid "Invalid website"
 msgstr "无效的网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Twitter 不应超过 100 个字符"
+msgid "X handle must not exceed 100 characters"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2280,8 +2280,8 @@ msgid "Website"
 msgstr "网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "推特"
+msgid "X"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"

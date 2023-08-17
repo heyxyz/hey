@@ -322,7 +322,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                     className="h-4 w-4"
                     height={16}
                     width={16}
-                    alt="Twitter Logo"
+                    alt="X Logo"
                   />
                 ) : (
                   <img
@@ -330,7 +330,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                     className="h-4 w-4"
                     height={16}
                     width={16}
-                    alt="Twitter Logo"
+                    alt="X Logo"
                   />
                 )
               }
