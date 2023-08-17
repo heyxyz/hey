@@ -26,8 +26,6 @@ interface GlobalModalState {
     reportProfileModal: boolean,
     reportingProfile: Profile | null
   ) => void;
-  showNftAvatarModal: boolean;
-  setShowNftAvatarModal: (showNftAvatarModal: boolean) => void;
 }
 
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
@@ -57,8 +55,5 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showReportProfileModal: false,
   reportingProfile: null,
   setShowReportProfileModal: (showReportProfileModal, reportingProfile) =>
-    set(() => ({ showReportProfileModal, reportingProfile })),
-  showNftAvatarModal: false,
-  setShowNftAvatarModal: (showNftAvatarModal) =>
-    set(() => ({ showNftAvatarModal }))
+    set(() => ({ showReportProfileModal, reportingProfile }))
 }));

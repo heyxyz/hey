@@ -17,9 +17,9 @@ import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { mainnet } from 'wagmi/chains';
 
-type PickerProps = {
+interface PickerProps {
   onlyAllowOne?: boolean;
-};
+}
 
 const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);

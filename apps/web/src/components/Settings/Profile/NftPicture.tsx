@@ -4,17 +4,16 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Button, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { type FC, useState } from 'react';
+
+import NftAvatarModal from './NftAvatarModal';
 
 interface NftPictureProps {
   profile: Profile;
 }
 
 const NftPicture: FC<NftPictureProps> = ({ profile }) => {
-  const setShowNftAvatarModal = useGlobalModalStateStore(
-    (state) => state.setShowNftAvatarModal
-  );
+  const [showNftAvatarModal, setShowNftAvatarModal] = useState<boolean>(false);
 
   return (
     <div>
@@ -30,6 +29,10 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
       >
         <Trans>Choose NFT Avatar</Trans>
       </Button>
+      <NftAvatarModal
+        showNftAvatarModal={showNftAvatarModal}
+        setShowNftAvatarModal={setShowNftAvatarModal}
+      />
     </div>
   );
 };

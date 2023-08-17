@@ -12,23 +12,27 @@ import {
   useNftChallengeLazyQuery
 } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
-import { Button, ErrorMessage, Spinner } from '@lenster/ui';
+import { Button, ErrorMessage, Modal, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignMessage, useSignTypedData } from 'wagmi';
 
-const NftAvatarModal: FC = () => {
-  const setShowNftAvatarModal = useGlobalModalStateStore(
-    (state) => state.setShowNftAvatarModal
-  );
+interface NftAvatarModalProps {
+  showNftAvatarModal: boolean;
+  setShowNftAvatarModal: Dispatch<SetStateAction<boolean>>
+}
+
+const NftAvatarModal: FC<NftAvatarModalProps> = ({
+  showNftAvatarModal,
+  setShowNftAvatarModal
+}) => {
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const [isLoading, setIsLoading] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -164,33 +168,40 @@ const NftAvatarModal: FC = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      {error && (
-        <ErrorMessage
-          className="mb-3"
-          title={t`Transaction failed!`}
-          error={error}
-        />
-      )}
-      <div className="mb-4 mr-1 flex h-[70vh] overflow-y-scroll">
-        {currentProfile && <Picker onlyAllowOne={true} />}
+    <Modal
+      size="lg"
+      title={t`Select a NFT`}
+      show={showNftAvatarModal}
+      onClose={() => setShowNftAvatarModal(false)}
+    >
+      <div className="flex flex-col">
+        {error && (
+          <ErrorMessage
+            className="mb-3"
+            title={t`Transaction failed!`}
+            error={error}
+          />
+        )}
+        <div className="mb-4 mr-1 flex h-[70vh] overflow-y-scroll">
+          <Picker onlyAllowOne={true} />
+        </div>
+        <div className="ml-auto flex items-center space-x-2 p-4">
+          <Button
+            onClick={setAvatar}
+            disabled={isLoading || gallery.items.length === 0}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="h-4 w-4" />
+              )
+            }
+          >
+            <Trans>Save</Trans>
+          </Button>
+        </div>
       </div>
-      <div className="ml-auto flex items-center space-x-2 p-4">
-        <Button
-          onClick={setAvatar}
-          disabled={isLoading || gallery.items.length === 0}
-          icon={
-            isLoading ? (
-              <Spinner size="xs" />
-            ) : (
-              <PencilIcon className="h-4 w-4" />
-            )
-          }
-        >
-          <Trans>Save</Trans>
-        </Button>
-      </div>
-    </div>
+    </Modal>
   );
 };
 
