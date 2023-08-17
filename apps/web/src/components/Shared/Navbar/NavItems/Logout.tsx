@@ -46,7 +46,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         onClick?.();
       }}
       className={clsx(
-        'flex w-full px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >

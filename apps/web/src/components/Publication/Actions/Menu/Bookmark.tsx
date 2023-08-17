@@ -108,7 +108,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
       onClick={(event) => {
