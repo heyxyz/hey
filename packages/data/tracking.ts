@@ -162,6 +162,7 @@ export const MISCELLANEOUS = {
   OPEN_TRENDING_TAG: 'Open trending tag',
   SELECT_LOCALE: 'Select locale',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
+  OPEN_GITCOIN: 'Open Gitcoin',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_GITHUB: 'Open GitHub',

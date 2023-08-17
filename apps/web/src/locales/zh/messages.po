@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-16 00:08\n"
+"PO-Revision-Date: 2023-08-17 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -455,6 +455,10 @@ msgstr "正在关注"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "精彩内容"
+
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -3041,21 +3045,6 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is staff member"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is gardener member"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is trusted member"
-#~ msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
