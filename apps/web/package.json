@@ -53,7 +53,7 @@
     "dayjs-twitter": "^0.5.0",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.6",
-    "framer-motion": "^10.15.2",
+    "framer-motion": "^10.16.0",
     "graphql": "^16.8.0",
     "idb-keyval": "^6.2.1",
     "lexical": "^0.12.0",

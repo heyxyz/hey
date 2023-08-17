@@ -456,6 +456,10 @@ msgstr ""
 msgid "Highlights"
 msgstr ""
 
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr "Contribute now"
+
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
 msgstr ""
@@ -3041,21 +3045,6 @@ msgstr "You don't have enough <0>{currency}</0>"
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is staff member"
-#~ msgstr "Is staff member"
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is gardener member"
-#~ msgstr "Is gardener member"
-
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Access.tsx
-#~ msgid "Is trusted member"
-#~ msgstr "Is trusted member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
