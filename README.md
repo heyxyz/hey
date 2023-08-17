@@ -20,9 +20,6 @@
     <a href="https://translate.lenster.xyz">
         <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
     </a>
-    <a href="https://gitpod.io/#https://github.com/lensterxyz/lenster">
-        <img src="https://img.shields.io/badge/setup-automated-blue?logo=gitpod" alt="GitPod">
-    </a>
     <a href="https://status.lenster.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
