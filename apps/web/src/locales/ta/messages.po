@@ -2227,22 +2227,6 @@ msgid "Select a NFT"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Contract address should be within 42 characters"
-#~ msgstr "ஒப்பந்த முகவரி 42 எழுத்துகளுக்குள் இருக்க வேண்டும்"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Invalid Contract address"
-#~ msgstr "தவறான ஒப்பந்த முகவரி"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Contract Address"
-#~ msgstr "ஒப்பந்த முகவரி"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Token Id"
-#~ msgstr "டோக்கன் ஐடி"
-
-#: src/components/Settings/Profile/NftPicture.tsx
 msgid "Choose NFT Avatar"
 msgstr ""
 
