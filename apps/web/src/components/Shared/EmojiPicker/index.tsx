@@ -1,27 +1,40 @@
-import { Menu } from '@headlessui/react';
 import { EmojiHappyIcon } from '@heroicons/react/outline';
-import type { FC } from 'react';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
-import MenuTransition from '../MenuTransition';
 import List from './List';
 
 interface EmojiPickerProps {
   emoji?: string | null;
   setEmoji: (emoji: string) => void;
+  showEmojiPicker: boolean;
+  setShowEmojiPicker: Dispatch<SetStateAction<boolean>>;
 }
 
-const EmojiPicker: FC<EmojiPickerProps> = ({ emoji, setEmoji }) => {
+const EmojiPicker: FC<EmojiPickerProps> = ({
+  emoji,
+  setEmoji,
+  showEmojiPicker,
+  setShowEmojiPicker
+}) => {
   return (
-    <Menu as="div" className="relative">
-      <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
+    <div className="relative">
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          stopEventPropagation(e);
+          setShowEmojiPicker(!showEmojiPicker);
+        }}
+        className="rounded-md p-1 hover:bg-gray-300/20"
+      >
         {emoji ? <span>{emoji}</span> : <EmojiHappyIcon className="h-5 w-5" />}
-      </Menu.Button>
-      <MenuTransition>
-        <div className="fixed z-[5] mt-1 w-2/4 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+      </div>
+      {showEmojiPicker && (
+        <div className="fixed z-[5] mt-1 w-2/4 w-[300px] rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900">
           <List setEmoji={setEmoji} />
         </div>
-      </MenuTransition>
-    </Menu>
+      )}
+    </div>
   );
 };
 

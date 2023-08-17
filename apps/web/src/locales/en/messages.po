@@ -83,7 +83,7 @@ msgstr ""
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -91,6 +91,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Access"
 msgstr "Access"
 
@@ -328,7 +329,7 @@ msgstr "Momoka is currently in beta - during this time certain actions are not a
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -382,6 +383,14 @@ msgstr "Explore • {APP_NAME}"
 #: src/components/Home/ForYou.tsx
 msgid "Failed to load for you"
 msgstr "Failed to load for you"
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Personalized"
+msgstr "Personalized"
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Global"
+msgstr "Global"
 
 #: src/components/Home/Algorithms/index.tsx
 #: src/components/Home/Algorithms/index.tsx
@@ -446,6 +455,10 @@ msgstr ""
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr ""
+
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr "Contribute now"
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -2204,26 +2217,18 @@ msgstr "Interests settings • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr ""
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr "Select a NFT"
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr ""
+msgid "Choose NFT Avatar"
+msgstr "Choose NFT Avatar"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2251,8 +2256,8 @@ msgid "Invalid website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgid "X handle must not exceed 100 characters"
+msgstr "X handle must not exceed 100 characters"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2275,8 +2280,8 @@ msgid "Website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr ""
+msgid "X"
+msgstr "X"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -2804,6 +2809,22 @@ msgstr "Bookmarks"
 msgid "Contact"
 msgstr ""
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr "Toggling gardener mode..."
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr "Gardener mode toggled!"
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr "Failed to toggle gardener mode!"
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr "Gardener mode"
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr ""
@@ -2811,14 +2832,6 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr "Disable mod mode"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
-msgstr "Enable mod mode"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2829,12 +2842,20 @@ msgid "Settings"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
-msgstr ""
+msgid "Toggling staff mode..."
+msgstr "Toggling staff mode..."
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
-msgstr ""
+msgid "Staff mode toggled!"
+msgstr "Staff mode toggled!"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr "Failed to toggle staff mode!"
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
+msgstr "Staff mode"
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
@@ -3016,6 +3037,42 @@ msgstr "You don't have enough <0>{currency}</0>"
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Updating access..."
+msgstr "Updating access..."
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Access updated"
+msgstr "Access updated"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Error updating access"
+msgstr "Error updating access"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Verified member"
+msgstr "Verified member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Staff member"
+msgstr "Staff member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Gardener member"
+msgstr "Gardener member"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Trusted member"
+msgstr "Trusted member"
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Scores"
+msgstr "Scores"
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Followship Rank"

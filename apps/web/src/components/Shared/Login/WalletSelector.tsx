@@ -15,7 +15,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
@@ -32,8 +32,8 @@ import {
 } from 'wagmi';
 
 interface WalletSelectorProps {
-  setHasConnected: Dispatch<boolean>;
-  setHasProfile: Dispatch<boolean>;
+  setHasConnected: Dispatch<SetStateAction<boolean>>;
+  setHasProfile: Dispatch<SetStateAction<boolean>>;
 }
 
 const WalletSelector: FC<WalletSelectorProps> = ({
@@ -55,7 +55,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
   const isMounted = useIsMounted();
   const { chain } = useNetwork();
-  const { connectors, error, connectAsync } = useConnect({ chainId: CHAIN_ID });
+  const {
+    connectors,
+    error,
+    connectAsync,
+    isLoading: isConnectLoading,
+    pendingConnector
+  } = useConnect({ chainId: CHAIN_ID });
+
   const { disconnect } = useDisconnect();
   const { address, connector: activeConnector } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
@@ -211,14 +218,19 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                 : getWalletDetails(connector.name).name}
               {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
-            <img
-              src={getWalletDetails(connector.name).logo}
-              draggable={false}
-              className="h-6 w-6"
-              height={24}
-              width={24}
-              alt={connector.id}
-            />
+            <div className="flex items-center space-x-4">
+              {isConnectLoading && pendingConnector?.id === connector.id && (
+                <Spinner className="mr-0.5" size="xs" />
+              )}
+              <img
+                src={getWalletDetails(connector.name).logo}
+                draggable={false}
+                className="h-6 w-6"
+                height={24}
+                width={24}
+                alt={connector.id}
+              />
+            </div>
           </button>
         );
       })}

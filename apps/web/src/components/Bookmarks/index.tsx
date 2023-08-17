@@ -36,7 +36,7 @@ const Bookmarks: NextPage = () => {
     <GridLayout>
       <MetaTags title={t`Bookmarks • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
-        <FeedFocusType setFocus={setFocus} focus={focus} />
+        <FeedFocusType focus={focus} setFocus={setFocus} />
         <Feed focus={focus} />
       </GridItemEight>
       <GridItemFour>

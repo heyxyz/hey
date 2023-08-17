@@ -5,11 +5,12 @@ import { useProfileLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import hasMisused from '@lenster/lib/hasMisused';
-import isVerified from '@lenster/lib/isVerified';
 import nFormatter from '@lenster/lib/nFormatter';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
+import isVerified from '@lib/isVerified';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import clsx from 'clsx';
@@ -114,7 +115,7 @@ const UserPreview: FC<UserPreviewProps> = ({
                 'linkify break-words leading-6'
               )}
             >
-              <Markup>{lazyProfile?.bio}</Markup>
+              <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
             </div>
           )}
         </div>

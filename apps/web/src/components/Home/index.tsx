@@ -4,9 +4,7 @@ import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
 import Spaces from '@components/Spaces';
 import { HomeFeedType } from '@lenster/data/enums';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -21,6 +19,7 @@ import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import ForYou from './ForYou';
+import Gitcoin from './Gitcoin';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
@@ -34,9 +33,6 @@ const Home: NextPage = () => {
   const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
   const [feedType, setFeedType] = useState<HomeFeedType>(
     HomeFeedType.FOLLOWING
-  );
-  const isAlgorithmicFeedEnabled = isFeatureEnabled(
-    FeatureFlag.AlgorithmicFeed
   );
 
   useEffectOnce(() => {
@@ -55,9 +51,7 @@ const Home: NextPage = () => {
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
-                {isAlgorithmicFeedEnabled && (
-                  <Tabs feedType={feedType} setFeedType={setFeedType} />
-                )}
+                <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
               {feedType === HomeFeedType.FOR_YOU ? (
                 <ForYou />
@@ -74,6 +68,7 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
+          <Gitcoin />
           {currentProfile ? (
             <>
               <EnableDispatcher />

@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import useStaffMode from 'src/hooks/useStaffMode';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 
 import MenuItems from './MenuItems';
@@ -19,9 +19,9 @@ import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const { allowed: staffMode } = useStaffMode();
   const router = useRouter();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const staffMode = useAccessStore((state) => state.staffMode);
 
   const onProfileSelected = (profile: Profile) => {
     router.push(`/u/${formatHandle(profile?.handle)}`);

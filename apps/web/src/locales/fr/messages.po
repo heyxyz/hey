@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-08 00:09\n"
+"PO-Revision-Date: 2023-08-17 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -83,7 +83,7 @@ msgstr "Annuler"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -91,6 +91,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Access"
 msgstr ""
 
@@ -328,7 +329,7 @@ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -381,6 +382,14 @@ msgstr ""
 #: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 msgid "Failed to load for you"
+msgstr ""
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Personalized"
+msgstr ""
+
+#: src/components/Home/Algorithms/List.tsx
+msgid "Global"
 msgstr ""
 
 #: src/components/Home/Algorithms/index.tsx
@@ -445,6 +454,10 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
+msgstr ""
+
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -2204,25 +2217,17 @@ msgstr ""
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
+msgid "Choose NFT Avatar"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
@@ -2251,7 +2256,7 @@ msgid "Invalid website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
+msgid "X handle must not exceed 100 characters"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2275,7 +2280,7 @@ msgid "Website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
+msgid "X"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
@@ -2804,20 +2809,28 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
-msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr ""
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
@@ -2829,11 +2842,19 @@ msgid "Settings"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
+msgid "Toggling staff mode..."
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
+msgid "Staff mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
@@ -3015,6 +3036,42 @@ msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Updating access..."
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Access updated"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Error updating access"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Verified member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Staff member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Gardener member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Trusted member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Scores"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx

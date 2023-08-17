@@ -13,7 +13,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import trimify from '@lenster/lib/trimify';
 import { Button, Modal, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -30,7 +30,7 @@ enum CreateSteps {
 
 interface CreateProps {
   showModal: boolean;
-  setShowModal: Dispatch<boolean>;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
@@ -38,6 +38,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
@@ -275,7 +276,11 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         )}
         <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
           {currentStep === 'NAME' ? (
-            <EmojiPicker setEmoji={(emoji) => onPickEmoji(emoji)} />
+            <EmojiPicker
+              setShowEmojiPicker={setShowEmojiPicker}
+              showEmojiPicker={showEmojiPicker}
+              setEmoji={(emoji) => onPickEmoji(emoji)}
+            />
           ) : (
             <Trans>{gallery.items.length} selected</Trans>
           )}
