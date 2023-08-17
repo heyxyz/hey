@@ -34,14 +34,14 @@ import {
 } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
-import getAssetAddress from '@lenster/lib/getAssetAddress';
+import getAssetSymbol from '@lenster/lib/getAssetSymbol';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
-import getCoingeckoPrice from '@lib/getCoingeckoPrice';
+import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -194,8 +194,8 @@ const CollectModule: FC<CollectModuleProps> = ({
     });
 
   const { data: usdPrice } = useQuery(
-    ['coingeckoData'],
-    () => getCoingeckoPrice(getAssetAddress(currency)).then((res) => res),
+    ['redstoneData'],
+    () => getRedstonePrice(getAssetSymbol(currency)).then((res) => res),
     { enabled: Boolean(amount) }
   );
 
