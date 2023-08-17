@@ -51,8 +51,8 @@ test.describe('Profile sidebar', () => {
       );
     });
 
-    test('should have meta twitter', async ({ page }) => {
-      await expect(page.getByTestId('profile-meta-twitter')).toContainText(
+    test('should have meta x', async ({ page }) => {
+      await expect(page.getByTestId('profile-meta-x')).toContainText(
         'yogicodes'
       );
     });
