@@ -77,6 +77,18 @@ export const NOTIFICATION = {
   SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
 };
 
+export const HOME = {
+  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
+  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
+  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
+  SELECT_USER_FEED: 'Select user feed',
+  ALGORITHMS: {
+    OPEN_ALGORITHMS: 'Open algorithms modal',
+    TOGGLE_ALGORITHM: 'Toggle algorithm',
+    SWITCH_ALGORITHMIC_FEED: 'Switch to algorithmic feed'
+  }
+};
+
 export const EXPLORE = {
   SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
   SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
@@ -131,9 +143,9 @@ export const INVITE = {
   INVITE: 'Invite address'
 };
 
-export const MOD = {
-  TOGGLE_MODE: 'Toggle mod mode',
-  REPORT: 'Mod report'
+export const GARDENER = {
+  TOGGLE_MODE: 'Toggle gardener mode',
+  REPORT: 'Gardener report'
 };
 
 export const STAFFTOOLS = {
@@ -148,12 +160,9 @@ export const SYSTEM = {
 export const MISCELLANEOUS = {
   OPEN_RECOMMENDED_PROFILES: 'Open recommended profiles modal',
   OPEN_TRENDING_TAG: 'Open trending tag',
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
-  SWITCH_FOLLOWING_FEED: 'Switch to following feed',
-  SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
-  SELECT_USER_FEED: 'Select user feed',
   SELECT_LOCALE: 'Select locale',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
+  OPEN_GITCOIN: 'Open Gitcoin',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_GITHUB: 'Open GitHub',
@@ -193,11 +202,12 @@ export const ALL_EVENTS = {
   ...PROFILE,
   ...PUBLICATION,
   ...NOTIFICATION,
+  ...HOME,
   ...EXPLORE,
   ...MESSAGES,
   ...SETTINGS,
   ...INVITE,
-  ...MOD,
+  ...GARDENER,
   ...STAFFTOOLS,
   ...SYSTEM,
   ...MISCELLANEOUS,

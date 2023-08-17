@@ -3,7 +3,7 @@ import { useEventListener, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getAvatar from '@lenster/lib/getAvatar';
-import isVerified from '@lenster/lib/isVerified';
+import isVerified from '@lib/isVerified';
 import { Image } from '@lenster/ui';
 import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';

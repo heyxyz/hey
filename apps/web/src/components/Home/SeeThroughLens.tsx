@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
+import { HOME } from '@lenster/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
@@ -181,7 +181,7 @@ const SeeThroughLens: FC = () => {
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');
-                      Leafwatch.track(MISCELLANEOUS.SELECT_USER_FEED, {
+                      Leafwatch.track(HOME.SELECT_USER_FEED, {
                         see_through_profile: profile.id
                       });
                     }}

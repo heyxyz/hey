@@ -81,7 +81,7 @@ const SpaceSettings: FC = () => {
               setOn={() => setIsRecordingOn(!isRecordingOn)}
             />
           </div>
-          <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
+          <div className="flex flex-col items-start text-sm text-neutral-400 dark:text-neutral-500">
             <Trans>Record Spaces</Trans>
           </div>
           <div>
@@ -91,12 +91,12 @@ const SpaceSettings: FC = () => {
             />
           </div>
           <div className="flex items-start gap-1">
-            <div className="flex flex-col items-start text-neutral-400 dark:text-neutral-500">
+            <div className="flex flex-col items-start text-sm text-neutral-400 dark:text-neutral-500">
               <Trans>Token gate with</Trans>
             </div>
             <Menu as="div" className="relative">
               <Menu.Button className="flex items-start gap-1">
-                <span className="flex items-center gap-1 text-neutral-500 dark:text-neutral-300">
+                <span className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-300">
                   <Trans>
                     {selectedDropdown !== TokenGateCondition.HAVE_A_LENS_PROFILE
                       ? selectedDropdown ===
@@ -111,7 +111,7 @@ const SpaceSettings: FC = () => {
                 </span>
               </Menu.Button>
               <MenuTransition>
-                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg focus:outline-none dark:bg-gray-900">
+                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white text-sm shadow-lg focus:outline-none dark:bg-gray-900">
                   <Module
                     title="have a lens profile"
                     onClick={() =>

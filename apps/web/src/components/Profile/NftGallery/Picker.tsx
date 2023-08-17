@@ -17,7 +17,11 @@ import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { mainnet } from 'wagmi/chains';
 
-const Picker: FC = () => {
+interface PickerProps {
+  onlyAllowOne?: boolean;
+}
+
+const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
@@ -80,11 +84,24 @@ const Picker: FC = () => {
     if (gallery.items.length === 50) {
       return toast.error(t`Only 50 items allowed for gallery`);
     }
+
     const customId = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
     const nft = {
       itemId: customId,
       ...item
     };
+
+    if (onlyAllowOne) {
+      setGallery({
+        ...gallery,
+        name: '',
+        items: [nft],
+        toAdd: [],
+        toRemove: []
+      });
+      return;
+    }
+
     const alreadySelectedIndex = gallery.items.findIndex(
       (n) => n.itemId === customId
     );
@@ -143,7 +160,7 @@ const Picker: FC = () => {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3 md:grid-cols-4">
       {nfts?.map((nft, index) => {
         const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
         const isSelected = selectedItems.includes(id);
@@ -156,7 +173,7 @@ const Picker: FC = () => {
             )}
           >
             {isSelected && (
-              <button className="bg-brand-500 absolute right-2 top-2 rounded-full">
+              <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
                 <CheckIcon className="h-5 w-5 p-1 text-white" />
               </button>
             )}

@@ -7,7 +7,7 @@ import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useSendTransaction, useWaitForTransaction } from 'wagmi';
@@ -16,7 +16,7 @@ interface AllowanceButtonProps {
   title?: string;
   module: ApprovedAllowanceAmount;
   allowed: boolean;
-  setAllowed: Dispatch<boolean>;
+  setAllowed: Dispatch<SetStateAction<boolean>>;
 }
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({

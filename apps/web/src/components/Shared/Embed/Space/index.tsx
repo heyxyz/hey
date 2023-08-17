@@ -66,7 +66,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       <div className="mt-2 space-y-3">
         <b className="text-lg">{metadata.content}</b>
         <Button
-          className="!mt-4 flex w-full justify-center"
+          className="!md:pointer-events-none !mt-4 flex w-full justify-center"
           disabled={signing}
           icon={
             signing ? (
@@ -88,7 +88,8 @@ const Space: FC<SpaceProps> = ({ publication }) => {
             signMessage({ message: msg.message });
           }}
         >
-          Open Space
+          <div className="hidden md:block"> Open Space </div>
+          <div className="md:hidden"> Spaces will open in desktop only </div>
         </Button>
       </div>
     </Wrapper>

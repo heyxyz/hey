@@ -1,5 +1,5 @@
 import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
-import { MOD } from '@lenster/data/tracking';
+import { GARDENER } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
@@ -71,7 +71,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
           Promise.all(
             config.map(async ({ type, subreason }) => {
               await reportPublication({ type, subreason });
-              Leafwatch.track(MOD.REPORT, {
+              Leafwatch.track(GARDENER.REPORT, {
                 report_reason: type,
                 report_subreason: subreason,
                 report_publication_id: publication?.id

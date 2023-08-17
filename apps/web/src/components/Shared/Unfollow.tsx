@@ -13,7 +13,7 @@ import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -21,7 +21,7 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
   profile: Profile;
-  setFollowing: Dispatch<boolean>;
+  setFollowing: (following: boolean) => void;
   showText?: boolean;
 }
 

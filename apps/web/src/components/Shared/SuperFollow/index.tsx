@@ -6,7 +6,7 @@ import { Button, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import dynamic from 'next/dynamic';
-import type { Dispatch, FC } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -20,7 +20,7 @@ const FollowModule = dynamic(() => import('./FollowModule'), {
 
 interface SuperFollowProps {
   profile: Profile;
-  setFollowing: Dispatch<boolean>;
+  setFollowing: (following: boolean) => void;
   showText?: boolean;
   again?: boolean;
 

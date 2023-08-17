@@ -121,7 +121,7 @@ const PollEditor: FC = () => {
             />
           </div>
         ))}
-        {pollConfig.choices.length !== 5 && (
+        {pollConfig.choices.length !== 10 && (
           <button
             className="text-brand mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {

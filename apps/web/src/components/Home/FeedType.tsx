@@ -6,27 +6,24 @@ import {
 import { IS_MAINNET } from '@lenster/data/constants';
 import { HomeFeedType } from '@lenster/data/enums';
 import { FeatureFlag } from '@lenster/data/feature-flags';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
+import { HOME } from '@lenster/data/tracking';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import type { Dispatch, FC } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
 
 interface FeedTypeProps {
-  setFeedType: Dispatch<HomeFeedType>;
+  setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
   feedType: HomeFeedType;
 }
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const isForYouEnabled = isFeatureEnabled(FeatureFlag.ForYou);
-  const isAlgorithmicFeedEnabled = isFeatureEnabled(
-    FeatureFlag.AlgorithmicFeed
-  );
 
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
@@ -37,7 +34,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           active={feedType === HomeFeedType.FOLLOWING}
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
-            Leafwatch.track(MISCELLANEOUS.SWITCH_FOLLOWING_FEED);
+            Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
         {isForYouEnabled && (
@@ -47,7 +44,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             active={feedType === HomeFeedType.FOR_YOU}
             onClick={() => {
               setFeedType(HomeFeedType.FOR_YOU);
-              Leafwatch.track(MISCELLANEOUS.SWITCH_FOR_YOU_FEED);
+              Leafwatch.track(HOME.SWITCH_FOR_YOU_FEED);
             }}
           />
         )}
@@ -57,7 +54,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           active={feedType === HomeFeedType.HIGHLIGHTS}
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
-            Leafwatch.track(MISCELLANEOUS.SWITCH_HIGHLIGHTS_FEED);
+            Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
           }}
         />
       </div>
@@ -65,7 +62,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         {(feedType === HomeFeedType.FOLLOWING ||
           feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
-        {IS_MAINNET && isAlgorithmicFeedEnabled && <Algorithms />}
+        {IS_MAINNET && <Algorithms />}
       </div>
     </div>
   );

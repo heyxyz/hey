@@ -1,8 +1,13 @@
+import response from '@lenster/lib/response';
+
 import type { Env } from '../types';
 
 export default async (hash: string, env: Env) => {
   if (!hash) {
-    return new Response('IPFS hash is required', { status: 400 });
+    return response({
+      success: false,
+      message: 'IPFS hash is required!'
+    });
   }
 
   try {

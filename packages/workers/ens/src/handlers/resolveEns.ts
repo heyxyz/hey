@@ -1,6 +1,7 @@
+import { Errors } from '@lenster/data/errors';
 import getRpc from '@lenster/lib/getRpc';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
-import { error } from 'itty-router';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';
@@ -20,15 +21,13 @@ const validationSchema = object({
 export default async (request: IRequest) => {
   const body = await request.json();
   if (!body) {
-    return error(400, 'Bad request!');
+    return response({ success: false, error: Errors.NoBody });
   }
 
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
-    return new Response(
-      JSON.stringify({ success: false, error: validation.error.issues })
-    );
+    return response({ success: false, error: validation.error.issues });
   }
 
   const { addresses } = body as ExtensionRequest;
@@ -46,7 +45,7 @@ export default async (request: IRequest) => {
       functionName: 'getNames'
     });
 
-    return new Response(JSON.stringify({ success: true, data }));
+    return response({ success: true, data });
   } catch (error) {
     throw error;
   }

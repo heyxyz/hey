@@ -11,7 +11,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import hasMisused from '@lenster/lib/hasMisused';
 import imageKit from '@lenster/lib/imageKit';
-import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -21,6 +20,7 @@ import {
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
+import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';

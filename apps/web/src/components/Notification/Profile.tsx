@@ -3,9 +3,9 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import hasMisused from '@lenster/lib/hasMisused';
-import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
+import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
 

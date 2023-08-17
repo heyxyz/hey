@@ -18,7 +18,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
   return (
     <button
       className={clsx(
-        'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => {

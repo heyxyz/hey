@@ -15,8 +15,8 @@ import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
-import useStaffMode from 'src/hooks/useStaffMode';
 import Custom404 from 'src/pages/404';
+import { useAccessStore } from 'src/store/access';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from './Sidebar';
@@ -66,7 +66,7 @@ const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
 };
 
 const RelayQueues: NextPage = () => {
-  const { allowed } = useStaffMode();
+  const staffMode = useAccessStore((state) => state.staffMode);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });
@@ -76,7 +76,7 @@ const RelayQueues: NextPage = () => {
     pollInterval: 5000
   });
 
-  if (!allowed) {
+  if (!staffMode) {
     return <Custom404 />;
   }
 

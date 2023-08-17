@@ -28,8 +28,8 @@ import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
-import useStaffMode from 'src/hooks/useStaffMode';
 import Custom404 from 'src/pages/404';
+import { useAccessStore } from 'src/store/access';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from '../Sidebar';
@@ -83,7 +83,7 @@ const StatBox: FC<StatBoxProps> = ({
 );
 
 const Stats: NextPage = () => {
-  const { allowed } = useStaffMode();
+  const staffMode = useAccessStore((state) => state.staffMode);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
@@ -114,7 +114,7 @@ const Stats: NextPage = () => {
       }
     });
 
-  if (!allowed) {
+  if (!staffMode) {
     return <Custom404 />;
   }
 
