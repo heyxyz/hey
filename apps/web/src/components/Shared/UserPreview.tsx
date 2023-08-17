@@ -8,6 +8,7 @@ import hasMisused from '@lenster/lib/hasMisused';
 import nFormatter from '@lenster/lib/nFormatter';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
 import isVerified from '@lib/isVerified';
 import { Plural } from '@lingui/macro';
@@ -114,7 +115,7 @@ const UserPreview: FC<UserPreviewProps> = ({
                 'linkify break-words leading-6'
               )}
             >
-              <Markup>{lazyProfile?.bio}</Markup>
+              <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
             </div>
           )}
         </div>
