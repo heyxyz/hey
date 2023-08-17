@@ -8,7 +8,7 @@ describe('getProfileAttribute', () => {
     const attributes: Attribute[] = [
       { key: 'hasPrideLogo', value: 'true' },
       { key: 'app', value: 'Lenster' },
-      { key: 'twitter', value: '@mytwitter' },
+      { key: 'x', value: '@myx' },
       { key: 'location', value: 'New York' },
       { key: 'website', value: 'https://www.example.com' },
       { key: 'statusEmoji', value: '👋' },
