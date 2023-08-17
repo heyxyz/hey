@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-16 00:08\n"
+"PO-Revision-Date: 2023-08-17 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -454,6 +454,10 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
+msgstr ""
+
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -3056,17 +3060,22 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is staff member"
+msgid "Verified member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is gardener member"
+msgid "Staff member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-msgid "Is trusted member"
+msgid "Gardener member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Trusted member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
