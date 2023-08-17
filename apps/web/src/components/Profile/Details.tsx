@@ -318,7 +318,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               icon={
                 resolvedTheme === 'dark' ? (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-dark.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-dark.png`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
@@ -326,7 +326,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   />
                 ) : (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-light.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-light.png`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
