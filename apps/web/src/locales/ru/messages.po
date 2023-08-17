@@ -344,6 +344,18 @@ msgstr "Прокомментировать"
 msgid "Post"
 msgstr "Опубликовать"
 
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard Post"
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard"
+msgstr ""
+
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
