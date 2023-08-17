@@ -90,6 +90,7 @@ import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import Discard from './Post/Discard';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -137,6 +138,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
+  );
+  const showDiscardModal = useGlobalModalStateStore(
+    (state) => state.showDiscardModal
+  );
+  const setShowDiscardModal = useGlobalModalStateStore(
+    (state) => state.setShowDiscardModal
   );
 
   // Nonce store
@@ -226,6 +233,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     });
     resetCollectSettings();
     resetAccessSettings();
+
     if (!isComment) {
       setShowNewPostModal(false);
     }
@@ -856,6 +864,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       pollConfig.choices.some((choice) => !choice.length)
     : false;
 
+  const onDiscardClick = () => {
+    setShowNewPostModal(false);
+    setShowDiscardModal(false);
+  };
+
   useUnmountEffect(() => {
     setPublicationContent('');
     setQuotedPublication(null);
@@ -870,6 +883,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetCollectSettings();
     resetAccessSettings();
   });
+
+  if (showDiscardModal) {
+    return <Discard onDiscard={onDiscardClick} />;
+  }
 
   return (
     <Card
