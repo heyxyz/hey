@@ -17,7 +17,7 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
     <button
       type="button"
       className={clsx(
-        'flex w-full px-4 py-1.5 text-sm text-gray-700 focus:outline-none dark:text-gray-200',
+        'flex w-full px-2 py-1.5 text-sm text-gray-700 focus:outline-none dark:text-gray-200',
         className
       )}
       onClick={() => setShowProfileSwitchModal(true)}
