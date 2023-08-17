@@ -65,7 +65,7 @@ const editProfileSchema = object({
     string().max(0)
   ]),
   twitter: string().max(100, {
-    message: t`Twitter should not exceed 100 characters`
+    message: t`X handle must not exceed 100 characters`
   }),
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
@@ -312,9 +312,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             {...form.register('website')}
           />
           <Input
-            label={t`Twitter`}
+            label={t`X`}
             type="text"
-            prefix="https://twitter.com"
+            prefix="https://x.com"
             placeholder="gavin"
             {...form.register('twitter')}
           />
