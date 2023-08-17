@@ -7,7 +7,7 @@ interface GlobalModalState {
   showNewPostModal: boolean;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   showDiscardModal: boolean;
-  setShowDiscardModal: (showNewPostModal: boolean) => void;
+  setShowDiscardModal: (showDiscardModal: boolean) => void;
   showStatusModal: boolean;
   setShowStatusModal: (showStatusModal: boolean) => void;
   showProfileSwitchModal: boolean;
