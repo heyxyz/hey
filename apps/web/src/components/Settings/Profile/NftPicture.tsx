@@ -27,7 +27,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         icon={<PhotographIcon className="h-4 w-4" />}
         onClick={() => setShowNftAvatarModal(true)}
       >
-        <Trans>Choose NFT Avatar</Trans>
+        <Trans>Choose NFT avatar</Trans>
       </Button>
       <NftAvatarModal
         showNftAvatarModal={showNftAvatarModal}
