@@ -25,11 +25,7 @@ const NftGalleryHome: FC<NftGalleryHomeProps> = ({ profile }) => {
     return <NoGallery profile={profile} />;
   }
 
-  return (
-    <div className="space-y-4">
-      <Gallery galleries={nftGalleries} />
-    </div>
-  );
+  return <Gallery galleries={nftGalleries} />;
 };
 
 export default NftGalleryHome;

@@ -1,6 +1,11 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { DotsVerticalIcon } from '@heroicons/react/outline';
+import {
+  ArrowsExpandIcon,
+  DotsVerticalIcon,
+  PencilAltIcon,
+  TrashIcon
+} from '@heroicons/react/outline';
 import { Errors } from '@lenster/data/errors';
 import type { Nft, NftGallery } from '@lenster/lens';
 import {
@@ -112,6 +117,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
           return { tokenId, contractAddress, chainId, newOrder: newOrder ?? i };
         }
       );
+
       await orderGallery({
         variables: {
           request: {
@@ -121,9 +127,11 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
           }
         }
       });
+
       const { data } = await fetchNftGalleries({
         variables: { request: { profileId: currentProfile?.id } }
       });
+
       cache.modify({
         fields: {
           nftGalleries() {
@@ -175,40 +183,55 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 className="absolute right-0 z-[5] mt-1 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700/80 dark:bg-gray-900"
               >
                 <Menu.Item
-                  as="label"
+                  as="div"
                   onClick={onClickEditGallery}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                      'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
                 >
-                  <Trans>Edit</Trans>
+                  <div className="flex items-center space-x-2">
+                    <PencilAltIcon className="h-4 w-4" />
+                    <div>
+                      <Trans>Edit</Trans>
+                    </div>
+                  </div>
                 </Menu.Item>
                 <Menu.Item
-                  as="label"
+                  as="div"
                   onClick={onClickRearrange}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
+                      'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
                 >
-                  <Trans>Rearrrange</Trans>
+                  <div className="flex items-center space-x-2">
+                    <ArrowsExpandIcon className="h-4 w-4" />
+                    <div>
+                      <Trans>Rearrrange</Trans>
+                    </div>
+                  </div>
                 </Menu.Item>
                 <Menu.Item
-                  as="label"
+                  as="div"
                   onClick={onDelete}
                   className={({ active }) =>
                     clsx(
                       { 'dropdown-active': active },
-                      'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg hover:text-red-500'
+                      'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
                 >
-                  <Trans>Delete</Trans>
+                  <div className="flex items-center space-x-2">
+                    <TrashIcon className="h-4 w-4" />
+                    <div>
+                      <Trans>Delete</Trans>
+                    </div>
+                  </div>
                 </Menu.Item>
               </Menu.Items>
             </MenuTransition>
@@ -218,7 +241,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
       {isRearrange ? (
         <ReArrange />
       ) : (
-        <div className="grid gap-5 py-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-3">
           {nfts?.map((nft) => (
             <div
               key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}

@@ -1,4 +1,3 @@
-import EmojiPicker from '@components/Shared/EmojiPicker';
 import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { Errors } from '@lenster/data/errors';
 import type { NftGallery } from '@lenster/lens';
@@ -11,7 +10,7 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import trimify from '@lenster/lib/trimify';
-import { Button, Modal, Spinner } from '@lenster/ui';
+import { Button, Input, Modal, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
@@ -243,6 +242,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         </div>
       );
     }
+
     return t`What's your gallery name?`;
   };
 
@@ -250,48 +250,42 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
 
   return (
     <Modal
-      size={currentStep === CreateSteps.NAME ? 'sm' : 'lg'}
+      size="lg"
       title={getModalTitle()}
       show={showModal}
       onClose={closeModal}
     >
-      <div className="max-h-[80vh] overflow-y-auto pb-16">
-        {currentStep === CreateSteps.REVIEW ? (
-          <ReviewSelection />
-        ) : currentStep === CreateSteps.PICK_NFTS ? (
-          <Picker />
-        ) : (
-          <textarea
-            className="w-full resize-none border-none bg-white px-4 py-2 outline-none !ring-0 dark:bg-gray-800"
+      <div className="max-h-[80vh] overflow-y-auto p-5">
+        {currentStep === CreateSteps.NAME ? (
+          <Input
             value={gallery.name}
-            onChange={(e) =>
+            onChange={(event) =>
               setGallery({
                 ...gallery,
-                name: e.target.value,
+                name: event.target.value,
                 items: gallery.items
               })
             }
-            rows={4}
           />
+        ) : currentStep === CreateSteps.PICK_NFTS ? (
+          <Picker />
+        ) : (
+          <ReviewSelection />
         )}
-        <div className="absolute bottom-0 flex w-full items-center justify-between rounded-b-lg bg-white p-4 dark:bg-gray-800">
-          {currentStep === 'NAME' ? (
-            <EmojiPicker
-              setShowEmojiPicker={setShowEmojiPicker}
-              showEmojiPicker={showEmojiPicker}
-              setEmoji={(emoji) => onPickEmoji(emoji)}
-            />
-          ) : (
-            <Trans>{gallery.items.length} selected</Trans>
-          )}
-          <Button
-            disabled={loadingNext}
-            onClick={() => onClickNext()}
-            icon={loadingNext ? <Spinner size="xs" /> : null}
-          >
-            <Trans>Next</Trans>
-          </Button>
-        </div>
+      </div>
+      <div className="flex items-center justify-between space-x-2 border-t p-5 px-5 py-3 dark:border-t-gray-700">
+        {currentStep === 'NAME' ? (
+          <div />
+        ) : (
+          <Trans>{gallery.items.length} selected</Trans>
+        )}
+        <Button
+          disabled={loadingNext}
+          onClick={() => onClickNext()}
+          icon={loadingNext ? <Spinner size="xs" /> : null}
+        >
+          <Trans>Next</Trans>
+        </Button>
       </div>
     </Modal>
   );

@@ -1,5 +1,5 @@
-import SingleNft from '@components/Nft/SingleNft';
-import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
+import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
+import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest } from '@lenster/lens';
@@ -55,7 +55,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   });
 
   if (loading) {
-    return <NftPickerShimmer />;
+    return <NftsShimmer />;
   }
 
   if (nfts?.length === 0) {
@@ -162,7 +162,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3 md:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
       {nfts?.map((nft, index) => {
         const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
         const isSelected = selectedItems.includes(id);
