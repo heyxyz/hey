@@ -779,10 +779,6 @@ msgstr "自定义筛选"
 msgid "Gardeners"
 msgstr "守护者"
 
-#: src/components/Nft/NftFeed.tsx
-#~ msgid "doesn’t have any NFTs!"
-#~ msgstr "没有任何NFT！"
-
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr "所有通知"

@@ -779,10 +779,6 @@ msgstr "Индивидуальные фильтры"
 msgid "Gardeners"
 msgstr "Садовники"
 
-#: src/components/Nft/NftFeed.tsx
-#~ msgid "doesn’t have any NFTs!"
-#~ msgstr "не имеет NFT!"
-
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr "Все уведомления"
