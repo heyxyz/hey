@@ -5,7 +5,7 @@ import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -60,8 +60,11 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   if (nfts?.length === 0) {
     return (
-      <EmptyState
-        message={
+      <div className="flex flex-1 flex-col items-center justify-center justify-items-center space-y-2 p-5">
+        <div>
+          <CollectionIcon className="text-brand h-8 w-8" />
+        </div>
+        <div>
           <div>
             <span className="mr-1 font-bold">
               @{formatHandle(currentProfile?.handle)}
@@ -70,9 +73,8 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
               <Trans>doesn't have any NFTs!</Trans>
             </span>
           </div>
-        }
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
-      />
+        </div>
+      </div>
     );
   }
 
