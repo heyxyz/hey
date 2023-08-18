@@ -8,7 +8,7 @@ interface AppVersionProps {
 
 const AppVersion: FC<AppVersionProps> = ({ onClick }) => {
   return (
-    <div className="px-6 py-2 text-xs">
+    <div className="px-6 py-3 text-xs">
       <Link
         href={`https://github.com/lensterxyz/lenster/releases/tag/v${APP_VERSION}`}
         className="font-mono"
