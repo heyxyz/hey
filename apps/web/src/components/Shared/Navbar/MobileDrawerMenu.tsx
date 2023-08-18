@@ -2,13 +2,12 @@ import { XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isGardener from '@lenster/lib/isGardener';
-import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -16,10 +15,10 @@ import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
 import Bookmarks from './NavItems/Bookmarks';
 import Contact from './NavItems/Contact';
+import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
-import ModMode from './NavItems/ModMode';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
@@ -31,6 +30,8 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isStaff = useAccessStore((state) => state.isStaff);
+  const isGardener = useAccessStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -92,7 +93,7 @@ const MobileDrawerMenu: FC = () => {
               <Settings className={clsx(itemClass, 'px-4')} />
             </Link>
             <Bookmarks className={itemClass} onClick={closeDrawer} />
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
@@ -117,19 +118,19 @@ const MobileDrawerMenu: FC = () => {
             <Logout onClick={closeDrawer} className="py-3" />
           </div>
           <div className="divider" />
-          {isGardener(currentProfile?.id) && (
+          {isGardener && (
             <>
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <ModMode className="py-3" />
+                <GardenerMode className="py-3" />
               </div>
               <div className="divider" />
             </>
           )}
-          {isStaff(currentProfile?.id) && (
+          {isStaff && (
             <>
               <div
                 onClick={closeDrawer}

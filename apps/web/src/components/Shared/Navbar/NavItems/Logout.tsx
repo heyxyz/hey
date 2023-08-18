@@ -6,6 +6,7 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
+import { useAccessStore } from 'src/store/access';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useDisconnect } from 'wagmi';
@@ -20,6 +21,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const disconnectXmtp = useDisconnectXmtp();
 
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const resetAccess = useAccessStore((state) => state.resetAccess);
   const resetProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.resetProfileGuardianInformation
   );
@@ -29,6 +31,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     Leafwatch.track(PROFILE.LOGOUT);
     disconnectXmtp();
     setCurrentProfile(null);
+    resetAccess();
     resetProfileGuardianInformation();
     setProfileId(null);
     resetAuthData();
@@ -43,7 +46,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         onClick?.();
       }}
       className={clsx(
-        'flex w-full px-4 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >

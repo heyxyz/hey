@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.16",
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "v1",
     "@hookform/resolvers": "^3.2.0",
     "@lenster/data": "workspace:*",
@@ -22,7 +22,7 @@
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-hook-form": "^7.45.4",
-    "zod": "^3.21.4"
+    "zod": "^3.22.1"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",

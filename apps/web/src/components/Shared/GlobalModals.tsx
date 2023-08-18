@@ -10,6 +10,7 @@ import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePublicationStore } from 'src/store/publication';
 
 import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
@@ -38,8 +39,38 @@ const GlobalModals: FC = () => {
     setShowInvitesModal,
     showReportProfileModal,
     reportingProfile,
-    setShowReportProfileModal
+    setShowReportProfileModal,
+    setShowDiscardModal
   } = useGlobalModalStateStore();
+
+  const {
+    publicationContent,
+    attachments,
+    isUploading,
+    videoDurationInSeconds,
+    videoThumbnail,
+    audioPublication,
+    quotedPublication,
+    showPollEditor,
+    pollConfig
+  } = usePublicationStore();
+
+  const checkIfPublicationNotDrafted = () => {
+    if (
+      publicationContent === '' &&
+      quotedPublication === null &&
+      attachments.length === 0 &&
+      audioPublication.title === '' &&
+      videoThumbnail.url === '' &&
+      videoDurationInSeconds === '' &&
+      !showPollEditor &&
+      !isUploading &&
+      pollConfig.choices[0] === ''
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <>
@@ -90,7 +121,13 @@ const GlobalModals: FC = () => {
         title={t`Create post`}
         size="md"
         show={showNewPostModal}
-        onClose={() => setShowNewPostModal(false)}
+        onClose={() => {
+          if (checkIfPublicationNotDrafted()) {
+            setShowNewPostModal(false);
+          } else {
+            setShowDiscardModal(true);
+          }
+        }}
       >
         <NewPublication />
       </Modal>

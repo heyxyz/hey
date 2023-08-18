@@ -57,6 +57,7 @@ export const OLD_LENS_RELAYER_ADDRESS =
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
+export const SUPABASE_URL = 'https://nberpnnqcqfnrzjpnisb.supabase.co';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
@@ -102,6 +103,9 @@ export const INVITE_WORKER_URL = IS_PRODUCTION
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.lenster.xyz'
   : 'http://localhost:8092';
+export const ACCESS_WORKER_URL = IS_PRODUCTION
+  ? 'https://access.lenster.xyz'
+  : 'http://localhost:8093';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

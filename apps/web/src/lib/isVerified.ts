@@ -1,5 +1,5 @@
 import { IS_MAINNET } from '@lenster/data/constants';
-import { verified } from '@lenster/data/verified';
+import { verifiedMembers } from 'src/store/access';
 
 /**
  * Checks whether a profile is verified or not.
@@ -7,7 +7,8 @@ import { verified } from '@lenster/data/verified';
  * @param id The profile id to check.
  * @returns True if the profile is verified, false otherwise.
  */
-const isVerified = (id: string): boolean =>
-  IS_MAINNET ? verified.includes(id) : false;
+const isVerified = (id: string): boolean => {
+  return IS_MAINNET ? verifiedMembers().includes(id) : false;
+};
 
 export default isVerified;

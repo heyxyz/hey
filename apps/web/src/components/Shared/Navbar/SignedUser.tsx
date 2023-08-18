@@ -2,12 +2,11 @@ import { Menu } from '@headlessui/react';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isGardener from '@lenster/lib/isGardener';
-import isStaff from '@lenster/lib/isStaff';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -16,10 +15,10 @@ import Slug from '../Slug';
 import { NextLink } from './MenuItems';
 import MobileDrawerMenu from './MobileDrawerMenu';
 import AppVersion from './NavItems/AppVersion';
+import GardenerMode from './NavItems/GardenerMode';
 import Invites from './NavItems/Invites';
 import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
-import ModMode from './NavItems/ModMode';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
 import Status from './NavItems/Status';
@@ -29,6 +28,8 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isStaff = useAccessStore((state) => state.isStaff);
+  const isGardener = useAccessStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -124,7 +125,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Menu.Item
                 as={NextLink}
                 href={'/mod'}
@@ -138,7 +139,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <Invites />
@@ -160,7 +161,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener(currentProfile?.id) && (
+            {isGardener && (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -170,10 +171,10 @@ const SignedUser: FC = () => {
                   )
                 }
               >
-                <ModMode />
+                <GardenerMode />
               </Menu.Item>
             )}
-            {isStaff(currentProfile?.id) && (
+            {isStaff && (
               <Menu.Item
                 as="div"
                 className={({ active }) =>

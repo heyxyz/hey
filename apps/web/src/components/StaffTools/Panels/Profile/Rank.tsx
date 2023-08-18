@@ -4,8 +4,9 @@ import {
   UserAddIcon,
   UserCircleIcon
 } from '@heroicons/react/outline';
+import { HashtagIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -50,42 +51,54 @@ const Rank: FC<RankProps> = ({ profile }) => {
 
   return (
     <>
-      {followship ? (
+      <div className="mt-5 flex items-center space-x-2 text-yellow-600">
+        <HashtagIcon className="h-5 w-5" />
+        <div className="text-lg font-bold">
+          <Trans>Scores</Trans>
+        </div>
+      </div>
+      <div className="mt-3 space-y-2">
         <MetaDetails
           icon={<UserAddIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={followship.rank}
+          value={followship?.rank}
           title={t`Followship Rank`}
         >
-          {followship.rank}
+          {followship ? (
+            followship.rank
+          ) : (
+            <div className="shimmer h-4 w-5 rounded" />
+          )}
         </MetaDetails>
-      ) : null}
-      {engagement ? (
         <MetaDetails
           icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={engagement.rank}
+          value={engagement?.rank}
           title={t`Engagement Rank`}
         >
-          {engagement.rank}
+          {engagement ? (
+            engagement.rank
+          ) : (
+            <div className="shimmer h-4 w-5 rounded" />
+          )}
         </MetaDetails>
-      ) : null}
-      {influencer ? (
         <MetaDetails
           icon={<UserCircleIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={influencer.rank}
+          value={influencer?.rank}
           title={t`Influencer Rank`}
         >
-          {influencer.rank}
+          {influencer ? (
+            influencer.rank
+          ) : (
+            <div className="shimmer h-4 w-5 rounded" />
+          )}
         </MetaDetails>
-      ) : null}
-      {creator ? (
         <MetaDetails
           icon={<CurrencyDollarIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={creator.rank}
+          value={creator?.rank}
           title={t`Creator Rank`}
         >
-          {creator.rank}
+          {creator ? creator.rank : <div className="shimmer h-4 w-5 rounded" />}
         </MetaDetails>
-      ) : null}
+      </div>
     </>
   );
 };

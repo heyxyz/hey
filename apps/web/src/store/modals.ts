@@ -8,6 +8,8 @@ interface GlobalModalState {
   setShowWrongNetworkModal: (showWrongNetworkModal: boolean) => void;
   showNewPostModal: boolean;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
+  showDiscardModal: boolean;
+  setShowDiscardModal: (showDiscardModal: boolean) => void;
   showStatusModal: boolean;
   setShowStatusModal: (showStatusModal: boolean) => void;
   showProfileSwitchModal: boolean;
@@ -38,6 +40,8 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
     set(() => ({ showWrongNetworkModal })),
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
+  showDiscardModal: false,
+  setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   showPublicationReportModal: false,
   showStatusModal: false,
   setShowStatusModal: (showStatusModal) => set(() => ({ showStatusModal })),

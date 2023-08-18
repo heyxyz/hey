@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-12 00:07\n"
+"PO-Revision-Date: 2023-08-18 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -83,7 +83,7 @@ msgstr "取消"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -91,6 +91,7 @@ msgid "Save"
 msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Access"
 msgstr "访问"
 
@@ -328,7 +329,7 @@ msgstr "Momoka 目前处于测试阶段 - 在此期间，某些操作可能无�
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -342,6 +343,18 @@ msgstr "评论"
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "发帖"
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard Post"
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard"
+msgstr ""
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/AlgorithmicFeed.tsx
@@ -454,6 +467,10 @@ msgstr "正在关注"
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
 msgstr "精彩内容"
+
+#: src/components/Home/Gitcoin.tsx
+msgid "Contribute now"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
 msgid "Welcome to {APP_NAME} 👋"
@@ -2212,26 +2229,18 @@ msgstr "兴趣设置 • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr "NFT的合约地址不正确（ 42 个字符以内）"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr "合约地址无效"
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "头像更新成功！"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr "合约地址"
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr "代币ID"
+msgid "Choose NFT Avatar"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2259,8 +2268,8 @@ msgid "Invalid website"
 msgstr "无效的网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Twitter 不应超过 100 个字符"
+msgid "X handle must not exceed 100 characters"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2283,8 +2292,8 @@ msgid "Website"
 msgstr "网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "推特"
+msgid "X"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
@@ -2812,6 +2821,22 @@ msgstr ""
 msgid "Contact"
 msgstr "联系我们"
 
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Toggling gardener mode..."
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Failed to toggle gardener mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/GardenerMode.tsx
+msgid "Gardener mode"
+msgstr ""
+
 #: src/components/Shared/Navbar/NavItems/Logout.tsx
 msgid "Logout"
 msgstr "登出"
@@ -2819,14 +2844,6 @@ msgstr "登出"
 #: src/components/Shared/Navbar/NavItems/Mod.tsx
 msgid "Moderation"
 msgstr "适度"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Disable mod mode"
-msgstr "关闭管理模式"
-
-#: src/components/Shared/Navbar/NavItems/ModMode.tsx
-msgid "Enable mod mode"
-msgstr "启用管理模式"
 
 #: src/components/Shared/Navbar/NavItems/ReportBug.tsx
 msgid "Report a bug"
@@ -2837,12 +2854,20 @@ msgid "Settings"
 msgstr "设置"
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Disable staff mode"
-msgstr "禁用员工模式"
+msgid "Toggling staff mode..."
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/StaffMode.tsx
-msgid "Enable staff mode"
-msgstr "启用员工模式"
+msgid "Staff mode toggled!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Failed to toggle staff mode!"
+msgstr ""
+
+#: src/components/Shared/Navbar/NavItems/StaffMode.tsx
+msgid "Staff mode"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch Profile"
@@ -3024,6 +3049,42 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Updating access..."
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Access updated"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Error updating access"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Verified member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Staff member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Gardener member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Trusted member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Scores"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Followship Rank"

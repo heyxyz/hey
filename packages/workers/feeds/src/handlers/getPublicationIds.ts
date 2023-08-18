@@ -1,4 +1,5 @@
 import { AlgorithmProvider } from '@lenster/data/enums';
+import response from '@lenster/lib/response';
 import type { IRequest } from 'itty-router';
 
 import k3lFeed from '../providers/k3l/k3lFeed';
@@ -13,12 +14,10 @@ export default async (request: IRequest, env: Env) => {
   const offset = (parseInt(request.query?.offset as string) || 0) as number;
 
   if (!provider || !strategy) {
-    return new Response(
-      JSON.stringify({
-        success: false,
-        message: 'Missing required parameters!'
-      })
-    );
+    return response({
+      success: false,
+      message: 'Missing required parameters!'
+    });
   }
 
   try {
@@ -31,17 +30,10 @@ export default async (request: IRequest, env: Env) => {
         ids = await lensterFeed(strategy, limit, offset, env);
         break;
       default:
-        return new Response(
-          JSON.stringify({ success: false, message: 'Invalid provider' })
-        );
+        return response({ success: false, message: 'Invalid provider' });
     }
 
-    let response = new Response(JSON.stringify({ success: true, ids }));
-
-    // Cache for 10 minutes
-    response.headers.set('Cache-Control', 'max-age=600');
-
-    return response;
+    return response({ success: true, ids });
   } catch (error) {
     throw error;
   }

@@ -26,12 +26,11 @@ import getAvatar from '@lenster/lib/getAvatar';
 import getMisuseDetails from '@lenster/lib/getMisuseDetails';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasMisused from '@lenster/lib/hasMisused';
-import isStaff from '@lenster/lib/isStaff';
-import isVerified from '@lenster/lib/isVerified';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
+import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -39,7 +38,7 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import useStaffMode from 'src/hooks/useStaffMode';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 
 import Badges from './Badges';
@@ -58,10 +57,11 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isStaff = useAccessStore((state) => state.isStaff);
+  const staffMode = useAccessStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const { allowed: staffMode } = useStaffMode();
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
@@ -313,39 +313,39 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </MetaDetails>
           )}
-          {getProfileAttribute(profile?.attributes, 'twitter') && (
+          {getProfileAttribute(profile?.attributes, 'x') && (
             <MetaDetails
               icon={
                 resolvedTheme === 'dark' ? (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/twitter-light.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-dark.png`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
-                    alt="Twitter Logo"
+                    alt="X Logo"
                   />
                 ) : (
                   <img
-                    src={`${STATIC_IMAGES_URL}/brands/twitter-dark.svg`}
+                    src={`${STATIC_IMAGES_URL}/brands/x-light.png`}
                     className="h-4 w-4"
                     height={16}
                     width={16}
-                    alt="Twitter Logo"
+                    alt="X Logo"
                   />
                 )
               }
-              dataTestId="profile-meta-twitter"
+              dataTestId="profile-meta-x"
             >
               <Link
-                href={`https://twitter.com/${getProfileAttribute(
+                href={`https://x.com/${getProfileAttribute(
                   profile?.attributes,
-                  'twitter'
-                )?.replace('https://twitter.com/', '')}`}
+                  'x'
+                )?.replace('https://x.com/', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getProfileAttribute(profile?.attributes, 'twitter')?.replace(
-                  'https://twitter.com/',
+                {getProfileAttribute(profile?.attributes, 'x')?.replace(
+                  'https://x.com/',
                   ''
                 )}
               </Link>
@@ -360,9 +360,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff(currentProfile?.id) && staffMode && (
-        <ProfileStaffTool profile={profile} />
-      )}
+      {isStaff && staffMode && <ProfileStaffTool profile={profile} />}
     </div>
   );
 };

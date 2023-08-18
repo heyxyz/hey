@@ -14,10 +14,11 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import useStaffMode from 'src/hooks/useStaffMode';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
+import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -27,7 +28,11 @@ import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { allowed: staffMode } = useStaffMode();
+  const staffMode = useAccessStore((state) => state.staffMode);
+  const showNewPostModal = useGlobalModalStateStore(
+    (state) => state.showNewPostModal
+  );
+
   const {
     query: { id }
   } = useRouter();
@@ -77,7 +82,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
-        {currentProfile && !publication?.hidden ? (
+        {currentProfile && !publication?.hidden && !showNewPostModal ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (
