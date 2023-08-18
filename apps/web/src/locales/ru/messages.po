@@ -122,12 +122,6 @@ msgid "Media"
 msgstr "Медиа"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-#~ msgid "Select Currency"
-#~ msgstr "Выберите валюту"
-
-#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
 msgstr "Плата за коллекты"
 
@@ -414,16 +408,6 @@ msgstr ""
 #: src/components/Home/Algorithms/index.tsx
 msgid "Algorithms"
 msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless Transactions Upgrade"
-#~ msgstr "Обновление транзакций без подписи"
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless Transactions"
-#~ msgstr "Транзакции без подписи"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -1468,11 +1452,6 @@ msgstr ""
 
 #: src/components/Profile/Menu/Report.tsx
 #: src/components/Shared/GlobalModals.tsx
-#~ msgid "Report Profile"
-#~ msgstr ""
-
-#: src/components/Profile/Menu/Report.tsx
-#: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr ""
 
@@ -1686,10 +1665,6 @@ msgid "Copy post text"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
-#~ msgid "Undo Not Interested"
-#~ msgstr ""
-
-#: src/components/Publication/Actions/Menu/NotInterested.tsx
 msgid "Marked as not Interested"
 msgstr ""
 
@@ -1889,22 +1864,6 @@ msgid "Select profile"
 msgstr "Выберите профиль"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Super Follow updated successfully!"
-#~ msgstr "Super Follow успешно обновлен!"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Loading super follow settings"
-#~ msgstr "Загрузка настроек Super Follow"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Set super follow"
-#~ msgstr "Установить супер подписку"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-#~ msgstr "Если включить Super Follow - пользователи будут платить криптовалюту, чтобы подписаться на вас, и это хороший способ заработать ее, вы можете изменить сумму и валюту или отключить / включить ее в любое время."
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
 msgstr "Неверная сумма"
 
@@ -1961,10 +1920,6 @@ msgid "Account settings • {APP_NAME}"
 msgstr "Настройки профиля • {APP_NAME}"
 
 #: src/components/Settings/Allowance/Button.tsx
-#~ msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
-#~ msgstr "Имейте в виду, что при разрешении этого модуля указанная сумма будет автоматически вычитаться при <0>коллекте</0> и <1>super follow</1>."
-
-#: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr "Разрешить"
 
@@ -1993,10 +1948,6 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#~ msgid "Allow / Revoke modules"
-#~ msgstr "Разрешить / отозвать модули"
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
 msgstr "Настройки разрешений • {APP_NAME}"
 
@@ -2007,14 +1958,6 @@ msgstr ""
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
 msgstr "Для использования функции коллекта Вам необходимо разрешить используемый модуль, Вы можете разрешить и отозвать модуль в любое время."
-
-#: src/components/Settings/Cleanup/index.tsx
-#~ msgid "Cleanup Localstorage"
-#~ msgstr "Очистить локальное хранилище"
-
-#: src/components/Settings/Cleanup/index.tsx
-#~ msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
-#~ msgstr "Если вы столкнулись с некоторыми проблемами, вы можете попробовать очистить локальное хранилище. Это удалит все данные, хранящиеся в вашем браузере."
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -2066,12 +2009,6 @@ msgstr "Очистите ключ шифрования ЛС"
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "Ключи ЛС сброшены"
-
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-#~ msgid "Danger Zone"
-#~ msgstr "Опасная зона"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
@@ -2167,10 +2104,6 @@ msgstr "Обновить"
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
 msgstr "Включить"
-
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Disable Signless Transactions"
-#~ msgstr "Отключить транзакции без подписи"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable signless transactions"
@@ -2296,10 +2229,6 @@ msgstr "Аватар успешно обновлен!"
 #: src/components/Settings/Profile/NftAvatarModal.tsx
 msgid "Select a NFT"
 msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Choose NFT Avatar"
-#~ msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Choose NFT avatar"
@@ -2933,10 +2862,6 @@ msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
-#~ msgid "Switch Profile"
-#~ msgstr "Переключить профиль"
-
-#: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch profile"
 msgstr ""
 
@@ -2947,10 +2872,6 @@ msgstr "Тёмный режим"
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Light mode"
 msgstr "Светлый режим"
-
-#: src/components/Shared/Navbar/NavItems/YourProfile.tsx
-#~ msgid "Your Profile"
-#~ msgstr "Ваш профиль"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your profile"
@@ -3051,15 +2972,6 @@ msgstr "Не удалось загрузить настройки статуса
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
 msgstr "Очистить статус"
-
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-#: src/components/Shared/SuperFollow/index.tsx
-#~ msgid "Loading super follow"
-#~ msgstr "Загрузка супер подписки"
-
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-#~ msgid "You will get super follow badge in @{0}'s profile"
-#~ msgstr "Вы получите значок Super Follow в профиле @{0}"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
@@ -3291,26 +3203,6 @@ msgstr "Размер видео не должен превышать 200MB"
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "Размер аудио должен быть меньше 100MB"
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Multirecipient Paid Collect"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Basic Collect"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "No Collect"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Fee Follow"
-#~ msgstr "Плата за подписку"
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Follower Only Reference"
-#~ msgstr "Ссылка только для подписчиков"
 
 #: src/lib/getAllowanceModule.ts
 msgid "Multirecipient paid collect"
