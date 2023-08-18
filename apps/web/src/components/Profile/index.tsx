@@ -1,17 +1,14 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import NftFeed from '@components/Nft/NftFeed';
 import {
   APP_NAME,
   IS_MAINNET,
   STATIC_IMAGES_URL
 } from '@lenster/data/constants';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -55,7 +52,6 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
-  const isNftGalleryEnabled = isFeatureEnabled(FeatureFlag.NftGallery);
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
     variables: { request: { handle }, who: currentProfile?.id ?? null },
@@ -148,11 +144,7 @@ const ViewProfile: NextPage = () => {
             <Feed profile={profile as Profile} type={feedType} />
           )}
           {feedType === ProfileFeedType.Nft ? (
-            isNftGalleryEnabled ? (
-              <NftGallery profile={profile as Profile} />
-            ) : (
-              <NftFeed profile={profile as Profile} />
-            )
+            <NftGallery profile={profile as Profile} />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
             <Achievements profile={profile as Profile} />

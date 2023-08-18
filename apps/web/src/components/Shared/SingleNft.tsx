@@ -24,7 +24,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
         className="cursor-pointer"
       >
         {nft?.originalContent?.animatedUrl ? (
-          <div className="divider h-52 sm:h-80 sm:rounded-t-[10px]">
+          <div className="divider h-52 sm:h-60 sm:rounded-t-[10px]">
             {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
               <div
                 style={{
@@ -36,6 +36,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
               />
             ) : (
               <iframe
+                className="h-full w-full rounded-b-none"
                 title={`${nft.contractAddress}:${nft.tokenId}`}
                 sandbox=""
                 src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
@@ -44,7 +45,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
           </div>
         ) : (
           <div
-            className="divider h-52 sm:h-80 sm:rounded-t-[10px]"
+            className="divider h-52 sm:h-60 sm:rounded-t-[10px]"
             style={{
               backgroundImage: `url(${
                 nft.originalContent.uri
@@ -57,9 +58,9 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
             }}
           />
         )}
-        <div className="space-y-1 p-5">
+        <div className="space-y-1 px-5 py-3 text-sm">
           {nft.collectionName && (
-            <div className="lt-text-gray-500 truncate text-sm">
+            <div className="lt-text-gray-500 truncate">
               {nft.collectionName}
             </div>
           )}
