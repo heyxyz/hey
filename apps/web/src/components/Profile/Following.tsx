@@ -103,6 +103,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
                 showFollow
+                showUnfollow
                 showUserPreview={false}
               />
             </motion.div>
