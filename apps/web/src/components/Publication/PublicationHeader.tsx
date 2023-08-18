@@ -55,7 +55,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       data-testid={`publication-${publication.id}-header`}
     >
       <span
-        className="max-w-[100%]"
+        className="max-w-full"
         onClick={stopEventPropagation}
         aria-hidden="true"
       >

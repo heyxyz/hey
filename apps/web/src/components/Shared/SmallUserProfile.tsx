@@ -40,7 +40,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   );
 
   const UserName = () => (
-    <div className="flex max-w-[100%] flex-wrap items-center">
+    <div className="flex max-w-full flex-wrap items-center">
       <div className="mr-2 max-w-[75%] truncate">
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
