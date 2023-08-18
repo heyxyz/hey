@@ -219,13 +219,11 @@ const Picture: FC<PictureProps> = ({ profile }) => {
           />
         )}
         <div className="space-y-3">
-          <div>
-            <Image
-              className="max-w-xs rounded-lg"
-              src={avatarDataUrl || profilePictureIpfsUrl}
-              alt={t`Profile picture crop preview`}
-            />
-          </div>
+          <Image
+            className="max-w-xs rounded-lg"
+            src={avatarDataUrl || profilePictureIpfsUrl}
+            alt={t`Profile picture crop preview`}
+          />
           <div className="flex items-center space-x-3">
             <ChooseFile onChange={onFileChange} />
           </div>
