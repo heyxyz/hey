@@ -1,5 +1,5 @@
-import SingleNft from '@components/Nft/SingleNft';
 import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
+import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest } from '@lenster/lens';
