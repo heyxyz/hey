@@ -65,7 +65,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       variables: { request },
       onError,
       onCompleted: () => {
-        toast.success(t`Undo Not Interested`);
+        toast.success(t`Undo Not interested`);
         Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
           publication_id: publication.id,
           not_interested: false
@@ -100,12 +100,12 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
         {notInterested ? (
           <>
             <EyeIcon className="h-4 w-4" />
-            <div>Undo Not Interested</div>
+            <div>Undo Not interested</div>
           </>
         ) : (
           <>
             <EyeOffIcon className="h-4 w-4" />
-            <div>Not Interested</div>
+            <div>Not interested</div>
           </>
         )}
       </div>

@@ -82,7 +82,7 @@ const GlobalModals: FC = () => {
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        title={t`Report Profile`}
+        title={t`Report profile`}
         icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
         show={showReportProfileModal}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
