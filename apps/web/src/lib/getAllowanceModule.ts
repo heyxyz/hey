@@ -16,19 +16,19 @@ const getAllowanceModule = (
   switch (name) {
     // Collect Modules
     case CollectModules.MultirecipientFeeCollectModule:
-      return { name: t`Multirecipient Paid Collect`, field: 'collectModule' };
+      return { name: t`Multirecipient paid collect`, field: 'collectModule' };
     case CollectModules.SimpleCollectModule:
-      return { name: t`Basic Collect`, field: 'collectModule' };
+      return { name: t`Basic collect`, field: 'collectModule' };
     case CollectModules.RevertCollectModule:
-      return { name: t`No Collect`, field: 'collectModule' };
+      return { name: t`No collect`, field: 'collectModule' };
 
     // Follow modules
     case FollowModules.FeeFollowModule:
-      return { name: t`Fee Follow`, field: 'followModule' };
+      return { name: t`Fee follow`, field: 'followModule' };
 
     // Reference modules
     case ReferenceModules.FollowerOnlyReferenceModule:
-      return { name: t`Follower Only Reference`, field: 'referenceModule' };
+      return { name: t`Follower only reference`, field: 'referenceModule' };
     default:
       return { name, field: 'collectModule' };
   }

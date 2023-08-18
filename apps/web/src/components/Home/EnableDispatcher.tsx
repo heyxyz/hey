@@ -33,9 +33,9 @@ const EnableDispatcher: FC = () => {
 
   const getTitle = () => {
     if (isOldDispatcherEnabled) {
-      return <Trans>Signless Transactions Upgrade</Trans>;
+      return <Trans>Signless transactions upgrade</Trans>;
     }
-    return <Trans>Signless Transactions</Trans>;
+    return <Trans>Signless transactions</Trans>;
   };
 
   if (isDispatcherEnabled) {

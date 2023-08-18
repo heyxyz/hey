@@ -17,7 +17,7 @@ const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
     >
       <UserIcon className="h-4 w-4" />
       <div>
-        <Trans>Your Profile</Trans>
+        <Trans>Your profile</Trans>
       </div>
     </div>
   );
