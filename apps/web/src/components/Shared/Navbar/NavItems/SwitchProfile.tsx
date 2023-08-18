@@ -25,7 +25,7 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
       <div className="flex items-center space-x-2">
         <SwitchHorizontalIcon className="h-4 w-4" />
         <span>
-          <Trans>Switch Profile</Trans>
+          <Trans>Switch profile</Trans>
         </span>
       </div>
     </button>

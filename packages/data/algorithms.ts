@@ -10,7 +10,7 @@ export const algorithms: {
   isPersonalized?: boolean;
 }[] = [
   {
-    name: 'Most Viewed',
+    name: 'Most viewed',
     feedType: HomeFeedType.LENSTER_MOSTVIEWED,
     description:
       'Most viewed posts sorted by the number of views in the last 24 hours in Lenster.',
@@ -18,7 +18,7 @@ export const algorithms: {
     by: 'Lenster'
   },
   {
-    name: 'Most Interacted',
+    name: 'Most interacted',
     feedType: HomeFeedType.LENSTER_MOSTINTERACTED,
     description:
       'Most interacted posts sorted by the number of interactions in the last 24 hours in Lenster.',
