@@ -780,13 +780,8 @@ msgid "Gardeners"
 msgstr "கார்ட்னர்ஸ்"
 
 #: src/components/Nft/NftFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
-msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
+#~ msgid "doesn’t have any NFTs!"
+#~ msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -1570,6 +1565,10 @@ msgstr "அதைச் செய்யுங்கள்!"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "என்எஃப்டிகள் எதுவும் இல்லை!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "NFT ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"

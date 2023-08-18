@@ -780,13 +780,8 @@ msgid "Gardeners"
 msgstr "Садовники"
 
 #: src/components/Nft/NftFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr "не имеет NFT!"
-
-#: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
-msgstr "Не удалось загрузить ленту NFT"
+#~ msgid "doesn’t have any NFTs!"
+#~ msgstr "не имеет NFT!"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -1570,6 +1565,10 @@ msgstr "Давайте сделаем это!"
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "doesn't have any NFTs!"
 msgstr "не имеет NFT!"
+
+#: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr "Не удалось загрузить ленту NFT"
 
 #: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
