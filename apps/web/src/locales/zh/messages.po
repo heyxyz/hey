@@ -122,6 +122,12 @@ msgid "Media"
 msgstr "多媒体文件"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Allowance/index.tsx
+#~ msgid "Select Currency"
+#~ msgstr "选择币种"
+
+#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
 msgstr "付费收藏"
 
@@ -136,8 +142,8 @@ msgstr "价格"
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr "选择币种"
+msgid "Select currency"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -411,6 +417,16 @@ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
+#~ msgid "Signless Transactions Upgrade"
+#~ msgstr "无签名交易升级"
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
+#~ msgid "Signless Transactions"
+#~ msgstr "无签名交易"
+
+#: src/components/Home/EnableDispatcher.tsx
+#: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr "将您的调度程序升级到最新版本，以获得更好、更快、更强大的无签名交易体验。"
 
@@ -421,13 +437,13 @@ msgstr "您可以通过启用 dispatcher 功能使得您今后与 {APP_NAME} 进
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions Upgrade"
-msgstr "无签名交易升级"
+msgid "Signless transactions upgrade"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions"
-msgstr "无签名交易"
+msgid "Signless transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1452,7 +1468,12 @@ msgstr ""
 
 #: src/components/Profile/Menu/Report.tsx
 #: src/components/Shared/GlobalModals.tsx
-msgid "Report Profile"
+#~ msgid "Report Profile"
+#~ msgstr ""
+
+#: src/components/Profile/Menu/Report.tsx
+#: src/components/Shared/GlobalModals.tsx
+msgid "Report profile"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
@@ -1665,11 +1686,15 @@ msgid "Copy post text"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
+#~ msgid "Undo Not Interested"
+#~ msgstr ""
+
+#: src/components/Publication/Actions/Menu/NotInterested.tsx
 msgid "Marked as not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
-msgid "Undo Not Interested"
+msgid "Undo Not interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1864,6 +1889,22 @@ msgid "Select profile"
 msgstr "选择个人账户"
 
 #: src/components/Settings/Account/SuperFollow.tsx
+#~ msgid "Super Follow updated successfully!"
+#~ msgstr "超级关注已成功更新！"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+#~ msgid "Loading super follow settings"
+#~ msgstr "正在加载超级关注设置"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+#~ msgid "Set super follow"
+#~ msgstr "设置超级关注"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+#~ msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+#~ msgstr "设置超级关注让用户花费加密货币来关注你，这是一个很好的赚钱方式，你可以随时更改数量和货币类型或禁用/启用它。"
+
+#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
 msgstr "无效的金额"
 
@@ -1878,20 +1919,21 @@ msgid "Invalid Ethereum address"
 msgstr "无效的以太坊地址"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Super Follow updated successfully!"
-msgstr "超级关注已成功更新！"
+msgid "Super follow updated successfully!"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Loading super follow settings"
-msgstr "正在加载超级关注设置"
+msgid "Loading Super follow settings"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set super follow"
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set Super follow"
 msgstr "设置超级关注"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr "设置超级关注让用户花费加密货币来关注你，这是一个很好的赚钱方式，你可以随时更改数量和货币类型或禁用/启用它。"
+msgid "Setting Super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -1909,10 +1951,6 @@ msgstr "取消超级关注"
 msgid "Update Super follow"
 msgstr "更新超级关注"
 
-#: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set Super follow"
-msgstr "设置超级关注"
-
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
 msgstr "不。"
@@ -1921,6 +1959,10 @@ msgstr "不。"
 #: src/components/Settings/Export/index.tsx
 msgid "Account settings • {APP_NAME}"
 msgstr "帐户设置 • {APP_NAME}"
+
+#: src/components/Settings/Allowance/Button.tsx
+#~ msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
+#~ msgstr "请注意，通过授权此模块，当您<0>收集</0>和<1>超级关注</1>时，提示的金额将自动扣除。"
 
 #: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
@@ -1947,20 +1989,32 @@ msgid "Handle with care!"
 msgstr "请小心处理！"
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
-msgstr "请注意，通过授权此模块，当您<0>收集</0>和<1>超级关注</1>时，提示的金额将自动扣除。"
+msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>Collect</0> and <1>Super follow</1>."
+msgstr ""
+
+#: src/components/Settings/Allowance/index.tsx
+#~ msgid "Allow / Revoke modules"
+#~ msgstr "授权/撤销模块"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
 msgstr "合约授权设置 • {APP_NAME}"
 
 #: src/components/Settings/Allowance/index.tsx
-msgid "Allow / Revoke modules"
-msgstr "授权/撤销模块"
+msgid "Allow / revoke modules"
+msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
 msgstr "为了使用收藏功能，您需要允许您使用的模块，您可以随时允许和撤销该模块。"
+
+#: src/components/Settings/Cleanup/index.tsx
+#~ msgid "Cleanup Localstorage"
+#~ msgstr "清理本地存储"
+
+#: src/components/Settings/Cleanup/index.tsx
+#~ msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
+#~ msgstr "如果遇到一些问题，可以尝试清理本地存储。这将删除浏览器中存储的所有数据。"
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -1971,12 +2025,12 @@ msgid "Cleanup settings • {APP_NAME}"
 msgstr "清理页面设置 • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "Cleanup Localstorage"
-msgstr "清理本地存储"
+msgid "Cleanup local storage"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
-msgstr "如果遇到一些问题，可以尝试清理本地存储。这将删除浏览器中存储的所有数据。"
+msgid "If you stuck with some issues, you can try to clean up the browser's internal local storage. This will remove all the data stored in your browser."
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Optimistic publications"
@@ -2014,6 +2068,12 @@ msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
 
 #: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Guardian.tsx
+#: src/components/Settings/Sidebar.tsx
+#~ msgid "Danger Zone"
+#~ msgstr "危险区"
+
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr "这将删除你的Lens账户"
 
@@ -2044,8 +2104,8 @@ msgstr "删除您的账户"
 #: src/components/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "危险区"
+msgid "Danger zone"
+msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2109,8 +2169,12 @@ msgid "Enable"
 msgstr "启用"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable Signless Transactions"
-msgstr "禁用无签名交易"
+#~ msgid "Disable Signless Transactions"
+#~ msgstr "禁用无签名交易"
+
+#: src/components/Settings/Dispatcher/index.tsx
+msgid "Disable signless transactions"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
@@ -2234,7 +2298,11 @@ msgid "Select a NFT"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Choose NFT Avatar"
+#~ msgid "Choose NFT Avatar"
+#~ msgstr ""
+
+#: src/components/Settings/Profile/NftPicture.tsx
+msgid "Choose NFT avatar"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
@@ -2865,8 +2933,12 @@ msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
-msgid "Switch Profile"
-msgstr "切换账户"
+#~ msgid "Switch Profile"
+#~ msgstr "切换账户"
+
+#: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
+msgid "Switch profile"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
@@ -2877,8 +2949,12 @@ msgid "Light mode"
 msgstr "日间模式"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
-msgid "Your Profile"
-msgstr "您的个人主页"
+#~ msgid "Your Profile"
+#~ msgstr "您的个人主页"
+
+#: src/components/Shared/Navbar/NavItems/YourProfile.tsx
+msgid "Your profile"
+msgstr ""
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
@@ -2978,8 +3054,17 @@ msgstr "清除状态"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
-msgid "Loading super follow"
-msgstr "正在加载超级关注"
+#~ msgid "Loading super follow"
+#~ msgstr "正在加载超级关注"
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+#~ msgid "You will get super follow badge in @{0}'s profile"
+#~ msgstr "您将在 @{0} 的个人账户中获得超级关注徽章"
+
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+#: src/components/Shared/SuperFollow/index.tsx
+msgid "Loading Super follow"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2994,8 +3079,8 @@ msgid "You can collect @{0}'s publications"
 msgstr "您可以收集 @{0} 的帖子"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "You will get super follow badge in @{0}'s profile"
-msgstr "您将在 @{0} 的个人账户中获得超级关注徽章"
+msgid "You will get Super follow badge in @{0}'s profile"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
@@ -3208,24 +3293,44 @@ msgid "Audio size should be less than 100MB"
 msgstr "音频文件应小于 100MB"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Multirecipient Paid Collect"
-msgstr "多收款人的付费收藏"
+#~ msgid "Multirecipient Paid Collect"
+#~ msgstr "多收款人的付费收藏"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Basic Collect"
-msgstr "初级收藏"
+#~ msgid "Basic Collect"
+#~ msgstr "初级收藏"
 
 #: src/lib/getAllowanceModule.ts
-msgid "No Collect"
-msgstr "没有收藏"
+#~ msgid "No Collect"
+#~ msgstr "没有收藏"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Fee Follow"
-msgstr "付费关注"
+#~ msgid "Fee Follow"
+#~ msgstr "付费关注"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Follower Only Reference"
-msgstr "只有账户的关注者可以评论和转发"
+#~ msgid "Follower Only Reference"
+#~ msgstr "只有账户的关注者可以评论和转发"
+
+#: src/lib/getAllowanceModule.ts
+msgid "Multirecipient paid collect"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "Basic collect"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "No collect"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "Fee follow"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "Follower only reference"
+msgstr ""
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"
