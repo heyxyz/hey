@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-17 00:08\n"
+"PO-Revision-Date: 2023-08-18 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -83,7 +83,7 @@ msgstr "取消"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -329,7 +329,7 @@ msgstr "Momoka 目前处于测试阶段 - 在此期间，某些操作可能无�
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -343,6 +343,18 @@ msgstr "评论"
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "发帖"
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard Post"
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard"
+msgstr ""
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/AlgorithmicFeed.tsx
@@ -2217,26 +2229,18 @@ msgstr "兴趣设置 • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr "NFT的合约地址不正确（ 42 个字符以内）"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr "合约地址无效"
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "头像更新成功！"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr "合约地址"
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr "代币ID"
+msgid "Choose NFT Avatar"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2264,8 +2268,8 @@ msgid "Invalid website"
 msgstr "无效的网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Twitter 不应超过 100 个字符"
+msgid "X handle must not exceed 100 characters"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2288,8 +2292,8 @@ msgid "Website"
 msgstr "网站"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "推特"
+msgid "X"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"
