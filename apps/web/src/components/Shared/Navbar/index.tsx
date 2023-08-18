@@ -37,22 +37,18 @@ const Navbar: FC = () => {
     return (
       <Link
         href={url}
+        className={clsx(
+          'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
+          {
+            'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
+            'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
+              !current
+          }
+        )}
         aria-current={current ? 'page' : undefined}
         data-testid={`nav-item-${name.toLowerCase()}`}
       >
-        <Disclosure.Button
-          className={clsx(
-            'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
-            {
-              'bg-gray-200 text-black dark:bg-gray-800 dark:text-white':
-                current,
-              'text-gray-700 hover:bg-gray-200 hover:text-black dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white':
-                !current
-            }
-          )}
-        >
-          {name}
-        </Disclosure.Button>
+        {name}
       </Link>
     );
   };
