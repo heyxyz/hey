@@ -25,7 +25,7 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
       <div className="flex items-center space-x-2">
         <FlagIcon className="h-4 w-4" />
         <div>
-          <Trans>Report Profile</Trans>
+          <Trans>Report profile</Trans>
         </div>
       </div>
     </button>

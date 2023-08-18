@@ -15,7 +15,7 @@ import Loader from '../Loader';
 import Slug from '../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message={t`Loading super follow`} />
+  loading: () => <Loader message={t`Loading Super follow`} />
 });
 
 interface SuperFollowProps {
@@ -57,7 +57,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
           setShowFollowModal(!showFollowModal);
           Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
         }}
-        aria-label="Super Follow"
+        aria-label="Super follow"
         icon={<StarIcon className="h-4 w-4" />}
       >
         {showText && t`Super follow`}
