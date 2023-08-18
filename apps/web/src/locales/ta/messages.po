@@ -122,12 +122,6 @@ msgid "Media"
 msgstr "மீடியா"
 
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
-#: src/components/Settings/Account/SuperFollow.tsx
-#: src/components/Settings/Allowance/index.tsx
-#~ msgid "Select Currency"
-#~ msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 msgid "Charge for collecting"
 msgstr "சேகரிப்பதற்கான கட்டணம்"
 
@@ -414,16 +408,6 @@ msgstr ""
 #: src/components/Home/Algorithms/index.tsx
 msgid "Algorithms"
 msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless Transactions Upgrade"
-#~ msgstr "அடையாளமற்ற பரிவர்த்தனைகள் மேம்படுத்தல்"
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless Transactions"
-#~ msgstr "அடையாளமற்ற பரிவர்த்தனைகள்"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -1468,11 +1452,6 @@ msgstr ""
 
 #: src/components/Profile/Menu/Report.tsx
 #: src/components/Shared/GlobalModals.tsx
-#~ msgid "Report Profile"
-#~ msgstr ""
-
-#: src/components/Profile/Menu/Report.tsx
-#: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr ""
 
@@ -1686,10 +1665,6 @@ msgid "Copy post text"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
-#~ msgid "Undo Not Interested"
-#~ msgstr ""
-
-#: src/components/Publication/Actions/Menu/NotInterested.tsx
 msgid "Marked as not Interested"
 msgstr ""
 
@@ -1889,22 +1864,6 @@ msgid "Select profile"
 msgstr "சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Super Follow updated successfully!"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Loading super follow settings"
-#~ msgstr "சூப்பர் ஃபாலோ அமைப்புகளை ஏற்றுகிறது"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Set super follow"
-#~ msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-#~ msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-#~ msgstr "சூப்பர் ஃபாலோ அமைப்பது, பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்க வைக்கிறது, மேலும் இது சம்பாதிப்பதற்கான ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் அதை முடக்கலாம்/இயக்கலாம்."
-
-#: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
 msgstr "தவறான தொகை"
 
@@ -1961,10 +1920,6 @@ msgid "Account settings • {APP_NAME}"
 msgstr "கணக்கு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Allowance/Button.tsx
-#~ msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
-#~ msgstr ""
-
-#: src/components/Settings/Allowance/Button.tsx
 msgid "Allow"
 msgstr "அனுமதி"
 
@@ -1993,10 +1948,6 @@ msgid "Please be aware that by allowing this module, the amount indicated will b
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
-#~ msgid "Allow / Revoke modules"
-#~ msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
-
-#: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
 msgstr "கொடுப்பனவு அமைப்புகள் • {APP_NAME}"
 
@@ -2007,14 +1958,6 @@ msgstr ""
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
 msgstr "சேகரிப்பு அம்சத்தைப் பயன்படுத்த, நீங்கள் பயன்படுத்தும் தொகுதியை அனுமதிக்க வேண்டும், எந்த நேரத்திலும் தொகுதியை அனுமதிக்கலாம் மற்றும் திரும்பப் பெறலாம்."
-
-#: src/components/Settings/Cleanup/index.tsx
-#~ msgid "Cleanup Localstorage"
-#~ msgstr "லோக்கல் ஸ்டோரேஜை கிளீன் செய்யவும்"
-
-#: src/components/Settings/Cleanup/index.tsx
-#~ msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
-#~ msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared {key}"
@@ -2066,12 +2009,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
-
-#: src/components/Settings/Danger/Delete.tsx
-#: src/components/Settings/Danger/Guardian.tsx
-#: src/components/Settings/Sidebar.tsx
-#~ msgid "Danger Zone"
-#~ msgstr "ஆபத்தான இடம்"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
@@ -2167,10 +2104,6 @@ msgstr "புதுப்பி"
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
 msgstr "இயக்கு"
-
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Disable Signless Transactions"
-#~ msgstr "அடையாளமற்ற பரிவர்த்தனைகளை முடக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Disable signless transactions"
@@ -2296,10 +2229,6 @@ msgstr "சுயவிவரப் சுயவிவரப் வெற்ற�
 #: src/components/Settings/Profile/NftAvatarModal.tsx
 msgid "Select a NFT"
 msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Choose NFT Avatar"
-#~ msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
 msgid "Choose NFT avatar"
@@ -2933,10 +2862,6 @@ msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
-#~ msgid "Switch Profile"
-#~ msgstr "சுயவிவரத்தை மாற்றவும்"
-
-#: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
 msgid "Switch profile"
 msgstr ""
 
@@ -2947,10 +2872,6 @@ msgstr "இருள் பயன்முறை"
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Light mode"
 msgstr "வெளிர்ந்த பயன்முறை"
-
-#: src/components/Shared/Navbar/NavItems/YourProfile.tsx
-#~ msgid "Your Profile"
-#~ msgstr "உங்கள் சுயவிவரம்"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your profile"
@@ -3051,15 +2972,6 @@ msgstr "நிலை அமைப்புகளை ஏற்றுவதில�
 #: src/components/Shared/Status.tsx
 msgid "Clear status"
 msgstr "ஸ்டேட்டஸை அழிக்கவும்"
-
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-#: src/components/Shared/SuperFollow/index.tsx
-#~ msgid "Loading super follow"
-#~ msgstr "சூப்பர் ஃபாலோ ஏற்றுகிறது"
-
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-#~ msgid "You will get super follow badge in @{0}'s profile"
-#~ msgstr "@{0} இன் சுயவிவரத்தில் சூப்பர் ஃபாலோ பேட்ஜைப் பெறுவீர்கள்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
@@ -3291,26 +3203,6 @@ msgstr ""
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Multirecipient Paid Collect"
-#~ msgstr "பல பெறுனர்களின் கட்டண சேகரிப்பு"
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Basic Collect"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "No Collect"
-#~ msgstr "சேகரிப்பு இல்லை"
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Fee Follow"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Follower Only Reference"
-#~ msgstr ""
 
 #: src/lib/getAllowanceModule.ts
 msgid "Multirecipient paid collect"
