@@ -2,6 +2,13 @@ import { create } from 'zustand';
 
 export type TSidebarView = 'close' | 'peers';
 
+export enum TokenGateCondition {
+  HAVE_A_LENS_PROFILE = 'HAVE_PROFILE',
+  FOLLOW_A_LENS_PROFILE = 'FOLLOW_PROFILE',
+  COLLECT_A_POST = 'COLLECT_POST',
+  MIRROR_A_POST = 'MIRROR_POST'
+}
+
 interface SpacesState {
   showSpacesLobby: boolean;
   setShowSpacesLobby: (showSpacesLobby: boolean) => void;
@@ -13,6 +20,12 @@ interface SpacesState {
   setIsRecordingOn: (isRecordingOn: boolean) => void;
   isTokenGated: boolean;
   setIsTokenGated: (isTokenGated: boolean) => void;
+  tokenGateConditionType: TokenGateCondition;
+  setTokenGateConditionType: (
+    tokenGateConditionType: TokenGateCondition
+  ) => void;
+  tokenGateConditionValue: string;
+  setTokenGateConditionValue: (tokenGateConditionValue: string) => void;
   myReaction: string;
   setMyReaction: (myReaction: string) => void;
   space: {
@@ -44,6 +57,12 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   setIsRecordingOn: (isRecordingOn) => set(() => ({ isRecordingOn })),
   isTokenGated: false,
   setIsTokenGated: (isTokenGated) => set(() => ({ isTokenGated })),
+  tokenGateConditionValue: '',
+  setTokenGateConditionValue: (tokenGateConditionValue) =>
+    set(() => ({ tokenGateConditionValue })),
+  tokenGateConditionType: TokenGateCondition.HAVE_A_LENS_PROFILE,
+  setTokenGateConditionType: (tokenGateConditionType) =>
+    set(() => ({ tokenGateConditionType })),
   space: {
     id: '',
     host: '',

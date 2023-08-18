@@ -11,6 +11,9 @@ import type { Env } from '../types';
 type ExtensionRequest = {
   accessToken: string;
   isMainnet: boolean;
+  isTokenGated: boolean;
+  conditionType?: string;
+  conditionValue?: string;
 };
 
 type CreateRoomResponse = {
@@ -37,7 +40,13 @@ export default async (request: IRequest, env: Env) => {
     );
   }
 
-  const { accessToken, isMainnet } = body as ExtensionRequest;
+  const {
+    accessToken,
+    isMainnet,
+    isTokenGated,
+    conditionType,
+    conditionValue
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
@@ -48,9 +57,25 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const response = await fetch(
-      'https://api.huddle01.com/api/v1/create-room',
-      {
+    let response;
+    if (isTokenGated) {
+      response = await fetch('https://api.huddle01.com/api/v1/create-room', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': env.HUDDLE_API_KEY
+        },
+        body: JSON.stringify({
+          title: 'Lenster-Space',
+          hostWallets: [payload.id],
+          chain: 'POLYGON',
+          tokenType: 'LENS',
+          conditionType: conditionType,
+          conditionValue: conditionValue
+        })
+      });
+    } else {
+      response = await fetch('https://api.huddle01.com/api/v1/create-room', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,8 +85,8 @@ export default async (request: IRequest, env: Env) => {
           title: 'Lenster-Space',
           hostWallets: [payload.id]
         })
-      }
-    );
+      });
+    }
 
     const createRoomResponse: CreateRoomResponse = await response.json();
 

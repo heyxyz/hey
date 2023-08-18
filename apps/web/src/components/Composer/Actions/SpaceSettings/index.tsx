@@ -6,23 +6,19 @@ import { Input, Toggle } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import React, { useState } from 'react';
-import { useSpacesStore } from 'src/store/spaces';
-
-enum TokenGateCondition {
-  HAVE_A_LENS_PROFILE,
-  FOLLOW_A_LENS_PROFILE,
-  COLLECT_A_POST,
-  MIRROR_A_POST
-}
+import React from 'react';
+import { TokenGateCondition, useSpacesStore } from 'src/store/spaces';
 
 const SpaceSettings: FC = () => {
-  const { isRecordingOn, setIsRecordingOn, isTokenGated, setIsTokenGated } =
-    useSpacesStore();
-
-  const [selectedDropdown, setSelectedDropdown] = useState<TokenGateCondition>(
-    TokenGateCondition.HAVE_A_LENS_PROFILE
-  );
+  const {
+    isRecordingOn,
+    setIsRecordingOn,
+    isTokenGated,
+    setIsTokenGated,
+    setTokenGateConditionType,
+    tokenGateConditionType,
+    setTokenGateConditionValue
+  } = useSpacesStore();
 
   interface ModuleProps {
     title: string;
@@ -34,7 +30,7 @@ const SpaceSettings: FC = () => {
     <Menu.Item
       as="a"
       className={clsx(
-        { 'dropdown-active': selectedDropdown === condition },
+        { 'dropdown-active': tokenGateConditionType === condition },
         'menu-item'
       )}
       onClick={onClick}
@@ -43,7 +39,7 @@ const SpaceSettings: FC = () => {
         <div className="flex items-center space-x-1.5">
           <div>{title}</div>
         </div>
-        {selectedDropdown === condition && (
+        {tokenGateConditionType === condition && (
           <CheckCircleIcon className="w-5 text-green-500" />
         )}
       </div>
@@ -52,11 +48,12 @@ const SpaceSettings: FC = () => {
 
   return (
     <div>
-      {selectedDropdown !== TokenGateCondition.HAVE_A_LENS_PROFILE && (
+      {tokenGateConditionType !== TokenGateCondition.HAVE_A_LENS_PROFILE && (
         <div className="flex w-full items-center gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
           <div className="flex items-center gap-3 text-neutral-500">
             <Trans>
-              {selectedDropdown === TokenGateCondition.FOLLOW_A_LENS_PROFILE
+              {tokenGateConditionType ===
+              TokenGateCondition.FOLLOW_A_LENS_PROFILE
                 ? 'Enter Lens profile link'
                 : 'Enter Lens post link'}
             </Trans>
@@ -64,10 +61,12 @@ const SpaceSettings: FC = () => {
           <div className="flex flex-[1_0_0] items-center gap-1 px-3">
             <Input
               placeholder={`Lens ${
-                selectedDropdown === TokenGateCondition.FOLLOW_A_LENS_PROFILE
+                tokenGateConditionType ===
+                TokenGateCondition.FOLLOW_A_LENS_PROFILE
                   ? 'profile'
                   : 'post'
               } link`}
+              onChange={(e) => setTokenGateConditionValue(e.target.value)}
               className="placeholder-neutral-400"
             />
           </div>
@@ -98,11 +97,13 @@ const SpaceSettings: FC = () => {
               <Menu.Button className="flex items-start gap-1">
                 <span className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-300">
                   <Trans>
-                    {selectedDropdown !== TokenGateCondition.HAVE_A_LENS_PROFILE
-                      ? selectedDropdown ===
+                    {tokenGateConditionType !==
+                    TokenGateCondition.HAVE_A_LENS_PROFILE
+                      ? tokenGateConditionType ===
                         TokenGateCondition.FOLLOW_A_LENS_PROFILE
                         ? 'follow a lens profile'
-                        : selectedDropdown === TokenGateCondition.COLLECT_A_POST
+                        : tokenGateConditionType ===
+                          TokenGateCondition.COLLECT_A_POST
                         ? 'collect a post'
                         : 'mirror a post'
                       : 'have a lens profile'}
@@ -115,7 +116,7 @@ const SpaceSettings: FC = () => {
                   <Module
                     title="have a lens profile"
                     onClick={() =>
-                      setSelectedDropdown(
+                      setTokenGateConditionType(
                         TokenGateCondition.HAVE_A_LENS_PROFILE
                       )
                     }
@@ -125,7 +126,7 @@ const SpaceSettings: FC = () => {
                   <Module
                     title="follow a lens profile"
                     onClick={() =>
-                      setSelectedDropdown(
+                      setTokenGateConditionType(
                         TokenGateCondition.FOLLOW_A_LENS_PROFILE
                       )
                     }
@@ -135,7 +136,9 @@ const SpaceSettings: FC = () => {
                   <Module
                     title="collect a post"
                     onClick={() =>
-                      setSelectedDropdown(TokenGateCondition.COLLECT_A_POST)
+                      setTokenGateConditionType(
+                        TokenGateCondition.COLLECT_A_POST
+                      )
                     }
                     condition={TokenGateCondition.COLLECT_A_POST}
                   />
@@ -143,7 +146,9 @@ const SpaceSettings: FC = () => {
                   <Module
                     title="mirror a post"
                     onClick={() =>
-                      setSelectedDropdown(TokenGateCondition.MIRROR_A_POST)
+                      setTokenGateConditionType(
+                        TokenGateCondition.MIRROR_A_POST
+                      )
                     }
                     condition={TokenGateCondition.MIRROR_A_POST}
                   />
