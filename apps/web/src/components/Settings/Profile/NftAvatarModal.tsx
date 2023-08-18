@@ -182,7 +182,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
             error={error}
           />
         )}
-        <div className="mb-4 mr-1 flex h-[70vh] overflow-y-scroll">
+        <div className="mb-4 mr-1 flex max-h-[70vh] min-h-[30vh] overflow-y-scroll">
           <Picker onlyAllowOne={true} />
         </div>
         <div className="ml-auto flex items-center space-x-2 p-4">
