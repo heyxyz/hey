@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-17 00:08\n"
+"PO-Revision-Date: 2023-08-18 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -83,7 +83,7 @@ msgstr "Отменить"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -329,7 +329,7 @@ msgstr "Момока в настоящее время находится в бе
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -343,6 +343,18 @@ msgstr "Прокомментировать"
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "Опубликовать"
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard Post"
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr ""
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard"
+msgstr ""
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/AlgorithmicFeed.tsx
@@ -2217,26 +2229,18 @@ msgstr "Настройки интересов • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "Выбранные вами интересы используются для персонализации вашего взаимодействия с Lenster. Вы можете изменить свои интересы, если что-то не соответствует действительности."
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr "Адрес контракта должен быть в пределах 42 символов"
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr "Неверный адрес контракта"
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr "Аватар успешно обновлен!"
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr "Адрес контракта"
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr "Идентификатор токена"
+msgid "Choose NFT Avatar"
+msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2264,8 +2268,8 @@ msgid "Invalid website"
 msgstr "Недействительный веб-сайт"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr "Твиттер не должен превышать 100 символов"
+msgid "X handle must not exceed 100 characters"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2288,8 +2292,8 @@ msgid "Website"
 msgstr "Веб-сайт"
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr "Твиттер"
+msgid "X"
+msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"

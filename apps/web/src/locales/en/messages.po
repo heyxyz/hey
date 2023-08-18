@@ -83,7 +83,7 @@ msgstr ""
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 #: src/components/Profile/NftGallery/Gallery.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 #: src/components/Shared/Status.tsx
@@ -329,7 +329,7 @@ msgstr "Momoka is currently in beta - during this time certain actions are not a
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Settings/Account/SetProfile.tsx
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
@@ -343,6 +343,18 @@ msgstr ""
 #: src/components/Composer/NewPublication.tsx
 msgid "Post"
 msgstr "Post"
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard Post"
+msgstr "Discard Post"
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "This can’t be undone and you’ll lose your draft."
+msgstr "This can’t be undone and you’ll lose your draft."
+
+#: src/components/Composer/Post/Discard.tsx
+msgid "Discard"
+msgstr "Discard"
 
 #: src/components/Explore/Feed.tsx
 #: src/components/Home/AlgorithmicFeed.tsx
@@ -2217,26 +2229,18 @@ msgstr "Interests settings • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract address should be within 42 characters"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Invalid Contract address"
-msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
+#: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
 msgstr ""
 
-#: src/components/Settings/Profile/NftPicture.tsx
-msgid "Contract Address"
-msgstr ""
+#: src/components/Settings/Profile/NftAvatarModal.tsx
+msgid "Select a NFT"
+msgstr "Select a NFT"
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Token Id"
-msgstr ""
+msgid "Choose NFT Avatar"
+msgstr "Choose NFT Avatar"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2264,8 +2268,8 @@ msgid "Invalid website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter should not exceed 100 characters"
-msgstr ""
+msgid "X handle must not exceed 100 characters"
+msgstr "X handle must not exceed 100 characters"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio should not exceed 260 characters"
@@ -2288,8 +2292,8 @@ msgid "Website"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
-msgid "Twitter"
-msgstr ""
+msgid "X"
+msgstr "X"
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Bio"

@@ -10,7 +10,7 @@ const Gitcoin: FC = () => {
   return (
     <Card
       as="aside"
-      className="mb-4 space-y-4 !border-[#27bdce] !bg-[#27bdce]/20 p-5 text-[#1396a5] dark:bg-[#27bdce]/50"
+      className="mb-4 space-y-4 !border-[#27bdce] !bg-[#27bdce]/10 p-5 text-[#1396a5] dark:bg-[#27bdce]/50"
     >
       <img
         src={`${STATIC_IMAGES_URL}/brands/gitcoin.png`}

@@ -66,6 +66,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -89,6 +90,7 @@ import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import Discard from './Post/Discard';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -136,6 +138,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
+  );
+  const setShowDiscardModal = useGlobalModalStateStore(
+    (state) => state.setShowDiscardModal
   );
 
   // Nonce store
@@ -225,6 +230,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     });
     resetCollectSettings();
     resetAccessSettings();
+
     if (!isComment) {
       setShowNewPostModal(false);
     }
@@ -855,6 +861,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       pollConfig.choices.some((choice) => !choice.length)
     : false;
 
+  const onDiscardClick = () => {
+    setShowNewPostModal(false);
+    setShowDiscardModal(false);
+  };
+
+  useUnmountEffect(() => {
+    setPublicationContent('');
+    setQuotedPublication(null);
+    setShowPollEditor(false);
+    resetPollConfig();
+    setAttachments([]);
+    setVideoThumbnail({
+      url: '',
+      type: '',
+      uploading: false
+    });
+    resetCollectSettings();
+    resetAccessSettings();
+  });
+
   return (
     <Card
       className={clsx(
@@ -920,6 +946,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <div className="px-5">
         <Attachments attachments={attachments} isNew />
       </div>
+      <Discard onDiscard={onDiscardClick} />
     </Card>
   );
 };

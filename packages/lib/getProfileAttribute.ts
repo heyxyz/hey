@@ -3,7 +3,7 @@ import type { Attribute, Maybe } from '@lenster/lens';
 type Key =
   | 'hasPrideLogo'
   | 'app'
-  | 'twitter'
+  | 'x'
   | 'location'
   | 'website'
   | 'statusEmoji'
