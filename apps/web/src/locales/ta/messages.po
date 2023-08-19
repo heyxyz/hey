@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-18 00:08\n"
+"PO-Revision-Date: 2023-08-19 00:07\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -136,8 +136,8 @@ msgstr "விலை"
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr "நாணயத்தைத் தேர்ந்தெடுக்கவும்"
+msgid "Select currency"
+msgstr ""
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -421,13 +421,13 @@ msgstr "உங்கள் பரிவர்த்தனைகள் எதி�
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions Upgrade"
-msgstr "அடையாளமற்ற பரிவர்த்தனைகள் மேம்படுத்தல்"
+msgid "Signless transactions upgrade"
+msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions"
-msgstr "அடையாளமற்ற பரிவர்த்தனைகள்"
+msgid "Signless transactions"
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1452,7 +1452,7 @@ msgstr ""
 
 #: src/components/Profile/Menu/Report.tsx
 #: src/components/Shared/GlobalModals.tsx
-msgid "Report Profile"
+msgid "Report profile"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
@@ -1669,7 +1669,7 @@ msgid "Marked as not Interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
-msgid "Undo Not Interested"
+msgid "Undo Not interested"
 msgstr ""
 
 #: src/components/Publication/Actions/Menu/Share.tsx
@@ -1878,20 +1878,21 @@ msgid "Invalid Ethereum address"
 msgstr "தவறான Ethereum முகவரி"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Super Follow updated successfully!"
+msgid "Super follow updated successfully!"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Loading super follow settings"
-msgstr "சூப்பர் ஃபாலோ அமைப்புகளை ஏற்றுகிறது"
+msgid "Loading Super follow settings"
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set super follow"
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set Super follow"
 msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr "சூப்பர் ஃபாலோ அமைப்பது, பயனர்கள் உங்களைப் பின்தொடர கிரிப்டோவைச் செலவழிக்க வைக்கிறது, மேலும் இது சம்பாதிப்பதற்கான ஒரு சிறந்த வழியாகும், நீங்கள் தொகை மற்றும் நாணயத்தை மாற்றலாம் அல்லது எப்போது வேண்டுமானாலும் அதை முடக்கலாம்/இயக்கலாம்."
+msgid "Setting Super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -1908,10 +1909,6 @@ msgstr "சூப்பர் பின்தொடர் முடக்க�
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
 msgstr "சூப்பர் பின்தொடர்பை புதுப்பிக்கவும்"
-
-#: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set Super follow"
-msgstr "சூப்பர் பின்தொடர்பை அமைக்கவும்"
 
 #: src/components/Settings/Account/Verification.tsx
 msgid "No."
@@ -1947,7 +1944,7 @@ msgid "Handle with care!"
 msgstr "கவனத்துடன் கையாளுங்கள்!"
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
+msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>Collect</0> and <1>Super follow</1>."
 msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
@@ -1955,8 +1952,8 @@ msgid "Allowance settings • {APP_NAME}"
 msgstr "கொடுப்பனவு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Allowance/index.tsx
-msgid "Allow / Revoke modules"
-msgstr "தொகுதிகளை அனுமதிக்கவும் / திரும்பப் பெறவும்"
+msgid "Allow / revoke modules"
+msgstr ""
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
@@ -1971,11 +1968,11 @@ msgid "Cleanup settings • {APP_NAME}"
 msgstr "துப்புரவு அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "Cleanup Localstorage"
-msgstr "லோக்கல் ஸ்டோரேஜை கிளீன் செய்யவும்"
+msgid "Cleanup local storage"
+msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
+msgid "If you stuck with some issues, you can try to clean up the browser's internal local storage. This will remove all the data stored in your browser."
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
@@ -2044,8 +2041,8 @@ msgstr "உங்கள் கணக்கை நீக்கவும்"
 #: src/components/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr "ஆபத்தான இடம்"
+msgid "Danger zone"
+msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2109,8 +2106,8 @@ msgid "Enable"
 msgstr "இயக்கு"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable Signless Transactions"
-msgstr "அடையாளமற்ற பரிவர்த்தனைகளை முடக்கு"
+msgid "Disable signless transactions"
+msgstr ""
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
@@ -2234,7 +2231,7 @@ msgid "Select a NFT"
 msgstr ""
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Choose NFT Avatar"
+msgid "Choose NFT avatar"
 msgstr ""
 
 #: src/components/Settings/Profile/Picture.tsx
@@ -2865,8 +2862,8 @@ msgid "Staff mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
-msgid "Switch Profile"
-msgstr "சுயவிவரத்தை மாற்றவும்"
+msgid "Switch profile"
+msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
@@ -2877,8 +2874,8 @@ msgid "Light mode"
 msgstr "வெளிர்ந்த பயன்முறை"
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
-msgid "Your Profile"
-msgstr "உங்கள் சுயவிவரம்"
+msgid "Your profile"
+msgstr ""
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
@@ -2978,8 +2975,8 @@ msgstr "ஸ்டேட்டஸை அழிக்கவும்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
-msgid "Loading super follow"
-msgstr "சூப்பர் ஃபாலோ ஏற்றுகிறது"
+msgid "Loading Super follow"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2994,8 +2991,8 @@ msgid "You can collect @{0}'s publications"
 msgstr "{0} இன் பப்ளிகேஷன்களில் நீங்கள் சேகரிக்கலாம்"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "You will get super follow badge in @{0}'s profile"
-msgstr "@{0} இன் சுயவிவரத்தில் சூப்பர் ஃபாலோ பேட்ஜைப் பெறுவீர்கள்"
+msgid "You will get Super follow badge in @{0}'s profile"
+msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
@@ -3208,23 +3205,23 @@ msgid "Audio size should be less than 100MB"
 msgstr "ஆடியோ அளவு 100MB க்கும் குறைவாக இருக்க வேண்டும்"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Multirecipient Paid Collect"
-msgstr "பல பெறுனர்களின் கட்டண சேகரிப்பு"
-
-#: src/lib/getAllowanceModule.ts
-msgid "Basic Collect"
+msgid "Multirecipient paid collect"
 msgstr ""
 
 #: src/lib/getAllowanceModule.ts
-msgid "No Collect"
-msgstr "சேகரிப்பு இல்லை"
-
-#: src/lib/getAllowanceModule.ts
-msgid "Fee Follow"
+msgid "Basic collect"
 msgstr ""
 
 #: src/lib/getAllowanceModule.ts
-msgid "Follower Only Reference"
+msgid "No collect"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "Fee follow"
+msgstr ""
+
+#: src/lib/getAllowanceModule.ts
+msgid "Follower only reference"
 msgstr ""
 
 #: src/pages/404.tsx

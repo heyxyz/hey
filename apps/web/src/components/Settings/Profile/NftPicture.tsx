@@ -4,7 +4,8 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Button, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import NftAvatarModal from './NftAvatarModal';
 

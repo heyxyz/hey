@@ -16,7 +16,7 @@
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.17",
-    "zod": "^3.22.1"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230814.0",
