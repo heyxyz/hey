@@ -8,7 +8,7 @@ on:
 jobs:
   extract:
     name: i18n extract
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v3
