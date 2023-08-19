@@ -8,10 +8,11 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -36,16 +37,19 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     'quotedPublicationId'
   );
 
-  let content = metadata?.content;
   const filterId = snapshotProposalId || quotedPublicationId;
 
-  if (filterId) {
-    for (const url of urls) {
-      if (url.includes(filterId)) {
-        content = content?.replace(url, '');
+  const [content, setContent] = useState(metadata?.content);
+
+  useEffect(() => {
+    if (filterId) {
+      for (const url of urls) {
+        if (url.includes(filterId)) {
+          setContent(content?.replace(url, ''));
+        }
       }
     }
-  }
+  }, [filterId, urls, content]);
 
   if (metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
@@ -60,6 +64,15 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showSnapshot &&
     !showQuotedPublication &&
     !quoted;
+
+  const onData = () => {
+    if (showOembed) {
+      const updatedContent = removeUrlAtEnd(urls, content);
+      if (updatedContent !== content) {
+        setContent(updatedContent);
+      }
+    }
+  };
 
   return (
     <div className="break-words">
@@ -85,7 +98,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? (
-        <Oembed url={urls[0]} publicationId={publication.id} />
+        <Oembed url={urls[0]} publicationId={publication.id} onData={onData} />
       ) : null}
       {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />
