@@ -21804,6 +21804,7 @@ export type FollowingQuery = {
       profile: {
         __typename?: 'Profile';
         isFollowedByMe: boolean;
+        followNftAddress?: any | null;
         id: any;
         name?: string | null;
         handle: any;
@@ -53755,6 +53756,7 @@ export const FollowingDocument = gql`
         profile {
           ...ProfileFields
           isFollowedByMe
+          followNftAddress
         }
         totalAmountOfTimesFollowing
       }
