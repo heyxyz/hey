@@ -37,7 +37,6 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const gallery = useNftGalleryStore((state) => state.gallery);
   const setGallery = useNftGalleryStore((state) => state.setGallery);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   const { cache } = useApolloClient();
   const [createGallery, { loading }] = useCreateNftGalleryMutation();
@@ -208,10 +207,6 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     } else {
       setCurrentStep(CreateSteps.NAME);
     }
-  };
-
-  const onPickEmoji = (emoji: string) => {
-    setGallery({ ...gallery, name: gallery.name + emoji });
   };
 
   const getBackStep = () => {
