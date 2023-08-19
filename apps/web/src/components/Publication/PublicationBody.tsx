@@ -12,7 +12,8 @@ import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 

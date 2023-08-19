@@ -15,7 +15,8 @@ import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@lenster/types/misc';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 

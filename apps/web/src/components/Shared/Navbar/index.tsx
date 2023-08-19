@@ -8,7 +8,8 @@ import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 

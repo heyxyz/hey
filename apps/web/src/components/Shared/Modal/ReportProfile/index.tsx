@@ -5,7 +5,7 @@ import type { Profile } from '@lenster/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { object, string, z } from 'zod';

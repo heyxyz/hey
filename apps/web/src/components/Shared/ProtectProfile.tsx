@@ -13,7 +13,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite } from 'wagmi';
 
