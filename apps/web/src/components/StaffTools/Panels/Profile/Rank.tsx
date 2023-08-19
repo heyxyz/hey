@@ -1,4 +1,5 @@
 import {
+  CheckCircleIcon,
   CurrencyDollarIcon,
   HandIcon,
   UserAddIcon,
@@ -6,6 +7,7 @@ import {
 } from '@heroicons/react/outline';
 import { HashtagIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
+import { formatDate } from '@lib/formatTime';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -22,6 +24,21 @@ const Rank: FC<RankProps> = ({ profile }) => {
     try {
       const response = await axios(
         `https://lens-api.k3l.io/profile/rank?strategy=${strategy}&handle=${profile.handle}`
+      );
+
+      return response.data;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const getGitcoinScore = async () => {
+    try {
+      const response = await axios(
+        `https://api.scorer.gitcoin.co/registry/score/335/${profile.ownedBy}`,
+        {
+          headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
+        }
       );
 
       return response.data;
@@ -47,6 +64,10 @@ const Rank: FC<RankProps> = ({ profile }) => {
 
   const { data: creator } = useQuery(['getRank', profile.id, 'creator'], () =>
     getRank('creator').then((res) => res)
+  );
+
+  const { data: gitcoinScore } = useQuery(['getRank', profile.id], () =>
+    getGitcoinScore().then((res) => res)
   );
 
   return (
@@ -97,6 +118,30 @@ const Rank: FC<RankProps> = ({ profile }) => {
           title={t`Creator Rank`}
         >
           {creator ? creator.rank : <div className="shimmer h-4 w-5 rounded" />}
+        </MetaDetails>
+        <MetaDetails
+          icon={<CheckCircleIcon className="lt-text-gray-500 h-4 w-4" />}
+          value={gitcoinScore?.evidence?.rawScore}
+          title={t`Gitcoin Score`}
+        >
+          {gitcoinScore ? (
+            <span>
+              {parseInt(gitcoinScore?.evidence?.rawScore) > 0 ? (
+                <>
+                  {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
+                  <span className="lt-text-gray-500 text-xs">
+                    {' '}
+                    (Updated:{' '}
+                    {formatDate(gitcoinScore?.evidence?.last_score_timestamp)})
+                  </span>
+                </>
+              ) : (
+                'Not scored'
+              )}
+            </span>
+          ) : (
+            <div className="shimmer h-4 w-5 rounded" />
+          )}
         </MetaDetails>
       </div>
     </>
