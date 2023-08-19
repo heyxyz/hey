@@ -73,7 +73,7 @@ const ProfileSettings: NextPage = () => {
               onClick={() => setSettingsType('AVATAR')}
             />
             <TabButton
-              name="NFT Avatar"
+              name="NFT avatar"
               icon={<CubeIcon className="h-5 w-5" />}
               active={settingsType === 'NFT'}
               onClick={() => setSettingsType('NFT')}

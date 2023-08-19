@@ -54,7 +54,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       )}
       data-testid={`publication-${publication.id}-header`}
     >
-      <span onClick={stopEventPropagation} aria-hidden="true">
+      <span
+        className="max-w-full"
+        onClick={stopEventPropagation}
+        aria-hidden="true"
+      >
         {quoted ? (
           <SmallUserProfile profile={profile} timestamp={timestamp} />
         ) : (

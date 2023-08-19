@@ -65,6 +65,7 @@ interface DecryptedPublicationBodyProps {
 const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   encryptedPublication
 }) => {
+  const [content, setContent] = useState<any>();
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useGlobalModalStateStore(
@@ -183,6 +184,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
+    setContent(decrypted?.content);
     setDecryptError(error);
     setIsDecrypting(false);
   };
@@ -352,9 +354,14 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
-  let { content } = publication ?? {};
   const urls = getURLs(content);
-  content = removeUrlAtEnd(urls, content);
+
+  const onData = () => {
+    const updatedContent = removeUrlAtEnd(urls, content);
+    if (updatedContent !== content) {
+      setContent(updatedContent);
+    }
+  };
 
   return (
     <div className="break-words">
@@ -376,10 +383,12 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
       )}
       {publication?.media?.length ? (
         <Attachments attachments={publication?.media} />
-      ) : content ? (
-        urls.length > 0 && (
-          <Oembed url={urls[0]} publicationId={encryptedPublication.id} />
-        )
+      ) : content && urls.length > 0 ? (
+        <Oembed
+          url={urls[0]}
+          publicationId={encryptedPublication.id}
+          onData={onData}
+        />
       ) : null}
     </div>
   );

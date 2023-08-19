@@ -66,7 +66,7 @@ const SettingsSidebar: FC = () => {
           {
             title: (
               <div className="text-red-500">
-                <Trans>Danger Zone</Trans>
+                <Trans>Danger zone</Trans>
               </div>
             ),
             icon: <ExclamationIcon className="h-4 w-4 text-red-500" />,

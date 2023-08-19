@@ -104,7 +104,7 @@ const GuardianSettings: FC = () => {
         </Button>
       )}
       <Modal
-        title={t`Danger Zone`}
+        title={t`Danger zone`}
         icon={<ExclamationIcon className="h-5 w-5 text-red-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}

@@ -40,18 +40,18 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   );
 
   const UserName = () => (
-    <div className="flex max-w-sm items-center">
-      <div className="truncate">
+    <div className="flex max-w-full flex-wrap items-center">
+      <div className="mr-2 max-w-[75%] truncate">
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
       {isVerified(profile.id) && (
-        <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
+        <BadgeCheckIcon className="text-brand mr-1 h-4 w-4" />
       )}
       {hasMisused(profile.id) && (
-        <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
+        <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />
       )}
       <Slug
-        className="ml-2 text-sm"
+        className="text-sm"
         slug={formatHandle(profile?.handle)}
         prefix="@"
       />

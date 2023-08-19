@@ -6,6 +6,7 @@
  */
 const removeUrlAtEnd = (urls: string[], content: string): string => {
   if (urls && urls.length === 1) {
+    content = content.trimEnd();
     let indexOfUrl = content.indexOf(urls[0]);
     if (indexOfUrl === content.length - urls[0].length) {
       return content?.replace(urls[0], '');
