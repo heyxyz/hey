@@ -868,7 +868,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   useUnmountEffect(() => {
     setPublicationContent('');
-    setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
     setAttachments([]);

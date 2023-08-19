@@ -11,10 +11,11 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@lenster/types/misc';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
@@ -29,8 +30,15 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
-  const { content } = txn;
+  const [content, setContent] = useState(txn.content);
   const urls = getURLs(content);
+
+  const onData = () => {
+    const updatedContent = removeUrlAtEnd(urls, content);
+    if (updatedContent !== content) {
+      setContent(updatedContent);
+    }
+  };
 
   const removeTxn = () => {
     if (txHash) {
@@ -108,7 +116,8 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
         {txn?.attachments?.length > 0 ? (
           <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : (
-          txn?.attachments && urls.length > 0 && <Oembed url={urls[0]} />
+          txn?.attachments &&
+          urls.length > 0 && <Oembed url={urls[0]} onData={onData} />
         )}
       </div>
     </article>
