@@ -737,31 +737,6 @@ importers:
         specifier: ^3.5.1
         version: 3.5.1
 
-  packages/workers/ipfs:
-    dependencies:
-      '@lenster/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      itty-router:
-        specifier: ^4.0.17
-        version: 4.0.17
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20230814.0
-        version: 4.20230814.0
-      '@lenster/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.1.6
-        version: 5.1.6
-      vitest:
-        specifier: ^0.34.2
-        version: 0.34.2
-      wrangler:
-        specifier: ^3.5.1
-        version: 3.5.1
-
   packages/workers/leafwatch:
     dependencies:
       '@lenster/data':
