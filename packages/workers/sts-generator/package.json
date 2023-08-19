@@ -13,7 +13,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.391.0",
+    "@aws-sdk/client-sts": "^3.395.0",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.17"
   },

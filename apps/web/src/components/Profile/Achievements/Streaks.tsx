@@ -4,7 +4,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { Card } from '@lenster/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import type { Activity } from 'react-activity-calendar';
 import ActivityCalendar from 'react-activity-calendar';
 

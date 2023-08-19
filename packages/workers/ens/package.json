@@ -18,8 +18,8 @@
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.17",
-    "viem": "^1.6.0",
-    "zod": "^3.22.1"
+    "viem": "^1.6.2",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230814.0",
