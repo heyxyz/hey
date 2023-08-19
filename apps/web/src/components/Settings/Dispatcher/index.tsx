@@ -26,11 +26,11 @@ const DispatcherSettings: FC = () => {
 
   const getTitleText = () => {
     if (canUseRelay) {
-      return <Trans>Disable Signless Transactions</Trans>;
+      return <Trans>Disable signless transactions</Trans>;
     } else if (isOldDispatcherEnabled) {
-      return <Trans>Signless Transactions Upgrade</Trans>;
+      return <Trans>Signless transactions upgrade</Trans>;
     } else {
-      return <Trans>Signless Transactions</Trans>;
+      return <Trans>Signless transactions</Trans>;
     }
   };
 

@@ -4,7 +4,7 @@ import { HOME } from '@lenster/data/tracking';
 import { Toggle, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
 const List: FC = () => {

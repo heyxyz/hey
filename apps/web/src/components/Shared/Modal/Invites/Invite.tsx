@@ -6,7 +6,8 @@ import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { object, string } from 'zod';
 

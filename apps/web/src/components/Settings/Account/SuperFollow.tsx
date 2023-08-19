@@ -48,7 +48,7 @@ const SuperFollow: FC = () => {
     }
 
     setIsLoading(false);
-    toast.success(t`Super Follow updated successfully!`);
+    toast.success(t`Super follow updated successfully!`);
     Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
@@ -142,7 +142,7 @@ const SuperFollow: FC = () => {
         <div className="space-y-2 p-5 py-10 text-center">
           <Spinner size="md" className="mx-auto" />
           <div>
-            <Trans>Loading super follow settings</Trans>
+            <Trans>Loading Super follow settings</Trans>
           </div>
         </div>
       </Card>
@@ -161,18 +161,18 @@ const SuperFollow: FC = () => {
         }}
       >
         <div className="text-lg font-bold">
-          <Trans>Set super follow</Trans>
+          <Trans>Set Super follow</Trans>
         </div>
         <p>
           <Trans>
-            Setting super follow makes users spend crypto to follow you, and
+            Setting Super follow makes users spend crypto to follow you, and
             it's a good way to earn it, you can change the amount and currency
             or disable/enable it anytime.
           </Trans>
         </p>
         <div className="pt-2">
           <div className="label">
-            <Trans>Select Currency</Trans>
+            <Trans>Select currency</Trans>
           </div>
           <select
             className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"

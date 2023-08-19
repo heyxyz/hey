@@ -136,8 +136,8 @@ msgstr ""
 #: src/components/Composer/Actions/CollectSettings/AmountConfig.tsx
 #: src/components/Settings/Account/SuperFollow.tsx
 #: src/components/Settings/Allowance/index.tsx
-msgid "Select Currency"
-msgstr ""
+msgid "Select currency"
+msgstr "Select currency"
 
 #: src/components/Composer/Actions/CollectSettings/CollectForm.tsx
 msgid "Loading collect settings"
@@ -421,13 +421,13 @@ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions Upgrade"
-msgstr "Signless Transactions Upgrade"
+msgid "Signless transactions upgrade"
+msgstr "Signless transactions upgrade"
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Signless Transactions"
-msgstr "Signless Transactions"
+msgid "Signless transactions"
+msgstr "Signless transactions"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -778,15 +778,6 @@ msgstr "Custom filters"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "Gardeners"
-
-#: src/components/Nft/NftFeed.tsx
-msgid "doesn’t have any NFTs!"
-msgstr ""
-
-#: src/components/Nft/NftFeed.tsx
-#: src/components/Profile/NftGallery/Picker.tsx
-msgid "Failed to load nft feed"
-msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -1461,8 +1452,8 @@ msgstr "Invited by <0/>"
 
 #: src/components/Profile/Menu/Report.tsx
 #: src/components/Shared/GlobalModals.tsx
-msgid "Report Profile"
-msgstr "Report Profile"
+msgid "Report profile"
+msgstr "Report profile"
 
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
@@ -1572,6 +1563,10 @@ msgid "doesn't have any NFTs!"
 msgstr "doesn't have any NFTs!"
 
 #: src/components/Profile/NftGallery/Picker.tsx
+msgid "Failed to load nft feed"
+msgstr ""
+
+#: src/components/Profile/NftGallery/Picker.tsx
 msgid "Only 50 items allowed for gallery"
 msgstr "Only 50 items allowed for gallery"
 
@@ -1674,8 +1669,8 @@ msgid "Marked as not Interested"
 msgstr "Marked as not Interested"
 
 #: src/components/Publication/Actions/Menu/NotInterested.tsx
-msgid "Undo Not Interested"
-msgstr "Undo Not Interested"
+msgid "Undo Not interested"
+msgstr "Undo Not interested"
 
 #: src/components/Publication/Actions/Menu/Share.tsx
 msgid "Share"
@@ -1883,20 +1878,21 @@ msgid "Invalid Ethereum address"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Super Follow updated successfully!"
-msgstr "Super Follow updated successfully!"
+msgid "Super follow updated successfully!"
+msgstr "Super follow updated successfully!"
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Loading super follow settings"
+msgid "Loading Super follow settings"
+msgstr "Loading Super follow settings"
+
+#: src/components/Settings/Account/SuperFollow.tsx
+#: src/components/Settings/Account/SuperFollow.tsx
+msgid "Set Super follow"
 msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set super follow"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
-msgid "Setting super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
-msgstr ""
+msgid "Setting Super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
+msgstr "Setting Super follow makes users spend crypto to follow you, and it's a good way to earn it, you can change the amount and currency or disable/enable it anytime."
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Follow amount"
@@ -1912,10 +1908,6 @@ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Update Super follow"
-msgstr ""
-
-#: src/components/Settings/Account/SuperFollow.tsx
-msgid "Set Super follow"
 msgstr ""
 
 #: src/components/Settings/Account/Verification.tsx
@@ -1952,16 +1944,16 @@ msgid "Handle with care!"
 msgstr ""
 
 #: src/components/Settings/Allowance/Button.tsx
-msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>collect</0> and <1>super follow</1>."
-msgstr ""
+msgid "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>Collect</0> and <1>Super follow</1>."
+msgstr "Please be aware that by allowing this module, the amount indicated will be automatically deducted when you <0>Collect</0> and <1>Super follow</1>."
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "Allowance settings • {APP_NAME}"
 msgstr "Allowance settings • {APP_NAME}"
 
 #: src/components/Settings/Allowance/index.tsx
-msgid "Allow / Revoke modules"
-msgstr ""
+msgid "Allow / revoke modules"
+msgstr "Allow / revoke modules"
 
 #: src/components/Settings/Allowance/index.tsx
 msgid "In order to use collect feature you need to allow the module you use, you can allow and revoke the module anytime."
@@ -1976,12 +1968,12 @@ msgid "Cleanup settings • {APP_NAME}"
 msgstr "Cleanup settings • {APP_NAME}"
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "Cleanup Localstorage"
-msgstr ""
+msgid "Cleanup local storage"
+msgstr "Cleanup local storage"
 
 #: src/components/Settings/Cleanup/index.tsx
-msgid "If you stuck with some issues, you can try to clean up the localstorage. This will remove all the data stored in your browser."
-msgstr ""
+msgid "If you stuck with some issues, you can try to clean up the browser's internal local storage. This will remove all the data stored in your browser."
+msgstr "If you stuck with some issues, you can try to clean up the browser's internal local storage. This will remove all the data stored in your browser."
 
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Optimistic publications"
@@ -2049,8 +2041,8 @@ msgstr ""
 #: src/components/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Guardian.tsx
 #: src/components/Settings/Sidebar.tsx
-msgid "Danger Zone"
-msgstr ""
+msgid "Danger zone"
+msgstr "Danger zone"
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "Confirm that you have read all consequences and want to delete your account anyway"
@@ -2114,8 +2106,8 @@ msgid "Enable"
 msgstr "Enable"
 
 #: src/components/Settings/Dispatcher/index.tsx
-msgid "Disable Signless Transactions"
-msgstr "Disable Signless Transactions"
+msgid "Disable signless transactions"
+msgstr "Disable signless transactions"
 
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Dispatcher • {APP_NAME}"
@@ -2239,8 +2231,8 @@ msgid "Select a NFT"
 msgstr "Select a NFT"
 
 #: src/components/Settings/Profile/NftPicture.tsx
-msgid "Choose NFT Avatar"
-msgstr "Choose NFT Avatar"
+msgid "Choose NFT avatar"
+msgstr "Choose NFT avatar"
 
 #: src/components/Settings/Profile/Picture.tsx
 #: src/components/Settings/Profile/Profile.tsx
@@ -2870,8 +2862,8 @@ msgid "Staff mode"
 msgstr "Staff mode"
 
 #: src/components/Shared/Navbar/NavItems/SwitchProfile.tsx
-msgid "Switch Profile"
-msgstr "Switch Profile"
+msgid "Switch profile"
+msgstr "Switch profile"
 
 #: src/components/Shared/Navbar/NavItems/ThemeSwitch.tsx
 msgid "Dark mode"
@@ -2882,8 +2874,8 @@ msgid "Light mode"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
-msgid "Your Profile"
-msgstr ""
+msgid "Your profile"
+msgstr "Your profile"
 
 #: src/components/Shared/Navbar/Search.tsx
 msgid "Search…"
@@ -2983,8 +2975,8 @@ msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 #: src/components/Shared/SuperFollow/index.tsx
-msgid "Loading super follow"
-msgstr ""
+msgid "Loading Super follow"
+msgstr "Loading Super follow"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "Recipient:"
@@ -2999,8 +2991,8 @@ msgid "You can collect @{0}'s publications"
 msgstr ""
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "You will get super follow badge in @{0}'s profile"
-msgstr ""
+msgid "You will get Super follow badge in @{0}'s profile"
+msgstr "You will get Super follow badge in @{0}'s profile"
 
 #: src/components/Shared/SuperFollow/FollowModule.tsx
 msgid "You will have high voting power if you followed multiple times"
@@ -3213,24 +3205,24 @@ msgid "Audio size should be less than 100MB"
 msgstr "Audio size should be less than 100MB"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Multirecipient Paid Collect"
-msgstr "Multirecipient Paid Collect"
+msgid "Multirecipient paid collect"
+msgstr "Multirecipient paid collect"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Basic Collect"
-msgstr "Basic Collect"
+msgid "Basic collect"
+msgstr "Basic collect"
 
 #: src/lib/getAllowanceModule.ts
-msgid "No Collect"
-msgstr "No Collect"
+msgid "No collect"
+msgstr "No collect"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Fee Follow"
-msgstr ""
+msgid "Fee follow"
+msgstr "Fee follow"
 
 #: src/lib/getAllowanceModule.ts
-msgid "Follower Only Reference"
-msgstr ""
+msgid "Follower only reference"
+msgstr "Follower only reference"
 
 #: src/pages/404.tsx
 msgid "Oops, Lost‽"

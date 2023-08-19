@@ -4,6 +4,7 @@ query Following($request: FollowingRequest!) {
       profile {
         ...ProfileFields
         isFollowedByMe
+        followNftAddress
       }
       totalAmountOfTimesFollowing
     }

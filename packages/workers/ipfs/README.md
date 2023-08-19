@@ -1,1 +1,0 @@
-# IPFS worker

@@ -182,11 +182,12 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
             error={error}
           />
         )}
-        <div className="mb-4 mr-1 flex max-h-[70vh] min-h-[30vh] overflow-y-scroll">
+        <div className="max-h-[80vh] overflow-y-auto p-5">
           <Picker onlyAllowOne={true} />
         </div>
-        <div className="ml-auto flex items-center space-x-2 p-4">
+        <div className="flex items-center space-x-2 border-t p-5 px-5 py-3 dark:border-t-gray-700">
           <Button
+            className="ml-auto"
             onClick={setAvatar}
             disabled={isLoading || gallery.items.length === 0}
             icon={

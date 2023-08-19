@@ -15,7 +15,7 @@ import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 interface StreaksListProps {
   profile: Profile;

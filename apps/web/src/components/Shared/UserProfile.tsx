@@ -1,3 +1,4 @@
+import Unfollow from '@components/Shared/Unfollow';
 import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -27,6 +28,7 @@ interface UserProfileProps {
   linkToProfile?: boolean;
   showBio?: boolean;
   showFollow?: boolean;
+  showUnfollow?: boolean;
   showStatus?: boolean;
   showUserPreview?: boolean;
   timestamp?: Date;
@@ -44,6 +46,7 @@ const UserProfile: FC<UserProfileProps> = ({
   linkToProfile = true,
   showBio = false,
   showFollow = false,
+  showUnfollow = false,
   showStatus = false,
   showUserPreview = true,
   timestamp = '',
@@ -177,6 +180,12 @@ const UserProfile: FC<UserProfileProps> = ({
             followUnfollowSource={followUnfollowSource}
           />
         ))}
+      {showUnfollow &&
+        (followStatusLoading ? (
+          <div className="shimmer h-8 w-10 rounded-lg" />
+        ) : following ? (
+          <Unfollow profile={profile} setFollowing={setFollowing} />
+        ) : null)}
     </div>
   );
 };

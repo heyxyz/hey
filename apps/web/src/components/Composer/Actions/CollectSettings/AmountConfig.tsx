@@ -60,7 +60,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
             />
             <div>
               <div className="label">
-                <Trans>Select Currency</Trans>
+                <Trans>Select currency</Trans>
               </div>
               <select
                 className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"

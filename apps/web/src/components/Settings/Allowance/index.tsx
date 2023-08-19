@@ -75,7 +75,7 @@ const AllowanceSettings: NextPage = () => {
           <div className="mx-5 mt-5">
             <div className="space-y-5">
               <div className="text-lg font-bold">
-                <Trans>Allow / Revoke modules</Trans>
+                <Trans>Allow / revoke modules</Trans>
               </div>
               <p>
                 <Trans>
@@ -86,7 +86,7 @@ const AllowanceSettings: NextPage = () => {
             </div>
             <div className="divider my-5" />
             <div className="label mt-6">
-              <Trans>Select Currency</Trans>
+              <Trans>Select currency</Trans>
             </div>
             <select
               className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
