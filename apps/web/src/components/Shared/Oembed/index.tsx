@@ -10,9 +10,10 @@ import Player from './Player';
 interface OembedProps {
   url?: string;
   publicationId?: string;
+  onData: () => void;
 }
 
-const Oembed: FC<OembedProps> = ({ url, publicationId }) => {
+const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   const { isLoading, error, data } = useQuery(
     [url],
     () =>
@@ -23,8 +24,10 @@ const Oembed: FC<OembedProps> = ({ url, publicationId }) => {
     { enabled: Boolean(url) }
   );
 
-  if (error || isLoading || !data) {
+  if (isLoading || error || !data) {
     return null;
+  } else if (data) {
+    onData();
   }
 
   const og: OG = {
