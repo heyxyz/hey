@@ -11,7 +11,6 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getURLs from '@lenster/lib/getURLs';
-import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@lenster/types/misc';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -30,9 +29,8 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
-  let { content } = txn;
+  const { content } = txn;
   const urls = getURLs(content);
-  content = removeUrlAtEnd(urls, content);
 
   const removeTxn = () => {
     if (txHash) {

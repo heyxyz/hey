@@ -8,7 +8,6 @@ import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
-import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -61,10 +60,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showSnapshot &&
     !showQuotedPublication &&
     !quoted;
-
-  if (showOembed) {
-    content = removeUrlAtEnd(urls, content);
-  }
 
   return (
     <div className="break-words">
