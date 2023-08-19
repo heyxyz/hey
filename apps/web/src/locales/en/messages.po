@@ -3094,6 +3094,10 @@ msgstr "Influencer Rank"
 msgid "Creator Rank"
 msgstr "Creator Rank"
 
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Gitcoin Score"
+msgstr "Gitcoin Score"
+
 #: src/components/StaffTools/Panels/Profile/index.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
