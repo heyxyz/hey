@@ -28,6 +28,7 @@ import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
@@ -64,6 +65,7 @@ interface DecryptedPublicationBodyProps {
 const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   encryptedPublication
 }) => {
+  const [content, setContent] = useState<any>();
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowAuthModal = useGlobalModalStateStore(
@@ -182,6 +184,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     });
     const { decrypted, error } = await sdk.gated.decryptMetadata(data);
     setDecryptedData(decrypted);
+    setContent(decrypted?.content);
     setDecryptError(error);
     setIsDecrypting(false);
   };
@@ -351,8 +354,14 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   }
 
   const publication: PublicationMetadataV2Input = decryptedData;
-  const { content } = publication ?? {};
   const urls = getURLs(content);
+
+  const onData = () => {
+    const updatedContent = removeUrlAtEnd(urls, content);
+    if (updatedContent !== content) {
+      setContent(updatedContent);
+    }
+  };
 
   return (
     <div className="break-words">
@@ -375,7 +384,11 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
       {publication?.media?.length ? (
         <Attachments attachments={publication?.media} />
       ) : content && urls.length > 0 ? (
-        <Oembed url={urls[0]} publicationId={encryptedPublication.id} />
+        <Oembed
+          url={urls[0]}
+          publicationId={encryptedPublication.id}
+          onData={onData}
+        />
       ) : null}
     </div>
   );
