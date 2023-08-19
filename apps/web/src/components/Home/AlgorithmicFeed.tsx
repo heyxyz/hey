@@ -8,7 +8,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 interface AlgorithmicFeedProps {
