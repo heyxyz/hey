@@ -12,7 +12,7 @@ import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { type FC, useEffect, useState } from 'react';
+import { type FC, useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -39,17 +39,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const filterId = snapshotProposalId || quotedPublicationId;
 
-  const [content, setContent] = useState(metadata?.content);
+  let rawContent = metadata?.content;
 
-  useEffect(() => {
-    if (filterId) {
-      for (const url of urls) {
-        if (url.includes(filterId)) {
-          setContent(content?.replace(url, ''));
-        }
+  if (filterId) {
+    for (const url of urls) {
+      if (url.includes(filterId)) {
+        rawContent = rawContent?.replace(url, '');
       }
     }
-  }, [filterId, urls, content]);
+  }
+
+  const [content, setContent] = useState(rawContent);
 
   if (metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
