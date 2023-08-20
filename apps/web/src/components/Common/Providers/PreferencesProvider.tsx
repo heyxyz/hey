@@ -15,31 +15,35 @@ const PreferencesProvider: FC = () => {
     setStaffMode,
     setGardenerMode,
     setIsPride,
-    setHighSignalNotificationFilter
+    setHighSignalNotificationFilter,
+    setLoadingPreferences
   } = usePreferencesStore();
 
   const fetchPreferences = async () => {
     try {
-      const response = await axios(
-        `${PREFERENCES_WORKER_URL}/get/${profileId}`
-      );
-      const { data } = response;
+      if (Boolean(profileId)) {
+        const response = await axios(
+          `${PREFERENCES_WORKER_URL}/get/${profileId}`
+        );
+        const { data } = response;
 
-      setIsStaff(data.result?.is_staff || false);
-      setIsGardener(data.result?.is_gardener || false);
-      setIsTrustedMember(data.result?.is_trusted_member || false);
-      setStaffMode(data.result?.staff_mode || false);
-      setGardenerMode(data.result?.gardener_mode || false);
-      setIsPride(data.result?.is_pride || false);
-      setHighSignalNotificationFilter(
-        data.result?.high_signal_notification_filter || false
-      );
-    } catch {}
+        setIsStaff(data.result?.is_staff || false);
+        setIsGardener(data.result?.is_gardener || false);
+        setIsTrustedMember(data.result?.is_trusted_member || false);
+        setStaffMode(data.result?.staff_mode || false);
+        setGardenerMode(data.result?.gardener_mode || false);
+        setIsPride(data.result?.is_pride || false);
+        setHighSignalNotificationFilter(
+          data.result?.high_signal_notification_filter || false
+        );
+      }
+    } catch {
+    } finally {
+      setLoadingPreferences(false);
+    }
   };
 
-  useQuery(['preferences', profileId], () => fetchPreferences(), {
-    enabled: Boolean(profileId)
-  });
+  useQuery(['preferences', profileId], () => fetchPreferences());
 
   const fetchVerifiedMembers = async () => {
     try {
