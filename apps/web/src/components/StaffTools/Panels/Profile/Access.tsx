@@ -76,6 +76,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         ...(type === Type.TUSTED_MEMBER && {
           isTrustedMember: !isTrustedMember
         }),
+        updateByAdmin: true,
         accessToken: localStorage.getItem(Localstorage.AccessToken)
       }),
       {
