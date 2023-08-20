@@ -10,8 +10,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -21,7 +21,7 @@ import StaffBar from './StaffBar';
 const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAccessStore((state) => state.staffMode);
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {

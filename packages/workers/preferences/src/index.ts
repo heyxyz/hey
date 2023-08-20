@@ -1,9 +1,9 @@
 import { createCors, error, json, Router } from 'itty-router';
 
-import getAccess from './handlers/getAccess';
+import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
-import updateAccess from './handlers/updateAccess';
 import updateGardenerMode from './handlers/updateGardenerMode';
+import updatePreferences from './handlers/updatePreferences';
 import updateStaffMode from './handlers/updateStaffMode';
 import type { Env } from './types';
 
@@ -15,9 +15,11 @@ const { preflight, corsify } = createCors({
 const router = Router();
 
 router.all('*', preflight);
-router.get('/', () => new Response('gm, to access service 👋'));
-router.get('/rights/:id', ({ params }, env) => getAccess(params.id, env));
-router.post('/rights', updateAccess);
+router.get('/', () => new Response('gm, to preferences service 👋'));
+router.get('/preferences/:id', ({ params }, env) =>
+  getPreferences(params.id, env)
+);
+router.post('/preferences', updatePreferences);
 router.get('/verified', getVerified);
 router.post('/staffMode', updateStaffMode);
 router.post('/gardenerMode', updateGardenerMode);

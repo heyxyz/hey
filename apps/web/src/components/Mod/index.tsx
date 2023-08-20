@@ -20,13 +20,13 @@ import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
-import { useAccessStore } from 'src/store/access';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Mod: NextPage = () => {
-  const isGardener = useAccessStore((state) => state.isGardener);
+  const isGardener = usePreferencesStore((state) => state.isGardener);
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([

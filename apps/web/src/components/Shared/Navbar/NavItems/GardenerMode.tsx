@@ -9,8 +9,8 @@ import axios from 'axios';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 interface ModModeProps {
   className?: string;
@@ -18,8 +18,8 @@ interface ModModeProps {
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const gardenerMode = useAccessStore((state) => state.gardenerMode);
-  const setGardenerMode = useAccessStore((state) => state.setGardenerMode);
+  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
+  const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
 
   const toggleModMode = () => {
     toast.promise(

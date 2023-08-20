@@ -9,8 +9,8 @@ import axios from 'axios';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 interface StaffModeProps {
   className?: string;
@@ -18,8 +18,8 @@ interface StaffModeProps {
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAccessStore((state) => state.staffMode);
-  const setStaffMode = useAccessStore((state) => state.setStaffMode);
+  const staffMode = usePreferencesStore((state) => state.staffMode);
+  const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
 
   const toggleStaffMode = async () => {
     toast.promise(
