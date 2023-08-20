@@ -73,7 +73,7 @@ export default async (request: IRequest, env: Env) => {
     }
 
     // Clear cache in Cloudflare KV
-    await env.ACCESS.delete('verified-list');
+    await env.PREFERENCES.delete('verified-list');
 
     return response({ success: true, result: data });
   } catch (error) {
