@@ -804,10 +804,6 @@ msgid "Inbox zero!"
 msgstr ""
 
 #: src/components/Notification/Settings.tsx
-#~ msgid "Signal filter"
-#~ msgstr "Signal filter"
-
-#: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "Notification settings"
 
