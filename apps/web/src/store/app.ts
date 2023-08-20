@@ -8,13 +8,17 @@ interface AppState {
   setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
+  verifiedMembers: string[];
+  setVerifiedMembers: (verifiedMembers: string[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   profiles: [],
   setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
-  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile }))
+  setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
+  verifiedMembers: [],
+  setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers }))
 }));
 
 interface AppPerisistState {
@@ -31,3 +35,5 @@ export const useAppPersistStore = create(
     { name: Localstorage.AppStore }
   )
 );
+
+export const verifiedMembers = () => useAppStore.getState().verifiedMembers;

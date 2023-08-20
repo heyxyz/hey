@@ -1,5 +1,5 @@
 import { IS_MAINNET } from '@lenster/data/constants';
-import { verifiedMembers } from 'src/store/access';
+import { verifiedMembers } from 'src/store/app';
 
 /**
  * Checks whether a profile is verified or not.
