@@ -11,8 +11,8 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { useAccessStore } from 'src/store/access';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
@@ -34,7 +34,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const setProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.setProfileGuardianInformation
   );
-  const resetAccess = useAccessStore((state) => state.resetAccess);
+  const resetPreferences = usePreferencesStore(
+    (state) => state.resetPreferences
+  );
   const resetProfileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.resetProfileGuardianInformation
   );
@@ -50,7 +52,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
-    resetAccess();
+    resetPreferences();
     resetProfileGuardianInformation();
   };
 

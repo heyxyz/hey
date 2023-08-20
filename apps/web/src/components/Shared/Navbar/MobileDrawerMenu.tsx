@@ -7,9 +7,9 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -30,8 +30,8 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = useAccessStore((state) => state.isStaff);
-  const isGardener = useAccessStore((state) => state.isGardener);
+  const isStaff = usePreferencesStore((state) => state.isStaff);
+  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
