@@ -804,28 +804,12 @@ msgid "Inbox zero!"
 msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Settings.tsx
-msgid "Updating notification settings..."
-msgstr ""
-
-#: src/components/Notification/Settings.tsx
-msgid "Notification settings updated"
-msgstr ""
-
-#: src/components/Notification/Settings.tsx
-msgid "Error updating notification settings"
-msgstr ""
+#~ msgid "Signal filter"
+#~ msgstr "சிக்னல் வடிகட்டி"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "அறிவிப்பு அமைப்புகள்"
-
-#: src/components/Notification/Settings.tsx
-msgid "Signal filter"
-msgstr "சிக்னல் வடிகட்டி"
-
-#: src/components/Notification/Settings.tsx
-msgid "Turn on high-signal notification filter"
-msgstr "உயர் சிக்னல் அறிவிப்பு வடிப்பானை இயக்கவும்"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {currency}"
@@ -1976,6 +1960,7 @@ msgid "Cleared {key}"
 msgstr "அழிக்கப்பட்டது {key}"
 
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Preferences/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
 msgstr "துப்புரவு அமைப்புகள் • {APP_NAME}"
 
@@ -2233,6 +2218,34 @@ msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
 
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating notification settings..."
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification settings updated"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Error updating notification settings"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification Signal filter"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Turn on high-signal notification filter"
+msgstr "உயர் சிக்னல் அறிவிப்பு வடிப்பானை இயக்கவும்"
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Your Preferences"
+msgstr ""
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Update your preferences to control how you can change your experience on {APP_NAME}."
+msgstr ""
+
 #: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
@@ -2334,6 +2347,10 @@ msgstr "சுயவிவரம்"
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
 msgstr "கணக்கு"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Preferences"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"

@@ -804,28 +804,12 @@ msgid "Inbox zero!"
 msgstr "收件箱消息为零！"
 
 #: src/components/Notification/Settings.tsx
-msgid "Updating notification settings..."
-msgstr ""
-
-#: src/components/Notification/Settings.tsx
-msgid "Notification settings updated"
-msgstr ""
-
-#: src/components/Notification/Settings.tsx
-msgid "Error updating notification settings"
-msgstr ""
+#~ msgid "Signal filter"
+#~ msgstr "信号过滤器"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "通知设置"
-
-#: src/components/Notification/Settings.tsx
-msgid "Signal filter"
-msgstr "信号过滤器"
-
-#: src/components/Notification/Settings.tsx
-msgid "Turn on high-signal notification filter"
-msgstr "打开高信号（质量）通知过滤器"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {currency}"
@@ -1976,6 +1960,7 @@ msgid "Cleared {key}"
 msgstr "已清除 {key}"
 
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Preferences/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
 msgstr "清理页面设置 • {APP_NAME}"
 
@@ -2233,6 +2218,34 @@ msgstr "兴趣设置 • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
 
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating notification settings..."
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification settings updated"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Error updating notification settings"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification Signal filter"
+msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Turn on high-signal notification filter"
+msgstr "打开高信号（质量）通知过滤器"
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Your Preferences"
+msgstr ""
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Update your preferences to control how you can change your experience on {APP_NAME}."
+msgstr ""
+
 #: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
@@ -2334,6 +2347,10 @@ msgstr "个人资料"
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
 msgstr "账户"
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Preferences"
+msgstr ""
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
