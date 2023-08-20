@@ -804,28 +804,12 @@ msgid "Inbox zero!"
 msgstr ""
 
 #: src/components/Notification/Settings.tsx
-msgid "Updating notification settings..."
-msgstr "Updating notification settings..."
-
-#: src/components/Notification/Settings.tsx
-msgid "Notification settings updated"
-msgstr "Notification settings updated"
-
-#: src/components/Notification/Settings.tsx
-msgid "Error updating notification settings"
-msgstr "Error updating notification settings"
+#~ msgid "Signal filter"
+#~ msgstr "Signal filter"
 
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "Notification settings"
-
-#: src/components/Notification/Settings.tsx
-msgid "Signal filter"
-msgstr "Signal filter"
-
-#: src/components/Notification/Settings.tsx
-msgid "Turn on high-signal notification filter"
-msgstr "Turn on high-signal notification filter"
 
 #: src/components/Notification/Type/CollectNotification/Amount.tsx
 msgid "Collected for {0} {currency}"
@@ -1976,6 +1960,7 @@ msgid "Cleared {key}"
 msgstr ""
 
 #: src/components/Settings/Cleanup/index.tsx
+#: src/components/Settings/Preferences/index.tsx
 msgid "Cleanup settings • {APP_NAME}"
 msgstr "Cleanup settings • {APP_NAME}"
 
@@ -2233,6 +2218,34 @@ msgstr "Interests settings • {APP_NAME}"
 msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
 msgstr ""
 
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating notification settings..."
+msgstr "Updating notification settings..."
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification settings updated"
+msgstr "Notification settings updated"
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Error updating notification settings"
+msgstr "Error updating notification settings"
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification Signal filter"
+msgstr "Notification Signal filter"
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Turn on high-signal notification filter"
+msgstr "Turn on high-signal notification filter"
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Your Preferences"
+msgstr "Your Preferences"
+
+#: src/components/Settings/Preferences/index.tsx
+msgid "Update your preferences to control how you can change your experience on {APP_NAME}."
+msgstr "Update your preferences to control how you can change your experience on {APP_NAME}."
+
 #: src/components/Settings/Profile/NftAvatarModal.tsx
 #: src/components/Settings/Profile/Picture.tsx
 msgid "Avatar updated successfully!"
@@ -2334,6 +2347,10 @@ msgstr ""
 #: src/components/Settings/Sidebar.tsx
 msgid "Account"
 msgstr ""
+
+#: src/components/Settings/Sidebar.tsx
+msgid "Preferences"
+msgstr "Preferences"
 
 #: src/components/Settings/Sidebar.tsx
 msgid "Interests"
