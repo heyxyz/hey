@@ -74,7 +74,9 @@ export const PUBLICATION = {
 };
 
 export const NOTIFICATION = {
-  SWITCH_NOTIFICATION_TAB: 'Switch notifications tab'
+  SWITCH_NOTIFICATION_TAB: 'Switch notifications tab',
+  TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
+    'Toggle high signal notification filter'
 };
 
 export const HOME = {
