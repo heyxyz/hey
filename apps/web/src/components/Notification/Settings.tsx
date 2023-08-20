@@ -1,48 +1,13 @@
-import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { BellIcon, CogIcon, ColorSwatchIcon } from '@heroicons/react/outline';
-import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { NOTIFICATION } from '@lenster/data/tracking';
+import HighSignalNotificationFilter from '@components/Settings/Preferences/HighSignalNotificationFilter';
+import { BellIcon, CogIcon } from '@heroicons/react/outline';
 import { Modal, Tooltip } from '@lenster/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
 
 const Settings: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const highSignalNotificationFilter = usePreferencesStore(
-    (state) => state.highSignalNotificationFilter
-  );
-  const setHighSignalNotificationFilter = usePreferencesStore(
-    (state) => state.setHighSignalNotificationFilter
-  );
   const [showNotificationSettings, setShowNotificationSettings] =
     useState(false);
-
-  const toggleHighSignalNotificationFilter = () => {
-    toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: currentProfile?.id,
-        highSignalNotificationFilter: !highSignalNotificationFilter,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
-      {
-        loading: t`Updating notification settings...`,
-        success: () => {
-          setHighSignalNotificationFilter(!highSignalNotificationFilter);
-          Leafwatch.track(NOTIFICATION.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER);
-
-          return t`Notification settings updated`;
-        },
-        error: t`Error updating notification settings`
-      }
-    );
-  };
 
   return (
     <>
@@ -61,13 +26,7 @@ const Settings: FC = () => {
         onClose={() => setShowNotificationSettings(false)}
       >
         <div className="p-5">
-          <ToggleWithHelper
-            on={highSignalNotificationFilter}
-            setOn={toggleHighSignalNotificationFilter}
-            heading={t`Signal filter`}
-            description={t`Turn on high-signal notification filter`}
-            icon={<ColorSwatchIcon className="h-4 w-4" />}
-          />
+          <HighSignalNotificationFilter />
         </div>
       </Modal>
     </>
