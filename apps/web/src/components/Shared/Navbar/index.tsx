@@ -3,7 +3,6 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -22,6 +21,7 @@ const Navbar: FC = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
+  const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
@@ -91,11 +91,7 @@ const Navbar: FC = () => {
                 className="h-8 w-8"
                 height={32}
                 width={32}
-                src={
-                  currentProfile && hasPrideLogo(currentProfile)
-                    ? '/pride.svg'
-                    : '/logo.svg'
-                }
+                src={isPride ? '/pride.svg' : '/logo.svg'}
                 alt="Logo"
               />
             </Link>
@@ -116,11 +112,7 @@ const Navbar: FC = () => {
               className="h-7 w-7"
               height={32}
               width={32}
-              src={
-                currentProfile && hasPrideLogo(currentProfile)
-                  ? '/pride.svg'
-                  : '/logo.svg'
-              }
+              src={isPride ? '/pride.svg' : '/logo.svg'}
               alt="Logo"
             />
           </Link>

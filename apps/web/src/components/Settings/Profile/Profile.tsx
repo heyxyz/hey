@@ -2,7 +2,7 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/outline';
 import { LensPeriphery } from '@lenster/abis';
-import { APP_NAME, COVER, LENS_PERIPHERY } from '@lenster/data/constants';
+import { COVER, LENS_PERIPHERY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
@@ -20,7 +20,6 @@ import {
 } from '@lenster/lens';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
-import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import {
@@ -33,7 +32,6 @@ import {
   Modal,
   Spinner,
   TextArea,
-  Toggle,
   useZodForm
 } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
@@ -76,7 +74,6 @@ interface ProfileSettingsFormProps {
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [pride, setPride] = useState(hasPrideLogo(profile));
   const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -193,7 +190,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                   'location',
                   'website',
                   'x',
-                  'hasPrideLogo',
                   'statusEmoji',
                   'statusMessage',
                   'app'
@@ -203,7 +199,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           { key: 'location', value: location },
           { key: 'website', value: website },
           { key: 'x', value: x },
-          { key: 'hasPrideLogo', value: pride },
           {
             key: 'statusEmoji',
             value: getProfileAttribute(profile?.attributes, 'statusEmoji')
@@ -339,23 +334,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               <div className="flex items-center space-x-3">
                 <ChooseFile onChange={onFileChange} />
                 {uploading && <Spinner size="sm" />}
-              </div>
-            </div>
-          </div>
-          <div className="space-y-2 pt-4">
-            <div className="label flex items-center space-x-2">
-              <img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />
-              <span>
-                <Trans>Celebrate pride every day</Trans>
-              </span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Toggle on={pride} setOn={setPride} />
-              <div className="lt-text-gray-500">
-                <Trans>
-                  Turn this on to show your pride and turn the {APP_NAME} logo
-                  rainbow every day.
-                </Trans>
               </div>
             </div>
           </div>

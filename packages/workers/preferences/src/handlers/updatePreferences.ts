@@ -17,6 +17,7 @@ type ExtensionRequest = {
   isGardener?: boolean;
   isTrustedMember?: boolean;
   isVerified?: boolean;
+  isPride?: boolean;
   highSignalNotificationFilter?: boolean;
   updateByAdmin?: boolean;
   accessToken: string;
@@ -28,6 +29,7 @@ const validationSchema = object({
   isGardener: boolean().optional(),
   isTrustedMember: boolean().optional(),
   isVerified: boolean().optional(),
+  isPride: boolean().optional(),
   highSignalNotificationFilter: boolean().optional(),
   updateByAdmin: boolean().optional(),
   accessToken: string().regex(Regex.accessToken)
@@ -52,6 +54,7 @@ export default async (request: IRequest, env: Env) => {
     isTrustedMember,
     updateByAdmin,
     isVerified,
+    isPride,
     highSignalNotificationFilter,
     accessToken
   } = body as ExtensionRequest;
@@ -86,6 +89,7 @@ export default async (request: IRequest, env: Env) => {
           is_trusted_member: isTrustedMember,
           is_verified: isVerified
         }),
+        is_pride: isPride,
         high_signal_notification_filter: highSignalNotificationFilter
       })
       .select()
