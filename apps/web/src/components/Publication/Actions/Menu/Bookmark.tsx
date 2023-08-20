@@ -47,7 +47,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       id: publicationKeyFields(bookmarkedPublications),
       fields: {
         bookmarked: () => bookmarked,
-        stats: (stats) => ({
+        stats: (stats: any) => ({
           ...stats,
           totalBookmarks: bookmarked
             ? stats.totalBookmarks + 1
