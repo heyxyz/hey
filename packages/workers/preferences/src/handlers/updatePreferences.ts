@@ -17,6 +17,7 @@ type ExtensionRequest = {
   isGardener?: boolean;
   isTrustedMember?: boolean;
   isVerified?: boolean;
+  highSignalNotificationFilter?: boolean;
   updateByAdmin?: boolean;
   accessToken: string;
 };
@@ -27,6 +28,7 @@ const validationSchema = object({
   isGardener: boolean().optional(),
   isTrustedMember: boolean().optional(),
   isVerified: boolean().optional(),
+  highSignalNotificationFilter: boolean().optional(),
   updateByAdmin: boolean().optional(),
   accessToken: string().regex(Regex.accessToken)
 });
@@ -50,6 +52,7 @@ export default async (request: IRequest, env: Env) => {
     isTrustedMember,
     updateByAdmin,
     isVerified,
+    highSignalNotificationFilter,
     accessToken
   } = body as ExtensionRequest;
 
@@ -82,7 +85,8 @@ export default async (request: IRequest, env: Env) => {
           is_gardener: isGardener,
           is_trusted_member: isTrustedMember,
           is_verified: isVerified
-        })
+        }),
+        high_signal_notification_filter: highSignalNotificationFilter
       })
       .select()
       .single();
@@ -91,8 +95,10 @@ export default async (request: IRequest, env: Env) => {
       throw error;
     }
 
-    // Clear cache in Cloudflare KV
-    await env.PREFERENCES.delete('verified-list');
+    if (updateByAdmin) {
+      // Clear cache in Cloudflare KV
+      await env.PREFERENCES.delete('verified-list');
+    }
 
     return response({ success: true, result: data });
   } catch (error) {
