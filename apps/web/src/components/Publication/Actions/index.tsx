@@ -1,8 +1,8 @@
 import type { ElectedMirror, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import Collect from './Collect';
 import Comment from './Comment';
@@ -22,7 +22,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   showCount = false
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const gardenerMode = useAccessStore((state) => state.gardenerMode);
+  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
   const collectModuleType = publication?.collectModule.__typename;
   const canMirror = currentProfile ? publication?.canMirror?.result : true;
 

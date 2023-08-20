@@ -1,5 +1,5 @@
 import { AdjustmentsIcon } from '@heroicons/react/solid';
-import { ACCESS_WORKER_URL } from '@lenster/data/constants';
+import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import type { Profile } from '@lenster/lens';
 import { Spinner, Toggle } from '@lenster/ui';
@@ -42,9 +42,11 @@ const Access: FC<RankProps> = ({ profile }) => {
   const [isGardener, setIsGardener] = useState(false);
   const [isTrustedMember, setIsTrustedMember] = useState(false);
 
-  const getAccess = async () => {
+  const getPreferences = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profile.id}`);
+      const response = await axios(
+        `${PREFERENCES_WORKER_URL}/preferences/${profile.id}`
+      );
       const { data } = response;
 
       setIsVerified(data.result?.is_verified || false);
@@ -58,15 +60,15 @@ const Access: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: access } = useQuery(
-    ['getAccess', profile.id],
-    () => getAccess().then((res) => res),
+  const { data: preferences } = useQuery(
+    ['preferences', profile.id],
+    () => getPreferences().then((res) => res),
     { enabled: Boolean(profile.id) }
   );
 
-  const updateAccess = async (type: AccessType) => {
+  const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(
-      axios.post(`${ACCESS_WORKER_URL}/rights`, {
+      axios.post(`${PREFERENCES_WORKER_URL}/preferences`, {
         id: profile.id,
         ...(type === Type.VERIFIED && { isVerified: !isVerified }),
         ...(type === Type.STAFF && { isStaff: !isStaff }),
@@ -105,37 +107,46 @@ const Access: FC<RankProps> = ({ profile }) => {
         </div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
-        {access ? (
+        {preferences ? (
           <Wrapper title={<Trans>Verified member</Trans>}>
-            <Toggle setOn={() => updateAccess(Type.VERIFIED)} on={isVerified} />
+            <Toggle
+              setOn={() => staffUpdatePreferences(Type.VERIFIED)}
+              on={isVerified}
+            />
           </Wrapper>
         ) : (
           <Wrapper title={<Trans>Verified member</Trans>}>
             <Spinner size="xs" />
           </Wrapper>
         )}
-        {access ? (
+        {preferences ? (
           <Wrapper title={<Trans>Staff member</Trans>}>
-            <Toggle setOn={() => updateAccess(Type.STAFF)} on={isStaff} />
+            <Toggle
+              setOn={() => staffUpdatePreferences(Type.STAFF)}
+              on={isStaff}
+            />
           </Wrapper>
         ) : (
           <Wrapper title={<Trans>Staff member</Trans>}>
             <Spinner size="xs" />
           </Wrapper>
         )}
-        {access ? (
+        {preferences ? (
           <Wrapper title={<Trans>Gardener member</Trans>}>
-            <Toggle setOn={() => updateAccess(Type.GARDENER)} on={isGardener} />
+            <Toggle
+              setOn={() => staffUpdatePreferences(Type.GARDENER)}
+              on={isGardener}
+            />
           </Wrapper>
         ) : (
           <Wrapper title={<Trans>Gardener member</Trans>}>
             <Spinner size="xs" />
           </Wrapper>
         )}
-        {access ? (
+        {preferences ? (
           <Wrapper title={<Trans>Trusted member</Trans>}>
             <Toggle
-              setOn={() => updateAccess(Type.TUSTED_MEMBER)}
+              setOn={() => staffUpdatePreferences(Type.TUSTED_MEMBER)}
               on={isTrustedMember}
             />
           </Wrapper>

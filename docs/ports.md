@@ -16,4 +16,4 @@ The following ports are exposed by the repository
 | 8089 | Achievements worker        | http://localhost:8089 | https://achievements.lenster.xyz   |
 | 8090 | Invite worker              | http://localhost:8090 | https://invite.lenster.xyz         |
 | 8091 | Feeds gateway              | http://localhost:8091 | https://feeds.lenster.xyz          |
-| 8092 | Access worker              | http://localhost:8092 | https://access.lenster.xyz         |
+| 8092 | Preferences worker         | http://localhost:8092 | https://preferences.lenster.xyz    |
