@@ -1,6 +1,7 @@
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -61,6 +62,13 @@ export default async (request: IRequest, env: Env) => {
     const { payload } = jwt.decode(accessToken);
     if (updateByAdmin && !adminAddresses.includes(payload.id)) {
       return response({ success: false, error: Errors.NotAdmin });
+    }
+
+    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
+    if (!updateByAdmin && !hasOwned) {
+      return new Response(
+        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
+      );
     }
 
     const client = createSupabaseClient(env);
