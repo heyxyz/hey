@@ -20,7 +20,7 @@ const PreferencesProvider: FC = () => {
   const fetchPreferences = async () => {
     try {
       const response = await axios(
-        `${PREFERENCES_WORKER_URL}/preferences/${profileId}`
+        `${PREFERENCES_WORKER_URL}/get/${profileId}`
       );
       const { data } = response;
 

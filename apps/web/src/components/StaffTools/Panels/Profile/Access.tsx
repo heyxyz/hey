@@ -45,7 +45,7 @@ const Access: FC<RankProps> = ({ profile }) => {
   const getPreferences = async () => {
     try {
       const response = await axios(
-        `${PREFERENCES_WORKER_URL}/preferences/${profile.id}`
+        `${PREFERENCES_WORKER_URL}/get/${profile.id}`
       );
       const { data } = response;
 
@@ -68,7 +68,7 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/preferences`, {
+      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
         id: profile.id,
         ...(type === Type.VERIFIED && { isVerified: !isVerified }),
         ...(type === Type.STAFF && { isStaff: !isStaff }),
