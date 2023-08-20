@@ -804,6 +804,18 @@ msgid "Inbox zero!"
 msgstr "இன்பாக்ஸ் பூஜ்யம்!"
 
 #: src/components/Notification/Settings.tsx
+msgid "Updating notification settings..."
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings updated"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Error updating notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "அறிவிப்பு அமைப்புகள்"
 
