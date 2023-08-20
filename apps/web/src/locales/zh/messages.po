@@ -804,10 +804,6 @@ msgid "Inbox zero!"
 msgstr "收件箱消息为零！"
 
 #: src/components/Notification/Settings.tsx
-#~ msgid "Signal filter"
-#~ msgstr "信号过滤器"
-
-#: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr "通知设置"
 
