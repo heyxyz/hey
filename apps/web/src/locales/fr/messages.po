@@ -804,6 +804,18 @@ msgid "Inbox zero!"
 msgstr ""
 
 #: src/components/Notification/Settings.tsx
+msgid "Updating notification settings..."
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Notification settings updated"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
+msgid "Error updating notification settings"
+msgstr ""
+
+#: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr ""
 
