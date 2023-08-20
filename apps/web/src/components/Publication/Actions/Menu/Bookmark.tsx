@@ -38,7 +38,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     publicationId: publication.id
   };
 
-  const updateCache = (cache: ApolloCache<any>, bookmarked: boolean) => {
+  const updateCache = (cache: ApolloCache<any>) => {
     const bookmarkedPublications = isMirror
       ? publication?.mirrorOf
       : publication;
@@ -46,8 +46,8 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     cache.modify({
       id: publicationKeyFields(bookmarkedPublications),
       fields: {
-        bookmarked: () => bookmarked,
-        stats: (stats: any) => ({
+        bookmarked: (bookmarked) => !bookmarked,
+        stats: (stats) => ({
           ...stats,
           totalBookmarks: bookmarked
             ? stats.totalBookmarks + 1
@@ -77,7 +77,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           bookmarked: true
         });
       },
-      update: (cache) => updateCache(cache, true)
+      update: (cache) => updateCache(cache)
     });
 
   const [removePublicationProfileBookmark] =
@@ -91,7 +91,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           bookmarked: false
         });
       },
-      update: (cache) => updateCache(cache, false)
+      update: (cache) => updateCache(cache)
     });
 
   const togglePublicationProfileBookmark = async () => {
