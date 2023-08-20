@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 
 interface PreferencesState {
+  loadingPreferences: boolean;
+  setLoadingPreferences: (loadingPreferences: boolean) => void;
   isStaff: boolean;
   setIsStaff: (isStaff: boolean) => void;
   isGardener: boolean;
@@ -21,6 +23,9 @@ interface PreferencesState {
 }
 
 export const usePreferencesStore = create<PreferencesState>((set) => ({
+  loadingPreferences: true,
+  setLoadingPreferences: (loadingPreferences) =>
+    set(() => ({ loadingPreferences })),
   isStaff: false,
   setIsStaff: (isStaff) => set(() => ({ isStaff })),
   isGardener: false,

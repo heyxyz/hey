@@ -28,20 +28,11 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const setProfiles = useAppStore((state) => state.setProfiles);
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.setProfileGuardianInformation
-  );
-  const resetPreferences = usePreferencesStore(
-    (state) => state.resetPreferences
-  );
-  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.resetProfileGuardianInformation
-  );
-  const profileId = useAppPersistStore((state) => state.profileId);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
+  const { setProfileGuardianInformation, resetProfileGuardianInformation } =
+    useProfileGuardianInformationStore();
+  const { profileId, setProfileId } = useAppPersistStore();
+  const { loadingPreferences, resetPreferences } = usePreferencesStore();
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -109,7 +100,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   }, [address, chain, disconnect, profileId]);
 
-  if (loading || !isMounted()) {
+  if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
   }
 
