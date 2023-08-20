@@ -1,5 +1,5 @@
 import { AdjustmentsIcon } from '@heroicons/react/solid';
-import { ACCESS_WORKER_URL } from '@lenster/data/constants';
+import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import type { Profile } from '@lenster/lens';
 import { Spinner, Toggle } from '@lenster/ui';
@@ -44,7 +44,9 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const getAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profile.id}`);
+      const response = await axios(
+        `${PREFERENCES_WORKER_URL}/rights/${profile.id}`
+      );
       const { data } = response;
 
       setIsVerified(data.result?.is_verified || false);
@@ -66,7 +68,7 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const updateAccess = async (type: AccessType) => {
     toast.promise(
-      axios.post(`${ACCESS_WORKER_URL}/rights`, {
+      axios.post(`${PREFERENCES_WORKER_URL}/rights`, {
         id: profile.id,
         ...(type === Type.VERIFIED && { isVerified: !isVerified }),
         ...(type === Type.STAFF && { isStaff: !isStaff }),

@@ -1,4 +1,4 @@
-import { ACCESS_WORKER_URL } from '@lenster/data/constants';
+import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -18,7 +18,9 @@ const AccessProvider: FC = () => {
 
   const fetchAccess = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/rights/${profileId}`);
+      const response = await axios(
+        `${PREFERENCES_WORKER_URL}/rights/${profileId}`
+      );
       const { data } = response;
 
       setIsStaff(data.result?.is_staff || false);
@@ -35,7 +37,7 @@ const AccessProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios(`${ACCESS_WORKER_URL}/verified`);
+      const response = await axios(`${PREFERENCES_WORKER_URL}/verified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

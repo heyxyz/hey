@@ -1,6 +1,6 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/solid';
-import { ACCESS_WORKER_URL } from '@lenster/data/constants';
+import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { STAFFTOOLS } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
@@ -23,7 +23,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = async () => {
     toast.promise(
-      axios.post(`${ACCESS_WORKER_URL}/staffMode`, {
+      axios.post(`${PREFERENCES_WORKER_URL}/staffMode`, {
         id: currentProfile?.id,
         enabled: !staffMode,
         accessToken: localStorage.getItem(Localstorage.AccessToken)

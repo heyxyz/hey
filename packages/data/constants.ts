@@ -101,8 +101,8 @@ export const INVITE_WORKER_URL = IS_PRODUCTION
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.lenster.xyz'
   : 'http://localhost:8091';
-export const ACCESS_WORKER_URL = IS_PRODUCTION
-  ? 'https://access.lenster.xyz'
+export const PREFERENCES_WORKER_URL = IS_PRODUCTION
+  ? 'https://preferences.lenster.xyz'
   : 'http://localhost:8092';
 
 // Tokens / Keys

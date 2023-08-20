@@ -1,11 +1,11 @@
-name = "access"
+name = "preferences"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "access.lenster.xyz", custom_domain = true }
+	{ pattern = "preferences.lenster.xyz", custom_domain = true }
 ]
 
 kv_namespaces = [
