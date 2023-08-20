@@ -14,6 +14,7 @@ const PreferencesProvider: FC = () => {
     setIsTrustedMember,
     setStaffMode,
     setGardenerMode,
+    setIsPride,
     setHighSignalNotificationFilter
   } = usePreferencesStore();
 
@@ -29,6 +30,7 @@ const PreferencesProvider: FC = () => {
       setIsTrustedMember(data.result?.is_trusted_member || false);
       setStaffMode(data.result?.staff_mode || false);
       setGardenerMode(data.result?.gardener_mode || false);
+      setIsPride(data.result?.is_pride || false);
       setHighSignalNotificationFilter(
         data.result?.high_signal_notification_filter || false
       );

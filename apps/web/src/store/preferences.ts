@@ -11,6 +11,8 @@ interface PreferencesState {
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
   setGardenerMode: (gardenerMode: boolean) => void;
+  isPride: boolean;
+  setIsPride: (isPride: boolean) => void;
   highSignalNotificationFilter: boolean;
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
@@ -29,6 +31,8 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,
   setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
+  isPride: false,
+  setIsPride: (isPride) => set(() => ({ isPride })),
   highSignalNotificationFilter: false,
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
@@ -39,6 +43,7 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
       isTrustedMember: false,
       staffMode: false,
       gardenerMode: false,
+      isPride: false,
       highSignalNotificationFilter: false
     }))
 }));

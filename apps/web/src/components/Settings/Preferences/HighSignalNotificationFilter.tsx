@@ -2,7 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ColorSwatchIcon } from '@heroicons/react/outline';
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
-import { NOTIFICATION } from '@lenster/data/tracking';
+import { SETTINGS } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import axios from 'axios';
@@ -28,14 +28,19 @@ const HighSignalNotificationFilter: FC = () => {
         accessToken: localStorage.getItem(Localstorage.AccessToken)
       }),
       {
-        loading: t`Updating notification settings...`,
+        loading: t`Updating preference settings...`,
         success: () => {
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
-          Leafwatch.track(NOTIFICATION.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER);
+          Leafwatch.track(
+            SETTINGS.PREFERENCES.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER,
+            {
+              enabled: !highSignalNotificationFilter
+            }
+          );
 
-          return t`Notification settings updated`;
+          return t`Notification preference updated`;
         },
-        error: t`Error updating notification settings`
+        error: t`Error updating notification preference`
       }
     );
   };
