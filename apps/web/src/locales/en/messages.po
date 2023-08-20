@@ -2215,16 +2215,28 @@ msgid "Interests you select are used to personalize your experience across Lenst
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Updating notification settings..."
-msgstr "Updating notification settings..."
+#~ msgid "Updating notification settings..."
+#~ msgstr "Updating notification settings..."
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Notification settings updated"
-msgstr "Notification settings updated"
+#~ msgid "Notification settings updated"
+#~ msgstr "Notification settings updated"
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Error updating notification settings"
-msgstr "Error updating notification settings"
+#~ msgid "Error updating notification settings"
+#~ msgstr "Error updating notification settings"
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating preference settings..."
+msgstr "Updating preference settings..."
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Notification preference updated"
+msgstr "Notification preference updated"
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Error updating notification preference"
+msgstr "Error updating notification preference"
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Notification Signal filter"
@@ -2233,6 +2245,26 @@ msgstr "Notification Signal filter"
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Turn on high-signal notification filter"
 msgstr "Turn on high-signal notification filter"
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Updating pride preference..."
+msgstr "Updating pride preference..."
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Pride preference updated"
+msgstr "Pride preference updated"
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Error updating pride preference"
+msgstr "Error updating pride preference"
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Celebrate pride every day"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr ""
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Your Preferences"
@@ -2319,14 +2351,6 @@ msgstr ""
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
 msgstr "Cover picture crop preview"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Celebrate pride every day"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
-msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"
