@@ -2215,15 +2215,27 @@ msgid "Interests you select are used to personalize your experience across Lenst
 msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Updating notification settings..."
+#~ msgid "Updating notification settings..."
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+#~ msgid "Notification settings updated"
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+#~ msgid "Error updating notification settings"
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating preference settings..."
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Notification settings updated"
+msgid "Notification preference updated"
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Error updating notification settings"
+msgid "Error updating notification preference"
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
@@ -2233,6 +2245,26 @@ msgstr ""
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Turn on high-signal notification filter"
 msgstr "打开高信号（质量）通知过滤器"
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Updating pride preference..."
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Pride preference updated"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Error updating pride preference"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Celebrate pride every day"
+msgstr "每天庆祝一次骄傲（彩虹）大游行"
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
+msgstr "打开此选项来展示您对LGBTQ的支持并且每天展示  {APP_NAME} 彩虹的图标。"
 
 #: src/components/Settings/Preferences/index.tsx
 msgid "Your Preferences"
@@ -2319,14 +2351,6 @@ msgstr "告诉我们一些关于您的信息！"
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
 msgstr "封面图片裁剪预览"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Celebrate pride every day"
-msgstr "每天庆祝一次骄傲（彩虹）大游行"
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
-msgstr "打开此选项来展示您对LGBTQ的支持并且每天展示  {APP_NAME} 彩虹的图标。"
 
 #: src/components/Settings/Profile/index.tsx
 msgid "Loading settings"

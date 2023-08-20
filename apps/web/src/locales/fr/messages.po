@@ -2215,15 +2215,27 @@ msgid "Interests you select are used to personalize your experience across Lenst
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Updating notification settings..."
+#~ msgid "Updating notification settings..."
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+#~ msgid "Notification settings updated"
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+#~ msgid "Error updating notification settings"
+#~ msgstr ""
+
+#: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
+msgid "Updating preference settings..."
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Notification settings updated"
+msgid "Notification preference updated"
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
-msgid "Error updating notification settings"
+msgid "Error updating notification preference"
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
@@ -2232,6 +2244,26 @@ msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Turn on high-signal notification filter"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Updating pride preference..."
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Pride preference updated"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Error updating pride preference"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Celebrate pride every day"
+msgstr ""
+
+#: src/components/Settings/Preferences/IsPride.tsx
+msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
 #: src/components/Settings/Preferences/index.tsx
@@ -2318,14 +2350,6 @@ msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Cover picture crop preview"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Celebrate pride every day"
-msgstr ""
-
-#: src/components/Settings/Profile/Profile.tsx
-msgid "Turn this on to show your pride and turn the {APP_NAME} logo rainbow every day."
 msgstr ""
 
 #: src/components/Settings/Profile/index.tsx
