@@ -11,6 +11,7 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
+import IsPride from './IsPride';
 
 const PreferencesSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -45,6 +46,7 @@ const PreferencesSettings: NextPage = () => {
           <div className="divider my-5" />
           <div className="space-y-6">
             <HighSignalNotificationFilter />
+            <IsPride />
           </div>
         </Card>
       </GridItemEight>
