@@ -2,18 +2,18 @@ import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 
 const PreferencesProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);
+  const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
   const {
     setIsStaff,
     setIsGardener,
     setIsTrustedMember,
     setStaffMode,
     setGardenerMode,
-    setVerifiedMembers,
     setHighSignalNotificationFilter
   } = usePreferencesStore();
 

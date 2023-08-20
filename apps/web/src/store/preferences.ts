@@ -11,8 +11,6 @@ interface PreferencesState {
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
   setGardenerMode: (gardenerMode: boolean) => void;
-  verifiedMembers: string[];
-  setVerifiedMembers: (verifiedMembers: string[]) => void;
   highSignalNotificationFilter: boolean;
   setHighSignalNotificationFilter: (
     highSignalNotificationFilter: boolean
@@ -31,8 +29,6 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,
   setGardenerMode: (gardenerMode) => set(() => ({ gardenerMode })),
-  verifiedMembers: [],
-  setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
   highSignalNotificationFilter: false,
   setHighSignalNotificationFilter: (highSignalNotificationFilter) =>
     set(() => ({ highSignalNotificationFilter })),
