@@ -16,10 +16,8 @@ const router = Router();
 
 router.all('*', preflight);
 router.get('/', () => new Response('gm, to preferences service 👋'));
-router.get('/preferences/:id', ({ params }, env) =>
-  getPreferences(params.id, env)
-);
-router.post('/preferences', updatePreferences);
+router.get('/get/:id', ({ params }, env) => getPreferences(params.id, env));
+router.post('/update', updatePreferences);
 router.get('/verified', getVerified);
 router.post('/staffMode', updateStaffMode);
 router.post('/gardenerMode', updateGardenerMode);
