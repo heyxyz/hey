@@ -16,6 +16,7 @@ type ExtensionRequest = {
   isGardener?: boolean;
   isTrustedMember?: boolean;
   isVerified?: boolean;
+  updateByAdmin?: boolean;
   accessToken: string;
 };
 
@@ -25,6 +26,7 @@ const validationSchema = object({
   isGardener: boolean().optional(),
   isTrustedMember: boolean().optional(),
   isVerified: boolean().optional(),
+  updateByAdmin: boolean().optional(),
   accessToken: string().regex(Regex.accessToken)
 });
 
@@ -40,8 +42,15 @@ export default async (request: IRequest, env: Env) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, isGardener, isStaff, isTrustedMember, isVerified, accessToken } =
-    body as ExtensionRequest;
+  const {
+    id,
+    isGardener,
+    isStaff,
+    isTrustedMember,
+    updateByAdmin,
+    isVerified,
+    accessToken
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
@@ -50,7 +59,7 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    if (!adminAddresses.includes(payload.id)) {
+    if (updateByAdmin && !adminAddresses.includes(payload.id)) {
       return response({ success: false, error: Errors.NotAdmin });
     }
 
@@ -60,10 +69,12 @@ export default async (request: IRequest, env: Env) => {
       .from('rights')
       .upsert({
         id,
-        is_staff: isStaff,
-        is_gardener: isGardener,
-        is_trusted_member: isTrustedMember,
-        is_verified: isVerified
+        ...(updateByAdmin && {
+          is_staff: isStaff,
+          is_gardener: isGardener,
+          is_trusted_member: isTrustedMember,
+          is_verified: isVerified
+        })
       })
       .select()
       .single();
