@@ -12,8 +12,10 @@ export interface Database {
       rights: {
         Row: {
           gardener_mode: boolean;
+          high_signal_notification_filter: boolean;
           id: string;
           is_gardener: boolean;
+          is_pride: boolean;
           is_staff: boolean;
           is_trusted_member: boolean;
           is_verified: boolean;
@@ -21,8 +23,10 @@ export interface Database {
         };
         Insert: {
           gardener_mode?: boolean;
+          high_signal_notification_filter?: boolean;
           id: string;
           is_gardener?: boolean;
+          is_pride?: boolean;
           is_staff?: boolean;
           is_trusted_member?: boolean;
           is_verified?: boolean;
@@ -30,8 +34,10 @@ export interface Database {
         };
         Update: {
           gardener_mode?: boolean;
+          high_signal_notification_filter?: boolean;
           id?: string;
           is_gardener?: boolean;
+          is_pride?: boolean;
           is_staff?: boolean;
           is_trusted_member?: boolean;
           is_verified?: boolean;
