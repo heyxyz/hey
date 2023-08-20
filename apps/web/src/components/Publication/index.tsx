@@ -16,9 +16,9 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';
@@ -28,7 +28,7 @@ import PublicationPageShimmer from './Shimmer';
 
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const staffMode = useAccessStore((state) => state.staffMode);
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const showNewPostModal = useGlobalModalStateStore(
     (state) => state.showNewPostModal
   );
