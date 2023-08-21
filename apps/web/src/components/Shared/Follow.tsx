@@ -54,9 +54,7 @@ const Follow: FC<FollowProps> = ({
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
       id: `Profile:${profile?.id}`,
-      fields: {
-        isFollowedByMe: () => true
-      }
+      fields: { isFollowedByMe: () => true }
     });
   };
 

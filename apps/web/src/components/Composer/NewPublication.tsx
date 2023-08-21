@@ -352,7 +352,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (data?.publication) {
         cache.modify({
           fields: {
-            publications() {
+            publications: () => {
               cache.writeQuery({
                 data: { publication: data?.publication },
                 query: PublicationDocument
