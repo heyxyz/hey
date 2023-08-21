@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -91,8 +91,8 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@huddle01/react':
-        specifier: ^0.0.13
-        version: 0.0.13(@types/react@18.2.20)
+        specifier: 0.0.14-beta.0
+        version: 0.0.14-beta.0(@types/react@18.2.20)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)
@@ -343,7 +343,7 @@ importers:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^6.4.0
-        version: 6.4.0(@typescript-eslint/parser@6.2.1)(eslint@8.47.0)(typescript@5.1.6)
+        version: 6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6)
       eslint:
         specifier: ^8.47.0
         version: 8.47.0
@@ -3107,15 +3107,15 @@ packages:
   /@ethersproject/abi@5.5.0:
     resolution: {integrity: sha512-loW7I4AohP5KycATvc0MgujU6JyCHPqHdeoo9z3Nr9xEiNioxa65ccdm1+fsoJhkuhdRtfcL8cfyGamz2AxZ5w==}
     dependencies:
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/strings': 5.7.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/hash': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/strings': 5.5.0
     dev: false
 
   /@ethersproject/abi@5.7.0:
@@ -3135,13 +3135,13 @@ packages:
   /@ethersproject/abstract-provider@5.5.1:
     resolution: {integrity: sha512-m+MA/ful6eKbxpr99xUYeRvLkfnlqzrF8SZ46d/xFB1A7ZVknYc/sXJG0RcufF52Qn2jeFj1hhcoQ7IXjNKUqg==}
     dependencies:
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/networks': 5.7.1
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      '@ethersproject/web': 5.7.1
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/networks': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/transactions': 5.5.0
+      '@ethersproject/web': 5.5.0
     dev: false
 
   /@ethersproject/abstract-provider@5.7.0:
@@ -3159,11 +3159,11 @@ packages:
   /@ethersproject/abstract-signer@5.5.0:
     resolution: {integrity: sha512-lj//7r250MXVLKI7sVarXAbZXbv9P50lgmJQGr2/is82EwEb8r7HrxsmMqAjTsztMYy7ohrIhGMIml+Gx4D3mA==}
     dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
+      '@ethersproject/abstract-provider': 5.5.1
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
     dev: false
 
   /@ethersproject/abstract-signer@5.7.0:
@@ -3179,11 +3179,11 @@ packages:
   /@ethersproject/address@5.5.0:
     resolution: {integrity: sha512-l4Nj0eWlTUh6ro5IbPTgbpT4wRbdH5l8CQf7icF7sb/SI3Nhd9Y9HzhonTSTi6CefI0necIw7LJqQPopPLZyWw==}
     dependencies:
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/rlp': 5.7.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/rlp': 5.5.0
     dev: false
 
   /@ethersproject/address@5.7.0:
@@ -3199,7 +3199,7 @@ packages:
   /@ethersproject/base64@5.5.0:
     resolution: {integrity: sha512-tdayUKhU1ljrlHzEWbStXazDpsx4eg1dBXUSI6+mHlYklOXoXF6lZvw8tnD6oVaWfnMxAgRSKROg3cVKtCcppA==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/bytes': 5.5.0
     dev: false
 
   /@ethersproject/base64@5.7.0:
@@ -3211,8 +3211,8 @@ packages:
   /@ethersproject/basex@5.5.0:
     resolution: {integrity: sha512-ZIodwhHpVJ0Y3hUCfUucmxKsWQA5TMnavp5j/UOuDdzZWzJlRmuOjcTMIGgHCYuZmHt36BfiSyQPSRskPxbfaQ==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/properties': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/properties': 5.5.0
     dev: false
 
   /@ethersproject/basex@5.7.0:
@@ -3225,8 +3225,8 @@ packages:
   /@ethersproject/bignumber@5.5.0:
     resolution: {integrity: sha512-6Xytlwvy6Rn3U3gKEc1vP7nR92frHkv6wtVr95LFR3jREXiCPzdWxKQ1cx4JGQBXxcguAwjA8murlYN2TSiEbg==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
       bn.js: 4.12.0
     dev: false
 
@@ -3241,7 +3241,7 @@ packages:
   /@ethersproject/bytes@5.5.0:
     resolution: {integrity: sha512-ABvc7BHWhZU9PNM/tANm/Qx4ostPGadAuQzWTr3doklZOhDlmcBqclrQe/ZXUIj3K8wC28oYeuRa+A37tX9kog==}
     dependencies:
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/bytes@5.7.0:
@@ -3253,7 +3253,7 @@ packages:
   /@ethersproject/constants@5.5.0:
     resolution: {integrity: sha512-2MsRRVChkvMWR+GyMGY4N1sAX9Mt3J9KykCsgUFd/1mwS0UH1qw+Bv9k1UJb3X3YJYFco9H20pjSlOIfCG5HYQ==}
     dependencies:
-      '@ethersproject/bignumber': 5.7.0
+      '@ethersproject/bignumber': 5.5.0
     dev: false
 
   /@ethersproject/constants@5.7.0:
@@ -3265,16 +3265,16 @@ packages:
   /@ethersproject/contracts@5.5.0:
     resolution: {integrity: sha512-2viY7NzyvJkh+Ug17v7g3/IJC8HqZBDcOjYARZLdzRxrfGlRgmYgl6xPRKVbEzy1dWKw/iv7chDcS83pg6cLxg==}
     dependencies:
-      '@ethersproject/abi': 5.7.0
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/transactions': 5.7.0
+      '@ethersproject/abi': 5.5.0
+      '@ethersproject/abstract-provider': 5.5.1
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/transactions': 5.5.0
     dev: false
 
   /@ethersproject/contracts@5.7.0:
@@ -3295,14 +3295,14 @@ packages:
   /@ethersproject/hash@5.5.0:
     resolution: {integrity: sha512-dnGVpK1WtBjmnp3mUT0PlU2MpapnwWI0PibldQEq1408tQBAbZpPidkWoVVuNMOl/lISO3+4hXZWCL3YV7qzfg==}
     dependencies:
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/strings': 5.7.0
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/strings': 5.5.0
     dev: false
 
   /@ethersproject/hash@5.7.0:
@@ -3322,18 +3322,18 @@ packages:
   /@ethersproject/hdnode@5.5.0:
     resolution: {integrity: sha512-mcSOo9zeUg1L0CoJH7zmxwUG5ggQHU1UrRf8jyTYy6HxdZV+r0PBoL1bxr+JHIPXRzS6u/UW4mEn43y0tmyF8Q==}
     dependencies:
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/basex': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/pbkdf2': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/sha2': 5.7.0
-      '@ethersproject/signing-key': 5.7.0
-      '@ethersproject/strings': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      '@ethersproject/wordlists': 5.7.0
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/basex': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/pbkdf2': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/sha2': 5.5.0
+      '@ethersproject/signing-key': 5.5.0
+      '@ethersproject/strings': 5.5.0
+      '@ethersproject/transactions': 5.5.0
+      '@ethersproject/wordlists': 5.5.0
     dev: false
 
   /@ethersproject/hdnode@5.7.0:
@@ -3356,17 +3356,17 @@ packages:
   /@ethersproject/json-wallets@5.5.0:
     resolution: {integrity: sha512-9lA21XQnCdcS72xlBn1jfQdj2A1VUxZzOzi9UkNdnokNKke/9Ya2xA9aIK1SC3PQyBDLt4C+dfps7ULpkvKikQ==}
     dependencies:
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/hdnode': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/pbkdf2': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/random': 5.7.0
-      '@ethersproject/strings': 5.7.0
-      '@ethersproject/transactions': 5.7.0
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/hdnode': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/pbkdf2': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/random': 5.5.0
+      '@ethersproject/strings': 5.5.0
+      '@ethersproject/transactions': 5.5.0
       aes-js: 3.0.0
       scrypt-js: 3.0.1
     dev: false
@@ -3392,7 +3392,7 @@ packages:
   /@ethersproject/keccak256@5.5.0:
     resolution: {integrity: sha512-5VoFCTjo2rYbBe1l2f4mccaRFN/4VQEYFwwn04aJV2h7qf4ZvI2wFxUE1XOX+snbwCLRzIeikOqtAoPwMza9kg==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
+      '@ethersproject/bytes': 5.5.0
       js-sha3: 0.8.0
     dev: false
 
@@ -3414,7 +3414,7 @@ packages:
   /@ethersproject/networks@5.5.0:
     resolution: {integrity: sha512-KWfP3xOnJeF89Uf/FCJdV1a2aDJe5XTN2N52p4fcQ34QhDqQFkgQKZ39VGtiqUgHcLI8DfT0l9azC3KFTunqtA==}
     dependencies:
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/networks@5.7.1:
@@ -3426,8 +3426,8 @@ packages:
   /@ethersproject/pbkdf2@5.5.0:
     resolution: {integrity: sha512-SaDvQFvXPnz1QGpzr6/HToLifftSXGoXrbpZ6BvoZhmx4bNLHrxDe8MZisuecyOziP1aVEwzC2Hasj+86TgWVg==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/sha2': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/sha2': 5.5.0
     dev: false
 
   /@ethersproject/pbkdf2@5.7.0:
@@ -3440,7 +3440,7 @@ packages:
   /@ethersproject/properties@5.5.0:
     resolution: {integrity: sha512-l3zRQg3JkD8EL3CPjNK5g7kMx4qSwiR60/uk5IVjd3oq1MZR5qUg40CNOoEJoX5wc3DyY5bt9EbMk86C7x0DNA==}
     dependencies:
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/properties@5.7.0:
@@ -3452,23 +3452,23 @@ packages:
   /@ethersproject/providers@5.5.0:
     resolution: {integrity: sha512-xqMbDnS/FPy+J/9mBLKddzyLLAQFjrVff5g00efqxPzcAwXiR+SiCGVy6eJ5iAIirBOATjx7QLhDNPGV+AEQsw==}
     dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/basex': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/networks': 5.7.1
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/random': 5.7.0
-      '@ethersproject/rlp': 5.7.0
-      '@ethersproject/sha2': 5.7.0
-      '@ethersproject/strings': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      '@ethersproject/web': 5.7.1
+      '@ethersproject/abstract-provider': 5.5.1
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/basex': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/hash': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/networks': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/random': 5.5.0
+      '@ethersproject/rlp': 5.5.0
+      '@ethersproject/sha2': 5.5.0
+      '@ethersproject/strings': 5.5.0
+      '@ethersproject/transactions': 5.5.0
+      '@ethersproject/web': 5.5.0
       bech32: 1.1.4
       ws: 7.4.6
     transitivePeerDependencies:
@@ -3507,8 +3507,8 @@ packages:
   /@ethersproject/random@5.5.0:
     resolution: {integrity: sha512-egGYZwZ/YIFKMHcoBUo8t3a8Hb/TKYX8BCBoLjudVCZh892welR3jOxgOmb48xznc9bTcMm7Tpwc1gHC1PFNFQ==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/random@5.7.0:
@@ -3521,8 +3521,8 @@ packages:
   /@ethersproject/rlp@5.5.0:
     resolution: {integrity: sha512-hLv8XaQ8PTI9g2RHoQGf/WSxBfTB/NudRacbzdxmst5VHAqd1sMibWG7SENzT5Dj3yZ3kJYx+WiRYEcQTAkcYA==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/rlp@5.7.0:
@@ -3535,8 +3535,8 @@ packages:
   /@ethersproject/sha2@5.5.0:
     resolution: {integrity: sha512-B5UBoglbCiHamRVPLA110J+2uqsifpZaTmid2/7W5rbtYVz6gus6/hSDieIU/6gaKIDcOj12WnOdiymEUHIAOA==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
       hash.js: 1.1.7
     dev: false
 
@@ -3551,9 +3551,9 @@ packages:
   /@ethersproject/signing-key@5.5.0:
     resolution: {integrity: sha512-5VmseH7qjtNmDdZBswavhotYbWB0bOwKIlOTSlX14rKn5c11QmJwGt4GHeo7NrL/Ycl7uo9AHvEqs5xZgFBTng==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
       bn.js: 4.12.0
       elliptic: 6.5.4
       hash.js: 1.1.7
@@ -3573,12 +3573,12 @@ packages:
   /@ethersproject/solidity@5.5.0:
     resolution: {integrity: sha512-9NgZs9LhGMj6aCtHXhtmFQ4AN4sth5HuFXVvAQtzmm0jpSCNOTGtrHZJAeYTh7MBjRR8brylWZxBZR9zDStXbw==}
     dependencies:
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/sha2': 5.7.0
-      '@ethersproject/strings': 5.7.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/sha2': 5.5.0
+      '@ethersproject/strings': 5.5.0
     dev: false
 
   /@ethersproject/solidity@5.7.0:
@@ -3595,9 +3595,9 @@ packages:
   /@ethersproject/strings@5.5.0:
     resolution: {integrity: sha512-9fy3TtF5LrX/wTrBaT8FGE6TDJyVjOvXynXJz5MT5azq+E6D92zuKNx7i29sWW2FjVOaWjAsiZ1ZWznuduTIIQ==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/strings@5.7.0:
@@ -3611,15 +3611,15 @@ packages:
   /@ethersproject/transactions@5.5.0:
     resolution: {integrity: sha512-9RZYSKX26KfzEd/1eqvv8pLauCKzDTub0Ko4LfIgaERvRuwyaNV78mJs7cpIgZaDl6RJui4o49lHwwCM0526zA==}
     dependencies:
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/rlp': 5.7.0
-      '@ethersproject/signing-key': 5.7.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/rlp': 5.5.0
+      '@ethersproject/signing-key': 5.5.0
     dev: false
 
   /@ethersproject/transactions@5.7.0:
@@ -3639,9 +3639,9 @@ packages:
   /@ethersproject/units@5.5.0:
     resolution: {integrity: sha512-7+DpjiZk4v6wrikj+TCyWWa9dXLNU73tSTa7n0TSJDxkYbV3Yf1eRh9ToMLlZtuctNYu9RDNNy2USq3AdqSbag==}
     dependencies:
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/constants': 5.7.0
-      '@ethersproject/logger': 5.7.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/constants': 5.5.0
+      '@ethersproject/logger': 5.5.0
     dev: false
 
   /@ethersproject/units@5.7.0:
@@ -3655,21 +3655,21 @@ packages:
   /@ethersproject/wallet@5.5.0:
     resolution: {integrity: sha512-Mlu13hIctSYaZmUOo7r2PhNSd8eaMPVXe1wxrz4w4FCE4tDYBywDH+bAR1Xz2ADyXGwqYMwstzTrtUVIsKDO0Q==}
     dependencies:
-      '@ethersproject/abstract-provider': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/hdnode': 5.7.0
-      '@ethersproject/json-wallets': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/random': 5.7.0
-      '@ethersproject/signing-key': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      '@ethersproject/wordlists': 5.7.0
+      '@ethersproject/abstract-provider': 5.5.1
+      '@ethersproject/abstract-signer': 5.5.0
+      '@ethersproject/address': 5.5.0
+      '@ethersproject/bignumber': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/hash': 5.5.0
+      '@ethersproject/hdnode': 5.5.0
+      '@ethersproject/json-wallets': 5.5.0
+      '@ethersproject/keccak256': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/random': 5.5.0
+      '@ethersproject/signing-key': 5.5.0
+      '@ethersproject/transactions': 5.5.0
+      '@ethersproject/wordlists': 5.5.0
     dev: false
 
   /@ethersproject/wallet@5.7.0:
@@ -3695,11 +3695,11 @@ packages:
   /@ethersproject/web@5.5.0:
     resolution: {integrity: sha512-BEgY0eL5oH4mAo37TNYVrFeHsIXLRxggCRG/ksRIxI2X5uj5IsjGmcNiRN/VirQOlBxcUhCgHhaDLG4m6XAVoA==}
     dependencies:
-      '@ethersproject/base64': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/strings': 5.7.0
+      '@ethersproject/base64': 5.5.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/strings': 5.5.0
     dev: false
 
   /@ethersproject/web@5.7.1:
@@ -3715,11 +3715,11 @@ packages:
   /@ethersproject/wordlists@5.5.0:
     resolution: {integrity: sha512-bL0UTReWDiaQJJYOC9sh/XcRu/9i2jMrzf8VLRmPKx58ckSlOJiohODkECCO50dtLZHcGU6MLXQ4OOrgBwP77Q==}
     dependencies:
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/hash': 5.7.0
-      '@ethersproject/logger': 5.7.0
-      '@ethersproject/properties': 5.7.0
-      '@ethersproject/strings': 5.7.0
+      '@ethersproject/bytes': 5.5.0
+      '@ethersproject/hash': 5.5.0
+      '@ethersproject/logger': 5.5.0
+      '@ethersproject/properties': 5.5.0
+      '@ethersproject/strings': 5.5.0
     dev: false
 
   /@ethersproject/wordlists@5.7.0:
@@ -4454,11 +4454,11 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.13(@types/react@18.2.20):
-    resolution: {integrity: sha512-52+OBg+/Qs+g5b6Yi0lf6kmdZIKKKfMxfR7Lt+6TWNNwY/uBDg0dUEhifjQx8SzDeuyiMTe3Sy/Wf8H6h//lpg==}
+  /@huddle01/react@0.0.14-beta.0(@types/react@18.2.20):
+    resolution: {integrity: sha512-aBTK5YyOqRWOxpVrndP+ceee3+qXjG4U1YxWn38bHcHnhbsph5uzB1voqO+Yr+38LFQu2ey0q1Jzhowk3qBU7g==}
     dependencies:
-      '@huddle01/web-core': 0.0.15
-      jotai: 2.2.3(@types/react@18.2.20)(react@18.2.0)
+      '@huddle01/web-core': 0.0.16-beta.0
+      jotai: 2.3.1(@types/react@18.2.20)(react@18.2.0)
       react: 18.2.0
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -4469,13 +4469,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@huddle01/web-core@0.0.15:
-    resolution: {integrity: sha512-NV5Asv+nRYmGRqTN6me01SF6DxSBGXdQAIKCkdFEnttpcFkwvBDlz1VrgtU0AR/18JPNcyEWw9q4wNdDAq1ifg==}
+  /@huddle01/web-core@0.0.16-beta.0:
+    resolution: {integrity: sha512-b2V6T6Mh8FfJ5P5nK1Fvf43loL0esA8KSFKjP2PEo20oxR7R3JMlM8uDYl/SNOUcH1/KUAX85XkwF7E/Z5ZlsA==}
     dependencies:
       axios: 1.4.0
       mediasoup-client: 3.6.98
       nanoid: 3.3.4
-      socket.io-client: 4.7.1
+      socket.io-client: 4.7.2
       zod: 3.22.1
     transitivePeerDependencies:
       - bufferutil
@@ -4533,6 +4533,11 @@ packages:
     resolution: {integrity: sha512-F2msla3tad+Mfht5cJq7LSXcdudKTWCVYUgw6pLFOOHSTtZlj6SWNYAp+AhuqLmWdBO2X5hPrLcu8cVP8fy28w==}
     engines: {node: '>=6.0.0'}
 
+  /@jridgewell/resolve-uri@3.1.1:
+    resolution: {integrity: sha512-dSYZh7HhCDtCKm4QakX0xFpsRDqjjtZf/kjI/v3T3Nwt5r8/qz/M19F9ySyOqU94SXBmeG9ttTul+YnR4LOxFA==}
+    engines: {node: '>=6.0.0'}
+    dev: false
+
   /@jridgewell/set-array@1.1.2:
     resolution: {integrity: sha512-xnkseuNADM0gt2bs+BvhO0p78Mk762YnZdsuzFV018NoG1Sj1SCQvpSqa7XUaTam5vAGasABV9qXASMKnFMwMw==}
     engines: {node: '>=6.0.0'}
@@ -4541,7 +4546,7 @@ packages:
     resolution: {integrity: sha512-UTYAUj/wviwdsMfzoSJspJxbkH5o1snzwX0//0ENX1u/55kkZZkcTZP6u9bwKGkv+dkk9at4m1Cpt0uY80kcpQ==}
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
-      '@jridgewell/trace-mapping': 0.3.18
+      '@jridgewell/trace-mapping': 0.3.19
     dev: false
 
   /@jridgewell/sourcemap-codec@1.4.14:
@@ -4555,6 +4560,13 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+
+  /@jridgewell/trace-mapping@0.3.19:
+    resolution: {integrity: sha512-kf37QtfW+Hwx/buWGMPcR60iF9ziHa6r/CZJIHbmcm4+0qrXiVdxegAH0F6yddEVQ7zdkjcGCgCzUu+BcbhQxw==}
+    dependencies:
+      '@jridgewell/resolve-uri': 3.1.1
+      '@jridgewell/sourcemap-codec': 1.4.15
+    dev: false
 
   /@juggle/resize-observer@3.4.0:
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
@@ -6948,12 +6960,12 @@ packages:
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
-      '@types/eslint': 8.44.1
+      '@types/eslint': 8.44.2
       '@types/estree': 1.0.1
     dev: false
 
-  /@types/eslint@8.44.1:
-    resolution: {integrity: sha512-XpNDc4Z5Tb4x+SW1MriMVeIsMoONHCkWFMkR/aPJbzEsxqHy+4Glu/BqTdPrApfDeMaXbtNh6bseNgl5KaWrSg==}
+  /@types/eslint@8.44.2:
+    resolution: {integrity: sha512-sdPRb9K6iL5XZOmBubg8yiFp5yS/JdUDQsq5e6h95km91MCYMuvp7mh1fjPEYUhvHepKpZOjnEaMBR4PxjWDzg==}
     dependencies:
       '@types/estree': 1.0.1
       '@types/json-schema': 7.0.12
@@ -7013,6 +7025,10 @@ packages:
 
   /@types/node@20.5.0:
     resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
+
+  /@types/node@20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
+    dev: false
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -7092,7 +7108,7 @@ packages:
     dependencies:
       '@types/yargs-parser': 21.0.0
 
-  /@typescript-eslint/eslint-plugin@6.4.0(@typescript-eslint/parser@6.2.1)(eslint@8.47.0)(typescript@5.1.6):
+  /@typescript-eslint/eslint-plugin@6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6):
     resolution: {integrity: sha512-62o2Hmc7Gs3p8SLfbXcipjWAa6qk2wZGChXG2JbBtYpwSRmti/9KHLqfbLs9uDigOexG+3PaQ9G2g3201FWLKg==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
@@ -7104,7 +7120,7 @@ packages:
         optional: true
     dependencies:
       '@eslint-community/regexpp': 4.6.2
-      '@typescript-eslint/parser': 6.2.1(eslint@8.47.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
       '@typescript-eslint/scope-manager': 6.4.0
       '@typescript-eslint/type-utils': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
       '@typescript-eslint/utils': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
@@ -7135,6 +7151,27 @@ packages:
       '@typescript-eslint/types': 6.2.1
       '@typescript-eslint/typescript-estree': 6.2.1(typescript@5.1.6)
       '@typescript-eslint/visitor-keys': 6.2.1
+      debug: 4.3.4(supports-color@9.4.0)
+      eslint: 8.47.0
+      typescript: 5.1.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /@typescript-eslint/parser@6.4.0(eslint@8.47.0)(typescript@5.1.6):
+    resolution: {integrity: sha512-I1Ah1irl033uxjxO9Xql7+biL3YD7w9IU8zF+xlzD/YxY6a4b7DYA08PXUUCbm2sEljwJF6ERFy2kTGAGcNilg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      eslint: ^7.0.0 || ^8.0.0
+      typescript: '*'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@typescript-eslint/scope-manager': 6.4.0
+      '@typescript-eslint/types': 6.4.0
+      '@typescript-eslint/typescript-estree': 6.4.0(typescript@5.1.6)
+      '@typescript-eslint/visitor-keys': 6.4.0
       debug: 4.3.4(supports-color@9.4.0)
       eslint: 8.47.0
       typescript: 5.1.6
@@ -9036,8 +9073,8 @@ packages:
     requiresBuild: true
     dev: false
 
-  /core-js@3.32.0:
-    resolution: {integrity: sha512-rd4rYZNlF3WuoYuRIDEmbR/ga9CeuWX9U05umAvgrrZoHY4Z++cp/xwPQMvUpBB4Ag6J8KfD80G0zwCyaSxDww==}
+  /core-js@3.32.1:
+    resolution: {integrity: sha512-lqufgNn9NLnESg5mQeYsxQP5w7wrViSj0jr/kv6ECQiByzQkrn1MKvV0L3acttpDqfQrHLwr2KCMgX5b8X+lyQ==}
     requiresBuild: true
     dev: false
 
@@ -9800,7 +9837,7 @@ packages:
       eslint: 8.47.0
       eslint-import-resolver-node: 0.3.7
       eslint-import-resolver-typescript: 3.5.5(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-node@0.3.7)(eslint-plugin-import@2.27.5)(eslint@8.47.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-typescript@3.5.5)(eslint@8.47.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.47.0)
       eslint-plugin-react: 7.33.2(eslint@8.47.0)
       eslint-plugin-react-hooks: 5.0.0-canary-7118f5dd7-20230705(eslint@8.47.0)
@@ -9831,7 +9868,7 @@ packages:
       enhanced-resolve: 5.15.0
       eslint: 8.47.0
       eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.47.0)
-      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-typescript@3.5.5)(eslint@8.47.0)
+      eslint-plugin-import: 2.27.5(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)
       get-tsconfig: 4.6.2
       globby: 13.2.2
       is-core-module: 2.12.1
@@ -9874,7 +9911,36 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-typescript@3.5.5)(eslint@8.47.0):
+  /eslint-module-utils@2.8.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0):
+    resolution: {integrity: sha512-aWajIYfsqCKRDgUfjEXNN/JlrzauMuSEy5sbd7WXbtW3EH6A6MpwEh42c7qD+MqQo9QMJ6fWLAeIJynx0g6OAw==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      '@typescript-eslint/parser': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
+      debug: 3.2.7
+      eslint: 8.47.0
+      eslint-import-resolver-node: 0.3.7
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /eslint-plugin-import@2.27.5(@typescript-eslint/parser@6.4.0)(eslint@8.47.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
     peerDependencies:
@@ -9884,7 +9950,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 6.2.1(eslint@8.47.0)(typescript@5.1.6)
+      '@typescript-eslint/parser': 6.4.0(eslint@8.47.0)(typescript@5.1.6)
       array-includes: 3.1.6
       array.prototype.flat: 1.3.1
       array.prototype.flatmap: 1.3.1
@@ -9892,7 +9958,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.47.0
       eslint-import-resolver-node: 0.3.7
-      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.2.1)(eslint-import-resolver-node@0.3.7)(eslint-import-resolver-typescript@3.5.5)(eslint@8.47.0)
+      eslint-module-utils: 2.8.0(@typescript-eslint/parser@6.4.0)(eslint-import-resolver-node@0.3.7)(eslint@8.47.0)
       has: 1.0.3
       is-core-module: 2.12.1
       is-glob: 4.0.3
@@ -10037,7 +10103,7 @@ packages:
       '@typescript-eslint/eslint-plugin':
         optional: true
     dependencies:
-      '@typescript-eslint/eslint-plugin': 6.4.0(@typescript-eslint/parser@6.2.1)(eslint@8.47.0)(typescript@5.1.6)
+      '@typescript-eslint/eslint-plugin': 6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6)
       eslint: 8.47.0
       eslint-rule-composer: 0.3.0
     dev: true
@@ -10283,9 +10349,9 @@ packages:
       through: 2.3.8
     dev: true
 
-  /event-target-shim@5.0.1:
-    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
-    engines: {node: '>=6'}
+  /event-target-shim@6.0.2:
+    resolution: {integrity: sha512-8q3LsZjRezbFZ2PN+uP+Q7pnHUMmAOziU2vA2OwoFaKIXxlxl38IylhSSgUorWu/rf4er67w0ikBqjBFk/pomA==}
+    engines: {node: '>=10.13.0'}
     dev: false
 
   /eventemitter3@4.0.7:
@@ -10374,11 +10440,11 @@ packages:
     engines: {node: '> 0.1.90'}
     dev: false
 
-  /fake-mediastreamtrack@1.1.6:
-    resolution: {integrity: sha512-lcoO5oPsW57istAsnjvQxNjBEahi18OdUhWfmEewwfPfzNZnji5OXuodQM+VnUPi/1HnQRJ6gBUjbt1TNXrkjQ==}
+  /fake-mediastreamtrack@1.2.0:
+    resolution: {integrity: sha512-AxHtlEmka1sqNoe3Ej1H1hJc9gjjO/6vCbCPm4D4QeEXvzhjYumA+iZ7wOi2WrmkAhGElHhBgWoNgJhFccectA==}
     dependencies:
-      event-target-shim: 5.0.1
-      uuid: 8.3.2
+      event-target-shim: 6.0.2
+      uuid: 9.0.0
     dev: false
 
   /fast-decode-uri-component@1.0.1:
@@ -11499,7 +11565,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.5.0
+      '@types/node': 20.5.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -11522,8 +11588,8 @@ packages:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
     dev: true
 
-  /jotai@2.2.3(@types/react@18.2.20)(react@18.2.0):
-    resolution: {integrity: sha512-E3tTBb2CKwjAJKUJYVV6rKM8zxmpsPMedRclRnI2RgLzkvgDEH6mhtZPVesxIoixJ8p7949RWd8eo/8TqDDFDA==}
+  /jotai@2.3.1(@types/react@18.2.20)(react@18.2.0):
+    resolution: {integrity: sha512-pXhx8/MeRUAHbzayerEUf9NHvP+Ba3q9WAvIMjaSwwuSCKEFhb8UW4XuZPC+Bv4u2ufvlyrxIZ+vy5UJ3f8JsQ==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -11695,8 +11761,8 @@ packages:
     resolution: {integrity: sha512-ixp8+5D9UJueZSjh9a7Z0eiiKm8MZmf//+mr0rZSCXermhdIcn1lglDGbff1KGwO1ONnFlycWJV12m8Zvtgggg==}
     dev: false
 
-  /lib0@0.2.78:
-    resolution: {integrity: sha512-SV2nU43/6eaYnGH3l0lg2wg1ziB/TH3sAd2E8quXPGwrqo+aX98SNT2ZKucpUr5B8A52jD7ZMjAl+r87Fa/bLQ==}
+  /lib0@0.2.82:
+    resolution: {integrity: sha512-sZJeggxq56weXHnBc37dXNnYKGPvdR75zKxGHNc8gLE+ldKCbc4whk0JY2cV17lxuBFtvRd4dIsSh6Cfz7slUw==}
     engines: {node: '>=16'}
     hasBin: true
     dependencies:
@@ -12036,7 +12102,7 @@ packages:
       awaitqueue: 3.0.1(supports-color@9.4.0)
       debug: 4.3.4(supports-color@9.4.0)
       events: 3.3.0
-      fake-mediastreamtrack: 1.1.6
+      fake-mediastreamtrack: 1.2.0
       h264-profile-level-id: 1.0.1(supports-color@9.4.0)
       queue-microtask: 1.2.3
       sdp-transform: 2.14.1
@@ -13055,7 +13121,7 @@ packages:
   /plyr@3.7.8:
     resolution: {integrity: sha512-yG/EHDobwbB/uP+4Bm6eUpJ93f8xxHjjk2dYcD1Oqpe1EcuQl5tzzw9Oq+uVAzd2lkM11qZfydSiyIpiB8pgdA==}
     dependencies:
-      core-js: 3.32.0
+      core-js: 3.32.1
       custom-event-polyfill: 1.0.7
       loadjs: 4.2.0
       rangetouch: 2.0.1
@@ -14199,8 +14265,8 @@ packages:
       tslib: 2.6.1
     dev: true
 
-  /socket.io-client@4.7.1:
-    resolution: {integrity: sha512-Qk3Xj8ekbnzKu3faejo4wk2MzXA029XppiXtTF/PkbTg+fcwaTw1PlDrTrrrU4mKoYC4dvlApOnSeyLCKwek2w==}
+  /socket.io-client@4.7.2:
+    resolution: {integrity: sha512-vtA0uD4ibrYD793SOIAwlo8cj6haOeMHrGvwPxJsxH7CeIksqJ+3Zc06RvWTIFgiSqx4A3sOnTXpfAEE2Zyz6w==}
     engines: {node: '>=10.0.0'}
     dependencies:
       '@socket.io/component-emitter': 3.1.0
@@ -14653,7 +14719,7 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      '@jridgewell/trace-mapping': 0.3.18
+      '@jridgewell/trace-mapping': 0.3.19
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
@@ -15946,7 +16012,7 @@ packages:
     resolution: {integrity: sha512-mCZTh4kjvUS2DnaktsYN6wLH3WZCJBLqrTdkWh1bIDpA/sB/GNFaLA/dyVJj2Hc7KwONuuoC/vWe9bwBBosZLQ==}
     engines: {node: '>=16.0.0', npm: '>=8.0.0'}
     dependencies:
-      lib0: 0.2.78
+      lib0: 0.2.82
     dev: false
 
   /yocto-queue@0.1.0:

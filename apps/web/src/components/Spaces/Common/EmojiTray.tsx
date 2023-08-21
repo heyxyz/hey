@@ -27,10 +27,9 @@ type Reaction =
 
 interface Props {
   onClose: () => void;
-  onClick: (reaction: Reaction) => void;
 }
 
-const EmojiTray: React.FC<Props> = ({ onClick, onClose }) => {
+const EmojiTray: React.FC<Props> = ({ onClose }) => {
   const [isHandRaised, setIsHandRaised] = useState(false);
   // Emoji Data
   const emojis: Reaction[] = [

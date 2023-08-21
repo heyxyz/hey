@@ -17,16 +17,16 @@ const Sidebar: React.FC<SidebarProps> = () => {
   }
 
   return (
-    <aside
+    <div
       className={clsx(
-        'mr-1 min-h-[40vh] w-[20vw] flex-col rounded-xl border border-neutral-500 bg-neutral-900 transition-all duration-300 ease-out',
+        'min-h-[40vh] w-[20vw] flex-col rounded-xl border border-neutral-500 bg-neutral-900 transition-all duration-300 ease-out',
         isSidebarOpen ? 'flex' : 'hidden'
       )}
     >
       <div className="overflow-y-auto px-4 py-4">
         {ViewComponent[sidebarView].component}
       </div>
-    </aside>
+    </div>
   );
 };
 export default React.memo(Sidebar);

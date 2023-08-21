@@ -20,10 +20,10 @@ const PreviewSpaces = () => {
   const setShowSpacesWindow = useSpacesStore(
     (state) => state.setShowSpacesWindow
   );
-  const space = useSpacesStore((state) => state.space);
+  const { space, lensAccessToken } = useSpacesStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const { initialize, me, roomState } = useHuddle01();
+  const { initialize, roomState } = useHuddle01();
   const { joinLobby } = useLobby();
   const { joinRoom, isRoomJoined } = useRoom();
 
@@ -32,19 +32,21 @@ const PreviewSpaces = () => {
   });
 
   useEventListener('app:initialized', () => {
-    joinLobby(space.id);
+    joinLobby(space.id, lensAccessToken);
   });
 
   useUpdateEffect(() => {
     console.log('roomState', roomState);
     if (roomState === 'INIT') {
-      joinLobby(space.id);
+      joinLobby(space.id, lensAccessToken);
     }
   }, [roomState]);
 
   useUpdateEffect(() => {
-    setShowSpacesLobby(false);
-    setShowSpacesWindow(true);
+    if (isRoomJoined) {
+      setShowSpacesLobby(false);
+      setShowSpacesWindow(true);
+    }
   }, [isRoomJoined]);
 
   return (

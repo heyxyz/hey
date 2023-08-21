@@ -19,14 +19,9 @@ interface SpaceProps {
 const Space: FC<SpaceProps> = ({ publication }) => {
   const { address } = useAccount();
   const { metadata } = publication;
-  const setShowSpacesLobby = useSpacesStore(
-    (state) => state.setShowSpacesLobby
-  );
-  const setLensAccessToken = useSpacesStore(
-    (state) => state.setLensAccessToken
-  );
-  const lensAccessToken = useSpacesStore((state) => state.lensAccessToken);
-  const setSpace = useSpacesStore((state) => state.setSpace);
+
+  const { setShowSpacesLobby, setLensAccessToken, lensAccessToken, setSpace } =
+    useSpacesStore();
 
   const space: SpaceMetadata = JSON.parse(
     getPublicationAttribute(metadata.attributes, 'audioSpace')
@@ -37,6 +32,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       const token = await getLensAccessToken(data, address as string);
       if (token.accessToken) {
         setShowSpacesLobby(true);
+        console.log('token', token.accessToken);
         setLensAccessToken(token.accessToken);
         setSpace({
           ...space,

@@ -3,7 +3,9 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import Dropdown from '@components/Spaces/Common/Dropdown';
 import {
+  CalendarIcon,
   ChatAlt2Icon,
   MicrophoneIcon,
   PencilAltIcon
@@ -87,6 +89,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
+import { useSpacesStore } from 'src/store/spaces';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
@@ -148,6 +151,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { setShowNewModal, showNewModal, modalPublicationType } =
     useGlobalModalStateStore();
 
+  const {
+    setSpacesTimeInHour,
+    setSpacesTimeInMinute,
+    spacesTimeInHour,
+    spacesTimeInMinute,
+    isSpacesTimeInAM,
+    setIsSpacesTimeInAM
+  } = useSpacesStore();
+
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
 
@@ -195,6 +207,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // States
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
@@ -957,6 +970,70 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               : t`Post`}
           </Button>
         </div>
+        {showNewModal && modalPublicationType === PublicationTypes.Spaces && (
+          <Dropdown
+            triggerChild={
+              <div className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-violet-500 p-1">
+                <CalendarIcon className="relative h-6 w-6" />
+              </div>
+            }
+            open={isOpen}
+            onOpenChange={() => setIsOpen((prev) => !prev)}
+          >
+            <div className="inline-flex h-28 w-96 flex-col items-center justify-start">
+              <div className="flex h-28 flex-col items-start justify-center gap-4 rounded-lg border border-neutral-700 bg-neutral-800 p-4">
+                <div className="inline-flex items-center justify-start gap-2 self-stretch">
+                  <div className="flex h-5 shrink grow basis-0 items-center justify-between">
+                    <input
+                      value={spacesTimeInHour}
+                      onChange={(e) => setSpacesTimeInHour(e.target.value)}
+                      className="w-10 appearance-none border-none bg-transparent text-sm font-medium leading-tight text-neutral-300 outline-none"
+                    />
+                    :
+                    <input
+                      value={spacesTimeInMinute}
+                      onChange={(e) => setSpacesTimeInMinute(e.target.value)}
+                      className="w-10 appearance-none border-none bg-transparent text-sm font-medium leading-tight text-neutral-300 outline-none"
+                    />
+                    <div className="flex items-start justify-start gap-2">
+                      <button
+                        className={clsx(
+                          'text-sm font-semibold leading-tight',
+                          isSpacesTimeInAM
+                            ? 'text-brand-500'
+                            : 'text-neutral-400'
+                        )}
+                        onClick={() => setIsSpacesTimeInAM(true)}
+                      >
+                        AM
+                      </button>
+                      <button
+                        className={clsx(
+                          'text-sm font-semibold leading-tight',
+                          !isSpacesTimeInAM
+                            ? 'text-brand-500'
+                            : 'text-neutral-400'
+                        )}
+                        onClick={() => setIsSpacesTimeInAM(false)}
+                      >
+                        PM
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="inline-flex items-center justify-center gap-1 self-stretch rounded-lg bg-violet-500 p-1.5">
+                  <CalendarIcon className="relative h-4 w-4" />
+                  <button
+                    className="flex items-center justify-center text-sm font-semibold leading-none text-neutral-50"
+                    onClick={() => setIsOpen((prev) => !prev)}
+                  >
+                    Schedule Spaces
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Dropdown>
+        )}
       </div>
       <div className="px-5">
         <Attachments attachments={attachments} isNew />

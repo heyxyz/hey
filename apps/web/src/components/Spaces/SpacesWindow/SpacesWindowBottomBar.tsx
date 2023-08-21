@@ -11,6 +11,7 @@ import { useSpacesStore } from 'src/store/spaces';
 import { Icons } from '../Common/assets/Icons';
 import Dropdown from '../Common/Dropdown';
 import EmojiTray from '../Common/EmojiTray';
+import MusicTray from '../Common/MusicTray';
 
 type Props = {};
 
@@ -27,7 +28,8 @@ const SpacesWindowBottomBar = (props: Props) => {
   const setSidebarView = useSpacesStore((state) => state.setSidebarView);
   const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
   const { sendData } = useAppUtils();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isEmojiTrayOpen, setIsEmojiTrayOpen] = useState(false);
+  const [isMusicTrayOpen, setIsMusicTrayOpen] = useState(false);
 
   useEventListener('app:mic-on', (stream) => {
     produceAudio(stream);
@@ -72,16 +74,21 @@ const SpacesWindowBottomBar = (props: Props) => {
         </button>
       )}
       <div className="flex gap-2">
-        <div>{Icons.music}</div>
+        {['host', 'coHost'].includes(me.role) && (
+          <Dropdown
+            triggerChild={Icons.music}
+            open={isMusicTrayOpen}
+            onOpenChange={() => setIsMusicTrayOpen((prev) => !prev)}
+          >
+            <MusicTray onClose={() => setIsMusicTrayOpen(false)} />
+          </Dropdown>
+        )}
         <Dropdown
           triggerChild={Icons.reaction}
-          open={isOpen}
-          onOpenChange={() => setIsOpen((prev) => !prev)}
+          open={isEmojiTrayOpen}
+          onOpenChange={() => setIsEmojiTrayOpen((prev) => !prev)}
         >
-          <EmojiTray
-            onClick={() => alert('todo')}
-            onClose={() => setIsOpen(false)}
-          />
+          <EmojiTray onClose={() => setIsEmojiTrayOpen(false)} />
         </Dropdown>
         <button
           className="flex h-full items-center gap-2 rounded-lg bg-neutral-800 px-2 font-normal text-neutral-500"

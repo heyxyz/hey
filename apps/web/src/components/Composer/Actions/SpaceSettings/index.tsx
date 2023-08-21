@@ -17,7 +17,8 @@ const SpaceSettings: FC = () => {
     setIsTokenGated,
     setTokenGateConditionType,
     tokenGateConditionType,
-    setTokenGateConditionValue
+    setTokenGateConditionValue,
+    tokenGateConditionValue
   } = useSpacesStore();
 
   interface ModuleProps {
@@ -66,6 +67,7 @@ const SpaceSettings: FC = () => {
                   ? 'profile'
                   : 'post'
               } link`}
+              value={tokenGateConditionValue}
               onChange={(e) => setTokenGateConditionValue(e.target.value)}
               className="placeholder-neutral-400"
             />

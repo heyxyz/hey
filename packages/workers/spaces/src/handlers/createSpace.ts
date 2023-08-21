@@ -14,6 +14,7 @@ type ExtensionRequest = {
   isTokenGated: boolean;
   conditionType?: string;
   conditionValue?: string;
+  startTime?: string;
 };
 
 type CreateRoomResponse = {
@@ -45,7 +46,8 @@ export default async (request: IRequest, env: Env) => {
     isMainnet,
     isTokenGated,
     conditionType,
-    conditionValue
+    conditionValue,
+    startTime
   } = body as ExtensionRequest;
 
   try {
@@ -55,7 +57,6 @@ export default async (request: IRequest, env: Env) => {
         JSON.stringify({ success: false, error: Errors.SignWallet })
       );
     }
-
     const { payload } = jwt.decode(accessToken);
     let response;
     if (isTokenGated) {
@@ -71,7 +72,8 @@ export default async (request: IRequest, env: Env) => {
           chain: 'POLYGON',
           tokenType: 'LENS',
           conditionType: conditionType,
-          conditionValue: conditionValue
+          conditionValue: conditionValue,
+          startTime: startTime
         })
       });
     } else {
@@ -83,7 +85,8 @@ export default async (request: IRequest, env: Env) => {
         },
         body: JSON.stringify({
           title: 'Lenster-Space',
-          hostWallets: [payload.id]
+          hostWallets: [payload.id],
+          startTime: startTime
         })
       });
     }

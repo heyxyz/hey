@@ -9,6 +9,13 @@ export enum TokenGateCondition {
   MIRROR_A_POST = 'MIRROR_POST'
 }
 
+export enum MusicTrack {
+  DEFAULT = 'DEFAULT',
+  CALM_MY_MIND = 'CALM_MY_MIND',
+  CRADLE_OF_SOUL = 'CRADLE_OF_SOUL',
+  FOREST_LULLABY = 'FOREST_LULLABY'
+}
+
 interface SpacesState {
   showSpacesLobby: boolean;
   setShowSpacesLobby: (showSpacesLobby: boolean) => void;
@@ -41,9 +48,19 @@ interface SpacesState {
   setSidebarView: (val: TSidebarView) => void;
   isMyHandRaised: boolean;
   setMyHandRaised: (val: boolean) => void;
+  myMusicTrack: MusicTrack;
+  setMyMusicTrack: (val: MusicTrack) => void;
+  isMyMusicPlaying: boolean;
+  setIsMyMusicPlaying: (val: boolean) => void;
   requestedPeers: string[];
   addRequestedPeers: (val: string) => void;
   removeRequestedPeers: (val: string) => void;
+  spacesTimeInHour: string;
+  setSpacesTimeInHour: (val: string) => void;
+  spacesTimeInMinute: string;
+  setSpacesTimeInMinute: (val: string) => void;
+  isSpacesTimeInAM: boolean;
+  setIsSpacesTimeInAM: (val: boolean) => void;
 }
 
 export const useSpacesStore = create<SpacesState>((set, get) => ({
@@ -73,6 +90,10 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
     sidebarView: 'close'
   },
   isMyHandRaised: false,
+  myMusicTrack: MusicTrack.DEFAULT,
+  setMyMusicTrack: (myMusicTrack) => set(() => ({ myMusicTrack })),
+  isMyMusicPlaying: false,
+  setIsMyMusicPlaying: (isMyMusicPlaying) => set(() => ({ isMyMusicPlaying })),
   requestedPeers: [],
   setSpace: (space) => set(() => ({ space })),
   setSidebarView(sidebarView: TSidebarView) {
@@ -105,5 +126,11 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
       requestedPeers: state.requestedPeers.filter((id) => id !== peerId)
     })),
   myReaction: '',
-  setMyReaction: (myReaction) => set(() => ({ myReaction }))
+  setMyReaction: (myReaction) => set(() => ({ myReaction })),
+  spacesTimeInHour: '00',
+  setSpacesTimeInHour: (val) => set(() => ({ spacesTimeInHour: val })),
+  spacesTimeInMinute: '00',
+  setSpacesTimeInMinute: (val) => set(() => ({ spacesTimeInMinute: val })),
+  isSpacesTimeInAM: true,
+  setIsSpacesTimeInAM: (val) => set(() => ({ isSpacesTimeInAM: val }))
 }));

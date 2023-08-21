@@ -65,8 +65,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
     fetchAudioStream,
     stopAudioStream,
     produceAudio,
-    stopProducingAudio,
-    stream: micStream
+    stopProducingAudio
   } = useAudio();
   const [isHandRaised, setIsHandRaised] = useState<boolean>(false);
   const setMyHandRaised = useSpacesStore((state) => state.setMyHandRaised);
