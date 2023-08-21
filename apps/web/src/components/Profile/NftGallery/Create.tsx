@@ -76,7 +76,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         });
         cache.modify({
           fields: {
-            nftGalleries() {
+            nftGalleries: () => {
               cache.writeQuery({
                 data: data?.nftGalleries as NftGallery[],
                 query: NftGalleriesDocument
@@ -106,7 +106,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       if (data) {
         cache.modify({
           fields: {
-            nftGalleries() {
+            nftGalleries: () => {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
                 data: gallery
               }));
@@ -169,7 +169,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         });
         cache.modify({
           fields: {
-            nftGalleries() {
+            nftGalleries: () => {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
                 data: data?.nftGalleries as NftGallery[]
               }));

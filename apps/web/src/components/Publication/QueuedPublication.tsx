@@ -54,7 +54,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       if (publication) {
         cache.modify({
           fields: {
-            publications() {
+            publications: () => {
               cache.writeQuery({
                 data: publication,
                 query: PublicationDocument
