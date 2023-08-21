@@ -1,3 +1,4 @@
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Button } from '@lenster/ui';
@@ -13,8 +14,8 @@ interface NoGalleryProps {
 }
 
 const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
-  const [showCreateModal, setShowCreateModal] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const isOwner = profile.id === currentProfile?.id;
 
@@ -24,32 +25,32 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
         <Create showModal={showCreateModal} setShowModal={setShowCreateModal} />
         <div className="bg-brand-100 col-span-2 flex h-[250px] items-center justify-center rounded-xl">
           <img
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             className="h-20 w-20"
-            src="https://i.imgur.com/OAauOym.png"
-            alt="No gallery found"
+            src={`${STATIC_IMAGES_URL}/emojis/pinata.png`}
+            alt="Pinata emoji"
             draggable={false}
           />
         </div>
         <div className="space-y-2">
           <div className="bg-brand-100 flex h-[120px] items-center justify-center rounded-xl">
             <img
-              width={50}
-              height={50}
+              width={56}
+              height={56}
               className="h-14 w-14"
-              src="https://i.imgur.com/GdIxlDY.png"
-              alt=""
+              src={`${STATIC_IMAGES_URL}/emojis/sunset.png`}
+              alt="Sunset emoji"
               draggable={false}
             />
           </div>
           <div className="bg-brand-100 flex h-[120px] items-center justify-center rounded-xl">
             <img
-              width={50}
-              height={50}
+              width={56}
+              height={56}
               className="h-14 w-14"
-              src="https://i.imgur.com/w3DaYru.png"
-              alt=""
+              src={`${STATIC_IMAGES_URL}/emojis/sunrise.png`}
+              alt="Sunrise emoji"
               draggable={false}
             />
           </div>

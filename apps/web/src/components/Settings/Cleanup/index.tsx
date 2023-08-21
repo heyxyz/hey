@@ -47,13 +47,13 @@ const CleanupSettings: NextPage = () => {
         <Card className="p-5">
           <div className="space-y-5">
             <div className="text-lg font-bold">
-              <Trans>Cleanup Localstorage</Trans>
+              <Trans>Cleanup local storage</Trans>
             </div>
             <p>
               <Trans>
                 If you stuck with some issues, you can try to clean up the
-                localstorage. This will remove all the data stored in your
-                browser.
+                browser's internal local storage. This will remove all the data
+                stored in your browser.
               </Trans>
             </p>
           </div>

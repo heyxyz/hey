@@ -1,6 +1,7 @@
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
+import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -16,6 +17,9 @@ type ExtensionRequest = {
   isGardener?: boolean;
   isTrustedMember?: boolean;
   isVerified?: boolean;
+  isPride?: boolean;
+  highSignalNotificationFilter?: boolean;
+  updateByAdmin?: boolean;
   accessToken: string;
 };
 
@@ -25,6 +29,9 @@ const validationSchema = object({
   isGardener: boolean().optional(),
   isTrustedMember: boolean().optional(),
   isVerified: boolean().optional(),
+  isPride: boolean().optional(),
+  highSignalNotificationFilter: boolean().optional(),
+  updateByAdmin: boolean().optional(),
   accessToken: string().regex(Regex.accessToken)
 });
 
@@ -40,8 +47,17 @@ export default async (request: IRequest, env: Env) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, isGardener, isStaff, isTrustedMember, isVerified, accessToken } =
-    body as ExtensionRequest;
+  const {
+    id,
+    isGardener,
+    isStaff,
+    isTrustedMember,
+    updateByAdmin,
+    isVerified,
+    isPride,
+    highSignalNotificationFilter,
+    accessToken
+  } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
@@ -50,8 +66,15 @@ export default async (request: IRequest, env: Env) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    if (!adminAddresses.includes(payload.id)) {
+    if (updateByAdmin && !adminAddresses.includes(payload.id)) {
       return response({ success: false, error: Errors.NotAdmin });
+    }
+
+    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
+    if (!updateByAdmin && !hasOwned) {
+      return new Response(
+        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
+      );
     }
 
     const client = createSupabaseClient(env);
@@ -60,10 +83,14 @@ export default async (request: IRequest, env: Env) => {
       .from('rights')
       .upsert({
         id,
-        is_staff: isStaff,
-        is_gardener: isGardener,
-        is_trusted_member: isTrustedMember,
-        is_verified: isVerified
+        ...(updateByAdmin && {
+          is_staff: isStaff,
+          is_gardener: isGardener,
+          is_trusted_member: isTrustedMember,
+          is_verified: isVerified
+        }),
+        is_pride: isPride,
+        high_signal_notification_filter: highSignalNotificationFilter
       })
       .select()
       .single();
@@ -72,8 +99,10 @@ export default async (request: IRequest, env: Env) => {
       throw error;
     }
 
-    // Clear cache in Cloudflare KV
-    await env.ACCESS.delete('verified-list');
+    if (updateByAdmin) {
+      // Clear cache in Cloudflare KV
+      await env.PREFERENCES.delete('verified-list');
+    }
 
     return response({ success: true, result: data });
   } catch (error) {

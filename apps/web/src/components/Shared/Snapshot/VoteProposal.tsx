@@ -41,22 +41,18 @@ const VoteProposal: FC<VoteProposalProps> = ({
   const choice = choices[voteConfig.position - 1];
 
   const getVotingPower = async () => {
-    const response = await axios({
-      url: 'https://score.snapshot.org',
-      method: 'POST',
-      data: {
-        jsonrpc: '2.0',
-        method: 'get_vp',
-        params: {
-          address: currentProfile?.ownedBy,
-          network,
-          strategies,
-          snapshot: parseInt(snapshot as string),
-          space: space?.id,
-          delegation: false
-        },
-        id: null
-      }
+    const response = await axios.post('https://score.snapshot.org', {
+      jsonrpc: '2.0',
+      method: 'get_vp',
+      params: {
+        address: currentProfile?.ownedBy,
+        network,
+        strategies,
+        snapshot: parseInt(snapshot as string),
+        space: space?.id,
+        delegation: false
+      },
+      id: null
     });
 
     return response.data;
@@ -81,17 +77,13 @@ const VoteProposal: FC<VoteProposalProps> = ({
         ...typedData
       });
 
-      await axios({
-        url: SNAPSHOT_SEQUNECER_URL,
-        method: 'POST',
+      await axios.post(SNAPSHOT_SEQUNECER_URL, {
+        address: currentProfile?.ownedBy,
+        sig: signature,
         data: {
-          address: currentProfile?.ownedBy,
-          sig: signature,
-          data: {
-            domain: typedData.domain,
-            types: typedData.types,
-            message: typedData.message
-          }
+          domain: typedData.domain,
+          types: typedData.types,
+          message: typedData.message
         }
       });
 

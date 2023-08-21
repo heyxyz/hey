@@ -12,8 +12,8 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { useAccessStore } from 'src/store/access';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useSpacesStore } from 'src/store/spaces';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
@@ -31,20 +31,15 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const setProfiles = useAppStore((state) => state.setProfiles);
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.setProfileGuardianInformation
-  );
-  const resetAccess = useAccessStore((state) => state.resetAccess);
-  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.resetProfileGuardianInformation
-  );
-  const profileId = useAppPersistStore((state) => state.profileId);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+
   const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
   const showSpacesWindow = useSpacesStore((state) => state.showSpacesWindow);
+
+  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
+  const { setProfileGuardianInformation, resetProfileGuardianInformation } =
+    useProfileGuardianInformationStore();
+  const { profileId, setProfileId } = useAppPersistStore();
+  const { loadingPreferences, resetPreferences } = usePreferencesStore();
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -55,7 +50,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const resetAuthState = () => {
     setProfileId(null);
     setCurrentProfile(null);
-    resetAccess();
+    resetPreferences();
     resetProfileGuardianInformation();
   };
 
@@ -112,7 +107,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   }, [address, chain, disconnect, profileId]);
 
-  if (loading || !isMounted()) {
+  if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
   }
 

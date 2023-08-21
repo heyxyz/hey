@@ -7,9 +7,9 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';
@@ -30,8 +30,8 @@ import YourProfile from './NavItems/YourProfile';
 const MobileDrawerMenu: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = useAccessStore((state) => state.isStaff);
-  const isGardener = useAccessStore((state) => state.isGardener);
+  const isStaff = usePreferencesStore((state) => state.isStaff);
+  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );
@@ -92,22 +92,34 @@ const MobileDrawerMenu: FC = () => {
             <Link href={'/settings'} onClick={closeDrawer}>
               <Settings className={clsx(itemClass, 'px-4')} />
             </Link>
-            <Bookmarks className={itemClass} onClick={closeDrawer} />
+            <Bookmarks
+              className={clsx(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
             {isGardener && (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
             )}
             <Invites className={clsx(itemClass, 'px-4')} />
-            <ThemeSwitch className={itemClass} onClick={closeDrawer} />
+            <ThemeSwitch
+              className={clsx(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
           </div>
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Contact className={itemClass} onClick={closeDrawer} />
-            <ReportBug className={itemClass} onClick={closeDrawer} />
+            <Contact
+              className={clsx(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
+            <ReportBug
+              className={clsx(itemClass, 'px-4')}
+              onClick={closeDrawer}
+            />
           </div>
           <div className="divider" />
         </div>
@@ -115,7 +127,10 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
-            <Logout onClick={closeDrawer} className="py-3" />
+            <Logout
+              onClick={closeDrawer}
+              className={clsx(itemClass, 'px-4 py-3')}
+            />
           </div>
           <div className="divider" />
           {isGardener && (
@@ -125,7 +140,7 @@ const MobileDrawerMenu: FC = () => {
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <GardenerMode className="py-3" />
+                <GardenerMode className={clsx(itemClass, 'px-4 py-3')} />
               </div>
               <div className="divider" />
             </>
@@ -137,7 +152,7 @@ const MobileDrawerMenu: FC = () => {
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <StaffMode className="py-3" />
+                <StaffMode className={clsx(itemClass, 'px-4 py-3')} />
               </div>
               <div className="divider" />
             </>

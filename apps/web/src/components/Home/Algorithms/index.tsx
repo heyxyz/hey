@@ -3,7 +3,8 @@ import { HOME } from '@lenster/data/tracking';
 import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import List from './List';
 

@@ -16,7 +16,7 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
-import { useAccessStore } from 'src/store/access';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useEffectOnce } from 'usehooks-ts';
 
 import StaffToolsSidebar from './Sidebar';
@@ -66,7 +66,7 @@ const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
 };
 
 const RelayQueues: NextPage = () => {
-  const staffMode = useAccessStore((state) => state.staffMode);
+  const staffMode = usePreferencesStore((state) => state.staffMode);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'relayqueues' });

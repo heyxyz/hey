@@ -187,7 +187,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message={t`Loading super follow`} />;
+    return <Loader message={t`Loading Super follow`} />;
   }
 
   return (
@@ -257,7 +257,7 @@ const FollowModule: FC<FollowModuleProps> = ({
             <div>•</div>
             <div>
               <Trans>
-                You will get super follow badge in @
+                You will get Super follow badge in @
                 {formatHandle(profile?.handle)}'s profile
               </Trans>
             </div>

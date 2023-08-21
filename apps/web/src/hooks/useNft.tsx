@@ -32,11 +32,10 @@ const useNft = ({
   };
 
   const loadContractDetails = async () => {
-    const response = await axios({
-      method: 'GET',
-      url: `https://${getAlchemyChainName()}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
-      params: { contractAddress: address }
-    });
+    const response = await axios.get(
+      `https://${getAlchemyChainName()}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
+      { params: { contractAddress: address } }
+    );
     return response.data;
   };
 

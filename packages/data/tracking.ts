@@ -113,6 +113,11 @@ export const SETTINGS = {
     SET_STATUS: 'Set profile status',
     CLEAR_STATUS: 'Clear profile status'
   },
+  PREFERENCES: {
+    TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER:
+      'Toggle high signal notification filter',
+    TOGGLE_IS_PRIDE: 'Toggle is pride'
+  },
   DISPATCHER: {
     TOGGLE: 'Toggle dispatcher',
     UPDATE: 'Update dispatcher'

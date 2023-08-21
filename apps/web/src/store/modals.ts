@@ -11,6 +11,8 @@ interface GlobalModalState {
     showNewModal: boolean,
     modalPublicationType: PublicationTypes
   ) => void;
+  showDiscardModal: boolean;
+  setShowDiscardModal: (showDiscardModal: boolean) => void;
   showStatusModal: boolean;
   setShowStatusModal: (showStatusModal: boolean) => void;
   showProfileSwitchModal: boolean;
@@ -40,6 +42,8 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   modalPublicationType: PublicationTypes.Post,
   setShowNewModal: (showNewModal, modalPublicationType) =>
     set(() => ({ showNewModal, modalPublicationType })),
+  showDiscardModal: false,
+  setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   showPublicationReportModal: false,
   showStatusModal: false,
   setShowStatusModal: (showStatusModal) => set(() => ({ showStatusModal })),

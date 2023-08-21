@@ -16,7 +16,6 @@ import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
 import getFollowModule from '@lenster/lib/getFollowModule';
-import hasPrideLogo from '@lenster/lib/hasPrideLogo';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -35,7 +34,7 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHasUsedLenster = async () => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `${ACHIEVEMENTS_WORKER_URL}/hasUsedLenster/${profile.id}`
       );
 
@@ -66,7 +65,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
                 className="h-4 w-4"
                 height={16}
                 width={16}
-                src={hasPrideLogo(profile) ? '/pride.svg' : '/logo.svg'}
+                src="/logo.svg"
                 alt="Logo"
               />
             }

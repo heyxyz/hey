@@ -4,7 +4,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { Card } from '@lenster/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import type { Activity } from 'react-activity-calendar';
 import ActivityCalendar from 'react-activity-calendar';
 
@@ -15,7 +15,7 @@ interface StreaksProps {
 const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}`
       );
 

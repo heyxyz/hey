@@ -119,7 +119,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
                 <Trans>
                   Please be aware that by allowing this module, the amount
                   indicated will be automatically deducted when you{' '}
-                  <b>collect</b> and <b>super follow</b>.
+                  <b>Collect</b> and <b>Super follow</b>.
                 </Trans>
               </div>
             }

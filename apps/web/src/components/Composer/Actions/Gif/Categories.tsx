@@ -11,9 +11,10 @@ interface CategoriesProps {
 const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   const fetchGiphyCategories = async () => {
     try {
-      const response = await axios('https://api.giphy.com/v1/gifs/categories', {
-        params: { api_key: GIPHY_KEY }
-      });
+      const response = await axios.get(
+        'https://api.giphy.com/v1/gifs/categories',
+        { params: { api_key: GIPHY_KEY } }
+      );
 
       return response.data.data;
     } catch (error) {

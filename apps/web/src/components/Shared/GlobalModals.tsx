@@ -11,6 +11,7 @@ import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePublicationStore } from 'src/store/publication';
 
 import Login from './Login';
 import Invites from './Modal/Invites';
@@ -36,8 +37,38 @@ const GlobalModals: FC = () => {
     setShowInvitesModal,
     showReportProfileModal,
     reportingProfile,
-    setShowReportProfileModal
+    setShowReportProfileModal,
+    setShowDiscardModal
   } = useGlobalModalStateStore();
+
+  const {
+    publicationContent,
+    attachments,
+    isUploading,
+    videoDurationInSeconds,
+    videoThumbnail,
+    audioPublication,
+    quotedPublication,
+    showPollEditor,
+    pollConfig
+  } = usePublicationStore();
+
+  const checkIfPublicationNotDrafted = () => {
+    if (
+      publicationContent === '' &&
+      quotedPublication === null &&
+      attachments.length === 0 &&
+      audioPublication.title === '' &&
+      videoThumbnail.url === '' &&
+      videoDurationInSeconds === '' &&
+      !showPollEditor &&
+      !isUploading &&
+      pollConfig.choices[0] === ''
+    ) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <>
@@ -52,7 +83,7 @@ const GlobalModals: FC = () => {
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        title={t`Report Profile`}
+        title={t`Report profile`}
         icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
         show={showReportProfileModal}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
@@ -89,7 +120,11 @@ const GlobalModals: FC = () => {
         size="md"
         show={showNewModal}
         onClose={() => {
-          setShowNewModal(false, PublicationTypes.Post);
+          if (checkIfPublicationNotDrafted()) {
+            setShowNewModal(false, PublicationTypes.Post);
+          } else {
+            setShowDiscardModal(true);
+          }
         }}
       >
         <NewPublication />

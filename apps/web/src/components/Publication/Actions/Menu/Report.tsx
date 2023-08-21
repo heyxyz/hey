@@ -21,7 +21,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm text-red-500'
+          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-red-500'
         )
       }
       onClick={(event) => {
@@ -31,7 +31,7 @@ const Report: FC<ReportProps> = ({ publication }) => {
     >
       <div className="flex items-center space-x-2">
         <ShieldExclamationIcon className="h-4 w-4" />
-        <div>Report Post</div>
+        <div>Report post</div>
       </div>
     </Menu.Item>
   );

@@ -1,11 +1,11 @@
-import SingleNft from '@components/Nft/SingleNft';
-import NftPickerShimmer from '@components/Shared/Shimmer/NftPickerShimmer';
+import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
+import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
@@ -55,13 +55,16 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   });
 
   if (loading) {
-    return <NftPickerShimmer />;
+    return <NftsShimmer />;
   }
 
   if (nfts?.length === 0) {
     return (
-      <EmptyState
-        message={
+      <div className="flex flex-1 flex-col items-center justify-center justify-items-center space-y-2 p-5">
+        <div>
+          <CollectionIcon className="text-brand h-8 w-8" />
+        </div>
+        <div>
           <div>
             <span className="mr-1 font-bold">
               @{formatHandle(currentProfile?.handle)}
@@ -70,9 +73,8 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
               <Trans>doesn't have any NFTs!</Trans>
             </span>
           </div>
-        }
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
-      />
+        </div>
+      </div>
     );
   }
 
@@ -160,7 +162,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   });
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3 md:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
       {nfts?.map((nft, index) => {
         const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
         const isSelected = selectedItems.includes(id);

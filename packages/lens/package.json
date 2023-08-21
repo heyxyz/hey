@@ -14,7 +14,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.17",
+    "@apollo/client": "^3.8.1",
     "@lenster/data": "workspace:*",
     "axios": "^1.4.0"
   },
@@ -25,8 +25,8 @@
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@lenster/config": "workspace:*",
-    "@types/node": "^20.5.0",
+    "@types/node": "^20.5.1",
     "typescript": "^5.1.6",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.2"
   }
 }

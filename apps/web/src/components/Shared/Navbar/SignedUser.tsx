@@ -6,9 +6,9 @@ import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useAccessStore } from 'src/store/access';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';
@@ -28,8 +28,8 @@ import YourProfile from './NavItems/YourProfile';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isStaff = useAccessStore((state) => state.isStaff);
-  const isGardener = useAccessStore((state) => state.isGardener);
+  const isStaff = usePreferencesStore((state) => state.isStaff);
+  const isGardener = usePreferencesStore((state) => state.isGardener);
   const setShowMobileDrawer = useGlobalModalStateStore(
     (state) => state.setShowMobileDrawer
   );

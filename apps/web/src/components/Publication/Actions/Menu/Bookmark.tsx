@@ -38,7 +38,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     publicationId: publication.id
   };
 
-  const updateCache = (cache: ApolloCache<any>, bookmarked: boolean) => {
+  const updateCache = (cache: ApolloCache<any>) => {
     const bookmarkedPublications = isMirror
       ? publication?.mirrorOf
       : publication;
@@ -46,7 +46,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     cache.modify({
       id: publicationKeyFields(bookmarkedPublications),
       fields: {
-        bookmarked: () => bookmarked,
+        bookmarked: (bookmarked) => !bookmarked,
         stats: (stats) => ({
           ...stats,
           totalBookmarks: bookmarked
@@ -77,7 +77,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           bookmarked: true
         });
       },
-      update: (cache) => updateCache(cache, true)
+      update: (cache) => updateCache(cache)
     });
 
   const [removePublicationProfileBookmark] =
@@ -91,7 +91,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
           bookmarked: false
         });
       },
-      update: (cache) => updateCache(cache, false)
+      update: (cache) => updateCache(cache)
     });
 
   const togglePublicationProfileBookmark = async () => {
@@ -108,7 +108,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       className={({ active }) =>
         clsx(
           { 'dropdown-active': active },
-          'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
+          'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
       onClick={(event) => {

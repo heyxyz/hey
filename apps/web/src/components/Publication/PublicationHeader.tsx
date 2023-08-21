@@ -5,7 +5,7 @@ import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import clsx from 'clsx';
 import type { FC } from 'react';
-import { useAccessStore } from 'src/store/access';
+import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
 
 import PublicationMenu from './Actions/Menu';
@@ -27,7 +27,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
   );
-  const gardenerMode = useAccessStore((state) => state.gardenerMode);
+  const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
   const isMirror = publication.__typename === 'Mirror';
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
@@ -54,7 +54,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       )}
       data-testid={`publication-${publication.id}-header`}
     >
-      <span onClick={stopEventPropagation} aria-hidden="true">
+      <span
+        className="max-w-full"
+        onClick={stopEventPropagation}
+        aria-hidden="true"
+      >
         {quoted ? (
           <SmallUserProfile profile={profile} timestamp={timestamp} />
         ) : (

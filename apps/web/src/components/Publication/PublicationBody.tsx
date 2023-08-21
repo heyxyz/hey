@@ -17,6 +17,7 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
@@ -50,16 +51,19 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     ? JSON.parse(spaceObject)
     : null;
 
-  let content = metadata?.content;
   const filterId = snapshotProposalId || quotedPublicationId;
+
+  let rawContent = metadata?.content;
 
   if (filterId) {
     for (const url of urls) {
       if (url.includes(filterId)) {
-        content = content?.replace(url, '');
+        rawContent = rawContent?.replace(url, '');
       }
     }
   }
+
+  const [content, setContent] = useState(rawContent);
 
   if (metadata?.encryptionParams) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
@@ -79,9 +83,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showQuotedPublication &&
     !quoted;
 
-  if (showOembed) {
-    content = removeUrlAtEnd(urls, content);
-  }
+  const onData = () => {
+    if (showOembed) {
+      const updatedContent = removeUrlAtEnd(urls, content);
+      if (updatedContent !== content) {
+        setContent(updatedContent);
+      }
+    }
+  };
 
   return (
     <div className="break-words">
@@ -107,7 +116,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? (
-        <Oembed url={urls[0]} publicationId={publication.id} />
+        <Oembed url={urls[0]} publicationId={publication.id} onData={onData} />
       ) : null}
       {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />

@@ -160,7 +160,6 @@ const Status: FC = () => {
                   'location',
                   'website',
                   'x',
-                  'hasPrideLogo',
                   'statusEmoji',
                   'statusMessage',
                   'app'
@@ -181,10 +180,6 @@ const Status: FC = () => {
               'https://x.com/',
               ''
             )
-          },
-          {
-            key: 'hasPrideLogo',
-            value: getProfileAttribute(profile?.attributes, 'hasPrideLogo')
           },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status }
