@@ -12,14 +12,7 @@ import toast from 'react-hot-toast';
  */
 const uploadToArweave = async (data: any): Promise<string> => {
   try {
-    const upload = await axios(METADATA_WORKER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data
-    });
-
+    const upload = await axios.post(METADATA_WORKER_URL, { ...data });
     const { id }: { id: string } = upload?.data;
 
     return id;

@@ -25,7 +25,7 @@ const Gifs: FC<CategoriesProps> = ({
 
   const fetchGifs = async (input: string, offset: number) => {
     try {
-      const response = await axios('https://api.giphy.com/v1/gifs/search', {
+      const response = await axios.get('https://api.giphy.com/v1/gifs/search', {
         params: { api_key: GIPHY_KEY, q: input, limit: 48, offset }
       });
 

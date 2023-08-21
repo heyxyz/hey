@@ -58,9 +58,10 @@ const Contact: FC = () => {
   ) => {
     setSubmitting(true);
     try {
-      const { data } = await axios(FRESHDESK_WORKER_URL, {
-        method: 'POST',
-        data: { email, subject, body }
+      const { data } = await axios.post(FRESHDESK_WORKER_URL, {
+        email,
+        subject,
+        body
       });
 
       if (data.success) {

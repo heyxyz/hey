@@ -34,7 +34,7 @@ interface ProfileStaffToolProps {
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   const getHasUsedLenster = async () => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `${ACHIEVEMENTS_WORKER_URL}/hasUsedLenster/${profile.id}`
       );
 
