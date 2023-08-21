@@ -14,7 +14,7 @@ const getPublicationIds = async (
   profile?: string
 ) => {
   try {
-    const response = await axios(`${FEEDS_WORKER_URL}/ids`, {
+    const response = await axios.get(`${FEEDS_WORKER_URL}/ids`, {
       params: { provider, strategy, ...(profile ? { profile } : {}) }
     });
 

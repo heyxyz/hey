@@ -105,17 +105,13 @@ const Choices: FC<ChoicesProps> = ({
         ...typedData
       });
 
-      await axios({
-        url: SNAPSHOT_SEQUNECER_URL,
-        method: 'POST',
+      await axios.post(SNAPSHOT_SEQUNECER_URL, {
+        address: currentProfile?.ownedBy,
+        sig: signature,
         data: {
-          address: currentProfile?.ownedBy,
-          sig: signature,
-          data: {
-            domain: typedData.domain,
-            types: typedData.types,
-            message: typedData.message
-          }
+          domain: typedData.domain,
+          types: typedData.types,
+          message: typedData.message
         }
       });
 

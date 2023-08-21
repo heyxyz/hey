@@ -22,7 +22,7 @@ interface RankProps {
 const Rank: FC<RankProps> = ({ profile }) => {
   const getRank = async (strategy: string) => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `https://lens-api.k3l.io/profile/rank?strategy=${strategy}&handle=${profile.handle}`
       );
 
@@ -34,7 +34,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
 
   const getGitcoinScore = async () => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `https://api.scorer.gitcoin.co/registry/score/335/${profile.ownedBy}`,
         {
           headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
