@@ -134,7 +134,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
 
       cache.modify({
         fields: {
-          nftGalleries() {
+          nftGalleries: () => {
             cache.updateQuery({ query: NftGalleriesDocument }, () => ({
               data: data?.nftGalleries as NftGallery[]
             }));
