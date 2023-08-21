@@ -24,7 +24,7 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios(
+      const response = await axios.get(
         `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/latest`
       );
 
