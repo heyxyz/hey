@@ -47,15 +47,16 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 
   return fromPromise(
-    axios(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify({
-        operationName: 'Refresh',
-        query: REFRESH_AUTHENTICATION_MUTATION,
-        variables: { request: { refreshToken } }
-      })
-    })
+    axios
+      .post(
+        API_URL,
+        {
+          operationName: 'Refresh',
+          query: REFRESH_AUTHENTICATION_MUTATION,
+          variables: { request: { refreshToken } }
+        },
+        { headers: { 'Content-Type': 'application/json' } }
+      )
       .then(({ data }) => {
         const accessToken = data?.data?.refresh?.accessToken;
         const refreshToken = data?.data?.refresh?.refreshToken;

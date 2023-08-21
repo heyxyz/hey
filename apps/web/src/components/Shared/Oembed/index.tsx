@@ -17,10 +17,9 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   const { isLoading, error, data } = useQuery(
     [url],
     () =>
-      axios({
-        url: OEMBED_WORKER_URL,
-        params: { url }
-      }).then((res) => res.data.oembed),
+      axios
+        .get(OEMBED_WORKER_URL, { params: { url } })
+        .then((res) => res.data.oembed),
     { enabled: Boolean(url) }
   );
 

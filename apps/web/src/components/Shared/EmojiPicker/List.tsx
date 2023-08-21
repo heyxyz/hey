@@ -22,9 +22,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState('');
   const { isLoading, error, data } = useQuery(['emojisData'], () =>
-    axios({
-      url: `${STATIC_ASSETS_URL}/emoji.json`
-    }).then((res) => res.data)
+    axios.get(`${STATIC_ASSETS_URL}/emoji.json`).then((res) => res.data)
   );
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -22,7 +22,7 @@ const PreferencesProvider: FC = () => {
   const fetchPreferences = async () => {
     try {
       if (Boolean(profileId)) {
-        const response = await axios(
+        const response = await axios.get(
           `${PREFERENCES_WORKER_URL}/get/${profileId}`
         );
         const { data } = response;
@@ -47,7 +47,7 @@ const PreferencesProvider: FC = () => {
 
   const fetchVerifiedMembers = async () => {
     try {
-      const response = await axios(`${PREFERENCES_WORKER_URL}/verified`);
+      const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
     } catch {}

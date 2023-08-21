@@ -8,12 +8,8 @@ import axios from 'axios';
  */
 const getRedstonePrice = async (symbol: string) => {
   try {
-    const response = await axios('https://api.redstone.finance/prices', {
-      params: {
-        symbol,
-        provider: 'redstone',
-        limit: 1
-      }
+    const response = await axios.get('https://api.redstone.finance/prices', {
+      params: { symbol, provider: 'redstone', limit: 1 }
     });
 
     return response.data[0].value;
