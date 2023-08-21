@@ -88,7 +88,9 @@ const SpacesWindowBottomBar = (props: Props) => {
           open={isEmojiTrayOpen}
           onOpenChange={() => setIsEmojiTrayOpen((prev) => !prev)}
         >
-          <EmojiTray onClose={() => setIsEmojiTrayOpen(false)} />
+          <div className="absolute -right-20 bottom-12 w-[15vw] min-w-[12rem]">
+            <EmojiTray onClose={() => setIsEmojiTrayOpen(false)} />
+          </div>
         </Dropdown>
         <button
           className="flex h-full items-center gap-2 rounded-lg bg-neutral-800 px-2 font-normal text-neutral-500"

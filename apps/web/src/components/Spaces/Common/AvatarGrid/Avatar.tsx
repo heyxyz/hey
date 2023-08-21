@@ -4,6 +4,7 @@ import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
+import Audio from '../Audio';
 import type { IRoleEnum } from '../SpacesTypes';
 
 type Props = {
@@ -45,6 +46,7 @@ const Avatar = (props: Props) => {
 
   return (
     <div className="relative inline-flex w-16 flex-col items-center justify-start gap-1">
+      {props.mic && <Audio track={props.mic} />}
       <Image
         src={props.avatarUrl}
         className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-violet-500"

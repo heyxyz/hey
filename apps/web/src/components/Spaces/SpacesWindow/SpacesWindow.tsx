@@ -6,10 +6,10 @@ import {
   usePeers
 } from '@huddle01/react/hooks';
 import getAvatar from '@lenster/lib/getAvatar';
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { MusicTrack, useSpacesStore } from 'src/store/spaces';
-import { useUpdateEffect } from 'usehooks-ts';
 
 import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import InvitationModal from '../Common/InvitationModal';
@@ -65,6 +65,12 @@ const SpacesWindow = (props: Props) => {
     }
   });
 
+  useEventListener('room:me-role-update', (role) => {
+    if (role !== 'listener') {
+      toast.success(`You are now a ${role}`);
+    }
+  });
+
   useEventListener('room:data-received', (data) => {
     if (data.payload['request-to-speak']) {
       setShowAcceptRequest(true);
@@ -103,14 +109,14 @@ const SpacesWindow = (props: Props) => {
     }
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (['host', 'coHost'].includes(me.role)) {
       setMusicTrack(setMusicTrackPath(myMusicTrack));
       setIsMusicPlaying(isMyMusicPlaying);
     }
   }, [myMusicTrack, isMyMusicPlaying]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (isMusicPlaying) {
       audioRef.current?.play();
     } else {
@@ -118,19 +124,19 @@ const SpacesWindow = (props: Props) => {
     }
   }, [isMusicPlaying]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (changeAvatarUrl.isCallable) {
       changeAvatarUrl(getAvatar(currentProfile));
     }
   }, [changeAvatarUrl.isCallable]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (!requestedPeers.includes(requestedPeerId)) {
       setShowAcceptRequest(false);
     }
   }, [requestedPeers]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (setDisplayName.isCallable) {
       setDisplayName(currentProfile?.handle);
     }
@@ -198,7 +204,7 @@ const SpacesWindow = (props: Props) => {
           <div className="min-w-[28rem]">
             {isExpanded ? (
               <div className="relative">
-                <div className="absolute bottom-12 right-0 h-fit">
+                <div className="absolute bottom-12 right-0 z-10 h-fit">
                   <Sidebar />
                 </div>
                 <div className="pt-4">{<AvatarGrid />}</div>

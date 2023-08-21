@@ -10,9 +10,9 @@ const AvatarGrid = (props: Props) => {
   const { peers } = usePeers();
   const { me } = useHuddle01();
   const showSpacesWindow = useSpacesStore((state) => state.showSpacesWindow);
-  const listenersCount = Object.values(peers).filter(
-    ({ role }) => role === 'listener'
-  ).length;
+  const listenersCount =
+    Object.values(peers).filter(({ role }) => role === 'listener').length +
+    (me.role === 'listener' ? 1 : 0);
 
   return (
     <div className="min-w-[24rem]">
@@ -29,13 +29,14 @@ const AvatarGrid = (props: Props) => {
           )}
           {Object.values(peers)
             .filter(({ role }) => role !== 'listener')
-            .map(({ peerId, displayName, role, avatarUrl }) => (
+            .map(({ peerId, displayName, role, avatarUrl, mic }) => (
               <Avatar
                 key={peerId}
                 peerId={peerId}
                 displayName={displayName}
                 role={role}
                 avatarUrl={avatarUrl}
+                mic={mic}
               />
             ))}
         </div>
@@ -56,13 +57,14 @@ const AvatarGrid = (props: Props) => {
           )}
           {Object.values(peers)
             .filter(({ role }) => role === 'listener')
-            .map(({ peerId, displayName, role, avatarUrl }) => (
+            .map(({ peerId, displayName, role, avatarUrl, mic }) => (
               <Avatar
                 key={peerId}
                 peerId={peerId}
                 displayName={displayName}
                 role={role}
                 avatarUrl={avatarUrl}
+                mic={mic}
               />
             ))}
         </div>

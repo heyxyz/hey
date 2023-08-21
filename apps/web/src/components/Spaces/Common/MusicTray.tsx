@@ -1,7 +1,7 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { Radio } from '@lenster/ui';
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React from 'react';
 import { MusicTrack, useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -18,17 +18,19 @@ interface MusicTrackSelectionProps {
 
 const MusicTray: React.FC<Props> = ({ onClose }) => {
   const { sendData } = useAppUtils();
-  const [musicTrack, setMusicTrack] = useState(MusicTrack.DEFAULT);
-  const { setMyMusicTrack, isMyMusicPlaying, setIsMyMusicPlaying } =
-    useSpacesStore();
+  const {
+    setMyMusicTrack,
+    isMyMusicPlaying,
+    setIsMyMusicPlaying,
+    myMusicTrack
+  } = useSpacesStore();
 
   useUpdateEffect(() => {
-    if (musicTrack !== MusicTrack.DEFAULT) {
+    if (myMusicTrack !== MusicTrack.DEFAULT) {
       sendData('*', {
-        musicTrack: musicTrack,
+        musicTrack: myMusicTrack,
         isMusicPlaying: isMyMusicPlaying
       });
-      setMyMusicTrack(musicTrack);
     }
   }, [isMyMusicPlaying]);
 
@@ -41,8 +43,8 @@ const MusicTray: React.FC<Props> = ({ onClose }) => {
             {label}
           </div>
         }
-        onChange={() => setMusicTrack(value)}
-        checked={musicTrack === value}
+        onChange={() => setMyMusicTrack(value)}
+        checked={myMusicTrack === value}
       />
     </div>
   );
@@ -74,7 +76,11 @@ const MusicTray: React.FC<Props> = ({ onClose }) => {
           'bg-brand-500 inline-flex w-full cursor-pointer items-center gap-2 rounded-b-lg p-2',
           isMyMusicPlaying ? 'bg-red-400 bg-opacity-20' : 'bg-brand-500'
         )}
-        onClick={() => setIsMyMusicPlaying(!isMyMusicPlaying)}
+        onClick={() => {
+          if (myMusicTrack !== MusicTrack.DEFAULT) {
+            setIsMyMusicPlaying(!isMyMusicPlaying);
+          }
+        }}
       >
         <div
           className={clsx(

@@ -20,7 +20,11 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
     isSpacesTimeInAM ? Number(spacesTimeInHour) : Number(spacesTimeInHour) + 12
   );
   now.setMinutes(Number(spacesTimeInMinute));
-  const startTime = now.toISOString();
+  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const formattedTime = new Date(
+    now.toLocaleString('en-US', { timeZone: userTimezone })
+  );
+  const startTime = formattedTime.toISOString();
   const createSpace = async (): Promise<CreateSpaceResponse> => {
     if (isTokenGated) {
       payload = {

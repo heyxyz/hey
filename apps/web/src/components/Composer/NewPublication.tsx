@@ -233,6 +233,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
+    if (showNewModal && modalPublicationType === PublicationTypes.Spaces) {
+      toast.success('Spaces created successfully!');
+    }
+
     setIsLoading(false);
     editor.update(() => {
       $getRoot().clear();
@@ -716,6 +720,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         spaceId = await createSpace();
       }
 
+      const now = new Date();
+      now.setHours(
+        isSpacesTimeInAM
+          ? Number(spacesTimeInHour)
+          : Number(spacesTimeInHour) + 12
+      );
+      now.setMinutes(Number(spacesTimeInMinute));
+      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const formattedTime = new Date(
+        now.toLocaleString('en-US', { timeZone: userTimezone })
+      );
+      const startTime = formattedTime.toISOString();
+
       const attributes: MetadataAttributeInput[] = [
         {
           traitType: 'type',
@@ -729,7 +746,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 displayType: PublicationMetadataDisplayTypes.String,
                 value: JSON.stringify({
                   id: spaceId,
-                  host: currentProfile.ownedBy
+                  host: currentProfile.ownedBy,
+                  startTime: startTime
                 })
               }
             ]
