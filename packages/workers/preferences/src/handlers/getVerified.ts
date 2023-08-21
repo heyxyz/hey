@@ -24,7 +24,6 @@ export default async (_: IRequest, env: Env) => {
 
     return response({ success: true, fromKV: true, result: JSON.parse(cache) });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
