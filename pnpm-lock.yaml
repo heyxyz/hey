@@ -181,8 +181,8 @@ importers:
         specifier: ^1.1.6
         version: 1.1.6(@types/react@18.2.20)(dexie@3.2.4)(react@18.2.0)
       framer-motion:
-        specifier: ^10.16.0
-        version: 10.16.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.16.1
+        version: 10.16.1(react-dom@18.2.0)(react@18.2.0)
       graphql:
         specifier: ^16.8.0
         version: 16.8.0
@@ -582,8 +582,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -607,8 +607,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       viem:
         specifier: ^1.6.4
         version: 1.6.4(typescript@5.1.6)(zod@3.22.2)
@@ -641,8 +641,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -684,8 +684,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -712,8 +712,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       ua-parser-js:
         specifier: ^1.0.35
         version: 1.0.35
@@ -749,8 +749,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -777,8 +777,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       linkedom:
         specifier: ^0.15.1
         version: 0.15.1
@@ -814,8 +814,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -857,8 +857,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
       viem:
         specifier: ^1.6.4
         version: 1.6.4(typescript@5.1.6)(zod@3.22.2)
@@ -885,8 +885,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       itty-router:
-        specifier: ^4.0.20
-        version: 4.0.20
+        specifier: ^4.0.22
+        version: 4.0.22
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230814.0
@@ -7939,7 +7939,7 @@ packages:
   /async-mutex@0.4.0:
     resolution: {integrity: sha512-eJFZ1YhRR8UN8eBLoNzcDPcy/jqjsg6I1AP+KvWQX80BqOSW1oJPJXDylPUEeMr2ZQvHgnQ//Lp6f3RQ1zI7HA==}
     dependencies:
-      tslib: 2.6.1
+      tslib: 2.6.2
     dev: false
 
   /asynciterator.prototype@1.0.0:
@@ -10110,8 +10110,8 @@ packages:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
 
-  /framer-motion@10.16.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-R+88Mkr/1dr7XHjacwptfJyrywRzQ1HZX3YSZtN4tFMBq1O8GGCbDEv31Nf/H08o0hUXLC87GkxsR/1bZgwXfw==}
+  /framer-motion@10.16.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-K6TXr5mZtitC/dxQCBdg7xzdN0d5IAIrlaqCPKtIQVdzVPGC0qBuJKXggHX1vjnP5gPOFwB1KbCCTWcnFc3kWg==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -10123,7 +10123,7 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      tslib: 2.6.1
+      tslib: 2.6.2
     optionalDependencies:
       '@emotion/is-prop-valid': 0.8.8
     dev: false
@@ -10964,8 +10964,8 @@ packages:
       reflect.getprototypeof: 1.0.3
     dev: true
 
-  /itty-router@4.0.20:
-    resolution: {integrity: sha512-dGbWSMkX5CgBV+VRu2xZEcQPkfu2KYyULPzmmmOTVJ6swvnfNsF1UikRrewzuo/nNwb5MHr9afjsdsmQktqp2g==}
+  /itty-router@4.0.22:
+    resolution: {integrity: sha512-FWK13vcITqld32NaOh+k2unRrR4qBZdzA9O1ctpqT1Q4lxKrHbtgaX1lLTv2VyXj3/8Waqk/NlDGNfxypJ8GKA==}
     dev: false
 
   /jayson@4.1.0:
