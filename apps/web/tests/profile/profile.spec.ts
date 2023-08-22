@@ -16,7 +16,7 @@ test.describe('Profile', () => {
 
     // await expect(avatar).toHaveAttribute(
     //   'src',
-    //   `${USER_CONTENT_URL}/${AVATAR}/https://gateway.ipfscdn.io/ipfs/bafybeibzzi2rfxlswibx7jqqahqmzurhnp643ytquvp4llys3urbdfttjq`
+    //   `${USER_CONTENT_URL}/${AVATAR}/https://ipfs.lens.dev/ipfs/bafybeibzzi2rfxlswibx7jqqahqmzurhnp643ytquvp4llys3urbdfttjq`
     // );
   });
 
@@ -25,7 +25,7 @@ test.describe('Profile', () => {
     const style = await cover.getAttribute('style');
 
     // await expect(style).toContain(
-    //   `${USER_CONTENT_URL}/${COVER}/https://gateway.ipfscdn.io/ipfs/bafybeicm2alelvjwawvv5ubn4g6flbyrrjay5ryxww3ulhnetmdy5ty4re`
+    //   `${USER_CONTENT_URL}/${COVER}/https://ipfs.lens.dev/ipfs/bafybeicm2alelvjwawvv5ubn4g6flbyrrjay5ryxww3ulhnetmdy5ty4re`
     // );
   });
 });
