@@ -9,7 +9,11 @@ import type { FC } from 'react';
 import React from 'react';
 import { TokenGateCondition, useSpacesStore } from 'src/store/spaces';
 
-const SpaceSettings: FC = () => {
+interface SpaceSettingsProps {
+  children?: React.ReactNode;
+}
+
+const SpaceSettings: FC<SpaceSettingsProps> = ({ children }) => {
   const {
     isRecordingOn,
     setIsRecordingOn,
@@ -50,12 +54,12 @@ const SpaceSettings: FC = () => {
   return (
     <div>
       {tokenGateConditionType !== TokenGateCondition.HAVE_A_LENS_PROFILE && (
-        <div className="flex w-full items-center gap-2 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
+        <div className="flex w-full items-center gap-2 px-4 py-3">
           <div className="flex items-center gap-3 text-neutral-500">
             <Trans>
               {tokenGateConditionType ===
               TokenGateCondition.FOLLOW_A_LENS_PROFILE
-                ? 'Enter Lens profile link'
+                ? 'Enter Lens profile'
                 : 'Enter Lens post link'}
             </Trans>
           </div>
@@ -64,9 +68,9 @@ const SpaceSettings: FC = () => {
               placeholder={`Lens ${
                 tokenGateConditionType ===
                 TokenGateCondition.FOLLOW_A_LENS_PROFILE
-                  ? 'profile'
-                  : 'post'
-              } link`}
+                  ? 'handle'
+                  : 'post link'
+              }`}
               value={tokenGateConditionValue}
               onChange={(e) => setTokenGateConditionValue(e.target.value)}
               className="placeholder-neutral-400"
@@ -74,7 +78,7 @@ const SpaceSettings: FC = () => {
           </div>
         </div>
       )}
-      <div className="block items-center border-t border-neutral-200 px-5 pt-3 dark:border-neutral-800 sm:flex">
+      <div className="block items-center px-4 pt-3 sm:flex">
         <div className="flex flex-[0_0_1] gap-2 space-x-1">
           <div>
             <Toggle
@@ -114,7 +118,7 @@ const SpaceSettings: FC = () => {
                 </span>
               </Menu.Button>
               <MenuTransition>
-                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white text-sm shadow-lg focus:outline-none dark:bg-gray-900">
+                <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-lg border bg-white text-sm shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-900">
                   <Module
                     title="have a lens profile"
                     onClick={() =>
@@ -159,6 +163,7 @@ const SpaceSettings: FC = () => {
             </Menu>
           </div>
         </div>
+        {children}
       </div>
     </div>
   );

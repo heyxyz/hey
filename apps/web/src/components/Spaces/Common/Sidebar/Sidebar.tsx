@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import type { FC } from 'react';
 import React from 'react';
 // Store
 import { useSpacesStore } from 'src/store/spaces';
@@ -7,7 +8,7 @@ import ViewComponent from './ViewController';
 
 type SidebarProps = {};
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: FC<SidebarProps> = () => {
   const isSidebarOpen = useSpacesStore((state) => state.sidebar.isSidebarOpen);
 
   const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
@@ -19,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
   return (
     <div
       className={clsx(
-        'min-h-[35vh] w-[20vw] flex-col rounded-xl border border-neutral-500 bg-neutral-900 transition-all duration-300 ease-out',
+        'min-h-[35vh] w-[20vw] flex-col rounded-xl border border-neutral-300 bg-white transition-all duration-300 ease-out dark:border-neutral-500 dark:bg-neutral-900',
         isSidebarOpen ? 'flex' : 'hidden'
       )}
     >

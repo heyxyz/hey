@@ -29,7 +29,9 @@ import PublicationPageShimmer from './Shimmer';
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
-  const showNewModal = useGlobalModalStateStore((state) => state.showNewModal);
+  const showNewPublicationModal = useGlobalModalStateStore(
+    (state) => state.showNewPublicationModal
+  );
 
   const {
     query: { id }
@@ -80,7 +82,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
-        {currentProfile && !publication?.hidden && !showNewModal ? (
+        {currentProfile && !publication?.hidden && !showNewPublicationModal ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (

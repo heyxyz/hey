@@ -4,6 +4,8 @@ import {
   useLobby,
   useRoom
 } from '@huddle01/react/hooks';
+import { Trans } from '@lingui/macro';
+import type { FC } from 'react';
 import React from 'react';
 import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
@@ -13,7 +15,7 @@ import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import SpacesButton from '../Common/SpacesButton';
 import PreviewSpacesHeader from './PreviewSpacesHeader';
 
-const PreviewSpaces = () => {
+const PreviewSpaces: FC = () => {
   const setShowSpacesLobby = useSpacesStore(
     (state) => state.setShowSpacesLobby
   );
@@ -51,13 +53,13 @@ const PreviewSpaces = () => {
 
   return (
     <div className="fixed inset-0 z-10 grid place-items-center bg-zinc-900/80 text-center">
-      <div className="overflow-hidden rounded-lg bg-black">
+      <div className="overflow-hidden rounded-lg bg-neutral-100 dark:bg-black">
         <PreviewSpacesHeader />
         <div className=" px-5 py-6 pb-0">
           <AvatarGrid />
         </div>
-        <div className="mx-auto py-4 text-center text-sm leading-tight text-neutral-500">
-          Your mic will be off at the start
+        <div className="border-t border-neutral-300 py-4 text-center text-sm leading-tight text-neutral-500 dark:border-neutral-800">
+          <Trans>Your mic will be off at the start</Trans>
         </div>
         <div className="pb-3">
           <SpacesButton
@@ -65,9 +67,11 @@ const PreviewSpaces = () => {
               joinRoom();
             }}
           >
-            {currentProfile?.ownedBy === space.host
-              ? 'Start spaces'
-              : 'Start listening'}
+            <Trans>
+              {currentProfile?.ownedBy === space.host
+                ? 'Start spaces'
+                : 'Start listening'}
+            </Trans>
           </SpacesButton>
         </div>
       </div>

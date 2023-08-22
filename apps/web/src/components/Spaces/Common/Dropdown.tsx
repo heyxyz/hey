@@ -1,5 +1,6 @@
 // Radix ui
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import type { FC } from 'react';
 import React from 'react';
 
 type DropdownProps = {
@@ -10,7 +11,7 @@ type DropdownProps = {
   children: React.ReactNode;
 };
 
-const Dropdown: React.FC<DropdownProps> = ({
+const Dropdown: FC<DropdownProps> = ({
   children,
   triggerChild,
   onOpenChange,

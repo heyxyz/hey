@@ -1,4 +1,5 @@
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
+import type { FC } from 'react';
 import React from 'react';
 
 import Strip from './Strip';
@@ -7,7 +8,7 @@ type CoHostDataProps = {
   peerId: string;
 };
 
-const CoHostData: React.FC<CoHostDataProps> = ({ peerId }) => {
+const CoHostData: FC<CoHostDataProps> = ({ peerId }) => {
   const { changePeerRole, kickPeer } = useAcl();
 
   const { me } = useHuddle01();

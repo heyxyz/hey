@@ -1,22 +1,20 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { Radio } from '@lenster/ui';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import type { FC } from 'react';
 import React from 'react';
 import { MusicTrack, useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { Icons } from '../Common/assets/Icons';
 
-interface Props {
-  onClose: () => void;
-}
-
 interface MusicTrackSelectionProps {
   value: MusicTrack;
   label: string;
 }
 
-const MusicTray: React.FC<Props> = ({ onClose }) => {
+const MusicTray: FC = () => {
   const { sendData } = useAppUtils();
   const {
     setMyMusicTrack,
@@ -35,12 +33,12 @@ const MusicTray: React.FC<Props> = ({ onClose }) => {
   }, [isMyMusicPlaying]);
 
   const MusicTrackSelection = ({ value, label }: MusicTrackSelectionProps) => (
-    <div className="border-b border-slate-700 p-2 text-center text-base font-semibold text-slate-100">
+    <div className="border-b border-neutral-300 p-2 text-center text-base font-semibold dark:border-slate-700">
       <Radio
         value={value}
         heading={
-          <div className="p-1 text-sm font-medium text-neutral-400">
-            {label}
+          <div className="p-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+            <Trans>{label}</Trans>
           </div>
         }
         onChange={() => setMyMusicTrack(value)}
@@ -50,12 +48,12 @@ const MusicTray: React.FC<Props> = ({ onClose }) => {
   );
 
   return (
-    <div className="rounded-lg border border-slate-700 bg-neutral-900">
+    <div className="rounded-lg border border-neutral-300 dark:border-slate-700 dark:bg-neutral-900">
       <div className="relative">
-        <div className="flex items-center justify-center gap-2 border-b border-slate-700 px-2 py-3 font-semibold text-slate-100">
+        <div className="flex items-center justify-center border-b border-neutral-300 px-2 py-3 font-semibold text-slate-100 dark:border-slate-700">
           <div className="inline-flex h-8 w-8 flex-col"> {Icons.music} </div>
-          <span className="text-sm font-medium text-slate-200">
-            Background Music
+          <span className="text-sm font-medium text-neutral-700 dark:text-slate-200">
+            <Trans>Background Music</Trans>
           </span>
         </div>
       </div>
@@ -96,7 +94,7 @@ const MusicTray: React.FC<Props> = ({ onClose }) => {
             isMyMusicPlaying ? 'text-red-400' : 'text-slate-200'
           )}
         >
-          {isMyMusicPlaying ? 'Stop music' : 'Play music'}
+          <Trans>{isMyMusicPlaying ? 'Stop music' : 'Play music'}</Trans>
         </div>
       </div>
     </div>

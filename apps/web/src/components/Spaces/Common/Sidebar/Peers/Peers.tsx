@@ -1,6 +1,7 @@
 // Hooks
 import { useAcl, useHuddle01, usePeers } from '@huddle01/react/hooks';
 import { Input } from '@lenster/ui';
+import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -12,7 +13,7 @@ import PeerMetaData from './PeerMetaData';
 
 type PeersProps = {};
 
-const Peers: React.FC<PeersProps> = () => {
+const Peers: FC<PeersProps> = () => {
   const BlackList = ['peer', 'listener'];
 
   const { me } = useHuddle01();
@@ -46,7 +47,7 @@ const Peers: React.FC<PeersProps> = () => {
         onChange={(e) => setSearchPeerName(e.target.value)}
       />
 
-      {searchPeer && (
+      {searchPeerName.length > 0 && searchPeer && (
         <PeerMetaData
           key={searchPeer.peerId}
           className="mt-5"
@@ -204,7 +205,7 @@ const Peers: React.FC<PeersProps> = () => {
 
           {Object.values(peers)
             .filter((peer) => BlackList.includes(peer.role))
-            .map(({ cam, displayName, mic, peerId, role, avatarUrl }) => (
+            .map(({ displayName, peerId, role, avatarUrl }) => (
               <PeerMetaData
                 key={peerId}
                 className="mt-5"
@@ -220,7 +221,3 @@ const Peers: React.FC<PeersProps> = () => {
   );
 };
 export default Peers;
-
-interface Props {
-  onClick: () => void;
-}

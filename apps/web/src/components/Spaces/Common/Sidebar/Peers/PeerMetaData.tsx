@@ -1,7 +1,9 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAudio, useEventListener, useHuddle01 } from '@huddle01/react/hooks';
+import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Image from 'next/image';
+import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
@@ -30,7 +32,7 @@ interface IAcceptDenyProps {
   onDeny?: () => void;
 }
 
-const AcceptDenyGroup: React.FC<IAcceptDenyProps> = ({ onAccept, onDeny }) => (
+const AcceptDenyGroup: FC<IAcceptDenyProps> = ({ onAccept, onDeny }) => (
   <div className="flex items-center gap-4">
     <div role="presentation" onClick={onAccept}>
       {PeerListIcons.accept}
@@ -53,7 +55,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
   peerId
 }) => {
   const RoleData = {
-    host: <HostData peerId={peerId} />,
+    host: <HostData />,
     coHost: <CoHostData peerId={peerId} />,
     speaker: <SpeakerData peerId={peerId} />,
     listener: <ListenersData peerId={peerId} />
@@ -116,24 +118,14 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
           quality={100}
           className="rounded-full object-contain"
         />
-        <div className="text-xs font-normal text-slate-400">{name}</div>
+        <div className="text-xs font-normal text-neutral-500 dark:text-slate-400">
+          <Trans>{name}</Trans>
+        </div>
       </div>
       {isRequested ? (
         <AcceptDenyGroup onDeny={onDeny} onAccept={onAccept} />
       ) : (
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => {
-              if (peerId === me?.meId) {
-                setIsHandRaised((prev) => !prev);
-              }
-            }}
-            className="relative h-4 w-4"
-          >
-            {isHandRaised
-              ? NestedPeerListIcons.active.hand
-              : NestedPeerListIcons.inactive.hand}
-          </button>
           <button
             onClick={() => {
               if (
@@ -159,7 +151,9 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
               triggerChild={<div>{NestedPeerListIcons.inactive.more}</div>}
               align="end"
             >
-              {RoleData?.[role]}
+              <div className="rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
+                {RoleData?.[role]}
+              </div>
             </Dropdown>
           ) : (
             <button> {NestedPeerListIcons.inactive.more}</button>

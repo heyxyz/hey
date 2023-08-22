@@ -17,8 +17,8 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
     ? publication.mirrorOf.__typename
     : publication.__typename;
 
-  const setShowNewModal = useGlobalModalStateStore(
-    (state) => state.setShowNewModal
+  const setShowNewPublicationModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPublicationModal
   );
   const setQuotedPublication = usePublicationStore(
     (state) => state.setQuotedPublication
@@ -35,7 +35,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       }
       onClick={() => {
         setQuotedPublication(publication);
-        setShowNewModal(true, PublicationTypes.Post);
+        setShowNewPublicationModal(true, PublicationTypes.Post);
       }}
     >
       <div className="flex items-center space-x-2">

@@ -1,14 +1,20 @@
 import type { Profile, Publication } from '@lenster/lens';
-import { PublicationTypes } from '@lenster/lens';
 import { create } from 'zustand';
+
+export enum PublicationTypes {
+  Post = 'POST',
+  Spaces = 'SPACES',
+  Comment = 'COMMENT',
+  Mirror = 'MIRROR'
+}
 
 interface GlobalModalState {
   showAuthModal: boolean;
   setShowAuthModal: (showAuthModal: boolean) => void;
-  showNewModal: boolean;
+  showNewPublicationModal: boolean;
   modalPublicationType: PublicationTypes;
-  setShowNewModal: (
-    showNewModal: boolean,
+  setShowNewPublicationModal: (
+    showNewPublicationModal: boolean,
     modalPublicationType: PublicationTypes
   ) => void;
   showDiscardModal: boolean;
@@ -38,10 +44,10 @@ interface GlobalModalState {
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showAuthModal: false,
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
-  showNewModal: false,
+  showNewPublicationModal: false,
   modalPublicationType: PublicationTypes.Post,
-  setShowNewModal: (showNewModal, modalPublicationType) =>
-    set(() => ({ showNewModal, modalPublicationType })),
+  setShowNewPublicationModal: (showNewPublicationModal, modalPublicationType) =>
+    set(() => ({ showNewPublicationModal, modalPublicationType })),
   showDiscardModal: false,
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   showPublicationReportModal: false,

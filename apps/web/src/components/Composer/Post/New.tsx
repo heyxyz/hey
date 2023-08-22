@@ -1,6 +1,5 @@
 import { MicrophoneIcon, PencilAltIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
-import { PublicationTypes } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
@@ -9,15 +8,15 @@ import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { PublicationTypes, useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 import { useEffectOnce } from 'usehooks-ts';
 
 const NewPost: FC = () => {
   const { query, isReady, push } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setShowNewModal = useGlobalModalStateStore(
-    (state) => state.setShowNewModal
+  const setShowNewPublicationModal = useGlobalModalStateStore(
+    (state) => state.setShowNewPublicationModal
   );
   const setPublicationContent = usePublicationStore(
     (state) => state.setPublicationContent
@@ -25,11 +24,11 @@ const NewPost: FC = () => {
   const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
 
   const openModal = () => {
-    setShowNewModal(true, PublicationTypes.Post);
+    setShowNewPublicationModal(true, PublicationTypes.Post);
   };
 
   const openSpacesModal = () => {
-    setShowNewModal(true, PublicationTypes.Spaces);
+    setShowNewPublicationModal(true, PublicationTypes.Spaces);
   };
 
   useEffectOnce(() => {
@@ -48,7 +47,7 @@ const NewPost: FC = () => {
         processedHashtags ? ` ${processedHashtags} ` : ''
       }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
 
-      setShowNewModal(true, PublicationTypes.Post);
+      setShowNewPublicationModal(true, PublicationTypes.Post);
       setPublicationContent(content);
     }
   });
@@ -73,12 +72,12 @@ const NewPost: FC = () => {
           </span>
         </button>
         {isSpacesEnabled && (
-          <div className="hidden h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900 sm:inline-flex">
-            <MicrophoneIcon
-              className="relative h-5 w-5 cursor-pointer"
-              onClick={() => openSpacesModal()}
-            />
-          </div>
+          <button
+            className="hidden h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900 sm:inline-flex"
+            onClick={() => openSpacesModal()}
+          >
+            <MicrophoneIcon className="text-brand-500 hover:text-brand-600 relative h-5 w-5 cursor-pointer" />
+          </button>
         )}
       </div>
     </Card>

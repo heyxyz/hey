@@ -5,6 +5,8 @@ import {
   useHuddle01,
   usePeers
 } from '@huddle01/react/hooks';
+import { Trans } from '@lingui/macro';
+import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
@@ -13,9 +15,7 @@ import Dropdown from '../Common/Dropdown';
 import EmojiTray from '../Common/EmojiTray';
 import MusicTray from '../Common/MusicTray';
 
-type Props = {};
-
-const SpacesWindowBottomBar = (props: Props) => {
+const SpacesWindowBottomBar: FC = () => {
   const { peers } = usePeers();
   const { me } = useHuddle01();
   const {
@@ -49,7 +49,7 @@ const SpacesWindowBottomBar = (props: Props) => {
   };
 
   return (
-    <div className="flex justify-between pt-4">
+    <div className="flex justify-between border-t border-neutral-300 pt-4 dark:border-neutral-700">
       {['speaker', 'coHost', 'host'].includes(me.role) ? (
         <button
           onClick={() => {
@@ -59,46 +59,59 @@ const SpacesWindowBottomBar = (props: Props) => {
               fetchAudioStream();
             }
           }}
+          className="bg-brand-100 rounded-lg dark:bg-neutral-800"
         >
           {isAudioOn ? Icons.mic.true : Icons.mic.false}
         </button>
       ) : (
         <button
-          className="inline-flex h-5 items-center justify-start gap-1 rounded-lg bg-indigo-950 px-2 py-4"
+          className="bg-brand-500 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4 dark:bg-indigo-950"
           onClick={sendSpeakerRequest}
         >
-          <div className="relative h-5 w-5">{Icons.speaker}</div>
-          <div className="text-xs font-medium leading-none text-violet-400">
-            Request to speak
+          <div className="relative h-5 w-5 text-neutral-50">
+            {Icons.speaker}
+          </div>
+          <div className="dark:text-brand-400 text-xs font-medium leading-none text-neutral-50">
+            <Trans>Request to speak</Trans>
           </div>
         </button>
       )}
       <div className="flex gap-2">
         {['host', 'coHost'].includes(me.role) && (
           <Dropdown
-            triggerChild={Icons.music}
+            triggerChild={
+              <div className="bg-brand-100 rounded-lg text-black dark:bg-neutral-800">
+                {Icons.music}
+              </div>
+            }
             open={isMusicTrayOpen}
             onOpenChange={() => setIsMusicTrayOpen((prev) => !prev)}
           >
-            <MusicTray onClose={() => setIsMusicTrayOpen(false)} />
+            <MusicTray />
           </Dropdown>
         )}
         <Dropdown
-          triggerChild={Icons.reaction}
+          triggerChild={
+            <div className="bg-brand-100 rounded-lg dark:bg-neutral-800">
+              {Icons.reaction}
+            </div>
+          }
           open={isEmojiTrayOpen}
           onOpenChange={() => setIsEmojiTrayOpen((prev) => !prev)}
         >
-          <div className="absolute -right-20 bottom-12 w-[15vw] min-w-[12rem]">
-            <EmojiTray onClose={() => setIsEmojiTrayOpen(false)} />
+          <div className="absolute -right-20 bottom-14 w-[15vw] min-w-[12rem]">
+            <EmojiTray />
           </div>
         </Dropdown>
         <button
-          className="flex h-full items-center gap-2 rounded-lg bg-neutral-800 px-2 font-normal text-neutral-500"
+          className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-neutral-800 dark:text-neutral-500"
           onClick={() => {
             setSidebarView(sidebarView === 'peers' ? 'close' : 'peers');
           }}
         >
-          <span>{Icons.people}</span>
+          <div className="text-brand-500 dark:text-neutral-500">
+            {Icons.people}
+          </div>
           {Object.keys(peers).filter((peerId) => peerId !== me.meId).length + 1}
         </button>
       </div>

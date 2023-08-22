@@ -1,5 +1,6 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
+import type { FC } from 'react';
 import React from 'react';
 
 import Strip from './Strip';
@@ -8,8 +9,8 @@ type ListenersDataProps = {
   peerId: string;
 };
 
-const ListenersData: React.FC<ListenersDataProps> = ({ peerId }) => {
-  const { changePeerRole, kickPeer } = useAcl();
+const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
+  const { kickPeer } = useAcl();
   const { leaveRoom } = useRoom();
   const { me } = useHuddle01();
   const { sendData } = useAppUtils();

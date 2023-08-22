@@ -6,6 +6,7 @@ import {
   usePeers
 } from '@huddle01/react/hooks';
 import getAvatar from '@lenster/lib/getAvatar';
+import type { FC } from 'react';
 import React, { createRef, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -18,9 +19,7 @@ import SpacesSummary from './SpacesSummary';
 import SpacesWindowBottomBar from './SpacesWindowBottomBar';
 import SpaceWindowHeader from './SpaceWindowHeader';
 
-type Props = {};
-
-const SpacesWindow = (props: Props) => {
+const SpacesWindow: FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { setDisplayName, changeAvatarUrl, sendData } = useAppUtils();
   const { changePeerRole } = useAcl();
@@ -165,15 +164,14 @@ const SpacesWindow = (props: Props) => {
   };
 
   return (
-    // First 2 divs are for positioning the window based on the winodw size of different devices
     <div className="fixed inset-0 top-auto z-20 mx-auto flex flex h-fit w-full grow">
       {musicTrack !== MusicTrack.DEFAULT && isMusicPlaying && (
         <audio ref={audioRef} src={musicTrack} loop />
       )}
       <div className="relative mx-auto max-w-screen-xl grow">
-        <div className="absolute bottom-0 right-0 ml-auto w-fit rounded-xl rounded-b-none border-[1.5px] border-neutral-700 bg-neutral-900 px-4 pb-4 pt-3">
+        <div className="absolute bottom-0 right-0 ml-auto w-fit rounded-xl rounded-b-none border-[1.5px] border-neutral-300 bg-white px-4 py-4 dark:border-neutral-700 dark:bg-neutral-900">
           <div className="flex justify-center">
-            {showAcceptRequest && (
+            {showAcceptRequest && isExpanded && (
               <InvitationModal
                 title={
                   requestType === 'speaker-invitation'
@@ -207,7 +205,7 @@ const SpacesWindow = (props: Props) => {
                 <div className="absolute bottom-12 right-0 z-10 h-fit">
                   <Sidebar />
                 </div>
-                <div className="pt-4">{<AvatarGrid />}</div>
+                <div className="mt-4">{<AvatarGrid />}</div>
                 <SpacesWindowBottomBar />
               </div>
             ) : (
