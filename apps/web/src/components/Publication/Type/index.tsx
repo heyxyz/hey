@@ -26,10 +26,10 @@ const PublicationType: FC<PublicationTypeProps> = ({
 
   return (
     <span onClick={stopEventPropagation} aria-hidden="true">
-      {type === 'Mirror' && <Mirrored publication={publication} />}
-      {type === 'Comment' && (showThread || pathname === '/posts/[id]') && (
+      {type === 'Mirror' ? <Mirrored publication={publication} /> : null}
+      {type === 'Comment' && (showThread || pathname === '/posts/[id]') ? (
         <Commented publication={publication} />
-      )}
+      ) : null}
     </span>
   );
 };

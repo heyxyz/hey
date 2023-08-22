@@ -75,7 +75,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           </Menu.Items>
         </MenuTransition>
       </Menu>
-      {count > 0 && !showCount && (
+      {count > 0 && !showCount ? (
         <span
           className={clsx(
             mirrored ? 'text-green-500' : 'text-brand',
@@ -84,7 +84,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
         >
           {nFormatter(count)}
         </span>
-      )}
+      ) : null}
     </div>
   );
 };
