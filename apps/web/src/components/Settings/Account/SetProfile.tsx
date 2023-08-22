@@ -117,7 +117,9 @@ const SetProfile: FC = () => {
 
   return (
     <Card className="space-y-5 p-5">
-      {error && <ErrorMessage title={t`Transaction failed!`} error={error} />}
+      {error ? (
+        <ErrorMessage title={t`Transaction failed!`} error={error} />
+      ) : null}
       {hasDefaultProfile ? (
         <>
           <div className="text-lg font-bold">

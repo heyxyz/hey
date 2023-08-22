@@ -73,13 +73,12 @@ const ForYou: FC = () => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewPost && (
-            <div key={txn.id}>
-              <QueuedPublication txn={txn} />
-            </div>
-          )
+      {txnQueue.map((txn) =>
+        txn?.type === OptmisticPublicationType.NewPost ? (
+          <div key={txn.id}>
+            <QueuedPublication txn={txn} />
+          </div>
+        ) : null
       )}
       {publications?.map((publication, index) => (
         <SinglePublication
@@ -89,7 +88,7 @@ const ForYou: FC = () => {
           publication={publication as Publication}
         />
       ))}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

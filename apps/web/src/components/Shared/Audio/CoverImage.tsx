@@ -62,7 +62,7 @@ const CoverImage: FC<CoverImageProps> = ({
           ref={imageRef}
         />
       </button>
-      {isNew && (
+      {isNew ? (
         <label
           className={clsx(
             { visible: loading && !cover, invisible: cover },
@@ -84,7 +84,7 @@ const CoverImage: FC<CoverImageProps> = ({
             onChange={onChange}
           />
         </label>
-      )}
+      ) : null}
     </div>
   );
 };

@@ -68,7 +68,7 @@ const ReferenceSettings: FC = () => {
           <div className="text-brand">{icon}</div>
           <div>{title}</div>
         </div>
-        {selected && <CheckCircleIcon className="w-5 text-green-500" />}
+        {selected ? <CheckCircleIcon className="w-5 text-green-500" /> : null}
       </div>
     </Menu.Item>
   );
@@ -93,10 +93,10 @@ const ReferenceSettings: FC = () => {
       >
         <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
           <div className="text-brand">
-            {isEveryone && <GlobeAltIcon className="w-5" />}
-            {isMyFollowers && <UsersIcon className="w-5" />}
-            {isMyFollows && <UserAddIcon className="w-5" />}
-            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+            {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
+            {isMyFollowers ? <UsersIcon className="w-5" /> : null}
+            {isMyFollows ? <UserAddIcon className="w-5" /> : null}
+            {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
           </div>
         </Menu.Button>
       </Tooltip>

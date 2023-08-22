@@ -85,14 +85,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       >
         {content}
       </Markup>
-      {canShowMore && (
+      {canShowMore ? (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${id}`}>
             <Trans>Show more</Trans>
           </Link>
         </div>
-      )}
+      ) : null}
       {/* Snapshot, Attachments and Opengraph */}
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />

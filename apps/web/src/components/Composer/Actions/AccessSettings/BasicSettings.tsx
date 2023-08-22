@@ -46,7 +46,7 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
         }}
         description={t`Add restrictions on who can view this post`}
       />
-      {restricted && (
+      {restricted ? (
         <>
           <Card className="mt-5 p-5">
             <ToggleWithHelper
@@ -77,7 +77,7 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
             />
           </Card>
         </>
-      )}
+      ) : null}
       <div className="flex space-x-2 pt-5">
         <Button className="ml-auto" variant="danger" outline onClick={onSave}>
           <Trans>Cancel</Trans>

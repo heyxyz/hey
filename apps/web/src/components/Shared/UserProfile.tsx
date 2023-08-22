@@ -84,12 +84,12 @@ const UserProfile: FC<UserProfileProps> = ({
               formatHandle(profile?.handle)}
           </div>
         </div>
-        {isVerified(profile.id) && (
+        {isVerified(profile.id) ? (
           <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
-        )}
-        {hasMisused(profile.id) && (
+        ) : null}
+        {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
-        )}
+        ) : null}
         {showStatus && hasStatus ? (
           <div className="lt-text-gray-500 flex items-center">
             <span className="mx-1.5">·</span>
@@ -130,7 +130,7 @@ const UserProfile: FC<UserProfileProps> = ({
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile?.bio && (
+            {showBio && profile?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
@@ -142,7 +142,7 @@ const UserProfile: FC<UserProfileProps> = ({
               >
                 <Markup>{profile?.bio}</Markup>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </UserPreview>
@@ -161,8 +161,8 @@ const UserProfile: FC<UserProfileProps> = ({
       ) : (
         <UserInfo />
       )}
-      {showFollow &&
-        (followStatusLoading ? (
+      {showFollow ? (
+        followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
         ) : following ? null : profile?.followModule?.__typename ===
           'FeeFollowModuleSettings' ? (
@@ -179,13 +179,15 @@ const UserProfile: FC<UserProfileProps> = ({
             followUnfollowPosition={followUnfollowPosition}
             followUnfollowSource={followUnfollowSource}
           />
-        ))}
-      {showUnfollow &&
-        (followStatusLoading ? (
+        )
+      ) : null}
+      {showUnfollow ? (
+        followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
         ) : following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
-        ) : null)}
+        ) : null
+      ) : null}
     </div>
   );
 };

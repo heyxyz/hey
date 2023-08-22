@@ -182,12 +182,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           </div>
         </button>
       </div>
-      {(errorChallenge || errorAuthenticate || errorProfiles) && (
+      {errorChallenge || errorAuthenticate || errorProfiles ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="h-5 w-5" />
           <div>{Errors.SomethingWentWrong}</div>
         </div>
-      )}
+      ) : null}
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
@@ -219,9 +219,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               {isMounted() ? !connector.ready && ' (unsupported)' : ''}
             </span>
             <div className="flex items-center space-x-4">
-              {isConnectLoading && pendingConnector?.id === connector.id && (
+              {isConnectLoading && pendingConnector?.id === connector.id ? (
                 <Spinner className="mr-0.5" size="xs" />
-              )}
+              ) : null}
               <img
                 src={getWalletDetails(connector.name).logo}
                 draggable={false}

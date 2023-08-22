@@ -161,12 +161,12 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
         <div className="flex flex-col truncate">
           <div className="flex items-center space-x-1 text-sm">
             <span>{option.name}</span>
-            {isVerified(option.id) && (
+            {isVerified(option.id) ? (
               <BadgeCheckIcon className="text-brand h-4 w-4" />
-            )}
-            {hasMisused(option.id) && (
+            ) : null}
+            {hasMisused(option.id) ? (
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-            )}
+            ) : null}
           </div>
           <span className="text-xs">{formatHandle(option.handle)}</span>
         </div>

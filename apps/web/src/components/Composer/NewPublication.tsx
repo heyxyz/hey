@@ -887,20 +887,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         'pb-3'
       )}
     >
-      {error && (
+      {error ? (
         <ErrorMessage
           className="!rounded-none"
           title={t`Transaction failed!`}
           error={error}
         />
-      )}
+      ) : null}
       <Editor />
-      {publicationContentError && (
+      {publicationContentError ? (
         <div className="mt-1 px-5 pb-3 text-sm font-bold text-red-500">
           {publicationContentError}
         </div>
-      )}
-      {showPollEditor && <PollEditor />}
+      ) : null}
+      {showPollEditor ? <PollEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication publication={quotedPublication} isNew />
@@ -910,13 +910,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {!publication?.isDataAvailability && (
+          {!publication?.isDataAvailability ? (
             <>
               <CollectSettings />
               <ReferenceSettings />
               <AccessSettings />
             </>
-          )}
+          ) : null}
           <PollSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">

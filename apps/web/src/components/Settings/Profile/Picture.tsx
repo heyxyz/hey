@@ -211,13 +211,13 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         </div>
       </Modal>
       <div className="space-y-1.5">
-        {error && (
+        {error ? (
           <ErrorMessage
             className="mb-3"
             title={t`Transaction failed!`}
             error={error}
           />
-        )}
+        ) : null}
         <div className="space-y-3">
           <Image
             className="max-w-xs rounded-lg"

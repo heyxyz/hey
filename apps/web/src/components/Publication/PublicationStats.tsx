@@ -44,7 +44,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
-      {commentsCount > 0 && (
+      {commentsCount > 0 ? (
         <span data-testid="comment-stats">
           <b className="text-black dark:text-white">
             {nFormatter(commentsCount)}
@@ -56,8 +56,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             other="Comments"
           />
         </span>
-      )}
-      {mirrorCount > 0 && (
+      ) : null}
+      {mirrorCount > 0 ? (
         <>
           <button
             type="button"
@@ -88,8 +88,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <Mirrors publicationId={publicationId} />
           </Modal>
         </>
-      )}
-      {reactionCount > 0 && (
+      ) : null}
+      {reactionCount > 0 ? (
         <>
           <button
             type="button"
@@ -120,8 +120,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <Likes publicationId={publicationId} />
           </Modal>
         </>
-      )}
-      {collectCount > 0 && (
+      ) : null}
+      {collectCount > 0 ? (
         <>
           <button
             type="button"
@@ -152,8 +152,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <Collectors publicationId={publicationId} />
           </Modal>
         </>
-      )}
-      {bookmarkCount > 0 && (
+      ) : null}
+      {bookmarkCount > 0 ? (
         <span data-testid="bookmark-stats">
           <b className="text-black dark:text-white">
             {nFormatter(bookmarkCount)}
@@ -165,7 +165,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             other="Bookmarks"
           />
         </span>
-      )}
+      ) : null}
     </div>
   );
 };

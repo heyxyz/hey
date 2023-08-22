@@ -37,12 +37,20 @@ const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
 
   return (
     <div className="flex items-start justify-between">
-      <div className="w-4/5 space-y-2">
-        <div className="flex items-center space-x-3">
-          <HeartIcon className="h-6 w-6 text-pink-500/70" />
-          <UserPreview profile={notification?.profile}>
-            <NotificationProfileAvatar profile={notification?.profile} />
-          </UserPreview>
+      <div className="flex-1 space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <HeartIcon className="h-6 w-6 text-pink-500/70" />
+            <UserPreview profile={notification?.profile}>
+              <NotificationProfileAvatar profile={notification?.profile} />
+            </UserPreview>
+          </div>
+          <div
+            className="min-w-fit text-[12px] text-gray-400"
+            title={formatTime(notification?.createdAt)}
+          >
+            {getTimeFromNow(notification?.createdAt)}
+          </div>
         </div>
         <div className="ml-9">
           <Trans
@@ -70,12 +78,6 @@ const LikeNotification: FC<LikeNotificationProps> = ({ notification }) => {
             <Markup>{notification?.publication?.metadata?.content}</Markup>
           </Link>
         </div>
-      </div>
-      <div
-        className="text-[12px] text-gray-400"
-        title={formatTime(notification?.createdAt)}
-      >
-        {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>
   );
