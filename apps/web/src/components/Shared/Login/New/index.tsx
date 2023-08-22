@@ -90,17 +90,17 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       }}
     >
       {data?.createProfile.__typename === 'RelayError' &&
-        data?.createProfile.reason && (
-          <ErrorMessage
-            className="mb-3"
-            title="Create profile failed!"
-            error={{
-              name: 'Create profile failed!',
-              message: relayErrorToString(data?.createProfile?.reason)
-            }}
-          />
-        )}
-      {isModal && (
+      data?.createProfile.reason ? (
+        <ErrorMessage
+          className="mb-3"
+          title="Create profile failed!"
+          error={{
+            name: 'Create profile failed!',
+            message: relayErrorToString(data?.createProfile?.reason)
+          }}
+        />
+      ) : null}
+      {isModal ? (
         <div className="mb-2 space-y-4">
           <img
             className="h-10 w-10"
@@ -113,7 +113,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             <Trans>Sign up to {APP_NAME}</Trans>
           </div>
         </div>
-      )}
+      ) : null}
       <Input
         label={t`Handle`}
         type="text"
@@ -123,7 +123,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       <div className="space-y-1.5">
         <div className="label">Avatar</div>
         <div className="space-y-3">
-          {avatar && (
+          {avatar ? (
             <div>
               <img
                 className="h-60 w-60 rounded-lg"
@@ -133,7 +133,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
                 alt={avatar}
               />
             </div>
-          )}
+          ) : null}
           <div>
             <div className="flex items-center space-x-3">
               <ChooseFile
@@ -141,7 +141,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
                   handleUpload(evt)
                 }
               />
-              {uploading && <Spinner size="sm" />}
+              {uploading ? <Spinner size="sm" /> : null}
             </div>
           </div>
         </div>

@@ -100,7 +100,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
               />
             )
           )}
-          {hasMore && <span ref={observe} />}
+          {hasMore ? <span ref={observe} /> : null}
         </Card>
       ) : null}
     </>

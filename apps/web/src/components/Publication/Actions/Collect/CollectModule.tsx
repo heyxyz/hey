@@ -309,7 +309,7 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   return (
     <>
-      {Boolean(collectLimit) && (
+      {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}
@@ -321,9 +321,9 @@ const CollectModule: FC<CollectModuleProps> = ({
             />
           </div>
         </Tooltip>
-      )}
+      ) : null}
       <div className="p-5">
-        {collectModule?.followerOnly && (
+        {collectModule?.followerOnly ? (
           <div className="pb-5">
             <CollectWarning
               handle={formatHandle(publication?.profile?.handle)}
@@ -333,25 +333,25 @@ const CollectModule: FC<CollectModuleProps> = ({
               }
             />
           </div>
-        )}
+        ) : null}
         <div className="space-y-1.5 pb-2">
-          {publication?.metadata?.name && (
+          {publication?.metadata?.name ? (
             <div className="text-xl font-bold">
               {publication?.metadata?.name}
             </div>
-          )}
-          {publication?.metadata?.content && (
+          ) : null}
+          {publication?.metadata?.content ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
               {publication?.metadata?.content}
             </Markup>
-          )}
+          ) : null}
           <ReferralAlert
             electedMirror={electedMirror}
             mirror={publication}
             referralFee={referralFee}
           />
         </div>
-        {amount && (
+        {amount ? (
           <div className="flex items-center space-x-1.5 py-2">
             <img
               className="h-7 w-7"
@@ -374,7 +374,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               ) : null}
             </span>
           </div>
-        )}
+        ) : null}
         <div className="space-y-1.5">
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
@@ -407,14 +407,14 @@ const CollectModule: FC<CollectModuleProps> = ({
                 />
               </Modal>
             </div>
-            {collectLimit && (
+            {collectLimit ? (
               <div className="flex items-center space-x-2">
                 <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{parseInt(collectLimit) - count} available</Trans>
                 </div>
               </div>
-            )}
+            ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
                 <CashIcon className="lt-text-gray-500 h-4 w-4" />
@@ -424,7 +424,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               </div>
             ) : null}
           </div>
-          {revenueData?.publicationRevenue && (
+          {revenueData?.publicationRevenue ? (
             <div className="flex items-center space-x-2">
               <CashIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="flex items-center space-x-1.5">
@@ -455,8 +455,8 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </span>
               </div>
             </div>
-          )}
-          {endTimestamp && (
+          ) : null}
+          {endTimestamp ? (
             <div className="flex items-center space-x-2">
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
@@ -472,8 +472,8 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </span>
               </div>
             </div>
-          )}
-          {data?.publication?.collectNftAddress && (
+          ) : null}
+          {data?.publication?.collectNftAddress ? (
             <div className="flex items-center space-x-2">
               <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
@@ -490,10 +490,10 @@ const CollectModule: FC<CollectModuleProps> = ({
                 </Link>
               </div>
             </div>
-          )}
-          {isMultirecipientFeeCollectModule && (
+          ) : null}
+          {isMultirecipientFeeCollectModule ? (
             <Splits recipients={collectModule?.recipients} />
-          )}
+          ) : null}
         </div>
         <div className="flex items-center space-x-2">
           {currentProfile &&
@@ -540,14 +540,14 @@ const CollectModule: FC<CollectModuleProps> = ({
             )
           ) : null}
         </div>
-        {publication?.hasCollectedByMe && (
+        {publication?.hasCollectedByMe ? (
           <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
             <CheckCircleIcon className="h-5 w-5" />
             <div>
               <Trans>You already collected this</Trans>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
     </>
   );

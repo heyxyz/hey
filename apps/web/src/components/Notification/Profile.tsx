@@ -40,12 +40,12 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       <div>
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
-      {isVerified(profile.id) && (
+      {isVerified(profile.id) ? (
         <BadgeCheckIcon className="text-brand h-4 w-4" />
-      )}
-      {hasMisused(profile.id) && (
+      ) : null}
+      {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-      )}
+      ) : null}
     </Link>
   );
 };

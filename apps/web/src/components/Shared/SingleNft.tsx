@@ -59,11 +59,11 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
           />
         )}
         <div className="space-y-1 px-5 py-3 text-sm">
-          {nft.collectionName && (
+          {nft.collectionName ? (
             <div className="lt-text-gray-500 truncate">
               {nft.collectionName}
             </div>
-          )}
+          ) : null}
           <div className="truncate">
             {nft.name ? nft.name : `#${nft.tokenId}`}
           </div>

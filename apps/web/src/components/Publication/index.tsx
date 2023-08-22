@@ -105,7 +105,7 @@ const ViewPublication: NextPage = () => {
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
-        {staffMode && <PublicationStaffTool publication={publication} />}
+        {staffMode ? <PublicationStaffTool publication={publication} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

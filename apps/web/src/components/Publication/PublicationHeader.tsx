@@ -66,11 +66,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {gardenerMode && <Source publication={publication} />}
-        {!publication.hidden && !quoted && (
+        {gardenerMode ? <Source publication={publication} /> : null}
+        {!publication.hidden && !quoted ? (
           <PublicationMenu publication={publication} />
-        )}
-        {quoted && isNew && (
+        ) : null}
+        {quoted && isNew ? (
           <button
             className="rounded-full border p-1.5 hover:bg-gray-300/20"
             onClick={(event) => {
@@ -81,7 +81,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
           >
             <XIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

@@ -39,7 +39,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags />
-      {!currentProfile && <Hero />}
+      {!currentProfile ? <Hero /> : null}
       <GridLayout>
         <GridItemEight className="space-y-5">
           {currentProfile ? (

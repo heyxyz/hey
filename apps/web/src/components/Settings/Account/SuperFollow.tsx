@@ -218,7 +218,7 @@ const SuperFollow: FC = () => {
         />
         <div className="ml-auto">
           <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
-            {followType === 'FeeFollowModuleSettings' && (
+            {followType === 'FeeFollowModuleSettings' ? (
               <Button
                 type="button"
                 variant="danger"
@@ -229,7 +229,7 @@ const SuperFollow: FC = () => {
               >
                 <Trans>Disable Super follow</Trans>
               </Button>
-            )}
+            ) : null}
             <Button
               type="submit"
               disabled={isLoading}

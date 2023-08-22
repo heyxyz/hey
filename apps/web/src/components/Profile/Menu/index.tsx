@@ -36,9 +36,9 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           data-testid={`profile-${profile.id}-menu-items`}
         >
           <Share profile={profile} />
-          {currentProfile && currentProfile?.id !== profile.id && (
+          {currentProfile && currentProfile?.id !== profile.id ? (
             <Report profile={profile} />
-          )}
+          ) : null}
         </Menu.Items>
       </MenuTransition>
     </Menu>
