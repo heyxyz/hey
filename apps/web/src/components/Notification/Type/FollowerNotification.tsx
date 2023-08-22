@@ -71,7 +71,7 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
         </div>
       </div>
       <div
-        className="text-[12px] text-gray-400"
+        className="min-w-fit text-[12px] text-gray-400"
         title={formatTime(notification?.createdAt)}
       >
         {getTimeFromNow(notification?.createdAt)}
