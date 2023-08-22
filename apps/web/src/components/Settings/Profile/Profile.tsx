@@ -275,13 +275,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             editProfile(name, location, website, x, bio);
           }}
         >
-          {error && (
+          {error ? (
             <ErrorMessage
               className="mb-3"
               title={t`Transaction failed!`}
               error={error}
             />
-          )}
+          ) : null}
           <Input
             label={t`Profile Id`}
             type="text"
@@ -333,7 +333,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               </div>
               <div className="flex items-center space-x-3">
                 <ChooseFile onChange={onFileChange} />
-                {uploading && <Spinner size="sm" />}
+                {uploading ? <Spinner size="sm" /> : null}
               </div>
             </div>
           </div>

@@ -124,7 +124,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           />
         )
       )}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

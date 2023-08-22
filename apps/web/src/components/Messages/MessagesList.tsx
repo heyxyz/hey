@@ -92,13 +92,13 @@ const MessageTile: FC<MessageTileProps> = ({
       )}
     >
       <div className="flex max-w-[60%]">
-        {address !== message.senderAddress && (
+        {address !== message.senderAddress ? (
           <Image
             src={url ?? getAvatar(profile)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
-        )}
+        ) : null}
         <div
           className={clsx(
             address === message.senderAddress
@@ -235,7 +235,7 @@ const MessagesList: FC<MessageListProps> = ({
     <div className="flex grow overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
-          {missingXmtpAuth && <MissingXmtpAuth />}
+          {missingXmtpAuth ? <MissingXmtpAuth /> : null}
           <span
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"

@@ -193,11 +193,11 @@ const SeeThroughLens: FC = () => {
                     />
                   </Menu.Item>
                 ))}
-                {(profiles.length === 0 || error) && (
+                {profiles.length === 0 || error ? (
                   <div className="py-4 text-center">
                     <Trans>No matching users</Trans>
                   </div>
-                )}
+                ) : null}
               </>
             )}
           </div>

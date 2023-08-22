@@ -37,7 +37,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
-        {isForYouEnabled && (
+        {isForYouEnabled ? (
           <TabButton
             name={t`For you`}
             icon={<SparklesIcon className="h-4 w-4" />}
@@ -47,7 +47,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
               Leafwatch.track(HOME.SWITCH_FOR_YOU_FEED);
             }}
           />
-        )}
+        ) : null}
         <TabButton
           name={t`Highlights`}
           icon={<LightBulbIcon className="h-4 w-4" />}
@@ -59,10 +59,12 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
       </div>
       <div className="flex items-center space-x-4">
-        {(feedType === HomeFeedType.FOLLOWING ||
-          feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
-        {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
-        {IS_MAINNET && <Algorithms />}
+        {feedType === HomeFeedType.FOLLOWING ||
+        feedType === HomeFeedType.HIGHLIGHTS ? (
+          <SeeThroughLens />
+        ) : null}
+        {feedType === HomeFeedType.FOLLOWING ? <FeedEventFilters /> : null}
+        {IS_MAINNET ? <Algorithms /> : null}
       </div>
     </div>
   );

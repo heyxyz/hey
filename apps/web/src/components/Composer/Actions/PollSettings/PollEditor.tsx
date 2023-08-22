@@ -105,7 +105,7 @@ const PollEditor: FC = () => {
                 setPollConfig({ ...pollConfig, choices: newChoices });
               }}
               iconRight={
-                index > 1 && (
+                index > 1 ? (
                   <button
                     className="flex"
                     onClick={() => {
@@ -116,12 +116,12 @@ const PollEditor: FC = () => {
                   >
                     <XIcon className="h-5 w-5 text-red-500" />
                   </button>
-                )
+                ) : null
               }
             />
           </div>
         ))}
-        {pollConfig.choices.length !== 10 && (
+        {pollConfig.choices.length !== 10 ? (
           <button
             className="text-brand mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
@@ -135,7 +135,7 @@ const PollEditor: FC = () => {
               <Trans>Add another option</Trans>
             </span>
           </button>
-        )}
+        ) : null}
       </div>
     </Card>
   );

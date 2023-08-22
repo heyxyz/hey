@@ -65,12 +65,12 @@ const UserPreview: FC<UserPreviewProps> = ({
           {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
-        {isVerified(lazyProfile.id) && (
+        {isVerified(lazyProfile.id) ? (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
-        )}
-        {hasMisused(lazyProfile.id) && (
+        ) : null}
+        {hasMisused(lazyProfile.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-        )}
+        ) : null}
       </div>
       <Slug
         className="text-sm"
@@ -85,8 +85,8 @@ const UserPreview: FC<UserPreviewProps> = ({
       <div className="flex items-center justify-between">
         <UserAvatar />
         <div onClick={stopEventPropagation} aria-hidden="true">
-          {!lazyProfile.isFollowedByMe &&
-            (followStatusLoading ? (
+          {!lazyProfile.isFollowedByMe ? (
+            followStatusLoading ? (
               <div className="shimmer h-8 w-10 rounded-lg" />
             ) : following ? null : lazyProfile?.followModule?.__typename ===
               'FeeFollowModuleSettings' ? (
@@ -101,13 +101,14 @@ const UserPreview: FC<UserPreviewProps> = ({
                 setFollowing={setFollowing}
                 followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
               />
-            ))}
+            )
+          ) : null}
         </div>
       </div>
       <div className="space-y-3 p-1">
         <UserName />
         <div>
-          {lazyProfile?.bio && (
+          {lazyProfile?.bio ? (
             <div
               className={clsx(
                 isBig ? 'text-base' : 'text-sm',
@@ -117,7 +118,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             >
               <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
             </div>
-          )}
+          ) : null}
         </div>
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-1">

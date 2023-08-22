@@ -94,7 +94,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
           />
         ))}
       </Card>
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </>
   );
 };

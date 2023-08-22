@@ -99,13 +99,12 @@ const Timeline: FC = () => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewPost && (
-            <div key={txn.id}>
-              <QueuedPublication txn={txn} />
-            </div>
-          )
+      {txnQueue.map((txn) =>
+        txn?.type === OptmisticPublicationType.NewPost ? (
+          <div key={txn.id}>
+            <QueuedPublication txn={txn} />
+          </div>
+        ) : null
       )}
       {publications?.map((publication, index) => (
         <SinglePublication
@@ -116,7 +115,7 @@ const Timeline: FC = () => {
           publication={publication.root as Publication}
         />
       ))}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

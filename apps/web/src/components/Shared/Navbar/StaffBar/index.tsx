@@ -43,7 +43,7 @@ const StaffBar: FC = () => {
             </span>
           </Badge>
         </div>
-        {GIT_COMMIT_SHA && (
+        {GIT_COMMIT_SHA ? (
           <Link
             href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
             className="flex items-center space-x-1"
@@ -54,7 +54,7 @@ const StaffBar: FC = () => {
             <HashtagIcon className="h-4 w-4" />
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </Link>
-        )}
+        ) : null}
       </div>
       <div className="flex items-center">
         <Link href="/stafftools">

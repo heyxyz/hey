@@ -220,7 +220,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         </div>
         <div className="space-y-2 pt-3.5 text-white">
           {/* Collect checks */}
-          {hasNotCollectedPublication && (
+          {hasNotCollectedPublication ? (
             <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
               Collect the{' '}
               <Link
@@ -235,17 +235,17 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 {encryptedPublication?.__typename}
               </Link>
             </DecryptMessage>
-          )}
-          {collectNotFinalisedOnChain && (
+          ) : null}
+          {collectNotFinalisedOnChain ? (
             <DecryptMessage
               icon={<CollectionIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
-          )}
+          ) : null}
 
           {/* Follow checks */}
-          {doesNotFollowProfile && (
+          {doesNotFollowProfile ? (
             <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link
@@ -257,17 +257,17 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                 @{formatHandle(encryptedPublication?.profile?.handle)}
               </Link>
             </DecryptMessage>
-          )}
-          {followNotFinalisedOnChain && (
+          ) : null}
+          {followNotFinalisedOnChain ? (
             <DecryptMessage
               icon={<UserAddIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
-          )}
+          ) : null}
 
           {/* Token check */}
-          {unauthorizedBalance && (
+          {unauthorizedBalance ? (
             <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
               You need{' '}
               <Link
@@ -285,10 +285,10 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
               </Link>{' '}
               to unlock
             </DecryptMessage>
-          )}
+          ) : null}
 
           {/* NFT check */}
-          {doesNotOwnNft && (
+          {doesNotOwnNft ? (
             <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
               You need{' '}
               <Tooltip
@@ -311,7 +311,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
               </Tooltip>{' '}
               nft to unlock
             </DecryptMessage>
-          )}
+          ) : null}
         </div>
       </Card>
     );
@@ -373,14 +373,14 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
       >
         {content}
       </Markup>
-      {showMore && (
+      {showMore ? (
         <div className="mt-4 flex items-center space-x-1 text-sm font-bold text-gray-500">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${encryptedPublication?.id}`}>
             <Trans>Show more</Trans>
           </Link>
         </div>
-      )}
+      ) : null}
       {publication?.media?.length ? (
         <Attachments attachments={publication?.media} />
       ) : content && urls.length > 0 ? (

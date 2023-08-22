@@ -51,7 +51,7 @@ const SignedUser: FC = () => {
 
   return (
     <>
-      {showMobileDrawer && <MobileDrawerMenu />}
+      {showMobileDrawer ? <MobileDrawerMenu /> : null}
       <button
         className="focus:outline-none md:hidden"
         onClick={() => openMobileMenuDrawer()}
@@ -125,7 +125,7 @@ const SignedUser: FC = () => {
             >
               <Settings />
             </Menu.Item>
-            {isGardener && (
+            {isGardener ? (
               <Menu.Item
                 as={NextLink}
                 href={'/mod'}
@@ -135,7 +135,7 @@ const SignedUser: FC = () => {
               >
                 <Mod />
               </Menu.Item>
-            )}
+            ) : null}
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
@@ -161,7 +161,7 @@ const SignedUser: FC = () => {
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener && (
+            {isGardener ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -173,8 +173,8 @@ const SignedUser: FC = () => {
               >
                 <GardenerMode />
               </Menu.Item>
-            )}
-            {isStaff && (
+            ) : null}
+            {isStaff ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
@@ -186,7 +186,7 @@ const SignedUser: FC = () => {
               >
                 <StaffMode />
               </Menu.Item>
-            )}
+            ) : null}
             <div className="divider" />
             <AppVersion />
           </Menu.Items>

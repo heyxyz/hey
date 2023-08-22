@@ -128,12 +128,12 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </Link>
         </MetaDetails>
       </div>
-      {IS_MAINNET && (
+      {IS_MAINNET ? (
         <>
           <Rank profile={profile} />
           <Access profile={profile} />
         </>
-      )}
+      ) : null}
     </Card>
   );
 };

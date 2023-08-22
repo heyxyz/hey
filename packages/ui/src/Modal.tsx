@@ -65,7 +65,7 @@ export const Modal: FC<ModalProps> = ({
                 'inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all dark:bg-gray-800 sm:my-8 sm:align-middle'
               )}
             >
-              {title && (
+              {title ? (
                 <div className="divider flex items-center justify-between px-5 py-3.5">
                   <div className="flex items-center space-x-2 font-bold">
                     {icon}
@@ -81,7 +81,7 @@ export const Modal: FC<ModalProps> = ({
                     </button>
                   ) : null}
                 </div>
-              )}
+              ) : null}
               {children}
             </div>
           </Transition.Child>

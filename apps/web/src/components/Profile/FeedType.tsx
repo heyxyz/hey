@@ -71,7 +71,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           type={ProfileFeedType.Nft.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Nft)}
         />
-        {IS_MAINNET && (
+        {IS_MAINNET ? (
           <TabButton
             name={t`Stats`}
             icon={<ChartBarIcon className="h-4 w-4" />}
@@ -79,9 +79,9 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             type={ProfileFeedType.Stats.toLowerCase()}
             onClick={() => switchTab(ProfileFeedType.Stats)}
           />
-        )}
+        ) : null}
       </div>
-      <div>{feedType === ProfileFeedType.Media && <MediaFilter />}</div>
+      {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
     </div>
   );
 };
