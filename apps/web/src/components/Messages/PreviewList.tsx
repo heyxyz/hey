@@ -107,18 +107,18 @@ const PreviewList: FC<PreviewListProps> = ({
       <Card className="flex h-full flex-col justify-between">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
-          {currentProfile && !showAuthenticating && !showLoading && (
+          {currentProfile && !showAuthenticating && !showLoading ? (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
             </button>
-          )}
-          {previewsLoading && (
+          ) : null}
+          {previewsLoading ? (
             <progress
               className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
               value={previewsProgress}
               max={100}
             />
-          )}
+          ) : null}
         </div>
         <div className="flex justify-between px-4 py-3">
           <div className="flex space-x-2">
@@ -209,12 +209,12 @@ const PreviewList: FC<PreviewListProps> = ({
             onProfileSelected={onProfileSelected}
           />
         </div>
-        {currentProfile && (
+        {currentProfile ? (
           <Following
             profile={currentProfile}
             onProfileSelected={onProfileSelected}
           />
-        )}
+        ) : null}
       </Modal>
     </GridItemFour>
   );

@@ -88,24 +88,24 @@ const Preview: FC<PreviewProps> = ({
                       formatHandle(profile.handle)
                     : ensName ?? formatAddress(conversationKey?.split('/')[0])}
                 </div>
-                {isVerified(profile?.id) && (
+                {isVerified(profile?.id) ? (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
-                )}
-                {hasMisused(profile?.id) && (
+                ) : null}
+                {hasMisused(profile?.id) ? (
                   <ExclamationCircleIcon className="h-4 w-4 min-w-fit text-red-500" />
-                )}
+                ) : null}
               </div>
-              {message?.sent && (
+              {message?.sent ? (
                 <span
                   className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
                   title={formatTime(message.sent)}
                 >
                   {getTimeFromNow(message.sent)}
                 </span>
-              )}
+              ) : null}
             </div>
             <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-              {address === message?.senderAddress && 'You: '}
+              {address === message?.senderAddress ? 'You: ' : null}
               <MessagePreview message={message} />
             </span>
           </div>
