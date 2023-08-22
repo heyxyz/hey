@@ -12,7 +12,7 @@ const Settings: FC = () => {
   return (
     <>
       <button
-        className="rounded-md p-1 mx-3 hover:bg-gray-300/20"
+        className="mx-3 rounded-md p-1 hover:bg-gray-300/20"
         onClick={() => setShowNotificationSettings(true)}
       >
         <Tooltip placement="top" content={t`Notification settings`}>
