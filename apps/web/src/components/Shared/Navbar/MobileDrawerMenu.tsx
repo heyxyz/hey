@@ -73,9 +73,9 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          {profiles.length > 1 && (
+          {profiles.length > 1 ? (
             <SwitchProfile className={clsx(itemClass, 'px-4')} />
-          )}
+          ) : null}
           <div className="divider" />
           <Status className={clsx(itemClass, 'px-4')} />
           <div className="divider" />
@@ -96,11 +96,11 @@ const MobileDrawerMenu: FC = () => {
               className={clsx(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isGardener && (
+            {isGardener ? (
               <Link href="/mod" onClick={closeDrawer}>
                 <Mod className={clsx(itemClass, 'px-4')} />
               </Link>
-            )}
+            ) : null}
             <Invites className={clsx(itemClass, 'px-4')} />
             <ThemeSwitch
               className={clsx(itemClass, 'px-4')}
@@ -133,7 +133,7 @@ const MobileDrawerMenu: FC = () => {
             />
           </div>
           <div className="divider" />
-          {isGardener && (
+          {isGardener ? (
             <>
               <div
                 onClick={closeDrawer}
@@ -144,8 +144,8 @@ const MobileDrawerMenu: FC = () => {
               </div>
               <div className="divider" />
             </>
-          )}
-          {isStaff && (
+          ) : null}
+          {isStaff ? (
             <>
               <div
                 onClick={closeDrawer}
@@ -156,9 +156,9 @@ const MobileDrawerMenu: FC = () => {
               </div>
               <div className="divider" />
             </>
-          )}
+          ) : null}
         </div>
-        {currentProfile && <AppVersion />}
+        {currentProfile ? <AppVersion /> : null}
       </div>
     </div>
   );

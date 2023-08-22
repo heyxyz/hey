@@ -22,10 +22,10 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
         <div className="space-y-3">
           <div className="shimmer h-3 w-28 rounded-lg" />
           <div className="shimmer h-3 w-20 rounded-lg" />
-          {isBig && <div className="shimmer h-3 w-48 rounded-lg" />}
+          {isBig ? <div className="shimmer h-3 w-48 rounded-lg" /> : null}
         </div>
       </div>
-      {showFollow && <div className="shimmer h-8 w-10 rounded-lg" />}
+      {showFollow ? <div className="shimmer h-8 w-10 rounded-lg" /> : null}
     </div>
   );
 };

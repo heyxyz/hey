@@ -131,7 +131,7 @@ const Choices: FC<ChoicesProps> = ({
   return (
     <>
       <Card className={clsx(isLensterPoll ? 'mt-3' : 'mt-5')}>
-        {!isLensterPoll && (
+        {!isLensterPoll ? (
           <div className="divider flex items-center justify-between px-5 py-3 ">
             <div className="flex items-center space-x-2 text-sm">
               <MenuAlt2Icon className="h-4 w-4" />
@@ -139,7 +139,7 @@ const Choices: FC<ChoicesProps> = ({
             </div>
             <New />
           </div>
-        )}
+        ) : null}
         <div className="space-y-1 p-3">
           {sortedChoices.map(
             ({ position, choice, voted, percentage, score }) => (
@@ -192,7 +192,7 @@ const Choices: FC<ChoicesProps> = ({
             )
           )}
         </div>
-        {isLensterPoll && (
+        {isLensterPoll ? (
           <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
             <div className="flex items-center space-x-2 text-xs text-gray-500">
               <MenuAlt2Icon className="h-4 w-4" />
@@ -209,18 +209,18 @@ const Choices: FC<ChoicesProps> = ({
                   other="Votes"
                 />
               </span>
-              {state === 'active' && (
+              {state === 'active' ? (
                 <>
                   <span>·</span>
                   <span>
                     <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
                   </span>
                 </>
-              )}
+              ) : null}
             </div>
             <New />
           </div>
-        )}
+        ) : null}
       </Card>
       <Modal
         show={voteConfig.show}

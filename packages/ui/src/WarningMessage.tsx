@@ -23,11 +23,11 @@ export const WarningMessage: FC<WarningMessageProps> = ({
         className
       )}
     >
-      {title && (
+      {title ? (
         <h3 className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
           {title}
         </h3>
-      )}
+      ) : null}
       <div className="text-sm text-yellow-700 dark:text-yellow-200">
         {message}
       </div>
