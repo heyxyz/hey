@@ -40,20 +40,20 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     <label className="w-full" htmlFor={id}>
-      {label && (
+      {label ? (
         <div className="mb-1 flex items-center space-x-1.5">
           <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
           <HelpTooltip content={helper} />
         </div>
-      )}
+      ) : null}
       <div className="flex">
-        {prefix && (
+        {prefix ? (
           <span className="lt-text-gray-500 inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-3 dark:border-gray-700 dark:bg-gray-900">
             {prefix}
           </span>
-        )}
+        ) : null}
         <div
           className={clsx(
             { 'bg-gray-500/20 opacity-60': props.disabled },
@@ -88,7 +88,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           </span>
         </div>
       </div>
-      {props.name && <FieldError name={props.name} />}
+      {props.name ? <FieldError name={props.name} /> : null}
     </label>
   );
 });

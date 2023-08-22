@@ -50,7 +50,7 @@ const Reason: FC<ReasonProps> = ({
           </select>
         </div>
       </div>
-      {type && (
+      {type ? (
         <div>
           <div className="label">
             <Trans>Reason</Trans>
@@ -63,7 +63,7 @@ const Reason: FC<ReasonProps> = ({
               <option disabled selected>
                 <Trans>Select sub reason</Trans>
               </option>
-              {type === 'illegalReason' && (
+              {type === 'illegalReason' ? (
                 <>
                   <option
                     value={PublicationReportingIllegalSubreason.AnimalAbuse}
@@ -113,8 +113,8 @@ const Reason: FC<ReasonProps> = ({
                     <Trans>Violence</Trans>
                   </option>
                 </>
-              )}
-              {type === 'fraudReason' && (
+              ) : null}
+              {type === 'fraudReason' ? (
                 <>
                   <option
                     value={PublicationReportingFraudSubreason.Scam}
@@ -134,8 +134,8 @@ const Reason: FC<ReasonProps> = ({
                     <Trans>Impersonation</Trans>
                   </option>
                 </>
-              )}
-              {type === 'sensitiveReason' && (
+              ) : null}
+              {type === 'sensitiveReason' ? (
                 <>
                   <option
                     value={PublicationReportingSensitiveSubreason.Nsfw}
@@ -155,8 +155,8 @@ const Reason: FC<ReasonProps> = ({
                     <Trans>Offensive</Trans>
                   </option>
                 </>
-              )}
-              {type === 'spamReason' && (
+              ) : null}
+              {type === 'spamReason' ? (
                 <>
                   <option
                     value={PublicationReportingSpamSubreason.FakeEngagement}
@@ -227,11 +227,11 @@ const Reason: FC<ReasonProps> = ({
                     <Trans>Unrelated</Trans>
                   </option>
                 </>
-              )}
+              ) : null}
             </select>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

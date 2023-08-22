@@ -153,12 +153,12 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <h6 className="line-clamp-1 text-lg font-medium">
           {isRearrange ? 'Arrange gallery' : gallery.name}
         </h6>
-        {galleryStore?.isEdit && (
+        {galleryStore?.isEdit ? (
           <Create
             showModal={showCreateModal}
             setShowModal={setShowCreateModal}
           />
-        )}
+        ) : null}
         {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button

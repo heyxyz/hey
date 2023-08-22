@@ -175,13 +175,13 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       onClose={() => setShowNftAvatarModal(false)}
     >
       <div className="flex flex-col">
-        {error && (
+        {error ? (
           <ErrorMessage
             className="mb-3"
             title={t`Transaction failed!`}
             error={error}
           />
-        )}
+        ) : null}
         <div className="max-h-[80vh] overflow-y-auto p-5">
           <Picker onlyAllowOne={true} />
         </div>

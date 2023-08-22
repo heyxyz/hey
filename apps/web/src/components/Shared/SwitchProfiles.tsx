@@ -49,12 +49,12 @@ const SwitchProfiles: FC = () => {
             />
             <div className="truncate">{formatHandle(profile?.handle)}</div>
           </span>
-          {currentProfile?.id === profile?.id && (
+          {currentProfile?.id === profile?.id ? (
             <CheckCircleIcon className="h-5 w-5 text-green-500" />
-          )}
+          ) : null}
         </button>
       ))}
-      {!IS_MAINNET && (
+      {!IS_MAINNET ? (
         <Link
           href="/new/profile"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
@@ -69,7 +69,7 @@ const SwitchProfiles: FC = () => {
             </div>
           </span>
         </Link>
-      )}
+      ) : null}
     </div>
   );
 };

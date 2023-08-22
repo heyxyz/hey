@@ -47,7 +47,7 @@ const TabButton: FC<TabButtonProps> = ({
     >
       {icon}
       <span className={clsx({ 'hidden sm:block': !showOnSm })}>{name}</span>
-      {count && (
+      {count ? (
         <span
           className={clsx(
             active
@@ -58,7 +58,7 @@ const TabButton: FC<TabButtonProps> = ({
         >
           {count}
         </span>
-      )}
+      ) : null}
     </button>
   );
 };

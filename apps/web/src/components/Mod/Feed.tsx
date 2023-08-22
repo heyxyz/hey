@@ -111,7 +111,7 @@ const Feed: FC<FeedProps> = ({
           showModActions
         />
       ))}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

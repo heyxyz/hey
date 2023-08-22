@@ -37,9 +37,9 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
           </div>
         </Link>
       </motion.button>
-      {count > 0 && !showCount && (
+      {count > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-      )}
+      ) : null}
     </div>
   );
 };

@@ -33,20 +33,20 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       aria-hidden="true"
     >
       <Comment publication={publication} showCount={showCount} />
-      {canMirror && (
+      {canMirror ? (
         <ShareMenu publication={publication} showCount={showCount} />
-      )}
+      ) : null}
       <Like publication={publication} showCount={showCount} />
-      {collectModuleType !== 'RevertCollectModuleSettings' && (
+      {collectModuleType !== 'RevertCollectModuleSettings' ? (
         <Collect
           electedMirror={electedMirror}
           publication={publication}
           showCount={showCount}
         />
-      )}
-      {gardenerMode && (
+      ) : null}
+      {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
-      )}
+      ) : null}
     </span>
   );
 };

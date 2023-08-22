@@ -72,7 +72,7 @@ const Navbar: FC = () => {
 
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
-      {staffMode && <StaffBar />}
+      {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex h-14 items-center justify-between sm:h-16">
           <div className="flex items-center justify-start">

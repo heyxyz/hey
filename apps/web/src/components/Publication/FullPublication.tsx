@@ -51,12 +51,12 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                   <span> · Posted via {getAppName(publication?.appId)}</span>
                 ) : null}
               </div>
-              {showStats && (
+              {showStats ? (
                 <>
                   <div className="divider" />
                   <PublicationStats publication={publication} />
                 </>
-              )}
+              ) : null}
               <div className="divider" />
               <PublicationActions publication={publication} showCount />
             </>

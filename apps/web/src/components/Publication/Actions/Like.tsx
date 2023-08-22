@@ -162,9 +162,9 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !showCount && (
+      {count > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
-      )}
+      ) : null}
     </div>
   );
 };

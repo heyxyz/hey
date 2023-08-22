@@ -142,36 +142,36 @@ const List: FC<ListProps> = ({ feedType }) => {
               exit={{ opacity: 0 }}
               className="p-5"
             >
-              {notification.__typename === 'NewFollowerNotification' && (
+              {notification.__typename === 'NewFollowerNotification' ? (
                 <FollowerNotification
                   notification={notification as NewFollowerNotification}
                 />
-              )}
-              {notification.__typename === 'NewMentionNotification' && (
+              ) : null}
+              {notification.__typename === 'NewMentionNotification' ? (
                 <MentionNotification
                   notification={notification as NewMentionNotification}
                 />
-              )}
-              {notification.__typename === 'NewReactionNotification' && (
+              ) : null}
+              {notification.__typename === 'NewReactionNotification' ? (
                 <LikeNotification
                   notification={notification as NewReactionNotification}
                 />
-              )}
-              {notification.__typename === 'NewCommentNotification' && (
+              ) : null}
+              {notification.__typename === 'NewCommentNotification' ? (
                 <CommentNotification
                   notification={notification as NewCommentNotification}
                 />
-              )}
-              {notification.__typename === 'NewMirrorNotification' && (
+              ) : null}
+              {notification.__typename === 'NewMirrorNotification' ? (
                 <MirrorNotification
                   notification={notification as NewMirrorNotification}
                 />
-              )}
-              {notification.__typename === 'NewCollectNotification' && (
+              ) : null}
+              {notification.__typename === 'NewCollectNotification' ? (
                 <CollectNotification
                   notification={notification as NewCollectNotification}
                 />
-              )}
+              ) : null}
             </motion.div>
           );
         }}
