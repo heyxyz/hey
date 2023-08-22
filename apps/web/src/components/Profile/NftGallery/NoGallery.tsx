@@ -78,11 +78,11 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
           </>
         )}
       </div>
-      {isOwner && (
+      {isOwner ? (
         <Button onClick={() => setShowCreateModal(true)}>
           <Trans>Let's do it!</Trans>
         </Button>
-      )}
+      ) : null}
     </div>
   );
 };

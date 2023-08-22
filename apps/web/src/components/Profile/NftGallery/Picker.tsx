@@ -174,11 +174,11 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
               isSelected ? 'border-brand-500' : 'border-transparent'
             )}
           >
-            {isSelected && (
+            {isSelected ? (
               <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
                 <CheckIcon className="h-5 w-5 p-1 text-white" />
               </button>
-            )}
+            ) : null}
             <button
               className="w-full text-left"
               onClick={() => onSelectItem(nft as Nft)}

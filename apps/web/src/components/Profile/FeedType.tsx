@@ -81,7 +81,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           />
         ) : null}
       </div>
-      <div>{feedType === ProfileFeedType.Media ? <MediaFilter /> : null}</div>
+      {feedType === ProfileFeedType.Media ? <MediaFilter /> : null}
     </div>
   );
 };
