@@ -182,7 +182,7 @@ const Follow: FC<FollowProps> = ({
         isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />
       }
     >
-      {showText && t`Follow`}
+      {showText ? t`Follow` : null}
     </Button>
   );
 };

@@ -50,7 +50,7 @@ const Reason: FC<ReasonProps> = ({
           </select>
         </div>
       </div>
-      {type && (
+      {type ? (
         <div>
           <div className="label">
             <Trans>Reason</Trans>
@@ -231,7 +231,7 @@ const Reason: FC<ReasonProps> = ({
             </select>
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

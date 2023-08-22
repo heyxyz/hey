@@ -33,14 +33,14 @@ const Hashtag: FC<MarkupLinkProps> = ({ href, title = href }) => {
           {isPrideHashtag ? <span className="pride-text">{title}</span> : title}
         </Link>
       </span>
-      {hasHashflag && (
+      {hasHashflag ? (
         <img
           className="!mr-0.5 h-4"
           height={16}
           src={`${STATIC_IMAGES_URL}/hashflags/${hashflags[tag]}.png`}
           alt={tag}
         />
-      )}
+      ) : null}
     </span>
   );
 };

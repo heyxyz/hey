@@ -89,16 +89,16 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
               reportPublication(additionalComments);
             }}
           >
-            {submitError && (
+            {submitError ? (
               <ErrorMessage title={t`Failed to report`} error={submitError} />
-            )}
+            ) : null}
             <Reason
               setType={setType}
               setSubReason={setSubReason}
               type={type}
               subReason={subReason}
             />
-            {subReason && (
+            {subReason ? (
               <>
                 <TextArea
                   label={t`Description`}
@@ -120,7 +120,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                   <Trans>Report</Trans>
                 </Button>
               </>
-            )}
+            ) : null}
           </Form>
         </div>
       ) : null}
