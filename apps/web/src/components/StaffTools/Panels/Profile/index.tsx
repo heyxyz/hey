@@ -50,7 +50,11 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
   );
 
   return (
-    <Card as="aside" className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5">
+    <Card
+      as="aside"
+      className="mt-5 border-yellow-400 !bg-yellow-300/20 p-5"
+      forceRounded
+    >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
         <div className="text-lg font-bold">
