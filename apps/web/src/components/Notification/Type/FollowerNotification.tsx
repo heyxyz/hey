@@ -35,22 +35,30 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
 
   return (
     <div className="flex items-start justify-between">
-      <div className="w-4/5 space-y-2">
-        <div className="flex items-center space-x-3">
-          {isSuperFollow ? (
-            <UserAddIcon className="h-6 w-6 text-pink-500/70" />
-          ) : (
-            <UserAddIcon className="h-6 w-6 text-green-500/70" />
-          )}
-          {notification?.wallet?.defaultProfile ? (
-            <UserPreview profile={notification?.wallet?.defaultProfile}>
-              <NotificationProfileAvatar
-                profile={notification?.wallet?.defaultProfile}
-              />
-            </UserPreview>
-          ) : (
-            <NotificationWalletProfileAvatar wallet={notification?.wallet} />
-          )}
+      <div className="flex-1 space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            {isSuperFollow ? (
+              <UserAddIcon className="h-6 w-6 text-pink-500/70" />
+            ) : (
+              <UserAddIcon className="h-6 w-6 text-green-500/70" />
+            )}
+            {notification?.wallet?.defaultProfile ? (
+              <UserPreview profile={notification?.wallet?.defaultProfile}>
+                <NotificationProfileAvatar
+                  profile={notification?.wallet?.defaultProfile}
+                />
+              </UserPreview>
+            ) : (
+              <NotificationWalletProfileAvatar wallet={notification?.wallet} />
+            )}
+          </div>
+          <div
+            className="min-w-fit text-[12px] text-gray-400"
+            title={formatTime(notification?.createdAt)}
+          >
+            {getTimeFromNow(notification?.createdAt)}
+          </div>
         </div>
         <div className="ml-9">
           <Trans
@@ -69,12 +77,6 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
             ]}
           />
         </div>
-      </div>
-      <div
-        className="min-w-fit text-[12px] text-gray-400"
-        title={formatTime(notification?.createdAt)}
-      >
-        {getTimeFromNow(notification?.createdAt)}
       </div>
     </div>
   );
