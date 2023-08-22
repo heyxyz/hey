@@ -188,7 +188,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
           </div>
         );
       })}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };

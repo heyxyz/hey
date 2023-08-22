@@ -81,7 +81,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
           </motion.div>
         ))}
       </div>
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };
