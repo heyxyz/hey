@@ -8,6 +8,7 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
@@ -106,15 +107,23 @@ const Timeline: FC = () => {
           </div>
         ) : null
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
+      {publications && (
+        <Virtuoso
+          className="virtual-profile-list"
+          data={publications}
+          itemContent={(index, publication) => {
+            return (
+              <SinglePublication
+                key={`${publication?.root.id}_${index}`}
+                isFirst={index === 0}
+                isLast={index === publications.length - 1}
+                feedItem={publication as FeedItem}
+                publication={publication.root as Publication}
+              />
+            );
+          }}
         />
-      ))}
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

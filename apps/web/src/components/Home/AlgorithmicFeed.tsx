@@ -9,6 +9,7 @@ import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
 interface AlgorithmicFeedProps {
@@ -59,14 +60,22 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
+      {publications && (
+        <Virtuoso
+          className="virtual-profile-list"
+          data={publications}
+          itemContent={(index, publication) => {
+            return (
+              <SinglePublication
+                key={`${publication.id}_${index}`}
+                isFirst={index === 0}
+                isLast={index === publications.length - 1}
+                publication={publication as Publication}
+              />
+            );
+          }}
         />
-      ))}
+      )}
     </Card>
   );
 };
