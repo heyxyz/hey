@@ -86,7 +86,7 @@ export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.lenster.xyz'
   : 'http://localhost:8085';
 export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
-  ? 'https://ens-resolver.lenster.xyz'
+  ? 'https://ens.lenster.xyz'
   : 'http://localhost:8086';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.lenster.xyz'
