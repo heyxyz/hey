@@ -1,6 +1,5 @@
 import { useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import { Image } from '@lenster/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
@@ -80,16 +79,15 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
                   {NestedPeerListIcons.active.more}
                 </button>
               }
-              align="end"
             >
-              <div className="absolute -left-2 -top-4 w-[10rem] rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
-                <div className="inline-flex w-full items-center justify-start gap-3 px-2.5 py-1.5">
+              <div className="absolute -left-4 -top-5 w-[10rem] rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
+                <div className="inline-flex w-full items-center justify-start gap-3 px-2 py-1.5">
                   <Image
                     src={avatarUrl}
                     className="flex h-5 w-5 basis-0 items-center justify-start gap-2 rounded-full"
                   />
                   <div className="shrink grow basis-0 text-sm font-medium leading-tight text-neutral-700 dark:text-stone-200">
-                    <Trans>{displayName}</Trans>
+                    {displayName}
                   </div>
                 </div>
                 {RoleData?.[role]}
@@ -100,11 +98,11 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
       </div>
       <div className="flex flex-col items-center justify-start gap-0.5">
         <div className="text-xs font-normal leading-none text-neutral-700 dark:text-neutral-300">
-          <Trans>{displayName}</Trans>
+          {displayName}
         </div>
       </div>
       <div className="text-xs font-normal leading-none text-neutral-500 dark:text-slate-400">
-        <Trans>{role}</Trans>
+        {role}
       </div>
       <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 text-2xl">
         {myReaction}

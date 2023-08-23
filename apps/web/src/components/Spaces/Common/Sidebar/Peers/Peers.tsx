@@ -35,7 +35,6 @@ const Peers: FC<PeersProps> = () => {
       if (peer) {
         setSearchPeer(peer);
       }
-      console.log('peer', peer);
     }
   }, [searchPeerName]);
 

@@ -9,8 +9,9 @@ import getAvatar from '@lenster/lib/getAvatar';
 import type { FC } from 'react';
 import React, { createRef, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { MusicTrack } from 'src/enums';
 import { useAppStore } from 'src/store/app';
-import { MusicTrack, useSpacesStore } from 'src/store/spaces';
+import { useSpacesStore } from 'src/store/spaces';
 
 import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import InvitationModal from '../Common/InvitationModal';
@@ -157,7 +158,6 @@ const SpacesWindow: FC = () => {
       removeRequestedPeers(requestedPeerId);
     }
     if (requestType) {
-      console.log(requestType);
       handleAcceptInvitation(requestType);
     }
     setShowAcceptRequest(false);

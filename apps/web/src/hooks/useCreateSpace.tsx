@@ -10,15 +10,12 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
     isTokenGated,
     tokenGateConditionType,
     tokenGateConditionValue,
-    isSpacesTimeInAM,
     spacesTimeInHour,
     spacesTimeInMinute
   } = useSpacesStore();
   let payload = {};
   const now = new Date();
-  now.setHours(
-    isSpacesTimeInAM ? Number(spacesTimeInHour) : Number(spacesTimeInHour) + 12
-  );
+  now.setHours(Number(spacesTimeInHour));
   now.setMinutes(Number(spacesTimeInMinute));
   const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const formattedTime = new Date(

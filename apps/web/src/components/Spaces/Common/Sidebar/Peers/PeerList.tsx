@@ -2,14 +2,14 @@
 // Assets
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 import React from 'react';
 
 type PeerListProps = {
   count?: number | string;
   className?: string;
   title: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const PeerList: FC<PeerListProps> = ({ className, children, title, count }) => {

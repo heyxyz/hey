@@ -1,20 +1,7 @@
+import { MusicTrack, TokenGateCondition } from 'src/enums';
 import { create } from 'zustand';
 
 export type TSidebarView = 'close' | 'peers';
-
-export enum TokenGateCondition {
-  HAVE_A_LENS_PROFILE = 'HAVE_PROFILE',
-  FOLLOW_A_LENS_PROFILE = 'FOLLOW_PROFILE',
-  COLLECT_A_POST = 'COLLECT_POST',
-  MIRROR_A_POST = 'MIRROR_POST'
-}
-
-export enum MusicTrack {
-  DEFAULT = 'DEFAULT',
-  CALM_MY_MIND = 'CALM_MY_MIND',
-  CRADLE_OF_SOUL = 'CRADLE_OF_SOUL',
-  FOREST_LULLABY = 'FOREST_LULLABY'
-}
 
 interface SpacesState {
   showSpacesLobby: boolean;
@@ -59,8 +46,6 @@ interface SpacesState {
   setSpacesTimeInHour: (val: string) => void;
   spacesTimeInMinute: string;
   setSpacesTimeInMinute: (val: string) => void;
-  isSpacesTimeInAM: boolean;
-  setIsSpacesTimeInAM: (val: boolean) => void;
 }
 
 export const useSpacesStore = create<SpacesState>((set, get) => ({
@@ -128,9 +113,9 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   myReaction: '',
   setMyReaction: (myReaction) => set(() => ({ myReaction })),
   spacesTimeInHour: '00',
-  setSpacesTimeInHour: (val) => set(() => ({ spacesTimeInHour: val })),
+  setSpacesTimeInHour: (spacesTimeInHour) => set(() => ({ spacesTimeInHour })),
   spacesTimeInMinute: '00',
-  setSpacesTimeInMinute: (val) => set(() => ({ spacesTimeInMinute: val })),
-  isSpacesTimeInAM: true,
-  setIsSpacesTimeInAM: (val) => set(() => ({ isSpacesTimeInAM: val }))
+  setSpacesTimeInMinute: (spacesTimeInMinute) =>
+    set(() => ({ spacesTimeInMinute })),
+  isSpacesTimeInAM: true
 }));

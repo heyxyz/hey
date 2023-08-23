@@ -32,10 +32,9 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
 
+  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
   const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
   const showSpacesWindow = useSpacesStore((state) => state.showSpacesWindow);
-
-  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
   const { setProfileGuardianInformation, resetProfileGuardianInformation } =
     useProfileGuardianInformationStore();
   const { profileId, setProfileId } = useAppPersistStore();
@@ -123,8 +122,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      {showSpacesLobby && <Spaces />}
-      {showSpacesWindow && <SpacesWindow />}
+      {showSpacesLobby ? <Spaces /> : null}
+      {showSpacesWindow ? <SpacesWindow /> : null}
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

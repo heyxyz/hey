@@ -6,10 +6,10 @@ import {
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/outline';
-import { PublicationTypes } from '@lenster/lens';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
+import { NewPublicationTypes } from 'src/enums';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -121,7 +121,7 @@ const GlobalModals: FC = () => {
         show={showNewPublicationModal}
         onClose={() => {
           if (checkIfPublicationNotDrafted()) {
-            setShowNewPublicationModal(false, PublicationTypes.Post);
+            setShowNewPublicationModal(false, NewPublicationTypes.Post);
           } else {
             setShowDiscardModal(true);
           }

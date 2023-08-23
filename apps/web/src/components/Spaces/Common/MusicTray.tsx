@@ -4,7 +4,8 @@ import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
-import { MusicTrack, useSpacesStore } from 'src/store/spaces';
+import { MusicTrack } from 'src/enums';
+import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
 import { Icons } from '../Common/assets/Icons';
@@ -33,12 +34,12 @@ const MusicTray: FC = () => {
   }, [isMyMusicPlaying]);
 
   const MusicTrackSelection = ({ value, label }: MusicTrackSelectionProps) => (
-    <div className="border-b border-neutral-300 p-2 text-center text-base font-semibold dark:border-slate-700">
+    <div className="cursor-pointer border-b border-neutral-300 p-2 text-center text-base font-semibold dark:border-slate-700">
       <Radio
         value={value}
         heading={
           <div className="p-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">
-            <Trans>{label}</Trans>
+            {label}
           </div>
         }
         onChange={() => setMyMusicTrack(value)}

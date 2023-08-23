@@ -62,7 +62,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+import { Button, Card, ErrorMessage, Input, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -80,13 +80,13 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { OptmisticPublicationType } from 'src/enums';
+import { NewPublicationTypes, OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
-import { PublicationTypes, useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -161,9 +161,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setSpacesTimeInHour,
     setSpacesTimeInMinute,
     spacesTimeInHour,
-    spacesTimeInMinute,
-    isSpacesTimeInAM,
-    setIsSpacesTimeInAM
+    spacesTimeInMinute
   } = useSpacesStore();
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
@@ -216,7 +214,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // States
   const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
@@ -244,7 +241,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (
       showNewPublicationModal &&
-      modalPublicationType === PublicationTypes.Spaces
+      modalPublicationType === NewPublicationTypes.Spaces
     ) {
       toast.success('Spaces created successfully!');
     }
@@ -267,9 +264,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetAccessSettings();
 
     if (!isComment) {
-      setShowNewPublicationModal(false, PublicationTypes.Post);
+      setShowNewPublicationModal(false, NewPublicationTypes.Post);
     }
-    setShowNewPublicationModal(false, PublicationTypes.Spaces);
+    setShowNewPublicationModal(false, NewPublicationTypes.Spaces);
 
     // Track in leafwatch
     const eventProperties = {
@@ -731,17 +728,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       let spaceId = null;
       if (
         showNewPublicationModal &&
-        modalPublicationType === PublicationTypes.Spaces
+        modalPublicationType === NewPublicationTypes.Spaces
       ) {
         spaceId = await createSpace();
       }
 
       const now = new Date();
-      now.setHours(
-        isSpacesTimeInAM
-          ? Number(spacesTimeInHour)
-          : Number(spacesTimeInHour) + 12
-      );
+      now.setHours(Number(spacesTimeInHour));
       now.setMinutes(Number(spacesTimeInMinute));
       const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       const formattedTime = new Date(
@@ -756,7 +749,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           value: getMainContentFocus()?.toLowerCase()
         },
         ...(showNewPublicationModal &&
-        modalPublicationType === PublicationTypes.Spaces
+        modalPublicationType === NewPublicationTypes.Spaces
           ? [
               {
                 traitType: 'audioSpace',
@@ -934,7 +927,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     : false;
 
   const onDiscardClick = () => {
-    setShowNewPublicationModal(false, PublicationTypes.Post);
+    setShowNewPublicationModal(false, NewPublicationTypes.Post);
     setShowDiscardModal(false);
   };
 
@@ -978,9 +971,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <QuotedPublication publication={quotedPublication} isNew />
         </Wrapper>
       ) : null}
-      <div className="block items-center px-5 sm:flex ">
+      <div className="block items-center px-5 sm:flex">
         {showNewPublicationModal &&
-        modalPublicationType === PublicationTypes.Spaces ? (
+        modalPublicationType === NewPublicationTypes.Spaces ? (
           <SpaceSettings />
         ) : (
           <div className="flex items-center space-x-4">
@@ -1011,7 +1004,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 ) : isComment ? (
                   <ChatAlt2Icon className="h-4 w-4" />
                 ) : showNewPublicationModal &&
-                  modalPublicationType === PublicationTypes.Spaces ? (
+                  modalPublicationType === NewPublicationTypes.Spaces ? (
                   <MicrophoneIcon className="h-4 w-4" />
                 ) : (
                   <PencilAltIcon className="h-4 w-4" />
@@ -1022,77 +1015,43 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               {isComment
                 ? t`Comment`
                 : showNewPublicationModal &&
-                  modalPublicationType === PublicationTypes.Spaces
+                  modalPublicationType === NewPublicationTypes.Spaces
                 ? t`Create spaces`
                 : t`Post`}
             </Button>
           </div>
           {showNewPublicationModal &&
-            modalPublicationType === PublicationTypes.Spaces && (
+            modalPublicationType === NewPublicationTypes.Spaces && (
               <Dropdown
                 triggerChild={
                   <div className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-violet-500 p-1">
                     <div className="text-brand-500 relative h-6 w-6">
-                      {' '}
-                      {Icons.calendar}{' '}
+                      {Icons.calendar}
                     </div>
                   </div>
                 }
-                open={isOpen}
-                onOpenChange={() => setIsOpen((prev) => !prev)}
               >
-                <div className="inline-flex h-28 w-96 flex-col items-center justify-start">
-                  <div className="flex h-28 flex-col items-start justify-center gap-4 rounded-lg border border-neutral-700 bg-neutral-800 p-4">
-                    <div className="inline-flex items-center justify-start gap-2 self-stretch">
-                      <div className="flex h-5 shrink grow basis-0 items-center justify-between">
-                        <input
-                          value={spacesTimeInHour}
-                          onChange={(e) => setSpacesTimeInHour(e.target.value)}
-                          className="w-10 appearance-none border-none bg-transparent text-sm font-medium leading-tight text-neutral-300 outline-none focus:outline-none"
-                        />
-                        :
-                        <input
-                          value={spacesTimeInMinute}
-                          onChange={(e) =>
-                            setSpacesTimeInMinute(e.target.value)
-                          }
-                          className="w-10 appearance-none border-none bg-transparent text-sm font-medium leading-tight text-neutral-300 outline-none"
-                        />
-                        <div className="flex items-start justify-start gap-2">
-                          <button
-                            className={clsx(
-                              'text-sm font-semibold leading-tight',
-                              isSpacesTimeInAM
-                                ? 'text-brand-500'
-                                : 'text-neutral-400'
-                            )}
-                            onClick={() => setIsSpacesTimeInAM(true)}
-                          >
-                            AM
-                          </button>
-                          <button
-                            className={clsx(
-                              'text-sm font-semibold leading-tight',
-                              !isSpacesTimeInAM
-                                ? 'text-brand-500'
-                                : 'text-neutral-400'
-                            )}
-                            onClick={() => setIsSpacesTimeInAM(false)}
-                          >
-                            PM
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="inline-flex items-center justify-center gap-1 self-stretch rounded-lg bg-violet-500 p-1.5">
-                      <CalendarIcon className="relative h-4 w-4" />
-                      <button
-                        className="flex items-center justify-center text-sm font-semibold leading-none text-neutral-50"
-                        onClick={() => setIsOpen((prev) => !prev)}
-                      >
-                        Schedule Spaces
-                      </button>
-                    </div>
+                <div className="absolute -left-4 top-10 w-[12rem] translate-x-1/2 items-start justify-center gap-4 rounded-lg border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                  <Input
+                    type="time"
+                    onChange={(e) => {
+                      const [hour, minute] = e.target.value.split(':');
+                      setSpacesTimeInHour(hour);
+                      setSpacesTimeInMinute(minute);
+                    }}
+                  />
+                  <div className="mt-4 inline-flex w-full items-center justify-center gap-1 self-stretch rounded-lg bg-violet-500 p-2">
+                    {isLoading ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <CalendarIcon className="h-4 w-4 text-neutral-50" />
+                    )}
+                    <button
+                      className="flex items-center justify-center text-sm font-semibold leading-none text-neutral-50"
+                      onClick={createPublication}
+                    >
+                      Schedule Spaces
+                    </button>
                   </div>
                 </div>
               </Dropdown>

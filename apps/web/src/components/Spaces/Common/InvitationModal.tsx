@@ -23,10 +23,10 @@ const InvitationModal: FC<InvitationModalProps> = ({
         <div className="inline-flex shrink grow basis-0 flex-col items-start justify-start gap-4">
           <div className="flex flex-col items-start justify-start gap-1">
             <div className="text-sm font-semibold leading-tight text-neutral-600 dark:text-neutral-200">
-              <Trans>{title}</Trans>
+              {title}
             </div>
             <div className="text-sm font-normal leading-tight text-neutral-500 dark:text-neutral-300">
-              <Trans>{description}</Trans>
+              {description}
             </div>
           </div>
           <div className="inline-flex items-start justify-start gap-2">

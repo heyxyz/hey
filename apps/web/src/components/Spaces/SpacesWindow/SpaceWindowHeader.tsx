@@ -5,8 +5,8 @@ import { useProfilesQuery } from '@lenster/lens';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
 import isVerified from '@lib/isVerified';
-import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
+import { Trans } from '@lingui/macro';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
@@ -14,7 +14,7 @@ import { Icons } from '../Common/assets/Icons';
 
 type SpacesWindowProps = {
   isExpanded?: boolean;
-  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsExpanded: Dispatch<SetStateAction<boolean>>;
 };
 
 const SpaceWindowHeader: FC<SpacesWindowProps> = ({
@@ -22,8 +22,6 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
   setIsExpanded
 }) => {
   const space = useSpacesStore((state) => state.space);
-  const setSidebarView = useSpacesStore((state) => state.setSidebarView);
-  const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
   const setShowSpacesWindow = useSpacesStore(
     (state) => state.setShowSpacesWindow
   );
@@ -57,7 +55,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
             </div>
             {!isExpanded && (
               <div className="text-sm font-medium leading-tight text-neutral-900 dark:text-neutral-300">
-                <Trans>{space.title}</Trans>
+                {space.title}
               </div>
             )}
           </div>
@@ -80,7 +78,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
         {isExpanded && (
           <>
             <div className="my-1 text-base font-medium leading-normal text-neutral-900 dark:text-zinc-200">
-              <Trans>{space.title}</Trans>
+              {space.title}
             </div>
             <div className="flex items-center gap-1">
               <Image
@@ -88,7 +86,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
                 className="h-4 w-4 rounded-full bg-violet-500"
               />
               <Slug
-                slug={t`@${hostProfile.handle}`}
+                slug={`@${hostProfile.handle}`}
                 className="text-sm font-normal"
               />
               <div>{isVerified(hostProfile.id) && Icons.verified}</div>

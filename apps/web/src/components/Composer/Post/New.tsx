@@ -7,8 +7,9 @@ import { Card, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { NewPublicationTypes } from 'src/enums';
 import { useAppStore } from 'src/store/app';
-import { PublicationTypes, useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -24,11 +25,11 @@ const NewPost: FC = () => {
   const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
 
   const openModal = () => {
-    setShowNewPublicationModal(true, PublicationTypes.Post);
+    setShowNewPublicationModal(true, NewPublicationTypes.Post);
   };
 
   const openSpacesModal = () => {
-    setShowNewPublicationModal(true, PublicationTypes.Spaces);
+    setShowNewPublicationModal(true, NewPublicationTypes.Spaces);
   };
 
   useEffectOnce(() => {
@@ -47,7 +48,7 @@ const NewPost: FC = () => {
         processedHashtags ? ` ${processedHashtags} ` : ''
       }${url ? `\n\n${url}` : ''}${via ? `\n\nvia @${via}` : ''}`;
 
-      setShowNewPublicationModal(true, PublicationTypes.Post);
+      setShowNewPublicationModal(true, NewPublicationTypes.Post);
       setPublicationContent(content);
     }
   });

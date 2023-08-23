@@ -34,7 +34,6 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       const token = await getLensAccessToken(data, address as string);
       if (token.accessToken) {
         setShowSpacesLobby(true);
-        console.log('token', token.accessToken);
         setLensAccessToken(token.accessToken);
         setSpace({
           ...space,

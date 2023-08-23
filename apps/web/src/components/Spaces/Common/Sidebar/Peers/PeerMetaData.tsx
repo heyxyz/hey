@@ -1,6 +1,5 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAudio, useEventListener, useHuddle01 } from '@huddle01/react/hooks';
-import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Image from 'next/image';
 import type { FC } from 'react';
@@ -119,7 +118,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
           className="rounded-full object-contain"
         />
         <div className="text-xs font-normal text-neutral-500 dark:text-slate-400">
-          <Trans>{name}</Trans>
+          {name}
         </div>
       </div>
       {isRequested ? (
@@ -147,11 +146,8 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
             (me.meId === peerId || ['speaker', 'listener'].includes(role))) ||
           ((me.role === 'speaker' || me.role === 'listener') &&
             me.meId === peerId) ? (
-            <Dropdown
-              triggerChild={<div>{NestedPeerListIcons.inactive.more}</div>}
-              align="end"
-            >
-              <div className="rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
+            <Dropdown triggerChild={NestedPeerListIcons.inactive.more}>
+              <div className="absolute -right-10 top-4 w-[10rem] rounded-lg border border-neutral-300 bg-white dark:border-neutral-500 dark:bg-neutral-800">
                 {RoleData?.[role]}
               </div>
             </Dropdown>

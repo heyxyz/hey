@@ -3817,7 +3817,6 @@ export enum PublicationTypes {
   Comment = 'COMMENT',
   Mirror = 'MIRROR',
   Post = 'POST',
-  Spaces = 'SPACES'
 }
 
 export type PublicationValidateMetadataResult = {

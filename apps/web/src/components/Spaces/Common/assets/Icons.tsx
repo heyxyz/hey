@@ -37,7 +37,7 @@ export const Icons = {
         r="9.04661"
         fill="#8B5CF6"
         stroke="#525252"
-        stroke-width="1.90678"
+        strokeWidth="1.90678"
       />
       <rect
         x="5.93359"
@@ -76,9 +76,9 @@ export const Icons = {
       <path
         d="M3 9H21M7 3V5M17 3V5M6 13H8M6 17H8M11 13H13M11 17H13M16 13H18M16 17H18M6.2 21H17.8C18.9201 21 19.4802 21 19.908 20.782C20.2843 20.5903 20.5903 20.2843 20.782 19.908C21 19.4802 21 18.9201 21 17.8V8.2C21 7.07989 21 6.51984 20.782 6.09202C20.5903 5.71569 20.2843 5.40973 19.908 5.21799C19.4802 5 18.9201 5 17.8 5H6.2C5.0799 5 4.51984 5 4.09202 5.21799C3.71569 5.40973 3.40973 5.71569 3.21799 6.09202C3 6.51984 3 7.07989 3 8.2V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.07989 21 6.2 21Z"
         stroke="#8B5CF6"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
@@ -107,9 +107,9 @@ export const Icons = {
       <path
         d="M12.5488 6.59717V12.5972L16.5488 14.5972M22.5488 12.5972C22.5488 18.12 18.0717 22.5972 12.5488 22.5972C7.02598 22.5972 2.54883 18.12 2.54883 12.5972C2.54883 7.07432 7.02598 2.59717 12.5488 2.59717C18.0717 2.59717 22.5488 7.07432 22.5488 12.5972Z"
         stroke="#F5F5F5"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
@@ -166,9 +166,9 @@ export const Icons = {
       <path
         d="M9.99996 13.5335V10.2002M9.99996 6.86688H10.0083M18.3333 10.2002C18.3333 14.8026 14.6023 18.5335 9.99996 18.5335C5.39759 18.5335 1.66663 14.8026 1.66663 10.2002C1.66663 5.59784 5.39759 1.86688 9.99996 1.86688C14.6023 1.86688 18.3333 5.59784 18.3333 10.2002Z"
         className="stroke-neutral-500 dark:stroke-neutral-200"
-        stroke-width="1.66667"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
@@ -183,9 +183,9 @@ export const Icons = {
       <path
         d="M6 6.25L18 18.25M18 6.25L6 18.25"
         stroke="#A3A3A3"
-        stroke-width="1.66667"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),
@@ -200,9 +200,9 @@ export const Icons = {
       <path
         d="M18 15.4502L12 9.4502L6 15.4502"
         stroke="#737373"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   ),

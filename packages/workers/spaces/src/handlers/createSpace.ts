@@ -1,5 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
+import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import type { IRequest } from 'itty-router';
@@ -57,10 +58,12 @@ export default async (request: IRequest, env: Env) => {
         JSON.stringify({ success: false, error: Errors.SignWallet })
       );
     }
+
     const { payload } = jwt.decode(accessToken);
-    let response;
-    if (isTokenGated) {
-      response = await fetch('https://api.huddle01.com/api/v1/create-room', {
+
+    const apiResponse = await fetch(
+      'https://api.huddle01.com/api/v1/create-room',
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,39 +72,26 @@ export default async (request: IRequest, env: Env) => {
         body: JSON.stringify({
           title: 'Lenster-Space',
           hostWallets: [payload.id],
-          chain: 'POLYGON',
-          tokenType: 'LENS',
-          conditionType: conditionType,
-          conditionValue: conditionValue,
-          startTime: startTime
+          startTime: startTime,
+          ...(isTokenGated
+            ? {
+                chain: 'POLYGON',
+                tokenType: 'LENS',
+                conditionType: conditionType,
+                conditionValue: conditionValue
+              }
+            : {})
         })
-      });
-    } else {
-      response = await fetch('https://api.huddle01.com/api/v1/create-room', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': env.HUDDLE_API_KEY
-        },
-        body: JSON.stringify({
-          title: 'Lenster-Space',
-          hostWallets: [payload.id],
-          startTime: startTime
-        })
-      });
-    }
+      }
+    );
 
-    const createRoomResponse: CreateRoomResponse = await response.json();
-
-    console.log('response', createRoomResponse);
+    const createRoomResponse: CreateRoomResponse = await apiResponse.json();
 
     if (createRoomResponse.message !== 'Room Created Successfully') {
-      return new Response(
-        JSON.stringify({ success: false, response: createRoomResponse })
-      );
+      return response({ success: false, response: createRoomResponse });
     }
 
-    return new Response(createRoomResponse.data.roomId);
+    return response({ success: true, response: createRoomResponse });
   } catch (error) {
     throw error;
   }

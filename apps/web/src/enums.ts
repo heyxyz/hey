@@ -24,3 +24,22 @@ export enum MessageTabs {
   Inbox = 'Inbox',
   Following = 'Following'
 }
+
+export enum TokenGateCondition {
+  HAVE_A_LENS_PROFILE = 'HAVE_PROFILE',
+  FOLLOW_A_LENS_PROFILE = 'FOLLOW_PROFILE',
+  COLLECT_A_POST = 'COLLECT_POST',
+  MIRROR_A_POST = 'MIRROR_POST'
+}
+
+export enum MusicTrack {
+  DEFAULT = 'DEFAULT',
+  CALM_MY_MIND = 'CALM_MY_MIND',
+  CRADLE_OF_SOUL = 'CRADLE_OF_SOUL',
+  FOREST_LULLABY = 'FOREST_LULLABY'
+}
+
+export enum NewPublicationTypes {
+  Post = 'POST',
+  Spaces = 'SPACES'
+}

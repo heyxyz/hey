@@ -1,8 +1,8 @@
-import type { FC } from 'react';
+import type { ButtonHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import React from 'react';
 
-type SpacesButtonProps = {} & React.DetailedHTMLProps<
-  React.ButtonHTMLAttributes<HTMLButtonElement>,
+type SpacesButtonProps = {} & DetailedHTMLProps<
+  ButtonHTMLAttributes<HTMLButtonElement>,
   HTMLButtonElement
 >;
 

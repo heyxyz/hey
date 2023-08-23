@@ -290,17 +290,40 @@ msgstr "Друзья моих друзей могут комментироват
 msgid "Everyone can comment and mirror"
 msgstr "Любой может комментировать и репостить"
 
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
-#: src/components/Spaces/Common/EmojiTray.tsx
-#: src/components/Spaces/Common/MusicTray.tsx
-#: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
-#: src/components/Spaces/PreviewSpaces/PreviewSpacesHeader.tsx
-#: src/components/Spaces/PreviewSpaces/PreviewSpacesHeader.tsx
-#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
-#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
-#: src/components/Spaces/SpacesWindow/SpacesSummary.tsx
-msgid "{0}"
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "have a lens profile"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "follow a lens profile"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "collect a post"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "mirror a post"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Enter Lens profile"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Enter Lens post link"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Lens post link"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Search for lens profile..."
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Token gate with"
 msgstr ""
 
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
@@ -308,7 +331,7 @@ msgid "Record Spaces"
 msgstr ""
 
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Token gate with"
+msgid "Token Gate Spaces"
 msgstr ""
 
 #: src/components/Composer/ChooseThumbnail.tsx
@@ -3106,12 +3129,12 @@ msgstr "Обмен в Uniswap"
 
 #: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
 #: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
-msgid "{displayName}"
-msgstr ""
+#~ msgid "{displayName}"
+#~ msgstr ""
 
 #: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
-msgid "{role}"
-msgstr ""
+#~ msgid "{role}"
+#~ msgstr ""
 
 #: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
 msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
@@ -3129,15 +3152,15 @@ msgstr ""
 msgid "Listeners - {listenersCount}"
 msgstr ""
 
-#: src/components/Spaces/Common/InvitationModal.tsx
-#: src/components/Spaces/Common/Sidebar/Peers/PeerList.tsx
-#: src/components/Spaces/Common/Sidebar/Peers/PeerRole/Strip.tsx
-msgid "{title}"
+#: src/components/Spaces/Common/EmojiTray.tsx
+#: src/components/Spaces/Common/MusicTray.tsx
+#: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
+msgid "{0}"
 msgstr ""
 
 #: src/components/Spaces/Common/InvitationModal.tsx
-msgid "{description}"
-msgstr ""
+#~ msgid "{description}"
+#~ msgstr ""
 
 #: src/components/Spaces/Common/InvitationModal.tsx
 msgid "Accept"
@@ -3148,23 +3171,26 @@ msgid "Deny"
 msgstr ""
 
 #: src/components/Spaces/Common/MusicTray.tsx
-msgid "{label}"
-msgstr ""
+#~ msgid "{label}"
+#~ msgstr ""
 
 #: src/components/Spaces/Common/MusicTray.tsx
 msgid "Background Music"
 msgstr ""
 
-#: src/components/Spaces/Common/Sidebar/Peers/PeerMetaData.tsx
-msgid "{name}"
+#: src/components/Spaces/Common/Sidebar/Peers/PeerList.tsx
+msgid "{title}"
 msgstr ""
+
+#: src/components/Spaces/Common/Sidebar/Peers/PeerMetaData.tsx
+#~ msgid "{name}"
+#~ msgstr ""
 
 #: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
 msgid "Your mic will be off at the start"
 msgstr ""
 
 #: src/components/Spaces/PreviewSpaces/PreviewSpacesHeader.tsx
-#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
 msgid "@{0}"
 msgstr ""
 

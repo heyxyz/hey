@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { AudioHTMLAttributes, DetailedHTMLProps, FC } from 'react';
 import React, { useEffect, useRef } from 'react';
 
 interface IAudioProps {
@@ -7,10 +7,7 @@ interface IAudioProps {
 
 const Audio: FC<
   IAudioProps &
-    React.DetailedHTMLProps<
-      React.AudioHTMLAttributes<HTMLAudioElement>,
-      HTMLAudioElement
-    >
+    DetailedHTMLProps<AudioHTMLAttributes<HTMLAudioElement>, HTMLAudioElement>
 > = ({ track }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 

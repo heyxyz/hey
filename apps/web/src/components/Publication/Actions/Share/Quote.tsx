@@ -1,9 +1,10 @@
 import { Menu } from '@headlessui/react';
 import { AnnotationIcon } from '@heroicons/react/outline';
-import { type Publication, PublicationTypes } from '@lenster/lens';
+import { type Publication } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import type { FC } from 'react';
+import { NewPublicationTypes } from 'src/enums';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -35,7 +36,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       }
       onClick={() => {
         setQuotedPublication(publication);
-        setShowNewPublicationModal(true, PublicationTypes.Post);
+        setShowNewPublicationModal(true, NewPublicationTypes.Post);
       }}
     >
       <div className="flex items-center space-x-2">

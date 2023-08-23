@@ -7,7 +7,7 @@ import {
 } from '@huddle01/react/hooks';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
 import { Icons } from '../Common/assets/Icons';
@@ -28,8 +28,6 @@ const SpacesWindowBottomBar: FC = () => {
   const setSidebarView = useSpacesStore((state) => state.setSidebarView);
   const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
   const { sendData } = useAppUtils();
-  const [isEmojiTrayOpen, setIsEmojiTrayOpen] = useState(false);
-  const [isMusicTrayOpen, setIsMusicTrayOpen] = useState(false);
 
   useEventListener('app:mic-on', (stream) => {
     produceAudio(stream);
@@ -84,10 +82,10 @@ const SpacesWindowBottomBar: FC = () => {
                 {Icons.music}
               </div>
             }
-            open={isMusicTrayOpen}
-            onOpenChange={() => setIsMusicTrayOpen((prev) => !prev)}
           >
-            <MusicTray />
+            <div className="absolute -right-4 bottom-4 w-[12rem] translate-x-1/2">
+              <MusicTray />
+            </div>
           </Dropdown>
         )}
         <Dropdown
@@ -96,10 +94,8 @@ const SpacesWindowBottomBar: FC = () => {
               {Icons.reaction}
             </div>
           }
-          open={isEmojiTrayOpen}
-          onOpenChange={() => setIsEmojiTrayOpen((prev) => !prev)}
         >
-          <div className="absolute -right-20 bottom-14 w-[15vw] min-w-[12rem]">
+          <div className="absolute -right-4 bottom-4 w-[12rem] translate-x-1/2">
             <EmojiTray />
           </div>
         </Dropdown>

@@ -38,7 +38,6 @@ const PreviewSpaces: FC = () => {
   });
 
   useUpdateEffect(() => {
-    console.log('roomState', roomState);
     if (roomState === 'INIT') {
       joinLobby(space.id, lensAccessToken);
     }
