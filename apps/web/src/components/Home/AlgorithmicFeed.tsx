@@ -62,7 +62,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications && (
         <Virtuoso
-          className="virtual-profile-list"
+          useWindowScroll
           data={publications}
           itemContent={(index, publication) => {
             return (

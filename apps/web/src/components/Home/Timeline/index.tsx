@@ -7,7 +7,6 @@ import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
 import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -65,22 +64,6 @@ const Timeline: FC = () => {
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId: currentProfile?.id
-        }
-      });
-    }
-  });
-
   if (loading) {
     return <PublicationsShimmer />;
   }
@@ -98,6 +81,20 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
+    }
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId: currentProfile?.id
+      }
+    });
+  };
+
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {txnQueue.map((txn) =>
@@ -109,8 +106,9 @@ const Timeline: FC = () => {
       )}
       {publications && (
         <Virtuoso
-          className="virtual-profile-list"
+          useWindowScroll
           data={publications}
+          endReached={onEndReached}
           itemContent={(index, publication) => {
             return (
               <SinglePublication
@@ -124,7 +122,6 @@ const Timeline: FC = () => {
           }}
         />
       )}
-      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };
