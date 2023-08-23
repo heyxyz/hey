@@ -129,7 +129,7 @@ const useMessagePreviews = () => {
     };
     getEns();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTab]);
+  }, [selectedTab, nonLensProfiles]);
 
   useEffect(() => {
     if (profilesLoading) {
@@ -199,6 +199,7 @@ const useMessagePreviews = () => {
           (convo.context?.conversationId as string) ?? ''
         );
         const profileId = getProfileFromKey(key);
+
         if (profileId) {
           newProfileIds.add(profileId);
         } else {
