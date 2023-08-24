@@ -243,7 +243,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       showNewPublicationModal &&
       modalPublicationType === NewPublicationTypes.Spaces
     ) {
-      toast.success('Spaces created successfully!');
+      toast.success(t`Spaces created successfully!`);
     }
 
     setIsLoading(false);
@@ -749,6 +749,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           value: getMainContentFocus()?.toLowerCase()
         },
         ...(showNewPublicationModal &&
+        spaceId &&
         modalPublicationType === NewPublicationTypes.Spaces
           ? [
               {
@@ -1031,7 +1032,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                   </div>
                 }
               >
-                <div className="absolute -left-4 top-10 w-[12rem] translate-x-1/2 items-start justify-center gap-4 rounded-lg border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
+                <div className="absolute -left-4 top-10 w-48 translate-x-1/2 items-start justify-center gap-4 rounded-lg border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
                   <Input
                     type="time"
                     onChange={(e) => {

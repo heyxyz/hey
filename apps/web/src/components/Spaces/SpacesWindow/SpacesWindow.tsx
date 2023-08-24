@@ -6,6 +6,7 @@ import {
   usePeers
 } from '@huddle01/react/hooks';
 import getAvatar from '@lenster/lib/getAvatar';
+import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import React, { createRef, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -67,7 +68,7 @@ const SpacesWindow: FC = () => {
 
   useEventListener('room:me-role-update', (role) => {
     if (role !== 'listener') {
-      toast.success(`You are now a ${role}`);
+      toast.success(t`You are now a ${role}`);
     }
   });
 

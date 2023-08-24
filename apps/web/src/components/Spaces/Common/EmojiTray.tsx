@@ -6,28 +6,9 @@ import React, { useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
-type Reaction =
-  | ''
-  | '😂'
-  | '😢'
-  | '😦'
-  | '😍'
-  | '🤔'
-  | '👀'
-  | '🙌'
-  | '👍'
-  | '👎'
-  | '🔥'
-  | '🍻'
-  | '🚀'
-  | '🎉'
-  | '❤️'
-  | '💯';
-
 const EmojiTray: FC = () => {
   const [isHandRaised, setIsHandRaised] = useState(false);
-  // Emoji Data
-  const emojis: Reaction[] = [
+  const emojis = [
     '😂',
     '😢',
     '😦',

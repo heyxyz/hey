@@ -129,7 +129,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
             onClick={() => {
               if (
                 ['host', 'coHost', 'speaker'].includes(role) &&
-                peerId === me?.meId
+                peerId === me.meId
               ) {
                 isAudioOn ? stopAudioStream() : fetchAudioStream();
               }
@@ -147,7 +147,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
           ((me.role === 'speaker' || me.role === 'listener') &&
             me.meId === peerId) ? (
             <Dropdown triggerChild={NestedPeerListIcons.inactive.more}>
-              <div className="absolute -right-10 top-4 w-[10rem] rounded-lg border border-neutral-300 bg-white dark:border-neutral-500 dark:bg-neutral-800">
+              <div className="absolute -right-10 top-4 w-40 rounded-lg border border-neutral-300 bg-white dark:border-neutral-500 dark:bg-neutral-800">
                 {RoleData?.[role]}
               </div>
             </Dropdown>

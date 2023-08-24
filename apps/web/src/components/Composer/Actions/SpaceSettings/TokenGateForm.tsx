@@ -57,7 +57,7 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
       as="button"
       className={clsx(
         { 'dropdown-active': tokenGateConditionType === condition },
-        'menu-item w-[11rem]'
+        'menu-item w-44'
       )}
       onClick={onClick}
     >
@@ -74,7 +74,11 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
 
   return (
     <div>
-      {tokenGateConditionType !== TokenGateCondition.HAVE_A_LENS_PROFILE && (
+      {[
+        TokenGateCondition.MIRROR_A_POST,
+        TokenGateCondition.COLLECT_A_POST,
+        TokenGateCondition.FOLLOW_A_LENS_PROFILE
+      ].includes(tokenGateConditionType) && (
         <div className="flex items-center gap-2 px-4 py-3">
           <div className="flex items-center gap-3 text-neutral-500">
             {tokenGateConditionType === TokenGateCondition.FOLLOW_A_LENS_PROFILE
@@ -82,19 +86,19 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
               : t`Enter Lens post link`}
           </div>
           <div className="flex flex-[1_0_0] items-center gap-1 px-3">
-            {tokenGateConditionType !==
+            {tokenGateConditionType ===
             TokenGateCondition.FOLLOW_A_LENS_PROFILE ? (
+              <Search
+                modalWidthClassName="max-w-xs"
+                placeholder={t`Search for lens profile...`}
+                onProfileSelected={onProfileSelected}
+              />
+            ) : (
               <Input
                 placeholder={t`Lens post link`}
                 value={tokenGateConditionValue}
                 onChange={(e) => setTokenGateConditionValue(e.target.value)}
                 className="placeholder-neutral-400"
-              />
-            ) : (
-              <Search
-                modalWidthClassName="max-w-xs"
-                placeholder={t`Search for lens profile...`}
-                onProfileSelected={onProfileSelected}
               />
             )}
           </div>
@@ -120,7 +124,7 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
                 </span>
               </Menu.Button>
               <MenuTransition>
-                <Menu.Items className="absolute right-0 mt-2 w-[12rem] origin-top-right rounded-lg border bg-white text-sm shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+                <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-lg border bg-white text-sm shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-900">
                   <Module
                     title="have a lens profile"
                     onClick={() =>

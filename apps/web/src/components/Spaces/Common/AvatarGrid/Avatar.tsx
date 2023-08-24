@@ -80,7 +80,7 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
                 </button>
               }
             >
-              <div className="absolute -left-4 -top-5 w-[10rem] rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
+              <div className="absolute -left-4 -top-5 w-40 rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
                 <div className="inline-flex w-full items-center justify-start gap-3 px-2 py-1.5">
                   <Image
                     src={avatarUrl}

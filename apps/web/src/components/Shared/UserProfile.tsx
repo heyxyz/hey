@@ -93,7 +93,7 @@ const UserProfile: FC<UserProfileProps> = ({
         {showStatus && hasStatus ? (
           <div className="lt-text-gray-500 flex items-center">
             <span className="mx-1.5">·</span>
-            <span className="flex max-w-[10rem] items-center space-x-1 text-xs">
+            <span className="max-w-40 flex items-center space-x-1 text-xs">
               <span>{statusEmoji}</span>
               <span className="truncate">{statusMessage}</span>
             </span>

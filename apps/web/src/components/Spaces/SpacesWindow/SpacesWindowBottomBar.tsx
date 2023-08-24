@@ -83,7 +83,7 @@ const SpacesWindowBottomBar: FC = () => {
               </div>
             }
           >
-            <div className="absolute -right-4 bottom-4 w-[12rem] translate-x-1/2">
+            <div className="absolute -right-4 bottom-4 w-48 translate-x-1/2">
               <MusicTray />
             </div>
           </Dropdown>
@@ -95,7 +95,7 @@ const SpacesWindowBottomBar: FC = () => {
             </div>
           }
         >
-          <div className="absolute -right-4 bottom-4 w-[12rem] translate-x-1/2">
+          <div className="absolute -right-4 bottom-4 w-48 translate-x-1/2">
             <EmojiTray />
           </div>
         </Dropdown>

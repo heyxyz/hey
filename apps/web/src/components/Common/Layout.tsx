@@ -122,8 +122,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      {showSpacesLobby ? <Spaces /> : null}
-      {showSpacesWindow ? <SpacesWindow /> : null}
+      {showSpacesLobby && <Spaces />}
+      {showSpacesWindow && <SpacesWindow />}
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

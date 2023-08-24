@@ -15,16 +15,16 @@ const AvatarGrid: FC = () => {
     (me.role === 'listener' ? 1 : 0);
 
   return (
-    <div className="min-w-[24rem]">
+    <div className="min-w-96">
       <div className="pb-6">
-        <div className="inline-flex grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
+        <div className="inline-flex grid min-h-[10rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
           {showSpacesWindow && me.role !== 'listener' && (
             <Avatar
-              key={me?.meId}
-              peerId={me?.meId}
-              displayName={me?.displayName}
-              role={me?.role}
-              avatarUrl={me?.avatarUrl}
+              key={me.meId}
+              peerId={me.meId}
+              displayName={me.displayName}
+              role={me.role}
+              avatarUrl={me.avatarUrl}
             />
           )}
           {Object.values(peers)
@@ -48,14 +48,14 @@ const AvatarGrid: FC = () => {
             other={t`Listeners - ${listenersCount}`}
           />
         </div>
-        <div className="inline-flex grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch ">
+        <div className="inline-flex grid min-h-[10rem] grid-cols-5 items-center justify-between gap-5 self-stretch ">
           {showSpacesWindow && me.role === 'listener' && (
             <Avatar
-              key={me?.meId}
-              peerId={me?.meId}
-              displayName={me?.displayName}
-              role={me?.role}
-              avatarUrl={me?.avatarUrl}
+              key={me.meId}
+              peerId={me.meId}
+              displayName={me.displayName}
+              role={me.role}
+              avatarUrl={me.avatarUrl}
             />
           )}
           {Object.values(peers)
