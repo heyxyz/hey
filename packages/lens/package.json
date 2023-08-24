@@ -14,7 +14,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.1",
+    "@apollo/client": "3.7.17",
     "@lenster/data": "workspace:*",
     "axios": "^1.4.0"
   },
