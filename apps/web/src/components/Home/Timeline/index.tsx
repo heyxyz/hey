@@ -91,10 +91,6 @@ const Timeline: FC = () => {
     });
   }, []);
 
-  if (loading) {
-    return <PublicationsShimmer />;
-  }
-
   if (publications?.length === 0) {
     return (
       <EmptyState
@@ -119,36 +115,34 @@ const Timeline: FC = () => {
           </div>
         ) : null
       )}
-      {publications && (
-        <Virtuoso
-          components={{ Footer }}
-          restoreStateFrom={
-            timeLineVirtuosoState.ranges.length === 0
-              ? timelineVirtuosoRef?.current?.getState(
-                  (state: StateSnapshot) => state
-                )
-              : timeLineVirtuosoState
-          }
-          ref={timelineVirtuosoRef}
-          useWindowScroll
-          data={publications}
-          endReached={onEndReached}
-          isScrolling={(scrolling) => onScrolling(scrolling)}
-          itemContent={(index, publication) => {
-            return (
-              <div className="border-b-[1px] dark:border-gray-700">
-                <SinglePublication
-                  key={`${publication?.root.id}_${index}`}
-                  isFirst={index === 0}
-                  isLast={index === publications.length - 1}
-                  feedItem={publication as FeedItem}
-                  publication={publication.root as Publication}
-                />
-              </div>
-            );
-          }}
-        />
-      )}
+      <Virtuoso
+        components={{ Footer }}
+        restoreStateFrom={
+          timeLineVirtuosoState.ranges.length === 0
+            ? timelineVirtuosoRef?.current?.getState(
+                (state: StateSnapshot) => state
+              )
+            : timeLineVirtuosoState
+        }
+        ref={timelineVirtuosoRef}
+        useWindowScroll
+        data={publications}
+        endReached={onEndReached}
+        isScrolling={(scrolling) => onScrolling(scrolling)}
+        itemContent={(index, publication) => {
+          return (
+            <div className="border-b-[1px] dark:border-gray-700">
+              <SinglePublication
+                key={`${publication?.root.id}_${index}`}
+                isFirst={index === 0}
+                isLast={index === (publications ? publications?.length - 1 : 0)}
+                feedItem={publication as FeedItem}
+                publication={publication.root as Publication}
+              />
+            </div>
+          );
+        }}
+      />
     </Card>
   );
 };
