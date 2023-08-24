@@ -45,24 +45,24 @@ const SpacesSummary: FC = () => {
       </div>
       <div className="flex items-center text-xs font-normal leading-none text-neutral-500 text-opacity-60 dark:text-white">
         <div className="flex p-0.5">
-          {topThreePeers[0] && (
+          {topThreePeers[0] ? (
             <Image
               src={topThreePeers[0].avatarUrl}
               className="aspect-square h-3 w-3 rounded-full"
             />
-          )}
-          {topThreePeers[1] && (
+          ) : null}
+          {topThreePeers[1] ? (
             <Image
               src={topThreePeers[1].avatarUrl}
               className="aspect-square h-3 w-3 -translate-x-1/2 rounded-full"
             />
-          )}
-          {topThreePeers[2] && (
+          ) : null}
+          {topThreePeers[2] ? (
             <Image
               src={topThreePeers[2].avatarUrl}
               className="aspect-square h-3 w-3 -translate-x-full rounded-full"
             />
-          )}
+          ) : null}
         </div>
         <div>
           {`${listeners}${listeners > 0 ? '+ ' : ' '}`}

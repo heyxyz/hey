@@ -1,6 +1,5 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { Icons } from '@components/Spaces/Common/assets/Icons';
-import { MicrophoneIcon } from '@heroicons/react/outline';
+import { ClockIcon, MicrophoneIcon } from '@heroicons/react/outline';
 import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
@@ -102,9 +101,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
             signing ? (
               <Spinner size="xs" className="mr-1" />
             ) : calculateRemainingTime() !== 'Start Listening' ? (
-              <div className="flex h-5 w-5 items-center justify-center">
-                {Icons.timer}
-              </div>
+              <ClockIcon className="h-5 w-5" />
             ) : (
               <MicrophoneIcon className="h-5 w-5" />
             )

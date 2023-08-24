@@ -3,7 +3,6 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { Icons } from '@components/Spaces/Common/assets/Icons';
 import Dropdown from '@components/Spaces/Common/Dropdown';
 import {
   CalendarIcon,
@@ -1026,9 +1025,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               <Dropdown
                 triggerChild={
                   <div className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-violet-500 p-1">
-                    <div className="text-brand-500 relative h-6 w-6">
-                      {Icons.calendar}
-                    </div>
+                    <CalendarIcon className="text-brand-500 relative h-6 w-6" />
                   </div>
                 }
               >

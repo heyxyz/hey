@@ -41,7 +41,7 @@ const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
       {me.role === 'coHost' || me.role === 'host' ? (
         <div>
           <Strip
-            type="personSpeaker"
+            type="speaker"
             title="Invite as Speaker"
             variant="normal"
             onClick={() => {

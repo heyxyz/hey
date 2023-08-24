@@ -14,7 +14,7 @@ const HostData: FC = () => {
       {me.role === 'host' && (
         <div>
           <Strip
-            type="close"
+            type="remove"
             title="End spaces for all"
             variant="danger"
             onClick={() => {

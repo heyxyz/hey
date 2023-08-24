@@ -1,3 +1,4 @@
+import { CheckIcon, DotsVerticalIcon, XIcon } from '@heroicons/react/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAudio, useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import clsx from 'clsx';
@@ -6,7 +7,7 @@ import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
-import { NestedPeerListIcons, PeerListIcons } from '../../assets/Icons';
+import { Icons } from '../../assets/Icons';
 import Dropdown from '../../Dropdown';
 import CoHostData from './PeerRole/CoHostData';
 import HostData from './PeerRole/HostData';
@@ -32,13 +33,19 @@ interface IAcceptDenyProps {
 }
 
 const AcceptDenyGroup: FC<IAcceptDenyProps> = ({ onAccept, onDeny }) => (
-  <div className="flex items-center gap-4">
-    <div role="presentation" onClick={onAccept}>
-      {PeerListIcons.accept}
-    </div>
-    <div role="presentation" onClick={onDeny}>
-      {PeerListIcons.deny}
-    </div>
+  <div className="flex items-center gap-2">
+    <button
+      className="border-brand-500 text-brand-500 rounded-md border p-0.5 dark:border-neutral-500 dark:text-neutral-50"
+      onClick={onAccept}
+    >
+      <CheckIcon className="h-4 w-4" />
+    </button>
+    <button
+      className="rounded-md border border-red-400 p-0.5 text-red-400"
+      onClick={onDeny}
+    >
+      <XIcon className="h-4 w-4" />
+    </button>
   </div>
 );
 
@@ -124,7 +131,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
       {isRequested ? (
         <AcceptDenyGroup onDeny={onDeny} onAccept={onAccept} />
       ) : (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center">
           <button
             onClick={() => {
               if (
@@ -134,11 +141,9 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
                 isAudioOn ? stopAudioStream() : fetchAudioStream();
               }
             }}
-            className="relative h-4 w-4"
+            className="flex items-center justify-center"
           >
-            {isAudioOn || isMicActive
-              ? NestedPeerListIcons.active.mic
-              : NestedPeerListIcons.inactive.mic}
+            {isAudioOn || isMicActive ? Icons.mic.true : Icons.mic.false}
           </button>
 
           {me.role === 'host' ||
@@ -146,13 +151,17 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
             (me.meId === peerId || ['speaker', 'listener'].includes(role))) ||
           ((me.role === 'speaker' || me.role === 'listener') &&
             me.meId === peerId) ? (
-            <Dropdown triggerChild={NestedPeerListIcons.inactive.more}>
+            <Dropdown
+              triggerChild={
+                <DotsVerticalIcon className="h-4 w-4 text-neutral-500" />
+              }
+            >
               <div className="absolute -right-10 top-4 w-40 rounded-lg border border-neutral-300 bg-white dark:border-neutral-500 dark:bg-neutral-800">
                 {RoleData?.[role]}
               </div>
             </Dropdown>
           ) : (
-            <button> {NestedPeerListIcons.inactive.more}</button>
+            <DotsVerticalIcon className="h-4 w-4 text-neutral-500" />
           )}
         </div>
       )}

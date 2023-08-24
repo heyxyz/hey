@@ -1,3 +1,4 @@
+import { MusicNoteIcon, PlayIcon, StopIcon } from '@heroicons/react/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { Radio } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
@@ -7,8 +8,6 @@ import React from 'react';
 import { MusicTrack } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
-
-import { Icons } from '../Common/assets/Icons';
 
 interface MusicTrackSelectionProps {
   value: MusicTrack;
@@ -51,9 +50,9 @@ const MusicTray: FC = () => {
   return (
     <div className="rounded-lg border border-neutral-300 dark:border-slate-700 dark:bg-neutral-900">
       <div className="relative">
-        <div className="flex items-center justify-center border-b border-neutral-300 px-2 py-3 font-semibold text-slate-100 dark:border-slate-700">
-          <div className="inline-flex h-8 w-8 flex-col"> {Icons.music} </div>
-          <span className="text-sm font-medium text-neutral-700 dark:text-slate-200">
+        <div className="flex items-center justify-center border-b border-neutral-300 px-2 py-3 font-semibold text-neutral-700 dark:border-slate-700 dark:text-slate-200">
+          <MusicNoteIcon className="mr-2 h-5 w-5 " />
+          <span className="text-sm font-medium">
             <Trans>Background Music</Trans>
           </span>
         </div>
@@ -81,14 +80,11 @@ const MusicTray: FC = () => {
           }
         }}
       >
-        <div
-          className={clsx(
-            'h-5 w-5',
-            isMyMusicPlaying ? 'text-red-400' : 'text-slate-200'
-          )}
-        >
-          {isMyMusicPlaying ? Icons.pauseMusic : Icons.playMusic}
-        </div>
+        {isMyMusicPlaying ? (
+          <StopIcon className="h-5 w-5 text-red-400" />
+        ) : (
+          <PlayIcon className="h-5 w-5 text-slate-200" />
+        )}
         <div
           className={clsx(
             'text-sm font-semibold',

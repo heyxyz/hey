@@ -1,3 +1,9 @@
+import {
+  EmojiHappyIcon,
+  MicrophoneIcon,
+  MusicNoteIcon,
+  UserIcon
+} from '@heroicons/react/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import {
   useAudio,
@@ -57,7 +63,7 @@ const SpacesWindowBottomBar: FC = () => {
               fetchAudioStream();
             }
           }}
-          className="bg-brand-100 rounded-lg dark:bg-neutral-800"
+          className="bg-brand-100 text-brand-500 rounded-lg dark:bg-neutral-800 dark:text-neutral-400"
         >
           {isAudioOn ? Icons.mic.true : Icons.mic.false}
         </button>
@@ -66,9 +72,8 @@ const SpacesWindowBottomBar: FC = () => {
           className="bg-brand-500 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4 dark:bg-indigo-950"
           onClick={sendSpeakerRequest}
         >
-          <div className="relative h-5 w-5 text-neutral-50">
-            {Icons.speaker}
-          </div>
+          <MicrophoneIcon className="dark:text-brand-400 relative h-4 w-4 text-neutral-50" />
+
           <div className="dark:text-brand-400 text-xs font-medium leading-none text-neutral-50">
             <Trans>Request to speak</Trans>
           </div>
@@ -78,8 +83,8 @@ const SpacesWindowBottomBar: FC = () => {
         {['host', 'coHost'].includes(me.role) && (
           <Dropdown
             triggerChild={
-              <div className="bg-brand-100 rounded-lg text-black dark:bg-neutral-800">
-                {Icons.music}
+              <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-neutral-800">
+                <MusicNoteIcon className="text-brand-500 h-5 w-5 dark:text-neutral-400" />
               </div>
             }
           >
@@ -90,8 +95,8 @@ const SpacesWindowBottomBar: FC = () => {
         )}
         <Dropdown
           triggerChild={
-            <div className="bg-brand-100 rounded-lg dark:bg-neutral-800">
-              {Icons.reaction}
+            <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-neutral-800">
+              <EmojiHappyIcon className="text-brand-500 h-5 w-5 dark:text-neutral-400" />
             </div>
           }
         >
@@ -100,14 +105,12 @@ const SpacesWindowBottomBar: FC = () => {
           </div>
         </Dropdown>
         <button
-          className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-neutral-800 dark:text-neutral-500"
+          className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-neutral-800 dark:text-neutral-400"
           onClick={() => {
             setSidebarView(sidebarView === 'peers' ? 'close' : 'peers');
           }}
         >
-          <div className="text-brand-500 dark:text-neutral-500">
-            {Icons.people}
-          </div>
+          <UserIcon className="h-5 w-5" />
           {Object.keys(peers).filter((peerId) => peerId !== me.meId).length + 1}
         </button>
       </div>

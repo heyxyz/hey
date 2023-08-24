@@ -1,7 +1,6 @@
+import { InformationCircleIcon, XIcon } from '@heroicons/react/outline';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-
-import { Icons } from './assets/Icons';
 
 interface InvitationModalProps {
   title: string;
@@ -19,7 +18,7 @@ const InvitationModal: FC<InvitationModalProps> = ({
   return (
     <div className="fixed z-30 flex items-center justify-center px-2 py-2">
       <div className="inline-flex max-w-screen-xl items-start justify-start gap-2 rounded-xl border border-neutral-400 bg-neutral-50 px-2.5 py-4 shadow dark:border-neutral-500 dark:bg-neutral-800">
-        <div className="relative h-5 w-5"> {Icons.infocircle} </div>
+        <InformationCircleIcon className="relative h-5 w-5 text-neutral-500 dark:text-neutral-200" />
         <div className="inline-flex shrink grow basis-0 flex-col items-start justify-start gap-4">
           <div className="flex flex-col items-start justify-start gap-1">
             <div className="text-sm font-semibold leading-tight text-neutral-600 dark:text-neutral-200">
@@ -51,9 +50,7 @@ const InvitationModal: FC<InvitationModalProps> = ({
               onClose();
             }}
           >
-            <div className="relative flex h-5 w-5 flex-col items-start justify-start">
-              {Icons.cross}
-            </div>
+            <XIcon className="relative h-5 w-5" />
           </button>
         </div>
       </div>

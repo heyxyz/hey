@@ -11,7 +11,7 @@ const Dropdown: FC<DropdownProps> = ({ children, triggerChild }) => {
   return (
     <Menu>
       <Menu.Button>{triggerChild}</Menu.Button>
-      <Menu.Items className="absolute">
+      <Menu.Items className="absolute z-10">
         <Menu.Item disabled>{children}</Menu.Item>
       </Menu.Items>
     </Menu>

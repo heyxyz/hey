@@ -1,4 +1,5 @@
-import { BasicIcons } from '../assets/Icons';
+import { UserIcon } from '@heroicons/react/outline';
+
 import Peers from './Peers/Peers';
 
 export type TViewComponent = {
@@ -11,7 +12,7 @@ export type TViewComponent = {
 
 const ViewComponent: TViewComponent = {
   peers: {
-    icon: BasicIcons.peers,
+    icon: <UserIcon className="h-5 w-5" />,
     headerData: 'Peers',
     component: <Peers />
   }

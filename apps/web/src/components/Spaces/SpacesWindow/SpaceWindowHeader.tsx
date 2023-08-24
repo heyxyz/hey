@@ -1,16 +1,23 @@
 import Slug from '@components/Shared/Slug';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ClipboardCopyIcon,
+  DotsVerticalIcon
+} from '@heroicons/react/outline';
+import { BadgeCheckIcon } from '@heroicons/react/solid';
 import { useEventListener, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import getAvatar from '@lenster/lib/getAvatar';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Image } from '@lenster/ui';
 import isVerified from '@lib/isVerified';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { useSpacesStore } from 'src/store/spaces';
-
-import { Icons } from '../Common/assets/Icons';
 
 type SpacesWindowProps = {
   isExpanded?: boolean;
@@ -47,12 +54,17 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
       <div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div
-              className="cursor-pointer"
-              onClick={() => setIsExpanded((prev) => !prev)}
-            >
-              {Icons.chevronUp}
-            </div>
+            {isExpanded ? (
+              <ChevronDownIcon
+                className="h-5 w-5"
+                onClick={() => setIsExpanded((prev) => !prev)}
+              />
+            ) : (
+              <ChevronUpIcon
+                className="h-5 w-5"
+                onClick={() => setIsExpanded((prev) => !prev)}
+              />
+            )}
             {!isExpanded && (
               <div className="text-sm font-medium leading-tight text-neutral-900 dark:text-neutral-300">
                 {space.title}
@@ -60,8 +72,15 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
             )}
           </div>
           <div className="flex items-center gap-3">
-            <div>{Icons.share}</div>
-            <div>{Icons.more}</div>
+            <ClipboardCopyIcon
+              className="h-5 w-5"
+              onClick={async (event) => {
+                stopEventPropagation(event);
+                await navigator.clipboard.writeText('Spaces Post Link');
+                toast.success(t`Copied to clipboard!`);
+              }}
+            />
+            <DotsVerticalIcon className="h-5 w-5" />
             {isExpanded &&
               (me.role === 'host' ? (
                 <button className="text-brand-500 text-sm" onClick={endRoom}>
@@ -89,7 +108,11 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
                 slug={`@${hostProfile.handle}`}
                 className="text-sm font-normal"
               />
-              <div>{isVerified(hostProfile.id) && Icons.verified}</div>
+              <div>
+                {isVerified(hostProfile.id) && (
+                  <BadgeCheckIcon className="text-brand h-4 w-4" />
+                )}
+              </div>
             </div>
           </>
         )}

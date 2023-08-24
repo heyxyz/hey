@@ -1,3 +1,4 @@
+import { DotsVerticalIcon } from '@heroicons/react/outline';
 import { useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import { Image } from '@lenster/ui';
 import type { FC } from 'react';
@@ -5,7 +6,6 @@ import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
-import { NestedPeerListIcons } from '../assets/Icons';
 import Audio from '../Audio';
 import Dropdown from '../Dropdown';
 import CoHostData from '../Sidebar/Peers/PeerRole/CoHostData';
@@ -75,9 +75,7 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
             <div className="absolute inset-0 rounded-full group-hover:bg-black group-hover:opacity-50" />
             <Dropdown
               triggerChild={
-                <button className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform opacity-0 group-hover:opacity-100">
-                  {NestedPeerListIcons.active.more}
-                </button>
+                <DotsVerticalIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-neutral-50 opacity-0 group-hover:opacity-100" />
               }
             >
               <div className="absolute -left-4 -top-5 w-40 rounded-lg border border-neutral-300 bg-white p-1 dark:border-neutral-500 dark:bg-neutral-800">
