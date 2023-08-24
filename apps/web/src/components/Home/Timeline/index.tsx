@@ -7,13 +7,14 @@ import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
-let virtuosoState: any = { ranges: [], scrollTo: 0 };
+let virtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
   const virtuosoRef = useRef<any>();
@@ -81,9 +82,11 @@ const Timeline: FC = () => {
     });
   };
 
-  const onScrolling = () => {
-    virtuosoRef?.current?.getState((state: any) => {
-      virtuosoState = state;
+  const onScrolling = (scrolling: boolean) => {
+    virtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        virtuosoState = { ...state };
+      }
     });
   };
 
@@ -105,7 +108,7 @@ const Timeline: FC = () => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card>
       {txnQueue.map((txn) =>
         txn?.type === OptmisticPublicationType.NewPost ? (
           <div key={txn.id}>
@@ -115,21 +118,27 @@ const Timeline: FC = () => {
       )}
       {publications && (
         <Virtuoso
-          restoreStateFrom={virtuosoState}
+          restoreStateFrom={
+            virtuosoState.ranges.length === 0
+              ? virtuosoRef?.current?.getState((state: StateSnapshot) => state)
+              : virtuosoState
+          }
           ref={virtuosoRef}
           useWindowScroll
           data={publications}
           endReached={onEndReached}
-          isScrolling={onScrolling}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
           itemContent={(index, publication) => {
             return (
-              <SinglePublication
-                key={`${publication?.root.id}_${index}`}
-                isFirst={index === 0}
-                isLast={index === publications.length - 1}
-                feedItem={publication as FeedItem}
-                publication={publication.root as Publication}
-              />
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication?.root.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  feedItem={publication as FeedItem}
+                  publication={publication.root as Publication}
+                />
+              </div>
             );
           }}
         />
