@@ -14,7 +14,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "v1",
-    "@hookform/resolvers": "^3.2.0",
+    "@hookform/resolvers": "^3.3.0",
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "@tippyjs/react": "^4.2.6",
@@ -26,8 +26,8 @@
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
-    "@types/node": "^20.5.1",
-    "@types/react": "^18.2.20",
+    "@types/node": "^20.5.4",
+    "@types/react": "^18.2.21",
     "typescript": "^5.1.6"
   }
 }
