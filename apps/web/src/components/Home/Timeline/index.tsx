@@ -6,14 +6,17 @@ import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import { type FC, useRef } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
+let virtuosoState: any = { ranges: [], scrollTo: 0 };
+
 const Timeline: FC = () => {
+  const virtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore(
@@ -64,6 +67,26 @@ const Timeline: FC = () => {
   const pageInfo = data?.feed?.pageInfo;
   const hasMore = pageInfo?.next;
 
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
+    }
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId: currentProfile?.id
+      }
+    });
+  };
+
+  const onScrolling = () => {
+    virtuosoRef?.current?.getState((state: any) => {
+      virtuosoState = state;
+    });
+  };
+
   if (loading) {
     return <PublicationsShimmer />;
   }
@@ -81,20 +104,6 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
-  const onEndReached = async () => {
-    if (!hasMore) {
-      return;
-    }
-
-    await fetchMore({
-      variables: {
-        request: { ...request, cursor: pageInfo?.next },
-        reactionRequest,
-        profileId: currentProfile?.id
-      }
-    });
-  };
-
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {txnQueue.map((txn) =>
@@ -106,9 +115,12 @@ const Timeline: FC = () => {
       )}
       {publications && (
         <Virtuoso
+          restoreStateFrom={virtuosoState}
+          ref={virtuosoRef}
           useWindowScroll
           data={publications}
           endReached={onEndReached}
+          isScrolling={onScrolling}
           itemContent={(index, publication) => {
             return (
               <SinglePublication
