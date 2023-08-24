@@ -6,6 +6,7 @@ import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import React, { useCallback } from 'react';
 import { type FC, useRef } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
@@ -82,13 +83,13 @@ const Timeline: FC = () => {
     });
   };
 
-  const onScrolling = (scrolling: boolean) => {
+  const onScrolling = useCallback((scrolling: boolean) => {
     virtuosoRef?.current?.getState((state: StateSnapshot) => {
       if (!scrolling) {
         virtuosoState = { ...state };
       }
     });
-  };
+  }, []);
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -107,6 +108,8 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
+  const Footer = () => <PublicationsShimmer />;
+
   return (
     <Card>
       {txnQueue.map((txn) =>
@@ -118,6 +121,7 @@ const Timeline: FC = () => {
       )}
       {publications && (
         <Virtuoso
+          components={{ Footer }}
           restoreStateFrom={
             virtuosoState.ranges.length === 0
               ? virtuosoRef?.current?.getState((state: StateSnapshot) => state)
