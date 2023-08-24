@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
@@ -69,3 +71,19 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+module.exports = withSentryConfig(
+  module.exports,
+  {
+    silent: true,
+    org: 'lenster',
+    project: 'web'
+  },
+  {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    tunnelRoute: '/monitoring',
+    hideSourceMaps: true,
+    disableLogger: true
+  }
+);
