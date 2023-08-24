@@ -18,7 +18,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 let timeLineVirtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const timelineVirtuosoRef = useRef<any>();
+  const timelinevirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore(
@@ -84,12 +84,16 @@ const Timeline: FC = () => {
   };
 
   const onScrolling = useCallback((scrolling: boolean) => {
-    timelineVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+    timelinevirtuosoRef?.current?.getState((state: StateSnapshot) => {
       if (!scrolling) {
         timeLineVirtuosoState = { ...state };
       }
     });
   }, []);
+
+  if (loading) {
+    return <PublicationsShimmer />;
+  }
 
   if (publications?.length === 0) {
     return (
@@ -104,8 +108,6 @@ const Timeline: FC = () => {
     return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
   }
 
-  const Footer = () => <PublicationsShimmer />;
-
   return (
     <Card>
       {txnQueue.map((txn) =>
@@ -115,34 +117,35 @@ const Timeline: FC = () => {
           </div>
         ) : null
       )}
-      <Virtuoso
-        components={{ Footer }}
-        restoreStateFrom={
-          timeLineVirtuosoState.ranges.length === 0
-            ? timelineVirtuosoRef?.current?.getState(
-                (state: StateSnapshot) => state
-              )
-            : timeLineVirtuosoState
-        }
-        ref={timelineVirtuosoRef}
-        useWindowScroll
-        data={publications}
-        endReached={onEndReached}
-        isScrolling={(scrolling) => onScrolling(scrolling)}
-        itemContent={(index, publication) => {
-          return (
-            <div className="border-b-[1px] dark:border-gray-700">
-              <SinglePublication
-                key={`${publication?.root.id}_${index}`}
-                isFirst={index === 0}
-                isLast={index === (publications ? publications?.length - 1 : 0)}
-                feedItem={publication as FeedItem}
-                publication={publication.root as Publication}
-              />
-            </div>
-          );
-        }}
-      />
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            timeLineVirtuosoState.ranges.length === 0
+              ? timelinevirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : timeLineVirtuosoState
+          }
+          ref={timelinevirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication?.root.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  feedItem={publication as FeedItem}
+                  publication={publication.root as Publication}
+                />
+              </div>
+            );
+          }}
+        />
+      )}
     </Card>
   );
 };
