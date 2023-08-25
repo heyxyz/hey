@@ -8,7 +8,8 @@ import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
-import type { FC } from 'react';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
@@ -16,8 +17,11 @@ interface AlgorithmicFeedProps {
   feedType: HomeFeedType;
 }
 
+let algoFeedVirtuosoState: any = { ranges: [], screenTop: 0 };
+
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const alogFeedVirtuosoRef = useRef<any>();
 
   const {
     data: publicationIds,
@@ -62,16 +66,26 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications && (
         <Virtuoso
+          restoreStateFrom={
+            algoFeedVirtuosoState.ranges.length === 0
+              ? alogFeedVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : algoFeedVirtuosoState
+          }
+          ref={alogFeedVirtuosoRef}
           useWindowScroll
           data={publications}
           itemContent={(index, publication) => {
             return (
-              <SinglePublication
-                key={`${publication.id}_${index}`}
-                isFirst={index === 0}
-                isLast={index === publications.length - 1}
-                publication={publication as Publication}
-              />
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as Publication}
+                />
+              </div>
             );
           }}
         />

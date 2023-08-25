@@ -18,7 +18,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 let timeLineVirtuosoState: any = { ranges: [], screenTop: 0 };
 
 const Timeline: FC = () => {
-  const timelinevirtuosoRef = useRef<any>();
+  const timelineVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const feedEventFilters = useTimelinePersistStore(
@@ -84,7 +84,7 @@ const Timeline: FC = () => {
   };
 
   const onScrolling = useCallback((scrolling: boolean) => {
-    timelinevirtuosoRef?.current?.getState((state: StateSnapshot) => {
+    timelineVirtuosoRef?.current?.getState((state: StateSnapshot) => {
       if (!scrolling) {
         timeLineVirtuosoState = { ...state };
       }
@@ -121,12 +121,12 @@ const Timeline: FC = () => {
         <Virtuoso
           restoreStateFrom={
             timeLineVirtuosoState.ranges.length === 0
-              ? timelinevirtuosoRef?.current?.getState(
+              ? timelineVirtuosoRef?.current?.getState(
                   (state: StateSnapshot) => state
                 )
               : timeLineVirtuosoState
           }
-          ref={timelinevirtuosoRef}
+          ref={timelineVirtuosoRef}
           useWindowScroll
           data={publications}
           endReached={onEndReached}
