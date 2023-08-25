@@ -69,9 +69,11 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
 
-    let result = t`Starts in `;
+    let result = t`Starts in`;
+    result += ' ';
     if (hours > 0) {
-      result += t`${hours} hour `;
+      result += t`${hours} hour`;
+      result += ' ';
     }
 
     if (minutes > 0) {
@@ -100,7 +102,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
           disabled={signing}
           icon={
             signing ? (
-              <Spinner size="xs" className="mr-1" />
+              <Spinner size="xs" className="p-1" />
             ) : calculateRemainingTime() !== 'Start Listening' ? (
               <ClockIcon className="h-5 w-5" />
             ) : (
