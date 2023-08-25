@@ -6,14 +6,18 @@ import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
 import { useFeedHighlightsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
+let highlightsVirtuosoState: any = { ranges: [], screenTop: 0 };
+
 const Highlights: FC = () => {
+  const highlightsVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const seeThroughProfile = useTimelineStore(
@@ -37,21 +41,19 @@ const Highlights: FC = () => {
   const pageInfo = data?.feedHighlights?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId: currentProfile?.id
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId: currentProfile?.id
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -70,6 +72,14 @@ const Highlights: FC = () => {
     return <ErrorMessage title={t`Failed to load highlights`} error={error} />;
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    highlightsVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        highlightsVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {txnQueue.map((txn) =>
@@ -79,15 +89,34 @@ const Highlights: FC = () => {
           </div>
         ) : null
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            highlightsVirtuosoState.ranges.length === 0
+              ? highlightsVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : highlightsVirtuosoState
+          }
+          ref={highlightsVirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication?.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as Publication}
+                />
+              </div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      )}
     </Card>
   );
 };

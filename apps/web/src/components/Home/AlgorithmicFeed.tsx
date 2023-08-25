@@ -62,6 +62,14 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    alogFeedVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        algoFeedVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications && (
@@ -76,6 +84,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           ref={alogFeedVirtuosoRef}
           useWindowScroll
           data={publications}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
           itemContent={(index, publication) => {
             return (
               <div className="border-b-[1px] dark:border-gray-700">

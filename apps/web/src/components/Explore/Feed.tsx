@@ -13,8 +13,9 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 import { useExploreStore } from 'src/store/explore';
 
@@ -23,10 +24,13 @@ interface FeedProps {
   feedType?: PublicationSortCriteria;
 }
 
+let exploreVirtuosoState: any = { ranges: [], screenTop: 0 };
+
 const Feed: FC<FeedProps> = ({
   focus,
   feedType = PublicationSortCriteria.CuratedProfiles
 }) => {
+  const exploreVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedTag = useExploreStore((state) => state.selectedTag);
 
@@ -54,21 +58,19 @@ const Feed: FC<FeedProps> = ({
   const pageInfo = data?.explorePublications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -89,20 +91,47 @@ const Feed: FC<FeedProps> = ({
     );
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    exploreVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        exploreVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
     <Card
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="explore-feed"
     >
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            exploreVirtuosoState.ranges.length === 0
+              ? exploreVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : exploreVirtuosoState
+          }
+          ref={exploreVirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as Publication}
+                />
+              </div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      )}
     </Card>
   );
 };

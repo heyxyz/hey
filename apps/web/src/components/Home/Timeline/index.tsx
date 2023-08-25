@@ -6,7 +6,7 @@ import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import React, { useCallback } from 'react';
+import React from 'react';
 import { type FC, useRef } from 'react';
 import type { StateSnapshot } from 'react-virtuoso';
 import { Virtuoso } from 'react-virtuoso';
@@ -83,13 +83,13 @@ const Timeline: FC = () => {
     });
   };
 
-  const onScrolling = useCallback((scrolling: boolean) => {
+  const onScrolling = (scrolling: boolean) => {
     timelineVirtuosoRef?.current?.getState((state: StateSnapshot) => {
       if (!scrolling) {
         timeLineVirtuosoState = { ...state };
       }
     });
-  }, []);
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
