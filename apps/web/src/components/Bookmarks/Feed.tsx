@@ -9,15 +9,19 @@ import type {
 import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
   focus?: PublicationMainFocus;
 }
 
+let bookmarksVirtuosoState: any = { ranges: [], screenTop: 0 };
+
 const Feed: FC<FeedProps> = ({ focus }) => {
+  const bookmarksVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -42,21 +46,19 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   const pageInfo = data?.publicationsProfileBookmarks?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -77,20 +79,47 @@ const Feed: FC<FeedProps> = ({ focus }) => {
     );
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    bookmarksVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        bookmarksVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
     <Card
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="explore-feed"
     >
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            bookmarksVirtuosoState.ranges.length === 0
+              ? bookmarksVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : bookmarksVirtuosoState
+          }
+          ref={bookmarksVirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as Publication}
+                />
+              </div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      )}
     </Card>
   );
 };

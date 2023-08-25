@@ -13,15 +13,19 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { type FC, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
 
 interface PublicationsProps {
   query: string | string[];
 }
 
+let searchVirtuosoState: any = { ranges: [], screenTop: 0 };
+
 const Publications: FC<PublicationsProps> = ({ query }) => {
+  const searchVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -45,21 +49,19 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -84,18 +86,43 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
     );
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    searchVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        searchVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
-    <>
-      <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication?.id}_${index}`}
-            publication={publication}
-          />
-        ))}
-      </Card>
-      {hasMore ? <span ref={observe} /> : null}
-    </>
+    <Card>
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            searchVirtuosoState.ranges.length === 0
+              ? searchVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : searchVirtuosoState
+          }
+          ref={searchVirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication?.id}_${index}`}
+                  publication={publication}
+                />
+              </div>
+            );
+          }}
+        />
+      )}
+    </Card>
   );
 };
 

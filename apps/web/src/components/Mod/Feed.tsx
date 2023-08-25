@@ -12,9 +12,12 @@ import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
+import { useEffect, useRef } from 'react';
+import type { StateSnapshot } from 'react-virtuoso';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
+
+let modFeedVirtuosoState: any = { ranges: [], screenTop: 0 };
 
 interface FeedProps {
   refresh: boolean;
@@ -31,6 +34,7 @@ const Feed: FC<FeedProps> = ({
   mainContentFocus,
   customFilters
 }) => {
+  const modFeedVirtuosoRef = useRef<any>();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
@@ -63,21 +67,19 @@ const Feed: FC<FeedProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh, publicationTypes, mainContentFocus, customFilters]);
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: {
+        request: { ...request, cursor: pageInfo?.next },
+        reactionRequest,
+        profileId
+      }
+    });
+  };
 
   if (loading) {
     return <PublicationsShimmer />;
@@ -98,20 +100,47 @@ const Feed: FC<FeedProps> = ({
     );
   }
 
+  const onScrolling = (scrolling: boolean) => {
+    modFeedVirtuosoRef?.current?.getState((state: StateSnapshot) => {
+      if (!scrolling) {
+        modFeedVirtuosoState = { ...state };
+      }
+    });
+  };
+
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
-          showThread={false}
-          showActions={false}
-          showModActions
+    <Card>
+      {publications && (
+        <Virtuoso
+          restoreStateFrom={
+            modFeedVirtuosoState.ranges.length === 0
+              ? modFeedVirtuosoRef?.current?.getState(
+                  (state: StateSnapshot) => state
+                )
+              : modFeedVirtuosoState
+          }
+          ref={modFeedVirtuosoRef}
+          useWindowScroll
+          data={publications}
+          endReached={onEndReached}
+          isScrolling={(scrolling) => onScrolling(scrolling)}
+          itemContent={(index, publication) => {
+            return (
+              <div className="border-b-[1px] dark:border-gray-700">
+                <SinglePublication
+                  key={`${publication.id}_${index}`}
+                  isFirst={index === 0}
+                  isLast={index === publications.length - 1}
+                  publication={publication as Publication}
+                  showThread={false}
+                  showActions={false}
+                  showModActions
+                />
+              </div>
+            );
+          }}
         />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
+      )}
     </Card>
   );
 };
