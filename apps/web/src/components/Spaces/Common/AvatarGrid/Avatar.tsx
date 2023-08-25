@@ -82,9 +82,9 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
                 <div className="inline-flex w-full items-center justify-start gap-3 px-2 py-1.5">
                   <Image
                     src={avatarUrl}
-                    className="flex h-5 w-5 basis-0 items-center justify-start gap-2 rounded-full"
+                    className="flex h-5 w-5 items-center justify-start gap-2 rounded-full"
                   />
-                  <div className="shrink grow basis-0 text-sm font-medium leading-tight text-neutral-700 dark:text-stone-200">
+                  <div className="text-sm font-medium leading-tight text-neutral-700 dark:text-stone-200">
                     {displayName}
                   </div>
                 </div>
@@ -94,12 +94,10 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
           </>
         ) : null}
       </div>
-      <div className="flex flex-col items-center justify-start gap-0.5">
-        <div className="text-xs font-normal leading-none text-neutral-700 dark:text-neutral-300">
-          {displayName}
-        </div>
+      <div className="text-xs font-normal text-neutral-700 dark:text-neutral-300">
+        {displayName}
       </div>
-      <div className="text-xs font-normal leading-none text-neutral-500 dark:text-slate-400">
+      <div className="text-xs font-normal text-neutral-500 dark:text-slate-400">
         {role}
       </div>
       <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 text-2xl">

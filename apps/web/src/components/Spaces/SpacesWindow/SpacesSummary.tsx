@@ -64,10 +64,8 @@ const SpacesSummary: FC = () => {
             />
           ) : null}
         </div>
-        <div>
-          {`${listeners}${listeners > 0 ? '+ ' : ' '}`}
-          <Trans>Listening</Trans>
-        </div>
+        {`${listeners}${listeners > 0 ? '+ ' : ' '}`}
+        <Trans>Listening</Trans>
       </div>
     </div>
   );

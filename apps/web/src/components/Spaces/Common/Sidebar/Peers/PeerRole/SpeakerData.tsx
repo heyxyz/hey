@@ -18,22 +18,20 @@ const Speaker: FC<SpeakerDataProps> = ({ peerId }) => {
   return (
     <>
       {me.role === 'host' && (
-        <div>
-          <Strip
-            type="personNormal"
-            title="Invite as Co-Host"
-            variant="normal"
-            onClick={() => {
-              sendData([peerId], {
-                requestType: 'coHost-invitation',
-                peerId: peerId
-              });
-            }}
-          />
-        </div>
+        <Strip
+          type="personNormal"
+          title="Invite as Co-Host"
+          variant="normal"
+          onClick={() => {
+            sendData([peerId], {
+              requestType: 'coHost-invitation',
+              peerId: peerId
+            });
+          }}
+        />
       )}
       {['host', 'coHost'].includes(me.role) && (
-        <div>
+        <>
           <Strip
             type="speaker"
             title="Remove as Speaker"
@@ -50,11 +48,11 @@ const Speaker: FC<SpeakerDataProps> = ({ peerId }) => {
               kickPeer(peerId);
             }}
           />
-        </div>
+        </>
       )}
 
       {me.role === 'speaker' && (
-        <div>
+        <>
           <Strip
             type="leave"
             title="Leave speaker role"
@@ -71,7 +69,7 @@ const Speaker: FC<SpeakerDataProps> = ({ peerId }) => {
               leaveRoom();
             }}
           />
-        </div>
+        </>
       )}
     </>
   );

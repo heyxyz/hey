@@ -1,7 +1,6 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import SpacesWindow from '@components/Spaces/SpacesWindow/SpacesWindow';
 import type { Profile } from '@lenster/lens';
 import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
 import resetAuthData from '@lenster/lib/resetAuthData';
@@ -15,7 +14,6 @@ import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
-import { useSpacesStore } from 'src/store/spaces';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -33,8 +31,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
 
   const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
-  const showSpacesLobby = useSpacesStore((state) => state.showSpacesLobby);
-  const showSpacesWindow = useSpacesStore((state) => state.showSpacesWindow);
   const { setProfileGuardianInformation, resetProfileGuardianInformation } =
     useProfileGuardianInformationStore();
   const { profileId, setProfileId } = useAppPersistStore();
@@ -122,8 +118,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      {showSpacesLobby && <Spaces />}
-      {showSpacesWindow && <SpacesWindow />}
+      <Spaces />
       <GlobalModals />
       <GlobalAlerts />
       <div className="flex min-h-screen flex-col pb-14 md:pb-0">

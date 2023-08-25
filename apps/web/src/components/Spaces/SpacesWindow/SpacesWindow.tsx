@@ -170,7 +170,7 @@ const SpacesWindow: FC = () => {
         <audio ref={audioRef} src={musicTrack} loop />
       )}
       <div className="relative mx-auto max-w-screen-xl grow">
-        <div className="absolute bottom-0 right-0 ml-auto w-fit rounded-xl rounded-b-none border-[1.5px] border-neutral-300 bg-white px-4 py-4 dark:border-neutral-700 dark:bg-neutral-900">
+        <div className="absolute bottom-0 right-0 ml-auto rounded-xl rounded-b-none border-[1.5px] border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
           <div className="flex justify-center">
             {showAcceptRequest && isExpanded && (
               <InvitationModal
@@ -202,11 +202,11 @@ const SpacesWindow: FC = () => {
           />
           <div className="min-w-[28rem]">
             {isExpanded ? (
-              <div className="relative">
+              <div className="relative mt-4">
                 <div className="absolute bottom-12 right-0 z-10 h-fit">
                   <Sidebar />
                 </div>
-                <div className="mt-4">{<AvatarGrid />}</div>
+                <AvatarGrid />
                 <SpacesWindowBottomBar />
               </div>
             ) : (

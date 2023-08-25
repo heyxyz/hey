@@ -26,16 +26,16 @@ const PreviewSpacesHeader: FC = () => {
   ) as Profile;
 
   return (
-    <div className="relative border-b border-neutral-300 bg-neutral-100 p-5 py-4 dark:border-neutral-800 dark:bg-zinc-800">
+    <div className="relative border-b border-neutral-300 bg-neutral-100 p-3 dark:border-neutral-800 dark:bg-zinc-800">
       <div className="mx-auto flex w-fit items-center gap-2 text-neutral-900 dark:text-neutral-100">
         {hostProfile?.name}
         {isVerified(hostProfile.id) && (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
         )}
-        <span className="items-center justify-center text-sm"> | </span>
-        <Slug slug={t`@${hostProfile.handle}`} className="text-sm" />
+        <span className="text-sm"> | </span>
+        <Slug slug={t`@${hostProfile.handle}`} />
       </div>
-      <div className="pt-2 text-base font-normal leading-none text-neutral-500 dark:text-neutral-300">
+      <div className="pt-2 text-base font-normal text-neutral-500 dark:text-neutral-300">
         {space.title}
       </div>
       <XIcon

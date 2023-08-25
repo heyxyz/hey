@@ -16,6 +16,27 @@ interface TokenGateFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
+interface ModuleProps {
+  title: string;
+  onClick: () => void;
+  condition: TokenGateCondition;
+}
+
+const getTokenGateConditionDescription = (
+  tokenGateConditionType: TokenGateCondition
+) => {
+  switch (tokenGateConditionType) {
+    case TokenGateCondition.HAVE_A_LENS_PROFILE:
+      return t`have a lens profile`;
+    case TokenGateCondition.FOLLOW_A_LENS_PROFILE:
+      return t`follow a lens profile`;
+    case TokenGateCondition.COLLECT_A_POST:
+      return t`collect a post`;
+    case TokenGateCondition.MIRROR_A_POST:
+      return t`mirror a post`;
+  }
+};
+
 const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
   const {
     isTokenGated,
@@ -25,27 +46,6 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
     setTokenGateConditionValue,
     tokenGateConditionValue
   } = useSpacesStore();
-
-  interface ModuleProps {
-    title: string;
-    onClick: () => void;
-    condition: TokenGateCondition;
-  }
-
-  const getTokenGateConditionDescription = (
-    tokenGateConditionType: TokenGateCondition
-  ) => {
-    switch (tokenGateConditionType) {
-      case TokenGateCondition.HAVE_A_LENS_PROFILE:
-        return t`have a lens profile`;
-      case TokenGateCondition.FOLLOW_A_LENS_PROFILE:
-        return t`follow a lens profile`;
-      case TokenGateCondition.COLLECT_A_POST:
-        return t`collect a post`;
-      case TokenGateCondition.MIRROR_A_POST:
-        return t`mirror a post`;
-    }
-  };
 
   const onProfileSelected = (profile: Profile) => {
     setTokenGateConditionValue(profile.handle);
@@ -62,30 +62,26 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
       onClick={onClick}
     >
       <div className="flex items-center justify-between space-x-2">
-        <div className="flex items-center space-x-1.5">
-          <div>{title}</div>
-        </div>
+        {title}
         {tokenGateConditionType === condition ? (
-          <CheckCircleIcon className="w-5 text-green-500" />
+          <CheckCircleIcon className="h-5 w-5 text-green-500" />
         ) : null}
       </div>
     </Menu.Item>
   );
 
   return (
-    <div>
+    <>
       {[
         TokenGateCondition.MIRROR_A_POST,
         TokenGateCondition.COLLECT_A_POST,
         TokenGateCondition.FOLLOW_A_LENS_PROFILE
       ].includes(tokenGateConditionType) && (
-        <div className="flex items-center gap-2 px-4 py-3">
-          <div className="flex items-center gap-3 text-neutral-500">
-            {tokenGateConditionType === TokenGateCondition.FOLLOW_A_LENS_PROFILE
-              ? t`Enter Lens profile`
-              : t`Enter Lens post link`}
-          </div>
-          <div className="flex flex-[1_0_0] items-center gap-1 px-3">
+        <div className="flex items-center gap-2 p-3 text-neutral-500">
+          {tokenGateConditionType === TokenGateCondition.FOLLOW_A_LENS_PROFILE
+            ? t`Enter Lens profile`
+            : t`Enter Lens post link`}
+          <div className="flex flex-1 items-center gap-1 px-3">
             {tokenGateConditionType ===
             TokenGateCondition.FOLLOW_A_LENS_PROFILE ? (
               <Search
@@ -104,73 +100,62 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
           </div>
         </div>
       )}
-      <div className="block w-fit items-center p-4 sm:flex">
-        <div className="flex flex-[0_0_1] gap-2 space-x-1">
-          <div>
-            <Toggle
-              on={isTokenGated}
-              setOn={() => setIsTokenGated(!isTokenGated)}
-            />
+      <div className="block items-center gap-2 p-4 sm:flex">
+        <Toggle
+          on={isTokenGated}
+          setOn={() => setIsTokenGated(!isTokenGated)}
+        />
+        <div className="flex items-start gap-1">
+          <div className="flex flex-col items-start text-sm text-neutral-400 dark:text-neutral-500">
+            <Trans>Token gate with</Trans>
           </div>
-          <div className="flex items-start gap-1">
-            <div className="flex flex-col items-start text-sm text-neutral-400 dark:text-neutral-500">
-              <Trans>Token gate with</Trans>
-            </div>
-            <Menu as="div" className="relative">
-              <Menu.Button className="flex items-start gap-1">
-                <span className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-300">
-                  {getTokenGateConditionDescription(tokenGateConditionType)}
-                  <ChevronDownIcon className="h-4 w-4 items-center justify-center" />
-                </span>
-              </Menu.Button>
-              <MenuTransition>
-                <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-lg border bg-white text-sm shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-900">
-                  <Module
-                    title="have a lens profile"
-                    onClick={() =>
-                      setTokenGateConditionType(
-                        TokenGateCondition.HAVE_A_LENS_PROFILE
-                      )
-                    }
-                    condition={TokenGateCondition.HAVE_A_LENS_PROFILE}
-                  />
-
-                  <Module
-                    title="follow a lens profile"
-                    onClick={() =>
-                      setTokenGateConditionType(
-                        TokenGateCondition.FOLLOW_A_LENS_PROFILE
-                      )
-                    }
-                    condition={TokenGateCondition.FOLLOW_A_LENS_PROFILE}
-                  />
-
-                  <Module
-                    title="collect a post"
-                    onClick={() =>
-                      setTokenGateConditionType(
-                        TokenGateCondition.COLLECT_A_POST
-                      )
-                    }
-                    condition={TokenGateCondition.COLLECT_A_POST}
-                  />
-
-                  <Module
-                    title="mirror a post"
-                    onClick={() =>
-                      setTokenGateConditionType(
-                        TokenGateCondition.MIRROR_A_POST
-                      )
-                    }
-                    condition={TokenGateCondition.MIRROR_A_POST}
-                  />
-                </Menu.Items>
-              </MenuTransition>
-            </Menu>
-          </div>
+          <Menu as="div" className="relative">
+            <Menu.Button className="flex items-start gap-1">
+              <span className="flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-300">
+                {getTokenGateConditionDescription(tokenGateConditionType)}
+                <ChevronDownIcon className="h-4 w-4 items-center justify-center" />
+              </span>
+            </Menu.Button>
+            <MenuTransition>
+              <Menu.Items className="absolute right-0 w-48 rounded-lg border bg-white text-sm shadow-lg focus:outline-none dark:border-gray-700 dark:bg-gray-900">
+                <Module
+                  title={t`have a lens profile`}
+                  onClick={() =>
+                    setTokenGateConditionType(
+                      TokenGateCondition.HAVE_A_LENS_PROFILE
+                    )
+                  }
+                  condition={TokenGateCondition.HAVE_A_LENS_PROFILE}
+                />
+                <Module
+                  title={t`follow a lens profile`}
+                  onClick={() =>
+                    setTokenGateConditionType(
+                      TokenGateCondition.FOLLOW_A_LENS_PROFILE
+                    )
+                  }
+                  condition={TokenGateCondition.FOLLOW_A_LENS_PROFILE}
+                />
+                <Module
+                  title={t`collect a post`}
+                  onClick={() =>
+                    setTokenGateConditionType(TokenGateCondition.COLLECT_A_POST)
+                  }
+                  condition={TokenGateCondition.COLLECT_A_POST}
+                />
+                <Module
+                  title={t`mirror a post`}
+                  onClick={() =>
+                    setTokenGateConditionType(TokenGateCondition.MIRROR_A_POST)
+                  }
+                  condition={TokenGateCondition.MIRROR_A_POST}
+                />
+              </Menu.Items>
+            </MenuTransition>
+          </Menu>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

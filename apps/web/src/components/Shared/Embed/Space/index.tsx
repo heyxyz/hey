@@ -6,6 +6,7 @@ import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Button, Spinner } from '@lenster/ui';
+import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { type FC } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
@@ -18,11 +19,11 @@ interface SpaceProps {
 }
 
 const Space: FC<SpaceProps> = ({ publication }) => {
-  const { address } = useAccount();
-  const { metadata } = publication;
-
   const { setShowSpacesLobby, setLensAccessToken, lensAccessToken, setSpace } =
     useSpacesStore();
+
+  const { address } = useAccount();
+  const { metadata } = publication;
 
   const space: SpaceMetadata = JSON.parse(
     getPublicationAttribute(metadata.attributes, 'audioSpace')
@@ -61,24 +62,24 @@ const Space: FC<SpaceProps> = ({ publication }) => {
     const targetTime = new Date(space.startTime);
     const timeDifference = targetTime.getTime() - now.getTime();
     if (timeDifference <= 0) {
-      return 'Start Listening';
+      return t`Start Listening`;
     }
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
 
-    let result = 'Starts in ';
+    let result = t`Starts in `;
     if (hours > 0) {
-      result += `${hours} hour `;
+      result += t`${hours} hour `;
     }
 
     if (minutes > 0) {
-      result += `${minutes} minutes`;
+      result += t`${minutes} minutes`;
     }
 
     if (hours === 0 && minutes === 0) {
-      result = 'Start Listening';
+      result = t`Start Listening`;
     }
 
     return result;
@@ -119,8 +120,10 @@ const Space: FC<SpaceProps> = ({ publication }) => {
             signMessage({ message: msg.message });
           }}
         >
-          <div className="hidden md:block"> {calculateRemainingTime()} </div>
-          <div className="md:hidden"> Spaces will open in desktop only </div>
+          <div className="hidden md:block">{calculateRemainingTime()}</div>
+          <div className="md:hidden">
+            <Trans>Spaces will open in desktop only</Trans>
+          </div>
         </Button>
       </div>
     </Wrapper>

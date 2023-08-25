@@ -27,19 +27,17 @@ const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
   return (
     <>
       {me.role === 'host' && (
-        <div>
-          <Strip
-            type="personNormal"
-            title="Invite as Co-Host"
-            variant="normal"
-            onClick={() => {
-              sendInvitation('coHost-invitation');
-            }}
-          />
-        </div>
+        <Strip
+          type="personNormal"
+          title="Invite as Co-Host"
+          variant="normal"
+          onClick={() => {
+            sendInvitation('coHost-invitation');
+          }}
+        />
       )}
       {me.role === 'coHost' || me.role === 'host' ? (
-        <div>
+        <>
           <Strip
             type="speaker"
             title="Invite as Speaker"
@@ -56,7 +54,7 @@ const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
               kickPeer(peerId);
             }}
           />
-        </div>
+        </>
       ) : (
         <Strip
           type="leave"

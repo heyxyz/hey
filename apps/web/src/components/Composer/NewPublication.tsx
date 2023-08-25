@@ -144,6 +144,50 @@ interface NewPublicationProps {
   publication: Publication;
 }
 
+interface getButtonInfoProps {
+  isLoading?: boolean;
+  isComment: boolean;
+  showNewPublicationModal: boolean;
+  modalPublicationType: NewPublicationTypes;
+}
+
+const getButtonIcon = ({
+  isLoading,
+  isComment,
+  showNewPublicationModal,
+  modalPublicationType
+}: getButtonInfoProps) => {
+  if (isLoading) {
+    return <Spinner size="xs" />;
+  } else if (isComment) {
+    return <ChatAlt2Icon className="h-4 w-4" />;
+  } else if (
+    showNewPublicationModal &&
+    modalPublicationType === NewPublicationTypes.Spaces
+  ) {
+    return <MicrophoneIcon className="h-4 w-4" />;
+  } else {
+    return <PencilAltIcon className="h-4 w-4" />;
+  }
+};
+
+const getButtonText = ({
+  isComment,
+  showNewPublicationModal,
+  modalPublicationType
+}: getButtonInfoProps) => {
+  if (isComment) {
+    return t`Comment`;
+  } else if (
+    showNewPublicationModal &&
+    modalPublicationType === NewPublicationTypes.Spaces
+  ) {
+    return t`Create Spaces`;
+  } else {
+    return t`Post`;
+  }
+};
+
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
@@ -156,6 +200,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     modalPublicationType
   } = useGlobalModalStateStore();
 
+  // Spaces store
   const {
     setSpacesTimeInHour,
     setSpacesTimeInMinute,
@@ -998,26 +1043,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 isSubmitDisabledByPoll ||
                 videoThumbnail.uploading
               }
-              icon={
-                isLoading ? (
-                  <Spinner size="xs" />
-                ) : isComment ? (
-                  <ChatAlt2Icon className="h-4 w-4" />
-                ) : showNewPublicationModal &&
-                  modalPublicationType === NewPublicationTypes.Spaces ? (
-                  <MicrophoneIcon className="h-4 w-4" />
-                ) : (
-                  <PencilAltIcon className="h-4 w-4" />
-                )
-              }
+              icon={getButtonIcon({
+                isLoading,
+                isComment,
+                showNewPublicationModal,
+                modalPublicationType
+              })}
               onClick={createPublication}
             >
-              {isComment
-                ? t`Comment`
-                : showNewPublicationModal &&
-                  modalPublicationType === NewPublicationTypes.Spaces
-                ? t`Create spaces`
-                : t`Post`}
+              {getButtonText({
+                isComment,
+                showNewPublicationModal,
+                modalPublicationType
+              })}
             </Button>
           </div>
           {showNewPublicationModal &&

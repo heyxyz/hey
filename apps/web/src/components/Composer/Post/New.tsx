@@ -65,7 +65,7 @@ const NewPost: FC = () => {
         <button
           className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           type="button"
-          onClick={() => openModal()}
+          onClick={openModal}
         >
           <PencilAltIcon className="h-5 w-5" />
           <span>
@@ -75,7 +75,7 @@ const NewPost: FC = () => {
         {isSpacesEnabled && (
           <button
             className="hidden h-10 w-10 items-center justify-center gap-2.5 rounded-lg border bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900 sm:inline-flex"
-            onClick={() => openSpacesModal()}
+            onClick={openSpacesModal}
           >
             <MicrophoneIcon className="text-brand-500 hover:text-brand-600 relative h-5 w-5 cursor-pointer" />
           </button>

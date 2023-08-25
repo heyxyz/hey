@@ -10,28 +10,26 @@ const HostData: FC = () => {
   const { me } = useHuddle01();
 
   return (
-    <div>
-      {me.role === 'host' && (
-        <div>
-          <Strip
-            type="remove"
-            title="End spaces for all"
-            variant="danger"
-            onClick={() => {
-              endRoom();
-            }}
-          />
-          <Strip
-            type="leave"
-            title="Leave the spaces"
-            variant="danger"
-            onClick={() => {
-              leaveRoom();
-            }}
-          />
-        </div>
-      )}
-    </div>
+    me.role === 'host' && (
+      <>
+        <Strip
+          type="remove"
+          title="End spaces for all"
+          variant="danger"
+          onClick={() => {
+            endRoom();
+          }}
+        />
+        <Strip
+          type="leave"
+          title="Leave the spaces"
+          variant="danger"
+          onClick={() => {
+            leaveRoom();
+          }}
+        />
+      </>
+    )
   );
 };
 export default React.memo(HostData);

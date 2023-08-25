@@ -51,72 +51,70 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
 
   return (
     <div className="border-b border-neutral-300 pb-3 dark:border-neutral-700">
-      <div>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            {isExpanded ? (
-              <ChevronDownIcon
-                className="h-5 w-5"
-                onClick={() => setIsExpanded((prev) => !prev)}
-              />
-            ) : (
-              <ChevronUpIcon
-                className="h-5 w-5"
-                onClick={() => setIsExpanded((prev) => !prev)}
-              />
-            )}
-            {!isExpanded && (
-              <div className="text-sm font-medium leading-tight text-neutral-900 dark:text-neutral-300">
-                {space.title}
-              </div>
-            )}
-          </div>
-          <div className="flex items-center gap-3">
-            <ClipboardCopyIcon
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          {isExpanded ? (
+            <ChevronDownIcon
               className="h-5 w-5"
-              onClick={async (event) => {
-                stopEventPropagation(event);
-                await navigator.clipboard.writeText('Spaces Post Link');
-                toast.success(t`Copied to clipboard!`);
-              }}
+              onClick={() => setIsExpanded((prev) => !prev)}
             />
-            <DotsVerticalIcon className="h-5 w-5" />
-            {isExpanded &&
-              (me.role === 'host' ? (
-                <button className="text-brand-500 text-sm" onClick={endRoom}>
-                  <Trans>End Spaces</Trans>
-                </button>
-              ) : (
-                <button className="text-brand-500 text-sm" onClick={leaveRoom}>
-                  <Trans>Leave room</Trans>
-                </button>
-              ))}
-          </div>
-        </div>
-
-        {isExpanded && (
-          <>
-            <div className="my-1 text-base font-medium leading-normal text-neutral-900 dark:text-zinc-200">
+          ) : (
+            <ChevronUpIcon
+              className="h-5 w-5"
+              onClick={() => setIsExpanded((prev) => !prev)}
+            />
+          )}
+          {!isExpanded && (
+            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-300">
               {space.title}
             </div>
-            <div className="flex items-center gap-1">
-              <Image
-                src={getAvatar(hostProfile)}
-                className="h-4 w-4 rounded-full bg-violet-500"
-              />
-              <Slug
-                slug={`@${hostProfile.handle}`}
-                className="text-sm font-normal"
-              />
-              <div>
-                {isVerified(hostProfile.id) && (
-                  <BadgeCheckIcon className="text-brand h-4 w-4" />
-                )}
-              </div>
-            </div>
-          </>
-        )}
+          )}
+        </div>
+        <div className="flex items-center gap-3">
+          <ClipboardCopyIcon
+            className="h-5 w-5"
+            onClick={async (event) => {
+              stopEventPropagation(event);
+              await navigator.clipboard.writeText('Spaces Post Link');
+              toast.success(t`Copied to clipboard!`);
+            }}
+          />
+          <DotsVerticalIcon className="h-5 w-5" />
+          {isExpanded &&
+            (me.role === 'host' ? (
+              <button className="text-brand-500 text-sm" onClick={endRoom}>
+                <Trans>End Spaces</Trans>
+              </button>
+            ) : (
+              <button className="text-brand-500 text-sm" onClick={leaveRoom}>
+                <Trans>Leave room</Trans>
+              </button>
+            ))}
+        </div>
       </div>
+
+      {isExpanded && (
+        <>
+          <div className="my-1 text-base font-medium text-neutral-900 dark:text-zinc-200">
+            {space.title}
+          </div>
+          <div className="flex items-center gap-1">
+            <Image
+              src={getAvatar(hostProfile)}
+              className="h-4 w-4 rounded-full bg-violet-500"
+            />
+            <Slug
+              slug={`@${hostProfile.handle}`}
+              className="text-sm font-normal"
+            />
+            <div>
+              {isVerified(hostProfile.id) && (
+                <BadgeCheckIcon className="text-brand h-4 w-4" />
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

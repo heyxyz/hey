@@ -18,7 +18,7 @@ const CoHostData: FC<CoHostDataProps> = ({ peerId }) => {
   return (
     <>
       {me.role === 'host' && (
-        <div>
+        <>
           <Strip
             type="remove"
             title="Remove as Co-Host"
@@ -39,10 +39,10 @@ const CoHostData: FC<CoHostDataProps> = ({ peerId }) => {
               }
             }}
           />
-        </div>
+        </>
       )}
       {me.role === 'coHost' && (
-        <div>
+        <>
           <Strip
             type="leave"
             title="Leave the spaces"
@@ -57,7 +57,7 @@ const CoHostData: FC<CoHostDataProps> = ({ peerId }) => {
               changePeerRole(peerId, 'listener');
             }}
           />
-        </div>
+        </>
       )}
     </>
   );

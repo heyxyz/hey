@@ -54,10 +54,8 @@ const PreviewSpaces: FC = () => {
     <div className="fixed inset-0 z-10 grid place-items-center bg-zinc-900/80 text-center">
       <div className="overflow-hidden rounded-lg bg-neutral-100 dark:bg-black">
         <PreviewSpacesHeader />
-        <div className=" px-5 py-6 pb-0">
-          <AvatarGrid />
-        </div>
-        <div className="border-t border-neutral-300 py-4 text-center text-sm leading-tight text-neutral-500 dark:border-neutral-800">
+        <AvatarGrid />
+        <div className="border-t border-neutral-300 py-4 text-center text-sm text-neutral-500 dark:border-neutral-800">
           <Trans>Your mic will be off at the start</Trans>
         </div>
         <div className="pb-3">
