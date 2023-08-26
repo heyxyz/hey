@@ -1,0 +1,12 @@
+name = "algorithms"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "algorithms.lenster.xyz", custom_domain = true }
+]
+
+[placement]
+mode = "smart"

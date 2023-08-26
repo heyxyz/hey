@@ -29,12 +29,13 @@ const authLink = new ApolloLink((operation, forward) => {
   const accessToken = localStorage.getItem(Localstorage.AccessToken);
   const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
 
-  if (!accessToken || !refreshToken) {
+  if (!accessToken || accessToken === 'undefined') {
     resetAuthData();
     return forward(operation);
   }
 
   const expiringSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000;
+
   if (!expiringSoon) {
     operation.setContext({
       headers: {
@@ -46,23 +47,20 @@ const authLink = new ApolloLink((operation, forward) => {
   }
 
   return fromPromise(
-    axios
-      .post(
-        API_URL,
-        JSON.stringify({
-          operationName: 'Refresh',
-          query: REFRESH_AUTHENTICATION_MUTATION,
-          variables: {
-            request: { refreshToken }
-          }
-        }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-      .then(({ data: result }) => {
+    axios(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: JSON.stringify({
+        operationName: 'Refresh',
+        query: REFRESH_AUTHENTICATION_MUTATION,
+        variables: { request: { refreshToken } }
+      })
+    })
+      .then(({ data }) => {
+        const accessToken = data?.data?.refresh?.accessToken;
+        const refreshToken = data?.data?.refresh?.refreshToken;
         operation.setContext({
-          headers: {
-            'x-access-token': `Bearer ${result?.data?.refresh?.accessToken}`
-          }
+          headers: { 'x-access-token': `Bearer ${accessToken}` }
         });
 
         localStorage.setItem(Localstorage.AccessToken, accessToken);
@@ -71,9 +69,6 @@ const authLink = new ApolloLink((operation, forward) => {
         return toPromise(forward(operation));
       })
       .catch(() => {
-        resetAuthData();
-        location.reload();
-
         return toPromise(forward(operation));
       })
   );

@@ -11,6 +11,7 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@lenster/types/misc';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -29,6 +30,9 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
+  let { content } = txn;
+  const urls = getURLs(content);
+  content = removeUrlAtEnd(urls, content);
 
   const removeTxn = () => {
     if (txHash) {
@@ -101,15 +105,12 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       </div>
       <div className="ml-[53px]">
         <div className="markup linkify text-md break-words">
-          <Markup>{txn?.content}</Markup>
+          <Markup>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
           <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : (
-          txn?.attachments &&
-          getURLs(txn?.content)?.length > 0 && (
-            <Oembed url={getURLs(txn?.content)[0]} />
-          )
+          txn?.attachments && urls.length > 0 && <Oembed url={urls[0]} />
         )}
       </div>
     </article>

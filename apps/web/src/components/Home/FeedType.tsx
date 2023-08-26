@@ -3,6 +3,7 @@ import {
   SparklesIcon,
   UserGroupIcon
 } from '@heroicons/react/outline';
+import { IS_MAINNET } from '@lenster/data/constants';
 import { HomeFeedType } from '@lenster/data/enums';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
@@ -64,7 +65,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         {(feedType === HomeFeedType.FOLLOWING ||
           feedType === HomeFeedType.HIGHLIGHTS) && <SeeThroughLens />}
         {feedType === HomeFeedType.FOLLOWING && <FeedEventFilters />}
-        {isAlgorithmicFeedEnabled && <Algorithms />}
+        {IS_MAINNET && isAlgorithmicFeedEnabled && <Algorithms />}
       </div>
     </div>
   );

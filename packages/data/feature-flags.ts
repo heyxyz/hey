@@ -48,6 +48,6 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.AlgorithmicFeed,
-    enabledFor: ['0x0d']
+    enabledFor: [...mainnetStaffs, ...mainnetLensTeamMembers]
   }
 ];

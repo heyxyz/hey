@@ -8,7 +8,7 @@ msgstr ""
 "Language: uk\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-05 00:09\n"
+"PO-Revision-Date: 2023-08-07 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Ukrainian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -383,6 +383,11 @@ msgstr ""
 msgid "Failed to load for you"
 msgstr ""
 
+#: src/components/Home/Algorithms/index.tsx
+#: src/components/Home/Algorithms/index.tsx
+msgid "Algorithms"
+msgstr ""
+
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
@@ -440,10 +445,6 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 msgid "Highlights"
-msgstr ""
-
-#: src/components/Home/FeedType.tsx
-msgid "Recommended"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
@@ -3016,44 +3017,60 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Followship Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Engagement Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Influencer Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Rank.tsx
+msgid "Creator Rank"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/index.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Has used {APP_NAME}"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Profile ID"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Address"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "NFT address"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Can use relay"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Gas sponsored"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Follow module"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Metadata"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Open"
 msgstr ""
 
