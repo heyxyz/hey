@@ -34,7 +34,6 @@ module.exports = {
     'unicorn/better-regex': 'error',
     'unicorn/catch-error-name': 'error',
     'unicorn/no-array-for-each': 'error',
-    'unicorn/no-for-loop': 'error',
     'unicorn/no-lonely-if': 'error',
     'unicorn/no-useless-undefined': 'error',
     'unicorn/prefer-array-find': 'error'

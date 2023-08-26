@@ -18,18 +18,13 @@ const initialConfig = {
       code: 'text-sm bg-gray-300 rounded-lg dark:bg-gray-700 px-[5px] py-[2px]'
     },
     list: {
-      listitem: 'my-0 mx-3',
+      listitem: 'my-0 mx-1',
       nested: {
         listitem: 'list-none after:hidden before:hidden'
       },
-      olDepth: [
-        'list-inside',
-        'list-inside list-upper-alpha',
-        'list-inside PlaygroundEditorTheme__ol3',
-        'list-inside PlaygroundEditorTheme__ol4',
-        'list-inside PlaygroundEditorTheme__ol5'
-      ],
-      ul: 'p-0 m-0 list-inside !list-disc'
+      olDepth: ['list-inside', 'list-inside list-upper-alpha'],
+      ul: 'p-0 m-0 list-inside !list-disc',
+      ol: 'p-0 m-0 list-inside !list-decimal'
     },
     link: 'text-brand',
     hashtag: 'text-brand',

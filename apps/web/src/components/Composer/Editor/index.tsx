@@ -19,6 +19,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HashtagPlugin } from '@lexical/react/LexicalHashtagPlugin';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -125,10 +126,12 @@ const Editor: FC = () => {
         onChange={(editorState) => {
           editorState.read(() => {
             const markdown = $convertToMarkdownString(TRANSFORMERS);
-            setPublicationContent(markdown);
+            // escape markdown line breaks
+            setPublicationContent(markdown.replaceAll('\n\n', '\n'));
           });
         }}
       />
+      <ListPlugin />
       <EmojisPlugin />
       <LexicalAutoLinkPlugin />
       <HistoryPlugin />

@@ -38,6 +38,7 @@
     "@lexical/link": "^0.11.3",
     "@lexical/markdown": "^0.11.3",
     "@lexical/react": "^0.11.3",
+    "@lexical/selection": "^0.12.0",
     "@lexical/utils": "^0.11.3",
     "@lingui/core": "^4.3.0",
     "@lingui/detect-locale": "^4.3.0",

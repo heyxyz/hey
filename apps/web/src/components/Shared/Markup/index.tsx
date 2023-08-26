@@ -1,5 +1,4 @@
 import { Regex } from '@lenster/data/regex';
-import trimify from '@lenster/lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';
@@ -36,7 +35,7 @@ const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
       components={components}
       remarkPlugins={plugins}
     >
-      {trimify(children)}
+      {children}
     </ReactMarkdown>
   );
 };
