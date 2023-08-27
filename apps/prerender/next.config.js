@@ -30,7 +30,6 @@ module.exports = withSentryConfig(
     widenClientFileUpload: true,
     transpileClientSDK: true,
     tunnelRoute: '/monitoring',
-    hideSourceMaps: true,
     disableLogger: true
   }
 );
