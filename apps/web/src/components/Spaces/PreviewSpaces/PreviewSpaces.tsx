@@ -6,7 +6,7 @@ import {
 } from '@huddle01/react/hooks';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -26,7 +26,7 @@ const PreviewSpaces: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { initialize, roomState } = useHuddle01();
-  const { joinLobby } = useLobby();
+  const { joinLobby, previewPeers } = useLobby();
   const { joinRoom, isRoomJoined } = useRoom();
 
   useEffectOnce(() => {
@@ -49,6 +49,10 @@ const PreviewSpaces: FC = () => {
       setShowSpacesWindow(true);
     }
   }, [isRoomJoined]);
+
+  useEffect(() => {
+    console.log({ previewPeers });
+  }, [previewPeers]);
 
   return (
     <div className="fixed inset-0 z-10 grid place-items-center bg-zinc-900/80 text-center">
