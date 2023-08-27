@@ -24,12 +24,13 @@ module.exports = withSentryConfig(
   {
     silent: true,
     org: 'lenster',
-    project: 'web'
+    project: 'prerender'
   },
   {
     widenClientFileUpload: true,
     transpileClientSDK: true,
     tunnelRoute: '/monitoring',
+    hideSourceMaps: true,
     disableLogger: true
   }
 );
