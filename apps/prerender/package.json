@@ -18,6 +18,7 @@
     "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
     "@lenster/lib": "workspace:*",
+    "@sentry/nextjs": "^7.64.0",
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -30,6 +31,6 @@
     "@playwright/test": "^1.37.1",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "typescript": "^5.1.6"
+    "typescript": "^5.2.2"
   }
 }

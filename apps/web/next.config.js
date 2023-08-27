@@ -60,7 +60,7 @@ const nextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          { key: 'Referrer-Policy', value: 'strict' }
+          { key: 'Referrer-Policy', value: 'strict-origin' }
         ]
       },
       { source: '/about', headers },
@@ -75,7 +75,8 @@ module.exports = withSentryConfig(
   {
     silent: true,
     org: 'lenster',
-    project: 'web'
+    project: 'web',
+    url: 'https://sentry.lenster.xyz'
   },
   {
     widenClientFileUpload: true,
