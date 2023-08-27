@@ -43,8 +43,7 @@ const lensterMostViewed = async (
     });
 
     return randomizeIds(ids);
-  } catch (error) {
-    console.log(error);
+  } catch {
     return [];
   }
 };
