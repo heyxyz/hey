@@ -75,8 +75,7 @@ module.exports = withSentryConfig(
   {
     silent: true,
     org: 'lenster',
-    project: 'web',
-    url: 'https://sentry.lenster.xyz'
+    project: 'web'
   },
   {
     widenClientFileUpload: true,
