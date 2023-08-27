@@ -14,7 +14,6 @@ export const useEnabledAlgorithmsPersistStore = create(
     (set) => ({
       enabledAlgorithms: [],
       enableAlgorithm: (algorithm) => {
-        console.log('enableAlgorithm', algorithm);
         set((state) => ({
           enabledAlgorithms: [...state.enabledAlgorithms, algorithm]
         }));
