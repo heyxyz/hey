@@ -1,6 +1,5 @@
 import { DEFAULT_OG } from '@lenster/data/constants';
-import type { Comment } from '@lenster/lens';
-import { Publication } from '@lenster/lens';
+import type { Comment, Publication } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
@@ -16,7 +15,10 @@ interface PublicationProps {
   comments: Comment[];
 }
 
-const Publication: FC<PublicationProps> = ({ publication, comments }) => {
+const PublicationComponent: FC<PublicationProps> = ({
+  publication,
+  comments
+}) => {
   if (!publication) {
     return <DefaultTags />;
   }
@@ -72,4 +74,4 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   );
 };
 
-export default Publication;
+export default PublicationComponent;

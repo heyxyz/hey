@@ -19,6 +19,7 @@
     "@lenster/lens": "workspace:*",
     "@lenster/lib": "workspace:*",
     "@sentry/nextjs": "^7.64.0",
+    "million": "2.6.0-beta.8",
     "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

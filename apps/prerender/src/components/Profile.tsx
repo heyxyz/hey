@@ -1,5 +1,4 @@
-import type { MediaSet, NftImage, Publication } from '@lenster/lens';
-import { Profile } from '@lenster/lens';
+import type { MediaSet, NftImage, Profile, Publication } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -17,7 +16,7 @@ interface ProfileProps {
   publications: Publication[];
 }
 
-const Profile: FC<ProfileProps> = ({ profile, publications }) => {
+const ProfileComponent: FC<ProfileProps> = ({ profile, publications }) => {
   if (!profile) {
     return <DefaultTags />;
   }
@@ -157,4 +156,4 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
   );
 };
 
-export default Profile;
+export default ProfileComponent;

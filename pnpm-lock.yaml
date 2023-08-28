@@ -38,9 +38,12 @@ importers:
       '@sentry/nextjs':
         specifier: ^7.64.0
         version: 7.64.0(next@13.4.12)(react@18.2.0)
+      million:
+        specifier: 2.6.0-beta.8
+        version: 2.6.0-beta.8
       next:
         specifier: ^13.4.12
-        version: 13.4.12(react-dom@18.2.0)(react@18.2.0)
+        version: 13.4.12(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -543,7 +546,7 @@ importers:
         version: 2.0.0
       next:
         specifier: ^13.4.12
-        version: 13.4.12(react-dom@18.2.0)(react@18.2.0)
+        version: 13.4.12(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -5926,7 +5929,7 @@ packages:
       '@sentry/utils': 7.64.0
       '@sentry/webpack-plugin': 1.20.0
       chalk: 3.0.0
-      next: 13.4.12(react-dom@18.2.0)(react@18.2.0)
+      next: 13.4.12(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       rollup: 2.78.0
       stacktrace-parser: 0.1.10
@@ -12151,6 +12154,21 @@ packages:
       - supports-color
     dev: false
 
+  /million@2.6.0-beta.8:
+    resolution: {integrity: sha512-CwPJMgo1nRsSNrARPRMTp+/NogBQPSCRQWyd/qgjNiSKXj2JIOoIvu/eELHJ/qcis7RWBMMdAS0aZKGryIdCDA==}
+    dependencies:
+      '@babel/core': 7.22.10
+      '@babel/generator': 7.22.10
+      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.10)
+      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.10)
+      '@babel/types': 7.22.10
+      kleur: 4.1.5
+      rollup: 3.28.1
+      unplugin: 1.4.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /mime-db@1.52.0:
     resolution: {integrity: sha512-sPU4uV7dYlvtWJxwwxHD0PuihVNiE7TyAbQ5SWxDCB9mUYvOgroQOwYQQOKPJ8CIbE+1ETVlOoK1UC2nU3gYvg==}
     engines: {node: '>= 0.6'}
@@ -12358,7 +12376,7 @@ packages:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
     dev: false
 
-  /next@13.4.12(react-dom@18.2.0)(react@18.2.0):
+  /next@13.4.12(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-eHfnru9x6NRmTMcjQp6Nz0J4XH9OubmzOa7CkWL+AUrUxpibub3vWwttjduu9No16dug1kq04hiUUpo7J3m3Xw==}
     engines: {node: '>=16.8.0'}
     hasBin: true
