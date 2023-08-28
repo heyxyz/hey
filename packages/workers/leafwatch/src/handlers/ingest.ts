@@ -1,12 +1,11 @@
 import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
 import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
 
 import checkEventExistence from '../helpers/checkEventExistence';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   name: string;
@@ -27,7 +26,7 @@ const validationSchema = object({
   properties: any()
 });
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -60,7 +59,7 @@ export default async (request: IRequest, env: Env) => {
     } | null = null;
     try {
       const ipResponse = await fetch(
-        `https://pro.ip-api.com/json/${ip}?key=${env.IPAPI_KEY}`
+        `https://pro.ip-api.com/json/${ip}?key=${request.env.IPAPI_KEY}`
       );
       ipData = await ipResponse.json();
     } catch {}
@@ -73,10 +72,12 @@ export default async (request: IRequest, env: Env) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
-    const clickhouseResponse = await fetch(env.CLICKHOUSE_REST_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: `
+    const clickhouseResponse = await fetch(
+      request.env.CLICKHOUSE_REST_ENDPOINT,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: `
         INSERT INTO events (
           name,
           actor,
@@ -115,7 +116,8 @@ export default async (request: IRequest, env: Env) => {
           ${utmContent ? `'${utmContent}'` : null}
         )
       `
-    });
+      }
+    );
 
     if (clickhouseResponse.status !== 200) {
       return response({ success: false, error: Errors.StatusCodeIsNot200 });
@@ -123,6 +125,7 @@ export default async (request: IRequest, env: Env) => {
 
     return response({ success: true });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
   }
 };
