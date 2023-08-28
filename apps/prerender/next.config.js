@@ -20,9 +20,18 @@ const nextConfig = {
   }
 };
 
-module.exports = withSentryConfig(nextConfig, {
-  silent: true,
-  org: 'lenster',
-  project: 'prerender',
-  url: 'https://sentry.lenster.xyz'
-});
+module.exports = withSentryConfig(
+  nextConfig,
+  {
+    silent: true,
+    org: 'lenster',
+    project: 'prerender',
+    url: 'https://sentry.lenster.xyz'
+  },
+  {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    disableLogger: true,
+    hideSourceMaps: true
+  }
+);

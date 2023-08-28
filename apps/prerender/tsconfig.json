@@ -2,7 +2,6 @@
   "extends": "@lenster/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "sourceMap": true,
     "paths": {
       "@components*": ["src/components*"],
       "@lib*": ["src/lib*"]
