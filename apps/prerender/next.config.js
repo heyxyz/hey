@@ -28,5 +28,5 @@ module.exports = withSentryConfig(
     project: 'prerender',
     url: 'https://sentry.lenster.xyz'
   },
-  { disableLogger: true }
+  { disableLogger: true, hideSourceMaps: false }
 );
