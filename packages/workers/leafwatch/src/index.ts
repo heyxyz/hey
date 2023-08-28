@@ -33,6 +33,7 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
+    let transaction: any;
     const sentry = new Toucan({
       request,
       context: ctx,
@@ -41,7 +42,12 @@ export default {
       release: env.RELEASE
     });
 
-    const transaction = sentry.startTransaction({ name: crypto.randomUUID() });
+    if (request.method !== 'OPTIONS') {
+      transaction = sentry.startTransaction({
+        name: '@lenster/leafwatch/ingest'
+      });
+    }
+
     const incomingRequest = buildRequest(request, env, ctx, sentry);
 
     return await router
@@ -51,6 +57,6 @@ export default {
         sentry.captureException(error_);
         return error(500, Errors.InternalServerError);
       })
-      .finally(() => transaction.finish());
+      .finally(() => transaction?.finish());
   }
 };
