@@ -7,8 +7,7 @@
       "@lib*": ["src/lib*"],
       "@gql*": ["src/graphql*"],
       "@generated*": ["src/generated*"]
-    },
-    "sourceMap": true
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
