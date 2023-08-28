@@ -27,6 +27,7 @@
   "devDependencies": {
     "@lenster/config": "workspace:*",
     "@types/react": "^18.2.21",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   }
 }
