@@ -81,6 +81,7 @@ module.exports = withSentryConfig(
   },
   {
     widenClientFileUpload: true,
+    transpileClientSDK: true,
     disableLogger: true,
     hideSourceMaps: false
   }
