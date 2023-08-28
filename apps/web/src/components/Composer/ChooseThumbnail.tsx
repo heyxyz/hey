@@ -21,6 +21,7 @@ interface Thumbnail {
   mimeType: string;
 }
 
+// million-ignore
 const ChooseThumbnail: FC = () => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([]);
   const [imageUploading, setImageUploading] = useState(false);

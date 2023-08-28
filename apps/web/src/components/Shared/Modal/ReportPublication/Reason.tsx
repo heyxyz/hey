@@ -14,6 +14,7 @@ interface ReasonProps {
   subReason: string;
 }
 
+// million-ignore
 const Reason: FC<ReasonProps> = ({
   setType,
   setSubReason,

@@ -40,6 +40,7 @@ const PreferencesProvider: FC = () => {
     } catch {
     } finally {
       setLoadingPreferences(false);
+      return false;
     }
   };
 
@@ -50,7 +51,10 @@ const PreferencesProvider: FC = () => {
       const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
       const { data } = response;
       setVerifiedMembers(data.result || []);
-    } catch {}
+      return data.result || [];
+    } catch {
+      return [];
+    }
   };
 
   useQuery(['verifiedMembers'], () => fetchVerifiedMembers());

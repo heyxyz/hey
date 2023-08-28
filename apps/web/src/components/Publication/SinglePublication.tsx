@@ -23,6 +23,7 @@ interface SinglePublicationProps {
   isLast?: boolean;
 }
 
+// million-ignore
 const SinglePublication: FC<SinglePublicationProps> = ({
   publication,
   feedItem,

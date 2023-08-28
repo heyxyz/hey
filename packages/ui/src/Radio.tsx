@@ -8,12 +8,10 @@ interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
 
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
-  heading,
-  description,
-  className = '',
-  ...rest
-}) {
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
+  { heading, description, className = '', ...rest },
+  ref
+) {
   const id = useId();
 
   return (

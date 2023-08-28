@@ -26,6 +26,7 @@ interface VoteProposalProps {
   refetch?: () => void;
 }
 
+// million-ignore
 const VoteProposal: FC<VoteProposalProps> = ({
   proposal,
   voteConfig,

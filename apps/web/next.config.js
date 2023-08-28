@@ -1,3 +1,4 @@
+const million = require('million/compiler');
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
@@ -70,18 +71,23 @@ const nextConfig = {
   }
 };
 
-module.exports = withSentryConfig(
-  nextConfig,
+module.exports = million.next(
+  withSentryConfig(
+    nextConfig,
+    {
+      silent: true,
+      org: 'lenster',
+      project: 'web',
+      url: 'https://sentry.lenster.xyz'
+    },
+    {
+      widenClientFileUpload: true,
+      transpileClientSDK: true,
+      disableLogger: true,
+      hideSourceMaps: true
+    }
+  ),
   {
-    silent: true,
-    org: 'lenster',
-    project: 'web',
-    url: 'https://sentry.lenster.xyz'
-  },
-  {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    disableLogger: true,
-    hideSourceMaps: true
+    auto: true
   }
 );
