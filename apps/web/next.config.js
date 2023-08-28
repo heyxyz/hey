@@ -4,6 +4,7 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
@@ -82,6 +83,6 @@ module.exports = withSentryConfig(
     widenClientFileUpload: true,
     transpileClientSDK: true,
     disableLogger: true,
-    hideSourceMaps: true
+    hideSourceMaps: false
   }
 );
