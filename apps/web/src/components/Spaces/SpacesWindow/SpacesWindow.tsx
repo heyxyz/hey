@@ -206,7 +206,7 @@ const SpacesWindow: FC = () => {
                 <div className="absolute bottom-12 right-0 z-10 h-fit">
                   <Sidebar />
                 </div>
-                <AvatarGrid />
+                <AvatarGrid isLobbyPreview={false} />
                 <SpacesWindowBottomBar />
               </div>
             ) : (

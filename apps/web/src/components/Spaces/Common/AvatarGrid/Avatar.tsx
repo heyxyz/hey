@@ -15,10 +15,10 @@ import SpeakerData from '../Sidebar/Peers/PeerRole/SpeakerData';
 import type { IRoleEnum } from '../SpacesTypes';
 
 type Props = {
-  peerId: string;
+  peerId?: string;
   displayName: string;
   mic?: MediaStreamTrack | null;
-  role: IRoleEnum;
+  role?: IRoleEnum;
   avatarUrl: string;
 };
 
@@ -30,9 +30,9 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
 
   const RoleData = {
     host: <HostData />,
-    coHost: <CoHostData peerId={peerId} />,
-    speaker: <SpeakerData peerId={peerId} />,
-    listener: <ListenersData peerId={peerId} />
+    coHost: peerId ? <CoHostData peerId={peerId} /> : null,
+    speaker: peerId ? <SpeakerData peerId={peerId} /> : null,
+    listener: peerId ? <ListenersData peerId={peerId} /> : null
   } as const;
 
   useEventListener('room:data-received', (data) => {
@@ -68,6 +68,7 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
         />
         {me.role === 'host' ||
         (me.role === 'coHost' &&
+          role !== undefined &&
           (me.meId === peerId || ['speaker', 'listener'].includes(role))) ||
         ((me.role === 'speaker' || me.role === 'listener') &&
           me.meId === peerId) ? (
@@ -88,7 +89,7 @@ const Avatar: FC<Props> = ({ peerId, displayName, mic, role, avatarUrl }) => {
                     {displayName}
                   </div>
                 </div>
-                {RoleData?.[role]}
+                {role ? RoleData?.[role] : null}
               </div>
             </Dropdown>
           </>

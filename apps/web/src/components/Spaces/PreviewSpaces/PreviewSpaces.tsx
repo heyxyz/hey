@@ -16,12 +16,7 @@ import SpacesButton from '../Common/SpacesButton';
 import PreviewSpacesHeader from './PreviewSpacesHeader';
 
 const PreviewSpaces: FC = () => {
-  const setShowSpacesLobby = useSpacesStore(
-    (state) => state.setShowSpacesLobby
-  );
-  const setShowSpacesWindow = useSpacesStore(
-    (state) => state.setShowSpacesWindow
-  );
+  const { setShowSpacesLobby, setShowSpacesWindow } = useSpacesStore();
   const { space, lensAccessToken } = useSpacesStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
@@ -37,7 +32,7 @@ const PreviewSpaces: FC = () => {
     joinLobby(space.id, lensAccessToken);
   });
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (roomState === 'INIT') {
       joinLobby(space.id, lensAccessToken);
     }
@@ -50,15 +45,11 @@ const PreviewSpaces: FC = () => {
     }
   }, [isRoomJoined]);
 
-  useEffect(() => {
-    console.log({ previewPeers });
-  }, [previewPeers]);
-
   return (
     <div className="fixed inset-0 z-10 grid place-items-center bg-zinc-900/80 text-center">
       <div className="overflow-hidden rounded-lg bg-neutral-100 dark:bg-black">
         <PreviewSpacesHeader />
-        <AvatarGrid />
+        <AvatarGrid isLobbyPreview={previewPeers.length ? true : false} />
         <div className="border-t border-neutral-300 py-4 text-center text-sm text-neutral-500 dark:border-neutral-800">
           <Trans>Your mic will be off at the start</Trans>
         </div>
