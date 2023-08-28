@@ -1,6 +1,6 @@
-/** @type {import('tailwindcss').Config} */
 const base = require('@lenster/ui/tailwind-preset');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   ...base,
   content: ['./src/**/*.{ts,tsx}', '../../packages/ui/src/*.{ts,tsx}'],
