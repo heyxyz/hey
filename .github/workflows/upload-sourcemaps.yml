@@ -39,3 +39,4 @@ jobs:
           SENTRY_URL: https://sentry.lenster.xyz
         with:
           environment: production
+          sourcemaps: './app/web/.next/static/chunks/**/*.js'
