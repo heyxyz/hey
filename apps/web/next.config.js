@@ -1,12 +1,17 @@
+import million from 'million/compiler';
 const { withSentryConfig } = require('@sentry/nextjs');
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
+
+const millionConfig = {
+  auto: { rsc: true }
+};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
-  reactStrictMode: false,
+  reactStrictMode: true,
   experimental: {
     scrollRestoration: true,
     newNextLinkBehavior: true,
@@ -71,7 +76,7 @@ const nextConfig = {
   }
 };
 
-module.exports = withSentryConfig(
+const nextConfigWithSentry = withSentryConfig(
   nextConfig,
   {
     silent: true,
@@ -86,3 +91,5 @@ module.exports = withSentryConfig(
     hideSourceMaps: false
   }
 );
+
+module.exports = million.next(nextConfigWithSentry, millionConfig);
