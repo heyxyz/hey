@@ -1,3 +1,5 @@
+import '@sentry/tracing';
+
 import { Errors } from '@lenster/data/errors';
 import { ALL_EVENTS } from '@lenster/data/tracking';
 import response from '@lenster/lib/response';
@@ -27,6 +29,10 @@ const validationSchema = object({
 });
 
 export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/leafwatch/ingest'
+  });
+
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -57,12 +63,16 @@ export default async (request: WorkerRequest) => {
       country: string;
       regionName: string;
     } | null = null;
+    const ipRequestSpan = transaction?.startChild({ name: 'ip-request' });
     try {
       const ipResponse = await fetch(
         `https://pro.ip-api.com/json/${ip}?key=${request.env.IPAPI_KEY}`
       );
       ipData = await ipResponse.json();
-    } catch {}
+    } catch {
+    } finally {
+      ipRequestSpan?.finish();
+    }
 
     // Extract UTM parameters
     const parsedUrl = new URL(url);
@@ -72,6 +82,9 @@ export default async (request: WorkerRequest) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null;
     const utmContent = parsedUrl.searchParams.get('utm_content') || null;
 
+    const clickhouseRequestSpan = transaction?.startChild({
+      name: 'clickhouse-request'
+    });
     const clickhouseResponse = await fetch(
       request.env.CLICKHOUSE_REST_ENDPOINT,
       {
@@ -118,6 +131,7 @@ export default async (request: WorkerRequest) => {
       `
       }
     );
+    clickhouseRequestSpan?.finish();
 
     if (clickhouseResponse.status !== 200) {
       return response({ success: false, error: Errors.StatusCodeIsNot200 });
@@ -127,5 +141,7 @@ export default async (request: WorkerRequest) => {
   } catch (error) {
     request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };

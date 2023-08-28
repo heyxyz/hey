@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
 import { createCors, error, Router } from 'itty-router';
@@ -33,7 +31,6 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
-    let transaction: any;
     const sentry = new Toucan({
       request,
       context: ctx,
@@ -41,13 +38,6 @@ export default {
       dsn: env.SENTRY_DSN,
       release: env.RELEASE
     });
-
-    if (request.method !== 'OPTIONS') {
-      transaction = sentry.startTransaction({
-        name: '@lenster/leafwatch/ingest'
-      });
-    }
-
     const incomingRequest = buildRequest(request, env, ctx, sentry);
 
     return await router
@@ -56,7 +46,6 @@ export default {
       .catch((error_) => {
         sentry.captureException(error_);
         return error(500, Errors.InternalServerError);
-      })
-      .finally(() => transaction?.finish());
+      });
   }
 };
