@@ -63,9 +63,6 @@ importers:
       '@types/react':
         specifier: ^18.2.21
         version: 18.2.21
-      '@types/react-dom':
-        specifier: ^18.2.7
-        version: 18.2.7
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -87,9 +84,6 @@ importers:
       '@heroicons/react':
         specifier: v1
         version: 1.0.0(react@18.2.0)
-      '@hookform/resolvers':
-        specifier: ^3.3.0
-        version: 3.3.0(react-hook-form@7.45.4)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)
@@ -222,9 +216,6 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
-      react-hook-form:
-        specifier: ^7.45.4
-        version: 7.45.4(react@18.2.0)
       react-hot-toast:
         specifier: ^2.4.1
         version: 2.4.1(csstype@3.1.2)(react-dom@18.2.0)(react@18.2.0)
@@ -399,9 +390,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
       '@types/normalize-wheel':
         specifier: ^1.0.1
         version: 1.0.1
@@ -470,9 +458,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -523,9 +508,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -569,9 +551,6 @@ importers:
       '@lenster/config':
         specifier: workspace:*
         version: link:../config
-      '@types/node':
-        specifier: ^20.5.7
-        version: 20.5.7
       '@types/react':
         specifier: ^18.2.21
         version: 18.2.21
@@ -6967,10 +6946,6 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: false
 
-  /@types/node@20.5.6:
-    resolution: {integrity: sha512-Gi5wRGPbbyOTX+4Y2iULQ27oUPrefaB0PxGQJnfyWN3kvEDGM3mIB5M/gQLmitZf7A9FmLeaqxD3L1CXpm3VKQ==}
-    dev: false
-
   /@types/node@20.5.7:
     resolution: {integrity: sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==}
 
@@ -7030,7 +7005,7 @@ packages:
   /@types/websocket@1.0.5:
     resolution: {integrity: sha512-NbsqiNX9CnEfC1Z0Vf4mE1SgAJ07JnRYcNex7AJ9zAVzmiGHmjKFEk7O4TJIsgv2B1sLEb6owKFZrACwdYngsQ==}
     dependencies:
-      '@types/node': 20.5.6
+      '@types/node': 20.5.7
     dev: false
 
   /@types/ws@7.4.7:
