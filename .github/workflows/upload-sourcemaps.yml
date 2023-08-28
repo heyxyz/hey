@@ -1,0 +1,41 @@
+name: Upload Sourcemaps
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  upload:
+    name: Upload
+    runs-on: macos-latest
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm 🌸
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Setup node 🍀
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+
+      - name: Bootstrap 📦
+        run: script/bootstrap
+
+      - name: Build 🎁
+        run: pnpm build
+
+      - name: Create Sentry release 🚀
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: 'lensterxyz'
+          SENTRY_PROJECT: 'web'
+          SENTRY_URL: https://sentry.lenster.xyz
+        with:
+          environment: production
