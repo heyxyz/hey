@@ -28,7 +28,7 @@ jobs:
         run: script/bootstrap
 
       - name: Build 🎁
-        run: pnpm build
+        run: pnpm build --filter=@lenster/web
 
       - name: Create Sentry release 🚀
         uses: getsentry/action-release@v1
