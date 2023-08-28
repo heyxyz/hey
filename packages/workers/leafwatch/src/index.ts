@@ -43,7 +43,7 @@ export default {
       .handle(incomingRequest)
       .then(corsify)
       .catch((error_) => {
-        sentry?.captureException(error_);
+        sentry.captureException(error_);
         return error(500, Errors.InternalServerError);
       });
   }
