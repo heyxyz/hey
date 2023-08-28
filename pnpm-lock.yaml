@@ -196,8 +196,8 @@ importers:
         specifier: ^0.12.0
         version: 0.12.0
       million:
-        specifier: 2.6.0-beta.2
-        version: 2.6.0-beta.2
+        specifier: 2.6.0-beta.8
+        version: 2.6.0-beta.8
       next:
         specifier: 13.4.2
         version: 13.4.2(@babel/core@7.22.10)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -12138,21 +12138,6 @@ packages:
       braces: 3.0.2
       picomatch: 2.3.1
     dev: true
-
-  /million@2.6.0-beta.2:
-    resolution: {integrity: sha512-kd885wfUMBaTluryFeEPGrSzSLdkkPk/imNRwua4SBSg3TrxZj88h5LEuU0624r8yTmFHE3p/j/5TqCbkY/1lw==}
-    dependencies:
-      '@babel/core': 7.22.10
-      '@babel/generator': 7.22.10
-      '@babel/plugin-syntax-jsx': 7.22.5(@babel/core@7.22.10)
-      '@babel/plugin-syntax-typescript': 7.22.5(@babel/core@7.22.10)
-      '@babel/types': 7.22.10
-      kleur: 4.1.5
-      rollup: 3.28.1
-      unplugin: 1.4.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /million@2.6.0-beta.8:
     resolution: {integrity: sha512-CwPJMgo1nRsSNrARPRMTp+/NogBQPSCRQWyd/qgjNiSKXj2JIOoIvu/eELHJ/qcis7RWBMMdAS0aZKGryIdCDA==}
