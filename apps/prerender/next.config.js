@@ -2,6 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
@@ -31,6 +32,6 @@ module.exports = withSentryConfig(
     widenClientFileUpload: true,
     transpileClientSDK: true,
     disableLogger: true,
-    hideSourceMaps: true
+    hideSourceMaps: false
   }
 );
