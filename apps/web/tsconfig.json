@@ -8,8 +8,7 @@
       "@gql*": ["src/graphql*"],
       "@generated*": ["src/generated*"]
     },
-    "plugins": [{ "name": "next" }],
-    "strictNullChecks": true
+    "sourceMap": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
