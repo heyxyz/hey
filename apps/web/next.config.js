@@ -4,6 +4,7 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
@@ -78,11 +79,5 @@ module.exports = withSentryConfig(
     project: 'web',
     url: 'https://sentry.lenster.xyz'
   },
-  {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    hideSourceMaps: true,
-    disableLogger: true
-  }
+  { disableLogger: true }
 );
