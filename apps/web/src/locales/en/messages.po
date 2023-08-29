@@ -2456,6 +2456,10 @@ msgstr ""
 msgid "Loading emojis"
 msgstr ""
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr "Emoji"
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr ""

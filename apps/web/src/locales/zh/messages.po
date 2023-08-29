@@ -2456,6 +2456,10 @@ msgstr "您无法回复此帖子"
 msgid "Loading emojis"
 msgstr "正在加载表情"
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr "所有帖子"
