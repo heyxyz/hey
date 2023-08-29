@@ -26,7 +26,6 @@ interface FollowerNotificationProps {
   notification: NewFollowerNotification;
 }
 
-// million-ignore
 const FollowerNotification: FC<FollowerNotificationProps> = ({
   notification
 }) => {

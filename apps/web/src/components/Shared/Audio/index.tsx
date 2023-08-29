@@ -36,7 +36,6 @@ interface AudioProps {
   expandCover: (url: string) => void;
 }
 
-// million-ignore
 const Audio: FC<AudioProps> = ({
   src,
   isNew = false,

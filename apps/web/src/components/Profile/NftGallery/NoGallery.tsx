@@ -13,7 +13,6 @@ interface NoGalleryProps {
   profile: Profile;
 }
 
-// million-ignore
 const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showCreateModal, setShowCreateModal] = useState(false);

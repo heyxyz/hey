@@ -14,7 +14,6 @@ interface FullPublicationProps {
   publication: Publication;
 }
 
-// million-ignore
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
   const timestamp = isMirror

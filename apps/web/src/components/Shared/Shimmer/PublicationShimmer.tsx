@@ -9,7 +9,6 @@ interface PublicationShimmerProps {
   quoted?: boolean;
 }
 
-// million-ignore
 const PublicationShimmer: FC<PublicationShimmerProps> = ({
   showActions = true,
   quoted = false

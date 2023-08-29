@@ -6,7 +6,6 @@ interface UserProfileShimmerProps {
   isBig?: boolean;
 }
 
-// million-ignore
 const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
   showFollow = false,
   isBig = false
