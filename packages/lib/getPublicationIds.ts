@@ -11,11 +11,19 @@ import axios from 'axios';
 const getPublicationIds = async (
   provider: string,
   strategy: string,
+  limit: number | null,
+  offset: number | null,
   profile?: string
 ) => {
   try {
     const response = await axios.get(`${FEEDS_WORKER_URL}/ids`, {
-      params: { provider, strategy, ...(profile ? { profile } : {}) }
+      params: {
+        provider,
+        strategy,
+        limit,
+        offset,
+        ...(profile ? { profile } : {})
+      }
     });
 
     return response.data.success ? response.data.ids : [];
