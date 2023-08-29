@@ -3,7 +3,15 @@ import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import axios from 'axios';
 import { useSpacesStore } from 'src/store/spaces';
 
-type CreateSpaceResponse = string;
+type CreateSpaceResponse = {
+  success: boolean;
+  response: {
+    message: string;
+    data: {
+      roomId: string;
+    }
+  }
+};
 
 const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
   const {
@@ -12,7 +20,7 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
     tokenGateConditionValue,
     spacesTimeInHour,
     spacesTimeInMinute
-  } = useSpacesStore();
+  } = useSpacesStore();``
   let payload = {};
   const now = new Date();
   now.setHours(Number(spacesTimeInHour));
