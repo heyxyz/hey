@@ -19,8 +19,7 @@ const clickhouseQuery = async (query: string, env: Env) => {
     const json: { data: [any][] } = await response.json();
 
     return json.data;
-  } catch (error) {
-    console.log(error);
+  } catch {
     return [];
   }
 };

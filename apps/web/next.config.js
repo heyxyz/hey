@@ -1,7 +1,10 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: {
@@ -58,7 +61,7 @@ const nextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          { key: 'Referrer-Policy', value: 'strict' }
+          { key: 'Referrer-Policy', value: 'strict-origin' }
         ]
       },
       { source: '/about', headers },
@@ -68,4 +71,18 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(
+  nextConfig,
+  {
+    silent: true,
+    org: 'lenster',
+    project: 'web',
+    url: 'https://sentry.lenster.xyz'
+  },
+  {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    disableLogger: true,
+    hideSourceMaps: false
+  }
+);

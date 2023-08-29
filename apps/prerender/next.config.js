@@ -1,6 +1,8 @@
-/** @type {import('next').NextConfig} */
+const { withSentryConfig } = require('@sentry/nextjs');
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
@@ -18,4 +20,18 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+module.exports = withSentryConfig(
+  nextConfig,
+  {
+    silent: true,
+    org: 'lenster',
+    project: 'prerender',
+    url: 'https://sentry.lenster.xyz'
+  },
+  {
+    widenClientFileUpload: true,
+    transpileClientSDK: true,
+    disableLogger: true,
+    hideSourceMaps: false
+  }
+);
