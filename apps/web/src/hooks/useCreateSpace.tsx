@@ -9,8 +9,8 @@ type CreateSpaceResponse = {
     message: string;
     data: {
       roomId: string;
-    }
-  }
+    };
+  };
 };
 
 const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
@@ -20,7 +20,8 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
     tokenGateConditionValue,
     spacesTimeInHour,
     spacesTimeInMinute
-  } = useSpacesStore();``
+  } = useSpacesStore();
+  ``;
   let payload = {};
   const now = new Date();
   now.setHours(Number(spacesTimeInHour));

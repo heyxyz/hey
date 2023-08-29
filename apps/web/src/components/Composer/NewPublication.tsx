@@ -768,16 +768,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-
       let spaceId = {
         success: false,
         response: {
           message: '',
           data: {
-            roomId: '',
-          },
-      }};
-      
+            roomId: ''
+          }
+        }
+      };
+
       if (
         showNewPublicationModal &&
         modalPublicationType === NewPublicationTypes.Spaces
