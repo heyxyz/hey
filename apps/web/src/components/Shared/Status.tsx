@@ -236,6 +236,7 @@ const Status: FC = () => {
               showEmojiPicker={showEmojiPicker}
               emoji={emoji}
               setEmoji={setEmoji}
+              emojiClassName="mt-[8px]"
             />
           }
           placeholder={t`What's happening?`}

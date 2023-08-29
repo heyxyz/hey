@@ -2,6 +2,7 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
+import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -134,6 +135,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -882,6 +884,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
+      onClick={() => setShowEmojiPicker(false)}
       className={clsx(
         { '!rounded-b-xl !rounded-t-none border-none': !isComment },
         'pb-3'
@@ -909,6 +912,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
+          <EmojiPicker
+            emojiClassName="text-brand"
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
+            setEmoji={(emoji) => {
+              setShowEmojiPicker(false);
+              editor.update(() => {
+                $convertFromMarkdownString(publicationContent + emoji);
+              });
+            }}
+          />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {!publication?.isDataAvailability ? (
             <>
