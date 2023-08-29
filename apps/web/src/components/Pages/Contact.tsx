@@ -3,6 +3,7 @@ import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilAltIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   Button,
@@ -13,6 +14,7 @@ import {
   GridItemFour,
   GridLayout,
   Input,
+  Select,
   Spinner,
   TextArea,
   useZodForm
@@ -22,11 +24,13 @@ import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
   email: string().email({ message: t`Email is not valid` }),
+  category: string(),
   subject: string()
     .min(1, { message: t`Subject should not be empty` })
     .max(260, {
@@ -53,6 +57,7 @@ const Contact: FC = () => {
 
   const submitToFreshdesk = async (
     email: string,
+    category: string,
     subject: string,
     body: string
   ) => {
@@ -60,12 +65,15 @@ const Contact: FC = () => {
     try {
       const { data } = await axios.post(FRESHDESK_WORKER_URL, {
         email,
+        category,
         subject,
         body
       });
 
       if (data.success) {
         setSubmitted(true);
+      } else {
+        toast.error(data?.message ?? Errors.SomethingWentWrong);
       }
     } finally {
       setSubmitting(false);
@@ -93,14 +101,24 @@ const Contact: FC = () => {
             <Form
               form={form}
               className="space-y-4 p-5"
-              onSubmit={({ email, subject, message }) => {
-                submitToFreshdesk(email, subject, message);
+              onSubmit={({ email, category, subject, message }) => {
+                submitToFreshdesk(email, category, subject, message);
               }}
             >
               <Input
                 label={t`Email`}
                 placeholder="gavin@hooli.com"
                 {...form.register('email')}
+              />
+              <Select
+                label={t`Category`}
+                values={[
+                  t`Support`,
+                  t`Bug report`,
+                  t`Feature request`,
+                  t`Other`
+                ]}
+                {...form.register('category')}
               />
               <Input
                 label={t`Subject`}
