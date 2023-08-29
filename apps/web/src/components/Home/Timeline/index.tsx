@@ -6,6 +6,7 @@ import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
@@ -106,15 +107,19 @@ const Timeline: FC = () => {
           </div>
         ) : null
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.root.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
-        />
-      ))}
+      {publications && (
+        <For each={publications}>
+          {(publication, index) => (
+            <SinglePublication
+              key={`${publication?.root.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              feedItem={publication as FeedItem}
+              publication={publication.root as Publication}
+            />
+          )}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

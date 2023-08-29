@@ -3,6 +3,7 @@ import { CollectionIcon, XIcon } from '@heroicons/react/outline';
 import type { Nft } from '@lenster/lens';
 import { EmptyState } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
@@ -60,19 +61,25 @@ const ReviewSelection = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
-      {gallery.items?.map((item) => (
-        <div key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}>
-          <div className="relative rounded-xl">
-            <button
-              onClick={() => onRemoveItem(item)}
-              className="bg-brand-500 absolute right-2 top-2 rounded-full"
+      {gallery && gallery.items && (
+        <For each={gallery.items}>
+          {(item) => (
+            <div
+              key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}
             >
-              <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
-            </button>
-            <SingleNft nft={item as Nft} linkToDetail={false} />
-          </div>
-        </div>
-      ))}
+              <div className="relative rounded-xl">
+                <button
+                  onClick={() => onRemoveItem(item)}
+                  className="bg-brand-500 absolute right-2 top-2 rounded-full"
+                >
+                  <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
+                </button>
+                <SingleNft nft={item as Nft} linkToDetail={false} />
+              </div>
+            </div>
+          )}
+        </For>
+      )}
     </div>
   );
 };

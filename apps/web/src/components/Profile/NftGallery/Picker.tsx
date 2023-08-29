@@ -8,6 +8,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import { ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { toast } from 'react-hot-toast';
@@ -163,31 +164,35 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
-      {nfts?.map((nft, index) => {
-        const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
-        const isSelected = selectedItems.includes(id);
-        return (
-          <div
-            key={`${id}_${index}`}
-            className={clsx(
-              'relative rounded-xl border-2',
-              isSelected ? 'border-brand-500' : 'border-transparent'
-            )}
-          >
-            {isSelected ? (
-              <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
-                <CheckIcon className="h-5 w-5 p-1 text-white" />
-              </button>
-            ) : null}
-            <button
-              className="w-full text-left"
-              onClick={() => onSelectItem(nft as Nft)}
-            >
-              <SingleNft nft={nft as Nft} linkToDetail={false} />
-            </button>
-          </div>
-        );
-      })}
+      {nfts && (
+        <For each={nfts}>
+          {(nft, index) => {
+            const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
+            const isSelected = selectedItems.includes(id);
+            return (
+              <div
+                key={`${id}_${index}`}
+                className={clsx(
+                  'relative rounded-xl border-2',
+                  isSelected ? 'border-brand-500' : 'border-transparent'
+                )}
+              >
+                {isSelected ? (
+                  <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
+                    <CheckIcon className="h-5 w-5 p-1 text-white" />
+                  </button>
+                ) : null}
+                <button
+                  className="w-full text-left"
+                  onClick={() => onSelectItem(nft as Nft)}
+                >
+                  <SingleNft nft={nft as Nft} linkToDetail={false} />
+                </button>
+              </div>
+            );
+          }}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </div>
   );

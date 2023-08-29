@@ -11,6 +11,7 @@ import type {
 import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -100,17 +101,21 @@ const Feed: FC<FeedProps> = ({
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
-          showThread={false}
-          showActions={false}
-          showModActions
-        />
-      ))}
+      {publications && (
+        <For each={publications}>
+          {(publication, index) => (
+            <SinglePublication
+              key={`${publication.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              publication={publication as Publication}
+              showThread={false}
+              showActions={false}
+              showModActions
+            />
+          )}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

@@ -7,6 +7,7 @@ import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
@@ -66,20 +67,24 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   return (
     <Card as="aside" className="space-y-4 p-5" dataTestId="relevant-profiles">
       <ErrorMessage title={t`Failed to load relevant people`} error={error} />
-      {data?.profiles?.items?.map((profile, index) => (
-        <div key={profile?.id} className="truncate">
-          <UserProfile
-            profile={profile as Profile}
-            isFollowing={profile.isFollowedByMe}
-            followUnfollowPosition={index + 1}
-            followUnfollowSource={
-              FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES
-            }
-            showUserPreview={false}
-            showFollow
-          />
-        </div>
-      ))}
+      {data?.profiles?.items && (
+        <For each={data.profiles.items}>
+          {(profile, index) => (
+            <div key={profile?.id} className="truncate">
+              <UserProfile
+                profile={profile as Profile}
+                isFollowing={profile.isFollowedByMe}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={
+                  FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES
+                }
+                showUserPreview={false}
+                showFollow
+              />
+            </div>
+          )}
+        </For>
+      )}
     </Card>
   );
 };

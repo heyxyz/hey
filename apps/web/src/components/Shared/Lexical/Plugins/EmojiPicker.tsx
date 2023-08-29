@@ -9,6 +9,7 @@ import {
 import clsx from 'clsx';
 import type { TextNode } from 'lexical';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
@@ -165,22 +166,26 @@ const EmojiPickerPlugin: FC = () => {
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
               <ul className="mt-7 w-52 rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                {options.map((option: EmojiOption, index) => (
-                  <div key={option.key}>
-                    <EmojiMenuItem
-                      index={index}
-                      isSelected={selectedIndex === index}
-                      onClick={() => {
-                        setHighlightedIndex(index);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(index);
-                      }}
-                      option={option}
-                    />
-                  </div>
-                ))}
+                {options && (
+                  <For each={options}>
+                    {(option: EmojiOption, index) => (
+                      <div key={option.key}>
+                        <EmojiMenuItem
+                          index={index}
+                          isSelected={selectedIndex === index}
+                          onClick={() => {
+                            setHighlightedIndex(index);
+                            selectOptionAndCleanUp(option);
+                          }}
+                          onMouseEnter={() => {
+                            setHighlightedIndex(index);
+                          }}
+                          option={option}
+                        />
+                      </div>
+                    )}
+                  </For>
+                )}
               </ul>,
               anchorElementRef.current
             )

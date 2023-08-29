@@ -15,6 +15,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -191,49 +192,53 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors.map((connector) => {
-        return (
-          <button
-            type="button"
-            key={connector.id}
-            className={clsx(
-              {
-                'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  connector.id !== activeConnector?.id
-              },
-              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-            )}
-            onClick={() => onConnect(connector)}
-            disabled={
-              isMounted()
-                ? !connector.ready || connector.id === activeConnector?.id
-                : false
-            }
-          >
-            <span>
-              {isMounted()
-                ? connector.id === 'injected'
-                  ? t`Browser Wallet`
-                  : getWalletDetails(connector.name).name
-                : getWalletDetails(connector.name).name}
-              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
-            </span>
-            <div className="flex items-center space-x-4">
-              {isConnectLoading && pendingConnector?.id === connector.id ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : null}
-              <img
-                src={getWalletDetails(connector.name).logo}
-                draggable={false}
-                className="h-6 w-6"
-                height={24}
-                width={24}
-                alt={connector.id}
-              />
-            </div>
-          </button>
-        );
-      })}
+      {connectors && (
+        <For each={connectors}>
+          {(connector) => {
+            return (
+              <button
+                type="button"
+                key={connector.id}
+                className={clsx(
+                  {
+                    'hover:bg-gray-100 dark:hover:bg-gray-700':
+                      connector.id !== activeConnector?.id
+                  },
+                  'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+                )}
+                onClick={() => onConnect(connector)}
+                disabled={
+                  isMounted()
+                    ? !connector.ready || connector.id === activeConnector?.id
+                    : false
+                }
+              >
+                <span>
+                  {isMounted()
+                    ? connector.id === 'injected'
+                      ? t`Browser Wallet`
+                      : getWalletDetails(connector.name).name
+                    : getWalletDetails(connector.name).name}
+                  {isMounted() ? !connector.ready && ' (unsupported)' : ''}
+                </span>
+                <div className="flex items-center space-x-4">
+                  {isConnectLoading && pendingConnector?.id === connector.id ? (
+                    <Spinner className="mr-0.5" size="xs" />
+                  ) : null}
+                  <img
+                    src={getWalletDetails(connector.name).logo}
+                    draggable={false}
+                    className="h-6 w-6"
+                    height={24}
+                    width={24}
+                    alt={connector.id}
+                  />
+                </div>
+              </button>
+            );
+          }}
+        </For>
+      )}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />

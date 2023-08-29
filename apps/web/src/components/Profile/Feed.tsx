@@ -14,6 +14,7 @@ import {
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
@@ -148,17 +149,22 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId={`profile-feed-type-${type.toLowerCase()}`}
     >
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
-          showThread={
-            type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
-          }
-        />
-      ))}
+      {publications && (
+        <For each={publications}>
+          {(publication, index) => (
+            <SinglePublication
+              key={`${publication.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              publication={publication as Publication}
+              showThread={
+                type !== ProfileFeedType.Media &&
+                type !== ProfileFeedType.Collects
+              }
+            />
+          )}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

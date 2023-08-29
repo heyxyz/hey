@@ -16,6 +16,7 @@ import { Button, Image, LightBox } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -98,126 +99,128 @@ const Attachments: FC<AttachmentsProps> = ({
       <div
         className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
       >
-        {slicedAttachments?.map(
-          (attachment: NewLensterAttachment & MediaSet, index: number) => {
-            const type = attachment.original?.mimeType;
-            const url = isNew
-              ? attachment.previewItem
-              : sanitizeDStorageUrl(attachment.original?.url);
-            const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
-            const isVideo = ALLOWED_VIDEO_TYPES.includes(type);
-            const isImage = !(isVideo || isAudio);
+        {slicedAttachments && (
+          <For each={slicedAttachments}>
+            {(attachment: NewLensterAttachment & MediaSet, index: number) => {
+              const type = attachment.original?.mimeType;
+              const url = isNew
+                ? attachment.previewItem
+                : sanitizeDStorageUrl(attachment.original?.url);
+              const isAudio = ALLOWED_AUDIO_TYPES.includes(type);
+              const isVideo = ALLOWED_VIDEO_TYPES.includes(type);
+              const isImage = !(isVideo || isAudio);
 
-            return (
-              <div
-                className={clsx(
-                  isImage
-                    ? `${getClass(attachmentsLength, isNew)?.aspect} ${
-                        attachmentsLength === 3 && index === 0
-                          ? 'row-span-2'
-                          : ''
-                      }`
-                    : '',
-                  {
-                    'w-full': isAudio || isVideo,
-                    'w-2/3': !isVideo && attachmentsLength === 1
-                  },
-                  'relative'
-                )}
-                key={index + url}
-                onClick={stopEventPropagation}
-                aria-hidden="true"
-              >
-                {type === 'image/svg+xml' ? (
-                  <Button
-                    className="text-sm"
-                    variant="primary"
-                    icon={<ExternalLinkIcon className="h-4 w-4" />}
-                    onClick={() => window.open(url, '_blank')}
-                  >
-                    <span>
-                      <Trans>Open Image in new tab</Trans>
-                    </span>
-                  </Button>
-                ) : isVideo ? (
-                  isNew ? (
-                    <>
-                      <video
-                        className="w-full overflow-hidden rounded-xl"
-                        src={url}
-                        ref={videoRef}
-                        disablePictureInPicture
-                        disableRemotePlayback
-                        controlsList="nodownload noplaybackrate"
-                        controls
-                      />
-                      <ChooseThumbnail />
-                    </>
-                  ) : (
-                    <Video
-                      src={url}
-                      poster={getThumbnailUrl(publication?.metadata)}
-                    />
-                  )
-                ) : isAudio ? (
-                  <Audio
-                    src={url}
-                    isNew={isNew}
-                    publication={publication}
-                    txn={txn}
-                    expandCover={(url) => setExpandedImage(url)}
-                  />
-                ) : (
-                  <Image
-                    className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
-                    loading="lazy"
-                    height={1000}
-                    width={1000}
-                    onError={({ currentTarget }) => {
-                      currentTarget.src = url;
-                    }}
-                    onClick={() => {
-                      setExpandedImage(url);
-                      Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
-                        publication_id: publication?.id
-                      });
-                    }}
-                    src={isNew ? url : imageKit(url, ATTACHMENT)}
-                    alt={isNew ? url : imageKit(url, ATTACHMENT)}
-                    data-testid={`attachment-image-${url}`}
-                  />
-                )}
-                {isNew &&
-                  !hideDelete &&
-                  (isVideo ? (
+              return (
+                <div
+                  className={clsx(
+                    isImage
+                      ? `${getClass(attachmentsLength, isNew)?.aspect} ${
+                          attachmentsLength === 3 && index === 0
+                            ? 'row-span-2'
+                            : ''
+                        }`
+                      : '',
+                    {
+                      'w-full': isAudio || isVideo,
+                      'w-2/3': !isVideo && attachmentsLength === 1
+                    },
+                    'relative'
+                  )}
+                  key={index + url}
+                  onClick={stopEventPropagation}
+                  aria-hidden="true"
+                >
+                  {type === 'image/svg+xml' ? (
                     <Button
-                      className="mt-3"
-                      variant="danger"
-                      size="sm"
-                      icon={<XIcon className="h-4 w-4" />}
-                      onClick={() => removeAttachment(attachment)}
-                      outline
+                      className="text-sm"
+                      variant="primary"
+                      icon={<ExternalLinkIcon className="h-4 w-4" />}
+                      onClick={() => window.open(url, '_blank')}
                     >
-                      <Trans>Cancel Upload</Trans>
+                      <span>
+                        <Trans>Open Image in new tab</Trans>
+                      </span>
                     </Button>
+                  ) : isVideo ? (
+                    isNew ? (
+                      <>
+                        <video
+                          className="w-full overflow-hidden rounded-xl"
+                          src={url}
+                          ref={videoRef}
+                          disablePictureInPicture
+                          disableRemotePlayback
+                          controlsList="nodownload noplaybackrate"
+                          controls
+                        />
+                        <ChooseThumbnail />
+                      </>
+                    ) : (
+                      <Video
+                        src={url}
+                        poster={getThumbnailUrl(publication?.metadata)}
+                      />
+                    )
+                  ) : isAudio ? (
+                    <Audio
+                      src={url}
+                      isNew={isNew}
+                      publication={publication}
+                      txn={txn}
+                      expandCover={(url) => setExpandedImage(url)}
+                    />
                   ) : (
-                    <div
-                      className={clsx(
-                        isAudio ? 'absolute left-2 top-2' : 'm-3'
-                      )}
-                    >
-                      <button
-                        type="button"
-                        className="rounded-full bg-gray-900 p-1.5 opacity-75"
+                    <Image
+                      className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                      loading="lazy"
+                      height={1000}
+                      width={1000}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src = url;
+                      }}
+                      onClick={() => {
+                        setExpandedImage(url);
+                        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
+                          publication_id: publication?.id
+                        });
+                      }}
+                      src={isNew ? url : imageKit(url, ATTACHMENT)}
+                      alt={isNew ? url : imageKit(url, ATTACHMENT)}
+                      data-testid={`attachment-image-${url}`}
+                    />
+                  )}
+                  {isNew &&
+                    !hideDelete &&
+                    (isVideo ? (
+                      <Button
+                        className="mt-3"
+                        variant="danger"
+                        size="sm"
+                        icon={<XIcon className="h-4 w-4" />}
                         onClick={() => removeAttachment(attachment)}
+                        outline
                       >
-                        <XIcon className="h-4 w-4 text-white" />
-                      </button>
-                    </div>
-                  ))}
-              </div>
-            );
-          }
+                        <Trans>Cancel Upload</Trans>
+                      </Button>
+                    ) : (
+                      <div
+                        className={clsx(
+                          isAudio ? 'absolute left-2 top-2' : 'm-3'
+                        )}
+                      >
+                        <button
+                          type="button"
+                          className="rounded-full bg-gray-900 p-1.5 opacity-75"
+                          onClick={() => removeAttachment(attachment)}
+                        >
+                          <XIcon className="h-4 w-4 text-white" />
+                        </button>
+                      </div>
+                    ))}
+                </div>
+              );
+            }}
+          </For>
         )}
       </div>
       <LightBox

@@ -13,6 +13,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -141,55 +142,60 @@ const Choices: FC<ChoicesProps> = ({
           </div>
         ) : null}
         <div className="space-y-1 p-3">
-          {sortedChoices.map(
-            ({ position, choice, voted, percentage, score }) => (
-              <button
-                key={choice}
-                className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
-                disabled={isLensterPoll ? voteSubmitting : false}
-                onClick={() => {
-                  if (isLensterPoll) {
-                    setSelectedPosition(position);
-                    return voteLensterPoll(position);
-                  }
+          {sortedChoices && (
+            <For each={sortedChoices}>
+              {({ position, choice, voted, percentage, score }) => (
+                <button
+                  key={choice}
+                  className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
+                  disabled={isLensterPoll ? voteSubmitting : false}
+                  onClick={() => {
+                    if (isLensterPoll) {
+                      setSelectedPosition(position);
+                      return voteLensterPoll(position);
+                    }
 
-                  return openVoteModal(position);
-                }}
-              >
-                {isLensterPoll &&
-                voteSubmitting &&
-                position === selectedPosition ? (
-                  <Spinner className="mr-1" size="sm" />
-                ) : (
-                  <CheckCircleIcon
-                    className={clsx(
-                      voted ? 'text-green-500' : 'text-gray-500',
-                      'h-6 w-6 '
-                    )}
-                  />
-                )}
-                <div className="w-full space-y-1">
-                  <div className="flex items-center justify-between">
-                    <b>{choice}</b>
-                    <div>
-                      <span>
-                        {nFormatter(score)} {isLensterPoll ? null : symbol}
-                      </span>
-                      <span className="mx-1.5">·</span>
-                      <span className="lt-text-gray-500">
-                        {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
-                      </span>
+                    return openVoteModal(position);
+                  }}
+                >
+                  {isLensterPoll &&
+                  voteSubmitting &&
+                  position === selectedPosition ? (
+                    <Spinner className="mr-1" size="sm" />
+                  ) : (
+                    <CheckCircleIcon
+                      className={clsx(
+                        voted ? 'text-green-500' : 'text-gray-500',
+                        'h-6 w-6 '
+                      )}
+                    />
+                  )}
+                  <div className="w-full space-y-1">
+                    <div className="flex items-center justify-between">
+                      <b>{choice}</b>
+                      <div>
+                        <span>
+                          {nFormatter(score)} {isLensterPoll ? null : symbol}
+                        </span>
+                        <span className="mx-1.5">·</span>
+                        <span className="lt-text-gray-500">
+                          {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}
+                          %
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
+                      <div
+                        style={{ width: `${percentage.toFixed(2)}%` }}
+                        className={clsx(
+                          voted ? 'bg-green-500' : 'bg-brand-500'
+                        )}
+                      />
                     </div>
                   </div>
-                  <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
-                    <div
-                      style={{ width: `${percentage.toFixed(2)}%` }}
-                      className={clsx(voted ? 'bg-green-500' : 'bg-brand-500')}
-                    />
-                  </div>
-                </div>
-              </button>
-            )
+                </button>
+              )}
+            </For>
           )}
         </div>
         {isLensterPoll ? (

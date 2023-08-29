@@ -11,6 +11,7 @@ import { Button } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -72,33 +73,37 @@ const Interests: FC = () => {
           <div className="space-y-2" key={category.id}>
             <h2 className="text-sm font-medium capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-3">
-              {subCategories?.map((subCategory) => (
-                <Button
-                  key={subCategory.id}
-                  variant={
-                    selectedTopics.includes(subCategory.id)
-                      ? 'primary'
-                      : 'secondary'
-                  }
-                  size="sm"
-                  className="font-medium capitalize"
-                  disabled={
-                    !selectedTopics.includes(subCategory.id) &&
-                    selectedTopics.length === MAX_TOPICS_ALLOWED
-                  }
-                  icon={
-                    selectedTopics.includes(subCategory.id) ? (
-                      <CheckCircleIcon className="text-brand h-4 w-4" />
-                    ) : (
-                      <PlusCircleIcon className="h-4 w-4" />
-                    )
-                  }
-                  onClick={() => onSelectTopic(subCategory.id)}
-                  outline
-                >
-                  <div>{subCategory.label}</div>
-                </Button>
-              ))}
+              {subCategories && (
+                <For each={subCategories}>
+                  {(subCategory) => (
+                    <Button
+                      key={subCategory.id}
+                      variant={
+                        selectedTopics.includes(subCategory.id)
+                          ? 'primary'
+                          : 'secondary'
+                      }
+                      size="sm"
+                      className="font-medium capitalize"
+                      disabled={
+                        !selectedTopics.includes(subCategory.id) &&
+                        selectedTopics.length === MAX_TOPICS_ALLOWED
+                      }
+                      icon={
+                        selectedTopics.includes(subCategory.id) ? (
+                          <CheckCircleIcon className="text-brand h-4 w-4" />
+                        ) : (
+                          <PlusCircleIcon className="h-4 w-4" />
+                        )
+                      }
+                      onClick={() => onSelectTopic(subCategory.id)}
+                      outline
+                    >
+                      <div>{subCategory.label}</div>
+                    </Button>
+                  )}
+                </For>
+              )}
               {!subCategories.length ? (
                 <Button
                   key={category.id}

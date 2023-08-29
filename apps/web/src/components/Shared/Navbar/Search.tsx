@@ -10,6 +10,7 @@ import { Card, Input, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { For } from 'million/react';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useRef, useState } from 'react';
@@ -118,31 +119,35 @@ const Search: FC<SearchProps> = ({
               </div>
             ) : (
               <>
-                {profiles.map((profile: Profile) => (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    key={profile?.handle}
-                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => {
-                      if (onProfileSelected) {
-                        onProfileSelected(profile);
-                      }
-                      setSearchText('');
-                    }}
-                    data-testid={`search-profile-${formatHandle(
-                      profile?.handle
-                    )}`}
-                    aria-hidden="true"
-                  >
-                    <UserProfile
-                      linkToProfile={!onProfileSelected}
-                      profile={profile}
-                      showUserPreview={false}
-                    />
-                  </motion.div>
-                ))}
+                {profiles && (
+                  <For each={profiles}>
+                    {(profile: Profile) => (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        key={profile?.handle}
+                        className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        onClick={() => {
+                          if (onProfileSelected) {
+                            onProfileSelected(profile);
+                          }
+                          setSearchText('');
+                        }}
+                        data-testid={`search-profile-${formatHandle(
+                          profile?.handle
+                        )}`}
+                        aria-hidden="true"
+                      >
+                        <UserProfile
+                          linkToProfile={!onProfileSelected}
+                          profile={profile}
+                          showUserPreview={false}
+                        />
+                      </motion.div>
+                    )}
+                  </For>
+                )}
                 {profiles.length === 0 ? (
                   <div className="px-4 py-2">
                     <Trans>No matching users</Trans>

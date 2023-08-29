@@ -8,6 +8,7 @@ import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { clsx } from 'clsx';
+import { For } from 'million/react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -89,16 +90,20 @@ const List: FC<ListProps> = ({ setEmoji }) => {
         />
       </div>
       <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2 text-lg">
-        {filteredEmojis.map((emoji: Emoji) => (
-          <button
-            className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
-            key={emoji.emoji}
-            type="button"
-            onClick={() => setEmoji(emoji.emoji)}
-          >
-            {emoji.emoji}
-          </button>
-        ))}
+        {filteredEmojis && (
+          <For each={filteredEmojis}>
+            {(emoji: Emoji) => (
+              <button
+                className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+                key={emoji.emoji}
+                type="button"
+                onClick={() => setEmoji(emoji.emoji)}
+              >
+                {emoji.emoji}
+              </button>
+            )}
+          </For>
+        )}
       </div>
     </div>
   );

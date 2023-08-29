@@ -5,6 +5,7 @@ import formatAddress from '@lenster/lib/formatAddress';
 import { EmptyState, Input } from '@lenster/ui';
 import { formatDate } from '@lib/formatTime';
 import { Plural, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 
 interface InvitedProps {
@@ -44,18 +45,22 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
           !
         </Trans>
       </div>
-      {invited.map((invite, key) => (
-        <div key={key}>
-          <Input
-            className="text-sm"
-            iconLeft={<CheckCircleIcon className="text-brand h-5 w-5" />}
-            value={`${formatAddress(invite.address)} invited on ${formatDate(
-              invite.when
-            )}`}
-            disabled
-          />
-        </div>
-      ))}
+      {invited && (
+        <For each={invited}>
+          {(invite, key) => (
+            <div key={key}>
+              <Input
+                className="text-sm"
+                iconLeft={<CheckCircleIcon className="text-brand h-5 w-5" />}
+                value={`${formatAddress(
+                  invite.address
+                )} invited on ${formatDate(invite.when)}`}
+                disabled
+              />
+            </div>
+          )}
+        </For>
+      )}
     </div>
   );
 };

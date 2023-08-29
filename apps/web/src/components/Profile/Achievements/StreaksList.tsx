@@ -15,6 +15,7 @@ import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { For } from 'million/react';
 import type { FC } from 'react';
 
 interface StreaksListProps {
@@ -109,14 +110,18 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       </div>
       <div className="divider" />
       <div className="space-y-4 p-6">
-        {data.map((streak: { id: string; event: string; date: string }) => (
-          <div key={streak.id} className="flex items-center space-x-2">
-            <EventIcon event={streak.event} />
-            <div>
-              <EventName event={streak.event} />
-            </div>
-          </div>
-        ))}
+        {data && (
+          <For each={data}>
+            {(streak: { id: string; event: string; date: string }) => (
+              <div key={streak.id} className="flex items-center space-x-2">
+                <EventIcon event={streak.event} />
+                <div>
+                  <EventName event={streak.event} />
+                </div>
+              </div>
+            )}
+          </For>
+        )}
       </div>
     </Card>
   );

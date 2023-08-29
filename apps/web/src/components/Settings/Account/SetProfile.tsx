@@ -15,6 +15,7 @@ import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -166,11 +167,15 @@ const SetProfile: FC = () => {
           className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
           onChange={(e) => setSelectedUser(e.target.value)}
         >
-          {sortedProfiles?.map((profile: Profile) => (
-            <option key={profile?.id} value={profile?.id}>
-              @{formatHandle(profile?.handle)}
-            </option>
-          ))}
+          {sortedProfiles && (
+            <For each={sortedProfiles}>
+              {(profile: Profile) => (
+                <option key={profile?.id} value={profile?.id}>
+                  @{formatHandle(profile?.handle)}
+                </option>
+              )}
+            </For>
+          )}
         </select>
       </div>
       <Button

@@ -15,6 +15,7 @@ import {
   Image
 } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { For } from 'million/react';
 import Link from 'next/link';
 import type { FC } from 'react';
 import Custom404 from 'src/pages/404';
@@ -55,14 +56,18 @@ const NFTDetail: FC = () => {
           <Slug className="text-xs" slug="Subscapes" />
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
-              {profiles?.map((profile) => (
-                <Image
-                  key={profile.handle}
-                  className="h-5 w-5 rounded-full border dark:border-gray-700"
-                  src={getAvatar(profile)}
-                  alt={formatHandle(profile?.handle)}
-                />
-              ))}
+              {profiles && (
+                <For each={profiles} as="div">
+                  {(profile) => (
+                    <Image
+                      key={profile.handle}
+                      className="h-5 w-5 rounded-full border dark:border-gray-700"
+                      src={getAvatar(profile)}
+                      alt={formatHandle(profile?.handle)}
+                    />
+                  )}
+                </For>
+              )}
             </div>
             <div className="text-xs">
               Sasi, Jouni, Yogi, and 10 others own Subscapes

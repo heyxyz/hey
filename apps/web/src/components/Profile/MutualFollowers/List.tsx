@@ -9,6 +9,7 @@ import { useMutualFollowersQuery } from '@lenster/lens';
 import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -61,25 +62,31 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
       />
 
       <div className="divide-y dark:divide-gray-700">
-        {profiles?.map((profile, index) => (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="p-5"
-            key={profile?.id}
-          >
-            <UserProfile
-              profile={profile as Profile}
-              isFollowing={profile?.isFollowedByMe}
-              followUnfollowPosition={index + 1}
-              followUnfollowSource={FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL}
-              showBio
-              showFollow
-              showUserPreview={false}
-            />
-          </motion.div>
-        ))}
+        {profiles && (
+          <For each={profiles}>
+            {(profile, index) => (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-5"
+                key={profile?.id}
+              >
+                <UserProfile
+                  profile={profile as Profile}
+                  isFollowing={profile?.isFollowedByMe}
+                  followUnfollowPosition={index + 1}
+                  followUnfollowSource={
+                    FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL
+                  }
+                  showBio
+                  showFollow
+                  showUserPreview={false}
+                />
+              </motion.div>
+            )}
+          </For>
+        )}
       </div>
       {hasMore ? <span ref={observe} /> : null}
     </div>

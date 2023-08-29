@@ -3,6 +3,7 @@ import type { HomeFeedType } from '@lenster/data/enums';
 import { HOME } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { For } from 'million/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';
 
@@ -25,8 +26,8 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
 
   return (
     <div className="flex flex-wrap gap-3 sm:px-0">
-      {sanitizedEnabledAlgorithms.map((algorithm) => {
-        return (
+      <For each={sanitizedEnabledAlgorithms}>
+        {(algorithm) => (
           <TabButton
             key={algorithm.feedType}
             name={algorithm.name}
@@ -46,8 +47,8 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
               });
             }}
           />
-        );
-      })}
+        )}
+      </For>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -39,14 +40,18 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       aria-hidden="true"
     >
       <div className="contents -space-x-2">
-        {profiles?.map((profile) => (
-          <Image
-            key={profile.handle}
-            className="h-5 w-5 rounded-full border dark:border-gray-700"
-            src={getAvatar(profile)}
-            alt={formatHandle(profile?.handle)}
-          />
-        ))}
+        {profiles && (
+          <For each={profiles}>
+            {(profile) => (
+              <Image
+                key={profile.handle}
+                className="h-5 w-5 rounded-full border dark:border-gray-700"
+                src={getAvatar(profile)}
+                alt={formatHandle(profile?.handle)}
+              />
+            )}
+          </For>
+        )}
       </div>
       <div>
         <span>

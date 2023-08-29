@@ -14,6 +14,7 @@ import {
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC, ReactNode } from 'react';
 import { memo, useEffect, useRef } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -240,29 +241,33 @@ const MessagesList: FC<MessageListProps> = ({
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
-            {messages?.map((msg, index) => {
-              const dateHasChanged = lastMessageDate
-                ? !isOnSameDay(lastMessageDate, msg.sent)
-                : false;
-              const messageDiv = (
-                <div
-                  key={`${msg.id}_${index}`}
-                  ref={index === messages.length - 1 ? observe : null}
-                >
-                  <MessageTile
-                    url={url}
-                    currentProfile={currentProfile}
-                    profile={profile}
-                    message={msg}
-                  />
-                  {dateHasChanged ? (
-                    <DateDivider date={lastMessageDate} />
-                  ) : null}
-                </div>
-              );
-              lastMessageDate = msg.sent;
-              return messageDiv;
-            })}
+            {messages && (
+              <For each={messages}>
+                {(msg, index) => {
+                  const dateHasChanged = lastMessageDate
+                    ? !isOnSameDay(lastMessageDate, msg.sent)
+                    : false;
+                  const messageDiv = (
+                    <div
+                      key={`${msg.id}_${index}`}
+                      ref={index === messages.length - 1 ? observe : null}
+                    >
+                      <MessageTile
+                        url={url}
+                        currentProfile={currentProfile}
+                        profile={profile}
+                        message={msg}
+                      />
+                      {dateHasChanged ? (
+                        <DateDivider date={lastMessageDate} />
+                      ) : null}
+                    </div>
+                  );
+                  lastMessageDate = msg.sent;
+                  return messageDiv;
+                }}
+              </For>
+            )}
             {hasMore ? <LoadingMore /> : <ConversationBeginningNotice />}
           </span>
         </div>

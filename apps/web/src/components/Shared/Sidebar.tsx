@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { For } from 'million/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -38,20 +39,23 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
     ...item,
     enabled: item.enabled ?? true
   }));
+  const filteredMenuItems = menuItems.filter((i) => i.enabled);
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
-      {menuItems.map((item: any) =>
-        item?.enabled ? (
-          <Menu
-            key={item.title}
-            current={pathname === item.url || item.active}
-            url={item.url}
-          >
-            {item.icon}
-            <div>{item.title}</div>
-          </Menu>
-        ) : null
+      {filteredMenuItems && (
+        <For each={filteredMenuItems}>
+          {(item: any) => (
+            <Menu
+              url={item.url}
+              key={item.title}
+              current={pathname === item.url || item.active}
+            >
+              {item.icon}
+              <div>{item.title}</div>
+            </Menu>
+          )}
+        </For>
       )}
     </div>
   );

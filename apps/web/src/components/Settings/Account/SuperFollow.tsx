@@ -16,6 +16,7 @@ import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -182,14 +183,18 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
-              <option
-                key={currency.address}
-                value={`${currency.address}-${currency.symbol}`}
-              >
-                {currency.name}
-              </option>
-            ))}
+            {currencyData?.enabledModuleCurrencies && (
+              <For each={currencyData.enabledModuleCurrencies}>
+                {(currency: Erc20) => (
+                  <option
+                    key={currency.address}
+                    value={`${currency.address}-${currency.symbol}`}
+                  >
+                    {currency.name}
+                  </option>
+                )}
+              </For>
+            )}
           </select>
         </div>
         <Input

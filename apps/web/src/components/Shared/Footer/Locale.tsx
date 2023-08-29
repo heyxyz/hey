@@ -7,6 +7,7 @@ import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
@@ -43,24 +44,26 @@ const Locale: FC = () => {
           className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           data-testid="locale-selector-menu"
         >
-          {Object.entries(locales).map(([localeCode, localeName]) => (
-            <Menu.Item
-              key={localeCode}
-              as="div"
-              onClick={() => {
-                setLanguage(localeCode);
-                Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
-                  locale: localeCode
-                });
-                location.reload();
-              }}
-              className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
-              }
-            >
-              {localeName}
-            </Menu.Item>
-          ))}
+          <For each={Object.entries(locales)}>
+            {([localeCode, localeName]) => (
+              <Menu.Item
+                key={localeCode}
+                as="div"
+                onClick={() => {
+                  setLanguage(localeCode);
+                  Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
+                    locale: localeCode
+                  });
+                  location.reload();
+                }}
+                className={({ active }: { active: boolean }) =>
+                  clsx({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                {localeName}
+              </Menu.Item>
+            )}
+          </For>
         </Menu.Items>
       </MenuTransition>
     </Menu>

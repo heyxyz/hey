@@ -13,6 +13,7 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -87,12 +88,16 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   return (
     <>
       <Card className="divide-y-[1px] dark:divide-gray-700">
-        {publications?.map((publication, index) => (
-          <SinglePublication
-            key={`${publication?.id}_${index}`}
-            publication={publication}
-          />
-        ))}
+        {publications && (
+          <For each={publications}>
+            {(publication, index) => (
+              <SinglePublication
+                key={`${publication?.id}_${index}`}
+                publication={publication}
+              />
+            )}
+          </For>
+        )}
       </Card>
       {hasMore ? <span ref={observe} /> : null}
     </>
