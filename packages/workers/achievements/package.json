@@ -10,7 +10,7 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "typecheck": "tsc --pretty",
-    "worker:deploy": "wrangler deploy"
+    "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
     "@lenster/data": "workspace:*",
