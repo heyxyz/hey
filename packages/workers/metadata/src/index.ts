@@ -1,6 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
-import { createCors, error, Router } from 'itty-router';
+import { createCors, error, Router, status } from 'itty-router';
 import { Toucan } from 'toucan-js';
 
 import postMetadata from './handlers/postMetadata';
@@ -16,6 +16,7 @@ const router = Router();
 
 router
   .all('*', preflight)
+  .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
       message: 'gm, to metadata service 👋',
