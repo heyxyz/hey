@@ -45,7 +45,7 @@ const Messages: NextPage = () => {
     <GridLayout classNameChild="md:gap-8">
       <MetaTags title={t`Messages • ${APP_NAME}`} />
       <PreviewList />
-      <GridItemEight className="xs:hidden xs:mx-2 mb-0 sm:mx-2 sm:hidden sm:h-[76vh] md:col-span-8 md:hidden md:h-[80vh] lg:block xl:h-[84vh]">
+      <GridItemEight className="xs:hidden xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 sm:hidden md:col-span-8 md:hidden lg:block">
         <Card className="h-full">
           <NoConversationSelected />
         </Card>
