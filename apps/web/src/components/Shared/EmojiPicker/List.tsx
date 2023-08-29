@@ -88,7 +88,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           onChange={onChange}
         />
       </div>
-      <div className="grid max-h-[16rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
+      <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2 text-lg">
         {filteredEmojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
