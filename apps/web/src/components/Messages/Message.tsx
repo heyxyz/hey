@@ -151,7 +151,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
         selectedConversationKey={conversationKey}
       />
       <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
-        <Card className="flex h-[87vh] flex-col justify-between">
+        <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
           {showLoading ? (
             <div className="flex h-full grow items-center justify-center">
               <Loader message={t`Loading messages`} />
