@@ -96,7 +96,7 @@ const Feed: FC<FeedProps> = ({
       dataTestId="explore-feed"
     >
       {publications && (
-        <For each={publications} memo>
+        <For each={publications}>
           {(publication, index) => (
             <SinglePublication
               isFirst={index === 0}
