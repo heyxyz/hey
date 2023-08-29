@@ -3,16 +3,25 @@ import response from '@lenster/lib/response';
 
 import filteredEvents from '../helpers/filteredNames';
 import generateDateRangeDict from '../helpers/generateDateRangeDict';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (id: string, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/achievements/streaksCalendar'
+  });
+
+  const { id } = request.params;
+
   if (!id) {
     return response({ success: false, error: Errors.NoBody });
   }
 
   try {
+    const clickhouseRequestSpan = transaction?.startChild({
+      name: 'clickhouse-request'
+    });
     const clickhouseResponse = await fetch(
-      `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
+      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,6 +38,7 @@ export default async (id: string, env: Env) => {
         `
       }
     );
+    clickhouseRequestSpan?.finish();
 
     if (clickhouseResponse.status !== 200) {
       return response({ success: false, error: Errors.StatusCodeIsNot200 });
@@ -48,6 +58,9 @@ export default async (id: string, env: Env) => {
 
     return response({ success: true, data: allDatesData });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };
