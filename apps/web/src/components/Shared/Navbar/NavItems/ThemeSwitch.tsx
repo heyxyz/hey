@@ -11,7 +11,6 @@ interface ThemeSwitchProps {
   className?: string;
 }
 
-// million-ignore
 const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   const { theme, setTheme } = useTheme();
 

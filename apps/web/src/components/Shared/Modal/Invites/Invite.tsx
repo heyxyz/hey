@@ -22,7 +22,6 @@ interface InviteProps {
   refetch: () => void;
 }
 
-// million-ignore
 const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   const [inviting, setInviting] = useState(false);
 
