@@ -2,6 +2,7 @@ import { ClockIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
 import { MenuAlt2Icon, XCircleIcon } from '@heroicons/react/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@lenster/ui';
 import { Plural, t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -94,33 +95,37 @@ const PollEditor: FC = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.choices.map((choice, index) => (
-          <div key={index} className="flex items-center space-x-2 text-sm">
-            <Input
-              placeholder={t`Choice ${index + 1}`}
-              value={choice}
-              onChange={(event) => {
-                const newChoices = [...pollConfig.choices];
-                newChoices[index] = event.target.value;
-                setPollConfig({ ...pollConfig, choices: newChoices });
-              }}
-              iconRight={
-                index > 1 ? (
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const newChoices = [...pollConfig.choices];
-                      newChoices.splice(index, 1);
-                      setPollConfig({ ...pollConfig, choices: newChoices });
-                    }}
-                  >
-                    <XIcon className="h-5 w-5 text-red-500" />
-                  </button>
-                ) : null
-              }
-            />
-          </div>
-        ))}
+        {pollConfig.choices && (
+          <For each={pollConfig.choices}>
+            {(choice, index) => (
+              <div key={index} className="flex items-center space-x-2 text-sm">
+                <Input
+                  placeholder={t`Choice ${index + 1}`}
+                  value={choice}
+                  onChange={(event) => {
+                    const newChoices = [...pollConfig.choices];
+                    newChoices[index] = event.target.value;
+                    setPollConfig({ ...pollConfig, choices: newChoices });
+                  }}
+                  iconRight={
+                    index > 1 ? (
+                      <button
+                        className="flex"
+                        onClick={() => {
+                          const newChoices = [...pollConfig.choices];
+                          newChoices.splice(index, 1);
+                          setPollConfig({ ...pollConfig, choices: newChoices });
+                        }}
+                      >
+                        <XIcon className="h-5 w-5 text-red-500" />
+                      </button>
+                    ) : null
+                  }
+                />
+              </div>
+            )}
+          </For>
+        )}
         {pollConfig.choices.length !== 10 ? (
           <button
             className="text-brand mt-2 flex items-center space-x-2 text-sm"

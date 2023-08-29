@@ -12,6 +12,7 @@ import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import splitNumber from '@lenster/lib/splitNumber';
 import { Button, Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -114,52 +115,59 @@ const SplitConfig: FC<SplitConfigProps> = ({
       {hasRecipients ? (
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
-            {recipients.map((recipient, index) => (
-              <div key={index} className="flex items-center space-x-2 text-sm">
-                <Input
-                  placeholder="0x3A5bd...5e3 or wagmi.lens"
-                  value={recipient.recipient}
-                  disabled={loading}
-                  error={
-                    recipient.recipient.length > 0 &&
-                    !isValidEthAddress(recipient.recipient)
-                  }
-                  onChange={(event) =>
-                    onChangeRecipientOrSplit(
-                      index,
-                      event.target.value,
-                      'recipient'
-                    )
-                  }
-                />
-                <div className="w-1/3">
-                  <Input
-                    type="number"
-                    placeholder="5"
-                    min="1"
-                    max="100"
-                    value={recipient.split}
-                    iconRight="%"
-                    onChange={(event) =>
-                      onChangeRecipientOrSplit(
-                        index,
-                        event.target.value,
-                        'split'
-                      )
-                    }
-                  />
-                </div>
-                <button
-                  onClick={() => {
-                    setCollectType({
-                      recipients: recipients.filter((_, i) => i !== index)
-                    });
-                  }}
-                >
-                  <XCircleIcon className="h-5 w-5 text-red-500" />
-                </button>
-              </div>
-            ))}
+            {recipients && (
+              <For each={recipients}>
+                {(recipient, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-2 text-sm"
+                  >
+                    <Input
+                      placeholder="0x3A5bd...5e3 or wagmi.lens"
+                      value={recipient.recipient}
+                      disabled={loading}
+                      error={
+                        recipient.recipient.length > 0 &&
+                        !isValidEthAddress(recipient.recipient)
+                      }
+                      onChange={(event) =>
+                        onChangeRecipientOrSplit(
+                          index,
+                          event.target.value,
+                          'recipient'
+                        )
+                      }
+                    />
+                    <div className="w-1/3">
+                      <Input
+                        type="number"
+                        placeholder="5"
+                        min="1"
+                        max="100"
+                        value={recipient.split}
+                        iconRight="%"
+                        onChange={(event) =>
+                          onChangeRecipientOrSplit(
+                            index,
+                            event.target.value,
+                            'split'
+                          )
+                        }
+                      />
+                    </div>
+                    <button
+                      onClick={() => {
+                        setCollectType({
+                          recipients: recipients.filter((_, i) => i !== index)
+                        });
+                      }}
+                    >
+                      <XCircleIcon className="h-5 w-5 text-red-500" />
+                    </button>
+                  </div>
+                )}
+              </For>
+            )}
           </div>
           <div className="flex items-center justify-between">
             {recipients.length >= 5 ? (

@@ -6,6 +6,7 @@ import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
 import { useFeedHighlightsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
@@ -79,14 +80,18 @@ const Highlights: FC = () => {
           </div>
         ) : null
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
-        />
-      ))}
+      {publications && (
+        <For each={publications}>
+          {(publication, index) => (
+            <SinglePublication
+              key={`${publication?.id}_${index}`}
+              isFirst={index === 0}
+              isLast={index === publications.length - 1}
+              publication={publication as Publication}
+            />
+          )}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

@@ -3,6 +3,7 @@ import { ShieldCheckIcon } from '@heroicons/react/solid';
 import type { Publication } from '@lenster/lens';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
@@ -61,9 +62,11 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             title={t`Tags`}
             noFlex
           >
-            {publication?.metadata?.tags.map((tag) => (
-              <div key={tag}>{tag}</div>
-            ))}
+            {publication?.metadata?.tags && (
+              <For each={publication.metadata.tags}>
+                {(tag) => <div key={tag}>{tag}</div>}
+              </For>
+            )}
           </MetaDetails>
         ) : null}
       </div>

@@ -12,6 +12,7 @@ import {
 } from '@lenster/lens';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -89,16 +90,23 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">
-          {comments?.map((comment, index) =>
-            comment?.__typename === 'Comment' && comment.hidden ? null : (
-              <SinglePublication
-                key={`${publicationId}_${index}`}
-                isFirst={index === 0}
-                isLast={index === comments.length - 1}
-                publication={comment as Comment}
-                showType={false}
-              />
-            )
+          {comments && (
+            <For
+              each={comments.filter(
+                (comment) =>
+                  !(comment?.__typename === 'Comment' && comment.hidden)
+              )}
+            >
+              {(comment, index) => (
+                <SinglePublication
+                  showType={false}
+                  isFirst={index === 0}
+                  publication={comment as Comment}
+                  key={`${publicationId}_${index}`}
+                  isLast={index === comments.length - 1}
+                />
+              )}
+            </For>
           )}
           {hasMore ? <span ref={observe} /> : null}
         </Card>

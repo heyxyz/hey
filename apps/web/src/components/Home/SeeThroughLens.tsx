@@ -23,6 +23,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
+import { For } from 'million/react';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -165,34 +166,38 @@ const SeeThroughLens: FC = () => {
               </div>
             ) : (
               <>
-                {profiles.map((profile: Profile) => (
-                  <Menu.Item
-                    as={motion.div}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className={({ active }) =>
-                      clsx(
-                        { 'dropdown-active': active },
-                        'cursor-pointer overflow-hidden rounded-lg p-1'
-                      )
-                    }
-                    key={profile?.handle}
-                    onClick={() => {
-                      setSeeThroughProfile(profile);
-                      setSearchText('');
-                      Leafwatch.track(HOME.SELECT_USER_FEED, {
-                        see_through_profile: profile.id
-                      });
-                    }}
-                  >
-                    <UserProfile
-                      linkToProfile={false}
-                      profile={profile}
-                      showUserPreview={false}
-                    />
-                  </Menu.Item>
-                ))}
+                {profiles && (
+                  <For each={profiles}>
+                    {(profile: Profile) => (
+                      <Menu.Item
+                        as={motion.div}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className={({ active }) =>
+                          clsx(
+                            { 'dropdown-active': active },
+                            'cursor-pointer overflow-hidden rounded-lg p-1'
+                          )
+                        }
+                        key={profile?.handle}
+                        onClick={() => {
+                          setSeeThroughProfile(profile);
+                          setSearchText('');
+                          Leafwatch.track(HOME.SELECT_USER_FEED, {
+                            see_through_profile: profile.id
+                          });
+                        }}
+                      >
+                        <UserProfile
+                          linkToProfile={false}
+                          profile={profile}
+                          showUserPreview={false}
+                        />
+                      </Menu.Item>
+                    )}
+                  </For>
+                )}
                 {profiles.length === 0 || error ? (
                   <div className="py-4 text-center">
                     <Trans>No matching users</Trans>

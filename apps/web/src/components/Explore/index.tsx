@@ -15,6 +15,7 @@ import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -59,37 +60,45 @@ const Explore: NextPage = () => {
           }}
         >
           <Tab.List className="divider space-x-8">
-            {tabs.map((tab, index) => (
-              <Tab
-                key={tab.type}
-                defaultChecked={index === 1}
-                onClick={() => {
-                  Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
-                    explore_feed_type: tab.type.toLowerCase()
-                  });
-                }}
-                className={({ selected }) =>
-                  clsx(
-                    {
-                      'border-brand-500 border-b-2 !text-black dark:!text-white':
-                        selected
-                    },
-                    'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
-                  )
-                }
-                data-testid={`explore-tab-${index}`}
-              >
-                {tab.name}
-              </Tab>
-            ))}
+            {tabs && (
+              <For each={tabs}>
+                {(tab, index) => (
+                  <Tab
+                    key={tab.type}
+                    defaultChecked={index === 1}
+                    onClick={() => {
+                      Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_TAB, {
+                        explore_feed_type: tab.type.toLowerCase()
+                      });
+                    }}
+                    className={({ selected }) =>
+                      clsx(
+                        {
+                          'border-brand-500 border-b-2 !text-black dark:!text-white':
+                            selected
+                        },
+                        'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
+                      )
+                    }
+                    data-testid={`explore-tab-${index}`}
+                  >
+                    {tab.name}
+                  </Tab>
+                )}
+              </For>
+            )}
           </Tab.List>
           <FeedFocusType focus={focus} setFocus={setFocus} />
           <Tab.Panels>
-            {tabs.map((tab) => (
-              <Tab.Panel key={tab.type}>
-                <Feed focus={focus} feedType={tab.type} />
-              </Tab.Panel>
-            ))}
+            {tabs && (
+              <For each={tabs}>
+                {(tab) => (
+                  <Tab.Panel key={tab.type}>
+                    <Feed focus={focus} feedType={tab.type} />
+                  </Tab.Panel>
+                )}
+              </For>
+            )}
           </Tab.Panels>
         </Tab.Group>
       </GridItemEight>

@@ -1,6 +1,7 @@
 import { GIPHY_KEY } from '@lenster/data/constants';
 import type { IGif } from '@lenster/types/giphy';
 import axios from 'axios';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInfiniteQuery } from 'wagmi';
 
@@ -43,36 +44,44 @@ const Gifs: FC<CategoriesProps> = ({
 
   if (isFetching) {
     return (
-      <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
-        {Array.from(Array(12).keys()).map((_, index) => (
-          <div
-            key={index}
-            className="shimmer h-32 w-full cursor-pointer object-cover"
-          />
-        ))}
+      <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
+        <For each={Array.from(Array(12).keys())}>
+          {(_, index) => (
+            <div
+              key={index}
+              className="shimmer h-32 w-full cursor-pointer object-cover"
+            />
+          )}
+        </For>
       </div>
     );
   }
 
   return (
-    <div className="grid w-full w-full grid-cols-3 gap-1 overflow-y-auto">
-      {gifs?.pages.map((page: any) =>
-        page.data.map((gif: IGif) => (
-          <button
-            type="button"
-            key={gif.id}
-            className="relative flex outline-none"
-            onClick={() => onSelectGif(gif)}
-          >
-            <img
-              className="h-32 w-full cursor-pointer object-cover"
-              height={128}
-              src={gif?.images?.original?.url}
-              alt={gif.slug}
-              draggable={false}
-            />
-          </button>
-        ))
+    <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
+      {gifs?.pages && (
+        <For each={gifs?.pages}>
+          {(page: any) => (
+            <For each={page.data}>
+              {(gif: IGif) => (
+                <button
+                  key={gif.id}
+                  type="button"
+                  onClick={() => onSelectGif(gif)}
+                  className="relative flex outline-none"
+                >
+                  <img
+                    height={128}
+                    alt={gif.slug}
+                    draggable={false}
+                    src={gif?.images?.original?.url}
+                    className="h-32 w-full cursor-pointer object-cover"
+                  />
+                </button>
+              )}
+            </For>
+          )}
+        </For>
       )}
     </div>
   );

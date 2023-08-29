@@ -12,6 +12,7 @@ import {
 } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -107,14 +108,18 @@ const RelayQueues: NextPage = () => {
                 <Trans>Relay queues</Trans>
               </h1>
               <div className="space-y-3">
-                {sortedRelays?.map(({ address, queue, relayer }) => (
-                  <Relay
-                    key={address}
-                    address={address}
-                    queue={queue}
-                    relayer={relayer}
-                  />
-                ))}
+                {sortedRelays && (
+                  <For each={sortedRelays}>
+                    {({ address, queue, relayer }) => (
+                      <Relay
+                        key={address}
+                        address={address}
+                        queue={queue}
+                        relayer={relayer}
+                      />
+                    )}
+                  </For>
+                )}
               </div>
             </section>
           )}

@@ -3,6 +3,7 @@ import { TagIcon } from '@heroicons/react/outline';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useExploreStore } from 'src/store/explore';
 
@@ -48,27 +49,29 @@ const Tags: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        {tags.map((tag) => (
-          <div key={tag.tag}>
-            <button
-              onClick={() => {
-                // Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
-                //   trending_tag: tag.tag
-                // });
-                setSelectedTag(tag.tag);
-              }}
-            >
-              <div
-                className={clsx(
-                  selectedTag === tag.tag ? 'text-pink-500' : 'text-gray-500',
-                  'font-bold'
-                )}
+        <For each={tags}>
+          {(tag) => (
+            <div key={tag.tag}>
+              <button
+                onClick={() => {
+                  // Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                  //   trending_tag: tag.tag
+                  // });
+                  setSelectedTag(tag.tag);
+                }}
               >
-                {tag.name}
-              </div>
-            </button>
-          </div>
-        ))}
+                <div
+                  className={clsx(
+                    selectedTag === tag.tag ? 'text-pink-500' : 'text-gray-500',
+                    'font-bold'
+                  )}
+                >
+                  {tag.name}
+                </div>
+              </button>
+            </div>
+          )}
+        </For>
       </Card>
     </>
   );

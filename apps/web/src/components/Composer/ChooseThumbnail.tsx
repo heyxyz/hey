@@ -6,6 +6,7 @@ import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
 import { Spinner } from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -168,37 +169,40 @@ const ChooseThumbnail: FC = () => {
           )}
         </label>
         {!thumbnails.length ? <ThumbnailsShimmer /> : null}
-        {thumbnails.map(({ blobUrl, ipfsUrl }, index) => {
-          const isSelected = selectedThumbnailIndex === index;
-          const isUploaded = ipfsUrl === videoThumbnail.url;
-
-          return (
-            <button
-              key={`${blobUrl}_${index}`}
-              type="button"
-              disabled={isUploading}
-              onClick={() => onSelectThumbnail(index)}
-              className="relative"
-            >
-              <img
-                className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
-                src={blobUrl}
-                alt="thumbnail"
-                draggable={false}
-              />
-              {ipfsUrl && isSelected && isUploaded ? (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="h-6 w-6 text-green-500" />
-                </div>
-              ) : null}
-              {isUploading && isSelected && (
-                <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10 backdrop-blur-md">
-                  <Spinner size="sm" />
-                </div>
-              )}
-            </button>
-          );
-        })}
+        {thumbnails && (
+          <For each={thumbnails}>
+            {({ blobUrl, ipfsUrl }, index) => {
+              const isSelected = selectedThumbnailIndex === index;
+              const isUploaded = ipfsUrl === videoThumbnail.url;
+              return (
+                <button
+                  key={`${blobUrl}_${index}`}
+                  type="button"
+                  disabled={isUploading}
+                  onClick={() => onSelectThumbnail(index)}
+                  className="relative"
+                >
+                  <img
+                    className="h-24 w-full rounded-xl border object-cover dark:border-gray-700"
+                    src={blobUrl}
+                    alt="thumbnail"
+                    draggable={false}
+                  />
+                  {ipfsUrl && isSelected && isUploaded ? (
+                    <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
+                      <CheckCircleIcon className="h-6 w-6 text-green-500" />
+                    </div>
+                  ) : null}
+                  {isUploading && isSelected && (
+                    <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10 backdrop-blur-md">
+                      <Spinner size="sm" />
+                    </div>
+                  )}
+                </button>
+              );
+            }}
+          </For>
+        )}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import type {
 import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
@@ -82,14 +83,18 @@ const Feed: FC<FeedProps> = ({ focus }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="explore-feed"
     >
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as Publication}
-        />
-      ))}
+      {publications && (
+        <For each={publications} memo>
+          {(publication, index) => (
+            <SinglePublication
+              isFirst={index === 0}
+              key={`${publication.id}_${index}`}
+              publication={publication as Publication}
+              isLast={index === publications.length - 1}
+            />
+          )}
+        </For>
+      )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
