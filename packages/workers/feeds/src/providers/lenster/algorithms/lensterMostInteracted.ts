@@ -66,8 +66,7 @@ const lensterMostInteracted = async (
     const ids = response.map((row) => row[0]);
 
     return randomizeIds(ids);
-  } catch (error) {
-    console.log(error);
+  } catch {
     return [];
   }
 };
