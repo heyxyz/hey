@@ -9,6 +9,7 @@ interface SelectProps extends ComponentProps<'select'> {
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function TextArea({ label, values }, ref) {
     const id = useId();
+
     return (
       <label htmlFor={id}>
         {label ? <div className="label">{label}</div> : null}

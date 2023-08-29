@@ -50,6 +50,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
       if (response.status >= 400 && response.status < 600) {
         throw new Error(`Bad response: ${response.status}`);
       }
+
       return response;
     });
     return new Response(JSON.stringify({ success: true }), {
