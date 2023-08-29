@@ -2456,6 +2456,10 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"

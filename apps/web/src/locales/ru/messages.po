@@ -2456,6 +2456,10 @@ msgstr "Вы не можете ответить на этот пост"
 msgid "Loading emojis"
 msgstr "Загрузка смайликов"
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr "Все публикации"
