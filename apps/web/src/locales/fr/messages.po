@@ -941,6 +941,26 @@ msgid "Email"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject"
 msgstr ""
 
