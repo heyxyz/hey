@@ -18,7 +18,7 @@
     "@cfworker/base64url": "^1.12.5",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.22",
-    "linkedom": "^0.15.1"
+    "linkedom": "^0.15.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230821.0",
