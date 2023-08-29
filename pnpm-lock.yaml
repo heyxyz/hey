@@ -541,6 +541,9 @@ importers:
       clsx:
         specifier: ^2.0.0
         version: 2.0.0
+      million:
+        specifier: 2.6.0-beta.10
+        version: 2.6.0-beta.10
       next:
         specifier: ^13.4.12
         version: 13.4.12(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)

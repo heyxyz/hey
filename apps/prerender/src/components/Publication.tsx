@@ -3,6 +3,7 @@ import type { Comment, Publication } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
@@ -61,14 +62,18 @@ const PublicationComponent: FC<PublicationProps> = ({
         <SinglePublication publication={publication} h1Content />
       </header>
       <div data-testid="comment-feed">
-        {comments?.map((comment) => {
-          const { id } = comment;
-          return (
-            <div key={id}>
-              <SinglePublication publication={comment} />
-            </div>
-          );
-        })}
+        {comments && (
+          <For each={comments}>
+            {(comment) => {
+              const { id } = comment;
+              return (
+                <div key={id}>
+                  <SinglePublication publication={comment} />
+                </div>
+              );
+            }}
+          </For>
+        )}
       </div>
     </>
   );

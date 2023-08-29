@@ -7,8 +7,9 @@ import nFormatter from '@lenster/lib/nFormatter';
 import { Card, ErrorMessage } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
+import { For } from 'million/react';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 
 const Title = () => {
   return (
@@ -22,9 +23,17 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
+  const [withTag, setWithTag] = useState<TagResult[]>([]);
   const { data, loading, error } = useTrendingQuery({
     variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
   });
+
+  useEffect(() => {
+    const t = data?.allPublicationsTags?.items.filter((i) => i?.tag !== '{}');
+    if (t) {
+      setWithTag(t);
+    }
+  }, [data]);
 
   if (loading) {
     return (
@@ -47,8 +56,8 @@ const Trending: FC = () => {
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <ErrorMessage title={t`Failed to load trending`} error={error} />
-        {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
-          tag?.tag !== '{}' ? (
+        <For each={withTag}>
+          {(tag: TagResult) => (
             <div key={tag?.tag}>
               <Link
                 href={`/search?q=${tag?.tag}&type=pubs`}
@@ -70,8 +79,8 @@ const Trending: FC = () => {
                 </div>
               </Link>
             </div>
-          ) : null
-        )}
+          )}
+        </For>
       </Card>
     </>
   );

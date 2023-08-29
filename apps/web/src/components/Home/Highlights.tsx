@@ -71,14 +71,20 @@ const Highlights: FC = () => {
     return <ErrorMessage title={t`Failed to load highlights`} error={error} />;
   }
 
+  const optimisticTxnQueue = txnQueue.filter(
+    (txn) => txn?.type === OptmisticPublicationType.NewPost
+  );
+
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {txnQueue.map((txn) =>
-        txn?.type === OptmisticPublicationType.NewPost ? (
-          <div key={txn.id}>
-            <QueuedPublication txn={txn} />
-          </div>
-        ) : null
+      {optimisticTxnQueue && (
+        <For each={optimisticTxnQueue}>
+          {(txn) => (
+            <div key={txn.id}>
+              <QueuedPublication txn={txn} />
+            </div>
+          )}
+        </For>
       )}
       {publications && (
         <For each={publications}>

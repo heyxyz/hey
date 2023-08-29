@@ -23,6 +23,7 @@ import {
 import isVerified from '@lib/isVerified';
 import clsx from 'clsx';
 import type { TextNode } from 'lexical';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 import * as ReactDOM from 'react-dom';
@@ -287,21 +288,25 @@ const MentionsPlugin: FC = () => {
           ? ReactDOM.createPortal(
               <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <ul className="divide-y dark:divide-gray-700">
-                  {options.map((option, i: number) => (
-                    <MentionsTypeaheadMenuItem
-                      index={i}
-                      isSelected={selectedIndex === i}
-                      onClick={() => {
-                        setHighlightedIndex(i);
-                        selectOptionAndCleanUp(option);
-                      }}
-                      onMouseEnter={() => {
-                        setHighlightedIndex(i);
-                      }}
-                      key={option.key}
-                      option={option}
-                    />
-                  ))}
+                  {options && (
+                    <For each={options}>
+                      {(option, i: number) => (
+                        <MentionsTypeaheadMenuItem
+                          index={i}
+                          isSelected={selectedIndex === i}
+                          onClick={() => {
+                            setHighlightedIndex(i);
+                            selectOptionAndCleanUp(option);
+                          }}
+                          onMouseEnter={() => {
+                            setHighlightedIndex(i);
+                          }}
+                          key={option.key}
+                          option={option}
+                        />
+                      )}
+                    </For>
+                  )}
                 </ul>
               </div>,
               anchorElementRef.current

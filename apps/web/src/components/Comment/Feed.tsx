@@ -15,6 +15,7 @@ import {
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
@@ -99,30 +100,41 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     );
   }
 
+  const optimisticTxnQueue = txnQueue.filter(
+    (txn) =>
+      txn?.type === OptmisticPublicationType.NewComment &&
+      txn?.parent === publication?.id
+  );
+
+  const visibleComments = comments.filter(
+    (comment) => !(comment?.__typename !== 'Comment' || comment.hidden)
+  );
+
   return (
     <Card
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="comments-feed"
     >
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewComment &&
-          txn?.parent === publication?.id && (
+      {optimisticTxnQueue && (
+        <For each={optimisticTxnQueue}>
+          {(txn) => (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />
             </div>
-          )
+          )}
+        </For>
       )}
-      {comments?.map((comment, index) =>
-        comment?.__typename !== 'Comment' || comment.hidden ? null : (
-          <SinglePublication
-            key={`${comment.id}`}
-            isFirst={index === 0}
-            isLast={index === comments.length - 1}
-            publication={comment as Comment}
-            showType={false}
-          />
-        )
+      {visibleComments && (
+        <For each={visibleComments}>
+          {(comment, index) => (
+            <SinglePublication
+              showType={false}
+              isFirst={index === 0}
+              publication={comment as Comment}
+              isLast={index === comments.length - 1}
+            />
+          )}
+        </For>
       )}
       {hasMore ? <span ref={observe} /> : null}
     </Card>

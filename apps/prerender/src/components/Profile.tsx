@@ -3,6 +3,7 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
+import { For } from 'million/react';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
 import { BASE_URL } from 'src/constants';
@@ -137,20 +138,24 @@ const ProfileComponent: FC<ProfileProps> = ({ profile, publications }) => {
         <hr />
       </header>
       <div data-testid="profile-feed">
-        {publications?.map((publication) => {
-          const { __typename } = publication;
-          return (
-            <div
-              key={
-                __typename === 'Mirror'
-                  ? publication.mirrorOf.id
-                  : publication.id
-              }
-            >
-              <SinglePublication publication={publication} />
-            </div>
-          );
-        })}
+        {publications && (
+          <For each={publications}>
+            {(publication) => {
+              const { __typename } = publication;
+              return (
+                <div
+                  key={
+                    __typename === 'Mirror'
+                      ? publication.mirrorOf.id
+                      : publication.id
+                  }
+                >
+                  <SinglePublication publication={publication} />
+                </div>
+              );
+            }}
+          </For>
+        )}
       </div>
     </>
   );

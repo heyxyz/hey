@@ -1,3 +1,4 @@
+import { For } from 'million/react';
 import type { ComponentProps } from 'react';
 import { forwardRef, useId } from 'react';
 
@@ -18,9 +19,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
           ref={ref}
         >
-          {values.map((value: string) => (
-            <option value={value}>{value}</option>
-          ))}
+          {values && (
+            <For each={values}>
+              {(value: string) => <option value={value}>{value}</option>}
+            </For>
+          )}
         </select>
       </label>
     );
