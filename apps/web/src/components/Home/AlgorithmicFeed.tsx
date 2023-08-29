@@ -9,6 +9,8 @@ import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 interface AlgorithmicFeedProps {
@@ -18,15 +20,24 @@ interface AlgorithmicFeedProps {
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
+  const isFirstLoad = displayedPublications.length == 0;
+
+  const limit = 20;
+  const offset = displayedPublications.length;
+
   const {
     data: publicationIds,
     isLoading: algoLoading,
     error: algoError
-  } = useQuery(['algorithmicFeed', feedType, currentProfile?.id], () =>
-    getAlgorithmicFeed(feedType, currentProfile)
+  } = useQuery(
+    ['algorithmicFeed', feedType, currentProfile?.id, limit, offset],
+    () => {
+      return getAlgorithmicFeed(feedType, currentProfile, limit, offset);
+    }
   );
 
-  const request: PublicationsQueryRequest = { publicationIds, limit: 20 };
+  const request: PublicationsQueryRequest = { publicationIds, limit };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
@@ -38,9 +49,22 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     fetchPolicy: 'no-cache'
   });
 
-  const publications = data?.publications?.items;
+  const publications = [
+    ...displayedPublications,
+    ...(data?.publications?.items || [])
+  ];
+  const hasMore = true;
 
-  if (algoLoading || loading) {
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+      setDisplayedPublications(publications);
+    }
+  });
+
+  if (isFirstLoad && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -53,7 +77,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (error || algoError) {
+  if (isFirstLoad && (error || algoError)) {
     return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
@@ -67,6 +91,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           publication={publication as Publication}
         />
       ))}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };
