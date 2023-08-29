@@ -2,6 +2,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  productionBrowserSourceMaps: true,
   reactStrictMode: false,
   trailingSlash: false,
   transpilePackages: ['data'],
@@ -24,13 +25,13 @@ module.exports = withSentryConfig(
   {
     silent: true,
     org: 'lenster',
-    project: 'prerender'
+    project: 'prerender',
+    url: 'https://sentry.lenster.xyz'
   },
   {
     widenClientFileUpload: true,
     transpileClientSDK: true,
-    tunnelRoute: '/monitoring',
-    hideSourceMaps: true,
-    disableLogger: true
+    disableLogger: true,
+    hideSourceMaps: false
   }
 );
