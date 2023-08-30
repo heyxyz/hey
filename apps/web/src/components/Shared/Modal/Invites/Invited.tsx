@@ -28,7 +28,7 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="[&>*]:space-y-3">
       <div>
         <Trans>
           You have already invited{' '}
