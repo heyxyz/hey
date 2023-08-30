@@ -146,7 +146,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
 
   return (
     <Card
-      className="divide-y-[1px] dark:divide-gray-700"
+      className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700"
       dataTestId={`profile-feed-type-${type.toLowerCase()}`}
     >
       {publications ? (
