@@ -18,7 +18,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     [url],
     () =>
       axios
-        .get(OEMBED_WORKER_URL, { params: { url } })
+        .get(`${OEMBED_WORKER_URL}/oembed`, { params: { url } })
         .then((res) => res.data.oembed),
     { enabled: Boolean(url) }
   );
