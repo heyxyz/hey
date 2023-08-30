@@ -159,6 +159,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
+      '@wagmi/connectors':
+        specifier: ^3.0.0
+        version: 3.0.0(react@18.2.0)(typescript@5.2.2)(viem@1.9.0)(zod@3.22.2)
       '@xmtp/xmtp-js':
         specifier: ^10.2.0
         version: 10.2.0
@@ -7326,6 +7329,41 @@ packages:
       - zod
     dev: false
 
+  /@wagmi/connectors@3.0.0(react@18.2.0)(typescript@5.2.2)(viem@1.9.0)(zod@3.22.2):
+    resolution: {integrity: sha512-phHrd4dKctynlh7eRefsaWuh2NF9T24tkLmUHctJeZg/tPzvw+sRFy0XlP7kLw/kwKArn2oSvck7iFemvMeLoQ==}
+    peerDependencies:
+      '@wagmi/chains': '>=1.8.0'
+      typescript: '>=5.0.4'
+      viem: '>=0.3.35'
+    peerDependenciesMeta:
+      '@wagmi/chains':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@coinbase/wallet-sdk': 3.7.1
+      '@ledgerhq/connect-kit-loader': 1.1.1
+      '@safe-global/safe-apps-provider': 0.17.1(typescript@5.2.2)(zod@3.22.2)
+      '@safe-global/safe-apps-sdk': 8.0.0(typescript@5.2.2)(zod@3.22.2)
+      '@walletconnect/ethereum-provider': 2.10.0(@walletconnect/modal@2.6.1)
+      '@walletconnect/legacy-provider': 2.0.0
+      '@walletconnect/modal': 2.6.1(react@18.2.0)
+      '@walletconnect/utils': 2.10.0
+      abitype: 0.8.7(typescript@5.2.2)(zod@3.22.2)
+      eventemitter3: 4.0.7
+      typescript: 5.2.2
+      viem: 1.9.0(typescript@5.2.2)(zod@3.22.2)
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - encoding
+      - lokijs
+      - react
+      - supports-color
+      - utf-8-validate
+      - zod
+    dev: false
+
   /@wagmi/core@1.3.9(@types/react@18.2.21)(react@18.2.0)(typescript@5.2.2)(viem@1.9.0)(zod@3.22.2):
     resolution: {integrity: sha512-SrnABCrsDvhiMCLLLyzyHnZbEumsFT/XWlJJQZeyEDcixL95R7XQwOaaoRI4MpNilCtMtu3jzN57tA5Z2iA+kw==}
     peerDependencies:
@@ -7353,6 +7391,32 @@ packages:
       - supports-color
       - utf-8-validate
       - zod
+    dev: false
+
+  /@walletconnect/core@2.10.0:
+    resolution: {integrity: sha512-Z8pdorfIMueuiBXLdnf7yloiO9JIiobuxN3j0OTal+MYc4q5/2O7d+jdD1DAXbLi1taJx3x60UXT/FPVkjIqIQ==}
+    dependencies:
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-provider': 1.0.13
+      '@walletconnect/jsonrpc-types': 1.0.3
+      '@walletconnect/jsonrpc-utils': 1.0.8
+      '@walletconnect/jsonrpc-ws-connection': 1.0.13
+      '@walletconnect/keyvaluestorage': 1.0.2
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/relay-auth': 1.0.4
+      '@walletconnect/safe-json': 1.0.2
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.10.0
+      '@walletconnect/utils': 2.10.0
+      events: 3.3.0
+      lodash.isequal: 4.5.0
+      uint8arrays: 3.1.1
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - utf-8-validate
     dev: false
 
   /@walletconnect/core@2.9.2:
@@ -7404,6 +7468,32 @@ packages:
     resolution: {integrity: sha512-T426LLZtHj8e8rYnKfzsw1aG6+M0BT1ZxayMdv/p8yM0MU+eJDISqNY3/bccxRr4LrF9csq02Rhqt08Ibl0VRg==}
     dependencies:
       tslib: 1.14.1
+    dev: false
+
+  /@walletconnect/ethereum-provider@2.10.0(@walletconnect/modal@2.6.1):
+    resolution: {integrity: sha512-NyTm7RcrtAiSaYQPh6G4sOtr1kg/pL5Z3EDE6rBTV3Se5pMsYvtuwMiSol7MidsQpf4ux9HFhthTO3imcoWImw==}
+    peerDependencies:
+      '@walletconnect/modal': '>=2'
+    peerDependenciesMeta:
+      '@walletconnect/modal':
+        optional: true
+    dependencies:
+      '@walletconnect/jsonrpc-http-connection': 1.0.7
+      '@walletconnect/jsonrpc-provider': 1.0.13
+      '@walletconnect/jsonrpc-types': 1.0.3
+      '@walletconnect/jsonrpc-utils': 1.0.8
+      '@walletconnect/modal': 2.6.1(react@18.2.0)
+      '@walletconnect/sign-client': 2.10.0
+      '@walletconnect/types': 2.10.0
+      '@walletconnect/universal-provider': 2.10.0
+      '@walletconnect/utils': 2.10.0
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - encoding
+      - lokijs
+      - utf-8-validate
     dev: false
 
   /@walletconnect/ethereum-provider@2.9.2(@walletconnect/modal@2.6.1):
@@ -7634,6 +7724,25 @@ packages:
       tslib: 1.14.1
     dev: false
 
+  /@walletconnect/sign-client@2.10.0:
+    resolution: {integrity: sha512-hbDljDS53kR/It3oXD91UkcOsT6diNnW5+Zzksm0YEfwww5dop/YfNlcdnc8+jKUhWOL/YDPNQCjzsCSNlVzbw==}
+    dependencies:
+      '@walletconnect/core': 2.10.0
+      '@walletconnect/events': 1.0.1
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-utils': 1.0.8
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.10.0
+      '@walletconnect/utils': 2.10.0
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - utf-8-validate
+    dev: false
+
   /@walletconnect/sign-client@2.9.2:
     resolution: {integrity: sha512-anRwnXKlR08lYllFMEarS01hp1gr6Q9XUgvacr749hoaC/AwGVlxYFdM8+MyYr3ozlA+2i599kjbK/mAebqdXg==}
     dependencies:
@@ -7659,6 +7768,20 @@ packages:
       tslib: 1.14.1
     dev: false
 
+  /@walletconnect/types@2.10.0:
+    resolution: {integrity: sha512-kSTA/WZnbKdEbvbXSW16Ty6dOSzOZCHnGg6JH7q1MuraalD2HuNg00lVVu7QAZ/Rj1Gn9DAkrgP5Wd5a8Xq//Q==}
+    dependencies:
+      '@walletconnect/events': 1.0.1
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-types': 1.0.3
+      '@walletconnect/keyvaluestorage': 1.0.2
+      '@walletconnect/logger': 2.0.1
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - lokijs
+    dev: false
+
   /@walletconnect/types@2.9.2:
     resolution: {integrity: sha512-7Rdn30amnJEEal4hk83cdwHUuxI1SWQ+K7fFFHBMqkuHLGi3tpMY6kpyfDxnUScYEZXqgRps4Jo5qQgnRqVM7A==}
     dependencies:
@@ -7671,6 +7794,26 @@ packages:
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - lokijs
+    dev: false
+
+  /@walletconnect/universal-provider@2.10.0:
+    resolution: {integrity: sha512-jtVWf+AeTCqBcB3lCmWkv3bvSmdRCkQdo67GNoT5y6/pvVHMxfjgrJNBOUsWQMxpREpWDpZ993X0JRjsYVsMcA==}
+    dependencies:
+      '@walletconnect/jsonrpc-http-connection': 1.0.7
+      '@walletconnect/jsonrpc-provider': 1.0.13
+      '@walletconnect/jsonrpc-types': 1.0.3
+      '@walletconnect/jsonrpc-utils': 1.0.8
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/sign-client': 2.10.0
+      '@walletconnect/types': 2.10.0
+      '@walletconnect/utils': 2.10.0
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - encoding
+      - lokijs
+      - utf-8-validate
     dev: false
 
   /@walletconnect/universal-provider@2.9.2:
@@ -7691,6 +7834,28 @@ packages:
       - encoding
       - lokijs
       - utf-8-validate
+    dev: false
+
+  /@walletconnect/utils@2.10.0:
+    resolution: {integrity: sha512-9GRyEz/7CJW+G04RvrjPET5k7hOEsB9b3fF9cWDk/iDCxSWpbkU/hv/urRB36C+gvQMAZgIZYX3dHfzJWkY/2g==}
+    dependencies:
+      '@stablelib/chacha20poly1305': 1.0.1
+      '@stablelib/hkdf': 1.0.1
+      '@stablelib/random': 1.0.2
+      '@stablelib/sha256': 1.0.1
+      '@stablelib/x25519': 1.0.3
+      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/safe-json': 1.0.2
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.10.0
+      '@walletconnect/window-getters': 1.0.1
+      '@walletconnect/window-metadata': 1.0.1
+      detect-browser: 5.3.0
+      query-string: 7.1.3
+      uint8arrays: 3.1.1
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - lokijs
     dev: false
 
   /@walletconnect/utils@2.9.2:
