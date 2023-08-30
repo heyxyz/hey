@@ -10,8 +10,6 @@ interface SpacesState {
   setShowSpacesWindow: (showSpacesWindow: boolean) => void;
   lensAccessToken: string;
   setLensAccessToken: (lensAccessToken: string) => void;
-  isRecordingOn: boolean;
-  setIsRecordingOn: (isRecordingOn: boolean) => void;
   isTokenGated: boolean;
   setIsTokenGated: (isTokenGated: boolean) => void;
   tokenGateConditionType: TokenGateCondition;
@@ -55,8 +53,6 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   setShowSpacesWindow: (showSpacesWindow) => set(() => ({ showSpacesWindow })),
   lensAccessToken: '',
   setLensAccessToken: (lensAccessToken) => set(() => ({ lensAccessToken })),
-  isRecordingOn: false,
-  setIsRecordingOn: (isRecordingOn) => set(() => ({ isRecordingOn })),
   isTokenGated: false,
   setIsTokenGated: (isTokenGated) => set(() => ({ isTokenGated })),
   tokenGateConditionValue: '',

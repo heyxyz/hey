@@ -14,18 +14,10 @@ interface SpaceSettingsProps {
 
 const SpaceSettings: FC<SpaceSettingsProps> = ({ children }) => {
   const [showModal, setShowModal] = useState(false);
-  const { isRecordingOn, setIsRecordingOn } = useSpacesStore();
 
   return (
     <div className="block items-center pt-3 sm:flex">
       <div className="flex gap-2 space-x-1">
-        <Toggle
-          on={isRecordingOn}
-          setOn={() => setIsRecordingOn(!isRecordingOn)}
-        />
-        <div className="flex items-start text-sm text-neutral-400 dark:text-neutral-500">
-          <Trans>Record Spaces</Trans>
-        </div>
         <Tooltip placement="top" content={t`Token Gate Spaces`}>
           <motion.button
             whileTap={{ scale: 0.9 }}
