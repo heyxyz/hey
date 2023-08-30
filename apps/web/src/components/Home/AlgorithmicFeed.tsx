@@ -9,7 +9,7 @@ import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -37,6 +37,10 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     }
   );
 
+  useEffect(() => {
+    setDisplayedPublications([]);
+  }, [feedType, currentProfile?.id]);
+
   const request: PublicationsQueryRequest = { publicationIds, limit };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
@@ -53,14 +57,15 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     ...displayedPublications,
     ...(data?.publications?.items || [])
   ];
-  const hasMore = true;
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
+      if (!inView) {
         return;
       }
-      setDisplayedPublications(publications);
+      if (publications.length != displayedPublications.length) {
+        setDisplayedPublications(publications);
+      }
     }
   });
 
@@ -91,7 +96,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           publication={publication as Publication}
         />
       ))}
-      {hasMore ? <span ref={observe} /> : null}
+      <span ref={observe} />
     </Card>
   );
 };
