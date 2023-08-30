@@ -43,7 +43,8 @@ export default {
       context: ctx,
       tracesSampleRate: 1.0,
       dsn: env.SENTRY_DSN,
-      release: env.RELEASE
+      release: env.RELEASE,
+      requestDataOptions: { allowedIps: true }
     });
     const incomingRequest = buildRequest(request, env, ctx, sentry);
 
