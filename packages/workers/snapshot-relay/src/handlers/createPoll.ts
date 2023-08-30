@@ -1,3 +1,5 @@
+import '@sentry/tracing';
+
 import {
   LENSTER_POLLS_SPACE,
   MAINNET_SNAPSHOT_SEQUNECER_URL,
@@ -7,7 +9,6 @@ import {
 } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
 
 import {
   MAINNET_PROPOSAL_CREATOR_ADDRESS,
@@ -17,7 +18,7 @@ import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
 import serializedTypedData from '../helpers/serializedTypedData';
 import walletClient from '../helpers/walletClient';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   title: string;
@@ -44,7 +45,11 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
   'length'
 ];
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/leafwatch/ingest'
+  });
+
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -66,8 +71,8 @@ export default async (request: IRequest, env: Env) => {
     ? MAINNET_PROPOSAL_CREATOR_ADDRESS
     : TESTNET_PROPOSAL_CREATOR_ADDRESS;
   const relayerPrivateKey = isMainnet
-    ? env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
-    : env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
+    ? request.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
+    : request.env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
 
   const client = walletClient(relayerPrivateKey, isMainnet);
   const block = await publicClient(isMainnet).getBlockNumber();
@@ -136,6 +141,9 @@ export default async (request: IRequest, env: Env) => {
       snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
     });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };
