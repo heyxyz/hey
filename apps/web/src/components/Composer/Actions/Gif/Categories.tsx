@@ -30,7 +30,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
   return (
     <div className="grid w-full grid-cols-2 gap-1 overflow-y-auto">
       {categories ? (
-        <For each={categories}>
+        <For each={categories} as="div">
           {(category: Category) => (
             <button
               type="button"

@@ -242,7 +242,7 @@ const MessagesList: FC<MessageListProps> = ({
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
             {messages ? (
-              <For each={messages}>
+              <For each={messages} as="div">
                 {(msg, index) => {
                   const dateHasChanged = lastMessageDate
                     ? !isOnSameDay(lastMessageDate, msg.sent)

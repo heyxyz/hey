@@ -168,7 +168,7 @@ const SetProfile: FC = () => {
           onChange={(e) => setSelectedUser(e.target.value)}
         >
           {sortedProfiles ? (
-            <For each={sortedProfiles}>
+            <For each={sortedProfiles} as="div">
               {(profile: Profile) => (
                 <option key={profile?.id} value={profile?.id}>
                   @{formatHandle(profile?.handle)}

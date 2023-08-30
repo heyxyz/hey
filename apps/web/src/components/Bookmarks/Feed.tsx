@@ -84,7 +84,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
       dataTestId="explore-feed"
     >
       {publications ? (
-        <For each={publications}>
+        <For each={publications} as="div">
           {(publication, index) => (
             <SinglePublication
               isFirst={index === 0}

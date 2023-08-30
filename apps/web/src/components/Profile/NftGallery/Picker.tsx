@@ -165,7 +165,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
       {nfts ? (
-        <For each={nfts}>
+        <For each={nfts} as="div">
           {(nft, index) => {
             const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
             const isSelected = selectedItems.includes(id);

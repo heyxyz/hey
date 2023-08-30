@@ -19,7 +19,7 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   return (
     <div className="space-y-4 p-5">
       {filteredAllowances ? (
-        <For each={filteredAllowances}>
+        <For each={filteredAllowances} as="div">
           {(item: ApprovedAllowanceAmount) => (
             <Module key={item?.contractAddress} module={item} />
           )}

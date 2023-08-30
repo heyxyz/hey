@@ -96,7 +96,7 @@ const PollEditor: FC = () => {
       </div>
       <div className="mt-3 space-y-2">
         {pollConfig.choices ? (
-          <For each={pollConfig.choices}>
+          <For each={pollConfig.choices} as="div">
             {(choice, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
                 <Input

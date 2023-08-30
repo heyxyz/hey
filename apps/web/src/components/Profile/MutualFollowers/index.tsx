@@ -41,7 +41,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     >
       <div className="contents -space-x-2">
         {profiles ? (
-          <For each={profiles}>
+          <For each={profiles} as="div">
             {(profile) => (
               <Image
                 key={profile.handle}

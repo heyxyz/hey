@@ -75,7 +75,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
                 }}
               >
                 {enabledModuleCurrencies ? (
-                  <For each={enabledModuleCurrencies}>
+                  <For each={enabledModuleCurrencies} as="div">
                     {(currency: Erc20) => (
                       <option
                         key={currency.address}

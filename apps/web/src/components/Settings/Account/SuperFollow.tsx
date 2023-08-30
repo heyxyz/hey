@@ -184,7 +184,7 @@ const SuperFollow: FC = () => {
             }}
           >
             {currencyData?.enabledModuleCurrencies ? (
-              <For each={currencyData.enabledModuleCurrencies}>
+              <For each={currencyData.enabledModuleCurrencies} as="div">
                 {(currency: Erc20) => (
                   <option
                     key={currency.address}

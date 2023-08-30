@@ -65,7 +65,7 @@ const ReArrange: FC = () => {
         )}
       >
         <div className="grid gap-5 py-5 md:grid-cols-3">
-          <For each={allNfts}>
+          <For each={allNfts} as="div">
             {(item) => {
               const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
               return <DraggableCard key={id} id={id} nft={item} />;

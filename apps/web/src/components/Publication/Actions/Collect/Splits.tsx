@@ -37,7 +37,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
       <div className="mb-2 font-bold">
         <Trans>Fee recipients</Trans>
       </div>
-      <For each={recipients}>
+      <For each={recipients} as="div">
         {(recipient) => {
           const { recipient: address, split } = recipient;
           const profile = getProfileByAddress(address) as Profile;

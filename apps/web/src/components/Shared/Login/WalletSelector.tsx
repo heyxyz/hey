@@ -193,7 +193,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
       {connectors ? (
-        <For each={connectors}>
+        <For each={connectors} as="div">
           {(connector) => {
             return (
               <button

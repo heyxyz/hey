@@ -120,7 +120,7 @@ const Search: FC<SearchProps> = ({
             ) : (
               <>
                 {profiles ? (
-                  <For each={profiles}>
+                  <For each={profiles} as="div">
                     {(profile: Profile) => (
                       <motion.div
                         initial={{ opacity: 0 }}

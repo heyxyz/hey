@@ -20,7 +20,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
         >
           {values ? (
-            <For each={values}>
+            <For each={values} as="div">
               {(value: string) => <option value={value}>{value}</option>}
             </For>
           ) : null}

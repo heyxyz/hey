@@ -45,7 +45,7 @@ const Gifs: FC<CategoriesProps> = ({
   if (isFetching) {
     return (
       <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
-        <For each={Array.from(Array(12).keys())}>
+        <For each={Array.from(Array(12).keys())} as="div">
           {(_, index) => (
             <div
               key={index}
@@ -60,9 +60,9 @@ const Gifs: FC<CategoriesProps> = ({
   return (
     <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
       {gifs?.pages ? (
-        <For each={gifs?.pages}>
+        <For each={gifs?.pages} as="div">
           {(page: any) => (
-            <For each={page.data}>
+            <For each={page.data} as="div">
               {(gif: IGif) => (
                 <button
                   key={gif.id}

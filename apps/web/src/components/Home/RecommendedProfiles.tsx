@@ -90,7 +90,7 @@ const RecommendedProfiles: FC = () => {
             error={error}
           />
           {recommendedProfiles ? (
-            <For each={recommendedProfiles.slice(0, 5)}>
+            <For each={recommendedProfiles.slice(0, 5)} as="div">
               {(profile, index) => (
                 <motion.div
                   initial={{ opacity: 0 }}

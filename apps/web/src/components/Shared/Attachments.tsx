@@ -100,7 +100,7 @@ const Attachments: FC<AttachmentsProps> = ({
         className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
       >
         {slicedAttachments ? (
-          <For each={slicedAttachments}>
+          <For each={slicedAttachments} as="div">
             {(attachment: NewLensterAttachment & MediaSet, index: number) => {
               const type = attachment.original?.mimeType;
               const url = isNew

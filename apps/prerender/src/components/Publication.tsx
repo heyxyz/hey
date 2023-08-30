@@ -63,7 +63,7 @@ const PublicationComponent: FC<PublicationProps> = ({
       </header>
       <div data-testid="comment-feed">
         {comments ? (
-          <For each={comments}>
+          <For each={comments} as="div">
             {(comment) => {
               const { id } = comment;
               return (

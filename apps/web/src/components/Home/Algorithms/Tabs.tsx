@@ -26,7 +26,7 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
 
   return (
     <div className="flex flex-wrap gap-3 sm:px-0">
-      <For each={sanitizedEnabledAlgorithms}>
+      <For each={sanitizedEnabledAlgorithms} as="div">
         {(algorithm) => (
           <TabButton
             key={algorithm.feedType}

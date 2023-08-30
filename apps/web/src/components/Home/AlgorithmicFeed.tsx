@@ -61,7 +61,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications ? (
-        <For each={publications}>
+        <For each={publications} as="div">
           {(publication, index) => (
             <SinglePublication
               isFirst={index === 0}

@@ -61,9 +61,9 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
         error={error}
       />
 
-      <div className="divide-y dark:divide-gray-700">
+      <div className="[&>*]:divide-y dark:[&>*]:divide-gray-700">
         {profiles ? (
-          <For each={profiles}>
+          <For each={profiles} as="div">
             {(profile, index) => (
               <motion.div
                 initial={{ opacity: 0 }}

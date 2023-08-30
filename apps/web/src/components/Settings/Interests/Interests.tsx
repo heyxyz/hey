@@ -68,13 +68,13 @@ const Interests: FC = () => {
 
   return (
     <div className="space-y-4">
-      <For each={sanitizeProfileInterests(interestsData)}>
+      <For each={sanitizeProfileInterests(interestsData)} as="div">
         {({ category, subCategories }) => (
           <div className="space-y-2" key={category.id}>
             <h2 className="text-sm font-medium capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-3">
               {subCategories ? (
-                <For each={subCategories}>
+                <For each={subCategories} as="div">
                   {(subCategory) => (
                     <Button
                       key={subCategory.id}

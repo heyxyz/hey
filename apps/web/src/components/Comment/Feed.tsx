@@ -116,7 +116,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       dataTestId="comments-feed"
     >
       {optimisticTxnQueue ? (
-        <For each={optimisticTxnQueue}>
+        <For each={optimisticTxnQueue} as="div">
           {(txn) => (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />
@@ -125,7 +125,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         </For>
       ) : null}
       {visibleComments ? (
-        <For each={visibleComments}>
+        <For each={visibleComments} as="div">
           {(comment, index) => (
             <SinglePublication
               showType={false}

@@ -46,7 +46,7 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
         </Trans>
       </div>
       {invited ? (
-        <For each={invited}>
+        <For each={invited} as="div">
           {(invite, key) => (
             <div key={key}>
               <Input

@@ -53,7 +53,7 @@ const Trending: FC = () => {
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <ErrorMessage title={t`Failed to load trending`} error={error} />
         {withTag ? (
-          <For each={withTag}>
+          <For each={withTag} as="div">
             {(tag: TagResult) => (
               <div key={tag?.tag}>
                 <Link

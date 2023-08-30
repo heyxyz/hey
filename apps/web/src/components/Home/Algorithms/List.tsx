@@ -20,9 +20,9 @@ const List: FC = () => {
   );
 
   return (
-    <div className="divide-y-[1px] dark:divide-gray-700">
+    <div className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
       {algorithms ? (
-        <For each={algorithms}>
+        <For each={algorithms} as="div">
           {(algorithm) => (
             <div
               key={algorithm.feedType}
