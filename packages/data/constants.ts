@@ -67,7 +67,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const RARIBLE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com';
-export const IPFS_GATEWAY = 'https://ipfs.lens.dev/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
@@ -124,7 +124,8 @@ export const ALLOWED_AUDIO_TYPES = [
   'audio/aac',
   'audio/ogg',
   'audio/webm',
-  'audio/flac'
+  'audio/flac',
+  'audio/vnd.wave'
 ];
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',
