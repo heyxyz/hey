@@ -109,7 +109,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
         </span>
       </div>
       <div className="divider" />
-      <div className="p-6 [&>]:space-y-4">
+      <div className="p-6 [&>*]:space-y-4">
         {data ? (
           <For each={data} as="div">
             {(streak: { id: string; event: string; date: string }) => (
