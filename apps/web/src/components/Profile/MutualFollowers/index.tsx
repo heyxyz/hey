@@ -39,7 +39,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       onClick={() => setShowMutualFollowersModal?.(true)}
       aria-hidden="true"
     >
-      <div className="contents -space-x-2">
+      <div className="contents [&>*]:-space-x-2">
         {profiles ? (
           <For each={profiles} as="div">
             {(profile) => (
