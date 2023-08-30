@@ -83,7 +83,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="explore-feed"
     >
-      {publications && (
+      {publications ? (
         <For each={publications}>
           {(publication, index) => (
             <SinglePublication
@@ -94,7 +94,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
             />
           )}
         </For>
-      )}
+      ) : null}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

@@ -138,7 +138,7 @@ const ProfileComponent: FC<ProfileProps> = ({ profile, publications }) => {
         <hr />
       </header>
       <div data-testid="profile-feed">
-        {publications && (
+        {publications ? (
           <For each={publications}>
             {(publication) => {
               const { __typename } = publication;
@@ -155,7 +155,7 @@ const ProfileComponent: FC<ProfileProps> = ({ profile, publications }) => {
               );
             }}
           </For>
-        )}
+        ) : null}
       </div>
     </>
   );

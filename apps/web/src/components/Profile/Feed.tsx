@@ -149,7 +149,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId={`profile-feed-type-${type.toLowerCase()}`}
     >
-      {publications && (
+      {publications ? (
         <For each={publications}>
           {(publication, index) => (
             <SinglePublication
@@ -164,7 +164,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
             />
           )}
         </For>
-      )}
+      ) : null}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

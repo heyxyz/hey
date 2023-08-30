@@ -241,7 +241,7 @@ const MessagesList: FC<MessageListProps> = ({
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
-            {messages && (
+            {messages ? (
               <For each={messages}>
                 {(msg, index) => {
                   const dateHasChanged = lastMessageDate
@@ -267,7 +267,7 @@ const MessagesList: FC<MessageListProps> = ({
                   return messageDiv;
                 }}
               </For>
-            )}
+            ) : null}
             {hasMore ? <LoadingMore /> : <ConversationBeginningNotice />}
           </span>
         </div>

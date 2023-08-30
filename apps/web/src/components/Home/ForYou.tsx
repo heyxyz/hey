@@ -78,7 +78,7 @@ const ForYou: FC = () => {
 
   return (
     <Card className="divide-y-[1px] dark:divide-gray-700">
-      {optimisticTxnQueue && (
+      {optimisticTxnQueue ? (
         <For each={optimisticTxnQueue}>
           {(txn) => (
             <div key={txn.id}>
@@ -86,8 +86,8 @@ const ForYou: FC = () => {
             </div>
           )}
         </For>
-      )}
-      {publications && (
+      ) : null}
+      {publications ? (
         <For each={publications}>
           {(publication, index) => (
             <SinglePublication
@@ -98,7 +98,7 @@ const ForYou: FC = () => {
             />
           )}
         </For>
-      )}
+      ) : null}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
