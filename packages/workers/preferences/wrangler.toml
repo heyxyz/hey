@@ -13,4 +13,6 @@ kv_namespaces = [
 ]
 
 [env.production.vars]
+SENTRY_DSN = ""
+RELEASE = ""
 SUPABASE_KEY = ""
