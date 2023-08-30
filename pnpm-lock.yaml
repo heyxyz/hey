@@ -901,9 +901,15 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@sentry/tracing':
+        specifier: ^7.65.0
+        version: 7.65.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
+      toucan-js:
+        specifier: ^3.2.3
+        version: 3.2.3
       viem:
         specifier: ^1.9.0
         version: 1.9.0(typescript@5.2.2)(zod@3.22.2)
