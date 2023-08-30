@@ -8,5 +8,7 @@ routes = [
 ]
 
 [env.production.vars]
+SENTRY_DSN = ""
+RELEASE = ""
 WORKER_ENV = "production"
 IMAGEKIT_URL = ""
