@@ -40,21 +40,17 @@ const PreferencesProvider: FC = () => {
     } catch {
     } finally {
       setLoadingPreferences(false);
-      return false;
     }
   };
 
   useQuery(['preferences', profileId], () => fetchPreferences());
 
   const fetchVerifiedMembers = async () => {
-    let _data;
     try {
       const response = await axios.get(`${PREFERENCES_WORKER_URL}/verified`);
       const { data } = response;
-      _data = data;
       setVerifiedMembers(data.result || []);
     } catch {}
-    return _data ? _data.result : [];
   };
 
   useQuery(['verifiedMembers'], () => fetchVerifiedMembers());
