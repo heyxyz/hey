@@ -80,7 +80,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={publication} />
+          <FullPublication publication={publication} key={publication?.id} />
         </Card>
         {currentProfile && !publication?.hidden && !showNewPostModal ? (
           canComment ? (

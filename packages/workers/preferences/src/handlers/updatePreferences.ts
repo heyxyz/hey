@@ -1,3 +1,5 @@
+import '@sentry/tracing';
+
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
@@ -5,11 +7,10 @@ import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import type { IRequest } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
 import createSupabaseClient from '../helpers/createSupabaseClient';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id: string;
@@ -35,7 +36,11 @@ const validationSchema = object({
   accessToken: string().regex(Regex.accessToken)
 });
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/preferences/updatePreferences'
+  });
+
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -77,7 +82,7 @@ export default async (request: IRequest, env: Env) => {
       );
     }
 
-    const client = createSupabaseClient(env);
+    const client = createSupabaseClient(request.env);
 
     const { data, error } = await client
       .from('rights')
@@ -101,11 +106,14 @@ export default async (request: IRequest, env: Env) => {
 
     if (updateByAdmin) {
       // Clear cache in Cloudflare KV
-      await env.PREFERENCES.delete('verified-list');
+      await request.env.PREFERENCES.delete('verified-list');
     }
 
     return response({ success: true, result: data });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };

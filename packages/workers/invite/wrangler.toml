@@ -9,4 +9,6 @@ routes = [
 ]
 
 [env.production.vars]
+SENTRY_DSN = ""
+RELEASE = ""
 SHARED_LENS_INVITE_SECRET = ""

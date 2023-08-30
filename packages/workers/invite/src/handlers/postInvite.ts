@@ -1,11 +1,12 @@
+import '@sentry/tracing';
+
 import { Errors } from '@lenster/data/errors';
 import LensEndpoint from '@lenster/data/lens-endpoints';
 import { Regex } from '@lenster/data/regex';
 import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   address: string;
@@ -19,7 +20,11 @@ const validationSchema = object({
   isMainnet: boolean()
 });
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/invite/postInvite'
+  });
+
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -53,7 +58,7 @@ export default async (request: IRequest, env: Env) => {
           variables: {
             request: {
               invites: [address],
-              secret: env.SHARED_LENS_INVITE_SECRET
+              secret: request.env.SHARED_LENS_INVITE_SECRET
             }
           }
         })
@@ -70,6 +75,9 @@ export default async (request: IRequest, env: Env) => {
 
     return response({ success: false, alreadyInvited: true });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };
