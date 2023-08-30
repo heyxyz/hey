@@ -919,7 +919,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             setEmoji={(emoji) => {
               setShowEmojiPicker(false);
               editor.update(() => {
-                $convertFromMarkdownString(publicationContent + emoji);
+                // @ts-ignore
+                const index = editor?._editorState?._selection?.focus?.offset;
+                const updatedContent =
+                  publicationContent.substring(0, index) +
+                  emoji +
+                  publicationContent.substring(
+                    index,
+                    publicationContent.length
+                  );
+                $convertFromMarkdownString(updatedContent);
               });
             }}
           />
