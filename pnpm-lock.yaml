@@ -692,9 +692,15 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@sentry/tracing':
+        specifier: ^7.65.0
+        version: 7.65.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
+      toucan-js:
+        specifier: ^3.2.3
+        version: 3.2.3
       zod:
         specifier: ^3.22.2
         version: 3.22.2
