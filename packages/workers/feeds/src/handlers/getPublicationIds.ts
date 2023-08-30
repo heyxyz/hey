@@ -1,12 +1,17 @@
+import '@sentry/tracing';
+
 import { AlgorithmProvider } from '@lenster/data/enums';
 import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
 
 import k3lFeed from '../providers/k3l/k3lFeed';
 import lensterFeed from '../providers/lenster/lensterFeed';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/feeds/ids'
+  });
+
   const provider = request.query.provider as string;
   const strategy = request.query.strategy as string;
   const profile = request.query.profile as string;
@@ -21,20 +26,28 @@ export default async (request: IRequest, env: Env) => {
   }
 
   try {
+    const providerRequestSpan = transaction?.startChild({
+      op: 'provider-request',
+      description: provider
+    });
     let ids: string[] = [];
     switch (provider) {
       case AlgorithmProvider.K3L:
         ids = await k3lFeed(strategy, profile, limit, offset);
         break;
       case AlgorithmProvider.LENSTER:
-        ids = await lensterFeed(strategy, limit, offset, env);
+        ids = await lensterFeed(strategy, limit, offset, request.env);
         break;
       default:
         return response({ success: false, message: 'Invalid provider' });
     }
+    providerRequestSpan?.finish();
 
     return response({ success: true, ids });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };
