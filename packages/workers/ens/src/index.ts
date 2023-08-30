@@ -1,6 +1,11 @@
-import { createCors, error, json, Router } from 'itty-router';
+import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
+import { createCors, error, Router, status } from 'itty-router';
+import { Toucan } from 'toucan-js';
 
 import resolveEns from './handlers/resolveEns';
+import buildRequest from './helpers/buildRequest';
+import type { Env, WorkerRequest } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -9,22 +14,40 @@ const { preflight, corsify } = createCors({
 
 const router = Router();
 
-router.all('*', preflight);
-router.get('/', () => new Response('gm, ens resolver service 👋'));
-router.post('/', resolveEns);
-
-const routerHandleStack = (request: Request, ctx: ExecutionContext) =>
-  router.handle(request, ctx).then(json);
-
-const handleFetch = async (request: Request, ctx: ExecutionContext) => {
-  try {
-    return await routerHandleStack(request, ctx);
-  } catch {
-    return error(500);
-  }
-};
+router
+  .all('*', preflight)
+  .head('*', () => status(200))
+  .get('/', (request: WorkerRequest) =>
+    response({
+      message: 'gm, to ens service 👋',
+      version: request.env.RELEASE ?? 'unknown'
+    })
+  )
+  .post('/', resolveEns)
+  .all('*', () => error(404));
 
 export default {
-  fetch: (request: Request, context: ExecutionContext) =>
-    handleFetch(request, context).then(corsify)
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
+    const sentry = new Toucan({
+      request,
+      context: ctx,
+      tracesSampleRate: 1.0,
+      dsn: env.SENTRY_DSN,
+      release: env.RELEASE,
+      requestDataOptions: { allowedIps: true }
+    });
+    const incomingRequest = buildRequest(request, env, ctx, sentry);
+
+    return await router
+      .handle(incomingRequest)
+      .then(corsify)
+      .catch((error_) => {
+        sentry.captureException(error_);
+        return error(500, Errors.InternalServerError);
+      });
+  }
 };

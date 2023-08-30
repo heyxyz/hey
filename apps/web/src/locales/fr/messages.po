@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-21 00:08\n"
+"PO-Revision-Date: 2023-08-30 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -2454,6 +2454,10 @@ msgstr ""
 
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
+msgstr ""
+
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
 msgstr ""
 
 #: src/components/Shared/FeedFocusType.tsx
