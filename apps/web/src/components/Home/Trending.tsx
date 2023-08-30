@@ -9,7 +9,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import { For } from 'million/react';
 import Link from 'next/link';
-import { type FC, useEffect, useState } from 'react';
+import type { FC } from 'react';
 
 const Title = () => {
   return (
@@ -23,17 +23,9 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const [withTag, setWithTag] = useState<TagResult[]>([]);
   const { data, loading, error } = useTrendingQuery({
     variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
   });
-
-  useEffect(() => {
-    const t = data?.allPublicationsTags?.items.filter((i) => i?.tag !== '{}');
-    if (t) {
-      setWithTag(t);
-    }
-  }, [data]);
 
   if (loading) {
     return (
@@ -51,36 +43,42 @@ const Trending: FC = () => {
     );
   }
 
+  const withTag = data?.allPublicationsTags?.items.filter(
+    (i) => i?.tag !== '{}'
+  );
+
   return (
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <ErrorMessage title={t`Failed to load trending`} error={error} />
-        <For each={withTag}>
-          {(tag: TagResult) => (
-            <div key={tag?.tag}>
-              <Link
-                href={`/search?q=${tag?.tag}&type=pubs`}
-                onClick={() =>
-                  Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
-                    trending_tag: tag?.tag
-                  })
-                }
-              >
-                <div className="font-bold">{tag?.tag}</div>
-                <div className="lt-text-gray-500 text-[12px]">
-                  {nFormatter(tag?.total)}{' '}
-                  <Plural
-                    value={tag?.total}
-                    zero="Publication"
-                    one="Publication"
-                    other="Publications"
-                  />
-                </div>
-              </Link>
-            </div>
-          )}
-        </For>
+        {withTag ? (
+          <For each={withTag}>
+            {(tag: TagResult) => (
+              <div key={tag?.tag}>
+                <Link
+                  href={`/search?q=${tag?.tag}&type=pubs`}
+                  onClick={() =>
+                    Leafwatch.track(MISCELLANEOUS.OPEN_TRENDING_TAG, {
+                      trending_tag: tag?.tag
+                    })
+                  }
+                >
+                  <div className="font-bold">{tag?.tag}</div>
+                  <div className="lt-text-gray-500 text-[12px]">
+                    {nFormatter(tag?.total)}{' '}
+                    <Plural
+                      value={tag?.total}
+                      zero="Publication"
+                      one="Publication"
+                      other="Publications"
+                    />
+                  </div>
+                </Link>
+              </div>
+            )}
+          </For>
+        ) : null}
       </Card>
     </>
   );
