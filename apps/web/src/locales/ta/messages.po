@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-21 00:08\n"
+"PO-Revision-Date: 2023-08-30 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -939,6 +939,26 @@ msgstr "உங்கள் செய்தி அனுப்பப்பட்�
 #: src/components/Pages/Contact.tsx
 msgid "Email"
 msgstr "மின்னஞ்சல்"
+
+#: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -2435,6 +2455,10 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
+
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
 
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"

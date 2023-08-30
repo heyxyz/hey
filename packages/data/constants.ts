@@ -67,7 +67,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const RARIBLE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com';
-export const IPFS_GATEWAY = 'https://ipfs.lens.dev/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
@@ -86,7 +86,7 @@ export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.lenster.xyz'
   : 'http://localhost:8085';
 export const ENS_RESOLVER_WORKER_URL = IS_PRODUCTION
-  ? 'https://ens-resolver.lenster.xyz'
+  ? 'https://ens.lenster.xyz'
   : 'http://localhost:8086';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
   ? 'https://oembed.lenster.xyz'
@@ -124,7 +124,8 @@ export const ALLOWED_AUDIO_TYPES = [
   'audio/aac',
   'audio/ogg',
   'audio/webm',
-  'audio/flac'
+  'audio/flac',
+  'audio/vnd.wave'
 ];
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',

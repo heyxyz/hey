@@ -5,9 +5,11 @@ import { TEST_URL } from '../constants';
 describe('postMetadata', () => {
   test('should return welcome message', async () => {
     const getRequest = await fetch(TEST_URL);
-    const response = await getRequest.text();
+    const response: {
+      message: string;
+    } = await getRequest.json();
 
-    expect(response).toContain('gm, to metadata service 👋');
+    expect(response.message).toContain('gm, to metadata service 👋');
   });
 
   test('should return resolved address', async () => {

@@ -941,6 +941,26 @@ msgid "Email"
 msgstr "Email"
 
 #: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr "Category"
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr "Support"
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr "Bug report"
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr "Feature request"
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr "Other"
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject"
 msgstr ""
 
@@ -2435,6 +2455,10 @@ msgstr ""
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr ""
+
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr "Emoji"
 
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"

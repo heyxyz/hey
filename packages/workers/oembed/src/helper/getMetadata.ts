@@ -39,7 +39,7 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
     url,
     title: getTitle(document),
     description: getDescription(document),
-    image: image ? proxiedUrl : null,
+    image: proxiedUrl,
     site: getSite(document),
     isLarge,
     html: generateIframe(getEmbedUrl(document), url)
