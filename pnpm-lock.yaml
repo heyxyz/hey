@@ -932,12 +932,21 @@ importers:
       '@aws-sdk/client-sts':
         specifier: ^3.398.0
         version: 3.398.0
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../data
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@sentry/tracing':
+        specifier: ^7.65.0
+        version: 7.65.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
+      toucan-js:
+        specifier: ^3.2.3
+        version: 3.2.3
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230821.0
