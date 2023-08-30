@@ -4,12 +4,12 @@ import {
   WALLETCONNECT_PROJECT_ID
 } from '@lenster/data/constants';
 import getRpc from '@lenster/lib/getRpc';
+import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
+import { InjectedConnector } from '@wagmi/connectors/injected';
+import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import type { FC, ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 const { chains, publicClient } = configureChains(
