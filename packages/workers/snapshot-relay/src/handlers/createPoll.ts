@@ -47,7 +47,7 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
 
 export default async (request: WorkerRequest) => {
   const transaction = request.sentry?.startTransaction({
-    name: '@lenster/leafwatch/ingest'
+    name: '@lenster/snapshot-relay/createPoll'
   });
 
   const body = await request.json();
