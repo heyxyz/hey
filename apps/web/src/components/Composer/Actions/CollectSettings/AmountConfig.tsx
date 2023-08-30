@@ -5,7 +5,6 @@ import type { Erc20 } from '@lenster/lens';
 import { CollectModules } from '@lenster/lens';
 import { Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
-import { For } from 'million/react';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -74,9 +73,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
                   });
                 }}
               >
-                {enabledModuleCurrencies ? (
-                  <For each={enabledModuleCurrencies} as="div">
-                    {(currency: Erc20) => (
+                {enabledModuleCurrencies
+                  ? enabledModuleCurrencies.map((currency: Erc20) => (
                       <option
                         key={currency.address}
                         value={currency.address}
@@ -86,9 +84,8 @@ const AmountConfig: FC<AmountConfigProps> = ({
                       >
                         {currency.name}
                       </option>
-                    )}
-                  </For>
-                ) : null}
+                    ))
+                  : null}
               </select>
             </div>
           </div>

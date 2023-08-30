@@ -13,7 +13,6 @@ import {
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import { For } from 'million/react';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -101,13 +100,13 @@ const AllowanceSettings: NextPage = () => {
               {enabledModulesLoading ? (
                 <option>Loading...</option>
               ) : enabledModules?.enabledModuleCurrencies ? (
-                <For each={enabledModules.enabledModuleCurrencies} as="div">
-                  {(currency: Erc20) => (
+                enabledModules.enabledModuleCurrencies.map(
+                  (currency: Erc20) => (
                     <option key={currency.address} value={currency.address}>
                       {currency.name}
                     </option>
-                  )}
-                </For>
+                  )
+                )
               ) : null}
             </select>
           </div>
