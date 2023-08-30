@@ -8,5 +8,7 @@ routes = [
 ]
 
 [env.production.vars]
+SENTRY_DSN = ""
+RELEASE = ""
 EVER_ACCESS_KEY = ""
 EVER_ACCESS_SECRET = ""
