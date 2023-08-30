@@ -124,7 +124,8 @@ export const ALLOWED_AUDIO_TYPES = [
   'audio/aac',
   'audio/ogg',
   'audio/webm',
-  'audio/flac'
+  'audio/flac',
+  'audio/vnd.wave'
 ];
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',
