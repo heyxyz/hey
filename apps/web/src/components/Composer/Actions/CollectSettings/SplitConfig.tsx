@@ -115,7 +115,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
       {hasRecipients ? (
         <div className="space-y-3 pt-4">
           <div className="space-y-2">
-            {recipients && (
+            {recipients ? (
               <For each={recipients}>
                 {(recipient, index) => (
                   <div
@@ -167,7 +167,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
                   </div>
                 )}
               </For>
-            )}
+            ) : null}
           </div>
           <div className="flex items-center justify-between">
             {recipients.length >= 5 ? (
