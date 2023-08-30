@@ -55,7 +55,7 @@ const NFTDetail: FC = () => {
           <h1>Subscape #363</h1>
           <Slug className="text-xs" slug="Subscapes" />
           <div className="flex items-center space-x-1 pt-3">
-            <div className="contents -space-x-2">
+            <div className="contents [&>*]:-space-x-2">
               {profiles ? (
                 <For each={profiles} as="div">
                   {(profile) => (

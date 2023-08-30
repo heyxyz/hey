@@ -42,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   const filteredMenuItems = menuItems.filter((i) => i.enabled);
 
   return (
-    <div className="mb-4 space-y-1.5 px-3 sm:px-0">
+    <div className="mb-4 px-3 sm:px-0 [&>*]:space-y-1.5">
       {filteredMenuItems ? (
         <For each={filteredMenuItems} as="div">
           {(item: any) => (

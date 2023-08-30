@@ -89,7 +89,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
         )}
       </Card>
       {showMore ? (
-        <Card className="divide-y-[1px] dark:divide-gray-700">
+        <Card className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
           {comments ? (
             <For
               each={comments.filter(

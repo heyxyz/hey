@@ -33,7 +33,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
   };
 
   return (
-    <div className="space-y-2 pt-3">
+    <div className="pt-3 [&>*]:space-y-2">
       <div className="mb-2 font-bold">
         <Trans>Fee recipients</Trans>
       </div>

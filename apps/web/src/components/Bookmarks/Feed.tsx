@@ -80,7 +80,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
 
   return (
     <Card
-      className="divide-y-[1px] dark:divide-gray-700"
+      className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700"
       dataTestId="explore-feed"
     >
       {publications ? (

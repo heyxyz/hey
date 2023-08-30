@@ -94,7 +94,7 @@ const PollEditor: FC = () => {
           </Tooltip>
         </div>
       </div>
-      <div className="mt-3 space-y-2">
+      <div className="mt-3 [&>*]:space-y-2">
         {pollConfig.choices ? (
           <For each={pollConfig.choices} as="div">
             {(choice, index) => (

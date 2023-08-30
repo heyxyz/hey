@@ -76,7 +76,7 @@ const Highlights: FC = () => {
   );
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <Card className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
       {optimisticTxnQueue ? (
         <For each={optimisticTxnQueue} as="div">
           {(txn) => (

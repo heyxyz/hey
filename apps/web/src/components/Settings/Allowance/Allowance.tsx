@@ -17,7 +17,7 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
     (item) => item?.module !== CollectModules.RevertCollectModule
   );
   return (
-    <div className="space-y-4 p-5">
+    <div className="p-5 [&>*]:space-y-4">
       {filteredAllowances ? (
         <For each={filteredAllowances} as="div">
           {(item: ApprovedAllowanceAmount) => (

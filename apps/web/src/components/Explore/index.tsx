@@ -59,7 +59,7 @@ const Explore: NextPage = () => {
             );
           }}
         >
-          <Tab.List className="divider space-x-8">
+          <Tab.List className="divider [&>*]:space-x-8">
             {tabs ? (
               <For each={tabs} as="div">
                 {(tab, index) => (

@@ -84,7 +84,7 @@ const RecommendedProfiles: FC = () => {
     <>
       <Title />
       <Card as="aside">
-        <div className="space-y-4 p-5">
+        <div className="p-5 [&>*]:space-y-4">
           <ErrorMessage
             title={t`Failed to load recommendations`}
             error={error}
