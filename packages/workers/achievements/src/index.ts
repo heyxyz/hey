@@ -25,11 +25,9 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/hasUsedLenster/:id', (request: WorkerRequest) =>
-    hasUsedLenster(request)
-  )
-  .get('/streaks/:id', (request: WorkerRequest) => streaksCalendar(request))
-  .get('/streaks/:id/:date', (request: WorkerRequest) => streaksList(request))
+  .get('/hasUsedLenster/:id', hasUsedLenster)
+  .get('/streaks/:id', streaksCalendar)
+  .get('/streaks/:id/:date', streaksList)
   .all('*', () => error(404));
 
 export default {

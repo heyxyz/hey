@@ -23,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/ids', (request: WorkerRequest) => getPublicationIds(request))
+  .get('/ids', getPublicationIds)
   .all('*', () => error(404));
 
 export default {
