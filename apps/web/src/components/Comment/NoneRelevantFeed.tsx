@@ -90,7 +90,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">
-          {comments && (
+          {comments ? (
             <For
               each={comments.filter(
                 (comment) =>
@@ -107,7 +107,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
                 />
               )}
             </For>
-          )}
+          ) : null}
           {hasMore ? <span ref={observe} /> : null}
         </Card>
       ) : null}

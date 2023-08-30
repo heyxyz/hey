@@ -169,7 +169,7 @@ const ChooseThumbnail: FC = () => {
           )}
         </label>
         {!thumbnails.length ? <ThumbnailsShimmer /> : null}
-        {thumbnails && (
+        {thumbnails ? (
           <For each={thumbnails}>
             {({ blobUrl, ipfsUrl }, index) => {
               const isSelected = selectedThumbnailIndex === index;
@@ -202,7 +202,7 @@ const ChooseThumbnail: FC = () => {
               );
             }}
           </For>
-        )}
+        ) : null}
       </div>
     </div>
   );

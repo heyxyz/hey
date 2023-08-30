@@ -99,7 +99,7 @@ const Attachments: FC<AttachmentsProps> = ({
       <div
         className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
       >
-        {slicedAttachments && (
+        {slicedAttachments ? (
           <For each={slicedAttachments}>
             {(attachment: NewLensterAttachment & MediaSet, index: number) => {
               const type = attachment.original?.mimeType;
@@ -221,7 +221,7 @@ const Attachments: FC<AttachmentsProps> = ({
               );
             }}
           </For>
-        )}
+        ) : null}
       </div>
       <LightBox
         show={Boolean(expandedImage)}

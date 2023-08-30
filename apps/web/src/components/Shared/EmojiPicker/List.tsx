@@ -90,7 +90,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
         />
       </div>
       <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2 text-lg">
-        {filteredEmojis && (
+        {filteredEmojis ? (
           <For each={filteredEmojis}>
             {(emoji: Emoji) => (
               <button
@@ -103,7 +103,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
               </button>
             )}
           </For>
-        )}
+        ) : null}
       </div>
     </div>
   );

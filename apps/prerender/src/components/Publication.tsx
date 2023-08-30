@@ -62,7 +62,7 @@ const PublicationComponent: FC<PublicationProps> = ({
         <SinglePublication publication={publication} h1Content />
       </header>
       <div data-testid="comment-feed">
-        {comments && (
+        {comments ? (
           <For each={comments}>
             {(comment) => {
               const { id } = comment;
@@ -73,7 +73,7 @@ const PublicationComponent: FC<PublicationProps> = ({
               );
             }}
           </For>
-        )}
+        ) : null}
       </div>
     </>
   );

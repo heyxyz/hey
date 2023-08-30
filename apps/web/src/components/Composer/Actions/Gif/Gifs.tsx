@@ -59,7 +59,7 @@ const Gifs: FC<CategoriesProps> = ({
 
   return (
     <div className="grid w-full grid-cols-3 gap-1 overflow-y-auto">
-      {gifs?.pages && (
+      {gifs?.pages ? (
         <For each={gifs?.pages}>
           {(page: any) => (
             <For each={page.data}>
@@ -82,7 +82,7 @@ const Gifs: FC<CategoriesProps> = ({
             </For>
           )}
         </For>
-      )}
+      ) : null}
     </div>
   );
 };

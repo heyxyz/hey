@@ -166,7 +166,7 @@ const SeeThroughLens: FC = () => {
               </div>
             ) : (
               <>
-                {profiles && (
+                {profiles ? (
                   <For each={profiles}>
                     {(profile: Profile) => (
                       <Menu.Item
@@ -197,7 +197,7 @@ const SeeThroughLens: FC = () => {
                       </Menu.Item>
                     )}
                   </For>
-                )}
+                ) : null}
                 {profiles.length === 0 || error ? (
                   <div className="py-4 text-center">
                     <Trans>No matching users</Trans>

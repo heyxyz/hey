@@ -183,7 +183,7 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.enabledModuleCurrencies && (
+            {currencyData?.enabledModuleCurrencies ? (
               <For each={currencyData.enabledModuleCurrencies}>
                 {(currency: Erc20) => (
                   <option
@@ -194,7 +194,7 @@ const SuperFollow: FC = () => {
                   </option>
                 )}
               </For>
-            )}
+            ) : null}
           </select>
         </div>
         <Input

@@ -243,7 +243,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <ReArrange />
       ) : (
         <div className="grid gap-5 md:grid-cols-3">
-          {nfts && (
+          {nfts ? (
             <For each={nfts}>
               {(nft) => (
                 <div
@@ -254,7 +254,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 </div>
               )}
             </For>
-          )}
+          ) : null}
         </div>
       )}
     </>

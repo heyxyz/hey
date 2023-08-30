@@ -62,11 +62,11 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             title={t`Tags`}
             noFlex
           >
-            {publication?.metadata?.tags && (
+            {publication?.metadata?.tags ? (
               <For each={publication.metadata.tags}>
                 {(tag) => <div key={tag}>{tag}</div>}
               </For>
-            )}
+            ) : null}
           </MetaDetails>
         ) : null}
       </div>

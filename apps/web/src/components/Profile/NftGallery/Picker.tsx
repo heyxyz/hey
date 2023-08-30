@@ -164,7 +164,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4">
-      {nfts && (
+      {nfts ? (
         <For each={nfts}>
           {(nft, index) => {
             const id = `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`;
@@ -192,7 +192,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
             );
           }}
         </For>
-      )}
+      ) : null}
       {hasMore ? <span ref={observe} /> : null}
     </div>
   );

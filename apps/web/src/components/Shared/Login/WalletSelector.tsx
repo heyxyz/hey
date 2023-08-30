@@ -192,7 +192,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors && (
+      {connectors ? (
         <For each={connectors}>
           {(connector) => {
             return (
@@ -238,7 +238,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             );
           }}
         </For>
-      )}
+      ) : null}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />

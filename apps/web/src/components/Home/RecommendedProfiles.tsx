@@ -89,7 +89,7 @@ const RecommendedProfiles: FC = () => {
             title={t`Failed to load recommendations`}
             error={error}
           />
-          {recommendedProfiles && recommendedProfiles.slice(0, 5) && (
+          {recommendedProfiles ? (
             <For each={recommendedProfiles.slice(0, 5)}>
               {(profile, index) => (
                 <motion.div
@@ -116,7 +116,7 @@ const RecommendedProfiles: FC = () => {
                 </motion.div>
               )}
             </For>
-          )}
+          ) : null}
         </div>
         <button
           className="flex w-full items-center space-x-2 rounded-b-xl border-t bg-gray-50 px-5 py-3 text-left text-sm text-gray-600 hover:bg-gray-100 dark:border-t-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-900"

@@ -45,7 +45,7 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
           !
         </Trans>
       </div>
-      {invited && (
+      {invited ? (
         <For each={invited}>
           {(invite, key) => (
             <div key={key}>
@@ -60,7 +60,7 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
             </div>
           )}
         </For>
-      )}
+      ) : null}
     </div>
   );
 };

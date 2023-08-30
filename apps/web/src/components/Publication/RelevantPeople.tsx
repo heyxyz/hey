@@ -67,7 +67,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   return (
     <Card as="aside" className="space-y-4 p-5" dataTestId="relevant-profiles">
       <ErrorMessage title={t`Failed to load relevant people`} error={error} />
-      {data?.profiles?.items && (
+      {data?.profiles?.items ? (
         <For each={data.profiles.items}>
           {(profile, index) => (
             <div key={profile?.id} className="truncate">
@@ -84,7 +84,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
             </div>
           )}
         </For>
-      )}
+      ) : null}
     </Card>
   );
 };

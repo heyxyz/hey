@@ -119,7 +119,7 @@ const Search: FC<SearchProps> = ({
               </div>
             ) : (
               <>
-                {profiles && (
+                {profiles ? (
                   <For each={profiles}>
                     {(profile: Profile) => (
                       <motion.div
@@ -147,7 +147,7 @@ const Search: FC<SearchProps> = ({
                       </motion.div>
                     )}
                   </For>
-                )}
+                ) : null}
                 {profiles.length === 0 ? (
                   <div className="px-4 py-2">
                     <Trans>No matching users</Trans>

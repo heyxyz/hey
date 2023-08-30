@@ -95,7 +95,7 @@ const PollEditor: FC = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.choices && (
+        {pollConfig.choices ? (
           <For each={pollConfig.choices}>
             {(choice, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
@@ -125,7 +125,7 @@ const PollEditor: FC = () => {
               </div>
             )}
           </For>
-        )}
+        ) : null}
         {pollConfig.choices.length !== 10 ? (
           <button
             className="text-brand mt-2 flex items-center space-x-2 text-sm"

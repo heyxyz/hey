@@ -60,7 +60,7 @@ const Explore: NextPage = () => {
           }}
         >
           <Tab.List className="divider space-x-8">
-            {tabs && (
+            {tabs ? (
               <For each={tabs}>
                 {(tab, index) => (
                   <Tab
@@ -86,11 +86,11 @@ const Explore: NextPage = () => {
                   </Tab>
                 )}
               </For>
-            )}
+            ) : null}
           </Tab.List>
           <FeedFocusType focus={focus} setFocus={setFocus} />
           <Tab.Panels>
-            {tabs && (
+            {tabs ? (
               <For each={tabs}>
                 {(tab) => (
                   <Tab.Panel key={tab.type}>
@@ -98,7 +98,7 @@ const Explore: NextPage = () => {
                   </Tab.Panel>
                 )}
               </For>
-            )}
+            ) : null}
           </Tab.Panels>
         </Tab.Group>
       </GridItemEight>

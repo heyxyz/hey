@@ -108,7 +108,7 @@ const RelayQueues: NextPage = () => {
                 <Trans>Relay queues</Trans>
               </h1>
               <div className="space-y-3">
-                {sortedRelays && (
+                {sortedRelays ? (
                   <For each={sortedRelays}>
                     {({ address, queue, relayer }) => (
                       <Relay
@@ -119,7 +119,7 @@ const RelayQueues: NextPage = () => {
                       />
                     )}
                   </For>
-                )}
+                ) : null}
               </div>
             </section>
           )}

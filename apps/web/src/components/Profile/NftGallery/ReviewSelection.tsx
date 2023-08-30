@@ -61,7 +61,7 @@ const ReviewSelection = () => {
 
   return (
     <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
-      {gallery && gallery.items && (
+      {gallery && gallery.items ? (
         <For each={gallery.items}>
           {(item) => (
             <div
@@ -79,7 +79,7 @@ const ReviewSelection = () => {
             </div>
           )}
         </For>
-      )}
+      ) : null}
     </div>
   );
 };

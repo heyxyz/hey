@@ -21,7 +21,7 @@ const List: FC = () => {
 
   return (
     <div className="divide-y-[1px] dark:divide-gray-700">
-      {algorithms && (
+      {algorithms ? (
         <For each={algorithms}>
           {(algorithm) => (
             <div
@@ -80,7 +80,7 @@ const List: FC = () => {
             </div>
           )}
         </For>
-      )}
+      ) : null}
     </div>
   );
 };

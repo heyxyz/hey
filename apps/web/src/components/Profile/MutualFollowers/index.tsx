@@ -40,7 +40,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       aria-hidden="true"
     >
       <div className="contents -space-x-2">
-        {profiles && (
+        {profiles ? (
           <For each={profiles}>
             {(profile) => (
               <Image
@@ -51,7 +51,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
               />
             )}
           </For>
-        )}
+        ) : null}
       </div>
       <div>
         <span>

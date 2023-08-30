@@ -167,7 +167,7 @@ const SetProfile: FC = () => {
           className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
           onChange={(e) => setSelectedUser(e.target.value)}
         >
-          {sortedProfiles && (
+          {sortedProfiles ? (
             <For each={sortedProfiles}>
               {(profile: Profile) => (
                 <option key={profile?.id} value={profile?.id}>
@@ -175,7 +175,7 @@ const SetProfile: FC = () => {
                 </option>
               )}
             </For>
-          )}
+          ) : null}
         </select>
       </div>
       <Button

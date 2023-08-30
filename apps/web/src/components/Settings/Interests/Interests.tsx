@@ -73,7 +73,7 @@ const Interests: FC = () => {
           <div className="space-y-2" key={category.id}>
             <h2 className="text-sm font-medium capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-3">
-              {subCategories && (
+              {subCategories ? (
                 <For each={subCategories}>
                   {(subCategory) => (
                     <Button
@@ -103,7 +103,7 @@ const Interests: FC = () => {
                     </Button>
                   )}
                 </For>
-              )}
+              ) : null}
               {!subCategories.length ? (
                 <Button
                   key={category.id}

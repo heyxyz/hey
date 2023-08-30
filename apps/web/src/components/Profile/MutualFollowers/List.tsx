@@ -62,7 +62,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
       />
 
       <div className="divide-y dark:divide-gray-700">
-        {profiles && (
+        {profiles ? (
           <For each={profiles}>
             {(profile, index) => (
               <motion.div
@@ -86,7 +86,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
               </motion.div>
             )}
           </For>
-        )}
+        ) : null}
       </div>
       {hasMore ? <span ref={observe} /> : null}
     </div>

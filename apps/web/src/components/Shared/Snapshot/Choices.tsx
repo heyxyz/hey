@@ -142,7 +142,7 @@ const Choices: FC<ChoicesProps> = ({
           </div>
         ) : null}
         <div className="space-y-1 p-3">
-          {sortedChoices && (
+          {sortedChoices ? (
             <For each={sortedChoices}>
               {({ position, choice, voted, percentage, score }) => (
                 <button
@@ -196,7 +196,7 @@ const Choices: FC<ChoicesProps> = ({
                 </button>
               )}
             </For>
-          )}
+          ) : null}
         </div>
         {isLensterPoll ? (
           <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">

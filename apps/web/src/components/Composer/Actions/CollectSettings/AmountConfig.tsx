@@ -74,7 +74,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
                   });
                 }}
               >
-                {enabledModuleCurrencies && (
+                {enabledModuleCurrencies ? (
                   <For each={enabledModuleCurrencies}>
                     {(currency: Erc20) => (
                       <option
@@ -88,7 +88,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
                       </option>
                     )}
                   </For>
-                )}
+                ) : null}
               </select>
             </div>
           </div>

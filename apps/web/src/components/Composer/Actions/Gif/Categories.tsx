@@ -29,7 +29,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
 
   return (
     <div className="grid w-full grid-cols-2 gap-1 overflow-y-auto">
-      {categories && (
+      {categories ? (
         <For each={categories}>
           {(category: Category) => (
             <button
@@ -51,7 +51,7 @@ const Categories: FC<CategoriesProps> = ({ setSearchText }) => {
             </button>
           )}
         </For>
-      )}
+      ) : null}
     </div>
   );
 };

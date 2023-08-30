@@ -115,7 +115,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       className="divide-y-[1px] dark:divide-gray-700"
       dataTestId="comments-feed"
     >
-      {optimisticTxnQueue && (
+      {optimisticTxnQueue ? (
         <For each={optimisticTxnQueue}>
           {(txn) => (
             <div key={txn.id}>
@@ -123,8 +123,8 @@ const Feed: FC<FeedProps> = ({ publication }) => {
             </div>
           )}
         </For>
-      )}
-      {visibleComments && (
+      ) : null}
+      {visibleComments ? (
         <For each={visibleComments}>
           {(comment, index) => (
             <SinglePublication
@@ -135,7 +135,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
             />
           )}
         </For>
-      )}
+      ) : null}
       {hasMore ? <span ref={observe} /> : null}
     </Card>
   );

@@ -110,7 +110,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       </div>
       <div className="divider" />
       <div className="space-y-4 p-6">
-        {data && (
+        {data ? (
           <For each={data}>
             {(streak: { id: string; event: string; date: string }) => (
               <div key={streak.id} className="flex items-center space-x-2">
@@ -121,7 +121,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
               </div>
             )}
           </For>
-        )}
+        ) : null}
       </div>
     </Card>
   );

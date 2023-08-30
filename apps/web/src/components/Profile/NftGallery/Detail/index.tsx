@@ -56,7 +56,7 @@ const NFTDetail: FC = () => {
           <Slug className="text-xs" slug="Subscapes" />
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents -space-x-2">
-              {profiles && (
+              {profiles ? (
                 <For each={profiles} as="div">
                   {(profile) => (
                     <Image
@@ -67,7 +67,7 @@ const NFTDetail: FC = () => {
                     />
                   )}
                 </For>
-              )}
+              ) : null}
             </div>
             <div className="text-xs">
               Sasi, Jouni, Yogi, and 10 others own Subscapes

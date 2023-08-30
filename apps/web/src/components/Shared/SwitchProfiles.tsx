@@ -25,7 +25,7 @@ const SwitchProfiles: FC = () => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
-      {profiles && (
+      {profiles ? (
         <For each={profiles}>
           {(profile: Profile, index) => (
             <button
@@ -58,7 +58,7 @@ const SwitchProfiles: FC = () => {
             </button>
           )}
         </For>
-      )}
+      ) : null}
       {!IS_MAINNET ? (
         <Link
           href="/new/profile"
