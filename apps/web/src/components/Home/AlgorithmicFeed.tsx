@@ -21,7 +21,6 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
-  const isFirstLoad = displayedPublications.length == 0;
 
   const limit = 20;
   const offset = displayedPublications.length;
@@ -69,7 +68,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     }
   });
 
-  if (isFirstLoad && (algoLoading || loading)) {
+  if (displayedPublications.length == 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -82,7 +81,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (isFirstLoad && (error || algoError)) {
+  if (displayedPublications.length == 0 && (error || algoError)) {
     return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
