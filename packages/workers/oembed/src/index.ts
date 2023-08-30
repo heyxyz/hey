@@ -25,7 +25,8 @@ router
     })
   )
   .get('/oembed', getOembed)
-  .get('/image', getImage);
+  .get('/image', getImage)
+  .all('*', () => error(404));
 
 export default {
   async fetch(
