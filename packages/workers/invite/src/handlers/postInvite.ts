@@ -44,7 +44,6 @@ export default async (request: WorkerRequest) => {
         invite(request: $request)
       }
     `;
-    const inviteRequestSpan = transaction?.startChild({ op: 'invite-request' });
     const inviteResponse = await fetch(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
@@ -65,7 +64,6 @@ export default async (request: WorkerRequest) => {
         })
       }
     );
-    inviteRequestSpan?.finish();
 
     const inviteResponseJson: {
       errors: any;

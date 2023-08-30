@@ -39,9 +39,6 @@ export default async (request: WorkerRequest) => {
       };
     `;
 
-    const clickhouseRequestSpan = transaction?.startChild({
-      name: 'clickhouse-request'
-    });
     const clickhouseResponse = await fetch(
       `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
       {
@@ -51,7 +48,6 @@ export default async (request: WorkerRequest) => {
         body: query
       }
     );
-    clickhouseRequestSpan?.finish();
 
     if (clickhouseResponse.status !== 200) {
       return response({ success: false, error: Errors.StatusCodeIsNot200 });
