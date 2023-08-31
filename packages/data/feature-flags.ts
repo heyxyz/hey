@@ -2,7 +2,6 @@ import { mainnetLensTeamMembers } from './lens-members';
 
 export enum FeatureFlag {
   TrendingWidget = 'trending-widget',
-  NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
   ForYou = 'for-you',
   WTF2 = 'wtf2',
@@ -15,10 +14,6 @@ export const featureFlags = [
   {
     key: FeatureFlag.TrendingWidget,
     enabledFor: []
-  },
-  {
-    key: FeatureFlag.NftDetail,
-    enabledFor: ['0x0d']
   },
   {
     key: FeatureFlag.GatedLocales,
