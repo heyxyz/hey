@@ -40,8 +40,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import useContractMetadata from 'src/hooks/useContractMetadata';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
-import useNft from 'src/hooks/useNft';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicClient, useToken } from 'wagmi';
@@ -135,7 +135,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNft({
+  const { data: contractMetadata } = useContractMetadata({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
@@ -291,10 +291,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           {doesNotOwnNft ? (
             <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
               You need{' '}
-              <Tooltip
-                content={nftData?.contractMetadata?.name}
-                placement="top"
-              >
+              <Tooltip content={contractMetadata?.name} placement="top">
                 <Link
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
@@ -306,7 +303,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  {nftData?.contractMetadata?.symbol}
+                  {contractMetadata?.symbol}
                 </Link>
               </Tooltip>{' '}
               nft to unlock
