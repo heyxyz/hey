@@ -288,25 +288,23 @@ const MentionsPlugin: FC = () => {
           ? ReactDOM.createPortal(
               <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <ul className="divide-y dark:divide-gray-700">
-                  {options ? (
-                    <For each={options} as="div">
-                      {(option, i: number) => (
-                        <MentionsTypeaheadMenuItem
-                          index={i}
-                          isSelected={selectedIndex === i}
-                          onClick={() => {
-                            setHighlightedIndex(i);
-                            selectOptionAndCleanUp(option);
-                          }}
-                          onMouseEnter={() => {
-                            setHighlightedIndex(i);
-                          }}
-                          key={option.key}
-                          option={option}
-                        />
-                      )}
-                    </For>
-                  ) : null}
+                  <For each={options} as="div">
+                    {(option, i: number) => (
+                      <MentionsTypeaheadMenuItem
+                        index={i}
+                        isSelected={selectedIndex === i}
+                        onClick={() => {
+                          setHighlightedIndex(i);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(i);
+                        }}
+                        key={option.key}
+                        option={option}
+                      />
+                    )}
+                  </For>
                 </ul>
               </div>,
               anchorElementRef.current

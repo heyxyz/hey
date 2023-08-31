@@ -45,22 +45,20 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
           !
         </Trans>
       </div>
-      {invited ? (
-        <For each={invited} as="div">
-          {(invite, key) => (
-            <div key={key}>
-              <Input
-                className="text-sm"
-                iconLeft={<CheckCircleIcon className="text-brand h-5 w-5" />}
-                value={`${formatAddress(
-                  invite.address
-                )} invited on ${formatDate(invite.when)}`}
-                disabled
-              />
-            </div>
-          )}
-        </For>
-      ) : null}
+      <For each={invited} as="div">
+        {(invite, key) => (
+          <div key={key}>
+            <Input
+              className="text-sm"
+              iconLeft={<CheckCircleIcon className="text-brand h-5 w-5" />}
+              value={`${formatAddress(invite.address)} invited on ${formatDate(
+                invite.when
+              )}`}
+              disabled
+            />
+          </div>
+        )}
+      </For>
     </div>
   );
 };

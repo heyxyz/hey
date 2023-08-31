@@ -166,26 +166,24 @@ const EmojiPickerPlugin: FC = () => {
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
               <ul className="mt-7 w-52 rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                {options ? (
-                  <For each={options} as="div">
-                    {(option: EmojiOption, index) => (
-                      <div key={option.key}>
-                        <EmojiMenuItem
-                          index={index}
-                          isSelected={selectedIndex === index}
-                          onClick={() => {
-                            setHighlightedIndex(index);
-                            selectOptionAndCleanUp(option);
-                          }}
-                          onMouseEnter={() => {
-                            setHighlightedIndex(index);
-                          }}
-                          option={option}
-                        />
-                      </div>
-                    )}
-                  </For>
-                ) : null}
+                <For each={options} as="div">
+                  {(option: EmojiOption, index) => (
+                    <div key={option.key}>
+                      <EmojiMenuItem
+                        index={index}
+                        isSelected={selectedIndex === index}
+                        onClick={() => {
+                          setHighlightedIndex(index);
+                          selectOptionAndCleanUp(option);
+                        }}
+                        onMouseEnter={() => {
+                          setHighlightedIndex(index);
+                        }}
+                        option={option}
+                      />
+                    </div>
+                  )}
+                </For>
               </ul>,
               anchorElementRef.current
             )

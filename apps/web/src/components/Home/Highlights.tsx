@@ -86,7 +86,7 @@ const Highlights: FC = () => {
           )}
         </For>
       ) : null}
-      {publications ? (
+      {publications?.length ? (
         <For each={publications}>
           {(publication, index) => (
             <SinglePublication

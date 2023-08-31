@@ -83,7 +83,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
       className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700"
       dataTestId="explore-feed"
     >
-      {publications ? (
+      {publications?.length ? (
         <For each={publications} as="div">
           {(publication, index) => (
             <SinglePublication

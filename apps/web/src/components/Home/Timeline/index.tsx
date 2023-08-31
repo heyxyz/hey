@@ -113,7 +113,7 @@ const Timeline: FC = () => {
           )}
         </For>
       ) : null}
-      {publications ? (
+      {publications?.length ? (
         <For each={publications} as="div">
           {(publication, index) => (
             <SinglePublication
