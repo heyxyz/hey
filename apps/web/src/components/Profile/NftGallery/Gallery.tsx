@@ -247,7 +247,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
-              <NftCard nft={nft as Nft} />
+              <NftCard nft={nft as Nft} linkToDetail />
             </div>
           ))}
         </div>
