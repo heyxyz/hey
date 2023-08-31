@@ -3091,6 +3091,11 @@ msgstr "நெட்வொர்க்கை மாற்றவும்"
 msgid "Create Profile"
 msgstr ""
 
+#: src/components/Shared/SwitchProfiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Login with NFT"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"

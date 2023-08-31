@@ -3091,6 +3091,11 @@ msgstr "切换网络"
 msgid "Create Profile"
 msgstr "创建个人账户"
 
+#: src/components/Shared/SwitchProfiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Login with NFT"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "取消关注成功！"
