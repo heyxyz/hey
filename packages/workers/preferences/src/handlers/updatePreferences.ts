@@ -9,6 +9,7 @@ import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
+import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -107,7 +108,7 @@ export default async (request: WorkerRequest) => {
 
     if (updateByAdmin) {
       // Clear cache in Cloudflare KV
-      await request.env.PREFERENCES.delete('verified-list');
+      await request.env.PREFERENCES.delete(VERIFIED_KV_KEY);
     }
 
     return response({ success: true, result: data });
