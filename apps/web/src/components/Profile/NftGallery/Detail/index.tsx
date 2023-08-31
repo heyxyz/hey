@@ -4,16 +4,8 @@ import UserProfile from '@components/Shared/UserProfile';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import {
-  Card,
-  GridItemEight,
-  GridItemFour,
-  GridLayout,
-  Image
-} from '@lenster/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -23,7 +15,6 @@ import { useEffectOnce } from 'usehooks-ts';
 
 const NFTDetail: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profiles = useAppStore((state) => state.profiles);
   const isNftDetailEnabled = isFeatureEnabled(FeatureFlag.NftDetail);
 
   useEffectOnce(() => {
@@ -53,21 +44,6 @@ const NFTDetail: FC = () => {
         <Card className="p-4">
           <h1>Subscape #363</h1>
           <Slug className="text-xs" slug="Subscapes" />
-          <div className="flex items-center space-x-1 pt-3">
-            <div className="contents -space-x-2">
-              {profiles?.map((profile) => (
-                <Image
-                  key={profile.handle}
-                  className="h-5 w-5 rounded-full border dark:border-gray-700"
-                  src={getAvatar(profile)}
-                  alt={formatHandle(profile?.handle)}
-                />
-              ))}
-            </div>
-            <div className="text-xs">
-              Sasi, Jouni, Yogi, and 10 others own Subscapes
-            </div>
-          </div>
         </Card>
         <Card className="p-4">
           <h1 className="mb-2">Description</h1>
