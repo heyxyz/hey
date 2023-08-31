@@ -159,6 +159,9 @@ importers:
       '@tippyjs/react':
         specifier: ^4.2.6
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
+      '@tokenbound/sdk':
+        specifier: ^0.3.5
+        version: 0.3.5(typescript@5.2.2)(zod@3.22.2)
       '@wagmi/connectors':
         specifier: ^3.0.0
         version: 3.0.0(@wagmi/chains@1.8.0)(react@18.2.0)(typescript@5.2.2)(viem@1.9.2)(zod@3.22.2)
@@ -6947,6 +6950,17 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tippy.js: 6.3.7
+    dev: false
+
+  /@tokenbound/sdk@0.3.5(typescript@5.2.2)(zod@3.22.2):
+    resolution: {integrity: sha512-THgeAkY+l/OpUdWsAh/HyP5x9X0pLIyLCSuNPMmmDRUwuSoBC3J65/bZWffX4CXXUXr92IzHrw0PM+Jy7nUBKQ==}
+    dependencies:
+      viem: 1.9.2(typescript@5.2.2)(zod@3.22.2)
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+      - zod
     dev: false
 
   /@tsndr/cloudflare-worker-jwt@2.2.2:
