@@ -182,16 +182,14 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.enabledModuleCurrencies
-              ? currencyData.enabledModuleCurrencies.map((currency: Erc20) => (
-                  <option
-                    key={currency.address}
-                    value={`${currency.address}-${currency.symbol}`}
-                  >
-                    {currency.name}
-                  </option>
-                ))
-              : null}
+            {currencyData?.enabledModuleCurrencies.map((currency: Erc20) => (
+              <option
+                key={currency.address}
+                value={`${currency.address}-${currency.symbol}`}
+              >
+                {currency.name}
+              </option>
+            ))}
           </select>
         </div>
         <Input

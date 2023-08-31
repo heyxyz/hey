@@ -166,7 +166,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 </div>
               )}
             </For>
-            )
           </div>
           <div className="flex items-center justify-between">
             {recipients.length >= 5 ? (

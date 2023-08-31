@@ -99,15 +99,15 @@ const AllowanceSettings: NextPage = () => {
             >
               {enabledModulesLoading ? (
                 <option>Loading...</option>
-              ) : enabledModules?.enabledModuleCurrencies ? (
-                enabledModules.enabledModuleCurrencies.map(
+              ) : (
+                enabledModules?.enabledModuleCurrencies.map(
                   (currency: Erc20) => (
                     <option key={currency.address} value={currency.address}>
                       {currency.name}
                     </option>
                   )
                 )
-              ) : null}
+              )}
             </select>
           </div>
           {loading || enabledModulesLoading || currencyLoading ? (
