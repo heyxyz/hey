@@ -136,7 +136,7 @@ const PollEditor: FC = () => {
             }}
           >
             <PlusIcon className="h-4 w-4" />
-            <span>
+            <span className="!mt-0">
               <Trans>Add another option</Trans>
             </span>
           </button>
