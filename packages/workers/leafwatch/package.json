@@ -15,7 +15,7 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "@sentry/tracing": "^7.65.0",
+    "@sentry/tracing": "^7.66.0",
     "itty-router": "^4.0.22",
     "toucan-js": "^3.2.3",
     "ua-parser-js": "^1.0.35",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230821.0",
     "@lenster/config": "workspace:*",
-    "@types/ua-parser-js": "^0.7.36",
+    "@types/ua-parser-js": "^0.7.37",
     "typescript": "^5.2.2",
     "wrangler": "^3.6.0"
   }
