@@ -70,7 +70,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               publication={rootPublication}
               showMore={showMore}
             />
-            <div className="flex flex-wrap items-center gap-x-5">
+            <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
                 <PublicationActions
                   publication={rootPublication}
