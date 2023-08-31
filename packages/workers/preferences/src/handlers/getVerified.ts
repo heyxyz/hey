@@ -3,6 +3,7 @@ import '@sentry/tracing';
 import response from '@lenster/lib/response';
 import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
+import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -11,7 +12,7 @@ export default async (request: WorkerRequest) => {
   });
 
   try {
-    const cache = await request.env.PREFERENCES.get('verified-list');
+    const cache = await request.env.PREFERENCES.get(VERIFIED_KV_KEY);
 
     if (!cache) {
       const client = createSupabaseClient(request.env.SUPABASE_KEY);
@@ -22,7 +23,7 @@ export default async (request: WorkerRequest) => {
         .eq('is_verified', true);
 
       const ids = data?.map((right) => right.id);
-      await request.env.PREFERENCES.put('verified-list', JSON.stringify(ids));
+      await request.env.PREFERENCES.put(VERIFIED_KV_KEY, JSON.stringify(ids));
 
       return response({ success: true, result: ids });
     }
