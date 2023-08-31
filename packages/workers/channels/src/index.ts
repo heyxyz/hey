@@ -23,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/channels', getChannels)
+  .get('/all', getChannels)
   .all('*', () => error(404));
 
 export default {
