@@ -2,18 +2,18 @@ import { ALCHEMY_KEY } from '@lenster/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface UseNftProps {
+interface UseContractMetadataProps {
   address: string;
   chainId: number;
   enabled?: boolean;
 }
 
-const useNft = ({
+const useContractMetadata = ({
   address,
   chainId,
   enabled
-}: UseNftProps): {
-  data: { contractMetadata: { name: string; symbol: string } };
+}: UseContractMetadataProps): {
+  data: { name: string; symbol: string };
   error: unknown;
 } => {
   const getAlchemyChainName = () => {
@@ -36,18 +36,17 @@ const useNft = ({
       `https://${getAlchemyChainName()}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
       { params: { contractAddress: address } }
     );
-    return response.data;
+
+    return response.data?.contractMetadata;
   };
 
   const { data, error } = useQuery(
-    ['nftData'],
+    ['contractMetadata'],
     () => loadContractDetails().then((res) => res),
-    {
-      enabled
-    }
+    { enabled }
   );
 
   return { data, error };
 };
 
-export default useNft;
+export default useContractMetadata;
