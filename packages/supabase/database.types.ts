@@ -12,7 +12,6 @@ export interface Database {
       channels: {
         Row: {
           avatar: string;
-          cover: string;
           description: string;
           id: string;
           name: string;
@@ -21,7 +20,6 @@ export interface Database {
         };
         Insert: {
           avatar: string;
-          cover: string;
           description: string;
           id?: string;
           name: string;
@@ -30,7 +28,6 @@ export interface Database {
         };
         Update: {
           avatar?: string;
-          cover?: string;
           description?: string;
           id?: string;
           name?: string;

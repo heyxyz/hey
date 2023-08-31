@@ -2,8 +2,8 @@ import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
+import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
-import createSupabaseClient from '../helpers/createSupabaseClient';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -18,7 +18,7 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const client = createSupabaseClient(request.env);
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data } = await client
       .from('rights')
