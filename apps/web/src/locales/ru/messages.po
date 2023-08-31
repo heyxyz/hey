@@ -3091,6 +3091,11 @@ msgstr "Сменить сеть"
 msgid "Create Profile"
 msgstr "Создать профиль"
 
+#: src/components/Shared/SwitchProfiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Login with NFT"
+msgstr ""
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr "Отписались успешно!"
