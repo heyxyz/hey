@@ -27,3 +27,9 @@ export interface OpenSeaNft {
   }[];
   rarity: null;
 }
+
+export interface OpenSeaCollection {
+  name: string;
+  safelist_request_status: 'verified';
+  twitter_username?: string;
+}

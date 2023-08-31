@@ -1,0 +1,35 @@
+import Slug from '@components/Shared/Slug';
+import { CheckCircleIcon } from '@heroicons/react/solid';
+import type { OpenSeaNft } from '@lenster/types/opensea-nft';
+import { Card } from '@lenster/ui';
+import type { FC } from 'react';
+import useOpenseaCollection from 'src/hooks/opensea/useOpenseaCollection';
+
+interface NftTitleProps {
+  nft: OpenSeaNft;
+}
+
+const NftTitle: FC<NftTitleProps> = ({ nft }) => {
+  const { data: collection, loading } = useOpenseaCollection({
+    slug: nft.collection,
+    enabled: Boolean(nft.collection)
+  });
+
+  return (
+    <Card className="p-4">
+      <h1>{nft?.name}</h1>
+      {loading ? (
+        <div className="shimmer mt-2 h-3 w-48 rounded-lg" />
+      ) : (
+        <div>
+          <Slug className="text-xs" slug={collection.name} />
+          {collection.safelist_request_status === 'verified' ? (
+            <CheckCircleIcon className="text-brand ml-1 inline-block h-4 w-4" />
+          ) : null}
+        </div>
+      )}
+    </Card>
+  );
+};
+
+export default NftTitle;

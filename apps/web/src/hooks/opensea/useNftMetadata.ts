@@ -45,7 +45,7 @@ const useNftMetadata = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['nftMetadata'],
+    ['nftMetadata', chain, address, token],
     () => loadNftDetails().then((res) => res),
     { enabled }
   );
