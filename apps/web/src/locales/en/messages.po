@@ -3091,6 +3091,11 @@ msgstr ""
 msgid "Create Profile"
 msgstr "Create Profile"
 
+#: src/components/Shared/SwitchProfiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Login with NFT"
+msgstr "Login with NFT"
+
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
 msgstr ""
