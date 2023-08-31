@@ -86,7 +86,7 @@ const ReferenceSettings: FC = () => {
   };
 
   return (
-    <Menu as="div">
+    <Menu>
       <Tooltip
         placement="top"
         content={getSelectedReferenceModuleTooltipText()}

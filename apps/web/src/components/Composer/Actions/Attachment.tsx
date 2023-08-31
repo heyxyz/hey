@@ -78,7 +78,7 @@ const Attachment: FC = () => {
   };
 
   return (
-    <Menu as="div">
+    <Menu>
       <Menu.Button as={Fragment}>
         <button onClick={() => setShowMenu(!showMenu)} aria-label="More">
           {isUploading ? (

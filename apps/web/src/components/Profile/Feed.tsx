@@ -150,7 +150,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       dataTestId={`profile-feed-type-${type.toLowerCase()}`}
     >
       {publications?.length ? (
-        <For each={publications} as="div">
+        <For each={publications}>
           {(publication, index) => (
             <SinglePublication
               key={`${publication.id}_${index}`}

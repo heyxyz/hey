@@ -6,7 +6,7 @@ const ThumbnailsShimmer = () => {
   const thumbnails = useMemo(() => Array(THUMBNAIL_GENERATE_COUNT).fill(1), []);
 
   return (
-    <For each={thumbnails} as="div">
+    <For each={thumbnails}>
       {(e, i) => <div key={`${e}_${i}`} className="shimmer rounded-lg" />}
     </For>
   );

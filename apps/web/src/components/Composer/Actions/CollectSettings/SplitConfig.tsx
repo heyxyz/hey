@@ -115,7 +115,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
       {hasRecipients ? (
         <div className="space-y-3 pt-4">
           <div className="[&>*]:space-y-2">
-            <For each={recipients} as="div">
+            <For each={recipients}>
               {(recipient, index) => (
                 <div
                   key={index}

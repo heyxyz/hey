@@ -78,7 +78,7 @@ const Highlights: FC = () => {
   return (
     <Card className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
       {optimisticTxnQueue ? (
-        <For each={optimisticTxnQueue} as="div">
+        <For each={optimisticTxnQueue}>
           {(txn) => (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />

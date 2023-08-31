@@ -244,7 +244,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
       ) : (
         <div className="grid gap-5 md:grid-cols-3">
           {nfts ? (
-            <For each={nfts} as="div">
+            <For each={nfts}>
               {(nft) => (
                 <div
                   key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}

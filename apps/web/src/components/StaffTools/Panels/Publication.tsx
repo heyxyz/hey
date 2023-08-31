@@ -63,7 +63,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
             noFlex
           >
             {publication?.metadata?.tags ? (
-              <For each={publication.metadata.tags} as="div">
+              <For each={publication.metadata.tags}>
                 {(tag) => <div key={tag}>{tag}</div>}
               </For>
             ) : null}

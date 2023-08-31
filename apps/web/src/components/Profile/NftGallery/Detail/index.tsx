@@ -57,7 +57,7 @@ const NFTDetail: FC = () => {
           <div className="flex items-center space-x-1 pt-3">
             <div className="contents [&>*]:-space-x-2">
               {profiles ? (
-                <For each={profiles} as="div">
+                <For each={profiles}>
                   {(profile) => (
                     <Image
                       key={profile.handle}

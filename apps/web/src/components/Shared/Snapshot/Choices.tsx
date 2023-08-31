@@ -143,7 +143,7 @@ const Choices: FC<ChoicesProps> = ({
         ) : null}
         <div className="p-3 [&>*]:space-y-1">
           {sortedChoices ? (
-            <For each={sortedChoices} as="div">
+            <For each={sortedChoices}>
               {({ position, choice, voted, percentage, score }) => (
                 <button
                   key={choice}

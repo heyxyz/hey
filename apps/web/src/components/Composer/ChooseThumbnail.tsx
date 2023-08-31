@@ -170,7 +170,7 @@ const ChooseThumbnail: FC = () => {
         </label>
         {!thumbnails.length ? <ThumbnailsShimmer /> : null}
         {thumbnails ? (
-          <For each={thumbnails} as="div">
+          <For each={thumbnails}>
             {({ blobUrl, ipfsUrl }, index) => {
               const isSelected = selectedThumbnailIndex === index;
               const isUploaded = ipfsUrl === videoThumbnail.url;

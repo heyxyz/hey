@@ -102,7 +102,7 @@ const Feed: FC<FeedProps> = ({
   return (
     <Card className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
       {publications?.length ? (
-        <For each={publications} as="div">
+        <For each={publications}>
           {(publication, index) => (
             <SinglePublication
               key={`${publication.id}_${index}`}

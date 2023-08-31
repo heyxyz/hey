@@ -61,7 +61,7 @@ const Explore: NextPage = () => {
         >
           <Tab.List className="divider [&>*]:space-x-8">
             {tabs ? (
-              <For each={tabs} as="div">
+              <For each={tabs}>
                 {(tab, index) => (
                   <Tab
                     key={tab.type}
@@ -91,7 +91,7 @@ const Explore: NextPage = () => {
           <FeedFocusType focus={focus} setFocus={setFocus} />
           <Tab.Panels>
             {tabs ? (
-              <For each={tabs} as="div">
+              <For each={tabs}>
                 {(tab) => (
                   <Tab.Panel key={tab.type}>
                     <Feed focus={focus} feedType={tab.type} />

@@ -44,7 +44,7 @@ const Locale: FC = () => {
           className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           data-testid="locale-selector-menu"
         >
-          <For each={Object.entries(locales)} as="div">
+          <For each={Object.entries(locales)}>
             {([localeCode, localeName]) => (
               <Menu.Item
                 key={localeCode}

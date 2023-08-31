@@ -96,7 +96,7 @@ const Feed: FC<FeedProps> = ({
       className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700"
     >
       {publications?.length ? (
-        <For each={publications} as="div">
+        <For each={publications}>
           {(publication, index) => (
             <SinglePublication
               isFirst={index === 0}

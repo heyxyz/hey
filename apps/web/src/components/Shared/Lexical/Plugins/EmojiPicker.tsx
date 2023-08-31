@@ -166,7 +166,7 @@ const EmojiPickerPlugin: FC = () => {
         return anchorElementRef.current && options.length
           ? ReactDOM.createPortal(
               <ul className="mt-7 w-52 rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
-                <For each={options} as="div">
+                <For each={options}>
                   {(option: EmojiOption, index) => (
                     <div key={option.key}>
                       <EmojiMenuItem

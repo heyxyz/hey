@@ -105,7 +105,7 @@ const Timeline: FC = () => {
   return (
     <Card className="[&>*]:divide-y-[1px] dark:[&>*]:divide-gray-700">
       {optimisticTxnQueue ? (
-        <For each={optimisticTxnQueue} as="div">
+        <For each={optimisticTxnQueue}>
           {(txn) => (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />
@@ -114,7 +114,7 @@ const Timeline: FC = () => {
         </For>
       ) : null}
       {publications?.length ? (
-        <For each={publications} as="div">
+        <For each={publications}>
           {(publication, index) => (
             <SinglePublication
               key={`${publication?.root.id}_${index}`}

@@ -44,7 +44,7 @@ const Sidebar: FC<SidebarProps> = ({ items }) => {
   return (
     <div className="mb-4 px-3 sm:px-0 [&>*]:space-y-1.5">
       {filteredMenuItems ? (
-        <For each={filteredMenuItems} as="div">
+        <For each={filteredMenuItems}>
           {(item: any) => (
             <Menu
               url={item.url}

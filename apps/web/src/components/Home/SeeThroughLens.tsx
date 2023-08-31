@@ -167,7 +167,7 @@ const SeeThroughLens: FC = () => {
             ) : (
               <>
                 {profiles ? (
-                  <For each={profiles} as="div">
+                  <For each={profiles}>
                     {(profile: Profile) => (
                       <Menu.Item
                         as={motion.div}

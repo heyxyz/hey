@@ -49,7 +49,7 @@ const Tags: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 p-5 [&>*]:space-y-4">
-        <For each={tags} as="div">
+        <For each={tags}>
           {(tag) => (
             <div key={tag.tag}>
               <button

@@ -26,7 +26,7 @@ const SwitchProfiles: FC = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
       {profiles ? (
-        <For each={profiles} as="div">
+        <For each={profiles}>
           {(profile: Profile, index) => (
             <button
               key={profile?.id}

@@ -72,7 +72,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
     >
       <ErrorMessage title={t`Failed to load relevant people`} error={error} />
       {data?.profiles?.items ? (
-        <For each={data.profiles.items} as="div">
+        <For each={data.profiles.items}>
           {(profile, index) => (
             <div key={profile?.id} className="truncate">
               <UserProfile

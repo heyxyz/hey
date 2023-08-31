@@ -288,7 +288,7 @@ const MentionsPlugin: FC = () => {
           ? ReactDOM.createPortal(
               <div className="bg-brand sticky z-40 mt-8 w-52 min-w-full rounded-xl border bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
                 <ul className="divide-y dark:divide-gray-700">
-                  <For each={options} as="div">
+                  <For each={options}>
                     {(option, i: number) => (
                       <MentionsTypeaheadMenuItem
                         index={i}
