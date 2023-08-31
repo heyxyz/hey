@@ -3,7 +3,7 @@ import response from '@lenster/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 import { Toucan } from 'toucan-js';
 
-import getChannels from './handlers/getChannels';
+import allChannels from './handlers/allChannels';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -23,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/all', getChannels)
+  .get('/all', allChannels)
   .all('*', () => error(404));
 
 export default {

@@ -7,7 +7,7 @@ import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
   const transaction = request.sentry?.startTransaction({
-    name: '@lenster/channels/getChannels'
+    name: '@lenster/channels/allChannels'
   });
 
   try {
