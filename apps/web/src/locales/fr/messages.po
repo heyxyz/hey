@@ -779,6 +779,23 @@ msgstr ""
 msgid "Gardeners"
 msgstr ""
 
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
+
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr ""
@@ -2847,10 +2864,6 @@ msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Failed to report"
-msgstr ""
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
 msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
