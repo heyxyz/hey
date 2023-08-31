@@ -505,6 +505,19 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
+  packages/supabase:
+    dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.33.1
+        version: 2.33.1
+    devDependencies:
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
   packages/types:
     dependencies:
       '@lenster/lens':
@@ -606,12 +619,12 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@lenster/supabase':
+        specifier: workspace:*
+        version: link:../../supabase
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0
-      '@supabase/supabase-js':
-        specifier: ^2.33.1
-        version: 2.33.1
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -886,12 +899,12 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@lenster/supabase':
+        specifier: workspace:*
+        version: link:../../supabase
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0
-      '@supabase/supabase-js':
-        specifier: ^2.33.1
-        version: 2.33.1
       '@tsndr/cloudflare-worker-jwt':
         specifier: ^2.2.2
         version: 2.2.2
