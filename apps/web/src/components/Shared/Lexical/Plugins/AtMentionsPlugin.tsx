@@ -128,6 +128,7 @@ interface MentionsTypeaheadMenuItemProps {
   option: MentionTypeaheadOption;
 }
 
+// million-ignore
 const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
   isSelected,
   onClick,
