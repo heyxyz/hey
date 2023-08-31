@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
+import FeaturedChannel from './FeaturedChannel';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -69,12 +70,15 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               publication={rootPublication}
               showMore={showMore}
             />
-            {showActions ? (
-              <PublicationActions
-                publication={rootPublication}
-                electedMirror={feedItem?.electedMirror as ElectedMirror}
-              />
-            ) : null}
+            <div className="flex flex-wrap items-center gap-x-5">
+              {showActions ? (
+                <PublicationActions
+                  publication={rootPublication}
+                  electedMirror={feedItem?.electedMirror as ElectedMirror}
+                />
+              ) : null}
+              <FeaturedChannel tags={publication.metadata.tags} />
+            </div>
             {showModActions ? (
               <ModAction
                 publication={rootPublication}
