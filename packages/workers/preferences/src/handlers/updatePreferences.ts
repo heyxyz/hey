@@ -1,7 +1,6 @@
 import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
@@ -21,7 +20,6 @@ type ExtensionRequest = {
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
   updateByAdmin?: boolean;
-  accessToken: string;
 };
 
 const validationSchema = object({
@@ -32,8 +30,7 @@ const validationSchema = object({
   isVerified: boolean().optional(),
   isPride: boolean().optional(),
   highSignalNotificationFilter: boolean().optional(),
-  updateByAdmin: boolean().optional(),
-  accessToken: string().regex(Regex.accessToken)
+  updateByAdmin: boolean().optional()
 });
 
 export default async (request: WorkerRequest) => {
@@ -44,6 +41,11 @@ export default async (request: WorkerRequest) => {
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
+  }
+
+  const accessToken = request.headers.get('X-Access-Token');
+  if (!accessToken) {
+    return response({ success: false, error: Errors.NoAccessToken });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -60,8 +62,7 @@ export default async (request: WorkerRequest) => {
     updateByAdmin,
     isVerified,
     isPride,
-    highSignalNotificationFilter,
-    accessToken
+    highSignalNotificationFilter
   } = body as ExtensionRequest;
 
   try {
