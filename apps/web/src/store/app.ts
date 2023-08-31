@@ -1,10 +1,8 @@
 import { Localstorage } from '@lenster/data/storage';
 import type { Profile } from '@lenster/lens';
-import type { Database } from '@lenster/supabase/database.types';
+import type { Channel } from '@lenster/types/lenster';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-type Channel = Database['public']['Tables']['channels']['Row'];
 
 interface AppState {
   profiles: Profile[] | [];
@@ -44,3 +42,4 @@ export const useAppPersistStore = create(
 );
 
 export const verifiedMembers = () => useAppStore.getState().verifiedMembers;
+export const featuredChannels = () => useAppStore.getState().featuredChannels;
