@@ -1,3 +1,4 @@
+import { useProfilesQuery } from '@lenster/lens';
 import { TokenboundClient } from '@tokenbound/sdk';
 import { type FC, useState } from 'react';
 import { CHAIN_ID } from 'src/constants';
@@ -17,15 +18,20 @@ const TbaAccount: FC<TbaAccountProps> = ({ nft }) => {
     chainId: CHAIN_ID
   });
 
+  const accountAddress = tokenboundClient.getAccount({
+    tokenContract: nft.contract as `0x${string}`,
+    tokenId: nft.tokenId
+  });
+
   useEffectOnce(() => {
     tokenboundClient
-      .checkAccountDeployment({
-        accountAddress: tokenboundClient.getAccount({
-          tokenContract: nft.contract as `0x${string}`,
-          tokenId: nft.tokenId
-        })
-      })
+      .checkAccountDeployment({ accountAddress })
       .then((res) => setHasDeployed(res));
+  });
+
+  const { data } = useProfilesQuery({
+    variables: { request: { ownedBy: [accountAddress] } },
+    skip: !hasDeployed
   });
 
   return (
@@ -33,7 +39,15 @@ const TbaAccount: FC<TbaAccountProps> = ({ nft }) => {
       <div className="flex flex-col">
         <div className="text-sm font-bold">NFT #{nft.tokenId}</div>
         <div className="text-xs text-gray-500">{nft.contract}</div>
-        {JSON.stringify(hasDeployed)}
+        <div className="text-xs text-gray-500">
+          Has NFT Wallet: {JSON.stringify(hasDeployed)}
+        </div>
+        {hasDeployed ? (
+          <div className="text-xs text-gray-500">
+            Has Lens account:{' '}
+            {JSON.stringify((data?.profiles.items.length ?? 0) > 0)}
+          </div>
+        ) : null}
       </div>
     </div>
   );
