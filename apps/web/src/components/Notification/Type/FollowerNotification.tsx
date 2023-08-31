@@ -44,19 +44,15 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
             ) : (
               <UserAddIcon className="h-6 w-6 text-green-500/70" />
             )}
-            {notification ? (
-              notification?.wallet?.defaultProfile ? (
-                <UserPreview profile={notification?.wallet?.defaultProfile}>
-                  <NotificationProfileAvatar
-                    profile={notification?.wallet?.defaultProfile}
-                  />
-                </UserPreview>
-              ) : (
-                <NotificationWalletProfileAvatar
-                  wallet={notification?.wallet}
+            {notification?.wallet?.defaultProfile ? (
+              <UserPreview profile={notification?.wallet?.defaultProfile}>
+                <NotificationProfileAvatar
+                  profile={notification?.wallet?.defaultProfile}
                 />
-              )
-            ) : null}
+              </UserPreview>
+            ) : (
+              <NotificationWalletProfileAvatar wallet={notification?.wallet} />
+            )}
           </div>
           {notification ? (
             <div
@@ -74,17 +70,13 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
             }
             components={[
               <span className="text-gray-600 dark:text-gray-400" key="" />,
-              notification ? (
-                notification?.wallet?.defaultProfile ? (
-                  <NotificationProfileName
-                    profile={notification?.wallet?.defaultProfile}
-                  />
-                ) : (
-                  <NotificationWalletProfileName
-                    wallet={notification?.wallet}
-                  />
-                )
-              ) : null
+              notification?.wallet?.defaultProfile ? (
+                <NotificationProfileName
+                  profile={notification?.wallet?.defaultProfile}
+                />
+              ) : (
+                <NotificationWalletProfileName wallet={notification?.wallet} />
+              )
             ]}
           />
         </div>
