@@ -625,9 +625,6 @@ importers:
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0
-      '@supabase/supabase-js':
-        specifier: ^2.33.1
-        version: 2.33.1
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -908,9 +905,6 @@ importers:
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0
-      '@supabase/supabase-js':
-        specifier: ^2.33.1
-        version: 2.33.1
       '@tsndr/cloudflare-worker-jwt':
         specifier: ^2.2.2
         version: 2.2.2
