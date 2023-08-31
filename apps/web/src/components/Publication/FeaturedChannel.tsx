@@ -1,4 +1,6 @@
+import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { MetadataOutput } from '@lenster/lens';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import getChannelByTag from '@lib/getChannelByTag';
 import clsx from 'clsx';
@@ -14,9 +16,10 @@ const FeaturedChannel: FC<FeaturedChannelProps> = ({
   tags,
   className = ''
 }) => {
+  const isChannelsEnabled = isFeatureEnabled(FeatureFlag.Channels);
   const channel = getChannelByTag(tags);
 
-  if (!channel) {
+  if (!channel || !isChannelsEnabled) {
     return null;
   }
 
