@@ -7,7 +7,8 @@ export enum FeatureFlag {
   ForYou = 'for-you',
   WTF2 = 'wtf2',
   ExploreTags = 'explore-tags',
-  Spaces = 'spaces'
+  Spaces = 'spaces',
+  NftLogin = 'nft-login'
 }
 
 export const featureFlags = [
@@ -37,6 +38,10 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.Spaces,
+    enabledFor: ['0x0d']
+  },
+  {
+    key: FeatureFlag.NftLogin,
     enabledFor: ['0x0d']
   }
 ];
