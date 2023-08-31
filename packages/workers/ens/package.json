@@ -17,10 +17,10 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "@sentry/tracing": "^7.65.0",
+    "@sentry/tracing": "^7.66.0",
     "itty-router": "^4.0.22",
     "toucan-js": "^3.2.3",
-    "viem": "^1.9.0",
+    "viem": "^1.9.2",
     "zod": "^3.22.2"
   },
   "devDependencies": {
