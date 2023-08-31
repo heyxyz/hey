@@ -1,0 +1,18 @@
+name = "channels"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "channels.lenster.xyz", custom_domain = true }
+]
+
+kv_namespaces = [
+  { binding = "CHANNELS", id = "6be1898f5a7148a1950e46156b74d657", preview_id = "6be1898f5a7148a1950e46156b74d657" }
+]
+
+[env.production.vars]
+SENTRY_DSN = ""
+RELEASE = ""
+SUPABASE_KEY = ""
