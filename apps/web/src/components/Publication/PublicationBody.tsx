@@ -9,6 +9,7 @@ import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
+import type { OG } from '@lenster/types/misc';
 import { Trans } from '@lingui/macro';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -37,9 +38,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     metadata.attributes,
     'quotedPublicationId'
   );
-
   const filterId = snapshotProposalId || quotedPublicationId;
-
   let rawContent = metadata?.content;
 
   if (filterId) {
@@ -66,8 +65,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showQuotedPublication &&
     !quoted;
 
-  const onData = () => {
-    if (showOembed) {
+  const onOembedData = (data: OG) => {
+    if (showOembed && data?.title) {
       const updatedContent = removeUrlAtEnd(urls, content);
       if (updatedContent !== content) {
         setContent(updatedContent);
@@ -99,7 +98,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showOembed ? (
-        <Oembed url={urls[0]} publicationId={publication.id} onData={onData} />
+        <Oembed
+          url={urls[0]}
+          publicationId={publication.id}
+          onData={onOembedData}
+        />
       ) : null}
       {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />
