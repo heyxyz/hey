@@ -48,7 +48,7 @@ const ViewNft: NextPage = () => {
             width={500}
             height={500}
             className="h-full w-full rounded-xl"
-            src={nft?.image_url}
+            src={nft?.image_url.replace('w=500', 'w=1500')}
             alt="nft"
             draggable={false}
           />
