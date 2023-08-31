@@ -16,13 +16,13 @@ const NftTitle: FC<NftTitleProps> = ({ nft }) => {
   });
 
   return (
-    <Card className="p-4">
-      <h1>{nft?.name}</h1>
+    <Card className="p-5">
+      <h1 className="font-bold">{nft?.name}</h1>
       {loading ? (
         <div className="shimmer mt-2 h-3 w-48 rounded-lg" />
       ) : (
         <div>
-          <Slug className="text-xs" slug={collection.name} />
+          <Slug className="text-sm" slug={collection.name} />
           {collection.safelist_request_status === 'verified' ? (
             <CheckCircleIcon className="text-brand ml-1 inline-block h-4 w-4" />
           ) : null}
