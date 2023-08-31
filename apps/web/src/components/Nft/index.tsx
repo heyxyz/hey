@@ -10,6 +10,7 @@ import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
 import NftDetails from './Details';
+import NftPageShimmer from './Shimmer';
 
 const ViewNft: NextPage = () => {
   const {
@@ -32,7 +33,7 @@ const ViewNft: NextPage = () => {
   });
 
   if (loading) {
-    return null;
+    return <NftPageShimmer />;
   }
 
   if (error) {

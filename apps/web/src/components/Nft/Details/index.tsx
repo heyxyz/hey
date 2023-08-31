@@ -1,3 +1,4 @@
+import Footer from '@components/Shared/Footer';
 import type { OpenSeaNft } from '@lenster/types/opensea-nft';
 import { Card, GridItemFour } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
@@ -37,6 +38,7 @@ const NftDetails: FC<NftDetailsProps> = ({ nft }) => {
         </div>
       </Card>
       <NftTraits nft={nft} />
+      <Footer />
     </GridItemFour>
   );
 };
