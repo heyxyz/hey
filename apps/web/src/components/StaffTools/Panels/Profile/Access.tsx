@@ -68,17 +68,24 @@ const Access: FC<RankProps> = ({ profile }) => {
 
   const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: profile.id,
-        ...(type === Type.VERIFIED && { isVerified: !isVerified }),
-        ...(type === Type.STAFF && { isStaff: !isStaff }),
-        ...(type === Type.GARDENER && { isGardener: !isGardener }),
-        ...(type === Type.TUSTED_MEMBER && {
-          isTrustedMember: !isTrustedMember
-        }),
-        updateByAdmin: true,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/update`,
+        {
+          id: profile.id,
+          ...(type === Type.VERIFIED && { isVerified: !isVerified }),
+          ...(type === Type.STAFF && { isStaff: !isStaff }),
+          ...(type === Type.GARDENER && { isGardener: !isGardener }),
+          ...(type === Type.TUSTED_MEMBER && {
+            isTrustedMember: !isTrustedMember
+          }),
+          updateByAdmin: true
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Updating access...`,
         success: () => {

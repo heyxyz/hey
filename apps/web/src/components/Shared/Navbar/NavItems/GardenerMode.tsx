@@ -23,11 +23,18 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
 
   const toggleModMode = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/gardenerMode`, {
-        id: currentProfile?.id,
-        enabled: !gardenerMode,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/gardenerMode`,
+        {
+          id: currentProfile?.id,
+          enabled: !gardenerMode
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Toggling gardener mode...`,
         success: () => {
