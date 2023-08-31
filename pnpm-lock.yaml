@@ -598,6 +598,43 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
 
+  packages/workers/channels:
+    dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      '@sentry/tracing':
+        specifier: ^7.66.0
+        version: 7.66.0
+      '@supabase/supabase-js':
+        specifier: ^2.33.1
+        version: 2.33.1
+      itty-router:
+        specifier: ^4.0.22
+        version: 4.0.22
+      toucan-js:
+        specifier: ^3.2.3
+        version: 3.2.3
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230821.0
+        version: 4.20230821.0
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      wrangler:
+        specifier: ^3.6.0
+        version: 3.6.0
+
   packages/workers/ens:
     dependencies:
       '@lenster/data':
@@ -1056,7 +1093,7 @@ packages:
     resolution: {integrity: sha512-xhlTqH0m31mnsG0tIP4ETgfSB6gXDaYYsUWTrlUV93fFQPI9dd8hE0Ot6MHLCtqgB32hwJAC3YZMWlXZw7AleA==}
     engines: {node: '>=14'}
     dependencies:
-      node-fetch: 2.6.13
+      node-fetch: 2.7.0
     transitivePeerDependencies:
       - encoding
     dev: true
@@ -12415,18 +12452,6 @@ packages:
   /node-addon-api@2.0.2:
     resolution: {integrity: sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==}
     dev: false
-
-  /node-fetch@2.6.13:
-    resolution: {integrity: sha512-StxNAxh15zr77QvvkmveSQ8uCQ4+v5FkvNTj0OESmiHu+VRi/gXArXtkWMElOsOUNLtUEvI4yS+rdtOHZTwlQA==}
-    engines: {node: 4.x || >=6.0.0}
-    peerDependencies:
-      encoding: ^0.1.0
-    peerDependenciesMeta:
-      encoding:
-        optional: true
-    dependencies:
-      whatwg-url: 5.0.0
-    dev: true
 
   /node-fetch@2.7.0:
     resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
