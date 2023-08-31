@@ -13,8 +13,8 @@ interface AppState {
   setCurrentProfile: (currentProfile: Profile | null) => void;
   verifiedMembers: string[];
   setVerifiedMembers: (verifiedMembers: string[]) => void;
-  channels: Channel[];
-  setChannels: (channels: Channel[]) => void;
+  featuredChannels: Channel[];
+  setFeaturedChannels: (featuredChannels: Channel[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -24,8 +24,8 @@ export const useAppStore = create<AppState>((set) => ({
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   verifiedMembers: [],
   setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
-  channels: [],
-  setChannels: (channels) => set(() => ({ channels }))
+  featuredChannels: [],
+  setFeaturedChannels: (featuredChannels) => set(() => ({ featuredChannels }))
 }));
 
 interface AppPerisistState {

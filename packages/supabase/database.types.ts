@@ -13,6 +13,7 @@ export interface Database {
         Row: {
           avatar: string;
           description: string;
+          featured: boolean;
           id: string;
           name: string;
           slug: string;
@@ -21,6 +22,7 @@ export interface Database {
         Insert: {
           avatar: string;
           description: string;
+          featured?: boolean;
           id?: string;
           name: string;
           slug: string;
@@ -29,6 +31,7 @@ export interface Database {
         Update: {
           avatar?: string;
           description?: string;
+          featured?: boolean;
           id?: string;
           name?: string;
           slug?: string;
