@@ -68,7 +68,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     }
   });
 
-  if (displayedPublications.length == 0 && (algoLoading || loading)) {
+  if (publications.length == 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -81,7 +81,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (displayedPublications.length == 0 && (error || algoError)) {
+  if (publications.length == 0 && (error || algoError)) {
     return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
