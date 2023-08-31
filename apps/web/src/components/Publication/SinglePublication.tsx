@@ -77,7 +77,10 @@ const SinglePublication: FC<SinglePublicationProps> = ({
                   electedMirror={feedItem?.electedMirror as ElectedMirror}
                 />
               ) : null}
-              <FeaturedChannel tags={publication.metadata.tags} />
+              <FeaturedChannel
+                className="mt-3"
+                tags={publication.metadata.tags}
+              />
             </div>
             {showModActions ? (
               <ModAction
