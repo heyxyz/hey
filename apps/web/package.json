@@ -28,7 +28,6 @@
     "@lenster/lens": "workspace:*",
     "@lenster/lib": "workspace:*",
     "@lenster/snapshot": "workspace:*",
-    "@lenster/supabase": "workspace:*",
     "@lenster/types": "workspace:*",
     "@lenster/ui": "workspace:*",
     "@lexical/code": "^0.12.0",
