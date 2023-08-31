@@ -5,10 +5,10 @@ import { adminAddresses } from '@lenster/data/staffs';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
-import createSupabaseClient from '../helpers/createSupabaseClient';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -83,7 +83,7 @@ export default async (request: WorkerRequest) => {
       );
     }
 
-    const client = createSupabaseClient(request.env);
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data, error } = await client
       .from('rights')
