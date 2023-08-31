@@ -105,6 +105,9 @@ importers:
       '@lenster/snapshot':
         specifier: workspace:*
         version: link:../../packages/snapshot
+      '@lenster/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
       '@lenster/types':
         specifier: workspace:*
         version: link:../../packages/types

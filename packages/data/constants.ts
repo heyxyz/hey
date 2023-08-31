@@ -103,6 +103,9 @@ export const FEEDS_WORKER_URL = IS_PRODUCTION
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.lenster.xyz'
   : 'http://localhost:8092';
+export const CHANNELS_WORKER_URL = IS_PRODUCTION
+  ? 'https://channels.lenster.xyz'
+  : 'http://localhost:8093';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
