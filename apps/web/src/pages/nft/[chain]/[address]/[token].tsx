@@ -1,3 +1,3 @@
-import NFTDetail from '@components/Profile/NftGallery/Detail';
+import ViewNft from '@components/Nft';
 
-export default NFTDetail;
+export default ViewNft;

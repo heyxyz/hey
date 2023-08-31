@@ -1,16 +1,17 @@
+import { OPENSEA_KEY } from '@lenster/data/constants';
 import type { OpenSeaNft } from '@lenster/types/opensea-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 interface UseNftMetadataProps {
-  chainId: number;
+  chain: number;
   address: string;
   token: string;
   enabled?: boolean;
 }
 
 const useNftMetadata = ({
-  chainId,
+  chain,
   address,
   token,
   enabled
@@ -20,7 +21,7 @@ const useNftMetadata = ({
   error: unknown;
 } => {
   const getOpenSeaChainName = () => {
-    switch (chainId) {
+    switch (chain) {
       case 1:
         return 'ethereum';
       case 5:
@@ -36,7 +37,8 @@ const useNftMetadata = ({
 
   const loadNftDetails = async () => {
     const response = await axios.get(
-      `http GET https://api.opensea.io/v2/chain/${getOpenSeaChainName()}/contract/${address}/nfts/${token}`
+      `https://api.opensea.io/v2/chain/${getOpenSeaChainName()}/contract/${address}/nfts/${token}`,
+      { headers: { 'X-API-KEY': OPENSEA_KEY } }
     );
 
     return response.data?.nft;
