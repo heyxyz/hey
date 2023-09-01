@@ -526,6 +526,9 @@ importers:
       '@lenster/supabase':
         specifier: workspace:*
         version: link:../supabase
+      '@lenster/zora':
+        specifier: workspace:*
+        version: link:../zora
     devDependencies:
       '@lenster/config':
         specifier: workspace:*

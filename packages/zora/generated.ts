@@ -2374,6 +2374,21 @@ export type TokenQuery = {
       __typename?: 'Token';
       tokenStandard?: TokenStandard | null;
       collectionName?: string | null;
+      owner?: string | null;
+      name?: string | null;
+      description?: string | null;
+      image?: { __typename?: 'TokenContentMedia'; url?: string | null } | null;
+      attributes?: Array<{
+        __typename?: 'TokenAttribute';
+        traitType?: string | null;
+        value?: string | null;
+        displayType?: string | null;
+      }> | null;
+      networkInfo: {
+        __typename?: 'NetworkInfo';
+        network: Network;
+        chain: Chain;
+      };
     };
   } | null;
 };
@@ -2384,6 +2399,21 @@ export const TokenDocument = gql`
       token {
         tokenStandard
         collectionName
+        owner
+        name
+        description
+        image {
+          url
+        }
+        attributes {
+          traitType
+          value
+          displayType
+        }
+        networkInfo {
+          network
+          chain
+        }
       }
     }
   }

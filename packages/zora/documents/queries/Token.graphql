@@ -3,6 +3,21 @@ query Token($token: TokenInput!, $network: NetworkInput) {
     token {
       tokenStandard
       collectionName
+      owner
+      name
+      description
+      image {
+        url
+      }
+      attributes {
+        traitType
+        value
+        displayType
+      }
+      networkInfo {
+        network
+        chain
+      }
     }
   }
 }
