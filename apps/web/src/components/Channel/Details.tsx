@@ -2,10 +2,14 @@ import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/outline';
 import { FireIcon } from '@heroicons/react/solid';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import formatHandle from '@lenster/lib/formatHandle';
 import type { Channel } from '@lenster/types/lenster';
 import { Image, LightBox, Tooltip } from '@lenster/ui';
 import { formatDate } from '@lib/formatTime';
 import { t } from '@lingui/macro';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
@@ -15,17 +19,16 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ channel }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
+  const { resolvedTheme } = useTheme();
 
   const MetaDetails = ({
     children,
-    icon,
-    dataTestId = ''
+    icon
   }: {
     children: ReactNode;
     icon: ReactNode;
-    dataTestId?: string;
   }) => (
-    <div className="flex items-center gap-2" data-testid={dataTestId}>
+    <div className="flex items-center gap-2">
       {icon}
       <div className="text-md truncate">{children}</div>
     </div>
@@ -74,6 +77,92 @@ const Details: FC<DetailsProps> = ({ channel }) => {
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
+          {channel.instagram ? (
+            <MetaDetails
+              icon={
+                <img
+                  src="/logo.svg"
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="Lenster Logo"
+                />
+              }
+            >
+              <Link href={`/u/${formatHandle(channel.lens)}`}>
+                <Slug slug={formatHandle(channel.lens)} />
+              </Link>
+            </MetaDetails>
+          ) : null}
+          {channel.x ? (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                />
+              }
+            >
+              <Link
+                href={`https://x.com/${channel.x}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {channel.x}
+              </Link>
+            </MetaDetails>
+          ) : null}
+          {channel.instagram ? (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="Instagram Logo"
+                />
+              }
+            >
+              <Link
+                href={`https://instagram.com/${channel.instagram}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {channel.instagram}
+              </Link>
+            </MetaDetails>
+          ) : null}
+          {channel.discord ? (
+            <MetaDetails
+              icon={
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="Discord Logo"
+                />
+              }
+            >
+              <Link
+                href={channel.discord}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Discord
+              </Link>
+            </MetaDetails>
+          ) : null}
           <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
             {formatDate(new Date(channel.created_at))}
           </MetaDetails>
