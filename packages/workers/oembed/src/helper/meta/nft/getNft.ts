@@ -1,10 +1,8 @@
-import type { Token } from '@lenster/zora';
-
-import getZoraNft from './getZoraNFT';
+import getZoraNFT from './getZoraNft';
 
 const knownSites = ['zora.co'];
 
-const getNft = async (url: string): Promise<Token | null> => {
+const getNft = async (url: string) => {
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
 
@@ -14,7 +12,7 @@ const getNft = async (url: string): Promise<Token | null> => {
 
   switch (hostname) {
     case 'zora.co':
-      return await getZoraNft(url);
+      return await getZoraNFT(url);
     default:
       return null;
   }

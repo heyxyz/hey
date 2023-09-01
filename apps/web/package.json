@@ -30,7 +30,6 @@
     "@lenster/snapshot": "workspace:*",
     "@lenster/types": "workspace:*",
     "@lenster/ui": "workspace:*",
-    "@lenster/zora": "workspace:*",
     "@lexical/code": "^0.12.0",
     "@lexical/hashtag": "^0.12.0",
     "@lexical/link": "^0.12.0",
