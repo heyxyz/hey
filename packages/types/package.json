@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@lenster/lens": "workspace:*",
-    "@lenster/supabase": "workspace:*"
+    "@lenster/supabase": "workspace:*",
+    "@lenster/zora": "workspace:*"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
