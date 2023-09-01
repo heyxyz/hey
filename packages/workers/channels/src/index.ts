@@ -4,6 +4,7 @@ import { createCors, error, Router, status } from 'itty-router';
 import { Toucan } from 'toucan-js';
 
 import featuredChannels from './handlers/featuredChannels';
+import getChannel from './handlers/getChannel';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -23,6 +24,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
+  .get('/get/:slug', getChannel)
   .get('/featured', featuredChannels)
   .all('*', () => error(404));
 
