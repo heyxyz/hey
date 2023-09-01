@@ -36,7 +36,7 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
     favicon: `https://www.google.com/s2/favicons?domain=${url}`,
     isLarge,
     html: generateIframe(getEmbedUrl(document), url),
-    nft: await getNft(url)
+    nft: (await getNft(url)) ?? null
   };
 
   return metadata;
