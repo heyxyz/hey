@@ -12,6 +12,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
+import Details from './Details';
 import Feed from './Feed';
 import ChannelPageShimmer from './Shimmer';
 
@@ -55,7 +56,9 @@ const ViewChannel: NextPage = () => {
     <>
       <MetaTags title={`Channel • ${channel.name} • ${APP_NAME}`} />
       <GridLayout className="pt-6">
-        <GridItemFour>gm</GridItemFour>
+        <GridItemFour>
+          <Details channel={channel} />
+        </GridItemFour>
         <GridItemEight className="space-y-5">
           <Feed channel={channel} />
         </GridItemEight>
