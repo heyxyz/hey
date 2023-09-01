@@ -24,7 +24,7 @@ const getNftMetadata = async (
 
     const data = await response.json();
 
-    return data?.nft;
+    return { ...data.nft, chain };
   } catch (error) {
     console.error(error);
     return null;

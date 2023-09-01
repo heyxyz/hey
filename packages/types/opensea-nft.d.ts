@@ -1,4 +1,5 @@
 export interface OpenSeaNft {
+  chain: string | null;
   identifier: string;
   collection: string;
   contract: string;
