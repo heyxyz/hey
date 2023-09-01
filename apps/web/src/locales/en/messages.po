@@ -30,6 +30,18 @@ msgstr "Failed to load bookmark feed"
 msgid "Bookmarks • {APP_NAME}"
 msgstr "Bookmarks • {APP_NAME}"
 
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr "Featured"
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr "don't have any publications yet"
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
+msgstr "Failed to load channel feed"
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr ""
