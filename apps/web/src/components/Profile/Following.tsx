@@ -27,9 +27,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
     skip: !profile?.id
   });
 
-  const followings = data?.following?.items.filter(
-    (following) => profile?.id !== following?.profile.id
-  );
+  const followings = data?.following?.items;
   const pageInfo = data?.following?.pageInfo;
   const hasMore = pageInfo?.next;
 
