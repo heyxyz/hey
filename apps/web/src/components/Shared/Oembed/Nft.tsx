@@ -66,7 +66,7 @@ const Nft: FC<NftProps> = ({ og }) => {
         )}&w=1200&q=75`}
         className="max-h-[600px] w-full rounded-t-xl object-cover"
       />
-      <div className="flex items-center justify-between p-3">
+      <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center space-x-2">
           <Tooltip
             placement="right"
