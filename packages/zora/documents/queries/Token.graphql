@@ -1,0 +1,23 @@
+query Token($token: TokenInput!, $network: NetworkInput) {
+  token(token: $token, network: $network) {
+    token {
+      tokenStandard
+      collectionName
+      owner
+      name
+      description
+      image {
+        url
+      }
+      attributes {
+        traitType
+        value
+        displayType
+      }
+      networkInfo {
+        network
+        chain
+      }
+    }
+  }
+}
