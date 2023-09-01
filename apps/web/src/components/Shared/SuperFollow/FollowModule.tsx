@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -58,6 +59,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -157,6 +159,10 @@ const FollowModule: FC<FollowModuleProps> = ({
   const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {

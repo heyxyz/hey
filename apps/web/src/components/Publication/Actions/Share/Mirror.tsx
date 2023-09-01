@@ -25,6 +25,7 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -46,6 +47,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       : // @ts-expect-error
         publication?.mirrors?.length > 0
   );
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   // Dispatcher
@@ -162,6 +164,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const createMirror = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     if (publication.isDataAvailability && !isSponsored) {

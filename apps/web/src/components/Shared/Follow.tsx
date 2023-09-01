@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
@@ -50,6 +51,7 @@ const Follow: FC<FollowProps> = ({
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -134,6 +136,10 @@ const Follow: FC<FollowProps> = ({
   const createFollow = async () => {
     if (!currentProfile) {
       setShowAuthModal(true);
+      return;
+    }
+
+    if (handleWrongNetwork()) {
       return;
     }
 
