@@ -22,13 +22,9 @@ const Feed: FC<FeedProps> = ({ channel }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const request: ExplorePublicationRequest = {
-    publicationTypes: [
-      PublicationTypes.Post,
-      PublicationTypes.Comment,
-      PublicationTypes.Mirror
-    ],
+    publicationTypes: [PublicationTypes.Post],
     sortCriteria: PublicationSortCriteria.Latest,
-    metadata: { tags: { all: channel.tags } },
+    metadata: { tags: { oneOf: channel.tags } },
     limit: 10
   };
   const reactionRequest = currentProfile
