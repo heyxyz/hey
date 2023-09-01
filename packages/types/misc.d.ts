@@ -1,5 +1,5 @@
 import type { MediaSet } from '@lenster/lens';
-import type { Collection, Token } from '@lenster/zora';
+import type { Token } from '@lenster/zora';
 
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 
@@ -26,10 +26,7 @@ export interface OG {
   favicon: string | null;
   isLarge: boolean | null;
   html: string | null;
-  nft: {
-    token: Token;
-    collection: Collection;
-  } | null;
+  nft: Token | null;
 }
 
 export interface ProfileInterest {

@@ -17,8 +17,7 @@ const getZoraToken = async (
     });
 
     return response.data.token?.token;
-  } catch (error) {
-    console.error(error);
+  } catch {
     return null;
   }
 };
