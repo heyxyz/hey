@@ -111,6 +111,9 @@ importers:
       '@lenster/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@lenster/zora':
+        specifier: workspace:*
+        version: link:../../packages/zora
       '@lexical/code':
         specifier: ^0.12.0
         version: 0.12.0(lexical@0.12.0)

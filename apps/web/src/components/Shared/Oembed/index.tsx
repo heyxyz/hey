@@ -5,6 +5,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 
 import Embed from './Embed';
+import Nft from './Nft';
 import Player from './Player';
 
 interface OembedProps {
@@ -47,6 +48,8 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
 
   return og.html ? (
     <Player og={og} />
+  ) : og.nft ? (
+    <Nft og={og} />
   ) : (
     <Embed og={og} publicationId={publicationId} />
   );
