@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-30 00:08\n"
+"PO-Revision-Date: 2023-09-01 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -777,6 +777,23 @@ msgstr ""
 
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
+msgstr ""
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
 msgstr ""
 
 #: src/components/Notification/FeedType.tsx
@@ -2850,10 +2867,6 @@ msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr ""
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 
@@ -3089,6 +3102,11 @@ msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Login with NFT"
 msgstr ""
 
 #: src/components/Shared/Unfollow.tsx
