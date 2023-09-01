@@ -4,6 +4,8 @@ import { create } from 'zustand';
 interface GlobalModalState {
   showAuthModal: boolean;
   setShowAuthModal: (showAuthModal: boolean) => void;
+  showWrongNetworkModal: boolean;
+  setShowWrongNetworkModal: (showWrongNetworkModal: boolean) => void;
   showNewPostModal: boolean;
   setShowNewPostModal: (showNewPostModal: boolean) => void;
   showDiscardModal: boolean;
@@ -33,6 +35,9 @@ interface GlobalModalState {
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showAuthModal: false,
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
+  showWrongNetworkModal: false,
+  setShowWrongNetworkModal: (showWrongNetworkModal) =>
+    set(() => ({ showWrongNetworkModal })),
   showNewPostModal: false,
   setShowNewPostModal: (showNewPostModal) => set(() => ({ showNewPostModal })),
   showDiscardModal: false,
