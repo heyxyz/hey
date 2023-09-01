@@ -1,24 +1,48 @@
 import { CursorClickIcon } from '@heroicons/react/outline';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { OG } from '@lenster/types/misc';
-import { Button, Card } from '@lenster/ui';
+import { Button, Card, Tooltip } from '@lenster/ui';
 import { Chain } from '@lenster/zora';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-const getChainLogo = (chain: string) => {
+const getChainInfo = (
+  chain: string
+): {
+  name: string;
+  logo: string;
+} => {
   switch (chain) {
     case Chain.ZoraMainnet:
-      return 'https://zora.co/assets/icon/zora-logo.svg';
+      return {
+        name: 'Zora',
+        logo: 'https://zora.co/assets/icon/zora-logo.svg'
+      };
     case Chain.Mainnet:
-      return 'https://zora.co/assets/icon/ethereum-eth-logo.svg';
+      return {
+        name: 'Ethereum',
+        logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
+      };
     case Chain.OptimismMainnet:
-      return 'https://zora.co/assets/icon/optimism-ethereum-op-logo.svg';
+      return {
+        name: 'Optimism',
+        logo: 'https://zora.co/assets/icon/optimism-ethereum-op-logo.svg'
+      };
     case Chain.BaseMainnet:
-      return 'https://zora.co/assets/icon/base-logo.svg';
+      return {
+        name: 'Base',
+        logo: 'https://zora.co/assets/icon/base-logo.svg'
+      };
     case Chain.PgnMainnet:
-      return 'https://zora.co/assets/icon/pgn-logo.svg';
+      return {
+        name: 'PGN Network',
+        logo: 'https://zora.co/assets/icon/pgn-logo.svg'
+      };
     default:
-      return 'https://zora.co/assets/icon/ethereum-eth-logo.svg';
+      return {
+        name: 'Ethereum',
+        logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
+      };
   }
 };
 
@@ -40,20 +64,27 @@ const Nft: FC<NftProps> = ({ og }) => {
           'ipfs://',
           'https://ipfs.decentralized-content.com/ipfs/'
         )}&w=1200&q=75`}
-        className="w-full rounded-t-xl object-cover"
+        className="max-h-[600px] w-full rounded-t-xl object-cover"
       />
-      <div className="p-5">
-        <div className="mb-1 flex items-center space-x-2">
-          <div className="text-lg font-bold">{nft.name}</div>
-          <img src={getChainLogo(nft.networkInfo.chain)} className="h-5 w-5" />
+      <div className="flex items-center justify-between p-3">
+        <div className="flex items-center space-x-2">
+          <Tooltip
+            placement="right"
+            content={getChainInfo(nft.networkInfo.chain).name}
+          >
+            <img
+              src={getChainInfo(nft.networkInfo.chain).logo}
+              className="h-5 w-5"
+            />
+          </Tooltip>
+          <div className="text-sm font-bold">{nft.name}</div>
         </div>
-        {nft.collectionName ? (
-          <div className="mb-2 font-bold">{nft.collectionName}</div>
-        ) : null}
-        {nft.description ? (
-          <div className="mb-3 line-clamp-3 text-sm">{nft.description}</div>
-        ) : null}
-        <Link href={url} target="_blank" rel="noopener noreferrer">
+        <Link
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => stopEventPropagation(event)}
+        >
           <Button
             className="text-sm"
             icon={<CursorClickIcon className="h-4 w-4" />}
