@@ -13,7 +13,7 @@ import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
-import ProfilePageShimmer from './Shimmer';
+import ChannelPageShimmer from './Shimmer';
 
 const ViewChannel: NextPage = () => {
   const {
@@ -40,7 +40,7 @@ const ViewChannel: NextPage = () => {
   });
 
   if (isLoading) {
-    return <ProfilePageShimmer />;
+    return <ChannelPageShimmer />;
   }
 
   if (!channel) {
@@ -54,7 +54,6 @@ const ViewChannel: NextPage = () => {
   return (
     <>
       <MetaTags title={`Channel • ${channel.name} • ${APP_NAME}`} />
-
       <GridLayout className="pt-6">
         <GridItemFour>gm</GridItemFour>
         <GridItemEight className="space-y-5">
