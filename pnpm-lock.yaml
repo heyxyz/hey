@@ -865,6 +865,9 @@ importers:
       '@lenster/lib':
         specifier: workspace:*
         version: link:../../lib
+      '@lenster/types':
+        specifier: workspace:*
+        version: link:../../types
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0

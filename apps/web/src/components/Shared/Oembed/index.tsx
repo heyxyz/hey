@@ -35,7 +35,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     description: data?.description,
     site: data?.site,
     favicon: `https://www.google.com/s2/favicons?domain=${data.url}`,
-    thumbnail: data?.image,
+    image: data?.image,
     isLarge: data?.isLarge,
     html: data?.html
   };

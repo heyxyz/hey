@@ -1,3 +1,4 @@
+import type { OG } from '@lenster/types/misc';
 import { parseHTML } from 'linkedom';
 
 import type { Env } from '../types';
@@ -9,16 +10,6 @@ import getImage from './meta/getImage';
 import getIsLarge from './meta/getIsLarge';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
-
-interface Metadata {
-  url: string;
-  title: string | null;
-  description: string | null;
-  image: string | null;
-  site: string | null;
-  isLarge: boolean | null;
-  html: string | null;
-}
 
 const getMetadata = async (url: string, env: Env): Promise<any> => {
   const { html } = await fetch(url, {
@@ -35,12 +26,13 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
   const isLarge = getIsLarge(document) as boolean;
   const image = getImage(document) as string;
   const proxiedUrl = getProxyUrl(image, isLarge, env);
-  const metadata: Metadata = {
+  const metadata: OG = {
     url,
     title: getTitle(document),
     description: getDescription(document),
     image: proxiedUrl,
     site: getSite(document),
+    favicon: `https://www.google.com/s2/favicons?domain=${url}`,
     isLarge,
     html: generateIframe(getEmbedUrl(document), url)
   };
