@@ -1,34 +1,23 @@
-import type { OpenSeaNft } from '@lenster/types/opensea-nft';
+import type { Token } from '@lenster/zora';
 
-import getNftMetadata from './getNftMetadata';
+import getZoraNetwork from './getZoraNetwork';
+import getZoraToken from './getZoraToken';
 
 export const regex =
   /https:\/\/zora.co\/collect\/(eth|base|zora):([^/]+)\/([^/]+)/;
 
-const getOpenseaChain = (chain: string): string => {
-  switch (chain) {
-    case 'eth':
-      return 'ethereum';
-    case 'base':
-      return 'base';
-    case 'zora':
-      return 'zora';
-    default:
-      return 'ethereum';
-  }
-};
-
-const getZoraNft = async (url: string): Promise<OpenSeaNft | null> => {
+const getZoraNFT = async (url: string): Promise<Token | null> => {
   const matches = regex.exec(url);
   if (regex.test(url) && matches?.length === 4) {
-    const chain = getOpenseaChain(matches[1]);
+    const network = getZoraNetwork(matches[1]);
     const contract = matches[2];
     const token = matches[3];
+    const nft = await getZoraToken(network, contract, token);
 
-    return await getNftMetadata(chain, contract, token);
+    return nft;
   }
 
   return null;
 };
 
-export default getZoraNft;
+export default getZoraNFT;

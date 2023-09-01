@@ -868,6 +868,9 @@ importers:
       '@lenster/types':
         specifier: workspace:*
         version: link:../../types
+      '@lenster/zora':
+        specifier: workspace:*
+        version: link:../../zora
       '@sentry/tracing':
         specifier: ^7.66.0
         version: 7.66.0
@@ -1019,6 +1022,40 @@ importers:
       wrangler:
         specifier: ^3.6.0
         version: 3.6.0
+
+  packages/zora:
+    dependencies:
+      '@apollo/client':
+        specifier: ^3.8.1
+        version: 3.8.1(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../data
+    devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^5.0.0
+        version: 5.0.0(@types/node@20.5.7)(graphql@16.8.0)
+      '@graphql-codegen/fragment-matcher':
+        specifier: ^5.0.0
+        version: 5.0.0(graphql@16.8.0)
+      '@graphql-codegen/typescript':
+        specifier: ^4.0.1
+        version: 4.0.1(graphql@16.8.0)
+      '@graphql-codegen/typescript-operations':
+        specifier: ^4.0.1
+        version: 4.0.1(graphql@16.8.0)
+      '@graphql-codegen/typescript-react-apollo':
+        specifier: ^3.3.7
+        version: 3.3.7(graphql-tag@2.12.6)(graphql@16.8.0)
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/node':
+        specifier: ^20.5.7
+        version: 20.5.7
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
 
 packages:
 

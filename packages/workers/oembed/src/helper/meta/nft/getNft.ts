@@ -1,11 +1,10 @@
-import type { OpenSeaNft } from '@lenster/types/opensea-nft';
+import type { Token } from '@lenster/zora';
 
-import getOpenseaNft from './getOpenseaNft';
-import getZoraNft from './getZoraNft';
+import getZoraNft from './getZoraNFT';
 
-const knownSites = ['opensea.io', 'zora.co'];
+const knownSites = ['zora.co'];
 
-const getNft = async (url: string): Promise<OpenSeaNft | null> => {
+const getNft = async (url: string): Promise<Token | null> => {
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname.replace('www.', '');
 
@@ -14,8 +13,6 @@ const getNft = async (url: string): Promise<OpenSeaNft | null> => {
   }
 
   switch (hostname) {
-    case 'opensea.io':
-      return await getOpenseaNft(url);
     case 'zora.co':
       return await getZoraNft(url);
     default:

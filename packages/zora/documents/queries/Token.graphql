@@ -1,0 +1,8 @@
+query Token($token: TokenInput!, $network: NetworkInput) {
+  token(token: $token, network: $network) {
+    token {
+      tokenStandard
+      collectionName
+    }
+  }
+}
