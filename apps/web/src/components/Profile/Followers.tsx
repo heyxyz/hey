@@ -28,7 +28,10 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
     skip: !profile?.id
   });
 
-  const followers = data?.followers?.items;
+  const followers = data?.followers?.items.filter(
+    (follower) => profile?.id !== follower?.wallet?.defaultProfile?.id
+  );
+
   const pageInfo = data?.followers?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -92,6 +95,9 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
                   followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
                   showBio
                   showFollow={
+                    currentProfile?.id !== follower?.wallet?.defaultProfile?.id
+                  }
+                  showUnfollow={
                     currentProfile?.id !== follower?.wallet?.defaultProfile?.id
                   }
                   showUserPreview={false}
