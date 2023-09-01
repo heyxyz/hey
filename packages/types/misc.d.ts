@@ -1,4 +1,5 @@
 import type { MediaSet } from '@lenster/lens';
+import type { Token } from '@lenster/zora';
 
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 
@@ -17,14 +18,15 @@ export interface UserSuggestion {
 }
 
 export interface OG {
-  title: string;
-  description: string;
-  site: string;
   url: string;
-  favicon: string;
-  thumbnail: string;
-  isLarge: boolean;
-  html: string;
+  title: string | null;
+  description: string | null;
+  site: string | null;
+  image: string | null;
+  favicon: string | null;
+  isLarge: boolean | null;
+  html: string | null;
+  nft: Token | null;
 }
 
 export interface ProfileInterest {
