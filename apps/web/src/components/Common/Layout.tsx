@@ -29,7 +29,6 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-
   const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
   const { setProfileGuardianInformation, resetProfileGuardianInformation } =
     useProfileGuardianInformationStore();
