@@ -121,9 +121,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_IMAGES_URL}/brands/${
-                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
-                  }`}
+                  src={`${STATIC_IMAGES_URL}/brands/instagram.png`}
                   className="h-4 w-4"
                   height={16}
                   width={16}
@@ -144,9 +142,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_IMAGES_URL}/brands/${
-                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
-                  }`}
+                  src={`${STATIC_IMAGES_URL}/brands/discord.png`}
                   className="h-4 w-4"
                   height={16}
                   width={16}
