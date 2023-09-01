@@ -49,6 +49,7 @@ import Link from 'next/link';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -85,6 +86,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -266,6 +268,10 @@ const CollectModule: FC<CollectModuleProps> = ({
   const createCollect = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {

@@ -10,9 +10,13 @@ import { useSwitchNetwork } from 'wagmi';
 
 interface SwitchNetworkProps {
   className?: string;
+  onSwitch?: () => void;
 }
 
-const SwitchNetwork: FC<SwitchNetworkProps> = ({ className = '' }) => {
+const SwitchNetwork: FC<SwitchNetworkProps> = ({
+  className = '',
+  onSwitch
+}) => {
   const { switchNetwork } = useSwitchNetwork();
 
   return (
@@ -22,6 +26,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({ className = '' }) => {
       variant="danger"
       icon={<SwitchHorizontalIcon className="h-4 w-4" />}
       onClick={() => {
+        onSwitch?.();
         if (switchNetwork) {
           switchNetwork(CHAIN_ID);
         } else {
