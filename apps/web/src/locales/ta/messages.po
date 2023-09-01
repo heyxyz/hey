@@ -2561,6 +2561,10 @@ msgid "Login"
 msgstr "புகுபதிகை"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
@@ -2640,6 +2644,14 @@ msgstr "உலாவி வாலட்"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "இணைக்க முடியவில்லை"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"

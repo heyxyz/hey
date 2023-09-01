@@ -2561,6 +2561,10 @@ msgid "Login"
 msgstr "登录"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "创建贴子"
 
@@ -2640,6 +2644,14 @@ msgstr "浏览器钱包"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "连接失败"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
