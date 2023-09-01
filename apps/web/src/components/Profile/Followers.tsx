@@ -28,10 +28,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
     skip: !profile?.id
   });
 
-  const followers = data?.followers?.items.filter(
-    (follower) => profile?.id !== follower?.wallet?.defaultProfile?.id
-  );
-
+  const followers = data?.followers?.items;
   const pageInfo = data?.followers?.pageInfo;
   const hasMore = pageInfo?.next;
 
