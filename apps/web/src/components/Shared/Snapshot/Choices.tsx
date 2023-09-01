@@ -16,6 +16,7 @@ import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useSignTypedData } from 'wagmi';
 
@@ -43,6 +44,7 @@ const Choices: FC<ChoicesProps> = ({
     position: 0
   });
   const { signTypedDataAsync } = useSignTypedData({});
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { id, choices, symbol, scores, scores_total, state, type, end } =
     proposal;

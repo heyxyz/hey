@@ -27,6 +27,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { v4 as uuid } from 'uuid';
@@ -50,6 +51,7 @@ const Status: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -141,6 +143,10 @@ const Status: FC = () => {
   const editStatus = async (emoji: string, status: string) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {

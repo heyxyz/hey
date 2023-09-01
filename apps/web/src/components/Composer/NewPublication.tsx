@@ -77,6 +77,7 @@ import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -198,6 +199,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -591,14 +593,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createTokenGatedMetadata = async (
     metadata: PublicationMetadataV2Input
   ) => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (!walletClient) {
-      return toast.error(Errors.SignWallet);
-    }
-
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
       provider: publicClient as any,
@@ -608,14 +602,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
-      address: currentProfile.ownedBy,
+      address: currentProfile?.ownedBy,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Condition for gating the content
     const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = {
-      profileId: currentProfile.id
+      profileId: currentProfile?.id
     };
 
     // Create the access condition
@@ -638,7 +632,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
       metadata,
-      currentProfile.id,
+      currentProfile?.id,
       accessCondition,
       async (data: EncryptedMetadata) => {
         return await uploadToArweave(data);
@@ -655,6 +649,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     if (isComment && publication.isDataAvailability && !isSponsored) {
