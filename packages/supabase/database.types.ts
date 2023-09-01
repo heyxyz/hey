@@ -12,30 +12,48 @@ export interface Database {
       channels: {
         Row: {
           avatar: string;
+          cover: string | null;
+          created_at: string;
           description: string;
+          discord: string | null;
           featured: boolean;
           id: string;
+          instagram: string | null;
+          lens: string | null;
           name: string;
           slug: string;
           tags: string[] | null;
+          x: string | null;
         };
         Insert: {
           avatar: string;
+          cover?: string | null;
+          created_at?: string;
           description: string;
+          discord?: string | null;
           featured?: boolean;
           id?: string;
+          instagram?: string | null;
+          lens?: string | null;
           name: string;
           slug: string;
           tags?: string[] | null;
+          x?: string | null;
         };
         Update: {
           avatar?: string;
+          cover?: string | null;
+          created_at?: string;
           description?: string;
+          discord?: string | null;
           featured?: boolean;
           id?: string;
+          instagram?: string | null;
+          lens?: string | null;
           name?: string;
           slug?: string;
           tags?: string[] | null;
+          x?: string | null;
         };
         Relationships: [];
       };
