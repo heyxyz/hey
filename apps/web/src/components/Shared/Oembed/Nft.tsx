@@ -60,7 +60,7 @@ const Nft: FC<NftProps> = ({ og }) => {
     <Card className="mt-3" forceRounded>
       <img
         src={`https://remote-image.decentralized-content.com/image?url=${nft.coverImageUrl}&w=1200&q=75`}
-        className="max-h-[600px] w-full rounded-t-xl object-cover"
+        className="max-h-[450px] w-full rounded-t-xl object-cover"
       />
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center space-x-2">
