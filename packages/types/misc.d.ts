@@ -25,6 +25,7 @@ export interface OG {
   favicon: string | null;
   isLarge: boolean | null;
   html: string | null;
+  nft: any | null;
 }
 
 export interface ProfileInterest {
