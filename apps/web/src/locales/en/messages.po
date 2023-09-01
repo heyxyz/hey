@@ -2561,6 +2561,10 @@ msgid "Login"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr "Wrong Network"
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr ""
 
@@ -2640,6 +2644,14 @@ msgstr ""
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr "Change network"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr "Connect to the correct network to continue"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
