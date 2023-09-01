@@ -30,6 +30,18 @@ msgstr ""
 msgid "Bookmarks • {APP_NAME}"
 msgstr "Заметки • {APP_NAME}"
 
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
+msgstr ""
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "Не удалось загрузить комментарии"
