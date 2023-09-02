@@ -32,13 +32,14 @@ interface MirrorNotificationProps {
   notification: NewMirrorNotification;
 }
 
+// million-ignore
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const typeName = notification?.publication.__typename?.toLowerCase() || '';
   return (
     <div className="flex items-start justify-between">
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center [&>*]:space-x-3">
+          <div className="flex items-center space-x-3">
             <SwitchHorizontalIcon className="text-brand-500/70 h-6 w-6" />
             <UserPreview profile={notification?.profile}>
               <NotificationProfileAvatar profile={notification?.profile} />

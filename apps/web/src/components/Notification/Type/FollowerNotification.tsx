@@ -38,7 +38,7 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
     <div className="flex items-start justify-between">
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center [&>*]:space-x-3">
+          <div className="flex items-center space-x-3">
             {isSuperFollow ? (
               <UserAddIcon className="h-6 w-6 text-pink-500/70" />
             ) : (

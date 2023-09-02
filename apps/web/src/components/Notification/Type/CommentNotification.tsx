@@ -32,6 +32,7 @@ interface CommentNotificationProps {
   notification: NewCommentNotification;
 }
 
+// million-ignore
 const CommentNotification: FC<CommentNotificationProps> = ({
   notification
 }) => {
@@ -41,7 +42,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
     <div className="flex items-start justify-between">
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center [&>*]:space-x-3">
+          <div className="flex items-center space-x-3">
             <ChatAlt2Icon className="h-6 w-6 text-blue-500/70" />
             <UserPreview profile={notification?.profile}>
               <NotificationProfileAvatar profile={notification?.profile} />
