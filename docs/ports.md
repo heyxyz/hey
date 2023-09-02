@@ -17,3 +17,5 @@ The following ports are exposed by the repository
 | 8090 | Invite worker              | http://localhost:8090 | https://invite.lenster.xyz         |
 | 8091 | Feeds gateway              | http://localhost:8091 | https://feeds.lenster.xyz          |
 | 8092 | Preferences worker         | http://localhost:8092 | https://preferences.lenster.xyz    |
+| 8093 | Channels worker            | http://localhost:8093 | https://channels.lenster.xyz       |
+| 8094 | Zora worker                | http://localhost:8094 | https://zora.lenster.xyz           |
