@@ -1,0 +1,34 @@
+{
+  "name": "@workers/zora",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "dev": "wrangler dev --port 8094",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --fix --ext .ts",
+    "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
+    "start": "pnpm dev",
+    "test:dev": "vitest --run",
+    "typecheck": "tsc --pretty",
+    "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
+  },
+  "dependencies": {
+    "@cfworker/base64url": "^1.12.5",
+    "@lenster/data": "workspace:*",
+    "@lenster/lib": "workspace:*",
+    "@lenster/types": "workspace:*",
+    "@sentry/tracing": "^7.66.0",
+    "itty-router": "^4.0.22",
+    "linkedom": "^0.15.2",
+    "toucan-js": "^3.2.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230821.0",
+    "@lenster/config": "workspace:*",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.3",
+    "wrangler": "^3.6.0"
+  }
+}
