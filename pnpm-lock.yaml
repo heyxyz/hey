@@ -1020,6 +1020,37 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
 
+  packages/workers/zora:
+    dependencies:
+      '@lenster/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@lenster/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      '@sentry/tracing':
+        specifier: ^7.66.0
+        version: 7.66.0
+      itty-router:
+        specifier: ^4.0.22
+        version: 4.0.22
+      toucan-js:
+        specifier: ^3.2.3
+        version: 3.2.3
+    devDependencies:
+      '@lenster/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      vitest:
+        specifier: ^0.34.3
+        version: 0.34.3
+      wrangler:
+        specifier: ^3.6.0
+        version: 3.6.0
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -7042,10 +7073,6 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: false
 
-  /@types/node@20.5.7:
-    resolution: {integrity: sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==}
-    dev: false
-
   /@types/node@20.5.8:
     resolution: {integrity: sha512-eajsR9aeljqNhK028VG0Wuw+OaY5LLxYmxeoXynIoE6jannr9/Ucd1LL0hSSoafk5LTYG+FfqsyGt81Q6Zkybw==}
 
@@ -7105,7 +7132,7 @@ packages:
   /@types/websocket@1.0.5:
     resolution: {integrity: sha512-NbsqiNX9CnEfC1Z0Vf4mE1SgAJ07JnRYcNex7AJ9zAVzmiGHmjKFEk7O4TJIsgv2B1sLEb6owKFZrACwdYngsQ==}
     dependencies:
-      '@types/node': 20.5.7
+      '@types/node': 20.5.8
     dev: false
 
   /@types/ws@7.4.7:
