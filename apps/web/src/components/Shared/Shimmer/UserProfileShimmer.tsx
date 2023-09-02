@@ -6,6 +6,7 @@ interface UserProfileShimmerProps {
   isBig?: boolean;
 }
 
+// million-ignore
 const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
   showFollow = false,
   isBig = false
@@ -22,6 +23,7 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
         <div className="space-y-3">
           <div className="shimmer h-3 w-28 rounded-lg" />
           <div className="shimmer h-3 w-20 rounded-lg" />
+          {/* This gets it's own million block component as it's **returned** inline */}
           {isBig ? <div className="shimmer h-3 w-48 rounded-lg" /> : null}
         </div>
       </div>
