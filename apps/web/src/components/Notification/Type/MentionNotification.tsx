@@ -32,6 +32,7 @@ interface MentionNotificationProps {
   notification: NewMentionNotification;
 }
 
+// million-ignore
 const MentionNotification: FC<MentionNotificationProps> = ({
   notification
 }) => {
