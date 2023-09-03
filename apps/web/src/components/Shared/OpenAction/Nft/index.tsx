@@ -1,4 +1,6 @@
 import { CursorClickIcon } from '@heroicons/react/outline';
+import { FeatureFlag } from '@lenster/data/feature-flags';
+import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
@@ -57,6 +59,7 @@ interface NftProps {
 const Nft: FC<NftProps> = ({ nftMetadata }) => {
   const { chain, address, token } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
+  const isZoraMintEnabled = isFeatureEnabled(FeatureFlag.ZoraMint);
 
   const {
     data: nft,
@@ -94,7 +97,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
-        {nft.contractStandard === 'ERC721' ? (
+        {isZoraMintEnabled && nft.contractStandard === 'ERC721' ? (
           <>
             <Button
               className="text-sm"
