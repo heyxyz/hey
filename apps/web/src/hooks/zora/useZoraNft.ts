@@ -1,4 +1,4 @@
-import { ZORA_WORKER_URL } from '@lenster/data/constants';
+import { IS_MAINNET, ZORA_WORKER_URL } from '@lenster/data/constants';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -22,7 +22,12 @@ const useZoraNft = ({
 } => {
   const loadNftDetails = async () => {
     const response = await axios.get(`${ZORA_WORKER_URL}/nft`, {
-      params: { chain, address, token }
+      params: {
+        chain,
+        address,
+        token,
+        network: IS_MAINNET ? 'mainnet' : 'testnet'
+      }
     });
 
     return response.data?.nft;
