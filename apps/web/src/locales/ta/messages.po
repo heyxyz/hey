@@ -2987,6 +2987,11 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
 msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
