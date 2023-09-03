@@ -7,7 +7,7 @@ import { Spinner } from '@lenster/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import Wrapper from '../Embed/Wrapper';
+import Wrapper from '../../Embed/Wrapper';
 import Choices from './Choices';
 import Header from './Header';
 

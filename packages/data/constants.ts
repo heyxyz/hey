@@ -106,6 +106,9 @@ export const PREFERENCES_WORKER_URL = IS_PRODUCTION
 export const CHANNELS_WORKER_URL = IS_PRODUCTION
   ? 'https://channels.lenster.xyz'
   : 'http://localhost:8093';
+export const ZORA_WORKER_URL = IS_PRODUCTION
+  ? 'https://zora.lenster.xyz'
+  : 'http://localhost:8094';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';

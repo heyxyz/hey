@@ -1,9 +1,12 @@
 import { CursorClickIcon } from '@heroicons/react/outline';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { OG } from '@lenster/types/misc';
+import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Tooltip } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
+import useZoraNft from 'src/hooks/zora/useZoraNft';
+
+import NftShimmer from './Shimmer';
 
 const getChainInfo = (
   chain: number
@@ -46,13 +49,32 @@ const getChainInfo = (
 };
 
 interface NftProps {
-  og: OG;
+  nftMetadata: ZoraNftMetadata;
 }
 
-const Nft: FC<NftProps> = ({ og }) => {
-  const { nft, url } = og;
+const Nft: FC<NftProps> = ({ nftMetadata }) => {
+  const { chain, address, token } = nftMetadata;
+
+  const {
+    data: nft,
+    loading,
+    error
+  } = useZoraNft({
+    chain,
+    address,
+    token: token,
+    enabled: Boolean(chain && address)
+  });
+
+  if (loading) {
+    return <NftShimmer />;
+  }
 
   if (!nft) {
+    return null;
+  }
+
+  if (error) {
     return null;
   }
 
@@ -70,7 +92,7 @@ const Nft: FC<NftProps> = ({ og }) => {
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
         <Link
-          href={url}
+          href={'/'}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(event) => stopEventPropagation(event)}
