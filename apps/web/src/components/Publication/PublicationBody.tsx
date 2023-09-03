@@ -2,12 +2,14 @@ import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
+import Nft from '@components/Shared/OpenAction/Nft';
 import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
+import getNft from '@lenster/lib/nft/getNft';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OG } from '@lenster/types/misc';
 import { Trans } from '@lingui/macro';
@@ -34,6 +36,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const urls = getURLs(metadata?.content);
   const hasURLs = urls.length > 0;
   const snapshotProposalId = getSnapshotProposalId(urls);
+  const nft = getNft(urls);
   const quotedPublicationId = getPublicationAttribute(
     metadata.attributes,
     'quotedPublicationId'
@@ -55,11 +58,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
+  const showNft = nft;
   const showAttachments = metadata?.media?.length > 0;
   const showSnapshot = snapshotProposalId;
   const showQuotedPublication = quotedPublicationId && !quoted;
   const showOembed =
     hasURLs &&
+    !showNft &&
     !showAttachments &&
     !showSnapshot &&
     !showQuotedPublication &&
@@ -97,6 +102,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
+      {showNft ? <Nft nftMetadata={nft} /> : null}
       {showOembed ? (
         <Oembed
           url={urls[0]}
