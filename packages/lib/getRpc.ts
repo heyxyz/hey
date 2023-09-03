@@ -22,6 +22,8 @@ const getRpc = (chainId: number) => {
       return polygonRpcs[Math.floor(Math.random() * polygonRpcs.length)];
     case 80001:
       return mumbaiRpcs[Math.floor(Math.random() * mumbaiRpcs.length)];
+    case 7777777:
+      return 'https://rpc.zora.energy';
     default:
       return ethereumRpcs[Math.floor(Math.random() * ethereumRpcs.length)];
   }

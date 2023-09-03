@@ -10,8 +10,10 @@ export interface ZoraNft {
   description: string;
   coverImageUrl: string;
   mediaUrl: string;
-  owner: string;
+  address: `0x${string}`;
+  owner: `0x${string}`;
   maxSupply: string;
   totalMinted: string;
   totalSupply: string;
+  contractStandard: string;
 }
