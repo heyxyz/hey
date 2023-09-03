@@ -6,6 +6,8 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 
+import NftShimmer from './Shimmer';
+
 const getChainInfo = (
   chain: number
 ): {
@@ -60,7 +62,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
   } = useZoraNft({ chain, address, token: token });
 
   if (loading) {
-    return null;
+    return <NftShimmer />;
   }
 
   if (!nft) {
