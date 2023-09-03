@@ -9,11 +9,11 @@ import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import type { FC, ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
+import { mainnet, polygon, polygonMumbai, zora } from 'wagmi/chains';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 
 const { chains, publicClient } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai, mainnet],
+  [IS_MAINNET ? polygon : polygonMumbai, mainnet, zora],
   [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
 );
 
