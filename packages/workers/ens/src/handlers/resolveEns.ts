@@ -1,7 +1,6 @@
 import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
-import getRpc from '@lenster/lib/getRpc';
 import response from '@lenster/lib/response';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -41,7 +40,7 @@ export default async (request: WorkerRequest) => {
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http(getRpc(1))
+      transport: http('https://ethereum.publicnode.com')
     });
 
     const data = await client.readContract({
