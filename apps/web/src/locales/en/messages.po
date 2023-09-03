@@ -266,7 +266,7 @@ msgid "Add another option"
 msgstr "Add another option"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Poll"
 
@@ -2987,6 +2987,42 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "This proposal is closed!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Current results"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Results"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Cast your vote"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
@@ -3010,42 +3046,6 @@ msgstr "Protect now"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} voting is not supported yet!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "This poll is ended!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Your vote has been casted!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Current results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} left"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Cast your vote"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
