@@ -1,4 +1,5 @@
 const { withSentryConfig } = require('@sentry/nextjs');
+const linguiConfig = require('./lingui.config');
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
@@ -11,6 +12,10 @@ const nextConfig = {
     scrollRestoration: true,
     newNextLinkBehavior: true,
     swcPlugins: [['@lingui/swc-plugin', {}]]
+  },
+  i18n: {
+    locales: linguiConfig.locales,
+    defaultLocale: linguiConfig.sourceLocale
   },
   async rewrites() {
     return [
