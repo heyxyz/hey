@@ -59,7 +59,12 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     data: nft,
     loading,
     error
-  } = useZoraNft({ chain, address, token: token });
+  } = useZoraNft({
+    chain,
+    address,
+    token: token,
+    enabled: Boolean(chain && address)
+  });
 
   if (loading) {
     return <NftShimmer />;
