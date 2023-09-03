@@ -266,7 +266,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -2987,6 +2987,42 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "தற்போதைய முடிவுகள்"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "முடிவுகள்"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "வாக்களிக்கவும்"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "{type} க்கு செல்க"
@@ -3010,42 +3046,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "தற்போதைய முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "வாக்களிக்கவும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
