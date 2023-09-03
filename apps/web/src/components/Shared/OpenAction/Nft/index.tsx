@@ -57,7 +57,7 @@ interface NftProps {
 }
 
 const Nft: FC<NftProps> = ({ nftMetadata }) => {
-  const { chain, address, token } = nftMetadata;
+  const { chain, address, token, network } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
   const isZoraMintEnabled = isFeatureEnabled(FeatureFlag.ZoraMint);
 
@@ -69,6 +69,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     chain,
     address,
     token: token,
+    network,
     enabled: Boolean(chain && address)
   });
 
@@ -117,7 +118,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           </>
         ) : (
           <Link
-            href={'https://zora.co/collect/${chain}:${address}/${token}'}
+            href={`https://zora.co/collect/${chain}:${address}/${token}`}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(event) => stopEventPropagation(event)}

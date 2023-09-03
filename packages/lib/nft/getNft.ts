@@ -2,7 +2,7 @@ import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 
 import getZoraNFT from './getZoraNft';
 
-const knownSites = new Set(['zora.co']);
+const knownSites = new Set(['zora.co', 'testnet.zora.co']);
 
 /**
  * Get NFT metadata from a list of URLs
@@ -24,15 +24,7 @@ const getNft = (urls: string[]): ZoraNftMetadata | null => {
     return null;
   }
 
-  const url = knownUrls[0];
-  const parsedUrl = new URL(url);
-  const hostname = parsedUrl.hostname.replace('www.', '');
-
-  if (hostname === 'zora.co') {
-    return getZoraNFT(url);
-  }
-
-  return null;
+  return getZoraNFT(knownUrls[0]);
 };
 
 export default getNft;
