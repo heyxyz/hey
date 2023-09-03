@@ -1,3 +1,9 @@
+export interface ZoraNftMetadata {
+  chain: string;
+  address: string;
+  token: string;
+}
+
 export interface ZoraNft {
   chainId: number;
   name: string;
