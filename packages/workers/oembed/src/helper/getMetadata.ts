@@ -10,7 +10,6 @@ import getImage from './meta/getImage';
 import getIsLarge from './meta/getIsLarge';
 import getSite from './meta/getSite';
 import getTitle from './meta/getTitle';
-import getNft from './meta/nft/getNft';
 
 const getMetadata = async (url: string, env: Env): Promise<any> => {
   const { html } = await fetch(url, {
@@ -35,8 +34,7 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
     site: getSite(document),
     favicon: `https://www.google.com/s2/favicons?domain=${url}`,
     isLarge,
-    html: generateIframe(getEmbedUrl(document), url),
-    nft: (await getNft(url)) || null
+    html: generateIframe(getEmbedUrl(document), url)
   };
 
   return metadata;
