@@ -3,7 +3,7 @@ import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import Nft from '@components/Shared/OpenAction/Nft';
-import Snapshot from '@components/Shared/Snapshot';
+import Snapshot from '@components/Shared/OpenAction/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
@@ -103,7 +103,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           </Link>
         </div>
       ) : null}
-      {/* Snapshot, Attachments and Opengraph */}
+      {/* Snapshot, NFT, Attachments and Opengraph */}
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
