@@ -266,7 +266,7 @@ msgid "Add another option"
 msgstr "添加另一个选项"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "民意调查"
 
@@ -2987,6 +2987,42 @@ msgstr "首页"
 msgid "Explore"
 msgstr "探索"
 
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "这项投票已经关闭！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "尚不支持 {type} 投票！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "此投票已结束"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "您的投票已投完毕！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "当前结果"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "结果"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "剩余 {0}"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "请进行投票"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "前往 {type}"
@@ -3010,42 +3046,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "这项投票已经关闭！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "尚不支持 {type} 投票！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "此投票已结束"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "您的投票已投完毕！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "当前结果"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "结果"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "剩余 {0}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "请进行投票"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
