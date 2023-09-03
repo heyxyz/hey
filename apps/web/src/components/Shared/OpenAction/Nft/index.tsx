@@ -92,7 +92,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
         <Link
-          href={'/'}
+          href={'https://zora.co/collect/${chain}:${address}/${token}'}
           target="_blank"
           rel="noopener noreferrer"
           onClick={(event) => stopEventPropagation(event)}
