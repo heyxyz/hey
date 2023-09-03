@@ -4,7 +4,7 @@ import type { FC } from 'react';
 const NftShimmer: FC = () => {
   return (
     <Card className="mt-3" forceRounded>
-      <div className="shimmer h-[405px] w-full rounded-t-xl" />
+      <div className="shimmer h-[400px] w-full rounded-t-xl" />
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center space-x-2">
           <div className="shimmer h-5 w-5 rounded-full" />
