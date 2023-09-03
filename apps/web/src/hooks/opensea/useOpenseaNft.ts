@@ -3,19 +3,19 @@ import type { OpenSeaNft } from '@lenster/types/opensea-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface UseNftMetadataProps {
+interface UseOpenseaNftProps {
   chain: number;
   address: string;
   token: string;
   enabled?: boolean;
 }
 
-const useNftMetadata = ({
+const useOpenseaNft = ({
   chain,
   address,
   token,
   enabled
-}: UseNftMetadataProps): {
+}: UseOpenseaNftProps): {
   data: OpenSeaNft;
   loading: boolean;
   error: unknown;
@@ -53,4 +53,4 @@ const useNftMetadata = ({
   return { data, loading: isLoading, error };
 };
 
-export default useNftMetadata;
+export default useOpenseaNft;

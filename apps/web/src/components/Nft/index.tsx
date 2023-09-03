@@ -5,7 +5,7 @@ import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import useNftMetadata from 'src/hooks/opensea/useNftMetadata';
+import useOpenseaNft from 'src/hooks/opensea/useOpenseaNft';
 import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -21,7 +21,7 @@ const ViewNft: NextPage = () => {
     data: nft,
     loading,
     error
-  } = useNftMetadata({
+  } = useOpenseaNft({
     chain: parseInt(chain as string),
     address: address as string,
     token: token as string,
