@@ -58,10 +58,15 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
+  // Show NFT if it's there
   const showNft = nft;
-  const showAttachments = metadata?.media?.length > 0;
+  // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
+  // Show quoted publication if it's there
   const showQuotedPublication = quotedPublicationId && !quoted;
+  // Show attachments if no NFT
+  const showAttachments = !showNft && metadata?.media?.length > 0;
+  // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs &&
     !showNft &&
@@ -70,6 +75,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     !showQuotedPublication &&
     !quoted;
 
+  // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
     if (showOembed && data?.title) {
       const updatedContent = removeUrlAtEnd(urls, content);
