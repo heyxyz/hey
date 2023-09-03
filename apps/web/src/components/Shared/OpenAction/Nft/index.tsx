@@ -1,11 +1,13 @@
 import { CursorClickIcon } from '@heroicons/react/outline';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
-import { Button, Card, Tooltip } from '@lenster/ui';
+import { Button, Card, Modal, Tooltip } from '@lenster/ui';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 
+import Mint from './Mint';
 import NftShimmer from './Shimmer';
 
 const getChainInfo = (
@@ -54,6 +56,7 @@ interface NftProps {
 
 const Nft: FC<NftProps> = ({ nftMetadata }) => {
   const { chain, address, token } = nftMetadata;
+  const [showMintModal, setShowMintModal] = useState(false);
 
   const {
     data: nft,
@@ -91,20 +94,40 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
-        <Link
-          href={'https://zora.co/collect/${chain}:${address}/${token}'}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(event) => stopEventPropagation(event)}
-        >
-          <Button
-            className="text-sm"
-            icon={<CursorClickIcon className="h-4 w-4" />}
-            size="md"
+        {nft.contractStandard === 'ERC721' ? (
+          <>
+            <Button
+              className="text-sm"
+              icon={<CursorClickIcon className="h-4 w-4" />}
+              size="md"
+              onClick={() => setShowMintModal(true)}
+            >
+              <Trans>Mint</Trans>
+            </Button>
+            <Modal
+              title="Mint"
+              show={showMintModal}
+              onClose={() => setShowMintModal(false)}
+            >
+              <Mint nft={nft} />
+            </Modal>
+          </>
+        ) : (
+          <Link
+            href={'https://zora.co/collect/${chain}:${address}/${token}'}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(event) => stopEventPropagation(event)}
           >
-            Mint
-          </Button>
-        </Link>
+            <Button
+              className="text-sm"
+              icon={<CursorClickIcon className="h-4 w-4" />}
+              size="md"
+            >
+              <Trans>Mint</Trans>
+            </Button>
+          </Link>
+        )}
       </div>
     </Card>
   );
