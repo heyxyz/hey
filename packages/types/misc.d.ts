@@ -1,7 +1,5 @@
 import type { MediaSet } from '@lenster/lens';
 
-import type { ZoraNft } from './zora-nft';
-
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 
 export interface NewLensterAttachment extends MediaSetWithoutOnChain {
@@ -27,7 +25,6 @@ export interface OG {
   favicon: string | null;
   isLarge: boolean | null;
   html: string | null;
-  nft: ZoraNft | null;
 }
 
 export interface ProfileInterest {
