@@ -454,6 +454,9 @@ importers:
       '@lenster/lens':
         specifier: workspace:*
         version: link:../lens
+      '@lenster/types':
+        specifier: workspace:*
+        version: link:../types
       axios:
         specifier: ^1.5.0
         version: 1.5.0
