@@ -32,8 +32,8 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const { id, metadata } = publication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
   const urls = getURLs(metadata?.content);
-  const hasURLs = urls?.length > 0;
-  const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
+  const hasURLs = urls.length > 0;
+  const snapshotProposalId = getSnapshotProposalId(urls);
   const quotedPublicationId = getPublicationAttribute(
     metadata.attributes,
     'quotedPublicationId'
