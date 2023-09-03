@@ -57,7 +57,7 @@ interface NftProps {
 }
 
 const Nft: FC<NftProps> = ({ nftMetadata }) => {
-  const { chain, address, token } = nftMetadata;
+  const { chain, address, token, network } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
   const isZoraMintEnabled = isFeatureEnabled(FeatureFlag.ZoraMint);
 
@@ -69,6 +69,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     chain,
     address,
     token: token,
+    network,
     enabled: Boolean(chain && address)
   });
 
