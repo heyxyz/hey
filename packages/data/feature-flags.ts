@@ -7,6 +7,7 @@ export enum FeatureFlag {
   WTF2 = 'wtf2',
   ExploreTags = 'explore-tags',
   Spaces = 'spaces',
+  ZoraMint = 'zora-mint',
   NftLogin = 'nft-login'
 }
 
@@ -33,6 +34,10 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.Spaces,
+    enabledFor: ['0x0d']
+  },
+  {
+    key: FeatureFlag.ZoraMint,
     enabledFor: ['0x0d']
   },
   {
