@@ -38,7 +38,7 @@ export const featureFlags = [
   },
   {
     key: FeatureFlag.ZoraMint,
-    enabledFor: ['0x0d']
+    enabledFor: ['0x0d', '0x01a7be']
   },
   {
     key: FeatureFlag.NftLogin,
