@@ -340,15 +340,13 @@ const CollectModule: FC<CollectModuleProps> = ({
             />
           </div>
         ) : null}
-        <div className="space-y-1.5 pb-2">
-          {publication?.metadata?.name ? (
-            <div className="text-xl font-bold">
-              {publication?.metadata?.name}
-            </div>
+        <div className="mb-3 space-y-1.5">
+          {publication.metadata?.name ? (
+            <div className="text-xl font-bold">{publication.metadata.name}</div>
           ) : null}
-          {publication?.metadata?.content ? (
+          {publication.metadata?.content ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
-              {publication?.metadata?.content}
+              {publication.metadata.content}
             </Markup>
           ) : null}
           <ReferralAlert
