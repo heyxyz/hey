@@ -51,7 +51,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
   ].includes(nft.contractType);
 
   return (
-    <Card className="mt-3" forceRounded>
+    <Card
+      className="mt-3"
+      forceRounded
+      onClick={(event) => stopEventPropagation(event)}
+    >
       <img
         src={`https://remote-image.decentralized-content.com/image?url=${nft.coverImageUrl}&w=1200&q=75`}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
@@ -84,9 +88,10 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             <Modal
               title="Mint"
               show={showMintModal}
+              icon={<CursorClickIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
-              <Mint nft={nft} />
+              <Mint nft={nft} metadata={nftMetadata} />
             </Modal>
           </>
         ) : (
@@ -96,7 +101,6 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             }`}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(event) => stopEventPropagation(event)}
           >
             <Button
               className="text-sm"
