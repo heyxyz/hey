@@ -5,11 +5,12 @@ import {
   ExternalLinkIcon,
   UsersIcon
 } from '@heroicons/react/outline';
+import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import humanize from '@lenster/lib/humanize';
 import type { ZoraNft, ZoraNftMetadata } from '@lenster/types/zora-nft';
-import { Button } from '@lenster/ui';
+import { Button, Spinner } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -49,7 +50,7 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
     value: mintFee * quantity
   });
   const { write, data } = useContractWrite(config);
-  const { data: receipt } = useWaitForTransaction({
+  const { isLoading, isSuccess } = useWaitForTransaction({
     chainId: nft.chainId,
     hash: data?.hash
   });
@@ -85,34 +86,55 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
           </b>
         </Link>
       </div>
-      <div className="flex">
-        {chain !== nft.chainId ? (
-          <SwitchNetwork
-            className="mt-5"
-            toChainId={nft.chainId}
-            title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
-          />
-        ) : isPrepareError ? (
-          <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
+      {isLoading || isSuccess ? (
+        <div className="mt-5 text-sm font-medium">
+          {isLoading ? (
+            <div className="flex items-center space-x-1.5">
+              <Spinner size="xs" />
+              <div>
+                <Trans>Minting in progress</Trans>
+              </div>
+            </div>
+          ) : null}
+          {isSuccess ? (
+            <div className="flex items-center space-x-1.5">
+              <CheckCircleIcon className="h-5 w-5 text-green-500" />
+              <div>
+                <Trans>Minted successful</Trans>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <div className="flex">
+          {chain !== nft.chainId ? (
+            <SwitchNetwork
+              className="mt-5"
+              toChainId={nft.chainId}
+              title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
+            />
+          ) : isPrepareError ? (
+            <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
+              <Button
+                className="mt-5"
+                icon={<CursorClickIcon className="h-5 w-5" />}
+                size="md"
+              >
+                <Trans>Mint on Zora</Trans>
+              </Button>
+            </Link>
+          ) : (
             <Button
               className="mt-5"
-              icon={<CursorClickIcon className="h-4 w-4" />}
-              size="md"
+              disabled={!write}
+              onClick={() => write?.()}
+              icon={<CursorClickIcon className="h-5 w-5" />}
             >
               <Trans>Mint on Zora</Trans>
             </Button>
-          </Link>
-        ) : (
-          <Button
-            className="mt-5"
-            disabled={!write}
-            onClick={() => write?.()}
-            icon={<CursorClickIcon className="h-5 w-5" />}
-          >
-            <Trans>Mint on Zora</Trans>
-          </Button>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
