@@ -4,6 +4,7 @@ import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
+import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
@@ -11,50 +12,6 @@ import useZoraNft from 'src/hooks/zora/useZoraNft';
 
 import Mint from './Mint';
 import NftShimmer from './Shimmer';
-
-const getChainInfo = (
-  chain: number
-): {
-  name: string;
-  logo: string;
-} => {
-  switch (chain) {
-    case 1:
-    case 5:
-      return {
-        name: 'Ethereum',
-        logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
-      };
-    case 10:
-    case 420:
-      return {
-        name: 'Optimism',
-        logo: 'https://zora.co/assets/icon/optimism-ethereum-op-logo.svg'
-      };
-    case 7777777:
-    case 999:
-      return {
-        name: 'Zora',
-        logo: 'https://zora.co/assets/icon/zora-logo.svg'
-      };
-    case 8453:
-    case 84531:
-      return {
-        name: 'Base',
-        logo: 'https://zora.co/assets/icon/base-logo.svg'
-      };
-    case 424:
-      return {
-        name: 'PGN Network',
-        logo: 'https://zora.co/assets/icon/pgn-logo.svg'
-      };
-    default:
-      return {
-        name: 'Ethereum',
-        logo: 'https://zora.co/assets/icon/ethereum-eth-logo.svg'
-      };
-  }
-};
 
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
@@ -96,8 +53,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
       />
       <div className="flex items-center justify-between px-3 py-2">
         <div className="flex items-center space-x-2">
-          <Tooltip placement="right" content={getChainInfo(nft.chainId).name}>
-            <img src={getChainInfo(nft.chainId).logo} className="h-5 w-5" />
+          <Tooltip
+            placement="right"
+            content={getZoraChainInfo(nft.chainId).name}
+          >
+            <img src={getZoraChainInfo(nft.chainId).logo} className="h-5 w-5" />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
