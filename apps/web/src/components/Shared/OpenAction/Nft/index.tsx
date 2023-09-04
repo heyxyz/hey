@@ -13,6 +13,8 @@ import useZoraNft from 'src/hooks/zora/useZoraNft';
 import Mint from './Mint';
 import NftShimmer from './Shimmer';
 
+const allowedToMint = ['ERC721_SINGLE_EDITION', 'ERC1155_COLLECTION_TOKEN'];
+
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
 }
@@ -45,6 +47,8 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     return null;
   }
 
+  const canMint = allowedToMint.includes(nft.contractType);
+
   return (
     <Card className="mt-3" forceRounded>
       <img
@@ -61,7 +65,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
         </div>
-        {isZoraMintEnabled && nft.contractStandard === 'ERC721' ? (
+        {isZoraMintEnabled && canMint && nft.contractStandard === 'ERC721' ? (
           <>
             <Button
               className="text-sm"
@@ -91,7 +95,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               icon={<CursorClickIcon className="h-4 w-4" />}
               size="md"
             >
-              <Trans>Mint</Trans>
+              {nft.contractType === 'ERC1155_COLLECTION' ? (
+                <Trans>Mint All</Trans>
+              ) : (
+                <Trans>Mint</Trans>
+              )}
             </Button>
           </Link>
         )}
