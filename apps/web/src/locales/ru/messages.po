@@ -2992,12 +2992,23 @@ msgid "Switch to {0}"
 msgstr ""
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
+#~ msgid "Mint All"
+#~ msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint"
 msgstr ""
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint All"
+msgid "Mint all on Zora"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint on Zora"
 msgstr ""
 
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
