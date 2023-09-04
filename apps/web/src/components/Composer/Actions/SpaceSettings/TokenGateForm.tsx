@@ -61,7 +61,6 @@ interface TokenGateFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-
 const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
   const {
     isTokenGated,
@@ -121,7 +120,9 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
           <Menu as="div" className="relative">
             <Menu.Button>
               <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-300">
-                <span>{getTokenGateConditionDescription(tokenGateConditionType)}</span>
+                <span>
+                  {getTokenGateConditionDescription(tokenGateConditionType)}
+                </span>
                 <ChevronDownIcon className="h-4 w-4" />
               </div>
             </Menu.Button>

@@ -3,6 +3,7 @@ import { useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import { Image } from '@lenster/ui';
 import type { FC } from 'react';
 import React, { useState } from 'react';
+import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
@@ -13,7 +14,6 @@ import HostData from '../Sidebar/Peers/PeerRole/HostData';
 import ListenersData from '../Sidebar/Peers/PeerRole/ListenersData';
 import SpeakerData from '../Sidebar/Peers/PeerRole/SpeakerData';
 import type { RoleEnum } from '../SpacesTypes';
-import { SpacesEvents } from 'src/enums';
 
 type AvatarProps = {
   peerId?: string;
@@ -82,10 +82,7 @@ const Avatar: FC<AvatarProps> = ({
     <div className="relative inline-flex w-16 flex-col items-center justify-start gap-1">
       {mic && <Audio track={mic} />}
       <div className="group relative h-10 w-10">
-        <Image
-          src={avatarUrl}
-          className="h-10 w-10 rounded-full"
-        />
+        <Image src={avatarUrl} className="h-10 w-10 rounded-full" />
         {shouldShowDropdown ? (
           <>
             <div className="absolute inset-0 rounded-full group-hover:bg-black group-hover:opacity-50" />
@@ -116,7 +113,7 @@ const Avatar: FC<AvatarProps> = ({
       <div className="text-xs font-normal text-gray-500 dark:text-gray-400">
         {role}
       </div>
-      <div className="absolute top-1 left-1/2 -translate-x-1/2 text-2xl">
+      <div className="absolute left-1/2 top-1 -translate-x-1/2 text-2xl">
         {reaction}
       </div>
       {isHandRaised && (

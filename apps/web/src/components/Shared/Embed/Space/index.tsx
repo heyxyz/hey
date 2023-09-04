@@ -8,10 +8,10 @@ import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Button, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import { type FC } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useAccount, useSignMessage } from 'wagmi';
-import dayjs from 'dayjs';
 
 import Wrapper from '../Wrapper';
 

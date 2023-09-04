@@ -14,13 +14,13 @@ import {
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import React from 'react';
+import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
 import { Icons } from '../Common/assets/Icons';
 import Dropdown from '../Common/Dropdown';
 import EmojiTray from '../Common/EmojiTray';
 import MusicTray from '../Common/MusicTray';
-import { SpacesEvents } from 'src/enums';
 
 const SpacesWindowBottomBar: FC = () => {
   const { peers } = usePeers();
@@ -70,7 +70,7 @@ const SpacesWindowBottomBar: FC = () => {
         </button>
       ) : (
         <button
-          className="bg-brand-500 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4 dark:bg-brand-950"
+          className="bg-brand-500 dark:bg-brand-950 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4"
           onClick={sendSpeakerRequest}
         >
           <MicrophoneIcon className="dark:text-brand-400 relative h-4 w-4 text-gray-50" />

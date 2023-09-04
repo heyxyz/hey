@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
+import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
 import { Icons } from '../../assets/Icons';
@@ -13,7 +14,6 @@ import CoHostData from './PeerRole/CoHostData';
 import HostData from './PeerRole/HostData';
 import ListenersData from './PeerRole/ListenersData';
 import SpeakerData from './PeerRole/SpeakerData';
-import { SpacesEvents } from 'src/enums';
 
 interface PeerMetaDatProps {
   isRequested?: boolean;

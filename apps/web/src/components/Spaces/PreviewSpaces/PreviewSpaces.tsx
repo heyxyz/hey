@@ -7,6 +7,7 @@ import {
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import React, { useEffect } from 'react';
+import { SpacesEvents } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
@@ -14,7 +15,6 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import SpacesButton from '../Common/SpacesButton';
 import PreviewSpacesHeader from './PreviewSpacesHeader';
-import { SpacesEvents } from 'src/enums';
 
 const PreviewSpaces: FC = () => {
   const { setShowSpacesLobby, setShowSpacesWindow } = useSpacesStore();

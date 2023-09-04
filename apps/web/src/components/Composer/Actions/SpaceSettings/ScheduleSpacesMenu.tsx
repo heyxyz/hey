@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
 import Dropdown from '@components/Spaces/Common/Dropdown';
 import { CalendarIcon } from '@heroicons/react/outline';
-import { Spinner, Input } from '@lenster/ui';
+import { Input, Spinner } from '@lenster/ui';
+import type { FC } from 'react';
+import React from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
 interface ScheduleSpacesMenuProps {

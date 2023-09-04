@@ -59,7 +59,7 @@ import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Card, ErrorMessage, Input, Spinner } from '@lenster/ui';
+import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -68,8 +68,9 @@ import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { Trans, t } from '@lingui/macro';
+import { t } from '@lingui/macro';
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -92,13 +93,12 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
-import dayjs from 'dayjs';
 
 import useCreateSpace from '../../hooks/useCreateSpace';
 import PollEditor from './Actions/PollSettings/PollEditor';
+import ScheduleSpacesMenu from './Actions/SpaceSettings/ScheduleSpacesMenu';
 import Editor from './Editor';
 import Discard from './Post/Discard';
-import ScheduleSpacesMenu from './Actions/SpaceSettings/ScheduleSpacesMenu';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -150,17 +150,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Modal store
-  const {
-    setShowComposerModal,
-    showComposerModal,
-    modalPublicationType
-  } = useGlobalModalStateStore();
+  const { setShowComposerModal, showComposerModal, modalPublicationType } =
+    useGlobalModalStateStore();
 
   // Spaces store
-  const {
-    spacesTimeInHour,
-    spacesTimeInMinute
-  } = useSpacesStore();
+  const { spacesTimeInHour, spacesTimeInMinute } = useSpacesStore();
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
