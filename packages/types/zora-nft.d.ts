@@ -12,9 +12,12 @@ export interface ZoraNft {
   mediaUrl: string;
   address: `0x${string}`;
   owner: `0x${string}`;
-  maxSupply: string;
-  totalMinted: string;
-  totalSupply: string;
+  creator: `0x${string}`;
+  maxSupply: number;
+  remainingSupply: number;
+  totalMinted: number;
+  isOpenEdition: boolean;
+  price: string;
   contractType:
     | 'ERC721_SINGLE_EDITION'
     | 'ERC1155_COLLECTION'
