@@ -167,7 +167,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             <Trans>Sign-In with Lens</Trans>
           </Button>
         ) : (
-          <SwitchNetwork />
+          <SwitchNetwork toChainId={CHAIN_ID} />
         )}
         <button
           onClick={() => {
