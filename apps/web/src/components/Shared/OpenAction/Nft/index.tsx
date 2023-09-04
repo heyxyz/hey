@@ -1,19 +1,17 @@
-import { CursorClickIcon } from '@heroicons/react/outline';
+import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 
 import Mint from './Mint';
 import NftShimmer from './Shimmer';
-
-const allowedToMint = ['ERC721_SINGLE_EDITION', 'ERC1155_COLLECTION_TOKEN'];
 
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
@@ -47,7 +45,10 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     return null;
   }
 
-  const canMint = allowedToMint.includes(nft.contractType);
+  const canMint = [
+    'ERC721_SINGLE_EDITION',
+    'ERC1155_COLLECTION_TOKEN'
+  ].includes(nft.contractType);
 
   return (
     <Card className="mt-3" forceRounded>
@@ -64,6 +65,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             <img src={getZoraChainInfo(nft.chainId).logo} className="h-5 w-5" />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
+          {nft.contractType === 'ERC1155_COLLECTION' ? (
+            <Tooltip placement="right" content={t`ERC-1155 Collection`}>
+              <CollectionIcon className="h-4 w-4" />
+            </Tooltip>
+          ) : null}
         </div>
         {isZoraMintEnabled && canMint && nft.contractStandard === 'ERC721' ? (
           <>
@@ -98,9 +104,9 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               size="md"
             >
               {nft.contractType === 'ERC1155_COLLECTION' ? (
-                <Trans>Mint All</Trans>
+                <Trans>Mint all on Zora</Trans>
               ) : (
-                <Trans>Mint</Trans>
+                <Trans>Mint on Zora</Trans>
               )}
             </Button>
           </Link>
