@@ -74,12 +74,14 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
         </Markup>
       </div>
       <div className="space-y-1.5">
-        <div className="flex items-center space-x-2">
-          <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{humanize(nft.totalMinted)} minted</Trans>
-          </b>
-        </div>
+        {nft.totalMinted > 0 ? (
+          <div className="flex items-center space-x-2">
+            <UsersIcon className="lt-text-gray-500 h-4 w-4" />
+            <b>
+              <Trans>{humanize(nft.totalMinted)} minted</Trans>
+            </b>
+          </div>
+        ) : null}
         {!nft.isOpenEdition ? (
           <div className="flex items-center space-x-2">
             <ShoppingBagIcon className="lt-text-gray-500 h-4 w-4" />

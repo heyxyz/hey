@@ -16,6 +16,7 @@ export interface ZoraNft {
   remainingSupply: number;
   totalMinted: number;
   isOpenEdition: boolean;
+  price: string;
   contractType:
     | 'ERC721_SINGLE_EDITION'
     | 'ERC1155_COLLECTION'
