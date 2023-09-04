@@ -3,6 +3,8 @@ import { ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button } from '@lenster/ui';
+import getZoraChainInfo from '@lib/getZoraChainInfo';
+import { t } from '@lingui/macro';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { type BaseError, parseEther } from 'viem';
@@ -50,7 +52,10 @@ const Mint: FC<MintProps> = ({ nft }) => {
   return (
     <div className="space-y-3 p-5">
       {chain !== nft.chainId ? (
-        <SwitchNetwork toChainId={nft.chainId} />
+        <SwitchNetwork
+          toChainId={nft.chainId}
+          title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
+        />
       ) : (
         <Button disabled={!write} onClick={() => write?.()}>
           Mint
