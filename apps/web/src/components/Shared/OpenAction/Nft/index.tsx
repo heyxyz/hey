@@ -77,7 +77,10 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               className="text-sm"
               icon={<CursorClickIcon className="h-4 w-4" />}
               size="md"
-              onClick={() => setShowMintModal(true)}
+              onClick={(event) => {
+                stopEventPropagation(event);
+                setShowMintModal(true);
+              }}
             >
               <Trans>Mint</Trans>
             </Button>
