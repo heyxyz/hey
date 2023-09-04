@@ -2987,9 +2987,35 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "{0} minted"
+msgstr "{0} minted"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "{0} remaining"
+msgstr "{0} remaining"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Open in Zora"
+msgstr "Open in Zora"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
 msgid "Switch to {0}"
 msgstr "Switch to {0}"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr "Mint on Zora"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Minting in progress"
+msgstr "Minting in progress"
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Minted successful"
+msgstr "Minted successful"
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
 #~ msgid "Mint All"
@@ -3006,10 +3032,6 @@ msgstr "Mint"
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint all on Zora"
 msgstr "Mint all on Zora"
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint on Zora"
-msgstr "Mint on Zora"
 
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
