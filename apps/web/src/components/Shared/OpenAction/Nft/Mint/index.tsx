@@ -25,6 +25,8 @@ import {
   useWaitForTransaction
 } from 'wagmi';
 
+import MintedBy from './MintedBy';
+
 interface MintProps {
   nft: ZoraNft;
   metadata: ZoraNftMetadata;
@@ -67,8 +69,9 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
 
   return (
     <div className="p-5">
-      <div className="mb-3 space-y-1.5">
-        <div className="text-xl font-bold">{nft.name}</div>
+      <div className="mb-4">
+        <div className="mb-1 text-xl font-bold">{nft.name}</div>
+        <MintedBy address={nft.creator} />
         <Markup className="lt-text-gray-500 line-clamp-4">
           {nft.description}
         </Markup>

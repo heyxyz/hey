@@ -12,6 +12,7 @@ export interface ZoraNft {
   mediaUrl: string;
   address: `0x${string}`;
   owner: `0x${string}`;
+  creator: `0x${string}`;
   maxSupply: number;
   remainingSupply: number;
   totalMinted: number;
