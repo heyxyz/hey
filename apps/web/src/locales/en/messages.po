@@ -2996,6 +2996,10 @@ msgstr "Switch to {0}"
 msgid "Mint"
 msgstr "Mint"
 
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint All"
+msgstr "Mint All"
+
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
 msgstr "This proposal is closed!"
