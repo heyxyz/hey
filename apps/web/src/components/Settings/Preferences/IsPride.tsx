@@ -17,11 +17,18 @@ const IsPride: FC = () => {
 
   const toggleIsPride = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: currentProfile?.id,
-        isPride: !isPride,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/update`,
+        {
+          id: currentProfile?.id,
+          isPride: !isPride
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Updating pride preference...`,
         success: () => {

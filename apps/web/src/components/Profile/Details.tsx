@@ -316,23 +316,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {getProfileAttribute(profile?.attributes, 'x') ? (
             <MetaDetails
               icon={
-                resolvedTheme === 'dark' ? (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-dark.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                ) : (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-light.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                )
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                />
               }
               dataTestId="profile-meta-x"
             >

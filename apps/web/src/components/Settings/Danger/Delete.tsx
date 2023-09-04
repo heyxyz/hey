@@ -14,6 +14,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
@@ -29,6 +30,7 @@ const DeleteSettings: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
@@ -71,6 +73,10 @@ const DeleteSettings: FC = () => {
   const handleDelete = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {

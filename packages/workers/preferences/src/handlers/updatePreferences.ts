@@ -1,15 +1,15 @@
 import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
 import { adminAddresses } from '@lenster/data/staffs';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
 import validateLensAccount from '@lenster/lib/validateLensAccount';
+import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
-import createSupabaseClient from '../helpers/createSupabaseClient';
+import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
@@ -21,7 +21,6 @@ type ExtensionRequest = {
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
   updateByAdmin?: boolean;
-  accessToken: string;
 };
 
 const validationSchema = object({
@@ -32,8 +31,7 @@ const validationSchema = object({
   isVerified: boolean().optional(),
   isPride: boolean().optional(),
   highSignalNotificationFilter: boolean().optional(),
-  updateByAdmin: boolean().optional(),
-  accessToken: string().regex(Regex.accessToken)
+  updateByAdmin: boolean().optional()
 });
 
 export default async (request: WorkerRequest) => {
@@ -44,6 +42,11 @@ export default async (request: WorkerRequest) => {
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
+  }
+
+  const accessToken = request.headers.get('X-Access-Token');
+  if (!accessToken) {
+    return response({ success: false, error: Errors.NoAccessToken });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -60,8 +63,7 @@ export default async (request: WorkerRequest) => {
     updateByAdmin,
     isVerified,
     isPride,
-    highSignalNotificationFilter,
-    accessToken
+    highSignalNotificationFilter
   } = body as ExtensionRequest;
 
   try {
@@ -82,7 +84,7 @@ export default async (request: WorkerRequest) => {
       );
     }
 
-    const client = createSupabaseClient(request.env);
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data, error } = await client
       .from('rights')
@@ -106,7 +108,7 @@ export default async (request: WorkerRequest) => {
 
     if (updateByAdmin) {
       // Clear cache in Cloudflare KV
-      await request.env.PREFERENCES.delete('verified-list');
+      await request.env.PREFERENCES.delete(VERIFIED_KV_KEY);
     }
 
     return response({ success: true, result: data });
