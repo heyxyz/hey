@@ -31,11 +31,11 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
   return (
     <div className="min-w-[24rem]">
       {isLoading ? (
-        <div className="flex grid min-h-[18rem] items-center justify-center p-4">
+        <div className="grid min-h-[18rem] items-center justify-center p-4">
           <Spinner />
         </div>
       ) : isLobbyPreview && Object.keys(previewPeers).length > 0 ? (
-        <div className="m-4 inline-flex grid min-h-[18rem] grid-cols-5 items-center justify-between gap-5">
+        <div className="m-4 grid min-h-[18rem] grid-cols-5 items-center justify-between gap-5">
           {Object.values(previewPeers).map(({ displayName, avatarUrl }) => (
             <Avatar
               key={displayName}
@@ -46,7 +46,7 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
         </div>
       ) : (
         <>
-          <div className="inline-flex grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
+          <div className="grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
             {showSpacesWindow && me.role !== 'listener' && (
               <Avatar
                 key={me.meId}
@@ -77,7 +77,7 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
               other={t`Listeners - ${listenersCount}`}
             />
           </div>
-          <div className="inline-flex grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch pb-6">
+          <div className="grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch pb-6">
             {showSpacesWindow && me.role === 'listener' && (
               <Avatar
                 key={me.meId}

@@ -76,10 +76,9 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
     produceAudio,
     stopProducingAudio
   } = useAudio();
-  const [isHandRaised, setIsHandRaised] = useState<boolean>(false);
-  const setMyHandRaised = useSpacesStore((state) => state.setMyHandRaised);
-  const isMyHandRaised = useSpacesStore((state) => state.isMyHandRaised);
-  const [isAudioOn, setIsAudioOn] = useState<boolean>(false);
+  const [isHandRaised, setIsHandRaised] = useState(false);
+  const { setMyHandRaised, isMyHandRaised, isAudioOn, setIsAudioOn } =
+    useSpacesStore();
 
   useEffect(() => {
     sendData('*', {
@@ -95,11 +94,9 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
   }, [isMyHandRaised]);
 
   useEventListener(SpacesEvents.APP_MIC_ON, (stream) => {
-    if (me.meId == peerId) {
+    if (me.meId == peerId && stream) {
       setIsAudioOn(true);
-      if (stream) {
-        produceAudio(stream);
-      }
+      produceAudio(stream);
     }
   });
 

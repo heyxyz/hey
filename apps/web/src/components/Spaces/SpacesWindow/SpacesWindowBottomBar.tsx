@@ -14,6 +14,7 @@ import {
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
@@ -26,14 +27,14 @@ const SpacesWindowBottomBar: FC = () => {
   const { peers } = usePeers();
   const { me } = useHuddle01();
   const {
-    isAudioOn,
     fetchAudioStream,
     stopAudioStream,
     produceAudio,
     stopProducingAudio
   } = useAudio();
-  const setSidebarView = useSpacesStore((state) => state.setSidebarView);
-  const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
+
+  const { setSidebarView, sidebar, isAudioOn, setIsAudioOn } = useSpacesStore();
+
   const { sendData } = useAppUtils();
 
   useEventListener(SpacesEvents.APP_MIC_ON, (stream) => {
@@ -51,6 +52,7 @@ const SpacesWindowBottomBar: FC = () => {
     sendData(peerIds, {
       'request-to-speak': me.meId
     });
+    toast.success('Speaker request sent');
   };
 
   return (
@@ -60,8 +62,10 @@ const SpacesWindowBottomBar: FC = () => {
           onClick={() => {
             if (isAudioOn) {
               stopAudioStream();
+              setIsAudioOn(false);
             } else {
               fetchAudioStream();
+              setIsAudioOn(true);
             }
           }}
           className="bg-brand-100 text-brand-500 rounded-lg dark:bg-gray-800 dark:text-gray-400"
@@ -108,7 +112,7 @@ const SpacesWindowBottomBar: FC = () => {
         <button
           className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-gray-800 dark:text-gray-400"
           onClick={() => {
-            setSidebarView(sidebarView === 'peers' ? 'close' : 'peers');
+            setSidebarView(sidebar.sidebarView === 'peers' ? 'close' : 'peers');
           }}
         >
           <UserIcon className="h-5 w-5" />

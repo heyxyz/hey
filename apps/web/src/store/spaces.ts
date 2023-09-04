@@ -44,6 +44,8 @@ interface SpacesState {
   setSpacesTimeInHour: (val: string) => void;
   spacesTimeInMinute: string;
   setSpacesTimeInMinute: (val: string) => void;
+  isAudioOn: boolean;
+  setIsAudioOn: (val: boolean) => void;
 }
 
 export const useSpacesStore = create<SpacesState>((set, get) => ({
@@ -113,5 +115,7 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   spacesTimeInMinute: '00',
   setSpacesTimeInMinute: (spacesTimeInMinute) =>
     set(() => ({ spacesTimeInMinute })),
-  isSpacesTimeInAM: true
+  isSpacesTimeInAM: true,
+  isAudioOn: false,
+  setIsAudioOn: (isAudioOn) => set(() => ({ isAudioOn }))
 }));

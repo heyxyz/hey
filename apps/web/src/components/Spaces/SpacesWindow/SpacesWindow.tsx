@@ -151,6 +151,7 @@ const SpacesWindow: FC = () => {
       requestType: `accepted-${requestType}`,
       peerId: me.meId
     });
+    toast.success('Invitation accepted');
   };
 
   const handleAccept = () => {

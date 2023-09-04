@@ -34,7 +34,7 @@ const SpacesSummary: FC = () => {
   return (
     <div className="flex items-center justify-between pt-4">
       <div className="flex items-center gap-2">
-        {Icons.speaking}
+        <span>{Icons.speaking}</span>
         <Image
           src={getAvatar(hostProfile)}
           className="aspect-square h-4 w-4 rounded-full"

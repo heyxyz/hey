@@ -2,6 +2,7 @@ import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { FC } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 import Strip from './Strip';
 
@@ -27,6 +28,7 @@ const Speaker: FC<SpeakerDataProps> = ({ peerId }) => {
               requestType: 'coHost-invitation',
               peerId: peerId
             });
+            toast.success('Invitation sent');
           }}
         />
       )}

@@ -2,6 +2,7 @@ import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAcl, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { FC } from 'react';
 import React from 'react';
+import { toast } from 'react-hot-toast';
 
 import Strip from './Strip';
 
@@ -22,6 +23,7 @@ const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
       requestType: invitationType,
       peerId: peerId
     });
+    toast.success('Invitation sent');
   };
 
   return (

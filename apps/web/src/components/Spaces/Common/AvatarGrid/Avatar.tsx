@@ -34,6 +34,7 @@ const Avatar: FC<AvatarProps> = ({
     useSpacesStore();
   const [reaction, setReaction] = useState('');
   const [isHandRaised, setIsHandRaised] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
   const { me } = useHuddle01();
 
@@ -83,7 +84,7 @@ const Avatar: FC<AvatarProps> = ({
       {mic && <Audio track={mic} />}
       <div className="group relative h-10 w-10">
         <Image src={avatarUrl} className="h-10 w-10 rounded-full" />
-        {shouldShowDropdown ? (
+        {shouldShowDropdown && isMenuOpen ? (
           <>
             <div className="absolute inset-0 rounded-full group-hover:bg-black group-hover:opacity-50" />
             <Dropdown
@@ -101,7 +102,9 @@ const Avatar: FC<AvatarProps> = ({
                     {displayName}
                   </div>
                 </div>
-                {role ? RoleData?.[role] : null}
+                <button onClick={() => setIsMenuOpen(false)}>
+                  {role ? RoleData?.[role] : null}
+                </button>
               </div>
             </Dropdown>
           </>

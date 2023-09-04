@@ -24,7 +24,9 @@ const MusicTray: FC = () => {
   } = useSpacesStore();
 
   useUpdateEffect(() => {
+    console.log('Outside');
     if (myMusicTrack !== MusicTrack.DEFAULT) {
+      console.log('Inside');
       sendData('*', {
         musicTrack: myMusicTrack,
         isMusicPlaying: isMyMusicPlaying
@@ -43,6 +45,7 @@ const MusicTray: FC = () => {
         }
         onChange={() => setMyMusicTrack(value)}
         checked={myMusicTrack === value}
+        name={myMusicTrack}
       />
     </div>
   );
