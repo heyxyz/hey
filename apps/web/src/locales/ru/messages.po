@@ -2987,6 +2987,10 @@ msgstr "Главная"
 msgid "Explore"
 msgstr "Найти"
 
+#: src/components/Shared/OpenAction/Nft/Mint.tsx
+msgid "Switch to {0}"
+msgstr ""
+
 #: src/components/Shared/OpenAction/Nft/index.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint"
@@ -3122,12 +3126,12 @@ msgid "Super follow"
 msgstr "Супер подписка"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
-msgstr "Пожалуйста, измените сеть в вашем кошельке!"
-
-#: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "Сменить сеть"
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr "Пожалуйста, измените сеть в вашем кошельке!"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
