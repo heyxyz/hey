@@ -49,7 +49,11 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
     args: [recipient, quantity, comment, mintReferral],
     value: mintFee * quantity
   });
-  const { write, data } = useContractWrite(config);
+  const {
+    write,
+    data,
+    isLoading: isContractWriteLoading
+  } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({
     chainId: nft.chainId,
     hash: data?.hash
@@ -58,6 +62,7 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
   const zoraLink = `https://zora.co/collect/${metadata.chain}:${
     metadata.address
   }${metadata.token ? `/${metadata.token}` : ''}`;
+  const mintingOrSuccess = isLoading || isSuccess;
 
   return (
     <div className="p-5">
@@ -86,26 +91,7 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
           </b>
         </Link>
       </div>
-      {isLoading || isSuccess ? (
-        <div className="mt-5 text-sm font-medium">
-          {isLoading ? (
-            <div className="flex items-center space-x-1.5">
-              <Spinner size="xs" />
-              <div>
-                <Trans>Minting in progress</Trans>
-              </div>
-            </div>
-          ) : null}
-          {isSuccess ? (
-            <div className="flex items-center space-x-1.5">
-              <CheckCircleIcon className="h-5 w-5 text-green-500" />
-              <div>
-                <Trans>Minted successful</Trans>
-              </div>
-            </div>
-          ) : null}
-        </div>
-      ) : (
+      {!mintingOrSuccess ? (
         <div className="flex">
           {chain !== nft.chainId ? (
             <SwitchNetwork
@@ -128,11 +114,36 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
               className="mt-5"
               disabled={!write}
               onClick={() => write?.()}
-              icon={<CursorClickIcon className="h-5 w-5" />}
+              icon={
+                isContractWriteLoading ? (
+                  <Spinner className="mr-1" size="xs" />
+                ) : (
+                  <CursorClickIcon className="h-5 w-5" />
+                )
+              }
             >
               <Trans>Mint on Zora</Trans>
             </Button>
           )}
+        </div>
+      ) : (
+        <div className="mt-5 text-sm font-medium">
+          {isLoading ? (
+            <div className="flex items-center space-x-1.5">
+              <Spinner size="xs" />
+              <div>
+                <Trans>Minting in progress</Trans>
+              </div>
+            </div>
+          ) : null}
+          {isSuccess ? (
+            <div className="flex items-center space-x-1.5">
+              <CheckCircleIcon className="h-5 w-5 text-green-500" />
+              <div>
+                <Trans>Minted successful</Trans>
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
     </div>
