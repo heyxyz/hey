@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 const ProfileHoverShimmer: FC = () => {
   return (
-    <div className="flex flex-col space-y-2 py-1">
+    <div className="flex flex-col space-y-2 px-2.5 py-3">
       <div className="flex items-center justify-between space-x-3">
         <div className="shimmer h-10 w-10 rounded-full" />
         <div className="shimmer h-8 w-10 rounded-lg" />

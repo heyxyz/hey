@@ -104,6 +104,10 @@ progress::-moz-progress-bar {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
 
+.preview-tippy-content > div {
+  @apply !px-0 !py-0;
+}
+
 .tippy-content {
   @apply !px-2.5 !py-0.5;
 }
@@ -239,9 +243,10 @@ ul {
 
 .horizontal-loader > div {
   width: 100%;
-  height: 5px;
+  height: 6px;
   animation: loader 700ms linear infinite;
-  @apply rounded-xl;
+  @apply rounded-tl-xl;
+  @apply rounded-tr-xl;
 }
 
 .horizontal-loader {
