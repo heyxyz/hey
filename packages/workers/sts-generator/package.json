@@ -13,7 +13,7 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.398.0",
+    "@aws-sdk/client-sts": "^3.405.0",
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "@sentry/tracing": "^7.66.0",

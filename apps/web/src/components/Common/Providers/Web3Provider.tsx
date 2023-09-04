@@ -1,20 +1,37 @@
-import {
-  APP_NAME,
-  IS_MAINNET,
-  WALLETCONNECT_PROJECT_ID
-} from '@lenster/data/constants';
-import getRpc from '@lenster/lib/getRpc';
+import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';
 import type { FC, ReactNode } from 'react';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, polygonMumbai } from 'wagmi/chains';
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
+import {
+  base,
+  baseGoerli,
+  goerli,
+  mainnet,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+  zora,
+  zoraTestnet
+} from 'wagmi/chains';
+import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai, mainnet],
-  [jsonRpcProvider({ rpc: (chain) => ({ http: getRpc(chain.id) }) })]
+  [
+    polygon,
+    polygonMumbai,
+    mainnet,
+    goerli,
+    zora,
+    zoraTestnet,
+    optimism,
+    optimismGoerli,
+    base,
+    baseGoerli
+  ],
+  [publicProvider()]
 );
 
 const connectors: any = [

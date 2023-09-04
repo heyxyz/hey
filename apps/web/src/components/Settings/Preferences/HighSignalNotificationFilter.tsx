@@ -22,11 +22,18 @@ const HighSignalNotificationFilter: FC = () => {
 
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: currentProfile?.id,
-        highSignalNotificationFilter: !highSignalNotificationFilter,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/update`,
+        {
+          id: currentProfile?.id,
+          highSignalNotificationFilter: !highSignalNotificationFilter
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Updating preference settings...`,
         success: () => {

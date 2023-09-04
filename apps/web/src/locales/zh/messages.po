@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-30 00:08\n"
+"PO-Revision-Date: 2023-09-04 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -28,6 +28,18 @@ msgstr ""
 
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr "添加另一个选项"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "民意调查"
 
@@ -778,6 +790,23 @@ msgstr "自定义筛选"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "守护者"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr "描述"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -2532,6 +2561,10 @@ msgid "Login"
 msgstr "登录"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "创建贴子"
 
@@ -2611,6 +2644,14 @@ msgstr "浏览器钱包"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "连接失败"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2850,10 +2891,6 @@ msgid "Failed to report"
 msgstr "举报失败"
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr "描述"
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "请提供更多详细信息"
 
@@ -2950,6 +2987,51 @@ msgstr "首页"
 msgid "Explore"
 msgstr "探索"
 
+#: src/components/Shared/OpenAction/Nft/Mint.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "这项投票已经关闭！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "尚不支持 {type} 投票！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "此投票已结束"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "您的投票已投完毕！"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "当前结果"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "结果"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "剩余 {0}"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "请进行投票"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "前往 {type}"
@@ -2973,42 +3055,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "将获得 <0>{referralFee}%</0> 的推荐费"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "这项投票已经关闭！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "尚不支持 {type} 投票！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "此投票已结束"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "您的投票已投完毕！"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "当前结果"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "结果"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "剩余 {0}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "请进行投票"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -3080,12 +3126,12 @@ msgid "Super follow"
 msgstr "超级关注"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
-msgstr "请更换您的钱包网络！"
-
-#: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "切换网络"
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr "请更换您的钱包网络！"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

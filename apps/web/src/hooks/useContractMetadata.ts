@@ -41,7 +41,7 @@ const useContractMetadata = ({
   };
 
   const { data, error } = useQuery(
-    ['contractMetadata'],
+    ['contractMetadata', address],
     () => loadContractDetails().then((res) => res),
     { enabled }
   );

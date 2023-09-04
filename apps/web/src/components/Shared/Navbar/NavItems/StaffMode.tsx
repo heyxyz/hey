@@ -23,11 +23,18 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
 
   const toggleStaffMode = async () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/staffMode`, {
-        id: currentProfile?.id,
-        enabled: !staffMode,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/staffMode`,
+        {
+          id: currentProfile?.id,
+          enabled: !staffMode
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Toggling staff mode...`,
         success: () => {
