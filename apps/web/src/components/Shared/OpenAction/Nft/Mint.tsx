@@ -3,6 +3,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   CursorClickIcon,
   ExternalLinkIcon,
+  ShoppingBagIcon,
   UsersIcon
 } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
@@ -79,6 +80,14 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
             <Trans>{humanize(nft.totalMinted)} minted</Trans>
           </b>
         </div>
+        {!nft.isOpenEdition ? (
+          <div className="flex items-center space-x-2">
+            <ShoppingBagIcon className="lt-text-gray-500 h-4 w-4" />
+            <b>
+              <Trans>{humanize(nft.remainingSupply)} remaining</Trans>
+            </b>
+          </div>
+        ) : null}
         <Link
           href={zoraLink}
           className="flex items-center space-x-2"
