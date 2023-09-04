@@ -25,9 +25,9 @@ import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
   useAccount,
+  useChainId,
   useConnect,
   useDisconnect,
-  useNetwork,
   useSignMessage
 } from 'wagmi';
 
@@ -54,7 +54,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const isMounted = useIsMounted();
-  const { chain } = useNetwork();
+  const chain = useChainId();
   const {
     connectors,
     error,
@@ -146,7 +146,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID ? (
+        {chain === CHAIN_ID ? (
           <Button
             disabled={isLoading}
             icon={
