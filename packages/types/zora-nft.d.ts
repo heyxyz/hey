@@ -15,5 +15,9 @@ export interface ZoraNft {
   maxSupply: string;
   totalMinted: string;
   totalSupply: string;
-  contractStandard: string;
+  contractType:
+    | 'ERC721_SINGLE_EDITION'
+    | 'ERC1155_COLLECTION'
+    | 'ERC1155_COLLECTION_TOKEN';
+  contractStandard: 'ERC721' | 'ERC1155';
 }
