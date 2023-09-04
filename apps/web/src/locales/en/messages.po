@@ -2987,6 +2987,10 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/OpenAction/Nft/Mint.tsx
+msgid "Switch to {0}"
+msgstr "Switch to {0}"
+
 #: src/components/Shared/OpenAction/Nft/index.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint"
@@ -3122,11 +3126,11 @@ msgid "Super follow"
 msgstr "Super follow"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
+msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
+msgid "Please change your network wallet!"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
