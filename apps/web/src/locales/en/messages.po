@@ -3018,10 +3018,6 @@ msgid "Minted successful"
 msgstr "Minted successful"
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
-#~ msgid "Mint All"
-#~ msgstr "Mint All"
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "ERC-1155 Collection"
 msgstr "ERC-1155 Collection"
 
