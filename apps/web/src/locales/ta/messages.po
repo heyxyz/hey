@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-30 00:08\n"
+"PO-Revision-Date: 2023-09-04 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -28,6 +28,18 @@ msgstr ""
 
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -778,6 +790,23 @@ msgstr "தனிப்பயன் வடிப்பான்கள்"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "கார்ட்னர்ஸ்"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr "விளக்கம்"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -2532,6 +2561,10 @@ msgid "Login"
 msgstr "புகுபதிகை"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
@@ -2611,6 +2644,14 @@ msgstr "உலாவி வாலட்"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "இணைக்க முடியவில்லை"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2850,10 +2891,6 @@ msgid "Failed to report"
 msgstr "புகாரளிக்க முடியவில்லை"
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr "விளக்கம்"
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "கூடுதல் விவரங்களை வழங்கவும்"
 
@@ -2950,6 +2987,51 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/OpenAction/Nft/Mint.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "தற்போதைய முடிவுகள்"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "முடிவுகள்"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "வாக்களிக்கவும்"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "{type} க்கு செல்க"
@@ -2973,42 +3055,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "தற்போதைய முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "வாக்களிக்கவும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -3080,12 +3126,12 @@ msgid "Super follow"
 msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
-msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
-
-#: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "நெட்வொர்க்கை மாற்றவும்"
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

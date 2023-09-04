@@ -2,12 +2,12 @@ import { mainnetLensTeamMembers } from './lens-members';
 
 export enum FeatureFlag {
   TrendingWidget = 'trending-widget',
-  NftDetail = 'nft-detail',
   GatedLocales = 'gated-locales',
   ForYou = 'for-you',
   WTF2 = 'wtf2',
   ExploreTags = 'explore-tags',
   Spaces = 'spaces',
+  ZoraMint = 'zora-mint',
   NftLogin = 'nft-login'
 }
 
@@ -15,10 +15,6 @@ export const featureFlags = [
   {
     key: FeatureFlag.TrendingWidget,
     enabledFor: []
-  },
-  {
-    key: FeatureFlag.NftDetail,
-    enabledFor: ['0x0d', '0x014309']
   },
   {
     key: FeatureFlag.GatedLocales,
@@ -39,6 +35,10 @@ export const featureFlags = [
   {
     key: FeatureFlag.Spaces,
     enabledFor: ['0x0d']
+  },
+  {
+    key: FeatureFlag.ZoraMint,
+    enabledFor: ['0x0d', '0x01a7be']
   },
   {
     key: FeatureFlag.NftLogin,

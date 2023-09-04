@@ -30,6 +30,18 @@ msgstr "Failed to load bookmark feed"
 msgid "Bookmarks • {APP_NAME}"
 msgstr "Bookmarks • {APP_NAME}"
 
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr "Featured"
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr "don't have any publications yet"
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
+msgstr "Failed to load channel feed"
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr ""
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr "Add another option"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Poll"
 
@@ -778,6 +790,23 @@ msgstr "Custom filters"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "Gardeners"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr "Traits"
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr "Contract address"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr "Token ID"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -2532,6 +2561,10 @@ msgid "Login"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr "Wrong Network"
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr ""
 
@@ -2611,6 +2644,14 @@ msgstr ""
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr "Change network"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr "Connect to the correct network to continue"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2850,10 +2891,6 @@ msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr ""
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 
@@ -2950,6 +2987,51 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/OpenAction/Nft/Mint.tsx
+msgid "Switch to {0}"
+msgstr "Switch to {0}"
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint"
+msgstr "Mint"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "This proposal is closed!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Current results"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Results"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Cast your vote"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
@@ -2973,42 +3055,6 @@ msgstr "Protect now"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} voting is not supported yet!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "This poll is ended!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Your vote has been casted!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Current results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} left"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Cast your vote"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -3080,11 +3126,11 @@ msgid "Super follow"
 msgstr "Super follow"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
+msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
+msgid "Please change your network wallet!"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
