@@ -86,7 +86,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title="Mint"
+              title={t`Mint on Zora`}
               show={showMintModal}
               icon={<CursorClickIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
