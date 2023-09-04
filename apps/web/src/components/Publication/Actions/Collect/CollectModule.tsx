@@ -340,7 +340,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             />
           </div>
         ) : null}
-        <div className="mb-3 space-y-1.5">
+        <div className="mb-4 space-y-1.5">
           {publication.metadata?.name ? (
             <div className="text-xl font-bold">{publication.metadata.name}</div>
           ) : null}
