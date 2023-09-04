@@ -14,6 +14,7 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import SpacesButton from '../Common/SpacesButton';
 import PreviewSpacesHeader from './PreviewSpacesHeader';
+import { SpacesEvents } from 'src/enums';
 
 const PreviewSpaces: FC = () => {
   const { setShowSpacesLobby, setShowSpacesWindow } = useSpacesStore();
@@ -28,7 +29,7 @@ const PreviewSpaces: FC = () => {
     initialize('TxG-OolMwGeCoZPzX660e65wwuU2MP83');
   });
 
-  useEventListener('app:initialized', () => {
+  useEventListener(SpacesEvents.APP_INITIALIZED, () => {
     joinLobby(space.id, lensAccessToken);
   });
 
@@ -46,11 +47,11 @@ const PreviewSpaces: FC = () => {
   }, [isRoomJoined]);
 
   return (
-    <div className="fixed inset-0 z-10 grid place-items-center bg-zinc-900/80 text-center">
-      <div className="overflow-hidden rounded-lg bg-neutral-100 dark:bg-black">
+    <div className="fixed inset-0 z-10 grid place-items-center bg-gray-900/80 text-center">
+      <div className="overflow-hidden rounded-lg bg-gray-100 dark:bg-black">
         <PreviewSpacesHeader />
         <AvatarGrid isLobbyPreview={previewPeers.length ? true : false} />
-        <div className="border-t border-neutral-300 py-4 text-center text-sm text-neutral-500 dark:border-neutral-800">
+        <div className="border-t border-gray-300 py-4 text-center text-sm text-gray-500 dark:border-gray-800">
           <Trans>Your mic will be off at the start</Trans>
         </div>
         <div className="pb-3">

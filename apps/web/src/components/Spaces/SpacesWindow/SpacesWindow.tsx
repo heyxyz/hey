@@ -10,7 +10,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import React, { createRef, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { MusicTrack } from 'src/enums';
+import { MusicTrack, SpacesEvents } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
 
@@ -60,19 +60,19 @@ const SpacesWindow: FC = () => {
     }
   };
 
-  useEventListener('room:peer-joined', ({ peerId, role }) => {
+  useEventListener(SpacesEvents.ROOM_PEER_JOINED, ({ peerId, role }) => {
     if (role === 'peer' && me.role === 'host') {
       changePeerRole(peerId, 'listener');
     }
   });
 
-  useEventListener('room:me-role-update', (role) => {
+  useEventListener(SpacesEvents.ROOM_ME_ROLE_UPDATE, (role) => {
     if (role !== 'listener') {
       toast.success(t`You are now a ${role}`);
     }
   });
 
-  useEventListener('room:data-received', (data) => {
+  useEventListener(SpacesEvents.ROOM_DATA_RECEIVED, (data) => {
     if (data.payload['request-to-speak']) {
       setShowAcceptRequest(true);
       setRequestedPeerId(data.payload['request-to-speak']);
@@ -170,7 +170,7 @@ const SpacesWindow: FC = () => {
         <audio ref={audioRef} src={musicTrack} loop />
       )}
       <div className="relative mx-auto max-w-screen-xl grow">
-        <div className="absolute bottom-0 right-0 ml-auto rounded-xl rounded-b-none border-[1.5px] border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+        <div className="absolute bottom-0 right-0 ml-auto rounded-xl rounded-b-none border-[1.5px] border-gray-300 bg-white p-4 dark:border-gray-700 dark:bg-gray-900">
           <div className="flex justify-center">
             {showAcceptRequest && isExpanded && (
               <InvitationModal

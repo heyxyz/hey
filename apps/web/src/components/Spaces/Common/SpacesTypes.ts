@@ -1,4 +1,4 @@
-export enum IRoleEnum {
+export enum RoleEnum {
   host = 'host',
   coHost = 'coHost',
   speaker = 'speaker',
@@ -9,6 +9,6 @@ export type Peer = {
   peerId: string;
   displayName: string;
   mic?: MediaStreamTrack | null;
-  role: IRoleEnum;
+  role: RoleEnum;
   avatarUrl: string;
 };

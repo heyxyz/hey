@@ -20,6 +20,7 @@ import { Icons } from '../Common/assets/Icons';
 import Dropdown from '../Common/Dropdown';
 import EmojiTray from '../Common/EmojiTray';
 import MusicTray from '../Common/MusicTray';
+import { SpacesEvents } from 'src/enums';
 
 const SpacesWindowBottomBar: FC = () => {
   const { peers } = usePeers();
@@ -35,11 +36,11 @@ const SpacesWindowBottomBar: FC = () => {
   const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);
   const { sendData } = useAppUtils();
 
-  useEventListener('app:mic-on', (stream) => {
+  useEventListener(SpacesEvents.APP_MIC_ON, (stream) => {
     produceAudio(stream);
   });
 
-  useEventListener('app:mic-off', () => {
+  useEventListener(SpacesEvents.APP_MIC_OFF, () => {
     stopProducingAudio();
   });
 
@@ -53,7 +54,7 @@ const SpacesWindowBottomBar: FC = () => {
   };
 
   return (
-    <div className="flex justify-between border-t border-neutral-300 pt-4 dark:border-neutral-700">
+    <div className="flex justify-between border-t border-gray-300 pt-4 dark:border-gray-700">
       {['speaker', 'coHost', 'host'].includes(me.role) ? (
         <button
           onClick={() => {
@@ -63,18 +64,18 @@ const SpacesWindowBottomBar: FC = () => {
               fetchAudioStream();
             }
           }}
-          className="bg-brand-100 text-brand-500 rounded-lg dark:bg-neutral-800 dark:text-neutral-400"
+          className="bg-brand-100 text-brand-500 rounded-lg dark:bg-gray-800 dark:text-gray-400"
         >
           {isAudioOn ? Icons.mic.true : Icons.mic.false}
         </button>
       ) : (
         <button
-          className="bg-brand-500 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4 dark:bg-indigo-950"
+          className="bg-brand-500 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4 dark:bg-brand-950"
           onClick={sendSpeakerRequest}
         >
-          <MicrophoneIcon className="dark:text-brand-400 relative h-4 w-4 text-neutral-50" />
+          <MicrophoneIcon className="dark:text-brand-400 relative h-4 w-4 text-gray-50" />
 
-          <div className="dark:text-brand-400 text-xs font-medium leading-none text-neutral-50">
+          <div className="dark:text-brand-400 text-xs font-medium leading-none text-gray-50">
             <Trans>Request to speak</Trans>
           </div>
         </button>
@@ -83,8 +84,8 @@ const SpacesWindowBottomBar: FC = () => {
         {['host', 'coHost'].includes(me.role) && (
           <Dropdown
             triggerChild={
-              <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-neutral-800">
-                <MusicNoteIcon className="text-brand-500 h-5 w-5 dark:text-neutral-400" />
+              <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-gray-800">
+                <MusicNoteIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
               </div>
             }
           >
@@ -95,8 +96,8 @@ const SpacesWindowBottomBar: FC = () => {
         )}
         <Dropdown
           triggerChild={
-            <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-neutral-800">
-              <EmojiHappyIcon className="text-brand-500 h-5 w-5 dark:text-neutral-400" />
+            <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-gray-800">
+              <EmojiHappyIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
             </div>
           }
         >
@@ -105,7 +106,7 @@ const SpacesWindowBottomBar: FC = () => {
           </div>
         </Dropdown>
         <button
-          className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-neutral-800 dark:text-neutral-400"
+          className="bg-brand-100 text-brand-500 flex h-full items-center gap-2 rounded-lg px-2 font-normal dark:bg-gray-800 dark:text-gray-400"
           onClick={() => {
             setSidebarView(sidebarView === 'peers' ? 'close' : 'peers');
           }}

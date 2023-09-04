@@ -29,8 +29,8 @@ const GlobalModals: FC = () => {
     setShowStatusModal,
     showProfileSwitchModal,
     setShowProfileSwitchModal,
-    showNewPublicationModal,
-    setShowNewPublicationModal,
+    showComposerModal,
+    setShowComposerModal,
     showAuthModal,
     setShowAuthModal,
     showInvitesModal,
@@ -118,10 +118,10 @@ const GlobalModals: FC = () => {
       <Modal
         title={t`Create post`}
         size="md"
-        show={showNewPublicationModal}
+        show={showComposerModal}
         onClose={() => {
           if (checkIfPublicationNotDrafted()) {
-            setShowNewPublicationModal(false, NewPublicationTypes.Post);
+            setShowComposerModal(false, NewPublicationTypes.Publication);
           } else {
             setShowDiscardModal(true);
           }

@@ -40,6 +40,16 @@ export enum MusicTrack {
 }
 
 export enum NewPublicationTypes {
-  Post = 'POST',
+  Publication = 'PUBLICATION',
   Spaces = 'SPACES'
+}
+
+export enum SpacesEvents {
+  APP_INITIALIZED = 'app:initialized',
+  APP_MIC_ON = 'app:mic-on',
+  APP_MIC_OFF = 'app:mic-off',
+  ROOM_DATA_RECEIVED = 'room:data-received',
+  ROOM_PEER_JOINED = 'room:peer-joined',
+  ROOM_ME_LEFT = 'room:me-left',
+  ROOM_ME_ROLE_UPDATE = 'room:me-role-update'
 }

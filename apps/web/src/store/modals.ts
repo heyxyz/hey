@@ -5,10 +5,10 @@ import { create } from 'zustand';
 interface GlobalModalState {
   showAuthModal: boolean;
   setShowAuthModal: (showAuthModal: boolean) => void;
-  showNewPublicationModal: boolean;
+  showComposerModal: boolean;
   modalPublicationType: NewPublicationTypes;
-  setShowNewPublicationModal: (
-    showNewPublicationModal: boolean,
+  setShowComposerModal: (
+    showComposerModal: boolean,
     modalPublicationType: NewPublicationTypes
   ) => void;
   showDiscardModal: boolean;
@@ -38,10 +38,10 @@ interface GlobalModalState {
 export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   showAuthModal: false,
   setShowAuthModal: (showAuthModal) => set(() => ({ showAuthModal })),
-  showNewPublicationModal: false,
-  modalPublicationType: NewPublicationTypes.Post,
-  setShowNewPublicationModal: (showNewPublicationModal, modalPublicationType) =>
-    set(() => ({ showNewPublicationModal, modalPublicationType })),
+  showComposerModal: false,
+  modalPublicationType: NewPublicationTypes.Publication,
+  setShowComposerModal: (showComposerModal, modalPublicationType) =>
+    set(() => ({ showComposerModal, modalPublicationType })),
   showDiscardModal: false,
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   showPublicationReportModal: false,

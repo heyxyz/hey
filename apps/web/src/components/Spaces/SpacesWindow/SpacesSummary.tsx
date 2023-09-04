@@ -43,7 +43,7 @@ const SpacesSummary: FC = () => {
           {hostProfile.handle}
         </div>
       </div>
-      <div className="flex items-center text-xs font-normal leading-none text-neutral-500 text-opacity-60 dark:text-white">
+      <div className="flex items-center text-xs font-normal leading-none text-gray-500 text-opacity-60 dark:text-white">
         <div className="flex p-0.5">
           {topThreePeers[0] ? (
             <Image

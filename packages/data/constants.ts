@@ -95,7 +95,7 @@ export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
   : 'http://localhost:8088';
 export const SPACES_WORKER_URL = IS_PRODUCTION
-  ? 'http://localhost:8094'
+  ? 'spaces.lenster.xyz'
   : 'http://localhost:8094';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 export const INVITE_WORKER_URL = IS_PRODUCTION

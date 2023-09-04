@@ -3,9 +3,7 @@ import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import Dropdown from '@components/Spaces/Common/Dropdown';
 import {
-  CalendarIcon,
   ChatAlt2Icon,
   MicrophoneIcon,
   PencilAltIcon
@@ -70,7 +68,7 @@ import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 import clsx from 'clsx';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
@@ -94,11 +92,13 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
+import dayjs from 'dayjs';
 
 import useCreateSpace from '../../hooks/useCreateSpace';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
+import ScheduleSpacesMenu from './Actions/SpaceSettings/ScheduleSpacesMenu';
 
 const Attachment = dynamic(
   () => import('@components/Composer/Actions/Attachment'),
@@ -144,50 +144,6 @@ interface NewPublicationProps {
   publication: Publication;
 }
 
-interface getButtonInfoProps {
-  isLoading?: boolean;
-  isComment: boolean;
-  showNewPublicationModal: boolean;
-  modalPublicationType: NewPublicationTypes;
-}
-
-const getButtonIcon = ({
-  isLoading,
-  isComment,
-  showNewPublicationModal,
-  modalPublicationType
-}: getButtonInfoProps) => {
-  if (isLoading) {
-    return <Spinner size="xs" />;
-  } else if (isComment) {
-    return <ChatAlt2Icon className="h-4 w-4" />;
-  } else if (
-    showNewPublicationModal &&
-    modalPublicationType === NewPublicationTypes.Spaces
-  ) {
-    return <MicrophoneIcon className="h-4 w-4" />;
-  } else {
-    return <PencilAltIcon className="h-4 w-4" />;
-  }
-};
-
-const getButtonText = ({
-  isComment,
-  showNewPublicationModal,
-  modalPublicationType
-}: getButtonInfoProps) => {
-  if (isComment) {
-    return t`Comment`;
-  } else if (
-    showNewPublicationModal &&
-    modalPublicationType === NewPublicationTypes.Spaces
-  ) {
-    return t`Create Spaces`;
-  } else {
-    return t`Post`;
-  }
-};
-
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
@@ -195,15 +151,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Modal store
   const {
-    setShowNewPublicationModal,
-    showNewPublicationModal,
+    setShowComposerModal,
+    showComposerModal,
     modalPublicationType
   } = useGlobalModalStateStore();
 
   // Spaces store
   const {
-    setSpacesTimeInHour,
-    setSpacesTimeInMinute,
     spacesTimeInHour,
     spacesTimeInMinute
   } = useSpacesStore();
@@ -278,13 +232,39 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
   const isSponsored = currentProfile?.dispatcher?.sponsor;
 
+  const getButtonIcon = () => {
+    switch (true) {
+      case isLoading:
+        return <Spinner size="xs" />;
+      case isComment:
+        return <ChatAlt2Icon className="h-4 w-4" />;
+      case showComposerModal &&
+        modalPublicationType === NewPublicationTypes.Spaces:
+        return <MicrophoneIcon className="h-4 w-4" />;
+      default:
+        return <PencilAltIcon className="h-4 w-4" />;
+    }
+  };
+
+  const getButtonText = () => {
+    switch (true) {
+      case isComment:
+        return t`Comment`;
+      case showComposerModal &&
+        modalPublicationType === NewPublicationTypes.Spaces:
+        return t`Create Spaces`;
+      default:
+        return t`Post`;
+    }
+  };
+
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
       return;
     }
 
     if (
-      showNewPublicationModal &&
+      showComposerModal &&
       modalPublicationType === NewPublicationTypes.Spaces
     ) {
       toast.success(t`Spaces created successfully!`);
@@ -308,9 +288,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     resetAccessSettings();
 
     if (!isComment) {
-      setShowNewPublicationModal(false, NewPublicationTypes.Post);
+      setShowComposerModal(false, NewPublicationTypes.Publication);
+    } else {
+      setShowComposerModal(false, NewPublicationTypes.Spaces);
     }
-    setShowNewPublicationModal(false, NewPublicationTypes.Spaces);
 
     // Track in leafwatch
     const eventProperties = {
@@ -768,7 +749,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      let spaceId = {
+      let spaceData = {
         success: false,
         response: {
           message: '',
@@ -779,20 +760,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       if (
-        showNewPublicationModal &&
+        showComposerModal &&
         modalPublicationType === NewPublicationTypes.Spaces
       ) {
-        spaceId = await createSpace();
+        spaceData = await createSpace();
       }
 
-      const now = new Date();
-      now.setHours(Number(spacesTimeInHour));
-      now.setMinutes(Number(spacesTimeInMinute));
-      const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const formattedTime = new Date(
-        now.toLocaleString('en-US', { timeZone: userTimezone })
-      );
-      const startTime = formattedTime.toISOString();
+      const userCurrentTime = dayjs().utcOffset(dayjs().utcOffset());
+      const startTime = userCurrentTime
+        .hour(Number(spacesTimeInHour))
+        .minute(Number(spacesTimeInMinute))
+        .toISOString();
 
       const attributes: MetadataAttributeInput[] = [
         {
@@ -800,15 +778,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           displayType: PublicationMetadataDisplayTypes.String,
           value: getMainContentFocus()?.toLowerCase()
         },
-        ...(showNewPublicationModal &&
-        spaceId.success &&
+        ...(showComposerModal &&
+        spaceData.success &&
         modalPublicationType === NewPublicationTypes.Spaces
           ? [
               {
                 traitType: 'audioSpace',
                 displayType: PublicationMetadataDisplayTypes.String,
                 value: JSON.stringify({
-                  id: spaceId.response.data.roomId,
+                  id: spaceData.response.data.roomId,
                   host: currentProfile.ownedBy,
                   startTime: startTime
                 })
@@ -980,7 +958,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     : false;
 
   const onDiscardClick = () => {
-    setShowNewPublicationModal(false, NewPublicationTypes.Post);
+    setShowComposerModal(false, NewPublicationTypes.Publication);
     setShowDiscardModal(false);
   };
 
@@ -1025,7 +1003,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       <div className="block items-center px-5 sm:flex">
-        {showNewPublicationModal &&
+        {showComposerModal &&
         modalPublicationType === NewPublicationTypes.Spaces ? (
           <SpaceSettings />
         ) : (
@@ -1051,54 +1029,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 isSubmitDisabledByPoll ||
                 videoThumbnail.uploading
               }
-              icon={getButtonIcon({
-                isLoading,
-                isComment,
-                showNewPublicationModal,
-                modalPublicationType
-              })}
+              icon={getButtonIcon()}
               onClick={createPublication}
             >
-              {getButtonText({
-                isComment,
-                showNewPublicationModal,
-                modalPublicationType
-              })}
+              {getButtonText()}
             </Button>
           </div>
-          {showNewPublicationModal &&
+          {showComposerModal &&
             modalPublicationType === NewPublicationTypes.Spaces && (
-              <Dropdown
-                triggerChild={
-                  <div className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-md border border-violet-500 p-1">
-                    <CalendarIcon className="text-brand-500 relative h-6 w-6" />
-                  </div>
-                }
-              >
-                <div className="absolute -left-4 top-10 w-48 translate-x-1/2 items-start justify-center gap-4 rounded-lg border border-neutral-300 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                  <Input
-                    type="time"
-                    onChange={(e) => {
-                      const [hour, minute] = e.target.value.split(':');
-                      setSpacesTimeInHour(hour);
-                      setSpacesTimeInMinute(minute);
-                    }}
-                  />
-                  <div className="mt-4 inline-flex w-full items-center justify-center gap-1 self-stretch rounded-lg bg-violet-500 p-2">
-                    {isLoading ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <CalendarIcon className="h-4 w-4 text-neutral-50" />
-                    )}
-                    <button
-                      className="flex items-center justify-center text-sm font-semibold leading-none text-neutral-50"
-                      onClick={createPublication}
-                    >
-                      Schedule Spaces
-                    </button>
-                  </div>
-                </div>
-              </Dropdown>
+              <ScheduleSpacesMenu
+                isLoading={isLoading}
+                createPublication={createPublication}
+              />
             )}
         </div>
       </div>

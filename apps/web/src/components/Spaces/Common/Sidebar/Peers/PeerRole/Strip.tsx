@@ -35,7 +35,7 @@ const Strip: FC<StripProps> = ({ type, title, variant, onClick }) => {
       className={clsx(
         'flex cursor-pointer items-center gap-1 p-1 text-sm font-normal',
         variant === 'normal'
-          ? 'text-neutral-500 dark:text-neutral-400'
+          ? 'text-gray-500 dark:text-gray-400'
           : 'text-red-400'
       )}
       onClick={onClick}

@@ -17,6 +17,7 @@ import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import React from 'react';
 import { toast } from 'react-hot-toast';
+import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
 type SpacesWindowProps = {
@@ -45,12 +46,12 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
     (profile) => profile?.ownedBy === space.host
   ) as Profile;
 
-  useEventListener('room:me-left', () => {
+  useEventListener(SpacesEvents.ROOM_ME_LEFT, () => {
     setShowSpacesWindow(false);
   });
 
   return (
-    <div className="border-b border-neutral-300 pb-3 dark:border-neutral-700">
+    <div className="border-b border-gray-300 pb-3 dark:border-gray-700">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {isExpanded ? (
@@ -65,7 +66,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
             />
           )}
           {!isExpanded && (
-            <div className="text-sm font-medium text-neutral-900 dark:text-neutral-300">
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-300">
               {space.title}
             </div>
           )}
@@ -95,7 +96,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
 
       {isExpanded && (
         <>
-          <div className="my-1 text-base font-medium text-neutral-900 dark:text-zinc-200">
+          <div className="my-1 text-base font-medium text-gray-900 dark:text-gray-200">
             {space.title}
           </div>
           <div className="flex items-center gap-1">

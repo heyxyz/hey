@@ -34,7 +34,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const id = useId();
 
   const iconStyles = [
-    'text-zinc-500 [&>*]:peer-focus:text-brand [&>*]:h-5',
+    'text-gray-500 [&>*]:peer-focus:text-brand [&>*]:h-5',
     { '!text-red-500 [&>*]:peer-focus:!text-red-500': error }
   ];
 

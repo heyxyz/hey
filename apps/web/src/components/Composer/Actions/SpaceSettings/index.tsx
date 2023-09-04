@@ -1,23 +1,17 @@
 import { LockClosedIcon } from '@heroicons/react/outline';
-import { Modal, Toggle, Tooltip } from '@lenster/ui';
-import { t, Trans } from '@lingui/macro';
+import { Modal, Tooltip } from '@lenster/ui';
+import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 import React, { useState } from 'react';
-import { useSpacesStore } from 'src/store/spaces';
 
 import TokenGateForm from './TokenGateForm';
 
-interface SpaceSettingsProps {
-  children?: ReactNode;
-}
-
-const SpaceSettings: FC<SpaceSettingsProps> = ({ children }) => {
+const SpaceSettings: FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="block items-center pt-3 sm:flex">
-      <div className="flex gap-2 space-x-1">
+    <>
         <Tooltip placement="top" content={t`Token Gate Spaces`}>
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -36,9 +30,7 @@ const SpaceSettings: FC<SpaceSettingsProps> = ({ children }) => {
         >
           <TokenGateForm setShowModal={setShowModal} />
         </Modal>
-      </div>
-      {children}
-    </div>
+    </>
   );
 };
 

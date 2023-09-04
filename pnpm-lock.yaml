@@ -91,8 +91,8 @@ importers:
         specifier: ^0.0.1
         version: 0.0.1
       '@huddle01/react':
-        specifier: 0.0.14-beta.0
-        version: 0.0.14-beta.0(@types/react@18.2.20)
+        specifier: 0.0.14-beta.1
+        version: 0.0.14-beta.1(@types/react@18.2.20)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.8.0)(react-dom@18.2.0)(react@18.2.0)
@@ -349,7 +349,7 @@ importers:
         version: 13.4.19(eslint@8.47.0)(typescript@5.2.2)
       eslint-plugin-prettier:
         specifier: ^5.0.0
-        version: 5.0.0(eslint@8.47.0)(prettier@3.0.2)
+        version: 5.0.0(eslint@8.47.0)(prettier@3.0.3)
       eslint-plugin-react:
         specifier: ^7.33.2
         version: 7.33.2(eslint@8.47.0)
@@ -4460,11 +4460,11 @@ packages:
       - debug
     dev: false
 
-  /@huddle01/react@0.0.14-beta.0(@types/react@18.2.20):
-    resolution: {integrity: sha512-aBTK5YyOqRWOxpVrndP+ceee3+qXjG4U1YxWn38bHcHnhbsph5uzB1voqO+Yr+38LFQu2ey0q1Jzhowk3qBU7g==}
+  /@huddle01/react@0.0.14-beta.1(@types/react@18.2.20):
+    resolution: {integrity: sha512-1GO2n6GCQMR2hogD6UKeXPuebpQGR3uVY+RtSCjLf+yeUo6xrDASwMzGh9b9TWNWMjmaDSHKvsMxksHqQa5J8A==}
     dependencies:
-      '@huddle01/web-core': 0.0.16-beta.0
-      jotai: 2.4.0(@types/react@18.2.20)(react@18.2.0)
+      '@huddle01/web-core': 0.0.16-beta.2
+      jotai: 2.4.1(@types/react@18.2.20)(react@18.2.0)
       react: 18.2.0
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -4475,8 +4475,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@huddle01/web-core@0.0.16-beta.0:
-    resolution: {integrity: sha512-b2V6T6Mh8FfJ5P5nK1Fvf43loL0esA8KSFKjP2PEo20oxR7R3JMlM8uDYl/SNOUcH1/KUAX85XkwF7E/Z5ZlsA==}
+  /@huddle01/web-core@0.0.16-beta.2:
+    resolution: {integrity: sha512-fQ+IoQzw5Ph3rrD1m6HCnVSxvc2aB1X551Nmf0MSUgMqndiqNdepOV0FhdOcIbOl7HgUoOWAwM/F7Y70s5s99g==}
     dependencies:
       axios: 1.4.0
       mediasoup-client: 3.6.100
@@ -6921,8 +6921,8 @@ packages:
   /@types/node@20.5.1:
     resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
 
-  /@types/node@20.5.7:
-    resolution: {integrity: sha512-dP7f3LdZIysZnmvP3ANJYTSwg+wLLl8p7RqniVlV7j+oXSXAbt9h0WIBFmJy5inWZoX9wZN6eXx+YXd9Rh3RBA==}
+  /@types/node@20.5.9:
+    resolution: {integrity: sha512-PcGNd//40kHAS3sTlzKB9C9XL4K0sTup8nbG5lC14kzEteTNuAFh9u5nA0o5TWnSG2r/JNPRXFVcHJIIeRlmqQ==}
     dev: false
 
   /@types/normalize-package-data@2.4.1:
@@ -9882,7 +9882,7 @@ packages:
       semver: 6.3.1
     dev: true
 
-  /eslint-plugin-prettier@5.0.0(eslint@8.47.0)(prettier@3.0.2):
+  /eslint-plugin-prettier@5.0.0(eslint@8.47.0)(prettier@3.0.3):
     resolution: {integrity: sha512-AgaZCVuYDXHUGxj/ZGu1u8H8CYgDY3iG6w5kUFw4AzMVXzB7VvbKgYR4nATIN+OvUrghMbiDLeimVjVY5ilq3w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -9897,7 +9897,7 @@ packages:
         optional: true
     dependencies:
       eslint: 8.47.0
-      prettier: 3.0.2
+      prettier: 3.0.3
       prettier-linter-helpers: 1.0.0
       synckit: 0.8.5
     dev: true
@@ -11449,7 +11449,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.5.7
+      '@types/node': 20.5.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -11472,8 +11472,8 @@ packages:
     resolution: {integrity: sha512-j8GhLiKmUAh+dsFXlX1aJCbt5KMibuKb+d7j1JaOJG6s2UjX1PQlW+OKB/sD4a/5ZYF4RcmYmLSndOoU3Lt/3g==}
     dev: true
 
-  /jotai@2.4.0(@types/react@18.2.20)(react@18.2.0):
-    resolution: {integrity: sha512-NUHJdAJe3C8Prf0DD6EzezCATjkNvfCNI7pgkaX7bCPPsqE0oK8L9RzZsEhz/UxFoGRayXwacTvAli0VEYKkqQ==}
+  /jotai@2.4.1(@types/react@18.2.20)(react@18.2.0):
+    resolution: {integrity: sha512-S4CTLpsZV+LABBXL5PgkMl+5jK3ljfbWmcLqtN7CQ2vio/Hrg3T6IKk/vf2/9hnp1imTPDsaFv7D54de/7Sa+w==}
     engines: {node: '>=12.20.0'}
     peerDependencies:
       '@types/react': '>=17.0.0'
@@ -13209,6 +13209,12 @@ packages:
     hasBin: true
     dev: true
 
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
+
   /pretty-format@29.6.2:
     resolution: {integrity: sha512-1q0oC8eRveTg5nnBEWMXAU2qpv65Gnuf2eCQzSjxpWFkPaPARwqZZDGuNE0zPAZfTCHzIk3A8dIjwlQKKLphyg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -14615,12 +14621,12 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
-      terser: 5.19.2
+      terser: 5.19.3
       webpack: 5.88.2
     dev: false
 
-  /terser@5.19.2:
-    resolution: {integrity: sha512-qC5+dmecKJA4cpYxRa5aVkKehYsQKc+AHeKl0Oe62aYjBL8ZA33tTljktDHJSaxxMnbI5ZYw+o/S2DxxLu8OfA==}
+  /terser@5.19.3:
+    resolution: {integrity: sha512-pQzJ9UJzM0IgmT4FAtYI6+VqFf0lj/to58AV0Xfgg0Up37RyPG7Al+1cepC6/BVuAxR9oNb41/DL4DEoHJvTdg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:

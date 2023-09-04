@@ -11,6 +11,7 @@ import clsx from 'clsx';
 import { type FC } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useAccount, useSignMessage } from 'wagmi';
+import dayjs from 'dayjs';
 
 import Wrapper from '../Wrapper';
 
@@ -58,12 +59,14 @@ const Space: FC<SpaceProps> = ({ publication }) => {
   ) as Profile;
 
   const calculateRemainingTime = () => {
-    const now = new Date();
-    const targetTime = new Date(space.startTime);
-    const timeDifference = targetTime.getTime() - now.getTime();
+    const now = dayjs();
+    const targetTime = dayjs(space.startTime);
+    const timeDifference = targetTime.diff(now);
+
     if (timeDifference <= 0) {
       return t`Start Listening`;
     }
+
     const hours = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)

@@ -33,11 +33,11 @@ const MusicTray: FC = () => {
   }, [isMyMusicPlaying]);
 
   const MusicTrackSelection = ({ value, label }: MusicTrackSelectionProps) => (
-    <div className="cursor-pointer border-b border-neutral-300 p-2 text-center text-base font-semibold dark:border-slate-700">
+    <div className="cursor-pointer border-b border-gray-300 p-2 text-center text-base font-semibold dark:border-gray-700">
       <Radio
         value={value}
         heading={
-          <div className="p-1 text-sm font-medium text-neutral-500 dark:text-neutral-400">
+          <div className="p-1 text-sm font-medium text-gray-500 dark:text-gray-400">
             {label}
           </div>
         }
@@ -48,9 +48,9 @@ const MusicTray: FC = () => {
   );
 
   return (
-    <div className="rounded-lg border border-neutral-300 dark:border-slate-700 dark:bg-neutral-900">
+    <div className="rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900">
       <div className="relative">
-        <div className="flex items-center justify-center border-b border-neutral-300 px-2 py-3 font-semibold text-neutral-700 dark:border-slate-700 dark:text-slate-200">
+        <div className="flex items-center justify-center border-b border-gray-300 px-2 py-3 font-semibold text-gray-700 dark:border-gray-700 dark:text-gray-200">
           <MusicNoteIcon className="mr-2 h-5 w-5 " />
           <span className="text-sm font-medium">
             <Trans>Background Music</Trans>
@@ -83,12 +83,12 @@ const MusicTray: FC = () => {
         {isMyMusicPlaying ? (
           <StopIcon className="h-5 w-5 text-red-400" />
         ) : (
-          <PlayIcon className="h-5 w-5 text-slate-200" />
+          <PlayIcon className="h-5 w-5 text-gray-200" />
         )}
         <div
           className={clsx(
             'text-sm font-semibold',
-            isMyMusicPlaying ? 'text-red-400' : 'text-slate-200'
+            isMyMusicPlaying ? 'text-red-400' : 'text-gray-200'
           )}
         >
           <Trans>{isMyMusicPlaying ? 'Stop music' : 'Play music'}</Trans>

@@ -69,7 +69,7 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
                 />
               ))}
           </div>
-          <div className="py-4 text-sm font-normal leading-none text-slate-400">
+          <div className="py-4 text-sm font-normal leading-none text-gray-400">
             <Plural
               value={listenersCount}
               zero={t`No listeners`}

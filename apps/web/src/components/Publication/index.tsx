@@ -29,8 +29,8 @@ import PublicationPageShimmer from './Shimmer';
 const ViewPublication: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
-  const showNewPublicationModal = useGlobalModalStateStore(
-    (state) => state.showNewPublicationModal
+  const showComposerModal = useGlobalModalStateStore(
+    (state) => state.showComposerModal
   );
 
   const {
@@ -82,7 +82,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} />
         </Card>
-        {currentProfile && !publication?.hidden && !showNewPublicationModal ? (
+        {currentProfile && !publication?.hidden && !showComposerModal ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (

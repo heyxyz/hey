@@ -18,12 +18,12 @@ const PeerList: FC<PeerListProps> = ({ className, children, title, count }) => {
   return (
     <div className={clsx(className)}>
       <div className="flex h-full items-center gap-4 overflow-y-auto">
-        <div className="h-[1px] flex-1 translate-y-2 bg-neutral-400 dark:bg-slate-800" />
-        <div className="relative mt-4 flex items-center justify-center gap-1 text-xs font-medium text-neutral-400 dark:text-slate-300">
+        <div className="h-[1px] flex-1 translate-y-2 bg-gray-400 dark:bg-gray-800" />
+        <div className="relative mt-4 flex items-center justify-center gap-1 text-xs font-medium text-gray-400 dark:text-gray-300">
           <Trans> {title} </Trans>
           {TitleArr.includes(title) && <span>- {count}</span>}
         </div>
-        <div className="h-[1px] flex-1 translate-y-2 bg-neutral-400 dark:bg-slate-800" />
+        <div className="h-[1px] flex-1 translate-y-2 bg-gray-400 dark:bg-gray-800" />
       </div>
       {children}
     </div>
