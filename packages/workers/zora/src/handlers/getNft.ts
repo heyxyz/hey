@@ -9,20 +9,21 @@ export default async (request: WorkerRequest) => {
     name: '@lenster/zora/getNft'
   });
 
-  const { network, chain, address } = request.query;
+  const { chain, address } = request.query;
 
-  if (!network || !chain || !address) {
+  if (!chain || !address) {
     return response({
       success: false,
-      error: 'No network, chain and address provided'
+      error: 'No chain and address provided'
     });
   }
 
   try {
+    const mainnetChains = ['eth', 'oeth', 'base', 'zora'];
+    const network = mainnetChains.includes(chain as string) ? '' : 'testnet.';
+
     const zoraResponse = await fetch(
-      `https://${
-        network === 'testnet' ? 'testnet.' : ''
-      }zora.co/api/personalize/collection/${chain}:${address}`
+      `https://${network}zora.co/api/personalize/collection/${chain}:${address}`
     );
     const nft: { collection: any } = await zoraResponse.json();
 
