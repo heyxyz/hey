@@ -2992,13 +2992,24 @@ msgid "Switch to {0}"
 msgstr "Switch to {0}"
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
+#~ msgid "Mint All"
+#~ msgstr "Mint All"
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr "ERC-1155 Collection"
+
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint"
 msgstr "Mint"
 
 #: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint All"
-msgstr "Mint All"
+msgid "Mint all on Zora"
+msgstr "Mint all on Zora"
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr "Mint on Zora"
 
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
 msgid "This proposal is closed!"
