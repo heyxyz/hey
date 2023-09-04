@@ -4,11 +4,8 @@ import { TEST_URL } from '../constants';
 
 describe('getNft', () => {
   test('should return valid nft response if chain and address is provided', async () => {
-    console.log(
-      `${TEST_URL}/nft?chain=zora&address=0x4ad3cd57a68149a5c5d8a41919dc8ac02d00a366`
-    );
     const getRequest = await fetch(
-      `${TEST_URL}/nft?chain=zora&address=0x4ad3cd57a68149a5c5d8a41919dc8ac02d00a366`
+      `${TEST_URL}/nft?chain=zora&address=0x4ad3cd57a68149a5c5d8a41919dc8ac02d00a366&network=mainnet`
     );
     const response: any = await getRequest.json();
 
