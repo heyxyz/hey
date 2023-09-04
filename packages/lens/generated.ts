@@ -13502,6 +13502,63 @@ export type CommentFeedQuery = {
   };
 };
 
+export type DefaultProfileQueryVariables = Exact<{
+  request: DefaultProfileRequest;
+}>;
+
+export type DefaultProfileQuery = {
+  __typename?: 'Query';
+  defaultProfile?: {
+    __typename?: 'Profile';
+    id: any;
+    name?: string | null;
+    handle: any;
+    bio?: string | null;
+    ownedBy: any;
+    isFollowedByMe: boolean;
+    stats: {
+      __typename?: 'ProfileStats';
+      totalFollowers: number;
+      totalFollowing: number;
+      totalPosts: number;
+      totalComments: number;
+      totalMirrors: number;
+    };
+    attributes?: Array<{
+      __typename?: 'Attribute';
+      traitType?: string | null;
+      key: string;
+      value: string;
+    }> | null;
+    picture?:
+      | {
+          __typename?: 'MediaSet';
+          original: { __typename?: 'Media'; url: any };
+        }
+      | {
+          __typename?: 'NftImage';
+          uri: any;
+          tokenId: string;
+          contractAddress: any;
+          chainId: number;
+        }
+      | null;
+    coverPicture?:
+      | {
+          __typename?: 'MediaSet';
+          original: { __typename?: 'Media'; url: any };
+        }
+      | { __typename?: 'NftImage' }
+      | null;
+    followModule?:
+      | { __typename: 'FeeFollowModuleSettings' }
+      | { __typename: 'ProfileFollowModuleSettings' }
+      | { __typename: 'RevertFollowModuleSettings' }
+      | { __typename: 'UnknownFollowModuleSettings' }
+      | null;
+  } | null;
+};
+
 export type EnabledModulesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type EnabledModulesQuery = {
@@ -53458,6 +53515,65 @@ export type CommentFeedLazyQueryHookResult = ReturnType<
 export type CommentFeedQueryResult = Apollo.QueryResult<
   CommentFeedQuery,
   CommentFeedQueryVariables
+>;
+export const DefaultProfileDocument = gql`
+  query DefaultProfile($request: DefaultProfileRequest!) {
+    defaultProfile(request: $request) {
+      ...ProfileFields
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`;
+
+/**
+ * __useDefaultProfileQuery__
+ *
+ * To run a query within a React component, call `useDefaultProfileQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDefaultProfileQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDefaultProfileQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useDefaultProfileQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    DefaultProfileQuery,
+    DefaultProfileQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(
+    DefaultProfileDocument,
+    options
+  );
+}
+export function useDefaultProfileLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    DefaultProfileQuery,
+    DefaultProfileQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<DefaultProfileQuery, DefaultProfileQueryVariables>(
+    DefaultProfileDocument,
+    options
+  );
+}
+export type DefaultProfileQueryHookResult = ReturnType<
+  typeof useDefaultProfileQuery
+>;
+export type DefaultProfileLazyQueryHookResult = ReturnType<
+  typeof useDefaultProfileLazyQuery
+>;
+export type DefaultProfileQueryResult = Apollo.QueryResult<
+  DefaultProfileQuery,
+  DefaultProfileQueryVariables
 >;
 export const EnabledModulesDocument = gql`
   query EnabledModules {
