@@ -3006,6 +3006,7 @@ msgstr ""
 #: src/components/Shared/OpenAction/Nft/Mint/index.tsx
 #: src/components/Shared/OpenAction/Nft/Mint/index.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint on Zora"
 msgstr ""
 
