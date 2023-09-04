@@ -2,7 +2,6 @@ export interface ZoraNftMetadata {
   chain: string;
   address: string;
   token: string;
-  network: 'testnet' | 'mainnet';
 }
 
 export interface ZoraNft {
