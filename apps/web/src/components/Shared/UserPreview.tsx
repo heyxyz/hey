@@ -95,7 +95,7 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     return (
       <>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-2.5 pt-3">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
             {!lazyProfile.isFollowedByMe ? (
@@ -118,7 +118,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             ) : null}
           </div>
         </div>
-        <div className="space-y-3 p-1">
+        <div className="space-y-3 p-1 px-2.5 pb-3">
           <UserName />
           <div>
             {lazyProfile?.bio ? (
@@ -192,7 +192,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         arrow={false}
         interactive
         zIndex={1000}
-        className="hidden w-64 !rounded-xl border !bg-white !px-1.5 !py-3 !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
         appendTo={() => document.body}
       >
         <span>{children}</span>
