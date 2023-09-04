@@ -1,6 +1,5 @@
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 
-const mainnetChains = ['eth', 'oeth', 'base', 'zora'];
 export const regex =
   /https:\/\/(?:testnet\.)?zora\.co\/collect\/(eth|oeth|base|zora|gor|ogor|basegor|zgor):(0x[\dA-Fa-f]{40})((?:\/(\d+))?|$)/;
 
@@ -15,9 +14,8 @@ const getZoraNFT = (url: string): ZoraNftMetadata | null => {
     const chain = matches[1];
     const address = matches[2];
     const token = matches[4];
-    const network = mainnetChains.includes(chain) ? 'mainnet' : 'testnet';
 
-    return { chain, address, token, network };
+    return { chain, address, token };
   }
 
   return null;
