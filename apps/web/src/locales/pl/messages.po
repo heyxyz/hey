@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-04 00:08\n"
+"PO-Revision-Date: 2023-09-05 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -2987,9 +2987,47 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint"
+msgstr ""
+
+#: src/components/Shared/OpenAction/Nft/index.tsx
+msgid "Mint all on Zora"
 msgstr ""
 
 #: src/components/Shared/OpenAction/Snapshot/Choices.tsx
@@ -3122,11 +3160,11 @@ msgid "Super follow"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
+msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
+msgid "Please change your network wallet!"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
