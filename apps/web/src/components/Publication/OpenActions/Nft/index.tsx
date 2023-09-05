@@ -82,7 +82,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             </Tooltip>
           ) : null}
         </div>
-        {isLensMember && canMint && nft.contractStandard === 'ERC721' ? (
+        {isLensMember && canMint ? (
           <>
             <Button
               className="text-sm"
