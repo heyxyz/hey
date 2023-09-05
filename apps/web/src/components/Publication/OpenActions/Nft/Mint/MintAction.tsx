@@ -23,7 +23,8 @@ import { useZoraMintStore } from '.';
 
 const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
-const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR];
+const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
+const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
   nft: ZoraNft;
@@ -116,6 +117,13 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
               <Trans>You don't have balance</Trans>
             </Button>
           </Link>
+        ) : prepareError?.message.includes(MAX_MINT_EXCEEDED_ERROR) ? (
+          <div className="mt-5 w-full">
+            <div className="divider" />
+            <b className="mt-5 flex w-full justify-center">
+              <Trans>You exceeded the mint limit</Trans>
+            </b>
+          </div>
         ) : (
           <Link
             className="w-full"
