@@ -1,5 +1,5 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { CursorClickIcon } from '@heroicons/react/outline';
+import { CurrencyDollarIcon, CursorClickIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
@@ -22,6 +22,8 @@ import {
 import { useZoraMintStore } from '.';
 
 const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
+const NO_BALANCE_ERROR = 'exceeds the balance of the account';
+const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR];
 
 interface MintActionProps {
   nft: ZoraNft;
@@ -58,7 +60,8 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const {
     config,
     isFetching: isPrepareFetching,
-    isError: isPrepareError
+    isError: isPrepareError,
+    error: prepareError
   } = usePrepareContractWrite({
     chainId: nft.chainId,
     address: nftAddress,
@@ -78,8 +81,14 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   });
 
   useUpdateEffect(() => {
-    setCanMintOnLenster(!isPrepareError);
-  }, [isPrepareError, isPrepareFetching]);
+    setCanMintOnLenster(
+      !isPrepareError ||
+        (isPrepareError &&
+          ALLOWED_ERRORS_FOR_MINTING.some(
+            (error) => prepareError?.message.includes(error)
+          ))
+    );
+  }, [isPrepareFetching]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 
@@ -92,20 +101,37 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
           title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
-        <Link
-          className="w-full"
-          href={zoraLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            className="mt-5 w-full justify-center"
-            icon={<CursorClickIcon className="h-5 w-5" />}
-            size="md"
+        prepareError?.message.includes(NO_BALANCE_ERROR) ? (
+          <Link
+            className="w-full"
+            href="https://app.uniswap.org"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Trans>Mint on Zora</Trans>
-          </Button>
-        </Link>
+            <Button
+              className="mt-5 w-full justify-center"
+              icon={<CurrencyDollarIcon className="h-5 w-5" />}
+              size="md"
+            >
+              <Trans>You don't have balance</Trans>
+            </Button>
+          </Link>
+        ) : (
+          <Link
+            className="w-full"
+            href={zoraLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              className="mt-5 w-full justify-center"
+              icon={<CursorClickIcon className="h-5 w-5" />}
+              size="md"
+            >
+              <Trans>Mint on Zora</Trans>
+            </Button>
+          </Link>
+        )
       ) : (
         <Button
           className="mt-5 w-full justify-center"
