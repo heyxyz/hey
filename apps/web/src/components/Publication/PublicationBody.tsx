@@ -103,10 +103,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           </Link>
         </div>
       ) : null}
-      {/* Snapshot, NFT, Attachments and Opengraph */}
+      {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
+      {showQuotedPublication ? (
+        <Quote publicationId={quotedPublicationId} />
+      ) : null}
+      {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} /> : null}
       {showOembed ? (
@@ -115,9 +119,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           publicationId={publication.id}
           onData={onOembedData}
         />
-      ) : null}
-      {showQuotedPublication ? (
-        <Quote publicationId={quotedPublicationId} />
       ) : null}
     </div>
   );
