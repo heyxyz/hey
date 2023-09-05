@@ -1,9 +1,9 @@
+import Nft from '@components/Publication/OpenActions/Nft';
+import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
-import Nft from '@components/Shared/OpenAction/Nft';
-import Snapshot from '@components/Shared/OpenAction/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
@@ -103,10 +103,14 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           </Link>
         </div>
       ) : null}
-      {/* Snapshot, NFT, Attachments and Opengraph */}
+      {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
+      {showQuotedPublication ? (
+        <Quote publicationId={quotedPublicationId} />
+      ) : null}
+      {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} /> : null}
       {showOembed ? (
@@ -115,9 +119,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           publicationId={publication.id}
           onData={onOembedData}
         />
-      ) : null}
-      {showQuotedPublication ? (
-        <Quote publicationId={quotedPublicationId} />
       ) : null}
     </div>
   );
