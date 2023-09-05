@@ -266,7 +266,7 @@ msgid "Add another option"
 msgstr "Добавить еще один вариант"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Опрос"
 
@@ -1808,6 +1808,85 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint all on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "Этот опрос закрыт!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} голосование пока не поддерживается!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Ваш голос был учтен!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Текущие результаты"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Результаты"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} осталось"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Проголосуйте"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
@@ -2466,7 +2545,11 @@ msgid "Add author"
 msgstr "Добавить автора"
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
+#~ msgid "Alpha"
+#~ msgstr ""
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha 🤫"
 msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
@@ -2986,85 +3069,6 @@ msgstr "Главная"
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr "Найти"
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "{0} minted"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "{0} remaining"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "Open in Zora"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Switch to {0}"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-#: src/components/Shared/OpenAction/Nft/index.tsx
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint on Zora"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Minting in progress"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Minted successful"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "ERC-1155 Collection"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint all on Zora"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "Этот опрос закрыт!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} голосование пока не поддерживается!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Ваш голос был учтен!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Текущие результаты"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Результаты"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} осталось"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Проголосуйте"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"

@@ -266,7 +266,7 @@ msgid "Add another option"
 msgstr "Add another option"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Poll"
 
@@ -1808,6 +1808,85 @@ msgstr "MOMOKA PROOF"
 msgid "NFT ADDRESS"
 msgstr ""
 
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr "{0} minted"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr "{0} remaining"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr "Open in Zora"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr "Switch to {0}"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr "Mint on Zora"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr "Minting in progress"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr "Minted successful"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr "ERC-1155 Collection"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint"
+msgstr "Mint"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint all on Zora"
+msgstr "Mint all on Zora"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "This proposal is closed!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Current results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Cast your vote"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
@@ -2466,8 +2545,12 @@ msgid "Add author"
 msgstr ""
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
-msgstr "Alpha"
+#~ msgid "Alpha"
+#~ msgstr "Alpha"
+
+#: src/components/Shared/Badges/Alpha.tsx
+msgid "Alpha 🤫"
+msgstr "Alpha 🤫"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
@@ -2986,85 +3069,6 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "{0} minted"
-msgstr "{0} minted"
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "{0} remaining"
-msgstr "{0} remaining"
-
-#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
-msgid "Open in Zora"
-msgstr "Open in Zora"
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Switch to {0}"
-msgstr "Switch to {0}"
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-#: src/components/Shared/OpenAction/Nft/index.tsx
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint on Zora"
-msgstr "Mint on Zora"
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Minting in progress"
-msgstr "Minting in progress"
-
-#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
-msgid "Minted successful"
-msgstr "Minted successful"
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "ERC-1155 Collection"
-msgstr "ERC-1155 Collection"
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint"
-msgstr "Mint"
-
-#: src/components/Shared/OpenAction/Nft/index.tsx
-msgid "Mint all on Zora"
-msgstr "Mint all on Zora"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} voting is not supported yet!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "This poll is ended!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Your vote has been casted!"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Current results"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Results"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} left"
-
-#: src/components/Shared/OpenAction/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Cast your vote"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
