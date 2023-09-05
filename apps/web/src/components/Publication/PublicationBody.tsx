@@ -62,10 +62,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showNft = nft;
   // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
+  // Show attachments if it's there
+  const showAttachments = metadata?.media?.length > 0;
   // Show quoted publication if it's there
   const showQuotedPublication = quotedPublicationId && !quoted;
-  // Show attachments if no NFT
-  const showAttachments = !showNft && metadata?.media?.length > 0;
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs &&
