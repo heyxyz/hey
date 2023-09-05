@@ -1,9 +1,9 @@
+import Nft from '@components/Publication/OpenActions/Nft';
+import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
-import Nft from '@components/Shared/OpenAction/Nft';
-import Snapshot from '@components/Shared/OpenAction/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
