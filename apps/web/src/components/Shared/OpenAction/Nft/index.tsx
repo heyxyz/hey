@@ -1,6 +1,7 @@
 import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
@@ -50,6 +51,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     'ERC1155_COLLECTION_TOKEN'
   ].includes(nft.contractType);
 
+  const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
+  const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
+    token ? `/${token}` : ''
+  }`;
+
   return (
     <Card
       className="mt-3"
@@ -91,17 +97,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               icon={<CursorClickIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
-              <Mint nft={nft} metadata={nftMetadata} />
+              <Mint nft={nft} zoraLink={zoraLink} />
             </Modal>
           </>
         ) : (
-          <Link
-            href={`https://zora.co/collect/${chain}:${address}${
-              token ? `/${token}` : ''
-            }`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
             <Button
               className="text-sm"
               icon={<CursorClickIcon className="h-4 w-4" />}
