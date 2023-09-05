@@ -63,9 +63,9 @@ export interface Database {
           high_signal_notification_filter: boolean;
           id: string;
           is_gardener: boolean;
+          is_lens_member: boolean;
           is_pride: boolean;
           is_staff: boolean;
-          is_trusted_member: boolean;
           is_verified: boolean;
           staff_mode: boolean;
         };
@@ -74,9 +74,9 @@ export interface Database {
           high_signal_notification_filter?: boolean;
           id: string;
           is_gardener?: boolean;
+          is_lens_member?: boolean;
           is_pride?: boolean;
           is_staff?: boolean;
-          is_trusted_member?: boolean;
           is_verified?: boolean;
           staff_mode?: boolean;
         };
@@ -85,9 +85,9 @@ export interface Database {
           high_signal_notification_filter?: boolean;
           id?: string;
           is_gardener?: boolean;
+          is_lens_member?: boolean;
           is_pride?: boolean;
           is_staff?: boolean;
-          is_trusted_member?: boolean;
           is_verified?: boolean;
           staff_mode?: boolean;
         };

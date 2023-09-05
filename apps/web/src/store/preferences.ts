@@ -7,8 +7,8 @@ interface PreferencesState {
   setIsStaff: (isStaff: boolean) => void;
   isGardener: boolean;
   setIsGardener: (isGardener: boolean) => void;
-  isTrustedMember: boolean;
-  setIsTrustedMember: (isTrustedMember: boolean) => void;
+  isLensMember: boolean;
+  setIsLensMember: (isLensMember: boolean) => void;
   staffMode: boolean;
   setStaffMode: (staffMode: boolean) => void;
   gardenerMode: boolean;
@@ -30,8 +30,8 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
   setIsStaff: (isStaff) => set(() => ({ isStaff })),
   isGardener: false,
   setIsGardener: (isGardener) => set(() => ({ isGardener })),
-  isTrustedMember: false,
-  setIsTrustedMember: (isTrustedMember) => set(() => ({ isTrustedMember })),
+  isLensMember: false,
+  setIsLensMember: (isLensMember) => set(() => ({ isLensMember })),
   staffMode: false,
   setStaffMode: (staffMode) => set(() => ({ staffMode })),
   gardenerMode: false,
@@ -45,7 +45,7 @@ export const usePreferencesStore = create<PreferencesState>((set) => ({
     set(() => ({
       isStaff: false,
       isGardener: false,
-      isTrustedMember: false,
+      isLensMember: false,
       staffMode: false,
       gardenerMode: false,
       isPride: false,
