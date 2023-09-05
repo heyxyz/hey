@@ -242,48 +242,27 @@ ul {
 }
 
 .horizontal-loader > div {
+  background: linear-gradient(
+    5deg,
+    #dc2626,
+    #ea580c,
+    #ca8a04,
+    #16a34a,
+    #2563eb,
+    #4f46e5,
+    #7c3aed
+  );
   width: 100%;
-  animation: loader 700ms linear infinite;
   @apply h-1.5 rounded-tl-xl rounded-tr-xl;
+  animation: gradient 4s linear infinite;
+  background-size: 250% 100%;
 }
 
-.horizontal-loader {
-  animation-delay: 0.05s;
-}
-
-@keyframes loader {
+@keyframes gradient {
   0% {
-    width: 100%;
-    @apply bg-red-600;
+    background-position: 0%;
   }
-
-  15% {
-    width: 100%;
-    @apply bg-orange-600;
-  }
-
-  30% {
-    width: 100%;
-    @apply bg-yellow-600;
-  }
-
-  45% {
-    width: 100%;
-    @apply bg-green-600;
-  }
-
-  60% {
-    width: 100%;
-    @apply bg-blue-600;
-  }
-
-  75% {
-    width: 100%;
-    @apply bg-indigo-600;
-  }
-
   100% {
-    width: 100%;
-    @apply bg-violet-600;
+    background-position: 500%;
   }
 }
