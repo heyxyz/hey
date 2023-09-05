@@ -243,10 +243,8 @@ ul {
 
 .horizontal-loader > div {
   width: 100%;
-  height: 6px;
   animation: loader 700ms linear infinite;
-  @apply rounded-tl-xl;
-  @apply rounded-tr-xl;
+  @apply h-1.5 rounded-tl-xl rounded-tr-xl;
 }
 
 .horizontal-loader {
