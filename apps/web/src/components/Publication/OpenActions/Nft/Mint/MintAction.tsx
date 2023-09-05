@@ -1,7 +1,7 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { CursorClickIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { ZoraERC721Drop } from '@lenster/abis';
+import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useUpdateEffect } from 'usehooks-ts';
-import { parseEther } from 'viem';
+import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
   useChainId,
   useContractWrite,
@@ -20,6 +20,8 @@ import {
 } from 'wagmi';
 
 import { useZoraMintStore } from '.';
+
+const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
 
 interface MintActionProps {
   nft: ZoraNft;
@@ -31,7 +33,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const { quantity, setCanMintOnLenster } = useZoraMintStore();
   const chain = useChainId();
 
-  const erc721Address = nft.address;
+  const nftAddress = nft.address;
   const recipient = currentProfile?.ownedBy;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
@@ -40,17 +42,30 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const value =
     (parseEther(nftPriceInEth.toString()) + mintFee) * BigInt(quantity);
 
+  const abi =
+    nft.contractStandard === 'ERC721' ? ZoraERC721Drop : ZoraCreator1155Impl;
+  const args =
+    nft.contractStandard === 'ERC721'
+      ? [recipient, BigInt(quantity), comment, mintReferral]
+      : [
+          FIXED_PRICE_SALE_STRATEGY,
+          parseInt(nft.tokenId),
+          BigInt(quantity),
+          encodeAbiParameters(parseAbiParameters('address'), [recipient]),
+          mintReferral
+        ];
+
   const {
     config,
     isFetching: isPrepareFetching,
     isError: isPrepareError
   } = usePrepareContractWrite({
     chainId: nft.chainId,
-    abi: ZoraERC721Drop,
-    address: erc721Address,
+    address: nftAddress,
     functionName: 'mintWithRewards',
-    args: [recipient, BigInt(quantity), comment, mintReferral],
-    value: value
+    abi,
+    args,
+    value
   });
   const {
     write,
