@@ -4,18 +4,21 @@ import getRedstonePrice from '@lib/getRedstonePrice';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';
 
+import { useZoraMintStore } from '.';
+
 interface PriceProps {
   nft: ZoraNft;
 }
 
 const Price: FC<PriceProps> = ({ nft }) => {
+  const { quantity } = useZoraMintStore();
   const { data: usdPrice } = useQuery(
     ['redstoneData'],
     () => getRedstonePrice('ETH').then((res) => res),
     { enabled: Boolean(nft.price) }
   );
 
-  const price = parseInt(nft.price);
+  const price = quantity * parseInt(nft.price);
   const nftPriceInEth = price / 10 ** 18;
   const platformFees = 0.000777;
   const priceInUsd = usdPrice * (nftPriceInEth + platformFees);

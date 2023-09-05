@@ -18,6 +18,8 @@ import {
   useWaitForTransaction
 } from 'wagmi';
 
+import { useZoraMintStore } from '.';
+
 interface MintActionProps {
   nft: ZoraNft;
   zoraLink: string;
@@ -25,10 +27,11 @@ interface MintActionProps {
 
 const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { quantity } = useZoraMintStore();
   const chain = useChainId();
+
   const erc721Address = nft.address;
   const recipient = currentProfile?.ownedBy;
-  const quantity = 1n;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
   const mintFee = parseEther('0.000777');
@@ -38,8 +41,8 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
     abi: ZoraERC721Drop,
     address: erc721Address,
     functionName: 'mintWithRewards',
-    args: [recipient, quantity, comment, mintReferral],
-    value: mintFee * quantity
+    args: [recipient, BigInt(quantity), comment, mintReferral],
+    value: mintFee * BigInt(quantity)
   });
   const {
     write,
