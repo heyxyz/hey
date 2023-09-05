@@ -3216,6 +3216,9 @@ msgid "Gardener member"
 msgstr "Gardener member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr "Lens Team member"
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr "Trusted member"
