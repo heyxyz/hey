@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
-          <HelpTooltip content={helper} />
+          <HelpTooltip>{helper}</HelpTooltip>
         </div>
       ) : null}
       <div className="flex">

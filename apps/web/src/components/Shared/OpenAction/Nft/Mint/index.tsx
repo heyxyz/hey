@@ -5,6 +5,7 @@ import { type FC } from 'react';
 import Metadata from './Metadata';
 import MintAction from './MintAction';
 import MintedBy from './MintedBy';
+import Price from './Price';
 
 interface MintProps {
   nft: ZoraNft;
@@ -22,6 +23,7 @@ const Mint: FC<MintProps> = ({ nft, zoraLink }) => {
         </Markup>
       </div>
       <Metadata nft={nft} zoraLink={zoraLink} />
+      <Price nft={nft} />
       <MintAction nft={nft} zoraLink={zoraLink} />
     </div>
   );
