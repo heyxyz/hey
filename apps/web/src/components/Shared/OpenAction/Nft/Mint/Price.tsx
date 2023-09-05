@@ -15,17 +15,20 @@ const Price: FC<PriceProps> = ({ nft }) => {
     { enabled: Boolean(nft.price) }
   );
 
-  const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
+  const price = parseInt(nft.price);
+  const nftPriceInEth = price / 10 ** 18;
   const platformFees = 0.000777;
   const priceInUsd = usdPrice * (nftPriceInEth + platformFees);
 
   return (
     <div className="mt-4">
       <div className="divider mb-4" />
-      <div className="mb-2 flex items-baseline space-x-2 font-mono">
-        <div className="text-2xl">{nftPriceInEth}</div>
-        <div className="text-sm">ETH</div>
-      </div>
+      {price > 0 ? (
+        <div className="mb-2 flex items-baseline space-x-2 font-mono">
+          <div className="text-2xl">{nftPriceInEth}</div>
+          <div className="text-sm">ETH</div>
+        </div>
+      ) : null}
       <div className="mb-1.5 flex items-center space-x-2 font-mono">
         <div className="text-xs">+ ${platformFees} ETH mint fee</div>
         <HelpTooltip>
