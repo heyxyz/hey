@@ -40,7 +40,7 @@ const Access: FC<RankProps> = ({ profile }) => {
   const [isVerified, setIsVerified] = useState(false);
   const [isStaff, setIsStaff] = useState(false);
   const [isGardener, setIsGardener] = useState(false);
-  const [isTrustedMember, setIsTrustedMember] = useState(false);
+  const [isLensMember, setIsLensMember] = useState(false);
 
   const getPreferences = async () => {
     try {
@@ -52,7 +52,7 @@ const Access: FC<RankProps> = ({ profile }) => {
       setIsVerified(data.result?.is_verified || false);
       setIsStaff(data.result?.is_staff || false);
       setIsGardener(data.result?.is_gardener || false);
-      setIsTrustedMember(data.result?.is_trusted_member || false);
+      setIsLensMember(data.result?.is_lens_member || false);
 
       return data.success;
     } catch (error) {
@@ -76,7 +76,7 @@ const Access: FC<RankProps> = ({ profile }) => {
           ...(type === Type.STAFF && { isStaff: !isStaff }),
           ...(type === Type.GARDENER && { isGardener: !isGardener }),
           ...(type === Type.TUSTED_MEMBER && {
-            isTrustedMember: !isTrustedMember
+            isLensMember: !isLensMember
           }),
           updateByAdmin: true
         },
@@ -96,7 +96,7 @@ const Access: FC<RankProps> = ({ profile }) => {
           } else if (type === Type.GARDENER) {
             setIsGardener(!isGardener);
           } else if (type === Type.TUSTED_MEMBER) {
-            setIsTrustedMember(!isTrustedMember);
+            setIsLensMember(!isLensMember);
           }
 
           return t`Access updated`;
@@ -152,10 +152,10 @@ const Access: FC<RankProps> = ({ profile }) => {
           </Wrapper>
         )}
         {preferences ? (
-          <Wrapper title={<Trans>Trusted member</Trans>}>
+          <Wrapper title={<Trans>Lens Team member</Trans>}>
             <Toggle
               setOn={() => staffUpdatePreferences(Type.TUSTED_MEMBER)}
-              on={isTrustedMember}
+              on={isLensMember}
             />
           </Wrapper>
         ) : (

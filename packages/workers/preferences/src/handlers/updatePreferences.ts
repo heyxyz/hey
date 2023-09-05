@@ -16,7 +16,7 @@ type ExtensionRequest = {
   id: string;
   isStaff?: boolean;
   isGardener?: boolean;
-  isTrustedMember?: boolean;
+  isLensMember?: boolean;
   isVerified?: boolean;
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
@@ -27,7 +27,7 @@ const validationSchema = object({
   id: string(),
   isStaff: boolean().optional(),
   isGardener: boolean().optional(),
-  isTrustedMember: boolean().optional(),
+  isLensMember: boolean().optional(),
   isVerified: boolean().optional(),
   isPride: boolean().optional(),
   highSignalNotificationFilter: boolean().optional(),
@@ -59,7 +59,7 @@ export default async (request: WorkerRequest) => {
     id,
     isGardener,
     isStaff,
-    isTrustedMember,
+    isLensMember,
     updateByAdmin,
     isVerified,
     isPride,
@@ -93,7 +93,7 @@ export default async (request: WorkerRequest) => {
         ...(updateByAdmin && {
           is_staff: isStaff,
           is_gardener: isGardener,
-          is_trusted_member: isTrustedMember,
+          is_lens_member: isLensMember,
           is_verified: isVerified
         }),
         is_pride: isPride,
