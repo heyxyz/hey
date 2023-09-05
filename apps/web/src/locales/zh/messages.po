@@ -1809,6 +1809,10 @@ msgid "NFT ADDRESS"
 msgstr "NFT地址"
 
 #: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
 msgid "{0} minted"
 msgstr ""
 
