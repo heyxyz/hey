@@ -1829,6 +1829,10 @@ msgid "Switch to {0}"
 msgstr "Switch to {0}"
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr "You don't have balance"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
