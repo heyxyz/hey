@@ -3168,13 +3168,13 @@ msgid "Please change your network wallet!"
 msgstr "请更换您的钱包网络！"
 
 #: src/components/Shared/SwitchProfiles.tsx
-msgid "Create Profile"
-msgstr "创建个人账户"
+#: src/components/Shared/SwitchProfiles.tsx
+#~ msgid "Login with NFT"
+#~ msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
-#: src/components/Shared/SwitchProfiles.tsx
-msgid "Login with NFT"
-msgstr ""
+msgid "Create Profile"
+msgstr "创建个人账户"
 
 #: src/components/Shared/Unfollow.tsx
 msgid "Unfollowed successfully!"
