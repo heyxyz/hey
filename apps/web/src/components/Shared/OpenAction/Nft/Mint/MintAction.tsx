@@ -10,6 +10,7 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
 import {
   useChainId,
@@ -27,22 +28,29 @@ interface MintActionProps {
 
 const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { quantity } = useZoraMintStore();
+  const { quantity, setCanMintOnLenster } = useZoraMintStore();
   const chain = useChainId();
 
   const erc721Address = nft.address;
   const recipient = currentProfile?.ownedBy;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
+  const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
   const mintFee = parseEther('0.000777');
+  const value =
+    (parseEther(nftPriceInEth.toString()) + mintFee) * BigInt(quantity);
 
-  const { config, isError: isPrepareError } = usePrepareContractWrite({
+  const {
+    config,
+    isFetching: isPrepareFetching,
+    isError: isPrepareError
+  } = usePrepareContractWrite({
     chainId: nft.chainId,
     abi: ZoraERC721Drop,
     address: erc721Address,
     functionName: 'mintWithRewards',
     args: [recipient, BigInt(quantity), comment, mintReferral],
-    value: mintFee * BigInt(quantity)
+    value: value
   });
   const {
     write,
@@ -53,6 +61,10 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
     chainId: nft.chainId,
     hash: data?.hash
   });
+
+  useUpdateEffect(() => {
+    setCanMintOnLenster(!isPrepareError);
+  }, [isPrepareError, isPrepareFetching]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 

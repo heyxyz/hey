@@ -11,11 +11,15 @@ import Price from './Price';
 interface ZoraMintState {
   quantity: number;
   setQuantity: (quantity: number) => void;
+  canMintOnLenster: boolean;
+  setCanMintOnLenster: (canMintOnLenster: boolean) => void;
 }
 
 export const useZoraMintStore = create<ZoraMintState>((set) => ({
   quantity: 1,
-  setQuantity: (quantity) => set({ quantity })
+  setQuantity: (quantity) => set({ quantity }),
+  canMintOnLenster: false,
+  setCanMintOnLenster: (canMintOnLenster) => set({ canMintOnLenster })
 }));
 
 interface MintProps {
