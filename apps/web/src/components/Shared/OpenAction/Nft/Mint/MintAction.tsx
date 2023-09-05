@@ -57,14 +57,19 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
     <div className="flex">
       {chain !== nft.chainId ? (
         <SwitchNetwork
-          className="mt-5"
+          className="mt-5 w-full justify-center"
           toChainId={nft.chainId}
           title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
-        <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
+        <Link
+          className="w-full"
+          href={zoraLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Button
-            className="mt-5"
+            className="mt-5 w-full justify-center"
             icon={<CursorClickIcon className="h-5 w-5" />}
             size="md"
           >
@@ -73,7 +78,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
         </Link>
       ) : (
         <Button
-          className="mt-5"
+          className="mt-5 w-full justify-center"
           disabled={!write}
           onClick={() => write?.()}
           icon={
