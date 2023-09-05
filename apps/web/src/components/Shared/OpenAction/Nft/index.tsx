@@ -1,6 +1,4 @@
 import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data/feature-flags';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
@@ -10,6 +8,7 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';
@@ -20,8 +19,8 @@ interface NftProps {
 
 const Nft: FC<NftProps> = ({ nftMetadata }) => {
   const { chain, address, token } = nftMetadata;
+  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [showMintModal, setShowMintModal] = useState(false);
-  const isZoraMintEnabled = isFeatureEnabled(FeatureFlag.ZoraMint);
   const { setQuantity, setCanMintOnLenster } = useZoraMintStore();
 
   const {
@@ -82,7 +81,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             </Tooltip>
           ) : null}
         </div>
-        {isZoraMintEnabled && canMint && nft.contractStandard === 'ERC721' ? (
+        {isLensMember && canMint && nft.contractStandard === 'ERC721' ? (
           <>
             <Button
               className="text-sm"
