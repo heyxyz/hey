@@ -1,11 +1,11 @@
-import { CursorClickIcon } from '@heroicons/react/outline';
+import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
@@ -45,8 +45,17 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     return null;
   }
 
+  const canMint = [
+    'ERC721_SINGLE_EDITION',
+    'ERC1155_COLLECTION_TOKEN'
+  ].includes(nft.contractType);
+
   return (
-    <Card className="mt-3" forceRounded>
+    <Card
+      className="mt-3"
+      forceRounded
+      onClick={(event) => stopEventPropagation(event)}
+    >
       <img
         src={`https://remote-image.decentralized-content.com/image?url=${nft.coverImageUrl}&w=1200&q=75`}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
@@ -60,8 +69,13 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
             <img src={getZoraChainInfo(nft.chainId).logo} className="h-5 w-5" />
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
+          {nft.contractType === 'ERC1155_COLLECTION' ? (
+            <Tooltip placement="right" content={t`ERC-1155 Collection`}>
+              <CollectionIcon className="h-4 w-4" />
+            </Tooltip>
+          ) : null}
         </div>
-        {isZoraMintEnabled && nft.contractStandard === 'ERC721' ? (
+        {isZoraMintEnabled && canMint && nft.contractStandard === 'ERC721' ? (
           <>
             <Button
               className="text-sm"
@@ -72,26 +86,32 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title="Mint"
+              title={t`Mint on Zora`}
               show={showMintModal}
+              icon={<CursorClickIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
-              <Mint nft={nft} />
+              <Mint nft={nft} metadata={nftMetadata} />
             </Modal>
           </>
         ) : (
           <Link
-            href={`https://zora.co/collect/${chain}:${address}/${token}`}
+            href={`https://zora.co/collect/${chain}:${address}${
+              token ? `/${token}` : ''
+            }`}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={(event) => stopEventPropagation(event)}
           >
             <Button
               className="text-sm"
               icon={<CursorClickIcon className="h-4 w-4" />}
               size="md"
             >
-              <Trans>Mint</Trans>
+              {nft.contractType === 'ERC1155_COLLECTION' ? (
+                <Trans>Mint all on Zora</Trans>
+              ) : (
+                <Trans>Mint on Zora</Trans>
+              )}
             </Button>
           </Link>
         )}
