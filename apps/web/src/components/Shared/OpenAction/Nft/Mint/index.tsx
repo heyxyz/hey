@@ -1,17 +1,10 @@
 import Markup from '@components/Shared/Markup';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import {
-  CursorClickIcon,
-  ExternalLinkIcon,
-  ShoppingBagIcon,
-  UsersIcon
-} from '@heroicons/react/outline';
+import { CursorClickIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
-import humanize from '@lenster/lib/humanize';
-import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
-import type { ZoraNft, ZoraNftMetadata } from '@lenster/types/zora-nft';
+import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { t, Trans } from '@lingui/macro';
@@ -26,18 +19,17 @@ import {
   useWaitForTransaction
 } from 'wagmi';
 
+import Metadata from './Metadata';
 import MintedBy from './MintedBy';
 
 interface MintProps {
   nft: ZoraNft;
-  metadata: ZoraNftMetadata;
+  zoraLink: string;
 }
 
-const Mint: FC<MintProps> = ({ nft, metadata }) => {
+const Mint: FC<MintProps> = ({ nft, zoraLink }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-
   const chain = useChainId();
-
   const erc721Address = nft.address;
   const recipient = currentProfile?.ownedBy;
   const quantity = 1n;
@@ -63,10 +55,6 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
     hash: data?.hash
   });
 
-  const network = getZoraChainIsMainnet(metadata.chain) ? '' : 'testnet.';
-  const zoraLink = `https://${network}zora.co/collect/${metadata.chain}:${
-    metadata.address
-  }${metadata.token ? `/${metadata.token}` : ''}`;
   const mintingOrSuccess = isLoading || isSuccess;
 
   return (
@@ -78,35 +66,7 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
           {nft.description}
         </Markup>
       </div>
-      <div className="space-y-1.5">
-        {nft.totalMinted > 0 ? (
-          <div className="flex items-center space-x-2">
-            <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-            <b>
-              <Trans>{humanize(nft.totalMinted)} minted</Trans>
-            </b>
-          </div>
-        ) : null}
-        {!nft.isOpenEdition ? (
-          <div className="flex items-center space-x-2">
-            <ShoppingBagIcon className="lt-text-gray-500 h-4 w-4" />
-            <b>
-              <Trans>{humanize(nft.remainingSupply)} remaining</Trans>
-            </b>
-          </div>
-        ) : null}
-        <Link
-          href={zoraLink}
-          className="flex items-center space-x-2"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <ExternalLinkIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>Open in Zora</Trans>
-          </b>
-        </Link>
-      </div>
+      <Metadata nft={nft} zoraLink={zoraLink} />
       {!mintingOrSuccess ? (
         <div className="flex">
           {chain !== nft.chainId ? (
