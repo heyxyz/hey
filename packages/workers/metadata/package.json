@@ -24,7 +24,7 @@
     "toucan-js": "^3.2.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
+    "@cloudflare/workers-types": "^4.20230904.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.3",
