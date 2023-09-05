@@ -10,6 +10,7 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import humanize from '@lenster/lib/humanize';
+import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import type { ZoraNft, ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
@@ -62,7 +63,8 @@ const Mint: FC<MintProps> = ({ nft, metadata }) => {
     hash: data?.hash
   });
 
-  const zoraLink = `https://zora.co/collect/${metadata.chain}:${
+  const network = getZoraChainIsMainnet(metadata.chain) ? '' : 'testnet.';
+  const zoraLink = `https://${network}zora.co/collect/${metadata.chain}:${
     metadata.address
   }${metadata.token ? `/${metadata.token}` : ''}`;
   const mintingOrSuccess = isLoading || isSuccess;

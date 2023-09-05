@@ -1,5 +1,6 @@
 import '@sentry/tracing';
 
+import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import response from '@lenster/lib/response';
 
 import type { WorkerRequest } from '../types';
@@ -19,9 +20,7 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const mainnetChains = ['eth', 'oeth', 'base', 'zora'];
-    const network = mainnetChains.includes(chain as string) ? '' : 'testnet.';
-
+    const network = getZoraChainIsMainnet(chain as string) ? '' : 'testnet.';
     const zoraResponse = await fetch(
       `https://${network}zora.co/api/personalize/collection/${chain}:${address}/${
         token || ''
