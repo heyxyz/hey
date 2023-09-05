@@ -86,16 +86,16 @@ const UserPreview: FC<UserPreviewProps> = ({
   const Preview = () => {
     if (loading || !lazyProfile.id) {
       return (
-        <div className="flex flex-col space-y-2">
+        <div className="flex flex-col">
           <HorizontalLoader />
-          <ProfileHoverShimmer />
+          <ProfileHoverShimmer handle={lazyProfile.handle} />
         </div>
       );
     }
 
     return (
       <>
-        <div className="flex items-center justify-between px-2.5 pt-3">
+        <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
             {!lazyProfile.isFollowedByMe ? (
@@ -118,7 +118,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             ) : null}
           </div>
         </div>
-        <div className="space-y-3 p-1 px-2.5 pb-3">
+        <div className="space-y-3 p-4 pt-0">
           <UserName />
           <div>
             {lazyProfile?.bio ? (
