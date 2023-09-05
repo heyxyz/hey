@@ -186,7 +186,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       <Tippy
         placement="bottom-start"
-        delay={[0, 0]}
+        delay={[100, 0]}
         hideOnClick={false}
         content={<Preview />}
         arrow={false}
