@@ -104,6 +104,10 @@ progress::-moz-progress-bar {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
 
+.preview-tippy-content > div {
+  @apply !px-0 !py-0;
+}
+
 .tippy-content {
   @apply !px-2.5 !py-0.5;
 }
@@ -235,4 +239,51 @@ ul {
     #7c3aed
   );
   @apply bg-clip-text text-transparent;
+}
+
+.horizontal-loader > div {
+  width: 100%;
+  animation: loader 700ms linear infinite;
+  @apply h-1.5 rounded-tl-xl rounded-tr-xl;
+}
+
+.horizontal-loader {
+  animation-delay: 0.05s;
+}
+
+@keyframes loader {
+  0% {
+    width: 100%;
+    @apply bg-red-600;
+  }
+
+  15% {
+    width: 100%;
+    @apply bg-orange-600;
+  }
+
+  30% {
+    width: 100%;
+    @apply bg-yellow-600;
+  }
+
+  45% {
+    width: 100%;
+    @apply bg-green-600;
+  }
+
+  60% {
+    width: 100%;
+    @apply bg-blue-600;
+  }
+
+  75% {
+    width: 100%;
+    @apply bg-indigo-600;
+  }
+
+  100% {
+    width: 100%;
+    @apply bg-violet-600;
+  }
 }
