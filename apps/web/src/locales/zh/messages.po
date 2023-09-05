@@ -2987,34 +2987,34 @@ msgstr "首页"
 msgid "Explore"
 msgstr "探索"
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
 msgid "{0} minted"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
 msgid "{0} remaining"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/Metadata.tsx
 msgid "Open in Zora"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
 msgid "Switch to {0}"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
 #: src/components/Shared/OpenAction/Nft/index.tsx
 msgid "Mint on Zora"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
 msgid "Minting in progress"
 msgstr ""
 
-#: src/components/Shared/OpenAction/Nft/Mint/index.tsx
+#: src/components/Shared/OpenAction/Nft/Mint/MintAction.tsx
 msgid "Minted successful"
 msgstr ""
 
