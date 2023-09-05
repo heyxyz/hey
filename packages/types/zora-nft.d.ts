@@ -10,6 +10,7 @@ export interface ZoraNft {
   description: string;
   coverImageUrl: string;
   mediaUrl: string;
+  tokenId: string;
   address: `0x${string}`;
   owner: `0x${string}`;
   creator: `0x${string}`;
