@@ -20,10 +20,10 @@
     "@sentry/tracing": "^7.66.0",
     "itty-router": "^4.0.22",
     "toucan-js": "^3.2.3",
-    "viem": "^1.9.5"
+    "viem": "^1.10.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
+    "@cloudflare/workers-types": "^4.20230904.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
     "wrangler": "^3.6.0"
