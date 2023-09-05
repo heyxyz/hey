@@ -1,3 +1,4 @@
+import Alpha from '@components/Shared/Badges/Alpha';
 import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -96,7 +97,14 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={t`Mint on Zora`}
+              title={
+                <div className="flex items-center space-x-2">
+                  <div>
+                    <Trans>Mint on Zora</Trans>
+                  </div>
+                  <Alpha />
+                </div>
+              }
               show={showMintModal}
               icon={<CursorClickIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
