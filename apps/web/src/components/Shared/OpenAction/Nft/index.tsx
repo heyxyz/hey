@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 
-import Mint from './Mint';
+import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';
 
 interface NftProps {
@@ -22,6 +22,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
   const { chain, address, token } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
   const isZoraMintEnabled = isFeatureEnabled(FeatureFlag.ZoraMint);
+  const { setQuantity, setCanMintOnLenster } = useZoraMintStore();
 
   const {
     data: nft,
@@ -87,7 +88,11 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               className="text-sm"
               icon={<CursorClickIcon className="h-4 w-4" />}
               size="md"
-              onClick={() => setShowMintModal(true)}
+              onClick={() => {
+                setQuantity(1);
+                setCanMintOnLenster(false);
+                setShowMintModal(true);
+              }}
             >
               <Trans>Mint</Trans>
             </Button>
