@@ -1,5 +1,6 @@
 import {
   ExternalLinkIcon,
+  PuzzleIcon,
   ShoppingBagIcon,
   UsersIcon
 } from '@heroicons/react/outline';
@@ -17,6 +18,15 @@ interface MetadataProps {
 const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
   return (
     <div className="space-y-1.5">
+      <div className="flex items-center space-x-2">
+        <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
+        <div className="space-x-1.5">
+          <span>
+            <Trans>Type:</Trans>
+          </span>
+          <b>{nft.contractStandard === 'ERC721' ? 'ERC-721' : 'ERC-1155'}</b>
+        </div>
+      </div>
       {nft.totalMinted > 0 ? (
         <div className="flex items-center space-x-2">
           <UsersIcon className="lt-text-gray-500 h-4 w-4" />
