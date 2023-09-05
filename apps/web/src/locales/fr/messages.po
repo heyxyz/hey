@@ -2553,10 +2553,6 @@ msgid "Add author"
 msgstr ""
 
 #: src/components/Shared/Badges/Alpha.tsx
-#~ msgid "Alpha"
-#~ msgstr ""
-
-#: src/components/Shared/Badges/Alpha.tsx
 msgid "Alpha 🤫"
 msgstr ""
 

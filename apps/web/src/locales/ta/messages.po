@@ -2553,10 +2553,6 @@ msgid "Add author"
 msgstr "ஆசிரியரைச் சேர்க்கவும்"
 
 #: src/components/Shared/Badges/Alpha.tsx
-#~ msgid "Alpha"
-#~ msgstr ""
-
-#: src/components/Shared/Badges/Alpha.tsx
 msgid "Alpha 🤫"
 msgstr ""
 
