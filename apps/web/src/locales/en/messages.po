@@ -1833,6 +1833,10 @@ msgid "You don't have balance"
 msgstr "You don't have balance"
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr "You exceeded the mint limit"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
