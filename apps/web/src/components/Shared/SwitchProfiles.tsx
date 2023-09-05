@@ -1,21 +1,17 @@
 import { UserAddIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { IS_MAINNET } from '@lenster/data/constants';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { Image, Modal } from '@lenster/ui';
+import { Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
-
-import NftLogin from './Login/NftLogin';
 
 const SwitchProfiles: FC = () => {
   const profiles = useAppStore((state) => state.profiles);
@@ -25,8 +21,6 @@ const SwitchProfiles: FC = () => {
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
-  const [showNftLoginModal, setShowNftLoginModal] = useState(false);
-  const isNftLoginEnabled = isFeatureEnabled(FeatureFlag.NftLogin);
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
@@ -75,30 +69,6 @@ const SwitchProfiles: FC = () => {
             </div>
           </span>
         </Link>
-      ) : null}
-      {isNftLoginEnabled ? (
-        <>
-          <Modal
-            title={t`Login with NFT`}
-            show={showNftLoginModal}
-            onClose={() => setShowNftLoginModal(false)}
-          >
-            <NftLogin />
-          </Modal>
-          <button
-            className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
-            onClick={() => setShowNftLoginModal(true)}
-          >
-            <span className="flex items-center space-x-2">
-              <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
-                <UserAddIcon className="text-brand h-3 w-3" />
-              </div>
-              <div>
-                <Trans>Login with NFT</Trans>
-              </div>
-            </span>
-          </button>
-        </>
       ) : null}
     </div>
   );
