@@ -1,11 +1,22 @@
 import Markup from '@components/Shared/Markup';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { type FC } from 'react';
+import { create } from 'zustand';
 
 import Metadata from './Metadata';
 import MintAction from './MintAction';
 import MintedBy from './MintedBy';
 import Price from './Price';
+
+interface ZoraMintState {
+  quantity: number;
+  setQuantity: (quantity: number) => void;
+}
+
+export const useZoraMintStore = create<ZoraMintState>((set) => ({
+  quantity: 1,
+  setQuantity: (quantity) => set({ quantity })
+}));
 
 interface MintProps {
   nft: ZoraNft;
