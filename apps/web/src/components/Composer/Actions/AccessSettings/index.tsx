@@ -38,9 +38,13 @@ const AccessSettings: FC = () => {
             <span>
               <Trans>Access settings</Trans>
             </span>
-            <HelpTooltip
-              content={t`Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens.`}
-            />
+            <HelpTooltip>
+              <Trans>
+                Add restrictions on who can view your content, and who can't.
+                For instance - token gate your posts on the condition of owning
+                specific NFTs or tokens.
+              </Trans>
+            </HelpTooltip>
           </div>
         }
         icon={<LockClosedIcon className="text-brand h-5 w-5" />}
