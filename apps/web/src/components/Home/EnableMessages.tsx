@@ -1,9 +1,9 @@
 import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
 import { XMTP_ENV } from '@lenster/data/constants';
 import { Button, Card } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -54,7 +54,7 @@ const EnableMessages: FC = () => {
         </Trans>
       </p>
       <Button
-        className={clsx({ 'text-sm': true }, 'mr-auto')}
+        className={cn({ 'text-sm': true }, 'mr-auto')}
         icon={<MailIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >

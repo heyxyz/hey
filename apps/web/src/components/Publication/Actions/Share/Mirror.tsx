@@ -18,10 +18,10 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -217,7 +217,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           mirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'

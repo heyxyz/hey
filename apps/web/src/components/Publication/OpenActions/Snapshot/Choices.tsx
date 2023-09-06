@@ -8,11 +8,11 @@ import nFormatter from '@lenster/lib/nFormatter';
 import type { Proposal, Vote } from '@lenster/snapshot';
 import generateTypedData from '@lenster/snapshot/lib/generateTypedData';
 import { Card, Modal, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -132,7 +132,7 @@ const Choices: FC<ChoicesProps> = ({
 
   return (
     <>
-      <Card className={clsx(isLensterPoll ? 'mt-3' : 'mt-5')}>
+      <Card className={cn(isLensterPoll ? 'mt-3' : 'mt-5')}>
         {!isLensterPoll ? (
           <div className="divider flex items-center justify-between px-5 py-3 ">
             <div className="flex items-center space-x-2 text-sm">
@@ -164,7 +164,7 @@ const Choices: FC<ChoicesProps> = ({
                   <Spinner className="mr-1" size="sm" />
                 ) : (
                   <CheckCircleIcon
-                    className={clsx(
+                    className={cn(
                       voted ? 'text-green-500' : 'text-gray-500',
                       'h-6 w-6 '
                     )}
@@ -186,7 +186,7 @@ const Choices: FC<ChoicesProps> = ({
                   <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
                     <div
                       style={{ width: `${percentage.toFixed(2)}%` }}
-                      className={clsx(voted ? 'bg-green-500' : 'bg-brand-500')}
+                      className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
                     />
                   </div>
                 </div>

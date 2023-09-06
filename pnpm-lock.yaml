@@ -168,9 +168,6 @@ importers:
       axios:
         specifier: ^1.5.0
         version: 1.5.0
-      clsx:
-        specifier: ^2.0.0
-        version: 2.0.0
       dayjs:
         specifier: ^1.11.9
         version: 1.11.9
@@ -377,9 +374,9 @@ importers:
 
   packages/image-cropper:
     dependencies:
-      clsx:
-        specifier: ^2.0.0
-        version: 2.0.0
+      '@lenster/ui':
+        specifier: workspace:*
+        version: link:../ui
       normalize-wheel:
         specifier: ^1.0.1
         version: 1.0.1
@@ -566,6 +563,9 @@ importers:
       react-hook-form:
         specifier: ^7.46.1
         version: 7.46.1(react@18.2.0)
+      tailwind-merge:
+        specifier: ^1.14.0
+        version: 1.14.0
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -14340,6 +14340,10 @@ packages:
       '@pkgr/utils': 2.4.2
       tslib: 2.6.2
     dev: true
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
+    dev: false
 
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}

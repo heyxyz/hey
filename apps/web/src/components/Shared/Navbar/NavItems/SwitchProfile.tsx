@@ -1,6 +1,6 @@
 import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -16,7 +16,7 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
   return (
     <button
       type="button"
-      className={clsx(
+      className={cn(
         'flex w-full px-2 py-1.5 text-sm text-gray-700 focus:outline-none dark:text-gray-200',
         className
       )}
