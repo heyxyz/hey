@@ -3,10 +3,10 @@ import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/solid'
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { STAFFTOOLS } from '@lenster/data/tracking';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -51,7 +51,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
   return (
     <button
       onClick={toggleStaffMode}
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

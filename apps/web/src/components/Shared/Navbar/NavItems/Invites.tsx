@@ -1,8 +1,8 @@
 import { TicketIcon } from '@heroicons/react/outline';
 import { INVITE } from '@lenster/data/tracking';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -17,7 +17,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
 
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

@@ -1,7 +1,7 @@
 import type { MetadataOutput } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import cn from '@lenster/ui/cn';
 import getChannelByTag from '@lib/getChannelByTag';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -23,7 +23,7 @@ const FeaturedChannel: FC<FeaturedChannelProps> = ({
   return (
     <Link
       href={`/c/${channel.slug}`}
-      className={clsx(
+      className={cn(
         'flex items-center space-x-2 text-xs hover:underline',
         className
       )}

@@ -2,8 +2,8 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsIcon } from '@heroicons/react/outline';
 import { Checkbox, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { ChangeEvent } from 'react';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
@@ -37,7 +37,7 @@ const MediaFilter = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -53,7 +53,7 @@ const MediaFilter = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -69,7 +69,7 @@ const MediaFilter = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )

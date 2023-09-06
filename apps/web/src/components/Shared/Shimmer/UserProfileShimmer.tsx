@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
 interface UserProfileShimmerProps {
@@ -14,7 +14,7 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
     <div className="flex items-center justify-between py-1">
       <div className="flex items-center space-x-3">
         <div
-          className={clsx(
+          className={cn(
             isBig ? 'h-14 w-14' : 'h-10 w-10',
             'shimmer rounded-full'
           )}

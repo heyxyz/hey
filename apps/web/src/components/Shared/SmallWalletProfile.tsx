@@ -5,7 +5,7 @@ import formatAddress from '@lenster/lib/formatAddress';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import imageKit from '@lenster/lib/imageKit';
 import { Image } from '@lenster/ui';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';
@@ -37,7 +37,7 @@ const SmallWalletProfile: FC<SmallWalletProfileProps> = ({
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}
           src={imageKit(getStampFyiURL(wallet?.address))}
-          className={clsx(
+          className={cn(
             smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
             'rounded-full border bg-gray-200 dark:border-gray-700'
           )}
