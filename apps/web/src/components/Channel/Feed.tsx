@@ -25,7 +25,7 @@ const Feed: FC<FeedProps> = ({ channel }) => {
     publicationTypes: [PublicationTypes.Post],
     sortCriteria: PublicationSortCriteria.Latest,
     metadata: { tags: { oneOf: channel.tags } },
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
