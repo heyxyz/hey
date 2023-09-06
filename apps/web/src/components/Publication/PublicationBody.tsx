@@ -12,8 +12,8 @@ import getURLs from '@lenster/lib/getURLs';
 import getNft from '@lenster/lib/nft/getNft';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OG } from '@lenster/types/misc';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -88,7 +88,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   return (
     <div className="break-words">
       <Markup
-        className={clsx(
+        className={cn(
           { 'line-clamp-5': canShowMore },
           'markup linkify text-md break-words'
         )}

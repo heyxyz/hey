@@ -14,11 +14,11 @@ import {
   Modal,
   TabButton
 } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -99,7 +99,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   return (
     <GridItemFour
-      className={clsx(
+      className={cn(
         'xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 md:col-span-4',
         className
       )}

@@ -1,6 +1,6 @@
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card } from '@lenster/ui';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC, ReactNode } from 'react';
 
 interface WrapperProps {
@@ -17,7 +17,7 @@ const Wrapper: FC<WrapperProps> = ({
   zeroPadding = false
 }) => (
   <Card
-    className={clsx('mt-3 cursor-auto', className, { 'p-5': !zeroPadding })}
+    className={cn('mt-3 cursor-auto', className, { 'p-5': !zeroPadding })}
     forceRounded
     dataTestId={dataTestId}
     onClick={stopEventPropagation}

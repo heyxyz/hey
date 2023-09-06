@@ -1,7 +1,7 @@
 import { LockClosedIcon } from '@heroicons/react/outline';
 import { HelpTooltip, Modal, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const AccessSettings: FC = () => {
           aria-label="Access"
         >
           <LockClosedIcon
-            className={clsx(
+            className={cn(
               restricted ? 'text-green-500' : 'text-brand',
               'h-5 w-5'
             )}
