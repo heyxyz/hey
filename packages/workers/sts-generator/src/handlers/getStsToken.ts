@@ -1,8 +1,9 @@
+import '@sentry/tracing';
+
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
 
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 const bucketName = 'lenster-media';
 const everEndpoint = 'https://endpoint.4everland.co';
@@ -26,24 +27,24 @@ const params = {
   }`
 };
 
-export default async (_request: IRequest, env: Env) => {
-  try {
-    const accessKeyId = env.EVER_ACCESS_KEY;
-    const secretAccessKey = env.EVER_ACCESS_SECRET;
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/sts-generator/getStsToken'
+  });
 
+  try {
+    const accessKeyId = request.env.EVER_ACCESS_KEY;
+    const secretAccessKey = request.env.EVER_ACCESS_SECRET;
     const stsClient = new STSClient({
       endpoint: everEndpoint,
       region: 'us-west-2',
       credentials: { accessKeyId, secretAccessKey }
     });
-
     const command = new AssumeRoleCommand({
       ...params,
       RoleArn: undefined,
       RoleSessionName: undefined
     });
-
-    // @ts-ignore
     const { Credentials: credentials } = await stsClient.send(command);
 
     return response({
@@ -53,6 +54,9 @@ export default async (_request: IRequest, env: Env) => {
       sessionToken: credentials?.SessionToken
     });
   } catch (error) {
+    transaction?.setStatus('error');
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };

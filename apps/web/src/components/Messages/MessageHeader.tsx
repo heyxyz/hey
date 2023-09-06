@@ -75,7 +75,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
           </>
         )}
       </div>
-      {profile && (
+      {profile ? (
         <div>
           {!following ? (
             <Follow
@@ -92,7 +92,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
             />
           )}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

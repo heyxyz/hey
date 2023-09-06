@@ -28,25 +28,25 @@ const PublicationActions: FC<PublicationActionsProps> = ({
 
   return (
     <span
-      className="-ml-2 flex flex-wrap items-center gap-x-6 gap-y-1 pt-3 sm:gap-8"
+      className="-ml-2 mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
       onClick={stopEventPropagation}
       aria-hidden="true"
     >
       <Comment publication={publication} showCount={showCount} />
-      {canMirror && (
+      {canMirror ? (
         <ShareMenu publication={publication} showCount={showCount} />
-      )}
+      ) : null}
       <Like publication={publication} showCount={showCount} />
-      {collectModuleType !== 'RevertCollectModuleSettings' && (
+      {collectModuleType !== 'RevertCollectModuleSettings' ? (
         <Collect
           electedMirror={electedMirror}
           publication={publication}
           showCount={showCount}
         />
-      )}
-      {gardenerMode && (
+      ) : null}
+      {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
-      )}
+      ) : null}
     </span>
   );
 };

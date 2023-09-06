@@ -10,10 +10,10 @@ import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import isVerified from '@lib/isVerified';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
@@ -38,6 +38,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   showUserPreview = true
 }) => {
   const [lazyProfile, setLazyProfile] = useState(profile);
+  const [loading, setLoading] = useState(false);
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
   const [loadProfile] = useProfileLazyQuery({
@@ -48,7 +49,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <Image
       src={getAvatar(lazyProfile)}
       loading="lazy"
-      className={clsx(
+      className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
@@ -61,16 +62,16 @@ const UserPreview: FC<UserPreviewProps> = ({
   const UserName = () => (
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+        <div className={cn(isBig ? 'font-bold' : 'text-md')}>
           {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
-        {isVerified(lazyProfile.id) && (
+        {isVerified(lazyProfile.id) ? (
           <BadgeCheckIcon className="text-brand h-4 w-4" />
-        )}
-        {hasMisused(lazyProfile.id) && (
+        ) : null}
+        {hasMisused(lazyProfile.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-        )}
+        ) : null}
       </div>
       <Slug
         className="text-sm"
@@ -80,110 +81,128 @@ const UserPreview: FC<UserPreviewProps> = ({
     </>
   );
 
-  const Preview = () => (
-    <>
-      <div className="flex items-center justify-between">
-        <UserAvatar />
-        <div onClick={stopEventPropagation} aria-hidden="true">
-          {!lazyProfile.isFollowedByMe &&
-            (followStatusLoading ? (
-              <div className="shimmer h-8 w-10 rounded-lg" />
-            ) : following ? null : lazyProfile?.followModule?.__typename ===
-              'FeeFollowModuleSettings' ? (
-              <SuperFollow
-                profile={lazyProfile}
-                setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
-              />
-            ) : (
-              <Follow
-                profile={lazyProfile}
-                setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
-              />
-            ))}
-        </div>
-      </div>
-      <div className="space-y-3 p-1">
-        <UserName />
-        <div>
-          {lazyProfile?.bio && (
-            <div
-              className={clsx(
-                isBig ? 'text-base' : 'text-sm',
-                'mt-2',
-                'linkify break-words leading-6'
-              )}
-            >
-              <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
-            </div>
-          )}
-        </div>
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1">
-            <div className="text-base">
-              {nFormatter(lazyProfile?.stats?.totalFollowing)}
-            </div>
-            <div className="lt-text-gray-500 text-sm">
-              <Plural
-                value={lazyProfile?.stats?.totalFollowing}
-                zero="Following"
-                one="Following"
-                other="Following"
-              />
-            </div>
+  const Preview = () => {
+    if (loading || !lazyProfile.id) {
+      return (
+        <div className="flex flex-col">
+          <div className="horizontal-loader w-full">
+            <div />
           </div>
-          <div className="text-md flex items-center space-x-1">
-            <div className="text-base">
-              {nFormatter(lazyProfile?.stats?.totalFollowers)}
-            </div>
-            <div className="lt-text-gray-500 text-sm">
-              <Plural
-                value={lazyProfile?.stats?.totalFollowers}
-                zero="Follower"
-                one="Follower"
-                other="Followers"
-              />
-            </div>
+          <div className="flex p-3">
+            <div>{lazyProfile.handle}</div>
           </div>
         </div>
-      </div>
-    </>
-  );
+      );
+    }
+
+    return (
+      <>
+        <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
+          <UserAvatar />
+          <div onClick={stopEventPropagation} aria-hidden="false">
+            {!lazyProfile.isFollowedByMe ? (
+              followStatusLoading ? (
+                <div className="shimmer h-8 w-10 rounded-lg" />
+              ) : following ? null : lazyProfile?.followModule?.__typename ===
+                'FeeFollowModuleSettings' ? (
+                <SuperFollow
+                  profile={lazyProfile}
+                  setFollowing={setFollowing}
+                  followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
+                />
+              ) : (
+                <Follow
+                  profile={lazyProfile}
+                  setFollowing={setFollowing}
+                  followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
+                />
+              )
+            ) : null}
+          </div>
+        </div>
+        <div className="space-y-3 p-4 pt-0">
+          <UserName />
+          <div>
+            {lazyProfile?.bio ? (
+              <div
+                className={cn(
+                  isBig ? 'text-base' : 'text-sm',
+                  'mt-2',
+                  'linkify break-words leading-6'
+                )}
+              >
+                <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
+              </div>
+            ) : null}
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1">
+              <div className="text-base">
+                {nFormatter(lazyProfile?.stats?.totalFollowing)}
+              </div>
+              <div className="lt-text-gray-500 text-sm">
+                <Plural
+                  value={lazyProfile?.stats?.totalFollowing}
+                  zero="Following"
+                  one="Following"
+                  other="Following"
+                />
+              </div>
+            </div>
+            <div className="text-md flex items-center space-x-1">
+              <div className="text-base">
+                {nFormatter(lazyProfile?.stats?.totalFollowers)}
+              </div>
+              <div className="lt-text-gray-500 text-sm">
+                <Plural
+                  value={lazyProfile?.stats?.totalFollowers}
+                  zero="Follower"
+                  one="Follower"
+                  other="Followers"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
 
   const onPreviewStart = async () => {
     if (!lazyProfile.id) {
+      setLoading(true);
       const { data } = await loadProfile({
         variables: {
           request: { handle: formatHandle(lazyProfile?.handle, true) }
         }
       });
+
       const getProfile = data?.profile;
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
       }
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
-      {lazyProfile?.id ? (
-        <Tippy
-          placement="bottom-start"
-          delay={[800, 0]}
-          hideOnClick={false}
-          content={<Preview />}
-          arrow={false}
-          interactive
-          zIndex={1000}
-          className="hidden w-64 !rounded-xl border !bg-white !px-1.5 !py-3 !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
-          appendTo={() => document.body}
-        >
-          <span>{children}</span>
-        </Tippy>
-      ) : (
+      <Tippy
+        placement="bottom-start"
+        delay={[100, 0]}
+        hideOnClick={false}
+        content={<Preview />}
+        arrow={false}
+        interactive
+        zIndex={1000}
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+        appendTo={() => document.body}
+      >
         <span>{children}</span>
-      )}
+      </Tippy>
     </span>
   ) : (
     <span>{children}</span>

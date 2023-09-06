@@ -1,7 +1,7 @@
 import { CheckIcon, DotsVerticalIcon, XIcon } from '@heroicons/react/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAudio, useEventListener, useHuddle01 } from '@huddle01/react/hooks';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import Image from 'next/image';
 import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
@@ -108,9 +108,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
   });
 
   return (
-    <div
-      className={clsx(className, 'flex w-full items-center justify-between')}
-    >
+    <div className={cn(className, 'flex w-full items-center justify-between')}>
       <div className="flex items-center gap-2">
         <Image
           loader={() => src}

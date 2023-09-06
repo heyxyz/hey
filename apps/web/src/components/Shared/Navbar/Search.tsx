@@ -7,8 +7,8 @@ import {
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, Input, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -87,7 +87,7 @@ const Search: FC<SearchProps> = ({
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
-              className={clsx(
+              className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
@@ -98,61 +98,61 @@ const Search: FC<SearchProps> = ({
         />
       </form>
       {pathname !== '/search' &&
-        !hideDropdown &&
-        debouncedSearchText.length > 0 && (
-          <div
-            className={clsx(
-              'absolute mt-2 flex w-[94%] flex-col',
-              modalWidthClassName
-            )}
-            ref={dropdownRef}
-            data-testid="search-profiles-dropdown"
-          >
-            <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
-              {searchUsersLoading ? (
-                <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
-                  <Spinner size="sm" className="mx-auto" />
-                  <div>
-                    <Trans>Searching users</Trans>
-                  </div>
+      !hideDropdown &&
+      debouncedSearchText.length > 0 ? (
+        <div
+          className={cn(
+            'absolute mt-2 flex w-[94%] flex-col',
+            modalWidthClassName
+          )}
+          ref={dropdownRef}
+          data-testid="search-profiles-dropdown"
+        >
+          <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
+            {searchUsersLoading ? (
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
+                <Spinner size="sm" className="mx-auto" />
+                <div>
+                  <Trans>Searching users</Trans>
                 </div>
-              ) : (
-                <>
-                  {profiles.map((profile: Profile) => (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      key={profile?.handle}
-                      className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                      onClick={() => {
-                        if (onProfileSelected) {
-                          onProfileSelected(profile);
-                        }
-                        setSearchText('');
-                      }}
-                      data-testid={`search-profile-${formatHandle(
-                        profile?.handle
-                      )}`}
-                      aria-hidden="true"
-                    >
-                      <UserProfile
-                        linkToProfile={!onProfileSelected}
-                        profile={profile}
-                        showUserPreview={false}
-                      />
-                    </motion.div>
-                  ))}
-                  {profiles.length === 0 && (
-                    <div className="px-4 py-2">
-                      <Trans>No matching users</Trans>
-                    </div>
-                  )}
-                </>
-              )}
-            </Card>
-          </div>
-        )}
+              </div>
+            ) : (
+              <>
+                {profiles.map((profile: Profile) => (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    key={profile?.handle}
+                    className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    onClick={() => {
+                      if (onProfileSelected) {
+                        onProfileSelected(profile);
+                      }
+                      setSearchText('');
+                    }}
+                    data-testid={`search-profile-${formatHandle(
+                      profile?.handle
+                    )}`}
+                    aria-hidden="true"
+                  >
+                    <UserProfile
+                      linkToProfile={!onProfileSelected}
+                      profile={profile}
+                      showUserPreview={false}
+                    />
+                  </motion.div>
+                ))}
+                {profiles.length === 0 ? (
+                  <div className="px-4 py-2">
+                    <Trans>No matching users</Trans>
+                  </div>
+                ) : null}
+              </>
+            )}
+          </Card>
+        </div>
+      ) : null}
     </div>
   );
 };

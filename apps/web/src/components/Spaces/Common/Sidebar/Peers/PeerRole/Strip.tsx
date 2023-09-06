@@ -4,7 +4,7 @@ import {
   UserIcon,
   XCircleIcon
 } from '@heroicons/react/solid';
-import { clsx } from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import React from 'react';
 
@@ -32,7 +32,7 @@ const PeerIcons = (type: 'personNormal' | 'speaker' | 'leave' | 'remove') => {
 const Strip: FC<StripProps> = ({ type, title, variant, onClick }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex cursor-pointer items-center gap-1 p-1 text-sm font-normal',
         variant === 'normal'
           ? 'text-gray-500 dark:text-gray-400'

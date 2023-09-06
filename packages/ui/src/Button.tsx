@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react';
 import { forwardRef } from 'react';
+
+import cn from '../cn';
 
 interface ButtonProps
   extends DetailedHTMLProps<
@@ -31,7 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={clsx(
+        className={cn(
           {
             'bg-brand-500 hover:bg-brand-600 border-brand-600 focus:ring-brand-400/50 border text-white':
               !outline && variant === 'primary',

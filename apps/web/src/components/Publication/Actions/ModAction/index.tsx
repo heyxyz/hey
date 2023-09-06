@@ -7,9 +7,9 @@ import {
 } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Button } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
@@ -92,7 +92,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
 
   return (
     <span
-      className={clsx('flex flex-wrap items-center gap-3 text-sm', className)}
+      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
       onClick={stopEventPropagation}
       aria-hidden="true"
     >

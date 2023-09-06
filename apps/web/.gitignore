@@ -1,1 +1,4 @@
 src/locales/**/*.js
+
+# Sentry Auth Token
+.sentryclirc

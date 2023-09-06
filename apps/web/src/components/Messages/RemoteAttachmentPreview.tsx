@@ -135,10 +135,10 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   return (
     <div className="mt-1 space-y-1">
       {attachment ? <Attachment attachment={attachment} /> : null}
-      {status === Status.LOADING && (
+      {status === Status.LOADING ? (
         <Spinner className="mx-28 my-4 h-48 w-48" size="sm" />
-      )}
-      {status === Status.UNLOADED && (
+      ) : null}
+      {status === Status.UNLOADED ? (
         <div className="space-y-2 text-sm">
           <p className="text-gray-500">{redactionReason}</p>
           <button
@@ -148,7 +148,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
             View
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

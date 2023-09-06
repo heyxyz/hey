@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
 import { AnnotationIcon } from '@heroicons/react/outline';
-import { type Publication } from '@lenster/lens';
+import type { Publication } from '@lenster/lens';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { NewPublicationTypes } from 'src/enums';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -29,7 +29,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )

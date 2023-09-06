@@ -7,9 +7,9 @@ import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasMisused from '@lenster/lib/hasMisused';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
@@ -65,7 +65,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <Image
       src={getAvatar(profile)}
       loading="lazy"
-      className={clsx(
+      className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
@@ -78,18 +78,18 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserName = () => (
     <>
       <div className="flex max-w-sm items-center">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
+        <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
             {sanitizeDisplayName(profile?.name) ??
               formatHandle(profile?.handle)}
           </div>
         </div>
-        {isVerified(profile.id) && (
+        {isVerified(profile.id) ? (
           <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
-        )}
-        {hasMisused(profile.id) && (
+        ) : null}
+        {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
-        )}
+        ) : null}
         {showStatus && hasStatus ? (
           <div className="lt-text-gray-500 flex items-center">
             <span className="mx-1.5">·</span>
@@ -130,11 +130,11 @@ const UserProfile: FC<UserProfileProps> = ({
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile?.bio && (
+            {showBio && profile?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
-                className={clsx(
+                className={cn(
                   isBig ? 'text-base' : 'text-sm',
                   'mt-2',
                   'linkify leading-6'
@@ -142,7 +142,7 @@ const UserProfile: FC<UserProfileProps> = ({
               >
                 <Markup>{profile?.bio}</Markup>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </UserPreview>
@@ -161,8 +161,8 @@ const UserProfile: FC<UserProfileProps> = ({
       ) : (
         <UserInfo />
       )}
-      {showFollow &&
-        (followStatusLoading ? (
+      {showFollow ? (
+        followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
         ) : following ? null : profile?.followModule?.__typename ===
           'FeeFollowModuleSettings' ? (
@@ -179,13 +179,15 @@ const UserProfile: FC<UserProfileProps> = ({
             followUnfollowPosition={followUnfollowPosition}
             followUnfollowSource={followUnfollowSource}
           />
-        ))}
-      {showUnfollow &&
-        (followStatusLoading ? (
+        )
+      ) : null}
+      {showUnfollow ? (
+        followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
         ) : following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
-        ) : null)}
+        ) : null
+      ) : null}
     </div>
   );
 };

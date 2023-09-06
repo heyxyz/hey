@@ -9,8 +9,8 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ReferenceModules } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -60,7 +60,7 @@ const ReferenceSettings: FC = () => {
   const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
     <Menu.Item
       as="a"
-      className={clsx({ 'dropdown-active': selected }, 'menu-item')}
+      className={cn({ 'dropdown-active': selected }, 'menu-item')}
       onClick={onClick}
     >
       <div className="flex items-center justify-between space-x-2">
@@ -68,7 +68,7 @@ const ReferenceSettings: FC = () => {
           <div className="text-brand">{icon}</div>
           <div>{title}</div>
         </div>
-        {selected && <CheckCircleIcon className="w-5 text-green-500" />}
+        {selected ? <CheckCircleIcon className="w-5 text-green-500" /> : null}
       </div>
     </Menu.Item>
   );
@@ -93,10 +93,10 @@ const ReferenceSettings: FC = () => {
       >
         <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
           <div className="text-brand">
-            {isEveryone && <GlobeAltIcon className="w-5" />}
-            {isMyFollowers && <UsersIcon className="w-5" />}
-            {isMyFollows && <UserAddIcon className="w-5" />}
-            {isFriendsOfFriends && <UserGroupIcon className="w-5" />}
+            {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
+            {isMyFollowers ? <UsersIcon className="w-5" /> : null}
+            {isMyFollows ? <UserAddIcon className="w-5" /> : null}
+            {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
           </div>
         </Menu.Button>
       </Tooltip>

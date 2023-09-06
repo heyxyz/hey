@@ -6,8 +6,8 @@ import { useProfilesQuery } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import type { SpaceMetadata } from '@lenster/types/spaces';
 import { Button, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { type FC } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
@@ -96,7 +96,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       <div className="mt-2 space-y-3">
         <b className="text-lg">{metadata.content}</b>
         <Button
-          className={clsx(
+          className={cn(
             '!md:pointer-events-none !mt-4 flex w-full justify-center',
             calculateRemainingTime() !== 'Start Listening'
               ? 'pointer-events-none'

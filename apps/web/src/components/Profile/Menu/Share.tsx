@@ -4,9 +4,9 @@ import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )

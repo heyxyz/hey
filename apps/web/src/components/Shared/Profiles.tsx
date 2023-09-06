@@ -50,13 +50,13 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
         <ProfileNameOrHandle
           profile={profileThree}
           separator={
-            !isZero && (
+            !isZero ? (
               <span className="whitespace-nowrap">
                 {' '}
                 and {calculatedCount}{' '}
                 {calculatedCount === 1 ? 'other' : 'others'}
               </span>
-            )
+            ) : null
           }
         />
       </Wrapper>

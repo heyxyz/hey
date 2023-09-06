@@ -10,7 +10,6 @@ import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
@@ -84,9 +83,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount =
       currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {

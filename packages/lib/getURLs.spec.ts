@@ -26,4 +26,32 @@ describe('getURLs', () => {
     const expectedUrls = ['https://example.com', 'http://www.example.net'];
     expect(getURLs(text)).toEqual(expectedUrls);
   });
+
+  test('should not match trailing parentesis', () => {
+    const text =
+      'URL1: (https://example.com/) URL2: (https://example.net) URL3: (https://example.net). test';
+    const expectedUrls = [
+      'https://example.com/',
+      'https://example.net',
+      'https://example.net'
+    ];
+    expect(getURLs(text)).toEqual(expectedUrls);
+  });
+
+  test('should handle international characters', () => {
+    const text = 'URL1: http://example.com/引き割り.html';
+    const expectedUrls = ['http://example.com/引き割り.html'];
+    expect(getURLs(text)).toEqual(expectedUrls);
+  });
+
+  test('should handle trailing full stop', () => {
+    const text =
+      'i have visited http://example.com, http://example.net. https://example.net/.';
+    const expectedUrls = [
+      'http://example.com',
+      'http://example.net',
+      'https://example.net/'
+    ];
+    expect(getURLs(text)).toEqual(expectedUrls);
+  });
 });

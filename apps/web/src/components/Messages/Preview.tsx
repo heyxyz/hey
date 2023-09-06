@@ -7,11 +7,11 @@ import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import hasMisused from '@lenster/lib/hasMisused';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -61,7 +61,7 @@ const Preview: FC<PreviewProps> = ({
   return (
     message?.content && (
       <div
-        className={clsx(
+        className={cn(
           'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
@@ -88,24 +88,24 @@ const Preview: FC<PreviewProps> = ({
                       formatHandle(profile.handle)
                     : ensName ?? formatAddress(conversationKey?.split('/')[0])}
                 </div>
-                {isVerified(profile?.id) && (
+                {isVerified(profile?.id) ? (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
-                )}
-                {hasMisused(profile?.id) && (
+                ) : null}
+                {hasMisused(profile?.id) ? (
                   <ExclamationCircleIcon className="h-4 w-4 min-w-fit text-red-500" />
-                )}
+                ) : null}
               </div>
-              {message?.sent && (
+              {message?.sent ? (
                 <span
                   className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
                   title={formatTime(message.sent)}
                 >
                   {getTimeFromNow(message.sent)}
                 </span>
-              )}
+              ) : null}
             </div>
             <span className="lt-text-gray-500 line-clamp-1 break-all text-sm">
-              {address === message?.senderAddress && 'You: '}
+              {address === message?.senderAddress ? 'You: ' : null}
               <MessagePreview message={message} />
             </span>
           </div>

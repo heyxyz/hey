@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import type { ElementType, FC, MouseEvent, ReactNode } from 'react';
+
+import cn from '../cn';
 
 interface CardProps {
   children: ReactNode;
@@ -20,8 +21,10 @@ export const Card: FC<CardProps> = ({
 }) => {
   return (
     <Tag
-      className={clsx(
-        forceRounded ? 'rounded-xl' : 'rounded-none sm:rounded-xl',
+      className={cn(
+        forceRounded
+          ? 'rounded-xl'
+          : 'rounded-none border-x-0 sm:rounded-xl sm:border-x',
         'border bg-white dark:border-gray-700 dark:bg-black',
         className
       )}

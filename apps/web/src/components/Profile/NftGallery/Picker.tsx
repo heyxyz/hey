@@ -6,8 +6,8 @@ import type { Nft, NfTsRequest } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { ErrorMessage } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { toast } from 'react-hot-toast';
@@ -169,16 +169,16 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         return (
           <div
             key={`${id}_${index}`}
-            className={clsx(
+            className={cn(
               'relative rounded-xl border-2',
               isSelected ? 'border-brand-500' : 'border-transparent'
             )}
           >
-            {isSelected && (
+            {isSelected ? (
               <button className="bg-brand-500 absolute right-2 top-2 z-20 rounded-full">
                 <CheckIcon className="h-5 w-5 p-1 text-white" />
               </button>
-            )}
+            ) : null}
             <button
               className="w-full text-left"
               onClick={() => onSelectItem(nft as Nft)}
@@ -188,7 +188,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
           </div>
         );
       })}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };

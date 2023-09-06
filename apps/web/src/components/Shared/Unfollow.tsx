@@ -16,6 +16,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
@@ -32,6 +33,7 @@ const Unfollow: FC<UnfollowProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -90,6 +92,10 @@ const Unfollow: FC<UnfollowProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       return await createUnfollowTypedData({
@@ -116,7 +122,7 @@ const Unfollow: FC<UnfollowProps> = ({
         )
       }
     >
-      {showText && t`Following`}
+      {showText ? t`Following` : null}
     </Button>
   );
 };

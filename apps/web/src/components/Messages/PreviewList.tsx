@@ -14,11 +14,11 @@ import {
   Modal,
   TabButton
 } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -99,39 +99,29 @@ const PreviewList: FC<PreviewListProps> = ({
 
   return (
     <GridItemFour
-      className={clsx(
-        'xs:h-[85vh] xs:mx-2 mb-0 sm:mx-2 sm:h-[76vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]',
+      className={cn(
+        'xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 md:col-span-4',
         className
       )}
     >
       <Card className="flex h-full flex-col justify-between">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
-          {currentProfile && !showAuthenticating && !showLoading && (
+          {currentProfile && !showAuthenticating && !showLoading ? (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
             </button>
-          )}
-          {previewsLoading && (
+          ) : null}
+          {previewsLoading ? (
             <progress
               className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
               value={previewsProgress}
               max={100}
             />
-          )}
+          ) : null}
         </div>
         <div className="flex justify-between px-4 py-3">
           <div className="flex space-x-2">
-            <TabButton
-              className="p-2 px-4"
-              name={MessageTabs.Inbox}
-              active={selectedTab === MessageTabs.Inbox}
-              onClick={() => {
-                setSelectedTab(MessageTabs.Inbox);
-                Leafwatch.track(MESSAGES.SWITCH_INBOX_TAB);
-              }}
-              showOnSm
-            />
             <TabButton
               className="p-2 px-4"
               name={MessageTabs.Following}
@@ -139,6 +129,16 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={() => {
                 setSelectedTab(MessageTabs.Following);
                 Leafwatch.track(MESSAGES.SWITCH_FOLLOWING_TAB);
+              }}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={MessageTabs.Inbox}
+              active={selectedTab === MessageTabs.Inbox}
+              onClick={() => {
+                setSelectedTab(MessageTabs.Inbox);
+                Leafwatch.track(MESSAGES.SWITCH_INBOX_TAB);
               }}
               showOnSm
             />
@@ -209,12 +209,12 @@ const PreviewList: FC<PreviewListProps> = ({
             onProfileSelected={onProfileSelected}
           />
         </div>
-        {currentProfile && (
+        {currentProfile ? (
           <Following
             profile={currentProfile}
             onProfileSelected={onProfileSelected}
           />
-        )}
+        ) : null}
       </Modal>
     </GridItemFour>
   );

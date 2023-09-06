@@ -114,9 +114,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           )
       )}
       {comments?.map((comment, index) =>
-        comment?.__typename === 'Comment' && comment.hidden ? null : (
+        comment?.__typename !== 'Comment' || comment.hidden ? null : (
           <SinglePublication
-            key={`${publicationId}_${index}`}
+            key={`${comment.id}`}
             isFirst={index === 0}
             isLast={index === comments.length - 1}
             publication={comment as Comment}
@@ -124,7 +124,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           />
         )
       )}
-      {hasMore && <span ref={observe} />}
+      {hasMore ? <span ref={observe} /> : null}
     </Card>
   );
 };

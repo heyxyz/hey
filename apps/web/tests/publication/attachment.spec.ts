@@ -1,4 +1,3 @@
-import { IPFS_GATEWAY } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 
@@ -33,23 +32,8 @@ test.describe('Publication attachments', () => {
     await expect(publicationVideo).toBeVisible();
   });
 
-  test.skip('should have publication audio', async ({ page }) => {
-    const publicationId = '0x0d-0x01ec';
-    await page.goto(`${WEB_BASE_URL}/posts/${publicationId}`);
-
-    const audioURL = `${IPFS_GATEWAY}bafybeihabco35vpefrlgzx3rvxccfx4th6ti5ktidw2tf5vjmnmjwx5ki4`;
-    const coverURL = `${IPFS_GATEWAY}bafkreibljzow3cbr4kirujjc5ldxbcykgahjuwuc5zmfledisq4sizwhyq`;
-    const publicationAudio = page.getByTestId(`attachment-audio-${audioURL}`);
-    await expect(publicationAudio).toBeVisible();
-
-    // check if audio cover image is visible
-    const publicationAudioCover = page
-      .getByTestId(`publication-${publicationId}`)
-      .getByTestId(`attachment-audio-cover-${coverURL}`);
-    // await expect(publicationAudioCover).toHaveAttribute(
-    //   'src',
-    //   `${USER_CONTENT_URL}/${ATTACHMENT}/${coverURL}`
-    // );
+  test.skip('should have publication audio', async () => {
+    // TODO: add audio attachment
   });
 
   test.describe('Publication oembed', () => {

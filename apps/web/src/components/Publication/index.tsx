@@ -80,7 +80,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={publication} />
+          <FullPublication publication={publication} key={publication?.id} />
         </Card>
         {currentProfile && !publication?.hidden && !showComposerModal ? (
           canComment ? (
@@ -105,7 +105,7 @@ const ViewPublication: NextPage = () => {
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
-        {staffMode && <PublicationStaffTool publication={publication} />}
+        {staffMode ? <PublicationStaffTool publication={publication} /> : null}
         <Footer />
       </GridItemFour>
     </GridLayout>

@@ -19,6 +19,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -41,6 +42,7 @@ const SuperFollow: FC = () => {
   );
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
     useState('WMATIC');
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -111,6 +113,10 @@ const SuperFollow: FC = () => {
   ) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
@@ -218,7 +224,7 @@ const SuperFollow: FC = () => {
         />
         <div className="ml-auto">
           <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
-            {followType === 'FeeFollowModuleSettings' && (
+            {followType === 'FeeFollowModuleSettings' ? (
               <Button
                 type="button"
                 variant="danger"
@@ -229,7 +235,7 @@ const SuperFollow: FC = () => {
               >
                 <Trans>Disable Super follow</Trans>
               </Button>
-            )}
+            ) : null}
             <Button
               type="submit"
               disabled={isLoading}

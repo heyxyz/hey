@@ -1,11 +1,12 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
+import FeaturedChannel from './FeaturedChannel';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -43,7 +44,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
 
   return (
     <PublicationWrapper
-      className={clsx(
+      className={cn(
         isFirst && 'rounded-t-xl',
         isLast && 'rounded-b-xl',
         'cursor-pointer p-5 hover:bg-gray-100 dark:hover:bg-gray-900'
@@ -69,18 +70,24 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               publication={rootPublication}
               showMore={showMore}
             />
-            {showActions && (
-              <PublicationActions
-                publication={rootPublication}
-                electedMirror={feedItem?.electedMirror as ElectedMirror}
+            <div className="flex flex-wrap items-center gap-x-7">
+              {showActions ? (
+                <PublicationActions
+                  publication={rootPublication}
+                  electedMirror={feedItem?.electedMirror as ElectedMirror}
+                />
+              ) : null}
+              <FeaturedChannel
+                className="mt-3"
+                tags={publication.metadata.tags}
               />
-            )}
-            {showModActions && (
+            </div>
+            {showModActions ? (
               <ModAction
                 publication={rootPublication}
                 className="mt-3 max-w-md"
               />
-            )}
+            ) : null}
           </>
         )}
       </div>

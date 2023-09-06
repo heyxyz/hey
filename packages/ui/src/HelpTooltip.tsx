@@ -5,11 +5,11 @@ import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 
 interface HelpTooltipProps {
-  content: ReactNode;
+  children: ReactNode;
 }
 
-const HelpTooltip: FC<HelpTooltipProps> = ({ content }) => {
-  if (!content) {
+const HelpTooltip: FC<HelpTooltipProps> = ({ children }) => {
+  if (!children) {
     return null;
   }
 
@@ -18,9 +18,11 @@ const HelpTooltip: FC<HelpTooltipProps> = ({ content }) => {
       placement="top"
       duration={0}
       className="!rounded-xl p-2.5 !leading-5 tracking-wide shadow-lg"
-      content={<span>{content}</span>}
+      content={<span>{children}</span>}
     >
-      <InformationCircleIcon className="lt-text-gray-500 h-[15px] w-[15px]" />
+      <span>
+        <InformationCircleIcon className="lt-text-gray-500 h-[15px] w-[15px]" />
+      </span>
     </Tippy>
   );
 };

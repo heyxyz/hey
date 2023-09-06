@@ -89,16 +89,16 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (error) {
-    return <Custom500 />;
-  }
-
   if (loading || !data) {
     return <ProfilePageShimmer />;
   }
 
   if (!data?.profile) {
     return <Custom404 />;
+  }
+
+  if (error) {
+    return <Custom500 />;
   }
 
   return (
@@ -137,12 +137,12 @@ const ViewProfile: NextPage = () => {
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
           {currentProfile?.id === profile?.id ? <NewPost /> : null}
-          {(feedType === ProfileFeedType.Feed ||
-            feedType === ProfileFeedType.Replies ||
-            feedType === ProfileFeedType.Media ||
-            feedType === ProfileFeedType.Collects) && (
+          {feedType === ProfileFeedType.Feed ||
+          feedType === ProfileFeedType.Replies ||
+          feedType === ProfileFeedType.Media ||
+          feedType === ProfileFeedType.Collects ? (
             <Feed profile={profile as Profile} type={feedType} />
-          )}
+          ) : null}
           {feedType === ProfileFeedType.Nft ? (
             <NftGallery profile={profile as Profile} />
           ) : null}

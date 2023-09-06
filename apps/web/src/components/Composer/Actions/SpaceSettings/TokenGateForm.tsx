@@ -5,8 +5,8 @@ import { ChevronDownIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import type { Profile } from '@lenster/lens';
 import { Input, Toggle } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import React from 'react';
 import { TokenGateCondition } from 'src/enums';
@@ -42,7 +42,7 @@ const Module: FC<ModuleProps> = ({
 }) => (
   <Menu.Item
     as="button"
-    className={clsx(
+    className={cn(
       { 'dropdown-active': selectedCondition === conditionToShow },
       'menu-item w-44'
     )}

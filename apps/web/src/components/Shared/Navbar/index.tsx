@@ -3,8 +3,8 @@ import NotificationIcon from '@components/Notification/NotificationIcon';
 import { SearchIcon, XIcon } from '@heroicons/react/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -38,7 +38,7 @@ const Navbar: FC = () => {
     return (
       <Link
         href={url}
-        className={clsx(
+        className={cn(
           'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
@@ -72,7 +72,7 @@ const Navbar: FC = () => {
 
   return (
     <header className="divider sticky top-0 z-10 w-full bg-white dark:bg-black">
-      {staffMode && <StaffBar />}
+      {staffMode ? <StaffBar /> : null}
       <div className="container mx-auto max-w-screen-xl px-5">
         <div className="relative flex h-14 items-center justify-between sm:h-16">
           <div className="flex items-center justify-start">
@@ -106,7 +106,7 @@ const Navbar: FC = () => {
           </div>
           <Link
             href="/"
-            className={clsx('md:hidden', !currentProfile?.id && 'ml-[60px]')}
+            className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
           >
             <img
               className="h-7 w-7"

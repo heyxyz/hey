@@ -122,22 +122,22 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             {sanitizeDisplayName(profile?.name) ??
               formatHandle(profile?.handle)}
           </div>
-          {isVerified(profile.id) && (
+          {isVerified(profile.id) ? (
             <Tooltip content={t`Verified`}>
               <BadgeCheckIcon
                 className="text-brand h-6 w-6"
                 data-testid="profile-verified-badge"
               />
             </Tooltip>
-          )}
-          {hasMisused(profile.id) && (
+          ) : null}
+          {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
               <ExclamationCircleIcon
                 className="h-6 w-6 text-red-500"
                 data-testid="profile-scam-badge"
               />
             </Tooltip>
-          )}
+          ) : null}
         </div>
         <div
           className="flex items-center space-x-3"
@@ -156,22 +156,22 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             />
           )}
           {currentProfile &&
-            currentProfile?.id !== profile.id &&
-            profile?.isFollowing && (
-              <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
-                <Trans>Follows you</Trans>
-              </div>
-            )}
+          currentProfile?.id !== profile.id &&
+          profile?.isFollowing ? (
+            <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
+              <Trans>Follows you</Trans>
+            </div>
+          ) : null}
         </div>
       </div>
-      {profile?.bio && (
+      {profile?.bio ? (
         <div
           className="markup linkify text-md mr-0 break-words sm:mr-10"
           data-testid="profile-bio"
         >
           <Markup>{profile?.bio}</Markup>
         </div>
-      )}
+      ) : null}
       <div className="space-y-5">
         <ScamWarning profile={profile} />
         <Followerings profile={profile} />
@@ -194,13 +194,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   setFollowing={setFollowing}
                   showText
                 />
-                {followType === 'FeeFollowModuleSettings' && (
+                {followType === 'FeeFollowModuleSettings' ? (
                   <SuperFollow
                     profile={profile}
                     setFollowing={setFollowing}
                     again
                   />
-                )}
+                ) : null}
               </>
             ) : followType === 'FeeFollowModuleSettings' ? (
               <SuperFollow
@@ -218,10 +218,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             )
           ) : null}
-          {currentProfile && <Message onClick={onMessageClick} />}
+          {currentProfile ? <Message onClick={onMessageClick} /> : null}
           <ProfileMenu profile={profile} />
         </div>
-        {currentProfile?.id !== profile.id && (
+        {currentProfile?.id !== profile.id ? (
           <>
             <MutualFollowers
               setShowMutualFollowersModal={setShowMutualFollowersModal}
@@ -236,7 +236,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               <MutualFollowersList profileId={profile.id} />
             </Modal>
           </>
-        )}
+        ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
           <MetaDetails
@@ -255,15 +255,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute(profile?.attributes, 'location') && (
+          {getProfileAttribute(profile?.attributes, 'location') ? (
             <MetaDetails
               icon={<LocationMarkerIcon className="h-4 w-4" />}
               dataTestId="profile-meta-location"
             >
               {getProfileAttribute(profile?.attributes, 'location')}
             </MetaDetails>
-          )}
-          {profile?.onChainIdentity?.ens?.name && (
+          ) : null}
+          {profile?.onChainIdentity?.ens?.name ? (
             <MetaDetails
               icon={
                 <img
@@ -278,8 +278,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             >
               {profile?.onChainIdentity?.ens?.name}
             </MetaDetails>
-          )}
-          {getProfileAttribute(profile?.attributes, 'website') && (
+          ) : null}
+          {getProfileAttribute(profile?.attributes, 'website') ? (
             <MetaDetails
               icon={
                 <img
@@ -312,27 +312,19 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   .replace('http://', '')}
               </Link>
             </MetaDetails>
-          )}
-          {getProfileAttribute(profile?.attributes, 'x') && (
+          ) : null}
+          {getProfileAttribute(profile?.attributes, 'x') ? (
             <MetaDetails
               icon={
-                resolvedTheme === 'dark' ? (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-dark.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                ) : (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-light.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                )
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                />
               }
               dataTestId="profile-meta-x"
             >
@@ -350,7 +342,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 )}
               </Link>
             </MetaDetails>
-          )}
+          ) : null}
         </div>
       </div>
       {profile.invitedBy ? (
@@ -360,7 +352,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </>
       ) : null}
       <Badges profile={profile} />
-      {isStaff && staffMode && <ProfileStaffTool profile={profile} />}
+      {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
     </div>
   );
 };

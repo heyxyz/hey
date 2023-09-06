@@ -18,13 +18,14 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -46,6 +47,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       : // @ts-expect-error
         publication?.mirrors?.length > 0
   );
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   // Dispatcher
@@ -164,6 +166,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     if (publication.isDataAvailability && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
@@ -211,7 +217,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           mirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'

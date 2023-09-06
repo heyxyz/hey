@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { XIcon } from '@heroicons/react/outline';
 import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
@@ -48,7 +48,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         quoted ? 'pb-2' : 'pb-4',
         'relative flex justify-between space-x-1.5'
       )}
@@ -66,11 +66,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {gardenerMode && <Source publication={publication} />}
-        {!publication.hidden && !quoted && (
+        {gardenerMode ? <Source publication={publication} /> : null}
+        {!publication.hidden && !quoted ? (
           <PublicationMenu publication={publication} />
-        )}
-        {quoted && isNew && (
+        ) : null}
+        {quoted && isNew ? (
           <button
             className="rounded-full border p-1.5 hover:bg-gray-300/20"
             onClick={(event) => {
@@ -81,7 +81,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
           >
             <XIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

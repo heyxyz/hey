@@ -99,7 +99,7 @@ const Interests: FC = () => {
                   <div>{subCategory.label}</div>
                 </Button>
               ))}
-              {!subCategories.length && (
+              {!subCategories.length ? (
                 <Button
                   key={category.id}
                   variant={
@@ -125,7 +125,7 @@ const Interests: FC = () => {
                 >
                   <div>{category.label}</div>
                 </Button>
-              )}
+              ) : null}
             </div>
           </div>
         )

@@ -88,7 +88,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         setOn={toggleCollect}
         description={t`This post can be collected`}
       />
-      {collectModule.type !== RevertCollectModule && (
+      {collectModule.type !== RevertCollectModule ? (
         <div className="ml-5">
           <AmountConfig
             enabledModuleCurrencies={data?.enabledModuleCurrencies}
@@ -107,7 +107,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           <TimeLimitConfig setCollectType={setCollectType} />
           <FollowersConfig setCollectType={setCollectType} />
         </div>
-      )}
+      ) : null}
       <div className="flex space-x-2 pt-5">
         <Button
           className="ml-auto"

@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import dynamic from 'next/dynamic';
 import type { ComponentProps, ReactNode } from 'react';
 import { forwardRef, useId } from 'react';
 
+import cn from '../cn';
 import { FieldError } from './Form';
 
 const HelpTooltip = dynamic(() => import('./HelpTooltip'));
@@ -40,22 +40,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
 
   return (
     <label className="w-full" htmlFor={id}>
-      {label && (
+      {label ? (
         <div className="mb-1 flex items-center space-x-1.5">
           <div className="font-medium text-gray-800 dark:text-gray-200">
             {label}
           </div>
-          <HelpTooltip content={helper} />
+          <HelpTooltip>{helper}</HelpTooltip>
         </div>
-      )}
+      ) : null}
       <div className="flex">
-        {prefix && (
+        {prefix ? (
           <span className="lt-text-gray-500 inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-3 dark:border-gray-700 dark:bg-gray-900">
             {prefix}
           </span>
-        )}
+        ) : null}
         <div
-          className={clsx(
+          className={cn(
             { 'bg-gray-500/20 opacity-60': props.disabled },
             error ? '!border-red-500' : 'focus-within:ring-1',
             prefix ? 'rounded-r-xl' : 'rounded-xl',
@@ -64,7 +64,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         >
           <input
             id={id}
-            className={clsx(
+            className={cn(
               { 'placeholder:text-red-500': error },
               prefix ? 'rounded-r-xl' : 'rounded-xl',
               'peer w-full border-none bg-transparent outline-none focus:ring-0',
@@ -76,19 +76,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           />
           <span
             tabIndex={-1}
-            className={clsx({ 'order-first pl-3': iconLeft }, iconStyles)}
+            className={cn({ 'order-first pl-3': iconLeft }, iconStyles)}
           >
             {iconLeft}
           </span>
           <span
             tabIndex={-1}
-            className={clsx({ 'order-last pr-3': iconRight }, iconStyles)}
+            className={cn({ 'order-last pr-3': iconRight }, iconStyles)}
           >
             {iconRight}
           </span>
         </div>
       </div>
-      {props.name && <FieldError name={props.name} />}
+      {props.name ? <FieldError name={props.name} /> : null}
     </label>
   );
 });

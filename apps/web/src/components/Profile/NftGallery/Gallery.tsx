@@ -16,8 +16,8 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { Button } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -153,12 +153,12 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <h6 className="line-clamp-1 text-lg font-medium">
           {isRearrange ? 'Arrange gallery' : gallery.name}
         </h6>
-        {galleryStore?.isEdit && (
+        {galleryStore?.isEdit ? (
           <Create
             showModal={showCreateModal}
             setShowModal={setShowCreateModal}
           />
-        )}
+        ) : null}
         {isRearrange ? (
           <div className="flex items-center space-x-2">
             <Button
@@ -186,7 +186,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onClickEditGallery}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
@@ -203,7 +203,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onClickRearrange}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
@@ -220,7 +220,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onDelete}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
@@ -247,7 +247,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
-              <NftCard nft={nft as Nft} />
+              <NftCard nft={nft as Nft} linkToDetail />
             </div>
           ))}
         </div>

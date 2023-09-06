@@ -29,6 +29,7 @@ import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -46,6 +47,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [imageSrc, setImageSrc] = useState('');
   const [showCropModal, setShowCropModal] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -127,12 +129,17 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-    if (!croppedImage) {
-      return toast.error(Errors.SomethingWentWrong);
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
+      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      if (!croppedImage) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
+
       setIsLoading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
@@ -211,13 +218,13 @@ const Picture: FC<PictureProps> = ({ profile }) => {
         </div>
       </Modal>
       <div className="space-y-1.5">
-        {error && (
+        {error ? (
           <ErrorMessage
             className="mb-3"
             title={t`Transaction failed!`}
             error={error}
           />
-        )}
+        ) : null}
         <div className="space-y-3">
           <Image
             className="max-w-xs rounded-lg"

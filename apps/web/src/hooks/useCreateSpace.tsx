@@ -21,7 +21,6 @@ const useCreateSpace = (): [createPoll: () => Promise<CreateSpaceResponse>] => {
     spacesTimeInHour,
     spacesTimeInMinute
   } = useSpacesStore();
-  ``;
   let payload = {};
   const now = new Date();
   now.setHours(Number(spacesTimeInHour));

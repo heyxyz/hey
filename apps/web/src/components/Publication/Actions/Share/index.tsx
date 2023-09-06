@@ -6,8 +6,8 @@ import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';
 
@@ -37,7 +37,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       <Menu as="div" className="relative">
         <Menu.Button as={Fragment}>
           <button
-            className={clsx(
+            className={cn(
               mirrored ? 'text-green-500' : 'text-brand',
               'rounded-full p-1.5 hover:bg-gray-300/20'
             )}
@@ -75,16 +75,16 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           </Menu.Items>
         </MenuTransition>
       </Menu>
-      {count > 0 && !showCount && (
+      {count > 0 && !showCount ? (
         <span
-          className={clsx(
+          className={cn(
             mirrored ? 'text-green-500' : 'text-brand',
             'text-[11px] sm:text-xs'
           )}
         >
           {nFormatter(count)}
         </span>
-      )}
+      ) : null}
     </div>
   );
 };

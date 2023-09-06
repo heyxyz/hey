@@ -19,6 +19,7 @@ import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 import { useNonceStore } from 'src/store/nonce';
@@ -37,10 +38,10 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gallery = useNftGalleryStore((state) => state.gallery);
-
-  const { signMessageAsync } = useSignMessage();
-
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+
+  const handleWrongNetwork = useHandleWrongNetwork();
+  const { signMessageAsync } = useSignMessage();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -120,6 +121,10 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const { contractAddress, tokenId, chainId } = gallery.items[0];
@@ -175,13 +180,13 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       onClose={() => setShowNftAvatarModal(false)}
     >
       <div className="flex flex-col">
-        {error && (
+        {error ? (
           <ErrorMessage
             className="mb-3"
             title={t`Transaction failed!`}
             error={error}
           />
-        )}
+        ) : null}
         <div className="max-h-[80vh] overflow-y-auto p-5">
           <Picker onlyAllowOne={true} />
         </div>

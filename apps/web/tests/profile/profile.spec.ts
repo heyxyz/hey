@@ -1,4 +1,9 @@
-import { APP_NAME } from '@lenster/data/constants';
+import {
+  APP_NAME,
+  AVATAR,
+  COVER,
+  LENS_MEDIA_SNAPSHOT_URL
+} from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 
@@ -11,21 +16,21 @@ test.describe('Profile', () => {
     await expect(page).toHaveTitle(`Yoginth (@yoginth) • ${APP_NAME}`);
   });
 
-  test.skip('should have avatar', async ({ page }) => {
+  test('should have avatar', async ({ page }) => {
     const avatar = page.getByTestId('profile-avatar');
 
-    // await expect(avatar).toHaveAttribute(
-    //   'src',
-    //   `${USER_CONTENT_URL}/${AVATAR}/https://gateway.ipfscdn.io/ipfs/bafybeibzzi2rfxlswibx7jqqahqmzurhnp643ytquvp4llys3urbdfttjq`
-    // );
+    await expect(avatar).toHaveAttribute(
+      'src',
+      `${LENS_MEDIA_SNAPSHOT_URL}/${AVATAR}/7ba81615d40f3421e3ef3ee510afee6a6e8c26a9d0e6c2bee924436b04b6b295.png`
+    );
   });
 
-  test.skip('should have cover', async ({ page }) => {
+  test('should have cover', async ({ page }) => {
     const cover = page.getByTestId('profile-cover');
     const style = await cover.getAttribute('style');
 
-    // await expect(style).toContain(
-    //   `${USER_CONTENT_URL}/${COVER}/https://gateway.ipfscdn.io/ipfs/bafybeicm2alelvjwawvv5ubn4g6flbyrrjay5ryxww3ulhnetmdy5ty4re`
-    // );
+    await expect(style).toContain(
+      `${LENS_MEDIA_SNAPSHOT_URL}/${COVER}/344d357eeca656d8c075a31dff8d2fc635aa8ff9c75c055764e79670e3a93e36.jpg`
+    );
   });
 });

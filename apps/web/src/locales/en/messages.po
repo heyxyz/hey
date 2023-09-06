@@ -30,6 +30,18 @@ msgstr "Failed to load bookmark feed"
 msgid "Bookmarks • {APP_NAME}"
 msgstr "Bookmarks • {APP_NAME}"
 
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr "Featured"
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr "don't have any publications yet"
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
+msgstr "Failed to load channel feed"
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr ""
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr "Add another option"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Poll"
 
@@ -827,6 +839,23 @@ msgstr "Custom filters"
 msgid "Gardeners"
 msgstr "Gardeners"
 
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr "Traits"
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr "Contract address"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr "Token ID"
+
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr ""
@@ -987,6 +1016,26 @@ msgstr "Your message has been sent!"
 #: src/components/Pages/Contact.tsx
 msgid "Email"
 msgstr "Email"
+
+#: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr "Category"
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr "Support"
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr "Bug report"
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr "Feature request"
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr "Other"
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1807,6 +1856,97 @@ msgstr "MOMOKA PROOF"
 msgid "NFT ADDRESS"
 msgstr ""
 
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr "Type:"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr "{0} minted"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr "{0} remaining"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr "Open in Zora"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr "Switch to {0}"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr "You don't have balance"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr "You exceeded the mint limit"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr "Mint on Zora"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr "Minting in progress"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr "Minted successful"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr "ERC-1155 Collection"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint"
+msgstr "Mint"
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint all on Zora"
+msgstr "Mint all on Zora"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "This proposal is closed!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Current results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Cast your vote"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
@@ -2465,8 +2605,8 @@ msgid "Add author"
 msgstr ""
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
-msgstr "Alpha"
+msgid "Alpha 🤫"
+msgstr "Alpha 🤫"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
@@ -2483,6 +2623,10 @@ msgstr ""
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr ""
+
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr "Emoji"
 
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
@@ -2554,6 +2698,10 @@ msgstr "Change Profile"
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
 msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr "Wrong Network"
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
@@ -2635,6 +2783,14 @@ msgstr ""
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr "Change network"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr "Connect to the correct network to continue"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2874,10 +3030,6 @@ msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr ""
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 
@@ -2998,42 +3150,6 @@ msgstr "Protect now"
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
 
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} voting is not supported yet!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "This poll is ended!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Your vote has been casted!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Current results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} left"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Cast your vote"
-
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr ""
@@ -3104,11 +3220,11 @@ msgid "Super follow"
 msgstr "Super follow"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
+msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
+msgid "Please change your network wallet!"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
@@ -3238,6 +3354,9 @@ msgid "Gardener member"
 msgstr "Gardener member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr "Lens Team member"
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr "Trusted member"

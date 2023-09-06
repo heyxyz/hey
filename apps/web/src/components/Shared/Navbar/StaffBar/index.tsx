@@ -8,7 +8,7 @@ import {
   IS_MAINNET,
   IS_PRODUCTION
 } from '@lenster/data/constants';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
@@ -31,7 +31,7 @@ const StaffBar: FC = () => {
         <Performance />
         <div className="flex items-center space-x-1">
           <GlobeAltIcon
-            className={clsx(
+            className={cn(
               IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500',
               'h-4 w-4'
             )}
@@ -43,7 +43,7 @@ const StaffBar: FC = () => {
             </span>
           </Badge>
         </div>
-        {GIT_COMMIT_SHA && (
+        {GIT_COMMIT_SHA ? (
           <Link
             href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
             className="flex items-center space-x-1"
@@ -54,7 +54,7 @@ const StaffBar: FC = () => {
             <HashtagIcon className="h-4 w-4" />
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </Link>
-        )}
+        ) : null}
       </div>
       <div className="flex items-center">
         <Link href="/stafftools">

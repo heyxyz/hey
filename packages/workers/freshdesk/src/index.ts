@@ -20,9 +20,9 @@ const handleRequest = async (request: Request, env: EnvType) => {
   }
 
   const payload: any = await request.json();
-  const { email, subject, body } = payload;
+  const { email, category, subject, body } = payload;
 
-  if (!email || !subject || !body) {
+  if (!email || !category || !subject || !body) {
     return new Response(
       JSON.stringify({ success: false, message: 'Please fill all the fields' }),
       {
@@ -42,12 +42,17 @@ const handleRequest = async (request: Request, env: EnvType) => {
         From: 'contact@lenster.xyz',
         ReplyTo: email,
         To: 'support@lenster.freshdesk.com',
-        Subject: subject,
+        Subject: category + ': ' + subject,
         TextBody: body,
         MessageStream: 'outbound'
       })
-    });
+    }).then((response) => {
+      if (response.status >= 400 && response.status < 600) {
+        throw new Error(`Bad response: ${response.status}`);
+      }
 
+      return response;
+    });
     return new Response(JSON.stringify({ success: true }), {
       headers
     });

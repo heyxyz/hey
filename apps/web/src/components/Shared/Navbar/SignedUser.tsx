@@ -3,8 +3,8 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -51,7 +51,7 @@ const SignedUser: FC = () => {
 
   return (
     <>
-      {showMobileDrawer && <MobileDrawerMenu />}
+      {showMobileDrawer ? <MobileDrawerMenu /> : null}
       <button
         className="focus:outline-none md:hidden"
         onClick={() => openMobileMenuDrawer()}
@@ -87,7 +87,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx(
+                cn(
                   { 'dropdown-active': active },
                   'm-2 rounded-lg border dark:border-gray-700'
                 )
@@ -98,7 +98,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx(
+                cn(
                   { 'dropdown-active': active },
                   'm-2 rounded-lg border dark:border-gray-700'
                 )
@@ -111,7 +111,7 @@ const SignedUser: FC = () => {
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                cn({ 'dropdown-active': active }, 'menu-item')
               }
             >
               <YourProfile />
@@ -120,26 +120,26 @@ const SignedUser: FC = () => {
               as={NextLink}
               href={'/settings'}
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                cn({ 'dropdown-active': active }, 'menu-item')
               }
             >
               <Settings />
             </Menu.Item>
-            {isGardener && (
+            {isGardener ? (
               <Menu.Item
                 as={NextLink}
                 href={'/mod'}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  cn({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <Mod />
               </Menu.Item>
-            )}
+            ) : null}
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <Invites />
@@ -147,7 +147,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <Logout />
@@ -156,16 +156,16 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <ThemeSwitch />
             </Menu.Item>
-            {isGardener && (
+            {isGardener ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx(
+                  cn(
                     { 'bg-yellow-100 dark:bg-yellow-800': active },
                     'm-2 rounded-lg'
                   )
@@ -173,12 +173,12 @@ const SignedUser: FC = () => {
               >
                 <GardenerMode />
               </Menu.Item>
-            )}
-            {isStaff && (
+            ) : null}
+            {isStaff ? (
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx(
+                  cn(
                     { 'bg-yellow-100 dark:bg-yellow-800': active },
                     'm-2 rounded-lg'
                   )
@@ -186,7 +186,7 @@ const SignedUser: FC = () => {
               >
                 <StaffMode />
               </Menu.Item>
-            )}
+            ) : null}
             <div className="divider" />
             <AppVersion />
           </Menu.Items>

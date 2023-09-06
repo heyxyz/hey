@@ -11,7 +11,7 @@ const PreferencesProvider: FC = () => {
   const {
     setIsStaff,
     setIsGardener,
-    setIsTrustedMember,
+    setIsLensMember,
     setStaffMode,
     setGardenerMode,
     setIsPride,
@@ -29,7 +29,7 @@ const PreferencesProvider: FC = () => {
 
         setIsStaff(data.result?.is_staff || false);
         setIsGardener(data.result?.is_gardener || false);
-        setIsTrustedMember(data.result?.is_trusted_member || false);
+        setIsLensMember(data.result?.is_lens_member || false);
         setStaffMode(data.result?.staff_mode || false);
         setGardenerMode(data.result?.gardener_mode || false);
         setIsPride(data.result?.is_pride || false);

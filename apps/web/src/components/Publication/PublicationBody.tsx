@@ -1,9 +1,10 @@
+import Nft from '@components/Publication/OpenActions/Nft';
+import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Space from '@components/Shared/Embed/Space';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
-import Snapshot from '@components/Shared/Snapshot';
 import { EyeIcon } from '@heroicons/react/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Publication } from '@lenster/lens';
@@ -11,10 +12,12 @@ import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import getNft from '@lenster/lib/nft/getNft';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
+import type { OG } from '@lenster/types/misc';
 import type { SpaceMetadata } from '@lenster/types/spaces';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -35,9 +38,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const { id, metadata } = publication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
   const urls = getURLs(metadata?.content);
-  const hasURLs = urls?.length > 0;
-  const snapshotProposalId = hasURLs && getSnapshotProposalId(urls);
   const isSpacesEnabled = isFeatureEnabled(FeatureFlag.Spaces);
+  const hasURLs = urls.length > 0;
+  const snapshotProposalId = getSnapshotProposalId(urls);
+  const nft = getNft(urls);
   const quotedPublicationId = getPublicationAttribute(
     metadata.attributes,
     'quotedPublicationId'
@@ -52,7 +56,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     : null;
 
   const filterId = snapshotProposalId || quotedPublicationId;
-
   let rawContent = metadata?.content;
 
   if (filterId) {
@@ -73,18 +76,26 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     return <Space publication={publication} />;
   }
 
-  const showAttachments = metadata?.media?.length > 0;
+  // Show NFT if it's there
+  const showNft = nft;
+  // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
+  // Show attachments if it's there
+  const showAttachments = metadata?.media?.length > 0;
+  // Show quoted publication if it's there
   const showQuotedPublication = quotedPublicationId && !quoted;
+  // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs &&
+    !showNft &&
     !showAttachments &&
     !showSnapshot &&
     !showQuotedPublication &&
     !quoted;
 
-  const onData = () => {
-    if (showOembed) {
+  // Remove URL at the end if oembed is there
+  const onOembedData = (data: OG) => {
+    if (showOembed && data?.title) {
       const updatedContent = removeUrlAtEnd(urls, content);
       if (updatedContent !== content) {
         setContent(updatedContent);
@@ -95,31 +106,37 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   return (
     <div className="break-words">
       <Markup
-        className={clsx(
+        className={cn(
           { 'line-clamp-5': canShowMore },
           'markup linkify text-md break-words'
         )}
       >
         {content}
       </Markup>
-      {canShowMore && (
+      {canShowMore ? (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${id}`}>
             <Trans>Show more</Trans>
           </Link>
         </div>
-      )}
-      {/* Snapshot, Attachments and Opengraph */}
+      ) : null}
+      {/* Attachments and Quotes */}
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
-      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showOembed ? (
-        <Oembed url={urls[0]} publicationId={publication.id} onData={onData} />
-      ) : null}
       {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />
+      ) : null}
+      {/* Open actions */}
+      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
+      {showNft ? <Nft nftMetadata={nft} /> : null}
+      {showOembed ? (
+        <Oembed
+          url={urls[0]}
+          publicationId={publication.id}
+          onData={onOembedData}
+        />
       ) : null}
     </div>
   );

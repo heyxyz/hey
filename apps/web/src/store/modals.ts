@@ -11,6 +11,8 @@ interface GlobalModalState {
     showComposerModal: boolean,
     modalPublicationType: NewPublicationTypes
   ) => void;
+  showWrongNetworkModal: boolean;
+  setShowWrongNetworkModal: (showWrongNetworkModal: boolean) => void;
   showDiscardModal: boolean;
   setShowDiscardModal: (showDiscardModal: boolean) => void;
   showStatusModal: boolean;
@@ -42,6 +44,9 @@ export const useGlobalModalStateStore = create<GlobalModalState>((set) => ({
   modalPublicationType: NewPublicationTypes.Publication,
   setShowComposerModal: (showComposerModal, modalPublicationType) =>
     set(() => ({ showComposerModal, modalPublicationType })),
+  showWrongNetworkModal: false,
+  setShowWrongNetworkModal: (showWrongNetworkModal) =>
+    set(() => ({ showWrongNetworkModal })),
   showDiscardModal: false,
   setShowDiscardModal: (showDiscardModal) => set(() => ({ showDiscardModal })),
   showPublicationReportModal: false,

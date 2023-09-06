@@ -16,8 +16,7 @@ const k3lGlobalFeed = async (
     const ids = json.map((item: any) => item.postId);
 
     return randomizeIds(ids);
-  } catch (error) {
-    console.log(error);
+  } catch {
     return [];
   }
 };

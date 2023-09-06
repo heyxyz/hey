@@ -3,8 +3,8 @@ import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -73,11 +73,11 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          {profiles.length > 1 && (
-            <SwitchProfile className={clsx(itemClass, 'px-4')} />
-          )}
+          {profiles.length > 1 ? (
+            <SwitchProfile className={cn(itemClass, 'px-4')} />
+          ) : null}
           <div className="divider" />
-          <Status className={clsx(itemClass, 'px-4')} />
+          <Status className={cn(itemClass, 'px-4')} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
@@ -87,23 +87,23 @@ const MobileDrawerMenu: FC = () => {
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               onClick={closeDrawer}
             >
-              <YourProfile className={clsx(itemClass, 'px-4')} />
+              <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
             <Link href={'/settings'} onClick={closeDrawer}>
-              <Settings className={clsx(itemClass, 'px-4')} />
+              <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks
-              className={clsx(itemClass, 'px-4')}
+              className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
-            {isGardener && (
+            {isGardener ? (
               <Link href="/mod" onClick={closeDrawer}>
-                <Mod className={clsx(itemClass, 'px-4')} />
+                <Mod className={cn(itemClass, 'px-4')} />
               </Link>
-            )}
-            <Invites className={clsx(itemClass, 'px-4')} />
+            ) : null}
+            <Invites className={cn(itemClass, 'px-4')} />
             <ThemeSwitch
-              className={clsx(itemClass, 'px-4')}
+              className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
           </div>
@@ -112,12 +112,9 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Contact
-              className={clsx(itemClass, 'px-4')}
-              onClick={closeDrawer}
-            />
+            <Contact className={cn(itemClass, 'px-4')} onClick={closeDrawer} />
             <ReportBug
-              className={clsx(itemClass, 'px-4')}
+              className={cn(itemClass, 'px-4')}
               onClick={closeDrawer}
             />
           </div>
@@ -129,36 +126,36 @@ const MobileDrawerMenu: FC = () => {
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
               onClick={closeDrawer}
-              className={clsx(itemClass, 'px-4 py-3')}
+              className={cn(itemClass, 'px-4 py-3')}
             />
           </div>
           <div className="divider" />
-          {isGardener && (
+          {isGardener ? (
             <>
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <GardenerMode className={clsx(itemClass, 'px-4 py-3')} />
+                <GardenerMode className={cn(itemClass, 'px-4 py-3')} />
               </div>
               <div className="divider" />
             </>
-          )}
-          {isStaff && (
+          ) : null}
+          {isStaff ? (
             <>
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
                 aria-hidden="true"
               >
-                <StaffMode className={clsx(itemClass, 'px-4 py-3')} />
+                <StaffMode className={cn(itemClass, 'px-4 py-3')} />
               </div>
               <div className="divider" />
             </>
-          )}
+          ) : null}
         </div>
-        {currentProfile && <AppVersion />}
+        {currentProfile ? <AppVersion /> : null}
       </div>
     </div>
   );

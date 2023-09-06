@@ -1,6 +1,6 @@
 import { useAppUtils } from '@huddle01/react/app-utils';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import React, { useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
@@ -46,7 +46,7 @@ const EmojiTray: FC = () => {
             e.stopPropagation();
             setIsHandRaised((prev) => !prev);
           }}
-          className={clsx(
+          className={cn(
             'font-inter flex w-full items-center justify-center rounded-lg py-2 text-sm font-medium',
             isHandRaised
               ? 'bg-brand-100 text-brand-500 dark:bg-gray-900'

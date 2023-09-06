@@ -10,6 +10,7 @@ import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { useAppStore } from 'src/store/app';
 
 interface FollowingProps {
   profile: Profile;
@@ -19,6 +20,7 @@ interface FollowingProps {
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
   const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
@@ -102,8 +104,8 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
-                showFollow
-                showUnfollow
+                showFollow={currentProfile?.id !== following?.profile.id}
+                showUnfollow={currentProfile?.id !== following?.profile.id}
                 showUserPreview={false}
               />
             </motion.div>

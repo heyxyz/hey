@@ -42,6 +42,7 @@ import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -81,6 +82,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [showCropModal, setShowCropModal] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -176,6 +178,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const id = await uploadToArweave({
@@ -233,12 +239,16 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-    if (!croppedImage) {
-      return toast.error(Errors.SomethingWentWrong);
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
+      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      if (!croppedImage) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
       setUploading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
@@ -275,13 +285,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             editProfile(name, location, website, x, bio);
           }}
         >
-          {error && (
+          {error ? (
             <ErrorMessage
               className="mb-3"
               title={t`Transaction failed!`}
               error={error}
             />
-          )}
+          ) : null}
           <Input
             label={t`Profile Id`}
             type="text"
@@ -333,7 +343,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               </div>
               <div className="flex items-center space-x-3">
                 <ChooseFile onChange={onFileChange} />
-                {uploading && <Spinner size="sm" />}
+                {uploading ? <Spinner size="sm" /> : null}
               </div>
             </div>
           </div>

@@ -94,11 +94,11 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
           {isZero ? ' and ' : ', '}
         </span>
         <span>{profileThree?.name ?? formatHandle(profileThree?.handle)} </span>
-        {!isZero && (
+        {!isZero ? (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
           </span>
-        )}
+        ) : null}
       </Wrapper>
     );
   }

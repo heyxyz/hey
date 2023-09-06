@@ -1,6 +1,6 @@
 {
   "name": "lenster",
-  "version": "1.1.6-beta",
+  "version": "1.1.7-beta",
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
@@ -27,10 +27,10 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "prettier": "^3.0.2",
-    "prettier-plugin-tailwindcss": "^0.5.3",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.4",
     "start-server-and-test": "^2.0.0",
-    "turbo": "^1.10.12"
+    "turbo": "^1.10.13"
   },
   "packageManager": "pnpm@8.6.11",
   "engines": {

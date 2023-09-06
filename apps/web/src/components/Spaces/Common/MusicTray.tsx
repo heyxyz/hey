@@ -1,8 +1,8 @@
 import { MusicNoteIcon, PlayIcon, StopIcon } from '@heroicons/react/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { Radio } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import React from 'react';
 import { MusicTrack } from 'src/enums';
@@ -73,7 +73,7 @@ const MusicTray: FC = () => {
         label="Forest Lullaby"
       />
       <div
-        className={clsx(
+        className={cn(
           'bg-brand-500 inline-flex w-full cursor-pointer items-center gap-2 rounded-b-lg p-2',
           isMyMusicPlaying ? 'bg-red-400 bg-opacity-20' : 'bg-brand-500'
         )}
@@ -89,7 +89,7 @@ const MusicTray: FC = () => {
           <PlayIcon className="h-5 w-5 text-gray-200" />
         )}
         <div
-          className={clsx(
+          className={cn(
             'text-sm font-semibold',
             isMyMusicPlaying ? 'text-red-400' : 'text-gray-200'
           )}
