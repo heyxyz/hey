@@ -10,7 +10,7 @@ import Player from './Player';
 interface OembedProps {
   url?: string;
   publicationId?: string;
-  onData: () => void;
+  onData: (data: OG) => void;
 }
 
 const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
@@ -26,7 +26,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   if (isLoading || error || !data) {
     return null;
   } else if (data) {
-    onData();
+    onData(data);
   }
 
   const og: OG = {
@@ -35,7 +35,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     description: data?.description,
     site: data?.site,
     favicon: `https://www.google.com/s2/favicons?domain=${data.url}`,
-    thumbnail: data?.image,
+    image: data?.image,
     isLarge: data?.isLarge,
     html: data?.html
   };

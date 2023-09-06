@@ -3,11 +3,9 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
 import { SparklesIcon } from '@heroicons/react/solid';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -15,6 +13,7 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 import { useTimelineStore } from 'src/store/timeline';
 
 import Suggested from './Suggested';
@@ -31,8 +30,8 @@ const Title = () => {
 };
 
 const RecommendedProfiles: FC = () => {
-  const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
@@ -41,7 +40,7 @@ const RecommendedProfiles: FC = () => {
   const { data, loading, error } = useRecommendedProfilesQuery({
     variables: {
       options: {
-        profileId: isWTF2Enabled
+        profileId: isLensMember
           ? seeThroughProfile?.id ?? currentProfile?.id
           : null
       }

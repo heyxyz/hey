@@ -104,10 +104,7 @@ const useMessagePreviews = () => {
 
   useEffect(() => {
     const getEns = async () => {
-      if (
-        selectedTab === MessageTabs.Inbox &&
-        ensNames.size < nonLensProfiles.size
-      ) {
+      if (selectedTab === MessageTabs.Inbox) {
         const chunks = chunkArray(
           Array.from(nonLensProfiles),
           MAX_PROFILES_PER_REQUEST
@@ -129,7 +126,7 @@ const useMessagePreviews = () => {
     };
     getEns();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTab]);
+  }, [nonLensProfiles]);
 
   useEffect(() => {
     if (profilesLoading) {
@@ -199,6 +196,7 @@ const useMessagePreviews = () => {
           (convo.context?.conversationId as string) ?? ''
         );
         const profileId = getProfileFromKey(key);
+
         if (profileId) {
           newProfileIds.add(profileId);
         } else {

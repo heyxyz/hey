@@ -10,7 +10,7 @@ const Player: FC<PlayerProps> = ({ og }) => {
     <div className="mt-4 w-5/6 text-sm" data-testid={`rich-oembed-${og.url}`}>
       <div
         className="oembed-player"
-        dangerouslySetInnerHTML={{ __html: og.html }}
+        dangerouslySetInnerHTML={{ __html: og.html as string }}
       />
     </div>
   );

@@ -1,8 +1,8 @@
 import { EXPLORE } from '@lenster/data/tracking';
 import { PublicationMainFocus } from '@lenster/lens';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FeedLinkProps {
@@ -25,7 +25,7 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
           explore_feed_focus: (type ?? 'all_posts').toLowerCase()
         });
       }}
-      className={clsx(
+      className={cn(
         { '!bg-brand-500 !text-white': focus === type },
         'text-brand rounded-full px-3 py-1.5 text-xs sm:px-4',
         'border-brand-300 dark:border-brand-500 border',

@@ -49,6 +49,7 @@ import Link from 'next/link';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -85,6 +86,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -268,6 +270,10 @@ const CollectModule: FC<CollectModuleProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const canUseProxy =
@@ -334,15 +340,13 @@ const CollectModule: FC<CollectModuleProps> = ({
             />
           </div>
         ) : null}
-        <div className="space-y-1.5 pb-2">
-          {publication?.metadata?.name ? (
-            <div className="text-xl font-bold">
-              {publication?.metadata?.name}
-            </div>
+        <div className="mb-4 space-y-1.5">
+          {publication.metadata?.name ? (
+            <div className="text-xl font-bold">{publication.metadata.name}</div>
           ) : null}
-          {publication?.metadata?.content ? (
+          {publication.metadata?.content ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
-              {publication?.metadata?.content}
+              {publication.metadata.content}
             </Markup>
           ) : null}
           <ReferralAlert

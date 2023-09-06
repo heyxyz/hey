@@ -1,7 +1,6 @@
 import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
-import getRpc from '@lenster/lib/getRpc';
 import response from '@lenster/lib/response';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
@@ -41,19 +40,15 @@ export default async (request: WorkerRequest) => {
   try {
     const client = createPublicClient({
       chain: mainnet,
-      transport: http(getRpc(1))
+      transport: http('https://ethereum.publicnode.com')
     });
 
-    const contractRequestSpan = transaction?.startChild({
-      op: 'contract-request'
-    });
     const data = await client.readContract({
       address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
       abi: resolverAbi,
       args: [addresses],
       functionName: 'getNames'
     });
-    contractRequestSpan?.finish();
 
     return response({ success: true, data });
   } catch (error) {

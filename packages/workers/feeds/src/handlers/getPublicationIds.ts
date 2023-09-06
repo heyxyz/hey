@@ -26,10 +26,6 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const providerRequestSpan = transaction?.startChild({
-      op: 'provider-request',
-      description: provider
-    });
     let ids: string[] = [];
     switch (provider) {
       case AlgorithmProvider.K3L:
@@ -41,7 +37,6 @@ export default async (request: WorkerRequest) => {
       default:
         return response({ success: false, message: 'Invalid provider' });
     }
-    providerRequestSpan?.finish();
 
     return response({ success: true, ids });
   } catch (error) {

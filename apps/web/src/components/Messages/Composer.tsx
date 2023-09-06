@@ -43,6 +43,7 @@ interface ComposerProps {
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 interface AttachmentPreviewProps {
@@ -89,7 +90,8 @@ const AttachmentPreviewInline: FC<
 const Composer: FC<ComposerProps> = ({
   sendMessage,
   conversationKey,
-  disabledInput
+  disabledInput,
+  listRef
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
@@ -203,6 +205,11 @@ const Composer: FC<ComposerProps> = ({
       }
     }
 
+    listRef.current?.scrollTo({
+      left: 0,
+      top: listRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
     setSending(false);
   };
 
@@ -251,7 +258,7 @@ const Composer: FC<ComposerProps> = ({
   };
 
   return (
-    <div className="bg-brand-100/75">
+    <div className="border-t dark:border-gray-700">
       {attachment && !sending ? (
         <AttachmentPreview
           onDismiss={onDismiss}
@@ -261,7 +268,7 @@ const Composer: FC<ComposerProps> = ({
       ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
-          <PhotographIcon className="text-brand-900 h-6 w-5" />
+          <PhotographIcon className="text-brand-500 h-6 w-5" />
           <input
             ref={fileInputRef}
             type="file"
@@ -270,7 +277,6 @@ const Composer: FC<ComposerProps> = ({
             onChange={onAttachmentChange}
           />
         </label>
-
         <Input
           type="text"
           placeholder={t`Type Something`}

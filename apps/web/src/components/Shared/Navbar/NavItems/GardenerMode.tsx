@@ -3,10 +3,10 @@ import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/so
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { GARDENER } from '@lenster/data/tracking';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -23,11 +23,18 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
 
   const toggleModMode = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/gardenerMode`, {
-        id: currentProfile?.id,
-        enabled: !gardenerMode,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/gardenerMode`,
+        {
+          id: currentProfile?.id,
+          enabled: !gardenerMode
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Toggling gardener mode...`,
         success: () => {
@@ -44,7 +51,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
   return (
     <button
       onClick={toggleModMode}
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

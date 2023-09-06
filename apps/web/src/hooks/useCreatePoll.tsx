@@ -1,5 +1,5 @@
-import { SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data/constants';
-import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
+import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
 import axios from 'axios';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
@@ -22,7 +22,12 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
           description: publicationContent,
           choices: pollConfig.choices,
           length: pollConfig.length,
-          ...getBasicWorkerPayload()
+          isMainnet: IS_MAINNET
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
         }
       );
 

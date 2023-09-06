@@ -2,7 +2,6 @@ import '@sentry/tracing';
 
 import { Errors } from '@lenster/data/errors';
 import LensEndpoint from '@lenster/data/lens-endpoints';
-import { Regex } from '@lenster/data/regex';
 import response from '@lenster/lib/response';
 import { boolean, object, string } from 'zod';
 
@@ -10,13 +9,11 @@ import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   address: string;
-  accessToken: string;
   isMainnet: boolean;
 };
 
 const validationSchema = object({
   address: string(),
-  accessToken: string().regex(Regex.accessToken),
   isMainnet: boolean()
 });
 
@@ -30,13 +27,18 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NoBody });
   }
 
+  const accessToken = request.headers.get('X-Access-Token');
+  if (!accessToken) {
+    return response({ success: false, error: Errors.NoAccessToken });
+  }
+
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { address, accessToken, isMainnet } = body as ExtensionRequest;
+  const { address, isMainnet } = body as ExtensionRequest;
 
   try {
     const mutation = `
@@ -44,7 +46,6 @@ export default async (request: WorkerRequest) => {
         invite(request: $request)
       }
     `;
-    const inviteRequestSpan = transaction?.startChild({ op: 'invite-request' });
     const inviteResponse = await fetch(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
@@ -65,7 +66,6 @@ export default async (request: WorkerRequest) => {
         })
       }
     );
-    inviteRequestSpan?.finish();
 
     const inviteResponseJson: {
       errors: any;

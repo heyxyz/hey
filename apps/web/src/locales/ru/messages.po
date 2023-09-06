@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-30 00:08\n"
+"PO-Revision-Date: 2023-09-06 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -29,6 +29,18 @@ msgstr ""
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
 msgstr "Заметки • {APP_NAME}"
+
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
+msgstr ""
 
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr "Добавить еще один вариант"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Опрос"
 
@@ -778,6 +790,23 @@ msgstr "Индивидуальные фильтры"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "Садовники"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr "Описание"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -1779,6 +1808,97 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint all on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "Этот опрос закрыт!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} голосование пока не поддерживается!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Ваш голос был учтен!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Текущие результаты"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Результаты"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} осталось"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Проголосуйте"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
@@ -2437,7 +2557,7 @@ msgid "Add author"
 msgstr "Добавить автора"
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
+msgid "Alpha 🤫"
 msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
@@ -2532,6 +2652,10 @@ msgid "Login"
 msgstr "Вход"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "Создать публикацию"
 
@@ -2611,6 +2735,14 @@ msgstr "Браузерный кошелек"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "Не удалось подключиться"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2850,10 +2982,6 @@ msgid "Failed to report"
 msgstr "Не удалось отправить жалобу"
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr "Описание"
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "Предоставьте более подробную информацию"
 
@@ -2974,42 +3102,6 @@ msgstr ""
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "получит <0>{referralFee}%</0> реферального вознаграждения"
 
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "Этот опрос закрыт!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} голосование пока не поддерживается!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Ваш голос был учтен!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Текущие результаты"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Результаты"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} осталось"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Проголосуйте"
-
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr "Статус не должен быть пустым"
@@ -3080,12 +3172,12 @@ msgid "Super follow"
 msgstr "Супер подписка"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
-msgstr "Пожалуйста, измените сеть в вашем кошельке!"
-
-#: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "Сменить сеть"
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr "Пожалуйста, измените сеть в вашем кошельке!"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
@@ -3131,6 +3223,9 @@ msgid "Gardener member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr ""

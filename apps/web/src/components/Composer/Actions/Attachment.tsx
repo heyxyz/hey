@@ -12,8 +12,8 @@ import {
   ALLOWED_VIDEO_TYPES
 } from '@lenster/data/constants';
 import { Spinner, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -100,7 +100,7 @@ const Attachment: FC = () => {
             as="label"
             disabled={disableImageUpload()}
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -123,7 +123,7 @@ const Attachment: FC = () => {
             as="label"
             disabled={Boolean(attachments.length)}
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -145,7 +145,7 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )

@@ -94,6 +94,9 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
                   showFollow={
                     currentProfile?.id !== follower?.wallet?.defaultProfile?.id
                   }
+                  showUnfollow={
+                    currentProfile?.id !== follower?.wallet?.defaultProfile?.id
+                  }
                   showUserPreview={false}
                 />
               ) : (

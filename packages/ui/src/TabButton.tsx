@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
+
+import cn from '../cn';
 
 interface TabButtonProps {
   name: string;
@@ -36,7 +37,7 @@ const TabButton: FC<TabButtonProps> = ({
         }
         onClick();
       }}
-      className={clsx(
+      className={cn(
         { 'text-brand bg-brand-100 dark:bg-brand-300/20': active },
         'flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 sm:px-3 sm:py-1.5',
         'hover:bg-brand-100/80 dark:hover:bg-brand-300/30 justify-center',
@@ -46,10 +47,10 @@ const TabButton: FC<TabButtonProps> = ({
       aria-label={name}
     >
       {icon}
-      <span className={clsx({ 'hidden sm:block': !showOnSm })}>{name}</span>
+      <span className={cn({ 'hidden sm:block': !showOnSm })}>{name}</span>
       {count ? (
         <span
-          className={clsx(
+          className={cn(
             active
               ? 'bg-brand-500 dark:bg-brand-500/80 text-white dark:text-white'
               : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400',
