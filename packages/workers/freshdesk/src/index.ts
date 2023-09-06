@@ -34,7 +34,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
   const profileInfo = profile
     ? `User ID: ${profile.id}\nHandle: ${profile.handle}`
     : 'Not signed in';
-  const textBody = `Profile info:\n${profileInfo}\nMessage:\n${body}`;
+  const textBody = `${profileInfo}\n\nMessage:\n${body}`;
   try {
     await fetch('https://api.postmarkapp.com/email', {
       method: 'POST',
