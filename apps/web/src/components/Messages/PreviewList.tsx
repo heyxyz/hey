@@ -124,21 +124,21 @@ const PreviewList: FC<PreviewListProps> = ({
           <div className="flex space-x-2">
             <TabButton
               className="p-2 px-4"
-              name={MessageTabs.Inbox}
-              active={selectedTab === MessageTabs.Inbox}
-              onClick={() => {
-                setSelectedTab(MessageTabs.Inbox);
-                Leafwatch.track(MESSAGES.SWITCH_INBOX_TAB);
-              }}
-              showOnSm
-            />
-            <TabButton
-              className="p-2 px-4"
               name={MessageTabs.Following}
               active={selectedTab === MessageTabs.Following}
               onClick={() => {
                 setSelectedTab(MessageTabs.Following);
                 Leafwatch.track(MESSAGES.SWITCH_FOLLOWING_TAB);
+              }}
+              showOnSm
+            />
+            <TabButton
+              className="p-2 px-4"
+              name={MessageTabs.Inbox}
+              active={selectedTab === MessageTabs.Inbox}
+              onClick={() => {
+                setSelectedTab(MessageTabs.Inbox);
+                Leafwatch.track(MESSAGES.SWITCH_INBOX_TAB);
               }}
               showOnSm
             />
