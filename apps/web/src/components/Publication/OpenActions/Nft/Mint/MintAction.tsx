@@ -1,7 +1,7 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { CursorClickIcon } from '@heroicons/react/outline';
+import { CurrencyDollarIcon, CursorClickIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import { ZoraERC721Drop } from '@lenster/abis';
+import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useUpdateEffect } from 'usehooks-ts';
-import { parseEther } from 'viem';
+import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
   useChainId,
   useContractWrite,
@@ -20,6 +20,11 @@ import {
 } from 'wagmi';
 
 import { useZoraMintStore } from '.';
+
+const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
+const NO_BALANCE_ERROR = 'exceeds the balance of the account';
+const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
+const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
   nft: ZoraNft;
@@ -31,7 +36,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const { quantity, setCanMintOnLenster } = useZoraMintStore();
   const chain = useChainId();
 
-  const erc721Address = nft.address;
+  const nftAddress = nft.address;
   const recipient = currentProfile?.ownedBy;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
@@ -40,17 +45,31 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   const value =
     (parseEther(nftPriceInEth.toString()) + mintFee) * BigInt(quantity);
 
+  const abi =
+    nft.contractStandard === 'ERC721' ? ZoraERC721Drop : ZoraCreator1155Impl;
+  const args =
+    nft.contractStandard === 'ERC721'
+      ? [recipient, BigInt(quantity), comment, mintReferral]
+      : [
+          FIXED_PRICE_SALE_STRATEGY,
+          parseInt(nft.tokenId),
+          BigInt(quantity),
+          encodeAbiParameters(parseAbiParameters('address'), [recipient]),
+          mintReferral
+        ];
+
   const {
     config,
     isFetching: isPrepareFetching,
-    isError: isPrepareError
+    isError: isPrepareError,
+    error: prepareError
   } = usePrepareContractWrite({
     chainId: nft.chainId,
-    abi: ZoraERC721Drop,
-    address: erc721Address,
+    address: nftAddress,
     functionName: 'mintWithRewards',
-    args: [recipient, BigInt(quantity), comment, mintReferral],
-    value: value
+    abi,
+    args,
+    value
   });
   const {
     write,
@@ -63,8 +82,14 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
   });
 
   useUpdateEffect(() => {
-    setCanMintOnLenster(!isPrepareError);
-  }, [isPrepareError, isPrepareFetching]);
+    setCanMintOnLenster(
+      !isPrepareError ||
+        (isPrepareError &&
+          ALLOWED_ERRORS_FOR_MINTING.some(
+            (error) => prepareError?.message.includes(error)
+          ))
+    );
+  }, [isPrepareFetching]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 
@@ -77,20 +102,44 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
           title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
-        <Link
-          className="w-full"
-          href={zoraLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Button
-            className="mt-5 w-full justify-center"
-            icon={<CursorClickIcon className="h-5 w-5" />}
-            size="md"
+        prepareError?.message.includes(NO_BALANCE_ERROR) ? (
+          <Link
+            className="w-full"
+            href="https://app.uniswap.org"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Trans>Mint on Zora</Trans>
-          </Button>
-        </Link>
+            <Button
+              className="mt-5 w-full justify-center"
+              icon={<CurrencyDollarIcon className="h-5 w-5" />}
+              size="md"
+            >
+              <Trans>You don't have balance</Trans>
+            </Button>
+          </Link>
+        ) : prepareError?.message.includes(MAX_MINT_EXCEEDED_ERROR) ? (
+          <div className="mt-5 w-full">
+            <div className="divider" />
+            <b className="mt-5 flex w-full justify-center">
+              <Trans>You exceeded the mint limit</Trans>
+            </b>
+          </div>
+        ) : (
+          <Link
+            className="w-full"
+            href={zoraLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              className="mt-5 w-full justify-center"
+              icon={<CursorClickIcon className="h-5 w-5" />}
+              size="md"
+            >
+              <Trans>Mint on Zora</Trans>
+            </Button>
+          </Link>
+        )
       ) : (
         <Button
           className="mt-5 w-full justify-center"
