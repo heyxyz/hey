@@ -1,6 +1,6 @@
 import { BookmarkIcon } from '@heroicons/react/outline';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -13,7 +13,7 @@ const Bookmarks: FC<BookmarksProps> = ({ onClick, className = '' }) => {
   return (
     <Link
       href="/bookmarks"
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
 interface SmallUserProfileShimmerProps {
@@ -11,7 +11,7 @@ const SmallUserProfileShimmer: FC<SmallUserProfileShimmerProps> = ({
   return (
     <div className="flex items-center space-x-3">
       <div
-        className={clsx(
+        className={cn(
           smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
           'shimmer rounded-full'
         )}

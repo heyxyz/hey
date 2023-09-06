@@ -10,17 +10,15 @@ import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import isVerified from '@lib/isVerified';
 import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
 import Follow from './Follow';
-import { HorizontalLoader } from './HorizontalLoader';
 import Markup from './Markup';
-import ProfileHoverShimmer from './Shimmer/ProfileHoverShimmer';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
@@ -51,7 +49,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <Image
       src={getAvatar(lazyProfile)}
       loading="lazy"
-      className={clsx(
+      className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
@@ -64,7 +62,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   const UserName = () => (
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md')}>
+        <div className={cn(isBig ? 'font-bold' : 'text-md')}>
           {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
@@ -87,8 +85,12 @@ const UserPreview: FC<UserPreviewProps> = ({
     if (loading || !lazyProfile.id) {
       return (
         <div className="flex flex-col">
-          <HorizontalLoader />
-          <ProfileHoverShimmer handle={lazyProfile.handle} />
+          <div className="horizontal-loader w-full">
+            <div />
+          </div>
+          <div className="flex p-3">
+            <div>{lazyProfile.handle}</div>
+          </div>
         </div>
       );
     }
@@ -123,7 +125,7 @@ const UserPreview: FC<UserPreviewProps> = ({
           <div>
             {lazyProfile?.bio ? (
               <div
-                className={clsx(
+                className={cn(
                   isBig ? 'text-base' : 'text-sm',
                   'mt-2',
                   'linkify break-words leading-6'

@@ -1,8 +1,8 @@
 import { MoonIcon, SunIcon } from '@heroicons/react/outline';
 import { SYSTEM } from '@lenster/data/tracking';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
@@ -17,7 +17,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   return (
     <button
       type="button"
-      className={clsx(
+      className={cn(
         'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
