@@ -7,11 +7,11 @@ import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import hasMisused from '@lenster/lib/hasMisused';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -61,7 +61,7 @@ const Preview: FC<PreviewProps> = ({
   return (
     message?.content && (
       <div
-        className={clsx(
+        className={cn(
           'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}

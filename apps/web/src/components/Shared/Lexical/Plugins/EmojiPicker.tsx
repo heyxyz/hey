@@ -1,12 +1,12 @@
 import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import type { Emoji } from '@lenster/types/misc';
+import cn from '@lenster/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,
   MenuOption,
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import clsx from 'clsx';
 import type { TextNode } from 'lexical';
 import { $createTextNode, $getSelection, $isRangeSelection } from 'lexical';
 import type { FC } from 'react';
@@ -54,7 +54,7 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
     <li
       key={key}
       tabIndex={-1}
-      className={clsx(
+      className={cn(
         { 'dropdown-active': isSelected },
         'm-2 cursor-pointer rounded-lg p-2 outline-none'
       )}

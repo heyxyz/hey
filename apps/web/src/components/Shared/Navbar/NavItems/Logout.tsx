@@ -1,9 +1,9 @@
 import { LogoutIcon } from '@heroicons/react/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import resetAuthData from '@lenster/lib/resetAuthData';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -47,7 +47,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         logout();
         onClick?.();
       }}
-      className={clsx(
+      className={cn(
         'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

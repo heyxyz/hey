@@ -13,6 +13,7 @@ import hasMisused from '@lenster/lib/hasMisused';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import cn from '@lenster/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -21,7 +22,6 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import isVerified from '@lib/isVerified';
-import clsx from 'clsx';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
@@ -146,7 +146,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       aria-hidden="true"
     >
       <div
-        className={clsx(
+        className={cn(
           { 'bg-gray-200 dark:bg-gray-800': isSelected },
           'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800'
         )}

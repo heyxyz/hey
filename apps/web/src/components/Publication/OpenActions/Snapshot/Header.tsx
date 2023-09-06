@@ -2,7 +2,7 @@ import { SNAPSHOT_URL } from '@lenster/data/constants';
 import formatAddress from '@lenster/lib/formatAddress';
 import type { Proposal } from '@lenster/snapshot';
 import { Image } from '@lenster/ui';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -18,7 +18,7 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
     <>
       <div className="mb-2 flex items-center space-x-1 text-sm">
         <div
-          className={clsx(
+          className={cn(
             state === 'active' ? 'bg-green-500' : 'bg-brand-500',
             'mr-1 rounded-full px-2 py-0.5 text-xs capitalize text-white'
           )}

@@ -1,5 +1,5 @@
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({
   noFlex = false
 }) => (
   <div
-    className={clsx(
+    className={cn(
       noFlex ? '' : 'flex items-center gap-1',
       'linkify cursor-pointer text-sm font-bold'
     )}
@@ -38,7 +38,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({
         </div>
       ) : null}
     </div>
-    <div className={clsx(noFlex ? 'mt-1' : '')}>{children}</div>
+    <div className={cn(noFlex ? 'mt-1' : '')}>{children}</div>
   </div>
 );
 
