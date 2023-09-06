@@ -29,7 +29,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
     query,
     type: SearchRequestTypes.Publication,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
