@@ -116,6 +116,7 @@ const Contact: FC = () => {
                   t`Support`,
                   t`Bug report`,
                   t`Feature request`,
+                  t`Report copyright infringement`,
                   t`Other`
                 ]}
                 {...form.register('category')}
