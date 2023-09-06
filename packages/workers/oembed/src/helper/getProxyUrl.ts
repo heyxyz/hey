@@ -7,6 +7,10 @@ const directUrls = [
 ];
 
 const getProxyUrl = (url: string, isLarge: boolean, env: Env) => {
+  if (!url) {
+    return null;
+  }
+
   const isDirect = directUrls.some((directUrl) => url.includes(directUrl));
 
   if (isDirect) {

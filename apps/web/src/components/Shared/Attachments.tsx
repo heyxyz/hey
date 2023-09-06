@@ -13,9 +13,9 @@ import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Image, LightBox } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -95,9 +95,7 @@ const Attachments: FC<AttachmentsProps> = ({
 
   return attachmentsLength !== 0 ? (
     <>
-      <div
-        className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
-      >
+      <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map(
           (attachment: NewLensterAttachment & MediaSet, index: number) => {
             const type = attachment.original?.mimeType;
@@ -110,7 +108,7 @@ const Attachments: FC<AttachmentsProps> = ({
 
             return (
               <div
-                className={clsx(
+                className={cn(
                   isImage
                     ? `${getClass(attachmentsLength, isNew)?.aspect} ${
                         attachmentsLength === 3 && index === 0
@@ -202,9 +200,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     </Button>
                   ) : (
                     <div
-                      className={clsx(
-                        isAudio ? 'absolute left-2 top-2' : 'm-3'
-                      )}
+                      className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}
                     >
                       <button
                         type="button"

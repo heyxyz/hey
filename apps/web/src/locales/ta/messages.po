@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-21 00:08\n"
+"PO-Revision-Date: 2023-09-06 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -28,6 +28,18 @@ msgstr ""
 
 #: src/components/Bookmarks/index.tsx
 msgid "Bookmarks • {APP_NAME}"
+msgstr ""
+
+#: src/components/Channel/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Channel/Feed.tsx
+msgid "Failed to load channel feed"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
@@ -254,7 +266,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -779,6 +791,23 @@ msgstr "தனிப்பயன் வடிப்பான்கள்"
 msgid "Gardeners"
 msgstr "கார்ட்னர்ஸ்"
 
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr "விளக்கம்"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
+
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
 msgstr "அனைத்து அறிவிப்புகளும்"
@@ -939,6 +968,26 @@ msgstr "உங்கள் செய்தி அனுப்பப்பட்�
 #: src/components/Pages/Contact.tsx
 msgid "Email"
 msgstr "மின்னஞ்சல்"
+
+#: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Subject"
@@ -1759,6 +1808,97 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "NFT முகவரி"
 
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/index.tsx
+msgid "Mint all on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "தற்போதைய முடிவுகள்"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "முடிவுகள்"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "வாக்களிக்கவும்"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
@@ -2417,7 +2557,7 @@ msgid "Add author"
 msgstr "ஆசிரியரைச் சேர்க்கவும்"
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
+msgid "Alpha 🤫"
 msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
@@ -2435,6 +2575,10 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
+
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
 
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
@@ -2506,6 +2650,10 @@ msgstr "சுயவிவரத்தை மாற்றவும்"
 #: src/components/Shared/Navbar/LoginButton.tsx
 msgid "Login"
 msgstr "புகுபதிகை"
+
+#: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
@@ -2587,6 +2735,14 @@ msgstr "உலாவி வாலட்"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "இணைக்க முடியவில்லை"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2826,10 +2982,6 @@ msgid "Failed to report"
 msgstr "புகாரளிக்க முடியவில்லை"
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr "விளக்கம்"
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "கூடுதல் விவரங்களை வழங்கவும்"
 
@@ -2950,42 +3102,6 @@ msgstr ""
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
 
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "தற்போதைய முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "வாக்களிக்கவும்"
-
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr "நிலை காலியாக இருக்கக்கூடாது"
@@ -3056,12 +3172,12 @@ msgid "Super follow"
 msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
-msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
-
-#: src/components/Shared/SwitchNetwork.tsx
 msgid "Switch Network"
 msgstr "நெட்வொர்க்கை மாற்றவும்"
+
+#: src/components/Shared/SwitchNetwork.tsx
+msgid "Please change your network wallet!"
+msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
@@ -3107,6 +3223,9 @@ msgid "Gardener member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr ""

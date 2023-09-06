@@ -51,7 +51,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
 const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.contractAddress}/${nft.tokenId}`}
+      href={`/nft/${nft.chainId}/${nft.contractAddress}/${nft.tokenId}`}
       className="w-full"
     >
       <NFTImage nft={nft} />

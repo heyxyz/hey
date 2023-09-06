@@ -8,9 +8,9 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { APP_NAME } from '@lenster/data/constants';
 import { ONBOARDING } from '@lenster/data/tracking';
 import { Card } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -27,7 +27,7 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
     ) : (
       <MinusCircleIcon className="h-5 w-5 text-yellow-500" />
     )}
-    <div className={clsx(finished ? 'text-green-500' : 'text-yellow-500')}>
+    <div className={cn(finished ? 'text-green-500' : 'text-yellow-500')}>
       {title}
     </div>
   </div>

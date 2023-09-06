@@ -12,19 +12,23 @@
     "start": "pnpm dev",
     "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
-    "worker:deploy": "wrangler deploy"
+    "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
     "@cfworker/base64url": "^1.12.5",
+    "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
+    "@lenster/types": "workspace:*",
+    "@sentry/tracing": "^7.67.0",
     "itty-router": "^4.0.22",
-    "linkedom": "^0.15.1"
+    "linkedom": "^0.15.3",
+    "toucan-js": "^3.2.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
+    "@cloudflare/workers-types": "^4.20230904.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.3",
-    "wrangler": "^3.6.0"
+    "wrangler": "^3.7.0"
   }
 }

@@ -5,7 +5,7 @@ import { TEST_URL } from '../constants';
 describe('getOembed', () => {
   test('should return valid oembed response if url is provided', async () => {
     const url = 'https://github.com/lensterxyz/lenster';
-    const getRequest = await fetch(`${TEST_URL}/?url=${url}`);
+    const getRequest = await fetch(`${TEST_URL}/oembed?url=${url}`);
     const response: any = await getRequest.json();
 
     expect(response.success).toBeTruthy();
@@ -22,7 +22,7 @@ describe('getOembed', () => {
 
   test('should return valid oembed response if url supports iframe is provided', async () => {
     const url = 'https://www.youtube.com/watch?v=H5v3kku4y6Q';
-    const getRequest = await fetch(`${TEST_URL}/?url=${url}`);
+    const getRequest = await fetch(`${TEST_URL}/oembed?url=${url}`);
     const response: any = await getRequest.json();
 
     expect(response.success).toBeTruthy();

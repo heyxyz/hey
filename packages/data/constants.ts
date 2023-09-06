@@ -15,6 +15,7 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
 export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
+export const ADMIN_ADDRESS = '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3';
 
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
@@ -57,7 +58,6 @@ export const OLD_LENS_RELAYER_ADDRESS =
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
-export const SUPABASE_URL = 'https://nberpnnqcqfnrzjpnisb.supabase.co';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
@@ -67,7 +67,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const RARIBLE_URL = IS_MAINNET
   ? 'https://rarible.com'
   : 'https://testnet.rarible.com';
-export const IPFS_GATEWAY = 'https://ipfs.lens.dev/ipfs/';
+export const IPFS_GATEWAY = 'https://gateway.ipfs.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
@@ -104,9 +104,16 @@ export const FEEDS_WORKER_URL = IS_PRODUCTION
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.lenster.xyz'
   : 'http://localhost:8092';
+export const CHANNELS_WORKER_URL = IS_PRODUCTION
+  ? 'https://channels.lenster.xyz'
+  : 'http://localhost:8093';
+export const ZORA_WORKER_URL = IS_PRODUCTION
+  ? 'https://zora.lenster.xyz'
+  : 'http://localhost:8094';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
+export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
 export const GIPHY_KEY = 'yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd';
 
@@ -124,7 +131,8 @@ export const ALLOWED_AUDIO_TYPES = [
   'audio/aac',
   'audio/ogg',
   'audio/webm',
-  'audio/flac'
+  'audio/flac',
+  'audio/vnd.wave'
 ];
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',

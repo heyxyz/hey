@@ -9,8 +9,8 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import { ReferenceModules } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -60,7 +60,7 @@ const ReferenceSettings: FC = () => {
   const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
     <Menu.Item
       as="a"
-      className={clsx({ 'dropdown-active': selected }, 'menu-item')}
+      className={cn({ 'dropdown-active': selected }, 'menu-item')}
       onClick={onClick}
     >
       <div className="flex items-center justify-between space-x-2">

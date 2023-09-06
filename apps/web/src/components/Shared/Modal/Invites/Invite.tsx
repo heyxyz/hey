@@ -1,8 +1,12 @@
-import { INVITE_WORKER_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import {
+  INVITE_WORKER_URL,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import { Regex } from '@lenster/data/regex';
+import { Localstorage } from '@lenster/data/storage';
 import { INVITE } from '@lenster/data/tracking';
 import { Button, Form, Input, useZodForm } from '@lenster/ui';
-import getBasicWorkerPayload from '@lib/getBasicWorkerPayload';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
@@ -32,10 +36,15 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   const invite = async (address: string) => {
     try {
       setInviting(true);
-      const data = await axios.post(INVITE_WORKER_URL, {
-        address,
-        ...getBasicWorkerPayload()
-      });
+      const data = await axios.post(
+        INVITE_WORKER_URL,
+        { address, isMainnet: IS_MAINNET },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      );
 
       if (!data.data.alreadyInvited) {
         await refetch();

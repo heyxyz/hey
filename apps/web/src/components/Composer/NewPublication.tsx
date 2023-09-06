@@ -2,6 +2,7 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
+import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
 import type {
@@ -56,6 +57,7 @@ import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -65,7 +67,6 @@ import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -76,6 +77,7 @@ import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -134,6 +136,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -196,6 +199,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -589,14 +593,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createTokenGatedMetadata = async (
     metadata: PublicationMetadataV2Input
   ) => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (!walletClient) {
-      return toast.error(Errors.SignWallet);
-    }
-
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
       provider: publicClient as any,
@@ -606,14 +602,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
-      address: currentProfile.ownedBy,
+      address: currentProfile?.ownedBy,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Condition for gating the content
     const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = {
-      profileId: currentProfile.id
+      profileId: currentProfile?.id
     };
 
     // Create the access condition
@@ -636,7 +632,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
       metadata,
-      currentProfile.id,
+      currentProfile?.id,
       accessCondition,
       async (data: EncryptedMetadata) => {
         return await uploadToArweave(data);
@@ -653,6 +649,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     if (isComment && publication.isDataAvailability && !isSponsored) {
@@ -882,7 +882,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={clsx(
+      onClick={() => setShowEmojiPicker(false)}
+      className={cn(
         { '!rounded-b-xl !rounded-t-none border-none': !isComment },
         'pb-3'
       )}
@@ -909,6 +910,26 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
           <Attachment />
+          <EmojiPicker
+            emojiClassName="text-brand"
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
+            setEmoji={(emoji) => {
+              setShowEmojiPicker(false);
+              editor.update(() => {
+                // @ts-ignore
+                const index = editor?._editorState?._selection?.focus?.offset;
+                const updatedContent =
+                  publicationContent.substring(0, index) +
+                  emoji +
+                  publicationContent.substring(
+                    index,
+                    publicationContent.length
+                  );
+                $convertFromMarkdownString(updatedContent);
+              });
+            }}
+          />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {!publication?.isDataAvailability ? (
             <>
