@@ -1,7 +1,7 @@
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -29,7 +29,7 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
   return (
     <button
       type="button"
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-2 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}

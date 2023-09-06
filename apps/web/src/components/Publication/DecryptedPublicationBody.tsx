@@ -32,10 +32,10 @@ import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -192,7 +192,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!currentProfile) {
     return (
       <Card
-        className={clsx(cardClasses, '!cursor-pointer')}
+        className={cn(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
           stopEventPropagation(event);
           setShowAuthModal(true);
@@ -209,7 +209,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!canDecrypt) {
     return (
       <Card
-        className={clsx(cardClasses, 'cursor-text')}
+        className={cn(cardClasses, 'cursor-text')}
         onClick={stopEventPropagation}
       >
         <div className="flex items-center space-x-2 font-bold">
@@ -332,7 +332,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!decryptedData) {
     return (
       <Card
-        className={clsx(cardClasses, '!cursor-pointer')}
+        className={cn(cardClasses, '!cursor-pointer')}
         onClick={async (event) => {
           stopEventPropagation(event);
           await getDecryptedData();
@@ -363,7 +363,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   return (
     <div className="break-words">
       <Markup
-        className={clsx(
+        className={cn(
           { 'line-clamp-5': showMore },
           'markup linkify text-md break-words'
         )}

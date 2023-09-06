@@ -11,10 +11,10 @@ import {
 } from '@lenster/lens';
 import getWalletDetails from '@lenster/lib/getWalletDetails';
 import { Button, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -196,7 +196,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           <button
             type="button"
             key={connector.id}
-            className={clsx(
+            className={cn(
               {
                 'hover:bg-gray-100 dark:hover:bg-gray-700':
                   connector.id !== activeConnector?.id
