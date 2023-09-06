@@ -104,6 +104,10 @@ progress::-moz-progress-bar {
   @apply flex h-[calc(100vh-65px)] items-center justify-center;
 }
 
+.preview-tippy-content > div {
+  @apply !px-0 !py-0;
+}
+
 .tippy-content {
   @apply !px-2.5 !py-0.5;
 }
@@ -235,4 +239,31 @@ ul {
     #7c3aed
   );
   @apply bg-clip-text text-transparent;
+}
+
+.horizontal-loader > div {
+  background: linear-gradient(
+    5deg,
+    #dc2626,
+    #ea580c,
+    #ca8a04,
+    #16a34a,
+    #2563eb,
+    #4f46e5,
+    #7c3aed
+  );
+  width: 100%;
+  height: 5px;
+  @apply rounded-tl-xl rounded-tr-xl;
+  animation: gradient 4s linear infinite;
+  background-size: 250% 100%;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 500%;
+  }
 }
