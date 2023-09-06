@@ -10,9 +10,9 @@ import { EXPLORE, PAGEVIEW } from '@lenster/data/tracking';
 import type { PublicationMainFocus } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -67,7 +67,7 @@ const Explore: NextPage = () => {
                   });
                 }}
                 className={({ selected }) =>
-                  clsx(
+                  cn(
                     {
                       'border-brand-500 border-b-2 !text-black dark:!text-white':
                         selected
