@@ -174,11 +174,15 @@ const UserPreview: FC<UserPreviewProps> = ({
           request: { handle: formatHandle(lazyProfile?.handle, true) }
         }
       });
-      setLoading(false);
+
       const getProfile = data?.profile;
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
       }
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 500);
     }
   };
 
