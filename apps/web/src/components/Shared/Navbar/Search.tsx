@@ -7,8 +7,8 @@ import {
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, Input, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -87,7 +87,7 @@ const Search: FC<SearchProps> = ({
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
-              className={clsx(
+              className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
@@ -101,7 +101,7 @@ const Search: FC<SearchProps> = ({
       !hideDropdown &&
       debouncedSearchText.length > 0 ? (
         <div
-          className={clsx(
+          className={cn(
             'absolute mt-2 flex w-[94%] flex-col',
             modalWidthClassName
           )}

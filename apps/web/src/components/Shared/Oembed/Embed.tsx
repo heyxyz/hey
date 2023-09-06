@@ -32,26 +32,26 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
         rel="noreferrer noopener"
       >
         <Card forceRounded>
-          {og.isLarge && og.thumbnail ? (
+          {og.isLarge && og.image ? (
             <Image
               className="divider w-full rounded-t-xl"
               onError={({ currentTarget }) => {
-                currentTarget.src = og.thumbnail;
+                currentTarget.src = og.image as string;
               }}
-              src={imageKit(og.thumbnail, ATTACHMENT)}
+              src={imageKit(og.image, ATTACHMENT)}
               alt="Thumbnail"
             />
           ) : null}
           <div className="flex items-center">
-            {!og.isLarge && og.thumbnail ? (
+            {!og.isLarge && og.image ? (
               <Image
-                className="h-36 w-36 rounded-l-xl border-r"
+                className="h-36 w-36 rounded-l-xl border-r dark:border-gray-700"
                 height={144}
                 width={144}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = og.thumbnail;
+                  currentTarget.src = og.image as string;
                 }}
-                src={imageKit(og.thumbnail, ATTACHMENT)}
+                src={imageKit(og.image, ATTACHMENT)}
                 alt="Thumbnail"
               />
             ) : null}
@@ -61,7 +61,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   <div className="truncate font-bold">{og.title}</div>
                 ) : null}
                 {og.description ? (
-                  <div className="lt-text-gray-500 line-clamp-2 whitespace-break-spaces">
+                  <div className="lt-text-gray-500 line-clamp-1 whitespace-break-spaces">
                     {og.description}
                   </div>
                 ) : null}

@@ -1,9 +1,13 @@
-import { createCors, error, json, Router } from 'itty-router';
+import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
+import { createCors, error, Router, status } from 'itty-router';
+import { Toucan } from 'toucan-js';
 
 import hasUsedLenster from './handlers/hasUsedLenster';
 import streaksCalendar from './handlers/streaksCalendar';
 import streaksList from './handlers/streaksList';
-import type { Env } from './types';
+import buildRequest from './helpers/buildRequest';
+import type { Env, WorkerRequest } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -12,34 +16,42 @@ const { preflight, corsify } = createCors({
 
 const router = Router();
 
-router.all('*', preflight);
-router.get('/', () => new Response('gm, to achievements service 👋'));
-router.get('/hasUsedLenster/:id', ({ params }, env) =>
-  hasUsedLenster(params.id, env)
-);
-router.get('/streaks/:id', ({ params }, env) =>
-  streaksCalendar(params.id, env)
-);
-router.get('/streaks/:id/:date', ({ params }, env) =>
-  streaksList(params.id, params.date, env)
-);
-
-const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
-  router.handle(request, env, ctx).then(json);
-
-const handleFetch = async (
-  request: Request,
-  env: Env,
-  ctx: ExecutionContext
-) => {
-  try {
-    return await routerHandleStack(request, env, ctx);
-  } catch {
-    return error(500);
-  }
-};
+router
+  .all('*', preflight)
+  .head('*', () => status(200))
+  .get('/', (request: WorkerRequest) =>
+    response({
+      message: 'gm, to achievements service 👋',
+      version: request.env.RELEASE ?? 'unknown'
+    })
+  )
+  .get('/hasUsedLenster/:id', hasUsedLenster)
+  .get('/streaks/:id', streaksCalendar)
+  .get('/streaks/:id/:date', streaksList)
+  .all('*', () => error(404));
 
 export default {
-  fetch: (request: Request, env: Env, context: ExecutionContext) =>
-    handleFetch(request, env, context).then(corsify)
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
+    const sentry = new Toucan({
+      request,
+      context: ctx,
+      tracesSampleRate: 1.0,
+      dsn: env.SENTRY_DSN,
+      release: env.RELEASE,
+      requestDataOptions: { allowedIps: true }
+    });
+    const incomingRequest = buildRequest(request, env, ctx, sentry);
+
+    return await router
+      .handle(incomingRequest)
+      .then(corsify)
+      .catch((error_) => {
+        sentry.captureException(error_);
+        return error(500, Errors.InternalServerError);
+      });
+  }
 };

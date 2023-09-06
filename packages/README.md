@@ -24,3 +24,6 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Invite](../packages/workers/invite/README.md) - Invite API for Lenster
   - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Lenster
   - [Access](../packages/workers/access/README.md) - Access API for Lenster
+  - [Preferences](../packages/workers/preferences/README.md) - Preferences API for Lenster
+  - [Channels](../packages/workers/channels/README.md) - Channels API for Lenster
+  - [Zora](../packages/workers/zora/README.md) - Zora NFT API for Lenster

@@ -1,16 +1,24 @@
+import '@sentry/tracing';
+
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
 
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (id: string, env: Env) => {
+export default async (request: WorkerRequest) => {
+  const transaction = request.sentry?.startTransaction({
+    name: '@lenster/achievements/hasUsedLenster'
+  });
+
+  const { id } = request.params;
+
   if (!id) {
     return response({ success: false, error: Errors.NoBody });
   }
 
   try {
     const clickhouseResponse = await fetch(
-      `${env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
+      `${request.env.CLICKHOUSE_REST_ENDPOINT}&default_format=JSONCompact`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,6 +40,9 @@ export default async (id: string, env: Env) => {
       hasUsedLenster: parseInt(json.data[0][0]) > 0
     });
   } catch (error) {
+    request.sentry?.captureException(error);
     throw error;
+  } finally {
+    transaction?.finish();
   }
 };

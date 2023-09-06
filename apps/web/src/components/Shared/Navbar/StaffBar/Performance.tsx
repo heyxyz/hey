@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -22,7 +22,7 @@ const Performance: FC = () => {
   return (
     <Badge>
       <span
-        className={clsx({
+        className={cn({
           'text-green-700 dark:text-green-400': ttfb < 200,
           'text-yellow-700 dark:text-yellow-400': ttfb >= 200 && ttfb < 400,
           'text-red-700 dark:text-red-400': ttfb >= 400
