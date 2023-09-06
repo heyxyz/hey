@@ -183,7 +183,7 @@ const Choices: FC<ChoicesProps> = ({
                       </span>
                     </div>
                   </div>
-                  <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300">
+                  <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-800">
                     <div
                       style={{ width: `${percentage.toFixed(2)}%` }}
                       className={cn(voted ? 'bg-green-500' : 'bg-brand-500')}
