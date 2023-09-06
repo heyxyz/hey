@@ -6,7 +6,7 @@ interface ProfileHoverShimmerProps {
 
 const ProfileHoverShimmer: FC<ProfileHoverShimmerProps> = ({ handle }) => {
   return (
-    <div className="flex p-3 pt-1.5">
+    <div className="flex p-3">
       <div>{handle}</div>
     </div>
   );

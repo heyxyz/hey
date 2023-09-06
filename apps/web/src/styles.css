@@ -253,7 +253,8 @@ ul {
     #7c3aed
   );
   width: 100%;
-  @apply h-1.5 rounded-tl-xl rounded-tr-xl;
+  height: 5px;
+  @apply rounded-tl-xl rounded-tr-xl;
   animation: gradient 4s linear infinite;
   background-size: 250% 100%;
 }
