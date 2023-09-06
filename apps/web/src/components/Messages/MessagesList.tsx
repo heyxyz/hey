@@ -87,8 +87,8 @@ const MessageTile: FC<MessageTileProps> = ({
   return (
     <div
       className={cn(
-        address === message.senderAddress ? 'mr-4 items-end' : 'items-start',
-        'mx-auto mb-4 flex flex-col'
+        address === message.senderAddress ? 'mx-4 items-end' : 'items-start',
+        'mb-4 flex flex-col'
       )}
     >
       <div className="flex max-w-[60%]">
