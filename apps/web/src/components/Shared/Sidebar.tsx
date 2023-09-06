@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
@@ -12,7 +12,7 @@ interface MenuProps {
 const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
     href={url}
-    className={clsx(
+    className={cn(
       { 'bg-brand-100 dark:bg-brand-300/20 text-brand font-bold': current },
       'hover:bg-brand-100/80 dark:hover:bg-brand-300/30',
       'flex items-center space-x-2 rounded-lg px-3 py-2'

@@ -1,8 +1,8 @@
 import Alpha from '@components/Shared/Badges/Alpha';
 import { TagIcon } from '@heroicons/react/outline';
 import { Card } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useExploreStore } from 'src/store/explore';
 
@@ -59,7 +59,7 @@ const Tags: FC = () => {
               }}
             >
               <div
-                className={clsx(
+                className={cn(
                   selectedTag === tag.tag ? 'text-pink-500' : 'text-gray-500',
                   'font-bold'
                 )}

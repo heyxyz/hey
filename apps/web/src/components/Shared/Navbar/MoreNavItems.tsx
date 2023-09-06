@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -17,7 +17,7 @@ const MoreNavItems: FC = () => {
       {({ open }) => (
         <>
           <Menu.Button
-            className={clsx(
+            className={cn(
               'w-full cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
               {
                 'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': open,
@@ -39,7 +39,7 @@ const MoreNavItems: FC = () => {
                   <Menu.Item
                     as="div"
                     className={({ active }: { active: boolean }) =>
-                      clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                      cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
                     }
                   >
                     <Bookmarks />
@@ -50,7 +50,7 @@ const MoreNavItems: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
                 <Contact />
@@ -58,7 +58,7 @@ const MoreNavItems: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                  cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
                 }
               >
                 <ReportBug />

@@ -19,9 +19,9 @@ import {
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image, Input, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -137,7 +137,7 @@ const SeeThroughLens: FC = () => {
               autoComplete="off"
               iconRight={
                 <XIcon
-                  className={clsx(
+                  className={cn(
                     'cursor-pointer',
                     searchText ? 'visible' : 'invisible'
                   )}
@@ -172,7 +172,7 @@ const SeeThroughLens: FC = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className={({ active }) =>
-                      clsx(
+                      cn(
                         { 'dropdown-active': active },
                         'cursor-pointer overflow-hidden rounded-lg p-1'
                       )

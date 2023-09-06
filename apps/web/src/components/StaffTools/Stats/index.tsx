@@ -22,10 +22,10 @@ import {
   GridLayout,
   Spinner
 } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import Custom404 from 'src/pages/404';
@@ -64,7 +64,7 @@ const StatBox: FC<StatBoxProps> = ({
             <ArrowUpIcon className="h-3 w-3 text-green-500" />
           )}
           <span
-            className={clsx(
+            className={cn(
               differenceValue === 0
                 ? 'text-yellow-500'
                 : differenceValue <= 0

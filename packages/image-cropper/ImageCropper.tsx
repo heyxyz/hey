@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import normalizeWheel from 'normalize-wheel';
 import type { RefObject } from 'react';
 import { Component, createRef } from 'react';
@@ -495,12 +495,12 @@ class ImageCropper extends Component<CropperProps, State> {
             onTouchStart={this.onTouchStart}
             ref={(el) => (this.containerRef = el)}
             data-testid="container"
-            className={clsx('reactEasyCrop_Container')}
+            className={cn('reactEasyCrop_Container')}
           >
             {image && (
               <img
                 alt=""
-                className={clsx(
+                className={cn(
                   'reactEasyCrop_Image',
                   fitWidth
                     ? 'reactEasyCrop_Cover_Horizontal'
@@ -520,7 +520,7 @@ class ImageCropper extends Component<CropperProps, State> {
                 height: size.height
               }}
               data-testid="cropper"
-              className={clsx(
+              className={cn(
                 'border-brand-500 border-2',
                 'reactEasyCrop_CropArea'
               )}
