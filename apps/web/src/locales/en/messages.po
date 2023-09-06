@@ -986,6 +986,10 @@ msgid "Feature request"
 msgstr "Feature request"
 
 #: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
+msgstr "Report copyright infringement"
+
+#: src/components/Pages/Contact.tsx
 msgid "Other"
 msgstr "Other"
 
