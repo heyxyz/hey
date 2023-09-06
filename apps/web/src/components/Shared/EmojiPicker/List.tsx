@@ -4,10 +4,10 @@ import { Errors } from '@lenster/data/errors';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { Emoji } from '@lenster/types/misc';
 import { ErrorMessage, Input } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { clsx } from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -74,7 +74,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           iconLeft={<SearchIcon />}
           iconRight={
             <XIcon
-              className={clsx(
+              className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
@@ -88,7 +88,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           onChange={onChange}
         />
       </div>
-      <div className="grid max-h-[16rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
+      <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2 text-lg">
         {filteredEmojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"

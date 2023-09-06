@@ -13,10 +13,10 @@ import {
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -130,7 +130,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   ) : (
     <Button
       variant={canUseRelay ? 'danger' : 'primary'}
-      className={clsx({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
+      className={cn({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
       icon={
         isLoading ? (

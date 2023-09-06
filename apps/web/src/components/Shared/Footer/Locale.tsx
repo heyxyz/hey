@@ -1,25 +1,25 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data/feature-flags';
 import { Localstorage } from '@lenster/data/storage';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
+import { usePreferencesStore } from 'src/store/preferences';
 
 import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
-  const isGatedLocalesEnabled = isFeatureEnabled(FeatureFlag.GatedLocales);
+  const isStaff = usePreferencesStore((state) => state.isStaff);
+
   const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
     Object.entries(SUPPORTED_LOCALES).filter(([key]) =>
-      isGatedLocalesEnabled ? true : !gatedLocales.includes(key)
+      isStaff ? true : !gatedLocales.includes(key)
     )
   );
 
@@ -55,7 +55,7 @@ const Locale: FC = () => {
                 location.reload();
               }}
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                cn({ 'dropdown-active': active }, 'menu-item')
               }
             >
               {localeName}

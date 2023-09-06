@@ -1,0 +1,6 @@
+{
+  "extends": "@lenster/config/base.tsconfig.json",
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types"]
+  }
+}

@@ -9,7 +9,7 @@ import { Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 

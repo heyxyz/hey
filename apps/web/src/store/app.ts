@@ -1,5 +1,6 @@
 import { Localstorage } from '@lenster/data/storage';
 import type { Profile } from '@lenster/lens';
+import type { Channel } from '@lenster/types/lenster';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -10,6 +11,8 @@ interface AppState {
   setCurrentProfile: (currentProfile: Profile | null) => void;
   verifiedMembers: string[];
   setVerifiedMembers: (verifiedMembers: string[]) => void;
+  featuredChannels: Channel[];
+  setFeaturedChannels: (featuredChannels: Channel[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -18,7 +21,9 @@ export const useAppStore = create<AppState>((set) => ({
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   verifiedMembers: [],
-  setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers }))
+  setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
+  featuredChannels: [],
+  setFeaturedChannels: (featuredChannels) => set(() => ({ featuredChannels }))
 }));
 
 interface AppPerisistState {
@@ -37,3 +42,4 @@ export const useAppPersistStore = create(
 );
 
 export const verifiedMembers = () => useAppStore.getState().verifiedMembers;
+export const featuredChannels = () => useAppStore.getState().featuredChannels;

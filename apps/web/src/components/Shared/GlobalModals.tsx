@@ -13,6 +13,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 
 import Login from './Login';
+import WrongNetwork from './Login/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
 import Status from './Status';
@@ -32,6 +33,8 @@ const GlobalModals: FC = () => {
     setShowNewPostModal,
     showAuthModal,
     setShowAuthModal,
+    showWrongNetworkModal,
+    setShowWrongNetworkModal,
     showInvitesModal,
     setShowInvitesModal,
     showReportProfileModal,
@@ -113,6 +116,14 @@ const GlobalModals: FC = () => {
         dataTestId="login-modal"
       >
         <Login />
+      </Modal>
+      <Modal
+        title={t`Wrong Network`}
+        show={showWrongNetworkModal}
+        onClose={() => setShowWrongNetworkModal(false)}
+        dataTestId="wrong-network-modal"
+      >
+        <WrongNetwork />
       </Modal>
       <Modal
         title={t`Create post`}

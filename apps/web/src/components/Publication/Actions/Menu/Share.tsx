@@ -3,9 +3,9 @@ import { ClipboardCopyIcon } from '@heroicons/react/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -18,7 +18,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )

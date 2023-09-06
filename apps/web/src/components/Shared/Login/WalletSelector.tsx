@@ -11,10 +11,10 @@ import {
 } from '@lenster/lens';
 import getWalletDetails from '@lenster/lib/getWalletDetails';
 import { Button, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -25,9 +25,9 @@ import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
   useAccount,
+  useChainId,
   useConnect,
   useDisconnect,
-  useNetwork,
   useSignMessage
 } from 'wagmi';
 
@@ -54,7 +54,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const isMounted = useIsMounted();
-  const { chain } = useNetwork();
+  const chain = useChainId();
   const {
     connectors,
     error,
@@ -146,7 +146,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID ? (
+        {chain === CHAIN_ID ? (
           <Button
             disabled={isLoading}
             icon={
@@ -167,7 +167,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             <Trans>Sign-In with Lens</Trans>
           </Button>
         ) : (
-          <SwitchNetwork />
+          <SwitchNetwork toChainId={CHAIN_ID} />
         )}
         <button
           onClick={() => {
@@ -196,7 +196,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           <button
             type="button"
             key={connector.id}
-            className={clsx(
+            className={cn(
               {
                 'hover:bg-gray-100 dark:hover:bg-gray-700':
                   connector.id !== activeConnector?.id
