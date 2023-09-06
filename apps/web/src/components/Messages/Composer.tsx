@@ -43,6 +43,7 @@ interface ComposerProps {
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 interface AttachmentPreviewProps {
@@ -89,7 +90,8 @@ const AttachmentPreviewInline: FC<
 const Composer: FC<ComposerProps> = ({
   sendMessage,
   conversationKey,
-  disabledInput
+  disabledInput,
+  listRef
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
@@ -203,6 +205,11 @@ const Composer: FC<ComposerProps> = ({
       }
     }
 
+    listRef.current?.scrollTo({
+      left: 0,
+      top: listRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
     setSending(false);
   };
 

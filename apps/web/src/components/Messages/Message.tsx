@@ -12,7 +12,7 @@ import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useGetMessages from 'src/hooks/useGetMessages';
 import { useGetProfile } from 'src/hooks/useMessageDb';
 import type {
@@ -35,6 +35,7 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
+  const listRef = useRef<HTMLDivElement | null>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { profile } = useGetProfile(currentProfile?.id, conversationKey);
   const queuedMessages = useMessageStore((state) =>
@@ -170,8 +171,10 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
                 messages={allMessages}
                 hasMore={hasMore}
                 missingXmtpAuth={missingXmtpAuth ?? false}
+                listRef={listRef}
               />
               <Composer
+                listRef={listRef}
                 sendMessage={sendMessage}
                 conversationKey={conversationKey}
                 disabledInput={missingXmtpAuth ?? false}

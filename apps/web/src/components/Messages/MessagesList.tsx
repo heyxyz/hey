@@ -15,7 +15,7 @@ import {
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import {
   type FailedMessage,
@@ -198,6 +198,7 @@ interface MessageListProps {
   currentProfile?: Profile | null;
   hasMore: boolean;
   missingXmtpAuth: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 const MessagesList: FC<MessageListProps> = ({
@@ -207,10 +208,11 @@ const MessagesList: FC<MessageListProps> = ({
   profile,
   currentProfile,
   hasMore,
-  missingXmtpAuth
+  missingXmtpAuth,
+  listRef
 }) => {
-  const listRef = useRef<HTMLSpanElement | null>(null);
   let lastMessageDate: Date | undefined;
+
   const { observe } = useInView({
     onChange: ({ inView }) => {
       if (!inView) {
@@ -236,7 +238,7 @@ const MessagesList: FC<MessageListProps> = ({
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth ? <MissingXmtpAuth /> : null}
-          <span
+          <div
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
@@ -264,7 +266,7 @@ const MessagesList: FC<MessageListProps> = ({
               return messageDiv;
             })}
             {hasMore ? <LoadingMore /> : <ConversationBeginningNotice />}
-          </span>
+          </div>
         </div>
       </div>
     </div>
