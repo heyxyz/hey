@@ -1809,6 +1809,10 @@ msgid "NFT ADDRESS"
 msgstr "NFT地址"
 
 #: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
 msgid "{0} minted"
 msgstr ""
 
@@ -1822,6 +1826,14 @@ msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
@@ -2543,10 +2555,6 @@ msgstr "添加标题"
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
 msgstr "添加作者"
-
-#: src/components/Shared/Badges/Alpha.tsx
-#~ msgid "Alpha"
-#~ msgstr ""
 
 #: src/components/Shared/Badges/Alpha.tsx
 msgid "Alpha 🤫"
