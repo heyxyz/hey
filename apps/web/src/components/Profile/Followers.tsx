@@ -21,7 +21,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request: FollowersRequest = { profileId: profile?.id, limit: 30 };
+  const request: FollowersRequest = { profileId: profile?.id, limit: 50 };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },

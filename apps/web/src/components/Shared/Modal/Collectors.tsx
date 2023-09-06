@@ -24,7 +24,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
   const request: WhoCollectedPublicationRequest = {
     publicationId: publicationId,
-    limit: 10
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
