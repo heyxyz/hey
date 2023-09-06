@@ -7,6 +7,7 @@ import imageKit from '@lenster/lib/imageKit';
 import { Image } from '@lenster/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
+import useEnsName from 'src/hooks/useEnsName';
 
 import Slug from './Slug';
 
@@ -15,6 +16,11 @@ interface WalletProfileProps {
 }
 
 const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
+  const { ens, loading } = useEnsName({
+    address: wallet?.address,
+    enabled: Boolean(wallet?.address)
+  });
+
   return (
     <div className="flex items-center justify-between">
       <Link
@@ -35,7 +41,9 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
         />
         <div>
           <div className="flex items-center gap-1.5">
-            <div>{formatAddress(wallet?.address)}</div>
+            <div>
+              {loading ? formatAddress(wallet?.address) : formatAddress(ens)}
+            </div>
             <ExternalLinkIcon className="h-4 w-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
