@@ -19,7 +19,7 @@ interface FollowingProps {
 
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
+  const request: FollowingRequest = { address: profile?.ownedBy, limit: 50 };
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
