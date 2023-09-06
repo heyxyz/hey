@@ -23,7 +23,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     query,
     type: SearchRequestTypes.Profile,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 10
+    limit: 30
   };
 
   const { data, loading, error, fetchMore } = useSearchProfilesQuery({
