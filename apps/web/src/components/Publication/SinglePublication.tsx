@@ -1,7 +1,7 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
-import clsx from 'clsx';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -44,7 +44,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
 
   return (
     <PublicationWrapper
-      className={clsx(
+      className={cn(
         isFirst && 'rounded-t-xl',
         isLast && 'rounded-b-xl',
         'cursor-pointer p-5 hover:bg-gray-100 dark:hover:bg-gray-900'

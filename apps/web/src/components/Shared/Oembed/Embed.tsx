@@ -45,7 +45,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
           <div className="flex items-center">
             {!og.isLarge && og.image ? (
               <Image
-                className="h-36 w-36 rounded-l-xl border-r"
+                className="h-36 w-36 rounded-l-xl border-r dark:border-gray-700"
                 height={144}
                 width={144}
                 onError={({ currentTarget }) => {
@@ -61,7 +61,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   <div className="truncate font-bold">{og.title}</div>
                 ) : null}
                 {og.description ? (
-                  <div className="lt-text-gray-500 line-clamp-2 whitespace-break-spaces">
+                  <div className="lt-text-gray-500 line-clamp-1 whitespace-break-spaces">
                     {og.description}
                   </div>
                 ) : null}

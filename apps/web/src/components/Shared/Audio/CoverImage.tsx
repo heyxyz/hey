@@ -3,9 +3,9 @@ import { ATTACHMENT } from '@lenster/data/constants';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import { Image, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import clsx from 'clsx';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 
@@ -64,7 +64,7 @@ const CoverImage: FC<CoverImageProps> = ({
       </button>
       {isNew ? (
         <label
-          className={clsx(
+          className={cn(
             { visible: loading && !cover, invisible: cover },
             'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
           )}

@@ -57,6 +57,7 @@ import getSignature from '@lenster/lib/getSignature';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -66,7 +67,6 @@ import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -883,7 +883,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   return (
     <Card
       onClick={() => setShowEmojiPicker(false)}
-      className={clsx(
+      className={cn(
         { '!rounded-b-xl !rounded-t-none border-none': !isComment },
         'pb-3'
       )}

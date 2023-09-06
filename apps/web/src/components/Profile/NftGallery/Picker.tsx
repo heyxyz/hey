@@ -6,8 +6,8 @@ import type { Nft, NfTsRequest } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { ErrorMessage } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { toast } from 'react-hot-toast';
@@ -169,7 +169,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         return (
           <div
             key={`${id}_${index}`}
-            className={clsx(
+            className={cn(
               'relative rounded-xl border-2',
               isSelected ? 'border-brand-500' : 'border-transparent'
             )}

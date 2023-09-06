@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import clsx from 'clsx';
 import type { ComponentProps, FC } from 'react';
 import type {
   FieldValues,
@@ -9,6 +8,8 @@ import type {
 } from 'react-hook-form';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import type { TypeOf, ZodSchema } from 'zod';
+
+import cn from '../cn';
 
 interface UseZodFormProps<T extends ZodSchema<FieldValues>>
   extends UseFormProps<TypeOf<T>> {
@@ -68,7 +69,7 @@ export const Form = <T extends FieldValues>({
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <fieldset
-          className={clsx('flex flex-col', className)}
+          className={cn('flex flex-col', className)}
           disabled={form.formState.isSubmitting}
         >
           {children}
