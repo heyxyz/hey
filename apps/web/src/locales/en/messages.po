@@ -1809,6 +1809,10 @@ msgid "NFT ADDRESS"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr "Type:"
+
+#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
 msgid "{0} minted"
 msgstr "{0} minted"
 
@@ -1823,6 +1827,14 @@ msgstr "Open in Zora"
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 msgid "Switch to {0}"
 msgstr "Switch to {0}"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You don't have balance"
+msgstr "You don't have balance"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr "You exceeded the mint limit"
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
@@ -2543,10 +2555,6 @@ msgstr ""
 #: src/components/Shared/Audio/index.tsx
 msgid "Add author"
 msgstr ""
-
-#: src/components/Shared/Badges/Alpha.tsx
-#~ msgid "Alpha"
-#~ msgstr "Alpha"
 
 #: src/components/Shared/Badges/Alpha.tsx
 msgid "Alpha 🤫"
