@@ -36,8 +36,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/lib
       '@sentry/nextjs':
-        specifier: ^7.67.0
-        version: 7.67.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2)
+        specifier: ^7.68.0
+        version: 7.68.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2)
       next:
         specifier: ^13.4.19
         version: 13.4.19(@babel/core@7.22.15)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -151,8 +151,8 @@ importers:
         specifier: ^2.8.3
         version: 2.8.3(@types/react-dom@18.2.7)(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       '@sentry/nextjs':
-        specifier: ^7.67.0
-        version: 7.67.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2)
+        specifier: ^7.68.0
+        version: 7.68.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2)
       '@tanstack/react-query':
         specifier: ^4.33.0
         version: 4.33.0(react-dom@18.2.0)(react@18.2.0)
@@ -161,7 +161,7 @@ importers:
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       '@wagmi/connectors':
         specifier: ^3.1.1
-        version: 3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2)
+        version: 3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2)
       '@xmtp/xmtp-js':
         specifier: ^10.2.1
         version: 10.2.1
@@ -223,8 +223,8 @@ importers:
         specifier: ^8.0.7
         version: 8.0.7(@types/react@18.2.21)(react@18.2.0)
       react-virtuoso:
-        specifier: ^4.5.0
-        version: 4.5.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.5.1
+        version: 4.5.1(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^3.0.3
         version: 3.0.3
@@ -247,11 +247,11 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       viem:
-        specifier: ^1.10.3
-        version: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+        specifier: ^1.10.4
+        version: 1.10.4(typescript@5.2.2)(zod@3.22.2)
       wagmi:
         specifier: ^1.4.1
-        version: 1.4.1(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2)
+        version: 1.4.1(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2)
       xmtp-content-type-remote-attachment:
         specifier: ^1.0.7
         version: 1.0.7
@@ -317,8 +317,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       viem:
-        specifier: ^1.10.3
-        version: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+        specifier: ^1.10.4
+        version: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -455,8 +455,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       viem:
-        specifier: ^1.10.3
-        version: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+        specifier: ^1.10.4
+        version: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -592,8 +592,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -626,8 +626,8 @@ importers:
         specifier: workspace:*
         version: link:../../supabase
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -660,8 +660,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -669,8 +669,8 @@ importers:
         specifier: ^3.2.3
         version: 3.2.3
       viem:
-        specifier: ^1.10.3
-        version: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+        specifier: ^1.10.4
+        version: 1.10.4(typescript@5.2.2)(zod@3.22.2)
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -700,8 +700,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -749,8 +749,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -783,8 +783,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -829,8 +829,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -869,8 +869,8 @@ importers:
         specifier: workspace:*
         version: link:../../types
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -909,8 +909,8 @@ importers:
         specifier: workspace:*
         version: link:../../supabase
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       '@tsndr/cloudflare-worker-jwt':
         specifier: ^2.2.2
         version: 2.2.2
@@ -961,8 +961,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -970,8 +970,8 @@ importers:
         specifier: ^3.2.3
         version: 3.2.3
       viem:
-        specifier: ^1.10.3
-        version: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+        specifier: ^1.10.4
+        version: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230904.0
@@ -998,8 +998,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -1029,8 +1029,8 @@ importers:
         specifier: workspace:*
         version: link:../../lib
       '@sentry/tracing':
-        specifier: ^7.67.0
-        version: 7.67.0
+        specifier: ^7.68.0
+        version: 7.68.0
       itty-router:
         specifier: ^4.0.22
         version: 4.0.22
@@ -3979,7 +3979,7 @@ packages:
       graphql-ws: 5.14.0(graphql@16.8.0)
       isomorphic-ws: 5.0.0(ws@8.13.0)
       tslib: 2.6.1
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.13.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4014,7 +4014,7 @@ packages:
       graphql: 16.8.0
       isomorphic-ws: 5.0.0(ws@8.13.0)
       tslib: 2.6.1
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.13.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4265,7 +4265,7 @@ packages:
       isomorphic-ws: 5.0.0(ws@8.13.0)
       tslib: 2.6.1
       value-or-promise: 1.0.12
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.13.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -5807,7 +5807,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.10.0
-      viem: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+      viem: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -5820,7 +5820,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.10.0
-      viem: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+      viem: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -5856,25 +5856,25 @@ packages:
       '@scure/base': 1.1.3
     dev: false
 
-  /@sentry-internal/tracing@7.67.0:
-    resolution: {integrity: sha512-+3wpnzW2HczPlZsp1pWtdOavBKLK/tu1qDEg+blqLfW7b/qZZ8hqQ+A+2mEWRLgWfIoGZ8t4U84nN4tzDXv+nQ==}
+  /@sentry-internal/tracing@7.68.0:
+    resolution: {integrity: sha512-nNKS/q21+Iqzxs2K7T/l3dZi8Z9s/uxsAazpk2AYhFzx9mFnPj1Xfe3dgbFoygNifE+IrpUuldr6D5HQamTDPQ==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/core': 7.67.0
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/core': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       tslib: 2.6.2
     dev: false
 
-  /@sentry/browser@7.67.0:
-    resolution: {integrity: sha512-5J7QUGJVKiltVJPSHwlBu/xmicNB7g5ARcgH8YEyu2LoxjLvZPUqWRD/zTWVYyW20sbgExrB39oyRwmkzN449A==}
+  /@sentry/browser@7.68.0:
+    resolution: {integrity: sha512-1RIPLzKcBeUeG8CQc4OIRfQ6F1zmGKku1am7P9QTz0bz//Mu7bEjm75DM69LBoUlP/Ab9cQQA3fZFUvrH0j1Tg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.67.0
-      '@sentry/core': 7.67.0
-      '@sentry/replay': 7.67.0
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry-internal/tracing': 7.68.0
+      '@sentry/core': 7.68.0
+      '@sentry/replay': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       tslib: 2.6.2
     dev: false
 
@@ -5904,12 +5904,12 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@sentry/core@7.67.0:
-    resolution: {integrity: sha512-apk0WHnFJTHX86TvN4LOa2GBfguKwvV94WsssyizMi4qurGN2V0I8ZUmlypjBxvMY9MOBZ/2LwgYPf3U1QeE5g==}
+  /@sentry/core@7.68.0:
+    resolution: {integrity: sha512-mT3ObBWgvAky/QF3dZy4KBoXbRXbNsD6evn+mYi9UEeIZQ5NpnQYDEp78mapiEjI/TAHZIhTIuaBhj1Jk0qUUA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       tslib: 2.6.2
     dev: false
 
@@ -5923,18 +5923,18 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@sentry/integrations@7.67.0:
-    resolution: {integrity: sha512-Mzv3WxCIfZHy1ATv1H7rit1PMOkuYz2u5WLYDF6WbSVE3KLEGjRaq1OaylvAyHrNghonfHf8eiaJaz7Ik/f2Kw==}
+  /@sentry/integrations@7.68.0:
+    resolution: {integrity: sha512-kCY+rD2QD9YAatx9rFT7ndxCTigP10lWTX1qZHNKZBZqr38SvsaD3tyVpbXVPjaFR1tnpuH0osWAjY/gyjFhlw==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       localforage: 1.10.0
       tslib: 2.6.2
     dev: false
 
-  /@sentry/nextjs@7.67.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2):
-    resolution: {integrity: sha512-Iw6jktvb8NYDE+MvBONTTkVBSL/9/skg68ccG1Cs9Sla+0KTlu1+D8fMtmxvn1G50kFo9AONnDb01NhoVa9SjA==}
+  /@sentry/nextjs@7.68.0(next@13.4.19)(react@18.2.0)(webpack@5.88.2):
+    resolution: {integrity: sha512-CrIR6ROEQ0AoPiUTeIt1tKVX5UBEehf3ollJG7L7o3CUizC8q4vIalgnAjdj0os5Ahkdn4aQF1u6C3nT4LldWw==}
     engines: {node: '>=8'}
     peerDependencies:
       next: ^10.0.8 || ^11.0 || ^12.0 || ^13.0
@@ -5945,12 +5945,12 @@ packages:
         optional: true
     dependencies:
       '@rollup/plugin-commonjs': 24.0.0(rollup@2.78.0)
-      '@sentry/core': 7.67.0
-      '@sentry/integrations': 7.67.0
-      '@sentry/node': 7.67.0
-      '@sentry/react': 7.67.0(react@18.2.0)
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/core': 7.68.0
+      '@sentry/integrations': 7.68.0
+      '@sentry/node': 7.68.0
+      '@sentry/react': 7.68.0(react@18.2.0)
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       '@sentry/webpack-plugin': 1.20.0
       chalk: 3.0.0
       next: 13.4.19(@babel/core@7.22.15)(babel-plugin-macros@3.1.0)(react-dom@18.2.0)(react@18.2.0)
@@ -5964,14 +5964,14 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/node@7.67.0:
-    resolution: {integrity: sha512-QRPLdHp00HMTSpanonf4MfAcWiWHSnnCaNT0at0SJlpPf1z1Ch8FXxFl5CKwcbYyMCQDBxsZ2tdQwjrmPdMDcA==}
+  /@sentry/node@7.68.0:
+    resolution: {integrity: sha512-gtcHoi6Xu6Iu8MpPgKJA4E0nozqLvYF0fKtt+27T0QBzWioO6lkxSQkKGWMyJGL0AmpLCex0E28fck/rlbt0LA==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.67.0
-      '@sentry/core': 7.67.0
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry-internal/tracing': 7.68.0
+      '@sentry/core': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       cookie: 0.4.2
       https-proxy-agent: 5.0.1
       lru_map: 0.3.3
@@ -5980,34 +5980,34 @@ packages:
       - supports-color
     dev: false
 
-  /@sentry/react@7.67.0(react@18.2.0):
-    resolution: {integrity: sha512-qgEi2umAszEmipUAYf2fVaBXaSgZCp5IEBRw8onYrdxCEu980QA9zbPnnA0pij24tm2UNc8ca3nZrDy6xQjeSQ==}
+  /@sentry/react@7.68.0(react@18.2.0):
+    resolution: {integrity: sha512-/WLa21GKfaAlHxLZHMsYgfBac3d18UB7wB90E6zvZ+4uh7+0WQY5E1SVPpHYaQ2IEhqLbB69kVxRN+7L+A96hQ==}
     engines: {node: '>=8'}
     peerDependencies:
       react: 15.x || 16.x || 17.x || 18.x
     dependencies:
-      '@sentry/browser': 7.67.0
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/browser': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       tslib: 2.6.2
     dev: false
 
-  /@sentry/replay@7.67.0:
-    resolution: {integrity: sha512-PGFt281hV4W1BFCY09JQmwdQXvI9rhiqIIOGHviyH7GrHBwWLxF1iRuBS8RUMFYt9ZHFq5oDt6M2z3qBQOZGLQ==}
+  /@sentry/replay@7.68.0:
+    resolution: {integrity: sha512-be8QT2pxcLOTuX6HBRkK0mCVwM97dU5ZLCeofI+xJEWcRnoJdbx00nFwvBXvvoCizbtf4YIMCGwaT2k5LrVxsQ==}
     engines: {node: '>=12'}
     dependencies:
-      '@sentry/core': 7.67.0
-      '@sentry/types': 7.67.0
-      '@sentry/utils': 7.67.0
+      '@sentry/core': 7.68.0
+      '@sentry/types': 7.68.0
+      '@sentry/utils': 7.68.0
     dev: false
 
-  /@sentry/tracing@7.67.0:
-    resolution: {integrity: sha512-IJtJ0g6oMp46BBK8KV8wAGZ+1rNcw/LmC6y1H1rwur9aCXlla3+tMFtQMJdqUSIx0rcnC9THa+rktddCqXKNtQ==}
+  /@sentry/tracing@7.68.0:
+    resolution: {integrity: sha512-4kGGHStTG0MkRD92AmKAcyWUzkFjFKVyEW/Hm69NIoLvcPv3QMa5QlkTDAeJNnON+hRIB4KWwDPMhdYNIwjl3A==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry-internal/tracing': 7.67.0
+      '@sentry-internal/tracing': 7.68.0
     dev: false
 
   /@sentry/types@7.65.0:
@@ -6015,8 +6015,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@sentry/types@7.67.0:
-    resolution: {integrity: sha512-GV/Hxdsp/hes1YQGPGgSUG1IHRNQVJMnCfYcpuZtZI6CvNJ+7qNOLkdmC/xGFwfpYH9kYsFBvmGsmeC6yUENYA==}
+  /@sentry/types@7.68.0:
+    resolution: {integrity: sha512-5J2pH1Pjx/029zTm3CNY9MaE8Aui81nG7JCtlMp7uEfQ//9Ja4d4Sliz/kV4ARbkIKUZerSgaRAm3xCy5XOXLg==}
     engines: {node: '>=8'}
     dev: false
 
@@ -6028,11 +6028,11 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@sentry/utils@7.67.0:
-    resolution: {integrity: sha512-OstjIfAD0xPWVnIRzoAtFBW+YTmxix4h3ehgtFxhA4VJHkC9KXchaTNwk+nlRy/nx4phx5vW9p7YWhO3kJBJmA==}
+  /@sentry/utils@7.68.0:
+    resolution: {integrity: sha512-NecnQegvKARyeFmBx7mYmbI17mTvjARWs1nfzY5jhPyNc3Zk4M3bQsgIdnJ1t+jo93UYudlNND7hxhDzjcBAVg==}
     engines: {node: '>=8'}
     dependencies:
-      '@sentry/types': 7.67.0
+      '@sentry/types': 7.68.0
       tslib: 2.6.2
     dev: false
 
@@ -7239,7 +7239,7 @@ packages:
       pretty-format: 29.6.3
     dev: true
 
-  /@wagmi/connectors@3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2):
+  /@wagmi/connectors@3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2):
     resolution: {integrity: sha512-ewOV40AlrXcX018qckU0V9OCsDgHhs+KZjQJZhlplqRtc2ijjS62B5kcypXkcTtfU5qXUBA9KEwPsSTxGdT4ag==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -7259,7 +7259,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.2)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+      viem: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - bufferutil
@@ -7271,7 +7271,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.4.1(@types/react@18.2.21)(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2):
+  /@wagmi/core@1.4.1(@types/react@18.2.21)(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2):
     resolution: {integrity: sha512-b6LDFL0vZSCNcIHjnJzv++hakavTTt1/2WEQg2S5eEnaHTp7UoQlwfCyjKeiBhRih4yF34N06ea8cyEVjyjXrw==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -7280,11 +7280,11 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2)
+      '@wagmi/connectors': 3.1.1(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.2)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+      viem: 1.10.4(typescript@5.2.2)(zod@3.22.2)
       zustand: 4.4.1(@types/react@18.2.21)(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -11278,7 +11278,7 @@ packages:
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.13.0
 
   /isomorphic.js@0.2.5:
     resolution: {integrity: sha512-PIeMbHqMt4DnUP3MA/Flc0HElYjMXArsw1qwJZcm9sqR8mq3l8NYizFMty0pWwE/tzIGH3EKK5+jes5mAr85yw==}
@@ -12156,7 +12156,7 @@ packages:
       stoppable: 1.1.0
       undici: 5.23.0
       workerd: 1.20230904.0
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
       youch: 3.2.3
       zod: 3.22.2
     transitivePeerDependencies:
@@ -13427,8 +13427,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-virtuoso@4.5.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-OMP6XrzJMMos1vbJZC16RxGW7utAxUMP7i5PNPi6epBNVH7nz+CF/DlmecNBep5wyjLud51dQ5epjb2A0w9W/Q==}
+  /react-virtuoso@4.5.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Jdo9M/T5PcDAczvmXAKwvb/BW0MCMr/cb+3j2m9192zlQgQ+syMdJR42i+Sk80ln5aSNaL1fnxleJzdKsCc4lw==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16 || >=17 || >= 18'
@@ -13708,8 +13708,8 @@ packages:
       fsevents: 2.3.3
     dev: false
 
-  /rollup@3.28.1:
-    resolution: {integrity: sha512-R9OMQmIHJm9znrU3m3cpE8uhN0fGdXiawME7aZIpQqvpS/85+Vt1Hq1/yVIcYfOmaQiHjvXkQAoJukvLpau6Yw==}
+  /rollup@3.29.0:
+    resolution: {integrity: sha512-nszM8DINnx1vSS+TpbWKMkxem0CDWk3cSit/WWCBVs9/JZ1I/XLwOsiUglYuYReaeWWSsW9kge5zE5NZtf/a4w==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -13722,7 +13722,7 @@ packages:
       '@babel/runtime': 7.22.15
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     optionalDependencies:
       bufferutil: 4.0.7
       utf-8-validate: 5.0.10
@@ -13754,7 +13754,7 @@ packages:
   /rxjs@7.8.1:
     resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
     dependencies:
-      tslib: 2.6.1
+      tslib: 2.6.2
 
   /sade@1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
@@ -15072,8 +15072,8 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
-  /viem@1.10.3(typescript@5.2.2)(zod@3.22.2):
-    resolution: {integrity: sha512-7L35k0JmxTa7xIx1s8lCsTLGrTEUXTYnLppZ56EVBjtvE2OKSfDjL8No0Fnedu6Ye0zi/VX2BQC3arhpKOVIlw==}
+  /viem@1.10.4(typescript@5.2.2)(zod@3.22.2):
+    resolution: {integrity: sha512-GRnz1KLWh7rDFvR0fMUBt8orVu/QbGJ3QqlLo7M71H4rig39TvjDoVyMp7eFK18+Zs6niqev1f8woX9fv3cwVg==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -15089,7 +15089,7 @@ packages:
       abitype: 0.9.8(typescript@5.2.2)(zod@3.22.2)
       isomorphic-ws: 5.0.0(ws@8.13.0)
       typescript: 5.2.2
-      ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.13.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -15149,7 +15149,7 @@ packages:
       '@types/node': 20.5.9
       esbuild: 0.18.20
       postcss: 8.4.29
-      rollup: 3.28.1
+      rollup: 3.29.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
@@ -15219,7 +15219,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.4.1(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2):
+  /wagmi@1.4.1(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2):
     resolution: {integrity: sha512-v3xd+uYZfLCAs1I4fLU7U9hg/gCw+Ud005J7kNR0mi20BcFAEU1EDN1LxHxpjUV0qKhOzSlMlrLjJyBCmSYhFA==}
     peerDependencies:
       react: '>=17.0.0'
@@ -15232,12 +15232,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.33.0
       '@tanstack/react-query': 4.33.0(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.33.0(@tanstack/react-query@4.33.0)
-      '@wagmi/core': 1.4.1(@types/react@18.2.21)(react@18.2.0)(typescript@5.2.2)(viem@1.10.3)(zod@3.22.2)
+      '@wagmi/core': 1.4.1(@types/react@18.2.21)(react@18.2.0)(typescript@5.2.2)(viem@1.10.4)(zod@3.22.2)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.2)
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.10.3(typescript@5.2.2)(zod@3.22.2)
+      viem: 1.10.4(typescript@5.2.2)(zod@3.22.2)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -15522,8 +15522,20 @@ packages:
         optional: true
     dev: false
 
-  /ws@8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10):
+  /ws@8.13.0:
     resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
+  /ws@8.14.0(bufferutil@4.0.7)(utf-8-validate@5.0.10):
+    resolution: {integrity: sha512-WR0RJE9Ehsio6U4TuM+LmunEsjQ5ncHlw4sn9ihD6RoJKZrVyH9FWV3dmnwu8B2aNib1OvG2X6adUCyFpQyWcg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
