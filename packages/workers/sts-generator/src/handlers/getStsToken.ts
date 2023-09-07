@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 import response from '@lenster/lib/response';
 
@@ -28,10 +26,6 @@ const params = {
 };
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/sts-generator/getStsToken'
-  });
-
   try {
     const accessKeyId = request.env.EVER_ACCESS_KEY;
     const secretAccessKey = request.env.EVER_ACCESS_SECRET;
@@ -54,9 +48,6 @@ export default async (request: WorkerRequest) => {
       sessionToken: credentials?.SessionToken
     });
   } catch (error) {
-    transaction?.setStatus('error');
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

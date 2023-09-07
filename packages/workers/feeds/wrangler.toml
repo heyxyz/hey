@@ -9,6 +9,5 @@ routes = [
 ]
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""
 CLICKHOUSE_REST_ENDPOINT = ""
