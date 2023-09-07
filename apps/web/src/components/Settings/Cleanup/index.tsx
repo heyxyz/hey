@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -14,7 +15,6 @@ import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
-import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
