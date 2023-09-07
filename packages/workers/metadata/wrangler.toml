@@ -12,7 +12,6 @@ routes = [
 mode = "smart"
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""
 BUNDLR_PRIVATE_KEY = ""
 HUGGINGFACE_API_KEY = ""

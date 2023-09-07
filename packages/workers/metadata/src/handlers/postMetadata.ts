@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { createData, EthereumSigner } from '@lenster/bundlr';
 import type { PublicationMetadataV2Input } from '@lenster/lens';
 import response from '@lenster/lib/response';
@@ -7,20 +5,10 @@ import response from '@lenster/lib/response';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/metadata/postMetadata'
-  });
-
   try {
     const payload: PublicationMetadataV2Input = await request.json();
     const signer = new EthereumSigner(request.env.BUNDLR_PRIVATE_KEY);
     if (payload.content?.length) {
-      const taggerRequestSpan = transaction?.startChild({
-        name: 'tagger-request'
-      });
-      const localeRequestSpan = transaction?.startChild({
-        name: 'locale-request'
-      });
       try {
         const aiEndpoint = 'https://ai.lenster.xyz';
         const fetchPayload = {
@@ -30,12 +18,8 @@ export default async (request: WorkerRequest) => {
         };
 
         const responses = await Promise.all([
-          fetch(`${aiEndpoint}/tagger`, fetchPayload).finally(
-            () => taggerRequestSpan?.finish()
-          ),
-          fetch(`${aiEndpoint}/locale`, fetchPayload).finally(
-            () => localeRequestSpan?.finish()
-          )
+          fetch(`${aiEndpoint}/tagger`, fetchPayload),
+          fetch(`${aiEndpoint}/locale`, fetchPayload)
         ]);
 
         // Append Tags to metadata
@@ -63,15 +47,11 @@ export default async (request: WorkerRequest) => {
     });
     await tx.sign(signer);
 
-    const bundlrRequestSpan = transaction?.startChild({
-      name: 'bundlr-request'
-    });
     const bundlrRes = await fetch('http://node2.bundlr.network/tx/matic', {
       method: 'POST',
       headers: { 'content-type': 'application/octet-stream' },
       body: tx.getRaw()
     });
-    bundlrRequestSpan?.finish();
 
     if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
       return response({ success: true, id: tx.id, metadata: payload });
@@ -79,9 +59,6 @@ export default async (request: WorkerRequest) => {
       return response({ success: false, message: 'Bundlr error!', bundlrRes });
     }
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

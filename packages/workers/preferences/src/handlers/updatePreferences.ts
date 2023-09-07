@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { Errors } from '@lenster/data/errors';
 import { adminAddresses } from '@lenster/data/staffs';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
@@ -35,10 +33,6 @@ const validationSchema = object({
 });
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/preferences/updatePreferences'
-  });
-
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -113,9 +107,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, result: data });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };
