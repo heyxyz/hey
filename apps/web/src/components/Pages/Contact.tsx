@@ -73,8 +73,6 @@ const Contact: FC = () => {
               handle: currentProfile?.handle
             }
           : null,
-        userId: currentProfile?.id,
-        handle: currentProfile?.handle,
         category,
         subject,
         body
