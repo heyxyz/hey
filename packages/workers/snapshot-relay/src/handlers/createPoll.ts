@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import {
   LENSTER_POLLS_SPACE,
   MAINNET_SNAPSHOT_SEQUNECER_URL,
@@ -46,10 +44,6 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
 ];
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/snapshot-relay/createPoll'
-  });
-
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -141,9 +135,6 @@ export default async (request: WorkerRequest) => {
       snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
     });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };
