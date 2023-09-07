@@ -7,8 +7,9 @@ import { useProfileFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { type FC, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
@@ -19,64 +20,55 @@ interface AlgorithmicFeedProps {
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
+
   const limit = 20;
+  const offset = displayedPublications.length;
 
   const {
     data: publicationIds,
     isLoading: algoLoading,
-    error: algoError,
-    hasNextPage,
-    fetchNextPage
-  } = useInfiniteQuery({
-    queryKey: ['algorithmicFeed', feedType, currentProfile?.id],
-    queryFn: ({ pageParam = 0 }) =>
-      getAlgorithmicFeed(feedType, currentProfile, 20, pageParam * 20),
+    error: algoError
+  } = useQuery(
+    ['algorithmicFeed', feedType, currentProfile?.id, limit, offset],
+    () => {
+      return getAlgorithmicFeed(feedType, currentProfile, limit, offset);
+    }
+  );
 
-    getNextPageParam: (lastPage, pages) =>
-      lastPage.length < 20 ? null : pages.length
-  });
+  useEffect(() => {
+    setDisplayedPublications([]);
+  }, [feedType, currentProfile?.id]);
 
-  const request: PublicationsQueryRequest = {
-    publicationIds: publicationIds?.pages[publicationIds.pages.length - 1],
-    limit: 20
-  };
+  const request: PublicationsQueryRequest = { publicationIds, limit };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useProfileFeedQuery({
+  const { data, loading, error } = useProfileFeedQuery({
     variables: { request, reactionRequest, profileId },
-    skip: !publicationIds
+    skip: !publicationIds,
+    fetchPolicy: 'no-cache'
   });
 
-  useEffect(() => {
-    refetch();
-  }, [feedType, currentProfile?.id, refetch]);
-
-  const publications = data?.publications?.items;
-  const pageInfo = data?.publications?.pageInfo;
+  const publications = [
+    ...displayedPublications,
+    ...(data?.publications?.items || [])
+  ];
 
   const { observe } = useInView({
     onChange: async ({ inView }) => {
       if (!inView) {
         return;
       }
-      if (hasNextPage) {
-        await fetchNextPage();
-
-        await fetchMore({
-          variables: {
-            request: { ...request, cursor: pageInfo?.next },
-            reactionRequest,
-            profileId
-          }
-        });
+      if (publications.length != displayedPublications.length) {
+        setDisplayedPublications(publications);
       }
     }
   });
 
-  if (algoLoading || loading) {
+  if (publications.length == 0 && (algoLoading || loading)) {
     return <PublicationsShimmer />;
   }
 
@@ -89,7 +81,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     );
   }
 
-  if (error || algoError) {
+  if (publications.length == 0 && (error || algoError)) {
     return <ErrorMessage title={t`Failed to load for you`} error={error} />;
   }
 
