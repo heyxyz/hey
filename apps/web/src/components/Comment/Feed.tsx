@@ -14,8 +14,8 @@ import {
   useCommentFeedQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
-import { t } from '@lingui/macro';
-import type { FC } from 'react';
+import { t, Trans } from '@lingui/macro';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
@@ -26,6 +26,7 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ publication }) => {
+  const [orderByRecent, setOrderByRecent] = useState(false);
   const publicationId =
     publication?.__typename === 'Mirror'
       ? publication?.mirrorOf?.id
@@ -99,33 +100,67 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     );
   }
 
+  let sortedComments = comments;
+
+  if (orderByRecent && comments) {
+    sortedComments = comments
+      ?.filter(
+        // @ts-ignore
+        (comment) => comment?.__typename === 'Comment' || !comment.hidden
+      )
+      .sort((a, b) => {
+        // @ts-ignore
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+  }
+
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId="comments-feed"
-    >
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewComment &&
-          txn?.parent === publication?.id && (
-            <div key={txn.id}>
-              <QueuedPublication txn={txn} />
-            </div>
+    <>
+      <div className="flex items-center justify-between">
+        <div>Comments</div>
+        <select
+          className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
+          onChange={(e) => {
+            e.target.value === 'Most Recent'
+              ? setOrderByRecent(true)
+              : setOrderByRecent(false);
+          }}
+        >
+          <option value={'Most Recent'} selected={orderByRecent}>
+            <Trans>Most Recent</Trans>
+          </option>
+          <option value={'Relevant'} selected={!orderByRecent}>
+            <Trans>Relevant</Trans>
+          </option>
+        </select>
+      </div>
+      <Card
+        className="divide-y-[1px] dark:divide-gray-700"
+        dataTestId="comments-feed"
+      >
+        {txnQueue.map(
+          (txn) =>
+            txn?.type === OptmisticPublicationType.NewComment &&
+            txn?.parent === publication?.id && (
+              <div key={txn.id}>
+                <QueuedPublication txn={txn} />
+              </div>
+            )
+        )}
+        {sortedComments?.map((comment, index) =>
+          comment?.__typename !== 'Comment' || comment.hidden ? null : (
+            <SinglePublication
+              key={`${comment.id}`}
+              isFirst={index === 0}
+              isLast={index === comments.length - 1}
+              publication={comment as Comment}
+              showType={false}
+            />
           )
-      )}
-      {comments?.map((comment, index) =>
-        comment?.__typename !== 'Comment' || comment.hidden ? null : (
-          <SinglePublication
-            key={`${comment.id}`}
-            isFirst={index === 0}
-            isLast={index === comments.length - 1}
-            publication={comment as Comment}
-            showType={false}
-          />
-        )
-      )}
-      {hasMore ? <span ref={observe} /> : null}
-    </Card>
+        )}
+        {hasMore ? <span ref={observe} /> : null}
+      </Card>
+    </>
   );
 };
 
