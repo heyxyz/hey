@@ -6,7 +6,7 @@ import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import Custom404 from 'src/pages/404';
+import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -52,7 +52,7 @@ const DispatcherSettings: FC = () => {
   };
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (
