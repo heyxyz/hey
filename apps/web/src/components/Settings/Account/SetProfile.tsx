@@ -1,3 +1,4 @@
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import UserProfile from '@components/Shared/UserProfile';
 import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
 import { LensHub } from '@lenster/abis';
@@ -19,7 +20,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useEffectOnce } from 'usehooks-ts';
