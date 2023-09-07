@@ -30,15 +30,15 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   } = useInfiniteQuery({
     queryKey: ['algorithmicFeed', feedType, currentProfile?.id],
     queryFn: ({ pageParam = 0 }) =>
-      getAlgorithmicFeed(feedType, currentProfile, limit, pageParam * limit),
+      getAlgorithmicFeed(feedType, currentProfile, 20, pageParam * 20),
 
     getNextPageParam: (lastPage, pages) =>
-      lastPage.length < limit ? null : pages.length
+      lastPage.length < 20 ? null : pages.length
   });
 
   const request: PublicationsQueryRequest = {
     publicationIds: publicationIds?.pages[publicationIds.pages.length - 1],
-    limit: limit
+    limit: 20
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
