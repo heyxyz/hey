@@ -19,7 +19,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import Custom404 from 'src/pages/404';
+import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useEffectOnce } from 'usehooks-ts';
@@ -118,7 +118,7 @@ const SetProfile: FC = () => {
   };
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (

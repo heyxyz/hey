@@ -6,7 +6,7 @@ import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import Custom404 from 'src/pages/404';
+import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -33,7 +33,7 @@ const Notification: FC = () => {
   });
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (
