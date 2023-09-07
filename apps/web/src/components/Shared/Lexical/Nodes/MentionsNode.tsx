@@ -53,7 +53,7 @@ export class MentionNode extends TextNode {
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
     dom.style.cssText = '';
-    dom.className = '';
+    dom.className = 'text-brand';
 
     return dom;
   }
