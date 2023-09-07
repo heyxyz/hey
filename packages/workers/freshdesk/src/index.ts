@@ -20,7 +20,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
   }
 
   const payload: any = await request.json();
-  const { email, category, subject, body } = payload;
+  const { email, profile, category, subject, body } = payload;
 
   if (!email || !category || !subject || !body) {
     return new Response(
@@ -31,6 +31,10 @@ const handleRequest = async (request: Request, env: EnvType) => {
     );
   }
 
+  const profileInfo = profile
+    ? `User ID: ${profile.id}\nHandle: ${profile.handle}`
+    : 'Not signed in';
+  const textBody = `${profileInfo}\n\nMessage:\n${body}`;
   try {
     await fetch('https://api.postmarkapp.com/email', {
       method: 'POST',
@@ -43,7 +47,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
         ReplyTo: email,
         To: 'support@lenster.freshdesk.com',
         Subject: category + ': ' + subject,
-        TextBody: body,
+        TextBody: textBody,
         MessageStream: 'outbound'
       })
     }).then((response) => {
