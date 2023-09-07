@@ -1,15 +1,9 @@
-import '@sentry/tracing';
-
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
 
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/achievements/hasUsedLenster'
-  });
-
   const { id } = request.params;
 
   if (!id) {
@@ -40,9 +34,6 @@ export default async (request: WorkerRequest) => {
       hasUsedLenster: parseInt(json.data[0][0]) > 0
     });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

@@ -9,7 +9,6 @@ routes = [
 ]
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""
 MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY = ""
 TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY = ""

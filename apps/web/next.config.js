@@ -1,4 +1,3 @@
-const { withSentryConfig } = require('@sentry/nextjs');
 const linguiConfig = require('./lingui.config');
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
@@ -76,18 +75,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withSentryConfig(
-  nextConfig,
-  {
-    silent: true,
-    org: 'lenster',
-    project: 'web',
-    url: 'https://sentry.lenster.xyz'
-  },
-  {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    disableLogger: true,
-    hideSourceMaps: false
-  }
-);
+module.exports = nextConfig;

@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
 import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
@@ -7,10 +5,6 @@ import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/preferences/getPreferences'
-  });
-
   const { id } = request.params;
 
   if (!id) {
@@ -28,9 +22,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, result: data });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

@@ -6,10 +6,6 @@ import generateDateRangeDict from '../helpers/generateDateRangeDict';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/achievements/streaksCalendar'
-  });
-
   const { id } = request.params;
 
   if (!id) {
@@ -54,9 +50,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, data: allDatesData });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

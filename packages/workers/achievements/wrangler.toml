@@ -12,6 +12,5 @@ routes = [
 mode = "smart"
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""
 CLICKHOUSE_REST_ENDPOINT = ""
