@@ -1,14 +1,8 @@
-import '@sentry/tracing';
-
 import { decode } from '@cfworker/base64url';
 
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/oembed/getImage'
-  });
-
   try {
     const hash = request.query.hash as string;
     const transform = request.query.transform as 'square' | 'large' | string;
@@ -28,9 +22,6 @@ export default async (request: WorkerRequest) => {
 
     return new Response(image.body);
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

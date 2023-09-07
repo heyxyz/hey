@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import response from '@lenster/lib/response';
 import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
@@ -7,10 +5,6 @@ import { FEATURED_CHANNELS_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/channels/featuredChannels'
-  });
-
   try {
     const cache = await request.env.CHANNELS.get(FEATURED_CHANNELS_KV_KEY);
 
@@ -30,9 +24,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, fromKV: true, result: JSON.parse(cache) });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

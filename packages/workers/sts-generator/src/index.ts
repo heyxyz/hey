@@ -1,7 +1,6 @@
 import { Errors } from '@lenster/data/errors';
 import response from '@lenster/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
-import { Toucan } from 'toucan-js';
 
 import getStsToken from './handlers/getStsToken';
 import buildRequest from './helpers/buildRequest';
@@ -32,21 +31,12 @@ export default {
     env: Env,
     ctx: ExecutionContext
   ): Promise<Response> {
-    const sentry = new Toucan({
-      request,
-      context: ctx,
-      tracesSampleRate: 1.0,
-      dsn: env.SENTRY_DSN,
-      release: env.RELEASE,
-      requestDataOptions: { allowedIps: true }
-    });
-    const incomingRequest = buildRequest(request, env, ctx, sentry);
+    const incomingRequest = buildRequest(request, env, ctx);
 
     return await router
       .handle(incomingRequest)
       .then(corsify)
-      .catch((error_) => {
-        sentry.captureException(error_);
+      .catch(() => {
         return error(500, Errors.InternalServerError);
       });
   }
