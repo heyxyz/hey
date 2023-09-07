@@ -66,7 +66,7 @@ const UserProfile: FC<UserProfileProps> = ({
       src={getAvatar(profile)}
       loading="lazy"
       className={cn(
-        isBig ? 'h-14 w-14' : 'h-8 w-8 sm:h-10 sm:w-10',
+        isBig ? 'h-14 w-14' : 'h-9 w-9 sm:h-10 sm:w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
