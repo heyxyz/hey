@@ -50,7 +50,6 @@ const useMessagePreviews = () => {
   const [loadProfiles] = useProfilesLazyQuery();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const setEnsNames = useMessageStore((state) => state.setEnsNames);
-  const ensNames = useMessageStore((state) => state.ensNames);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
@@ -104,25 +103,23 @@ const useMessagePreviews = () => {
 
   useEffect(() => {
     const getEns = async () => {
-      if (selectedTab === MessageTabs.Inbox) {
-        const chunks = chunkArray(
-          Array.from(nonLensProfiles),
-          MAX_PROFILES_PER_REQUEST
-        );
-        let newEnsNames = new Map();
-        for (const chunk of chunks) {
-          const ensResponse = await resolveEns(chunk);
-          const ensNamesData = ensResponse.data;
-          let i = 0;
-          for (const ensName of ensNamesData) {
-            if (ensName !== '') {
-              newEnsNames.set(chunk[i], ensName);
-            }
-            i++;
+      const chunks = chunkArray(
+        Array.from(nonLensProfiles),
+        MAX_PROFILES_PER_REQUEST
+      );
+      let newEnsNames = new Map();
+      for (const chunk of chunks) {
+        const ensResponse = await resolveEns(chunk);
+        const ensNamesData = ensResponse.data;
+        let i = 0;
+        for (const ensName of ensNamesData) {
+          if (ensName !== '') {
+            newEnsNames.set(chunk[i], ensName);
           }
+          i++;
         }
-        setEnsNames(new Map(newEnsNames));
       }
+      setEnsNames(new Map(newEnsNames));
     };
     getEns();
     // eslint-disable-next-line react-hooks/exhaustive-deps
