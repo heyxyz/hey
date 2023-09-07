@@ -14,7 +14,7 @@ const PublicationShimmer: FC<PublicationShimmerProps> = ({
   quoted = false
 }) => {
   return (
-    <div className="space-y-4 p-5">
+    <div className="space-y-4 p-3 sm:p-5">
       <div className="flex justify-between">
         {quoted ? <SmallUserProfileShimmer /> : <UserProfileShimmer />}
         <div className="shimmer h-5 w-5 rounded-lg" />
