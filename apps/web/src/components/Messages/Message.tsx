@@ -22,6 +22,7 @@ import type {
 import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
 import Custom404 from 'src/pages/404';
+import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { useEffectOnce } from 'usehooks-ts';
@@ -132,7 +133,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   }, [conversationKey, hasMore, messages, endTime]);
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   const showLoading = !missingXmtpAuth && !currentProfile;

@@ -5,7 +5,7 @@ import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
-import Custom404 from 'src/pages/404';
+import NotLoggedIn from 'src/pages/notloggedin';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -38,7 +38,7 @@ const Messages: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (
