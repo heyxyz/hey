@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
+import LoginButton from '@components/Shared/Navbar/LoginButton';
 import { APP_NAME } from '@lenster/data/constants';
 import { Trans } from '@lingui/macro';
 import { type FC } from 'react';
@@ -21,6 +22,7 @@ const NotLoggedIn: FC = () => {
         <div className="mb-4">
           <Trans>Log in to continue</Trans>
         </div>
+        <LoginButton />
       </div>
     </div>
   );
