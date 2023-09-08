@@ -1,7 +1,14 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
+import MenuTransition from '@components/Shared/MenuTransition';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { Menu } from '@headlessui/react';
+import {
+  ChatAlt2Icon,
+  ChevronDownIcon,
+  SparklesIcon,
+  SwitchVerticalIcon
+} from '@heroicons/react/outline';
 import type {
   Comment,
   Publication,
@@ -14,6 +21,7 @@ import {
   useCommentFeedQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -117,8 +125,51 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <div>Comments</div>
-        <select
+        <div className="text-lg">Comments</div>
+        <Menu as="div">
+          <Menu.Button
+            className="inline-flex items-center space-x-1"
+            data-testid="locale-selector"
+          >
+            <span>{orderByRecent ? t`Most Recent` : t`Relevant`}</span>
+            <ChevronDownIcon className="h-4 w-4" />
+          </Menu.Button>
+          <MenuTransition>
+            <Menu.Items
+              static
+              className="absolute z-[5] mt-2 min-w-[160px] rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+              data-testid="locale-selector-menu"
+            >
+              <Menu.Item
+                as="div"
+                className={cn(
+                  { 'dropdown-active': orderByRecent },
+                  'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5'
+                )}
+                onClick={() => setOrderByRecent(true)}
+              >
+                <SwitchVerticalIcon className="h-4 w-4" />
+                <div>
+                  <Trans>Most Recent</Trans>
+                </div>
+              </Menu.Item>
+              <Menu.Item
+                as="div"
+                onClick={() => setOrderByRecent(false)}
+                className={cn(
+                  { 'dropdown-active': !orderByRecent },
+                  'm-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5'
+                )}
+              >
+                <SparklesIcon className="h-4 w-4" />
+                <div>
+                  <Trans>Relevant</Trans>
+                </div>
+              </Menu.Item>
+            </Menu.Items>
+          </MenuTransition>
+        </Menu>
+        {/* <select
           className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
           onChange={(e) => {
             e.target.value === 'Most Recent'
@@ -132,7 +183,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           <option value={'Relevant'} selected={!orderByRecent}>
             <Trans>Relevant</Trans>
           </option>
-        </select>
+        </select> */}
       </div>
       <Card
         className="divide-y-[1px] dark:divide-gray-700"

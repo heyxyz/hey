@@ -50,6 +50,14 @@ msgstr ""
 msgid "Be the first one to comment!"
 msgstr ""
 
+#: src/components/Comment/Feed.tsx
+msgid "Most Recent"
+msgstr "Most Recent"
+
+#: src/components/Comment/Feed.tsx
+msgid "Relevant"
+msgstr "Relevant"
+
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
 msgstr "Hide more comments"

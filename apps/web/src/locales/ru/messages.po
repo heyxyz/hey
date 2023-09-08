@@ -50,6 +50,14 @@ msgstr "Не удалось загрузить комментарии"
 msgid "Be the first one to comment!"
 msgstr "Будьте первым комментатором!"
 
+#: src/components/Comment/Feed.tsx
+msgid "Most Recent"
+msgstr ""
+
+#: src/components/Comment/Feed.tsx
+msgid "Relevant"
+msgstr ""
+
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
 msgstr "Скрыть комментарии"

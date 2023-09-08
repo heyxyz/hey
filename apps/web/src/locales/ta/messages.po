@@ -50,6 +50,14 @@ msgstr "கருத்து ஊட்டத்தை ஏற்றுவதி�
 msgid "Be the first one to comment!"
 msgstr "முதல் நபராக கருத்திடுக!"
 
+#: src/components/Comment/Feed.tsx
+msgid "Most Recent"
+msgstr ""
+
+#: src/components/Comment/Feed.tsx
+msgid "Relevant"
+msgstr ""
+
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
 msgstr "மேலும் கருத்துகளை மறை"

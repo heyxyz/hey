@@ -50,6 +50,14 @@ msgstr "Échec du chargement des commentaires"
 msgid "Be the first one to comment!"
 msgstr "Soyez le premier à laisser un commentaire !"
 
+#: src/components/Comment/Feed.tsx
+msgid "Most Recent"
+msgstr ""
+
+#: src/components/Comment/Feed.tsx
+msgid "Relevant"
+msgstr ""
+
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
 msgstr "Masquer plus de commentaires"

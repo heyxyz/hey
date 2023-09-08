@@ -50,6 +50,14 @@ msgstr "评论流加载失败"
 msgid "Be the first one to comment!"
 msgstr "还没有人评论哦~快来抢沙发！"
 
+#: src/components/Comment/Feed.tsx
+msgid "Most Recent"
+msgstr ""
+
+#: src/components/Comment/Feed.tsx
+msgid "Relevant"
+msgstr ""
+
 #: src/components/Comment/NoneRelevantFeed.tsx
 msgid "Hide more comments"
 msgstr "隐藏更多评论"
