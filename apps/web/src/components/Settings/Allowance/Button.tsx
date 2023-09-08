@@ -1,8 +1,8 @@
-import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { MinusIcon, PlusIcon } from '@heroicons/react/outline';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
-import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
+import { Alert, Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
@@ -105,45 +105,30 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       >
         {title}
       </Button>
-      <Modal
-        title={t`Warning`}
-        icon={<ExclamationIcon className="h-5 w-5 text-yellow-500" />}
+      <Alert
+        isDestructive
+        isPerformingAction={queryLoading || transactionLoading || waitLoading}
+        confirmText={title}
         show={showWarningModal}
+        title={t`Handle with care!`}
+        description={
+          <div className="leading-6">
+            <Trans>
+              Please be aware that by allowing this module, the amount indicated
+              will be automatically deducted when you <b>Collect</b> and{' '}
+              <b>Super follow</b>.
+            </Trans>
+          </div>
+        }
+        onConfirm={() =>
+          handleAllowance(
+            module.currency,
+            Number.MAX_SAFE_INTEGER.toString(),
+            module.module
+          )
+        }
         onClose={() => setShowWarningModal(false)}
-      >
-        <div className="space-y-3 p-5">
-          <WarningMessage
-            title={t`Handle with care!`}
-            message={
-              <div className="leading-6">
-                <Trans>
-                  Please be aware that by allowing this module, the amount
-                  indicated will be automatically deducted when you{' '}
-                  <b>Collect</b> and <b>Super follow</b>.
-                </Trans>
-              </div>
-            }
-          />
-          <Button
-            icon={
-              queryLoading || transactionLoading || waitLoading ? (
-                <Spinner size="xs" />
-              ) : (
-                <PlusIcon className="h-4 w-4" />
-              )
-            }
-            onClick={() =>
-              handleAllowance(
-                module.currency,
-                Number.MAX_SAFE_INTEGER.toString(),
-                module.module
-              )
-            }
-          >
-            {title}
-          </Button>
-        </div>
-      </Modal>
+      />
     </>
   );
 };
