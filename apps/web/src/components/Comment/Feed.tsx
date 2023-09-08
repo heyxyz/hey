@@ -127,10 +127,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       <div className="flex items-center justify-between px-2 md:px-0">
         <div className="text-lg">Comments</div>
         <Menu as="div" className="relative">
-          <Menu.Button
-            className="inline-flex items-center space-x-1"
-            data-testid="locale-selector"
-          >
+          <Menu.Button className="inline-flex items-center space-x-1">
             <div className="flex items-center space-x-1">
               {orderByRecent ? (
                 <>
