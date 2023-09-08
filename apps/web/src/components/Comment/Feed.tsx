@@ -124,9 +124,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between px-2 md:px-0">
         <div className="text-lg">Comments</div>
-        <Menu as="div">
+        <Menu as="div" className="relative">
           <Menu.Button
             className="inline-flex items-center space-x-1"
             data-testid="locale-selector"
@@ -137,8 +137,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           <MenuTransition>
             <Menu.Items
               static
-              className="absolute z-[5] mt-2 min-w-[160px] rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-              data-testid="locale-selector-menu"
+              className="absolute right-[10px] z-[5] mt-2 min-w-[160px] rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
             >
               <Menu.Item
                 as="div"
