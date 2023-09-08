@@ -46,10 +46,16 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const request: PublicationsQueryRequest = {
     commentsOf: publicationId,
     customFilters: [CustomFiltersTypes.Gardeners],
-    commentsOfOrdering: CommentOrderingTypes.Ranking,
-    commentsRankingFilter: CommentRankingFilter.Relevant,
+    commentsOfOrdering: orderByRecent
+      ? CommentOrderingTypes.Desc
+      : CommentOrderingTypes.Ranking,
     limit: 30
   };
+
+  if (!orderByRecent) {
+    request.commentsRankingFilter = CommentRankingFilter.Relevant;
+  }
+
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
@@ -90,7 +96,15 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   });
 
   if (loading) {
-    return <PublicationsShimmer />;
+    return (
+      <>
+        <div className="mb-2 flex justify-between">
+          <div className="shimmer h-4 w-[120px] rounded-lg" />
+          <div className="shimmer h-4 w-[120px] rounded-lg" />
+        </div>
+        <PublicationsShimmer />
+      </>
+    );
   }
 
   if (error) {
@@ -108,20 +122,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     );
   }
 
-  let sortedComments = comments;
-
-  if (orderByRecent && comments) {
-    sortedComments = comments
-      ?.filter(
-        // @ts-ignore
-        (comment) => comment?.__typename === 'Comment' || !comment.hidden
-      )
-      .sort((a, b) => {
-        // @ts-ignore
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-  }
-
   return (
     <>
       <div className="flex items-center justify-between px-2 md:px-0">
@@ -131,7 +131,23 @@ const Feed: FC<FeedProps> = ({ publication }) => {
             className="inline-flex items-center space-x-1"
             data-testid="locale-selector"
           >
-            <span>{orderByRecent ? t`Most Recent` : t`Relevant`}</span>
+            <div className="flex items-center space-x-1">
+              {orderByRecent ? (
+                <>
+                  <SwitchVerticalIcon className="h-4 w-4" />
+                  <div>
+                    <Trans>Most Recent</Trans>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <SparklesIcon className="h-4 w-4" />
+                  <div>
+                    <Trans>Relevant</Trans>
+                  </div>
+                </>
+              )}
+            </div>
             <ChevronDownIcon className="h-4 w-4" />
           </Menu.Button>
           <MenuTransition>
@@ -168,21 +184,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
             </Menu.Items>
           </MenuTransition>
         </Menu>
-        {/* <select
-          className="focus:border-brand-500 focus:ring-brand-400 rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
-          onChange={(e) => {
-            e.target.value === 'Most Recent'
-              ? setOrderByRecent(true)
-              : setOrderByRecent(false);
-          }}
-        >
-          <option value={'Most Recent'} selected={orderByRecent}>
-            <Trans>Most Recent</Trans>
-          </option>
-          <option value={'Relevant'} selected={!orderByRecent}>
-            <Trans>Relevant</Trans>
-          </option>
-        </select> */}
       </div>
       <Card
         className="divide-y-[1px] dark:divide-gray-700"
@@ -197,7 +198,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               </div>
             )
         )}
-        {sortedComments?.map((comment, index) =>
+        {comments?.map((comment, index) =>
           comment?.__typename !== 'Comment' || comment.hidden ? null : (
             <SinglePublication
               key={`${comment.id}`}
