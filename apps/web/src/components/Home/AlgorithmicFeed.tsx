@@ -19,7 +19,6 @@ interface AlgorithmicFeedProps {
 
 const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
   const limit = 20;
