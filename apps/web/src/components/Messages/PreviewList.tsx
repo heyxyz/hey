@@ -15,11 +15,8 @@ import {
   TabButton
 } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -40,12 +37,14 @@ const PreviewList: FC<PreviewListProps> = ({
   className,
   selectedConversationKey
 }) => {
-  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const [showSearchModal, setShowSearchModal] = useState(false);
 
   const { authenticating, loading, messages, profilesToShow, profilesError } =
@@ -75,7 +74,8 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const showAuthenticating = currentProfile && authenticating;
   const showLoading =
-    loading && (messages.size === 0 || profilesToShow.size === 0);
+    (loading && (messages.size === 0 || profilesToShow.size === 0)) ||
+    previewsLoading;
 
   const newMessageClick = () => {
     setShowSearchModal(true);
@@ -83,17 +83,13 @@ const PreviewList: FC<PreviewListProps> = ({
   };
 
   const onProfileSelected = async (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(
-      profile.ownedBy,
-      conversationId
-    );
+    const conversationKey = profile.ownedBy.toLowerCase();
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
       ? MessageTabs.Following
       : MessageTabs.Inbox;
     setSelectedTab(selectedTab);
-    router.push(`/messages/${conversationKey}`);
+    setConversationKey(conversationKey);
     setShowSearchModal(false);
   };
 

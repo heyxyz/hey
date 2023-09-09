@@ -8,7 +8,6 @@ import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { Image } from '@lenster/ui';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
@@ -24,10 +23,12 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   profile,
   conversationKey
 }) => {
-  const router = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
   const ensNames = useMessageStore((state) => state.ensNames);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
   const url =
     (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
@@ -41,7 +42,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   );
 
   const onBackClick = () => {
-    router.push('/messages');
+    setConversationKey('');
   };
 
   useEffect(() => {
