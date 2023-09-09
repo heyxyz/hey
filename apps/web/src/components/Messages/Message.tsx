@@ -6,11 +6,9 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
-import { parseConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useGetMessages from 'src/hooks/useGetMessages';
@@ -24,6 +22,7 @@ import useStreamMessages from 'src/hooks/useStreamMessages';
 import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import useResizeObserver from 'use-resize-observer';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Composer from './Composer';
@@ -31,12 +30,13 @@ import MessagesList from './MessagesList';
 import PreviewList from './PreviewList';
 
 interface MessageProps {
-  conversationKey: string;
+  conversationKey?: string;
 }
 
-const Message: FC<MessageProps> = ({ conversationKey }) => {
+const Message: FC<MessageProps> = ({}) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const conversationKey = useMessageStore((state) => state.conversationKey);
   const { profile } = useGetProfile(currentProfile?.id, conversationKey);
   const queuedMessages = useMessageStore((state) =>
     state.queuedMessages.get(conversationKey)
@@ -82,6 +82,9 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   );
 
+  const { ref: divref, width: divWidth = 1080 } =
+    useResizeObserver<HTMLDivElement>();
+
   const allMessages = useMemo(() => {
     // if the queued message is in sent messages, ignore it
     // it is expected that this will occur and provides a clean
@@ -123,10 +126,12 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   const fetchNextMessages = useCallback(() => {
     if (hasMore && Array.isArray(messages) && messages.length > 0) {
       const lastMsgDate = messages[messages.length - 1].sent;
-      const currentEndTime = endTime.get(conversationKey);
-      if (!currentEndTime || lastMsgDate <= currentEndTime) {
-        endTime.set(conversationKey, lastMsgDate);
-        setEndTime(new Map(endTime));
+      if (conversationKey) {
+        const currentEndTime = endTime.get(conversationKey);
+        if (!currentEndTime || lastMsgDate <= currentEndTime) {
+          endTime.set(conversationKey, lastMsgDate);
+          setEndTime(new Map(endTime));
+        }
       }
     }
   }, [conversationKey, hasMore, messages, endTime]);
@@ -145,82 +150,64 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     : APP_NAME;
 
   return (
-    <GridLayout classNameChild="md:gap-8">
-      <MetaTags title={title} />
-      <PreviewList
-        className="xs:hidden sm:hidden md:hidden lg:block"
-        selectedConversationKey={conversationKey}
-      />
-      <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
-        <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
-          {showLoading ? (
-            <div className="flex h-full grow items-center justify-center">
-              <Loader message={t`Loading messages`} />
-            </div>
-          ) : (
-            <>
-              <MessageHeader
-                profile={profile}
-                conversationKey={conversationKey}
-              />
-              <MessagesList
-                conversationKey={conversationKey}
-                currentProfile={currentProfile}
-                profile={profile}
-                fetchNextMessages={fetchNextMessages}
-                messages={allMessages}
-                hasMore={hasMore}
-                missingXmtpAuth={missingXmtpAuth ?? false}
-                listRef={listRef}
-              />
-              <Composer
-                listRef={listRef}
-                sendMessage={sendMessage}
-                conversationKey={conversationKey}
-                disabledInput={missingXmtpAuth ?? false}
-              />
-            </>
-          )}
-        </Card>
-      </GridItemEight>
-    </GridLayout>
+    <div ref={divref}>
+      <GridLayout classNameChild="md:gap-8">
+        <MetaTags title={title} />
+        {divWidth > 1025 || conversationKey === '' ? (
+          <PreviewList selectedConversationKey={conversationKey} />
+        ) : null}
+        {divWidth > 1025 || conversationKey ? (
+          <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
+            <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
+              {showLoading ? (
+                <div className="flex h-full grow items-center justify-center">
+                  <Loader message={t`Loading messages`} />
+                </div>
+              ) : (
+                <>
+                  <MessageHeader
+                    profile={profile}
+                    conversationKey={conversationKey}
+                  />
+                  <MessagesList
+                    conversationKey={conversationKey}
+                    currentProfile={currentProfile}
+                    profile={profile}
+                    fetchNextMessages={fetchNextMessages}
+                    messages={allMessages}
+                    hasMore={hasMore}
+                    missingXmtpAuth={missingXmtpAuth ?? false}
+                    listRef={listRef}
+                  />
+                  <Composer
+                    listRef={listRef}
+                    sendMessage={sendMessage}
+                    conversationKey={conversationKey}
+                    disabledInput={missingXmtpAuth ?? false}
+                  />
+                </>
+              )}
+            </Card>
+          </GridItemEight>
+        ) : null}
+      </GridLayout>
+    </div>
   );
 };
 
 const MessagePage: NextPage = () => {
   const currentProfileId = useAppStore((state) => state.currentProfile?.id);
-  const {
-    query: { conversationKey }
-  } = useRouter();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'conversation' });
   });
 
   // Need to have a login page for when there is no currentProfileId
-  if (
-    !conversationKey ||
-    !currentProfileId ||
-    !Array.isArray(conversationKey)
-  ) {
+  if (!currentProfileId) {
     return <Custom404 />;
   }
 
-  const joinedConversationKey = conversationKey.join('/');
-  const parsed = parseConversationKey(joinedConversationKey);
-
-  if (!parsed) {
-    return <Custom404 />;
-  }
-
-  const { members } = parsed;
-  const profileId = members.find((member) => member !== currentProfileId);
-
-  if (members.length > 1 && !profileId) {
-    return <Custom404 />;
-  }
-
-  return <Message conversationKey={joinedConversationKey} />;
+  return <Message />;
 };
 
 export default MessagePage;
