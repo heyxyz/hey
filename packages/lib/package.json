@@ -21,6 +21,6 @@
   "devDependencies": {
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.3"
+    "vitest": "^0.34.4"
   }
 }
