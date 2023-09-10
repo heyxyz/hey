@@ -16,7 +16,7 @@
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.22",
-    "ua-parser-js": "^1.0.35",
+    "ua-parser-js": "^1.0.36",
     "zod": "^3.22.2"
   },
   "devDependencies": {
