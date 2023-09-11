@@ -3082,6 +3082,14 @@ msgstr "首页"
 msgid "Explore"
 msgstr "探索"
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "前往 {type}"
