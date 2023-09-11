@@ -657,6 +657,14 @@ msgstr "அனுப்பு"
 msgid "Loading messages"
 msgstr "செய்திகளை ஏற்றுகிறது"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "உரையாடலைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -710,16 +718,8 @@ msgid "Large attachments are not loaded automatically."
 msgstr ""
 
 #: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "உரையாடலைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "செய்திகள் • {APP_NAME}"
+#~ msgid "Messages • {APP_NAME}"
+#~ msgstr "செய்திகள் • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
