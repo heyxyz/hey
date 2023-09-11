@@ -44,7 +44,7 @@ const useMessagePreviews = () => {
   );
 
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-  const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
+  const [profilesLoading, setProfilesLoading] = useState<boolean>(true);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
   const setEnsNames = useMessageStore((state) => state.setEnsNames);
@@ -122,9 +122,6 @@ const useMessagePreviews = () => {
   }, [nonLensProfiles]);
 
   useEffect(() => {
-    if (profilesLoading) {
-      return;
-    }
     const toQuery = new Set(profileIds);
     for (const synced of syncedProfiles) {
       toQuery.delete(synced);
@@ -286,7 +283,7 @@ const useMessagePreviews = () => {
 
   return {
     authenticating: creatingXmtpClient,
-    loading: messagesLoading || (profilesLoading && !messageProfiles?.size),
+    loading: messagesLoading || profilesLoading || messageProfiles == undefined,
     messages: previewMessages,
     profilesToShow,
     profilesError: profilesError
