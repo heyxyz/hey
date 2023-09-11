@@ -7,12 +7,14 @@ import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import useGetMessagePreviews from 'src/hooks/useGetMessagePreviews';
 import useGetMessages from 'src/hooks/useGetMessages';
 import { useGetProfile } from 'src/hooks/useMessageDb';
+import useMessagePreviews from 'src/hooks/useMessagePreviews';
 import type {
   FailedMessage,
   PendingMessage
@@ -54,6 +56,17 @@ const Message: FC<MessageProps> = ({}) => {
     endTime.get(conversationKey)
   );
   useStreamMessages(conversationKey);
+
+  const {
+    authenticating,
+    loading,
+    messages: messagePreviews,
+    profilesToShow,
+    profilesError
+  } = useMessagePreviews();
+
+  const { loading: previewsLoading, progress: previewsProgress } =
+    useGetMessagePreviews();
 
   const onMessageQueue = useCallback(
     (message: PendingMessage | FailedMessage) => {
@@ -147,47 +160,75 @@ const Message: FC<MessageProps> = ({}) => {
 
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
-    : APP_NAME;
+    : `Messages • ${APP_NAME}`;
 
   return (
     <div ref={divref}>
       <GridLayout classNameChild="md:gap-8">
         <MetaTags title={title} />
         {divWidth > 1025 || conversationKey === '' ? (
-          <PreviewList selectedConversationKey={conversationKey} />
+          <PreviewList
+            selectedConversationKey={conversationKey}
+            previewsLoading={previewsLoading}
+            previewsProgress={previewsProgress}
+            authenticating={authenticating}
+            loading={loading}
+            messages={messagePreviews}
+            profilesToShow={profilesToShow}
+            profilesError={profilesError}
+          />
         ) : null}
         {divWidth > 1025 || conversationKey ? (
           <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
-            <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
-              {showLoading ? (
-                <div className="flex h-full grow items-center justify-center">
-                  <Loader message={t`Loading messages`} />
+            {conversationKey ? (
+              <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
+                {showLoading ? (
+                  <div className="flex h-full grow items-center justify-center">
+                    <Loader message={t`Loading messages`} />
+                  </div>
+                ) : (
+                  <>
+                    <MessageHeader
+                      profile={profile}
+                      conversationKey={conversationKey}
+                    />
+                    <MessagesList
+                      conversationKey={conversationKey}
+                      currentProfile={currentProfile}
+                      profile={profile}
+                      fetchNextMessages={fetchNextMessages}
+                      messages={allMessages}
+                      hasMore={hasMore}
+                      missingXmtpAuth={missingXmtpAuth ?? false}
+                      listRef={listRef}
+                    />
+                    <Composer
+                      listRef={listRef}
+                      sendMessage={sendMessage}
+                      conversationKey={conversationKey}
+                      disabledInput={missingXmtpAuth ?? false}
+                    />
+                  </>
+                )}
+              </Card>
+            ) : (
+              <Card className="h-full">
+                <div className="flex h-full flex-col text-center">
+                  <div className="m-auto">
+                    <span className="text-center text-5xl">👋</span>
+                    <h3 className="mb-2 mt-3 text-lg">
+                      <Trans>Select a conversation</Trans>
+                    </h3>
+                    <p className="text-md lt-text-gray-500 max-w-xs">
+                      <Trans>
+                        Choose an existing conversation or create a new one to
+                        start messaging
+                      </Trans>
+                    </p>
+                  </div>
                 </div>
-              ) : (
-                <>
-                  <MessageHeader
-                    profile={profile}
-                    conversationKey={conversationKey}
-                  />
-                  <MessagesList
-                    conversationKey={conversationKey}
-                    currentProfile={currentProfile}
-                    profile={profile}
-                    fetchNextMessages={fetchNextMessages}
-                    messages={allMessages}
-                    hasMore={hasMore}
-                    missingXmtpAuth={missingXmtpAuth ?? false}
-                    listRef={listRef}
-                  />
-                  <Composer
-                    listRef={listRef}
-                    sendMessage={sendMessage}
-                    conversationKey={conversationKey}
-                    disabledInput={missingXmtpAuth ?? false}
-                  />
-                </>
-              )}
-            </Card>
+              </Card>
+            )}
           </GridItemEight>
         ) : null}
       </GridLayout>
