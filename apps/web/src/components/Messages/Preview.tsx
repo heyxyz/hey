@@ -12,9 +12,9 @@ import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
 import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
@@ -48,14 +48,12 @@ const Preview: FC<PreviewProps> = ({
   conversationKey,
   isSelected
 }) => {
+  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setConversationKey = useMessageStore(
-    (state) => state.setConversationKey
-  );
   const address = currentProfile?.ownedBy;
 
-  const onConversationSelected = () => {
-    setConversationKey(conversationKey);
+  const onConversationSelected = (profileId: string) => {
+    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
   };
 
   const url = (ensName && getStampFyiURL(conversationKey?.split('/')[0])) ?? '';
@@ -67,7 +65,9 @@ const Preview: FC<PreviewProps> = ({
           'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
-        onClick={() => onConversationSelected()}
+        onClick={() =>
+          onConversationSelected(profile?.id ? profile.id : conversationKey)
+        }
         aria-hidden="true"
       >
         <div className="flex space-x-3 overflow-hidden px-5">

@@ -120,7 +120,7 @@ export const useGetProfile = (
   conversationKey: string
 ) => {
   const profile = useLiveQuery(() => {
-    if (!myProfileId || !conversationKey) {
+    if (!myProfileId) {
       return;
     }
     return db.lensProfiles.get([myProfileId, conversationKey]);
