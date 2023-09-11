@@ -18,14 +18,14 @@
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.22",
-    "viem": "^1.10.3",
+    "viem": "^1.10.9",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230904.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.3",
+    "vitest": "^0.34.4",
     "wrangler": "^3.7.0"
   }
 }
