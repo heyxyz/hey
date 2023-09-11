@@ -17,13 +17,12 @@ import {
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { MessageTabs } from 'src/enums';
-import useGetMessagePreviews from 'src/hooks/useGetMessagePreviews';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import useMessagePreviews from 'src/hooks/useMessagePreviews';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
@@ -31,11 +30,25 @@ import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
+  messages: Map<string, DecodedMessage>;
+  profilesToShow: Map<string, Profile>;
+  authenticating?: boolean;
+  profilesError: Error | undefined;
+  loading: boolean;
+  previewsLoading: boolean;
+  previewsProgress: number;
 }
 
 const PreviewList: FC<PreviewListProps> = ({
   className,
-  selectedConversationKey
+  selectedConversationKey,
+  messages,
+  profilesToShow,
+  authenticating,
+  profilesError,
+  loading,
+  previewsLoading,
+  previewsProgress
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { persistProfile } = useMessageDb();
@@ -47,22 +60,9 @@ const PreviewList: FC<PreviewListProps> = ({
   );
   const [showSearchModal, setShowSearchModal] = useState(false);
 
-  const { authenticating, loading, messages, profilesToShow, profilesError } =
-    useMessagePreviews();
-
-  const { loading: previewsLoading, progress: previewsProgress } =
-    useGetMessagePreviews();
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
-
-  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
-    const messageA = messages.get(keyA);
-    const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
-      ? -1
-      : 1;
-  });
 
   useEffect(() => {
     if (!currentProfile) {
@@ -73,6 +73,7 @@ const PreviewList: FC<PreviewListProps> = ({
   }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
+
   const showLoading =
     (loading && (messages.size === 0 || profilesToShow.size === 0)) ||
     previewsLoading;
@@ -92,6 +93,30 @@ const PreviewList: FC<PreviewListProps> = ({
     setConversationKey(conversationKey);
     setShowSearchModal(false);
   };
+
+  const partitionedProfiles = Array.from(profilesToShow || []).reduce(
+    (result, [key, profile]) => {
+      if (profile.isFollowedByMe) {
+        result[0].set(key, profile);
+      } else {
+        result[1].set(key, profile);
+      }
+      return result;
+    },
+    [new Map<string, Profile>(), new Map<string, Profile>()]
+  );
+
+  const sortedProfiles = Array.from(
+    selectedTab === MessageTabs.Following
+      ? partitionedProfiles[0]
+      : profilesToShow
+  ).sort(([keyA], [keyB]) => {
+    const messageA = messages.get(keyA);
+    const messageB = messages.get(keyB);
+    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
+      ? -1
+      : 1;
+  });
 
   return (
     <GridItemFour
