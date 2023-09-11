@@ -42,6 +42,18 @@ class LensterDocument extends Document {
             sizes="16x16"
             href="/favicon-16x16.png"
           />
+
+          {/* PWA config */}
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
+          <meta name="apple-mobile-web-app-title" content="Lenster" />
+          <link rel="icon" href="/images/icons/iconmain-512x512.png" />
+          <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
           <Main />
