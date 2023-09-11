@@ -118,7 +118,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     : '',
                   {
                     'w-full': isAudio || isVideo,
-                    'w-2/3': !isVideo && attachmentsLength === 1
+                    'w-2/3': isImage && attachmentsLength === 1
                   },
                   'relative'
                 )}
