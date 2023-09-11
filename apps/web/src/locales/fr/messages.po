@@ -3082,6 +3082,14 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
