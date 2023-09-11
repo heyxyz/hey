@@ -72,7 +72,13 @@ const Preview: FC<PreviewProps> = ({
       >
         <div className="flex space-x-3 overflow-hidden px-5">
           <Image
-            src={ensName ? url : getAvatar(profile)}
+            src={
+              profile?.handle
+                ? getAvatar(profile)
+                : ensName
+                ? url
+                : getAvatar('')
+            }
             loading="lazy"
             className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             height={40}
@@ -83,10 +89,10 @@ const Preview: FC<PreviewProps> = ({
             <div className="flex justify-between space-x-1">
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
-                  {profile?.name
-                    ? sanitizeDisplayName(profile?.name) ??
+                  {profile?.handle
+                    ? sanitizeDisplayName(profile?.name) ||
                       formatHandle(profile.handle)
-                    : ensName ?? formatAddress(conversationKey?.split('/')[0])}
+                    : ensName || formatAddress(conversationKey?.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) ? (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
