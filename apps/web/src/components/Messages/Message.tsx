@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import MessageHeader from '@components/Messages/MessageHeader';
 import Loader from '@components/Shared/Loader';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -132,7 +133,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
   }, [conversationKey, hasMore, messages, endTime]);
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   const showLoading = !missingXmtpAuth && !currentProfile;

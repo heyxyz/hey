@@ -1,4 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
@@ -6,7 +7,6 @@ import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -33,7 +33,7 @@ const Notification: FC = () => {
   });
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (
