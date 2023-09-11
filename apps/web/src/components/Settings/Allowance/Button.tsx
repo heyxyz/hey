@@ -106,7 +106,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         {title}
       </Button>
       <Alert
-        isDestructive
+        alertType={'caution'}
         isPerformingAction={queryLoading || transactionLoading || waitLoading}
         confirmText={title}
         show={showWarningModal}

@@ -8,7 +8,7 @@ interface AlertProps {
   title: ReactNode;
   description: ReactNode;
   show: boolean;
-  isDestructive?: boolean;
+  alertType?: 'destructive' | 'caution' | 'default';
   isPerformingAction?: boolean;
   confirmText?: string;
   children?: ReactNode;
@@ -20,7 +20,7 @@ export const Alert: FC<AlertProps> = ({
   title,
   description,
   show,
-  isDestructive = false,
+  alertType = 'default',
   isPerformingAction = false,
   confirmText,
   children,
@@ -70,7 +70,13 @@ export const Alert: FC<AlertProps> = ({
                   <Button
                     className="w-full"
                     size="lg"
-                    variant={isDestructive ? 'danger' : 'primary'}
+                    variant={
+                      alertType === 'destructive'
+                        ? 'danger'
+                        : alertType === 'caution'
+                        ? 'warning'
+                        : 'primary'
+                    }
                     disabled={isPerformingAction}
                     onClick={() => onConfirm()}
                   >

@@ -36,7 +36,7 @@ const DeletePublication: FC = () => {
       description={t`This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results.`}
       confirmText={t`Delete`}
       show={showPublicationDeleteAlert}
-      isDestructive
+      alertType={'destructive'}
       isPerformingAction={loading}
       onConfirm={() =>
         hidePost({

@@ -18,7 +18,7 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
 
   return (
     <Alert
-      isDestructive
+      alertType={'destructive'}
       show={showDiscardModal}
       title={t`Discard Post`}
       description={t`This can’t be undone and you’ll lose your draft.`}
