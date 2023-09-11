@@ -33,12 +33,12 @@ import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
-import { useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/preferences';
 
 import Badges from './Badges';
@@ -57,15 +57,13 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setConversationKey = useMessageStore(
-    (state) => state.setConversationKey
-  );
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
+  const router = useRouter();
 
   const { persistProfile } = useMessageDb();
 
@@ -79,7 +77,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       conversationId
     );
     persistProfile(conversationKey, profile);
-    setConversationKey(conversationKey);
+    router.push(`/messages/${conversationKey}`);
   };
 
   const MetaDetails = ({

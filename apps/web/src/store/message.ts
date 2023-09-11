@@ -43,8 +43,6 @@ interface MessageState {
   ) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
-  conversationKey: string;
-  setConversationKey: (conversationKey: string) => void;
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
   syncedProfiles: Set<string>;
@@ -142,8 +140,6 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  conversationKey: '',
-  setConversationKey: (conversationKey) => set(() => ({ conversationKey })),
   selectedTab: MessageTabs.Following,
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
