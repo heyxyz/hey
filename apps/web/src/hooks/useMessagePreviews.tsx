@@ -11,7 +11,6 @@ import type { Conversation } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { MessageTabs } from 'src/enums';
 import useXmtpClient from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -48,13 +47,10 @@ const useMessagePreviews = () => {
   const [profilesLoading, setProfilesLoading] = useState<boolean>(false);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
-  const selectedTab = useMessageStore((state) => state.selectedTab);
   const setEnsNames = useMessageStore((state) => state.setEnsNames);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
-
-  const [requestedCount, setRequestedCount] = useState(0);
 
   const {
     persistPreviewMessage,
@@ -278,47 +274,21 @@ const useMessagePreviews = () => {
   }, [currentProfile]);
 
   useEffect(() => {
-    const partitionedProfiles = Array.from(messageProfiles || []).reduce(
-      (result, [key, profile]) => {
-        if (previewMessages.has(key)) {
-          if (profile.isFollowedByMe) {
-            result[0].set(key, profile);
-          } else {
-            result[1].set(key, profile);
-          }
-        }
-        return result;
-      },
-      [new Map<string, Profile>(), new Map<string, Profile>()]
-    );
-
     const otherProfiles = new Map();
     Array.from(nonLensProfiles).map((key) => {
       otherProfiles.set(key, {} as Profile);
     });
 
-    if (selectedTab === MessageTabs.Following) {
-      setProfilesToShow(partitionedProfiles[0]);
-    } else {
-      setProfilesToShow(
-        new Map([
-          ...partitionedProfiles[0],
-          ...partitionedProfiles[1],
-          ...otherProfiles
-        ])
-      );
-    }
+    setProfilesToShow(new Map([...(messageProfiles ?? []), ...otherProfiles]));
 
-    setRequestedCount(partitionedProfiles[1].size);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageProfiles, selectedTab]);
+  }, [messageProfiles]);
 
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || (profilesLoading && !messageProfiles?.size),
     messages: previewMessages,
     profilesToShow,
-    requestedCount,
     profilesError: profilesError
   };
 };
