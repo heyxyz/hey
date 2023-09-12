@@ -8,7 +8,6 @@ import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
-  EmptyState,
   ErrorMessage,
   GridItemFour,
   Modal,
@@ -188,11 +187,12 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={newMessageClick}
               type="button"
             >
-              <EmptyState
-                message={t`Start messaging your Lens frens`}
-                icon={<MailIcon className="text-brand h-8 w-8" />}
-                hideCard
-              />
+              <div className="grid justify-items-center space-y-2 p-5">
+                <div>
+                  <MailIcon className="text-brand h-8 w-8" />
+                </div>
+                <div>{t`Start messaging your Lens frens`}</div>
+              </div>
             </button>
           ) : (
             <Virtuoso
