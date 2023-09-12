@@ -128,6 +128,7 @@ const useMessagePreviews = () => {
     }
 
     if (!toQuery.size) {
+      setProfilesLoading(false);
       return;
     }
 
