@@ -80,7 +80,7 @@ const Preview: FC<PreviewProps> = ({
                 : getAvatar('')
             }
             loading="lazy"
-            className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+            className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
             height={40}
             width={40}
             alt={formatHandle(profile?.handle)}
