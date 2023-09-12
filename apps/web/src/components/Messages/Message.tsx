@@ -149,10 +149,6 @@ const Message: FC<MessageProps> = ({}) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile) {
-    return <NotLoggedIn />;
-  }
-
   const showLoading = !missingXmtpAuth && !currentProfile;
 
   const userNameForTitle =
@@ -237,9 +233,16 @@ const Message: FC<MessageProps> = ({}) => {
 };
 
 const MessagePage: NextPage = () => {
+  const currentProfileId = useAppStore((state) => state.currentProfile?.id);
+
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'conversation' });
   });
+
+  // Need to have a login page for when there is no currentProfileId
+  if (!currentProfileId) {
+    return <NotLoggedIn />;
+  }
 
   return <Message />;
 };
