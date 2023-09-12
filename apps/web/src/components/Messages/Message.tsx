@@ -22,7 +22,6 @@ import type {
 } from 'src/hooks/useSendOptimisticMessage';
 import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
-import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import useResizeObserver from 'use-resize-observer';
@@ -150,10 +149,6 @@ const Message: FC<MessageProps> = ({}) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile) {
-    return <NotLoggedIn />;
-  }
-
   const showLoading = !missingXmtpAuth && !currentProfile;
 
   const userNameForTitle =
@@ -246,7 +241,7 @@ const MessagePage: NextPage = () => {
 
   // Need to have a login page for when there is no currentProfileId
   if (!currentProfileId) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return <Message />;
