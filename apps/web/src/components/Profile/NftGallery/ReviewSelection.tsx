@@ -59,7 +59,7 @@ const ReviewSelection = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
       {gallery.items?.map((item) => (
         <div key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}>
           <div className="relative rounded-xl">

@@ -187,7 +187,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
             error={error}
           />
         ) : null}
-        <div className="max-h-[80vh] overflow-y-auto p-5">
+        <div className="max-h-[80vh] overflow-y-auto p-5 pr-0">
           <Picker onlyAllowOne={true} />
         </div>
         <div className="flex items-center space-x-2 border-t p-5 px-5 py-3 dark:border-t-gray-700">
