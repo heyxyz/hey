@@ -63,6 +63,7 @@
     "react": "^18.2.0",
     "react-activity-calendar": "^2.0.2",
     "react-cool-inview": "^3.0.1",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^8.0.7",
