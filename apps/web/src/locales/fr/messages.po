@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-07 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -657,6 +657,14 @@ msgstr "Envoyer"
 msgid "Loading messages"
 msgstr "Chargement des messages"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Sélectionnez une conversation"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -710,16 +718,8 @@ msgid "Large attachments are not loaded automatically."
 msgstr ""
 
 #: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Sélectionnez une conversation"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr ""
+#~ msgid "Messages • {APP_NAME}"
+#~ msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"

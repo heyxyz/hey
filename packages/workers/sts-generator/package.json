@@ -13,10 +13,10 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.409.0",
+    "@aws-sdk/client-sts": "^3.410.0",
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "itty-router": "^4.0.22"
+    "itty-router": "^4.0.23"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230904.0",

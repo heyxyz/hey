@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-09 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -657,6 +657,14 @@ msgstr "Отправить"
 msgid "Loading messages"
 msgstr "Загрузка сообщений"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Выберите диалог"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr "Не доставлено"
@@ -710,16 +718,8 @@ msgid "Large attachments are not loaded automatically."
 msgstr ""
 
 #: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Выберите диалог"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "Сообщения • {APP_NAME}"
+#~ msgid "Messages • {APP_NAME}"
+#~ msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"

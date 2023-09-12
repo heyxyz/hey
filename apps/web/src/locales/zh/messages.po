@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-07 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -657,6 +657,14 @@ msgstr "发送"
 msgid "Loading messages"
 msgstr "正在加载消息"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "选择一个对话"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "选择现有的对话或创建新的对话以开始发送消息"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -710,16 +718,8 @@ msgid "Large attachments are not loaded automatically."
 msgstr "大型附件不会被自动加载。"
 
 #: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "选择一个对话"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "选择现有的对话或创建新的对话以开始发送消息"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "私信 • {APP_NAME}"
+#~ msgid "Messages • {APP_NAME}"
+#~ msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
