@@ -348,10 +348,6 @@ msgid "Token gate with"
 msgstr ""
 
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
-#~ msgid "Record Spaces"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/SpaceSettings/index.tsx
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 msgid "Token Gate Spaces"
@@ -388,10 +384,6 @@ msgstr "问一个问题..."
 #: src/components/Shared/Status.tsx
 msgid "What's happening?"
 msgstr "正在发生什么？"
-
-#: src/components/Composer/NewPublication.tsx
-#~ msgid "Create spaces"
-#~ msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Comment.tsx
@@ -3284,15 +3276,6 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
 
-#: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
-#: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
-#~ msgid "{displayName}"
-#~ msgstr ""
-
-#: src/components/Spaces/Common/AvatarGrid/Avatar.tsx
-#~ msgid "{role}"
-#~ msgstr ""
-
 #: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
 msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
 msgstr ""
@@ -3316,10 +3299,6 @@ msgid "{0}"
 msgstr ""
 
 #: src/components/Spaces/Common/InvitationModal.tsx
-#~ msgid "{description}"
-#~ msgstr ""
-
-#: src/components/Spaces/Common/InvitationModal.tsx
 msgid "Accept"
 msgstr ""
 
@@ -3328,16 +3307,8 @@ msgid "Deny"
 msgstr ""
 
 #: src/components/Spaces/Common/MusicTray.tsx
-#~ msgid "{label}"
-#~ msgstr ""
-
-#: src/components/Spaces/Common/MusicTray.tsx
 msgid "Background Music"
 msgstr ""
-
-#: src/components/Spaces/Common/Sidebar/Peers/PeerMetaData.tsx
-#~ msgid "{name}"
-#~ msgstr ""
 
 #: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
 msgid "Your mic will be off at the start"
