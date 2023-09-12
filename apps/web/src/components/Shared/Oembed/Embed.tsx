@@ -34,7 +34,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
         <Card forceRounded>
           {og.isLarge && og.image ? (
             <Image
-              className="divider w-full rounded-t-xl"
+              className="divider aspect-2 w-full rounded-t-xl object-cover"
               onError={({ currentTarget }) => {
                 currentTarget.src = og.image as string;
               }}
