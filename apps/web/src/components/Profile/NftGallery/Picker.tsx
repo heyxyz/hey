@@ -174,7 +174,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
 
   return (
     <VirtuosoGrid
-      style={{ height: '70vh' }}
+      style={{ height: '68vh' }}
       totalCount={nfts.length}
       data={nfts}
       listClassName="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 pr-5"
