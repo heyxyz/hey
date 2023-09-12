@@ -657,6 +657,14 @@ msgstr "Отправить"
 msgid "Loading messages"
 msgstr "Загрузка сообщений"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Выберите диалог"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr "Не доставлено"
@@ -710,16 +718,8 @@ msgid "Large attachments are not loaded automatically."
 msgstr ""
 
 #: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Выберите диалог"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr ""
+#~ msgid "Messages • {APP_NAME}"
+#~ msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
