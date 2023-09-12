@@ -657,6 +657,14 @@ msgstr "发送"
 msgid "Loading messages"
 msgstr "正在加载消息"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "选择一个对话"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "选择现有的对话或创建新的对话以开始发送消息"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -708,18 +716,6 @@ msgstr "附件不会自动从你不关注的人那里加载。"
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr "大型附件不会被自动加载。"
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "选择一个对话"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "选择现有的对话或创建新的对话以开始发送消息"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
