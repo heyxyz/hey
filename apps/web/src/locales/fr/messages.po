@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-07 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -3080,6 +3080,14 @@ msgstr ""
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
 msgstr ""
 
 #: src/components/Shared/Pending.tsx
