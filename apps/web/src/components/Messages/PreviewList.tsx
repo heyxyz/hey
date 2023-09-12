@@ -74,7 +74,8 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const showAuthenticating = currentProfile && authenticating;
 
-  const showLoading = loading || previewsLoading;
+  const showLoading =
+    loading && (messages.size === 0 || profilesToShow.size === 0);
 
   const newMessageClick = () => {
     setShowSearchModal(true);
