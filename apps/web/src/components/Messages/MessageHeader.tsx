@@ -4,11 +4,9 @@ import { ChevronLeftIcon } from '@heroicons/react/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import { Image } from '@lenster/ui';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
@@ -24,10 +22,12 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   profile,
   conversationKey
 }) => {
-  const router = useRouter();
   const [following, setFollowing] = useState(true);
   const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
   const ensNames = useMessageStore((state) => state.ensNames);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
   const url =
     (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
@@ -41,7 +41,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   );
 
   const onBackClick = () => {
-    router.push('/messages');
+    setConversationKey('');
   };
 
   useEffect(() => {
@@ -62,17 +62,17 @@ const MessageHeader: FC<MessageHeaderProps> = ({
         {profile ? (
           <UserProfile profile={profile} />
         ) : (
-          <>
+          <div className="flex min-h-[48px] items-center space-x-3">
             <Image
               src={ensName ? url : getAvatar(profile)}
               loading="lazy"
-              className="mr-4 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+              className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
               height={40}
               width={40}
-              alt={formatHandle('')}
+              alt={ensName ?? formatAddress(conversationKey ?? '')}
             />
-            {ensName ?? formatAddress(conversationKey ?? '')}
-          </>
+            <div>{ensName ?? formatAddress(conversationKey ?? '')}</div>
+          </div>
         )}
       </div>
       {profile ? (
