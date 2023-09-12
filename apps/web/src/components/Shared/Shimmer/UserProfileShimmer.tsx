@@ -15,7 +15,7 @@ const UserProfileShimmer: FC<UserProfileShimmerProps> = ({
       <div className="flex items-center space-x-3">
         <div
           className={cn(
-            isBig ? 'h-14 w-14' : 'h-10 w-10',
+            isBig ? 'h-14 w-14' : 'h-9 w-9 sm:h-10 sm:w-10',
             'shimmer rounded-full'
           )}
         />
