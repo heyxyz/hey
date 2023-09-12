@@ -717,10 +717,6 @@ msgstr "附件不会自动从你不关注的人那里加载。"
 msgid "Large attachments are not loaded automatically."
 msgstr "大型附件不会被自动加载。"
 
-#: src/components/Messages/index.tsx
-#~ msgid "Messages • {APP_NAME}"
-#~ msgstr ""
-
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
 msgstr "协调内容流加载失败"
