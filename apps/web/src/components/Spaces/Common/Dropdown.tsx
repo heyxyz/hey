@@ -2,10 +2,10 @@ import { Menu } from '@headlessui/react';
 import type { FC, ReactNode } from 'react';
 import React from 'react';
 
-type DropdownProps = {
+interface DropdownProps {
   triggerChild: JSX.Element;
   children: ReactNode;
-};
+}
 
 const Dropdown: FC<DropdownProps> = ({ children, triggerChild }) => {
   return (

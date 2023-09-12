@@ -8,13 +8,13 @@ import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import React from 'react';
 
-type StripProps = {
+interface StripProps {
   type: 'personNormal' | 'speaker' | 'leave' | 'remove';
   title: string;
   className?: string;
   variant: 'normal' | 'danger';
   onClick?: () => void;
-};
+}
 
 const PeerIcons = (type: 'personNormal' | 'speaker' | 'leave' | 'remove') => {
   switch (type) {

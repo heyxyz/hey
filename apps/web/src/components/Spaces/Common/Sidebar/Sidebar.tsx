@@ -6,9 +6,7 @@ import { useSpacesStore } from 'src/store/spaces';
 
 import ViewComponent from './ViewController';
 
-type SidebarProps = {};
-
-const Sidebar: FC<SidebarProps> = () => {
+const Sidebar: FC = () => {
   const isSidebarOpen = useSpacesStore((state) => state.sidebar.isSidebarOpen);
 
   const sidebarView = useSpacesStore((state) => state.sidebar.sidebarView);

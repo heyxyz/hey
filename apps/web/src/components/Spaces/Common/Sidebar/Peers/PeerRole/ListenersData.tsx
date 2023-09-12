@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast';
 
 import Strip from './Strip';
 
-type ListenersDataProps = {
+interface ListenersDataProps {
   peerId: string;
-};
+}
 
 const ListenersData: FC<ListenersDataProps> = ({ peerId }) => {
   const { kickPeer } = useAcl();

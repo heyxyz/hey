@@ -11,9 +11,7 @@ import type { Peer } from '../../SpacesTypes';
 import PeerList from './PeerList';
 import PeerMetaData from './PeerMetaData';
 
-type PeersProps = {};
-
-const Peers: FC<PeersProps> = () => {
+const Peers: FC = () => {
   const BlackList = ['peer', 'listener'];
 
   const { me } = useHuddle01();

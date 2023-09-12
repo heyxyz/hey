@@ -98,7 +98,6 @@ import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import useCreateSpace from '../../hooks/useCreateSpace';
 import PollEditor from './Actions/PollSettings/PollEditor';
-import ScheduleSpacesMenu from './Actions/SpaceSettings/ScheduleSpacesMenu';
 import Editor from './Editor';
 import Discard from './Post/Discard';
 
@@ -157,7 +156,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     useGlobalModalStateStore();
 
   // Spaces store
-  const { spacesTimeInHour, spacesTimeInMinute } = useSpacesStore();
+  const spacesStartTime = useSpacesStore((state) => state.spacesStartTime);
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
@@ -760,11 +759,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         spaceData = await createSpace();
       }
 
-      const userCurrentTime = dayjs().utcOffset(dayjs().utcOffset());
-      const startTime = userCurrentTime
-        .hour(Number(spacesTimeInHour))
-        .minute(Number(spacesTimeInMinute))
-        .toISOString();
+      const startTime = dayjs(spacesStartTime);
 
       const attributes: MetadataAttributeInput[] = [
         {
@@ -997,10 +992,29 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           <QuotedPublication publication={quotedPublication} isNew />
         </Wrapper>
       ) : null}
-      <div className="block items-center px-5 sm:flex">
+      <div className="items-center p-1 px-5 sm:flex">
+        <div className="absolute right-2 inline-flex">
+          <div className="ml-auto pr-3 sm:pt-0">
+            <Button
+              disabled={
+                isLoading ||
+                isUploading ||
+                isSubmitDisabledByPoll ||
+                videoThumbnail.uploading
+              }
+              icon={getButtonIcon()}
+              onClick={createPublication}
+            >
+              {getButtonText()}
+            </Button>
+          </div>
+        </div>
         {showComposerModal &&
         modalPublicationType === NewPublicationTypes.Spaces ? (
-          <SpaceSettings />
+          <SpaceSettings
+            createPublication={createPublication}
+            isLoading={isLoading}
+          />
         ) : (
           <div className="flex items-center space-x-4">
             <Attachment />
@@ -1035,29 +1049,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             <PollSettings />
           </div>
         )}
-        <div className="absolute bottom-2 right-2 inline-flex">
-          <div className="ml-auto pt-2 sm:pt-0">
-            <Button
-              disabled={
-                isLoading ||
-                isUploading ||
-                isSubmitDisabledByPoll ||
-                videoThumbnail.uploading
-              }
-              icon={getButtonIcon()}
-              onClick={createPublication}
-            >
-              {getButtonText()}
-            </Button>
-          </div>
-          {showComposerModal &&
-            modalPublicationType === NewPublicationTypes.Spaces && (
-              <ScheduleSpacesMenu
-                isLoading={isLoading}
-                createPublication={createPublication}
-              />
-            )}
-        </div>
       </div>
       <div className="px-5">
         <Attachments attachments={attachments} isNew />

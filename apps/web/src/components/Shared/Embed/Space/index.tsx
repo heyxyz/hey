@@ -9,7 +9,7 @@ import { Button, Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import dayjs from 'dayjs';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -20,8 +20,13 @@ interface SpaceProps {
 }
 
 const Space: FC<SpaceProps> = ({ publication }) => {
-  const { setShowSpacesLobby, setLensAccessToken, lensAccessToken, setSpace } =
-    useSpacesStore();
+  const {
+    setShowSpacesLobby,
+    setLensAccessToken,
+    lensAccessToken,
+    setSpace,
+    setSpacesPublicationId
+  } = useSpacesStore();
 
   const { address } = useAccount();
   const { metadata } = publication;
@@ -35,6 +40,7 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       const token = await getLensAccessToken(data, address as string);
       if (token.accessToken) {
         setShowSpacesLobby(true);
+        setSpacesPublicationId(publication.id);
         setLensAccessToken(token.accessToken);
         setSpace({
           ...space,

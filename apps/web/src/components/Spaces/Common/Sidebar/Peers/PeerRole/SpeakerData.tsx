@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast';
 
 import Strip from './Strip';
 
-type SpeakerDataProps = {
+interface SpeakerDataProps {
   peerId: string;
-};
+}
 
 const Speaker: FC<SpeakerDataProps> = ({ peerId }) => {
   const { changePeerRole, kickPeer } = useAcl();

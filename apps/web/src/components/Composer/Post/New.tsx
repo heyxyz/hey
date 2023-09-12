@@ -73,10 +73,12 @@ const NewPost: FC = () => {
           </span>
         </button>
         {isSpacesEnabled && (
-          <MicrophoneIcon
-            className="text-brand hidden h-6 w-6 sm:inline-flex"
-            onClick={openSpacesModal}
-          />
+          <button className="hidden sm:inline-flex">
+            <MicrophoneIcon
+              className="text-brand h-6 w-6"
+              onClick={openSpacesModal}
+            />
+          </button>
         )}
       </div>
     </Card>

@@ -20,19 +20,16 @@ import { toast } from 'react-hot-toast';
 import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
-type SpacesWindowProps = {
+interface SpacesWindowProps {
   isExpanded?: boolean;
   setIsExpanded: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 const SpaceWindowHeader: FC<SpacesWindowProps> = ({
   isExpanded,
   setIsExpanded
 }) => {
-  const space = useSpacesStore((state) => state.space);
-  const setShowSpacesWindow = useSpacesStore(
-    (state) => state.setShowSpacesWindow
-  );
+  const { space, setShowSpacesWindow, spacesPublicationId } = useSpacesStore();
   const { leaveRoom, endRoom } = useRoom();
   const { me } = useHuddle01();
 
@@ -76,7 +73,9 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
             className="h-5 w-5"
             onClick={async (event) => {
               stopEventPropagation(event);
-              await navigator.clipboard.writeText('Spaces Post Link');
+              await navigator.clipboard.writeText(
+                `${location.origin}/posts/${spacesPublicationId}`
+              );
               toast.success(t`Copied to clipboard!`);
             }}
           />

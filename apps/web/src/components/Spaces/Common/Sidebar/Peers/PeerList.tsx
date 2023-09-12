@@ -5,12 +5,12 @@ import { Trans } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import React from 'react';
 
-type PeerListProps = {
+interface PeerListProps {
   count?: number | string;
   className?: string;
   title: string;
   children: ReactNode;
-};
+}
 
 const PeerList: FC<PeerListProps> = ({ className, children, title, count }) => {
   const TitleArr = ['Speakers', 'Listeners', 'Requested to Speak'];

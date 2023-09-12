@@ -8,6 +8,8 @@ interface SpacesState {
   setShowSpacesLobby: (showSpacesLobby: boolean) => void;
   showSpacesWindow: boolean;
   setShowSpacesWindow: (showSpacesWindow: boolean) => void;
+  spacesPublicationId: string;
+  setSpacesPublicationId: (spacesPublicationId: string) => void;
   lensAccessToken: string;
   setLensAccessToken: (lensAccessToken: string) => void;
   isTokenGated: boolean;
@@ -40,10 +42,8 @@ interface SpacesState {
   requestedPeers: string[];
   addRequestedPeers: (val: string) => void;
   removeRequestedPeers: (val: string) => void;
-  spacesTimeInHour: string;
-  setSpacesTimeInHour: (val: string) => void;
-  spacesTimeInMinute: string;
-  setSpacesTimeInMinute: (val: string) => void;
+  spacesStartTime: Date;
+  setSpacesStartTime: (val: Date) => void;
   isAudioOn: boolean;
   setIsAudioOn: (val: boolean) => void;
 }
@@ -53,6 +53,9 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
   setShowSpacesLobby: (showSpacesLobby) => set(() => ({ showSpacesLobby })),
   showSpacesWindow: false,
   setShowSpacesWindow: (showSpacesWindow) => set(() => ({ showSpacesWindow })),
+  spacesPublicationId: '',
+  setSpacesPublicationId: (spacesPublicationId) =>
+    set(() => ({ spacesPublicationId })),
   lensAccessToken: '',
   setLensAccessToken: (lensAccessToken) => set(() => ({ lensAccessToken })),
   isTokenGated: false,
@@ -110,12 +113,8 @@ export const useSpacesStore = create<SpacesState>((set, get) => ({
     })),
   myReaction: '',
   setMyReaction: (myReaction) => set(() => ({ myReaction })),
-  spacesTimeInHour: '00',
-  setSpacesTimeInHour: (spacesTimeInHour) => set(() => ({ spacesTimeInHour })),
-  spacesTimeInMinute: '00',
-  setSpacesTimeInMinute: (spacesTimeInMinute) =>
-    set(() => ({ spacesTimeInMinute })),
-  isSpacesTimeInAM: true,
+  spacesStartTime: new Date(),
+  setSpacesStartTime: (spacesStartTime) => set(() => ({ spacesStartTime })),
   isAudioOn: false,
   setIsAudioOn: (isAudioOn) => set(() => ({ isAudioOn }))
 }));

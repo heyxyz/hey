@@ -4,9 +4,9 @@ import React from 'react';
 
 import Strip from './Strip';
 
-type CoHostDataProps = {
+interface CoHostDataProps {
   peerId: string;
-};
+}
 
 const CoHostData: FC<CoHostDataProps> = ({ peerId }) => {
   const { changePeerRole, kickPeer } = useAcl();

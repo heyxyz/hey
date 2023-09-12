@@ -1,9 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
-import Search from '@components/Shared/Navbar/Search';
 import { Menu } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon } from '@heroicons/react/solid';
-import type { Profile } from '@lenster/lens';
 import { Input, Toggle } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
@@ -71,11 +69,6 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
     tokenGateConditionValue
   } = useSpacesStore();
 
-  const onProfileSelected = (profile: Profile) => {
-    setTokenGateConditionValue(profile.handle);
-    setShowModal(false);
-  };
-
   return (
     <>
       {[
@@ -92,10 +85,11 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
           <div className="flex-1 px-3">
             {tokenGateConditionType ===
             TokenGateCondition.FOLLOW_A_LENS_PROFILE ? (
-              <Search
-                modalWidthClassName="max-w-xs"
-                placeholder={t`Search for lens profile...`}
-                onProfileSelected={onProfileSelected}
+              <Input
+                placeholder={t`Enter lens profile`}
+                value={tokenGateConditionValue}
+                onChange={(e) => setTokenGateConditionValue(e.target.value)}
+                className="placeholder-gray-400"
               />
             ) : (
               <Input
@@ -119,7 +113,7 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
           </span>
           <Menu as="div" className="relative">
             <Menu.Button>
-              <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-300">
+              <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
                 <span>
                   {getTokenGateConditionDescription(tokenGateConditionType)}
                 </span>

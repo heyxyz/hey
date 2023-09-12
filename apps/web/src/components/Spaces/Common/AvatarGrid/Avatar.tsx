@@ -15,13 +15,13 @@ import ListenersData from '../Sidebar/Peers/PeerRole/ListenersData';
 import SpeakerData from '../Sidebar/Peers/PeerRole/SpeakerData';
 import type { RoleEnum } from '../SpacesTypes';
 
-type AvatarProps = {
+interface AvatarProps {
   peerId?: string;
   displayName: string;
   mic?: MediaStreamTrack | null;
   role?: RoleEnum;
   avatarUrl: string;
-};
+}
 
 const Avatar: FC<AvatarProps> = ({
   peerId,
