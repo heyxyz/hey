@@ -303,20 +303,29 @@ msgid "Everyone can comment and mirror"
 msgstr "Everyone can comment and mirror"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "have a lens profile"
 msgstr "have a lens profile"
 
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "follow a lens profile"
 msgstr "follow a lens profile"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "collect a post"
 msgstr "collect a post"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "mirror a post"
 msgstr "mirror a post"
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#: src/components/Spaces/Common/Sidebar/Peers/PeerList.tsx
+msgid "{title}"
+msgstr "{title}"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Enter Lens profile"
@@ -327,21 +336,23 @@ msgid "Enter Lens post link"
 msgstr "Enter Lens post link"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
-msgid "Lens post link"
-msgstr "Lens post link"
-
-#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Search for lens profile..."
 msgstr "Search for lens profile..."
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Lens post link"
+msgstr "Lens post link"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Token gate with"
 msgstr "Token gate with"
 
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
-msgid "Record Spaces"
-msgstr "Record Spaces"
+#~ msgid "Record Spaces"
+#~ msgstr "Record Spaces"
 
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 msgid "Token Gate Spaces"
 msgstr "Token Gate Spaces"
@@ -379,6 +390,27 @@ msgid "What's happening?"
 msgstr ""
 
 #: src/components/Composer/NewPublication.tsx
+#~ msgid "Create spaces"
+#~ msgstr "Create spaces"
+
+#: src/components/Composer/NewPublication.tsx
+#: src/components/Publication/Actions/Comment.tsx
+msgid "Comment"
+msgstr ""
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Create Spaces"
+msgstr "Create Spaces"
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Post"
+msgstr "Post"
+
+#: src/components/Composer/NewPublication.tsx
+msgid "Spaces created successfully!"
+msgstr "Spaces created successfully!"
+
+#: src/components/Composer/NewPublication.tsx
 #: src/components/Publication/Actions/Share/Mirror.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr "Momoka is currently in beta - during this time certain actions are not available to all profiles."
@@ -390,19 +422,6 @@ msgstr "Momoka is currently in beta - during this time certain actions are not a
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Transaction failed!"
 msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
-#: src/components/Publication/Actions/Comment.tsx
-msgid "Comment"
-msgstr ""
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Create spaces"
-msgstr "Create spaces"
-
-#: src/components/Composer/NewPublication.tsx
-msgid "Post"
-msgstr "Post"
 
 #: src/components/Composer/Post/Discard.tsx
 msgid "Discard Post"
@@ -1547,6 +1566,7 @@ msgstr "Report profile"
 #: src/components/Profile/Menu/Share.tsx
 #: src/components/Publication/Actions/Menu/CopyPostText.tsx
 #: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
 #: src/components/StaffTools/Panels/MetaDetails.tsx
 msgid "Copied to clipboard!"
 msgstr ""
@@ -2620,6 +2640,27 @@ msgstr ""
 msgid "You can't reply to this post"
 msgstr ""
 
+#: src/components/Shared/Embed/Space/index.tsx
+#: src/components/Shared/Embed/Space/index.tsx
+msgid "Start Listening"
+msgstr "Start Listening"
+
+#: src/components/Shared/Embed/Space/index.tsx
+msgid "Starts in"
+msgstr "Starts in"
+
+#: src/components/Shared/Embed/Space/index.tsx
+msgid "{hours} hour"
+msgstr "{hours} hour"
+
+#: src/components/Shared/Embed/Space/index.tsx
+msgid "{minutes} minutes"
+msgstr "{minutes} minutes"
+
+#: src/components/Shared/Embed/Space/index.tsx
+msgid "Spaces will open in desktop only"
+msgstr "Spaces will open in desktop only"
+
 #: src/components/Shared/EmojiPicker/List.tsx
 msgid "Loading emojis"
 msgstr ""
@@ -3294,10 +3335,6 @@ msgstr "Deny"
 msgid "Background Music"
 msgstr "Background Music"
 
-#: src/components/Spaces/Common/Sidebar/Peers/PeerList.tsx
-msgid "{title}"
-msgstr "{title}"
-
 #: src/components/Spaces/Common/Sidebar/Peers/PeerMetaData.tsx
 #~ msgid "{name}"
 #~ msgstr "{name}"
@@ -3321,6 +3358,10 @@ msgstr "Leave room"
 #: src/components/Spaces/SpacesWindow/SpacesSummary.tsx
 msgid "Listening"
 msgstr "Listening"
+
+#: src/components/Spaces/SpacesWindow/SpacesWindow.tsx
+msgid "You are now a {role}"
+msgstr "You are now a {role}"
 
 #: src/components/Spaces/SpacesWindow/SpacesWindowBottomBar.tsx
 msgid "Request to speak"
