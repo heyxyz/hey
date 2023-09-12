@@ -15,7 +15,7 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "itty-router": "^4.0.22",
+    "itty-router": "^4.0.23",
     "zod": "^3.22.2"
   },
   "devDependencies": {
