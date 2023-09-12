@@ -34,10 +34,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
-    <article
-      className="p-3 sm:p-5"
-      data-testid={`publication-${publication.id}`}
-    >
+    <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
       <div>
         <PublicationHeader publication={publication} />
