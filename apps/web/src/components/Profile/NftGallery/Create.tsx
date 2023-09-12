@@ -11,6 +11,7 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import trimify from '@lenster/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
@@ -250,7 +251,12 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       show={showModal}
       onClose={closeModal}
     >
-      <div className="max-h-[80vh] overflow-y-auto p-5">
+      <div
+        className={cn(
+          'max-h-[80vh] overflow-y-auto p-5',
+          currentStep === CreateSteps.PICK_NFTS ? 'pr-0' : ''
+        )}
+      >
         {currentStep === CreateSteps.NAME ? (
           <Input
             value={gallery.name}

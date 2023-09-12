@@ -18,7 +18,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
     : undefined;
 
   return (
-    <Card>
+    <Card forceRounded>
       <div
         onClick={() => nftURL && window.open(nftURL, '_blank')}
         className="cursor-pointer"
