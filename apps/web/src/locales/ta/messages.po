@@ -717,10 +717,6 @@ msgstr ""
 msgid "Large attachments are not loaded automatically."
 msgstr ""
 
-#: src/components/Messages/index.tsx
-#~ msgid "Messages • {APP_NAME}"
-#~ msgstr ""
-
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
 msgstr "மாடரேஷன் ஊட்டத்தை ஏற்றுவதில் தோல்வி"
