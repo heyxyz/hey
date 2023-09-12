@@ -22,7 +22,6 @@ import type {
 } from 'src/hooks/useSendOptimisticMessage';
 import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
-import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import useResizeObserver from 'use-resize-observer';
@@ -238,16 +237,9 @@ const Message: FC<MessageProps> = ({}) => {
 };
 
 const MessagePage: NextPage = () => {
-  const currentProfileId = useAppStore((state) => state.currentProfile?.id);
-
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'conversation' });
   });
-
-  // Need to have a login page for when there is no currentProfileId
-  if (!currentProfileId) {
-    return <Custom404 />;
-  }
 
   return <Message />;
 };
