@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-06 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -778,7 +778,7 @@ msgstr "ஏற்கனவே உள்ள உரையாடலைத் தே
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr "செய்திகள் • {APP_NAME}"
+msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -1042,6 +1042,10 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -3158,6 +3162,14 @@ msgstr "முகப்பு"
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr "உலாவு"
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"

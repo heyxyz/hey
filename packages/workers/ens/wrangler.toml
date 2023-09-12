@@ -8,5 +8,4 @@ routes = [
 ]
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""

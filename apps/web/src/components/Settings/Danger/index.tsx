@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
-import Custom404 from 'src/pages/404';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -21,7 +21,7 @@ const DangerSettings: NextPage = () => {
   });
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (

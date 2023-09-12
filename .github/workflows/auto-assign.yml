@@ -9,7 +9,7 @@ on:
 jobs:
   assign:
     name: Assign
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write

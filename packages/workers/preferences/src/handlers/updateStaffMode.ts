@@ -1,5 +1,3 @@
-import '@sentry/tracing';
-
 import { Errors } from '@lenster/data/errors';
 import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
 import response from '@lenster/lib/response';
@@ -21,10 +19,6 @@ const validationSchema = object({
 });
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/preferences/updateStaffMode'
-  });
-
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -73,9 +67,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, result: data });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };

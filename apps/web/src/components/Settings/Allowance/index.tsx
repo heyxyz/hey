@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
@@ -15,7 +16,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
-import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -61,7 +61,7 @@ const AllowanceSettings: NextPage = () => {
   }
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (

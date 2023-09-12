@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-06 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -778,7 +778,7 @@ msgstr "Выберите существующий диалог или созда
 
 #: src/components/Messages/index.tsx
 msgid "Messages • {APP_NAME}"
-msgstr "Сообщения • {APP_NAME}"
+msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -1042,6 +1042,10 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -3158,6 +3162,14 @@ msgstr "Главная"
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr "Найти"
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"

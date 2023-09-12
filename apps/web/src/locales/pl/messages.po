@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-06 00:08\n"
+"PO-Revision-Date: 2023-09-12 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -983,6 +983,10 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -3076,6 +3080,14 @@ msgstr ""
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
 msgstr ""
 
 #: src/components/Shared/Pending.tsx

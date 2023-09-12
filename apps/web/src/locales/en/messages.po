@@ -1045,6 +1045,10 @@ msgid "Feature request"
 msgstr "Feature request"
 
 #: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
+msgstr "Report copyright infringement"
+
+#: src/components/Pages/Contact.tsx
 msgid "Other"
 msgstr "Other"
 
@@ -3158,6 +3162,14 @@ msgstr ""
 #: src/components/Shared/Navbar/index.tsx
 msgid "Explore"
 msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr "Not logged in!"
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr "Log in to continue"
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"

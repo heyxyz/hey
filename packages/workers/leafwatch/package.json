@@ -15,10 +15,8 @@
   "dependencies": {
     "@lenster/data": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "@sentry/tracing": "^7.67.0",
-    "itty-router": "^4.0.22",
-    "toucan-js": "^3.2.3",
-    "ua-parser-js": "^1.0.35",
+    "itty-router": "^4.0.23",
+    "ua-parser-js": "^1.0.36",
     "zod": "^3.22.2"
   },
   "devDependencies": {

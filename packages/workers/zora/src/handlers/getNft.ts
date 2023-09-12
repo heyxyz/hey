@@ -1,15 +1,9 @@
-import '@sentry/tracing';
-
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import response from '@lenster/lib/response';
 
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const transaction = request.sentry?.startTransaction({
-    name: '@lenster/zora/getNft'
-  });
-
   const { chain, address, token } = request.query;
 
   if (!chain || !address) {
@@ -30,9 +24,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, nft: nft.collection || null });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
-  } finally {
-    transaction?.finish();
   }
 };
