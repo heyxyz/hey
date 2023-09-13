@@ -73,23 +73,41 @@ const Space: FC<SpaceProps> = ({ publication }) => {
       return t`Start Listening`;
     }
 
-    const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
     const minutes = Math.floor(
       (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
     );
 
     let result = t`Starts in`;
     result += ' ';
+
+    if (days > 0) {
+      result += t`${days} day`;
+      if (days > 1) {
+        result += 's'; // Pluralize "day" when there are more than one day.
+      }
+      result += ' ';
+    }
+
     if (hours > 0) {
       result += t`${hours} hour`;
+      if (hours > 1) {
+        result += 's'; // Pluralize "hour" when there are more than one hour.
+      }
       result += ' ';
     }
 
     if (minutes > 0) {
-      result += t`${minutes} minutes`;
+      result += t`${minutes} minute`;
+      if (minutes > 1) {
+        result += 's'; // Pluralize "minute" when there are more than one minute.
+      }
     }
 
-    if (hours === 0 && minutes === 0) {
+    if (days === 0 && hours === 0 && minutes === 0) {
       result = t`Start Listening`;
     }
 
