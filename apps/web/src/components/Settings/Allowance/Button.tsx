@@ -110,6 +110,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         isPerformingAction={queryLoading || transactionLoading || waitLoading}
         confirmText={title}
         show={showWarningModal}
+        showSpinner
         title={t`Handle with care!`}
         description={
           <div className="leading-6">

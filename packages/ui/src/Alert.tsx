@@ -3,11 +3,13 @@ import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 
 import { Button } from './Button';
+import { Spinner } from './Spinner';
 
 interface AlertProps {
   title: ReactNode;
   description: ReactNode;
   show: boolean;
+  showSpinner?: boolean;
   alertType?: 'destructive' | 'caution' | 'default';
   isPerformingAction?: boolean;
   confirmText?: string;
@@ -20,6 +22,7 @@ export const Alert: FC<AlertProps> = ({
   title,
   description,
   show,
+  showSpinner = false,
   alertType = 'default',
   isPerformingAction = false,
   confirmText,
@@ -77,6 +80,12 @@ export const Alert: FC<AlertProps> = ({
                         ? 'warning'
                         : 'primary'
                     }
+                    icon={
+                      showSpinner && isPerformingAction ? (
+                        <Spinner size="xs" />
+                      ) : null
+                    }
+                    centerContent
                     disabled={isPerformingAction}
                     onClick={() => onConfirm()}
                   >

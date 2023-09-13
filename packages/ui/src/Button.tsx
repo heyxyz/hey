@@ -12,6 +12,7 @@ interface ButtonProps
   variant?: 'primary' | 'secondary' | 'warning' | 'super' | 'danger';
   outline?: boolean;
   icon?: ReactNode;
+  centerContent?: boolean;
   children?: ReactNode;
   className?: string;
 }
@@ -22,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className = '',
       size = 'md',
       variant = 'primary',
+      centerContent = false,
       outline,
       icon,
       children,
@@ -57,6 +59,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'px-3 py-0.5 text-sm': size === 'sm',
             'px-3 py-1': size === 'md',
             'px-4 py-1.5': size === 'lg',
+            'justify-center': centerContent,
             'inline-flex items-center space-x-1.5': icon && children
           },
           'rounded-lg font-bold shadow-sm outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-50',
