@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-07 00:08\n"
+"PO-Revision-Date: 2023-09-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -665,6 +665,14 @@ msgstr "Envoyer"
 msgid "Loading messages"
 msgstr "Chargement des messages"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Sélectionnez une conversation"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -715,18 +723,6 @@ msgstr ""
 
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Sélectionnez une conversation"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
 msgstr ""
 
 #: src/components/Mod/Feed.tsx
@@ -1952,6 +1948,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -3090,6 +3087,14 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
@@ -3189,6 +3194,10 @@ msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
