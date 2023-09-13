@@ -717,10 +717,6 @@ msgstr "Attachments are not loaded automatically from people you don’t follow.
 msgid "Large attachments are not loaded automatically."
 msgstr "Large attachments are not loaded automatically."
 
-#: src/components/Messages/index.tsx
-#~ msgid "Messages • {APP_NAME}"
-#~ msgstr "Messages • {APP_NAME}"
-
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
 msgstr ""
@@ -1944,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -3190,6 +3187,10 @@ msgstr ""
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr "Loading Profiles"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

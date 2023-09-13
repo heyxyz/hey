@@ -1,6 +1,6 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { KeyIcon } from '@heroicons/react/outline';
-import { XCircleIcon } from '@heroicons/react/solid';
+import { KeyIcon } from '@heroicons/react/24/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@lenster/data/errors';
 import { Localstorage } from '@lenster/data/storage';
 import { AUTH } from '@lenster/data/tracking';

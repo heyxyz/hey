@@ -1,5 +1,5 @@
-import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/outline';
-import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/solid';
+import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
+import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { STAFFTOOLS } from '@lenster/data/tracking';

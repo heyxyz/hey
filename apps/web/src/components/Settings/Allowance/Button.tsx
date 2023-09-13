@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';

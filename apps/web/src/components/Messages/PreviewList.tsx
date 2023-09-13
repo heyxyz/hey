@@ -2,13 +2,12 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
 import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
-  EmptyState,
   ErrorMessage,
   GridItemFour,
   Modal,
@@ -26,6 +25,7 @@ import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
+import { usePreferencesStore } from 'src/store/preferences';
 
 interface PreviewListProps {
   className?: string;
@@ -51,18 +51,18 @@ const PreviewList: FC<PreviewListProps> = ({
   previewsProgress
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { persistProfile } = useMessageDb();
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const setConversationKey = useMessageStore(
     (state) => state.setConversationKey
   );
-  const [showSearchModal, setShowSearchModal] = useState(false);
-
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { persistProfile } = useMessageDb();
 
   useEffect(() => {
     if (!currentProfile) {
@@ -74,7 +74,8 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const showAuthenticating = currentProfile && authenticating;
 
-  const showLoading = loading || previewsLoading;
+  const showLoading =
+    loading && (messages.size === 0 || profilesToShow.size === 0);
 
   const newMessageClick = () => {
     setShowSearchModal(true);
@@ -119,8 +120,8 @@ const PreviewList: FC<PreviewListProps> = ({
   return (
     <GridItemFour
       className={cn(
-        'xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 md:col-span-4',
-        className
+        staffMode ? 'h-[calc(100vh-9.78rem)]' : 'h-[calc(100vh-8rem)]',
+        'xs:mx-2 mb-0 sm:mx-2 md:col-span-4'
       )}
     >
       <Card className="flex h-full flex-col justify-between">
@@ -187,11 +188,12 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={newMessageClick}
               type="button"
             >
-              <EmptyState
-                message={t`Start messaging your Lens frens`}
-                icon={<MailIcon className="text-brand h-8 w-8" />}
-                hideCard
-              />
+              <div className="grid justify-items-center space-y-2 p-5">
+                <div>
+                  <EnvelopeIcon className="text-brand h-8 w-8" />
+                </div>
+                <div>{t`Start messaging your Lens frens`}</div>
+              </div>
             </button>
           ) : (
             <Virtuoso
@@ -216,7 +218,7 @@ const PreviewList: FC<PreviewListProps> = ({
       </Card>
       <Modal
         title={t`New message`}
-        icon={<MailIcon className="text-brand h-5 w-5" />}
+        icon={<EnvelopeIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}

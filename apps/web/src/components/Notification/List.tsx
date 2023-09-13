@@ -1,4 +1,4 @@
-import { BellIcon } from '@heroicons/react/outline';
+import { BellIcon } from '@heroicons/react/24/outline';
 import type {
   NewCollectNotification,
   NewCommentNotification,

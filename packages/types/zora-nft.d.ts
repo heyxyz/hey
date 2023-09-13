@@ -20,7 +20,7 @@ export interface ZoraNft {
   isOpenEdition: boolean;
   price: string;
   contractType:
-    | 'ERC721_SINGLE_EDITION'
+    | 'ERC721_DROP'
     | 'ERC1155_COLLECTION'
     | 'ERC1155_COLLECTION_TOKEN';
   contractStandard: 'ERC721' | 'ERC1155';

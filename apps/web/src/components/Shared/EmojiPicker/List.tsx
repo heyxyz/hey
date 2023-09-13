@@ -1,4 +1,4 @@
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { STATIC_ASSETS_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -71,9 +71,9 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           className="px-3 py-2 text-sm"
           placeholder={'Search...'}
           value={searchText}
-          iconLeft={<SearchIcon />}
+          iconLeft={<MagnifyingGlassIcon />}
           iconRight={
-            <XIcon
+            <XMarkIcon
               className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'

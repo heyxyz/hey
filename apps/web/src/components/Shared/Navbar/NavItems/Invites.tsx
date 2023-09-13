@@ -1,4 +1,4 @@
-import { TicketIcon } from '@heroicons/react/outline';
+import { TicketIcon } from '@heroicons/react/24/outline';
 import { INVITE } from '@lenster/data/tracking';
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';

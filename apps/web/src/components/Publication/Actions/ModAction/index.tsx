@@ -1,4 +1,4 @@
-import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import {
@@ -113,7 +113,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
-        icon={<CashIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="h-4 w-4" />}
         label={t`Stop Sponsor`}
       />
       <ReportButton
@@ -127,7 +127,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
-        icon={<CashIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="h-4 w-4" />}
         label={t`Poor content & Stop Sponsor`}
       />
     </span>

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-12 00:08\n"
+"PO-Revision-Date: 2023-09-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -716,10 +716,6 @@ msgstr ""
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr ""
-
-#: src/components/Messages/index.tsx
-#~ msgid "Messages • {APP_NAME}"
-#~ msgstr ""
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -1944,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr "<0>“{query}”க்கு சுயவிவரங்கள் இல்லை</0>"
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr "சுயவிவரங்களை ஏற்றுவதில் தோல்வி"
 
@@ -3190,6 +3187,10 @@ msgstr "நெட்வொர்க்கை மாற்றவும்"
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

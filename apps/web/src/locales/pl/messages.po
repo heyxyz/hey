@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-12 00:08\n"
+"PO-Revision-Date: 2023-09-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -657,6 +657,14 @@ msgstr ""
 msgid "Loading messages"
 msgstr ""
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr ""
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -707,18 +715,6 @@ msgstr ""
 
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
 msgstr ""
 
 #: src/components/Mod/Feed.tsx

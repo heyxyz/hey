@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { FC, ReactNode } from 'react';
 import { Fragment } from 'react';
 
@@ -78,7 +78,7 @@ export const Modal: FC<ModalProps> = ({
                       className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
                       onClick={onClose}
                     >
-                      <XIcon className="h-5 w-5" />
+                      <XMarkIcon className="h-5 w-5" />
                     </button>
                   ) : null}
                 </div>
