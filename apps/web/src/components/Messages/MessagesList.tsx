@@ -226,6 +226,7 @@ const MessagesList: FC<MessageListProps> = ({
   // scroll to the bottom of the message list when a conversation is selected
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);
 
   const ensNames = useMessageStore((state) => state.ensNames);

@@ -7,6 +7,7 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import formatHandle from '@lenster/lib/formatHandle';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
@@ -24,6 +25,7 @@ import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { usePreferencesStore } from 'src/store/preferences';
 import useResizeObserver from 'use-resize-observer';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -39,7 +41,7 @@ const Message: FC<MessageProps> = ({}) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const conversationKey = useMessageStore((state) => state.conversationKey);
-  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const queuedMessages = useMessageStore((state) =>
     state.queuedMessages.get(conversationKey)
   );
@@ -51,6 +53,7 @@ const Message: FC<MessageProps> = ({}) => {
     (state) => state.updateQueuedMessage
   );
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
+  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
   const { messages, hasMore } = useGetMessages(
     conversationKey,
     endTime.get(conversationKey)
@@ -177,7 +180,14 @@ const Message: FC<MessageProps> = ({}) => {
         {divWidth > 1025 || conversationKey ? (
           <GridItemEight className="xs:mx-2 relative mb-0 sm:mx-2 md:col-span-8">
             {conversationKey ? (
-              <Card className="flex h-[calc(100vh-8rem)] flex-col justify-between">
+              <Card
+                className={cn(
+                  staffMode
+                    ? 'h-[calc(100vh-9.78rem)]'
+                    : 'h-[calc(100vh-8rem)]',
+                  'flex flex-col justify-between'
+                )}
+              >
                 {showLoading ? (
                   <div className="flex h-full grow items-center justify-center">
                     <Loader message={t`Loading messages`} />
