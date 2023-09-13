@@ -25,6 +25,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
@@ -46,6 +47,7 @@ const newContactSchema = object({
 const Contact: FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const form = useZodForm({
     schema: newContactSchema
@@ -65,6 +67,12 @@ const Contact: FC = () => {
     try {
       const { data } = await axios.post(FRESHDESK_WORKER_URL, {
         email,
+        profile: currentProfile
+          ? {
+              id: currentProfile?.id,
+              handle: currentProfile?.handle
+            }
+          : null,
         category,
         subject,
         body

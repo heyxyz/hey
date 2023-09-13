@@ -19,7 +19,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
   const request: ProfileQueryRequest = {
     whoMirroredPublicationId: publicationId,
-    limit: 10
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({

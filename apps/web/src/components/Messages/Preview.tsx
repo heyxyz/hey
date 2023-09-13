@@ -12,9 +12,9 @@ import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
-import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 
@@ -48,12 +48,14 @@ const Preview: FC<PreviewProps> = ({
   conversationKey,
   isSelected
 }) => {
-  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const address = currentProfile?.ownedBy;
 
-  const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
+  const onConversationSelected = () => {
+    setConversationKey(conversationKey);
   };
 
   const url = (ensName && getStampFyiURL(conversationKey?.split('/')[0])) ?? '';
@@ -65,16 +67,20 @@ const Preview: FC<PreviewProps> = ({
           'cursor-pointer py-3 hover:bg-gray-100 dark:hover:bg-gray-800',
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
-        onClick={() =>
-          onConversationSelected(profile?.id ? profile.id : conversationKey)
-        }
+        onClick={() => onConversationSelected()}
         aria-hidden="true"
       >
         <div className="flex space-x-3 overflow-hidden px-5">
           <Image
-            src={ensName ? url : getAvatar(profile)}
+            src={
+              profile?.handle
+                ? getAvatar(profile)
+                : ensName
+                ? url
+                : getAvatar('')
+            }
             loading="lazy"
-            className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+            className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
             height={40}
             width={40}
             alt={formatHandle(profile?.handle)}
@@ -83,10 +89,10 @@ const Preview: FC<PreviewProps> = ({
             <div className="flex justify-between space-x-1">
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
-                  {profile?.name
-                    ? sanitizeDisplayName(profile?.name) ??
+                  {profile?.handle
+                    ? sanitizeDisplayName(profile?.name) ||
                       formatHandle(profile.handle)
-                    : ensName ?? formatAddress(conversationKey?.split('/')[0])}
+                    : ensName || formatAddress(conversationKey?.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) ? (
                   <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />

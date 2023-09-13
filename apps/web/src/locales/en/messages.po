@@ -657,6 +657,14 @@ msgstr ""
 msgid "Loading messages"
 msgstr ""
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr ""
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr "Not delivered"
@@ -708,18 +716,6 @@ msgstr "Attachments are not loaded automatically from people you don’t follow.
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr "Large attachments are not loaded automatically."
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "Messages • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -984,6 +980,10 @@ msgstr "Bug report"
 #: src/components/Pages/Contact.tsx
 msgid "Feature request"
 msgstr "Feature request"
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
+msgstr "Report copyright infringement"
 
 #: src/components/Pages/Contact.tsx
 msgid "Other"
@@ -1940,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -3078,6 +3079,14 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr "Not logged in!"
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr "Log in to continue"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
@@ -3178,6 +3187,10 @@ msgstr ""
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr "Loading Profiles"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

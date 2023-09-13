@@ -43,7 +43,7 @@ const Feed: FC<FeedProps> = ({
       ...(focus && { mainContentFocus: [focus] }),
       ...(selectedTag && { tags: { oneOf: [selectedTag] } })
     },
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

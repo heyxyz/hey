@@ -30,7 +30,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
     metadata: {
       ...(focus && { mainContentFocus: [focus] })
     },
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

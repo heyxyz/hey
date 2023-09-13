@@ -27,7 +27,7 @@ const Highlights: FC = () => {
   // Variables
   const request: FeedHighlightsRequest = {
     profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

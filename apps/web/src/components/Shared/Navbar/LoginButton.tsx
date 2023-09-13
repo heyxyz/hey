@@ -5,13 +5,18 @@ import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-const LoginButton: FC = () => {
+interface LoginButtonProps {
+  isBig?: boolean;
+}
+
+const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
 
   return (
     <Button
+      size={isBig ? 'lg' : 'md'}
       icon={
         <img
           className="mr-0.5 h-4 w-4"

@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-06 00:08\n"
+"PO-Revision-Date: 2023-09-13 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -657,6 +657,14 @@ msgstr "Отправить"
 msgid "Loading messages"
 msgstr "Загрузка сообщений"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Выберите диалог"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr "Не доставлено"
@@ -708,18 +716,6 @@ msgstr ""
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Выберите диалог"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "Сообщения • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -983,6 +979,10 @@ msgstr ""
 
 #: src/components/Pages/Contact.tsx
 msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
 msgstr ""
 
 #: src/components/Pages/Contact.tsx
@@ -1940,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr "Нет профилей для <0>“{query}”</0>"
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr "Не удалось загрузить профили"
 
@@ -3078,6 +3079,14 @@ msgstr "Главная"
 msgid "Explore"
 msgstr "Найти"
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "Перейти к {type}"
@@ -3178,6 +3187,10 @@ msgstr "Сменить сеть"
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr "Пожалуйста, измените сеть в вашем кошельке!"
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"

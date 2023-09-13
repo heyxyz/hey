@@ -10,7 +10,9 @@ import getPublicationIds from '@lenster/lib/getPublicationIds';
  */
 const getAlgorithmicFeed = async (
   feedType: HomeFeedType,
-  profile: Profile | null
+  profile: Profile | null,
+  limit: number | null,
+  offset: number | null
 ) => {
   switch (feedType) {
     case HomeFeedType.K3L_RECOMMENDED:
@@ -19,19 +21,25 @@ const getAlgorithmicFeed = async (
     case HomeFeedType.K3L_CROWDSOURCED:
       return getPublicationIds(
         AlgorithmProvider.K3L,
-        feedType.replace('K3L_', '').toLowerCase()
+        feedType.replace('K3L_', '').toLowerCase(),
+        limit,
+        offset
       ).then((data) => data);
     case HomeFeedType.K3L_FOLLOWING:
       return getPublicationIds(
         AlgorithmProvider.K3L,
         feedType.replace('K3L_', '').toLowerCase(),
+        limit,
+        offset,
         profile?.handle
       ).then((data) => data);
     case HomeFeedType.LENSTER_MOSTVIEWED:
     case HomeFeedType.LENSTER_MOSTINTERACTED:
       return getPublicationIds(
         AlgorithmProvider.LENSTER,
-        feedType.replace('LENSTER_', '').toLowerCase()
+        feedType.replace('LENSTER_', '').toLowerCase(),
+        limit,
+        offset
       ).then((data) => data);
     default:
       return [];
