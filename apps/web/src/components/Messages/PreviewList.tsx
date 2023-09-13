@@ -25,6 +25,7 @@ import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
+import { usePreferencesStore } from 'src/store/preferences';
 
 interface PreviewListProps {
   className?: string;
@@ -50,18 +51,18 @@ const PreviewList: FC<PreviewListProps> = ({
   previewsProgress
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { persistProfile } = useMessageDb();
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
   const setConversationKey = useMessageStore(
     (state) => state.setConversationKey
   );
-  const [showSearchModal, setShowSearchModal] = useState(false);
-
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { persistProfile } = useMessageDb();
 
   useEffect(() => {
     if (!currentProfile) {
@@ -119,8 +120,8 @@ const PreviewList: FC<PreviewListProps> = ({
   return (
     <GridItemFour
       className={cn(
-        'xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 md:col-span-4',
-        className
+        staffMode ? 'h-[calc(100vh-9.78rem)]' : 'h-[calc(100vh-8rem)]',
+        'xs:mx-2 mb-0 sm:mx-2 md:col-span-4'
       )}
     >
       <Card className="flex h-full flex-col justify-between">
