@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
-import { CollectionIcon } from '@heroicons/react/outline';
-import { CollectionIcon as CollectionIconSolid } from '@heroicons/react/solid';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { ElectedMirror, Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
@@ -76,9 +76,9 @@ const Collect: FC<CollectProps> = ({
               withDelay
             >
               {hasCollected ? (
-                <CollectionIconSolid className={iconClassName} />
+                <RectangleStackIconSolid className={iconClassName} />
               ) : (
-                <CollectionIcon className={iconClassName} />
+                <RectangleStackIcon className={iconClassName} />
               )}
             </Tooltip>
           </div>
@@ -89,7 +89,7 @@ const Collect: FC<CollectProps> = ({
       </div>
       <Modal
         title={t`Collect`}
-        icon={<CollectionIcon className="text-brand h-5 w-5" />}
+        icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}
       >

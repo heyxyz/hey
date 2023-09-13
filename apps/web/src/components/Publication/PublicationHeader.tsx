@@ -1,6 +1,6 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { FeedItem, Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
@@ -79,7 +79,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
             }}
             aria-label="Remove Quote"
           >
-            <XIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
+            <XMarkIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
         ) : null}
       </div>

@@ -1,4 +1,4 @@
-import { CogIcon } from '@heroicons/react/outline';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -15,7 +15,7 @@ const Settings: FC<SettingsProps> = ({ className = '' }) => {
         className
       )}
     >
-      <CogIcon className="h-4 w-4" />
+      <Cog6ToothIcon className="h-4 w-4" />
       <div>
         <Trans>Settings</Trans>
       </div>

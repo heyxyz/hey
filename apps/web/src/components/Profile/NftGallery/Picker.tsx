@@ -1,6 +1,6 @@
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
-import { CheckIcon, CollectionIcon } from '@heroicons/react/outline';
+import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import type { Nft, NfTsRequest } from '@lenster/lens';
 import { useNftFeedQuery } from '@lenster/lens';
@@ -62,7 +62,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
     return (
       <div className="flex flex-1 flex-col items-center justify-center justify-items-center space-y-2 p-5">
         <div>
-          <CollectionIcon className="text-brand h-8 w-8" />
+          <RectangleStackIcon className="text-brand h-8 w-8" />
         </div>
         <div>
           <div>

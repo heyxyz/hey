@@ -6,14 +6,14 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
 import {
-  CashIcon,
+  BanknotesIcon,
   ClockIcon,
-  CollectionIcon,
-  PhotographIcon,
-  PuzzleIcon,
+  PhotoIcon,
+  PuzzlePieceIcon,
+  RectangleStackIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -398,7 +398,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               </button>
               <Modal
                 title={t`Collected by`}
-                icon={<CollectionIcon className="text-brand h-5 w-5" />}
+                icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
@@ -413,7 +413,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             </div>
             {collectLimit ? (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
+                <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{parseInt(collectLimit) - count} available</Trans>
                 </div>
@@ -421,7 +421,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="lt-text-gray-500 h-4 w-4" />
+                <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{referralFee}% referral fee</Trans>
                 </div>
@@ -430,7 +430,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           </div>
           {revenueData?.publicationRevenue ? (
             <div className="flex items-center space-x-2">
-              <CashIcon className="lt-text-gray-500 h-4 w-4" />
+              <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="flex items-center space-x-1.5">
                 <span>
                   <Trans>Revenue:</Trans>
@@ -479,7 +479,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           ) : null}
           {data?.publication?.collectNftAddress ? (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
+              <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Token:</Trans>
@@ -516,7 +516,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                       isLoading ? (
                         <Spinner size="xs" />
                       ) : (
-                        <CollectionIcon className="h-4 w-4" />
+                        <RectangleStackIcon className="h-4 w-4" />
                       )
                     }
                   >

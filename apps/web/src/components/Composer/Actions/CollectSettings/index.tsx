@@ -1,4 +1,4 @@
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -21,12 +21,12 @@ const CollectSettings: FC = () => {
           onClick={() => setShowModal(!showModal)}
           aria-label="Choose Collect Module"
         >
-          <CollectionIcon className="text-brand h-5 w-5" />
+          <RectangleStackIcon className="text-brand h-5 w-5" />
         </motion.button>
       </Tooltip>
       <Modal
         title={t`Collect settings`}
-        icon={<CollectionIcon className="text-brand h-5 w-5" />}
+        icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => {
           setShowModal(false);

@@ -1,4 +1,4 @@
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@lenster/data/tracking';
 import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -27,7 +27,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
       className={className}
       type="button"
       variant="danger"
-      icon={<SwitchHorizontalIcon className="h-4 w-4" />}
+      icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
       onClick={() => {
         onSwitch?.();
         if (switchNetwork) {

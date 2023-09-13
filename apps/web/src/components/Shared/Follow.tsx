@@ -1,4 +1,4 @@
-import { UserAddIcon } from '@heroicons/react/outline';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
@@ -185,7 +185,7 @@ const Follow: FC<FollowProps> = ({
       aria-label="Follow"
       disabled={isLoading}
       icon={
-        isLoading ? <Spinner size="xs" /> : <UserAddIcon className="h-4 w-4" />
+        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
       }
     >
       {showText ? t`Follow` : null}

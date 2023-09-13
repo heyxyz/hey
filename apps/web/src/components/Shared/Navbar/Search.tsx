@@ -1,4 +1,4 @@
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile, ProfileSearchResult } from '@lenster/lens';
 import {
   CustomFiltersTypes,
@@ -84,9 +84,9 @@ const Search: FC<SearchProps> = ({
           className="px-3 py-2 text-sm"
           placeholder={placeholder}
           value={searchText}
-          iconLeft={<SearchIcon />}
+          iconLeft={<MagnifyingGlassIcon />}
           iconRight={
-            <XIcon
+            <XMarkIcon
               className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'

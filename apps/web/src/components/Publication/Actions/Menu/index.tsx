@@ -1,6 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
@@ -33,7 +33,9 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           aria-label="More"
           data-testid={`publication-${publication.id}-menu`}
         >
-          <DotsVerticalIcon className={cn('lt-text-gray-500', iconClassName)} />
+          <EllipsisVerticalIcon
+            className={cn('lt-text-gray-500', iconClassName)}
+          />
         </button>
       </Menu.Button>
       <MenuTransition>

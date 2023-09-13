@@ -1,8 +1,8 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
-import { ChevronDownIcon } from '@heroicons/react/solid';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { HOME } from '@lenster/data/tracking';
 import type {
   FeedItem,
@@ -136,7 +136,7 @@ const SeeThroughLens: FC = () => {
               value={searchText}
               autoComplete="off"
               iconRight={
-                <XIcon
+                <XMarkIcon
                   className={cn(
                     'cursor-pointer',
                     searchText ? 'visible' : 'invisible'

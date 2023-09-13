@@ -1,6 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import type { Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
@@ -56,7 +56,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
                 content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
                 withDelay
               >
-                <SwitchHorizontalIcon className={iconClassName} />
+                <ArrowsRightLeftIcon className={iconClassName} />
               </Tooltip>
             )}
           </button>

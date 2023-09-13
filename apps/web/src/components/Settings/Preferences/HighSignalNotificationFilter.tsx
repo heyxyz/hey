@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ColorSwatchIcon } from '@heroicons/react/outline';
+import { SwatchIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { SETTINGS } from '@lenster/data/tracking';
@@ -58,7 +58,7 @@ const HighSignalNotificationFilter: FC = () => {
       setOn={toggleHighSignalNotificationFilter}
       heading={t`Notification Signal filter`}
       description={t`Turn on high-signal notification filter`}
-      icon={<ColorSwatchIcon className="h-4 w-4" />}
+      icon={<SwatchIcon className="h-4 w-4" />}
     />
   );
 };

@@ -1,6 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
@@ -26,7 +26,7 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           aria-label="More"
           data-testid={`profile-${profile.id}-menu`}
         >
-          <DotsVerticalIcon className="lt-text-gray-500 h-5 w-5" />
+          <EllipsisVerticalIcon className="lt-text-gray-500 h-5 w-5" />
         </button>
       </Menu.Button>
       <MenuTransition>

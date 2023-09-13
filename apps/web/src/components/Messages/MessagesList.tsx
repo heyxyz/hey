@@ -1,5 +1,5 @@
-import { ClockIcon, EmojiSadIcon } from '@heroicons/react/outline';
-import { CheckIcon, ExclamationIcon } from '@heroicons/react/solid';
+import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -46,7 +46,7 @@ const MessageTile: FC<MessageTileProps> = ({
   if (isQueuedMessage(message)) {
     switch (message.status) {
       case 'failed':
-        statusIcon = <ExclamationIcon width={14} height={14} />;
+        statusIcon = <ExclamationTriangleIcon width={14} height={14} />;
         break;
       case 'pending':
         statusIcon = <ClockIcon width={14} height={14} />;
@@ -165,7 +165,7 @@ const MissingXmtpAuth: FC = () => (
     className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300/20 p-5"
   >
     <div className="flex items-center space-x-2 font-bold">
-      <EmojiSadIcon className="h-5 w-5" />
+      <FaceFrownIcon className="h-5 w-5" />
       <p>
         <Trans>This fren hasn't enabled DMs yet</Trans>
       </p>

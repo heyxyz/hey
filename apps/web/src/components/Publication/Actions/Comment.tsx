@@ -1,4 +1,4 @@
-import { ChatAlt2Icon } from '@heroicons/react/outline';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { Publication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
@@ -32,7 +32,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
               content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
               withDelay
             >
-              <ChatAlt2Icon className={iconClassName} />
+              <ChatBubbleLeftRightIcon className={iconClassName} />
             </Tooltip>
           </div>
         </Link>

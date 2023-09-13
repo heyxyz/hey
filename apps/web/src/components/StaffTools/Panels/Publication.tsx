@@ -1,5 +1,9 @@
-import { CollectionIcon, HashtagIcon, TagIcon } from '@heroicons/react/outline';
-import { ShieldCheckIcon } from '@heroicons/react/solid';
+import {
+  HashtagIcon,
+  RectangleStackIcon,
+  TagIcon
+} from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import type { Publication } from '@lenster/lens';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -47,7 +51,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         ) : null}
         {publication?.collectModule?.type ? (
           <MetaDetails
-            icon={<CollectionIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<RectangleStackIcon className="lt-text-gray-500 h-4 w-4" />}
             value={publication?.collectModule?.type}
             title={t`Collect module`}
           >
