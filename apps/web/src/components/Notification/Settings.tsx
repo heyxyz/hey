@@ -1,5 +1,5 @@
 import HighSignalNotificationFilter from '@components/Settings/Preferences/HighSignalNotificationFilter';
-import { BellIcon, CogIcon } from '@heroicons/react/outline';
+import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -16,7 +16,7 @@ const Settings: FC = () => {
         onClick={() => setShowNotificationSettings(true)}
       >
         <Tooltip placement="top" content={t`Notification settings`}>
-          <CogIcon className="lt-text-gray-500 h-5 w-5" />
+          <Cog6ToothIcon className="lt-text-gray-500 h-5 w-5" />
         </Tooltip>
       </button>
       <Modal

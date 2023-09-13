@@ -1,4 +1,8 @@
-import { ExclamationIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import {
+  ExclamationTriangleIcon,
+  MinusIcon,
+  PlusIcon
+} from '@heroicons/react/24/outline';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
@@ -107,7 +111,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       </Button>
       <Modal
         title={t`Warning`}
-        icon={<ExclamationIcon className="h-5 w-5 text-yellow-500" />}
+        icon={<ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >

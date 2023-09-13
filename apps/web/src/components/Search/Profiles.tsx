@@ -1,6 +1,6 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import type { ProfileSearchResult, SearchQueryRequest } from '@lenster/lens';
 import {
   CustomFiltersTypes,

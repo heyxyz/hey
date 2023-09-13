@@ -1,5 +1,5 @@
 import Profiles from '@components/Shared/Profiles';
-import { SparklesIcon } from '@heroicons/react/outline';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@lenster/lens';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';

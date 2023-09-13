@@ -1,9 +1,9 @@
 import {
-  ExternalLinkIcon,
-  PuzzleIcon,
+  ArrowTopRightOnSquareIcon,
+  PuzzlePieceIcon,
   ShoppingBagIcon,
   UsersIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import humanize from '@lenster/lib/humanize';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Trans } from '@lingui/macro';
@@ -19,7 +19,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center space-x-2">
-        <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
+        <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
           <span>
             <Trans>Type:</Trans>
@@ -49,7 +49,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <ExternalLinkIcon className="lt-text-gray-500 h-4 w-4" />
+        <ArrowTopRightOnSquareIcon className="lt-text-gray-500 h-4 w-4" />
         <b>
           <Trans>Open in Zora</Trans>
         </b>

@@ -2,15 +2,15 @@ import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import {
-  CollectionIcon,
-  DatabaseIcon,
+  ArrowRightOnRectangleIcon,
+  CircleStackIcon,
   EyeIcon,
   FingerPrintIcon,
-  LogoutIcon,
-  PhotographIcon,
-  UserAddIcon
-} from '@heroicons/react/outline';
-import { LockClosedIcon } from '@heroicons/react/solid';
+  PhotoIcon,
+  RectangleStackIcon,
+  UserPlusIcon
+} from '@heroicons/react/24/outline';
+import { LockClosedIcon } from '@heroicons/react/24/solid';
 import type { LensEnvironment } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
@@ -199,7 +199,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">
-          <LogoutIcon className="h-5 w-5" />
+          <ArrowRightOnRectangleIcon className="h-5 w-5" />
           <span>Login to decrypt</span>
         </div>
       </Card>
@@ -221,7 +221,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         <div className="space-y-2 pt-3.5 text-white">
           {/* Collect checks */}
           {hasNotCollectedPublication ? (
-            <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<RectangleStackIcon className="h-4 w-4" />}>
               Collect the{' '}
               <Link
                 href={`/posts/${collectCondition?.publicationId}`}
@@ -238,7 +238,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           ) : null}
           {collectNotFinalisedOnChain ? (
             <DecryptMessage
-              icon={<CollectionIcon className="h-4 w-4 animate-pulse" />}
+              icon={<RectangleStackIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
@@ -246,7 +246,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* Follow checks */}
           {doesNotFollowProfile ? (
-            <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<UserPlusIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link
                 href={`/u/${formatHandle(
@@ -260,7 +260,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           ) : null}
           {followNotFinalisedOnChain ? (
             <DecryptMessage
-              icon={<UserAddIcon className="h-4 w-4 animate-pulse" />}
+              icon={<UserPlusIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
@@ -268,7 +268,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* Token check */}
           {unauthorizedBalance ? (
-            <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<CircleStackIcon className="h-4 w-4" />}>
               You need{' '}
               <Link
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
@@ -289,7 +289,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* NFT check */}
           {doesNotOwnNft ? (
-            <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<PhotoIcon className="h-4 w-4" />}>
               You need{' '}
               <Tooltip content={contractMetadata?.name} placement="top">
                 <Link

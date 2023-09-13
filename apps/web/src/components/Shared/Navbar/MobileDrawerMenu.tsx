@@ -1,4 +1,4 @@
-import { XIcon } from '@heroicons/react/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -45,7 +45,7 @@ const MobileDrawerMenu: FC = () => {
   return (
     <div className="no-scrollbar fixed inset-0 z-10 h-full w-full overflow-y-auto bg-gray-100 py-4 dark:bg-black md:hidden">
       <button className="px-5" type="button" onClick={closeDrawer}>
-        <XIcon className="h-6 w-6" />
+        <XMarkIcon className="h-6 w-6" />
       </button>
       <div className="w-full space-y-2">
         <Link

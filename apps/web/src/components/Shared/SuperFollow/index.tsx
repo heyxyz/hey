@@ -1,4 +1,4 @@
-import { StarIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';

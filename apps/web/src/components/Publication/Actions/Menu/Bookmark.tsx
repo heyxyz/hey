@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
-import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/outline';
-import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/solid';
+import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
+import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   Publication,
