@@ -251,12 +251,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       show={showModal}
       onClose={closeModal}
     >
-      <div
-        className={cn(
-          'max-h-[80vh] overflow-y-auto p-5',
-          currentStep === CreateSteps.PICK_NFTS ? 'pr-0' : ''
-        )}
-      >
+      <div className={cn(currentStep === CreateSteps.NAME ? 'p-5' : 'p-0')}>
         {currentStep === CreateSteps.NAME ? (
           <Input
             value={gallery.name}
