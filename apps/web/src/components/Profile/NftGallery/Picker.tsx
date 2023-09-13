@@ -31,7 +31,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
     ownerAddress: currentProfile?.ownedBy,
-    limit: 12
+    limit: 20
   };
 
   const { data, loading, fetchMore, error } = useNftFeedQuery({
@@ -39,18 +39,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
     skip: !currentProfile?.ownedBy
   });
 
-  const nftIds = new Set();
-
-  let nfts = [];
-  if (data?.nfts?.items) {
-    for (const nft of data?.nfts?.items) {
-      const id = `${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`;
-      if (!nftIds.has(id)) {
-        nfts.push(nft);
-        nftIds.add(id);
-      }
-    }
-  }
+  const nfts = data?.nfts?.items ?? [];
 
   const pageInfo = data?.nfts?.pageInfo;
   const hasMore = pageInfo?.next;
@@ -177,7 +166,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
       style={{ height: '68vh' }}
       totalCount={nfts.length}
       data={nfts}
-      listClassName="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 pr-5"
+      listClassName="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 px-5 my-5"
       endReached={onEndReached}
       components={{
         ScrollSeekPlaceholder: () => <NftShimmer />
