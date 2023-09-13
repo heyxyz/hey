@@ -1,4 +1,3 @@
-import Alpha from '@components/Shared/Badges/Alpha';
 import {
   CursorArrowRaysIcon,
   RectangleStackIcon
@@ -99,14 +98,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={
-                <div className="flex items-center space-x-2">
-                  <div>
-                    <Trans>Mint on Zora</Trans>
-                  </div>
-                  <Alpha />
-                </div>
-              }
+              title={t`Mint on Zora`}
               show={showMintModal}
               icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
