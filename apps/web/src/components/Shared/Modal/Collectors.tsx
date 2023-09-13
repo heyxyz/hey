@@ -1,6 +1,6 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type {
   Profile,
@@ -55,7 +55,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message={t`No collectors.`}
-          icon={<CollectionIcon className="text-brand h-8 w-8" />}
+          icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
           hideCard
         />
       </div>

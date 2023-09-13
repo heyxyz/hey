@@ -1,11 +1,11 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
-  ArrowsExpandIcon,
-  DotsVerticalIcon,
-  PencilAltIcon,
+  ArrowsPointingOutIcon,
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
   TrashIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
 import type { Nft, NftGallery } from '@lenster/lens';
 import {
@@ -175,7 +175,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         ) : currentProfile && currentProfile?.id === gallery.profileId ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
-              <DotsVerticalIcon className="h-4 w-4" />
+              <EllipsisVerticalIcon className="h-4 w-4" />
             </Menu.Button>
             <MenuTransition>
               <Menu.Items
@@ -193,7 +193,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   }
                 >
                   <div className="flex items-center space-x-2">
-                    <PencilAltIcon className="h-4 w-4" />
+                    <PencilSquareIcon className="h-4 w-4" />
                     <div>
                       <Trans>Edit</Trans>
                     </div>
@@ -210,7 +210,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   }
                 >
                   <div className="flex items-center space-x-2">
-                    <ArrowsExpandIcon className="h-4 w-4" />
+                    <ArrowsPointingOutIcon className="h-4 w-4" />
                     <div>
                       <Trans>Rearrrange</Trans>
                     </div>

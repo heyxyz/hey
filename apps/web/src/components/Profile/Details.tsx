@@ -6,12 +6,15 @@ import SuperFollow from '@components/Shared/SuperFollow';
 import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
-  CogIcon,
+  Cog6ToothIcon,
   HashtagIcon,
-  LocationMarkerIcon,
+  MapPinIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
@@ -126,7 +129,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </div>
           {isVerified(profile.id) ? (
             <Tooltip content={t`Verified`}>
-              <BadgeCheckIcon
+              <CheckBadgeIcon
                 className="text-brand h-6 w-6"
                 data-testid="profile-verified-badge"
               />
@@ -182,7 +185,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <Link href="/settings">
               <Button
                 variant="secondary"
-                icon={<CogIcon className="h-5 w-5" />}
+                icon={<Cog6ToothIcon className="h-5 w-5" />}
                 outline
               >
                 <Trans>Edit Profile</Trans>
@@ -259,7 +262,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') ? (
             <MetaDetails
-              icon={<LocationMarkerIcon className="h-4 w-4" />}
+              icon={<MapPinIcon className="h-4 w-4" />}
               dataTestId="profile-meta-location"
             >
               {getProfileAttribute(profile?.attributes, 'location')}

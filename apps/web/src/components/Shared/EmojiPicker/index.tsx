@@ -1,4 +1,4 @@
-import { EmojiHappyIcon } from '@heroicons/react/outline';
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Tooltip } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -41,7 +41,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
           <span>{emoji}</span>
         ) : (
           <Tooltip placement="top" content={t`Emoji`}>
-            <EmojiHappyIcon className={cn('h-5 w-5', emojiClassName)} />
+            <FaceSmileIcon className={cn('h-5 w-5', emojiClassName)} />
           </Tooltip>
         )}
       </button>

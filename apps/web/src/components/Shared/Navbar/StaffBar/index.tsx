@@ -1,8 +1,8 @@
 import {
   GlobeAltIcon,
   HashtagIcon,
-  TemplateIcon
-} from '@heroicons/react/outline';
+  RectangleGroupIcon
+} from '@heroicons/react/24/outline';
 import {
   GIT_COMMIT_SHA,
   IS_MAINNET,
@@ -58,7 +58,7 @@ const StaffBar: FC = () => {
       </div>
       <div className="flex items-center">
         <Link href="/stafftools">
-          <TemplateIcon className="h-4 w-4" />
+          <RectangleGroupIcon className="h-4 w-4" />
         </Link>
       </div>
     </div>

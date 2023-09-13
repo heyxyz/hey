@@ -1,10 +1,10 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
-  MusicNoteIcon,
-  PhotographIcon,
+  MusicalNoteIcon,
+  PhotoIcon,
   VideoCameraIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -85,7 +85,7 @@ const Attachment: FC = () => {
             <Spinner size="sm" />
           ) : (
             <Tooltip placement="top" content={t`Media`}>
-              <PhotographIcon className="text-brand h-5 w-5" />
+              <PhotoIcon className="text-brand h-5 w-5" />
             </Tooltip>
           )}
         </button>
@@ -107,7 +107,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`image_${id}`}
           >
-            <PhotographIcon className="text-brand h-4 w-4" />
+            <PhotoIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
@@ -152,7 +152,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicNoteIcon className="text-brand h-4 w-4" />
+            <MusicalNoteIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}

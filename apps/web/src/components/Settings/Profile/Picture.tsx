@@ -1,6 +1,6 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
-import { PencilIcon } from '@heroicons/react/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';

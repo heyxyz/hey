@@ -1,7 +1,7 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { FollowersRequest, Profile, Wallet } from '@lenster/lens';
 import { useFollowersQuery } from '@lenster/lens';

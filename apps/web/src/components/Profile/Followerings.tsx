@@ -1,4 +1,4 @@
-import { UsersIcon } from '@heroicons/react/outline';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';

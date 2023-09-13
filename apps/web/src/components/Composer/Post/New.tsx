@@ -1,4 +1,4 @@
-import { PencilAltIcon } from '@heroicons/react/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Card, Image } from '@lenster/ui';
@@ -59,7 +59,7 @@ const NewPost: FC = () => {
           type="button"
           onClick={() => openModal()}
         >
-          <PencilAltIcon className="h-5 w-5" />
+          <PencilSquareIcon className="h-5 w-5" />
           <span>
             <Trans>What's happening?</Trans>
           </span>

@@ -1,5 +1,8 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
-import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import {
+  ArrowTopRightOnSquareIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
@@ -130,7 +133,7 @@ const Attachments: FC<AttachmentsProps> = ({
                   <Button
                     className="text-sm"
                     variant="primary"
-                    icon={<ExternalLinkIcon className="h-4 w-4" />}
+                    icon={<ArrowTopRightOnSquareIcon className="h-4 w-4" />}
                     onClick={() => window.open(url, '_blank')}
                   >
                     <span>
@@ -192,7 +195,7 @@ const Attachments: FC<AttachmentsProps> = ({
                       className="mt-3"
                       variant="danger"
                       size="sm"
-                      icon={<XIcon className="h-4 w-4" />}
+                      icon={<XMarkIcon className="h-4 w-4" />}
                       onClick={() => removeAttachment(attachment)}
                       outline
                     >
@@ -207,7 +210,7 @@ const Attachments: FC<AttachmentsProps> = ({
                         className="rounded-full bg-gray-900 p-1.5 opacity-75"
                         onClick={() => removeAttachment(attachment)}
                       >
-                        <XIcon className="h-4 w-4 text-white" />
+                        <XMarkIcon className="h-4 w-4 text-white" />
                       </button>
                     </div>
                   ))}

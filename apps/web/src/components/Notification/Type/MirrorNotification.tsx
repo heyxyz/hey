@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { SwitchHorizontalIcon } from '@heroicons/react/solid';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import type { NewMirrorNotification } from '@lenster/lens';
 import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
@@ -39,7 +39,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <SwitchHorizontalIcon className="text-brand-500/70 h-6 w-6" />
+            <ArrowsRightLeftIcon className="text-brand-500/70 h-6 w-6" />
             <UserPreview profile={notification?.profile}>
               <NotificationProfileAvatar profile={notification?.profile} />
             </UserPreview>

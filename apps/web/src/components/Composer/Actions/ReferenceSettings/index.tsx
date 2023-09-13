@@ -2,11 +2,11 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
   GlobeAltIcon,
-  UserAddIcon,
   UserGroupIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ReferenceModules } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -95,7 +95,7 @@ const ReferenceSettings: FC = () => {
           <div className="text-brand">
             {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
             {isMyFollowers ? <UsersIcon className="w-5" /> : null}
-            {isMyFollows ? <UserAddIcon className="w-5" /> : null}
+            {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
             {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
           </div>
         </Menu.Button>
@@ -130,7 +130,7 @@ const ReferenceSettings: FC = () => {
           <Module
             title={MY_FOLLOWS}
             selected={isMyFollows}
-            icon={<UserAddIcon className="h-4 w-4" />}
+            icon={<UserPlusIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModules.DegreesOfSeparationReferenceModule
