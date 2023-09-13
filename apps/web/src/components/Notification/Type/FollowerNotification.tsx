@@ -1,5 +1,5 @@
 import UserPreview from '@components/Shared/UserPreview';
-import { UserAddIcon } from '@heroicons/react/solid';
+import { UserPlusIcon } from '@heroicons/react/24/solid';
 import type { NewFollowerNotification } from '@lenster/lens';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
@@ -39,9 +39,9 @@ const FollowerNotification: FC<FollowerNotificationProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             {isSuperFollow ? (
-              <UserAddIcon className="h-6 w-6 text-pink-500/70" />
+              <UserPlusIcon className="h-6 w-6 text-pink-500/70" />
             ) : (
-              <UserAddIcon className="h-6 w-6 text-green-500/70" />
+              <UserPlusIcon className="h-6 w-6 text-green-500/70" />
             )}
             {notification?.wallet?.defaultProfile ? (
               <UserPreview profile={notification?.wallet?.defaultProfile}>

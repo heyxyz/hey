@@ -1,10 +1,10 @@
 import {
   AtSymbolIcon,
   BellIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
-  HeartIcon
-} from '@heroicons/react/outline';
+  ChatBubbleLeftRightIcon,
+  HeartIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import { NOTIFICATION } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -44,7 +44,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Comments`}
-          icon={<ChatAlt2Icon className="h-4 w-4" />}
+          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
           active={feedType === NotificationType.Comments}
           type={NotificationType.Comments.toLowerCase()}
           onClick={() => switchTab(NotificationType.Comments)}
@@ -58,7 +58,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Collects`}
-          icon={<CollectionIcon className="h-4 w-4" />}
+          icon={<RectangleStackIcon className="h-4 w-4" />}
           active={feedType === NotificationType.Collects}
           type={NotificationType.Collects.toLowerCase()}
           onClick={() => switchTab(NotificationType.Collects)}

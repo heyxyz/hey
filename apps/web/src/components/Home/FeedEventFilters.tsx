@@ -1,6 +1,6 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { AdjustmentsIcon } from '@heroicons/react/outline';
+import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
@@ -26,7 +26,7 @@ const FeedEventFilters: FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
         <Tooltip placement="top" content={t`Filter`}>
-          <AdjustmentsIcon className="text-brand h-5 w-5" />
+          <AdjustmentsVerticalIcon className="text-brand h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>

@@ -1,5 +1,5 @@
 import Loader from '@components/Shared/Loader';
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { IGif } from '@lenster/types/giphy';
 import { Modal, Tooltip } from '@lenster/ui';
@@ -48,7 +48,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
       </Tooltip>
       <Modal
         title={t`Select GIF`}
-        icon={<PhotographIcon className="text-brand h-5 w-5" />}
+        icon={<PhotoIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >

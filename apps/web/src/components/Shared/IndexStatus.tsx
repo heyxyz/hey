@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
 import { Spinner } from '@lenster/ui';

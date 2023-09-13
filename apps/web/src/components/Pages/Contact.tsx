@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -147,7 +147,7 @@ const Contact: FC = () => {
                     submitting ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilAltIcon className="h-5 w-5" />
+                      <PencilSquareIcon className="h-5 w-5" />
                     )
                   }
                 >

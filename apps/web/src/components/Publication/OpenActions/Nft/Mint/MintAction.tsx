@@ -1,6 +1,9 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { CurrencyDollarIcon, CursorClickIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import {
+  CurrencyDollarIcon,
+  CursorArrowRaysIcon
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import type { ZoraNft } from '@lenster/types/zora-nft';
@@ -133,7 +136,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
           >
             <Button
               className="mt-5 w-full justify-center"
-              icon={<CursorClickIcon className="h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="h-5 w-5" />}
               size="md"
             >
               <Trans>Mint on Zora</Trans>
@@ -149,7 +152,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
             isContractWriteLoading ? (
               <Spinner className="mr-1" size="xs" />
             ) : (
-              <CursorClickIcon className="h-5 w-5" />
+              <CursorArrowRaysIcon className="h-5 w-5" />
             )
           }
         >

@@ -1,5 +1,5 @@
-import { LightningBoltIcon as LightningBoltIconOutline } from '@heroicons/react/outline';
-import { LightningBoltIcon as LightningBoltIconSolid } from '@heroicons/react/solid';
+import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
+import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
 import { GARDENER } from '@lenster/data/tracking';
@@ -57,9 +57,9 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       )}
     >
       {gardenerMode ? (
-        <LightningBoltIconSolid className="h-4 w-4 text-green-600" />
+        <BoltIconSolid className="h-4 w-4 text-green-600" />
       ) : (
-        <LightningBoltIconOutline className="h-4 w-4 text-red-500" />
+        <BoltIconOutline className="h-4 w-4 text-red-500" />
       )}
       <div>
         <Trans>Gardener mode</Trans>

@@ -1,6 +1,6 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import cn from '@lenster/ui/cn';
@@ -81,9 +81,9 @@ const Navbar: FC = () => {
               onClick={() => setShowSearch(!showSearch)}
             >
               {showSearch ? (
-                <XIcon className="h-6 w-6" />
+                <XMarkIcon className="h-6 w-6" />
               ) : (
-                <SearchIcon className="h-6 w-6" />
+                <MagnifyingGlassIcon className="h-6 w-6" />
               )}
             </button>
             <Link href="/" className="hidden md:block">

@@ -2,7 +2,7 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
 import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -190,7 +190,7 @@ const PreviewList: FC<PreviewListProps> = ({
             >
               <div className="grid justify-items-center space-y-2 p-5">
                 <div>
-                  <MailIcon className="text-brand h-8 w-8" />
+                  <EnvelopeIcon className="text-brand h-8 w-8" />
                 </div>
                 <div>{t`Start messaging your Lens frens`}</div>
               </div>
@@ -218,7 +218,7 @@ const PreviewList: FC<PreviewListProps> = ({
       </Card>
       <Modal
         title={t`New message`}
-        icon={<MailIcon className="text-brand h-5 w-5" />}
+        icon={<EnvelopeIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}

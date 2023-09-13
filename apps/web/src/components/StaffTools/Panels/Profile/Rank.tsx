@@ -1,11 +1,11 @@
 import {
   CheckCircleIcon,
   CurrencyDollarIcon,
-  HandIcon,
-  UserAddIcon,
-  UserCircleIcon
-} from '@heroicons/react/outline';
-import { HashtagIcon } from '@heroicons/react/solid';
+  HandRaisedIcon,
+  UserCircleIcon,
+  UserPlusIcon
+} from '@heroicons/react/24/outline';
+import { HashtagIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@lenster/lens';
 import { formatDate } from '@lib/formatTime';
 import { t, Trans } from '@lingui/macro';
@@ -80,7 +80,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<UserAddIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<UserPlusIcon className="lt-text-gray-500 h-4 w-4" />}
           value={followship?.rank}
           title={t`Followship Rank`}
         >
@@ -91,7 +91,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           )}
         </MetaDetails>
         <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={engagement?.rank}
           title={t`Engagement Rank`}
         >

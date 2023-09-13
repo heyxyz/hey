@@ -1,5 +1,5 @@
 import Profiles from '@components/Shared/Profiles';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type { CollectedEvent } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const Collected: FC<CollectedProps> = ({ collects }) => {
 
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
-      <CollectionIcon className="h-4 w-4" />
+      <RectangleStackIcon className="h-4 w-4" />
       <Profiles profiles={getCollectedProfiles()} context={t`collected`} />
     </div>
   );

@@ -1,11 +1,11 @@
 import {
   ChartBarIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
+  ChatBubbleLeftRightIcon,
   FilmIcon,
-  PencilAltIcon,
-  PhotographIcon
-} from '@heroicons/react/outline';
+  PencilSquareIcon,
+  PhotoIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import { TabButton } from '@lenster/ui';
@@ -38,14 +38,14 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
       <div className="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 sm:mt-0 sm:px-0 md:pb-0">
         <TabButton
           name={t`Feed`}
-          icon={<PencilAltIcon className="h-4 w-4" />}
+          icon={<PencilSquareIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Feed}
           type={ProfileFeedType.Feed.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Feed)}
         />
         <TabButton
           name={t`Replies`}
-          icon={<ChatAlt2Icon className="h-4 w-4" />}
+          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Replies}
           type={ProfileFeedType.Replies.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Replies)}
@@ -59,14 +59,14 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name={t`Collected`}
-          icon={<CollectionIcon className="h-4 w-4" />}
+          icon={<RectangleStackIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Collects}
           type={ProfileFeedType.Collects.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Collects)}
         />
         <TabButton
           name={t`NFTs`}
-          icon={<PhotographIcon className="h-4 w-4" />}
+          icon={<PhotoIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Nft}
           type={ProfileFeedType.Nft.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Nft)}
