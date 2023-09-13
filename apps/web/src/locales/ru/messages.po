@@ -1940,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr "Нет профилей для <0>“{query}”</0>"
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr "Не удалось загрузить профили"
 
@@ -3186,6 +3187,10 @@ msgstr "Сменить сеть"
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr "Пожалуйста, измените сеть в вашем кошельке!"
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
