@@ -1,5 +1,5 @@
 import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
-import { HandIcon } from '@heroicons/react/outline';
+import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
 import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import { Card } from '@lenster/ui';
@@ -48,7 +48,7 @@ const EnableDispatcher: FC = () => {
       className="border-brand-400 !bg-brand-300/20 text-brand-600 mb-4 space-y-2.5 p-5"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <HandIcon className="h-5 w-5" />
+        <HandRaisedIcon className="h-5 w-5" />
         <p>{getTitle()}</p>
       </div>
       <p className="text-sm leading-[22px]">{getDescription()}</p>

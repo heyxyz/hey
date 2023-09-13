@@ -1,4 +1,4 @@
-import { FlagIcon } from '@heroicons/react/outline';
+import { FlagIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';

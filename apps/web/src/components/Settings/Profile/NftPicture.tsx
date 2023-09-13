@@ -1,4 +1,4 @@
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -25,7 +25,7 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
         alt={formatHandle(profile?.handle)}
       />
       <Button
-        icon={<PhotographIcon className="h-4 w-4" />}
+        icon={<PhotoIcon className="h-4 w-4" />}
         onClick={() => setShowNftAvatarModal(true)}
       >
         <Trans>Choose NFT avatar</Trans>

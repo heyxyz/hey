@@ -1,5 +1,5 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import { StarIcon, UserIcon } from '@heroicons/react/outline';
+import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';

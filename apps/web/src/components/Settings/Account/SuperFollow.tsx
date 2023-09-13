@@ -1,4 +1,4 @@
-import { StarIcon, XIcon } from '@heroicons/react/outline';
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -231,7 +231,7 @@ const SuperFollow: FC = () => {
                 outline
                 onClick={() => setSuperFollow(null, null)}
                 disabled={isLoading}
-                icon={<XIcon className="h-4 w-4" />}
+                icon={<XMarkIcon className="h-4 w-4" />}
               >
                 <Trans>Disable Super follow</Trans>
               </Button>
