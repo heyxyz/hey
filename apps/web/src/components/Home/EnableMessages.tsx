@@ -1,4 +1,4 @@
-import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
+import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
 import { XMTP_ENV } from '@lenster/data/constants';
 import { Button, Card } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -42,7 +42,7 @@ const EnableMessages: FC = () => {
       className="mb-4 space-y-2.5 border-green-400 !bg-green-300/20 p-5 text-green-600"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <MailOpenIcon className="h-5 w-5" />
+        <EnvelopeOpenIcon className="h-5 w-5" />
         <p>
           <Trans>Direct messages are here!</Trans>
         </p>
@@ -55,7 +55,7 @@ const EnableMessages: FC = () => {
       </p>
       <Button
         className={cn({ 'text-sm': true }, 'mr-auto')}
-        icon={<MailIcon className="h-4 w-4" />}
+        icon={<EnvelopeIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >
         <Trans>Enable DMs</Trans>

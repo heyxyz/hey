@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
-import { ClockIcon } from '@heroicons/react/outline';
-import { FireIcon } from '@heroicons/react/solid';
+import { ClockIcon } from '@heroicons/react/24/outline';
+import { FireIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import formatHandle from '@lenster/lib/formatHandle';
 import type { Channel } from '@lenster/types/lenster';

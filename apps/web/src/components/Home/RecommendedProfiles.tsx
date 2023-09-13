@@ -1,8 +1,11 @@
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { DotsCircleHorizontalIcon, UsersIcon } from '@heroicons/react/outline';
-import { SparklesIcon } from '@heroicons/react/solid';
+import {
+  EllipsisHorizontalCircleIcon,
+  UsersIcon
+} from '@heroicons/react/24/outline';
+import { SparklesIcon } from '@heroicons/react/24/solid';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useRecommendedProfilesQuery } from '@lenster/lens';
@@ -120,7 +123,7 @@ const RecommendedProfiles: FC = () => {
             Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
           }}
         >
-          <DotsCircleHorizontalIcon className="h-4 w-4" />
+          <EllipsisHorizontalCircleIcon className="h-4 w-4" />
           <span>
             <Trans>Show more</Trans>
           </span>

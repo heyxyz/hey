@@ -1,5 +1,5 @@
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import { useReportPublicationMutation } from '@lenster/lens';
@@ -113,7 +113,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                     submitLoading ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilAltIcon className="h-4 w-4" />
+                      <PencilSquareIcon className="h-4 w-4" />
                     )
                   }
                 >

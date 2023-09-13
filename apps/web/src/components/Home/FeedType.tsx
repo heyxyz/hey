@@ -2,7 +2,7 @@ import {
   LightBulbIcon,
   SparklesIcon,
   UserGroupIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { HomeFeedType } from '@lenster/data/enums';
 import { HOME } from '@lenster/data/tracking';

@@ -1,4 +1,4 @@
-import { PauseIcon, PlayIcon } from '@heroicons/react/solid';
+import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';

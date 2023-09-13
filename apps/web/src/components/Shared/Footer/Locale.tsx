@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { GlobeAltIcon } from '@heroicons/react/outline';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { Localstorage } from '@lenster/data/storage';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import cn from '@lenster/ui/cn';

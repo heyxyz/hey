@@ -1,16 +1,16 @@
 import Sidebar from '@components/Shared/Sidebar';
 import UserProfile from '@components/Shared/UserProfile';
 import {
-  AdjustmentsIcon,
+  AdjustmentsVerticalIcon,
   BookmarkIcon,
-  ChipIcon,
-  DatabaseIcon,
-  ExclamationIcon,
+  CircleStackIcon,
+  CpuChipIcon,
+  ExclamationTriangleIcon,
   FingerPrintIcon,
   ShareIcon,
   SparklesIcon,
   UserIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import type { Profile } from '@lenster/lens';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -36,12 +36,12 @@ const SettingsSidebar: FC = () => {
           },
           {
             title: t`Account`,
-            icon: <ChipIcon className="h-4 w-4" />,
+            icon: <CpuChipIcon className="h-4 w-4" />,
             url: '/settings/account'
           },
           {
             title: t`Preferences`,
-            icon: <AdjustmentsIcon className="h-4 w-4" />,
+            icon: <AdjustmentsVerticalIcon className="h-4 w-4" />,
             url: '/settings/preferences'
           },
           {
@@ -66,7 +66,7 @@ const SettingsSidebar: FC = () => {
           },
           {
             title: t`Export`,
-            icon: <DatabaseIcon className="h-4 w-4" />,
+            icon: <CircleStackIcon className="h-4 w-4" />,
             url: '/settings/export'
           },
           {
@@ -75,7 +75,7 @@ const SettingsSidebar: FC = () => {
                 <Trans>Danger zone</Trans>
               </div>
             ),
-            icon: <ExclamationIcon className="h-4 w-4 text-red-500" />,
+            icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
             url: '/settings/danger'
           }
         ]}

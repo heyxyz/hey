@@ -1,4 +1,4 @@
-import { PhotographIcon } from '@heroicons/react/outline';
+import { PhotoIcon } from '@heroicons/react/24/outline';
 import { ATTACHMENT } from '@lenster/data/constants';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -73,7 +73,7 @@ const CoverImage: FC<CoverImageProps> = ({
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-sm text-black opacity-60 dark:text-white">
-              <PhotographIcon className="h-5 w-5" />
+              <PhotoIcon className="h-5 w-5" />
               <span>Add cover</span>
             </div>
           )}

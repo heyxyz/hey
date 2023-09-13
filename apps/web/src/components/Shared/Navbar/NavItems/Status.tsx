@@ -1,4 +1,4 @@
-import { EmojiHappyIcon } from '@heroicons/react/outline';
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -42,7 +42,7 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
         </>
       ) : (
         <>
-          <EmojiHappyIcon className="h-4 w-4" />
+          <FaceSmileIcon className="h-4 w-4" />
           <span>
             <Trans>Set status</Trans>
           </span>

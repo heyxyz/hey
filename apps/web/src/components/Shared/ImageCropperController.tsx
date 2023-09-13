@@ -1,6 +1,9 @@
 import 'rc-slider/assets/index.css';
 
-import { ZoomInIcon, ZoomOutIcon } from '@heroicons/react/outline';
+import {
+  MagnifyingGlassMinusIcon,
+  MagnifyingGlassPlusIcon
+} from '@heroicons/react/24/outline';
 import ImageCropper from '@lenster/image-cropper/ImageCropper';
 import type { Area, Point, Size } from '@lenster/image-cropper/types';
 import Slider from 'rc-slider';
@@ -66,7 +69,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
         className="flex py-2"
         style={{ width: cropSize.width + borderSize * 2 }}
       >
-        <ZoomOutIcon className="m-1 h-6 w-6" />
+        <MagnifyingGlassMinusIcon className="m-1 h-6 w-6" />
         <Slider
           className="m-2"
           min={0}
@@ -75,7 +78,7 @@ const ImageCropperController: FC<ImageCropperControllerProps> = ({
           onChange={onSliderChange}
           value={Math.log(zoom)}
         />
-        <ZoomInIcon className="m-1 h-6 w-6" />
+        <MagnifyingGlassPlusIcon className="m-1 h-6 w-6" />
       </div>
     </div>
   );

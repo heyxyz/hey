@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { Wallet } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
@@ -44,7 +44,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
             <div>
               {loading ? formatAddress(wallet?.address) : formatAddress(ens)}
             </div>
-            <ExternalLinkIcon className="h-4 w-4" />
+            <ArrowTopRightOnSquareIcon className="h-4 w-4" />
           </div>
           <Slug className="text-sm" slug={formatAddress(wallet?.address)} />
         </div>

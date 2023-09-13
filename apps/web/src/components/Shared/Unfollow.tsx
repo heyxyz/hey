@@ -1,4 +1,4 @@
-import { UserRemoveIcon } from '@heroicons/react/outline';
+import { UserMinusIcon } from '@heroicons/react/24/outline';
 import { FollowNft } from '@lenster/abis';
 import { Errors } from '@lenster/data/errors';
 import { PROFILE } from '@lenster/data/tracking';
@@ -118,7 +118,7 @@ const Unfollow: FC<UnfollowProps> = ({
         isLoading ? (
           <Spinner variant="danger" size="xs" />
         ) : (
-          <UserRemoveIcon className="h-4 w-4" />
+          <UserMinusIcon className="h-4 w-4" />
         )
       }
     >

@@ -1,5 +1,5 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile, WhoReactedPublicationRequest } from '@lenster/lens';
 import { useLikesQuery } from '@lenster/lens';
