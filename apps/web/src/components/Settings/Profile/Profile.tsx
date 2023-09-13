@@ -350,7 +350,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || (!form.formState.isDirty && !imageSrc)}
             icon={
               isLoading ? (
                 <Spinner size="xs" />

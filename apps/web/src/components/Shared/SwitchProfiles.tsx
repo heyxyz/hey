@@ -3,34 +3,52 @@ import { CheckCircleIcon } from '@heroicons/react/solid';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import { Image } from '@lenster/ui';
+import { ErrorMessage, Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
+import Loader from './Loader';
+
 const SwitchProfiles: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
+  const { data, loading, error } = useProfilesQuery({
+    variables: {
+      request: { ownedBy: currentProfile?.ownedBy }
+    }
+  });
+
+  if (loading) {
+    return <Loader message={t`Loading Profiles`} />;
+  }
+
+  const profiles = data?.profiles.items || [];
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
-      {profiles.map((profile: Profile, index) => (
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load profiles`}
+        error={error}
+      />
+      {profiles.map((profile, index) => (
         <button
           key={profile?.id}
           type="button"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           onClick={() => {
-            const selectedProfile = profiles[index];
+            const selectedProfile = profiles[index] as Profile;
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
