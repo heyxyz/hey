@@ -15,7 +15,9 @@ const Mod: FC<ModProps> = ({ className = '' }) => {
         className
       )}
     >
-      <ShieldCheckIcon className="h-4 w-4" />
+      <div>
+        <ShieldCheckIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Moderation</Trans>
       </div>
