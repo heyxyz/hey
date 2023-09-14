@@ -188,9 +188,9 @@ const useMessagePreviews = () => {
         );
         const profileId = getProfileFromKey(key);
 
-        if (profileId) {
+        if (profileId && !newProfileIds.has(profileId)) {
           newProfileIds.add(profileId);
-        } else {
+        } else if (!profileId) {
           newNonLensProfiles.add(key);
         }
         newConversations.set(key, convo);
@@ -243,7 +243,7 @@ const useMessagePreviews = () => {
       if (profileId && !profileIds.has(profileId)) {
         newProfileIds.add(profileId);
         setProfileIds(newProfileIds);
-      } else {
+      } else if (!profileId) {
         newNonLensProfiles.add(key);
         setNonLensProfiles(newNonLensProfiles);
       }
@@ -272,12 +272,16 @@ const useMessagePreviews = () => {
   }, [currentProfile]);
 
   useEffect(() => {
-    const otherProfiles = new Map();
-    Array.from(nonLensProfiles).map((key) => {
-      otherProfiles.set(key, {} as Profile);
-    });
+    const newProfilesToShow = messageProfiles ?? new Map();
 
-    setProfilesToShow(new Map([...(messageProfiles ?? []), ...otherProfiles]));
+    for (const key of nonLensProfiles) {
+      // Load profile for non-lens conversations
+      if (!newProfilesToShow.has(key)) {
+        newProfilesToShow.set(key, {} as Profile);
+      }
+    }
+
+    setProfilesToShow(newProfilesToShow);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageProfiles]);
