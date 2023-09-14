@@ -15,7 +15,7 @@ import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import isVerified from '@lib/isVerified';
-import { Plural } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -93,6 +93,18 @@ const UserPreview: FC<UserPreviewProps> = ({
           </div>
           <div className="flex p-3">
             <div>{lazyProfile.handle}</div>
+          </div>
+        </div>
+      );
+    }
+
+    if (!lazyProfile.id) {
+      return (
+        <div className="flex flex-col">
+          <div className="flex p-3 pt-4">
+            <div>
+              <Trans>No profile found</Trans>
+            </div>
           </div>
         </div>
       );
@@ -184,8 +196,6 @@ const UserPreview: FC<UserPreviewProps> = ({
 
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
-      } else {
-        setLoading(false);
       }
 
       setTimeout(() => {
@@ -196,23 +206,19 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
-      {loading || lazyProfile.id ? (
-        <Tippy
-          placement="bottom-start"
-          delay={[100, 0]}
-          hideOnClick={false}
-          content={<Preview />}
-          arrow={false}
-          interactive
-          zIndex={1000}
-          className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
-          appendTo={() => document.body}
-        >
-          <span>{children}</span>
-        </Tippy>
-      ) : (
+      <Tippy
+        placement="bottom-start"
+        delay={[100, 0]}
+        hideOnClick={false}
+        content={<Preview />}
+        arrow={false}
+        interactive
+        zIndex={1000}
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+        appendTo={() => document.body}
+      >
         <span>{children}</span>
-      )}
+      </Tippy>
     </span>
   ) : (
     <span>{children}</span>
