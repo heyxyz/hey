@@ -2,10 +2,10 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
 import {
-  CollectionIcon,
+  ArrowsRightLeftIcon,
   HeartIcon,
-  SwitchHorizontalIcon
-} from '@heroicons/react/outline';
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
@@ -81,7 +81,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           </button>
           <Modal
             title={t`Mirrored by`}
-            icon={<SwitchHorizontalIcon className="text-brand h-5 w-5" />}
+            icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
           >
@@ -145,7 +145,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           </button>
           <Modal
             title={t`Collected by`}
-            icon={<CollectionIcon className="text-brand h-5 w-5" />}
+            icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
           >

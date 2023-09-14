@@ -1,5 +1,8 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { ExclamationIcon, LockOpenIcon } from '@heroicons/react/outline';
+import {
+  ExclamationTriangleIcon,
+  LockOpenIcon
+} from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -111,7 +114,7 @@ const GuardianSettings: FC = () => {
       )}
       <Modal
         title={t`Danger zone`}
-        icon={<ExclamationIcon className="h-5 w-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >

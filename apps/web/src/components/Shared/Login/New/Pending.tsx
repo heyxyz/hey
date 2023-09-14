@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { HANDLE_SUFFIX } from '@lenster/data/constants';
 import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
 import { Button, Spinner } from '@lenster/ui';

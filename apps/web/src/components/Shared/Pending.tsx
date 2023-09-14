@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/outline';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { gql, useQuery } from '@lenster/lens/apollo';
 import { Button, Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';

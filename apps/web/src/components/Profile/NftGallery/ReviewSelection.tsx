@@ -1,5 +1,5 @@
 import SingleNft from '@components/Shared/SingleNft';
-import { CollectionIcon, XIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Nft } from '@lenster/lens';
 import { EmptyState } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -52,7 +52,7 @@ const ReviewSelection = () => {
         <EmptyState
           hideCard
           message={t`No collectables selected!`}
-          icon={<CollectionIcon className="text-brand h-8 w-8" />}
+          icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
         />
       </div>
     );
@@ -67,7 +67,7 @@ const ReviewSelection = () => {
               onClick={() => onRemoveItem(item)}
               className="bg-brand-500 absolute right-2 top-2 rounded-full"
             >
-              <XIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
+              <XMarkIcon className="h-6 w-6 rounded-full bg-white p-1 text-black" />
             </button>
             <SingleNft nft={item as Nft} linkToDetail={false} />
           </div>

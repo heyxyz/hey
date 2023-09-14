@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -36,7 +36,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ClipboardCopyIcon className="h-4 w-4" />
+        <ClipboardDocumentIcon className="h-4 w-4" />
         <div>
           <Trans>Copy link</Trans>
         </div>

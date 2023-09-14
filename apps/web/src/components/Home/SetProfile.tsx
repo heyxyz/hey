@@ -1,10 +1,10 @@
 import New from '@components/Shared/Badges/New';
 import {
   MinusCircleIcon,
-  PencilAltIcon,
-  PhotographIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+  PencilSquareIcon,
+  PhotoIcon
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@lenster/data/constants';
 import { ONBOARDING } from '@lenster/data/tracking';
 import { Card } from '@lenster/ui';
@@ -53,7 +53,7 @@ const SetProfile: FC = () => {
       className="mb-4 space-y-4 !border-green-600 !bg-green-50 p-5 text-green-600 dark:bg-green-900"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <PhotographIcon className="h-5 w-5" />
+        <PhotoIcon className="h-5 w-5" />
         <p>
           <Trans>Setup your {APP_NAME} profile</Trans>
         </p>
@@ -88,7 +88,7 @@ const SetProfile: FC = () => {
         </div>
       </div>
       <div className="flex items-center space-x-1.5 text-sm font-bold">
-        <PencilAltIcon className="h-4 w-4" />
+        <PencilSquareIcon className="h-4 w-4" />
         <Link
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"

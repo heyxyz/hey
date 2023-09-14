@@ -1,4 +1,4 @@
-import { GlobeIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { GlobeAmericasIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { algorithms } from '@lenster/data/algorithms';
 import { HOME } from '@lenster/data/tracking';
 import { Toggle, Tooltip } from '@lenster/ui';
@@ -45,7 +45,7 @@ const List: FC = () => {
                       {algorithm.isPersonalized ? (
                         <UserCircleIcon className="h-4 w-4" />
                       ) : (
-                        <GlobeIcon className="h-4 w-4" />
+                        <GlobeAmericasIcon className="h-4 w-4" />
                       )}
                     </div>
                   </Tooltip>

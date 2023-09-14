@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -227,7 +227,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       disabled={isLoading}
     >
       <div className="flex items-center space-x-2">
-        <SwitchHorizontalIcon className="h-4 w-4" />
+        <ArrowsRightLeftIcon className="h-4 w-4" />
         <div>{mirrored ? <Trans>Unmirror</Trans> : <Trans>Mirror</Trans>}</div>
       </div>
     </Menu.Item>

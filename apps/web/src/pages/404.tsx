@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { HomeIcon } from '@heroicons/react/outline';
+import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
 import { Button } from '@lenster/ui';
 import { Trans } from '@lingui/macro';

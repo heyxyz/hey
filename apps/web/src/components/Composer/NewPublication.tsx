@@ -4,7 +4,10 @@ import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
+import {
+  ChatBubbleLeftRightIcon,
+  PencilSquareIcon
+} from '@heroicons/react/24/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -952,9 +955,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatAlt2Icon className="h-4 w-4" />
+                <ChatBubbleLeftRightIcon className="h-4 w-4" />
               ) : (
-                <PencilAltIcon className="h-4 w-4" />
+                <PencilSquareIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}

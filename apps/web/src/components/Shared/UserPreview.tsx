@@ -1,4 +1,7 @@
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
@@ -67,7 +70,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile.id) ? (
-          <BadgeCheckIcon className="text-brand h-4 w-4" />
+          <CheckBadgeIcon className="text-brand h-4 w-4" />
         ) : null}
         {hasMisused(lazyProfile.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />

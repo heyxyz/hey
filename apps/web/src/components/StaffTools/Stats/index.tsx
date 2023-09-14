@@ -1,15 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
 import {
   ArrowDownIcon,
+  ArrowsRightLeftIcon,
   ArrowUpIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
+  ChatBubbleLeftRightIcon,
   FireIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon,
+  RectangleStackIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { PencilAltIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PAGEVIEW } from '@lenster/data/tracking';
@@ -57,7 +57,7 @@ const StatBox: FC<StatBoxProps> = ({
         <div className="text-lg font-bold">{humanize(value)}</div>
         <div className="flex items-center space-x-1 text-xs">
           {differenceValue === 0 ? (
-            <SwitchHorizontalIcon className="h-3 w-3 text-yellow-500" />
+            <ArrowsRightLeftIcon className="h-3 w-3 text-yellow-500" />
           ) : differenceValue <= 0 ? (
             <ArrowDownIcon className="h-3 w-3 text-red-500" />
           ) : (
@@ -162,7 +162,7 @@ const Stats: NextPage = () => {
                   title={t`profiles burnt`}
                 />
                 <StatBox
-                  icon={<PencilAltIcon className="h-6 w-6" />}
+                  icon={<PencilSquareIcon className="h-6 w-6" />}
                   value={stats?.totalPosts}
                   todayValue={todayStats?.totalPosts}
                   differenceValue={
@@ -173,7 +173,7 @@ const Stats: NextPage = () => {
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
-                  icon={<SwitchHorizontalIcon className="h-6 w-6" />}
+                  icon={<ArrowsRightLeftIcon className="h-6 w-6" />}
                   value={stats?.totalMirrors}
                   todayValue={todayStats?.totalMirrors}
                   differenceValue={
@@ -182,7 +182,7 @@ const Stats: NextPage = () => {
                   title={t`total mirrors`}
                 />
                 <StatBox
-                  icon={<ChatAlt2Icon className="h-6 w-6" />}
+                  icon={<ChatBubbleLeftRightIcon className="h-6 w-6" />}
                   value={stats?.totalComments}
                   todayValue={todayStats?.totalComments}
                   differenceValue={
@@ -193,7 +193,7 @@ const Stats: NextPage = () => {
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
-                  icon={<CollectionIcon className="h-6 w-6" />}
+                  icon={<RectangleStackIcon className="h-6 w-6" />}
                   value={stats?.totalCollects}
                   todayValue={todayStats?.totalCollects}
                   differenceValue={
@@ -202,7 +202,7 @@ const Stats: NextPage = () => {
                   title={t`total collects`}
                 />
                 <StatBox
-                  icon={<UserAddIcon className="h-6 w-6" />}
+                  icon={<UserPlusIcon className="h-6 w-6" />}
                   value={stats?.totalFollows}
                   todayValue={todayStats?.totalFollows}
                   differenceValue={
