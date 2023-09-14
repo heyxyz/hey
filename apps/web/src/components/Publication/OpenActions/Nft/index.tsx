@@ -1,5 +1,7 @@
-import Alpha from '@components/Shared/Badges/Alpha';
-import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
+import {
+  CursorArrowRaysIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
@@ -77,7 +79,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (
             <Tooltip placement="right" content={t`ERC-1155 Collection`}>
-              <CollectionIcon className="h-4 w-4" />
+              <RectangleStackIcon className="h-4 w-4" />
             </Tooltip>
           ) : null}
         </div>
@@ -85,7 +87,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <>
             <Button
               className="text-sm"
-              icon={<CursorClickIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
               onClick={() => {
                 setQuantity(1);
@@ -96,16 +98,9 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={
-                <div className="flex items-center space-x-2">
-                  <div>
-                    <Trans>Mint on Zora</Trans>
-                  </div>
-                  <Alpha />
-                </div>
-              }
+              title={t`Mint on Zora`}
               show={showMintModal}
-              icon={<CursorClickIcon className="text-brand h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
               <Mint nft={nft} zoraLink={zoraLink} />
@@ -115,7 +110,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
             <Button
               className="text-sm"
-              icon={<CursorClickIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
             >
               {nft.contractType === 'ERC1155_COLLECTION' ? (

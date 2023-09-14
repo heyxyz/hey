@@ -1,4 +1,4 @@
-import { LockClosedIcon } from '@heroicons/react/outline';
+import { LockClosedIcon } from '@heroicons/react/24/outline';
 import { HelpTooltip, Modal, Tooltip } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';

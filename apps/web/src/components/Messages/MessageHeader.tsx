@@ -1,6 +1,6 @@
 import Unfollow from '@components/Shared/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
-import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';

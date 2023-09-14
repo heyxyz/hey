@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
-import { PencilAltIcon, UsersIcon } from '@heroicons/react/outline';
+import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -36,7 +36,7 @@ const Search: NextPage = () => {
             items={[
               {
                 title: t`Publications`,
-                icon: <PencilAltIcon className="h-4 w-4" />,
+                icon: <PencilSquareIcon className="h-4 w-4" />,
                 url: `/search?q=${searchText}&type=pubs`,
                 active: query.type === 'pubs'
               },

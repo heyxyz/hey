@@ -1,5 +1,5 @@
-import { UserAddIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -80,7 +80,7 @@ const SwitchProfiles: FC = () => {
         >
           <span className="flex items-center space-x-2">
             <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
-              <UserAddIcon className="text-brand h-3 w-3" />
+              <UserPlusIcon className="text-brand h-3 w-3" />
             </div>
             <div>
               <Trans>Create Profile</Trans>

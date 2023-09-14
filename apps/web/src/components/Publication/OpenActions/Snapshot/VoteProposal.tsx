@@ -1,5 +1,5 @@
-import { ExclamationIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SNAPSHOT_SEQUNECER_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
@@ -123,7 +123,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
             {isLoading ? (
               <Spinner size="xs" />
             ) : error ? (
-              <ExclamationIcon className="h-5 w-5 text-yellow-500" />
+              <ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />
             ) : (
               <>
                 {humanize(totalVotingPower)} {symbol}

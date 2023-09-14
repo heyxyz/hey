@@ -1,5 +1,5 @@
 import Alpha from '@components/Shared/Badges/Alpha';
-import { TagIcon } from '@heroicons/react/outline';
+import { TagIcon } from '@heroicons/react/24/outline';
 import { Card } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';

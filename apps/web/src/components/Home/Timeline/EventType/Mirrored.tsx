@@ -1,5 +1,5 @@
 import Profiles from '@components/Shared/Profiles';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import type { MirrorEvent } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -20,7 +20,7 @@ const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
 
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
-      <SwitchHorizontalIcon className="h-4 w-4" />
+      <ArrowsRightLeftIcon className="h-4 w-4" />
       <Profiles profiles={getMirroredProfiles()} context={t`mirrored`} />
     </div>
   );

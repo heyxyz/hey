@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from '@heroicons/react/outline';
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { HelpTooltip } from '@lenster/ui';
 import getRedstonePrice from '@lib/getRedstonePrice';

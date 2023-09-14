@@ -1,5 +1,8 @@
 import Unfollow from '@components/Shared/Unfollow';
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -85,7 +88,7 @@ const UserProfile: FC<UserProfileProps> = ({
           </div>
         </div>
         {isVerified(profile.id) ? (
-          <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />

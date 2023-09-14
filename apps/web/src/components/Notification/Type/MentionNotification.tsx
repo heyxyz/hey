@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { AtSymbolIcon } from '@heroicons/react/solid';
+import { AtSymbolIcon } from '@heroicons/react/24/solid';
 import type { NewMentionNotification } from '@lenster/lens';
 import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';

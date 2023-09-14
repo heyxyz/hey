@@ -1,13 +1,13 @@
 import {
-  ChatAlt2Icon,
+  ArrowsRightLeftIcon,
+  ChatBubbleLeftRightIcon,
   CheckCircleIcon,
-  CollectionIcon,
   HeartIcon,
-  PencilAltIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon
-} from '@heroicons/react/outline';
-import { CalendarIcon } from '@heroicons/react/solid';
+  PencilSquareIcon,
+  RectangleStackIcon,
+  UserPlusIcon
+} from '@heroicons/react/24/outline';
+import { CalendarIcon } from '@heroicons/react/24/solid';
 import { ACHIEVEMENTS_WORKER_URL } from '@lenster/data/constants';
 import { PROFILE, PUBLICATION } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
@@ -42,17 +42,17 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     switch (event) {
       case PROFILE.FOLLOW:
       case PROFILE.SUPER_FOLLOW:
-        return <UserAddIcon className="h-5 w-5 text-green-500" />;
+        return <UserPlusIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.LIKE:
         return <HeartIcon className="h-5 w-5 text-red-500" />;
       case PUBLICATION.NEW_POST:
-        return <PencilAltIcon className="text-brand h-5 w-5" />;
+        return <PencilSquareIcon className="text-brand h-5 w-5" />;
       case PUBLICATION.NEW_COMMENT:
-        return <ChatAlt2Icon className="text-brand h-5 w-5" />;
+        return <ChatBubbleLeftRightIcon className="text-brand h-5 w-5" />;
       case PUBLICATION.MIRROR:
-        return <SwitchHorizontalIcon className="h-5 w-5 text-green-500" />;
+        return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:
-        return <CollectionIcon className="h-5 w-5 text-pink-500" />;
+        return <RectangleStackIcon className="h-5 w-5 text-pink-500" />;
       case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
         return <CheckCircleIcon className="h-5 w-5 text-green-500" />;
       default:

@@ -1,5 +1,5 @@
-import { ClockIcon, PlusIcon, XIcon } from '@heroicons/react/outline';
-import { MenuAlt2Icon, XCircleIcon } from '@heroicons/react/solid';
+import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@lenster/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -19,7 +19,7 @@ const PollEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <MenuAlt2Icon className="text-brand h-4 w-4" />
+          <Bars3BottomLeftIcon className="text-brand h-4 w-4" />
           <b>Poll</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -114,7 +114,7 @@ const PollEditor: FC = () => {
                       setPollConfig({ ...pollConfig, choices: newChoices });
                     }}
                   >
-                    <XIcon className="h-5 w-5 text-red-500" />
+                    <XMarkIcon className="h-5 w-5 text-red-500" />
                   </button>
                 ) : null
               }

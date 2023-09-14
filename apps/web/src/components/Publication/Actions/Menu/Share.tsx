@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { ClipboardCopyIcon } from '@heroicons/react/outline';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -35,7 +35,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ClipboardCopyIcon className="h-4 w-4" />
+        <ClipboardDocumentIcon className="h-4 w-4" />
         <div>
           <Trans>Share</Trans>
         </div>
