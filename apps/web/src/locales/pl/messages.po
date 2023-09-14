@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-13 00:08\n"
+"PO-Revision-Date: 2023-09-14 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -1940,6 +1940,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -3185,6 +3186,10 @@ msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
