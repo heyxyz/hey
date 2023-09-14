@@ -100,7 +100,7 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     if (!lazyProfile.id) {
       return (
-        <div className="flex p-3 pt-4">
+        <div className="flex h-12 items-center px-3">
           <Trans>No profile found</Trans>
         </div>
       );
