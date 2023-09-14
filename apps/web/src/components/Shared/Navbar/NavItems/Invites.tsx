@@ -18,7 +18,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
   return (
     <button
       className={cn(
-        'flex w-full items-center space-x-1.5 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => {
@@ -26,7 +26,9 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
         Leafwatch.track(INVITE.OPEN_INVITE);
       }}
     >
-      <TicketIcon className="h-4 w-4" />
+      <div>
+        <TicketIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Invites</Trans>
       </div>
