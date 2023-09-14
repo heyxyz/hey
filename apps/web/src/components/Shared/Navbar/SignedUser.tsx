@@ -72,8 +72,10 @@ const SignedUser: FC = () => {
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
-              <span>
-                <Trans>Logged in as</Trans>
+              <div className="flex w-full flex-col">
+                <div>
+                  <Trans>Logged in as</Trans>
+                </div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"
@@ -81,7 +83,7 @@ const SignedUser: FC = () => {
                     prefix="@"
                   />
                 </div>
-              </span>
+              </div>
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
