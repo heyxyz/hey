@@ -1,15 +1,15 @@
 import {
   BellIcon,
+  EnvelopeIcon,
   HomeIcon,
-  MailIcon,
-  ViewGridIcon
-} from '@heroicons/react/outline';
+  Squares2X2Icon
+} from '@heroicons/react/24/outline';
 import {
   BellIcon as BellIconSolid,
+  EnvelopeIcon as EnvelopeIconSolid,
   HomeIcon as HomeIconSolid,
-  MailIcon as MailIconSolid,
-  ViewGridIcon as ViewGridIconSolid
-} from '@heroicons/react/solid';
+  Squares2X2Icon as Squares2X2IconSolid
+} from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -29,9 +29,9 @@ const BottomNavigation = () => {
         </Link>
         <Link href="/explore" className="mx-auto my-3">
           {isActivePath('/explore') ? (
-            <ViewGridIconSolid className="text-brand h-6 w-6" />
+            <Squares2X2IconSolid className="text-brand h-6 w-6" />
           ) : (
-            <ViewGridIcon className="h-6 w-6" />
+            <Squares2X2Icon className="h-6 w-6" />
           )}
         </Link>
         <Link href="/notifications" className="mx-auto my-3">
@@ -43,9 +43,9 @@ const BottomNavigation = () => {
         </Link>
         <Link href="/messages" className="mx-auto my-3">
           {isActivePath('/messages') ? (
-            <MailIconSolid className="text-brand h-6 w-6" />
+            <EnvelopeIconSolid className="text-brand h-6 w-6" />
           ) : (
-            <MailIcon className="h-6 w-6" />
+            <EnvelopeIcon className="h-6 w-6" />
           )}
         </Link>
       </div>

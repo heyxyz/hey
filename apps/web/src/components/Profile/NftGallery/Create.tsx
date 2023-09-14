@@ -1,4 +1,4 @@
-import { ChevronLeftIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
 import type { NftGallery } from '@lenster/lens';
 import {

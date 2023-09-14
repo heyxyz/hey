@@ -1,4 +1,4 @@
-import { SupportIcon } from '@heroicons/react/outline';
+import { LifebuoyIcon } from '@heroicons/react/24/outline';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -19,7 +19,7 @@ const Contact: FC<ContactProps> = ({ onClick, className = '' }) => {
       )}
       onClick={onClick}
     >
-      <SupportIcon className="h-4 w-4" />
+      <LifebuoyIcon className="h-4 w-4" />
       <div>
         <Trans>Contact</Trans>
       </div>

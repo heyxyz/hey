@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { CubeIcon, PhotographIcon } from '@heroicons/react/outline';
+import { CubeIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import { useProfileSettingsQuery } from '@lenster/lens';
@@ -68,7 +68,7 @@ const ProfileSettings: NextPage = () => {
           <div className="flex items-center space-x-2">
             <TabButton
               name="Upload avatar"
-              icon={<PhotographIcon className="h-5 w-5" />}
+              icon={<PhotoIcon className="h-5 w-5" />}
               active={settingsType === 'AVATAR'}
               onClick={() => setSettingsType('AVATAR')}
             />

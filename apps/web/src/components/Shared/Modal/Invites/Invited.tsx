@@ -1,5 +1,5 @@
-import { TicketIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { TicketIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { InvitedResult } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import { EmptyState, Input } from '@lenster/ui';

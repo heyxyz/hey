@@ -1,4 +1,7 @@
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -95,7 +98,7 @@ const Preview: FC<PreviewProps> = ({
                     : ensName || formatAddress(conversationKey?.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) ? (
-                  <BadgeCheckIcon className="text-brand h-4 w-4 min-w-fit" />
+                  <CheckBadgeIcon className="text-brand h-4 w-4 min-w-fit" />
                 ) : null}
                 {hasMisused(profile?.id) ? (
                   <ExclamationCircleIcon className="h-4 w-4 min-w-fit text-red-500" />

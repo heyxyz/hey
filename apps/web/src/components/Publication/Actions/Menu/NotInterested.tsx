@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   Publication,
@@ -104,7 +104,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
           </>
         ) : (
           <>
-            <EyeOffIcon className="h-4 w-4" />
+            <EyeSlashIcon className="h-4 w-4" />
             <div>Not interested</div>
           </>
         )}

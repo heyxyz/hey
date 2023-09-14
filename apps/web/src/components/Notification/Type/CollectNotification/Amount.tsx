@@ -1,4 +1,4 @@
-import { CurrencyDollarIcon } from '@heroicons/react/outline';
+import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import type { NewCollectNotification } from '@lenster/lens';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';

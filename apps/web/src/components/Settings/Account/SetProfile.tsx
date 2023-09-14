@@ -1,6 +1,9 @@
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import UserProfile from '@components/Shared/UserProfile';
-import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
+import {
+  ExclamationTriangleIcon,
+  PencilIcon
+} from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -135,7 +138,7 @@ const SetProfile: FC = () => {
         </>
       ) : (
         <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
-          <ExclamationIcon className="h-5 w-5" />
+          <ExclamationTriangleIcon className="h-5 w-5" />
           <div>
             <Trans>You don't have any default profile set!</Trans>
           </div>
