@@ -1,5 +1,5 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
+import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import {
   LENSHUB_PROXY,
@@ -136,7 +136,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
-          <XIcon className="h-4 w-4" />
+          <XMarkIcon className="h-4 w-4" />
         ) : (
           <CheckCircleIcon className="h-4 w-4" />
         )

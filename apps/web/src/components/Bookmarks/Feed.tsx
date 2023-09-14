@@ -1,6 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { BookmarkIcon } from '@heroicons/react/outline';
+import { BookmarkIcon } from '@heroicons/react/24/outline';
 import type {
   Publication,
   PublicationMainFocus,

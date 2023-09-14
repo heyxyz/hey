@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
-import { HomeIcon } from '@heroicons/react/outline';
+import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@lenster/data/constants';
 import { Button } from '@lenster/ui';
 import circluarStd from '@lib/lensterFont';

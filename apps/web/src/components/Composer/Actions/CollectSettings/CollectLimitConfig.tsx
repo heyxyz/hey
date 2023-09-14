@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { StarIcon } from '@heroicons/react/outline';
+import { StarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

@@ -1,6 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   Publication,
   PublicationSearchResult,
@@ -75,7 +75,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
             No publications for <b>&ldquo;{query}&rdquo;</b>
           </Trans>
         }
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );
   }

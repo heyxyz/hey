@@ -1,4 +1,4 @@
-import { EmojiHappyIcon } from '@heroicons/react/outline';
+import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -30,7 +30,7 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
     <button
       type="button"
       className={cn(
-        'flex w-full items-center space-x-2 px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full items-center space-x-2 px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => setShowStatusModal(true)}
@@ -42,7 +42,9 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
         </>
       ) : (
         <>
-          <EmojiHappyIcon className="h-4 w-4" />
+          <div>
+            <FaceSmileIcon className="h-4 w-4" />
+          </div>
           <span>
             <Trans>Set status</Trans>
           </span>

@@ -1,7 +1,7 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { LightBulbIcon } from '@heroicons/react/outline';
+import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
 import { useFeedHighlightsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';

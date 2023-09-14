@@ -1,4 +1,4 @@
-import { LogoutIcon } from '@heroicons/react/outline';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@lenster/data/tracking';
 import resetAuthData from '@lenster/lib/resetAuthData';
 import cn from '@lenster/ui/cn';
@@ -48,12 +48,14 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         onClick?.();
       }}
       className={cn(
-        'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
       <div className="flex items-center space-x-1.5">
-        <LogoutIcon className="h-4 w-4" />
+        <div>
+          <ArrowRightOnRectangleIcon className="h-4 w-4" />
+        </div>
         <div>
           <Trans>Logout</Trans>
         </div>

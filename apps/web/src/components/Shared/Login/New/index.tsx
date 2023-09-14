@@ -1,5 +1,5 @@
 import ChooseFile from '@components/Shared/ChooseFile';
-import { PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, ZERO_ADDRESS } from '@lenster/data/constants';
 import { Regex } from '@lenster/data/regex';
 import { RelayErrorReasons, useCreateProfileMutation } from '@lenster/lens';

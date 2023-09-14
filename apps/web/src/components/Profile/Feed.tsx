@@ -1,6 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   Profile,
   Publication,
@@ -134,7 +134,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
             <span>{emptyMessage}</span>
           </div>
         }
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );
   }

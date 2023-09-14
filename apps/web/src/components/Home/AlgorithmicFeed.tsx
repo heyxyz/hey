@@ -1,6 +1,6 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { SparklesIcon } from '@heroicons/react/outline';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { HomeFeedType } from '@lenster/data/enums';
 import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
 import { useProfileFeedQuery } from '@lenster/lens';

@@ -1,4 +1,4 @@
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -17,13 +17,15 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
     <button
       type="button"
       className={cn(
-        'flex w-full px-2 py-1.5 text-sm text-gray-700 focus:outline-none dark:text-gray-200',
+        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 focus:outline-none dark:text-gray-200',
         className
       )}
       onClick={() => setShowProfileSwitchModal(true)}
     >
       <div className="flex items-center space-x-2">
-        <SwitchHorizontalIcon className="h-4 w-4" />
+        <div>
+          <ArrowsRightLeftIcon className="h-4 w-4" />
+        </div>
         <span>
           <Trans>Switch profile</Trans>
         </span>

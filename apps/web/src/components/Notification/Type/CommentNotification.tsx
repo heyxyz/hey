@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { ChatAlt2Icon } from '@heroicons/react/solid';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
 import type { NewCommentNotification } from '@lenster/lens';
 import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
@@ -42,7 +42,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <ChatAlt2Icon className="h-6 w-6 text-blue-500/70" />
+            <ChatBubbleLeftRightIcon className="h-6 w-6 text-blue-500/70" />
             <UserPreview profile={notification?.profile}>
               <NotificationProfileAvatar profile={notification?.profile} />
             </UserPreview>

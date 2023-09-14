@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
-import { HeartIcon } from '@heroicons/react/solid';
+import { HeartIcon } from '@heroicons/react/24/solid';
 import type { NewReactionNotification } from '@lenster/lens';
 import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
