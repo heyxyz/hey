@@ -3208,6 +3208,10 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
 
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
 msgstr ""
