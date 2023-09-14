@@ -15,7 +15,9 @@ const Settings: FC<SettingsProps> = ({ className = '' }) => {
         className
       )}
     >
-      <Cog6ToothIcon className="h-4 w-4" />
+      <div>
+        <Cog6ToothIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Settings</Trans>
       </div>
