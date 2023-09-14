@@ -85,7 +85,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   );
 
   const Preview = () => {
-    if (loading || !lazyProfile.id) {
+    if (loading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
@@ -181,8 +181,11 @@ const UserPreview: FC<UserPreviewProps> = ({
       });
 
       const getProfile = data?.profile;
+
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
+      } else {
+        setLoading(false);
       }
 
       setTimeout(() => {
@@ -193,19 +196,23 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
-      <Tippy
-        placement="bottom-start"
-        delay={[100, 0]}
-        hideOnClick={false}
-        content={<Preview />}
-        arrow={false}
-        interactive
-        zIndex={1000}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
-        appendTo={() => document.body}
-      >
+      {loading || lazyProfile.id ? (
+        <Tippy
+          placement="bottom-start"
+          delay={[100, 0]}
+          hideOnClick={false}
+          content={<Preview />}
+          arrow={false}
+          interactive
+          zIndex={1000}
+          className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+          appendTo={() => document.body}
+        >
+          <span>{children}</span>
+        </Tippy>
+      ) : (
         <span>{children}</span>
-      </Tippy>
+      )}
     </span>
   ) : (
     <span>{children}</span>
