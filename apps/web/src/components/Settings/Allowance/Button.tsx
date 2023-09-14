@@ -6,7 +6,7 @@ import {
 import { SETTINGS } from '@hey/data/tracking';
 import type { ApprovedAllowanceAmount } from '@hey/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
-import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
+import { Button, Input, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
@@ -30,6 +30,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   setAllowed
 }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
+  const [allowanceAmount, setAllowanceAmount] = useState('');
   const [generateAllowanceQuery, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
 
@@ -128,7 +129,30 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
               </div>
             }
           />
+          <div className="flex pt-2">
+            <Input
+              label={t`Allow amount (MATIC)`}
+              type="number"
+              step="1"
+              min="0"
+              placeholder="100"
+              max={Number.MAX_SAFE_INTEGER.toString()}
+              value={allowanceAmount}
+              onChange={(e) => {
+                setAllowanceAmount(e.target.value);
+              }}
+            />
+            <Button
+              className="ml-2 self-center whitespace-nowrap"
+              onClick={() =>
+                setAllowanceAmount(Number.MAX_SAFE_INTEGER.toString())
+              }
+            >
+              <Trans>Use max</Trans>
+            </Button>
+          </div>
           <Button
+            disabled={!allowanceAmount || Number(allowanceAmount) == 0}
             icon={
               queryLoading || transactionLoading || waitLoading ? (
                 <Spinner size="xs" />
@@ -137,11 +161,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
               )
             }
             onClick={() =>
-              handleAllowance(
-                module.currency,
-                Number.MAX_SAFE_INTEGER.toString(),
-                module.module
-              )
+              handleAllowance(module.currency, allowanceAmount, module.module)
             }
           >
             {title}
