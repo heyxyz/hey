@@ -3208,6 +3208,10 @@ msgstr "You don't have enough <0>{currency}</0>"
 msgid "Swap in Uniswap"
 msgstr ""
 
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr "No profile found"
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
 msgstr "Updating access..."
