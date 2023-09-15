@@ -601,18 +601,6 @@ msgid "collected"
 msgstr "已收藏"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "mirrored{0}"
-#~ msgstr "已转发{0}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "commented{0}{1}"
-#~ msgstr "已评论{0}{1}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "collected{0}"
-#~ msgstr "已收藏{0}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "mirrored"
