@@ -5,6 +5,9 @@
  * @returns The string with the first letter capitalized and dashes replaced with spaces
  */
 const getAppName = (str: string): string => {
+  if (!str) {
+    return '';
+  }
   const initCase = str.charAt(0).toUpperCase() + str.slice(1);
   return initCase.replace(/-/g, ' ');
 };
