@@ -23,6 +23,6 @@
     "@cloudflare/workers-types": "^4.20230904.0",
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
-    "wrangler": "^3.7.0"
+    "wrangler": "^3.8.0"
   }
 }
