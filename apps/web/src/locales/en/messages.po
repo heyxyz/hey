@@ -596,30 +596,41 @@ msgid "Tags"
 msgstr "Tags"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "collected"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr ""
+#~ msgid "mirrored{0}"
+#~ msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr ""
+#~ msgid "commented{0}{1}"
+#~ msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr ""
+#~ msgid "collected{0}"
+#~ msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr "mirrored"
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "commented"
+msgstr "commented"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
-msgstr "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
+msgstr "and"
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -3090,6 +3101,14 @@ msgstr "Log in to continue"
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr "other"
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr "others"
 
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
