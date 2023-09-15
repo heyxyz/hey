@@ -39,7 +39,7 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
     ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Nft.toLowerCase(),
+    ProfileFeedType.Gallery.toLowerCase(),
     ProfileFeedType.Stats.toLowerCase()
   ];
   const [feedType, setFeedType] = useState(
@@ -143,7 +143,7 @@ const ViewProfile: NextPage = () => {
           feedType === ProfileFeedType.Collects ? (
             <Feed profile={profile as Profile} type={feedType} />
           ) : null}
-          {feedType === ProfileFeedType.Nft ? (
+          {feedType === ProfileFeedType.Gallery ? (
             <NftGallery profile={profile as Profile} />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (
