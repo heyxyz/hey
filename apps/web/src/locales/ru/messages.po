@@ -1417,6 +1417,10 @@ msgid "Failed to load profile feed"
 msgstr "Не удалось загрузить ленту профиля"
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr "NFTs"
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "Лента"
 
@@ -1429,8 +1433,8 @@ msgid "Collected"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFTs"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
