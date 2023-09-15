@@ -2,11 +2,14 @@ import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
@@ -18,9 +21,10 @@ import NftShimmer from './Shimmer';
 
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
+  publication: Publication;
 }
 
-const Nft: FC<NftProps> = ({ nftMetadata }) => {
+const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   const { chain, address, token } = nftMetadata;
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [showMintModal, setShowMintModal] = useState(false);
@@ -93,6 +97,9 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
                 setQuantity(1);
                 setCanMintOnLenster(false);
                 setShowMintModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_MINT, {
+                  publication_id: publication.id
+                });
               }}
             >
               <Trans>Mint</Trans>
@@ -103,7 +110,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
-              <Mint nft={nft} zoraLink={zoraLink} />
+              <Mint nft={nft} zoraLink={zoraLink} publication={publication} />
             </Modal>
           </>
         ) : (
@@ -112,6 +119,12 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
+              onClick={() =>
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+                  publication_id: publication.id,
+                  from: 'mint_embed'
+                })
+              }
             >
               {nft.contractType === 'ERC1155_COLLECTION' ? (
                 <Trans>Mint all on Zora</Trans>
