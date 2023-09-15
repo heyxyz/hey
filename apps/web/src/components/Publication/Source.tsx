@@ -12,11 +12,12 @@ interface SourceProps {
 const Source: FC<SourceProps> = ({ publication }) => {
   const { appId } = publication;
   const show = apps.includes(appId);
-  const appName = getAppName(appId);
 
   if (!show) {
     return null;
   }
+
+  const appName = getAppName(appId);
 
   return (
     <Tooltip content={appName} placement="top">
