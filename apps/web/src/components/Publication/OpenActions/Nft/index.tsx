@@ -53,9 +53,11 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
     return null;
   }
 
-  const canMint = ['ERC721_DROP', 'ERC1155_COLLECTION_TOKEN'].includes(
-    nft.contractType
-  );
+  const canMint = [
+    'ERC721_DROP',
+    'ERC721_SINGLE_EDITION',
+    'ERC1155_COLLECTION_TOKEN'
+  ].includes(nft.contractType);
 
   const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
