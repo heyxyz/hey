@@ -30,11 +30,12 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
 
   return (
     <div className="min-w-[24rem]">
-      {isLoading ? (
+      {isLobbyPreview && isLoading && (
         <div className="grid min-h-[18rem] items-center justify-center p-4">
           <Spinner />
         </div>
-      ) : isLobbyPreview && Object.keys(previewPeers).length > 0 ? (
+      )}
+      {isLobbyPreview && Object.keys(previewPeers).length > 0 ? (
         <div className="m-4 grid min-h-[18rem] grid-cols-5 items-center justify-between gap-5">
           {Object.values(previewPeers).map(({ displayName, avatarUrl }) => (
             <Avatar

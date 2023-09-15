@@ -1011,10 +1011,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
         {showComposerModal &&
         modalPublicationType === NewPublicationTypes.Spaces ? (
-          <SpaceSettings
-            createPublication={createPublication}
-            isLoading={isLoading}
-          />
+          <SpaceSettings />
         ) : (
           <div className="flex items-center space-x-4">
             <Attachment />

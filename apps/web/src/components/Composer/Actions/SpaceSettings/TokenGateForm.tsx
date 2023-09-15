@@ -10,6 +10,8 @@ import React from 'react';
 import { TokenGateCondition } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
 
+import SearchProfile from './SeachProfile';
+
 const getTokenGateConditionDescription = (
   tokenGateConditionType: TokenGateCondition
 ): string => {
@@ -70,39 +72,32 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
   } = useSpacesStore();
 
   return (
-    <>
+    <div className="items-center p-5 text-gray-500">
       {[
         TokenGateCondition.MIRROR_A_POST,
         TokenGateCondition.COLLECT_A_POST,
         TokenGateCondition.FOLLOW_A_LENS_PROFILE
       ].includes(tokenGateConditionType) && (
-        <div className="flex items-center p-3 text-gray-500">
-          <span>
-            {tokenGateConditionType === TokenGateCondition.FOLLOW_A_LENS_PROFILE
-              ? t`Enter Lens profile`
-              : t`Enter Lens post link`}
-          </span>
-          <div className="flex-1 px-3">
-            {tokenGateConditionType ===
-            TokenGateCondition.FOLLOW_A_LENS_PROFILE ? (
-              <Input
-                placeholder={t`Enter lens profile`}
-                value={tokenGateConditionValue}
-                onChange={(e) => setTokenGateConditionValue(e.target.value)}
-                className="placeholder-gray-400"
-              />
-            ) : (
-              <Input
-                placeholder={t`Lens post link`}
-                value={tokenGateConditionValue}
-                onChange={(e) => setTokenGateConditionValue(e.target.value)}
-                className="placeholder-gray-400"
-              />
-            )}
-          </div>
+        <div className="flex-1 px-3">
+          {tokenGateConditionType ===
+          TokenGateCondition.FOLLOW_A_LENS_PROFILE ? (
+            <SearchProfile
+              modalWidthClassName="max-w-xs"
+              placeholder={t`Search for lens profile...`}
+              label={t`Enter Lens profile handle`}
+            />
+          ) : (
+            <Input
+              label="Enter Lens post link"
+              placeholder={t`Lens post link`}
+              value={tokenGateConditionValue}
+              onChange={(e) => setTokenGateConditionValue(e.target.value)}
+              className="placeholder-gray-400"
+            />
+          )}
         </div>
       )}
-      <div className="flex items-center gap-2 p-4">
+      <div className="flex items-center gap-2 p-3">
         <Toggle
           on={isTokenGated}
           setOn={() => setIsTokenGated(!isTokenGated)}
@@ -163,7 +158,7 @@ const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
           </Menu>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -74,7 +74,7 @@ const MusicTray: FC = () => {
       />
       <div
         className={cn(
-          'bg-brand-500 inline-flex w-full cursor-pointer items-center gap-2 rounded-b-lg p-2',
+          'bg-brand-500 inline-flex w-full cursor-pointer items-center gap-2 rounded-b-lg px-1.5 py-2',
           isMyMusicPlaying ? 'bg-red-400 bg-opacity-20' : 'bg-brand-500'
         )}
         onClick={() => {
@@ -90,7 +90,7 @@ const MusicTray: FC = () => {
         )}
         <div
           className={cn(
-            'text-sm font-semibold',
+            'ml-1.5 text-sm font-semibold',
             isMyMusicPlaying ? 'text-red-400' : 'text-gray-200'
           )}
         >

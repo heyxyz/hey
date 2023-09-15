@@ -8,15 +8,7 @@ import React, { useState } from 'react';
 import ScheduleSpacesForm from './ScheduleSpacesForm';
 import TokenGateForm from './TokenGateForm';
 
-interface SpaceSettingsProps {
-  isLoading: boolean;
-  createPublication: () => void;
-}
-
-const SpaceSettings: FC<SpaceSettingsProps> = ({
-  isLoading,
-  createPublication
-}) => {
+const SpaceSettings: FC = () => {
   const [showTokenGateModal, setShowTokenGateModal] = useState(false);
   const [showScheduleSpacesModal, setShowScheduleSpacesModal] = useState(false);
 
@@ -57,11 +49,7 @@ const SpaceSettings: FC<SpaceSettingsProps> = ({
         show={showScheduleSpacesModal}
         onClose={() => setShowScheduleSpacesModal(false)}
       >
-        <ScheduleSpacesForm
-          setShowModal={setShowScheduleSpacesModal}
-          isLoading={isLoading}
-          createPublication={createPublication}
-        />
+        <ScheduleSpacesForm setShowModal={setShowScheduleSpacesModal} />
       </Modal>
     </div>
   );
