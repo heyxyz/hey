@@ -1,5 +1,6 @@
 import ProfileNameOrHandle from '@components/Shared/ProfileNameOrHandle';
 import type { Profile } from '@lenster/lens';
+import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 
 interface ProfileCirclesProps {
@@ -27,10 +28,14 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
     );
   }
 
+  const andSep = () => {
+    return ' ' + t`and` + ' ';
+  };
+
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <ProfileNameOrHandle profile={profileOne} separator=" and " />
+        <ProfileNameOrHandle profile={profileOne} separator={andSep()} />
         <ProfileNameOrHandle profile={profileTwo} />
       </Wrapper>
     );
@@ -45,16 +50,15 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
         <ProfileNameOrHandle profile={profileOne} separator=", " />
         <ProfileNameOrHandle
           profile={profileTwo}
-          separator={isZero ? ' and ' : ', '}
+          separator={isZero ? andSep() : ', '}
         />
         <ProfileNameOrHandle
           profile={profileThree}
           separator={
             !isZero ? (
               <span className="whitespace-nowrap">
-                {' '}
-                and {calculatedCount}{' '}
-                {calculatedCount === 1 ? 'other' : 'others'}
+                {andSep()}
+                {calculatedCount} {calculatedCount === 1 ? t`other` : t`others`}
               </span>
             ) : null
           }
