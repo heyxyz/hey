@@ -993,38 +993,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       <div className="items-center p-1 px-5 sm:flex">
-        <div className="flex items-center space-x-4">
-          <Attachment />
-          <EmojiPicker
-            emojiClassName="text-brand"
-            setShowEmojiPicker={setShowEmojiPicker}
-            showEmojiPicker={showEmojiPicker}
-            setEmoji={(emoji) => {
-              setShowEmojiPicker(false);
-              editor.update(() => {
-                // @ts-ignore
-                const index = editor?._editorState?._selection?.focus?.offset;
-                const updatedContent =
-                  publicationContent.substring(0, index) +
-                  emoji +
-                  publicationContent.substring(
-                    index,
-                    publicationContent.length
-                  );
-                $convertFromMarkdownString(updatedContent);
-              });
-            }}
-          />
-          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {!publication?.isDataAvailability ? (
-            <>
-              <CollectSettings />
-              <ReferenceSettings />
-              <AccessSettings />
-            </>
-          ) : null}
-          <PollSettings />
-        </div>
         <div className="absolute right-2 inline-flex">
           <div className="ml-auto pr-3 sm:pt-0">
             <Button

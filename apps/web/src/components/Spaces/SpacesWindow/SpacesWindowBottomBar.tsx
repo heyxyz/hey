@@ -1,5 +1,6 @@
 import {
   FaceSmileIcon,
+  MicrophoneIcon,
   MusicalNoteIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
@@ -12,7 +13,7 @@ import {
 } from '@huddle01/react/hooks';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { toast } from 'react-hot-toast';
 import { SpacesEvents } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
@@ -33,19 +34,8 @@ const SpacesWindowBottomBar: FC = () => {
     stopProducingAudio
   } = useAudio();
 
-  const {
-    setSidebarView,
-    sidebar,
-    isAudioOn,
-    setIsAudioOn,
-    setActiveMicDevice,
-    setActiveSpeakerDevice,
-    activeMicDevice,
-    activeSpeakerDevice
-  } = useSpacesStore();
-
-  const [micDevices, setMicDevices] = useState<MediaDeviceInfo[]>([]);
-  const [speakerDevices, setSpeakerDevices] = useState<MediaDeviceInfo[]>([]);
+  const { setSidebarView, sidebar, isAudioOn, setIsAudioOn, activeMicDevice } =
+    useSpacesStore();
 
   const { sendData } = useAppUtils();
 
@@ -56,35 +46,6 @@ const SpacesWindowBottomBar: FC = () => {
   useEventListener(SpacesEvents.APP_MIC_OFF, () => {
     stopProducingAudio();
   });
-
-  useEffect(() => {
-    if (!activeMicDevice || !activeSpeakerDevice) {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-        navigator.mediaDevices.enumerateDevices().then(async (devices) => {
-          const mic = devices.find((device) => device.kind === 'audioinput');
-          if (mic && !activeMicDevice) {
-            setActiveMicDevice(mic);
-          }
-          const speaker = devices.find(
-            (device) => device.kind === 'audiooutput'
-          );
-          if (speaker && !activeSpeakerDevice) {
-            setActiveSpeakerDevice(speaker);
-          }
-        });
-      });
-    }
-    if (micDevices.length === 0 || speakerDevices.length === 0) {
-      navigator.mediaDevices.enumerateDevices().then(async (devices) => {
-        const mic = devices.filter((device) => device.kind === 'audioinput');
-        setMicDevices(mic);
-        const speaker = devices.filter(
-          (device) => device.kind === 'audiooutput'
-        );
-        setSpeakerDevices(speaker);
-      });
-    }
-  }, [activeMicDevice, activeSpeakerDevice]);
 
   const sendSpeakerRequest = () => {
     const peerIds = Object.values(peers)
@@ -112,7 +73,7 @@ const SpacesWindowBottomBar: FC = () => {
               stopAudioStream();
               setIsAudioOn(false);
             } else {
-              fetchAudioStream();
+              fetchAudioStream(activeMicDevice?.deviceId);
               setIsAudioOn(true);
             }
           }}
@@ -125,6 +86,8 @@ const SpacesWindowBottomBar: FC = () => {
           className="bg-brand-500 dark:bg-brand-950 inline-flex h-5 items-center justify-start gap-1 rounded-lg px-2 py-4"
           onClick={sendSpeakerRequest}
         >
+          <MicrophoneIcon className="dark:text-brand-400 relative h-4 w-4 text-gray-50" />
+
           <div className="dark:text-brand-400 text-xs font-medium leading-none text-gray-50">
             <Trans>Request to speak</Trans>
           </div>

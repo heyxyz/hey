@@ -40,7 +40,7 @@ const SpaceSettings: FC = () => {
         show={showTokenGateModal}
         onClose={() => setShowTokenGateModal(false)}
       >
-        <TokenGateForm setShowModal={setShowTokenGateModal} />
+        <TokenGateForm />
       </Modal>
 
       <Modal

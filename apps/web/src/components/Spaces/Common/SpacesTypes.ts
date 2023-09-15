@@ -12,3 +12,7 @@ export type Peer = {
   role: RoleEnum;
   avatarUrl: string;
 };
+
+export type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
+  setSinkId: (id: string) => void;
+};

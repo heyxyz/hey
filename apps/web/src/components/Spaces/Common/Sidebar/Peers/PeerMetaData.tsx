@@ -81,8 +81,13 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
     stopProducingAudio
   } = useAudio();
   const [isHandRaised, setIsHandRaised] = useState(false);
-  const { setMyHandRaised, isMyHandRaised, isAudioOn, setIsAudioOn } =
-    useSpacesStore();
+  const {
+    setMyHandRaised,
+    isMyHandRaised,
+    isAudioOn,
+    setIsAudioOn,
+    activeMicDevice
+  } = useSpacesStore();
 
   useEffect(() => {
     sendData('*', {
@@ -138,7 +143,9 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
                 ['host', 'coHost', 'speaker'].includes(role) &&
                 peerId === me.meId
               ) {
-                isAudioOn ? stopAudioStream() : fetchAudioStream();
+                isAudioOn
+                  ? stopAudioStream()
+                  : fetchAudioStream(activeMicDevice?.deviceId);
               }
             }}
             className="flex items-center justify-center"

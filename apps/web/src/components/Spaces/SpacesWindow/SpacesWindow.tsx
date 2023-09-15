@@ -13,10 +13,12 @@ import { toast } from 'react-hot-toast';
 import { MusicTrack, SpacesEvents } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useSpacesStore } from 'src/store/spaces';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import AvatarGrid from '../Common/AvatarGrid/AvatarGrid';
 import InvitationModal from '../Common/InvitationModal';
 import Sidebar from '../Common/Sidebar/Sidebar';
+import type { HTMLAudioElementWithSetSinkId } from '../Common/SpacesTypes';
 import SpacesSummary from './SpacesSummary';
 import SpacesWindowBottomBar from './SpacesWindowBottomBar';
 import SpaceWindowHeader from './SpaceWindowHeader';
@@ -33,13 +35,14 @@ const SpacesWindow: FC = () => {
     removeRequestedPeers,
     requestedPeers,
     myMusicTrack,
-    isMyMusicPlaying
+    isMyMusicPlaying,
+    activeSpeakerDevice
   } = useSpacesStore();
   const [requestType, setRequestType] = useState('');
   const { peers } = usePeers();
   const [musicTrack, setMusicTrack] = useState('');
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const audioRef = createRef<HTMLAudioElement>();
+  const audioRef = createRef<HTMLAudioElementWithSetSinkId>();
 
   const currentProfile = useAppStore((state) => state.currentProfile);
 
@@ -124,6 +127,12 @@ const SpacesWindow: FC = () => {
       audioRef.current?.pause();
     }
   }, [isMusicPlaying]);
+
+  useUpdateEffect(() => {
+    if (activeSpeakerDevice) {
+      audioRef.current?.setSinkId(activeSpeakerDevice.deviceId);
+    }
+  }, [activeSpeakerDevice]);
 
   useEffect(() => {
     if (changeAvatarUrl.isCallable) {

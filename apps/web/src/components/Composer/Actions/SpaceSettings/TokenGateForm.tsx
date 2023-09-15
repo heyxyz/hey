@@ -5,7 +5,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { Input, Toggle } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 import React from 'react';
 import { TokenGateCondition } from 'src/enums';
 import { useSpacesStore } from 'src/store/spaces';
@@ -57,11 +57,7 @@ const Module: FC<ModuleProps> = ({
   </Menu.Item>
 );
 
-interface TokenGateFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-}
-
-const TokenGateForm: FC<TokenGateFormProps> = ({ setShowModal }) => {
+const TokenGateForm: FC = () => {
   const {
     isTokenGated,
     setIsTokenGated,

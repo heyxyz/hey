@@ -302,6 +302,35 @@ msgstr "Friend of friends can comment and mirror"
 msgid "Everyone can comment and mirror"
 msgstr "Everyone can comment and mirror"
 
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Search…"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+msgid "{label}"
+msgstr "{label}"
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Searching users"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "No matching users"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#~ msgid "Enter Lens profile"
+#~ msgstr "Enter Lens profile"
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#~ msgid "Enter Lens post link"
+#~ msgstr "Enter Lens post link"
+
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "have a lens profile"
@@ -328,16 +357,12 @@ msgid "{title}"
 msgstr "{title}"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
-msgid "Enter Lens profile"
-msgstr "Enter Lens profile"
-
-#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
-msgid "Enter Lens post link"
-msgstr "Enter Lens post link"
-
-#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Search for lens profile..."
 msgstr "Search for lens profile..."
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Enter Lens profile handle"
+msgstr "Enter Lens profile handle"
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Lens post link"
@@ -352,6 +377,12 @@ msgstr "Token gate with"
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 msgid "Token Gate Spaces"
 msgstr "Token Gate Spaces"
+
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Schedule Spaces"
+msgstr "Schedule Spaces"
 
 #: src/components/Composer/ChooseThumbnail.tsx
 #: src/components/Composer/ChooseThumbnail.tsx
@@ -592,16 +623,6 @@ msgstr ""
 
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
-msgstr ""
-
-#: src/components/Home/SeeThroughLens.tsx
-#: src/components/Shared/Navbar/Search.tsx
-msgid "Searching users"
-msgstr ""
-
-#: src/components/Home/SeeThroughLens.tsx
-#: src/components/Shared/Navbar/Search.tsx
-msgid "No matching users"
 msgstr ""
 
 #: src/components/Home/SetDefaultProfile.tsx
@@ -2637,6 +2658,10 @@ msgid "You can't reply to this post"
 msgstr ""
 
 #: src/components/Shared/Embed/Space/index.tsx
+#~ msgid "{minutes} minutes"
+#~ msgstr "{minutes} minutes"
+
+#: src/components/Shared/Embed/Space/index.tsx
 #: src/components/Shared/Embed/Space/index.tsx
 msgid "Start Listening"
 msgstr "Start Listening"
@@ -2646,12 +2671,16 @@ msgid "Starts in"
 msgstr "Starts in"
 
 #: src/components/Shared/Embed/Space/index.tsx
+msgid "{days} day"
+msgstr "{days} day"
+
+#: src/components/Shared/Embed/Space/index.tsx
 msgid "{hours} hour"
 msgstr "{hours} hour"
 
 #: src/components/Shared/Embed/Space/index.tsx
-msgid "{minutes} minutes"
-msgstr "{minutes} minutes"
+msgid "{minutes} minute"
+msgstr "{minutes} minute"
 
 #: src/components/Shared/Embed/Space/index.tsx
 msgid "Spaces will open in desktop only"
@@ -3116,6 +3145,7 @@ msgid "Report a bug"
 msgstr ""
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
+#: src/components/Spaces/Common/SettingsTray.tsx
 msgid "Settings"
 msgstr ""
 
@@ -3150,10 +3180,6 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your profile"
 msgstr "Your profile"
-
-#: src/components/Shared/Navbar/Search.tsx
-msgid "Search…"
-msgstr ""
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
@@ -3300,7 +3326,10 @@ msgstr "You don't have enough <0>{currency}</0>"
 msgid "Swap in Uniswap"
 msgstr ""
 
-<<<<<<< HEAD
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr "No profile found"
+
 #: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
 msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
 msgstr "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
@@ -3362,11 +3391,6 @@ msgstr "You are now a {role}"
 #: src/components/Spaces/SpacesWindow/SpacesWindowBottomBar.tsx
 msgid "Request to speak"
 msgstr "Request to speak"
-=======
-#: src/components/Shared/UserPreview.tsx
-msgid "No profile found"
-msgstr "No profile found"
->>>>>>> main
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."

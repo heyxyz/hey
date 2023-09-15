@@ -3,13 +3,11 @@ import React, { useEffect, useRef } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 import { useUpdateEffect } from 'usehooks-ts';
 
+import type { HTMLAudioElementWithSetSinkId } from './SpacesTypes';
+
 interface IAudioProps {
   track?: MediaStreamTrack;
 }
-
-type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
-  setSinkId: (id: string) => void;
-};
 
 const Audio: FC<
   IAudioProps &
@@ -18,7 +16,7 @@ const Audio: FC<
       HTMLAudioElement
     >
 > = ({ track }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElementWithSetSinkId>(null);
   const activeSpeakerDevice = useSpacesStore(
     (state) => state.activeSpeakerDevice
   );
@@ -49,7 +47,7 @@ const Audio: FC<
   }, [track]);
 
   useUpdateEffect(() => {
-    const audioObj = audioRef.current as HTMLAudioElementWithSetSinkId;
+    const audioObj = audioRef.current;
     if (audioObj && activeSpeakerDevice) {
       audioObj.setSinkId(activeSpeakerDevice.deviceId);
     }

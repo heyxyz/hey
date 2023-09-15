@@ -302,6 +302,35 @@ msgstr "நண்பர்களின் நண்பர் கருத்த�
 msgid "Everyone can comment and mirror"
 msgstr "எல்லோரும் கருத்து தெரிவிக்கலாம் மற்றும் மிரர் செய்யலாம்"
 
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Search…"
+msgstr "தேடு…"
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+msgid "{label}"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "Searching users"
+msgstr "பயனர்களைத் தேடுகிறது"
+
+#: src/components/Composer/Actions/SpaceSettings/SeachProfile.tsx
+#: src/components/Home/SeeThroughLens.tsx
+#: src/components/Shared/Navbar/Search.tsx
+msgid "No matching users"
+msgstr "பொருத்தமான பயனர்கள் இல்லை"
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#~ msgid "Enter Lens profile"
+#~ msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+#~ msgid "Enter Lens post link"
+#~ msgstr ""
+
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "have a lens profile"
@@ -328,15 +357,11 @@ msgid "{title}"
 msgstr ""
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
-msgid "Enter Lens profile"
-msgstr ""
-
-#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
-msgid "Enter Lens post link"
-msgstr ""
-
-#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
 msgid "Search for lens profile..."
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
+msgid "Enter Lens profile handle"
 msgstr ""
 
 #: src/components/Composer/Actions/SpaceSettings/TokenGateForm.tsx
@@ -351,6 +376,12 @@ msgstr ""
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 #: src/components/Composer/Actions/SpaceSettings/index.tsx
 msgid "Token Gate Spaces"
+msgstr ""
+
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+#: src/components/Composer/Actions/SpaceSettings/index.tsx
+msgid "Schedule Spaces"
 msgstr ""
 
 #: src/components/Composer/ChooseThumbnail.tsx
@@ -593,16 +624,6 @@ msgstr "தேடு"
 #: src/components/Home/SeeThroughLens.tsx
 msgid "Reset filter to your own feed"
 msgstr "உங்கள் சொந்த ஊட்டத்திற்கு வடிகட்டியை மீட்டமைக்கவும்"
-
-#: src/components/Home/SeeThroughLens.tsx
-#: src/components/Shared/Navbar/Search.tsx
-msgid "Searching users"
-msgstr "பயனர்களைத் தேடுகிறது"
-
-#: src/components/Home/SeeThroughLens.tsx
-#: src/components/Shared/Navbar/Search.tsx
-msgid "No matching users"
-msgstr "பொருத்தமான பயனர்கள் இல்லை"
 
 #: src/components/Home/SetDefaultProfile.tsx
 msgid "Set default profile"
@@ -2637,6 +2658,10 @@ msgid "You can't reply to this post"
 msgstr "இந்த இடுகைக்கு நீங்கள் பதிலளிக்க முடியாது"
 
 #: src/components/Shared/Embed/Space/index.tsx
+#~ msgid "{minutes} minutes"
+#~ msgstr ""
+
+#: src/components/Shared/Embed/Space/index.tsx
 #: src/components/Shared/Embed/Space/index.tsx
 msgid "Start Listening"
 msgstr ""
@@ -2646,11 +2671,15 @@ msgid "Starts in"
 msgstr ""
 
 #: src/components/Shared/Embed/Space/index.tsx
+msgid "{days} day"
+msgstr ""
+
+#: src/components/Shared/Embed/Space/index.tsx
 msgid "{hours} hour"
 msgstr ""
 
 #: src/components/Shared/Embed/Space/index.tsx
-msgid "{minutes} minutes"
+msgid "{minutes} minute"
 msgstr ""
 
 #: src/components/Shared/Embed/Space/index.tsx
@@ -3116,6 +3145,7 @@ msgid "Report a bug"
 msgstr "ஒரு பிழையைப் புகாரளிக்கவும்"
 
 #: src/components/Shared/Navbar/NavItems/Settings.tsx
+#: src/components/Spaces/Common/SettingsTray.tsx
 msgid "Settings"
 msgstr "அமைப்புகள்"
 
@@ -3150,10 +3180,6 @@ msgstr "வெளிர்ந்த பயன்முறை"
 #: src/components/Shared/Navbar/NavItems/YourProfile.tsx
 msgid "Your profile"
 msgstr ""
-
-#: src/components/Shared/Navbar/Search.tsx
-msgid "Search…"
-msgstr "தேடு…"
 
 #: src/components/Shared/Navbar/index.tsx
 msgid "Home"
@@ -3299,6 +3325,72 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
+
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr ""
+
+#: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
+msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
+msgstr ""
+
+#: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
+msgid "No listeners"
+msgstr ""
+
+#: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
+msgid "Listener - {listenersCount}"
+msgstr ""
+
+#: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
+msgid "Listeners - {listenersCount}"
+msgstr ""
+
+#: src/components/Spaces/Common/EmojiTray.tsx
+#: src/components/Spaces/Common/MusicTray.tsx
+#: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
+msgid "{0}"
+msgstr ""
+
+#: src/components/Spaces/Common/InvitationModal.tsx
+msgid "Accept"
+msgstr ""
+
+#: src/components/Spaces/Common/InvitationModal.tsx
+msgid "Deny"
+msgstr ""
+
+#: src/components/Spaces/Common/MusicTray.tsx
+msgid "Background Music"
+msgstr ""
+
+#: src/components/Spaces/PreviewSpaces/PreviewSpaces.tsx
+msgid "Your mic will be off at the start"
+msgstr ""
+
+#: src/components/Spaces/PreviewSpaces/PreviewSpacesHeader.tsx
+msgid "@{0}"
+msgstr ""
+
+#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
+msgid "End Spaces"
+msgstr ""
+
+#: src/components/Spaces/SpacesWindow/SpaceWindowHeader.tsx
+msgid "Leave room"
+msgstr ""
+
+#: src/components/Spaces/SpacesWindow/SpacesSummary.tsx
+msgid "Listening"
+msgstr ""
+
+#: src/components/Spaces/SpacesWindow/SpacesWindow.tsx
+msgid "You are now a {role}"
+msgstr ""
+
+#: src/components/Spaces/SpacesWindow/SpacesWindowBottomBar.tsx
+msgid "Request to speak"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
