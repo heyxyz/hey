@@ -596,30 +596,29 @@ msgid "Tags"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "已收藏"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr "已转发{0}"
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr "已转发"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr "已评论{0}{1}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr "已收藏{0}"
+msgid "commented"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "已点赞"
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
-msgstr "已转发"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
+msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -1418,6 +1417,10 @@ msgid "Failed to load profile feed"
 msgstr "个人内容流无法加载"
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr "NFT"
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "内容流"
 
@@ -1430,8 +1433,8 @@ msgid "Collected"
 msgstr "已收藏"
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFT"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
@@ -3091,6 +3094,14 @@ msgstr ""
 msgid "Go to {type}"
 msgstr "前往 {type}"
 
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
+
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
 msgstr ""
@@ -3207,6 +3218,10 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "用Uniswap进行代币转换"
+
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."

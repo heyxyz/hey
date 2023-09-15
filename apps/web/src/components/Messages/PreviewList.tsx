@@ -28,7 +28,6 @@ import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/preferences';
 
 interface PreviewListProps {
-  className?: string;
   selectedConversationKey?: string;
   messages: Map<string, DecodedMessage>;
   profilesToShow: Map<string, Profile>;
@@ -40,7 +39,6 @@ interface PreviewListProps {
 }
 
 const PreviewList: FC<PreviewListProps> = ({
-  className,
   selectedConversationKey,
   messages,
   profilesToShow,

@@ -596,29 +596,28 @@ msgid "Tags"
 msgstr "Теги"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "коллектнуто"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr "миррорнуто{0}"
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr "прокомментировал{0}{1}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr "коллектнуто{0}"
+msgid "commented"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "лайкнуто"
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -1418,6 +1417,10 @@ msgid "Failed to load profile feed"
 msgstr "Не удалось загрузить ленту профиля"
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr "NFTs"
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "Лента"
 
@@ -1430,8 +1433,8 @@ msgid "Collected"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFTs"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
@@ -3091,6 +3094,14 @@ msgstr ""
 msgid "Go to {type}"
 msgstr "Перейти к {type}"
 
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
+
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
 msgstr ""
@@ -3207,6 +3218,10 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "Обмен в Uniswap"
+
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."

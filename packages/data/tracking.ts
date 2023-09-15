@@ -70,6 +70,13 @@ export const PUBLICATION = {
       OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
       VOTE: 'Snapshot: Vote'
     }
+  },
+  OPEN_ACTIONS: {
+    NFT: {
+      OPEN_ZORA_LINK: 'Open Zora link',
+      OPEN_MINT: 'Open mint NFT modal',
+      MINT_NFT: 'Mint NFT'
+    }
   }
 };
 
