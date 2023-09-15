@@ -30,6 +30,7 @@ import { useZoraMintStore } from '.';
 const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
+const SALE_INACTIVE_ERROR = 'Sale_Inactive';
 const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
@@ -154,11 +155,18 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
                   publication_id: publication.id,
-                  from: 'mint_modal'
+                  from: 'mint_modal',
+                  type: prepareError?.message.includes(SALE_INACTIVE_ERROR)
+                    ? 'collect'
+                    : 'mint'
                 })
               }
             >
-              <Trans>Mint on Zora</Trans>
+              {prepareError?.message.includes(SALE_INACTIVE_ERROR) ? (
+                <Trans>Collect on Zora</Trans>
+              ) : (
+                <Trans>Mint on Zora</Trans>
+              )}
             </Button>
           </Link>
         )
