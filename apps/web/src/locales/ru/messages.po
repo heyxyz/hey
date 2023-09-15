@@ -596,29 +596,40 @@ msgid "Tags"
 msgstr "Теги"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "коллектнуто"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr "миррорнуто{0}"
+#~ msgid "mirrored{0}"
+#~ msgstr "миррорнуто{0}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr "прокомментировал{0}{1}"
+#~ msgid "commented{0}{1}"
+#~ msgstr "прокомментировал{0}{1}"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr "коллектнуто{0}"
+#~ msgid "collected{0}"
+#~ msgstr "коллектнуто{0}"
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+msgid "commented"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "лайкнуто"
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -3090,6 +3101,14 @@ msgstr ""
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "Перейти к {type}"
+
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
