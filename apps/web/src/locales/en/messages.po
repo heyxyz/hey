@@ -1840,6 +1840,10 @@ msgid "You exceeded the mint limit"
 msgstr "You exceeded the mint limit"
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Collect on Zora"
+msgstr "Collect on Zora"
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
 #: src/components/Publication/OpenActions/Nft/index.tsx
