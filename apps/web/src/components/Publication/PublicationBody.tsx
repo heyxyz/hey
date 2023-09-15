@@ -112,7 +112,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showNft ? <Nft nftMetadata={nft} /> : null}
+      {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
       {showOembed ? (
         <Oembed
           url={urls[0]}

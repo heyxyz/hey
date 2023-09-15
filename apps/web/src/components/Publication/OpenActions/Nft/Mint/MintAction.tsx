@@ -6,9 +6,12 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -32,9 +35,10 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 interface MintActionProps {
   nft: ZoraNft;
   zoraLink: string;
+  publication: Publication;
 }
 
-const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
+const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { quantity, setCanMintOnLenster } = useZoraMintStore();
   const chain = useChainId();
@@ -78,7 +82,16 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
     write,
     data,
     isLoading: isContractWriteLoading
-  } = useContractWrite(config);
+  } = useContractWrite({
+    ...config,
+    onSuccess: () =>
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.MINT_NFT, {
+        publication_id: publication.id,
+        chain: nft.chainId,
+        nft: nftAddress,
+        quantity
+      })
+  });
   const { isLoading, isSuccess } = useWaitForTransaction({
     chainId: nft.chainId,
     hash: data?.hash
@@ -138,6 +151,12 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink }) => {
               className="mt-5 w-full justify-center"
               icon={<CursorArrowRaysIcon className="h-5 w-5" />}
               size="md"
+              onClick={() =>
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+                  publication_id: publication.id,
+                  from: 'mint_modal'
+                })
+              }
             >
               <Trans>Mint on Zora</Trans>
             </Button>
