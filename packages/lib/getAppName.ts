@@ -8,6 +8,7 @@ const getAppName = (str: string): string => {
   if (!str) {
     return '';
   }
+
   const initCase = str.charAt(0).toUpperCase() + str.slice(1);
   return initCase.replace(/-/g, ' ');
 };
