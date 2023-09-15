@@ -596,19 +596,30 @@ msgid "Tags"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
+#~ msgid "mirrored{0}"
+#~ msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#~ msgid "commented{0}{1}"
+#~ msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#~ msgid "collected{0}"
+#~ msgstr ""
+
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
+msgid "commented"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
@@ -616,9 +627,9 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -3089,6 +3100,14 @@ msgstr ""
 
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
 msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx
