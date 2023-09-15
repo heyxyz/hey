@@ -1417,6 +1417,10 @@ msgid "Failed to load profile feed"
 msgstr "சுயவிவர ஊட்டத்தை ஏற்றுவதில் தோல்வி"
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr "NFTகள்"
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "ஊட்டம்"
 
@@ -1429,8 +1433,8 @@ msgid "Collected"
 msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFTகள்"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
