@@ -110,6 +110,13 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
 
   const mintingOrSuccess = isLoading || isSuccess;
 
+  // Errors
+  const noBalanceError = prepareError?.message.includes(NO_BALANCE_ERROR);
+  const maxMintExceededError = prepareError?.message.includes(
+    MAX_MINT_EXCEEDED_ERROR
+  );
+  const saleInactiveError = prepareError?.message.includes(SALE_INACTIVE_ERROR);
+
   return !mintingOrSuccess ? (
     <div className="flex">
       {chain !== nft.chainId ? (
@@ -119,7 +126,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
           title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
-        prepareError?.message.includes(NO_BALANCE_ERROR) ? (
+        noBalanceError ? (
           <Link
             className="w-full"
             href="https://app.uniswap.org"
@@ -134,7 +141,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               <Trans>You don't have balance</Trans>
             </Button>
           </Link>
-        ) : prepareError?.message.includes(MAX_MINT_EXCEEDED_ERROR) ? (
+        ) : maxMintExceededError ? (
           <div className="mt-5 w-full">
             <div className="divider" />
             <b className="mt-5 flex w-full justify-center">
@@ -156,13 +163,11 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
                   publication_id: publication.id,
                   from: 'mint_modal',
-                  type: prepareError?.message.includes(SALE_INACTIVE_ERROR)
-                    ? 'collect'
-                    : 'mint'
+                  type: saleInactiveError ? 'collect' : 'mint'
                 })
               }
             >
-              {prepareError?.message.includes(SALE_INACTIVE_ERROR) ? (
+              {saleInactiveError ? (
                 <Trans>Collect on Zora</Trans>
               ) : (
                 <Trans>Mint on Zora</Trans>
