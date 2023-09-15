@@ -1,10 +1,15 @@
-import Alpha from '@components/Shared/Badges/Alpha';
-import { CollectionIcon, CursorClickIcon } from '@heroicons/react/outline';
+import {
+  CursorArrowRaysIcon,
+  RectangleStackIcon
+} from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
+import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
@@ -16,9 +21,10 @@ import NftShimmer from './Shimmer';
 
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
+  publication: Publication;
 }
 
-const Nft: FC<NftProps> = ({ nftMetadata }) => {
+const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   const { chain, address, token } = nftMetadata;
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [showMintModal, setShowMintModal] = useState(false);
@@ -47,10 +53,9 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
     return null;
   }
 
-  const canMint = [
-    'ERC721_SINGLE_EDITION',
-    'ERC1155_COLLECTION_TOKEN'
-  ].includes(nft.contractType);
+  const canMint = ['ERC721_DROP', 'ERC1155_COLLECTION_TOKEN'].includes(
+    nft.contractType
+  );
 
   const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
@@ -78,7 +83,7 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (
             <Tooltip placement="right" content={t`ERC-1155 Collection`}>
-              <CollectionIcon className="h-4 w-4" />
+              <RectangleStackIcon className="h-4 w-4" />
             </Tooltip>
           ) : null}
         </div>
@@ -86,38 +91,40 @@ const Nft: FC<NftProps> = ({ nftMetadata }) => {
           <>
             <Button
               className="text-sm"
-              icon={<CursorClickIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
               onClick={() => {
                 setQuantity(1);
                 setCanMintOnLenster(false);
                 setShowMintModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_MINT, {
+                  publication_id: publication.id
+                });
               }}
             >
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={
-                <div className="flex items-center space-x-2">
-                  <div>
-                    <Trans>Mint on Zora</Trans>
-                  </div>
-                  <Alpha />
-                </div>
-              }
+              title={t`Mint on Zora`}
               show={showMintModal}
-              icon={<CursorClickIcon className="text-brand h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
-              <Mint nft={nft} zoraLink={zoraLink} />
+              <Mint nft={nft} zoraLink={zoraLink} publication={publication} />
             </Modal>
           </>
         ) : (
           <Link href={zoraLink} target="_blank" rel="noopener noreferrer">
             <Button
               className="text-sm"
-              icon={<CursorClickIcon className="h-4 w-4" />}
+              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
+              onClick={() =>
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+                  publication_id: publication.id,
+                  from: 'mint_embed'
+                })
+              }
             >
               {nft.contractType === 'ERC1155_COLLECTION' ? (
                 <Trans>Mint all on Zora</Trans>

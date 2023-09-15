@@ -26,7 +26,6 @@ const components = {
 interface MarkupProps {
   children: string;
   className?: string;
-  matchOnlyUrl?: boolean;
 }
 
 const Markup: FC<MarkupProps> = ({ children, className = '' }) => {

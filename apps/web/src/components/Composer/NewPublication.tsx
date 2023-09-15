@@ -5,10 +5,10 @@ import Wrapper from '@components/Shared/Embed/Wrapper';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import {
-  ChatAlt2Icon,
+  ChatBubbleLeftRightIcon,
   MicrophoneIcon,
-  PencilAltIcon
-} from '@heroicons/react/outline';
+  PencilSquareIcon
+} from '@heroicons/react/24/outline';
 import type {
   CollectCondition,
   EncryptedMetadata,
@@ -234,12 +234,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       case isLoading:
         return <Spinner size="xs" />;
       case isComment:
-        return <ChatAlt2Icon className="h-4 w-4" />;
+        return <ChatBubbleLeftRightIcon className="h-4 w-4" />;
       case showComposerModal &&
         modalPublicationType === NewPublicationTypes.Spaces:
         return <MicrophoneIcon className="h-4 w-4" />;
       default:
-        return <PencilAltIcon className="h-4 w-4" />;
+        return <PencilSquareIcon className="h-4 w-4" />;
     }
   };
 
@@ -993,6 +993,38 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </Wrapper>
       ) : null}
       <div className="items-center p-1 px-5 sm:flex">
+        <div className="flex items-center space-x-4">
+          <Attachment />
+          <EmojiPicker
+            emojiClassName="text-brand"
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
+            setEmoji={(emoji) => {
+              setShowEmojiPicker(false);
+              editor.update(() => {
+                // @ts-ignore
+                const index = editor?._editorState?._selection?.focus?.offset;
+                const updatedContent =
+                  publicationContent.substring(0, index) +
+                  emoji +
+                  publicationContent.substring(
+                    index,
+                    publicationContent.length
+                  );
+                $convertFromMarkdownString(updatedContent);
+              });
+            }}
+          />
+          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          {!publication?.isDataAvailability ? (
+            <>
+              <CollectSettings />
+              <ReferenceSettings />
+              <AccessSettings />
+            </>
+          ) : null}
+          <PollSettings />
+        </div>
         <div className="absolute right-2 inline-flex">
           <div className="ml-auto pr-3 sm:pt-0">
             <Button

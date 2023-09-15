@@ -1,11 +1,11 @@
 import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
-  ArrowCircleRightIcon,
-  EmojiHappyIcon,
+  ArrowRightCircleIcon,
+  FaceSmileIcon,
   ShieldCheckIcon,
   TicketIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -95,7 +95,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         title={t`Set status`}
-        icon={<EmojiHappyIcon className="text-brand h-5 w-5" />}
+        icon={<FaceSmileIcon className="text-brand h-5 w-5" />}
         show={showStatusModal}
         onClose={() => setShowStatusModal(false)}
       >
@@ -111,7 +111,7 @@ const GlobalModals: FC = () => {
       </Modal>
       <Modal
         title={t`Login`}
-        icon={<ArrowCircleRightIcon className="text-brand h-5 w-5" />}
+        icon={<ArrowRightCircleIcon className="text-brand h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         dataTestId="login-modal"

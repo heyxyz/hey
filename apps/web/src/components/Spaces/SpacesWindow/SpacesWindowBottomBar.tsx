@@ -1,8 +1,8 @@
 import {
-  EmojiHappyIcon,
-  MusicNoteIcon,
+  FaceSmileIcon,
+  MusicalNoteIcon,
   UserIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import {
   useAudio,
@@ -136,7 +136,7 @@ const SpacesWindowBottomBar: FC = () => {
           <Dropdown
             triggerChild={
               <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-gray-800">
-                <MusicNoteIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
+                <MusicalNoteIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
               </div>
             }
           >
@@ -148,7 +148,7 @@ const SpacesWindowBottomBar: FC = () => {
         <Dropdown
           triggerChild={
             <div className="bg-brand-100 rounded-lg p-1.5 dark:bg-gray-800">
-              <EmojiHappyIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
+              <FaceSmileIcon className="text-brand-500 h-5 w-5 dark:text-gray-400" />
             </div>
           }
         >

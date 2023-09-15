@@ -1,4 +1,4 @@
-import { InformationCircleIcon, XIcon } from '@heroicons/react/outline';
+import { InformationCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
@@ -41,7 +41,7 @@ const InvitationModal: FC<InvitationModalProps> = ({
             </button>
           </div>
         </div>
-        <XIcon className="relative h-5 w-5" />
+        <XMarkIcon className="relative h-5 w-5" />
       </div>
     </div>
   );

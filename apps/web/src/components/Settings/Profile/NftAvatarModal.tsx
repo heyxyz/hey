@@ -1,5 +1,5 @@
 import Picker from '@components/Profile/NftGallery/Picker';
-import { PencilIcon } from '@heroicons/react/outline';
+import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
@@ -187,9 +187,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
             error={error}
           />
         ) : null}
-        <div className="max-h-[80vh] overflow-y-auto p-5">
-          <Picker onlyAllowOne={true} />
-        </div>
+        <Picker onlyAllowOne={true} />
         <div className="flex items-center space-x-2 border-t p-5 px-5 py-3 dark:border-t-gray-700">
           <Button
             className="ml-auto"

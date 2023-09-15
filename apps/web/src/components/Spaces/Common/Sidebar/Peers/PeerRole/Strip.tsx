@@ -1,9 +1,9 @@
 import {
-  PhoneMissedCallIcon,
-  SpeakerphoneIcon,
+  MegaphoneIcon,
+  PhoneXMarkIcon,
   UserIcon,
   XCircleIcon
-} from '@heroicons/react/solid';
+} from '@heroicons/react/24/solid';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import React from 'react';
@@ -23,9 +23,9 @@ const PeerIcons = (type: 'personNormal' | 'speaker' | 'leave' | 'remove') => {
     case 'remove' || 'close':
       return <XCircleIcon className="h-4 w-4" />;
     case 'speaker':
-      return <SpeakerphoneIcon className="h-4 w-4" />;
+      return <MegaphoneIcon className="h-4 w-4" />;
     case 'leave':
-      return <PhoneMissedCallIcon className="h-4 w-4" />;
+      return <PhoneXMarkIcon className="h-4 w-4" />;
   }
 };
 

@@ -1,4 +1,4 @@
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';

@@ -1,5 +1,5 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
-import { ClockIcon, MicrophoneIcon } from '@heroicons/react/outline';
+import { ClockIcon, MicrophoneIcon } from '@heroicons/react/24/outline';
 import { getLensAccessToken, getLensMessage } from '@huddle01/auth';
 import type { Profile, Publication } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';

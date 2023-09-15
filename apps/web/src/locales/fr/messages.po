@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-12 00:08\n"
+"PO-Revision-Date: 2023-09-14 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -655,19 +655,18 @@ msgid "Tags"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
+msgid "commented"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
@@ -675,9 +674,9 @@ msgstr ""
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -715,6 +714,14 @@ msgstr "Envoyer"
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
 msgstr "Chargement des messages"
+
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Sélectionnez une conversation"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
@@ -766,18 +773,6 @@ msgstr ""
 
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Sélectionnez une conversation"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
 msgstr ""
 
 #: src/components/Mod/Feed.tsx
@@ -1481,6 +1476,10 @@ msgid "Failed to load profile feed"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr ""
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr ""
 
@@ -1493,7 +1492,7 @@ msgid "Collected"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
+msgid "Gallery"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
@@ -2004,6 +2003,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -3175,6 +3175,14 @@ msgstr ""
 msgid "Go to {type}"
 msgstr ""
 
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
+
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
 msgstr ""
@@ -3273,6 +3281,10 @@ msgid "Please change your network wallet!"
 msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
 msgstr ""
 
@@ -3288,6 +3300,7 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
 msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
 msgstr ""
@@ -3348,6 +3361,10 @@ msgstr ""
 
 #: src/components/Spaces/SpacesWindow/SpacesWindowBottomBar.tsx
 msgid "Request to speak"
+=======
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+>>>>>>> main
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx

@@ -1,4 +1,7 @@
-import { ExternalLinkIcon, HandIcon } from '@heroicons/react/outline';
+import {
+  ArrowTopRightOnSquareIcon,
+  HandRaisedIcon
+} from '@heroicons/react/24/outline';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -21,12 +24,12 @@ const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
       onClick={onClick}
     >
       <div className="flex items-center space-x-1.5">
-        <HandIcon className="h-4 w-4" />
+        <HandRaisedIcon className="h-4 w-4" />
         <div>
           <Trans>Report a bug</Trans>
         </div>
       </div>
-      <ExternalLinkIcon className="h-4 w-4 md:hidden" />
+      <ArrowTopRightOnSquareIcon className="h-4 w-4 md:hidden" />
     </Link>
   );
 };

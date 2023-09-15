@@ -1,4 +1,4 @@
-import { MicrophoneIcon, PencilAltIcon } from '@heroicons/react/outline';
+import { MicrophoneIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -67,7 +67,7 @@ const NewPost: FC = () => {
           type="button"
           onClick={openPublicationModal}
         >
-          <PencilAltIcon className="h-5 w-5" />
+          <PencilSquareIcon className="h-5 w-5" />
           <span>
             <Trans>What's happening?</Trans>
           </span>

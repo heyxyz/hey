@@ -1,4 +1,4 @@
-import { DotsVerticalIcon } from '@heroicons/react/outline';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import { useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import { Image } from '@lenster/ui';
 import type { FC } from 'react';
@@ -30,8 +30,7 @@ const Avatar: FC<AvatarProps> = ({
   role,
   avatarUrl
 }) => {
-  const { isMyHandRaised, setMyHandRaised, myReaction, setMyReaction } =
-    useSpacesStore();
+  const { isMyHandRaised, myReaction } = useSpacesStore();
   const [reaction, setReaction] = useState('');
   const [isHandRaised, setIsHandRaised] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -89,7 +88,7 @@ const Avatar: FC<AvatarProps> = ({
             <div className="absolute inset-0 rounded-full group-hover:bg-black group-hover:opacity-50" />
             <Dropdown
               triggerChild={
-                <DotsVerticalIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-gray-50 opacity-0 group-hover:opacity-100" />
+                <EllipsisVerticalIcon className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform text-gray-50 opacity-0 group-hover:opacity-100" />
               }
             >
               <div className="absolute -left-4 -top-5 w-40 rounded-lg border border-gray-300 bg-white p-1 dark:border-gray-500 dark:bg-gray-800">

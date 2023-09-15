@@ -1,4 +1,8 @@
-import { MusicNoteIcon, PlayIcon, StopIcon } from '@heroicons/react/outline';
+import {
+  MusicalNoteIcon,
+  PlayIcon,
+  StopIcon
+} from '@heroicons/react/24/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { Radio } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -54,7 +58,7 @@ const MusicTray: FC = () => {
     <div className="rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-900">
       <div className="relative">
         <div className="flex items-center justify-center border-b border-gray-300 px-2 py-3 font-semibold text-gray-700 dark:border-gray-700 dark:text-gray-200">
-          <MusicNoteIcon className="mr-2 h-5 w-5 " />
+          <MusicalNoteIcon className="mr-2 h-5 w-5 " />
           <span className="text-sm font-medium">
             <Trans>Background Music</Trans>
           </span>

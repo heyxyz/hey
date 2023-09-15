@@ -8,7 +8,7 @@ msgstr ""
 "Language: ru\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-12 00:08\n"
+"PO-Revision-Date: 2023-09-14 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
@@ -655,29 +655,28 @@ msgid "Tags"
 msgstr "Теги"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "коллектнуто"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr "миррорнуто{0}"
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr "прокомментировал{0}{1}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr "коллектнуто{0}"
+msgid "commented"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr "лайкнуто"
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -715,6 +714,14 @@ msgstr "Отправить"
 #: src/components/Messages/Message.tsx
 msgid "Loading messages"
 msgstr "Загрузка сообщений"
+
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "Выберите диалог"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
 
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
@@ -766,18 +773,6 @@ msgstr ""
 
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "Выберите диалог"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "Выберите существующий диалог или создайте новый, чтобы начать переписываться"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
 msgstr ""
 
 #: src/components/Mod/Feed.tsx
@@ -1481,6 +1476,10 @@ msgid "Failed to load profile feed"
 msgstr "Не удалось загрузить ленту профиля"
 
 #: src/components/Profile/FeedType.tsx
+#~ msgid "NFTs"
+#~ msgstr "NFTs"
+
+#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "Лента"
 
@@ -1493,8 +1492,8 @@ msgid "Collected"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFTs"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
@@ -2004,6 +2003,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr "Нет профилей для <0>“{query}”</0>"
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr "Не удалось загрузить профили"
 
@@ -3175,6 +3175,14 @@ msgstr ""
 msgid "Go to {type}"
 msgstr "Перейти к {type}"
 
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
+
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
 msgstr ""
@@ -3273,6 +3281,10 @@ msgid "Please change your network wallet!"
 msgstr "Пожалуйста, измените сеть в вашем кошельке!"
 
 #: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
 msgstr "Создать профиль"
 
@@ -3288,6 +3300,7 @@ msgstr ""
 msgid "Swap in Uniswap"
 msgstr "Обмен в Uniswap"
 
+<<<<<<< HEAD
 #: src/components/Spaces/Common/AvatarGrid/AvatarGrid.tsx
 msgid "{listenersCount, plural, zero {{0}} one {{1}} other {{2}}}"
 msgstr ""
@@ -3348,6 +3361,10 @@ msgstr ""
 
 #: src/components/Spaces/SpacesWindow/SpacesWindowBottomBar.tsx
 msgid "Request to speak"
+=======
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+>>>>>>> main
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx

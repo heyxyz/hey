@@ -2,10 +2,10 @@ import Slug from '@components/Shared/Slug';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
-  ClipboardCopyIcon,
-  DotsVerticalIcon
-} from '@heroicons/react/outline';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+  ClipboardDocumentIcon,
+  EllipsisVerticalIcon
+} from '@heroicons/react/24/outline';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { useEventListener, useHuddle01, useRoom } from '@huddle01/react/hooks';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
@@ -114,7 +114,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
           )}
         </div>
         <div className="flex items-center gap-3">
-          <ClipboardCopyIcon
+          <ClipboardDocumentIcon
             className="h-5 w-5"
             onClick={async (event) => {
               stopEventPropagation(event);
@@ -124,7 +124,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
               toast.success(t`Copied to clipboard!`);
             }}
           />
-          <Dropdown triggerChild={<DotsVerticalIcon className="h-5 w-5" />}>
+          <Dropdown triggerChild={<EllipsisVerticalIcon className="h-5 w-5" />}>
             <div className="absolute top-4 z-10 -translate-x-12">
               <div className="flex w-48 flex-col gap-2 rounded-lg border bg-gray-800 p-2 text-sm">
                 <Dropdown
@@ -178,7 +178,7 @@ const SpaceWindowHeader: FC<SpacesWindowProps> = ({
             />
             <div>
               {isVerified(hostProfile.id) && (
-                <BadgeCheckIcon className="text-brand h-4 w-4" />
+                <CheckBadgeIcon className="text-brand h-4 w-4" />
               )}
             </div>
           </div>

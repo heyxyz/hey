@@ -1,36 +1,54 @@
-import { UserAddIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
-import { Image } from '@lenster/ui';
+import { ErrorMessage, Image } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
+import Loader from './Loader';
+
 const SwitchProfiles: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
+  const { data, loading, error } = useProfilesQuery({
+    variables: {
+      request: { ownedBy: currentProfile?.ownedBy }
+    }
+  });
+
+  if (loading) {
+    return <Loader message={t`Loading Profiles`} />;
+  }
+
+  const profiles = data?.profiles.items || [];
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
-      {profiles.map((profile: Profile, index) => (
+      <ErrorMessage
+        className="m-5"
+        title={t`Failed to load profiles`}
+        error={error}
+      />
+      {profiles.map((profile, index) => (
         <button
           key={profile?.id}
           type="button"
           className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pl-3 pr-4 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           onClick={() => {
-            const selectedProfile = profiles[index];
+            const selectedProfile = profiles[index] as Profile;
             setCurrentProfile(selectedProfile);
             setProfileId(selectedProfile.id);
             setShowProfileSwitchModal(false);
@@ -62,7 +80,7 @@ const SwitchProfiles: FC = () => {
         >
           <span className="flex items-center space-x-2">
             <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
-              <UserAddIcon className="text-brand h-3 w-3" />
+              <UserPlusIcon className="text-brand h-3 w-3" />
             </div>
             <div>
               <Trans>Create Profile</Trans>

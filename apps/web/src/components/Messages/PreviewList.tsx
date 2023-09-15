@@ -2,68 +2,67 @@ import Preview from '@components/Messages/Preview';
 import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
-import { MailIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
 import { MESSAGES } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
   Card,
-  EmptyState,
   ErrorMessage,
   GridItemFour,
   Modal,
   TabButton
 } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
-import buildConversationId from '@lib/buildConversationId';
-import { buildConversationKey } from '@lib/conversationKey';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import { useRouter } from 'next/router';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { MessageTabs } from 'src/enums';
-import useGetMessagePreviews from 'src/hooks/useGetMessagePreviews';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import useMessagePreviews from 'src/hooks/useMessagePreviews';
 import { useAppStore } from 'src/store/app';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
+import { usePreferencesStore } from 'src/store/preferences';
 
 interface PreviewListProps {
   className?: string;
   selectedConversationKey?: string;
+  messages: Map<string, DecodedMessage>;
+  profilesToShow: Map<string, Profile>;
+  authenticating?: boolean;
+  profilesError: Error | undefined;
+  loading: boolean;
+  previewsLoading: boolean;
+  previewsProgress: number;
 }
 
 const PreviewList: FC<PreviewListProps> = ({
   className,
-  selectedConversationKey
+  selectedConversationKey,
+  messages,
+  profilesToShow,
+  authenticating,
+  profilesError,
+  loading,
+  previewsLoading,
+  previewsProgress
 }) => {
-  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { persistProfile } = useMessageDb();
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
-  const [showSearchModal, setShowSearchModal] = useState(false);
-
-  const { authenticating, loading, messages, profilesToShow, profilesError } =
-    useMessagePreviews();
-
-  const { loading: previewsLoading, progress: previewsProgress } =
-    useGetMessagePreviews();
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
-
-  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
-    const messageA = messages.get(keyA);
-    const messageB = messages.get(keyB);
-    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
-      ? -1
-      : 1;
-  });
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { persistProfile } = useMessageDb();
 
   useEffect(() => {
     if (!currentProfile) {
@@ -74,6 +73,7 @@ const PreviewList: FC<PreviewListProps> = ({
   }, [currentProfile]);
 
   const showAuthenticating = currentProfile && authenticating;
+
   const showLoading =
     loading && (messages.size === 0 || profilesToShow.size === 0);
 
@@ -83,25 +83,45 @@ const PreviewList: FC<PreviewListProps> = ({
   };
 
   const onProfileSelected = async (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(
-      profile.ownedBy,
-      conversationId
-    );
+    const conversationKey = profile.ownedBy.toLowerCase();
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
       ? MessageTabs.Following
       : MessageTabs.Inbox;
     setSelectedTab(selectedTab);
-    router.push(`/messages/${conversationKey}`);
+    setConversationKey(conversationKey);
     setShowSearchModal(false);
   };
+
+  const partitionedProfiles = Array.from(profilesToShow || []).reduce(
+    (result, [key, profile]) => {
+      if (profile.isFollowedByMe) {
+        result[0].set(key, profile);
+      } else {
+        result[1].set(key, profile);
+      }
+      return result;
+    },
+    [new Map<string, Profile>(), new Map<string, Profile>()]
+  );
+
+  const sortedProfiles = Array.from(
+    selectedTab === MessageTabs.Following
+      ? partitionedProfiles[0]
+      : profilesToShow
+  ).sort(([keyA], [keyB]) => {
+    const messageA = messages.get(keyA);
+    const messageB = messages.get(keyB);
+    return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
+      ? -1
+      : 1;
+  });
 
   return (
     <GridItemFour
       className={cn(
-        'xs:mx-2 mb-0 h-[calc(100vh-8rem)] sm:mx-2 md:col-span-4',
-        className
+        staffMode ? 'h-[calc(100vh-9.78rem)]' : 'h-[calc(100vh-8rem)]',
+        'xs:mx-2 mb-0 sm:mx-2 md:col-span-4'
       )}
     >
       <Card className="flex h-full flex-col justify-between">
@@ -168,11 +188,12 @@ const PreviewList: FC<PreviewListProps> = ({
               onClick={newMessageClick}
               type="button"
             >
-              <EmptyState
-                message={t`Start messaging your Lens frens`}
-                icon={<MailIcon className="text-brand h-8 w-8" />}
-                hideCard
-              />
+              <div className="grid justify-items-center space-y-2 p-5">
+                <div>
+                  <EnvelopeIcon className="text-brand h-8 w-8" />
+                </div>
+                <div>{t`Start messaging your Lens frens`}</div>
+              </div>
             </button>
           ) : (
             <Virtuoso
@@ -197,7 +218,7 @@ const PreviewList: FC<PreviewListProps> = ({
       </Card>
       <Modal
         title={t`New message`}
-        icon={<MailIcon className="text-brand h-5 w-5" />}
+        icon={<EnvelopeIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}

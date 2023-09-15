@@ -1,4 +1,5 @@
 import Markup from '@components/Shared/Markup';
+import type { Publication } from '@lenster/lens';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { type FC } from 'react';
 import { create } from 'zustand';
@@ -25,9 +26,10 @@ export const useZoraMintStore = create<ZoraMintState>((set) => ({
 interface MintProps {
   nft: ZoraNft;
   zoraLink: string;
+  publication: Publication;
 }
 
-const Mint: FC<MintProps> = ({ nft, zoraLink }) => {
+const Mint: FC<MintProps> = ({ nft, zoraLink, publication }) => {
   return (
     <div className="p-5">
       <div className="mb-4">
@@ -39,7 +41,7 @@ const Mint: FC<MintProps> = ({ nft, zoraLink }) => {
       </div>
       <Metadata nft={nft} zoraLink={zoraLink} />
       <Price nft={nft} />
-      <MintAction nft={nft} zoraLink={zoraLink} />
+      <MintAction nft={nft} zoraLink={zoraLink} publication={publication} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { AnnotationIcon } from '@heroicons/react/outline';
+import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import type { Publication } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -40,7 +40,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <AnnotationIcon className="h-4 w-4" />
+        <ChatBubbleBottomCenterTextIcon className="h-4 w-4" />
         <div>
           {publicationType === 'Comment' ? (
             <Trans>Quote comment</Trans>

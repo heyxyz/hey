@@ -1,5 +1,5 @@
 import Profiles from '@components/Shared/Profiles';
-import { HeartIcon } from '@heroicons/react/outline';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import type { ReactionEvent } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

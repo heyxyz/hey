@@ -1,4 +1,4 @@
-import { CalendarIcon, LockClosedIcon } from '@heroicons/react/outline';
+import { CalendarIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';

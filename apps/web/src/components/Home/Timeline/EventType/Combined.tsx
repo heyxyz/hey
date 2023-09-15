@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
-import { SparklesIcon } from '@heroicons/react/outline';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@lenster/lens';
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface CombinedProps {
@@ -17,17 +17,6 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   const reactionsLength = reactions.length;
   const commentsLength = comments?.length ?? 0;
 
-  const getReactionsLength = () => {
-    return [
-      mirrorsLength,
-      collectsLength,
-      reactionsLength,
-      commentsLength ?? 0
-    ].filter((n) => n > 0).length;
-  };
-
-  const totalActions = getReactionsLength();
-
   const getAllProfiles = () => {
     let profiles = [...mirrors, ...collects, ...reactions, ...comments].map(
       (event) => event.profile
@@ -39,53 +28,36 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
     return profiles;
   };
 
+  const actionArray = [];
+  if (mirrorsLength) {
+    actionArray.push(t`mirrored`);
+  }
+  if (commentsLength) {
+    actionArray.push(t`commented`);
+  }
+  if (collectsLength) {
+    actionArray.push(t`collected`);
+  }
+  if (reactionsLength) {
+    actionArray.push(t`liked`);
+  }
+
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center space-x-1 pb-4 text-[13px] leading-6">
       <SparklesIcon className="h-4 w-4" />
       <Profiles profiles={getAllProfiles()} />
       <div className="flex items-center space-x-1">
-        {mirrorsLength ? (
-          <span>
-            <Trans>
-              mirrored
-              {totalActions < 3 ? (totalActions !== 1 ? ' and ' : '') : ', '}
-            </Trans>
-          </span>
-        ) : null}
-        {commentsLength ? (
-          <span>
-            <Trans>
-              commented
-              {totalActions < 3
-                ? collectsLength && reactionsLength
-                  ? ' and '
-                  : !mirrorsLength && totalActions !== 1
-                  ? ' and '
-                  : ''
-                : ', '}
-              {totalActions >= 3 && (!collectsLength || !reactionsLength)
-                ? ' and '
-                : ''}
-            </Trans>
-          </span>
-        ) : null}
-        {collectsLength ? (
-          <span>
-            <Trans>
-              collected
-              {totalActions >= 3 && reactionsLength
-                ? ' and '
-                : reactionsLength
-                ? ' and '
-                : ''}
-            </Trans>
-          </span>
-        ) : null}
-        {reactionsLength ? (
-          <span>
-            <Trans>liked</Trans>
-          </span>
-        ) : null}
+        {actionArray.map((action, index) => (
+          <>
+            <span key={index}>{action}</span>
+            {index < actionArray.length - 2 && <span>, </span>}
+            {index == actionArray.length - 2 && (
+              <span>
+                <Trans>and</Trans>
+              </span>
+            )}
+          </>
+        ))}
       </div>
     </div>
   );

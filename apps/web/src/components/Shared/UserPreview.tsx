@@ -1,4 +1,7 @@
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
@@ -12,7 +15,7 @@ import truncateByWords from '@lenster/lib/truncateByWords';
 import { Image } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import isVerified from '@lib/isVerified';
-import { Plural } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -67,7 +70,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile.id) ? (
-          <BadgeCheckIcon className="text-brand h-4 w-4" />
+          <CheckBadgeIcon className="text-brand h-4 w-4" />
         ) : null}
         {hasMisused(lazyProfile.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
@@ -82,7 +85,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   );
 
   const Preview = () => {
-    if (loading || !lazyProfile.id) {
+    if (loading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
@@ -91,6 +94,14 @@ const UserPreview: FC<UserPreviewProps> = ({
           <div className="flex p-3">
             <div>{lazyProfile.handle}</div>
           </div>
+        </div>
+      );
+    }
+
+    if (!lazyProfile.id) {
+      return (
+        <div className="flex h-12 items-center px-3">
+          <Trans>No profile found</Trans>
         </div>
       );
     }
@@ -178,6 +189,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       });
 
       const getProfile = data?.profile;
+
       if (getProfile) {
         setLazyProfile(getProfile as Profile);
       }

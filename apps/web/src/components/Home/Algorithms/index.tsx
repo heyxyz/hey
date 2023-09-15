@@ -1,4 +1,4 @@
-import { SparklesIcon } from '@heroicons/react/outline';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 import { HOME } from '@lenster/data/tracking';
 import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';

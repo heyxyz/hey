@@ -1,4 +1,4 @@
-import { CalendarIcon } from '@heroicons/react/outline';
+import { CalendarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@lenster/ui';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useSpacesStore } from 'src/store/spaces';

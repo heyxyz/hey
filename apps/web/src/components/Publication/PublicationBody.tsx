@@ -5,7 +5,7 @@ import Quote from '@components/Shared/Embed/Quote';
 import Space from '@components/Shared/Embed/Space';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
-import { EyeIcon } from '@heroicons/react/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import { FeatureFlag } from '@lenster/data/feature-flags';
 import type { Publication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
@@ -130,7 +130,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showNft ? <Nft nftMetadata={nft} /> : null}
+      {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
       {showOembed ? (
         <Oembed
           url={urls[0]}

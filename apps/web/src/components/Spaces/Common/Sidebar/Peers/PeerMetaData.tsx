@@ -1,4 +1,8 @@
-import { CheckIcon, DotsVerticalIcon, XIcon } from '@heroicons/react/outline';
+import {
+  CheckIcon,
+  EllipsisVerticalIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import { useAppUtils } from '@huddle01/react/app-utils';
 import { useAudio, useEventListener, useHuddle01 } from '@huddle01/react/hooks';
 import cn from '@lenster/ui/cn';
@@ -45,7 +49,7 @@ const AcceptDenyGroup: FC<IAcceptDenyProps> = ({ onAccept, onDeny }) => (
       className="rounded-md border border-red-400 p-0.5 text-red-400"
       onClick={onDeny}
     >
-      <XIcon className="h-4 w-4" />
+      <XMarkIcon className="h-4 w-4" />
     </button>
   </div>
 );
@@ -149,7 +153,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
             me.meId === peerId) ? (
             <Dropdown
               triggerChild={
-                <DotsVerticalIcon className="h-4 w-4 text-gray-500" />
+                <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
               }
             >
               <div className="absolute -right-10 top-4 w-40 rounded-lg border border-gray-300 bg-white dark:border-gray-500 dark:bg-gray-800">
@@ -157,7 +161,7 @@ const PeerMetaData: React.FC<PeerMetaDatProps> = ({
               </div>
             </Dropdown>
           ) : (
-            <DotsVerticalIcon className="h-4 w-4 text-gray-500" />
+            <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
           )}
         </div>
       )}

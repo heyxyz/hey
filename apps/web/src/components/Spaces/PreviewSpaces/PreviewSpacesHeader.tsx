@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
-import { XIcon } from '@heroicons/react/outline';
-import { BadgeCheckIcon } from '@heroicons/react/solid';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import isVerified from '@lib/isVerified';
@@ -30,7 +30,7 @@ const PreviewSpacesHeader: FC = () => {
       <div className="mx-auto flex w-fit items-center gap-2 text-gray-900 dark:text-gray-100">
         {hostProfile?.name}
         {isVerified(hostProfile.id) && (
-          <BadgeCheckIcon className="text-brand h-4 w-4" />
+          <CheckBadgeIcon className="text-brand h-4 w-4" />
         )}
         <span className="text-sm"> | </span>
         <Slug slug={t`@${hostProfile.handle}`} />
@@ -38,7 +38,7 @@ const PreviewSpacesHeader: FC = () => {
       <div className="pt-2 text-base font-normal text-gray-500 dark:text-gray-300">
         {space.title}
       </div>
-      <XIcon
+      <XMarkIcon
         className="absolute right-4 top-4 h-5 w-5 cursor-pointer"
         onClick={() => setShowSpacesLobby(false)}
       />

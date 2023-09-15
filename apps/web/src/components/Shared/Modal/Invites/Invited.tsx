@@ -1,11 +1,10 @@
-import { TicketIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
+import { TicketIcon } from '@heroicons/react/24/outline';
 import type { InvitedResult } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import { EmptyState, Input } from '@lenster/ui';
-import { formatDate } from '@lib/formatTime';
+import { EmptyState } from '@lenster/ui';
 import { Plural, Trans } from '@lingui/macro';
 import type { FC } from 'react';
+
+import Profile from './Profile';
 
 interface InvitedProps {
   invited: InvitedResult[];
@@ -26,6 +25,10 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
     );
   }
 
+  const sortedInvited = [...invited].sort(
+    (a, b) => Date.parse(b.when) - Date.parse(a.when)
+  );
+
   return (
     <div className="space-y-3">
       <div>
@@ -44,16 +47,9 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
           !
         </Trans>
       </div>
-      {invited.map((invite, key) => (
+      {sortedInvited.map((invite, key) => (
         <div key={key}>
-          <Input
-            className="text-sm"
-            iconLeft={<CheckCircleIcon className="text-brand h-5 w-5" />}
-            value={`${formatAddress(invite.address)} invited on ${formatDate(
-              invite.when
-            )}`}
-            disabled
-          />
+          <Profile invite={invite} />
         </div>
       ))}
     </div>

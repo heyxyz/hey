@@ -1,12 +1,12 @@
 import {
-  CashIcon,
-  HandIcon,
+  BanknotesIcon,
+  HandRaisedIcon,
   HashtagIcon,
   IdentificationIcon,
   LinkIcon,
-  PhotographIcon
-} from '@heroicons/react/outline';
-import { ShieldCheckIcon } from '@heroicons/react/solid';
+  PhotoIcon
+} from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import {
   ACHIEVEMENTS_WORKER_URL,
   APP_NAME,
@@ -86,7 +86,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           {profile?.id}
         </MetaDetails>
         <MetaDetails
-          icon={<CashIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.ownedBy}
           title={t`Address`}
         >
@@ -94,7 +94,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
-            icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile?.followNftAddress}
             title={t`NFT address`}
           >
@@ -102,14 +102,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
           title={t`Can use relay`}
         >
           {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
           title={t`Gas sponsored`}
         >
