@@ -3,7 +3,7 @@ import {
   ChatBubbleLeftRightIcon,
   FilmIcon,
   PencilSquareIcon,
-  PhotoIcon,
+  RectangleGroupIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
@@ -65,11 +65,11 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           onClick={() => switchTab(ProfileFeedType.Collects)}
         />
         <TabButton
-          name={t`NFTs`}
-          icon={<PhotoIcon className="h-4 w-4" />}
-          active={feedType === ProfileFeedType.Nft}
-          type={ProfileFeedType.Nft.toLowerCase()}
-          onClick={() => switchTab(ProfileFeedType.Nft)}
+          name={t`Gallery`}
+          icon={<RectangleGroupIcon className="h-4 w-4" />}
+          active={feedType === ProfileFeedType.Gallery}
+          type={ProfileFeedType.Gallery.toLowerCase()}
+          onClick={() => switchTab(ProfileFeedType.Gallery)}
         />
         {IS_MAINNET ? (
           <TabButton

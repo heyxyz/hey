@@ -130,8 +130,12 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
             </a>
           </div>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=nft`}>
-              NFTs
+            <a
+              href={`${BASE_URL}/u/${formatHandle(
+                profile.handle
+              )}?type=gallery`}
+            >
+              Gallery
             </a>
           </div>
         </nav>
