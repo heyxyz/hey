@@ -601,18 +601,6 @@ msgid "collected"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "mirrored{0}"
-#~ msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "commented{0}{1}"
-#~ msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "collected{0}"
-#~ msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
 #: src/components/Publication/Type/Mirrored.tsx
 msgid "mirrored"
