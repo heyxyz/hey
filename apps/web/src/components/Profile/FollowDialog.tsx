@@ -1,4 +1,4 @@
-import Follow from '@components/Shared/Follow';
+import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import type { Profile } from '@lenster/lens';
