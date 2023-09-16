@@ -42,6 +42,10 @@ msgstr ""
 msgid "Failed to load channel feed"
 msgstr ""
 
+#: src/components/Channel/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
+msgstr ""
+
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "கருத்து ஊட்டத்தை ஏற்றுவதில் தோல்வி"
