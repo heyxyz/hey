@@ -1,3 +1,4 @@
+import { useChannelMemberCountStore } from '@components/Channel/Details';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CHANNELS_WORKER_URL } from '@lenster/data/constants';
 import { Localstorage } from '@lenster/data/storage';
@@ -22,6 +23,7 @@ interface JoinProps {
 const Join: FC<JoinProps> = ({ channel }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { membersCount, setMembersCount } = useChannelMemberCountStore();
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -64,6 +66,7 @@ const Join: FC<JoinProps> = ({ channel }) => {
         }
       );
       setJoined(!joined);
+      setMembersCount(joined ? membersCount - 1 : membersCount + 1);
       toast.success(joined ? t`Left successfully!` : t`Joined successfully!`);
       Leafwatch.track(PROFILE.FOLLOW, {
         path: pathname,
