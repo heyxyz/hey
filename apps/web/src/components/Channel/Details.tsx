@@ -1,3 +1,4 @@
+import Join from '@components/Shared/Channel/Join';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
@@ -12,12 +13,14 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useAppStore } from 'src/store/app';
 
 interface DetailsProps {
   channel: Channel;
 }
 
 const Details: FC<DetailsProps> = ({ channel }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
@@ -75,6 +78,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
         <Markup>{channel.description}</Markup>
       </div>
       <div className="space-y-5">
+        {currentProfile ? <Join channel={channel} /> : null}
         <div className="divider w-full" />
         <div className="space-y-2">
           {channel.instagram ? (

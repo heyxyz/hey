@@ -4,17 +4,19 @@ import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
-  const { slug } = request.params;
+  const profileId = request.query.profileId as string;
+  const channelId = request.query.channelId as string;
 
   try {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
     const { data } = await client
-      .from('channels')
-      .select('*, members:channel_memberships(count)')
-      .eq('slug', slug)
+      .from('channel_memberships')
+      .select('*')
+      .eq('profile_id', profileId)
+      .eq('channel_id', channelId)
       .single();
 
-    return response({ success: true, result: data });
+    return response({ success: true, isMember: data ? true : false });
   } catch (error) {
     throw error;
   }

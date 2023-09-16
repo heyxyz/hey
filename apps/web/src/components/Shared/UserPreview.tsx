@@ -20,8 +20,8 @@ import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
-import Follow from './Follow';
 import Markup from './Markup';
+import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 

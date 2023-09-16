@@ -1,9 +1,9 @@
 import Message from '@components/Profile/Message';
-import Follow from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
+import Follow from '@components/Shared/Profile/Follow';
+import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
   Cog6ToothIcon,
