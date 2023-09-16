@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-14 00:08\n"
+"PO-Revision-Date: 2023-09-16 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1418,7 +1418,7 @@ msgstr "சுயவிவர ஊட்டத்தை ஏற்றுவதி�
 
 #: src/components/Profile/FeedType.tsx
 #~ msgid "NFTs"
-#~ msgstr "NFTகள்"
+#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -3436,3 +3436,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
