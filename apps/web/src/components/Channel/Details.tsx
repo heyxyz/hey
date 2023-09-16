@@ -15,6 +15,8 @@ import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import Members from './Members';
+
 interface DetailsProps {
   channel: Channel;
 }
@@ -78,6 +80,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
         <Markup>{channel.description}</Markup>
       </div>
       <div className="space-y-5">
+        <Members channel={channel} />
         {currentProfile ? <Join channel={channel} /> : null}
         <div className="divider w-full" />
         <div className="space-y-2">
