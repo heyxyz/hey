@@ -616,6 +616,9 @@ importers:
       '@lenster/supabase':
         specifier: workspace:*
         version: link:../../supabase
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.2.2
+        version: 2.2.2
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
