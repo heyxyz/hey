@@ -6,7 +6,8 @@ import type { Channel } from '@lenster/types/lenster';
 import { Button, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { t } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { type FC, useState } from 'react';
@@ -24,7 +25,26 @@ const Join: FC<JoinProps> = ({ channel }) => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [joined, setJoined] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const isChannelMember = async () => {
+    try {
+      const response = await axios.get(`${CHANNELS_WORKER_URL}/isMember`, {
+        params: {
+          profileId: currentProfile?.id,
+          channelId: channel.id
+        }
+      });
+      const { data } = response;
+      setJoined(data.isMember);
+    } catch {}
+  };
+
+  const { isLoading } = useQuery(
+    ['isChannelMember', channel.id, currentProfile?.id],
+    () => isChannelMember()
+  );
 
   const createMembership = async () => {
     if (!currentProfile) {
@@ -33,7 +53,7 @@ const Join: FC<JoinProps> = ({ channel }) => {
     }
 
     try {
-      setIsLoading(true);
+      setSubmitting(true);
       await axios.post(
         `${CHANNELS_WORKER_URL}/joinOrLeave`,
         { profileId: currentProfile?.id, channelId: channel?.id },
@@ -43,15 +63,18 @@ const Join: FC<JoinProps> = ({ channel }) => {
           }
         }
       );
-      toast.success(t`Joined successfully!`);
+      setJoined(!joined);
+      toast.success(joined ? t`Left successfully!` : t`Joined successfully!`);
       Leafwatch.track(PROFILE.FOLLOW, {
         path: pathname,
         profile_id: currentProfile?.id,
         channel_id: channel?.id
       });
     } catch (error) {
-      setIsLoading(false);
+      setSubmitting(false);
       errorToast(error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -60,13 +83,17 @@ const Join: FC<JoinProps> = ({ channel }) => {
       className="!px-3 !py-1.5 text-sm"
       onClick={createMembership}
       aria-label="Join"
-      disabled={isLoading}
+      disabled={submitting || isLoading}
       icon={
-        isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
+        submitting ? (
+          <Spinner size="xs" />
+        ) : (
+          <UserPlusIcon className="h-4 w-4" />
+        )
       }
       outline
     >
-      <Trans>Join</Trans>
+      {isLoading ? t`Loading...` : joined ? t`Leave` : t`Join`}
     </Button>
   );
 };
