@@ -8,7 +8,7 @@ msgstr ""
 "Language: pl\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-16 00:08\n"
+"PO-Revision-Date: 2023-09-17 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Polish\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
@@ -40,6 +40,10 @@ msgstr ""
 
 #: src/components/Channel/Feed.tsx
 msgid "Failed to load channel feed"
+msgstr ""
+
+#: src/components/Channel/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
@@ -472,7 +476,7 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Shared/Unfollow.tsx
+#: src/components/Shared/Profile/Unfollow.tsx
 msgid "Following"
 msgstr ""
 
@@ -685,6 +689,7 @@ msgid "This is the beginning of the conversation"
 msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
+#: src/components/Shared/Channel/Join.tsx
 msgid "Loading..."
 msgstr ""
 
@@ -2576,6 +2581,22 @@ msgstr ""
 msgid "New"
 msgstr ""
 
+#: src/components/Shared/Channel/Join.tsx
+msgid "Left successfully!"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Joined successfully!"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
 msgstr ""
@@ -2590,15 +2611,6 @@ msgstr ""
 
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
-msgstr ""
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr ""
-
-#: src/components/Shared/Follow.tsx
-msgid "Follow"
 msgstr ""
 
 #: src/components/Shared/Footer/index.tsx
@@ -3098,6 +3110,19 @@ msgstr ""
 msgid "Go to {type}"
 msgstr ""
 
+#: src/components/Shared/Profile/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr ""
+
+#: src/components/Shared/Profile/Follow.tsx
+msgid "Follow"
+msgstr ""
+
+#: src/components/Shared/Profile/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr ""
+
 #: src/components/Shared/Profiles.tsx
 msgid "other"
 msgstr ""
@@ -3209,10 +3234,6 @@ msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
-msgstr ""
-
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
 msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
