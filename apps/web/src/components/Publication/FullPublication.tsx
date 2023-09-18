@@ -1,7 +1,7 @@
 import type { Publication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
-import type { FC } from 'react';
+import { type FC, useEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
 import FeaturedChannel from './FeaturedChannel';
@@ -32,11 +32,19 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     ? publication?.mirrorOf?.stats?.totalAmountOfCollects
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
+  const publicationRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (publicationRef?.current) {
+      publicationRef.current.style.scrollMargin = '4.2rem';
+      publicationRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
 
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
-      <div>
+      <div ref={publicationRef}>
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
