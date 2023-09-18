@@ -21,6 +21,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
@@ -34,6 +35,9 @@ const DeleteSettings: FC = () => {
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
   const handleWrongNetwork = useHandleWrongNetwork();
+  const profileGuardianInformation = useProfileGuardianInformationStore(
+    (state) => state.profileGuardianInformation
+  );
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
@@ -95,11 +99,34 @@ const DeleteSettings: FC = () => {
     }
   };
 
+  const cooldownEnded = () => {
+    const cooldownDate =
+      profileGuardianInformation.disablingProtectionTimestamp as any;
+    return new Date(cooldownDate).getTime() < Date.now();
+  };
+
+  const canDelete = !profileGuardianInformation.isProtected && cooldownEnded();
+
+  if (!canDelete) {
+    return (
+      <Card className="space-y-5 p-5">
+        <div className="text-lg font-bold text-red-500">
+          <Trans>Delete Lens profile</Trans>
+        </div>
+        <p>
+          <Trans>
+            Your profile cannot be deleted while profile guardian is enabled.
+          </Trans>
+        </p>
+      </Card>
+    );
+  }
+
   return (
     <Card className="space-y-5 p-5">
       <UserProfile profile={currentProfile as Profile} />
       <div className="text-lg font-bold text-red-500">
-        <Trans>This will delete your Lens profile</Trans>
+        <Trans>Delete Lens profile</Trans>
       </div>
       <p>
         <Trans>
