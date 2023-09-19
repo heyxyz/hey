@@ -54,7 +54,7 @@ const ViewProfile: NextPage = () => {
 
   const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { handle }, who: currentProfile?.id ?? null },
+    variables: { request: { forHandle: handle } },
     skip: !handle
   });
 
@@ -62,7 +62,8 @@ const ViewProfile: NextPage = () => {
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const isFollowedByMe =
-    Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
+    Boolean(currentProfile) &&
+    Boolean(profile?.operations.isFollowedByMe.value);
 
   const followType = profile?.followModule?.__typename;
   const initState = following === null;

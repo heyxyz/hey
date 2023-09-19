@@ -13,8 +13,8 @@ import type {
 import {
   CustomFiltersType,
   LimitType,
-  useSearchProfilesLazyQuery,
-  useSeeThroughProfilesLazyQuery
+  useFeedLazyQuery,
+  useSearchProfilesLazyQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
@@ -45,13 +45,13 @@ const SeeThroughLens: FC = () => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
-      const profileId = feedItem.root?.profile.id;
+      const profileId = feedItem.root.by.id;
       if (
         !uniqueProfileIds.includes(profileId) &&
         profileId !== seeThroughProfile?.id &&
         profileId !== currentProfile?.id
       ) {
-        profiles.push(feedItem.root?.profile as Profile);
+        profiles.push(feedItem.root.by as Profile);
         uniqueProfileIds.push(profileId);
       }
     }
@@ -64,14 +64,13 @@ const SeeThroughLens: FC = () => {
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] =
-    useSeeThroughProfilesLazyQuery({
-      variables: { request },
-      onCompleted: ({ feed }) => {
-        const feedItems = feed?.items as FeedItem[];
-        setRecommendedProfiles(feedItems);
-      }
-    });
+  const [fetchRecommendedProfiles, { loading, error }] = useFeedLazyQuery({
+    variables: { request },
+    onCompleted: ({ feed }) => {
+      const feedItems = feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
+    }
+  });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;

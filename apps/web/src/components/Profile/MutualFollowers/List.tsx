@@ -1,11 +1,8 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type {
-  MutualFollowersProfilesQueryRequest,
-  Profile
-} from '@lenster/lens';
-import { useMutualFollowersQuery } from '@lenster/lens';
+import type { MutualFollowersRequest, Profile } from '@lenster/lens';
+import { LimitType, useMutualFollowersQuery } from '@lenster/lens';
 import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -21,10 +18,10 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request: MutualFollowersProfilesQueryRequest = {
-    viewingProfileId: profileId,
-    yourProfileId: currentProfile?.id,
-    limit: 50
+  const request: MutualFollowersRequest = {
+    viewing: profileId,
+    observer: currentProfile?.id,
+    limit: LimitType.Ten
   };
 
   const { data, loading, error, fetchMore } = useMutualFollowersQuery({
@@ -32,8 +29,8 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
     skip: !profileId
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items;
-  const pageInfo = data?.mutualFollowersProfiles?.pageInfo;
+  const profiles = data?.mutualFollowers?.items;
+  const pageInfo = data?.mutualFollowers?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const { observe } = useInView({
@@ -71,7 +68,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
           >
             <UserProfile
               profile={profile as Profile}
-              isFollowing={profile?.isFollowedByMe}
+              isFollowing={profile.operations.isFollowedByMe.value}
               followUnfollowPosition={index + 1}
               followUnfollowSource={FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL}
               showBio
