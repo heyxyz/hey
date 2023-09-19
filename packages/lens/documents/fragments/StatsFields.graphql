@@ -1,6 +1,0 @@
-fragment StatsFields on PublicationStats {
-  reactions
-  comments
-  mirrors
-  countOpenActions
-}

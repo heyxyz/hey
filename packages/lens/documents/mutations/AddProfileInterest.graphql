@@ -1,3 +1,0 @@
-mutation AddProfileInterest($request: ProfileInterestsRequest!) {
-  addProfileInterests(request: $request)
-}

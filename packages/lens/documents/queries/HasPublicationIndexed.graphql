@@ -1,0 +1,16 @@
+query HasPublicationIndexed($request: PublicationRequest!) {
+  publication(request: $request) {
+    ... on Post {
+      id
+    }
+    ... on Comment {
+      id
+    }
+    ... on Mirror {
+      id
+    }
+    ... on Quote {
+      id
+    }
+  }
+}

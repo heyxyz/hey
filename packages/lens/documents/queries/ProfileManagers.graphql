@@ -1,0 +1,11 @@
+query ProfileManagers($request: ProfileManagersRequest!) {
+  profileManagers(request: $request) {
+    items {
+      address
+    }
+    pageInfo {
+      prev
+      next
+    }
+  }
+}

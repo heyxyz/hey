@@ -1,0 +1,9 @@
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

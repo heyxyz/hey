@@ -1,0 +1,184 @@
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    optionalAmount: amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    followerOnly
+    recipient
+    referralFee
+    optionalEndTimestamp: endTimestamp
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    followerOnly
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    collectLimit
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    collectLimit
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+    endTimestamp
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+    endTimestamp
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    optionalAmount: amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    followerOnly
+    recipient
+    referralFee
+    optionalEndTimestamp: endTimestamp
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    vault {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndTimestamp: endTimestamp
+    recipient
+  }
+  ... on UnknownOpenActionModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}

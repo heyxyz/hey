@@ -1,0 +1,12 @@
+fragment ImageSetFields on ImageSet {
+  raw {
+    uri
+    mimeType
+  }
+  optimized {
+    uri
+    mimeType
+    width
+    height
+  }
+}

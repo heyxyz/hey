@@ -1,0 +1,9 @@
+fragment TransactionMetadataV3Fields on TransactionMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

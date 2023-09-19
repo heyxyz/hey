@@ -1,19 +1,12 @@
-query FeedHighlights(
-  $request: FeedHighlightsRequest!
-  $reactionRequest: ReactionFieldResolverRequest
-  $profileId: ProfileId
-) {
+query FeedHighlights($request: FeedHighlightsRequest!) {
   feedHighlights(request: $request) {
     items {
       ... on Post {
         ...PostFields
       }
-      ... on Comment {
-        ...CommentFields
-      }
-      ... on Mirror {
-        ...MirrorFields
-      }
+      ... on Quote {
+        ...QuoteFields
+      } 
     }
     pageInfo {
       next

@@ -1,0 +1,9 @@
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  content
+  contentWarning
+  tags
+  locale
+}

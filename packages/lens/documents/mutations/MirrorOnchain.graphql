@@ -1,5 +1,0 @@
-mutation MirrorOnchain($request: OnchainMirrorRequest!) {
-  mirrorOnchain(request: $request) {
-    ...RelayerResultFields
-  }
-}

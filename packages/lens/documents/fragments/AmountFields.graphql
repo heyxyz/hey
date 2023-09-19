@@ -1,12 +1,6 @@
 fragment AmountFields on Amount {
   asset {
-    ... on Erc20 {
-      symbol
-      decimals
-      contract {
-        address
-      }
-    }
+    ...Erc20Fields
   }
   value
 }

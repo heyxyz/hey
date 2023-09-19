@@ -1,0 +1,9 @@
+fragment ThreeDMetadataV3Fields on ThreeDMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

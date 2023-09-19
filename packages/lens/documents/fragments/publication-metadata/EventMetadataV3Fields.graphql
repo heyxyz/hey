@@ -1,0 +1,10 @@
+fragment EventMetadataV3Fields on EventMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  contentWarning
+  tags
+  locale
+  startsAt
+  endsAt
+}

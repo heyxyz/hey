@@ -1,7 +1,0 @@
-query RelayQueues {
-  relayQueues {
-    relayer
-    address
-    queue
-  }
-}

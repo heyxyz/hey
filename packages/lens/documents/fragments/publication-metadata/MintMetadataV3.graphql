@@ -1,0 +1,9 @@
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

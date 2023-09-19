@@ -1,0 +1,4 @@
+fragment PublicationMetadataV3AttributeFields on PublicationMetadataV3Attribute {
+  key
+  value
+}

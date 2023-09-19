@@ -1,5 +1,0 @@
-mutation CommentOnchain($request: OnchainCommentRequest!) {
-  commentOnchain(request: $request) {
-    ...RelayerResultFields
-  }
-}

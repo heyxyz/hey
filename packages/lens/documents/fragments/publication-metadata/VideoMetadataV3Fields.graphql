@@ -1,0 +1,9 @@
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

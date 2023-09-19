@@ -1,0 +1,22 @@
+fragment ReferenceModuleFields on ReferenceModule {
+  ... on FollowOnlyReferenceModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+  ... on UnknownReferenceModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    referenceModuleReturnData
+  }
+  ... on DegreesOfSeparationReferenceModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    commentsRestricted
+    mirrorsRestricted
+    quotesRestricted
+    degreesOfSeparation
+  }
+}
