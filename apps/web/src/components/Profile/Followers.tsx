@@ -1,10 +1,9 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import WalletProfile from '@components/Shared/WalletProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { FollowersRequest, Profile, Wallet } from '@lenster/lens';
-import { useFollowersQuery } from '@lenster/lens';
+import type { FollowersRequest, Profile } from '@lenster/lens';
+import { LimitType, useFollowersQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -21,7 +20,10 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
-  const request: FollowersRequest = { profileId: profile?.id, limit: 50 };
+  const request: FollowersRequest = {
+    of: profile?.id,
+    limit: LimitType.Fifty
+  };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({
     variables: { request },
@@ -84,24 +86,16 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
               exit={{ opacity: 0 }}
               className="p-5"
             >
-              {follower?.wallet?.defaultProfile ? (
-                <UserProfile
-                  profile={follower?.wallet?.defaultProfile as Profile}
-                  isFollowing={follower?.wallet?.defaultProfile?.isFollowedByMe}
-                  followUnfollowPosition={index + 1}
-                  followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
-                  showBio
-                  showFollow={
-                    currentProfile?.id !== follower?.wallet?.defaultProfile?.id
-                  }
-                  showUnfollow={
-                    currentProfile?.id !== follower?.wallet?.defaultProfile?.id
-                  }
-                  showUserPreview={false}
-                />
-              ) : (
-                <WalletProfile wallet={follower?.wallet as Wallet} />
-              )}
+              <UserProfile
+                profile={follower as Profile}
+                isFollowing={follower.operations.isFollowedByMe.value}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
+                showBio
+                showFollow={currentProfile?.id !== follower.id}
+                showUnfollow={currentProfile?.id !== follower.id}
+                showUserPreview={false}
+              />
             </motion.div>
           );
         }}

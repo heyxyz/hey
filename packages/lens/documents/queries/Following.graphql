@@ -1,0 +1,10 @@
+query Following($request: FollowingRequest!) {
+  following(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}
