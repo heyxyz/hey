@@ -126,7 +126,7 @@ const SpacesWindow: FC = () => {
     } else {
       audioRef.current?.pause();
     }
-  }, [isMusicPlaying]);
+  }, [isMusicPlaying, musicTrack]);
 
   useUpdateEffect(() => {
     if (activeSpeakerDevice) {

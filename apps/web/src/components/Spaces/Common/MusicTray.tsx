@@ -28,15 +28,13 @@ const MusicTray: FC = () => {
   } = useSpacesStore();
 
   useUpdateEffect(() => {
-    console.log('Outside');
     if (myMusicTrack !== MusicTrack.DEFAULT) {
-      console.log('Inside');
       sendData('*', {
         musicTrack: myMusicTrack,
         isMusicPlaying: isMyMusicPlaying
       });
     }
-  }, [isMyMusicPlaying]);
+  }, [myMusicTrack, isMyMusicPlaying]);
 
   const MusicTrackSelection = ({ value, label }: MusicTrackSelectionProps) => (
     <div className="cursor-pointer border-b border-gray-300 p-2 text-center text-base font-semibold dark:border-gray-700">

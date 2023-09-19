@@ -6,7 +6,7 @@ import { Radio } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSpacesStore } from 'src/store/spaces';
 
 import Dropdown from './Dropdown';
@@ -71,45 +71,22 @@ const DeviceList: React.FC<DeviceListProps> = ({ devices, deviceType }) => {
   );
 };
 
-const SettingsTray: FC = () => {
+interface SettingsTrayProps {
+  micDevices: MediaDeviceInfo[];
+  speakerDevices: MediaDeviceInfo[];
+}
+
+const SettingsTray: FC<SettingsTrayProps> = ({
+  micDevices,
+  speakerDevices
+}) => {
   const {
     activeMicDevice,
     activeSpeakerDevice,
     setActiveMicDevice,
     setActiveSpeakerDevice
   } = useSpacesStore();
-  const [micDevices, setMicDevices] = useState<MediaDeviceInfo[]>([]);
-  const [speakerDevices, setSpeakerDevices] = useState<MediaDeviceInfo[]>([]);
   const [showSettings, setShowSettings] = useState(true);
-
-  useEffect(() => {
-    if (!activeMicDevice || !activeSpeakerDevice) {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(() => {
-        navigator.mediaDevices.enumerateDevices().then(async (devices) => {
-          const mic = devices.find((device) => device.kind === 'audioinput');
-          if (mic && !activeMicDevice) {
-            setActiveMicDevice(mic);
-          }
-          const speaker = devices.find(
-            (device) => device.kind === 'audiooutput'
-          );
-          if (speaker && !activeSpeakerDevice) {
-            setActiveSpeakerDevice(speaker);
-          }
-        });
-      });
-    }
-    if (micDevices.length === 0 || speakerDevices.length === 0) {
-      navigator.mediaDevices.enumerateDevices().then(async (devices) => {
-        const mic = devices.filter((device) => device.kind === 'audioinput');
-        setMicDevices(mic);
-        const speaker = devices.filter(
-          (device) => device.kind === 'audiooutput'
-        );
-        setSpeakerDevices(speaker);
-      });
-    }
-  }, [activeMicDevice, activeSpeakerDevice]);
 
   return (
     showSettings && (

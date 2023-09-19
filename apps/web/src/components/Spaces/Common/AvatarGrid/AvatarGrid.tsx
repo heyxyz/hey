@@ -25,26 +25,27 @@ const AvatarGrid: FC<AvatarGridProps> = ({ isLobbyPreview }) => {
   useEffectOnce(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 2000);
   });
 
   return (
-    <div className="min-w-[24rem]">
-      {isLobbyPreview && isLoading && (
-        <div className="grid min-h-[18rem] items-center justify-center p-4">
-          <Spinner />
-        </div>
-      )}
+    <div className="w-96">
       {isLobbyPreview && Object.keys(previewPeers).length > 0 ? (
-        <div className="m-4 grid min-h-[18rem] grid-cols-5 items-center justify-between gap-5">
-          {Object.values(previewPeers).map(({ displayName, avatarUrl }) => (
-            <Avatar
-              key={displayName}
-              displayName={displayName}
-              avatarUrl={avatarUrl}
-            />
-          ))}
-        </div>
+        isLoading ? (
+          <div className="flex min-h-[18rem] items-center justify-center">
+            <Spinner />
+          </div>
+        ) : (
+          <div className="mx-4 grid min-h-[18rem] grid-cols-5 items-center justify-between gap-5">
+            {Object.values(previewPeers).map(({ displayName, avatarUrl }) => (
+              <Avatar
+                key={displayName}
+                displayName={displayName}
+                avatarUrl={avatarUrl}
+              />
+            ))}
+          </div>
+        )
       ) : (
         <>
           <div className="grid min-h-[8rem] grid-cols-5 items-center justify-between gap-5 self-stretch">
