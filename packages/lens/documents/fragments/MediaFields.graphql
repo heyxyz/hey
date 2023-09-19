@@ -1,0 +1,37 @@
+fragment MediaFields on LegacyMediaItem {
+  ... on LegacyAudioItem {
+    cover {
+      ...ImageSetFields
+    }
+    audio {
+      raw {
+        uri
+        mimeType
+      }
+      optimized {
+        uri
+        mimeType
+      }
+    }
+  }
+  ... on LegacyImageItem {
+    image {
+      ...ImageSetFields
+    }
+  }
+  ... on LegacyVideoItem {
+    cover {
+      ...ImageSetFields
+    }
+    video {
+      raw {
+        uri
+        mimeType
+      }
+      optimized {
+        uri
+        mimeType
+      }
+    }
+  }
+}

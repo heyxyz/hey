@@ -1,0 +1,41 @@
+mutation CreateUnfollowTypedData(
+  $options: TypedDataOptions
+  $request: UnfollowRequest!
+) {
+  createUnfollowTypedData(options: $options, request: $request) {
+    expiresAt
+    id
+    typedData {
+      types {
+        Unfollow {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        unfollowerProfileId
+        idsOfProfilesToUnfollow
+      }
+    }
+  }
+}
+
+mutation Unfollow($request: UnfollowRequest!) {
+  unfollow(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

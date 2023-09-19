@@ -43,7 +43,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
   const handleWrongNetwork = useHandleWrongNetwork();
   const { signMessageAsync } = useSignMessage();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }

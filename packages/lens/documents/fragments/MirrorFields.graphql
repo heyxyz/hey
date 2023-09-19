@@ -1,67 +1,15 @@
 fragment MirrorFields on Mirror {
   id
-  profile {
-    ...ProfileFields
+  publishedOn {
+    id
   }
-  reaction(request: $reactionRequest)
-  hasCollectedByMe
-  isGated
-  isDataAvailability
-  dataAvailabilityProofs
-  canComment(profileId: $profileId) {
-    result
+  isHidden
+  momoka {
+    proof
   }
-  canMirror(profileId: $profileId) {
-    result
-  }
-  canDecrypt(profileId: $profileId) {
-    result
-    reasons
-  }
-  collectModule {
-    ...CollectModuleFields
-  }
-  stats {
-    ...StatsFields
-  }
-  metadata {
-    ...MetadataFields
-  }
-  hidden
-  mirrorOf {
-    ... on Post {
-      ...PostFields
-    }
-    ... on Comment {
-      id
-      profile {
-        ...ProfileFields
-      }
-      collectNftAddress
-      reaction(request: $reactionRequest)
-      mirrors(by: $profileId)
-      bookmarked(by: $profileId)
-      notInterested(by: $profileId)
-      onChainContentURI
-      isGated
-      isDataAvailability
-      dataAvailabilityProofs
-      canComment(profileId: $profileId) {
-        result
-      }
-      canMirror(profileId: $profileId) {
-        result
-      }
-      canDecrypt(profileId: $profileId) {
-        result
-        reasons
-      }
-      stats {
-        ...StatsFields
-      }
-      createdAt
-    }
-  }
+  txHash
   createdAt
-  appId
+  mirrorOn {
+    ...PrimaryPublicationFields
+  }
 }

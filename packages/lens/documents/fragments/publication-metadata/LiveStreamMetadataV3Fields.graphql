@@ -1,0 +1,11 @@
+fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+  startsAt
+  optionalEndsAt
+}

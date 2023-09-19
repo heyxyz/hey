@@ -1,0 +1,42 @@
+mutation CreateSetFollowModuleTypedData(
+  $options: TypedDataOptions
+  $request: SetFollowModuleRequest!
+) {
+  createSetFollowModuleTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        SetFollowModule {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        followModule
+        followModuleInitData
+      }
+    }
+  }
+}
+
+mutation SetFollowModule($request: SetFollowModuleRequest!) {
+  setFollowModule(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

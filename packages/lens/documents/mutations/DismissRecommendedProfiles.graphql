@@ -1,5 +1,0 @@
-mutation DismissRecommendedProfiles(
-  $request: DismissRecommendedProfilesRequest!
-) {
-  dismissRecommendedProfiles(request: $request)
-}

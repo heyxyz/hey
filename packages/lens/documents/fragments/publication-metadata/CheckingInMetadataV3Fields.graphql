@@ -1,0 +1,8 @@
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  contentWarning
+  tags
+  locale
+}

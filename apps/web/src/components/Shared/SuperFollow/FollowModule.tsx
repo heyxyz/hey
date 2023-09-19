@@ -61,7 +61,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [allowed, setAllowed] = useState(true);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }

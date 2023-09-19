@@ -1,0 +1,37 @@
+fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
+  locale
+  tags
+  mainContentFocus
+  contentWarning
+  conditionalContent
+  conditionalMedia {
+    ...MediaFields
+  }
+  marketplace {
+    name
+    description
+    attributes {
+      displayType
+      traitType
+      value
+    }
+    animationUrl
+    image {
+      ...ImageSetFields
+    }
+  }
+  encryptedWith {
+    encryptionKey
+    encryptedFields {
+      content
+      image
+      media {
+        uri
+        mimeType
+        cover
+      }
+      animationUrl
+      externalUrl
+    }
+  }
+}

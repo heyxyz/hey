@@ -1,0 +1,9 @@
+fragment SpaceMetadataV3Fields on SpaceMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

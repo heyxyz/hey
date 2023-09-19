@@ -1,7 +1,0 @@
-query Invites {
-  invitesLeft
-  invited {
-    address
-    when
-  }
-}

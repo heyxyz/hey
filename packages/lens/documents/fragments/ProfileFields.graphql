@@ -1,43 +1,53 @@
 fragment ProfileFields on Profile {
   id
-  name
-  handle
-  bio
-  ownedBy
-  isFollowedByMe
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  lensManager
+  sponsor
+  txHash
+  createdAt
   stats {
-    totalFollowers
-    totalFollowing
-    totalPosts
-    totalComments
-    totalMirrors
+    ...ProfileStatsFields
   }
-  attributes {
-    traitType
-    key
-    value
+  operations {
+    ...ProfileOperationsFields
   }
-  picture {
-    ... on MediaSet {
-      original {
-        url
+  interests
+  guardian {
+    protected
+    cooldownEndsOn
+  }
+  invitedBy {
+    id
+  }
+  invitesLeft
+  onchainIdentity {
+    proofOfHumanity
+    ens {
+      name
+    }
+    sybilDotOrg {
+      verified
+      source {
+        twitter {
+          handle
+        }
       }
     }
-    ... on NftImage {
-      uri
-      tokenId
-      contractAddress
-      chainId
+    worldcoin {
+      isHuman
     }
   }
-  coverPicture {
-    ... on MediaSet {
-      original {
-        url
-      }
-    }
+  followNftAddress {
+    address
+    chainId
+  }
+  metadata {
+    ...ProfileMetadataFields
   }
   followModule {
-    __typename
+    ...FollowModuleFields
   }
+  handle
 }

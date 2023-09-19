@@ -1,0 +1,32 @@
+query SimpleProfiles($request: ProfilesRequest!) {
+  profiles(request: $request) {
+    items {
+      id
+      ownedBy {
+        address
+      }
+      sponsor
+      stats {
+        followers
+      }
+      metadata {
+        picture {
+          ... on ImageSet {
+            ...ImageSetFields
+          }
+          ... on NftImage {
+            image {
+              raw {
+                uri
+              }
+            }
+          }
+        }
+      }
+      handle
+    }
+    pageInfo {
+      next
+    }
+  }
+}

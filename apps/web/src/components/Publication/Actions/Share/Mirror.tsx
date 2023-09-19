@@ -70,7 +70,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const onCompleted = (
     __typename?:
       | 'RelayError'
-      | 'RelayerResult'
+      | 'RelaySuccess'
       | 'CreateDataAvailabilityPublicationResult'
   ) => {
     if (__typename === 'RelayError') {

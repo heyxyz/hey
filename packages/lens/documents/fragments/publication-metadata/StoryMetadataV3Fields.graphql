@@ -1,0 +1,9 @@
+fragment StoryMetadataV3Fields on StoryMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

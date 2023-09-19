@@ -1,141 +1,110 @@
 query Notifications($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
-      ... on NewFollowerNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
+      ... on ReactionNotification {
+        id
+        publication {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
+        reactions {
+          profile {
+            ...ProfileFields
+          }
+          reactions {
+            reactedAt
+            reaction
+          }
+        }
+      }
+      ... on CommentNotification {
+        id
+        comment {
+          ...CommentFields
+        }
+      }
+      ... on MirrorNotification {
+        id
+        mirrors {
+          mirrorId
+          mirroredAt
+          profile {
             ...ProfileFields
           }
         }
-        createdAt
-      }
-      ... on NewMentionNotification {
-        notificationId
-        mentionPublication {
+        publication {
           ... on Post {
-            id
-            profile {
-              ...ProfileFields
-            }
-            metadata {
-              content
-            }
+            ...PostFields
           }
           ... on Comment {
-            id
-            profile {
-              ...ProfileFields
-            }
-            metadata {
-              content
-            }
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
           }
         }
-        createdAt
       }
-      ... on NewReactionNotification {
-        notificationId
-        profile {
-          ...ProfileFields
+      ... on QuoteNotification {
+        id
+        quote {
+          ...QuoteFields
+        }
+      }
+      ... on ActedNotification {
+        id
+        actions {
+          actedAt
+          profile {
+            ...ProfileFields
+          }
+          action {
+            ... on KnownCollectOpenActionResult {
+              type
+            }
+            ... on UnknownOpenActionResult {
+              address
+              category
+            }
+          }
         }
         publication {
           ... on Post {
-            id
-            metadata {
-              content
-            }
+            ...PostFields
           }
           ... on Comment {
-            id
-            metadata {
-              content
-            }
+            ...CommentFields
           }
           ... on Mirror {
-            id
-            metadata {
-              content
-            }
+            ...MirrorFields
           }
         }
-        createdAt
       }
-      ... on NewCommentNotification {
-        notificationId
-        profile {
+      ... on FollowNotification {
+        id
+        followers {
           ...ProfileFields
         }
-        comment {
-          id
-          metadata {
-            content
-          }
-          commentOn {
-            ... on Post {
-              id
-            }
-            ... on Comment {
-              id
-            }
-            ... on Mirror {
-              id
-            }
-          }
-        }
-        createdAt
       }
-      ... on NewMirrorNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
+      ... on MentionNotification {
+        id
         publication {
           ... on Post {
-            id
-            metadata {
-              content
-            }
+            ...PostFields
           }
           ... on Comment {
-            id
-            metadata {
-              content
-            }
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
           }
         }
-        createdAt
-      }
-      ... on NewCollectNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
-            ...ProfileFields
-          }
-        }
-        collectedPublication {
-          ... on Post {
-            id
-            metadata {
-              content
-            }
-            collectModule {
-              ...CollectModuleFields
-            }
-          }
-          ... on Comment {
-            id
-            metadata {
-              content
-            }
-            collectModule {
-              ...CollectModuleFields
-            }
-          }
-        }
-        createdAt
       }
     }
     pageInfo {

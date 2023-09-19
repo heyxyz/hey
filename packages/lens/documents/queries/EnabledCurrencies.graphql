@@ -1,0 +1,17 @@
+query EnabledCurrencies($request: PaginatedOffsetRequest!) {
+  currencies(request: $request) {
+    items {
+      name
+      symbol
+      decimals
+      contract {
+        address
+        chainId
+      }
+    }
+    pageInfo {
+      prev
+      next
+    }
+  }
+}

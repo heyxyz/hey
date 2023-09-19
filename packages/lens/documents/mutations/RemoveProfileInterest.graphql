@@ -1,3 +1,0 @@
-mutation RemoveProfileInterest($request: RemoveProfileInterestsRequest!) {
-  removeProfileInterests(request: $request)
-}

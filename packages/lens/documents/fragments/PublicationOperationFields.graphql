@@ -1,0 +1,29 @@
+fragment PublicationOperationFields on PublicationOperations {
+  isNotInterested
+  hasBookmarked
+  hasReported
+  canAct
+  hasActed {
+    value
+    isFinalisedOnchain
+  }
+  actedOn {
+    ... on KnownCollectOpenActionResult {
+      type
+    }
+    ... on UnknownOpenActionResult {
+      address
+      category
+      initReturnData
+    }
+  }
+  hasReacted
+  canComment
+  canMirror
+  hasMirrored
+  canDecrypt {
+    result
+    reasons
+    extraDetails
+  }
+}
