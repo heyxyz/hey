@@ -83,7 +83,7 @@ const PreviewList: FC<PreviewListProps> = ({
   const onProfileSelected = async (profile: Profile) => {
     const conversationKey = profile.ownedBy.address.toLowerCase();
     await persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile.isFollowedByMe
+    const selectedTab: TabValues = profile.operations.isFollowedByMe.value
       ? MessageTabs.Following
       : MessageTabs.Inbox;
     setSelectedTab(selectedTab);
@@ -93,7 +93,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const partitionedProfiles = Array.from(profilesToShow || []).reduce(
     (result, [key, profile]) => {
-      if (profile.isFollowedByMe) {
+      if (profile.operations.isFollowedByMe.value) {
         result[0].set(key, profile);
       } else {
         result[1].set(key, profile);

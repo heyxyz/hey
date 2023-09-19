@@ -43,7 +43,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   const [lazyProfile, setLazyProfile] = useState(profile);
   const [loading, setLoading] = useState(false);
   const [following, setFollowing] = useState(
-    profile?.operations.isFollowedByMe
+    profile.operations.isFollowedByMe.value
   );
 
   const [loadProfile] = useProfileLazyQuery({
@@ -113,7 +113,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
-            {!lazyProfile.operations.isFollowedByMe ? (
+            {!lazyProfile.operations.isFollowedByMe.value ? (
               followStatusLoading ? (
                 <div className="shimmer h-8 w-10 rounded-lg" />
               ) : following ? null : lazyProfile?.followModule?.__typename ===

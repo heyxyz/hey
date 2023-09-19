@@ -70,7 +70,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
         <div key={profile?.id} className="truncate">
           <UserProfile
             profile={profile as Profile}
-            isFollowing={profile.isFollowedByMe}
+            isFollowing={profile.operations.isFollowedByMe.value}
             followUnfollowPosition={index + 1}
             followUnfollowSource={
               FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES

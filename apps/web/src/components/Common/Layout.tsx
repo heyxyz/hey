@@ -2,7 +2,7 @@ import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@lenster/lens';
-import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
 import resetAuthData from '@lenster/lib/resetAuthData';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
@@ -12,7 +12,6 @@ import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
@@ -28,8 +27,6 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
-  const { setProfileGuardianInformation, resetProfileGuardianInformation } =
-    useProfileGuardianInformationStore();
   const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
 
@@ -43,23 +40,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     setProfileId(null);
     setCurrentProfile(null);
     resetPreferences();
-    resetProfileGuardianInformation();
   };
 
   // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useUserProfilesWithGuardianInformationQuery({
-    variables: {
-      profileGuardianInformationRequest: { profileId },
-      profilesRequest: { ownedBy: [address] }
-    },
+  const { loading } = useProfilesQuery({
+    variables: { request: { where: { ownedBy: [address] } } },
     skip: !profileId,
     onCompleted: (data) => {
-      const profiles = data?.profiles?.items
-        ?.slice()
-        ?.sort((a, b) => Number(a.id) - Number(b.id))
-        ?.sort((a, b) =>
-          a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
-        );
+      const profiles = data?.profiles?.items;
 
       if (!profiles.length) {
         return resetAuthState();
@@ -69,11 +57,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
-      setProfileGuardianInformation({
-        isProtected: data.profileGuardianInformation.protected,
-        disablingProtectionTimestamp:
-          data.profileGuardianInformation.disablingProtectionTimestamp
-      });
     },
     onError: () => setProfileId(null)
   });
