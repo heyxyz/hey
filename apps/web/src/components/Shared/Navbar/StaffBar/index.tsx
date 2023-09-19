@@ -1,8 +1,4 @@
-import {
-  GlobeAltIcon,
-  HashtagIcon,
-  RectangleGroupIcon
-} from '@heroicons/react/24/outline';
+import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import {
   GIT_COMMIT_SHA,
   IS_MAINNET,
@@ -26,7 +22,7 @@ export const Badge: FC<BadgeProps> = ({ children }) => (
 
 const StaffBar: FC = () => {
   return (
-    <div className="flex justify-between bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
+    <div className="bg-gray-200 px-3 py-1 text-sm dark:bg-gray-800">
       <div className="mr-5 flex flex-wrap items-center gap-2">
         <Performance />
         <div className="flex items-center space-x-1">
@@ -55,11 +51,6 @@ const StaffBar: FC = () => {
             <Badge>{GIT_COMMIT_SHA}</Badge>
           </Link>
         ) : null}
-      </div>
-      <div className="flex items-center">
-        <Link href="/stafftools">
-          <RectangleGroupIcon className="h-4 w-4" />
-        </Link>
       </div>
     </div>
   );

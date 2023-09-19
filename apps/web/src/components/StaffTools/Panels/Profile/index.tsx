@@ -95,25 +95,25 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         {profile?.followNftAddress ? (
           <MetaDetails
             icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={profile?.followNftAddress}
+            value={profile.followNftAddress.address}
             title={t`NFT address`}
           >
-            {formatAddress(profile?.followNftAddress)}
+            {formatAddress(profile.followNftAddress.address)}
           </MetaDetails>
         ) : null}
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          value={profile.lensManager ? 'Yes' : 'No'}
           title={t`Can use relay`}
         >
-          {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          {profile.lensManager ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
+          value={profile.sponsor ? 'Yes' : 'No'}
           title={t`Gas sponsored`}
         >
-          {profile.dispatcher?.sponsor ? 'Yes' : 'No'}
+          {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
@@ -124,10 +124,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.metadata}
+          value={profile.metadata?.rawURI}
           title={t`Metadata`}
         >
-          <Link href={profile?.metadata ?? ''} target="_blank" rel="noreferrer">
+          <Link
+            href={profile.metadata?.rawURI ?? ''}
+            target="_blank"
+            rel="noreferrer"
+          >
             <Trans>Open</Trans>
           </Link>
         </MetaDetails>
