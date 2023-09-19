@@ -1,4 +1,4 @@
-query RevenueFromPublication($request: PublicationRevenueRequest!) {
+query RevenueFromPublication($request: RevenueFromPublicationRequest!) {
   revenueFromPublication(request: $request) {
     publication {
       ... on Post {

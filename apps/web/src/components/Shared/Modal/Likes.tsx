@@ -1,8 +1,12 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile, WhoReactedPublicationRequest } from '@lenster/lens';
-import { useLikesQuery } from '@lenster/lens';
+import {
+  LimitType,
+  type Profile,
+  useWhoReactedPublicationQuery,
+  type WhoReactedPublicationRequest
+} from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -18,11 +22,11 @@ interface LikesProps {
 const Likes: FC<LikesProps> = ({ publicationId }) => {
   // Variables
   const request: WhoReactedPublicationRequest = {
-    publicationId: publicationId,
-    limit: 50
+    for: publicationId,
+    limit: LimitType.Fifty
   };
 
-  const { data, loading, error, fetchMore } = useLikesQuery({
+  const { data, loading, error, fetchMore } = useWhoReactedPublicationQuery({
     variables: { request },
     skip: !publicationId
   });
@@ -77,8 +81,8 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               className="p-5"
             >
               <UserProfile
-                profile={like?.profile as Profile}
-                isFollowing={like?.profile?.isFollowedByMe}
+                profile={like.profile as Profile}
+                isFollowing={like.profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.LIKES_MODAL}
                 showBio

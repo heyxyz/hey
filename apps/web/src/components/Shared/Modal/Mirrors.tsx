@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile, ProfileQueryRequest } from '@lenster/lens';
-import { useProfilesQuery } from '@lenster/lens';
+import type { Profile, ProfilesRequest } from '@lenster/lens';
+import { LimitType, useProfilesQuery } from '@lenster/lens';
 import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -17,9 +17,9 @@ interface MirrorsProps {
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
-  const request: ProfileQueryRequest = {
-    whoMirroredPublicationId: publicationId,
-    limit: 50
+  const request: ProfilesRequest = {
+    where: { whoMirroredPublication: publicationId },
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({

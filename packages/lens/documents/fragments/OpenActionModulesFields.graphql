@@ -13,7 +13,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
     recipient
     referralFee
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
     contract {
@@ -28,7 +28,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
     recipients {
       recipient
       split
@@ -118,7 +118,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
     recipients {
       recipient
       split
@@ -138,7 +138,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
     recipient
     referralFee
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
   }
   ... on LegacyERC4626FeeCollectModuleSettings {
     contract {
@@ -157,7 +157,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
   }
   ... on LegacyAaveFeeCollectModuleSettings {
     contract {
@@ -172,7 +172,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    optionalEndTimestamp: endTimestamp
+    optionalEndsAt: endsAt
     recipient
   }
   ... on UnknownOpenActionModuleSettings {
