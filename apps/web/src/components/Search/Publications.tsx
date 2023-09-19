@@ -1,46 +1,34 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type {
-  AnyPublication,
-  PublicationSearchResult,
-  SearchQueryRequest
-} from '@lenster/lens';
+import type { AnyPublication, PublicationSearchRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
-  SearchRequestTypes,
+  LimitType,
   useSearchPublicationsQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 
 interface PublicationsProps {
-  query: string | string[];
+  query: string;
 }
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   // Variables
-  const request: SearchQueryRequest = {
+  const request: PublicationSearchRequest = {
+    where: { customFilters: [CustomFiltersType.Gardeners] },
     query,
-    type: SearchRequestTypes.Publication,
-    customFilters: [CustomFiltersType.Gardeners],
-    limit: 30
+    limit: LimitType.Fifty
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request }
   });
 
-  const search = data?.search as PublicationSearchResult;
+  const search = data?.searchPublications;
   const publications = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
@@ -52,11 +40,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

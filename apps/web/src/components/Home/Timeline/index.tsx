@@ -3,7 +3,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem, FeedRequest } from '@lenster/lens';
-import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
+import { FeedEventItemType, useFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -29,35 +29,27 @@ const Timeline: FC = () => {
       filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
     }
     if (feedEventFilters.collects) {
-      filters.push(
-        FeedEventItemType.CollectPost,
-        FeedEventItemType.CollectComment
-      );
+      filters.push(FeedEventItemType.Collect, FeedEventItemType.Comment);
     }
     if (feedEventFilters.mirrors) {
       filters.push(FeedEventItemType.Mirror);
     }
     if (feedEventFilters.likes) {
-      filters.push(
-        FeedEventItemType.ReactionPost,
-        FeedEventItemType.ReactionComment
-      );
+      filters.push(FeedEventItemType.Reaction, FeedEventItemType.Comment);
     }
     return filters;
   };
 
   // Variables
   const request: FeedRequest = {
-    profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 50,
-    feedEventItemTypes: getFeedEventItems()
+    where: {
+      for: seeThroughProfile?.id ?? currentProfile?.id,
+      feedEventItemTypes: getFeedEventItems()
+    }
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
 
-  const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId: currentProfile?.id }
+  const { data, loading, error, fetchMore } = useFeedQuery({
+    variables: { request }
   });
 
   const publications = data?.feed?.items;
@@ -71,11 +63,7 @@ const Timeline: FC = () => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId: currentProfile?.id
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

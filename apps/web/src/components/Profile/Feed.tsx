@@ -4,12 +4,13 @@ import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
   Profile,
-  PublicationsQueryRequest
+  PublicationsRequest
 } from '@lenster/lens';
 import {
+  LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
-  useProfileFeedQuery
+  usePublicationsQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
@@ -17,7 +18,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
-import { useAppStore } from 'src/store/app';
 import { useProfileFeedStore } from 'src/store/profile-feed';
 
 interface FeedProps {
@@ -30,7 +30,6 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ profile, type }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
@@ -64,21 +63,19 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           mainContentFocus: getMediaFilters()
         }
       : null;
-  const request: PublicationsQueryRequest = {
-    publicationTypes,
-    metadata,
-    ...(type !== ProfileFeedType.Collects
-      ? { profileId: profile?.id }
-      : { collectedBy: profile?.ownedBy.address }),
-    limit: 30
+  const request: PublicationsRequest = {
+    where: {
+      publicationTypes,
+      metadata,
+      ...(type !== ProfileFeedType.Collects
+        ? { profileId: profile?.id }
+        : { collectedBy: profile?.ownedBy.address })
+    },
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useProfileFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
     skip: !profile?.id
   });
 
@@ -93,11 +90,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });
