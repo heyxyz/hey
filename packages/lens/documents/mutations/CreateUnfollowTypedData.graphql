@@ -10,7 +10,7 @@ mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
         verifyingContract
       }
       types {
-        BurnWithSig {
+        Unfollow {
           name
           type
         }
@@ -18,7 +18,8 @@ mutation CreateUnfollowTypedData($request: UnfollowRequest!) {
       value {
         nonce
         deadline
-        tokenId
+        unfollowerProfileId
+        idsOfProfilesToUnfollow
       }
     }
   }

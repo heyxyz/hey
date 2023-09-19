@@ -1,13 +1,13 @@
 mutation CreateSetFollowModuleTypedData(
   $options: TypedDataOptions
-  $request: CreateSetFollowModuleRequest!
+  $request: SetFollowModuleRequest!
 ) {
   createSetFollowModuleTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
       types {
-        SetFollowModuleWithSig {
+        SetFollowModule {
           name
           type
         }

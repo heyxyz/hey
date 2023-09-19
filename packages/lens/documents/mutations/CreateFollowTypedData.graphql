@@ -13,7 +13,7 @@ mutation CreateFollowTypedData(
         verifyingContract
       }
       types {
-        FollowWithSig {
+        Follow {
           name
           type
         }
@@ -21,7 +21,9 @@ mutation CreateFollowTypedData(
       value {
         nonce
         deadline
-        profileIds
+        followerProfileId
+        idsOfProfilesToFollow
+        followTokenIds
         datas
       }
     }
