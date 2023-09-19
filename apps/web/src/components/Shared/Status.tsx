@@ -1,6 +1,6 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@lenster/abis';
-import { LENS_PERIPHERY } from '@lenster/data/constants';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
@@ -90,8 +90,8 @@ const Status: FC = () => {
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY,
-    abi: LensPeriphery,
+    address: LENSHUB_PROXY,
+    abi: LensHub,
     functionName: 'setProfileMetadataURIWithSig',
     onSuccess: () => onCompleted(),
     onError

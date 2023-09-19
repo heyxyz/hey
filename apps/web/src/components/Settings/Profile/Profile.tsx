@@ -1,8 +1,8 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@lenster/abis';
-import { COVER, LENS_PERIPHERY } from '@lenster/data/constants';
+import { LensHub } from '@lenster/abis';
+import { COVER, LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
@@ -105,8 +105,8 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { error, write } = useContractWrite({
-    address: LENS_PERIPHERY,
-    abi: LensPeriphery,
+    address: LENSHUB_PROXY,
+    abi: LensHub,
     functionName: 'setProfileMetadataURI',
     onSuccess: () => onCompleted(),
     onError
