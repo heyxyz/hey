@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -10,7 +10,7 @@ import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
 interface ShareProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Share: FC<ShareProps> = ({ publication }) => {

@@ -2,10 +2,10 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
+  AnyPublication,
   CustomFiltersTypes,
   ExplorePublicationRequest,
-  Publication,
-  PublicationMainFocus,
+  PublicationMetadataMainFocusType,
   PublicationTypes
 } from '@lenster/lens';
 import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
@@ -20,7 +20,7 @@ interface FeedProps {
   refresh: boolean;
   setRefreshing: (refreshing: boolean) => void;
   publicationTypes: PublicationTypes[];
-  mainContentFocus: PublicationMainFocus[];
+  mainContentFocus: PublicationMetadataMainFocusType[];
   customFilters: CustomFiltersTypes[];
 }
 
@@ -105,7 +105,7 @@ const Feed: FC<FeedProps> = ({
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
           showThread={false}
           showActions={false}
           showModActions

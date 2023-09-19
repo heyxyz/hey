@@ -1,7 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -15,7 +15,7 @@ import Mirror from './Mirror';
 import Quote from './Quote';
 
 interface PublicationMenuProps {
-  publication: Publication;
+  publication: AnyPublication;
   showCount: boolean;
 }
 

@@ -3,7 +3,7 @@ import {
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
@@ -21,7 +21,7 @@ import NftShimmer from './Shimmer';
 
 interface NftProps {
   nftMetadata: ZoraNftMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {

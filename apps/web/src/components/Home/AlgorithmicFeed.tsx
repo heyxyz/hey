@@ -2,7 +2,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { HomeFeedType } from '@lenster/data/enums';
-import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
+import type { AnyPublication, PublicationsQueryRequest } from '@lenster/lens';
 import { useProfileFeedQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
@@ -91,7 +91,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       <span ref={observe} />

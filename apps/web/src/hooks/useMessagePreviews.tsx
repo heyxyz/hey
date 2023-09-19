@@ -140,7 +140,7 @@ const useMessagePreviews = () => {
         for (const chunk of chunks) {
           const newMessageProfiles = new Map<string, Profile>();
           const result = await loadProfiles({
-            variables: { request: { profileIds: chunk } }
+            variables: { request: { where: { profileIds: chunk } } }
           });
 
           if (!result.data?.profiles.items.length) {
@@ -149,7 +149,7 @@ const useMessagePreviews = () => {
 
           const profiles = result.data.profiles.items as Profile[];
           for (const profile of profiles) {
-            const peerAddress = profile.ownedBy as string;
+            const peerAddress = profile.ownedBy.address as string;
             const key = buildConversationKey(
               peerAddress,
               buildConversationId(currentProfile?.id, profile.id)

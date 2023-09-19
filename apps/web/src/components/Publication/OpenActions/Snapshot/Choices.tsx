@@ -101,7 +101,7 @@ const Choices: FC<ChoicesProps> = ({
       const typedData = generateTypedData(
         proposal,
         position,
-        currentProfile.ownedBy
+        currentProfile.ownedBy.address
       );
       const signature = await signTypedDataAsync({
         primaryType: 'Vote',

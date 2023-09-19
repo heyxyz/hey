@@ -59,7 +59,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
       return null;
     }
 
-    if (profile && !profile.isFollowedByMe && !sentByMe) {
+    if (profile && !profile.operations.isFollowedByMe.value && !sentByMe) {
       return t`Attachments are not loaded automatically from people you don’t follow.`;
     }
 

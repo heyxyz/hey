@@ -1,7 +1,7 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import type {
+  AnyPublication,
   Comment,
-  Publication,
   PublicationsQueryRequest
 } from '@lenster/lens';
 import {
@@ -18,7 +18,7 @@ import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 interface NoneRelevantFeedProps {
-  publication?: Publication;
+  publication?: AnyPublication;
 }
 
 const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {

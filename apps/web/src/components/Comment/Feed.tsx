@@ -3,8 +3,8 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type {
+  AnyPublication,
   Comment,
-  Publication,
   PublicationsQueryRequest
 } from '@lenster/lens';
 import {
@@ -22,7 +22,7 @@ import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 interface FeedProps {
-  publication?: Publication;
+  publication?: AnyPublication;
 }
 
 const Feed: FC<FeedProps> = ({ publication }) => {

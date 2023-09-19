@@ -2,7 +2,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
-  Publication,
+  AnyPublication,
   PublicationSearchResult,
   SearchQueryRequest
 } from '@lenster/lens';
@@ -41,7 +41,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   });
 
   const search = data?.search as PublicationSearchResult;
-  const publications = search?.items as Publication[];
+  const publications = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 

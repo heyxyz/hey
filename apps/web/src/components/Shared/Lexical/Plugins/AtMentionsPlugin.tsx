@@ -196,7 +196,7 @@ const MentionsPlugin: FC = () => {
       return nftImage?.uri;
     }
 
-    return getStampFyiURL(user?.ownedBy);
+    return getStampFyiURL(user?.ownedBy.address);
   };
 
   useUpdateEffect(() => {

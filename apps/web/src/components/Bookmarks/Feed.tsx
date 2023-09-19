@@ -2,8 +2,8 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { BookmarkIcon } from '@heroicons/react/24/outline';
 import type {
-  Publication,
-  PublicationMainFocus,
+  AnyPublication,
+  PublicationMetadataMainFocusType,
   PublicationsProfileBookmarkedQueryRequest
 } from '@lenster/lens';
 import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
@@ -14,7 +14,7 @@ import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
-  focus?: PublicationMainFocus;
+  focus?: PublicationMetadataMainFocusType;
 }
 
 const Feed: FC<FeedProps> = ({ focus }) => {
@@ -87,7 +87,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

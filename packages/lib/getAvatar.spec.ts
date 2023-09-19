@@ -23,12 +23,12 @@ describe('getAvatar', () => {
 
   test("should use profile's ownedBy address to build URL when all else fails", () => {
     const profile = {
-      ownedBy: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3',
+      ownedBy: { address: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3' },
       picture: {}
     };
     const result = getAvatar(profile);
     expect(result).toBe(
-      `https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy}?s=300`
+      `https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy.address}?s=300`
     );
   });
 });

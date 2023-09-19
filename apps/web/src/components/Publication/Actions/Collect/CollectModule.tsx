@@ -19,9 +19,9 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
+  AnyPublication,
   ApprovedAllowanceAmount,
-  ElectedMirror,
-  Publication
+  ElectedMirror
 } from '@lenster/lens';
 import {
   CollectModules,
@@ -65,7 +65,7 @@ import Splits from './Splits';
 interface CollectModuleProps {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
-  publication: Publication;
+  publication: AnyPublication;
   electedMirror?: ElectedMirror;
 }
 

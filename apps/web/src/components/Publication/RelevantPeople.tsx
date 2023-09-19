@@ -2,7 +2,7 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Regex } from '@lenster/data/regex';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile, Publication } from '@lenster/lens';
+import type { AnyPublication, Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { Card, ErrorMessage } from '@lenster/ui';
@@ -10,7 +10,7 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
@@ -70,7 +70,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
         <div key={profile?.id} className="truncate">
           <UserProfile
             profile={profile as Profile}
-            isFollowing={profile.isFollowedByMe}
+            isFollowing={profile.operations.isFollowedByMe.value}
             followUnfollowPosition={index + 1}
             followUnfollowSource={
               FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES

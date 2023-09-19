@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { useReportPublicationMutation } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import {
@@ -29,7 +29,7 @@ const newReportPublicationSchema = object({
 });
 
 interface ReportProps {
-  publication: Publication | null;
+  publication: AnyPublication | null;
 }
 
 const ReportPublication: FC<ReportProps> = ({ publication }) => {

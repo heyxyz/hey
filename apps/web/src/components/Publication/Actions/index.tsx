@@ -1,4 +1,4 @@
-import type { ElectedMirror, Publication } from '@lenster/lens';
+import type { AnyPublication, ElectedMirror } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -11,7 +11,7 @@ import Mod from './Mod';
 import ShareMenu from './Share';
 
 interface PublicationActionsProps {
-  publication: Publication;
+  publication: AnyPublication;
   electedMirror?: ElectedMirror;
   showCount?: boolean;
 }

@@ -1,5 +1,5 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
 interface ModProps {
-  publication: Publication;
+  publication: AnyPublication;
   isFullPublication?: boolean;
 }
 

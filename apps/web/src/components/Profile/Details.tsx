@@ -78,7 +78,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(
-      profile.ownedBy,
+      profile.ownedBy.address,
       conversationId
     );
     persistProfile(conversationKey, profile);
@@ -157,24 +157,24 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : (
             <Slug
               className="text-sm sm:text-base"
-              slug={formatAddress(profile?.ownedBy)}
+              slug={formatAddress(profile?.ownedBy.address)}
             />
           )}
           {currentProfile &&
           currentProfile?.id !== profile.id &&
-          profile?.isFollowing ? (
+          profile.operations.isFollowingMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               <Trans>Follows you</Trans>
             </div>
           ) : null}
         </div>
       </div>
-      {profile?.bio ? (
+      {profile.metadata?.bio ? (
         <div
           className="markup linkify text-md mr-0 break-words sm:mr-10"
           data-testid="profile-bio"
         >
-          <Markup>{profile?.bio}</Markup>
+          <Markup>{profile.metadata?.bio}</Markup>
         </div>
       ) : null}
       <div className="space-y-5">

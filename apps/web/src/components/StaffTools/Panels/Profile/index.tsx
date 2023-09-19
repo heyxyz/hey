@@ -87,10 +87,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.ownedBy}
+          value={profile?.ownedBy.address}
           title={t`Address`}
         >
-          {formatAddress(profile?.ownedBy)}
+          {formatAddress(profile?.ownedBy.address)}
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails

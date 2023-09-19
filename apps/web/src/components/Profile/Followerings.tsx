@@ -32,12 +32,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
         data-testid="profile-followings"
       >
-        <div className="text-xl">
-          {humanize(profile?.stats?.totalFollowing)}
-        </div>
+        <div className="text-xl">{humanize(profile.stats.following)}</div>
         <div className="lt-text-gray-500">
           <Plural
-            value={profile?.stats?.totalFollowing}
+            value={profile.stats.following}
             zero="Following"
             one="Following"
             other="Following"
@@ -55,12 +53,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
         data-testid="profile-followers"
       >
-        <div className="text-xl">
-          {humanize(profile?.stats?.totalFollowers)}
-        </div>
+        <div className="text-xl">{humanize(profile.stats.followers)}</div>
         <div className="lt-text-gray-500">
           <Plural
-            value={profile?.stats?.totalFollowers}
+            value={profile.stats.followers}
             zero="Follower"
             one="Follower"
             other="Followers"

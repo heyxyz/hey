@@ -23,7 +23,7 @@ const EnableMessages: FC = () => {
   useUpdateEffect(() => {
     const fetchCanMessage = async () => {
       const isMessagesEnabled = await Client.canMessage(
-        currentProfile?.ownedBy,
+        currentProfile?.ownedBy.address,
         { env: XMTP_ENV }
       );
       setCanMessage(isMessagesEnabled);

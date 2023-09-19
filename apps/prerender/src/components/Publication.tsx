@@ -1,5 +1,5 @@
 import { DEFAULT_OG } from '@lenster/data/constants';
-import type { Comment } from '@lenster/lens';
+import type { AnyPublication, Comment } from '@lenster/lens';
 import { Publication } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -12,7 +12,7 @@ import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface PublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   comments: Comment[];
 }
 
@@ -41,7 +41,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     ? sanitizeDStorageUrl(
         profile?.picture?.original?.url ??
           profile?.picture?.uri ??
-          getStampFyiURL(profile?.ownedBy)
+          getStampFyiURL(profile?.ownedBy.address)
       )
     : DEFAULT_OG;
 

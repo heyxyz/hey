@@ -31,17 +31,17 @@ import {
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
+  AnyPublication,
   CreatePublicCommentRequest,
   MetadataAttributeInput,
-  Publication,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
 } from '@lenster/lens';
 import {
   CollectModules,
   PublicationDocument,
-  PublicationMainFocus,
   PublicationMetadataDisplayTypes,
+  PublicationMetadataMainFocusType,
   ReferenceModules,
   useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
@@ -132,7 +132,7 @@ const PollSettings = dynamic(
 );
 
 interface NewPublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
@@ -548,18 +548,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
       if (hasAudio) {
-        return PublicationMainFocus.Audio;
+        return PublicationMetadataMainFocusType.Audio;
       } else if (
         ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
       ) {
-        return PublicationMainFocus.Image;
+        return PublicationMetadataMainFocusType.Image;
       } else if (hasVideo) {
-        return PublicationMainFocus.Video;
+        return PublicationMetadataMainFocusType.Video;
       } else {
-        return PublicationMainFocus.TextOnly;
+        return PublicationMetadataMainFocusType.TextOnly;
       }
     } else {
-      return PublicationMainFocus.TextOnly;
+      return PublicationMetadataMainFocusType.TextOnly;
     }
   };
 
@@ -605,7 +605,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy,
+      address: currentProfile?.ownedBy.address,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 

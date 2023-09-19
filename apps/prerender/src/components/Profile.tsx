@@ -1,4 +1,4 @@
-import type { MediaSet, NftImage, Publication } from '@lenster/lens';
+import type { AnyPublication, MediaSet, NftImage } from '@lenster/lens';
 import { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
@@ -14,7 +14,7 @@ import Tags from './Shared/Tags';
 
 interface ProfileProps {
   profile: Profile & { picture: MediaSet & NftImage };
-  publications: Publication[];
+  publications: AnyPublication[];
 }
 
 const Profile: FC<ProfileProps> = ({ profile, publications }) => {
@@ -22,14 +22,14 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     return <DefaultTags />;
   }
 
-  const title = profile?.name
-    ? `${profile?.name} (@${profile?.handle}) • Lenster`
+  const title = profile.metadata?.displayName
+    ? `${profile.metadata.displayName} (@${profile?.handle}) • Lenster`
     : `@${profile?.handle} • Lenster`;
-  const description = truncateByWords(profile?.bio ?? '', 30);
+  const description = truncateByWords(profile.metadata?.bio ?? '', 30);
   const image = sanitizeDStorageUrl(
     profile?.picture?.original?.url ??
       profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy)
+      getStampFyiURL(profile?.ownedBy.address)
   );
 
   return (
@@ -47,8 +47,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
               author: {
                 '@type': 'Person',
                 additionalName: profile.handle,
-                description: profile.bio,
-                givenName: profile.name ?? profile.handle,
+                description: profile.metadata?.bio,
+                givenName: profile.metadata?.displayName ?? profile.handle,
                 identifier: profile.id,
                 image: {
                   '@type': 'ImageObject',
@@ -60,19 +60,19 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/FollowAction',
                     name: 'Follows',
-                    userInteractionCount: profile.stats.totalFollowers
+                    userInteractionCount: profile.stats.followers
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/SubscribeAction',
                     name: 'Following',
-                    userInteractionCount: profile.stats.totalFollowing
+                    userInteractionCount: profile.stats.following
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/WriteAction',
                     name: 'Posts',
-                    userInteractionCount: profile.stats.totalPosts
+                    userInteractionCount: profile.stats.posts
                   }
                 ],
                 url: `https://lenster.xyz/u/${profile.handle}}`
@@ -87,17 +87,19 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
           src={image}
           width="64"
         />
-        <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
+        <h1 data-testid="profile-name">
+          {profile.metadata?.displayName ?? profile.handle}
+        </h1>
         <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
         <h3 data-testid="profile-bio">
-          {truncateByWords(profile?.bio ?? '', 30)}
+          {truncateByWords(profile.metadata?.bio ?? '', 30)}
         </h3>
         <div>
-          <div>{profile.stats.totalPosts} Posts</div>
-          <div>{profile.stats.totalComments} Replies</div>
-          <div>{profile.stats.totalFollowing} Following</div>
-          <div>{profile.stats.totalFollowers} Followers</div>
-          <div>{profile.stats.totalMirrors} Mirrors</div>
+          <div>{profile.stats.posts} Posts</div>
+          <div>{profile.stats.comments} Replies</div>
+          <div>{profile.stats.following} Following</div>
+          <div>{profile.stats.followers} Followers</div>
+          <div>{profile.stats.mirrors} Mirrors</div>
         </div>
         <hr />
         <nav>

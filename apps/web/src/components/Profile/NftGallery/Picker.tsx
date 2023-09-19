@@ -30,13 +30,13 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   // Variables
   const request: NfTsRequest = {
     chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
-    ownerAddress: currentProfile?.ownedBy,
+    ownerAddress: currentProfile?.ownedBy.address,
     limit: 20
   };
 
   const { data, loading, fetchMore, error } = useNftFeedQuery({
     variables: { request },
-    skip: !currentProfile?.ownedBy
+    skip: !currentProfile?.ownedBy.address
   });
 
   const nfts = data?.nfts?.items ?? [];

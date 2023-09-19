@@ -8,7 +8,6 @@ import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -24,9 +23,6 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
-  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.resetProfileGuardianInformation
-  );
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
 
   const logout = () => {
@@ -34,7 +30,6 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     disconnectXmtp();
     setCurrentProfile(null);
     resetPreferences();
-    resetProfileGuardianInformation();
     setProfileId(null);
     resetAuthData();
     disconnect?.();

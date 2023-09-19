@@ -2,7 +2,7 @@ import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
-  Publication,
+  AnyPublication,
   PublicationProfileNotInterestedRequest
 } from '@lenster/lens';
 import {
@@ -21,7 +21,7 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 
 interface NotInterestedProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {

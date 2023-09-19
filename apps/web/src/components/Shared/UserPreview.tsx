@@ -42,7 +42,9 @@ const UserPreview: FC<UserPreviewProps> = ({
 }) => {
   const [lazyProfile, setLazyProfile] = useState(profile);
   const [loading, setLoading] = useState(false);
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
+  const [following, setFollowing] = useState(
+    profile.operations.isFollowedByMe.value
+  );
 
   const [loadProfile] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
@@ -66,7 +68,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     <>
       <div className="flex max-w-sm items-center gap-1 truncate">
         <div className={cn(isBig ? 'font-bold' : 'text-md')}>
-          {sanitizeDisplayName(lazyProfile?.name) ??
+          {sanitizeDisplayName(lazyProfile?.metadata?.displayName) ??
             formatHandle(lazyProfile?.handle)}
         </div>
         {isVerified(lazyProfile.id) ? (
@@ -111,7 +113,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
-            {!lazyProfile.isFollowedByMe ? (
+            {!lazyProfile.operations.isFollowedByMe.value ? (
               followStatusLoading ? (
                 <div className="shimmer h-8 w-10 rounded-lg" />
               ) : following ? null : lazyProfile?.followModule?.__typename ===
@@ -134,7 +136,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="space-y-3 p-4 pt-0">
           <UserName />
           <div>
-            {lazyProfile?.bio ? (
+            {lazyProfile.metadata?.bio ? (
               <div
                 className={cn(
                   isBig ? 'text-base' : 'text-sm',
@@ -142,18 +144,20 @@ const UserPreview: FC<UserPreviewProps> = ({
                   'linkify break-words leading-6'
                 )}
               >
-                <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
+                <Markup>
+                  {truncateByWords(lazyProfile.metadata?.bio, 20)}
+                </Markup>
               </div>
             ) : null}
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(lazyProfile?.stats?.totalFollowing)}
+                {nFormatter(lazyProfile.stats.followers)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={lazyProfile?.stats?.totalFollowing}
+                  value={lazyProfile.stats.following}
                   zero="Following"
                   one="Following"
                   other="Following"
@@ -162,11 +166,11 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
             <div className="text-md flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(lazyProfile?.stats?.totalFollowers)}
+                {nFormatter(lazyProfile.stats.followers)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={lazyProfile?.stats?.totalFollowers}
+                  value={lazyProfile.stats.followers}
                   zero="Follower"
                   one="Follower"
                   other="Followers"
@@ -184,7 +188,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       setLoading(true);
       const { data } = await loadProfile({
         variables: {
-          request: { handle: formatHandle(lazyProfile?.handle, true) }
+          request: { forHandle: formatHandle(lazyProfile?.handle, true) }
         }
       });
 

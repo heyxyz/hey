@@ -78,7 +78,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
             >
               <UserProfile
                 profile={profile as Profile}
-                isFollowing={profile?.isFollowedByMe}
+                isFollowing={profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.MIRRORS_MODAL}
                 showBio

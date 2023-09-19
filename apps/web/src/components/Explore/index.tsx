@@ -7,7 +7,7 @@ import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@lenster/data/constants';
 import { EXPLORE, PAGEVIEW } from '@lenster/data/tracking';
-import type { PublicationMainFocus } from '@lenster/lens';
+import type { PublicationMetadataMainFocusType } from '@lenster/lens';
 import { PublicationSortCriteria } from '@lenster/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -26,7 +26,7 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
-  const [focus, setFocus] = useState<PublicationMainFocus>();
+  const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });

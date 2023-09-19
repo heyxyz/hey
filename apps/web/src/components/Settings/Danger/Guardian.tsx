@@ -16,14 +16,10 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite } from 'wagmi';
 
 const GuardianSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const profileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.profileGuardianInformation
-  );
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
@@ -62,7 +58,7 @@ const GuardianSettings: FC = () => {
     }
   };
 
-  if (!profileGuardianInformation.isProtected) {
+  if (!currentProfile?.guardian?.protected) {
     return null;
   }
 

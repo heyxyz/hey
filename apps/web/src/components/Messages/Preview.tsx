@@ -55,7 +55,7 @@ const Preview: FC<PreviewProps> = ({
   const setConversationKey = useMessageStore(
     (state) => state.setConversationKey
   );
-  const address = currentProfile?.ownedBy;
+  const address = currentProfile?.ownedBy.address;
 
   const onConversationSelected = () => {
     setConversationKey(conversationKey);

@@ -2,7 +2,7 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import type { Publication, PublicationForYouRequest } from '@lenster/lens';
+import type { AnyPublication, PublicationForYouRequest } from '@lenster/lens';
 import { useForYouQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -85,7 +85,7 @@ const ForYou: FC = () => {
           key={`${publication?.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

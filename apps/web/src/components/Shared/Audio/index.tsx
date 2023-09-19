@@ -1,6 +1,6 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -31,7 +31,7 @@ export const AudioPublicationSchema = object({
 interface AudioProps {
   src: string;
   isNew?: boolean;
-  publication?: Publication;
+  publication?: AnyPublication;
   txn: OptimisticTransaction;
   expandCover: (url: string) => void;
 }

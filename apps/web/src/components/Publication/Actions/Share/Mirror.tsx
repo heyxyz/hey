@@ -5,9 +5,9 @@ import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
+  AnyPublication,
   CreateDataAvailabilityMirrorRequest,
-  CreateMirrorRequest,
-  Publication
+  CreateMirrorRequest
 } from '@lenster/lens';
 import {
   useBroadcastMutation,
@@ -31,7 +31,7 @@ import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
-  publication: Publication;
+  publication: AnyPublication;
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
 }

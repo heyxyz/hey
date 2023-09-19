@@ -38,8 +38,8 @@ const SetProfile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
   const doneSetup =
-    Boolean(currentProfile?.name) &&
-    Boolean(currentProfile?.bio) &&
+    Boolean(currentProfile?.metadata?.displayName) &&
+    Boolean(currentProfile?.metadata?.bio) &&
     Boolean(currentProfile?.picture) &&
     Boolean(currentProfile?.interests?.length);
 

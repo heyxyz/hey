@@ -7,7 +7,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
 import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import type { ZoraNft } from '@lenster/types/zora-nft';
 import { Button, Spinner } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
@@ -36,7 +36,7 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 interface MintActionProps {
   nft: ZoraNft;
   zoraLink: string;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
@@ -45,7 +45,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   const chain = useChainId();
 
   const nftAddress = nft.address;
-  const recipient = currentProfile?.ownedBy;
+  const recipient = currentProfile?.ownedBy.address;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;

@@ -1,6 +1,6 @@
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
@@ -15,7 +15,7 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
 interface ModActionProps {
-  publication: Publication;
+  publication: AnyPublication;
   className?: string;
 }
 
