@@ -1,0 +1,3 @@
+mutation UpdateNftGalleryOrder($request: NftGalleryUpdateItemOrderRequest!) {
+  updateNftGalleryOrder(request: $request)
+}

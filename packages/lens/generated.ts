@@ -9106,6 +9106,51 @@ export type MirrorOnMomokaMutation = {
       };
 };
 
+export type CreateNftGalleryMutationVariables = Exact<{
+  request: NftGalleryCreateRequest;
+}>;
+
+export type CreateNftGalleryMutation = {
+  __typename?: 'Mutation';
+  createNftGallery: any;
+};
+
+export type DeleteNftGalleryMutationVariables = Exact<{
+  request: NftGalleryDeleteRequest;
+}>;
+
+export type DeleteNftGalleryMutation = {
+  __typename?: 'Mutation';
+  deleteNftGallery?: any | null;
+};
+
+export type UpdateNftGalleryInfoMutationVariables = Exact<{
+  request: NftGalleryUpdateInfoRequest;
+}>;
+
+export type UpdateNftGalleryInfoMutation = {
+  __typename?: 'Mutation';
+  updateNftGalleryInfo?: any | null;
+};
+
+export type UpdateNftGalleryItemsMutationVariables = Exact<{
+  request: NftGalleryUpdateItemsRequest;
+}>;
+
+export type UpdateNftGalleryItemsMutation = {
+  __typename?: 'Mutation';
+  updateNftGalleryItems?: any | null;
+};
+
+export type UpdateNftGalleryOrderMutationVariables = Exact<{
+  request: NftGalleryUpdateItemOrderRequest;
+}>;
+
+export type UpdateNftGalleryOrderMutation = {
+  __typename?: 'Mutation';
+  updateNftGalleryOrder?: any | null;
+};
+
 export type CreateChangeProfileManagersTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: ChangeProfileManagersRequest;
@@ -50856,6 +50901,246 @@ export type MirrorOnMomokaMutationResult =
 export type MirrorOnMomokaMutationOptions = Apollo.BaseMutationOptions<
   MirrorOnMomokaMutation,
   MirrorOnMomokaMutationVariables
+>;
+export const CreateNftGalleryDocument = gql`
+  mutation CreateNftGallery($request: NftGalleryCreateRequest!) {
+    createNftGallery(request: $request)
+  }
+`;
+export type CreateNftGalleryMutationFn = Apollo.MutationFunction<
+  CreateNftGalleryMutation,
+  CreateNftGalleryMutationVariables
+>;
+
+/**
+ * __useCreateNftGalleryMutation__
+ *
+ * To run a mutation, you first call `useCreateNftGalleryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNftGalleryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNftGalleryMutation, { data, loading, error }] = useCreateNftGalleryMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useCreateNftGalleryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateNftGalleryMutation,
+    CreateNftGalleryMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    CreateNftGalleryMutation,
+    CreateNftGalleryMutationVariables
+  >(CreateNftGalleryDocument, options);
+}
+export type CreateNftGalleryMutationHookResult = ReturnType<
+  typeof useCreateNftGalleryMutation
+>;
+export type CreateNftGalleryMutationResult =
+  Apollo.MutationResult<CreateNftGalleryMutation>;
+export type CreateNftGalleryMutationOptions = Apollo.BaseMutationOptions<
+  CreateNftGalleryMutation,
+  CreateNftGalleryMutationVariables
+>;
+export const DeleteNftGalleryDocument = gql`
+  mutation DeleteNftGallery($request: NftGalleryDeleteRequest!) {
+    deleteNftGallery(request: $request)
+  }
+`;
+export type DeleteNftGalleryMutationFn = Apollo.MutationFunction<
+  DeleteNftGalleryMutation,
+  DeleteNftGalleryMutationVariables
+>;
+
+/**
+ * __useDeleteNftGalleryMutation__
+ *
+ * To run a mutation, you first call `useDeleteNftGalleryMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteNftGalleryMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteNftGalleryMutation, { data, loading, error }] = useDeleteNftGalleryMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useDeleteNftGalleryMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteNftGalleryMutation,
+    DeleteNftGalleryMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteNftGalleryMutation,
+    DeleteNftGalleryMutationVariables
+  >(DeleteNftGalleryDocument, options);
+}
+export type DeleteNftGalleryMutationHookResult = ReturnType<
+  typeof useDeleteNftGalleryMutation
+>;
+export type DeleteNftGalleryMutationResult =
+  Apollo.MutationResult<DeleteNftGalleryMutation>;
+export type DeleteNftGalleryMutationOptions = Apollo.BaseMutationOptions<
+  DeleteNftGalleryMutation,
+  DeleteNftGalleryMutationVariables
+>;
+export const UpdateNftGalleryInfoDocument = gql`
+  mutation UpdateNftGalleryInfo($request: NftGalleryUpdateInfoRequest!) {
+    updateNftGalleryInfo(request: $request)
+  }
+`;
+export type UpdateNftGalleryInfoMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryInfoMutation,
+  UpdateNftGalleryInfoMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryInfoMutation, { data, loading, error }] = useUpdateNftGalleryInfoMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryInfoMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryInfoMutation,
+    UpdateNftGalleryInfoMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateNftGalleryInfoMutation,
+    UpdateNftGalleryInfoMutationVariables
+  >(UpdateNftGalleryInfoDocument, options);
+}
+export type UpdateNftGalleryInfoMutationHookResult = ReturnType<
+  typeof useUpdateNftGalleryInfoMutation
+>;
+export type UpdateNftGalleryInfoMutationResult =
+  Apollo.MutationResult<UpdateNftGalleryInfoMutation>;
+export type UpdateNftGalleryInfoMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryInfoMutation,
+  UpdateNftGalleryInfoMutationVariables
+>;
+export const UpdateNftGalleryItemsDocument = gql`
+  mutation UpdateNftGalleryItems($request: NftGalleryUpdateItemsRequest!) {
+    updateNftGalleryItems(request: $request)
+  }
+`;
+export type UpdateNftGalleryItemsMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryItemsMutation,
+  UpdateNftGalleryItemsMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryItemsMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryItemsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryItemsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryItemsMutation, { data, loading, error }] = useUpdateNftGalleryItemsMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryItemsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryItemsMutation,
+    UpdateNftGalleryItemsMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateNftGalleryItemsMutation,
+    UpdateNftGalleryItemsMutationVariables
+  >(UpdateNftGalleryItemsDocument, options);
+}
+export type UpdateNftGalleryItemsMutationHookResult = ReturnType<
+  typeof useUpdateNftGalleryItemsMutation
+>;
+export type UpdateNftGalleryItemsMutationResult =
+  Apollo.MutationResult<UpdateNftGalleryItemsMutation>;
+export type UpdateNftGalleryItemsMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryItemsMutation,
+  UpdateNftGalleryItemsMutationVariables
+>;
+export const UpdateNftGalleryOrderDocument = gql`
+  mutation UpdateNftGalleryOrder($request: NftGalleryUpdateItemOrderRequest!) {
+    updateNftGalleryOrder(request: $request)
+  }
+`;
+export type UpdateNftGalleryOrderMutationFn = Apollo.MutationFunction<
+  UpdateNftGalleryOrderMutation,
+  UpdateNftGalleryOrderMutationVariables
+>;
+
+/**
+ * __useUpdateNftGalleryOrderMutation__
+ *
+ * To run a mutation, you first call `useUpdateNftGalleryOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateNftGalleryOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateNftGalleryOrderMutation, { data, loading, error }] = useUpdateNftGalleryOrderMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useUpdateNftGalleryOrderMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateNftGalleryOrderMutation,
+    UpdateNftGalleryOrderMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateNftGalleryOrderMutation,
+    UpdateNftGalleryOrderMutationVariables
+  >(UpdateNftGalleryOrderDocument, options);
+}
+export type UpdateNftGalleryOrderMutationHookResult = ReturnType<
+  typeof useUpdateNftGalleryOrderMutation
+>;
+export type UpdateNftGalleryOrderMutationResult =
+  Apollo.MutationResult<UpdateNftGalleryOrderMutation>;
+export type UpdateNftGalleryOrderMutationOptions = Apollo.BaseMutationOptions<
+  UpdateNftGalleryOrderMutation,
+  UpdateNftGalleryOrderMutationVariables
 >;
 export const CreateChangeProfileManagersTypedDataDocument = gql`
   mutation CreateChangeProfileManagersTypedData(
