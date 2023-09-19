@@ -41,7 +41,8 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       className="inline-flex items-center space-x-1 font-bold"
     >
       <div>
-        {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
+        {sanitizeDisplayName(profile.metadata?.displayName) ??
+          formatHandle(profile?.handle)}
       </div>
       {isVerified(profile.id) ? (
         <CheckBadgeIcon className="text-brand h-4 w-4" />

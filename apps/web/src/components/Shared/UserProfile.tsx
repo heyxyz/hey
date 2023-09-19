@@ -86,7 +86,7 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {sanitizeDisplayName(profile?.name) ??
+            {sanitizeDisplayName(profile.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
         </div>

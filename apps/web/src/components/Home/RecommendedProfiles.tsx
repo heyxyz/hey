@@ -7,8 +7,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useRecommendedProfilesQuery } from '@lenster/lens';
+import { type Profile, useProfileRecommendationsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -16,7 +15,6 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
 import { useTimelineStore } from 'src/store/timeline';
 
 import Suggested from './Suggested';
@@ -34,19 +32,14 @@ const Title = () => {
 
 const RecommendedProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
 
-  const { data, loading, error } = useRecommendedProfilesQuery({
+  const { data, loading, error } = useProfileRecommendationsQuery({
     variables: {
-      options: {
-        profileId: isLensMember
-          ? seeThroughProfile?.id ?? currentProfile?.id
-          : null
-      }
+      request: { for: seeThroughProfile?.id ?? currentProfile?.id }
     }
   });
 
@@ -65,7 +58,7 @@ const RecommendedProfiles: FC = () => {
     );
   }
 
-  if (data?.recommendedProfiles?.length === 0) {
+  if (data?.profileRecommendations.items.length === 0) {
     return (
       <>
         <Title />
@@ -77,8 +70,8 @@ const RecommendedProfiles: FC = () => {
     );
   }
 
-  const recommendedProfiles = data?.recommendedProfiles.filter(
-    (profile) => !profile.isFollowedByMe
+  const recommendedProfiles = data?.profileRecommendations.items.filter(
+    (profile) => !profile.operations.isBlockedByMe.value
   );
 
   return (
@@ -101,7 +94,7 @@ const RecommendedProfiles: FC = () => {
               <div className="w-full">
                 <UserProfile
                   profile={profile as Profile}
-                  isFollowing={profile.isFollowedByMe}
+                  isFollowing={profile.operations.isFollowedByMe.value}
                   followUnfollowPosition={index + 1}
                   followUnfollowSource={FollowUnfollowSource.WHO_TO_FOLLOW}
                   showFollow

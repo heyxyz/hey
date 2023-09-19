@@ -155,7 +155,8 @@ const Message: FC<MessageProps> = ({}) => {
   const showLoading = !missingXmtpAuth && !currentProfile;
 
   const userNameForTitle =
-    sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
+    sanitizeDisplayName(profile?.metadata?.displayName) ??
+    formatHandle(profile?.handle);
 
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
