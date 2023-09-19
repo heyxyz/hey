@@ -72,7 +72,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
 
     if (type === 'recipient' && getIsHandle(value)) {
       getProfileByHandle({
-        variables: { request: { handle: value } },
+        variables: { request: { forHandle: value } },
         onCompleted: ({ profile }) => {
           if (profile) {
             setCollectType({

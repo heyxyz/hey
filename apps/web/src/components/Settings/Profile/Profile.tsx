@@ -156,14 +156,14 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const form = useZodForm({
     schema: editProfileSchema,
     defaultValues: {
-      name: profile?.name ?? '',
+      name: profile.metadata?.displayName ?? '',
       location: getProfileAttribute(profile?.attributes, 'location'),
       website: getProfileAttribute(profile?.attributes, 'website'),
       x: getProfileAttribute(profile?.attributes, 'x')?.replace(
         /(https:\/\/)?x\.com\//,
         ''
       ),
-      bio: profile?.bio ?? ''
+      bio: profile.metadata?.bio ?? ''
     }
   });
 

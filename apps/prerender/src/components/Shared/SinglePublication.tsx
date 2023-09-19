@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@lenster/lens';
+import type { AnyPublication, Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -18,7 +18,7 @@ const SinglePublication: FC<PublicationProps> = ({
   const { id, stats, metadata, __typename } = publication;
   const hasMedia = metadata?.media.length;
   const isMirror = __typename === 'Mirror';
-  const profile: any = isMirror
+  const profile: Profile = isMirror
     ? publication?.mirrorOf?.profile
     : publication?.profile;
   const publicationId = isMirror ? publication?.mirrorOf?.id : id;
@@ -60,7 +60,7 @@ const SinglePublication: FC<PublicationProps> = ({
       <div data-testid={`publication-${publicationId}`}>
         <div>
           <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            {profile.name ?? profile.handle}
+            {profile.metadata?.displayName ?? profile.handle}
           </a>
         </div>
         <div>

@@ -162,19 +162,19 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           )}
           {currentProfile &&
           currentProfile?.id !== profile.id &&
-          profile?.isFollowing ? (
+          profile.operations.isFollowingMe ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               <Trans>Follows you</Trans>
             </div>
           ) : null}
         </div>
       </div>
-      {profile?.bio ? (
+      {profile.metadata?.bio ? (
         <div
           className="markup linkify text-md mr-0 break-words sm:mr-10"
           data-testid="profile-bio"
         >
-          <Markup>{profile?.bio}</Markup>
+          <Markup>{profile.metadata?.bio}</Markup>
         </div>
       ) : null}
       <div className="space-y-5">

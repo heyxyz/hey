@@ -1,8 +1,5 @@
 import { SETTINGS } from '@lenster/data/tracking';
-import type {
-  Profile as TProfile,
-  SingleProfileQueryRequest
-} from '@lenster/lens';
+import type { Profile as TProfile, ProfileRequest } from '@lenster/lens';
 import { useProfileLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
@@ -18,8 +15,8 @@ const Profile: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: SingleProfileQueryRequest = {
-    profileId: currentProfile?.id
+  const request: ProfileRequest = {
+    forProfileId: currentProfile?.id
   };
 
   const [exportProfile] = useProfileLazyQuery({

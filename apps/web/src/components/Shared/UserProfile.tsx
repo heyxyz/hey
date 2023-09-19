@@ -133,7 +133,7 @@ const UserProfile: FC<UserProfileProps> = ({
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile?.bio ? (
+            {showBio && profile.metadata?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
@@ -143,7 +143,7 @@ const UserProfile: FC<UserProfileProps> = ({
                   'linkify leading-6'
                 )}
               >
-                <Markup>{profile?.bio}</Markup>
+                <Markup>{profile.metadata?.bio}</Markup>
               </div>
             ) : null}
           </div>
