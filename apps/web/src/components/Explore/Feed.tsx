@@ -8,6 +8,7 @@ import type {
 } from '@lenster/lens';
 import {
   CustomFiltersType,
+  LimitType,
   PublicationSortCriteria,
   useExploreFeedQuery
 } from '@lenster/lens';
@@ -34,12 +35,14 @@ const Feed: FC<FeedProps> = ({
   const request: ExplorePublicationRequest = {
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
-    customFilters: [CustomFiltersType.Gardeners],
-    metadata: {
-      ...(focus && { mainContentFocus: [focus] }),
-      ...(selectedTag && { tags: { oneOf: [selectedTag] } })
+    where: {
+      customFilters: [CustomFiltersType.Gardeners],
+      metadata: {
+        ...(focus && { mainContentFocus: [focus] }),
+        ...(selectedTag && { tags: { oneOf: [selectedTag] } })
+      }
     },
-    limit: 30
+    limit: LimitType.TwentyFive
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

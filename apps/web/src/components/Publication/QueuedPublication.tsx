@@ -6,7 +6,7 @@ import type { Profile } from '@lenster/lens';
 import {
   PublicationDocument,
   PublicationMetadataStatusType,
-  useHasTxHashBeenIndexedQuery,
+  useLensTransactionStatusQuery,
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -67,10 +67,10 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     }
   });
 
-  useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash, txId } },
+  useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval: 1000,
-    onCompleted: ({ hasTxHashBeenIndexed }) => {
+    onCompleted: ({ lensTransactionStatus }) => {
       if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return removeTxn();
       }

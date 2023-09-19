@@ -1,6 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { HANDLE_SUFFIX } from '@lenster/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
+import { useLensTransactionStatusQuery } from '@lenster/lens';
 import { Button, Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -12,8 +12,8 @@ interface PendingProps {
 }
 
 const Pending: FC<PendingProps> = ({ handle, txHash }) => {
-  const { data, loading } = useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash } },
+  const { data, loading } = useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash } },
     pollInterval: 1000
   });
 

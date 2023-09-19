@@ -1,6 +1,6 @@
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
+import { useLensTransactionStatusQuery } from '@lenster/lens';
 import { Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -21,10 +21,10 @@ const IndexStatus: FC<IndexStatusProps> = ({
 }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
-  const { data, loading } = useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash } },
+  const { data, loading } = useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash } },
     pollInterval,
-    onCompleted: ({ hasTxHashBeenIndexed }) => {
+    onCompleted: ({ lensTransactionStatus }) => {
       if (
         hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
         hasTxHashBeenIndexed?.indexed
