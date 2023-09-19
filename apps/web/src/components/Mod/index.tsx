@@ -3,7 +3,7 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   PublicationMetadataMainFocusType,
   PublicationTypes
 } from '@lenster/lens';
@@ -45,7 +45,7 @@ const Mod: NextPage = () => {
     PublicationMetadataMainFocusType.Video
   ]);
   const [customFilters, setCustomFilters] = useState([
-    CustomFiltersTypes.Gardeners
+    CustomFiltersType.Gardeners
   ]);
 
   useEffectOnce(() => {
@@ -205,20 +205,20 @@ const Mod: NextPage = () => {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() => {
-                  if (customFilters.includes(CustomFiltersTypes.Gardeners)) {
+                  if (customFilters.includes(CustomFiltersType.Gardeners)) {
                     setCustomFilters(
                       customFilters.filter(
-                        (type) => type !== CustomFiltersTypes.Gardeners
+                        (type) => type !== CustomFiltersType.Gardeners
                       )
                     );
                   } else {
                     setCustomFilters([
                       ...customFilters,
-                      CustomFiltersTypes.Gardeners
+                      CustomFiltersType.Gardeners
                     ]);
                   }
                 }}
-                checked={customFilters.includes(CustomFiltersTypes.Gardeners)}
+                checked={customFilters.includes(CustomFiltersType.Gardeners)}
                 name="gardeners"
                 label={t`Gardeners`}
               />

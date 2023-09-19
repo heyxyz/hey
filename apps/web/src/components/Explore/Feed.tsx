@@ -7,7 +7,7 @@ import type {
   PublicationMetadataMainFocusType
 } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   PublicationSortCriteria,
   useExploreFeedQuery
 } from '@lenster/lens';
@@ -34,7 +34,7 @@ const Feed: FC<FeedProps> = ({
   const request: ExplorePublicationRequest = {
     sortCriteria: feedType,
     noRandomize: feedType === 'LATEST',
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: [CustomFiltersType.Gardeners],
     metadata: {
       ...(focus && { mainContentFocus: [focus] }),
       ...(selectedTag && { tags: { oneOf: [selectedTag] } })

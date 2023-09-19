@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile, ProfileSearchResult } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   SearchRequestTypes,
   useSearchProfilesLazyQuery
 } from '@lenster/lens';
@@ -62,7 +62,7 @@ const Search: FC<SearchProps> = ({
           request: {
             type: SearchRequestTypes.Profile,
             query: debouncedSearchText,
-            customFilters: [CustomFiltersTypes.Gardeners],
+            customFilters: [CustomFiltersType.Gardeners],
             limit: 8
           }
         }

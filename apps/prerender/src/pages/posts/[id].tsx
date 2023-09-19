@@ -3,7 +3,7 @@ import {
   CommentFeedDocument,
   CommentOrderingTypes,
   CommentRankingFilter,
-  CustomFiltersTypes,
+  CustomFiltersType,
   PublicationDocument
 } from '@lenster/lens';
 import { lensApolloNodeClient } from '@lenster/lens/apollo';
@@ -44,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       variables: {
         request: {
           commentsOf: id,
-          customFilters: [CustomFiltersTypes.Gardeners],
+          customFilters: [CustomFiltersType.Gardeners],
           commentsOfOrdering: CommentOrderingTypes.Ranking,
           commentsRankingFilter: CommentRankingFilter.Relevant,
           limit: 30

@@ -7,12 +7,12 @@ import { HOME } from '@lenster/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
-  Profile,
-  ProfileSearchResult
+  PaginatedProfileResult,
+  Profile
 } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
+  CustomFiltersType,
+  LimitType,
   useSearchProfilesLazyQuery,
   useSeeThroughProfilesLazyQuery
 } from '@lenster/lens';
@@ -59,7 +59,7 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile ?? currentProfile;
-  const request: FeedRequest = { profileId: profile?.id, limit: 50 };
+  const request: FeedRequest = { where: { for: profile?.id } };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
@@ -79,16 +79,17 @@ const SeeThroughLens: FC = () => {
     searchUsers({
       variables: {
         request: {
-          type: SearchRequestTypes.Profile,
+          where: {
+            customFilters: [CustomFiltersType.Gardeners]
+          },
           query: keyword,
-          customFilters: [CustomFiltersTypes.Gardeners],
-          limit: 5
+          limit: LimitType.TwentyFive
         }
       }
     });
   };
 
-  const search = searchUsersData?.search as ProfileSearchResult;
+  const search = searchUsersData?.searchProfiles as PaginatedProfileResult;
   const searchProfiles = search?.items ?? [];
   const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
 

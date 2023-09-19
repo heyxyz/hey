@@ -7,7 +7,7 @@ import type {
   SearchQueryRequest
 } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   SearchRequestTypes,
   useSearchPublicationsQuery
 } from '@lenster/lens';
@@ -28,7 +28,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const request: SearchQueryRequest = {
     query,
     type: SearchRequestTypes.Publication,
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: [CustomFiltersType.Gardeners],
     limit: 30
   };
   const reactionRequest = currentProfile

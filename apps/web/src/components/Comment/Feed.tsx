@@ -10,7 +10,7 @@ import type {
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
-  CustomFiltersTypes,
+  CustomFiltersType,
   useCommentFeedQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
@@ -36,7 +36,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   // Variables
   const request: PublicationsQueryRequest = {
     commentsOf: publicationId,
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: [CustomFiltersType.Gardeners],
     commentsOfOrdering: CommentOrderingTypes.Ranking,
     commentsRankingFilter: CommentRankingFilter.Relevant,
     limit: 30

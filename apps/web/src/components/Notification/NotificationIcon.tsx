@@ -1,5 +1,5 @@
 import { BellIcon } from '@heroicons/react/24/outline';
-import { CustomFiltersTypes, useNotificationCountQuery } from '@lenster/lens';
+import { CustomFiltersType, useNotificationCountQuery } from '@lenster/lens';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ const NotificationIcon: FC = () => {
     variables: {
       request: {
         profileId: currentProfile?.id,
-        customFilters: [CustomFiltersTypes.Gardeners]
+        customFilters: [CustomFiltersType.Gardeners]
       }
     },
     skip: !currentProfile?.id,

@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import type { ProfileSearchResult, SearchQueryRequest } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   SearchRequestTypes,
   useSearchProfilesQuery
 } from '@lenster/lens';
@@ -22,7 +22,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   const request: SearchQueryRequest = {
     query,
     type: SearchRequestTypes.Profile,
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: [CustomFiltersType.Gardeners],
     limit: 30
   };
 

@@ -1,7 +1,7 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   ProfileDocument,
   ProfileFeedDocument
 } from '@lenster/lens';
@@ -45,7 +45,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       variables: {
         request: {
           profileId,
-          customFilters: [CustomFiltersTypes.Gardeners],
+          customFilters: [CustomFiltersType.Gardeners],
           limit: 30
         },
         reactionRequest,

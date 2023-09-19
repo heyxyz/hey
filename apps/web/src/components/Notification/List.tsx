@@ -9,7 +9,7 @@ import type {
   NotificationRequest
 } from '@lenster/lens';
 import {
-  CustomFiltersTypes,
+  CustomFiltersType,
   NotificationTypes,
   useNotificationsQuery
 } from '@lenster/lens';
@@ -72,7 +72,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   // Variables
   const request: NotificationRequest = {
     profileId: currentProfile?.id,
-    customFilters: [CustomFiltersTypes.Gardeners],
+    customFilters: [CustomFiltersType.Gardeners],
     notificationTypes: getNotificationType(),
     highSignalFilter: highSignalNotificationFilter,
     limit: 20
