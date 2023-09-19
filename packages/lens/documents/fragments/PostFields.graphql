@@ -29,7 +29,7 @@ fragment PostFields on Post {
     ...StatsFields
   }
   metadata {
-    ...MetadataFields
+    ...PublicationMetadataFields
   }
   hidden
   createdAt

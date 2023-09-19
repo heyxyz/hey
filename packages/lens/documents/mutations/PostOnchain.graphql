@@ -1,0 +1,5 @@
+mutation PostOnchain($request: OnchainPostRequest!) {
+  postOnchain(request: $request) {
+    ...RelayerResultFields
+  }
+}

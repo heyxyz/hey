@@ -1,0 +1,11 @@
+mutation BroadcastOnchain($request: BroadcastRequest!) {
+  broadcastOnchain(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on RelayError {
+      reason
+    }
+  }
+}

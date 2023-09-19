@@ -1,4 +1,4 @@
-query CollectModule($request: PublicationQueryRequest!) {
+query CollectModule($request: PublicationRequest!) {
   publication(request: $request) {
     ... on Post {
       collectNftAddress

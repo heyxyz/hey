@@ -1,27 +1,30 @@
-query CanDecryptStatus(
-  $request: PublicationQueryRequest!
-  $profileId: ProfileId
-) {
+query CanDecryptStatus($request: PublicationRequest!) {
   publication(request: $request) {
     ... on Post {
       id
-      canDecrypt(profileId: $profileId) {
-        result
-        reasons
+      operations {
+        canDecrypt {
+          result
+          reasons
+        }
       }
     }
     ... on Comment {
       id
-      canDecrypt(profileId: $profileId) {
-        result
-        reasons
+      operations {
+        canDecrypt {
+          result
+          reasons
+        }
       }
     }
     ... on Mirror {
       id
-      canDecrypt(profileId: $profileId) {
-        result
-        reasons
+      operations {
+        canDecrypt {
+          result
+          reasons
+        }
       }
     }
   }

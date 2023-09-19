@@ -38,7 +38,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -120,7 +120,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   };
 
   const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' &&
+    broadcastData?.broadcast.__typename === 'RelaySuccess' &&
     broadcastData.broadcast.txHash;
 
   return writeData?.hash ?? broadcastTxHash ? (

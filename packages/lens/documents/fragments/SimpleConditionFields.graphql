@@ -1,24 +1,34 @@
-fragment SimpleConditionFields on AccessConditionOutput {
-  nft {
-    contractAddress
-    chainID
+fragment SimpleConditionFields on AccessCondition {
+  ... on NftOwnershipCondition {
+    contract {
+      address
+      chainId
+    }
     contractType
     tokenIds
   }
-  eoa {
+  ... on EoaOwnershipCondition {
     address
   }
-  token {
-    contractAddress
-    amount
-    chainID
+  ... on Erc20OwnershipCondition {
     condition
-    decimals
+    amount {
+      asset {
+        ... on Erc20 {
+          decimals
+          contract {
+            address
+            chainId
+          }
+        }
+      }
+      value
+    }
   }
-  follow {
-    profileId
+  ... on FollowCondition {
+    follow
   }
-  collect {
+  ... on CollectCondition {
     publicationId
     thisPublication
   }

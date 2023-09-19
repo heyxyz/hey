@@ -1,5 +1,5 @@
 fragment RelayerResultFields on RelayResult {
-  ... on RelayerResult {
+  ... on RelaySuccess {
     txHash
     txId
   }

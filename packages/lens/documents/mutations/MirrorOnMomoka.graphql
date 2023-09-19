@@ -1,0 +1,11 @@
+mutation MirrorOnMomoka($request: MomokaMirrorRequest!) {
+  mirrorOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+      proof
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

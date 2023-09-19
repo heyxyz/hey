@@ -1,13 +1,10 @@
-mutation CreateMirrorTypedData(
-  $options: TypedDataOptions
-  $request: CreateMirrorRequest!
-) {
-  createMirrorTypedData(options: $options, request: $request) {
+mutation CreateMomokaMirrorTypedData($request: MomokaMirrorRequest!) {
+  createMomokaMirrorTypedData(request: $request) {
     id
     expiresAt
     typedData {
       types {
-        MirrorWithSig {
+        Mirror {
           name
           type
         }
@@ -22,11 +19,12 @@ mutation CreateMirrorTypedData(
         nonce
         deadline
         profileId
-        profileIdPointed
-        pubIdPointed
-        referenceModule
+        metadataURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
         referenceModuleData
-        referenceModuleInitData
       }
     }
   }

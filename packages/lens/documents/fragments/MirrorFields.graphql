@@ -25,7 +25,7 @@ fragment MirrorFields on Mirror {
     ...StatsFields
   }
   metadata {
-    ...MetadataFields
+    ...PublicationMetadataFields
   }
   hidden
   mirrorOf {

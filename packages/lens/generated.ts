@@ -75,6 +75,10 @@ export type Scalars = {
   UnixTimestamp: { input: any; output: any };
   Url: { input: any; output: any };
   Void: { input: any; output: any };
+  ZkCommunityId: { input: any; output: any };
+  ZkIdentityCommitment: { input: any; output: any };
+  ZkPollId: { input: any; output: any };
+  ZkProof: { input: any; output: any };
 };
 
 export type AaveFeeCollectModuleParams = {
@@ -167,6 +171,15 @@ export type AddProfileInterestsRequest = {
   interests: Array<Scalars['ProfileInterest']['input']>;
   /** The profileId to add interests to */
   profileId: Scalars['ProfileId']['input'];
+};
+
+export type AddVoterRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The profile id */
+  profileId: Scalars['ProfileId']['input'];
+  /** The voter identity commitment */
+  voter: Scalars['ZkIdentityCommitment']['input'];
 };
 
 export type AllPublicationsTagsRequest = {
@@ -274,6 +287,21 @@ export type CanMirrorResponse = {
   result: Scalars['Boolean']['output'];
 };
 
+export type CastZkVoteRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The voter identity commitment */
+  identityCommitment: Scalars['ZkIdentityCommitment']['input'];
+  /** The nullifier hash of the vote */
+  nullifierHash: Scalars['String']['input'];
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']['input'];
+  /** The zkProof of the vote */
+  proof: Scalars['ZkProof']['input'];
+  /** The Vote , 1 = yes, 0 = no */
+  vote: Scalars['String']['input'];
+};
+
 /** The challenge request */
 export type ChallengeRequest = {
   /** The ethereum address you want to login with */
@@ -293,6 +321,15 @@ export enum ClaimStatus {
   ClaimFailed = 'CLAIM_FAILED',
   NotClaimed = 'NOT_CLAIMED'
 }
+
+export type ClaimZkBadgeRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']['input'];
+  /** The profile id */
+  profileId: Scalars['ProfileId']['input'];
+};
 
 export type ClaimableHandles = {
   __typename?: 'ClaimableHandles';
@@ -1075,6 +1112,26 @@ export type CreateUnfollowBroadcastItemResult = {
   id: Scalars['BroadcastId']['output'];
   /** The typed data */
   typedData: CreateBurnEip712TypedData;
+};
+
+export type CreateZkCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The description of the community */
+  description: Scalars['String']['input'];
+  /** The name of the community */
+  name: Scalars['String']['input'];
+  /** Community creator profile Id */
+  profileId: Scalars['ProfileId']['input'];
+};
+
+export type CreateZkPollRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The profile id */
+  profileId: Scalars['ProfileId']['input'];
+  /** The signature */
+  signature: Scalars['Signature']['input'];
 };
 
 export type CurRequest = {
@@ -2241,7 +2298,7 @@ export type ModuleInfo = {
   type: Scalars['String']['output'];
 };
 
-/** The momka validator error */
+/** The momoka validator error */
 export enum MomokaValidatorError {
   BlockCantBeReadFromNode = 'BLOCK_CANT_BE_READ_FROM_NODE',
   BlockTooFar = 'BLOCK_TOO_FAR',
@@ -2315,10 +2372,14 @@ export type Mutation = {
   addPublicationProfileBookmark?: Maybe<Scalars['Void']['output']>;
   addPublicationProfileNotInterested?: Maybe<Scalars['Void']['output']>;
   addReaction?: Maybe<Scalars['Void']['output']>;
+  /** Add a voter to a zk community */
+  addVoterToCommunity: ZkRelayerResult;
   authenticate: AuthenticationResult;
   broadcast: RelayResult;
   broadcastDataAvailability: BroadcastDataAvailabilityUnion;
+  castZkVote: ZkRelayerResult;
   claim: RelayResult;
+  claimZkBadge: ZkRelayerResult;
   createAttachMediaData: PublicMediaResults;
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
@@ -2349,6 +2410,9 @@ export type Mutation = {
   createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
+  /** Create a zk community */
+  createZkCommunity: ZkRelayerResult;
+  createZkPoll: ZkRelayerResult;
   /** Delete an NFT Gallery */
   deleteNftGallery?: Maybe<Scalars['Void']['output']>;
   dismissRecommendedProfiles?: Maybe<Scalars['Void']['output']>;
@@ -2399,6 +2463,10 @@ export type MutationAddReactionArgs = {
   request: ReactionRequest;
 };
 
+export type MutationAddVoterToCommunityArgs = {
+  request: AddVoterRequest;
+};
+
 export type MutationAuthenticateArgs = {
   request: SignedAuthChallenge;
 };
@@ -2411,8 +2479,16 @@ export type MutationBroadcastDataAvailabilityArgs = {
   request: BroadcastRequest;
 };
 
+export type MutationCastZkVoteArgs = {
+  request: CastZkVoteRequest;
+};
+
 export type MutationClaimArgs = {
   request: ClaimHandleRequest;
+};
+
+export type MutationClaimZkBadgeArgs = {
+  request: ClaimZkBadgeRequest;
 };
 
 export type MutationCreateAttachMediaDataArgs = {
@@ -2545,6 +2621,14 @@ export type MutationCreateUnfollowTypedDataArgs = {
   request: UnfollowRequest;
 };
 
+export type MutationCreateZkCommunityArgs = {
+  request: CreateZkCommunityRequest;
+};
+
+export type MutationCreateZkPollArgs = {
+  request: CreateZkPollRequest;
+};
+
 export type MutationDeleteNftGalleryArgs = {
   request: NftGalleryDeleteRequest;
 };
@@ -2643,6 +2727,16 @@ export type MutualFollowersProfilesQueryRequest = {
   /** The profile id your viewing */
   viewingProfileId: Scalars['ProfileId']['input'];
   /** The profile id you want the result to come back as your viewing from */
+  yourProfileId: Scalars['ProfileId']['input'];
+};
+
+/** Mutual NFT collections request */
+export type MutualNftCollectionsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+  /** Profile id of the second user */
+  viewingProfileId: Scalars['ProfileId']['input'];
+  /** Profile id of the first user */
   yourProfileId: Scalars['ProfileId']['input'];
 };
 
@@ -2789,12 +2883,74 @@ export type Nfi = {
   i: Scalars['ChainId']['input'];
 };
 
+/** Nft Collection type */
+export type NftCollection = {
+  __typename?: 'NftCollection';
+  /** Collection chain ID */
+  chainId: Scalars['ChainId']['output'];
+  /** The contract address  "0x00001..." */
+  contractAddress: Scalars['ContractAddress']['output'];
+  /** Collection ERC type */
+  contractType: Scalars['String']['output'];
+  /** Collection name */
+  name: Scalars['String']['output'];
+  /** Collection symbol */
+  symbol: Scalars['String']['output'];
+};
+
 /** NFT collection filtering input */
 export type NftCollectionInput = {
   /** The chain id that the collection exists in */
   chainId: Scalars['ChainId']['input'];
   /** Filter by NFT collection contract address */
   contractAddress: Scalars['ContractAddress']['input'];
+};
+
+/** The ordering of Nft collection owners */
+export enum NftCollectionOwnersOrder {
+  FollowersFirst = 'FollowersFirst',
+  None = 'None'
+}
+
+/** NFT collection owners request */
+export type NftCollectionOwnersRequest = {
+  /** The chain id that the collection exists in */
+  chainId: Scalars['ChainId']['input'];
+  /** NFT collection contract address */
+  contractAddress: Scalars['ContractAddress']['input'];
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+  /** The ordering of Nft collection owners */
+  order?: InputMaybe<NftCollectionOwnersOrder>;
+  /** The profile id to use when ordering by followers */
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>;
+};
+
+/** NFT collections result */
+export type NftCollectionResult = {
+  __typename?: 'NftCollectionResult';
+  items: Array<NftCollection>;
+  pageInfo: PaginatedResultInfo;
+};
+
+/** NFT collections request */
+export type NftCollectionsRequest = {
+  /** The chain ids to look for NFTs on. Ethereum and Polygon are supported. If omitted, it will look on both chains by default. */
+  chainIds?: InputMaybe<Array<Scalars['ChainId']['input']>>;
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** Exclude Lens Follower NFTs */
+  excludeFollowers?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Float']['input']>;
+  /** Filter by owner address */
+  ownerAddress?: InputMaybe<Scalars['EthereumAddress']['input']>;
+  profileId?: InputMaybe<Scalars['ProfileId']['input']>;
+};
+
+/** Nft collections paged result */
+export type NftCollectionsResult = {
+  __typename?: 'NftCollectionsResult';
+  items: Array<NftCollection>;
+  pageInfo: PaginatedResultInfo;
 };
 
 /** The NFT gallery input */
@@ -3139,6 +3295,18 @@ export type PendingApproveFollowsResult = {
   __typename?: 'PendingApproveFollowsResult';
   items: Array<Profile>;
   pageInfo: PaginatedResultInfo;
+};
+
+/** Popular NFT collections request */
+export type PopularNftCollectionsRequest = {
+  /** The chain ids to look for NFTs on. Ethereum and Polygon are supported. If omitted, it will look on both chains by default. */
+  chainIds?: InputMaybe<Array<Scalars['ChainId']['input']>>;
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** Exclude Lens Follower NFTs */
+  excludeFollowers?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+  /** Include only verified collections */
+  onlyVerified?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** The social post */
@@ -3899,6 +4067,14 @@ export type Query = {
   isIDKitPhoneVerified: Scalars['Boolean']['output'];
   iss: PrfResponse;
   mutualFollowersProfiles: PaginatedProfileResult;
+  /** Get the NFT collections that the given two profiles own at least one NFT of. */
+  mutualNftCollections: NftCollectionsResult;
+  /** Returns the latest poll for a given user */
+  myActivePoll: ZkPoll;
+  /** Get the Lens Profiles that own NFTs from a given collection. */
+  nftCollectionOwners: PaginatedProfileResult;
+  /** Get the NFT collections that the given wallet or profileId owns at least one NFT of. Only supports Ethereum and Polygon NFTs. Note excludeFollowers is set to true by default, so the result will not include Lens Follower NFTsunless explicitly requested. */
+  nftCollections: NftCollectionResult;
   /** Get all NFT galleries for a profile */
   nftGalleries: Array<NftGallery>;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
@@ -3907,6 +4083,8 @@ export type Query = {
   notifications: PaginatedNotificationResult;
   pendingApprovalFollows: PendingApproveFollowsResult;
   ping: Scalars['String']['output'];
+  /** Get the most popular NFT collections. Popularity is based on how many Lens Profiles own NFTs from a given collection. */
+  popularNftCollections: NftCollectionResult;
   profile?: Maybe<Profile>;
   profileFollowModuleBeenRedeemed: Scalars['Boolean']['output'];
   profileFollowRevenue: FollowRevenueResult;
@@ -3936,6 +4114,26 @@ export type Query = {
   verify: Scalars['Boolean']['output'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
   whoReactedPublication: PaginatedWhoReactedResult;
+  /** Get all zk communities */
+  zkCommunities: Array<ZkCommunity>;
+  /** Get a zk community by its id */
+  zkCommunity?: Maybe<ZkCommunity>;
+  /** Get a zk community members by communityId */
+  zkCommunityMembers?: Maybe<ZkCommunityMembersResult>;
+  /** Get the MerkleProof in a community for an zkIdentity */
+  zkCommunityMerkleProof?: Maybe<ZkCommunityMerkleProof>;
+  /** Returns the latest poll for a given community */
+  zkPoll: ZkPoll;
+  /** Returns the latest poll for a given profile and community */
+  zkPollByProfileAndCommunity?: Maybe<ZkPoll>;
+  /** Returns the status of a given poll */
+  zkPollStatus?: Maybe<ZkPollStatus>;
+  /** Returns the latest polls */
+  zkPolls: Array<ZkPoll>;
+  /** Returns the latest polls for a given community */
+  zkPollsByCommunity: ZkPollsResult;
+  /** Returns the latest polls for a given profile */
+  zkPollsByProfile: Array<ZkPoll>;
 };
 
 export type QueryAllPublicationsTagsArgs = {
@@ -4042,6 +4240,22 @@ export type QueryMutualFollowersProfilesArgs = {
   request: MutualFollowersProfilesQueryRequest;
 };
 
+export type QueryMutualNftCollectionsArgs = {
+  request: MutualNftCollectionsRequest;
+};
+
+export type QueryMyActivePollArgs = {
+  request: ZkPollByProfileAndCommunityRequest;
+};
+
+export type QueryNftCollectionOwnersArgs = {
+  request: NftCollectionOwnersRequest;
+};
+
+export type QueryNftCollectionsArgs = {
+  request: NftCollectionsRequest;
+};
+
 export type QueryNftGalleriesArgs = {
   request: NftGalleriesRequest;
 };
@@ -4060,6 +4274,10 @@ export type QueryNotificationsArgs = {
 
 export type QueryPendingApprovalFollowsArgs = {
   request: PendingApprovalFollowsRequest;
+};
+
+export type QueryPopularNftCollectionsArgs = {
+  request: PopularNftCollectionsRequest;
 };
 
 export type QueryProfileArgs = {
@@ -4152,6 +4370,46 @@ export type QueryWhoCollectedPublicationArgs = {
 
 export type QueryWhoReactedPublicationArgs = {
   request: WhoReactedPublicationRequest;
+};
+
+export type QueryZkCommunitiesArgs = {
+  request: ZkCommunitiesRequest;
+};
+
+export type QueryZkCommunityArgs = {
+  request: ZkCommunityRequest;
+};
+
+export type QueryZkCommunityMembersArgs = {
+  request: ZkCommunityMembersRequest;
+};
+
+export type QueryZkCommunityMerkleProofArgs = {
+  request: ZkCommunityMerkleProofRequest;
+};
+
+export type QueryZkPollArgs = {
+  request: ZkPollRequest;
+};
+
+export type QueryZkPollByProfileAndCommunityArgs = {
+  request: ZkPollByProfileAndCommunityRequest;
+};
+
+export type QueryZkPollStatusArgs = {
+  request: ZkPollStateRequest;
+};
+
+export type QueryZkPollsArgs = {
+  request: ZkPollsRequest;
+};
+
+export type QueryZkPollsByCommunityArgs = {
+  request: ZkCommunityRequest;
+};
+
+export type QueryZkPollsByProfileArgs = {
+  request: ZkPollByProfileRequest;
 };
 
 export type ReactionEvent = {
@@ -4728,6 +4986,172 @@ export type WorldcoinPhoneVerifyWebhookRequest = {
   signal: Scalars['EthereumAddress']['input'];
   signalType: WorldcoinPhoneVerifyType;
 };
+
+export type ZkCommunitiesRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The Zk Voting Community */
+export type ZkCommunity = {
+  __typename?: 'ZkCommunity';
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']['output'];
+  /** Metadata url */
+  contentURI: Scalars['Url']['output'];
+  /** community coordinator address */
+  coordinator: Scalars['EthereumAddress']['output'];
+  /** description of the community */
+  description?: Maybe<Scalars['String']['output']>;
+  /** Members of the community */
+  members?: Maybe<Array<Scalars['ZkIdentityCommitment']['output']>>;
+  /** Name of the community */
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+/** The Zk Voting Community Member */
+export type ZkCommunityMember = {
+  __typename?: 'ZkCommunityMember';
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']['output'];
+  /** Member created at */
+  createdAt: Scalars['DateTime']['output'];
+  /** Member index */
+  index: Scalars['Float']['output'];
+  /** Member commitment */
+  memberCommitment: Scalars['ZkIdentityCommitment']['output'];
+};
+
+export type ZkCommunityMembersRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The paginated zk community members result */
+export type ZkCommunityMembersResult = {
+  __typename?: 'ZkCommunityMembersResult';
+  items: Array<ZkCommunityMember>;
+  pageInfo: PaginatedResultInfo;
+};
+
+/** The Zk Voting Community MerkleProof */
+export type ZkCommunityMerkleProof = {
+  __typename?: 'ZkCommunityMerkleProof';
+  /** leaf */
+  leaf: Scalars['String']['output'];
+  /** The ZkCommunity merkle proof path */
+  pathIndices: Array<Scalars['Float']['output']>;
+  /** The ZkCommunity root */
+  root: Scalars['String']['output'];
+  /** The ZkCommunity merkle proof siblings */
+  siblings: Array<Scalars['String']['output']>;
+};
+
+/** The MerkleProof request for a specific community */
+export type ZkCommunityMerkleProofRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The identity commitment */
+  identity: Scalars['ZkIdentityCommitment']['input'];
+};
+
+export type ZkCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The Zk Voting Community */
+export type ZkPoll = {
+  __typename?: 'ZkPoll';
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']['output'];
+  /** Poll coordinator address */
+  coordinator: Scalars['EthereumAddress']['output'];
+  /** Poll end time */
+  endedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Poll is active */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** The Poll id */
+  pollId: Scalars['ZkPollId']['output'];
+  /** Poll title */
+  profileData: Profile;
+  /** The profile id */
+  profileId: Scalars['ProfileId']['output'];
+  /** Poll start time */
+  startedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Poll absolute threshold */
+  thresholdAbs?: Maybe<Scalars['Float']['output']>;
+  /** Poll threshold Precent */
+  thresholdPct?: Maybe<Scalars['Float']['output']>;
+  /** Yes votes */
+  yesVotes?: Maybe<Scalars['Float']['output']>;
+};
+
+export type ZkPollByProfileAndCommunityRequest = {
+  /** The ZkCommunity id */
+  communityId: Scalars['ZkCommunityId']['input'];
+  /** The profile id */
+  profileId: Scalars['ProfileId']['input'];
+};
+
+export type ZkPollByProfileRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+  /** The profile id */
+  profileId: Scalars['ProfileId']['input'];
+};
+
+export type ZkPollRequest = {
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']['input'];
+};
+
+export type ZkPollStateRequest = {
+  /** The ZkPoll id */
+  pollId: Scalars['ZkPollId']['input'];
+};
+
+/** The Zk Voting Community */
+export type ZkPollStatus = {
+  __typename?: 'ZkPollStatus';
+  /** The Community id */
+  communityId: Scalars['ZkCommunityId']['output'];
+  /** Poll is active */
+  isActive?: Maybe<Scalars['Boolean']['output']>;
+  /** The Poll id */
+  pollId: Scalars['ZkPollId']['output'];
+  /** status of the poll, null if not created yet. */
+  status?: Maybe<Scalars['Float']['output']>;
+  /** Poll absolute threshold */
+  thresholdAbs?: Maybe<Scalars['Int']['output']>;
+  /** Poll threshold Percent */
+  thresholdPct?: Maybe<Scalars['Int']['output']>;
+  /** Yes votes */
+  yesVotes?: Maybe<Scalars['Int']['output']>;
+};
+
+export type ZkPollsRequest = {
+  cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  limit?: InputMaybe<Scalars['LimitScalar']['input']>;
+};
+
+/** The paginated zk community members result */
+export type ZkPollsResult = {
+  __typename?: 'ZkPollsResult';
+  items: Array<ZkPoll>;
+  pageInfo: PaginatedResultInfo;
+};
+
+export type ZkRelayError = {
+  __typename?: 'ZkRelayError';
+  reason: Scalars['String']['output'];
+};
+
+export type ZkRelayerResult = RelayerResult | ZkRelayError;
 
 type CollectModuleFields_AaveFeeCollectModuleSettings_Fragment = {
   __typename?: 'AaveFeeCollectModuleSettings';
@@ -56303,7 +56727,8 @@ const result: PossibleTypesResultData = {
     ],
     RelayResult: ['RelayError', 'RelayerResult'],
     SearchResult: ['ProfileSearchResult', 'PublicationSearchResult'],
-    TransactionResult: ['TransactionError', 'TransactionIndexedResult']
+    TransactionResult: ['TransactionError', 'TransactionIndexedResult'],
+    ZkRelayerResult: ['RelayerResult', 'ZkRelayError']
   }
 };
 export default result;

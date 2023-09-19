@@ -1,5 +1,5 @@
 query CommentFeed(
-  $request: PublicationsQueryRequest!
+  $request: PublicationRequest!
   $reactionRequest: ReactionFieldResolverRequest
   $profileId: ProfileId
 ) {

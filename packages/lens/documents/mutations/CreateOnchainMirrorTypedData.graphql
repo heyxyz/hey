@@ -1,13 +1,13 @@
-mutation CreateCommentTypedData(
+mutation CreateOnchainMirrorTypedData(
   $options: TypedDataOptions
-  $request: CreatePublicCommentRequest!
+  $request: OnchainMirrorRequest!
 ) {
-  createCommentTypedData(options: $options, request: $request) {
+  createOnchainMirrorTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
       types {
-        CommentWithSig {
+        Mirror {
           name
           type
         }
@@ -22,14 +22,12 @@ mutation CreateCommentTypedData(
         nonce
         deadline
         profileId
-        profileIdPointed
-        pubIdPointed
-        contentURI
-        collectModule
-        collectModuleInitData
-        referenceModule
+        metadataURI
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
         referenceModuleData
-        referenceModuleInitData
       }
     }
   }

@@ -1,13 +1,13 @@
-mutation CreatePostTypedData(
+mutation CreateOnchainCommentTypedData(
   $options: TypedDataOptions
-  $request: CreatePublicPostRequest!
+  $request: OnchainCommentRequest!
 ) {
-  createPostTypedData(options: $options, request: $request) {
+  createOnchainCommentTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
       types {
-        PostWithSig {
+        Comment {
           name
           type
         }
@@ -23,8 +23,13 @@ mutation CreatePostTypedData(
         deadline
         profileId
         contentURI
-        collectModule
-        collectModuleInitData
+        pointedProfileId
+        pointedPubId
+        referrerProfileIds
+        referrerPubIds
+        referenceModuleData
+        actionModules
+        actionModulesInitDatas
         referenceModule
         referenceModuleInitData
       }

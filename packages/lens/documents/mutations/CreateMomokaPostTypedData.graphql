@@ -1,13 +1,10 @@
-mutation CreateCollectTypedData(
-  $options: TypedDataOptions
-  $request: CreateCollectRequest!
-) {
-  createCollectTypedData(options: $options, request: $request) {
+mutation CreateMomokaPostTypedData($request: MomokaPostRequest!) {
+  createMomokaPostTypedData(request: $request) {
     id
     expiresAt
     typedData {
       types {
-        CollectWithSig {
+        Post {
           name
           type
         }
@@ -22,8 +19,11 @@ mutation CreateCollectTypedData(
         nonce
         deadline
         profileId
-        pubId
-        data
+        contentURI
+        actionModules
+        actionModulesInitDatas
+        referenceModule
+        referenceModuleInitData
       }
     }
   }

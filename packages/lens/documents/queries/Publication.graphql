@@ -1,5 +1,5 @@
 query Publication(
-  $request: PublicationQueryRequest!
+  $request: PublicationRequest!
   $reactionRequest: ReactionFieldResolverRequest
   $profileId: ProfileId
 ) {

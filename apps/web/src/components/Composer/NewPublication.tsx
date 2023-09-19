@@ -216,7 +216,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
   const isSponsored = currentProfile?.dispatcher?.sponsor;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -345,7 +345,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [broadcast] = useBroadcastMutation({
     onCompleted: ({ broadcast }) => {
       onCompleted(broadcast.__typename);
-      if (broadcast.__typename === 'RelayerResult') {
+      if (broadcast.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({ txId: broadcast.txId }),
           ...txnQueue
@@ -420,7 +420,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
     onCompleted: ({ createCommentViaDispatcher }) => {
       onCompleted(createCommentViaDispatcher.__typename);
-      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+      if (createCommentViaDispatcher.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({
             txId: createCommentViaDispatcher.txId
@@ -435,7 +435,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
     onCompleted: ({ createPostViaDispatcher }) => {
       onCompleted(createPostViaDispatcher.__typename);
-      if (createPostViaDispatcher.__typename === 'RelayerResult') {
+      if (createPostViaDispatcher.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({ txId: createPostViaDispatcher.txId }),
           ...txnQueue

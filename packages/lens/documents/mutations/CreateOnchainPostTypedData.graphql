@@ -1,12 +1,13 @@
-mutation CreateDataAvailabilityCommentTypedData(
-  $request: CreateDataAvailabilityCommentRequest!
+mutation CreateOnchainPostTypedData(
+  $options: TypedDataOptions
+  $request: OnchainPostRequest!
 ) {
-  createDataAvailabilityCommentTypedData(request: $request) {
+  createOnchainPostTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
       types {
-        CommentWithSig {
+        Post {
           name
           type
         }
@@ -22,13 +23,10 @@ mutation CreateDataAvailabilityCommentTypedData(
         deadline
         profileId
         contentURI
-        profileIdPointed
-        pubIdPointed
-        collectModule
-        collectModuleInitData
+        actionModules
+        actionModulesInitDatas
         referenceModule
         referenceModuleInitData
-        referenceModuleData
       }
     }
   }

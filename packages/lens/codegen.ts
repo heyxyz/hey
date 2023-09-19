@@ -2,8 +2,8 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://api-mumbai.lens.dev',
-  documents: './documents/**/*.graphql',
+  schema: 'https://api-v2-mumbai.lens.dev',
+  documents: './documents/mutations/*.graphql',
   generates: {
     'generated.ts': {
       plugins: [
