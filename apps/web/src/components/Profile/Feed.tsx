@@ -8,7 +8,7 @@ import type {
 } from '@lenster/lens';
 import {
   PublicationMetadataMainFocusType,
-  PublicationTypes,
+  PublicationType,
   useProfileFeedQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -52,16 +52,12 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   // Variables
   const publicationTypes =
     type === ProfileFeedType.Feed
-      ? [PublicationTypes.Post, PublicationTypes.Mirror]
+      ? [PublicationType.Post, PublicationType.Mirror]
       : type === ProfileFeedType.Replies
-      ? [PublicationTypes.Comment]
+      ? [PublicationType.Comment]
       : type === ProfileFeedType.Media
-      ? [PublicationTypes.Post, PublicationTypes.Comment]
-      : [
-          PublicationTypes.Post,
-          PublicationTypes.Comment,
-          PublicationTypes.Mirror
-        ];
+      ? [PublicationType.Post, PublicationType.Comment]
+      : [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror];
   const metadata =
     type === ProfileFeedType.Media
       ? {

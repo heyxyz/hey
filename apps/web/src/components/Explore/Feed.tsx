@@ -8,33 +8,29 @@ import type {
 } from '@lenster/lens';
 import {
   CustomFiltersType,
+  ExplorePublicationsOrderByType,
   LimitType,
-  PublicationSortCriteria,
-  useExploreFeedQuery
+  useExplorePublicationsQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 import { useExploreStore } from 'src/store/explore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;
-  feedType?: PublicationSortCriteria;
+  feedType?: ExplorePublicationsOrderByType;
 }
 
 const Feed: FC<FeedProps> = ({
   focus,
-  feedType = PublicationSortCriteria.CuratedProfiles
+  feedType = ExplorePublicationsOrderByType.LensCurated
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const selectedTag = useExploreStore((state) => state.selectedTag);
 
   // Variables
   const request: ExplorePublicationRequest = {
-    sortCriteria: feedType,
-    noRandomize: feedType === 'LATEST',
     where: {
       customFilters: [CustomFiltersType.Gardeners],
       metadata: {
@@ -42,15 +38,12 @@ const Feed: FC<FeedProps> = ({
         ...(selectedTag && { tags: { oneOf: [selectedTag] } })
       }
     },
+    orderBy: feedType,
     limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId }
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+    variables: { request }
   });
 
   const publications = data?.explorePublications?.items;
@@ -64,11 +57,7 @@ const Feed: FC<FeedProps> = ({
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

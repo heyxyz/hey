@@ -8,7 +8,7 @@ import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@lenster/data/constants';
 import { EXPLORE, PAGEVIEW } from '@lenster/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@lenster/lens';
-import { PublicationSortCriteria } from '@lenster/lens';
+import { ExplorePublicationsOrderByType } from '@lenster/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -33,10 +33,13 @@ const Explore: NextPage = () => {
   });
 
   const tabs = [
-    { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
-    { name: t`Popular`, type: PublicationSortCriteria.TopCommented },
-    { name: t`Trending`, type: PublicationSortCriteria.TopCollected },
-    { name: t`Interesting`, type: PublicationSortCriteria.TopMirrored }
+    { name: t`For you`, type: ExplorePublicationsOrderByType.LensCurated },
+    { name: t`Popular`, type: ExplorePublicationsOrderByType.TopCommented },
+    {
+      name: t`Trending`,
+      type: ExplorePublicationsOrderByType.TopCollectedOpenAction
+    },
+    { name: t`Interesting`, type: ExplorePublicationsOrderByType.TopMirrored }
   ];
 
   return (

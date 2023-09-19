@@ -3,37 +3,33 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, ExplorePublicationRequest } from '@lenster/lens';
 import {
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreFeedQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  useExplorePublicationsQuery
 } from '@lenster/lens';
 import type { Channel } from '@lenster/types/lenster';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
   channel: Channel;
 }
 
 const Feed: FC<FeedProps> = ({ channel }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   const request: ExplorePublicationRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    sortCriteria: PublicationSortCriteria.Latest,
-    metadata: { tags: { oneOf: channel.tags } },
-    limit: 30
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      metadata: { tags: { oneOf: channel.tags } }
+    },
+    orderBy: ExplorePublicationsOrderByType.Latest,
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+    variables: { request },
     skip: !channel.id
   });
 
@@ -48,11 +44,7 @@ const Feed: FC<FeedProps> = ({ channel }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

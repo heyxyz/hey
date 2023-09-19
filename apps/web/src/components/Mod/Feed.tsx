@@ -3,25 +3,28 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
-  CustomFiltersTypes,
+  CustomFiltersType,
   ExplorePublicationRequest,
-  PublicationMetadataMainFocusType,
-  PublicationTypes
+  ExplorePublicationType,
+  PublicationMetadataMainFocusType
 } from '@lenster/lens';
-import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
+import {
+  ExplorePublicationsOrderByType,
+  LimitType,
+  useExplorePublicationsQuery
+} from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
   refresh: boolean;
   setRefreshing: (refreshing: boolean) => void;
-  publicationTypes: PublicationTypes[];
+  publicationTypes: ExplorePublicationType[];
   mainContentFocus: PublicationMetadataMainFocusType[];
-  customFilters: CustomFiltersTypes[];
+  customFilters: CustomFiltersType[];
 }
 
 const Feed: FC<FeedProps> = ({
@@ -31,27 +34,19 @@ const Feed: FC<FeedProps> = ({
   mainContentFocus,
   customFilters
 }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   // Variables
   const request: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.Latest,
-    noRandomize: true,
-    publicationTypes,
-    metadata: {
-      mainContentFocus
+    where: {
+      customFilters,
+      publicationTypes,
+      metadata: { mainContentFocus }
     },
-    customFilters,
-    limit: 50
+    orderBy: ExplorePublicationsOrderByType.Latest,
+    limit: LimitType.Fifty
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore, refetch } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId }
-  });
+  const { data, loading, error, fetchMore, refetch } =
+    useExplorePublicationsQuery({ variables: { request } });
 
   const publications = data?.explorePublications?.items;
   const pageInfo = data?.explorePublications?.pageInfo;
@@ -70,11 +65,7 @@ const Feed: FC<FeedProps> = ({
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

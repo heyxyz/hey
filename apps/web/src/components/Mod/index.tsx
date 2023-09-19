@@ -5,7 +5,7 @@ import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   CustomFiltersType,
   PublicationMetadataMainFocusType,
-  PublicationTypes
+  PublicationType
 } from '@lenster/lens';
 import {
   Button,
@@ -30,8 +30,8 @@ const Mod: NextPage = () => {
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
-    PublicationTypes.Post,
-    PublicationTypes.Comment
+    PublicationType.Post,
+    PublicationType.Comment
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
@@ -64,7 +64,7 @@ const Mod: NextPage = () => {
     }
   };
 
-  const togglePublicationType = (publicationType: PublicationTypes) => {
+  const togglePublicationType = (publicationType: PublicationType) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
         publicationTypes.filter((type) => type !== publicationType)
@@ -102,14 +102,14 @@ const Mod: NextPage = () => {
             </span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
-                onChange={() => togglePublicationType(PublicationTypes.Post)}
-                checked={publicationTypes.includes(PublicationTypes.Post)}
+                onChange={() => togglePublicationType(PublicationType.Post)}
+                checked={publicationTypes.includes(PublicationType.Post)}
                 name="posts"
                 label={t`Posts`}
               />
               <Checkbox
-                onChange={() => togglePublicationType(PublicationTypes.Comment)}
-                checked={publicationTypes.includes(PublicationTypes.Comment)}
+                onChange={() => togglePublicationType(PublicationType.Comment)}
+                checked={publicationTypes.includes(PublicationType.Comment)}
                 name="comments"
                 label={t`Comments`}
               />

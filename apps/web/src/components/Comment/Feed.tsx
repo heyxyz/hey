@@ -5,13 +5,14 @@ import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
   Comment,
-  PublicationsQueryRequest
+  PublicationsRequest
 } from '@lenster/lens';
 import {
-  CommentOrderingTypes,
-  CommentRankingFilter,
+  CommentRankingFilterType,
   CustomFiltersType,
-  useCommentFeedQuery
+  LimitType,
+  PublicationsOrderByType,
+  usePublicationsQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -28,26 +29,30 @@ interface FeedProps {
 const Feed: FC<FeedProps> = ({ publication }) => {
   const publicationId =
     publication?.__typename === 'Mirror'
-      ? publication?.mirrorOf?.id
+      ? publication?.mirrorOn?.id
       : publication?.id;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
-  const request: PublicationsQueryRequest = {
-    commentsOf: publicationId,
-    customFilters: [CustomFiltersType.Gardeners],
-    commentsOfOrdering: CommentOrderingTypes.Ranking,
-    commentsRankingFilter: CommentRankingFilter.Relevant,
-    limit: 30
+  const request: PublicationsRequest = {
+    where: {
+      commentOn: {
+        id: publicationId,
+        commentsRankingFilter: CommentRankingFilterType.Relevant
+      },
+      customFilters: [CustomFiltersType.Gardeners]
+    },
+    orderBy: PublicationsOrderByType.CommentOfQueryRanking,
+    limit: LimitType.TwentyFive
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
     : null;
   const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useCommentFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
     skip: !publicationId
   });
 
@@ -59,7 +64,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     (o) => o.type === OptmisticPublicationType.NewComment
   ).length;
   const hiddenCount = comments.filter(
-    (o) => o?.__typename === 'Comment' && o.hidden
+    (o) => o?.__typename === 'Comment' && o.isHidden
   ).length;
   const hiddenRemovedComments = comments?.length - hiddenCount;
   const totalComments = hiddenRemovedComments + queuedCount;
@@ -90,7 +95,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     );
   }
 
-  if (!publication?.hidden && totalComments === 0) {
+  if (!publication?.isHidden && totalComments === 0) {
     return (
       <EmptyState
         message={t`Be the first one to comment!`}
@@ -114,7 +119,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           )
       )}
       {comments?.map((comment, index) =>
-        comment?.__typename !== 'Comment' || comment.hidden ? null : (
+        comment?.__typename !== 'Comment' || comment.isHidden ? null : (
           <SinglePublication
             key={`${comment.id}`}
             isFirst={index === 0}

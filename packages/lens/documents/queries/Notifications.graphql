@@ -61,7 +61,7 @@ query Notifications($request: NotificationRequest!) {
         id
         actions {
           actedAt
-          profile {
+          by {
             ...ProfileFields
           }
           action {
