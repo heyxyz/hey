@@ -32,12 +32,13 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [liked, setLiked] = useState(
-    (isMirror ? publication?.mirrorOf?.reaction : publication?.reaction) ===
-      'UPVOTE'
+    (isMirror
+      ? publication?.mirrorOn?.operations.hasReacted
+      : publication?.reaction) === 'UPVOTE'
   );
   const [count, setCount] = useState(
     isMirror
-      ? publication?.mirrorOf?.stats?.totalUpvotes
+      ? publication?.mirrorOn?.stats?.reactions
       : publication?.stats?.totalUpvotes
   );
 
@@ -52,7 +53,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     if (showCount) {
       cache.modify({
         id: publicationKeyFields(
-          isMirror ? publication?.mirrorOf : publication
+          isMirror ? publication?.mirrorOn : publication
         ),
         fields: {
           stats: (stats) => ({
@@ -120,7 +121,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           reaction: ReactionTypes.Upvote,
           publicationId:
             publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
+              ? publication?.mirrorOn?.id
               : publication?.id
         }
       }

@@ -43,7 +43,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [mirrored, setMirrored] = useState(
     isMirror
-      ? publication?.mirrorOf?.mirrors?.length > 0
+      ? publication?.mirrorOn?.mirrors?.length > 0
       : // @ts-expect-error
         publication?.mirrors?.length > 0
   );
@@ -51,12 +51,12 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const { cache } = useApolloClient();
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const updateCache = () => {
     cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+      id: publicationKeyFields(isMirror ? publication?.mirrorOn : publication),
       fields: {
         mirrors: (mirrors) => [...mirrors, currentProfile?.id],
         stats: (stats) => ({

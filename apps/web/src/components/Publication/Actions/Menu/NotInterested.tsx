@@ -27,7 +27,7 @@ interface NotInterestedProps {
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
   const notInterested = isMirror
-    ? publication.mirrorOf.notInterested
+    ? publication.mirrorOn.operations.isNotInterested
     : publication.notInterested;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const request: PublicationProfileNotInterestedRequest = {
@@ -37,7 +37,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
+      id: publicationKeyFields(isMirror ? publication?.mirrorOn : publication),
       fields: { notInterested: () => notInterested }
     });
   };

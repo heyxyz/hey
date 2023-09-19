@@ -54,8 +54,8 @@ const Status: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const form = useZodForm({
     schema: editStatusSchema

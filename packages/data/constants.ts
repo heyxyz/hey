@@ -52,9 +52,6 @@ export const GIT_COMMIT_SHA =
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
-// TODO: Remove this once everyone has migrated to the new Lens relayer
-export const OLD_LENS_RELAYER_ADDRESS =
-  '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';

@@ -18,18 +18,18 @@ interface FullPublicationProps {
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
   const timestamp = isMirror
-    ? publication?.mirrorOf?.createdAt
+    ? publication?.mirrorOn?.createdAt
     : publication?.createdAt;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
   const mirrorCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+    ? publication?.mirrorOn?.stats?.mirrors
     : publication?.stats?.totalAmountOfMirrors;
   const reactionCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalUpvotes
+    ? publication?.mirrorOn?.stats?.reactions
     : publication?.stats?.totalUpvotes;
   const collectCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+    ? publication?.mirrorOn?.stats?.countOpenActions
     : publication?.stats?.totalAmountOfCollects;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 

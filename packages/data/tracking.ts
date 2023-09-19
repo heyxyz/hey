@@ -126,8 +126,7 @@ export const SETTINGS = {
     TOGGLE_IS_PRIDE: 'Toggle is pride'
   },
   DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher',
-    UPDATE: 'Update dispatcher'
+    TOGGLE: 'Toggle dispatcher'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'

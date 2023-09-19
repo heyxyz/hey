@@ -1,7 +1,6 @@
 import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
-import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
+import { APP_NAME } from '@lenster/data/constants';
 import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -9,20 +8,9 @@ import { useAppStore } from 'src/store/app';
 
 const EnableDispatcher: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isDispatcherEnabled = getIsDispatcherEnabled(currentProfile);
-  const isOldDispatcherEnabled =
-    currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
-    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+  const canUseRelay = currentProfile?.lensManager;
 
   const getDescription = () => {
-    if (isOldDispatcherEnabled) {
-      return (
-        <Trans>
-          Upgrade your dispatcher to the latest version for better, faster,
-          stronger signless transactions.
-        </Trans>
-      );
-    }
     return (
       <Trans>
         You can enable dispatcher to interact with {APP_NAME} without signing
@@ -32,13 +20,10 @@ const EnableDispatcher: FC = () => {
   };
 
   const getTitle = () => {
-    if (isOldDispatcherEnabled) {
-      return <Trans>Signless transactions upgrade</Trans>;
-    }
     return <Trans>Signless transactions</Trans>;
   };
 
-  if (isDispatcherEnabled) {
+  if (canUseRelay) {
     return null;
   }
 

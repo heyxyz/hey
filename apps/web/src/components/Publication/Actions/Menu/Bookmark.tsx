@@ -30,7 +30,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
   const isMirror = publication.__typename === 'Mirror';
   const bookmarked = isMirror
-    ? publication.mirrorOf.bookmarked
+    ? publication.mirrorOn.operations.hasBookmarked
     : publication.bookmarked;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const request: PublicationProfileBookmarkRequest = {
@@ -40,7 +40,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
 
   const updateCache = (cache: ApolloCache<any>) => {
     const bookmarkedPublications = isMirror
-      ? publication?.mirrorOf
+      ? publication?.mirrorOn
       : publication;
 
     cache.modify({

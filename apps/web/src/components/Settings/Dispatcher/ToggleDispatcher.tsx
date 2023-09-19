@@ -1,16 +1,12 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
-import {
-  LENSHUB_PROXY,
-  OLD_LENS_RELAYER_ADDRESS
-} from '@lenster/data/constants';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
 } from '@lenster/lens';
-import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -33,10 +29,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const canUseRelay = getIsDispatcherEnabled(currentProfile);
-  const isOldDispatcherEnabled =
-    currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
-    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+  const canUseRelay = currentProfile?.lensManager;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -45,11 +38,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    if (isOldDispatcherEnabled) {
-      Leafwatch.track(SETTINGS.DISPATCHER.UPDATE);
-    } else {
-      Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
-    }
+    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const onError = (error: any) => {
@@ -112,11 +101,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const getButtonText = () => {
     if (canUseRelay) {
       return <Trans>Disable</Trans>;
-    } else if (isOldDispatcherEnabled) {
-      return <Trans>Update</Trans>;
-    } else {
-      return <Trans>Enable</Trans>;
     }
+
+    return <Trans>Enable</Trans>;
   };
 
   const broadcastTxHash =

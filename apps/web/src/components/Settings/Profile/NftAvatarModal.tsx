@@ -73,8 +73,8 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
   });
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({

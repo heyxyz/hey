@@ -24,9 +24,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const { metadata, __typename } = publication;
   const hasMedia = metadata?.media.length;
   const profile: any =
-    __typename === 'Mirror'
-      ? publication?.mirrorOf?.profile
-      : publication.profile;
+    __typename === 'Mirror' ? publication?.mirrorOn?.by : publication.profile;
   const title = `${
     __typename === 'Post'
       ? 'Post'

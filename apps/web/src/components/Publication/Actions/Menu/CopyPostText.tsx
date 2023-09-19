@@ -16,7 +16,7 @@ interface CopyPostTextProps {
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
   const publicationType = isMirror
-    ? publication.mirrorOf.__typename
+    ? publication.mirrorOn.__typename
     : publication.__typename;
 
   return (

@@ -42,13 +42,7 @@ const ViewPublication: NextPage = () => {
   });
 
   const { data, loading, error } = usePublicationQuery({
-    variables: {
-      request: { publicationId: id },
-      reactionRequest: currentProfile
-        ? { profileId: currentProfile?.id }
-        : null,
-      profileId: currentProfile?.id ?? null
-    },
+    variables: { request: { forId: id } },
     skip: !id
   });
 
@@ -64,7 +58,7 @@ const ViewPublication: NextPage = () => {
     return <Custom404 />;
   }
 
-  const { publication } = data as any;
+  const { publication } = data;
   const canComment = publication?.canComment?.result;
 
   return (
@@ -97,7 +91,7 @@ const ViewPublication: NextPage = () => {
           <UserProfile
             profile={
               publication.__typename === 'Mirror'
-                ? publication?.mirrorOf?.profile
+                ? publication?.mirrorOn?.by
                 : publication?.profile
             }
             showBio

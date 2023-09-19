@@ -26,21 +26,21 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
 
   const isMirror = publication.__typename === 'Mirror';
   const commentsCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfComments
+    ? publication?.mirrorOn?.stats?.comments
     : publication?.stats?.totalAmountOfComments;
   const mirrorCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
+    ? publication?.mirrorOn?.stats?.mirrors
     : publication?.stats?.totalAmountOfMirrors;
   const reactionCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalUpvotes
+    ? publication?.mirrorOn?.stats?.reactions
     : publication?.stats?.totalUpvotes;
   const collectCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+    ? publication?.mirrorOn?.stats?.countOpenActions
     : publication?.stats?.totalAmountOfCollects;
   const bookmarkCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalBookmarks
+    ? publication?.mirrorOn?.stats?.totalBookmbarks
     : publication?.stats?.totalBookmarks;
-  const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
+  const publicationId = isMirror ? publication?.mirrorOn?.id : publication?.id;
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">

@@ -50,8 +50,8 @@ const Picture: FC<PictureProps> = ({ profile }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {

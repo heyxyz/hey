@@ -150,7 +150,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
             <div
               key={
                 __typename === 'Mirror'
-                  ? publication.mirrorOf.id
+                  ? publication.mirrorOn.id
                   : publication.id
               }
             >

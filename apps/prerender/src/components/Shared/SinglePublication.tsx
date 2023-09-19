@@ -19,9 +19,9 @@ const SinglePublication: FC<PublicationProps> = ({
   const hasMedia = metadata?.media.length;
   const isMirror = __typename === 'Mirror';
   const profile: Profile = isMirror
-    ? publication?.mirrorOf?.profile
+    ? publication?.mirrorOn?.by
     : publication?.profile;
-  const publicationId = isMirror ? publication?.mirrorOf?.id : id;
+  const publicationId = isMirror ? publication?.mirrorOn?.id : id;
   const avatar = sanitizeDStorageUrl(
     profile.picture?.original?.url ??
       profile.picture?.uri ??
@@ -34,16 +34,16 @@ const SinglePublication: FC<PublicationProps> = ({
 
   // Stats
   const commentsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfComments
+    ? publication.mirrorOn.stats.comments
     : stats.totalAmountOfComments;
   const likesCount = isMirror
-    ? publication.mirrorOf.stats.totalUpvotes
+    ? publication.mirrorOn.stats.reactions
     : stats.totalUpvotes;
   const collectsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfCollects
+    ? publication.mirrorOn.stats.countOpenActions
     : stats.totalAmountOfCollects;
   const mirrorsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfMirrors
+    ? publication.mirrorOn.stats.mirrors
     : stats.totalAmountOfMirrors;
 
   return (

@@ -213,8 +213,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -790,7 +790,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(isComment && {
           publicationId:
             publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
+              ? publication?.mirrorOn?.id
               : publication?.id
         }),
         collectModule: collectModuleParams(collectModule, currentProfile),
@@ -813,7 +813,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(isComment && {
           commentOn:
             publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
+              ? publication?.mirrorOn?.id
               : publication?.id
         }),
         contentURI: `ar://${arweaveId}`

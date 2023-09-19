@@ -187,7 +187,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         request: {
           publicationId:
             publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
+              ? publication?.mirrorOn?.id
               : publication?.id
         }
       },
@@ -405,7 +405,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 <Collectors
                   publicationId={
                     publication.__typename === 'Mirror'
-                      ? publication?.mirrorOf?.id
+                      ? publication?.mirrorOn?.id
                       : publication?.id
                   }
                 />

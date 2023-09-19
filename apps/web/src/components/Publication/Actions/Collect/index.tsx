@@ -32,18 +32,18 @@ const Collect: FC<CollectProps> = ({
   const [showCollectModal, setShowCollectModal] = useState(false);
   const isMirror = publication.__typename === 'Mirror';
   const hasCollected = isMirror
-    ? publication?.mirrorOf?.hasCollectedByMe
+    ? publication?.mirrorOn?.operations.hasActed
     : publication?.hasCollectedByMe;
 
   useEffect(() => {
     if (
       isMirror
-        ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+        ? publication?.mirrorOn?.stats?.countOpenActions
         : publication?.stats?.totalAmountOfCollects
     ) {
       setCount(
         publication.__typename === 'Mirror'
-          ? publication?.mirrorOf?.stats?.totalAmountOfCollects
+          ? publication?.mirrorOn?.stats?.countOpenActions
           : publication?.stats?.totalAmountOfCollects
       );
     }

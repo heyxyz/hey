@@ -16,7 +16,7 @@ interface CommentProps {
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
   const count =
     publication.__typename === 'Mirror'
-      ? publication?.mirrorOf?.stats?.totalAmountOfComments
+      ? publication?.mirrorOn?.stats?.comments
       : publication?.stats?.totalAmountOfComments;
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'

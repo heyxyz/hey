@@ -36,11 +36,11 @@ interface OnchainMetaProps {
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
   const hash =
     publication?.__typename === 'Mirror'
-      ? publication.mirrorOf.onChainContentURI?.split('/').pop()
+      ? publication.mirrorOn.onChainContentURI?.split('/').pop()
       : publication.onChainContentURI?.split('/').pop();
   const collectNftAddress =
     publication?.__typename === 'Mirror'
-      ? publication.mirrorOf?.collectNftAddress
+      ? publication.mirrorOn?.collectNftAddress
       : publication?.collectNftAddress;
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;

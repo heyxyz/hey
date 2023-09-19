@@ -36,7 +36,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const { publication } = publicationData;
     const id =
       publication.__typename === 'Mirror'
-        ? publication.mirrorOf.id
+        ? publication.mirrorOn.id
         : publication.id;
 
     const { data: commentsData } = await lensApolloNodeClient.query({
