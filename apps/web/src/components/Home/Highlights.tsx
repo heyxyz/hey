@@ -3,7 +3,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedHighlightsRequest } from '@lenster/lens';
-import { useFeedHighlightsQuery } from '@lenster/lens';
+import { LimitType, useFeedHighlightsQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -22,15 +22,12 @@ const Highlights: FC = () => {
 
   // Variables
   const request: FeedHighlightsRequest = {
-    profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 30
+    where: { for: seeThroughProfile?.id ?? currentProfile?.id },
+    limit: LimitType.Fifty
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
 
   const { data, loading, error, fetchMore } = useFeedHighlightsQuery({
-    variables: { request, reactionRequest, profileId: currentProfile?.id }
+    variables: { request }
   });
 
   const publications = data?.feedHighlights?.items;
@@ -44,11 +41,7 @@ const Highlights: FC = () => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId: currentProfile?.id
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

@@ -4,8 +4,8 @@ import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@lenster/lens';
 import {
+  LensTransactionStatusType,
   PublicationDocument,
-  PublicationMetadataStatusType,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery
 } from '@lenster/lens';
@@ -78,21 +78,14 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
         const status = hasTxHashBeenIndexed.metadataStatus?.status;
 
-        if (
-          status === PublicationMetadataStatusType.MetadataValidationFailed ||
-          status === PublicationMetadataStatusType.NotFound
-        ) {
+        if (status === LensTransactionStatusType.Failed) {
           return removeTxn();
         }
 
         if (hasTxHashBeenIndexed.indexed) {
           getPublication({
             variables: {
-              request: { txHash: hasTxHashBeenIndexed.txHash },
-              reactionRequest: currentProfile
-                ? { profileId: currentProfile?.id }
-                : null,
-              profileId: currentProfile?.id ?? null
+              request: { forTxHash: lensTransactionStatus?.txHash }
             }
           });
         }
