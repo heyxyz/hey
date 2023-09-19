@@ -17,11 +17,11 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
   );
 
   const statusEmoji = getProfileAttribute(
-    currentProfile?.attributes,
+    currentProfile?.metadata?.attributes,
     'statusEmoji'
   );
   const statusMessage = getProfileAttribute(
-    currentProfile?.attributes,
+    currentProfile?.metadata?.attributes,
     'statusMessage'
   );
   const hasStatus = statusEmoji && statusMessage;

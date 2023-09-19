@@ -57,9 +57,12 @@ const UserProfile: FC<UserProfileProps> = ({
   followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-  const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
+  const statusEmoji = getProfileAttribute(
+    profile.metadata?.attributes,
+    'statusEmoji'
+  );
   const statusMessage = getProfileAttribute(
-    profile?.attributes,
+    profile.metadata?.attributes,
     'statusMessage'
   );
   const hasStatus = statusEmoji && statusMessage;

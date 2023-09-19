@@ -10,7 +10,7 @@ interface ProofOfHumanityProps {
 }
 
 const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.proofOfHumanity) {
+  if (!profile.onchainIdentity.proofOfHumanity) {
     return null;
   }
 

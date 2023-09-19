@@ -10,7 +10,7 @@ interface WorldcoinProps {
 }
 
 const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.worldcoin?.isHuman) {
+  if (!profile.onchainIdentity.worldcoin.isHuman) {
     return null;
   }
 
