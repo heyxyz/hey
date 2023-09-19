@@ -94,9 +94,6 @@ export const OEMBED_WORKER_URL = IS_PRODUCTION
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.lenster.xyz'
   : 'http://localhost:8088';
-export const SPACES_WORKER_URL = IS_PRODUCTION
-  ? 'http://localhost:8095'
-  : 'http://localhost:8095';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
 export const INVITE_WORKER_URL = IS_PRODUCTION
   ? 'https://invite.lenster.xyz'
@@ -113,6 +110,9 @@ export const CHANNELS_WORKER_URL = IS_PRODUCTION
 export const ZORA_WORKER_URL = IS_PRODUCTION
   ? 'https://zora.lenster.xyz'
   : 'http://localhost:8094';
+export const SPACES_WORKER_URL = IS_PRODUCTION
+  ? 'https://spaces.lenster.xyz'
+  : 'http://localhost:8095';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
