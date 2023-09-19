@@ -124,7 +124,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {sanitizeDisplayName(profile?.name) ??
+            {sanitizeDisplayName(profile.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
           {isVerified(profile.id) ? (
@@ -148,7 +148,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="flex items-center space-x-3"
           data-testid="profile-handle"
         >
-          {profile?.name ? (
+          {profile.metadata?.displayName ? (
             <Slug
               className="text-sm sm:text-base"
               slug={formatHandle(profile?.handle)}
@@ -260,15 +260,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute(profile?.attributes, 'location') ? (
+          {getProfileAttribute(profile.metadata?.attributes, 'location') ? (
             <MetaDetails
               icon={<MapPinIcon className="h-4 w-4" />}
               dataTestId="profile-meta-location"
             >
-              {getProfileAttribute(profile?.attributes, 'location')}
+              {getProfileAttribute(profile.metadata?.attributes, 'location')}
             </MetaDetails>
           ) : null}
-          {profile?.onChainIdentity?.ens?.name ? (
+          {profile?.onchainIdentity?.ens?.name ? (
             <MetaDetails
               icon={
                 <img
@@ -281,15 +281,15 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               }
               dataTestId="profile-meta-ens"
             >
-              {profile?.onChainIdentity?.ens?.name}
+              {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.attributes, 'website') ? (
+          {getProfileAttribute(profile.metadata?.attributes, 'website') ? (
             <MetaDetails
               icon={
                 <img
                   src={`https://www.google.com/s2/favicons?domain=${getProfileAttribute(
-                    profile?.attributes,
+                    profile.metadata?.attributes,
                     'website'
                   )
                     ?.replace('https://', '')
@@ -304,7 +304,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  profile?.attributes,
+                  profile.metadata?.attributes,
                   'website'
                 )
                   ?.replace('https://', '')
@@ -312,13 +312,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 target="_blank"
                 rel="noreferrer noopener me"
               >
-                {getProfileAttribute(profile?.attributes, 'website')
+                {getProfileAttribute(profile.metadata?.attributes, 'website')
                   ?.replace('https://', '')
                   .replace('http://', '')}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile?.attributes, 'x') ? (
+          {getProfileAttribute(profile.metadata?.attributes, 'x') ? (
             <MetaDetails
               icon={
                 <img
@@ -335,16 +335,16 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             >
               <Link
                 href={`https://x.com/${getProfileAttribute(
-                  profile?.attributes,
+                  profile.metadata?.attributes,
                   'x'
                 )?.replace('https://x.com/', '')}`}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {getProfileAttribute(profile?.attributes, 'x')?.replace(
-                  'https://x.com/',
-                  ''
-                )}
+                {getProfileAttribute(
+                  profile.metadata?.attributes,
+                  'x'
+                )?.replace('https://x.com/', '')}
               </Link>
             </MetaDetails>
           ) : null}

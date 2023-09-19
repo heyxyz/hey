@@ -1,5 +1,5 @@
 import type { Profile } from '@lenster/lens';
-import { useMutualFollowersQuery } from '@lenster/lens';
+import { LimitType, useMutualFollowersQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { Image } from '@lenster/ui';
@@ -21,16 +21,15 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   const { data, loading, error } = useMutualFollowersQuery({
     variables: {
       request: {
-        viewingProfileId: profile?.id,
-        yourProfileId: currentProfile?.id,
-        limit: 3
+        viewing: profile?.id,
+        observer: currentProfile?.id,
+        limit: LimitType.Ten
       }
     },
     skip: !profile?.id || !currentProfile?.id
   });
 
-  const profiles = data?.mutualFollowersProfiles?.items ?? [];
-  const totalCount = data?.mutualFollowersProfiles?.pageInfo?.totalCount ?? 0;
+  const profiles = data?.mutualFollowers?.items ?? [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
@@ -57,7 +56,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     </div>
   );
 
-  if (totalCount === 0 || loading || error) {
+  if (profiles.length === 0 || loading || error) {
     return null;
   }
 
@@ -68,7 +67,9 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}</span>
+        <span>
+          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}
+        </span>
       </Wrapper>
     );
   }
@@ -76,24 +77,35 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)} and </span>
-        <span>{profileTwo?.name ?? formatHandle(profileTwo?.handle)}</span>
+        <span>
+          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}{' '}
+          and{' '}
+        </span>
+        <span>
+          {profileTwo.metadata?.displayName ?? formatHandle(profileTwo?.handle)}
+        </span>
       </Wrapper>
     );
   }
 
   if (profiles?.length === 3) {
-    const calculatedCount = totalCount - 3;
+    const calculatedCount = profiles.length - 3;
     const isZero = calculatedCount === 0;
 
     return (
       <Wrapper>
-        <span>{profileOne?.name ?? formatHandle(profileOne?.handle)}, </span>
         <span>
-          {profileTwo?.name ?? formatHandle(profileTwo?.handle)}
+          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}
+          ,{' '}
+        </span>
+        <span>
+          {profileTwo.metadata?.displayName ?? formatHandle(profileTwo?.handle)}
           {isZero ? ' and ' : ', '}
         </span>
-        <span>{profileThree?.name ?? formatHandle(profileThree?.handle)} </span>
+        <span>
+          {profileThree.metadata?.displayName ??
+            formatHandle(profileThree?.handle)}{' '}
+        </span>
         {!isZero ? (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}

@@ -30352,6 +30352,169 @@ export type ProfileManagersQuery = {
   };
 };
 
+export type ProfileRecommendationsQueryVariables = Exact<{
+  request: ProfileRecommendationsRequest;
+}>;
+
+export type ProfileRecommendationsQuery = {
+  __typename?: 'Query';
+  profileRecommendations: {
+    __typename?: 'PaginatedProfileResult';
+    items: Array<{
+      __typename?: 'Profile';
+      id: any;
+      lensManager: boolean;
+      sponsor: boolean;
+      txHash: any;
+      createdAt: any;
+      interests: Array<string>;
+      invitesLeft?: number | null;
+      handle?: any | null;
+      ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any };
+      stats: {
+        __typename?: 'ProfileStats';
+        id: any;
+        followers: number;
+        following: number;
+        comments: number;
+        posts: number;
+        mirrors: number;
+        quotes: number;
+        publications: number;
+        reactions: number;
+        reacted: number;
+        countOpenActions: number;
+      };
+      operations: {
+        __typename?: 'ProfileOperations';
+        id: any;
+        canBlock: boolean;
+        canUnblock: boolean;
+        canFollow: TriStateValue;
+        canUnfollow: boolean;
+        isBlockedByMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+        isFollowedByMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+        isFollowingMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+      };
+      guardian?: {
+        __typename?: 'ProfileGuardianResult';
+        protected: boolean;
+        cooldownEndsOn?: any | null;
+      } | null;
+      invitedBy?: { __typename?: 'Profile'; id: any } | null;
+      onchainIdentity: {
+        __typename?: 'ProfileOnchainIdentity';
+        proofOfHumanity: boolean;
+        ens?: { __typename?: 'EnsOnchainIdentity'; name?: any | null } | null;
+        sybilDotOrg: {
+          __typename?: 'SybilDotOrgIdentity';
+          verified: boolean;
+          source?: {
+            __typename?: 'SybilDotOrgIdentitySource';
+            twitter: {
+              __typename?: 'SybilDotOrgTwitterIdentity';
+              handle?: string | null;
+            };
+          } | null;
+        };
+        worldcoin: { __typename?: 'WorldcoinIdentity'; isHuman: boolean };
+      };
+      followNftAddress?: {
+        __typename?: 'NetworkAddress';
+        address: any;
+        chainId: any;
+      } | null;
+      metadata?: {
+        __typename?: 'ProfileMetadata';
+        displayName?: string | null;
+        bio?: any | null;
+        rawURI: any;
+        picture?:
+          | {
+              __typename?: 'ImageSet';
+              raw: {
+                __typename?: 'Image';
+                uri: any;
+                mimeType?: ImageMimeType | null;
+              };
+              optimized?: {
+                __typename?: 'Image';
+                uri: any;
+                mimeType?: ImageMimeType | null;
+                width?: number | null;
+                height?: number | null;
+              } | null;
+            }
+          | {
+              __typename?: 'NftImage';
+              image: {
+                __typename?: 'ImageSet';
+                raw: { __typename?: 'Image'; uri: any };
+              };
+            }
+          | null;
+        coverPicture?: {
+          __typename?: 'ImageSet';
+          raw: { __typename?: 'Image'; uri: any };
+          optimized?: { __typename?: 'Image'; uri: any } | null;
+        } | null;
+      } | null;
+      followModule?:
+        | {
+            __typename?: 'FeeFollowModuleSettings';
+            recipient: any;
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+            amount: {
+              __typename?: 'Amount';
+              value: string;
+              asset: {
+                __typename?: 'Erc20';
+                name: string;
+                symbol: string;
+                decimals: number;
+                contract: {
+                  __typename?: 'NetworkAddress';
+                  address: any;
+                  chainId: any;
+                };
+              };
+            };
+          }
+        | {
+            __typename?: 'RevertFollowModuleSettings';
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+          }
+        | {
+            __typename?: 'UnknownFollowModuleSettings';
+            followModuleReturnData: any;
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+          }
+        | null;
+    }>;
+  };
+};
+
 export type ProfilesQueryVariables = Exact<{
   request: ProfilesRequest;
 }>;
@@ -51318,6 +51481,67 @@ export type ProfileManagersLazyQueryHookResult = ReturnType<
 export type ProfileManagersQueryResult = Apollo.QueryResult<
   ProfileManagersQuery,
   ProfileManagersQueryVariables
+>;
+export const ProfileRecommendationsDocument = gql`
+  query ProfileRecommendations($request: ProfileRecommendationsRequest!) {
+    profileRecommendations(request: $request) {
+      items {
+        ...ProfileFields
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`;
+
+/**
+ * __useProfileRecommendationsQuery__
+ *
+ * To run a query within a React component, call `useProfileRecommendationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileRecommendationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileRecommendationsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useProfileRecommendationsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    ProfileRecommendationsQuery,
+    ProfileRecommendationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ProfileRecommendationsQuery,
+    ProfileRecommendationsQueryVariables
+  >(ProfileRecommendationsDocument, options);
+}
+export function useProfileRecommendationsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileRecommendationsQuery,
+    ProfileRecommendationsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ProfileRecommendationsQuery,
+    ProfileRecommendationsQueryVariables
+  >(ProfileRecommendationsDocument, options);
+}
+export type ProfileRecommendationsQueryHookResult = ReturnType<
+  typeof useProfileRecommendationsQuery
+>;
+export type ProfileRecommendationsLazyQueryHookResult = ReturnType<
+  typeof useProfileRecommendationsLazyQuery
+>;
+export type ProfileRecommendationsQueryResult = Apollo.QueryResult<
+  ProfileRecommendationsQuery,
+  ProfileRecommendationsQueryVariables
 >;
 export const ProfilesDocument = gql`
   query Profiles($request: ProfilesRequest!) {

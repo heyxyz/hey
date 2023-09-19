@@ -157,9 +157,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     schema: editProfileSchema,
     defaultValues: {
       name: profile.metadata?.displayName ?? '',
-      location: getProfileAttribute(profile?.attributes, 'location'),
-      website: getProfileAttribute(profile?.attributes, 'website'),
-      x: getProfileAttribute(profile?.attributes, 'x')?.replace(
+      location: getProfileAttribute(profile.metadata?.attributes, 'location'),
+      website: getProfileAttribute(profile.metadata?.attributes, 'website'),
+      x: getProfileAttribute(profile.metadata?.attributes, 'x')?.replace(
         /(https:\/\/)?x\.com\//,
         ''
       ),
@@ -207,11 +207,17 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           { key: 'x', value: x },
           {
             key: 'statusEmoji',
-            value: getProfileAttribute(profile?.attributes, 'statusEmoji')
+            value: getProfileAttribute(
+              profile.metadata?.attributes,
+              'statusEmoji'
+            )
           },
           {
             key: 'statusMessage',
-            value: getProfileAttribute(profile?.attributes, 'statusMessage')
+            value: getProfileAttribute(
+              profile.metadata?.attributes,
+              'statusMessage'
+            )
           }
         ],
         version: '1.0.0',

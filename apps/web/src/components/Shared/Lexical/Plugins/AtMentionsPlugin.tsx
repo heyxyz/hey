@@ -220,7 +220,7 @@ const MentionsPlugin: FC = () => {
           (user: Profile) =>
             ({
               id: user?.id,
-              name: sanitizeDisplayName(user?.name),
+              name: sanitizeDisplayName(user.metadata?.displayName),
               handle: user?.handle,
               picture: getUserPicture(user)
             }) as Record<string, string>

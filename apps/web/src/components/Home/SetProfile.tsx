@@ -60,11 +60,11 @@ const SetProfile: FC = () => {
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
         <Status
-          finished={Boolean(currentProfile?.name)}
+          finished={Boolean(currentProfile?.metadata?.displayName)}
           title={t`Set profile name`}
         />
         <Status
-          finished={Boolean(currentProfile?.bio)}
+          finished={Boolean(currentProfile?.metadata?.bio)}
           title={t`Set profile bio`}
         />
         <Status

@@ -57,9 +57,12 @@ const UserProfile: FC<UserProfileProps> = ({
   followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-  const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
+  const statusEmoji = getProfileAttribute(
+    profile.metadata?.attributes,
+    'statusEmoji'
+  );
   const statusMessage = getProfileAttribute(
-    profile?.attributes,
+    profile.metadata?.attributes,
     'statusMessage'
   );
   const hasStatus = statusEmoji && statusMessage;
@@ -83,7 +86,7 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {sanitizeDisplayName(profile?.name) ??
+            {sanitizeDisplayName(profile.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
         </div>

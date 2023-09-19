@@ -9,7 +9,7 @@ interface EnsProps {
 }
 
 const Ens: FC<EnsProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.ens?.name) {
+  if (!profile.onchainIdentity.ens?.name) {
     return null;
   }
 
@@ -17,7 +17,7 @@ const Ens: FC<EnsProps> = ({ profile }) => {
     <Tooltip
       content={
         <span>
-          <Trans>ENS name:</Trans> <b>{profile?.onChainIdentity?.ens?.name}</b>
+          <Trans>ENS name:</Trans> <b>{profile.onchainIdentity.ens.name}</b>
         </span>
       }
       placement="top"
