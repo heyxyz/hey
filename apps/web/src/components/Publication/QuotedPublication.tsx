@@ -1,5 +1,5 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import type { FC } from 'react';
 
 import HiddenPublication from './HiddenPublication';
@@ -7,7 +7,7 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
 interface QuotedPublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   isNew?: boolean;
 }
 

@@ -1,6 +1,6 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
+import type { AnyPublication, ElectedMirror, FeedItem } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
@@ -13,7 +13,7 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface SinglePublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;

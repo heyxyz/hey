@@ -2,12 +2,12 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
+  AnyPublication,
   Profile,
-  Publication,
   PublicationsQueryRequest
 } from '@lenster/lens';
 import {
-  PublicationMainFocus,
+  PublicationMetadataMainFocusType,
   PublicationTypes,
   useProfileFeedQuery
 } from '@lenster/lens';
@@ -36,15 +36,15 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   );
 
   const getMediaFilters = () => {
-    let filters: PublicationMainFocus[] = [];
+    let filters: PublicationMetadataMainFocusType[] = [];
     if (mediaFeedFilters.images) {
-      filters.push(PublicationMainFocus.Image);
+      filters.push(PublicationMetadataMainFocusType.Image);
     }
     if (mediaFeedFilters.video) {
-      filters.push(PublicationMainFocus.Video);
+      filters.push(PublicationMetadataMainFocusType.Video);
     }
     if (mediaFeedFilters.audio) {
-      filters.push(PublicationMainFocus.Audio);
+      filters.push(PublicationMetadataMainFocusType.Audio);
     }
     return filters;
   };
@@ -153,7 +153,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
           showThread={
             type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
           }

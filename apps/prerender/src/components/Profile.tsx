@@ -1,4 +1,4 @@
-import type { MediaSet, NftImage, Publication } from '@lenster/lens';
+import type { AnyPublication, MediaSet, NftImage } from '@lenster/lens';
 import { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
@@ -14,7 +14,7 @@ import Tags from './Shared/Tags';
 
 interface ProfileProps {
   profile: Profile & { picture: MediaSet & NftImage };
-  publications: Publication[];
+  publications: AnyPublication[];
 }
 
 const Profile: FC<ProfileProps> = ({ profile, publications }) => {

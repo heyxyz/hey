@@ -4,7 +4,7 @@ import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   CustomFiltersTypes,
-  PublicationMainFocus,
+  PublicationMetadataMainFocusType,
   PublicationTypes
 } from '@lenster/lens';
 import {
@@ -34,15 +34,15 @@ const Mod: NextPage = () => {
     PublicationTypes.Comment
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
-    PublicationMainFocus[]
+    PublicationMetadataMainFocusType[]
   >([
-    PublicationMainFocus.Article,
-    PublicationMainFocus.Audio,
-    PublicationMainFocus.Embed,
-    PublicationMainFocus.Image,
-    PublicationMainFocus.Link,
-    PublicationMainFocus.TextOnly,
-    PublicationMainFocus.Video
+    PublicationMetadataMainFocusType.Article,
+    PublicationMetadataMainFocusType.Audio,
+    PublicationMetadataMainFocusType.Embed,
+    PublicationMetadataMainFocusType.Image,
+    PublicationMetadataMainFocusType.Link,
+    PublicationMetadataMainFocusType.TextOnly,
+    PublicationMetadataMainFocusType.Video
   ]);
   const [customFilters, setCustomFilters] = useState([
     CustomFiltersTypes.Gardeners
@@ -56,7 +56,7 @@ const Mod: NextPage = () => {
     return <Custom404 />;
   }
 
-  const toggleMainContentFocus = (focus: PublicationMainFocus) => {
+  const toggleMainContentFocus = (focus: PublicationMetadataMainFocusType) => {
     if (mainContentFocus.includes(focus)) {
       setMainContentFocus(mainContentFocus.filter((type) => type !== focus));
     } else {
@@ -123,61 +123,75 @@ const Mod: NextPage = () => {
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Article)
+                  toggleMainContentFocus(
+                    PublicationMetadataMainFocusType.Article
+                  )
                 }
                 checked={mainContentFocus.includes(
-                  PublicationMainFocus.Article
+                  PublicationMetadataMainFocusType.Article
                 )}
                 name="articles"
                 label={t`Articles`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Audio)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Audio)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Audio)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Audio
+                )}
                 name="audio"
                 label={t`Audio`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Embed)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Embed)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Embed)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Embed
+                )}
                 name="embeds"
                 label={t`Embeds`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Image)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Image)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Image)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Image
+                )}
                 name="images"
                 label={t`Images`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Link)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Link)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Link)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Link
+                )}
                 name="links"
                 label={t`Links`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.TextOnly)
+                  toggleMainContentFocus(
+                    PublicationMetadataMainFocusType.TextOnly
+                  )
                 }
                 checked={mainContentFocus.includes(
-                  PublicationMainFocus.TextOnly
+                  PublicationMetadataMainFocusType.TextOnly
                 )}
                 name="text"
                 label={t`Text`}
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Video)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Video)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Video)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Video
+                )}
                 name="videos"
                 label={t`Videos`}
               />

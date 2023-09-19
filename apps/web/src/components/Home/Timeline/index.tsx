@@ -2,7 +2,7 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import type { FeedItem, FeedRequest, Publication } from '@lenster/lens';
+import type { AnyPublication, FeedItem, FeedRequest } from '@lenster/lens';
 import { FeedEventItemType, useTimelineQuery } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
@@ -112,7 +112,7 @@ const Timeline: FC = () => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
+          publication={publication.root as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

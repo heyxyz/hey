@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -8,7 +8,7 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 
 interface QuoteProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {

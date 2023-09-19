@@ -2,9 +2,9 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
+  AnyPublication,
   ExplorePublicationRequest,
-  Publication,
-  PublicationMainFocus
+  PublicationMetadataMainFocusType
 } from '@lenster/lens';
 import {
   CustomFiltersTypes,
@@ -19,7 +19,7 @@ import { useAppStore } from 'src/store/app';
 import { useExploreStore } from 'src/store/explore';
 
 interface FeedProps {
-  focus?: PublicationMainFocus;
+  focus?: PublicationMetadataMainFocusType;
   feedType?: PublicationSortCriteria;
 }
 
@@ -99,7 +99,7 @@ const Feed: FC<FeedProps> = ({
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

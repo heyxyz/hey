@@ -1,4 +1,4 @@
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
 interface PublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   h1Content?: boolean;
 }
 

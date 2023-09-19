@@ -1,4 +1,4 @@
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
 
 interface FullPublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {

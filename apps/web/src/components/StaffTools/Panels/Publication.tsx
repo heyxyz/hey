@@ -4,7 +4,7 @@ import {
   TagIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ import type { FC } from 'react';
 import MetaDetails from './MetaDetails';
 
 interface PublicationStaffToolProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const PublicationStaffTool: FC<PublicationStaffToolProps> = ({

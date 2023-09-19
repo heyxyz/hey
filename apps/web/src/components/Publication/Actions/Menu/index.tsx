@@ -1,7 +1,7 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
@@ -17,7 +17,7 @@ import Share from './Share';
 import Translate from './Translate';
 
 interface PublicationMenuProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {

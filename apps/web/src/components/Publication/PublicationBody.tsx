@@ -5,7 +5,7 @@ import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
@@ -21,7 +21,7 @@ import { useState } from 'react';
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface PublicationBodyProps {
-  publication: Publication;
+  publication: AnyPublication;
   showMore?: boolean;
   quoted?: boolean;
 }

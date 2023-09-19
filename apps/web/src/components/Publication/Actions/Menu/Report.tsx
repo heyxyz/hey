@@ -1,13 +1,13 @@
 import { Menu } from '@headlessui/react';
 import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
 interface ReportProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Report: FC<ReportProps> = ({ publication }) => {

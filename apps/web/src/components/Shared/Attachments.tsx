@@ -9,7 +9,7 @@ import {
   ATTACHMENT
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { MediaSet, Publication } from '@lenster/lens';
+import type { AnyPublication, MediaSet } from '@lenster/lens';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -50,7 +50,7 @@ interface AttachmentsProps {
   attachments: any;
   isNew?: boolean;
   hideDelete?: boolean;
-  publication?: Publication;
+  publication?: AnyPublication;
   txn?: any;
 }
 

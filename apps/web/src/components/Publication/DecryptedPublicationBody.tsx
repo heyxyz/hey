@@ -24,7 +24,7 @@ import {
   RARIBLE_URL
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
+import type { AnyPublication, PublicationMetadataV2Input } from '@lenster/lens';
 import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';
@@ -59,7 +59,7 @@ const DecryptMessage: FC<DecryptMessageProps> = ({ icon, children }) => (
 );
 
 interface DecryptedPublicationBodyProps {
-  encryptedPublication: Publication;
+  encryptedPublication: AnyPublication;
 }
 
 const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({

@@ -3,7 +3,7 @@ import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
-  Publication,
+  AnyPublication,
   PublicationProfileBookmarkRequest
 } from '@lenster/lens';
 import {
@@ -23,7 +23,7 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 
 interface BookmarkProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {

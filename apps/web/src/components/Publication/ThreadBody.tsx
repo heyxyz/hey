@@ -1,5 +1,5 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -8,7 +8,7 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 
 interface ThreadBodyProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const ThreadBody: FC<ThreadBodyProps> = ({ publication }) => {

@@ -1,6 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { Card } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
@@ -30,7 +30,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
 );
 
 interface OnchainMetaProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {

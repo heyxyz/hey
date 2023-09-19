@@ -1,5 +1,5 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { usePublicationQuery } from '@lenster/lens';
 import type { FC } from 'react';
 
@@ -29,7 +29,7 @@ const Quote: FC<QuoteProps> = ({ publicationId }) => {
 
   return (
     <Wrapper zeroPadding>
-      <QuotedPublication publication={data.publication as Publication} />
+      <QuotedPublication publication={data.publication as AnyPublication} />
     </Wrapper>
   );
 };

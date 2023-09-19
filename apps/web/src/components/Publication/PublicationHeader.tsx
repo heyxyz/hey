@@ -1,7 +1,7 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { FeedItem, Publication } from '@lenster/lens';
+import type { AnyPublication, FeedItem } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ import PublicationMenu from './Actions/Menu';
 import Source from './Source';
 
 interface PublicationHeaderProps {
-  publication: Publication;
+  publication: AnyPublication;
   feedItem?: FeedItem;
   quoted?: boolean;
   isNew?: boolean;
