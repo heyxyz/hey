@@ -3,10 +3,44 @@ export const LensHub = [
     inputs: [
       { internalType: 'address', name: 'followNFTImpl', type: 'address' },
       { internalType: 'address', name: 'collectNFTImpl', type: 'address' },
+      { internalType: 'address', name: 'moduleRegistry', type: 'address' },
       {
         internalType: 'uint256',
         name: 'tokenGuardianCooldown',
         type: 'uint256'
+      },
+      {
+        components: [
+          {
+            internalType: 'address',
+            name: 'lensHandlesAddress',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'tokenHandleRegistryAddress',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'legacyFeeFollowModule',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'legacyProfileFollowModule',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: 'newFeeFollowModule',
+            type: 'address'
+          },
+          { internalType: 'address', name: 'migrationAdmin', type: 'address' }
+        ],
+        internalType: 'struct Types.MigrationParams',
+        name: 'migrationParams',
+        type: 'tuple'
       }
     ],
     stateMutability: 'nonpayable',
@@ -15,24 +49,24 @@ export const LensHub = [
   { inputs: [], name: 'AlreadyEnabled', type: 'error' },
   { inputs: [], name: 'CallerNotCollectNFT', type: 'error' },
   { inputs: [], name: 'CallerNotFollowNFT', type: 'error' },
+  { inputs: [], name: 'CannotInitImplementation', type: 'error' },
   { inputs: [], name: 'DisablingAlreadyTriggered', type: 'error' },
-  { inputs: [], name: 'DispatcherNotSet', type: 'error' },
-  { inputs: [], name: 'EmergencyAdminCannotUnpause', type: 'error' },
+  { inputs: [], name: 'ExecutorInvalid', type: 'error' },
   { inputs: [], name: 'GuardianEnabled', type: 'error' },
   { inputs: [], name: 'InitParamsInvalid', type: 'error' },
+  { inputs: [], name: 'Initialized', type: 'error' },
+  { inputs: [], name: 'InvalidOwner', type: 'error' },
+  { inputs: [], name: 'InvalidParameter', type: 'error' },
+  { inputs: [], name: 'NonERC721ReceiverImplementer', type: 'error' },
   { inputs: [], name: 'NotEOA', type: 'error' },
   { inputs: [], name: 'NotGovernance', type: 'error' },
-  { inputs: [], name: 'NotGovernanceOrEmergencyAdmin', type: 'error' },
+  { inputs: [], name: 'NotMigrationAdmin', type: 'error' },
   { inputs: [], name: 'NotOwnerOrApproved', type: 'error' },
   { inputs: [], name: 'NotProfileOwner', type: 'error' },
-  { inputs: [], name: 'NotProfileOwnerOrDispatcher', type: 'error' },
+  { inputs: [], name: 'NotWhitelisted', type: 'error' },
   { inputs: [], name: 'Paused', type: 'error' },
-  { inputs: [], name: 'ProfileCreatorNotWhitelisted', type: 'error' },
-  { inputs: [], name: 'ProfileImageURILengthInvalid', type: 'error' },
-  { inputs: [], name: 'PublicationDoesNotExist', type: 'error' },
   { inputs: [], name: 'PublishingPaused', type: 'error' },
-  { inputs: [], name: 'SignatureExpired', type: 'error' },
-  { inputs: [], name: 'SignatureInvalid', type: 'error' },
+  { inputs: [], name: 'TokenDoesNotExist', type: 'error' },
   {
     anonymous: false,
     inputs: [
@@ -102,6 +136,102 @@ export const LensHub = [
   },
   {
     inputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'publicationActedProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'publicationActedId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'actorProfileId', type: 'uint256' },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'address',
+            name: 'actionModuleAddress',
+            type: 'address'
+          },
+          { internalType: 'bytes', name: 'actionModuleData', type: 'bytes' }
+        ],
+        internalType: 'struct Types.PublicationActionParams',
+        name: 'publicationActionParams',
+        type: 'tuple'
+      }
+    ],
+    name: 'act',
+    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'publicationActedProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'publicationActedId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'actorProfileId', type: 'uint256' },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'address',
+            name: 'actionModuleAddress',
+            type: 'address'
+          },
+          { internalType: 'bytes', name: 'actionModuleData', type: 'bytes' }
+        ],
+        internalType: 'struct Types.PublicationActionParams',
+        name: 'publicationActionParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
+        type: 'tuple'
+      }
+    ],
+    name: 'actWithSig',
+    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
       { internalType: 'address', name: 'to', type: 'address' },
       { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
     ],
@@ -118,6 +248,54 @@ export const LensHub = [
     type: 'function'
   },
   {
+    inputs: [
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
+    ],
+    name: 'batchMigrateFollowModules',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256[]',
+        name: 'followerProfileIds',
+        type: 'uint256[]'
+      },
+      { internalType: 'uint256', name: 'idOfProfileFollowed', type: 'uint256' },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' }
+    ],
+    name: 'batchMigrateFollowers',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfileFollowed',
+        type: 'uint256[]'
+      },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' }
+    ],
+    name: 'batchMigrateFollows',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
+    ],
+    name: 'batchMigrateProfiles',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'burn',
     outputs: [],
@@ -126,31 +304,98 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'uint256', name: '', type: 'uint256' },
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      },
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' },
+      { internalType: 'bool', name: 'switchToGivenConfig', type: 'bool' }
+    ],
+    name: 'changeDelegatedExecutorsConfig',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      },
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' }
+    ],
+    name: 'changeDelegatedExecutorsConfig',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      },
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' },
+      { internalType: 'bool', name: 'switchToGivenConfig', type: 'bool' },
       {
         components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
           { internalType: 'uint8', name: 'v', type: 'uint8' },
           { internalType: 'bytes32', name: 'r', type: 'bytes32' },
           { internalType: 'bytes32', name: 's', type: 'bytes32' },
           { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.EIP712Signature',
-        name: '',
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
-    name: 'burnWithSig',
+    name: 'changeDelegatedExecutorsConfigWithSig',
     outputs: [],
-    stateMutability: 'pure',
+    stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' },
-      { internalType: 'bytes', name: 'data', type: 'bytes' }
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'publicationCollectedProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'publicationCollectedId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'collectorProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'referrerProfileId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'referrerPubId', type: 'uint256' },
+          { internalType: 'bytes', name: 'collectModuleData', type: 'bytes' }
+        ],
+        internalType: 'struct Types.LegacyCollectParams',
+        name: 'collectParams',
+        type: 'tuple'
+      }
     ],
-    name: 'collect',
+    name: 'collectLegacy',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -159,28 +404,47 @@ export const LensHub = [
     inputs: [
       {
         components: [
-          { internalType: 'address', name: 'collector', type: 'address' },
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'uint256', name: 'pubId', type: 'uint256' },
-          { internalType: 'bytes', name: 'data', type: 'bytes' },
           {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+            internalType: 'uint256',
+            name: 'publicationCollectedProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'publicationCollectedId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'collectorProfileId',
+            type: 'uint256'
+          },
+          {
+            internalType: 'uint256',
+            name: 'referrerProfileId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'referrerPubId', type: 'uint256' },
+          { internalType: 'bytes', name: 'collectModuleData', type: 'bytes' }
         ],
-        internalType: 'struct DataTypes.CollectWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.LegacyCollectParams',
+        name: 'collectParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
-    name: 'collectWithSig',
+    name: 'collectLegacyWithSig',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -193,16 +457,30 @@ export const LensHub = [
           { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
-            name: 'profileIdPointed',
+            name: 'pointedProfileId',
             type: 'uint256'
           },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
+          {
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
           },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
@@ -211,8 +489,8 @@ export const LensHub = [
             type: 'bytes'
           }
         ],
-        internalType: 'struct DataTypes.CommentData',
-        name: 'vars',
+        internalType: 'struct Types.CommentParams',
+        name: 'commentParams',
         type: 'tuple'
       }
     ],
@@ -229,37 +507,52 @@ export const LensHub = [
           { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
-            name: 'profileIdPointed',
+            name: 'pointedProfileId',
             type: 'uint256'
           },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
+          {
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
           },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
             type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
           }
         ],
-        internalType: 'struct DataTypes.CommentWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.CommentParams',
+        name: 'commentParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
@@ -272,79 +565,18 @@ export const LensHub = [
     inputs: [
       {
         components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'string', name: 'contentURI', type: 'string' },
-          {
-            internalType: 'uint256',
-            name: 'profileIdPointed',
-            type: 'uint256'
-          },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
-          {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
-          },
-          { internalType: 'address', name: 'referenceModule', type: 'address' },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleInitData',
-            type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
-        ],
-        internalType: 'struct DataTypes.CommentWithSigData',
-        name: 'vars',
-        type: 'tuple'
-      }
-    ],
-    name: 'commentWithSig_Dispatcher',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        components: [
           { internalType: 'address', name: 'to', type: 'address' },
-          { internalType: 'string', name: 'handle', type: 'string' },
-          { internalType: 'string', name: 'imageURI', type: 'string' },
           { internalType: 'address', name: 'followModule', type: 'address' },
-          {
-            internalType: 'bytes',
-            name: 'followModuleInitData',
-            type: 'bytes'
-          },
-          { internalType: 'string', name: 'followNFTURI', type: 'string' }
+          { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
         ],
-        internalType: 'struct DataTypes.CreateProfileData',
-        name: 'vars',
+        internalType: 'struct Types.CreateProfileParams',
+        name: 'createProfileParams',
         type: 'tuple'
       }
     ],
     name: 'createProfile',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
-    name: 'defaultProfile',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -362,12 +594,15 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'followNFTId', type: 'uint256' },
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'to', type: 'address' }
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256',
+        name: 'idOfProfileUnfollowed',
+        type: 'uint256'
+      },
+      { internalType: 'address', name: 'transactionExecutor', type: 'address' }
     ],
-    name: 'emitFollowNFTTransferEvent',
+    name: 'emitUnfollowedEvent',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -388,7 +623,13 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' },
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToFollow',
+        type: 'uint256[]'
+      },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' },
       { internalType: 'bytes[]', name: 'datas', type: 'bytes[]' }
     ],
     name: 'follow',
@@ -398,25 +639,24 @@ export const LensHub = [
   },
   {
     inputs: [
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToFollow',
+        type: 'uint256[]'
+      },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' },
+      { internalType: 'bytes[]', name: 'datas', type: 'bytes[]' },
       {
         components: [
-          { internalType: 'address', name: 'follower', type: 'address' },
-          { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' },
-          { internalType: 'bytes[]', name: 'datas', type: 'bytes[]' },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.FollowWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
@@ -437,42 +677,35 @@ export const LensHub = [
       { internalType: 'uint256', name: 'profileId', type: 'uint256' },
       { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
-    name: 'getCollectModule',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
-    ],
-    name: 'getCollectNFT',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'getCollectNFTImpl',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
-    ],
     name: 'getContentURI',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getDispatcher',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
+    ],
+    name: 'getDelegatedExecutorsConfigNumber',
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
+    ],
+    name: 'getDelegatedExecutorsMaxConfigNumberSet',
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
+    ],
+    name: 'getDelegatedExecutorsPrevConfigNumber',
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -484,30 +717,9 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getFollowModule',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getFollowNFT',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [],
     name: 'getFollowNFTImpl',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getFollowNFTURI',
-    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -519,9 +731,16 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getHandle',
-    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    inputs: [],
+    name: 'getLegacyCollectNFTImpl',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getModuleRegistry',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -534,11 +753,24 @@ export const LensHub = [
           { internalType: 'uint256', name: 'pubCount', type: 'uint256' },
           { internalType: 'address', name: 'followModule', type: 'address' },
           { internalType: 'address', name: 'followNFT', type: 'address' },
-          { internalType: 'string', name: 'handle', type: 'string' },
-          { internalType: 'string', name: 'imageURI', type: 'string' },
-          { internalType: 'string', name: 'followNFTURI', type: 'string' }
+          {
+            internalType: 'string',
+            name: '__DEPRECATED__handle',
+            type: 'string'
+          },
+          {
+            internalType: 'string',
+            name: '__DEPRECATED__imageURI',
+            type: 'string'
+          },
+          {
+            internalType: 'string',
+            name: '__DEPRECATED__followNFTURI',
+            type: 'string'
+          },
+          { internalType: 'string', name: 'metadataURI', type: 'string' }
         ],
-        internalType: 'struct DataTypes.ProfileStruct',
+        internalType: 'struct Types.Profile',
         name: '',
         type: 'tuple'
       }
@@ -547,8 +779,8 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'string', name: 'handle', type: 'string' }],
-    name: 'getProfileIdByHandle',
+    inputs: [{ internalType: 'bytes32', name: 'handleHash', type: 'bytes32' }],
+    name: 'getProfileIdByHandleHash',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
@@ -558,34 +790,42 @@ export const LensHub = [
       { internalType: 'uint256', name: 'profileId', type: 'uint256' },
       { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
-    name: 'getPub',
+    name: 'getPublication',
     outputs: [
       {
         components: [
           {
             internalType: 'uint256',
-            name: 'profileIdPointed',
+            name: 'pointedProfileId',
             type: 'uint256'
           },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           { internalType: 'string', name: 'contentURI', type: 'string' },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
-          { internalType: 'address', name: 'collectNFT', type: 'address' }
+          {
+            internalType: 'address',
+            name: '__DEPRECATED__collectModule',
+            type: 'address'
+          },
+          {
+            internalType: 'address',
+            name: '__DEPRECATED__collectNFT',
+            type: 'address'
+          },
+          {
+            internalType: 'enum Types.PublicationType',
+            name: 'pubType',
+            type: 'uint8'
+          },
+          { internalType: 'uint256', name: 'rootProfileId', type: 'uint256' },
+          { internalType: 'uint256', name: 'rootPubId', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.PublicationStruct',
+        internalType: 'struct Types.PublicationMemory',
         name: '',
         type: 'tuple'
       }
     ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'getPubCount',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
+    stateMutability: 'pure',
     type: 'function'
   },
   {
@@ -593,33 +833,10 @@ export const LensHub = [
       { internalType: 'uint256', name: 'profileId', type: 'uint256' },
       { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
-    name: 'getPubPointer',
+    name: 'getPublicationType',
     outputs: [
-      { internalType: 'uint256', name: '', type: 'uint256' },
-      { internalType: 'uint256', name: '', type: 'uint256' }
+      { internalType: 'enum Types.PublicationType', name: '', type: 'uint8' }
     ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
-    ],
-    name: 'getPubType',
-    outputs: [
-      { internalType: 'enum DataTypes.PubType', name: '', type: 'uint8' }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
-    ],
-    name: 'getReferenceModule',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -627,7 +844,7 @@ export const LensHub = [
     inputs: [],
     name: 'getState',
     outputs: [
-      { internalType: 'enum DataTypes.ProtocolState', name: '', type: 'uint8' }
+      { internalType: 'enum Types.ProtocolState', name: '', type: 'uint8' }
     ],
     stateMutability: 'view',
     type: 'function'
@@ -636,6 +853,52 @@ export const LensHub = [
     inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
     name: 'getTokenGuardianDisablingTimestamp',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getTreasury',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getTreasuryData',
+    outputs: [
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint16', name: '', type: 'uint16' }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getTreasuryFee',
+    outputs: [{ internalType: 'uint16', name: '', type: 'uint16' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'string', name: 'name', type: 'string' },
+      { internalType: 'string', name: 'symbol', type: 'string' },
+      { internalType: 'address', name: 'newGovernance', type: 'address' }
+    ],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' },
+      { internalType: 'address', name: 'module', type: 'address' }
+    ],
+    name: 'isActionModuleEnabledInPublication',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -651,18 +914,41 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'collectModule', type: 'address' }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' }
     ],
-    name: 'isCollectModuleWhitelisted',
+    name: 'isBlocked',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      { internalType: 'address', name: 'followModule', type: 'address' }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'delegatedExecutor', type: 'address' }
     ],
-    name: 'isFollowModuleWhitelisted',
+    name: 'isDelegatedExecutorApproved',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'delegatedExecutor', type: 'address' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' }
+    ],
+    name: 'isDelegatedExecutorApproved',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'followedProfileId', type: 'uint256' }
+    ],
+    name: 'isFollowing',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
@@ -672,15 +958,6 @@ export const LensHub = [
       { internalType: 'address', name: 'profileCreator', type: 'address' }
     ],
     name: 'isProfileCreatorWhitelisted',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'referenceModule', type: 'address' }
-    ],
-    name: 'isReferenceModuleWhitelisted',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
@@ -697,22 +974,27 @@ export const LensHub = [
       {
         components: [
           { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'metadataURI', type: 'string' },
           {
             internalType: 'uint256',
-            name: 'profileIdPointed',
+            name: 'pointedProfileId',
             type: 'uint256'
           },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'referenceModule', type: 'address' },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
-            internalType: 'bytes',
-            name: 'referenceModuleInitData',
-            type: 'bytes'
-          }
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' }
         ],
-        internalType: 'struct DataTypes.MirrorData',
-        name: 'vars',
+        internalType: 'struct Types.MirrorParams',
+        name: 'mirrorParams',
         type: 'tuple'
       }
     ],
@@ -726,77 +1008,43 @@ export const LensHub = [
       {
         components: [
           { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'metadataURI', type: 'string' },
           {
             internalType: 'uint256',
-            name: 'profileIdPointed',
+            name: 'pointedProfileId',
             type: 'uint256'
           },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'referenceModule', type: 'address' },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
-            internalType: 'bytes',
-            name: 'referenceModuleInitData',
-            type: 'bytes'
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
           },
           {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' }
         ],
-        internalType: 'struct DataTypes.MirrorWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.MirrorParams',
+        name: 'mirrorParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
     name: 'mirrorWithSig',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          {
-            internalType: 'uint256',
-            name: 'profileIdPointed',
-            type: 'uint256'
-          },
-          { internalType: 'uint256', name: 'pubIdPointed', type: 'uint256' },
-          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
-          { internalType: 'address', name: 'referenceModule', type: 'address' },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleInitData',
-            type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
-        ],
-        internalType: 'struct DataTypes.MirrorWithSigData',
-        name: 'vars',
-        type: 'tuple'
-      }
-    ],
-    name: 'mirrorWithSig_Dispatcher',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -809,6 +1057,13 @@ export const LensHub = [
     type: 'function'
   },
   {
+    inputs: [{ internalType: 'address', name: 'signer', type: 'address' }],
+    name: 'nonces',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
     inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'ownerOf',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
@@ -817,58 +1072,19 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'address', name: '', type: 'address' },
-      { internalType: 'uint256', name: '', type: 'uint256' },
-      {
-        components: [
-          { internalType: 'uint8', name: 'v', type: 'uint8' },
-          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-          { internalType: 'bytes32', name: 's', type: 'bytes32' },
-          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-        ],
-        internalType: 'struct DataTypes.EIP712Signature',
-        name: '',
-        type: 'tuple'
-      }
-    ],
-    name: 'permit',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: '', type: 'address' },
-      { internalType: 'address', name: '', type: 'address' },
-      { internalType: 'bool', name: '', type: 'bool' },
-      {
-        components: [
-          { internalType: 'uint8', name: 'v', type: 'uint8' },
-          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-          { internalType: 'bytes32', name: 's', type: 'bytes32' },
-          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-        ],
-        internalType: 'struct DataTypes.EIP712Signature',
-        name: '',
-        type: 'tuple'
-      }
-    ],
-    name: 'permitForAll',
-    outputs: [],
-    stateMutability: 'pure',
-    type: 'function'
-  },
-  {
-    inputs: [
       {
         components: [
           { internalType: 'uint256', name: 'profileId', type: 'uint256' },
           { internalType: 'string', name: 'contentURI', type: 'string' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
           {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
           },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
@@ -877,8 +1093,8 @@ export const LensHub = [
             type: 'bytes'
           }
         ],
-        internalType: 'struct DataTypes.PostData',
-        name: 'vars',
+        internalType: 'struct Types.PostParams',
+        name: 'postParams',
         type: 'tuple'
       }
     ],
@@ -893,32 +1109,37 @@ export const LensHub = [
         components: [
           { internalType: 'uint256', name: 'profileId', type: 'uint256' },
           { internalType: 'string', name: 'contentURI', type: 'string' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
           {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
           },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
             type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
           }
         ],
-        internalType: 'struct DataTypes.PostWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.PostParams',
+        name: 'postParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
@@ -933,38 +1154,123 @@ export const LensHub = [
         components: [
           { internalType: 'uint256', name: 'profileId', type: 'uint256' },
           { internalType: 'string', name: 'contentURI', type: 'string' },
-          { internalType: 'address', name: 'collectModule', type: 'address' },
           {
-            internalType: 'bytes',
-            name: 'collectModuleInitData',
-            type: 'bytes'
+            internalType: 'uint256',
+            name: 'pointedProfileId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
+          {
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
           },
           { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
             type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
           }
         ],
-        internalType: 'struct DataTypes.PostWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.QuoteParams',
+        name: 'quoteParams',
         type: 'tuple'
       }
     ],
-    name: 'postWithSig_Dispatcher',
+    name: 'quote',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
+          {
+            internalType: 'uint256',
+            name: 'pointedProfileId',
+            type: 'uint256'
+          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerProfileIds',
+            type: 'uint256[]'
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'referrerPubIds',
+            type: 'uint256[]'
+          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
+          {
+            internalType: 'address[]',
+            name: 'actionModules',
+            type: 'address[]'
+          },
+          {
+            internalType: 'bytes[]',
+            name: 'actionModulesInitDatas',
+            type: 'bytes[]'
+          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
+          {
+            internalType: 'bytes',
+            name: 'referenceModuleInitData',
+            type: 'bytes'
+          }
+        ],
+        internalType: 'struct Types.QuoteParams',
+        name: 'quoteParams',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
+        type: 'tuple'
+      }
+    ],
+    name: 'quoteWithSig',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'uint256', name: 'salePrice', type: 'uint256' }
+    ],
+    name: 'royaltyInfo',
+    outputs: [
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' }
+    ],
+    stateMutability: 'view',
     type: 'function'
   },
   {
@@ -1001,74 +1307,43 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
-    name: 'setDefaultProfile',
+    inputs: [
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToSetBlockStatus',
+        type: 'uint256[]'
+      },
+      { internalType: 'bool[]', name: 'blockStatus', type: 'bool[]' }
+    ],
+    name: 'setBlockStatus',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToSetBlockStatus',
+        type: 'uint256[]'
+      },
+      { internalType: 'bool[]', name: 'blockStatus', type: 'bool[]' },
       {
         components: [
-          { internalType: 'address', name: 'wallet', type: 'address' },
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.SetDefaultProfileWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
-    name: 'setDefaultProfileWithSig',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'address', name: 'dispatcher', type: 'address' }
-    ],
-    name: 'setDispatcher',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'address', name: 'dispatcher', type: 'address' },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
-        ],
-        internalType: 'struct DataTypes.SetDispatcherWithSigData',
-        name: 'vars',
-        type: 'tuple'
-      }
-    ],
-    name: 'setDispatcherWithSig',
+    name: 'setBlockStatusWithSig',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -1095,71 +1370,23 @@ export const LensHub = [
   },
   {
     inputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'address', name: 'followModule', type: 'address' },
+      { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' },
       {
         components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'address', name: 'followModule', type: 'address' },
-          {
-            internalType: 'bytes',
-            name: 'followModuleInitData',
-            type: 'bytes'
-          },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.SetFollowModuleWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
     name: 'setFollowModuleWithSig',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'string', name: 'followNFTURI', type: 'string' }
-    ],
-    name: 'setFollowNFTURI',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'string', name: 'followNFTURI', type: 'string' },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
-        ],
-        internalType: 'struct DataTypes.SetFollowNFTURIWithSigData',
-        name: 'vars',
-        type: 'tuple'
-      }
-    ],
-    name: 'setFollowNFTURIWithSig',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -1175,38 +1402,42 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-      { internalType: 'string', name: 'imageURI', type: 'string' }
+      { internalType: 'address[]', name: 'migrationAdmins', type: 'address[]' },
+      { internalType: 'bool', name: 'whitelisted', type: 'bool' }
     ],
-    name: 'setProfileImageURI',
+    name: 'setMigrationAdmins',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'string', name: 'metadataURI', type: 'string' }
+    ],
+    name: 'setProfileMetadataURI',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'string', name: 'metadataURI', type: 'string' },
       {
         components: [
-          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
-          { internalType: 'string', name: 'imageURI', type: 'string' },
-          {
-            components: [
-              { internalType: 'uint8', name: 'v', type: 'uint8' },
-              { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-              { internalType: 'bytes32', name: 's', type: 'bytes32' },
-              { internalType: 'uint256', name: 'deadline', type: 'uint256' }
-            ],
-            internalType: 'struct DataTypes.EIP712Signature',
-            name: 'sig',
-            type: 'tuple'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
-        internalType: 'struct DataTypes.SetProfileImageURIWithSigData',
-        name: 'vars',
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
         type: 'tuple'
       }
     ],
-    name: 'setProfileImageURIWithSig',
+    name: 'setProfileMetadataURIWithSig',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -1214,7 +1445,20 @@ export const LensHub = [
   {
     inputs: [
       {
-        internalType: 'enum DataTypes.ProtocolState',
+        internalType: 'uint256',
+        name: 'royaltiesInBasisPoints',
+        type: 'uint256'
+      }
+    ],
+    name: 'setRoyalty',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'enum Types.ProtocolState',
         name: 'newState',
         type: 'uint8'
       }
@@ -1225,10 +1469,19 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'address', name: '', type: 'address' }],
-    name: 'sigNonces',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
+    inputs: [{ internalType: 'address', name: 'newTreasury', type: 'address' }],
+    name: 'setTreasury',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint16', name: 'newTreasuryFee', type: 'uint16' }
+    ],
+    name: 'setTreasuryFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function'
   },
   {
@@ -1246,13 +1499,6 @@ export const LensHub = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'index', type: 'uint256' }],
-    name: 'tokenByIndex',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
     inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'tokenDataOf',
     outputs: [
@@ -1261,21 +1507,11 @@ export const LensHub = [
           { internalType: 'address', name: 'owner', type: 'address' },
           { internalType: 'uint96', name: 'mintTimestamp', type: 'uint96' }
         ],
-        internalType: 'struct IERC721Time.TokenData',
+        internalType: 'struct Types.TokenData',
         name: '',
         type: 'tuple'
       }
     ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'owner', type: 'address' },
-      { internalType: 'uint256', name: 'index', type: 'uint256' }
-    ],
-    name: 'tokenOfOwnerByIndex',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -1306,20 +1542,40 @@ export const LensHub = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'collectModule', type: 'address' },
-      { internalType: 'bool', name: 'whitelist', type: 'bool' }
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToUnfollow',
+        type: 'uint256[]'
+      }
     ],
-    name: 'whitelistCollectModule',
+    name: 'unfollow',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      { internalType: 'address', name: 'followModule', type: 'address' },
-      { internalType: 'bool', name: 'whitelist', type: 'bool' }
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
+      {
+        internalType: 'uint256[]',
+        name: 'idsOfProfilesToUnfollow',
+        type: 'uint256[]'
+      },
+      {
+        components: [
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
+        ],
+        internalType: 'struct Types.EIP712Signature',
+        name: 'signature',
+        type: 'tuple'
+      }
     ],
-    name: 'whitelistFollowModule',
+    name: 'unfollowWithSig',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -1330,16 +1586,6 @@ export const LensHub = [
       { internalType: 'bool', name: 'whitelist', type: 'bool' }
     ],
     name: 'whitelistProfileCreator',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'referenceModule', type: 'address' },
-      { internalType: 'bool', name: 'whitelist', type: 'bool' }
-    ],
-    name: 'whitelistReferenceModule',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
