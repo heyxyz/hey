@@ -25,7 +25,7 @@ const SwitchProfiles: FC = () => {
   );
   const { data, loading, error } = useProfilesQuery({
     variables: {
-      request: { ownedBy: currentProfile?.ownedBy }
+      request: { ownedBy: currentProfile?.ownedBy.address }
     }
   });
 

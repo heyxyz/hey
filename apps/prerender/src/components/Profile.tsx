@@ -29,7 +29,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
   const image = sanitizeDStorageUrl(
     profile?.picture?.original?.url ??
       profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy)
+      getStampFyiURL(profile?.ownedBy.address)
   );
 
   return (

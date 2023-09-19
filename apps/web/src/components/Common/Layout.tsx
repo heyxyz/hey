@@ -79,7 +79,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   });
 
   const validateAuthentication = () => {
-    const currentProfileAddress = currentProfile?.ownedBy;
+    const currentProfileAddress = currentProfile?.ownedBy.address;
     const isSwitchedAccount =
       currentProfileAddress !== undefined && currentProfileAddress !== address;
     const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;

@@ -81,7 +81,7 @@ const PreviewList: FC<PreviewListProps> = ({
   };
 
   const onProfileSelected = async (profile: Profile) => {
-    const conversationKey = profile.ownedBy.toLowerCase();
+    const conversationKey = profile.ownedBy.address.toLowerCase();
     await persistProfile(conversationKey, profile);
     const selectedTab: TabValues = profile.isFollowedByMe
       ? MessageTabs.Following

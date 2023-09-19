@@ -605,7 +605,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy,
+      address: currentProfile?.ownedBy.address,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 

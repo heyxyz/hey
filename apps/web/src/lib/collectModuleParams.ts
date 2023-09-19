@@ -40,7 +40,7 @@ const collectModuleParams = (
           ...(amount && {
             fee: {
               ...baseAmountParams,
-              recipient: currentProfile?.ownedBy
+              recipient: currentProfile?.ownedBy.address
             }
           })
         }

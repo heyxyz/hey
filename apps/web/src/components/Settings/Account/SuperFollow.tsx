@@ -81,7 +81,7 @@ const SuperFollow: FC = () => {
   const form = useZodForm({
     schema: newSuperFollowSchema,
     defaultValues: {
-      recipient: currentProfile?.ownedBy
+      recipient: currentProfile?.ownedBy.address
     }
   });
 

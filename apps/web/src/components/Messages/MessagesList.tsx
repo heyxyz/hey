@@ -39,7 +39,7 @@ const MessageTile: FC<MessageTileProps> = ({
   profile,
   currentProfile
 }) => {
-  const address = currentProfile?.ownedBy;
+  const address = currentProfile?.ownedBy.address;
 
   // icon to display to indicate status of message
   let statusIcon: JSX.Element | null = null;

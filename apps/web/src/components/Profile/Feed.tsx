@@ -73,7 +73,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     metadata,
     ...(type !== ProfileFeedType.Collects
       ? { profileId: profile?.id }
-      : { collectedBy: profile?.ownedBy }),
+      : { collectedBy: profile?.ownedBy.address }),
     limit: 30
   };
   const reactionRequest = currentProfile

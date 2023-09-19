@@ -45,7 +45,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       jsonrpc: '2.0',
       method: 'get_vp',
       params: {
-        address: currentProfile?.ownedBy,
+        address: currentProfile?.ownedBy.address,
         network,
         strategies,
         snapshot: parseInt(snapshot as string),
@@ -59,7 +59,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['scoreData', currentProfile?.ownedBy, id],
+    ['scoreData', currentProfile?.ownedBy.address, id],
     () => getVotingPower().then((res) => res),
     { enabled: state === 'active' }
   );
@@ -70,7 +70,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       const typedData = generateTypedData(
         proposal,
         position,
-        currentProfile?.ownedBy
+        currentProfile?.ownedBy.address
       );
       const signature = await signTypedDataAsync({
         primaryType: 'Vote',
@@ -78,7 +78,7 @@ const VoteProposal: FC<VoteProposalProps> = ({
       });
 
       await axios.post(SNAPSHOT_SEQUNECER_URL, {
-        address: currentProfile?.ownedBy,
+        address: currentProfile?.ownedBy.address,
         sig: signature,
         data: {
           domain: typedData.domain,

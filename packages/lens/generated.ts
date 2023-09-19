@@ -46126,7 +46126,7 @@ export const PublicationStatsFieldsFragmentDoc = gql`
     comments
     mirrors
     quotes
-    reactions
+    reactions(request: { type: UPVOTE })
     countOpenActions
   }
 `;

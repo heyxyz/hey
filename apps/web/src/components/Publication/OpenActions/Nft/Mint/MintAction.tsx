@@ -45,7 +45,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   const chain = useChainId();
 
   const nftAddress = nft.address;
-  const recipient = currentProfile?.ownedBy;
+  const recipient = currentProfile?.ownedBy.address;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;

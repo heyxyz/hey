@@ -3,6 +3,6 @@ fragment PublicationStatsFields on PublicationStats {
   comments
   mirrors
   quotes
-  reactions
+  reactions(request: { type: UPVOTE })
   countOpenActions
 }

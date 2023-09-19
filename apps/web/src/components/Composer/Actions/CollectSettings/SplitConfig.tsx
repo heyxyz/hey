@@ -75,7 +75,9 @@ const SplitConfig: FC<SplitConfigProps> = ({
         variables: { request: { handle: value } },
         onCompleted: ({ profile }) => {
           if (profile) {
-            setCollectType({ recipients: getRecipients(profile.ownedBy) });
+            setCollectType({
+              recipients: getRecipients(profile.ownedBy.address)
+            });
           }
         }
       });
@@ -97,7 +99,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             recipients:
               recipients.length > 0
                 ? []
-                : [{ recipient: currentProfile?.ownedBy, split: 100 }]
+                : [{ recipient: currentProfile?.ownedBy.address, split: 100 }]
           });
         }}
         heading={

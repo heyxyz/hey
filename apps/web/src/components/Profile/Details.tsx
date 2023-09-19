@@ -78,7 +78,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(
-      profile.ownedBy,
+      profile.ownedBy.address,
       conversationId
     );
     persistProfile(conversationKey, profile);
@@ -157,7 +157,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : (
             <Slug
               className="text-sm sm:text-base"
-              slug={formatAddress(profile?.ownedBy)}
+              slug={formatAddress(profile?.ownedBy.address)}
             />
           )}
           {currentProfile &&

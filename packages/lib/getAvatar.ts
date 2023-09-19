@@ -16,7 +16,7 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
     profile?.avatar ??
     profile?.picture?.original?.url ??
     profile?.picture?.uri ??
-    getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
+    getStampFyiURL(profile?.ownedBy.address ?? ZERO_ADDRESS);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

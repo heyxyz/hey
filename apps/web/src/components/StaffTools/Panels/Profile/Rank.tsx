@@ -35,7 +35,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
   const getGitcoinScore = async () => {
     try {
       const response = await axios.get(
-        `https://api.scorer.gitcoin.co/registry/score/335/${profile.ownedBy}`,
+        `https://api.scorer.gitcoin.co/registry/score/335/${profile.ownedBy.address}`,
         {
           headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
         }

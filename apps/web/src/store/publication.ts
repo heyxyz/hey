@@ -1,12 +1,12 @@
-import type { Publication } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { create } from 'zustand';
 
 interface PublicationState {
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
-  quotedPublication: Publication | null;
-  setQuotedPublication: (quotedPublication: Publication | null) => void;
+  quotedPublication: AnyPublication | null;
+  setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
   audioPublication: {
     title: string;
     author: string;

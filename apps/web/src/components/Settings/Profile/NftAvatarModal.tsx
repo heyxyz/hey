@@ -131,7 +131,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       const challengeRes = await loadChallenge({
         variables: {
           request: {
-            ethereumAddress: currentProfile?.ownedBy,
+            ethereumAddress: currentProfile?.ownedBy.address,
             nfts: [
               {
                 contractAddress,

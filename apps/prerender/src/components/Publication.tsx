@@ -41,7 +41,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     ? sanitizeDStorageUrl(
         profile?.picture?.original?.url ??
           profile?.picture?.uri ??
-          getStampFyiURL(profile?.ownedBy)
+          getStampFyiURL(profile?.ownedBy.address)
       )
     : DEFAULT_OG;
 

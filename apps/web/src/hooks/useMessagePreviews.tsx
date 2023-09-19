@@ -149,7 +149,7 @@ const useMessagePreviews = () => {
 
           const profiles = result.data.profiles.items as Profile[];
           for (const profile of profiles) {
-            const peerAddress = profile.ownedBy as string;
+            const peerAddress = profile.ownedBy.address as string;
             const key = buildConversationKey(
               peerAddress,
               buildConversationId(currentProfile?.id, profile.id)

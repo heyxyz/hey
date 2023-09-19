@@ -1,4 +1,4 @@
-import type { Profile, Publication } from '@lenster/lens';
+import type { AnyPublication, Profile } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {
@@ -19,10 +19,10 @@ interface GlobalModalState {
   showInvitesModal: boolean;
   setShowInvitesModal: (showInvitesModal: boolean) => void;
   showPublicationReportModal: boolean;
-  reportingPublication: Publication | null;
+  reportingPublication: AnyPublication | null;
   setShowPublicationReportModal: (
     showPublicationReportModal: boolean,
-    reportingPublication: Publication | null
+    reportingPublication: AnyPublication | null
   ) => void;
   showReportProfileModal: boolean;
   reportingProfile: Profile | null;

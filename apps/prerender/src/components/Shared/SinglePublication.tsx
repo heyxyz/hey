@@ -25,7 +25,7 @@ const SinglePublication: FC<PublicationProps> = ({
   const avatar = sanitizeDStorageUrl(
     profile.picture?.original?.url ??
       profile.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy)
+      getStampFyiURL(profile?.ownedBy.address)
   );
   const attachment = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
