@@ -19,7 +19,6 @@ import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
-import { useAppStore } from 'src/store/app';
 import { useTransactionPersistStore } from 'src/store/transaction';
 
 interface FeedProps {
@@ -31,7 +30,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     publication?.__typename === 'Mirror'
       ? publication?.mirrorOn?.id
       : publication?.id;
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
@@ -46,10 +44,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     orderBy: PublicationsOrderByType.CommentOfQueryRanking,
     limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
@@ -76,11 +70,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });

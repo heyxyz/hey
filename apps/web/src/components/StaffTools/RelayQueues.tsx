@@ -24,10 +24,10 @@ import StaffToolsSidebar from './Sidebar';
 interface RelayProps {
   address: string;
   queue: number;
-  relayer: string;
+  relay: string;
 }
 
-const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
+const Relay: FC<RelayProps> = ({ address, queue, relay }) => {
   function getRelayerName(name: string): string {
     const words = name.split('_');
     const capitalizedWords = words.map(
@@ -43,7 +43,7 @@ const Relay: FC<RelayProps> = ({ address, queue, relayer }) => {
       forceRounded
     >
       <div>
-        <b>{getRelayerName(relayer)}</b>
+        <b>{getRelayerName(relay)}</b>
         <div>
           <Link
             className="text-sm"
@@ -107,12 +107,12 @@ const RelayQueues: NextPage = () => {
                 <Trans>Relay queues</Trans>
               </h1>
               <div className="space-y-3">
-                {sortedRelays?.map(({ address, queue, relayer }) => (
+                {sortedRelays?.map(({ key, queue, relay }) => (
                   <Relay
-                    key={address}
-                    address={address}
+                    key={key}
+                    address={key}
                     queue={queue}
-                    relayer={relayer}
+                    relay={relay.address}
                   />
                 ))}
               </div>

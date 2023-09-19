@@ -1,0 +1,9 @@
+query RelayQueues {
+  relayQueues {
+    key
+    queue
+    relay {
+      address
+    }
+  }
+}

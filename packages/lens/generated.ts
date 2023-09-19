@@ -3850,6 +3850,7 @@ export type PublicationStatsCountOpenActionArgs = {
 
 export type PublicationStatsInput = {
   customFilters?: InputMaybe<Array<CustomFiltersType>>;
+  /** Filter the returned stats on apps and 1 of the following filters: tags, contentWarning, mainContentFocus, locale */
   metadata?: InputMaybe<PublicationMetadataFilters>;
 };
 
@@ -39738,6 +39739,18 @@ export type PublicationsQuery = {
   };
 };
 
+export type RelayQueuesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type RelayQueuesQuery = {
+  __typename?: 'Query';
+  relayQueues: Array<{
+    __typename?: 'RelayQueueResult';
+    key: RelayRoleKey;
+    queue: number;
+    relay: { __typename?: 'NetworkAddress'; address: any };
+  }>;
+};
+
 export type RevenueFromPublicationQueryVariables = Exact<{
   request: PublicationRevenueRequest;
 }>;
@@ -54858,6 +54871,65 @@ export type PublicationsLazyQueryHookResult = ReturnType<
 export type PublicationsQueryResult = Apollo.QueryResult<
   PublicationsQuery,
   PublicationsQueryVariables
+>;
+export const RelayQueuesDocument = gql`
+  query RelayQueues {
+    relayQueues {
+      key
+      queue
+      relay {
+        address
+      }
+    }
+  }
+`;
+
+/**
+ * __useRelayQueuesQuery__
+ *
+ * To run a query within a React component, call `useRelayQueuesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRelayQueuesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRelayQueuesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRelayQueuesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    RelayQueuesQuery,
+    RelayQueuesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<RelayQueuesQuery, RelayQueuesQueryVariables>(
+    RelayQueuesDocument,
+    options
+  );
+}
+export function useRelayQueuesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    RelayQueuesQuery,
+    RelayQueuesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<RelayQueuesQuery, RelayQueuesQueryVariables>(
+    RelayQueuesDocument,
+    options
+  );
+}
+export type RelayQueuesQueryHookResult = ReturnType<typeof useRelayQueuesQuery>;
+export type RelayQueuesLazyQueryHookResult = ReturnType<
+  typeof useRelayQueuesLazyQuery
+>;
+export type RelayQueuesQueryResult = Apollo.QueryResult<
+  RelayQueuesQuery,
+  RelayQueuesQueryVariables
 >;
 export const RevenueFromPublicationDocument = gql`
   query RevenueFromPublication($request: PublicationRevenueRequest!) {

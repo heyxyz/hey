@@ -85,7 +85,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',

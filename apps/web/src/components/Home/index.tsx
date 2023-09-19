@@ -16,7 +16,6 @@ import Tabs from './Algorithms/Tabs';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
-import ForYou from './ForYou';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
@@ -48,9 +47,7 @@ const Home: NextPage = () => {
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
                 <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
-              {feedType === HomeFeedType.FOR_YOU ? (
-                <ForYou />
-              ) : feedType === HomeFeedType.FOLLOWING ? (
+              {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
