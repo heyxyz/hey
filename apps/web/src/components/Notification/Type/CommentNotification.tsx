@@ -72,7 +72,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
           />
           <Link
             href={`/posts/${notification?.comment.id}`}
-            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
+            className="lt-text-gray-500 linkify line-clamp-2 mt-2"
           >
             <Markup>{notification?.comment?.metadata?.content}</Markup>
           </Link>
