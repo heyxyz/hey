@@ -7,10 +7,11 @@ import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import type { Address } from 'viem';
 
 interface IndexStatusProps {
   type?: string;
-  txHash: `0x${string}`;
+  txHash: Address;
   reload?: boolean;
 }
 
