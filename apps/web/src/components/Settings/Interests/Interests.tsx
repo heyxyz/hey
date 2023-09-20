@@ -1,8 +1,13 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@lenster/data/tracking';
+import type {
+  ProfileInterestsRequest,
+  ProfileInterestTypes
+} from '@lenster/lens';
 import {
   useAddProfileInterestsMutation,
+  useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -32,7 +37,7 @@ const Interests: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading } = useProfileInterestsQuery();
+  const { data, loading } = useProfileInterestsOptionsQuery();
   const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
@@ -42,22 +47,22 @@ const Interests: FC = () => {
     onError
   });
 
-  const interestsData = data?.profileInterests ?? [];
+  const interestsData = data?.profileInterestsOptions ?? [];
   const selectedTopics = currentProfile?.interests ?? [];
 
-  const onSelectTopic = (topic: string) => {
-    const variables = {
-      request: { profileId: currentProfile?.id, interests: [topic] }
+  const onSelectTopic = (topic: ProfileInterestTypes) => {
+    const request: ProfileInterestsRequest = {
+      interests: [topic]
     };
     if (!selectedTopics.includes(topic)) {
       const interests = [...selectedTopics, topic];
       updateCache(interests);
-      return addProfileInterests({ variables });
+      return addProfileInterests({ variables: { request } });
     }
     const topics = [...selectedTopics];
     topics.splice(topics.indexOf(topic), 1);
     updateCache(topics);
-    return removeProfileInterests({ variables });
+    return removeProfileInterests({ variables: { request } });
   };
 
   if (loading) {
@@ -92,7 +97,9 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(subCategory.id)}
+                  onClick={() =>
+                    onSelectTopic(subCategory.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{subCategory.label}</div>
@@ -119,7 +126,9 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(category.id)}
+                  onClick={() =>
+                    onSelectTopic(category.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{category.label}</div>

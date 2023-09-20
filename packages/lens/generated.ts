@@ -30538,6 +30538,15 @@ export type ProfileFollowModuleQuery = {
   } | null;
 };
 
+export type ProfileInterestsOptionsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type ProfileInterestsOptionsQuery = {
+  __typename?: 'Query';
+  profileInterestsOptions: Array<string>;
+};
+
 export type ProfileManagersQueryVariables = Exact<{
   request: ProfileManagersRequest;
 }>;
@@ -55160,6 +55169,61 @@ export type ProfileFollowModuleLazyQueryHookResult = ReturnType<
 export type ProfileFollowModuleQueryResult = Apollo.QueryResult<
   ProfileFollowModuleQuery,
   ProfileFollowModuleQueryVariables
+>;
+export const ProfileInterestsOptionsDocument = gql`
+  query ProfileInterestsOptions {
+    profileInterestsOptions
+  }
+`;
+
+/**
+ * __useProfileInterestsOptionsQuery__
+ *
+ * To run a query within a React component, call `useProfileInterestsOptionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileInterestsOptionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileInterestsOptionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileInterestsOptionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >(ProfileInterestsOptionsDocument, options);
+}
+export function useProfileInterestsOptionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >(ProfileInterestsOptionsDocument, options);
+}
+export type ProfileInterestsOptionsQueryHookResult = ReturnType<
+  typeof useProfileInterestsOptionsQuery
+>;
+export type ProfileInterestsOptionsLazyQueryHookResult = ReturnType<
+  typeof useProfileInterestsOptionsLazyQuery
+>;
+export type ProfileInterestsOptionsQueryResult = Apollo.QueryResult<
+  ProfileInterestsOptionsQuery,
+  ProfileInterestsOptionsQueryVariables
 >;
 export const ProfileManagersDocument = gql`
   query ProfileManagers($request: ProfileManagersRequest!) {
