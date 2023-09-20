@@ -1,10 +1,11 @@
 import { ZERO_ADDRESS } from '@lenster/data/constants';
 import { CHAIN_ID } from 'src/constants';
+import type { Address } from 'viem';
 import { useWalletClient } from 'wagmi';
 
 const useEthersWalletClient = (): {
   data: {
-    getAddress: () => Promise<`0x${string}`>;
+    getAddress: () => Promise<Address>;
     signMessage: (message: string) => Promise<string>;
   };
   isLoading: boolean;
@@ -12,7 +13,7 @@ const useEthersWalletClient = (): {
   const { data, isLoading } = useWalletClient({ chainId: CHAIN_ID });
 
   const ethersWalletClient = {
-    getAddress: async (): Promise<`0x${string}`> => {
+    getAddress: async (): Promise<Address> => {
       return (await data?.account.address) ?? ZERO_ADDRESS;
     },
     signMessage: async (message: string): Promise<string> => {
