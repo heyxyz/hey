@@ -9,7 +9,6 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true,
     swcPlugins: [['@lingui/swc-plugin', {}]]
   },
   i18n: {
