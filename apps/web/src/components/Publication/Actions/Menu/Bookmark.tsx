@@ -2,13 +2,11 @@ import { Menu } from '@headlessui/react';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type {
-  AnyPublication,
-  PublicationProfileBookmarkRequest
-} from '@lenster/lens';
 import {
-  useAddPublicationProfileBookmarkMutation,
-  useRemovePublicationProfileBookmarkMutation
+  type AnyPublication,
+  type PublicationBookmarkRequest,
+  useAddPublicationBookmarkMutation,
+  useRemovePublicationBookmarkMutation
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
@@ -20,7 +18,6 @@ import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 
 interface BookmarkProps {
   publication: AnyPublication;
@@ -32,10 +29,8 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const bookmarked = isMirror
     ? publication.mirrorOn.operations.hasBookmarked
     : publication.bookmarked;
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const request: PublicationProfileBookmarkRequest = {
-    profileId: currentProfile?.id,
-    publicationId: publication.id
+  const request: PublicationBookmarkRequest = {
+    on: publication.id
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
@@ -66,40 +61,38 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  const [addPublicationProfileBookmark] =
-    useAddPublicationProfileBookmarkMutation({
-      variables: { request },
-      onError,
-      onCompleted: () => {
-        toast.success(t`Publication bookmarked`);
-        Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-          publication_id: publication.id,
-          bookmarked: true
-        });
-      },
-      update: (cache) => updateCache(cache)
-    });
+  const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
+    variables: { request },
+    onError,
+    onCompleted: () => {
+      toast.success(t`Publication bookmarked`);
+      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        publication_id: publication.id,
+        bookmarked: true
+      });
+    },
+    update: (cache) => updateCache(cache)
+  });
 
-  const [removePublicationProfileBookmark] =
-    useRemovePublicationProfileBookmarkMutation({
-      variables: { request },
-      onError,
-      onCompleted: () => {
-        toast.success(t`Removed publication bookmark`);
-        Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-          publication_id: publication.id,
-          bookmarked: false
-        });
-      },
-      update: (cache) => updateCache(cache)
-    });
+  const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
+    variables: { request },
+    onError,
+    onCompleted: () => {
+      toast.success(t`Removed publication bookmark`);
+      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
+        publication_id: publication.id,
+        bookmarked: false
+      });
+    },
+    update: (cache) => updateCache(cache)
+  });
 
   const togglePublicationProfileBookmark = async () => {
     if (bookmarked) {
-      return await removePublicationProfileBookmark();
+      return await removePublicationBookmark();
     }
 
-    return await addPublicationProfileBookmark();
+    return await addPublicationBookmark();
   };
 
   return (
