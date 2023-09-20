@@ -189,7 +189,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         bio,
         cover_picture: coverIpfsUrl ? coverIpfsUrl : null,
         attributes: [
-          ...(profile?.attributes
+          ...(profile?.metadata?.attributes
             ?.filter(
               (attr) =>
                 ![

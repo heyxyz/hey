@@ -5195,6 +5195,12 @@ export type CommentFieldsFragment = {
       displayName?: string | null;
       bio?: any | null;
       rawURI: any;
+      attributes: Array<{
+        __typename?: 'Attribute';
+        type: AttributeType;
+        key: string;
+        value: string;
+      }>;
       picture?:
         | {
             __typename?: 'ImageSet';
@@ -6568,6 +6574,12 @@ export type PostFieldsFragment = {
       displayName?: string | null;
       bio?: any | null;
       rawURI: any;
+      attributes: Array<{
+        __typename?: 'Attribute';
+        type: AttributeType;
+        key: string;
+        value: string;
+      }>;
       picture?:
         | {
             __typename?: 'ImageSet';
@@ -7442,6 +7454,12 @@ export type ProfileFieldsFragment = {
     displayName?: string | null;
     bio?: any | null;
     rawURI: any;
+    attributes: Array<{
+      __typename?: 'Attribute';
+      type: AttributeType;
+      key: string;
+      value: string;
+    }>;
     picture?:
       | {
           __typename?: 'ImageSet';
@@ -7506,6 +7524,12 @@ export type ProfileMetadataFieldsFragment = {
   displayName?: string | null;
   bio?: any | null;
   rawURI: any;
+  attributes: Array<{
+    __typename?: 'Attribute';
+    type: AttributeType;
+    key: string;
+    value: string;
+  }>;
   picture?:
     | {
         __typename?: 'ImageSet';
@@ -7682,6 +7706,12 @@ export type QuoteFieldsFragment = {
       displayName?: string | null;
       bio?: any | null;
       rawURI: any;
+      attributes: Array<{
+        __typename?: 'Attribute';
+        type: AttributeType;
+        key: string;
+        value: string;
+      }>;
       picture?:
         | {
             __typename?: 'ImageSet';
@@ -10255,6 +10285,12 @@ export type ExplorePublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -11231,6 +11267,12 @@ export type ExplorePublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -12230,6 +12272,12 @@ export type FeedQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -13215,6 +13263,12 @@ export type FeedQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -14206,6 +14260,12 @@ export type FeedHighlightsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -15182,6 +15242,12 @@ export type FeedHighlightsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -16160,6 +16226,12 @@ export type FollowersQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -16320,6 +16392,12 @@ export type FollowingQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -16508,6 +16586,12 @@ export type InvitedProfilesQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -16702,6 +16786,12 @@ export type MutualFollowersQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -16935,6 +17025,12 @@ export type NotificationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -17117,6 +17213,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -18115,6 +18217,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -19099,6 +19207,12 @@ export type NotificationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -20077,6 +20191,12 @@ export type NotificationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -20252,6 +20372,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -21237,6 +21363,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -22216,6 +22348,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -23199,6 +23337,12 @@ export type NotificationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -23371,6 +23515,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -24356,6 +24506,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -25335,6 +25491,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -26322,6 +26484,12 @@ export type NotificationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -27310,6 +27478,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -28295,6 +28469,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -29274,6 +29454,12 @@ export type NotificationsQuery = {
                     displayName?: string | null;
                     bio?: any | null;
                     rawURI: any;
+                    attributes: Array<{
+                      __typename?: 'Attribute';
+                      type: AttributeType;
+                      key: string;
+                      value: string;
+                    }>;
                     picture?:
                       | {
                           __typename?: 'ImageSet';
@@ -30251,6 +30437,12 @@ export type NotificationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -30412,6 +30604,12 @@ export type ProfileQuery = {
       displayName?: string | null;
       bio?: any | null;
       rawURI: any;
+      attributes: Array<{
+        __typename?: 'Attribute';
+        type: AttributeType;
+        key: string;
+        value: string;
+      }>;
       picture?:
         | {
             __typename?: 'ImageSet';
@@ -30650,6 +30848,12 @@ export type ProfileRecommendationsQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -30809,6 +31013,12 @@ export type ProfilesQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -30969,6 +31179,12 @@ export type ProfilesManagedQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -31147,6 +31363,12 @@ export type PublicationQuery = {
             displayName?: string | null;
             bio?: any | null;
             rawURI: any;
+            attributes: Array<{
+              __typename?: 'Attribute';
+              type: AttributeType;
+              key: string;
+              value: string;
+            }>;
             picture?:
               | {
                   __typename?: 'ImageSet';
@@ -32142,6 +32364,12 @@ export type PublicationQuery = {
             displayName?: string | null;
             bio?: any | null;
             rawURI: any;
+            attributes: Array<{
+              __typename?: 'Attribute';
+              type: AttributeType;
+              key: string;
+              value: string;
+            }>;
             picture?:
               | {
                   __typename?: 'ImageSet';
@@ -33118,6 +33346,12 @@ export type PublicationQuery = {
             displayName?: string | null;
             bio?: any | null;
             rawURI: any;
+            attributes: Array<{
+              __typename?: 'Attribute';
+              type: AttributeType;
+              key: string;
+              value: string;
+            }>;
             picture?:
               | {
                   __typename?: 'ImageSet';
@@ -34110,6 +34344,12 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -35105,6 +35345,12 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -36081,6 +36327,12 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -37075,6 +37327,12 @@ export type PublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -38070,6 +38328,12 @@ export type PublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -39046,6 +39310,12 @@ export type PublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -40064,6 +40334,12 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -41059,6 +41335,12 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -42035,6 +42317,12 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -43050,6 +43338,12 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -44048,6 +44342,12 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -45027,6 +45327,12 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null;
                 bio?: any | null;
                 rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
                 picture?:
                   | {
                       __typename?: 'ImageSet';
@@ -46022,6 +46328,12 @@ export type SearchProfilesQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -46198,6 +46510,12 @@ export type SearchPublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -47180,6 +47498,12 @@ export type SearchPublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -48156,6 +48480,12 @@ export type SearchPublicationsQuery = {
               displayName?: string | null;
               bio?: any | null;
               rawURI: any;
+              attributes: Array<{
+                __typename?: 'Attribute';
+                type: AttributeType;
+                key: string;
+                value: string;
+              }>;
               picture?:
                 | {
                     __typename?: 'ImageSet';
@@ -49197,6 +49527,12 @@ export type WhoActedOnPublicationQuery = {
         displayName?: string | null;
         bio?: any | null;
         rawURI: any;
+        attributes: Array<{
+          __typename?: 'Attribute';
+          type: AttributeType;
+          key: string;
+          value: string;
+        }>;
         picture?:
           | {
               __typename?: 'ImageSet';
@@ -49359,6 +49695,12 @@ export type WhoReactedPublicationQuery = {
           displayName?: string | null;
           bio?: any | null;
           rawURI: any;
+          attributes: Array<{
+            __typename?: 'Attribute';
+            type: AttributeType;
+            key: string;
+            value: string;
+          }>;
           picture?:
             | {
                 __typename?: 'ImageSet';
@@ -49492,6 +49834,11 @@ export const ProfileMetadataFieldsFragmentDoc = gql`
     displayName
     bio
     rawURI
+    attributes {
+      type
+      key
+      value
+    }
     picture {
       ... on ImageSet {
         ...ImageSetFields

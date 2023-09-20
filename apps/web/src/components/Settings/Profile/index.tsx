@@ -3,7 +3,7 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { CubeIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
-import { useProfileSettingsQuery } from '@lenster/lens';
+import { useProfileQuery } from '@lenster/lens';
 import {
   Card,
   GridItemEight,
@@ -33,8 +33,8 @@ const ProfileSettings: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
   });
 
-  const { data, loading, error } = useProfileSettingsQuery({
-    variables: { request: { profileId: currentProfile?.id } },
+  const { data, loading, error } = useProfileQuery({
+    variables: { request: { forProfileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: ({ profile }) => {
       const picture = profile?.picture;

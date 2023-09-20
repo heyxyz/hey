@@ -8,7 +8,7 @@ import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
-  useProfileSettingsQuery
+  useProfileQuery
 } from '@lenster/lens';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
@@ -76,15 +76,17 @@ const Status: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading, error } = useProfileSettingsQuery({
-    variables: { request: { profileId: currentProfile?.id } },
+  const { data, loading, error } = useProfileQuery({
+    variables: { request: { forProfileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: ({ profile }) => {
       form.setValue(
         'status',
-        getProfileAttribute(profile?.attributes, 'statusMessage')
+        getProfileAttribute(profile?.metadata?.attributes, 'statusMessage')
       );
-      setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
+      setEmoji(
+        getProfileAttribute(profile?.metadata?.attributes, 'statusEmoji')
+      );
     }
   });
 
@@ -152,14 +154,14 @@ const Status: FC = () => {
     try {
       setIsLoading(true);
       const id = await uploadToArweave({
-        name: profile.metadata?.displayName ?? '',
-        bio: profile.metadata?.bio ?? '',
+        name: profile?.metadata?.displayName ?? '',
+        bio: profile?.metadata?.bio ?? '',
         cover_picture:
           profile?.coverPicture?.__typename === 'MediaSet'
             ? profile?.coverPicture?.original?.url ?? ''
             : '',
         attributes: [
-          ...(profile?.attributes
+          ...(profile?.metadata?.attributes
             ?.filter(
               (attr) =>
                 ![
@@ -174,18 +176,21 @@ const Status: FC = () => {
             .map(({ key, value }) => ({ key, value })) ?? []),
           {
             key: 'location',
-            value: getProfileAttribute(profile?.attributes, 'location')
+            value: getProfileAttribute(
+              profile?.metadata?.attributes,
+              'location'
+            )
           },
           {
             key: 'website',
-            value: getProfileAttribute(profile?.attributes, 'website')
+            value: getProfileAttribute(profile?.metadata?.attributes, 'website')
           },
           {
             key: 'x',
-            value: getProfileAttribute(profile?.attributes, 'x')?.replace(
-              'https://x.com/',
-              ''
-            )
+            value: getProfileAttribute(
+              profile?.metadata?.attributes,
+              'x'
+            )?.replace('https://x.com/', '')
           },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status }
