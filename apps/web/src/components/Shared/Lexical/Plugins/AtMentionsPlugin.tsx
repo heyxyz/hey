@@ -3,13 +3,12 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { AVATAR } from '@lenster/data/constants';
-import type {
-  MediaSet,
-  NftImage,
-  Profile,
-  ProfileSearchResult
+import type { NftImage, Profile, ProfileSearchRequest } from '@lenster/lens';
+import {
+  CustomFiltersType,
+  LimitType,
+  useSearchProfilesLazyQuery
 } from '@lenster/lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
 import hasMisused from '@lenster/lib/hasMisused';
@@ -201,23 +200,23 @@ const MentionsPlugin: FC = () => {
 
   useUpdateEffect(() => {
     if (queryString) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: queryString,
-            limit: 5
-          }
-        }
-      }).then(({ data }) => {
-        const search = data?.search;
-        const profileSearchResult = search as ProfileSearchResult;
-        const profiles: Profile[] =
+      // Variables
+      const request: ProfileSearchRequest = {
+        where: { customFilters: [CustomFiltersType.Gardeners] },
+        query: queryString,
+        limit: LimitType.Ten
+      };
+
+      searchUsers({ variables: { request } }).then(({ data }) => {
+        const search = data?.searchProfiles;
+        const profileSearchResult = search;
+        const profiles = (
           search && search.hasOwnProperty('items')
             ? profileSearchResult?.items
-            : [];
+            : []
+        ) as Profile[];
         const profilesResults = profiles.map(
-          (user: Profile) =>
+          (user) =>
             ({
               id: user?.id,
               name: sanitizeDisplayName(user.metadata?.displayName),

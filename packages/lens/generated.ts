@@ -9551,6 +9551,15 @@ export type CreateProfileWithHandleMutation = {
     | { __typename?: 'RelaySuccess'; txHash?: any | null; txId?: any | null };
 };
 
+export type DismissRecommendedProfilesMutationVariables = Exact<{
+  request: DismissRecommendedProfilesRequest;
+}>;
+
+export type DismissRecommendedProfilesMutation = {
+  __typename?: 'Mutation';
+  dismissRecommendedProfiles?: any | null;
+};
+
 export type CreateFollowTypedDataMutationVariables = Exact<{
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
@@ -39920,6 +39929,18 @@ export type PublicationsQuery = {
   };
 };
 
+export type PublicationsTagsQueryVariables = Exact<{
+  request: PublicationsTagsRequest;
+}>;
+
+export type PublicationsTagsQuery = {
+  __typename?: 'Query';
+  publicationsTags: {
+    __typename?: 'PaginatedPublicationsTagsResult';
+    items: Array<{ __typename?: 'TagResult'; tag: string; total: number }>;
+  };
+};
+
 export type RelayQueuesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type RelayQueuesQuery = {
@@ -52253,6 +52274,57 @@ export type CreateProfileWithHandleMutationOptions = Apollo.BaseMutationOptions<
   CreateProfileWithHandleMutation,
   CreateProfileWithHandleMutationVariables
 >;
+export const DismissRecommendedProfilesDocument = gql`
+  mutation DismissRecommendedProfiles(
+    $request: DismissRecommendedProfilesRequest!
+  ) {
+    dismissRecommendedProfiles(request: $request)
+  }
+`;
+export type DismissRecommendedProfilesMutationFn = Apollo.MutationFunction<
+  DismissRecommendedProfilesMutation,
+  DismissRecommendedProfilesMutationVariables
+>;
+
+/**
+ * __useDismissRecommendedProfilesMutation__
+ *
+ * To run a mutation, you first call `useDismissRecommendedProfilesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDismissRecommendedProfilesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [dismissRecommendedProfilesMutation, { data, loading, error }] = useDismissRecommendedProfilesMutation({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useDismissRecommendedProfilesMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >(DismissRecommendedProfilesDocument, options);
+}
+export type DismissRecommendedProfilesMutationHookResult = ReturnType<
+  typeof useDismissRecommendedProfilesMutation
+>;
+export type DismissRecommendedProfilesMutationResult =
+  Apollo.MutationResult<DismissRecommendedProfilesMutation>;
+export type DismissRecommendedProfilesMutationOptions =
+  Apollo.BaseMutationOptions<
+    DismissRecommendedProfilesMutation,
+    DismissRecommendedProfilesMutationVariables
+  >;
 export const CreateFollowTypedDataDocument = gql`
   mutation CreateFollowTypedData(
     $options: TypedDataOptions
@@ -55564,6 +55636,67 @@ export type PublicationsLazyQueryHookResult = ReturnType<
 export type PublicationsQueryResult = Apollo.QueryResult<
   PublicationsQuery,
   PublicationsQueryVariables
+>;
+export const PublicationsTagsDocument = gql`
+  query PublicationsTags($request: PublicationsTagsRequest!) {
+    publicationsTags(request: $request) {
+      items {
+        tag
+        total
+      }
+    }
+  }
+`;
+
+/**
+ * __usePublicationsTagsQuery__
+ *
+ * To run a query within a React component, call `usePublicationsTagsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePublicationsTagsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = usePublicationsTagsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function usePublicationsTagsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    PublicationsTagsQuery,
+    PublicationsTagsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PublicationsTagsQuery, PublicationsTagsQueryVariables>(
+    PublicationsTagsDocument,
+    options
+  );
+}
+export function usePublicationsTagsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    PublicationsTagsQuery,
+    PublicationsTagsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    PublicationsTagsQuery,
+    PublicationsTagsQueryVariables
+  >(PublicationsTagsDocument, options);
+}
+export type PublicationsTagsQueryHookResult = ReturnType<
+  typeof usePublicationsTagsQuery
+>;
+export type PublicationsTagsLazyQueryHookResult = ReturnType<
+  typeof usePublicationsTagsLazyQuery
+>;
+export type PublicationsTagsQueryResult = Apollo.QueryResult<
+  PublicationsTagsQuery,
+  PublicationsTagsQueryVariables
 >;
 export const RelayQueuesDocument = gql`
   query RelayQueues {

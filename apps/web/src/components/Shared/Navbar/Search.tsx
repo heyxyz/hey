@@ -1,8 +1,8 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Profile, ProfileSearchResult } from '@lenster/lens';
+import type { Profile, ProfileSearchRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
-  SearchRequestTypes,
+  LimitType,
   useSearchProfilesLazyQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -57,24 +57,24 @@ const Search: FC<SearchProps> = ({
 
   useEffect(() => {
     if (pathname !== '/search' && !hideDropdown) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: debouncedSearchText,
-            customFilters: [CustomFiltersType.Gardeners],
-            limit: 8
-          }
-        }
-      });
+      // Variables
+      const request: ProfileSearchRequest = {
+        where: { customFilters: [CustomFiltersType.Gardeners] },
+        query: debouncedSearchText,
+        limit: LimitType.Ten
+      };
+
+      searchUsers({ variables: { request } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
 
-  const searchResult = searchUsersData?.search as ProfileSearchResult;
+  const searchResult = searchUsersData?.searchProfiles;
   const isProfileSearchResult =
     searchResult && searchResult.hasOwnProperty('items');
-  const profiles = isProfileSearchResult ? searchResult.items : [];
+  const profiles = (
+    isProfileSearchResult ? searchResult.items : []
+  ) as Profile[];
 
   return (
     <div aria-hidden="true" className="w-full" data-testid="global-search">
@@ -118,7 +118,7 @@ const Search: FC<SearchProps> = ({
               </div>
             ) : (
               <>
-                {profiles.map((profile: Profile) => (
+                {profiles.map((profile) => (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -132,7 +132,7 @@ const Search: FC<SearchProps> = ({
                       setSearchText('');
                     }}
                     data-testid={`search-profile-${formatHandle(
-                      profile?.handle
+                      profile.handle
                     )}`}
                     aria-hidden="true"
                   >

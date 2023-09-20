@@ -2,7 +2,11 @@ import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
 import { MISCELLANEOUS } from '@lenster/data/tracking';
 import type { TagResult } from '@lenster/lens';
-import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
+import {
+  LimitType,
+  TagSortCriteriaType,
+  usePublicationsTagsQuery
+} from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Card, ErrorMessage } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -22,8 +26,13 @@ const Title = () => {
 };
 
 const Trending: FC = () => {
-  const { data, loading, error } = useTrendingQuery({
-    variables: { request: { limit: 7, sort: TagSortCriteria.MostPopular } }
+  const { data, loading, error } = usePublicationsTagsQuery({
+    variables: {
+      request: {
+        orderBy: TagSortCriteriaType.MostPopular,
+        limit: LimitType.Ten
+      }
+    }
   });
 
   if (loading) {
@@ -47,7 +56,7 @@ const Trending: FC = () => {
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
         <ErrorMessage title={t`Failed to load trending`} error={error} />
-        {data?.allPublicationsTags?.items?.map((tag: TagResult) =>
+        {data?.publicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>
               <Link
