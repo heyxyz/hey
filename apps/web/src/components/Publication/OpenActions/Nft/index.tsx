@@ -14,7 +14,6 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { usePreferencesStore } from 'src/store/preferences';
 
 import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';
@@ -26,7 +25,6 @@ interface NftProps {
 
 const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   const { chain, address, token } = nftMetadata;
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [showMintModal, setShowMintModal] = useState(false);
   const { setQuantity, setCanMintOnLenster } = useZoraMintStore();
 
@@ -89,7 +87,7 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
             </Tooltip>
           ) : null}
         </div>
-        {isLensMember && canMint ? (
+        {canMint ? (
           <>
             <Button
               className="text-sm"
