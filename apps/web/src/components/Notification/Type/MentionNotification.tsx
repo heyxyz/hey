@@ -70,7 +70,7 @@ const MentionNotification: FC<MentionNotificationProps> = ({
           />
           <Link
             href={`/posts/${notification?.mentionPublication.id}`}
-            className="lt-text-gray-500 linkify line-clamp-2 mt-2"
+            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
           >
             <Markup>
               {notification?.mentionPublication?.metadata?.content}
