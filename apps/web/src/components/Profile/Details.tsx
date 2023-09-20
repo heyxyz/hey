@@ -16,6 +16,7 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import {
+  AVATAR,
   EXPANDED_AVATAR,
   RARIBLE_URL,
   STATIC_IMAGES_URL
@@ -25,7 +26,7 @@ import getEnvConfig from '@lenster/data/utils/getEnvConfig';
 import type { Profile } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
+import getAvatar, { getAvatarAsync } from '@lenster/lib/getAvatar';
 import getMisuseDetails from '@lenster/lib/getMisuseDetails';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasMisused from '@lenster/lib/hasMisused';
@@ -35,6 +36,7 @@ import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -43,6 +45,7 @@ import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/preferences';
+import { usePublicClient } from 'wagmi';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -59,6 +62,7 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
+  const publicClient = usePublicClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setConversationKey = useMessageStore(
     (state) => state.setConversationKey
@@ -103,12 +107,19 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const followType = profile?.followModule?.__typename;
   const misuseDetails = getMisuseDetails(profile.id);
 
+  const { data: tbaAvatar } = useQuery({
+    queryKey: ['tbaAvatar'],
+    queryFn: () => getAvatarAsync(profile, AVATAR, publicClient),
+    initialData: getAvatar(profile)
+  });
+
   return (
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
-          src={getAvatar(profile)}
+          src={tbaAvatar}
+          onError={console.error}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}

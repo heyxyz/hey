@@ -3,9 +3,10 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { AVATAR } from '@lenster/data/constants';
 import type { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
+import getAvatar, { getAvatarAsync } from '@lenster/lib/getAvatar';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import hasMisused from '@lenster/lib/hasMisused';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -13,9 +14,11 @@ import { Image } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
+import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
+import { usePublicClient } from 'wagmi';
 
 import Follow from './Follow';
 import Markup from './Markup';
@@ -64,9 +67,16 @@ const UserProfile: FC<UserProfileProps> = ({
   );
   const hasStatus = statusEmoji && statusMessage;
 
+  const publicClient = usePublicClient();
+  const { data: tbaAvatar } = useQuery({
+    queryKey: ['tbaAvatar'],
+    queryFn: () => getAvatarAsync(profile, AVATAR, publicClient),
+    initialData: getAvatar(profile)
+  });
+
   const UserAvatar = () => (
     <Image
-      src={getAvatar(profile)}
+      src={tbaAvatar}
       loading="lazy"
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
