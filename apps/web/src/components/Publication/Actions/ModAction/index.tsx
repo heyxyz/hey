@@ -1,6 +1,6 @@
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@lenster/data/tracking';
-import type { AnyPublication } from '@lenster/lens';
+import type { AnyPublication, ReportPublicationRequest } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
@@ -32,18 +32,19 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     type: string;
     subreason: string;
   }) => {
-    return await createReport({
-      variables: {
-        request: {
-          publicationId: publication?.id,
-          reason: {
-            [type]: {
-              reason: type.replace('Reason', '').toUpperCase(),
-              subreason
-            }
-          }
+    // Variables
+    const request: ReportPublicationRequest = {
+      for: publication?.id,
+      reason: {
+        [type]: {
+          reason: type.replace('Reason', '').toUpperCase(),
+          subreason
         }
-      },
+      }
+    };
+
+    return await createReport({
+      variables: { request },
       onCompleted: () => {
         setShowModActionAlert(false, null);
       }
