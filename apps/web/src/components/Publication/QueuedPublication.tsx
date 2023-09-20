@@ -71,24 +71,18 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval: 1000,
     onCompleted: ({ lensTransactionStatus }) => {
-      if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
+      if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
         return removeTxn();
       }
 
-      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
-        const status = hasTxHashBeenIndexed.metadataStatus?.status;
-
-        if (status === LensTransactionStatusType.Failed) {
-          return removeTxn();
-        }
-
-        if (hasTxHashBeenIndexed.indexed) {
-          getPublication({
-            variables: {
-              request: { forTxHash: lensTransactionStatus?.txHash }
-            }
-          });
-        }
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        getPublication({
+          variables: {
+            request: { forTxHash: lensTransactionStatus?.txHash }
+          }
+        });
       }
     }
   });

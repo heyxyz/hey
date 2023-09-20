@@ -1,6 +1,10 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
 import { HANDLE_SUFFIX } from '@lenster/data/constants';
-import { useLensTransactionStatusQuery } from '@lenster/lens';
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@lenster/lens';
 import { Button, Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -20,12 +24,20 @@ const Pending: FC<PendingProps> = ({ handle, txHash }) => {
   return (
     <div className="p-5 text-center font-bold">
       {loading ||
-      (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        !data?.hasTxHashBeenIndexed.indexed) ? (
+      data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Processing ? (
         <div className="space-y-3">
           <Spinner className="mx-auto" />
           <div>
             <Trans>Account creation in progress, please wait!</Trans>
+          </div>
+        </div>
+      ) : data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Failed ? (
+        <div className="space-y-3">
+          <XCircleIcon className="mx-auto h-10 w-10 text-red-500" />
+          <div>
+            <Trans>Account creation failed!</Trans>
           </div>
         </div>
       ) : (

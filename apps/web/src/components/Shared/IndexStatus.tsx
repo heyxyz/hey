@@ -1,6 +1,9 @@
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { POLYGONSCAN_URL } from '@lenster/data/constants';
-import { useLensTransactionStatusQuery } from '@lenster/lens';
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@lenster/lens';
 import { Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -26,8 +29,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
     pollInterval,
     onCompleted: ({ lensTransactionStatus }) => {
       if (
-        hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        hasTxHashBeenIndexed?.indexed
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
       ) {
         setPollInterval(0);
         if (reload) {
@@ -48,12 +50,20 @@ const IndexStatus: FC<IndexStatusProps> = ({
       rel="noreferrer noopener"
     >
       {loading ||
-      (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        !data?.hasTxHashBeenIndexed.indexed) ? (
+      data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Processing ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
           <div>
             <Trans>{type} Indexing</Trans>
+          </div>
+        </div>
+      ) : data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Failed ? (
+        <div className="flex items-center space-x-1.5">
+          <XCircleIcon className="h-5 w-5 text-red-500" />
+          <div>
+            <Trans>Index failed</Trans>
           </div>
         </div>
       ) : (
