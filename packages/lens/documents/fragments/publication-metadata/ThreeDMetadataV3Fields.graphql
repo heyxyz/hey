@@ -6,4 +6,5 @@ fragment ThreeDMetadataV3Fields on ThreeDMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

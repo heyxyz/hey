@@ -59,7 +59,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     createReport({
       variables: {
         request: {
-          publicationId: publication?.id,
+          for: publication?.id,
           reason: {
             [type]: {
               reason: type.replace('Reason', '').toUpperCase(),

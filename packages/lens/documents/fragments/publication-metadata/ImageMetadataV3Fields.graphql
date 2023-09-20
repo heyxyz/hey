@@ -6,4 +6,5 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

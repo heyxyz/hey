@@ -6,4 +6,5 @@ fragment SpaceMetadataV3Fields on SpaceMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

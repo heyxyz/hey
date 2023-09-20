@@ -6,4 +6,5 @@ fragment TransactionMetadataV3Fields on TransactionMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

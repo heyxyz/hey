@@ -6,4 +6,5 @@ fragment StoryMetadataV3Fields on StoryMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

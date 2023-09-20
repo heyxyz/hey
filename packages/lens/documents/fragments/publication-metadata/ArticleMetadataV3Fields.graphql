@@ -6,4 +6,5 @@ fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

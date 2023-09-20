@@ -6,4 +6,5 @@ fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

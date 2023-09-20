@@ -4798,6 +4798,7 @@ type AnyPublicationMetadataFields_ArticleMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4811,6 +4812,7 @@ type AnyPublicationMetadataFields_AudioMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4823,6 +4825,7 @@ type AnyPublicationMetadataFields_CheckingInMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4836,6 +4839,7 @@ type AnyPublicationMetadataFields_EmbedMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4850,6 +4854,7 @@ type AnyPublicationMetadataFields_EventMetadataV3_Fragment = {
   locale: any;
   startsAt: any;
   endsAt: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4863,6 +4868,7 @@ type AnyPublicationMetadataFields_ImageMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -4987,6 +4993,7 @@ type AnyPublicationMetadataFields_LinkMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5002,6 +5009,7 @@ type AnyPublicationMetadataFields_LiveStreamMetadataV3_Fragment = {
   locale: any;
   startsAt: any;
   optionalEndsAt?: any | null;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5015,6 +5023,7 @@ type AnyPublicationMetadataFields_MintMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5028,6 +5037,7 @@ type AnyPublicationMetadataFields_SpaceMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5041,6 +5051,7 @@ type AnyPublicationMetadataFields_StoryMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5054,6 +5065,7 @@ type AnyPublicationMetadataFields_TextOnlyMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5067,6 +5079,7 @@ type AnyPublicationMetadataFields_ThreeDMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5080,6 +5093,7 @@ type AnyPublicationMetadataFields_TransactionMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5093,6 +5107,7 @@ type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -5321,6 +5336,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5333,6 +5349,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5344,6 +5361,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5356,6 +5374,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5369,6 +5388,7 @@ export type CommentFieldsFragment = {
         locale: any;
         startsAt: any;
         endsAt: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5381,6 +5401,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5503,6 +5524,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5517,6 +5539,7 @@ export type CommentFieldsFragment = {
         locale: any;
         startsAt: any;
         optionalEndsAt?: any | null;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5529,6 +5552,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5541,6 +5565,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5553,6 +5578,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5565,6 +5591,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5577,6 +5604,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5589,6 +5617,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -5601,6 +5630,7 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6700,6 +6730,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6712,6 +6743,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6723,6 +6755,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6735,6 +6768,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6748,6 +6782,7 @@ export type PostFieldsFragment = {
         locale: any;
         startsAt: any;
         endsAt: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6760,6 +6795,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6882,6 +6918,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6896,6 +6933,7 @@ export type PostFieldsFragment = {
         locale: any;
         startsAt: any;
         optionalEndsAt?: any | null;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6908,6 +6946,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6920,6 +6959,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6932,6 +6972,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6944,6 +6985,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6956,6 +6998,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6968,6 +7011,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -6980,6 +7024,7 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7832,6 +7877,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7844,6 +7890,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7855,6 +7902,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7867,6 +7915,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7880,6 +7929,7 @@ export type QuoteFieldsFragment = {
         locale: any;
         startsAt: any;
         endsAt: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -7892,6 +7942,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8014,6 +8065,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8028,6 +8080,7 @@ export type QuoteFieldsFragment = {
         locale: any;
         startsAt: any;
         optionalEndsAt?: any | null;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8040,6 +8093,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8052,6 +8106,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8064,6 +8119,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8076,6 +8132,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8088,6 +8145,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8100,6 +8158,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8112,6 +8171,7 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null;
         tags?: Array<string> | null;
         locale: any;
+        appId?: any | null;
         attributes?: Array<{
           __typename?: 'PublicationMetadataV3Attribute';
           key: string;
@@ -8536,6 +8596,7 @@ export type ArticleMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8549,6 +8610,7 @@ export type AudioMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8561,6 +8623,7 @@ export type CheckingInMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8574,6 +8637,7 @@ export type EmbedMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8588,6 +8652,7 @@ export type EventMetadataV3FieldsFragment = {
   locale: any;
   startsAt: any;
   endsAt: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8601,6 +8666,7 @@ export type ImageMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8725,6 +8791,7 @@ export type LinkMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8740,6 +8807,7 @@ export type LiveStreamMetadataV3FieldsFragment = {
   locale: any;
   startsAt: any;
   optionalEndsAt?: any | null;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8753,6 +8821,7 @@ export type MintMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8772,6 +8841,7 @@ export type SpaceMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8785,6 +8855,7 @@ export type StoryMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8798,6 +8869,7 @@ export type TextOnlyMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8811,6 +8883,7 @@ export type ThreeDMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8824,6 +8897,7 @@ export type TransactionMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -8837,6 +8911,7 @@ export type VideoMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null;
   tags?: Array<string> | null;
   locale: any;
+  appId?: any | null;
   attributes?: Array<{
     __typename?: 'PublicationMetadataV3Attribute';
     key: string;
@@ -10415,6 +10490,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10427,6 +10503,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10438,6 +10515,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10450,6 +10528,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10463,6 +10542,7 @@ export type ExplorePublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10475,6 +10555,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10621,6 +10702,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10635,6 +10717,7 @@ export type ExplorePublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10647,6 +10730,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10659,6 +10743,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10671,6 +10756,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10683,6 +10769,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10695,6 +10782,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10707,6 +10795,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -10719,6 +10808,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11397,6 +11487,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11409,6 +11500,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11420,6 +11512,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11432,6 +11525,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11445,6 +11539,7 @@ export type ExplorePublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11457,6 +11552,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11603,6 +11699,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11617,6 +11714,7 @@ export type ExplorePublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11629,6 +11727,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11641,6 +11740,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11653,6 +11753,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11665,6 +11766,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11677,6 +11779,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11689,6 +11792,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -11701,6 +11805,7 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -12402,6 +12507,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12414,6 +12520,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12425,6 +12532,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12437,6 +12545,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12450,6 +12559,7 @@ export type FeedQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12462,6 +12572,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12608,6 +12719,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12622,6 +12734,7 @@ export type FeedQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12634,6 +12747,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12646,6 +12760,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12658,6 +12773,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12670,6 +12786,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12682,6 +12799,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12694,6 +12812,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -12706,6 +12825,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13393,6 +13513,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13405,6 +13526,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13416,6 +13538,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13428,6 +13551,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13441,6 +13565,7 @@ export type FeedQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13453,6 +13578,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13599,6 +13725,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13613,6 +13740,7 @@ export type FeedQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13625,6 +13753,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13637,6 +13766,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13649,6 +13779,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13661,6 +13792,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13673,6 +13805,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13685,6 +13818,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -13697,6 +13831,7 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -14390,6 +14525,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14402,6 +14538,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14413,6 +14550,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14425,6 +14563,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14438,6 +14577,7 @@ export type FeedHighlightsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14450,6 +14590,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14596,6 +14737,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14610,6 +14752,7 @@ export type FeedHighlightsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14622,6 +14765,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14634,6 +14778,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14646,6 +14791,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14658,6 +14804,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14670,6 +14817,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14682,6 +14830,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -14694,6 +14843,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15372,6 +15522,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15384,6 +15535,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15395,6 +15547,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15407,6 +15560,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15420,6 +15574,7 @@ export type FeedHighlightsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15432,6 +15587,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15578,6 +15734,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15592,6 +15749,7 @@ export type FeedHighlightsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15604,6 +15762,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15616,6 +15775,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15628,6 +15788,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15640,6 +15801,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15652,6 +15814,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15664,6 +15827,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -15676,6 +15840,7 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -17343,6 +17508,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17355,6 +17521,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17366,6 +17533,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17378,6 +17546,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17391,6 +17560,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17403,6 +17573,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17549,6 +17720,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17563,6 +17735,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17575,6 +17748,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17587,6 +17761,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17599,6 +17774,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17611,6 +17787,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17623,6 +17800,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17635,6 +17813,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -17647,6 +17826,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18347,6 +18527,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18359,6 +18540,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18370,6 +18552,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18382,6 +18565,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18395,6 +18579,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18407,6 +18592,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18553,6 +18739,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18567,6 +18754,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18579,6 +18767,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18591,6 +18780,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18603,6 +18793,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18615,6 +18806,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18627,6 +18819,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18639,6 +18832,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -18651,6 +18845,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -19337,6 +19532,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19349,6 +19545,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19360,6 +19557,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19372,6 +19570,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19385,6 +19584,7 @@ export type NotificationsQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19397,6 +19597,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19543,6 +19744,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19557,6 +19759,7 @@ export type NotificationsQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19569,6 +19772,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19581,6 +19785,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19593,6 +19798,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19605,6 +19811,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19617,6 +19824,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19629,6 +19837,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -19641,6 +19850,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -20502,6 +20712,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20514,6 +20725,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20525,6 +20737,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20537,6 +20750,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20550,6 +20764,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20562,6 +20777,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20708,6 +20924,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20722,6 +20939,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20734,6 +20952,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20746,6 +20965,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20758,6 +20978,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20770,6 +20991,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20782,6 +21004,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20794,6 +21017,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -20806,6 +21030,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21493,6 +21718,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21505,6 +21731,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21516,6 +21743,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21528,6 +21756,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21541,6 +21770,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21553,6 +21783,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21699,6 +21930,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21713,6 +21945,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21725,6 +21958,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21737,6 +21971,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21749,6 +21984,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21761,6 +21997,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21773,6 +22010,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21785,6 +22023,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -21797,6 +22036,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22478,6 +22718,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22490,6 +22731,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22501,6 +22743,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22513,6 +22756,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22526,6 +22770,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22538,6 +22783,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22684,6 +22930,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22698,6 +22945,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22710,6 +22958,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22722,6 +22971,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22734,6 +22984,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22746,6 +22997,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22758,6 +23010,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22770,6 +23023,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -22782,6 +23036,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23645,6 +23900,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23657,6 +23913,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23668,6 +23925,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23680,6 +23938,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23693,6 +23952,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23705,6 +23965,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23851,6 +24112,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23865,6 +24127,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23877,6 +24140,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23889,6 +24153,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23901,6 +24166,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23913,6 +24179,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23925,6 +24192,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23937,6 +24205,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -23949,6 +24218,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24636,6 +24906,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24648,6 +24919,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24659,6 +24931,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24671,6 +24944,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24684,6 +24958,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24696,6 +24971,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24842,6 +25118,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24856,6 +25133,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24868,6 +25146,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24880,6 +25159,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24892,6 +25172,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24904,6 +25185,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24916,6 +25198,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24928,6 +25211,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -24940,6 +25224,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25621,6 +25906,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25633,6 +25919,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25644,6 +25931,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25656,6 +25944,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25669,6 +25958,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25681,6 +25971,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25827,6 +26118,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25841,6 +26133,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25853,6 +26146,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25865,6 +26159,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25877,6 +26172,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25889,6 +26185,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25901,6 +26198,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25913,6 +26211,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -25925,6 +26224,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -26614,6 +26914,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26626,6 +26927,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26637,6 +26939,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26649,6 +26952,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26662,6 +26966,7 @@ export type NotificationsQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26674,6 +26979,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26820,6 +27126,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26834,6 +27141,7 @@ export type NotificationsQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26846,6 +27154,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26858,6 +27167,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26870,6 +27180,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26882,6 +27193,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26894,6 +27206,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26906,6 +27219,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -26918,6 +27232,7 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -27608,6 +27923,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27620,6 +27936,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27631,6 +27948,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27643,6 +27961,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27656,6 +27975,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27668,6 +27988,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27814,6 +28135,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27828,6 +28150,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27840,6 +28163,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27852,6 +28176,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27864,6 +28189,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27876,6 +28202,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27888,6 +28215,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27900,6 +28228,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -27912,6 +28241,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28599,6 +28929,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28611,6 +28942,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28622,6 +28954,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28634,6 +28967,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28647,6 +28981,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28659,6 +28994,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28805,6 +29141,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28819,6 +29156,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28831,6 +29169,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28843,6 +29182,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28855,6 +29195,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28867,6 +29208,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28879,6 +29221,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28891,6 +29234,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -28903,6 +29247,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29584,6 +29929,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29596,6 +29942,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29607,6 +29954,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29619,6 +29967,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29632,6 +29981,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       endsAt: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29644,6 +29994,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29790,6 +30141,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29804,6 +30156,7 @@ export type NotificationsQuery = {
                       locale: any;
                       startsAt: any;
                       optionalEndsAt?: any | null;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29816,6 +30169,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29828,6 +30182,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29840,6 +30195,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29852,6 +30208,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29864,6 +30221,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29876,6 +30234,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -29888,6 +30247,7 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null;
                       tags?: Array<string> | null;
                       locale: any;
+                      appId?: any | null;
                       attributes?: Array<{
                         __typename?: 'PublicationMetadataV3Attribute';
                         key: string;
@@ -31493,6 +31853,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31505,6 +31866,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31516,6 +31878,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31528,6 +31891,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31541,6 +31905,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               endsAt: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31553,6 +31918,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31699,6 +32065,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31713,6 +32080,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               optionalEndsAt?: any | null;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31725,6 +32093,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31737,6 +32106,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31749,6 +32119,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31761,6 +32132,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31773,6 +32145,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31785,6 +32158,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -31797,6 +32171,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32494,6 +32869,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32506,6 +32882,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32517,6 +32894,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32529,6 +32907,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32542,6 +32921,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               endsAt: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32554,6 +32934,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32700,6 +33081,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32714,6 +33096,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               optionalEndsAt?: any | null;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32726,6 +33109,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32738,6 +33122,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32750,6 +33135,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32762,6 +33148,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32774,6 +33161,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32786,6 +33174,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -32798,6 +33187,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33476,6 +33866,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33488,6 +33879,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33499,6 +33891,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33511,6 +33904,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33524,6 +33918,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               endsAt: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33536,6 +33931,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33682,6 +34078,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33696,6 +34093,7 @@ export type PublicationQuery = {
               locale: any;
               startsAt: any;
               optionalEndsAt?: any | null;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33708,6 +34106,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33720,6 +34119,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33732,6 +34132,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33744,6 +34145,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33756,6 +34158,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33768,6 +34171,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -33780,6 +34184,7 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null;
               tags?: Array<string> | null;
               locale: any;
+              appId?: any | null;
               attributes?: Array<{
                 __typename?: 'PublicationMetadataV3Attribute';
                 key: string;
@@ -34474,6 +34879,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34486,6 +34892,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34497,6 +34904,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34509,6 +34917,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34522,6 +34931,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34534,6 +34944,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34680,6 +35091,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34694,6 +35106,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34706,6 +35119,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34718,6 +35132,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34730,6 +35145,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34742,6 +35158,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34754,6 +35171,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34766,6 +35184,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -34778,6 +35197,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35475,6 +35895,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35487,6 +35908,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35498,6 +35920,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35510,6 +35933,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35523,6 +35947,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35535,6 +35960,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35681,6 +36107,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35695,6 +36122,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35707,6 +36135,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35719,6 +36148,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35731,6 +36161,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35743,6 +36174,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35755,6 +36187,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35767,6 +36200,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -35779,6 +36213,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36457,6 +36892,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36469,6 +36905,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36480,6 +36917,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36492,6 +36930,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36505,6 +36944,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36517,6 +36957,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36663,6 +37104,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36677,6 +37119,7 @@ export type PublicationBookmarksQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36689,6 +37132,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36701,6 +37145,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36713,6 +37158,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36725,6 +37171,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36737,6 +37184,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36749,6 +37197,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -36761,6 +37210,7 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37457,6 +37907,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37469,6 +37920,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37480,6 +37932,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37492,6 +37945,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37505,6 +37959,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37517,6 +37972,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37663,6 +38119,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37677,6 +38134,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37689,6 +38147,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37701,6 +38160,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37713,6 +38173,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37725,6 +38186,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37737,6 +38199,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37749,6 +38212,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -37761,6 +38225,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38458,6 +38923,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38470,6 +38936,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38481,6 +38948,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38493,6 +38961,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38506,6 +38975,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38518,6 +38988,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38664,6 +39135,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38678,6 +39150,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38690,6 +39163,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38702,6 +39176,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38714,6 +39189,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38726,6 +39202,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38738,6 +39215,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38750,6 +39228,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -38762,6 +39241,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39440,6 +39920,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39452,6 +39933,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39463,6 +39945,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39475,6 +39958,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39488,6 +39972,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39500,6 +39985,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39646,6 +40132,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39660,6 +40147,7 @@ export type PublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39672,6 +40160,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39684,6 +40173,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39696,6 +40186,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39708,6 +40199,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39720,6 +40212,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39732,6 +40225,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -39744,6 +40238,7 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40464,6 +40959,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40476,6 +40972,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40487,6 +40984,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40499,6 +40997,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40512,6 +41011,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40524,6 +41024,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40670,6 +41171,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40684,6 +41186,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40696,6 +41199,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40708,6 +41212,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40720,6 +41225,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40732,6 +41238,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40744,6 +41251,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40756,6 +41264,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -40768,6 +41277,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41465,6 +41975,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41477,6 +41988,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41488,6 +42000,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41500,6 +42013,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41513,6 +42027,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41525,6 +42040,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41671,6 +42187,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41685,6 +42202,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41697,6 +42215,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41709,6 +42228,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41721,6 +42241,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41733,6 +42254,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41745,6 +42267,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41757,6 +42280,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -41769,6 +42293,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42447,6 +42972,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42459,6 +42985,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42470,6 +42997,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42482,6 +43010,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42495,6 +43024,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42507,6 +43037,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42653,6 +43184,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42667,6 +43199,7 @@ export type RevenueFromPublicationQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42679,6 +43212,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42691,6 +43225,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42703,6 +43238,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42715,6 +43251,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42727,6 +43264,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42739,6 +43277,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -42751,6 +43290,7 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -43468,6 +44008,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43480,6 +44021,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43491,6 +44033,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43503,6 +44046,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43516,6 +44060,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43528,6 +44073,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43674,6 +44220,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43688,6 +44235,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43700,6 +44248,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43712,6 +44261,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43724,6 +44274,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43736,6 +44287,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43748,6 +44300,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43760,6 +44313,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -43772,6 +44326,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44472,6 +45027,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44484,6 +45040,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44495,6 +45052,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44507,6 +45065,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44520,6 +45079,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44532,6 +45092,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44678,6 +45239,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44692,6 +45254,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44704,6 +45267,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44716,6 +45280,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44728,6 +45293,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44740,6 +45306,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44752,6 +45319,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44764,6 +45332,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -44776,6 +45345,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45457,6 +46027,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45469,6 +46040,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45480,6 +46052,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45492,6 +46065,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45505,6 +46079,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   endsAt: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45517,6 +46092,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45663,6 +46239,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45677,6 +46254,7 @@ export type RevenueFromPublicationsQuery = {
                   locale: any;
                   startsAt: any;
                   optionalEndsAt?: any | null;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45689,6 +46267,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45701,6 +46280,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45713,6 +46293,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45725,6 +46306,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45737,6 +46319,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45749,6 +46332,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -45761,6 +46345,7 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null;
                   tags?: Array<string> | null;
                   locale: any;
+                  appId?: any | null;
                   attributes?: Array<{
                     __typename?: 'PublicationMetadataV3Attribute';
                     key: string;
@@ -46640,6 +47225,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46652,6 +47238,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46663,6 +47250,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46675,6 +47263,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46688,6 +47277,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46700,6 +47290,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46846,6 +47437,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46860,6 +47452,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46872,6 +47465,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46884,6 +47478,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46896,6 +47491,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46908,6 +47504,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46920,6 +47517,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46932,6 +47530,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -46944,6 +47543,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47628,6 +48228,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47640,6 +48241,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47651,6 +48253,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47663,6 +48266,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47676,6 +48280,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47688,6 +48293,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47834,6 +48440,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47848,6 +48455,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47860,6 +48468,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47872,6 +48481,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47884,6 +48494,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47896,6 +48507,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47908,6 +48520,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47920,6 +48533,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -47932,6 +48546,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48610,6 +49225,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48622,6 +49238,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48633,6 +49250,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48645,6 +49263,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48658,6 +49277,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 endsAt: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48670,6 +49290,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48816,6 +49437,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48830,6 +49452,7 @@ export type SearchPublicationsQuery = {
                 locale: any;
                 startsAt: any;
                 optionalEndsAt?: any | null;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48842,6 +49465,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48854,6 +49478,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48866,6 +49491,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48878,6 +49504,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48890,6 +49517,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48902,6 +49530,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -48914,6 +49543,7 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null;
                 tags?: Array<string> | null;
                 locale: any;
+                appId?: any | null;
                 attributes?: Array<{
                   __typename?: 'PublicationMetadataV3Attribute';
                   key: string;
@@ -50107,6 +50737,7 @@ export const ArticleMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50119,6 +50750,7 @@ export const AudioMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50130,6 +50762,7 @@ export const CheckingInMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50142,6 +50775,7 @@ export const EmbedMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50155,6 +50789,7 @@ export const EventMetadataV3FieldsFragmentDoc = gql`
     locale
     startsAt
     endsAt
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50167,6 +50802,7 @@ export const ImageMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50179,6 +50815,7 @@ export const LinkMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50193,6 +50830,7 @@ export const LiveStreamMetadataV3FieldsFragmentDoc = gql`
     locale
     startsAt
     optionalEndsAt
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50205,6 +50843,7 @@ export const MintMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50217,6 +50856,7 @@ export const SpaceMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50229,6 +50869,7 @@ export const StoryMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50241,6 +50882,7 @@ export const TextOnlyMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50253,6 +50895,7 @@ export const ThreeDMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50265,6 +50908,7 @@ export const TransactionMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;
@@ -50277,6 +50921,7 @@ export const VideoMetadataV3FieldsFragmentDoc = gql`
     contentWarning
     tags
     locale
+    appId
   }
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
 `;

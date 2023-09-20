@@ -6,4 +6,5 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

@@ -6,4 +6,5 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }

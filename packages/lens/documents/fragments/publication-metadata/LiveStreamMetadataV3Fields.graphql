@@ -8,4 +8,5 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   locale
   startsAt
   optionalEndsAt
+  appId
 }

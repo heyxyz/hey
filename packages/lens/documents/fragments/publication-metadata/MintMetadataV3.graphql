@@ -6,4 +6,5 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   contentWarning
   tags
   locale
+  appId
 }
