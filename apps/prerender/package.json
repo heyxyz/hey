@@ -18,7 +18,7 @@
     "@lenster/data": "workspace:*",
     "@lenster/lens": "workspace:*",
     "@lenster/lib": "workspace:*",
-    "next": "^13.4.19",
+    "next": "^13.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
@@ -28,7 +28,7 @@
     "@lenster/config": "workspace:*",
     "@lenster/lens": "workspace:*",
     "@playwright/test": "^1.38.0",
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.22",
     "typescript": "^5.2.2"
   }
 }
