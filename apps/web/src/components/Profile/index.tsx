@@ -122,9 +122,9 @@ const ViewProfile: NextPage = () => {
       )}
       <Cover
         cover={
-          profile?.coverPicture?.__typename === 'MediaSet'
-            ? profile?.coverPicture?.original?.url
-            : `${STATIC_IMAGES_URL}/patterns/2.svg`
+          profile?.metadata?.coverPicture?.raw.uri ||
+          profile?.metadata?.coverPicture?.optimized?.uri ||
+          `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout className="pt-6">

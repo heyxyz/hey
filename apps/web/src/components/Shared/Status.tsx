@@ -157,9 +157,9 @@ const Status: FC = () => {
         name: profile?.metadata?.displayName ?? '',
         bio: profile?.metadata?.bio ?? '',
         cover_picture:
-          profile?.coverPicture?.__typename === 'MediaSet'
-            ? profile?.coverPicture?.original?.url ?? ''
-            : '',
+          profile?.metadata?.coverPicture?.raw.uri ||
+          profile?.metadata?.coverPicture?.optimized?.uri ||
+          '',
         attributes: [
           ...(profile?.metadata?.attributes
             ?.filter(

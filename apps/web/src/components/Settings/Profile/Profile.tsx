@@ -2,7 +2,11 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
-import { COVER, LENSHUB_PROXY } from '@lenster/data/constants';
+import {
+  COVER,
+  LENSHUB_PROXY,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
@@ -10,7 +14,6 @@ import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
   Profile
 } from '@lenster/lens';
 import {
@@ -70,7 +73,7 @@ const editProfileSchema = object({
 });
 
 interface ProfileSettingsFormProps {
-  profile: Profile & { coverPicture: MediaSet };
+  profile: Profile;
 }
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
@@ -276,7 +279,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
   };
 
-  const coverPictureUrl = profile?.coverPicture?.original?.url;
+  const coverPictureUrl =
+    profile?.metadata?.coverPicture?.raw.uri ||
+    profile?.metadata?.coverPicture?.optimized?.uri ||
+    `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const coverPictureIpfsUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
