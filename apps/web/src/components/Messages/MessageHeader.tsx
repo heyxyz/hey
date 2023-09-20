@@ -59,7 +59,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
           onClick={onBackClick}
           className="mr-1 h-6 w-6 cursor-pointer lg:hidden"
         />
-        {profile ? (
+        {profile?.id ? (
           <UserProfile profile={profile} />
         ) : (
           <div className="flex min-h-[48px] items-center space-x-3">
@@ -75,7 +75,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
           </div>
         )}
       </div>
-      {profile ? (
+      {profile?.id ? (
         <div>
           {!following ? (
             <Follow

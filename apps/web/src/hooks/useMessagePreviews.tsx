@@ -2,13 +2,11 @@ import type { Profile } from '@lenster/lens';
 import { useProfilesLazyQuery } from '@lenster/lens';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
-import {
-  buildConversationKey,
-  parseConversationKey
-} from '@lib/conversationKey';
+import { buildConversationKey } from '@lib/conversationKey';
 import { resolveEns } from '@lib/resolveEns';
 import type { Conversation } from '@xmtp/xmtp-js';
 import { DecodedMessage } from '@xmtp/xmtp-js';
+import { toChecksumAddress } from 'ethereum-checksum-address';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import useXmtpClient from 'src/hooks/useXmtpClient';
@@ -19,7 +17,7 @@ import { useMessageDb } from './useMessageDb';
 import { useStreamAllMessages } from './useStreamAllMessages';
 import { useStreamConversations } from './useStreamConversations';
 
-const MAX_PROFILES_PER_REQUEST = 50;
+const MAX_PROFILES_PER_REQUEST = 25;
 
 const useMessagePreviews = () => {
   const router = useRouter();
@@ -38,7 +36,6 @@ const useMessagePreviews = () => {
   const syncedProfiles = useMessageStore((state) => state.syncedProfiles);
   const addSyncedProfiles = useMessageStore((state) => state.addSyncedProfiles);
   const { client, loading: creatingXmtpClient } = useXmtpClient();
-  const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [nonLensProfiles, setNonLensProfiles] = useState<Set<string>>(
     new Set<string>()
   );
@@ -48,9 +45,6 @@ const useMessagePreviews = () => {
   const [profilesError, setProfilesError] = useState<Error | undefined>();
   const [loadProfiles] = useProfilesLazyQuery();
   const setEnsNames = useMessageStore((state) => state.setEnsNames);
-  const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
-    new Map()
-  );
 
   const {
     persistPreviewMessage,
@@ -58,19 +52,6 @@ const useMessagePreviews = () => {
     messageProfiles,
     batchPersistProfiles
   } = useMessageDb();
-
-  const getProfileFromKey = useCallback(
-    (key: string): string | null => {
-      const parsed = parseConversationKey(key);
-      const userProfileId = currentProfile?.id;
-      if (!parsed || !userProfileId) {
-        return null;
-      }
-
-      return parsed.members.find((member) => member !== userProfileId) ?? null;
-    },
-    [currentProfile?.id]
-  );
 
   useEffect(() => {
     const mapPreviewMessages = async () => {
@@ -106,7 +87,7 @@ const useMessagePreviews = () => {
       let newEnsNames = new Map();
       for (const chunk of chunks) {
         const ensResponse = await resolveEns(chunk);
-        const ensNamesData = ensResponse.data;
+        const ensNamesData = ensResponse.data ?? [];
         let i = 0;
         for (const ensName of ensNamesData) {
           if (ensName !== '') {
@@ -122,7 +103,16 @@ const useMessagePreviews = () => {
   }, [nonLensProfiles]);
 
   useEffect(() => {
-    const toQuery = new Set(profileIds);
+    if (conversations.size === 0) {
+      return;
+    }
+
+    const conversationAddresses = Array.from(conversations.keys()).map((key) =>
+      toChecksumAddress(key.split('/')[0])
+    );
+
+    const toQuery = new Set(conversationAddresses);
+
     for (const synced of syncedProfiles) {
       toQuery.delete(synced);
     }
@@ -136,11 +126,13 @@ const useMessagePreviews = () => {
       setProfilesLoading(true);
 
       const chunks = chunkArray(Array.from(toQuery), MAX_PROFILES_PER_REQUEST);
+
       try {
+        const newNonLensProfiles = new Set(nonLensProfiles);
         for (const chunk of chunks) {
           const newMessageProfiles = new Map<string, Profile>();
           const result = await loadProfiles({
-            variables: { request: { profileIds: chunk } }
+            variables: { request: { ownedBy: chunk } }
           });
 
           if (!result.data?.profiles.items.length) {
@@ -148,16 +140,44 @@ const useMessagePreviews = () => {
           }
 
           const profiles = result.data.profiles.items as Profile[];
-          for (const profile of profiles) {
-            const peerAddress = profile.ownedBy as string;
-            const key = buildConversationKey(
-              peerAddress,
-              buildConversationId(currentProfile?.id, profile.id)
+
+          for (const address of chunk) {
+            const userProfiles = profiles.filter(
+              (profile) => profile.ownedBy === address
             );
-            newMessageProfiles.set(key, profile);
+
+            const defaultProfile =
+              userProfiles.length > 1
+                ? userProfiles.find((profile) => profile.isDefault)
+                : userProfiles[0];
+
+            const key = buildConversationKey(
+              address.toLowerCase(),
+              buildConversationId(currentProfile?.id, defaultProfile?.id)
+            );
+
+            if (conversations.has(key)) {
+              newMessageProfiles.set(key, defaultProfile ?? ({} as Profile));
+            }
+
+            if (conversations.has(address.toLowerCase())) {
+              newMessageProfiles.set(
+                address.toLowerCase(),
+                defaultProfile ?? ({} as Profile)
+              );
+            }
+
+            if (!defaultProfile) {
+              newNonLensProfiles.add(address);
+            }
           }
+
           batchPersistProfiles(newMessageProfiles);
           addSyncedProfiles(chunk);
+        }
+
+        if (newNonLensProfiles.size > nonLensProfiles.size) {
+          setNonLensProfiles(newNonLensProfiles);
         }
       } catch (error: unknown) {
         setProfilesError(error as Error);
@@ -167,7 +187,7 @@ const useMessagePreviews = () => {
     };
     loadLatest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [profileIds, syncedProfiles]);
+  }, [syncedProfiles, conversations]);
 
   useEffect(() => {
     if (!client || !currentProfile) {
@@ -177,8 +197,7 @@ const useMessagePreviews = () => {
     const listConversations = async () => {
       setMessagesLoading(true);
       const newConversations = new Map(conversations);
-      const newProfileIds = new Set(profileIds);
-      const newNonLensProfiles = new Set(nonLensProfiles);
+
       const convos = await client.conversations.list();
 
       for (const convo of convos) {
@@ -186,25 +205,11 @@ const useMessagePreviews = () => {
           convo.peerAddress,
           (convo.context?.conversationId as string) ?? ''
         );
-        const profileId = getProfileFromKey(key);
 
-        if (profileId && !newProfileIds.has(profileId)) {
-          newProfileIds.add(profileId);
-        } else if (!profileId) {
-          newNonLensProfiles.add(key);
-        }
         newConversations.set(key, convo);
       }
 
       setConversations(newConversations);
-
-      if (newProfileIds.size > profileIds.size) {
-        setProfileIds(newProfileIds);
-      }
-
-      if (newNonLensProfiles.size > nonLensProfiles.size) {
-        setNonLensProfiles(newNonLensProfiles);
-      }
 
       setMessagesLoading(false);
     };
@@ -232,30 +237,14 @@ const useMessagePreviews = () => {
   const onConversation = useCallback(
     (convo: Conversation) => {
       const newConversations = new Map(conversations);
-      const newProfileIds = new Set(profileIds);
-      const newNonLensProfiles = new Set(nonLensProfiles);
       const key = buildConversationKey(
         convo.peerAddress,
         convo?.context?.conversationId ?? ''
       );
       newConversations.set(key, convo);
-      const profileId = getProfileFromKey(key);
-      if (profileId && !profileIds.has(profileId)) {
-        newProfileIds.add(profileId);
-        setProfileIds(newProfileIds);
-      } else if (!profileId) {
-        newNonLensProfiles.add(key);
-        setNonLensProfiles(newNonLensProfiles);
-      }
       setConversations(newConversations);
     },
-    [
-      conversations,
-      getProfileFromKey,
-      nonLensProfiles,
-      profileIds,
-      setConversations
-    ]
+    [conversations, setConversations]
   );
 
   useStreamConversations(onConversation);
@@ -271,26 +260,11 @@ const useMessagePreviews = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
-  useEffect(() => {
-    const newProfilesToShow = messageProfiles ?? new Map();
-
-    for (const key of nonLensProfiles) {
-      // Load profile for non-lens conversations
-      if (!newProfilesToShow.has(key)) {
-        newProfilesToShow.set(key, {} as Profile);
-      }
-    }
-
-    setProfilesToShow(newProfilesToShow);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageProfiles]);
-
   return {
     authenticating: creatingXmtpClient,
     loading: messagesLoading || profilesLoading || messageProfiles == undefined,
     messages: previewMessages,
-    profilesToShow,
+    profilesToShow: messageProfiles ?? new Map(),
     profilesError: profilesError
   };
 };

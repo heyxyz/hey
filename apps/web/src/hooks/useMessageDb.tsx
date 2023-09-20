@@ -64,7 +64,9 @@ export const useMessageDb = () => {
       assertProfileId(myProfileId);
       await db.transaction('rw', db.lensProfiles, async () => {
         for (const [conversationKey, profile] of profiles.entries()) {
-          const record = { ...profile, myProfileId, conversationKey };
+          const record = profile
+            ? { ...profile, myProfileId, conversationKey }
+            : {};
           await db.persistProfile(record as LensProfile);
         }
       });

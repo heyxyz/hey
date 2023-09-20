@@ -8,6 +8,9 @@ import { XMTP_PREFIX } from '@lenster/data/constants';
  * @returns The conversation ID.
  */
 const buildConversationId = (profileA: string, profileB: string) => {
+  if (!profileA || !profileB) {
+    return '';
+  }
   const numberA = parseInt(profileA.substring(2), 16);
   const numberB = parseInt(profileB.substring(2), 16);
   return numberA < numberB
