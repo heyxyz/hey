@@ -1,13 +1,11 @@
 import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type {
-  AnyPublication,
-  PublicationProfileNotInterestedRequest
-} from '@lenster/lens';
 import {
-  useAddPublicationProfileNotInterestedMutation,
-  useRemovePublicationProfileNotInterestedMutation
+  type AnyPublication,
+  type PublicationNotInterestedRequest,
+  useAddPublicationNotInterestedMutation,
+  useUndoPublicationNotInterestedMutation
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
@@ -18,7 +16,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 
 interface NotInterestedProps {
   publication: AnyPublication;
@@ -29,10 +26,8 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const notInterested = isMirror
     ? publication.mirrorOn.operations.isNotInterested
     : publication.notInterested;
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const request: PublicationProfileNotInterestedRequest = {
-    profileId: currentProfile?.id,
-    publicationId: publication.id
+  const request: PublicationNotInterestedRequest = {
+    on: publication.id
   };
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
@@ -46,22 +41,21 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  const [addPublicationProfileNotInterested] =
-    useAddPublicationProfileNotInterestedMutation({
-      variables: { request },
-      onError,
-      onCompleted: () => {
-        toast.success(t`Marked as not Interested`);
-        Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
-          publication_id: publication.id,
-          not_interested: true
-        });
-      },
-      update: (cache) => updateCache(cache, true)
-    });
+  const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
+    variables: { request },
+    onError,
+    onCompleted: () => {
+      toast.success(t`Marked as not Interested`);
+      Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
+        publication_id: publication.id,
+        not_interested: true
+      });
+    },
+    update: (cache) => updateCache(cache, true)
+  });
 
-  const [removePublicationProfileNotInterested] =
-    useRemovePublicationProfileNotInterestedMutation({
+  const [undoPublicationNotInterested] =
+    useUndoPublicationNotInterestedMutation({
       variables: { request },
       onError,
       onCompleted: () => {
@@ -76,10 +70,10 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
 
   const togglePublicationProfileNotInterested = async () => {
     if (notInterested) {
-      return await removePublicationProfileNotInterested();
+      return await undoPublicationNotInterested();
     }
 
-    return await addPublicationProfileNotInterested();
+    return await addPublicationNotInterested();
   };
 
   return (
