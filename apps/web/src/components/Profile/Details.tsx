@@ -108,7 +108,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const misuseDetails = getMisuseDetails(profile.id);
 
   const { data: tbaAvatar } = useQuery({
-    queryKey: ['tbaAvatar'],
+    queryKey: [profile.id, 'tbaAvatar'],
     queryFn: () => getAvatarAsync(profile, AVATAR, publicClient),
     initialData: getAvatar(profile)
   });

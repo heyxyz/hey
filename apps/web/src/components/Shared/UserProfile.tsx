@@ -69,7 +69,7 @@ const UserProfile: FC<UserProfileProps> = ({
 
   const publicClient = usePublicClient();
   const { data: tbaAvatar } = useQuery({
-    queryKey: ['tbaAvatar'],
+    queryKey: [profile.id, 'tbaAvatar'],
     queryFn: () => getAvatarAsync(profile, AVATAR, publicClient),
     initialData: getAvatar(profile)
   });
