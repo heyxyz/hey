@@ -2,9 +2,8 @@ import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
-  useAddProfileInterestMutation,
-  useProfileInterestsQuery,
-  useRemoveProfileInterestMutation
+  useAddProfileInterestsMutation,
+  useRemoveProfileInterestsMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { Button } from '@lenster/ui';
@@ -34,11 +33,11 @@ const Interests: FC = () => {
   };
 
   const { data, loading } = useProfileInterestsQuery();
-  const [addProfileInterests] = useAddProfileInterestMutation({
+  const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
-  const [removeProfileInterests] = useRemoveProfileInterestMutation({
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });

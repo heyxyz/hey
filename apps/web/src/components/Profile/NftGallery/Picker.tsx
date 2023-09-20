@@ -3,8 +3,8 @@ import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@lenster/data/constants';
-import type { Nft, NfTsRequest } from '@lenster/lens';
-import { useNftFeedQuery } from '@lenster/lens';
+import type { Nft, NftsRequest } from '@lenster/lens';
+import { LimitType, useNftsQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import { ErrorMessage } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -28,13 +28,15 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   // Variables
-  const request: NfTsRequest = {
-    chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
-    ownerAddress: currentProfile?.ownedBy.address,
-    limit: 20
+  const request: NftsRequest = {
+    where: {
+      chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
+      forProfileId: currentProfile?.id
+    },
+    limit: LimitType.TwentyFive
   };
 
-  const { data, loading, fetchMore, error } = useNftFeedQuery({
+  const { data, loading, fetchMore, error } = useNftsQuery({
     variables: { request },
     skip: !currentProfile?.ownedBy.address
   });
@@ -87,7 +89,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
       return toast.error(t`Only 50 items allowed for gallery`);
     }
 
-    const customId = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    const customId = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
     const nft = {
       itemId: customId,
       ...item
@@ -172,7 +174,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         ScrollSeekPlaceholder: () => <NftShimmer />
       }}
       itemContent={(index, nft) => {
-        const id = `${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`;
+        const id = `${nft?.contract.chainId}_${nft?.contract.address}_${nft?.tokenId}`;
         const isSelected = selectedItems.includes(id);
         return (
           <div

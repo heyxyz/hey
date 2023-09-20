@@ -11,7 +11,7 @@ const ReviewSelection = () => {
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   const onRemoveItem = (item: Nft) => {
-    const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    const id = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
     const index = gallery.items.findIndex((n) => n.itemId === id);
 
     const nft = {
@@ -61,7 +61,9 @@ const ReviewSelection = () => {
   return (
     <div className="grid h-[68vh] grid-cols-1 gap-4 overflow-y-auto p-5 sm:grid-cols-3">
       {gallery.items?.map((item) => (
-        <div key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}>
+        <div
+          key={`${item.contract.chainId}_${item.contract.address}_${item.tokenId}`}
+        >
           <div className="relative rounded-xl">
             <button
               onClick={() => onRemoveItem(item)}
