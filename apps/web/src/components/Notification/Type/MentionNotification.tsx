@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { AtSymbolIcon } from '@heroicons/react/24/solid';
-import type { NewMentionNotification } from '@lenster/lens';
+import { MentionNotification } from '@lenster/lens';
 import type { MessageDescriptor } from '@lenster/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
@@ -29,15 +29,15 @@ const defaultMessage = (typeName: string): string => {
 };
 
 interface MentionNotificationProps {
-  notification: NewMentionNotification;
+  notification: MentionNotification;
 }
 
 const MentionNotification: FC<MentionNotificationProps> = ({
   notification
 }) => {
-  const profile = notification?.mentionPublication?.profile;
-  const typeName =
-    notification?.mentionPublication.__typename?.toLowerCase() || '';
+  const profile = notification?.publication.by;
+  const typeName = notification?.publication.__typename?.toLowerCase() || '';
+
   return (
     <div className="flex items-start justify-between">
       <div className="flex-1 space-y-2">
@@ -62,19 +62,17 @@ const MentionNotification: FC<MentionNotificationProps> = ({
               <span className="text-gray-600 dark:text-gray-400" key="" />,
               <NotificationProfileName profile={profile} key="" />,
               <Link
-                href={`/posts/${notification?.mentionPublication?.id}`}
+                href={`/posts/${notification?.publication?.id}`}
                 className="font-bold"
                 key=""
               />
             ]}
           />
           <Link
-            href={`/posts/${notification?.mentionPublication.id}`}
-            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
+            href={`/posts/${notification?.publication.id}`}
+            className="lt-text-gray-500 linkify line-clamp-2 mt-2"
           >
-            <Markup>
-              {notification?.mentionPublication?.metadata?.content}
-            </Markup>
+            <Markup>{notification?.publication?.metadata?.content}</Markup>
           </Link>
         </div>
       </div>

@@ -3,7 +3,7 @@ export enum OptmisticPublicationType {
   NewComment = 'NEW_COMMENT'
 }
 
-export enum NotificationType {
+export enum NotificationTabType {
   All = 'ALL',
   Mentions = 'MENTIONS',
   Comments = 'COMMENTS',

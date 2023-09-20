@@ -1,16 +1,16 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import type {
-  NewCollectNotification,
-  NewCommentNotification,
-  NewFollowerNotification,
-  NewMentionNotification,
-  NewMirrorNotification,
-  NewReactionNotification,
-  NotificationRequest
+  ActedNotification as ActedNotificationType,
+  CommentNotification as CommentNotificationType,
+  FollowNotification as FollowNotificationType,
+  MentionNotification as MentionNotificationType,
+  MirrorNotification as MirrorNotificationType,
+  NotificationRequest,
+  ReactionNotification
 } from '@lenster/lens';
 import {
   CustomFiltersType,
-  NotificationTypes,
+  NotificationType,
   useNotificationsQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
@@ -18,8 +18,7 @@ import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { NotificationType } from 'src/enums';
-import { useAppStore } from 'src/store/app';
+import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/preferences';
 
 import NotificationShimmer from './Shimmer';
@@ -38,32 +37,19 @@ const List: FC<ListProps> = ({ feedType }) => {
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
   );
-  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const getNotificationType = () => {
     switch (feedType) {
-      case NotificationType.All:
+      case NotificationTabType.All:
         return;
-      case NotificationType.Mentions:
-        return [
-          NotificationTypes.MentionPost,
-          NotificationTypes.MentionComment
-        ];
-      case NotificationType.Comments:
-        return [
-          NotificationTypes.CommentedPost,
-          NotificationTypes.CommentedComment
-        ];
-      case NotificationType.Likes:
-        return [
-          NotificationTypes.ReactionPost,
-          NotificationTypes.ReactionComment
-        ];
-      case NotificationType.Collects:
-        return [
-          NotificationTypes.CollectedPost,
-          NotificationTypes.CollectedComment
-        ];
+      case NotificationTabType.Mentions:
+        return [NotificationType.Mentioned];
+      case NotificationTabType.Comments:
+        return [NotificationType.Commented];
+      case NotificationTabType.Likes:
+        return [NotificationType.Reacted];
+      case NotificationTabType.Collects:
+        return [NotificationType.Acted];
       default:
         return;
     }
@@ -71,11 +57,11 @@ const List: FC<ListProps> = ({ feedType }) => {
 
   // Variables
   const request: NotificationRequest = {
-    profileId: currentProfile?.id,
-    customFilters: [CustomFiltersType.Gardeners],
-    notificationTypes: getNotificationType(),
-    highSignalFilter: highSignalNotificationFilter,
-    limit: 20
+    where: {
+      customFilters: [CustomFiltersType.Gardeners],
+      highSignalFilter: highSignalNotificationFilter,
+      notificationTypes: getNotificationType()
+    }
   };
 
   const { data, loading, error, fetchMore } = useNotificationsQuery({
@@ -142,34 +128,34 @@ const List: FC<ListProps> = ({ feedType }) => {
               exit={{ opacity: 0 }}
               className="p-5"
             >
-              {notification.__typename === 'NewFollowerNotification' ? (
+              {notification.__typename === 'FollowNotification' ? (
                 <FollowerNotification
-                  notification={notification as NewFollowerNotification}
+                  notification={notification as FollowNotificationType}
                 />
               ) : null}
-              {notification.__typename === 'NewMentionNotification' ? (
+              {notification.__typename === 'MentionNotification' ? (
                 <MentionNotification
-                  notification={notification as NewMentionNotification}
+                  notification={notification as MentionNotificationType}
                 />
               ) : null}
-              {notification.__typename === 'NewReactionNotification' ? (
+              {notification.__typename === 'ReactionNotification' ? (
                 <LikeNotification
-                  notification={notification as NewReactionNotification}
+                  notification={notification as ReactionNotification}
                 />
               ) : null}
-              {notification.__typename === 'NewCommentNotification' ? (
+              {notification.__typename === 'CommentNotification' ? (
                 <CommentNotification
-                  notification={notification as NewCommentNotification}
+                  notification={notification as CommentNotificationType}
                 />
               ) : null}
-              {notification.__typename === 'NewMirrorNotification' ? (
+              {notification.__typename === 'MirrorNotification' ? (
                 <MirrorNotification
-                  notification={notification as NewMirrorNotification}
+                  notification={notification as MirrorNotificationType}
                 />
               ) : null}
-              {notification.__typename === 'NewCollectNotification' ? (
+              {notification.__typename === 'ActedNotification' ? (
                 <CollectNotification
-                  notification={notification as NewCollectNotification}
+                  notification={notification as ActedNotificationType}
                 />
               ) : null}
             </motion.div>

@@ -10,7 +10,7 @@ import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { NotificationType } from 'src/enums';
+import { NotificationTabType } from 'src/enums';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<string>>;
@@ -31,37 +31,37 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         <TabButton
           name={t`All notifications`}
           icon={<BellIcon className="h-4 w-4" />}
-          active={feedType === NotificationType.All}
-          type={NotificationType.All.toLowerCase()}
-          onClick={() => switchTab(NotificationType.All)}
+          active={feedType === NotificationTabType.All}
+          type={NotificationTabType.All.toLowerCase()}
+          onClick={() => switchTab(NotificationTabType.All)}
         />
         <TabButton
           name={t`Mentions`}
           icon={<AtSymbolIcon className="h-4 w-4" />}
-          active={feedType === NotificationType.Mentions}
-          type={NotificationType.Mentions.toLowerCase()}
-          onClick={() => switchTab(NotificationType.Mentions)}
+          active={feedType === NotificationTabType.Mentions}
+          type={NotificationTabType.Mentions.toLowerCase()}
+          onClick={() => switchTab(NotificationTabType.Mentions)}
         />
         <TabButton
           name={t`Comments`}
           icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
-          active={feedType === NotificationType.Comments}
-          type={NotificationType.Comments.toLowerCase()}
-          onClick={() => switchTab(NotificationType.Comments)}
+          active={feedType === NotificationTabType.Comments}
+          type={NotificationTabType.Comments.toLowerCase()}
+          onClick={() => switchTab(NotificationTabType.Comments)}
         />
         <TabButton
           name={t`Likes`}
           icon={<HeartIcon className="h-4 w-4" />}
-          active={feedType === NotificationType.Likes}
-          type={NotificationType.Likes.toLowerCase()}
-          onClick={() => switchTab(NotificationType.Likes)}
+          active={feedType === NotificationTabType.Likes}
+          type={NotificationTabType.Likes.toLowerCase()}
+          onClick={() => switchTab(NotificationTabType.Likes)}
         />
         <TabButton
           name={t`Collects`}
           icon={<RectangleStackIcon className="h-4 w-4" />}
-          active={feedType === NotificationType.Collects}
-          type={NotificationType.Collects.toLowerCase()}
-          onClick={() => switchTab(NotificationType.Collects)}
+          active={feedType === NotificationTabType.Collects}
+          type={NotificationTabType.Collects.toLowerCase()}
+          onClick={() => switchTab(NotificationTabType.Collects)}
         />
       </div>
     </div>

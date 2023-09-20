@@ -1,6 +1,6 @@
 import UserPreview from '@components/Shared/UserPreview';
 import { UserPlusIcon } from '@heroicons/react/24/solid';
-import type { NewFollowerNotification } from '@lenster/lens';
+import type { FollowNotification } from '@lenster/lens';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
@@ -23,7 +23,7 @@ const messageSuperFollow = defineMessage({
 });
 
 interface FollowerNotificationProps {
-  notification: NewFollowerNotification;
+  notification: FollowNotification;
 }
 
 const FollowerNotification: FC<FollowerNotificationProps> = ({

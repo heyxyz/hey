@@ -4,8 +4,8 @@ import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import {
   CustomFiltersType,
-  PublicationMetadataMainFocusType,
-  PublicationType
+  ExplorePublicationType,
+  PublicationMetadataMainFocusType
 } from '@lenster/lens';
 import {
   Button,
@@ -30,8 +30,8 @@ const Mod: NextPage = () => {
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
-    PublicationType.Post,
-    PublicationType.Comment
+    ExplorePublicationType.Post,
+    ExplorePublicationType.Quote
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
@@ -64,7 +64,7 @@ const Mod: NextPage = () => {
     }
   };
 
-  const togglePublicationType = (publicationType: PublicationType) => {
+  const togglePublicationType = (publicationType: ExplorePublicationType) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
         publicationTypes.filter((type) => type !== publicationType)
@@ -102,16 +102,22 @@ const Mod: NextPage = () => {
             </span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
-                onChange={() => togglePublicationType(PublicationType.Post)}
-                checked={publicationTypes.includes(PublicationType.Post)}
+                onChange={() =>
+                  togglePublicationType(ExplorePublicationType.Post)
+                }
+                checked={publicationTypes.includes(ExplorePublicationType.Post)}
                 name="posts"
                 label={t`Posts`}
               />
               <Checkbox
-                onChange={() => togglePublicationType(PublicationType.Comment)}
-                checked={publicationTypes.includes(PublicationType.Comment)}
-                name="comments"
-                label={t`Comments`}
+                onChange={() =>
+                  togglePublicationType(ExplorePublicationType.Quote)
+                }
+                checked={publicationTypes.includes(
+                  ExplorePublicationType.Quote
+                )}
+                name="quotes"
+                label={t`Quotes`}
               />
             </div>
           </div>

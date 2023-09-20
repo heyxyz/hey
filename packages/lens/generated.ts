@@ -4392,8 +4392,11 @@ export type RevenueFromPublicationRequest = {
 
 export type RevenueFromPublicationsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>;
+  /** The profile to get revenue for */
   for: Scalars['ProfileId']['input'];
   limit?: InputMaybe<LimitType>;
+  /** Will return revenue for publications made on any of the provided app ids. Will include all apps if omitted */
+  publishedOn?: InputMaybe<Array<Scalars['AppId']['input']>>;
 };
 
 export type RevertFollowModuleSettings = {
@@ -4650,14 +4653,14 @@ export type UnknownOpenActionModuleSettings = {
   __typename?: 'UnknownOpenActionModuleSettings';
   contract: NetworkAddress;
   /** The data used to setup the module which you can decode with your known ABI  */
-  openActionModuleReturnData: Scalars['BlockchainData']['output'];
+  openActionModuleReturnData?: Maybe<Scalars['BlockchainData']['output']>;
 };
 
 export type UnknownOpenActionResult = {
   __typename?: 'UnknownOpenActionResult';
   address: Scalars['EvmAddress']['output'];
   category?: Maybe<OpenActionCategoryType>;
-  initReturnData: Scalars['BlockchainData']['output'];
+  initReturnData?: Maybe<Scalars['BlockchainData']['output']>;
 };
 
 export type UnknownReferenceModuleInput = {
@@ -5295,7 +5298,7 @@ export type CommentFieldsFragment = {
           __typename?: 'UnknownOpenActionResult';
           address: any;
           category?: OpenActionCategoryType | null;
-          initReturnData: any;
+          initReturnData?: any | null;
         }
     >;
     canDecrypt: {
@@ -5955,7 +5958,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings';
-        openActionModuleReturnData: any;
+        openActionModuleReturnData?: any | null;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
   > | null;
@@ -6469,7 +6472,7 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
 
 type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = {
   __typename?: 'UnknownOpenActionModuleSettings';
-  openActionModuleReturnData: any;
+  openActionModuleReturnData?: any | null;
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
 };
 
@@ -6668,7 +6671,7 @@ export type PostFieldsFragment = {
           __typename?: 'UnknownOpenActionResult';
           address: any;
           category?: OpenActionCategoryType | null;
-          initReturnData: any;
+          initReturnData?: any | null;
         }
     >;
     canDecrypt: {
@@ -7328,7 +7331,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings';
-        openActionModuleReturnData: any;
+        openActionModuleReturnData?: any | null;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
   > | null;
@@ -7581,7 +7584,7 @@ export type PublicationOperationFieldsFragment = {
         __typename?: 'UnknownOpenActionResult';
         address: any;
         category?: OpenActionCategoryType | null;
-        initReturnData: any;
+        initReturnData?: any | null;
       }
   >;
   canDecrypt: {
@@ -7782,7 +7785,7 @@ export type QuoteFieldsFragment = {
           __typename?: 'UnknownOpenActionResult';
           address: any;
           category?: OpenActionCategoryType | null;
-          initReturnData: any;
+          initReturnData?: any | null;
         }
     >;
     canDecrypt: {
@@ -8442,7 +8445,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings';
-        openActionModuleReturnData: any;
+        openActionModuleReturnData?: any | null;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
   > | null;
@@ -10350,7 +10353,7 @@ export type ExplorePublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -11086,7 +11089,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -11326,7 +11329,7 @@ export type ExplorePublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -12062,7 +12065,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -12325,7 +12328,7 @@ export type FeedQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -13061,7 +13064,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -13310,7 +13313,7 @@ export type FeedQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -14046,7 +14049,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -14301,7 +14304,7 @@ export type FeedHighlightsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -15037,7 +15040,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -15277,7 +15280,7 @@ export type FeedHighlightsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -16013,7 +16016,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -16408,6 +16411,165 @@ export type HasPublicationIndexedQuery = {
     | { __typename?: 'Post'; id: any }
     | { __typename?: 'Quote'; id: any }
     | null;
+};
+
+export type InvitedProfilesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type InvitedProfilesQuery = {
+  __typename?: 'Query';
+  invitedProfiles: Array<{
+    __typename?: 'InvitedResult';
+    by: any;
+    when: any;
+    profileMinted?: {
+      __typename?: 'Profile';
+      id: any;
+      lensManager: boolean;
+      sponsor: boolean;
+      txHash: any;
+      createdAt: any;
+      interests: Array<string>;
+      invitesLeft?: number | null;
+      handle?: any | null;
+      ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any };
+      stats: {
+        __typename?: 'ProfileStats';
+        id: any;
+        followers: number;
+        following: number;
+        comments: number;
+        posts: number;
+        mirrors: number;
+        quotes: number;
+        publications: number;
+        reactions: number;
+        reacted: number;
+        countOpenActions: number;
+      };
+      operations: {
+        __typename?: 'ProfileOperations';
+        id: any;
+        canBlock: boolean;
+        canUnblock: boolean;
+        canFollow: TriStateValue;
+        canUnfollow: boolean;
+        isBlockedByMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+        isFollowedByMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+        isFollowingMe: {
+          __typename?: 'OptimisticStatusResult';
+          value: boolean;
+        };
+      };
+      guardian?: {
+        __typename?: 'ProfileGuardianResult';
+        protected: boolean;
+        cooldownEndsOn?: any | null;
+      } | null;
+      invitedBy?: { __typename?: 'Profile'; id: any } | null;
+      onchainIdentity: {
+        __typename?: 'ProfileOnchainIdentity';
+        proofOfHumanity: boolean;
+        ens?: { __typename?: 'EnsOnchainIdentity'; name?: any | null } | null;
+        sybilDotOrg: {
+          __typename?: 'SybilDotOrgIdentity';
+          verified: boolean;
+          source?: {
+            __typename?: 'SybilDotOrgIdentitySource';
+            twitter: {
+              __typename?: 'SybilDotOrgTwitterIdentity';
+              handle?: string | null;
+            };
+          } | null;
+        };
+        worldcoin: { __typename?: 'WorldcoinIdentity'; isHuman: boolean };
+      };
+      followNftAddress?: {
+        __typename?: 'NetworkAddress';
+        address: any;
+        chainId: any;
+      } | null;
+      metadata?: {
+        __typename?: 'ProfileMetadata';
+        displayName?: string | null;
+        bio?: any | null;
+        rawURI: any;
+        picture?:
+          | {
+              __typename?: 'ImageSet';
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null };
+              optimized?: {
+                __typename?: 'Image';
+                uri: any;
+                mimeType?: any | null;
+                width?: number | null;
+                height?: number | null;
+              } | null;
+            }
+          | {
+              __typename?: 'NftImage';
+              image: {
+                __typename?: 'ImageSet';
+                raw: { __typename?: 'Image'; uri: any };
+              };
+            }
+          | null;
+        coverPicture?: {
+          __typename?: 'ImageSet';
+          raw: { __typename?: 'Image'; uri: any };
+          optimized?: { __typename?: 'Image'; uri: any } | null;
+        } | null;
+      } | null;
+      followModule?:
+        | {
+            __typename?: 'FeeFollowModuleSettings';
+            recipient: any;
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+            amount: {
+              __typename?: 'Amount';
+              value: string;
+              asset: {
+                __typename?: 'Erc20';
+                name: string;
+                symbol: string;
+                decimals: number;
+                contract: {
+                  __typename?: 'NetworkAddress';
+                  address: any;
+                  chainId: any;
+                };
+              };
+            };
+          }
+        | {
+            __typename?: 'RevertFollowModuleSettings';
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+          }
+        | {
+            __typename?: 'UnknownFollowModuleSettings';
+            followModuleReturnData: any;
+            contract: {
+              __typename?: 'NetworkAddress';
+              address: any;
+              chainId: any;
+            };
+          }
+        | null;
+    } | null;
+  }>;
 };
 
 export type LatestNotificationIdQueryVariables = Exact<{
@@ -17053,7 +17215,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -17789,7 +17951,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -18051,7 +18213,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -18787,7 +18949,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -19035,7 +19197,7 @@ export type NotificationsQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -19771,7 +19933,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -20188,7 +20350,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -20924,7 +21086,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -21173,7 +21335,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -21909,7 +22071,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -22152,7 +22314,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -22888,7 +23050,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -23307,7 +23469,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -24043,7 +24205,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -24292,7 +24454,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -25028,7 +25190,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -25271,7 +25433,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -26007,7 +26169,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -26258,7 +26420,7 @@ export type NotificationsQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -26994,7 +27156,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -27246,7 +27408,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -27982,7 +28144,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -28231,7 +28393,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -28967,7 +29129,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -29210,7 +29372,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult';
                         address: any;
                         category?: OpenActionCategoryType | null;
-                        initReturnData: any;
+                        initReturnData?: any | null;
                       }
                   >;
                   canDecrypt: {
@@ -29946,7 +30108,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings';
-                      openActionModuleReturnData: any;
+                      openActionModuleReturnData?: any | null;
                       contract: {
                         __typename?: 'NetworkAddress';
                         address: any;
@@ -31074,7 +31236,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult';
                 address: any;
                 category?: OpenActionCategoryType | null;
-                initReturnData: any;
+                initReturnData?: any | null;
               }
           >;
           canDecrypt: {
@@ -31810,7 +31972,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings';
-              openActionModuleReturnData: any;
+              openActionModuleReturnData?: any | null;
               contract: {
                 __typename?: 'NetworkAddress';
                 address: any;
@@ -32069,7 +32231,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult';
                 address: any;
                 category?: OpenActionCategoryType | null;
-                initReturnData: any;
+                initReturnData?: any | null;
               }
           >;
           canDecrypt: {
@@ -32805,7 +32967,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings';
-              openActionModuleReturnData: any;
+              openActionModuleReturnData?: any | null;
               contract: {
                 __typename?: 'NetworkAddress';
                 address: any;
@@ -33045,7 +33207,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult';
                 address: any;
                 category?: OpenActionCategoryType | null;
-                initReturnData: any;
+                initReturnData?: any | null;
               }
           >;
           canDecrypt: {
@@ -33781,7 +33943,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings';
-              openActionModuleReturnData: any;
+              openActionModuleReturnData?: any | null;
               contract: {
                 __typename?: 'NetworkAddress';
                 address: any;
@@ -34037,7 +34199,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -34773,7 +34935,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -35032,7 +35194,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -35768,7 +35930,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -36008,7 +36170,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -36744,7 +36906,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -37002,7 +37164,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -37738,7 +37900,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -37997,7 +38159,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -38733,7 +38895,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -38973,7 +39135,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -39709,7 +39871,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -39979,7 +40141,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -40715,7 +40877,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -40974,7 +41136,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -41710,7 +41872,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -41950,7 +42112,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -42686,7 +42848,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -42965,7 +43127,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -43701,7 +43863,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -43963,7 +44125,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -44699,7 +44861,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -44942,7 +45104,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult';
                     address: any;
                     category?: OpenActionCategoryType | null;
-                    initReturnData: any;
+                    initReturnData?: any | null;
                   }
               >;
               canDecrypt: {
@@ -45678,7 +45840,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings';
-                  openActionModuleReturnData: any;
+                  openActionModuleReturnData?: any | null;
                   contract: {
                     __typename?: 'NetworkAddress';
                     address: any;
@@ -46113,7 +46275,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -46849,7 +47011,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -47095,7 +47257,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -47831,7 +47993,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -48071,7 +48233,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult';
                   address: any;
                   category?: OpenActionCategoryType | null;
-                  initReturnData: any;
+                  initReturnData?: any | null;
                 }
             >;
             canDecrypt: {
@@ -48807,7 +48969,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings';
-                openActionModuleReturnData: any;
+                openActionModuleReturnData?: any | null;
                 contract: {
                   __typename?: 'NetworkAddress';
                   address: any;
@@ -54287,6 +54449,68 @@ export type HasPublicationIndexedLazyQueryHookResult = ReturnType<
 export type HasPublicationIndexedQueryResult = Apollo.QueryResult<
   HasPublicationIndexedQuery,
   HasPublicationIndexedQueryVariables
+>;
+export const InvitedProfilesDocument = gql`
+  query InvitedProfiles {
+    invitedProfiles {
+      by
+      when
+      profileMinted {
+        ...ProfileFields
+      }
+    }
+  }
+  ${ProfileFieldsFragmentDoc}
+`;
+
+/**
+ * __useInvitedProfilesQuery__
+ *
+ * To run a query within a React component, call `useInvitedProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useInvitedProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useInvitedProfilesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useInvitedProfilesQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    InvitedProfilesQuery,
+    InvitedProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<InvitedProfilesQuery, InvitedProfilesQueryVariables>(
+    InvitedProfilesDocument,
+    options
+  );
+}
+export function useInvitedProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    InvitedProfilesQuery,
+    InvitedProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    InvitedProfilesQuery,
+    InvitedProfilesQueryVariables
+  >(InvitedProfilesDocument, options);
+}
+export type InvitedProfilesQueryHookResult = ReturnType<
+  typeof useInvitedProfilesQuery
+>;
+export type InvitedProfilesLazyQueryHookResult = ReturnType<
+  typeof useInvitedProfilesLazyQuery
+>;
+export type InvitedProfilesQueryResult = Apollo.QueryResult<
+  InvitedProfilesQuery,
+  InvitedProfilesQueryVariables
 >;
 export const LatestNotificationIdDocument = gql`
   query LatestNotificationId($request: NotificationRequest!) {
