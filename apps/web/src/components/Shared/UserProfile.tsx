@@ -1,4 +1,4 @@
-import Unfollow from '@components/Shared/Unfollow';
+import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -17,8 +17,8 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 
-import Follow from './Follow';
 import Markup from './Markup';
+import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';

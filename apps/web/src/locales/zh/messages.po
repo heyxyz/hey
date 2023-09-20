@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenster\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-14 00:08\n"
+"PO-Revision-Date: 2023-09-17 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -40,6 +40,10 @@ msgstr ""
 
 #: src/components/Channel/Feed.tsx
 msgid "Failed to load channel feed"
+msgstr ""
+
+#: src/components/Channel/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
 msgstr ""
 
 #: src/components/Comment/Feed.tsx
@@ -472,7 +476,7 @@ msgstr "显示点赞"
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Shared/Unfollow.tsx
+#: src/components/Shared/Profile/Unfollow.tsx
 msgid "Following"
 msgstr "正在关注"
 
@@ -685,6 +689,7 @@ msgid "This is the beginning of the conversation"
 msgstr "这是对话的开始"
 
 #: src/components/Messages/MessagesList.tsx
+#: src/components/Shared/Channel/Join.tsx
 msgid "Loading..."
 msgstr "加载中..."
 
@@ -1418,7 +1423,7 @@ msgstr "个人内容流无法加载"
 
 #: src/components/Profile/FeedType.tsx
 #~ msgid "NFTs"
-#~ msgstr "NFT"
+#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -1837,6 +1842,10 @@ msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
 msgid "You exceeded the mint limit"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+msgid "Collect on Zora"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
@@ -2572,6 +2581,22 @@ msgstr "测试版"
 msgid "New"
 msgstr "新的"
 
+#: src/components/Shared/Channel/Join.tsx
+msgid "Left successfully!"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Joined successfully!"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Leave"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Join"
+msgstr ""
+
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
 msgstr "您无法回复此帖子"
@@ -2587,15 +2612,6 @@ msgstr ""
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr "所有帖子"
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr "已成功关注！"
-
-#: src/components/Shared/Follow.tsx
-msgid "Follow"
-msgstr "关注"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
@@ -3094,6 +3110,19 @@ msgstr ""
 msgid "Go to {type}"
 msgstr "前往 {type}"
 
+#: src/components/Shared/Profile/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr "已成功关注！"
+
+#: src/components/Shared/Profile/Follow.tsx
+msgid "Follow"
+msgstr "关注"
+
+#: src/components/Shared/Profile/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr "取消关注成功！"
+
 #: src/components/Shared/Profiles.tsx
 msgid "other"
 msgstr ""
@@ -3206,10 +3235,6 @@ msgstr ""
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
 msgstr "创建个人账户"
-
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
-msgstr "取消关注成功！"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"

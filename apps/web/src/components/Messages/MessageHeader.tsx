@@ -1,4 +1,4 @@
-import Unfollow from '@components/Shared/Unfollow';
+import Unfollow from '@components/Shared/Profile/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@lenster/data/tracking';
@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 
-import Follow from '../Shared/Follow';
+import Follow from '../Shared/Profile/Follow';
 
 interface MessageHeaderProps {
   profile?: Profile;

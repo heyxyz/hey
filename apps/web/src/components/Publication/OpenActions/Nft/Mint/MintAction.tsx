@@ -30,6 +30,7 @@ import { useZoraMintStore } from '.';
 const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
+const SALE_INACTIVE_ERROR = 'Sale_Inactive';
 const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 
 interface MintActionProps {
@@ -109,6 +110,13 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
 
   const mintingOrSuccess = isLoading || isSuccess;
 
+  // Errors
+  const noBalanceError = prepareError?.message.includes(NO_BALANCE_ERROR);
+  const maxMintExceededError = prepareError?.message.includes(
+    MAX_MINT_EXCEEDED_ERROR
+  );
+  const saleInactiveError = prepareError?.message.includes(SALE_INACTIVE_ERROR);
+
   return !mintingOrSuccess ? (
     <div className="flex">
       {chain !== nft.chainId ? (
@@ -118,7 +126,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
           title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
-        prepareError?.message.includes(NO_BALANCE_ERROR) ? (
+        noBalanceError ? (
           <Link
             className="w-full"
             href="https://app.uniswap.org"
@@ -133,7 +141,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               <Trans>You don't have balance</Trans>
             </Button>
           </Link>
-        ) : prepareError?.message.includes(MAX_MINT_EXCEEDED_ERROR) ? (
+        ) : maxMintExceededError ? (
           <div className="mt-5 w-full">
             <div className="divider" />
             <b className="mt-5 flex w-full justify-center">
@@ -154,11 +162,16 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
                   publication_id: publication.id,
-                  from: 'mint_modal'
+                  from: 'mint_modal',
+                  type: saleInactiveError ? 'collect' : 'mint'
                 })
               }
             >
-              <Trans>Mint on Zora</Trans>
+              {saleInactiveError ? (
+                <Trans>Collect on Zora</Trans>
+              ) : (
+                <Trans>Mint on Zora</Trans>
+              )}
             </Button>
           </Link>
         )
