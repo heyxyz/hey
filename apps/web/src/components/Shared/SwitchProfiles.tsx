@@ -3,7 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
-import { useProfilesQuery } from '@lenster/lens';
+import { useProfilesManagedQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getAvatar from '@lenster/lib/getAvatar';
 import { ErrorMessage, Image } from '@lenster/ui';
@@ -23,9 +23,9 @@ const SwitchProfiles: FC = () => {
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
-  const { data, loading, error } = useProfilesQuery({
+  const { data, loading, error } = useProfilesManagedQuery({
     variables: {
-      request: { ownedBy: currentProfile?.ownedBy.address }
+      request: { for: currentProfile?.ownedBy.address }
     }
   });
 
@@ -33,7 +33,7 @@ const SwitchProfiles: FC = () => {
     return <Loader message={t`Loading Profiles`} />;
   }
 
-  const profiles = data?.profiles.items || [];
+  const profiles = data?.profilesManaged.items || [];
 
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">

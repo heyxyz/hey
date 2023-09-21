@@ -16,7 +16,9 @@ interface SplitsProps {
 
 const Splits: FC<SplitsProps> = ({ recipients }) => {
   const { data: recipientProfilesData, loading } = useProfilesQuery({
-    variables: { request: { ownedBy: recipients?.map((r) => r.recipient) } },
+    variables: {
+      request: { where: { ownedBy: recipients?.map((r) => r.recipient) } }
+    },
     skip: !recipients?.length
   });
 

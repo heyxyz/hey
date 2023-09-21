@@ -18,10 +18,12 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
   }
 
   const profile = {
-    __typename: 'Profile',
+    id: null,
     handle: handle,
-    name: null,
-    id: null
+    metadata: {
+      displayName: null
+    },
+    __typename: 'Profile'
   };
 
   return (

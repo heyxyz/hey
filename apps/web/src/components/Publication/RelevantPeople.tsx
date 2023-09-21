@@ -39,7 +39,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   );
 
   const { data, loading, error } = useProfilesQuery({
-    variables: { request: { handles: cleanedMentions.slice(0, 5) } },
+    variables: { request: { where: { handles: cleanedMentions.slice(0, 5) } } },
     skip: mentions.length <= 0
   });
 
