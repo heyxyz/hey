@@ -1,7 +1,4 @@
-import type {
-  ApprovedAllowanceAmount,
-  ApprovedModuleAllowanceAmountQuery
-} from '@lenster/lens';
+import type { ApprovedModuleAllowanceAmountQuery } from '@lenster/lens';
 import { OpenActionModuleType } from '@lenster/lens';
 import type { FC } from 'react';
 
@@ -14,13 +11,12 @@ interface AllowanceProps {
 const Allowance: FC<AllowanceProps> = ({ allowance }) => {
   return (
     <div className="space-y-4 p-5">
-      {allowance?.approvedModuleAllowanceAmount?.map(
-        (item: ApprovedAllowanceAmount) =>
-          item?.module === OpenActionModuleType.LegacyRevertCollectModule ? (
-            ''
-          ) : (
-            <Module key={item?.contractAddress} module={item} />
-          )
+      {allowance?.approvedModuleAllowanceAmount?.map((item) =>
+        item?.moduleName === OpenActionModuleType.LegacyRevertCollectModule ? (
+          ''
+        ) : (
+          <Module key={item?.moduleContract.address} module={item} />
+        )
       )}
     </div>
   );
