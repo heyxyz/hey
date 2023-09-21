@@ -50,8 +50,12 @@ const Search: NextPage = () => {
           />
         </GridItemFour>
         <GridItemEight>
-          {query.type === 'profiles' ? <Profiles query={query.q} /> : null}
-          {query.type === 'pubs' ? <Publications query={query.q} /> : null}
+          {query.type === 'profiles' ? (
+            <Profiles query={query.q as string} />
+          ) : null}
+          {query.type === 'pubs' ? (
+            <Publications query={query.q as string} />
+          ) : null}
         </GridItemEight>
       </GridLayout>
     </>

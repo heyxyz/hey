@@ -179,7 +179,9 @@ const CollectModule: FC<CollectModuleProps> = ({
       },
       skip: !assetAddress || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+        setAllowed(
+          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        );
       }
     });
 

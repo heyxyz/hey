@@ -4,8 +4,8 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
+import type { UpdateProfileImageRequest } from '@lenster/lens';
 import {
-  type UpdateProfileImageRequest,
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
