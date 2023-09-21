@@ -13,7 +13,7 @@
   "dependencies": {
     "@lenster/ui": "workspace:*",
     "normalize-wheel": "^1.0.1",
-    "rc-slider": "^10.2.1",
+    "rc-slider": "^10.3.0",
     "react": "^18.2.0"
   },
   "devDependencies": {

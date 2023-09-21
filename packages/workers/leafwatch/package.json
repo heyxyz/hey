@@ -24,6 +24,6 @@
     "@lenster/config": "workspace:*",
     "@types/ua-parser-js": "^0.7.37",
     "typescript": "^5.2.2",
-    "wrangler": "^3.8.0"
+    "wrangler": "^3.9.0"
   }
 }
