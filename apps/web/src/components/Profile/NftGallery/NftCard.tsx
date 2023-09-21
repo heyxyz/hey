@@ -24,7 +24,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
         />
       ) : (
         <iframe
-          title={`${nft.contractAddress}:${nft.tokenId}`}
+          title={`${nft.contract.address}:${nft.tokenId}`}
           sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
           src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
@@ -51,7 +51,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
 const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.chainId}/${nft.contractAddress}/${nft.tokenId}`}
+      href={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
       className="w-full"
     >
       <NFTImage nft={nft} />

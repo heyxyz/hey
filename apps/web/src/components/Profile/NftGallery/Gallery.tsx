@@ -120,14 +120,14 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
       });
 
       const { data } = await fetchNftGalleries({
-        variables: { request: { profileId: currentProfile?.id } }
+        variables: { request: { for: currentProfile?.id } }
       });
 
       cache.modify({
         fields: {
           nftGalleries: () => {
             cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-              data: data?.nftGalleries as NftGallery[]
+              data: data?.nftGalleries
             }));
           }
         }
@@ -235,7 +235,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <div className="grid gap-5 md:grid-cols-3">
           {nfts?.map((nft) => (
             <div
-              key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
+              key={`${nft?.contract.address}_${nft?.contract.chainId}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
               <NftCard nft={nft as Nft} linkToDetail />

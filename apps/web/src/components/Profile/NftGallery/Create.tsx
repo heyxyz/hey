@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lenster/data/errors';
-import type { NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
   useCreateNftGalleryMutation,
@@ -65,13 +64,13 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       });
       if (data?.createNftGallery) {
         const { data } = await fetchNftGalleries({
-          variables: { request: { profileId: currentProfile?.id } }
+          variables: { request: { for: currentProfile?.id } }
         });
         cache.modify({
           fields: {
             nftGalleries: () => {
               cache.writeQuery({
-                data: data?.nftGalleries as NftGallery[],
+                data: data?.nftGalleries,
                 query: NftGalleriesDocument
               });
             }
@@ -146,13 +145,13 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
       });
       if (data) {
         const { data } = await fetchNftGalleries({
-          variables: { request: { profileId: currentProfile?.id } }
+          variables: { request: { for: currentProfile?.id } }
         });
         cache.modify({
           fields: {
             nftGalleries: () => {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-                data: data?.nftGalleries as NftGallery[]
+                data: data?.nftGalleries
               }));
             }
           }
