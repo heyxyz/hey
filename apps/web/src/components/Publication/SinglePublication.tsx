@@ -2,6 +2,7 @@ import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -41,6 +42,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       ? firstComment
       : feedItem?.root
     : publication;
+  const { metadata } = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
 
   return (
     <PublicationWrapper
@@ -74,10 +78,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               {showActions ? (
                 <PublicationActions publication={rootPublication} />
               ) : null}
-              <FeaturedChannel
-                className="mt-3"
-                tags={publication.metadata.tags}
-              />
+              <FeaturedChannel className="mt-3" tags={metadata.tags} />
             </div>
             {showModActions ? (
               <ModAction

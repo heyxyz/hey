@@ -6,6 +6,7 @@ import {
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import type { AnyPublication } from '@lenster/lens';
 import { Card } from '@lenster/ui';
+import { isCommentPublication } from '@lib/publicationTypes';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
@@ -18,7 +19,7 @@ interface PublicationStaffToolProps {
 const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
   publication
 }) => {
-  const isComment = publication.__typename === 'Comment';
+  const isComment = isCommentPublication(publication);
 
   return (
     <Card
