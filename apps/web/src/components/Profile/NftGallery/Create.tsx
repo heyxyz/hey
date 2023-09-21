@@ -56,19 +56,11 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const create = async () => {
     try {
       const sanitizedItems = gallery.items.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract.address, tokenId: el.tokenId };
       });
       const { data } = await createGallery({
         variables: {
-          request: {
-            items: sanitizedItems,
-            name: gallery.name,
-            profileId: currentProfile?.id
-          }
+          request: { items: sanitizedItems, name: gallery.name }
         }
       });
       if (data?.createNftGallery) {
@@ -97,11 +89,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     try {
       const { data } = await renameGallery({
         variables: {
-          request: {
-            name: gallery.name,
-            galleryId: gallery.id,
-            profileId: currentProfile?.id
-          }
+          request: { name: gallery.name, galleryId: gallery.id }
         }
       });
       if (data) {
@@ -137,19 +125,12 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
             ?.itemId
       );
       const sanitizedAddItems = newlyAddedItems?.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract.address, tokenId: el.tokenId };
       });
       const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract.address, tokenId: el.tokenId };
       });
+
       // if gallery name only update
       if (!sanitizedAddItems.length && !sanitizedRemoveItems.length) {
         return await rename();
@@ -159,8 +140,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           request: {
             galleryId: gallery.id,
             toAdd: sanitizedAddItems,
-            toRemove: sanitizedRemoveItems,
-            profileId: currentProfile?.id
+            toRemove: sanitizedRemoveItems
           }
         }
       });
