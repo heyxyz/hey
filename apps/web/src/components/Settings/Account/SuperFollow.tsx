@@ -8,7 +8,7 @@ import type { Erc20 } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModulesQuery
+  useCurrenciesQuery
 } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
@@ -62,7 +62,7 @@ const SuperFollow: FC = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } = useEnabledModulesQuery();
+  const { data: currencyData, loading } = useCurrenciesQuery({});
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -188,10 +188,10 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
+            {currencyData?.currencies.items?.map((currency: Erc20) => (
               <option
-                key={currency.address}
-                value={`${currency.address}-${currency.symbol}`}
+                key={currency.contract.address}
+                value={`${currency.contract.address}-${currency.symbol}`}
               >
                 {currency.name}
               </option>

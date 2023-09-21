@@ -9,7 +9,7 @@ import {
   OpenActionModuleType,
   ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useEnabledModulesQuery
+  useCurrenciesQuery
 } from '@lenster/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -44,7 +44,7 @@ const AllowanceSettings: NextPage = () => {
     data: enabledModules,
     loading: enabledModulesLoading,
     error: enabledModulesError
-  } = useEnabledModulesQuery();
+  } = useCurrenciesQuery({});
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
@@ -100,13 +100,14 @@ const AllowanceSettings: NextPage = () => {
               {enabledModulesLoading ? (
                 <option>Loading...</option>
               ) : (
-                enabledModules?.enabledModuleCurrencies.map(
-                  (currency: Erc20) => (
-                    <option key={currency.address} value={currency.address}>
-                      {currency.name}
-                    </option>
-                  )
-                )
+                enabledModules?.currencies.items.map((currency: Erc20) => (
+                  <option
+                    key={currency.contract.address}
+                    value={currency.contract.address}
+                  >
+                    {currency.name}
+                  </option>
+                ))
               )}
             </select>
           </div>

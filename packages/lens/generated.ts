@@ -10276,11 +10276,11 @@ export type ChallengeQuery = {
   challenge: { __typename?: 'AuthChallengeResult'; text: string };
 };
 
-export type EnabledCurrenciesQueryVariables = Exact<{
+export type CurrenciesQueryVariables = Exact<{
   request: PaginatedOffsetRequest;
 }>;
 
-export type EnabledCurrenciesQuery = {
+export type CurrenciesQuery = {
   __typename?: 'Query';
   currencies: {
     __typename?: 'PaginatedCurrenciesResult';
@@ -56167,8 +56167,8 @@ export type ChallengeQueryResult = Apollo.QueryResult<
   ChallengeQuery,
   ChallengeQueryVariables
 >;
-export const EnabledCurrenciesDocument = gql`
-  query EnabledCurrencies($request: PaginatedOffsetRequest!) {
+export const CurrenciesDocument = gql`
+  query Currencies($request: PaginatedOffsetRequest!) {
     currencies(request: $request) {
       items {
         name
@@ -56188,54 +56188,52 @@ export const EnabledCurrenciesDocument = gql`
 `;
 
 /**
- * __useEnabledCurrenciesQuery__
+ * __useCurrenciesQuery__
  *
- * To run a query within a React component, call `useEnabledCurrenciesQuery` and pass it any options that fit your needs.
- * When your component renders, `useEnabledCurrenciesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useCurrenciesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrenciesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useEnabledCurrenciesQuery({
+ * const { data, loading, error } = useCurrenciesQuery({
  *   variables: {
  *      request: // value for 'request'
  *   },
  * });
  */
-export function useEnabledCurrenciesQuery(
+export function useCurrenciesQuery(
   baseOptions: Apollo.QueryHookOptions<
-    EnabledCurrenciesQuery,
-    EnabledCurrenciesQueryVariables
+    CurrenciesQuery,
+    CurrenciesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    EnabledCurrenciesQuery,
-    EnabledCurrenciesQueryVariables
-  >(EnabledCurrenciesDocument, options);
+  return Apollo.useQuery<CurrenciesQuery, CurrenciesQueryVariables>(
+    CurrenciesDocument,
+    options
+  );
 }
-export function useEnabledCurrenciesLazyQuery(
+export function useCurrenciesLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    EnabledCurrenciesQuery,
-    EnabledCurrenciesQueryVariables
+    CurrenciesQuery,
+    CurrenciesQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    EnabledCurrenciesQuery,
-    EnabledCurrenciesQueryVariables
-  >(EnabledCurrenciesDocument, options);
+  return Apollo.useLazyQuery<CurrenciesQuery, CurrenciesQueryVariables>(
+    CurrenciesDocument,
+    options
+  );
 }
-export type EnabledCurrenciesQueryHookResult = ReturnType<
-  typeof useEnabledCurrenciesQuery
+export type CurrenciesQueryHookResult = ReturnType<typeof useCurrenciesQuery>;
+export type CurrenciesLazyQueryHookResult = ReturnType<
+  typeof useCurrenciesLazyQuery
 >;
-export type EnabledCurrenciesLazyQueryHookResult = ReturnType<
-  typeof useEnabledCurrenciesLazyQuery
->;
-export type EnabledCurrenciesQueryResult = Apollo.QueryResult<
-  EnabledCurrenciesQuery,
-  EnabledCurrenciesQueryVariables
+export type CurrenciesQueryResult = Apollo.QueryResult<
+  CurrenciesQuery,
+  CurrenciesQueryVariables
 >;
 export const ExplorePublicationsDocument = gql`
   query ExplorePublications($request: ExplorePublicationRequest!) {

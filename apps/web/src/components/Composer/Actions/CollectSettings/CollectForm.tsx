@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { OpenActionModuleType, useEnabledModulesQuery } from '@lenster/lens';
+import { OpenActionModuleType, useCurrenciesQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -53,7 +53,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { error, data, loading } = useEnabledModulesQuery();
+  const { data, loading, error } = useCurrenciesQuery({});
 
   if (loading) {
     return (
@@ -94,7 +94,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       {collectModule.type !== LegacyRevertCollectModule ? (
         <div className="ml-5">
           <AmountConfig
-            enabledModuleCurrencies={data?.enabledModuleCurrencies}
+            enabledModuleCurrencies={data?.currencies.items}
             setCollectType={setCollectType}
           />
           {collectModule.amount?.value ? (
