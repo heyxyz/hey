@@ -38,7 +38,7 @@ import type {
   PublicationMetadataV2Input
 } from '@lenster/lens';
 import {
-  CollectModules,
+  OpenActionModuleType,
   PublicationDocument,
   PublicationMetadataDisplayTypes,
   PublicationMetadataMainFocusType,
@@ -685,7 +685,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       let textNftImageUrl = null;
       if (
         !attachments.length &&
-        collectModule.type !== CollectModules.RevertCollectModule
+        collectModule.type !== OpenActionModuleType.LegacyRevertCollectModule
       ) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
@@ -769,7 +769,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       const isRevertCollectModule =
-        collectModule.type === CollectModules.RevertCollectModule;
+        collectModule.type === OpenActionModuleType.LegacyRevertCollectModule;
       const useDataAvailability =
         !restricted &&
         (isComment

@@ -1,9 +1,9 @@
 import type { RecipientDataInput } from '@lenster/lens';
-import { CollectModules } from '@lenster/lens';
+import { OpenActionModuleType } from '@lenster/lens';
 import { create } from 'zustand';
 
 export type CollectModuleType = {
-  type?: CollectModules;
+  type?: OpenActionModuleType;
   amount?: { currency: string | null; value: string | null } | null;
   referralFee?: number | null;
   collectLimit?: string | null;
@@ -13,7 +13,7 @@ export type CollectModuleType = {
 };
 
 const INITIAL_COLLECT_MODULE: CollectModuleType = {
-  type: CollectModules.RevertCollectModule,
+  type: OpenActionModuleType.LegacyRevertCollectModule,
   amount: null,
   referralFee: 0,
   collectLimit: null,

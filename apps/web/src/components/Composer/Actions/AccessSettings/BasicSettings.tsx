@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { RectangleStackIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { CollectModules } from '@lenster/lens';
+import { OpenActionModuleType } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -54,7 +54,8 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
               setOn={() => {
                 if (
                   !collectToView &&
-                  collectModule.type === CollectModules.RevertCollectModule
+                  collectModule.type ===
+                    OpenActionModuleType.LegacyRevertCollectModule
                 ) {
                   return toast.error(
                     t`Enable collect first to use collect based token gating`

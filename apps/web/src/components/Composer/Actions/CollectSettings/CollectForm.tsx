@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectModules, useEnabledModulesQuery } from '@lenster/lens';
+import { OpenActionModuleType, useEnabledModulesQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -25,8 +25,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (state) => state.setCollectModule
   );
 
-  const { RevertCollectModule, FreeCollectModule, SimpleCollectModule } =
-    CollectModules;
+  const {
+    LegacyRevertCollectModule,
+    LegacyFreeCollectModule,
+    SimpleCollectOpenActionModule
+  } = OpenActionModuleType;
   const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
@@ -74,8 +77,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    if (collectModule.type === RevertCollectModule) {
-      setCollectType({ type: SimpleCollectModule });
+    if (collectModule.type === LegacyRevertCollectModule) {
+      setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
       reset();
     }
@@ -84,11 +87,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
-        on={collectModule.type !== RevertCollectModule}
+        on={collectModule.type !== LegacyRevertCollectModule}
         setOn={toggleCollect}
         description={t`This post can be collected`}
       />
-      {collectModule.type !== RevertCollectModule ? (
+      {collectModule.type !== LegacyRevertCollectModule ? (
         <div className="ml-5">
           <AmountConfig
             enabledModuleCurrencies={data?.enabledModuleCurrencies}
@@ -122,7 +125,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <Button
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.type !== FreeCollectModule) ||
+              collectModule.type !== LegacyFreeCollectModule) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||

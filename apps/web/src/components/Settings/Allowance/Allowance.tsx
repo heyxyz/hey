@@ -2,7 +2,7 @@ import type {
   ApprovedAllowanceAmount,
   ApprovedModuleAllowanceAmountQuery
 } from '@lenster/lens';
-import { CollectModules } from '@lenster/lens';
+import { OpenActionModuleType } from '@lenster/lens';
 import type { FC } from 'react';
 
 import Module from './Module';
@@ -16,7 +16,7 @@ const Allowance: FC<AllowanceProps> = ({ allowance }) => {
     <div className="space-y-4 p-5">
       {allowance?.approvedModuleAllowanceAmount?.map(
         (item: ApprovedAllowanceAmount) =>
-          item?.module === CollectModules.RevertCollectModule ? (
+          item?.module === OpenActionModuleType.LegacyRevertCollectModule ? (
             ''
           ) : (
             <Module key={item?.contractAddress} module={item} />
