@@ -14328,7 +14328,1010 @@ export type FeedQuery = {
                 }
               | null;
           }
-        | { __typename?: 'Quote' };
+        | {
+            __typename?: 'Quote';
+            id: any;
+            isHidden: boolean;
+            txHash?: any | null;
+            createdAt: any;
+            publishedOn?: { __typename?: 'App'; id: any } | null;
+            momoka?: { __typename?: 'MomokaInfo'; proof: any } | null;
+            by: {
+              __typename?: 'Profile';
+              id: any;
+              lensManager: boolean;
+              sponsor: boolean;
+              txHash: any;
+              createdAt: any;
+              interests: Array<string>;
+              invitesLeft?: number | null;
+              handle?: any | null;
+              ownedBy: {
+                __typename?: 'NetworkAddress';
+                address: any;
+                chainId: any;
+              };
+              stats: {
+                __typename?: 'ProfileStats';
+                id: any;
+                followers: number;
+                following: number;
+                comments: number;
+                posts: number;
+                mirrors: number;
+                quotes: number;
+                publications: number;
+                reactions: number;
+                reacted: number;
+                countOpenActions: number;
+              };
+              operations: {
+                __typename?: 'ProfileOperations';
+                id: any;
+                canBlock: boolean;
+                canUnblock: boolean;
+                canFollow: TriStateValue;
+                canUnfollow: boolean;
+                isBlockedByMe: {
+                  __typename?: 'OptimisticStatusResult';
+                  value: boolean;
+                };
+                isFollowedByMe: {
+                  __typename?: 'OptimisticStatusResult';
+                  value: boolean;
+                };
+                isFollowingMe: {
+                  __typename?: 'OptimisticStatusResult';
+                  value: boolean;
+                };
+              };
+              guardian?: {
+                __typename?: 'ProfileGuardianResult';
+                protected: boolean;
+                cooldownEndsOn?: any | null;
+              } | null;
+              invitedBy?: { __typename?: 'Profile'; id: any } | null;
+              onchainIdentity: {
+                __typename?: 'ProfileOnchainIdentity';
+                proofOfHumanity: boolean;
+                ens?: {
+                  __typename?: 'EnsOnchainIdentity';
+                  name?: any | null;
+                } | null;
+                sybilDotOrg: {
+                  __typename?: 'SybilDotOrgIdentity';
+                  verified: boolean;
+                  source?: {
+                    __typename?: 'SybilDotOrgIdentitySource';
+                    twitter: {
+                      __typename?: 'SybilDotOrgTwitterIdentity';
+                      handle?: string | null;
+                    };
+                  } | null;
+                };
+                worldcoin: {
+                  __typename?: 'WorldcoinIdentity';
+                  isHuman: boolean;
+                };
+              };
+              followNftAddress?: {
+                __typename?: 'NetworkAddress';
+                address: any;
+                chainId: any;
+              } | null;
+              metadata?: {
+                __typename?: 'ProfileMetadata';
+                displayName?: string | null;
+                bio?: any | null;
+                rawURI: any;
+                attributes: Array<{
+                  __typename?: 'Attribute';
+                  type: AttributeType;
+                  key: string;
+                  value: string;
+                }>;
+                picture?:
+                  | {
+                      __typename?: 'ImageSet';
+                      raw: {
+                        __typename?: 'Image';
+                        uri: any;
+                        mimeType?: any | null;
+                      };
+                      optimized?: {
+                        __typename?: 'Image';
+                        uri: any;
+                        mimeType?: any | null;
+                        width?: number | null;
+                        height?: number | null;
+                      } | null;
+                    }
+                  | {
+                      __typename?: 'NftImage';
+                      image: {
+                        __typename?: 'ImageSet';
+                        raw: { __typename?: 'Image'; uri: any };
+                      };
+                    }
+                  | null;
+                coverPicture?: {
+                  __typename?: 'ImageSet';
+                  raw: { __typename?: 'Image'; uri: any };
+                  optimized?: { __typename?: 'Image'; uri: any } | null;
+                } | null;
+              } | null;
+              followModule?:
+                | {
+                    __typename?: 'FeeFollowModuleSettings';
+                    recipient: any;
+                    contract: {
+                      __typename?: 'NetworkAddress';
+                      address: any;
+                      chainId: any;
+                    };
+                    amount: {
+                      __typename?: 'Amount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Erc20';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                        contract: {
+                          __typename?: 'NetworkAddress';
+                          address: any;
+                          chainId: any;
+                        };
+                      };
+                    };
+                  }
+                | {
+                    __typename?: 'RevertFollowModuleSettings';
+                    contract: {
+                      __typename?: 'NetworkAddress';
+                      address: any;
+                      chainId: any;
+                    };
+                  }
+                | {
+                    __typename?: 'UnknownFollowModuleSettings';
+                    followModuleReturnData: any;
+                    contract: {
+                      __typename?: 'NetworkAddress';
+                      address: any;
+                      chainId: any;
+                    };
+                  }
+                | null;
+            };
+            stats: {
+              __typename?: 'PublicationStats';
+              id: any;
+              comments: number;
+              mirrors: number;
+              quotes: number;
+              reactions: number;
+              countOpenActions: number;
+            };
+            operations: {
+              __typename?: 'PublicationOperations';
+              isNotInterested: boolean;
+              hasBookmarked: boolean;
+              hasReported: boolean;
+              canAct: TriStateValue;
+              hasReacted: boolean;
+              canComment: TriStateValue;
+              canMirror: TriStateValue;
+              hasMirrored: boolean;
+              hasActed: {
+                __typename?: 'OptimisticStatusResult';
+                value: boolean;
+                isFinalisedOnchain: boolean;
+              };
+              actedOn: Array<
+                | {
+                    __typename?: 'KnownCollectOpenActionResult';
+                    type: CollectOpenActionModuleType;
+                  }
+                | {
+                    __typename?: 'UnknownOpenActionResult';
+                    address: any;
+                    category?: OpenActionCategoryType | null;
+                    initReturnData?: any | null;
+                  }
+              >;
+              canDecrypt: {
+                __typename?: 'CanDecryptResponse';
+                result: boolean;
+                reasons?: Array<DecryptFailReasonType> | null;
+                extraDetails?: string | null;
+              };
+            };
+            metadata:
+              | {
+                  __typename?: 'ArticleMetadataV3';
+                  content: any;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'AudioMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'CheckingInMetadataV3';
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'EmbedMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'EventMetadataV3';
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  startsAt: any;
+                  endsAt: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'ImageMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'LegacyPublicationMetadata';
+                  locale: any;
+                  tags?: Array<string> | null;
+                  mainContentFocus: LegacyPublicationMetadataMainFocusType;
+                  contentWarning?: PublicationContentWarningType | null;
+                  conditionalContent?: any | null;
+                  conditionalMedia?: Array<
+                    | {
+                        __typename?: 'LegacyAudioItem';
+                        cover?: {
+                          __typename?: 'ImageSet';
+                          raw: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                          };
+                          optimized?: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                            width?: number | null;
+                            height?: number | null;
+                          } | null;
+                        } | null;
+                        audio: {
+                          __typename?: 'AudioSet';
+                          raw: {
+                            __typename?: 'Audio';
+                            uri: any;
+                            mimeType?: any | null;
+                          };
+                          optimized?: {
+                            __typename?: 'Audio';
+                            uri: any;
+                            mimeType?: any | null;
+                          } | null;
+                        };
+                      }
+                    | {
+                        __typename?: 'LegacyImageItem';
+                        image: {
+                          __typename?: 'ImageSet';
+                          raw: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                          };
+                          optimized?: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                            width?: number | null;
+                            height?: number | null;
+                          } | null;
+                        };
+                      }
+                    | {
+                        __typename?: 'LegacyVideoItem';
+                        cover?: {
+                          __typename?: 'ImageSet';
+                          raw: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                          };
+                          optimized?: {
+                            __typename?: 'Image';
+                            uri: any;
+                            mimeType?: any | null;
+                            width?: number | null;
+                            height?: number | null;
+                          } | null;
+                        } | null;
+                        video: {
+                          __typename?: 'VideoSet';
+                          raw: {
+                            __typename?: 'Video';
+                            uri: any;
+                            mimeType?: any | null;
+                          };
+                          optimized?: {
+                            __typename?: 'Video';
+                            uri: any;
+                            mimeType?: any | null;
+                          } | null;
+                        };
+                      }
+                  > | null;
+                  marketplace?: {
+                    __typename?: 'MarketplaceMetadata';
+                    name?: string | null;
+                    description?: any | null;
+                    animationUrl?: any | null;
+                    attributes?: Array<{
+                      __typename?: 'PublicationMarketplaceMetadataAttribute';
+                      displayType?: MarketplaceMetadataAttributeDisplayType | null;
+                      traitType?: string | null;
+                      value?: string | null;
+                    }> | null;
+                    image?: {
+                      __typename?: 'ImageSet';
+                      raw: {
+                        __typename?: 'Image';
+                        uri: any;
+                        mimeType?: any | null;
+                      };
+                      optimized?: {
+                        __typename?: 'Image';
+                        uri: any;
+                        mimeType?: any | null;
+                        width?: number | null;
+                        height?: number | null;
+                      } | null;
+                    } | null;
+                  } | null;
+                  encryptedWith?: {
+                    __typename?: 'PublicationMetadataV2Encryption';
+                    encryptionKey: any;
+                    encryptedFields: {
+                      __typename?: 'PublicationMetadataV2EncryptedFields';
+                      content?: any | null;
+                      image?: any | null;
+                      animationUrl?: any | null;
+                      externalUrl?: any | null;
+                      media?: Array<{
+                        __typename?: 'EncryptedMedia';
+                        uri: any;
+                        mimeType?: any | null;
+                        cover?: any | null;
+                      }> | null;
+                    };
+                  } | null;
+                }
+              | {
+                  __typename?: 'LinkMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'LiveStreamMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  startsAt: any;
+                  optionalEndsAt?: any | null;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'MintMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'SpaceMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'StoryMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'TextOnlyMetadataV3';
+                  content: any;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'ThreeDMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'TransactionMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                }
+              | {
+                  __typename?: 'VideoMetadataV3';
+                  optionalContent?: any | null;
+                  contentWarning?: PublicationContentWarningType | null;
+                  tags?: Array<string> | null;
+                  locale: any;
+                  appId?: any | null;
+                  attributes?: Array<{
+                    __typename?: 'PublicationMetadataV3Attribute';
+                    key: string;
+                    value: string;
+                  }> | null;
+                };
+            openActionModules?: Array<
+              | {
+                  __typename?: 'LegacyAaveFeeCollectModuleSettings';
+                  referralFee: number;
+                  followerOnly: boolean;
+                  recipient: any;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyERC4626FeeCollectModuleSettings';
+                  recipient: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  vault: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyFeeCollectModuleSettings';
+                  recipient: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyFreeCollectModuleSettings';
+                  followerOnly: boolean;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+              | {
+                  __typename?: 'LegacyLimitedFeeCollectModuleSettings';
+                  collectLimit?: string | null;
+                  recipient: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
+                  collectLimit?: string | null;
+                  recipient: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  endTimestamp: any;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  referralFee: number;
+                  followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                  recipients: Array<{
+                    __typename?: 'RecipientDataOutput';
+                    recipient: any;
+                    split: number;
+                  }>;
+                }
+              | {
+                  __typename?: 'LegacyRevertCollectModuleSettings';
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+              | {
+                  __typename?: 'LegacySimpleCollectModuleSettings';
+                  followerOnly: boolean;
+                  recipient: any;
+                  referralFee: number;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  optionalAmount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  recipient: any;
+                  referralFee: number;
+                  followerOnly: boolean;
+                  endTimestamp: any;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'MultirecipientFeeCollectOpenActionSettings';
+                  referralFee: number;
+                  followerOnly: boolean;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  amount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                  recipients: Array<{
+                    __typename?: 'RecipientDataOutput';
+                    recipient: any;
+                    split: number;
+                  }>;
+                }
+              | {
+                  __typename?: 'SimpleCollectOpenActionSettings';
+                  followerOnly: boolean;
+                  recipient: any;
+                  referralFee: number;
+                  optionalCollectLimit?: string | null;
+                  optionalEndsAt?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                  optionalAmount: {
+                    __typename?: 'Amount';
+                    value: string;
+                    rate?: {
+                      __typename?: 'FiatAmount';
+                      value: string;
+                      asset: {
+                        __typename?: 'Fiat';
+                        name: string;
+                        symbol: string;
+                        decimals: number;
+                      };
+                    } | null;
+                    asset: {
+                      __typename?: 'Erc20';
+                      name: string;
+                      symbol: string;
+                      decimals: number;
+                      contract: {
+                        __typename?: 'NetworkAddress';
+                        address: any;
+                        chainId: any;
+                      };
+                    };
+                  };
+                }
+              | {
+                  __typename?: 'UnknownOpenActionModuleSettings';
+                  openActionModuleReturnData?: any | null;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+            > | null;
+            referenceModule?:
+              | {
+                  __typename?: 'DegreesOfSeparationReferenceModuleSettings';
+                  commentsRestricted: boolean;
+                  mirrorsRestricted: boolean;
+                  quotesRestricted: boolean;
+                  degreesOfSeparation: number;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+              | {
+                  __typename?: 'FollowOnlyReferenceModuleSettings';
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+              | {
+                  __typename?: 'UnknownReferenceModuleSettings';
+                  referenceModuleReturnData: any;
+                  contract: {
+                    __typename?: 'NetworkAddress';
+                    address: any;
+                    chainId: any;
+                  };
+                }
+              | null;
+            quoteOn:
+              | { __typename?: 'Comment'; id: any }
+              | { __typename?: 'Post'; id: any }
+              | { __typename?: 'Quote'; id: any };
+          };
     }>;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
   };
@@ -55315,6 +56318,9 @@ export const FeedDocument = gql`
           ... on Comment {
             ...CommentFields
           }
+          ... on Quote {
+            ...QuoteFields
+          }
         }
       }
       pageInfo {
@@ -55324,6 +56330,7 @@ export const FeedDocument = gql`
   }
   ${PostFieldsFragmentDoc}
   ${CommentFieldsFragmentDoc}
+  ${QuoteFieldsFragmentDoc}
 `;
 
 /**

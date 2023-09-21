@@ -23,9 +23,14 @@ interface NotInterestedProps {
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
   const isMirror = publication.__typename === 'Mirror';
+  const canNotInterested =
+    publication.__typename === 'Post' || publication.__typename === 'Comment';
+
   const notInterested = isMirror
     ? publication.mirrorOn.operations.isNotInterested
-    : publication.notInterested;
+    : canNotInterested
+    ? publication.operations.isNotInterested
+    : false;
   const request: PublicationNotInterestedRequest = {
     on: publication.id
   };
