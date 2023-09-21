@@ -40,7 +40,7 @@ const DeletePublication: FC = () => {
       isPerformingAction={loading}
       onConfirm={() =>
         hidePost({
-          variables: { request: { publicationId: deletingPublication?.id } }
+          variables: { request: { for: deletingPublication?.id } }
         })
       }
       onClose={() => setShowPublicationDeleteAlert(false, null)}
