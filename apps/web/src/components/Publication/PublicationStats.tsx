@@ -25,8 +25,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const isMirror = isMirrorPublication(publication);
-  const targetPublication = isMirror ? publication?.mirrorOn : publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
 
   const commentsCount = targetPublication.stats.comments;
   const mirrorCount = targetPublication.stats.mirrors;

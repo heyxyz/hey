@@ -26,8 +26,10 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const isMirror = isMirrorPublication(publication);
-  const targetPublication = isMirror ? publication?.mirrorOn : publication;
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
   const bookmarked = targetPublication.operations.hasBookmarked;
 
   const request: PublicationBookmarkRequest = {
