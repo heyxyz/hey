@@ -7,17 +7,13 @@ import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
-import type {
-  MediaSet,
-  NftImage,
-  Profile,
-  UpdateProfileImageRequest
-} from '@lenster/lens';
+import type { Profile, UpdateProfileImageRequest } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
 } from '@lenster/lens';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import getSignature from '@lenster/lib/getSignature';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -35,7 +31,7 @@ import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface PictureProps {
-  profile: Profile & { picture: MediaSet & NftImage };
+  profile: Profile;
 }
 
 const Picture: FC<PictureProps> = ({ profile }) => {
@@ -174,8 +170,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
   };
 
-  const profilePictureUrl =
-    profile?.picture?.original?.url ?? profile?.picture?.uri;
+  const profilePictureUrl = getAvatarUrl(profile);
   const profilePictureIpfsUrl = profilePictureUrl
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';

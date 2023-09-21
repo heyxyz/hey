@@ -16,3 +16,9 @@ export function isMirrorPublication<T extends AnyPublication>(
 ): publication is PickByTypename<T, 'Mirror'> {
   return publication.__typename === 'Mirror';
 }
+
+export function isCommentPublication<T extends AnyPublication>(
+  publication: T
+): publication is PickByTypename<T, 'Comment'> {
+  return publication.__typename === 'Comment';
+}

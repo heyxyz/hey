@@ -1,7 +1,7 @@
-import type { AnyPublication, MediaSet, NftImage } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import { Profile } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';
@@ -13,7 +13,7 @@ import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface ProfileProps {
-  profile: Profile & { picture: MediaSet & NftImage };
+  profile: Profile;
   publications: AnyPublication[];
 }
 
@@ -26,11 +26,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     ? `${profile.metadata.displayName} (@${profile?.handle}) • Lenster`
     : `@${profile?.handle} • Lenster`;
   const description = truncateByWords(profile.metadata?.bio ?? '', 30);
-  const image = sanitizeDStorageUrl(
-    profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy.address)
-  );
+  const image = sanitizeDStorageUrl(getAvatarUrl(profile));
 
   return (
     <>

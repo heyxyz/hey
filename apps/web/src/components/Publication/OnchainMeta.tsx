@@ -1,6 +1,7 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import type { AnyPublication } from '@lenster/lens';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import { Card } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
@@ -34,14 +35,11 @@ interface OnchainMetaProps {
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
-  const hash =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOn.onChainContentURI?.split('/').pop()
-      : publication.onChainContentURI?.split('/').pop();
-  const collectNftAddress =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOn?.collectNftAddress
-      : publication?.collectNftAddress;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const hash = targetPublication.metadata.rawURI?.split('/').pop();
+  const collectNftAddress = targetPublication?.collectNftAddress;
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 

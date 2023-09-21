@@ -1,6 +1,6 @@
 import { DEFAULT_OG } from '@lenster/data/constants';
 import type { AnyPublication, Comment } from '@lenster/lens';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
@@ -33,11 +33,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const image = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : profile
-    ? sanitizeDStorageUrl(
-        profile?.picture?.original?.url ??
-          profile?.picture?.uri ??
-          getStampFyiURL(profile?.ownedBy.address)
-      )
+    ? sanitizeDStorageUrl(getAvatarUrl(profile))
     : DEFAULT_OG;
 
   return (

@@ -9,7 +9,7 @@ import {
   ATTACHMENT
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication, MediaSet } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
@@ -100,7 +100,7 @@ const Attachments: FC<AttachmentsProps> = ({
     <>
       <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map(
-          (attachment: NewLensterAttachment & MediaSet, index: number) => {
+          (attachment: NewLensterAttachment, index: number) => {
             const type = attachment.original?.mimeType;
             const url = isNew
               ? attachment.previewItem

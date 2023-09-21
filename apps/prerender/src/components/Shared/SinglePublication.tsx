@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
@@ -23,11 +23,7 @@ const SinglePublication: FC<PublicationProps> = ({
   const hasMedia = metadata?.media.length;
   const profile = targetPublication.by;
   const publicationId = targetPublication.id;
-  const avatar = sanitizeDStorageUrl(
-    profile.picture?.original?.url ??
-      profile.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy.address)
-  );
+  const avatar = sanitizeDStorageUrl(getAvatarUrl(profile));
   const attachment = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : null;

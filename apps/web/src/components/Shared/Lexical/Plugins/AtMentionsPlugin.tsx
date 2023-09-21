@@ -3,14 +3,14 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { AVATAR } from '@lenster/data/constants';
-import type { NftImage, Profile, ProfileSearchRequest } from '@lenster/lens';
+import type { Profile, ProfileSearchRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesLazyQuery
 } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import hasMisused from '@lenster/lib/hasMisused';
 import imageKit from '@lenster/lib/imageKit';
 import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
@@ -183,21 +183,6 @@ const MentionsPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 
-  const getUserPicture = (user: Profile | undefined) => {
-    const picture = user?.picture;
-    if (picture && picture.hasOwnProperty('original')) {
-      const mediaSet = user.picture as MediaSet;
-      return mediaSet.original?.url;
-    }
-
-    if (picture && picture.hasOwnProperty('uri')) {
-      const nftImage = user.picture as NftImage;
-      return nftImage?.uri;
-    }
-
-    return getStampFyiURL(user?.ownedBy.address);
-  };
-
   useUpdateEffect(() => {
     if (queryString) {
       // Variables
@@ -221,7 +206,7 @@ const MentionsPlugin: FC = () => {
               id: user?.id,
               name: sanitizeDisplayName(user.metadata?.displayName),
               handle: user?.handle,
-              picture: getUserPicture(user)
+              picture: getAvatarUrl(user)
             }) as Record<string, string>
         );
         setResults(profilesResults);
