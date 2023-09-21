@@ -13,6 +13,7 @@ import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -22,15 +23,10 @@ interface NotInterestedProps {
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const canNotInterested =
-    publication.__typename === 'Post' || publication.__typename === 'Comment';
+  const isMirror = isMirrorPublication(publication);
+  const targetPublication = isMirror ? publication?.mirrorOn : publication;
+  const notInterested = targetPublication.operations.isNotInterested;
 
-  const notInterested = isMirror
-    ? publication.mirrorOn.operations.isNotInterested
-    : canNotInterested
-    ? publication.operations.isNotInterested
-    : false;
   const request: PublicationNotInterestedRequest = {
     on: publication.id
   };

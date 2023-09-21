@@ -14,6 +14,7 @@ import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -25,26 +26,17 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
-  const isMirror = publication.__typename === 'Mirror';
-  const canBookmarked =
-    publication.__typename === 'Post' || publication.__typename === 'Comment';
+  const isMirror = isMirrorPublication(publication);
+  const targetPublication = isMirror ? publication?.mirrorOn : publication;
+  const bookmarked = targetPublication.operations.hasBookmarked;
 
-  const bookmarked = isMirror
-    ? publication.mirrorOn.operations.hasBookmarked
-    : canBookmarked
-    ? publication.operations.hasBookmarked
-    : false;
   const request: PublicationBookmarkRequest = {
     on: publication.id
   };
 
   const updateCache = (cache: ApolloCache<any>) => {
-    const bookmarkedPublications = isMirror
-      ? publication?.mirrorOn
-      : publication;
-
     cache.modify({
-      id: publicationKeyFields(bookmarkedPublications),
+      id: publicationKeyFields(targetPublication),
       fields: {
         bookmarked: (bookmarked) => !bookmarked,
         stats: (stats) => ({
@@ -56,7 +48,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
 
     // Remove bookmarked publication from bookmarks feed
     if (pathname === '/bookmarks') {
-      cache.evict({ id: publicationKeyFields(bookmarkedPublications) });
+      cache.evict({ id: publicationKeyFields(targetPublication) });
     }
   };
 
