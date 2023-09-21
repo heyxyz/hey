@@ -49,9 +49,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
         bookmarked: (bookmarked) => !bookmarked,
         stats: (stats) => ({
           ...stats,
-          totalBookmarks: bookmarked
-            ? stats.totalBookmarks + 1
-            : stats.totalBookmarks - 1
+          bookmarks: bookmarked ? stats.bookmarks + 1 : stats.bookmarks - 1
         })
       }
     });

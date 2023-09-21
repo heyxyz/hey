@@ -11,6 +11,7 @@ import type { AnyPublication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -24,23 +25,15 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const isMirror = publication.__typename === 'Mirror';
-  const commentsCount = isMirror
-    ? publication?.mirrorOn?.stats?.comments
-    : publication?.stats?.totalAmountOfComments;
-  const mirrorCount = isMirror
-    ? publication?.mirrorOn?.stats?.mirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const reactionCount = isMirror
-    ? publication?.mirrorOn?.stats?.reactions
-    : publication?.stats?.totalUpvotes;
-  const collectCount = isMirror
-    ? publication?.mirrorOn?.stats?.countOpenActions
-    : publication?.stats?.totalAmountOfCollects;
-  const bookmarkCount = isMirror
-    ? publication?.mirrorOn?.stats?.totalBookmbarks
-    : publication?.stats?.totalBookmarks;
-  const publicationId = isMirror ? publication?.mirrorOn?.id : publication?.id;
+  const isMirror = isMirrorPublication(publication);
+  const targetPublication = isMirror ? publication?.mirrorOn : publication;
+
+  const commentsCount = targetPublication.stats.comments;
+  const mirrorCount = targetPublication.stats.mirrors;
+  const reactionCount = targetPublication.stats.reactions;
+  const collectCount = targetPublication.stats.countOpenActions;
+  const bookmarkCount = targetPublication.stats.bookmarks;
+  const publicationId = targetPublication.id;
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
