@@ -10,7 +10,7 @@ interface LikedProps {
 
 const Liked: FC<LikedProps> = ({ reactions }) => {
   const getLikedProfiles = () => {
-    let profiles = reactions.map((event) => event.profile);
+    let profiles = reactions.map((event) => event.by);
     profiles = profiles.filter(
       (profile, index, self) =>
         index === self.findIndex((t) => t.id === profile.id)

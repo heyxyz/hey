@@ -75,10 +75,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
               >
                 {enabledModuleCurrencies?.map((currency: Erc20) => (
                   <option
-                    key={currency.address}
-                    value={currency.address}
+                    key={currency.contract.address}
+                    value={currency.contract.address}
                     selected={
-                      currency?.address === collectModule.amount?.currency
+                      currency.contract.address ===
+                      collectModule.amount?.currency
                     }
                   >
                     {currency.name}

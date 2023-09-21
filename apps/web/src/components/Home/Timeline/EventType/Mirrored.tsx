@@ -1,16 +1,16 @@
 import Profiles from '@components/Shared/Profiles';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { MirrorEvent } from '@lenster/lens';
+import type { Mirror } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface MirroredProps {
-  mirrors: MirrorEvent[];
+  mirrors: Mirror[];
 }
 
 const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   const getMirroredProfiles = () => {
-    let profiles = mirrors.map((event) => event.profile);
+    let profiles = mirrors.map((mirror) => mirror.profile);
     profiles = profiles.filter(
       (profile, index, self) =>
         index === self.findIndex((t) => t.id === profile.id)
