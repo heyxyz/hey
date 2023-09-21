@@ -16,6 +16,10 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
     skip: !Boolean(address)
   });
 
+  if (!address) {
+    return null;
+  }
+
   return (
     <div className="mb-4 flex items-center gap-x-2">
       <span>by</span>
