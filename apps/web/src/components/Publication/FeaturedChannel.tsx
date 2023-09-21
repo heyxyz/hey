@@ -1,4 +1,4 @@
-import type { MetadataOutput } from '@lenster/lens';
+import type { PublicationMetadata } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import getChannelByTag from '@lib/getChannelByTag';
@@ -6,7 +6,7 @@ import Link from 'next/link';
 import type { FC } from 'react';
 
 interface FeaturedChannelProps {
-  tags: MetadataOutput['tags'];
+  tags: PublicationMetadata['tags'];
   className?: string;
 }
 
@@ -14,7 +14,7 @@ const FeaturedChannel: FC<FeaturedChannelProps> = ({
   tags,
   className = ''
 }) => {
-  const channel = getChannelByTag(tags);
+  const channel = getChannelByTag(tags || []);
 
   if (!channel) {
     return null;

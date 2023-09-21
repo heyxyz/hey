@@ -1,19 +1,17 @@
 import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { MetadataOutput } from '@lenster/lens';
 import { PublicationMetadataMainFocusType } from '@lenster/lens';
 import { describe, expect, test } from 'vitest';
 
 import getThumbnailUrl from './getThumbnailUrl';
 
 describe('getThumbnailUrl', () => {
-  const mockMetadata: MetadataOutput = {
-    attributes: [],
+  const mockMetadata: any = {
     media: [],
     tags: [],
     mainContentFocus: PublicationMetadataMainFocusType.Article,
     cover: {
-      original: { url: 'https://example.com/cover.png' },
-      onChain: { url: null }
+      raw: { uri: 'https://example.com/cover.png' },
+      optimized: { uri: null }
     }
   };
 
