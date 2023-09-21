@@ -4,7 +4,7 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PROFILE } from '@lenster/data/tracking';
-import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
+import type { ApprovedAllowanceAmountResult, Profile } from '@lenster/lens';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -317,7 +317,7 @@ const FollowModule: FC<FollowModuleProps> = ({
               title={t`Allow follow module`}
               module={
                 allowanceData
-                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
               }
               allowed={allowed}
               setAllowed={setAllowed}

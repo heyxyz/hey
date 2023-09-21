@@ -4,7 +4,7 @@ import {
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@lenster/data/tracking';
-import type { ApprovedAllowanceAmount } from '@lenster/lens';
+import type { ApprovedAllowanceAmountResult } from '@lenster/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
@@ -18,7 +18,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {
   title?: string;
-  module: ApprovedAllowanceAmount;
+  module: ApprovedAllowanceAmountResult;
   allowed: boolean;
   setAllowed: Dispatch<SetStateAction<boolean>>;
 }
@@ -56,8 +56,8 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        module: module.module,
-        currency: module.currency,
+        module: module.moduleName,
+        currency: module.allowance.asset.symbol,
         allowed: !allowed
       });
     },
@@ -76,7 +76,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             currency: currencies,
             value: value
           },
-          module: { [getAllowanceModule(module.module).field]: selectedModule }
+          module: {
+            [getAllowanceModule(module.moduleName).field]: selectedModule
+          }
         }
       }
     }).then((res) => {
@@ -99,7 +101,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           <MinusIcon className="h-4 w-4" />
         )
       }
-      onClick={() => handleAllowance(module.currency, '0', module.module)}
+      onClick={() =>
+        handleAllowance(module.allowance.asset.symbol, '0', module.moduleName)
+      }
     >
       <Trans>Revoke</Trans>
     </Button>
@@ -140,9 +144,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             }
             onClick={() =>
               handleAllowance(
-                module.currency,
+                module.allowance.asset.symbol,
                 Number.MAX_SAFE_INTEGER.toString(),
-                module.module
+                module.moduleName
               )
             }
           >
