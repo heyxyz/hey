@@ -173,7 +173,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       return;
     }
 
-    if (publication.isDataAvailability && !isSponsored) {
+    if (publication.momoka?.proof && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       );
@@ -196,7 +196,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       };
 
       if (canUseRelay) {
-        if (publication.isDataAvailability && isSponsored) {
+        if (publication.momoka?.proof && isSponsored) {
           return await createViaDataAvailablityDispatcher(
             dataAvailablityRequest
           );

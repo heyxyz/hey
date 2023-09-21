@@ -57,15 +57,13 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
             hash={hash}
           />
         ) : null}
-        {publication?.isDataAvailability ? (
+        {publication?.momoka?.proof ? (
           <Meta
             name={t`MOMOKA PROOF`}
-            uri={`https://momoka.lens.xyz/tx/${publication.dataAvailabilityProofs
+            uri={`https://momoka.lens.xyz/tx/${publication.momoka.proof
               ?.split('/')
               .pop()}`}
-            hash={
-              publication.dataAvailabilityProofs?.split('/').pop() as string
-            }
+            hash={publication.momoka.proof?.split('/').pop() as string}
           />
         ) : null}
         {isIPFSHash ? (

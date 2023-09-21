@@ -663,7 +663,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
-    if (isComment && publication.isDataAvailability && !isSponsored) {
+    if (isComment && publication.momoka?.proof && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       );
@@ -778,7 +778,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const useDataAvailability =
         !restricted &&
         (isComment
-          ? publication.isDataAvailability && isRevertCollectModule
+          ? publication.momoka?.proof && isRevertCollectModule
           : isRevertCollectModule);
 
       let arweaveId = null;
@@ -933,7 +933,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             }}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-          {!publication?.isDataAvailability ? (
+          {!publication?.momoka?.proof ? (
             <>
               <CollectSettings />
               <ReferenceSettings />
