@@ -1,6 +1,6 @@
 import { SETTINGS } from '@lenster/data/tracking';
-import type { PublicationsQueryRequest } from '@lenster/lens';
-import { PublicationType, useProfileFeedLazyQuery } from '@lenster/lens';
+import type { PublicationsRequest } from '@lenster/lens';
+import { LimitType, usePublicationsLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
@@ -15,17 +15,12 @@ const Publications: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: PublicationsQueryRequest = {
-    profileId: currentProfile?.id,
-    publicationTypes: [
-      PublicationType.Post,
-      PublicationType.Comment,
-      PublicationType.Mirror
-    ],
-    limit: 50
+  const request: PublicationsRequest = {
+    where: { from: currentProfile?.id },
+    limit: LimitType.Fifty
   };
 
-  const [exportPublications] = useProfileFeedLazyQuery({
+  const [exportPublications] = usePublicationsLazyQuery({
     fetchPolicy: 'network-only'
   });
 

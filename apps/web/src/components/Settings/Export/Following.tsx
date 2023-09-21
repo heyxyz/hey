@@ -1,6 +1,6 @@
 import { SETTINGS } from '@lenster/data/tracking';
 import type { FollowingRequest } from '@lenster/lens';
-import { useFollowingLazyQuery } from '@lenster/lens';
+import { LimitType, useFollowingLazyQuery } from '@lenster/lens';
 import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
@@ -16,8 +16,8 @@ const Following: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowingRequest = {
-    address: currentProfile?.ownedBy,
-    limit: 50
+    for: currentProfile?.ownedBy,
+    limit: LimitType.Fifty
   };
 
   const [exportFollowing] = useFollowingLazyQuery({
@@ -34,7 +34,7 @@ const Following: FC = () => {
           setFollowing((prev) => {
             const newFollowing = data.following.items.filter((newFollowing) => {
               return !prev.some(
-                (following) => following.profile.id === newFollowing.profile.id
+                (following) => following.id === newFollowing.id
               );
             });
 
