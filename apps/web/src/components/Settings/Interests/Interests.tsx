@@ -97,9 +97,7 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() =>
-                    onSelectTopic(subCategory.id as ProfileInterestTypes)
-                  }
+                  onClick={() => onSelectTopic(subCategory.id)}
                   outline
                 >
                   <div>{subCategory.label}</div>
@@ -126,9 +124,7 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() =>
-                    onSelectTopic(category.id as ProfileInterestTypes)
-                  }
+                  onClick={() => onSelectTopic(category.id)}
                   outline
                 >
                   <div>{category.label}</div>

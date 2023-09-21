@@ -1,4 +1,4 @@
-import type { MediaSet } from '@lenster/lens';
+import type { MediaSet, ProfileInterestTypes } from '@lenster/lens';
 
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 
@@ -28,8 +28,8 @@ export interface OG {
 }
 
 export interface ProfileInterest {
-  category: { label: string; id: string };
-  subCategories: { label: string; id: string }[];
+  category: { label: string; id: ProfileInterestTypes };
+  subCategories: { label: string; id: ProfileInterestTypes }[];
 }
 
 export interface Emoji {
