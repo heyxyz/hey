@@ -1,0 +1,20 @@
+fragment MintMetadataV3Fields on MintMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}

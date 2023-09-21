@@ -1,10 +1,20 @@
 fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
-  optionalContent
-  contentWarning
-  tags
-  locale
-  appId
+  embed
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
 }

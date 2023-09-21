@@ -1,9 +1,25 @@
 fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
-  contentWarning
-  tags
-  locale
-  appId
+  location
+  geographic {
+    rawURI
+    latitude
+    longitude
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
 }

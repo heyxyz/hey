@@ -6,11 +6,9 @@ fragment MediaFields on LegacyMediaItem {
     audio {
       raw {
         uri
-        mimeType
       }
       optimized {
         uri
-        mimeType
       }
     }
   }
@@ -26,11 +24,9 @@ fragment MediaFields on LegacyMediaItem {
     video {
       raw {
         uri
-        mimeType
       }
       optimized {
         uri
-        mimeType
       }
     }
   }

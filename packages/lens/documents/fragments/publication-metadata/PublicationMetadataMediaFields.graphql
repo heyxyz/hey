@@ -1,0 +1,11 @@
+fragment PublicationMetadataMediaFields on PublicationMetadataMedia {
+  ... on PublicationMetadataMediaVideo {
+    ...PublicationMetadataMediaVideoFields
+  }
+  ... on PublicationMetadataMediaImage {
+    ...PublicationMetadataMediaImageFields
+  }
+  ... on PublicationMetadataMediaAudio {
+    ...PublicationMetadataMediaAudioFields
+  }
+}

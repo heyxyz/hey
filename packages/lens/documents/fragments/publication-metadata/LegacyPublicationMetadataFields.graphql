@@ -1,25 +1,12 @@
 fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
-  locale
-  tags
-  mainContentFocus
-  contentWarning
-  conditionalContent
-  conditionalMedia {
+  content
+  media {
     ...MediaFields
   }
-  marketplace {
-    name
-    description
-    attributes {
-      displayType
-      traitType
-      value
-    }
-    animationUrl
-    image {
-      ...ImageSetFields
-    }
-  }
+  locale
+  tags
+  contentWarning
+  mainContentFocus
   encryptedWith {
     encryptionKey
     encryptedFields {
@@ -33,5 +20,8 @@ fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
       animationUrl
       externalUrl
     }
+  }
+  marketplace {
+    ...MarketplaceMetadataFields
   }
 }

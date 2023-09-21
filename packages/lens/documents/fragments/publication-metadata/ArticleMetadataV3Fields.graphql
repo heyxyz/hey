@@ -1,10 +1,20 @@
 fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
+  title
   content
-  contentWarning
-  tags
-  locale
-  appId
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
 }
