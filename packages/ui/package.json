@@ -19,9 +19,9 @@
     "@lenster/lib": "workspace:*",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^2.0.0",
-    "next": "^13.5.1",
+    "next": "^13.5.2",
     "react": "^18.2.0",
-    "react-hook-form": "^7.46.1",
+    "react-hook-form": "^7.46.2",
     "tailwind-merge": "^1.14.0",
     "zod": "^3.22.2"
   },
