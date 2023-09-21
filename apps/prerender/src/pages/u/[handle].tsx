@@ -1,9 +1,11 @@
 import Profile from '@components/Profile';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import type { PublicationsRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
+  LimitType,
   ProfileDocument,
-  ProfileFeedDocument
+  PublicationsDocument
 } from '@lenster/lens';
 import { lensApolloNodeClient } from '@lenster/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
@@ -38,19 +40,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (profileData.profile) {
     const profileId = profileData.profile.id;
-    const reactionRequest = { profileId };
+
+    const request: PublicationsRequest = {
+      where: {
+        from: profileId,
+        customFilters: [CustomFiltersType.Gardeners]
+      },
+      limit: LimitType.Fifty
+    };
 
     const { data: profilePublicationsData } = await lensApolloNodeClient.query({
-      query: ProfileFeedDocument,
-      variables: {
-        request: {
-          profileId,
-          customFilters: [CustomFiltersType.Gardeners],
-          limit: 30
-        },
-        reactionRequest,
-        profileId
-      }
+      query: PublicationsDocument,
+      variables: { request }
     });
 
     return {
