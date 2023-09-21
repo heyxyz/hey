@@ -1,3 +1,4 @@
+import WalletSelector from '@components/Shared/Login/WalletSelector';
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import {
   CurrencyDollarIcon,
@@ -15,10 +16,11 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/app';
 import { useUpdateEffect } from 'usehooks-ts';
+import type { Address } from 'viem';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';
 import {
+  useAccount,
   useChainId,
   useContractWrite,
   usePrepareContractWrite,
@@ -40,12 +42,12 @@ interface MintActionProps {
 }
 
 const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const { quantity, setCanMintOnLenster } = useZoraMintStore();
   const chain = useChainId();
+  const { address, isDisconnected } = useAccount();
 
   const nftAddress = nft.address;
-  const recipient = currentProfile?.ownedBy.address;
+  const recipient = address as Address;
   const comment = 'Minted via Lenster';
   const mintReferral = ADMIN_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
@@ -111,15 +113,20 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   const mintingOrSuccess = isLoading || isSuccess;
 
   // Errors
-  const noBalanceError = prepareError?.message.includes(NO_BALANCE_ERROR);
-  const maxMintExceededError = prepareError?.message.includes(
+  const noBalanceError = prepareError?.message?.includes(NO_BALANCE_ERROR);
+  const maxMintExceededError = prepareError?.message?.includes(
     MAX_MINT_EXCEEDED_ERROR
   );
-  const saleInactiveError = prepareError?.message.includes(SALE_INACTIVE_ERROR);
+  const saleInactiveError =
+    prepareError?.message?.includes(SALE_INACTIVE_ERROR);
 
   return !mintingOrSuccess ? (
     <div className="flex">
-      {chain !== nft.chainId ? (
+      {isDisconnected ? (
+        <div className="mt-5 w-full justify-center">
+          <WalletSelector />
+        </div>
+      ) : chain !== nft.chainId ? (
         <SwitchNetwork
           className="mt-5 w-full justify-center"
           toChainId={nft.chainId}

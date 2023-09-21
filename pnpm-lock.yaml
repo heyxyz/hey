@@ -502,8 +502,8 @@ importers:
   packages/supabase:
     dependencies:
       '@supabase/supabase-js':
-        specifier: ^2.34.0
-        version: 2.34.0
+        specifier: ^2.36.0
+        version: 2.36.0
     devDependencies:
       '@lenster/config':
         specifier: workspace:*
@@ -6336,8 +6336,8 @@ packages:
       '@supabase/node-fetch': 2.6.14
     dev: false
 
-  /@supabase/gotrue-js@2.53.0:
-    resolution: {integrity: sha512-GCF8meXaF6fMVciBsWTKN5neSennGgOMrUC3rjVOlSr/0yNi1YnqJyTi6ULaSrG2eyx8f5pv1zB1jD3Thw9Fag==}
+  /@supabase/gotrue-js@2.54.0:
+    resolution: {integrity: sha512-JjtbchtPbpgK0O8NIMIvKLk7HHv0kd23L3UO5a398nczCcBkI0IvmbPtbS4Xs5AUIuJ+JHtV6siOZR1ha5EzQw==}
     dependencies:
       '@supabase/node-fetch': 2.6.14
     dev: false
@@ -6371,11 +6371,11 @@ packages:
       '@supabase/node-fetch': 2.6.14
     dev: false
 
-  /@supabase/supabase-js@2.34.0:
-    resolution: {integrity: sha512-4x+Kkn1NmeA7odSCrwa0J5TN+YrldDVxcPZ/OJuEIOBY4lUM9W/pENlzCEcfS+CetDF6ufFsmjTaVWGxDdZJKQ==}
+  /@supabase/supabase-js@2.36.0:
+    resolution: {integrity: sha512-K9ze4BpQrOZsmYUvF2j9FfIkTfxR4K8GJx6F6DTOfJ8fZg4JSNjfzlGvhCVDwiV4w1NRrmEQ/F89THNt3eXXhg==}
     dependencies:
       '@supabase/functions-js': 2.1.5
-      '@supabase/gotrue-js': 2.53.0
+      '@supabase/gotrue-js': 2.54.0
       '@supabase/node-fetch': 2.6.14
       '@supabase/postgrest-js': 1.8.4
       '@supabase/realtime-js': 2.7.4
