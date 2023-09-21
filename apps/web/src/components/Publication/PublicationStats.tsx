@@ -9,9 +9,9 @@ import {
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { AnyPublication } from '@lenster/lens';
 import nFormatter from '@lenster/lib/nFormatter';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import { Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

@@ -2,6 +2,7 @@ import { DEFAULT_OG } from '@lenster/data/constants';
 import type { AnyPublication, Comment } from '@lenster/lens';
 import { Publication } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';
@@ -21,18 +22,15 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     return <DefaultTags />;
   }
 
-  const { metadata, __typename } = publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+
+  const { metadata } = targetPublication;
   const hasMedia = metadata?.media.length;
-  const profile: any =
-    __typename === 'Mirror' ? publication?.mirrorOn?.by : publication.profile;
-  const title = `${
-    __typename === 'Post'
-      ? 'Post'
-      : __typename === 'Mirror'
-      ? 'Mirror'
-      : 'Comment'
-  } by @${publication.profile.handle} • Lenster`;
-  const description = truncateByWords(metadata?.content, 30);
+  const profile = targetPublication.by;
+  const title = `${targetPublication.__typename} by @${publication.by.handle} • Lenster`;
+  const description = truncateByWords(metadata?.marketplace?.description, 30);
   const image = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : profile

@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@lenster/lens';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import cn from '@lenster/ui/cn';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';

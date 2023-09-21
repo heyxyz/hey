@@ -18,10 +18,10 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

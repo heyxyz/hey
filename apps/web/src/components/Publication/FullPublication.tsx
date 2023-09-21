@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import { formatDate, formatTime } from '@lib/formatTime';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';

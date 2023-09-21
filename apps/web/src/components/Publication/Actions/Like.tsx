@@ -11,10 +11,10 @@ import {
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import nFormatter from '@lenster/lib/nFormatter';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import { Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';

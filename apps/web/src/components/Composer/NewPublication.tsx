@@ -57,6 +57,7 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
@@ -68,7 +69,6 @@ import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
-import { isMirrorPublication } from '@lib/publicationTypes';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { useUnmountEffect } from 'framer-motion';

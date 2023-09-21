@@ -1,6 +1,7 @@
-import type { AnyPublication, Profile } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { isMirrorPublication } from '@lenster/lib/publicationTypes';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';
@@ -15,13 +16,13 @@ const SinglePublication: FC<PublicationProps> = ({
   publication,
   h1Content = false
 }) => {
-  const { id, stats, metadata, __typename } = publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { stats, metadata } = targetPublication;
   const hasMedia = metadata?.media.length;
-  const isMirror = __typename === 'Mirror';
-  const profile: Profile = isMirror
-    ? publication?.mirrorOn?.by
-    : publication?.profile;
-  const publicationId = isMirror ? publication?.mirrorOn?.id : id;
+  const profile = targetPublication.by;
+  const publicationId = targetPublication.id;
   const avatar = sanitizeDStorageUrl(
     profile.picture?.original?.url ??
       profile.picture?.uri ??
@@ -30,21 +31,13 @@ const SinglePublication: FC<PublicationProps> = ({
   const attachment = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : null;
-  const content = truncateByWords(metadata?.content, 30);
+  const content = truncateByWords(metadata?.marketplace?.description, 30);
 
   // Stats
-  const commentsCount = isMirror
-    ? publication.mirrorOn.stats.comments
-    : stats.totalAmountOfComments;
-  const likesCount = isMirror
-    ? publication.mirrorOn.stats.reactions
-    : stats.totalUpvotes;
-  const collectsCount = isMirror
-    ? publication.mirrorOn.stats.countOpenActions
-    : stats.totalAmountOfCollects;
-  const mirrorsCount = isMirror
-    ? publication.mirrorOn.stats.mirrors
-    : stats.totalAmountOfMirrors;
+  const commentsCount = stats.comments;
+  const likesCount = stats.reactions;
+  const collectsCount = stats.countOpenActions;
+  const mirrorsCount = stats.mirrors;
 
   return (
     <>
