@@ -21,7 +21,7 @@ const QuotedPublication: FC<QuotedPublicationProps> = ({
       publication={publication}
     >
       <PublicationHeader publication={publication} quoted isNew={isNew} />
-      {publication?.hidden ? (
+      {publication.isHidden ? (
         <HiddenPublication type={publication.__typename} />
       ) : (
         <PublicationBody publication={publication} showMore quoted />

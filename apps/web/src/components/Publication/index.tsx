@@ -76,7 +76,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} key={publication?.id} />
         </Card>
-        {currentProfile && !publication?.hidden && !showNewPostModal ? (
+        {currentProfile && !publication.isHidden && !showNewPostModal ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (
