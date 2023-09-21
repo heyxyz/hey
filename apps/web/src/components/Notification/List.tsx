@@ -1,13 +1,5 @@
 import { BellIcon } from '@heroicons/react/24/outline';
-import type {
-  ActedNotification as ActedNotificationType,
-  CommentNotification as CommentNotificationType,
-  FollowNotification as FollowNotificationType,
-  MentionNotification as MentionNotificationType,
-  MirrorNotification as MirrorNotificationType,
-  NotificationRequest,
-  ReactionNotification
-} from '@lenster/lens';
+import type { NotificationRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
   NotificationType,
@@ -22,12 +14,6 @@ import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/preferences';
 
 import NotificationShimmer from './Shimmer';
-import CollectNotification from './Type/CollectNotification';
-import CommentNotification from './Type/CommentNotification';
-import FollowerNotification from './Type/FollowerNotification';
-import LikeNotification from './Type/LikeNotification';
-import MentionNotification from './Type/MentionNotification';
-import MirrorNotification from './Type/MirrorNotification';
 
 interface ListProps {
   feedType: string;
@@ -128,7 +114,7 @@ const List: FC<ListProps> = ({ feedType }) => {
               exit={{ opacity: 0 }}
               className="p-5"
             >
-              {notification.__typename === 'FollowNotification' ? (
+              {/* {notification.__typename === 'FollowNotification' ? (
                 <FollowerNotification
                   notification={notification as FollowNotificationType}
                 />
@@ -157,7 +143,7 @@ const List: FC<ListProps> = ({ feedType }) => {
                 <CollectNotification
                   notification={notification as ActedNotificationType}
                 />
-              ) : null}
+              ) : null} */}
             </motion.div>
           );
         }}
