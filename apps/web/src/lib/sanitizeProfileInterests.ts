@@ -1,3 +1,4 @@
+import type { ProfileInterestTypes } from '@lenster/lens';
 import type { ProfileInterest } from '@lenster/types/misc';
 
 /**
@@ -6,7 +7,7 @@ import type { ProfileInterest } from '@lenster/types/misc';
  * @param profileInterests Array of profile interests to sanitize
  * @returns Array of sanitized profile interests
  */
-const sanitizeProfileInterests = (profileInterests: string[]) => {
+const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
   if (!profileInterests) {
     return [];
   }
@@ -34,6 +35,7 @@ const sanitizeProfileInterests = (profileInterests: string[]) => {
       subCategories
     });
   }
+
   return interests;
 };
 
