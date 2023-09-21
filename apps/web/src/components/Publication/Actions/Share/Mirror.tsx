@@ -18,7 +18,7 @@ import {
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
 import getSignature from '@lenster/lib/getSignature';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';

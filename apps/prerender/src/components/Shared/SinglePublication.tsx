@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';

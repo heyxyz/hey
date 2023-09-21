@@ -9,7 +9,7 @@ import {
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';

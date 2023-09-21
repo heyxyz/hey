@@ -36,7 +36,7 @@ import getAssetSymbol from '@lenster/lib/getAssetSymbol';
 import getSignature from '@lenster/lib/getSignature';
 import getTokenImage from '@lenster/lib/getTokenImage';
 import humanize from '@lenster/lib/humanize';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';

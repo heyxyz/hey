@@ -2,7 +2,7 @@ import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem } from '@lenster/lens';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';

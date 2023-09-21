@@ -1,7 +1,7 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@lenster/lens';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 

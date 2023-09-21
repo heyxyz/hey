@@ -9,5 +9,5 @@
       "@generated*": ["src/generated*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../packages/lib/publicationTypes.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

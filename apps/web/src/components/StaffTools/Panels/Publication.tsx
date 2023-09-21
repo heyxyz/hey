@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import type { AnyPublication } from '@lenster/lens';
-import { isCommentPublication } from '@lenster/lib/publicationTypes';
+import { isCommentPublication } from '@lenster/lib/publicationHelpers';
 import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';

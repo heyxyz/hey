@@ -2,7 +2,7 @@ import { DEFAULT_OG } from '@lenster/data/constants';
 import type { AnyPublication, Comment } from '@lenster/lens';
 import { Publication } from '@lenster/lens';
 import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import truncateByWords from '@lenster/lib/truncateByWords';
 import type { FC } from 'react';

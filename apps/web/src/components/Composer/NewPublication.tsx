@@ -57,7 +57,7 @@ import {
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import getSignature from '@lenster/lib/getSignature';
-import { isMirrorPublication } from '@lenster/lib/publicationTypes';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import type { IGif } from '@lenster/types/giphy';
 import type { NewLensterAttachment } from '@lenster/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
