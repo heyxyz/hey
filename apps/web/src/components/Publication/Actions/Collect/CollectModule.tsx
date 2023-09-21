@@ -3,7 +3,6 @@ import CollectWarning from '@components/Shared/CollectWarning';
 import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
-import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
 import {
   BanknotesIcon,
@@ -20,8 +19,7 @@ import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   AnyPublication,
-  ApprovedAllowanceAmountResult,
-  ElectedMirror
+  ApprovedAllowanceAmountResult
 } from '@lenster/lens';
 import {
   OpenActionModuleType,
@@ -67,14 +65,12 @@ interface CollectModuleProps {
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
   publication: AnyPublication;
-  electedMirror?: ElectedMirror;
 }
 
 const CollectModule: FC<CollectModuleProps> = ({
   count,
   setCount,
-  publication,
-  electedMirror
+  publication
 }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -297,9 +293,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
-            publicationId: electedMirror
-              ? electedMirror.mirrorId
-              : publication?.id
+            publicationId: publication?.id
           }
         }
       });
@@ -355,11 +349,6 @@ const CollectModule: FC<CollectModuleProps> = ({
               {publication.metadata.content}
             </Markup>
           ) : null}
-          <ReferralAlert
-            electedMirror={electedMirror}
-            mirror={publication}
-            referralFee={referralFee}
-          />
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">

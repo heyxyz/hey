@@ -2,7 +2,7 @@ import Loader from '@components/Shared/Loader';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication, ElectedMirror } from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal, Tooltip } from '@lenster/ui';
@@ -20,15 +20,10 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 
 interface CollectProps {
   publication: AnyPublication;
-  electedMirror?: ElectedMirror;
   showCount: boolean;
 }
 
-const Collect: FC<CollectProps> = ({
-  publication,
-  electedMirror,
-  showCount
-}) => {
+const Collect: FC<CollectProps> = ({ publication, showCount }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
@@ -87,7 +82,6 @@ const Collect: FC<CollectProps> = ({
         onClose={() => setShowCollectModal(false)}
       >
         <CollectModule
-          electedMirror={electedMirror}
           publication={publication}
           count={count}
           setCount={setCount}

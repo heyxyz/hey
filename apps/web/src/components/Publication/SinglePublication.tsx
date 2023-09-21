@@ -1,6 +1,6 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { AnyPublication, ElectedMirror, FeedItem } from '@lenster/lens';
+import type { AnyPublication, FeedItem } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
@@ -72,10 +72,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             />
             <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
-                <PublicationActions
-                  publication={rootPublication}
-                  electedMirror={feedItem?.electedMirror as ElectedMirror}
-                />
+                <PublicationActions publication={rootPublication} />
               ) : null}
               <FeaturedChannel
                 className="mt-3"
