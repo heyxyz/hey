@@ -42,7 +42,7 @@ import {
   PublicationDocument,
   PublicationMetadataDisplayTypes,
   PublicationMetadataMainFocusType,
-  ReferenceModules,
+  ReferenceModuleType,
   useBroadcastDataAvailabilityMutation,
   useBroadcastMutation,
   useCreateCommentTypedDataMutation,
@@ -249,7 +249,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
-        ReferenceModules.DegreesOfSeparationReferenceModule
+        ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
@@ -796,7 +796,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         collectModule: collectModuleParams(collectModule, currentProfile),
         referenceModule:
           selectedReferenceModule ===
-          ReferenceModules.FollowerOnlyReferenceModule
+          ReferenceModuleType.FollowerOnlyReferenceModule
             ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
             : {
                 degreesOfSeparationReferenceModule: {

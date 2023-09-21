@@ -1,6 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { CollectModules } from '@lenster/lens';
+import { OpenActionModuleType } from '@lenster/lens';
 import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -20,8 +20,8 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
         setOn={() =>
           setCollectType({
             type: collectModule.recipients?.length
-              ? CollectModules.MultirecipientFeeCollectModule
-              : CollectModules.SimpleCollectModule,
+              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+              : OpenActionModuleType.SimpleCollectOpenActionModule,
             referralFee: collectModule.referralFee ? 0 : 25
           })
         }

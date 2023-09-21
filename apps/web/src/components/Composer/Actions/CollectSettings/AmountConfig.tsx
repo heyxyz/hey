@@ -2,7 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
 import type { Erc20 } from '@lenster/lens';
-import { CollectModules } from '@lenster/lens';
+import { OpenActionModuleType } from '@lenster/lens';
 import { Input } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -26,10 +26,10 @@ const AmountConfig: FC<AmountConfigProps> = ({
         setOn={() => {
           setCollectType({
             type: collectModule.amount?.value
-              ? CollectModules.SimpleCollectModule
+              ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
-              ? CollectModules.MultirecipientFeeCollectModule
-              : CollectModules.SimpleCollectModule,
+              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+              : OpenActionModuleType.SimpleCollectOpenActionModule,
             amount: collectModule.amount?.value
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }

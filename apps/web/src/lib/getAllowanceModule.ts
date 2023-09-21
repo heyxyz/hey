@@ -1,4 +1,8 @@
-import { CollectModules, FollowModules, ReferenceModules } from '@lenster/lens';
+import {
+  FollowModuleType,
+  OpenActionModuleType,
+  ReferenceModuleType
+} from '@lenster/lens';
 import { t } from '@lingui/macro';
 
 /**
@@ -15,19 +19,19 @@ const getAllowanceModule = (
 } => {
   switch (name) {
     // Collect Modules
-    case CollectModules.MultirecipientFeeCollectModule:
+    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return { name: t`Multirecipient paid collect`, field: 'collectModule' };
-    case CollectModules.SimpleCollectModule:
+    case OpenActionModuleType.SimpleCollectOpenActionModule:
       return { name: t`Basic collect`, field: 'collectModule' };
-    case CollectModules.RevertCollectModule:
+    case OpenActionModuleType.LegacyRevertCollectModule:
       return { name: t`No collect`, field: 'collectModule' };
 
     // Follow modules
-    case FollowModules.FeeFollowModule:
+    case FollowModuleType.FeeFollowModule:
       return { name: t`Fee follow`, field: 'followModule' };
 
     // Reference modules
-    case ReferenceModules.FollowerOnlyReferenceModule:
+    case ReferenceModuleType.FollowerOnlyReferenceModule:
       return { name: t`Follower only reference`, field: 'referenceModule' };
     default:
       return { name, field: 'collectModule' };

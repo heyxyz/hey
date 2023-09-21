@@ -72,9 +72,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     generateAllowanceQuery({
       variables: {
         request: {
-          currency: currencies,
-          value: value,
-          [getAllowanceModule(module.module).field]: selectedModule
+          allowance: {
+            currency: currencies,
+            value: value
+          },
+          module: { [getAllowanceModule(module.module).field]: selectedModule }
         }
       }
     }).then((res) => {

@@ -1,9 +1,9 @@
-import { ReferenceModules } from '@lenster/lens';
+import { ReferenceModuleType } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface ReferenceModuleState {
-  selectedReferenceModule: ReferenceModules;
-  setSelectedReferenceModule: (selectedModule: ReferenceModules) => void;
+  selectedReferenceModule: ReferenceModuleType;
+  setSelectedReferenceModule: (selectedModule: ReferenceModuleType) => void;
   onlyFollowers: boolean;
   setOnlyFollowers: (onlyFollowers: boolean) => void;
   degreesOfSeparation: number;
@@ -11,7 +11,7 @@ interface ReferenceModuleState {
 }
 
 export const useReferenceModuleStore = create<ReferenceModuleState>((set) => ({
-  selectedReferenceModule: ReferenceModules.FollowerOnlyReferenceModule,
+  selectedReferenceModule: ReferenceModuleType.FollowerOnlyReferenceModule,
   setSelectedReferenceModule: (selectedReferenceModule) =>
     set(() => ({ selectedReferenceModule })),
   onlyFollowers: false,

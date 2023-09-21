@@ -19,7 +19,6 @@ import FeedType from './FeedType';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
-import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
@@ -65,7 +64,6 @@ const Home: NextPage = () => {
             <>
               <EnableDispatcher />
               <EnableMessages />
-              <SetDefaultProfile />
               <SetProfile />
               <RecommendedProfiles />
             </>

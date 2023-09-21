@@ -6,7 +6,7 @@ import { Errors } from '@lenster/data/errors';
 import { PROFILE } from '@lenster/data/tracking';
 import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
-  FollowModules,
+  FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
@@ -110,7 +110,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       variables: {
         request: {
           currencies: followModule?.amount?.asset?.address,
-          followModules: [FollowModules.FeeFollowModule],
+          followModules: [FollowModuleType.FeeFollowModule],
           collectModules: [],
           referenceModules: []
         }

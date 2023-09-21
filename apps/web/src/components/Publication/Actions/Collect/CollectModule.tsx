@@ -24,7 +24,7 @@ import type {
   ElectedMirror
 } from '@lenster/lens';
 import {
-  CollectModules,
+  OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCollectModuleQuery,
@@ -113,13 +113,15 @@ const CollectModule: FC<CollectModuleProps> = ({
     collectModule?.referralFee ?? collectModule?.fee?.referralFee;
 
   const isRevertCollectModule =
-    collectModule?.type === CollectModules.RevertCollectModule;
+    collectModule?.type === OpenActionModuleType.LegacyRevertCollectModule;
   const isMultirecipientFeeCollectModule =
-    collectModule?.type === CollectModules.MultirecipientFeeCollectModule;
+    collectModule?.type ===
+    OpenActionModuleType.MultirecipientFeeCollectOpenActionModule;
   const isFreeCollectModule =
-    collectModule?.type === CollectModules.FreeCollectModule;
+    collectModule?.type === OpenActionModuleType.LegacyFreeCollectModule;
   const isSimpleFreeCollectModule =
-    collectModule?.type === CollectModules.SimpleCollectModule && !amount;
+    collectModule?.type ===
+      OpenActionModuleType.SimpleCollectOpenActionModule && !amount;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {

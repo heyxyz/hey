@@ -7,7 +7,7 @@ import {
   XCircleIcon
 } from '@heroicons/react/24/outline';
 import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
-import { CollectModules, useProfileLazyQuery } from '@lenster/lens';
+import { OpenActionModuleType, useProfileLazyQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import splitNumber from '@lenster/lib/splitNumber';
 import { Button, Input } from '@lenster/ui';
@@ -94,8 +94,8 @@ const SplitConfig: FC<SplitConfigProps> = ({
           setCollectType({
             type:
               recipients.length > 0
-                ? CollectModules.SimpleCollectModule
-                : CollectModules.MultirecipientFeeCollectModule,
+                ? OpenActionModuleType.SimpleCollectOpenActionModule
+                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
             recipients:
               recipients.length > 0
                 ? []

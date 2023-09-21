@@ -5,9 +5,9 @@ import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
-  CollectModules,
-  FollowModules,
-  ReferenceModules,
+  FollowModuleType,
+  OpenActionModuleType,
+  ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useEnabledModulesQuery
 } from '@lenster/lens';
@@ -27,12 +27,12 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     collectModules: [
-      CollectModules.SimpleCollectModule,
-      CollectModules.RevertCollectModule,
-      CollectModules.MultirecipientFeeCollectModule
+      OpenActionModuleType.SimpleCollectOpenActionModule,
+      OpenActionModuleType.LegacyRevertCollectModule,
+      OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
     ],
-    followModules: [FollowModules.FeeFollowModule],
-    referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
+    followModules: [FollowModuleType.FeeFollowModule],
+    referenceModules: [ReferenceModuleType.FollowerOnlyReferenceModule]
   };
 };
 
