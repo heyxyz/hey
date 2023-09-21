@@ -1699,6 +1699,8 @@ export type LegacyFeeCollectModuleSettings = {
   __typename?: 'LegacyFeeCollectModuleSettings';
   /** The collect module amount info */
   amount: Amount;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** Follower only */
   followerOnly: Scalars['Boolean']['output'];
@@ -1710,6 +1712,8 @@ export type LegacyFeeCollectModuleSettings = {
 
 export type LegacyFreeCollectModuleSettings = {
   __typename?: 'LegacyFreeCollectModuleSettings';
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** Follower only */
   followerOnly: Scalars['Boolean']['output'];
@@ -1728,6 +1732,8 @@ export type LegacyLimitedFeeCollectModuleSettings = {
   amount: Amount;
   /** The collect module limit. */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** Follower only */
   followerOnly: Scalars['Boolean']['output'];
@@ -1743,6 +1749,8 @@ export type LegacyLimitedTimedFeeCollectModuleSettings = {
   amount: Amount;
   /** The collect module limit */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']['output'];
@@ -1765,6 +1773,8 @@ export type LegacyMultirecipientFeeCollectModuleSettings = {
   amount: Amount;
   /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The end timestamp after which collecting is impossible. */
   endsAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1822,6 +1832,8 @@ export type LegacySimpleCollectModuleSettings = {
   amount: Amount;
   /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The end timestamp after which collecting is impossible. */
   endsAt?: Maybe<Scalars['DateTime']['output']>;
@@ -1837,6 +1849,8 @@ export type LegacyTimedFeeCollectModuleSettings = {
   __typename?: 'LegacyTimedFeeCollectModuleSettings';
   /** The collect module amount info */
   amount: Amount;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']['output'];
@@ -1986,6 +2000,7 @@ export type MintMetadataV3 = {
 
 export type Mirror = {
   __typename?: 'Mirror';
+  by: Profile;
   createdAt: Scalars['DateTime']['output'];
   id: Scalars['PublicationId']['output'];
   isHidden: Scalars['Boolean']['output'];
@@ -2186,6 +2201,8 @@ export type MultirecipientFeeCollectOpenActionSettings = {
   amount: Amount;
   /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The end timestamp after which collecting is impossible. */
   endsAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4435,6 +4452,8 @@ export type SimpleCollectOpenActionSettings = {
   amount: Amount;
   /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>;
+  /** The collect nft address - only deployed on first collect */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The end timestamp after which collecting is impossible. */
   endsAt?: Maybe<Scalars['DateTime']['output']>;
@@ -4651,6 +4670,8 @@ export type UnknownOpenActionModuleInput = {
 
 export type UnknownOpenActionModuleSettings = {
   __typename?: 'UnknownOpenActionModuleSettings';
+  /** The collect nft address - only deployed on first collect and if its a collectable open action */
+  collectNft?: Maybe<Scalars['EvmAddress']['output']>;
   contract: NetworkAddress;
   /** The data used to setup the module which you can decode with your known ABI  */
   openActionModuleReturnData?: Maybe<Scalars['BlockchainData']['output']>;
@@ -5709,6 +5730,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -5741,12 +5763,14 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFreeCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -5780,6 +5804,7 @@ export type CommentFieldsFragment = {
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -5813,6 +5838,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+        collectNft?: any | null;
         referralFee: number;
         followerOnly: boolean;
         optionalCollectLimit?: string | null;
@@ -5855,6 +5881,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacySimpleCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         recipient: any;
         referralFee: number;
@@ -5889,6 +5916,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -6283,6 +6311,7 @@ type OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment = {
 
 type OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyFeeCollectModuleSettings';
+  collectNft?: any | null;
   recipient: any;
   referralFee: number;
   followerOnly: boolean;
@@ -6312,6 +6341,7 @@ type OpenActionModulesFields_LegacyFeeCollectModuleSettings_Fragment = {
 
 type OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyFreeCollectModuleSettings';
+  collectNft?: any | null;
   followerOnly: boolean;
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
 };
@@ -6319,6 +6349,7 @@ type OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment = {
 type OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
   collectLimit?: string | null;
+  collectNft?: any | null;
   recipient: any;
   referralFee: number;
   followerOnly: boolean;
@@ -6350,6 +6381,7 @@ type OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
   {
     __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
     collectLimit?: string | null;
+    collectNft?: any | null;
     recipient: any;
     referralFee: number;
     followerOnly: boolean;
@@ -6381,6 +6413,7 @@ type OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment
 type OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragment =
   {
     __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+    collectNft?: any | null;
     referralFee: number;
     followerOnly: boolean;
     optionalCollectLimit?: string | null;
@@ -6421,6 +6454,7 @@ type OpenActionModulesFields_LegacyRevertCollectModuleSettings_Fragment = {
 
 type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
   __typename?: 'LegacySimpleCollectModuleSettings';
+  collectNft?: any | null;
   followerOnly: boolean;
   recipient: any;
   referralFee: number;
@@ -6452,6 +6486,7 @@ type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
 
 type OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+  collectNft?: any | null;
   recipient: any;
   referralFee: number;
   followerOnly: boolean;
@@ -7144,6 +7179,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -7176,12 +7212,14 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFreeCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -7215,6 +7253,7 @@ export type PostFieldsFragment = {
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -7248,6 +7287,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+        collectNft?: any | null;
         referralFee: number;
         followerOnly: boolean;
         optionalCollectLimit?: string | null;
@@ -7290,6 +7330,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacySimpleCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         recipient: any;
         referralFee: number;
@@ -7324,6 +7365,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -8291,6 +8333,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -8323,12 +8366,14 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyFreeCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -8362,6 +8407,7 @@ export type QuoteFieldsFragment = {
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
         collectLimit?: string | null;
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -8395,6 +8441,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+        collectNft?: any | null;
         referralFee: number;
         followerOnly: boolean;
         optionalCollectLimit?: string | null;
@@ -8437,6 +8484,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacySimpleCollectModuleSettings';
+        collectNft?: any | null;
         followerOnly: boolean;
         recipient: any;
         referralFee: number;
@@ -8471,6 +8519,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings';
+        collectNft?: any | null;
         recipient: any;
         referralFee: number;
         followerOnly: boolean;
@@ -10940,6 +10989,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -10976,6 +11026,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -10986,6 +11037,7 @@ export type ExplorePublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -11023,6 +11075,7 @@ export type ExplorePublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -11060,6 +11113,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -11110,6 +11164,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -11148,6 +11203,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -11937,6 +11993,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -11973,6 +12030,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -11983,6 +12041,7 @@ export type ExplorePublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -12020,6 +12079,7 @@ export type ExplorePublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -12057,6 +12117,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -12107,6 +12168,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -12145,6 +12207,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -12957,6 +13020,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -12993,6 +13057,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -13003,6 +13068,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -13040,6 +13106,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -13077,6 +13144,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -13127,6 +13195,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -13165,6 +13234,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -13963,6 +14033,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -13999,6 +14070,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -14009,6 +14081,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -14046,6 +14119,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -14083,6 +14157,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -14133,6 +14208,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -14171,6 +14247,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -14963,6 +15040,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -14999,6 +15077,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -15009,6 +15088,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -15046,6 +15126,7 @@ export type FeedQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -15083,6 +15164,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -15133,6 +15215,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -15171,6 +15254,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -15978,6 +16062,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -16014,6 +16099,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -16024,6 +16110,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -16061,6 +16148,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -16098,6 +16186,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -16148,6 +16237,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -16186,6 +16276,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -16975,6 +17066,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -17011,6 +17103,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -17021,6 +17114,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -17058,6 +17152,7 @@ export type FeedHighlightsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -17095,6 +17190,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -17145,6 +17241,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -17183,6 +17280,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -19029,6 +19127,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -19065,6 +19164,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -19075,6 +19175,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -19112,6 +19213,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -19149,6 +19251,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -19199,6 +19302,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -19237,6 +19341,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -20048,6 +20153,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -20084,6 +20190,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -20094,6 +20201,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -20131,6 +20239,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -20168,6 +20277,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -20218,6 +20328,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -20256,6 +20367,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -21053,6 +21165,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -21089,6 +21202,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -21099,6 +21213,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -21136,6 +21251,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -21173,6 +21289,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -21223,6 +21340,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -21261,6 +21379,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -22233,6 +22352,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -22269,6 +22389,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -22279,6 +22400,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -22316,6 +22438,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -22353,6 +22476,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -22403,6 +22527,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -22441,6 +22566,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -23239,6 +23365,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -23275,6 +23402,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -23285,6 +23413,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -23322,6 +23451,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -23359,6 +23489,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -23409,6 +23540,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -23447,6 +23579,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -24239,6 +24372,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -24275,6 +24409,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -24285,6 +24420,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -24322,6 +24458,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -24359,6 +24496,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -24409,6 +24547,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -24447,6 +24586,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -25421,6 +25561,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -25457,6 +25598,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -25467,6 +25609,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -25504,6 +25647,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -25541,6 +25685,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -25591,6 +25736,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -25629,6 +25775,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -26427,6 +26574,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -26463,6 +26611,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -26473,6 +26622,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -26510,6 +26660,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -26547,6 +26698,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -26597,6 +26749,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -26635,6 +26788,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -27427,6 +27581,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -27463,6 +27618,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -27473,6 +27629,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -27510,6 +27667,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -27547,6 +27705,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -27597,6 +27756,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -27635,6 +27795,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -28435,6 +28596,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -28471,6 +28633,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -28481,6 +28644,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -28518,6 +28682,7 @@ export type NotificationsQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -28555,6 +28720,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -28605,6 +28771,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -28643,6 +28810,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -29444,6 +29612,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -29480,6 +29649,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -29490,6 +29660,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -29527,6 +29698,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -29564,6 +29736,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -29614,6 +29787,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -29652,6 +29826,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -30450,6 +30625,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -30486,6 +30662,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -30496,6 +30673,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -30533,6 +30711,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -30570,6 +30749,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -30620,6 +30800,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -30658,6 +30839,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -31450,6 +31632,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -31486,6 +31669,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyFreeCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       contract: {
                         __typename?: 'NetworkAddress';
@@ -31496,6 +31680,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -31533,6 +31718,7 @@ export type NotificationsQuery = {
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                       collectLimit?: string | null;
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -31570,6 +31756,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       referralFee: number;
                       followerOnly: boolean;
                       optionalCollectLimit?: string | null;
@@ -31620,6 +31807,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacySimpleCollectModuleSettings';
+                      collectNft?: any | null;
                       followerOnly: boolean;
                       recipient: any;
                       referralFee: number;
@@ -31658,6 +31846,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                      collectNft?: any | null;
                       recipient: any;
                       referralFee: number;
                       followerOnly: boolean;
@@ -33374,6 +33563,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -33410,6 +33600,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFreeCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               contract: {
                 __typename?: 'NetworkAddress';
@@ -33420,6 +33611,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -33457,6 +33649,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -33494,6 +33687,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+              collectNft?: any | null;
               referralFee: number;
               followerOnly: boolean;
               optionalCollectLimit?: string | null;
@@ -33544,6 +33738,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacySimpleCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               recipient: any;
               referralFee: number;
@@ -33582,6 +33777,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -34390,6 +34586,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -34426,6 +34623,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFreeCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               contract: {
                 __typename?: 'NetworkAddress';
@@ -34436,6 +34634,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -34473,6 +34672,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -34510,6 +34710,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+              collectNft?: any | null;
               referralFee: number;
               followerOnly: boolean;
               optionalCollectLimit?: string | null;
@@ -34560,6 +34761,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacySimpleCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               recipient: any;
               referralFee: number;
@@ -34598,6 +34800,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -35387,6 +35590,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -35423,6 +35627,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyFreeCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               contract: {
                 __typename?: 'NetworkAddress';
@@ -35433,6 +35638,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -35470,6 +35676,7 @@ export type PublicationQuery = {
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
               collectLimit?: string | null;
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -35507,6 +35714,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+              collectNft?: any | null;
               referralFee: number;
               followerOnly: boolean;
               optionalCollectLimit?: string | null;
@@ -35557,6 +35765,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacySimpleCollectModuleSettings';
+              collectNft?: any | null;
               followerOnly: boolean;
               recipient: any;
               referralFee: number;
@@ -35595,6 +35804,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings';
+              collectNft?: any | null;
               recipient: any;
               referralFee: number;
               followerOnly: boolean;
@@ -36400,6 +36610,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -36436,6 +36647,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -36446,6 +36658,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -36483,6 +36696,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -36520,6 +36734,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -36570,6 +36785,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -36608,6 +36824,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -37416,6 +37633,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -37452,6 +37670,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -37462,6 +37681,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -37499,6 +37719,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -37536,6 +37757,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -37586,6 +37808,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -37624,6 +37847,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -38413,6 +38637,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -38449,6 +38674,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -38459,6 +38685,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -38496,6 +38723,7 @@ export type PublicationBookmarksQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -38533,6 +38761,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -38583,6 +38812,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -38621,6 +38851,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -39428,6 +39659,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -39464,6 +39696,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -39474,6 +39707,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -39511,6 +39745,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -39548,6 +39783,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -39598,6 +39834,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -39636,6 +39873,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -40444,6 +40682,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -40480,6 +40719,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -40490,6 +40730,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -40527,6 +40768,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -40564,6 +40806,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -40614,6 +40857,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -40652,6 +40896,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -41441,6 +41686,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -41477,6 +41723,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -41487,6 +41734,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -41524,6 +41772,7 @@ export type PublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -41561,6 +41810,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -41611,6 +41861,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -41649,6 +41900,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -42480,6 +42732,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -42516,6 +42769,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -42526,6 +42780,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -42563,6 +42818,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -42600,6 +42856,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -42650,6 +42907,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -42688,6 +42946,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -43496,6 +43755,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -43532,6 +43792,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -43542,6 +43803,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -43579,6 +43841,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -43616,6 +43879,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -43666,6 +43930,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -43704,6 +43969,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -44493,6 +44759,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -44529,6 +44796,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -44539,6 +44807,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -44576,6 +44845,7 @@ export type RevenueFromPublicationQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -44613,6 +44883,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -44663,6 +44934,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -44701,6 +44973,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -45529,6 +45802,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -45565,6 +45839,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -45575,6 +45850,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -45612,6 +45888,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -45649,6 +45926,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -45699,6 +45977,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -45737,6 +46016,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -46548,6 +46828,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -46584,6 +46865,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -46594,6 +46876,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -46631,6 +46914,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -46668,6 +46952,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -46718,6 +47003,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -46756,6 +47042,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -47548,6 +47835,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -47584,6 +47872,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyFreeCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   contract: {
                     __typename?: 'NetworkAddress';
@@ -47594,6 +47883,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -47631,6 +47921,7 @@ export type RevenueFromPublicationsQuery = {
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                   collectLimit?: string | null;
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -47668,6 +47959,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   referralFee: number;
                   followerOnly: boolean;
                   optionalCollectLimit?: string | null;
@@ -47718,6 +48010,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacySimpleCollectModuleSettings';
+                  collectNft?: any | null;
                   followerOnly: boolean;
                   recipient: any;
                   referralFee: number;
@@ -47756,6 +48049,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                  collectNft?: any | null;
                   recipient: any;
                   referralFee: number;
                   followerOnly: boolean;
@@ -48746,6 +49040,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -48782,6 +49077,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -48792,6 +49088,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -48829,6 +49126,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -48866,6 +49164,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -48916,6 +49215,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -48954,6 +49254,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -49749,6 +50050,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -49785,6 +50087,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -49795,6 +50098,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -49832,6 +50136,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -49869,6 +50174,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -49919,6 +50225,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -49957,6 +50264,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -50746,6 +51054,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -50782,6 +51091,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyFreeCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 contract: {
                   __typename?: 'NetworkAddress';
@@ -50792,6 +51102,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -50829,6 +51140,7 @@ export type SearchPublicationsQuery = {
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings';
                 collectLimit?: string | null;
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -50866,6 +51178,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyMultirecipientFeeCollectModuleSettings';
+                collectNft?: any | null;
                 referralFee: number;
                 followerOnly: boolean;
                 optionalCollectLimit?: string | null;
@@ -50916,6 +51229,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacySimpleCollectModuleSettings';
+                collectNft?: any | null;
                 followerOnly: boolean;
                 recipient: any;
                 referralFee: number;
@@ -50954,6 +51268,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings';
+                collectNft?: any | null;
                 recipient: any;
                 referralFee: number;
                 followerOnly: boolean;
@@ -52156,6 +52471,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       contract {
         ...NetworkAddressFields
       }
+      collectNft
       followerOnly
     }
     ... on LegacyFeeCollectModuleSettings {
@@ -52168,6 +52484,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       recipient
       referralFee
       followerOnly
@@ -52183,6 +52500,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       recipient
       referralFee
       followerOnly
@@ -52198,6 +52516,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       recipient
       referralFee
       followerOnly
@@ -52218,6 +52537,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       recipient
       referralFee
       followerOnly
@@ -52233,6 +52553,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       optionalCollectLimit: collectLimit
       referralFee
       followerOnly
@@ -52252,6 +52573,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
           ...FiatAmountFields
         }
       }
+      collectNft
       optionalCollectLimit: collectLimit
       followerOnly
       recipient

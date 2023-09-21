@@ -38,6 +38,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
+    collectNft
     followerOnly
   }
   ... on LegacyFeeCollectModuleSettings {
@@ -50,6 +51,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     recipient
     referralFee
     followerOnly
@@ -65,6 +67,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     recipient
     referralFee
     followerOnly
@@ -80,6 +83,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     recipient
     referralFee
     followerOnly
@@ -100,6 +104,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     recipient
     referralFee
     followerOnly
@@ -115,6 +120,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
@@ -134,6 +140,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
+    collectNft
     optionalCollectLimit: collectLimit
     followerOnly
     recipient
