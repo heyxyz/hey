@@ -18,7 +18,11 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication, ElectedMirror } from '@lenster/lens';
+import type {
+  AnyPublication,
+  ApprovedAllowanceAmountResult,
+  ElectedMirror
+} from '@lenster/lens';
 import {
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -531,7 +535,10 @@ const CollectModule: FC<CollectModuleProps> = ({
               <span className="mt-5">
                 <AllowanceButton
                   title="Allow collect module"
-                  module={allowanceData?.approvedModuleAllowanceAmount[0]}
+                  module={
+                    allowanceData
+                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
+                  }
                   allowed={allowed}
                   setAllowed={setAllowed}
                 />
