@@ -1,49 +1,7 @@
 query Nfts($request: NftsRequest!) {
   nfts(request: $request) {
     items {
-      tokenId
-      contentURI
-      contract {
-        address
-        chainId
-      }
-      contractType
-      totalSupply
-      collection {
-        contract {
-          address
-          chainId
-        }
-        name
-        symbol
-        baseUri
-        contractType
-        verified
-      }
-      metadata {
-        description
-        externalURL
-        name
-        image {
-          raw {
-            uri
-          }
-          optimized {
-            uri
-            mimeType
-          }
-        }
-        animationUrl
-        attributes {
-          displayType
-          traitType
-          value
-        }
-      }
-      owner {
-        amount
-        address
-      }
+      ...NftFields
     }
     pageInfo {
       prev

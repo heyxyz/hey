@@ -56,7 +56,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const create = async () => {
     try {
       const sanitizedItems = gallery.items.map((el) => {
-        return { contract: el.contract.address, tokenId: el.tokenId };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
       const { data } = await createGallery({
         variables: {
@@ -125,10 +125,10 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
             ?.itemId
       );
       const sanitizedAddItems = newlyAddedItems?.map((el) => {
-        return { contract: el.contract.address, tokenId: el.tokenId };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
       const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
-        return { contract: el.contract.address, tokenId: el.tokenId };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
 
       // if gallery name only update

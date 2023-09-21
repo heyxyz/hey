@@ -6177,6 +6177,47 @@ export type NetworkAddressFieldsFragment = {
   chainId: any;
 };
 
+export type NftFieldsFragment = {
+  __typename?: 'Nft';
+  tokenId: any;
+  contentURI: any;
+  contractType: NftContractType;
+  totalSupply: string;
+  contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
+  collection: {
+    __typename?: 'NftCollection';
+    name: string;
+    symbol: string;
+    baseUri?: any | null;
+    contractType: NftContractType;
+    verified: boolean;
+    contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
+  };
+  metadata: {
+    __typename?: 'NftMetadata';
+    description?: any | null;
+    externalURL?: any | null;
+    name?: string | null;
+    animationUrl?: any | null;
+    image?: {
+      __typename?: 'ImageSet';
+      raw: { __typename?: 'Image'; uri: any };
+      optimized?: {
+        __typename?: 'Image';
+        uri: any;
+        mimeType?: any | null;
+      } | null;
+    } | null;
+    attributes?: Array<{
+      __typename?: 'PublicationMarketplaceMetadataAttribute';
+      displayType?: MarketplaceMetadataAttributeDisplayType | null;
+      traitType?: string | null;
+      value?: string | null;
+    }> | null;
+  };
+  owner: { __typename?: 'Owner'; amount: string; address: any };
+};
+
 type OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyAaveFeeCollectModuleSettings';
   referralFee: number;
@@ -17028,6 +17069,74 @@ export type MutualFollowersQuery = {
         | null;
     }>;
     pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null };
+  };
+};
+
+export type NftGalleriesQueryVariables = Exact<{
+  request: NftGalleriesRequest;
+}>;
+
+export type NftGalleriesQuery = {
+  __typename?: 'Query';
+  nftGalleries: {
+    __typename?: 'PaginatedNftGalleriesResult';
+    items: Array<{
+      __typename?: 'NftGallery';
+      id: any;
+      name: any;
+      owner: any;
+      createdAt: any;
+      updatedAt: any;
+      items: Array<{
+        __typename?: 'Nft';
+        tokenId: any;
+        contentURI: any;
+        contractType: NftContractType;
+        totalSupply: string;
+        contract: { __typename?: 'NetworkAddress'; address: any; chainId: any };
+        collection: {
+          __typename?: 'NftCollection';
+          name: string;
+          symbol: string;
+          baseUri?: any | null;
+          contractType: NftContractType;
+          verified: boolean;
+          contract: {
+            __typename?: 'NetworkAddress';
+            address: any;
+            chainId: any;
+          };
+        };
+        metadata: {
+          __typename?: 'NftMetadata';
+          description?: any | null;
+          externalURL?: any | null;
+          name?: string | null;
+          animationUrl?: any | null;
+          image?: {
+            __typename?: 'ImageSet';
+            raw: { __typename?: 'Image'; uri: any };
+            optimized?: {
+              __typename?: 'Image';
+              uri: any;
+              mimeType?: any | null;
+            } | null;
+          } | null;
+          attributes?: Array<{
+            __typename?: 'PublicationMarketplaceMetadataAttribute';
+            displayType?: MarketplaceMetadataAttributeDisplayType | null;
+            traitType?: string | null;
+            value?: string | null;
+          }> | null;
+        };
+        owner: { __typename?: 'Owner'; amount: string; address: any };
+      }>;
+    }>;
+    pageInfo: {
+      __typename?: 'PaginatedResultInfo';
+      prev?: any | null;
+      next?: any | null;
+    };
   };
 };
 
@@ -51296,6 +51405,53 @@ export const MirrorFieldsFragmentDoc = gql`
   }
   ${PrimaryPublicationFieldsFragmentDoc}
 `;
+export const NftFieldsFragmentDoc = gql`
+  fragment NftFields on Nft {
+    tokenId
+    contentURI
+    contract {
+      address
+      chainId
+    }
+    contractType
+    totalSupply
+    collection {
+      contract {
+        address
+        chainId
+      }
+      name
+      symbol
+      baseUri
+      contractType
+      verified
+    }
+    metadata {
+      description
+      externalURL
+      name
+      image {
+        raw {
+          uri
+        }
+        optimized {
+          uri
+          mimeType
+        }
+      }
+      animationUrl
+      attributes {
+        displayType
+        traitType
+        value
+      }
+    }
+    owner {
+      amount
+      address
+    }
+  }
+`;
 export const PostFieldsFragmentDoc = gql`
   fragment PostFields on Post {
     id
@@ -55790,53 +55946,18 @@ export type MutualFollowersQueryResult = Apollo.QueryResult<
   MutualFollowersQuery,
   MutualFollowersQueryVariables
 >;
-export const NftsDocument = gql`
-  query Nfts($request: NftsRequest!) {
-    nfts(request: $request) {
+export const NftGalleriesDocument = gql`
+  query NftGalleries($request: NftGalleriesRequest!) {
+    nftGalleries(request: $request) {
       items {
-        tokenId
-        contentURI
-        contract {
-          address
-          chainId
+        id
+        name
+        owner
+        items {
+          ...NftFields
         }
-        contractType
-        totalSupply
-        collection {
-          contract {
-            address
-            chainId
-          }
-          name
-          symbol
-          baseUri
-          contractType
-          verified
-        }
-        metadata {
-          description
-          externalURL
-          name
-          image {
-            raw {
-              uri
-            }
-            optimized {
-              uri
-              mimeType
-            }
-          }
-          animationUrl
-          attributes {
-            displayType
-            traitType
-            value
-          }
-        }
-        owner {
-          amount
-          address
-        }
+        createdAt
+        updatedAt
       }
       pageInfo {
         prev
@@ -55844,6 +55965,72 @@ export const NftsDocument = gql`
       }
     }
   }
+  ${NftFieldsFragmentDoc}
+`;
+
+/**
+ * __useNftGalleriesQuery__
+ *
+ * To run a query within a React component, call `useNftGalleriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNftGalleriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNftGalleriesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useNftGalleriesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NftGalleriesQuery,
+    NftGalleriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(
+    NftGalleriesDocument,
+    options
+  );
+}
+export function useNftGalleriesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NftGalleriesQuery,
+    NftGalleriesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<NftGalleriesQuery, NftGalleriesQueryVariables>(
+    NftGalleriesDocument,
+    options
+  );
+}
+export type NftGalleriesQueryHookResult = ReturnType<
+  typeof useNftGalleriesQuery
+>;
+export type NftGalleriesLazyQueryHookResult = ReturnType<
+  typeof useNftGalleriesLazyQuery
+>;
+export type NftGalleriesQueryResult = Apollo.QueryResult<
+  NftGalleriesQuery,
+  NftGalleriesQueryVariables
+>;
+export const NftsDocument = gql`
+  query Nfts($request: NftsRequest!) {
+    nfts(request: $request) {
+      items {
+        ...NftFields
+      }
+      pageInfo {
+        prev
+        next
+      }
+    }
+  }
+  ${NftFieldsFragmentDoc}
 `;
 
 /**
