@@ -8,7 +8,6 @@ import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
-import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
 import resetAuthData from '@lenster/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
@@ -20,12 +19,9 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
@@ -54,22 +50,7 @@ const DeleteSettings: FC = () => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'burn',
-    onSuccess: () => {
-      onCompleted();
-      setUserSigNonce(userSigNonce + 1);
-    },
-    onError: (error) => {
-      onError(error);
-      setUserSigNonce(userSigNonce - 1);
-    }
-  });
-
-  const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
-    onCompleted: async ({ createBurnProfileTypedData }) => {
-      const { typedData } = createBurnProfileTypedData;
-      const { tokenId } = typedData.value;
-      write?.({ args: [tokenId] });
-    },
+    onSuccess: onCompleted,
     onError
   });
 
@@ -84,12 +65,7 @@ const DeleteSettings: FC = () => {
 
     try {
       setIsLoading(true);
-      return await createBurnProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { profileId: currentProfile?.id }
-        }
-      });
+      return write?.({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
     }
