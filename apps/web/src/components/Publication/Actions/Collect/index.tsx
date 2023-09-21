@@ -7,6 +7,7 @@ import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -30,22 +31,14 @@ const Collect: FC<CollectProps> = ({
 }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isMirror = publication.__typename === 'Mirror';
-  const hasCollected = isMirror
-    ? publication?.mirrorOn?.operations.hasActed
-    : publication?.hasCollectedByMe;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const hasCollected = targetPublication.operations.hasActed;
 
   useEffect(() => {
-    if (
-      isMirror
-        ? publication?.mirrorOn?.stats?.countOpenActions
-        : publication?.stats?.totalAmountOfCollects
-    ) {
-      setCount(
-        publication.__typename === 'Mirror'
-          ? publication?.mirrorOn?.stats?.countOpenActions
-          : publication?.stats?.totalAmountOfCollects
-      );
+    if (targetPublication.stats.countOpenActions) {
+      setCount(targetPublication.stats.countOpenActions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);

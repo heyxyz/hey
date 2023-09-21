@@ -7,6 +7,7 @@ import nFormatter from '@lenster/lib/nFormatter';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -22,11 +23,12 @@ interface PublicationMenuProps {
 const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const isMirror = publication.__typename === 'Mirror';
-  const count = isMirror
-    ? publication?.mirrorOn?.stats?.mirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const mirrored = isMirror
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const count = targetPublication.stats.mirrors;
+  const mirrored = isMirrorPublication(publication)
     ? publication?.mirrorOn?.mirrors?.length > 0
     : // @ts-expect-error
       publication?.mirrors?.length > 0;

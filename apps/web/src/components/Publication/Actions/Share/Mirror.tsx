@@ -21,6 +21,7 @@ import getSignature from '@lenster/lib/getSignature';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -37,12 +38,14 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
-  const isMirror = publication.__typename === 'Mirror';
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [mirrored, setMirrored] = useState(
-    isMirror
+    isMirrorPublication(publication)
       ? publication?.mirrorOn?.mirrors?.length > 0
       : // @ts-expect-error
         publication?.mirrors?.length > 0
@@ -56,7 +59,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
   const updateCache = () => {
     cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOn : publication),
+      id: publicationKeyFields(targetPublication),
       fields: {
         mirrors: (mirrors) => [...mirrors, currentProfile?.id],
         stats: (stats) => ({

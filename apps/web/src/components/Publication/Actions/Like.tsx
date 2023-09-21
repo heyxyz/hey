@@ -2,9 +2,9 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication } from '@lenster/lens';
+import type { AnyPublication, ReactionRequest } from '@lenster/lens';
 import {
-  ReactionTypes,
+  PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@lenster/lens';
@@ -14,6 +14,7 @@ import nFormatter from '@lenster/lib/nFormatter';
 import { Tooltip } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
@@ -29,18 +30,13 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
-  const isMirror = publication.__typename === 'Mirror';
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [liked, setLiked] = useState(
-    (isMirror
-      ? publication?.mirrorOn?.operations.hasReacted
-      : publication?.reaction) === 'UPVOTE'
-  );
-  const [count, setCount] = useState(
-    isMirror
-      ? publication?.mirrorOn?.stats?.reactions
-      : publication?.stats?.totalUpvotes
-  );
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const [liked, setLiked] = useState(targetPublication.operations.hasReacted);
+  const [count, setCount] = useState(targetPublication.stats.reactions);
 
   const onError = (error: any) => {
     errorToast(error);
@@ -48,20 +44,18 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const updateCache = (
     cache: ApolloCache<any>,
-    type: ReactionTypes.Upvote | ReactionTypes.Downvote
+    type: PublicationReactionType.Upvote | PublicationReactionType.Downvote
   ) => {
     if (showCount) {
       cache.modify({
-        id: publicationKeyFields(
-          isMirror ? publication?.mirrorOn : publication
-        ),
+        id: publicationKeyFields(targetPublication),
         fields: {
           stats: (stats) => ({
             ...stats,
-            totalUpvotes:
-              type === ReactionTypes.Upvote
-                ? stats.totalUpvotes + 1
-                : stats.totalUpvotes - 1
+            reactions:
+              type === PublicationReactionType.Upvote
+                ? stats.reactions + 1
+                : stats.reactions - 1
           })
         }
       });
@@ -96,7 +90,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       setCount(count - 1);
       onError(error);
     },
-    update: (cache) => updateCache(cache, ReactionTypes.Upvote)
+    update: (cache) => updateCache(cache, PublicationReactionType.Upvote)
   });
 
   const [removeReaction] = useRemoveReactionMutation({
@@ -106,7 +100,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       setCount(count + 1);
       onError(error);
     },
-    update: (cache) => updateCache(cache, ReactionTypes.Downvote)
+    update: (cache) => updateCache(cache, PublicationReactionType.Downvote)
   });
 
   const createLike = () => {
@@ -114,27 +108,20 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       return toast.error(Errors.SignWallet);
     }
 
-    const variable = {
-      variables: {
-        request: {
-          profileId: currentProfile?.id,
-          reaction: ReactionTypes.Upvote,
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOn?.id
-              : publication?.id
-        }
-      }
+    // Variables
+    const request: ReactionRequest = {
+      reaction: PublicationReactionType.Upvote,
+      for: targetPublication.id
     };
 
     if (liked) {
       setLiked(false);
       setCount(count - 1);
-      removeReaction(variable);
+      removeReaction({ variables: { request } });
     } else {
       setLiked(true);
       setCount(count + 1);
-      addReaction(variable);
+      addReaction({ variables: { request } });
     }
   };
 

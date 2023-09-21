@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@lenster/lens';
 import getAppName from '@lenster/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -16,53 +17,48 @@ interface FullPublicationProps {
 }
 
 const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const timestamp = isMirror
-    ? publication?.mirrorOn?.createdAt
-    : publication?.createdAt;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const { metadata, createdAt, stats } = targetPublication;
 
   // Count check to show the publication stats only if the publication has a comment, like or collect
-  const mirrorCount = isMirror
-    ? publication?.mirrorOn?.stats?.mirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const reactionCount = isMirror
-    ? publication?.mirrorOn?.stats?.reactions
-    : publication?.stats?.totalUpvotes;
-  const collectCount = isMirror
-    ? publication?.mirrorOn?.stats?.countOpenActions
-    : publication?.stats?.totalAmountOfCollects;
+  const mirrorCount = stats.mirrors;
+  const reactionCount = stats.reactions;
+  const collectCount = stats.countOpenActions;
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
 
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
-      <PublicationType publication={publication} showType />
+      <PublicationType publication={targetPublication} showType />
       <div>
-        <PublicationHeader publication={publication} />
+        <PublicationHeader publication={targetPublication} />
         <div className="ml-[53px]">
-          {publication?.isHidden ? (
+          {publication.isHidden ? (
             <HiddenPublication type={publication.__typename} />
           ) : (
             <>
-              <PublicationBody publication={publication} />
+              <PublicationBody publication={targetPublication} />
               <div className="flex items-center gap-x-3">
                 <div className="lt-text-gray-500 my-3 text-sm">
-                  <span title={formatTime(timestamp)}>
-                    {formatDate(new Date(timestamp), 'hh:mm A · MMM D, YYYY')}
+                  <span title={formatTime(createdAt)}>
+                    {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
                   </span>
-                  {publication?.appId ? (
-                    <span> · Posted via {getAppName(publication.appId)}</span>
+                  {metadata.appId ? (
+                    <span> · Posted via {getAppName(metadata.appId)}</span>
                   ) : null}
                 </div>
-                <FeaturedChannel tags={publication.metadata.tags} />
+                <FeaturedChannel tags={metadata.tags} />
               </div>
               {showStats ? (
                 <>
                   <div className="divider" />
-                  <PublicationStats publication={publication} />
+                  <PublicationStats publication={targetPublication} />
                 </>
               ) : null}
               <div className="divider" />
-              <PublicationActions publication={publication} showCount />
+              <PublicationActions publication={targetPublication} showCount />
             </>
           )}
         </div>

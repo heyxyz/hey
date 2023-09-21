@@ -5,6 +5,7 @@ import type { AnyPublication } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
@@ -14,10 +15,10 @@ interface CopyPostTextProps {
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const publicationType = isMirror
-    ? publication.mirrorOn.__typename
-    : publication.__typename;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
 
   return (
     <Menu.Item
@@ -31,7 +32,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          publication?.metadata?.content || ''
+          targetPublication?.metadata?.marketplace?.description || ''
         );
         toast.success(t`Copied to clipboard!`);
         Leafwatch.track(PUBLICATION.COPY_TEXT, {

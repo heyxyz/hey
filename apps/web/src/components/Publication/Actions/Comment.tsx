@@ -3,6 +3,7 @@ import type { AnyPublication } from '@lenster/lens';
 import humanize from '@lenster/lib/humanize';
 import nFormatter from '@lenster/lib/nFormatter';
 import { Tooltip } from '@lenster/ui';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -14,10 +15,10 @@ interface CommentProps {
 }
 
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
-  const count =
-    publication.__typename === 'Mirror'
-      ? publication?.mirrorOn?.stats?.comments
-      : publication?.stats?.totalAmountOfComments;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const count = targetPublication.stats.comments;
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';

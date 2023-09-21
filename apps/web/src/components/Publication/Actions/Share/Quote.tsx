@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@lenster/lens';
 import cn from '@lenster/ui/cn';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -12,10 +13,10 @@ interface QuoteProps {
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const publicationType = isMirror
-    ? publication.mirrorOn.__typename
-    : publication.__typename;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
 
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal

@@ -43,6 +43,7 @@ import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import { Plural, t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -75,13 +76,17 @@ const CollectModule: FC<CollectModuleProps> = ({
   publication,
   electedMirror
 }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
-    publication?.hasCollectedByMe
+    targetPublication.operations.hasActed.value
   );
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
@@ -189,10 +194,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     usePublicationRevenueQuery({
       variables: {
         request: {
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOn?.id
-              : publication?.id
+          publicationId: targetPublication.id
         }
       },
       pollInterval: 5000,
@@ -406,13 +408,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
-                <Collectors
-                  publicationId={
-                    publication.__typename === 'Mirror'
-                      ? publication?.mirrorOn?.id
-                      : publication?.id
-                  }
-                />
+                <Collectors publicationId={targetPublication.id} />
               </Modal>
             </div>
             {collectLimit ? (

@@ -4,6 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
@@ -28,23 +29,21 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
     (state) => state.setQuotedPublication
   );
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const isMirror = publication.__typename === 'Mirror';
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
     ? firstComment
       ? firstComment
       : feedItem?.root
-    : publication;
-  const profile = feedItem
-    ? rootPublication.profile
-    : isMirror
-    ? publication?.mirrorOn?.by
-    : publication?.profile;
+    : targetPublication;
+  const profile = feedItem ? rootPublication.by : publication.by;
   const timestamp = feedItem
     ? rootPublication.createdAt
-    : isMirror
-    ? publication?.mirrorOn?.createdAt
-    : publication?.createdAt;
+    : targetPublication.createdAt;
 
   return (
     <div
@@ -66,8 +65,8 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {gardenerMode ? <Source publication={publication} /> : null}
-        {!publication.hidden && !quoted ? (
+        {gardenerMode ? <Source publication={targetPublication} /> : null}
+        {!publication.isHidden && !quoted ? (
           <PublicationMenu publication={publication} />
         ) : null}
         {quoted && isNew ? (

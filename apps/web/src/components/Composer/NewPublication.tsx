@@ -68,6 +68,7 @@ import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
+import { isMirrorPublication } from '@lib/publicationTypes';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
 import { useUnmountEffect } from 'framer-motion';
@@ -140,6 +141,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -788,10 +793,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         profileId: currentProfile?.id,
         contentURI: `ar://${arweaveId}`,
         ...(isComment && {
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOn?.id
-              : publication?.id
+          publicationId: targetPublication.id
         }),
         collectModule: collectModuleParams(collectModule, currentProfile),
         referenceModule:
@@ -811,10 +813,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const dataAvailablityRequest = {
         from: currentProfile?.id,
         ...(isComment && {
-          commentOn:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOn?.id
-              : publication?.id
+          commentOn: targetPublication.id
         }),
         contentURI: `ar://${arweaveId}`
       };
