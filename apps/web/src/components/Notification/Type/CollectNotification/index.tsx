@@ -2,10 +2,6 @@ import {
   NotificationProfileAvatar,
   NotificationProfileName
 } from '@components/Notification/Profile';
-import {
-  NotificationWalletProfileAvatar,
-  NotificationWalletProfileName
-} from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
 import { RectangleStackIcon } from '@heroicons/react/24/solid';
 import type { NewCollectNotification } from '@lenster/lens';
@@ -51,18 +47,14 @@ const CollectNotification: FC<CollectNotificationProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <RectangleStackIcon className="h-6 w-6 text-pink-500/70" />
-            {notification?.wallet?.defaultProfile ? (
-              <UserPreview
-                isBig={false}
+            <UserPreview
+              isBig={false}
+              profile={notification?.wallet?.defaultProfile}
+            >
+              <NotificationProfileAvatar
                 profile={notification?.wallet?.defaultProfile}
-              >
-                <NotificationProfileAvatar
-                  profile={notification?.wallet?.defaultProfile}
-                />
-              </UserPreview>
-            ) : (
-              <NotificationWalletProfileAvatar wallet={notification?.wallet} />
-            )}
+              />
+            </UserPreview>
           </div>
           <div
             className="min-w-fit text-[12px] text-gray-400"
@@ -76,13 +68,9 @@ const CollectNotification: FC<CollectNotificationProps> = ({
             id={messages[typeName]?.id || defaultMessage(typeName)}
             components={[
               <span className="text-gray-600 dark:text-gray-400" key="" />,
-              notification?.wallet?.defaultProfile ? (
-                <NotificationProfileName
-                  profile={notification?.wallet?.defaultProfile}
-                />
-              ) : (
-                <NotificationWalletProfileName wallet={notification?.wallet} />
-              ),
+              <NotificationProfileName
+                profile={notification?.wallet?.defaultProfile}
+              />,
               <Link
                 href={`/posts/${notification?.collectedPublication?.id}`}
                 className="font-bold"
