@@ -38,11 +38,13 @@ import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useCommentOnchainMutation,
   useCommentOnMomokaMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
+  usePostOnchainMutation,
   usePostOnMomokaMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
@@ -412,13 +414,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         await typedDataGenerator(createMomokaCommentTypedData, true)
     });
 
-  const [commentOnMomoka] = useCommentOnMomokaMutation({
-    onCompleted: ({ commentOnMomoka }) => {
-      onCompleted(commentOnMomoka.__typename);
-      if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+  const [commentOnchain] = useCommentOnchainMutation({
+    onCompleted: ({ commentOnchain }) => {
+      onCompleted(commentOnchain.__typename);
+      if (commentOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({
-            txId: commentOnMomoka.proof
+            txId: commentOnchain.txId
           }),
           ...txnQueue
         ]);
@@ -427,12 +429,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [postOnMomoka] = usePostOnMomokaMutation({
-    onCompleted: ({ postOnMomoka }) => {
-      onCompleted(postOnMomoka.__typename);
-      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+  const [postOnchain] = usePostOnchainMutation({
+    onCompleted: ({ postOnchain }) => {
+      onCompleted(createPostViaDpostOnchainispatcher.__typename);
+      if (postOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: postOnMomoka.proof }),
+          generateOptimisticPublication({ txId: postOnchain.txId }),
           ...txnQueue
         ]);
       }
@@ -440,61 +442,48 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
+  const [commentOnMomoka] = useCommentOnMomokaMutation({
+    onCompleted: (data) => {
+      if (
+        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
+      ) {
+        return;
+      }
 
-        if (
-          data.createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityPostViaDispatcher;
-          push(`/posts/${id}`);
-        }
-      },
-      onError
-    });
+      if (data.commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        const { id } = data.commentOnMomoka;
+        getPublication({ variables: { request: { forId: id } } });
+      }
+    },
+    onError
+  });
 
-  const [createDataAvailabilityCommentViaDispatcher] =
-    useCreateDataAvailabilityCommentViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onCompleted: (data) => {
+      if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+        return;
+      }
 
-        if (
-          data.createDataAvailabilityCommentViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityCommentViaDispatcher;
-          getPublication({ variables: { request: { publicationId: id } } });
-        }
-      },
-      onError
-    });
+      if (data.postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        const { id } = data.postOnMomoka;
+        push(`/posts/${id}`);
+      }
+    },
+    onError
+  });
 
   const createViaDataAvailablityDispatcher = async (request: any) => {
     const variables = { request };
 
     if (isComment) {
-      const { data } = await createDataAvailabilityCommentViaDispatcher({
+      const { data } = await commentOnMomoka({
         variables
       });
 
       if (
-        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-        'RelayError'
+        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
       ) {
         await createMomokaCommentTypedData({ variables });
       }
@@ -502,13 +491,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
-    const { data } = await createDataAvailabilityPostViaDispatcher({
+    const { data } = await postOnMomoka({
       variables
     });
 
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
+    if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
       await createMomokaPostTypedData({ variables });
     }
 
@@ -522,20 +509,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
 
     if (isComment) {
-      const { data } = await commentOnMomoka({
+      const { data } = await commentOnchain({
         variables: { request }
       });
-      if (
-        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
-      ) {
+      if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
         return await createOnchainCommentTypedData({ variables });
       }
 
       return;
     }
 
-    const { data } = await postOnMomoka({ variables: { request } });
-    if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+    const { data } = await postOnchain({ variables: { request } });
+    if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainPostTypedData({ variables });
     }
 
