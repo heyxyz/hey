@@ -43,6 +43,7 @@ import {
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
+  usePostOnMomokaMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -426,12 +427,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename);
-      if (createPostViaDispatcher.__typename === 'RelaySuccess') {
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onCompleted: ({ postOnMomoka }) => {
+      onCompleted(postOnMomoka.__typename);
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: createPostViaDispatcher.txId }),
+          generateOptimisticPublication({ txId: postOnMomoka.proof }),
           ...txnQueue
         ]);
       }
@@ -533,8 +534,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
-    const { data } = await createPostViaDispatcher({ variables: { request } });
-    if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
+    const { data } = await postOnMomoka({ variables: { request } });
+    if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainPostTypedData({ variables });
     }
 
