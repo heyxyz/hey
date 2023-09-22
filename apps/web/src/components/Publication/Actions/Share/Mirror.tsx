@@ -4,16 +4,9 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type {
-  AnyPublication,
-  CreateDataAvailabilityMirrorRequest,
-  CreateMirrorRequest
-} from '@lenster/lens';
 import {
-  useBroadcastMutation,
-  useCreateDataAvailabilityMirrorViaDispatcherMutation,
-  useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
+  type AnyPublication,
+  useBroadcastOnchainMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
@@ -110,18 +103,19 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     }
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
     onCompleted: async ({ createMirrorTypedData }) => {
       const { id, typedData } = createMirrorTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
         return write?.({ args: [typedData.value] });
       }
     },

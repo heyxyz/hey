@@ -4,7 +4,7 @@ import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
 } from '@lenster/lens';
@@ -90,8 +90,9 @@ const Follow: FC<FollowProps> = ({
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
@@ -101,10 +102,10 @@ const Follow: FC<FollowProps> = ({
         getSignature(JSON.parse(JSON.stringify(typedData)))
       );
       setUserSigNonce(userSigNonce + 1);
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
         const { profileIds, datas } = typedData.value;
         return write?.({ args: [profileIds, datas] });
       }

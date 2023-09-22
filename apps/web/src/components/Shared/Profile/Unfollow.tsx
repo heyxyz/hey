@@ -4,7 +4,7 @@ import { Errors } from '@lenster/data/errors';
 import { PROFILE } from '@lenster/data/tracking';
 import type { Profile } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation
 } from '@lenster/lens';
 import type { ApolloCache } from '@lenster/lens/apollo';
@@ -67,18 +67,19 @@ const Unfollow: FC<UnfollowProps> = ({
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } = createUnfollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
         const { tokenId } = typedData.value;
         return write?.({ args: [tokenId] });
       }

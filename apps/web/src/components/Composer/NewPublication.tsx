@@ -44,7 +44,7 @@ import {
   PublicationMetadataMainFocusType,
   ReferenceModuleType,
   useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateCommentTypedDataMutation,
   useCreateCommentViaDispatcherMutation,
   useCreateDataAvailabilityCommentTypedDataMutation,
@@ -347,12 +347,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename);
-      if (broadcast.__typename === 'RelaySuccess') {
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename);
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: broadcast.txId }),
+          generateOptimisticPublication({ txId: broadcastOnchain.txId }),
           ...txnQueue
         ]);
       }
@@ -388,10 +388,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       });
     }
 
-    const { data } = await broadcast({
+    const { data } = await broadcastOnchain({
       variables: { request: { id, signature } }
     });
-    if (data?.broadcast.__typename === 'RelayError') {
+    if (data?.broadcastOnchain.__typename === 'RelayError') {
       return write({ args: [typedData.value] });
     }
   };

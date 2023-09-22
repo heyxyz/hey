@@ -9,7 +9,7 @@ import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
 import type { Profile, UpdateProfileImageRequest } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
 } from '@lenster/lens';
@@ -79,18 +79,19 @@ const Picture: FC<PictureProps> = ({ profile }) => {
     }
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createSetProfileImageURITypedData] =
     useCreateSetProfileImageUriTypedDataMutation({
       onCompleted: async ({ createSetProfileImageURITypedData }) => {
         const { id, typedData } = createSetProfileImageURITypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, imageURI } = typedData.value;
           return write?.({ args: [profileId, imageURI] });
         }

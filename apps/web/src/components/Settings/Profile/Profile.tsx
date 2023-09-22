@@ -17,7 +17,7 @@ import type {
   Profile
 } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
 } from '@lenster/lens';
@@ -115,18 +115,19 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createSetProfileMetadataTypedData] =
     useCreateSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createSetProfileMetadataTypedData }) => {
         const { id, typedData } = createSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, metadata } = typedData.value;
           return write?.({ args: [profileId, metadata] });
         }

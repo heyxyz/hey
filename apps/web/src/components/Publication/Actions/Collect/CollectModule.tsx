@@ -24,7 +24,7 @@ import type {
 import {
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCollectModuleQuery,
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
@@ -225,17 +225,18 @@ const CollectModule: FC<CollectModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
     onCompleted: async ({ createCollectTypedData }) => {
       const { id, typedData } = createCollectTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
         const { profileId, pubId, data: collectData } = typedData.value;
         return write?.({ args: [profileId, pubId, collectData] });
       }

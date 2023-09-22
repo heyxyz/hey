@@ -6,7 +6,7 @@ import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { Erc20 } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useCurrenciesQuery
 } from '@lenster/lens';
@@ -85,18 +85,19 @@ const SuperFollow: FC = () => {
     }
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, followModule, followModuleInitData } =
             typedData.value;
           return write?.({

@@ -4,7 +4,7 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetDispatcherTypedDataMutation
 } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
@@ -61,18 +61,20 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   });
 
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
-  });
+  const [broadcastOnchain, { data: broadcastData }] =
+    useBroadcastOnchainMutation({
+      onCompleted: ({ broadcastOnchain }) =>
+        onCompleted(broadcastOnchain.__typename)
+    });
   const [createSetDispatcherTypedData] =
     useCreateSetDispatcherTypedDataMutation({
       onCompleted: async ({ createSetDispatcherTypedData }) => {
         const { id, typedData } = createSetDispatcherTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, dispatcher } = typedData.value;
           return write?.({
             args: [profileId, dispatcher]

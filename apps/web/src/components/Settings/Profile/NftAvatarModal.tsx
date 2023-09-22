@@ -6,7 +6,7 @@ import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
 import type { UpdateProfileImageRequest } from '@lenster/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
@@ -59,8 +59,9 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
   };
 
   const [loadChallenge] = useNftChallengeLazyQuery();
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const { signTypedDataAsync } = useSignTypedData({ onError });
 
@@ -82,10 +83,10 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
         const { id, typedData } = createSetProfileImageURITypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         setUserSigNonce(userSigNonce + 1);
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, imageURI } = typedData.value;
           return write?.({ args: [profileId, imageURI] });
         }

@@ -8,7 +8,7 @@ import type { ApprovedAllowanceAmountResult, Profile } from '@lenster/lens';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
 } from '@lenster/lens';
@@ -138,17 +138,18 @@ const FollowModule: FC<FollowModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
         const { profileIds, datas } = typedData.value;
         return write?.({ args: [profileIds, datas] });
       }
