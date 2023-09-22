@@ -30,29 +30,14 @@ import {
 } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type {
-  AnyPublication,
-  CreatePublicCommentRequest,
-  MetadataAttributeInput,
-  PublicationMetadataMediaInput,
-  PublicationMetadataV2Input
-} from '@lenster/lens';
+import type { AnyPublication } from '@lenster/lens';
 import {
   OpenActionModuleType,
   PublicationDocument,
-  PublicationMetadataDisplayTypes,
   PublicationMetadataMainFocusType,
   ReferenceModuleType,
-  useBroadcastDataAvailabilityMutation,
   useBroadcastOnchainMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation,
-  useCreateDataAvailabilityCommentTypedDataMutation,
-  useCreateDataAvailabilityCommentViaDispatcherMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation,
+  useBroadcastOnMomokaMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -330,18 +315,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   });
 
-  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: (data) => {
       onCompleted();
-      if (data?.broadcastDataAvailability.__typename === 'RelayError') {
+      if (data?.broadcastOnMomoka.__typename === 'RelayError') {
         return toast.error(Errors.SomethingWentWrong);
       }
 
       if (
-        data?.broadcastDataAvailability.__typename ===
-        'CreateDataAvailabilityPublicationResult'
+        data?.broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult'
       ) {
-        push(`/posts/${data?.broadcastDataAvailability.id}`);
+        push(`/posts/${data?.broadcastOnMomoka.id}`);
       }
     },
     onError
@@ -383,7 +367,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
     if (isDataAvailabilityPublication) {
-      return await broadcastDataAvailability({
+      return await broadcastOnMomoka({
         variables: { request: { id, signature } }
       });
     }
