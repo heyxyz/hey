@@ -12,14 +12,11 @@ import { Regex } from '@lenster/data/regex';
 import { SETTINGS } from '@lenster/data/tracking';
 import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
 import type { Area } from '@lenster/image-cropper/types';
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  Profile
-} from '@lenster/lens';
+import type { OnchainSetProfileMetadataRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastOnchainMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useSetProfileMetadataMutation
 } from '@lenster/lens';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
@@ -91,8 +88,13 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -119,39 +121,36 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
   });
-  const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async ({ createSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
+  const [createOnchainSetProfileMetadataTypedData] =
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, metadata } = typedData.value;
-          return write?.({ args: [profileId, metadata] });
+          const { profileId, metadataURI } = typedData.value;
+          return write?.({ args: [profileId, metadataURI] });
         }
       },
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-      onError
-    });
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  });
 
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
+  const updateProfile = async (request: OnchainSetProfileMetadataRequest) => {
+    const { data } = await setProfileMetadata({
       variables: { request }
     });
     if (
-      data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
+      data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -228,16 +227,15 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         metadata_id: uuid()
       });
 
-      const request: CreatePublicSetProfileMetadataUriRequest = {
-        profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: `https://arweave.net/${id}`
       };
 
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await updateProfile(request);
       }
 
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     } catch (error) {

@@ -1,5 +1,5 @@
 import NftGalleryShimmer from '@components/Shared/Shimmer/NftGalleryShimmer';
-import type { NftGallery, Profile } from '@lenster/lens';
+import type { Profile } from '@lenster/lens';
 import { useNftGalleriesQuery } from '@lenster/lens';
 import type { FC } from 'react';
 
@@ -12,10 +12,10 @@ interface NftGalleryHomeProps {
 
 const NftGalleryHome: FC<NftGalleryHomeProps> = ({ profile }) => {
   const { data, loading } = useNftGalleriesQuery({
-    variables: { request: { profileId: profile?.id } }
+    variables: { request: { for: profile?.id } }
   });
 
-  const nftGalleries = data?.nftGalleries as NftGallery[];
+  const nftGalleries = data?.nftGalleries.items;
 
   if (loading) {
     return <NftGalleryShimmer />;

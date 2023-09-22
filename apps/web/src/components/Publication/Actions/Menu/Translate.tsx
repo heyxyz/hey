@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { AnyPublication } from '@lenster/lens';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -14,6 +15,9 @@ interface TranslateProps {
 }
 
 const Translate: FC<TranslateProps> = ({ publication }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
       `https://translate.google.com/#auto|en|${encodeURIComponent(text)}`
@@ -29,7 +33,9 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
       }
-      href={getGoogleTranslateUrl(publication?.metadata?.content)}
+      href={getGoogleTranslateUrl(
+        targetPublication?.metadata?.marketplace?.description
+      )}
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.TRANSLATE, {

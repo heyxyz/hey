@@ -4,9 +4,16 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
+import type {
+  AnyPublication,
+  MomokaMirrorRequest,
+  OnchainMirrorRequest
+} from '@lenster/lens';
 import {
-  type AnyPublication,
-  useBroadcastOnchainMutation
+  useBroadcastOnchainMutation,
+  useCreateMomokaMirrorTypedDataMutation,
+  useCreateOnchainMirrorTypedDataMutation,
+  useMirrorOnchainMutation
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
 import { publicationKeyFields } from '@lenster/lens/apollo/lib';
@@ -67,9 +74,13 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     __typename?:
       | 'RelayError'
       | 'RelaySuccess'
-      | 'CreateDataAvailabilityPublicationResult'
+      | 'LensProfileManagerRelayError'
+      | 'CreateMomokaMirrorBroadcastItemResult'
   ) => {
-    if (__typename === 'RelayError') {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -108,48 +119,45 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       onCompleted(broadcastOnchain.__typename)
   });
 
-  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
-    onCompleted: async ({ createMirrorTypedData }) => {
-      const { id, typedData } = createMirrorTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        return write?.({ args: [typedData.value] });
-      }
-    },
-    onError
-  });
-
-  const [createDataAvailabilityMirrorViaDispatcher] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
-        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
+  const [createOnchainMirrorTypedData] =
+    useCreateOnchainMirrorTypedDataMutation({
+      onCompleted: async ({ createOnchainMirrorTypedData }) => {
+        const { id, typedData } = createOnchainMirrorTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return write?.({ args: [typedData.value] });
+        }
+      },
       onError
     });
 
-  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
-    onCompleted: ({ createMirrorViaDispatcher }) =>
-      onCompleted(createMirrorViaDispatcher.__typename),
+  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
+    onCompleted: ({ createMomokaMirrorTypedData }) =>
+      onCompleted(createMomokaMirrorTypedData.__typename),
     onError
   });
 
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityMirrorRequest
-  ) => {
-    await createDataAvailabilityMirrorViaDispatcher({
+  const [mirrorOnchain] = useMirrorOnchainMutation({
+    onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onError
+  });
+
+  const createViaMomoka = async (request: MomokaMirrorRequest) => {
+    await createMomokaMirrorTypedData({
       variables: { request }
     });
   };
 
-  const createViaDispatcher = async (request: CreateMirrorRequest) => {
-    const { data } = await createMirrorViaDispatcher({
+  const createViaDispatcher = async (request: OnchainMirrorRequest) => {
+    const { data } = await mirrorOnchain({
       variables: { request }
     });
 
-    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      return await createMirrorTypedData({
+    if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
+      return await createOnchainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request
@@ -175,31 +183,24 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
     try {
       setIsLoading(true);
-      const request: CreateMirrorRequest = {
-        profileId: currentProfile?.id,
-        publicationId: publication?.id,
-        referenceModule: {
-          followerOnlyReferenceModule: false
-        }
+      const request: OnchainMirrorRequest = {
+        mirrorOn: publication?.id
       };
 
       // Payload for the data availability mirror
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
-        mirror: publication?.id
+      const dataAvailablityRequest: MomokaMirrorRequest = {
+        mirrorOn: publication?.id
       };
 
       if (canUseRelay) {
         if (publication.momoka?.proof && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          );
+          return await createViaMomoka(dataAvailablityRequest);
         }
 
         return await createViaDispatcher(request);
       }
 
-      return await createMirrorTypedData({
+      return await createOnchainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request

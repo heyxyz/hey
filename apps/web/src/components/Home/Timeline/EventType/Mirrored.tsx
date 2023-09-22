@@ -10,7 +10,7 @@ interface MirroredProps {
 
 const Mirrored: FC<MirroredProps> = ({ mirrors }) => {
   const getMirroredProfiles = () => {
-    let profiles = mirrors.map((mirror) => mirror.profile);
+    let profiles = mirrors.map((mirror) => mirror.by);
     profiles = profiles.filter(
       (profile, index, self) =>
         index === self.findIndex((t) => t.id === profile.id)

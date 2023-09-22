@@ -218,9 +218,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'LensProfileManagerRelayError' | 'RelaySuccess'
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
-    if (__typename === 'RelayError') {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 

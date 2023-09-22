@@ -24,7 +24,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
       return mention.trim().replace("'s", '').replace(Regex.santiizeHandle, '');
     }
 
-    return formatHandle(publication?.profile?.handle);
+    return formatHandle(publication?.by?.handle);
   });
 
   const cleanedMentions = processedMentions.reduce(

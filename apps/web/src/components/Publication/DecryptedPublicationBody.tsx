@@ -24,10 +24,14 @@ import {
   RARIBLE_URL
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication, PublicationMetadataV2Input } from '@lenster/lens';
-import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
+import {
+  type AnyPublication,
+  DecryptFailReasonType,
+  usePublicationQuery
+} from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
@@ -65,6 +69,10 @@ interface DecryptedPublicationBodyProps {
 const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   encryptedPublication
 }) => {
+  const targetPublication = isMirrorPublication(encryptedPublication)
+    ? encryptedPublication.mirrorOn
+    : encryptedPublication;
+
   const [content, setContent] = useState<any>();
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -75,22 +83,21 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const [decryptError, setDecryptError] = useState<any>(null);
   const [isDecrypting, setIsDecrypting] = useState(false);
   const [canDecrypt, setCanDecrypt] = useState<boolean>(
-    encryptedPublication?.canDecrypt?.result
+    targetPublication?.operations.canDecrypt.result
   );
   const [reasons, setReasons] = useState<any>(
-    encryptedPublication?.canDecrypt.reasons
+    targetPublication?.operations.canDecrypt.reasons
   );
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
 
   const showMore =
-    encryptedPublication?.metadata?.content?.length > 450 &&
+    targetPublication?.metadata?.marketplace?.description?.length > 450 &&
     pathname !== '/posts/[id]';
 
-  useCanDecryptStatusQuery({
+  usePublicationQuery({
     variables: {
-      request: { publicationId: encryptedPublication.id },
-      profileId: currentProfile?.id ?? null
+      request: { forId: encryptedPublication.id }
     },
     pollInterval: 5000,
     skip: canDecrypt || !currentProfile,
@@ -102,8 +109,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
   const getCondition = (key: string) => {
     const criteria: any =
-      encryptedPublication.metadata.encryptionParams?.accessCondition.or
-        ?.criteria;
+      targetPublication.metadata.encryptedWith?.accessCondition.or?.criteria;
 
     const getCriteria = (key: string) => {
       return criteria.map((item: any) => item[key]).find((item: any) => item);
@@ -148,24 +154,24 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   // Status
   // Collect checks - https://docs.lens.xyz/docs/gated#collected-publication
   const hasNotCollectedPublication = reasons?.includes(
-    DecryptFailReason.HasNotCollectedPublication
+    DecryptFailReasonType.HasNotCollectedPublication
   );
   const collectNotFinalisedOnChain =
     !hasNotCollectedPublication &&
-    reasons?.includes(DecryptFailReason.CollectNotFinalisedOnChain);
+    reasons?.includes(DecryptFailReasonType.CollectNotFinalisedOnChain);
   // Follow checks - https://docs.lens.xyz/docs/gated#profile-follow
   const doesNotFollowProfile = reasons?.includes(
-    DecryptFailReason.DoesNotFollowProfile
+    DecryptFailReasonType.DoesNotFollowProfile
   );
   const followNotFinalisedOnChain =
     !doesNotFollowProfile &&
-    reasons?.includes(DecryptFailReason.FollowNotFinalisedOnChain);
+    reasons?.includes(DecryptFailReasonType.FollowNotFinalisedOnChain);
   // Token check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
   const unauthorizedBalance = reasons?.includes(
-    DecryptFailReason.UnauthorizedBalance
+    DecryptFailReasonType.UnauthorizedBalance
   );
   // NFT check - https://docs.lens.xyz/docs/gated#erc20-token-ownership
-  const doesNotOwnNft = reasons?.includes(DecryptFailReason.DoesNotOwnNft);
+  const doesNotOwnNft = reasons?.includes(DecryptFailReasonType.DoesNotOwnNft);
 
   const getDecryptedData = async () => {
     if (!walletClient || isDecrypting) {
@@ -249,12 +255,10 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
             <DecryptMessage icon={<UserPlusIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link
-                href={`/u/${formatHandle(
-                  encryptedPublication?.profile?.handle
-                )}`}
+                href={`/u/${formatHandle(encryptedPublication?.by?.handle)}`}
                 className="font-bold"
               >
-                @{formatHandle(encryptedPublication?.profile?.handle)}
+                @{formatHandle(encryptedPublication?.by?.handle)}
               </Link>
             </DecryptMessage>
           ) : null}

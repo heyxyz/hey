@@ -126,7 +126,6 @@ const SuperFollow: FC = () => {
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
-            profileId: currentProfile?.id,
             followModule: amount
               ? {
                   feeFollowModule: {

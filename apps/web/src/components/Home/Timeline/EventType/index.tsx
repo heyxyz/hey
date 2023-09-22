@@ -2,7 +2,7 @@ import type { FeedItem } from '@lenster/lens';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 
-import Collected from './Collected';
+import Acted from './Acted';
 import Combined from './Combined';
 import Commented from './Commented';
 import Liked from './Liked';
@@ -25,7 +25,7 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const canCombined = getCanCombined([
     feedItem.mirrors.length,
     feedItem.reactions.length,
-    feedItem.collects.length,
+    feedItem.acted.length,
     feedItem.comments?.length ?? 0
   ]);
 
@@ -38,8 +38,8 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
           {feedItem.mirrors.length && !isComment ? (
             <Mirrored mirrors={feedItem.mirrors} />
           ) : null}
-          {feedItem.collects.length && !isComment ? (
-            <Collected collects={feedItem.collects} />
+          {feedItem.acted.length && !isComment ? (
+            <Acted acted={feedItem.acted} />
           ) : null}
           {feedItem.reactions.length && !isComment ? (
             <Liked reactions={feedItem.reactions} />
