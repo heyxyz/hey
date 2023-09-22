@@ -29,7 +29,7 @@
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.4",
-    "start-server-and-test": "^2.0.0",
+    "start-server-and-test": "^2.0.1",
     "turbo": "^1.10.14"
   },
   "packageManager": "pnpm@8.6.11",
