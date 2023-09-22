@@ -510,7 +510,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return;
   };
 
-  const createViaDispatcher = async (request: any) => {
+  const createOnChain = async (request: any) => {
     const variables = {
       options: { overrideSigNonce: userSigNonce },
       request
@@ -803,7 +803,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           );
         }
 
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
       if (isComment) {

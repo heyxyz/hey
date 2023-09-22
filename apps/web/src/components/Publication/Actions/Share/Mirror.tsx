@@ -148,7 +148,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     });
   };
 
-  const createViaDispatcher = async (request: OnchainMirrorRequest) => {
+  const createOnChain = async (request: OnchainMirrorRequest) => {
     const { data } = await mirrorOnchain({
       variables: { request }
     });
@@ -194,7 +194,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
           return await createViaMomoka(dataAvailablityRequest);
         }
 
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
       return await createOnchainMirrorTypedData({

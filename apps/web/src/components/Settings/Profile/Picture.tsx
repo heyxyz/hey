@@ -106,7 +106,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
       onError
     });
 
-  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+  const createOnChain = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
     });
@@ -148,7 +148,7 @@ const Picture: FC<PictureProps> = ({ profile }) => {
 
       setAvatarDataUrl(dataUrl);
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
       return await createSetProfileImageURITypedData({
         variables: {

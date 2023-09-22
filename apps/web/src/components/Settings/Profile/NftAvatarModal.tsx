@@ -101,7 +101,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       onError
     });
 
-  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
+  const createOnChain = async (request: UpdateProfileImageRequest) => {
     const { data } = await createSetProfileImageURIViaDispatcher({
       variables: { request }
     });
@@ -159,7 +159,7 @@ const NftAvatarModal: FC<NftAvatarModalProps> = ({
       setShowNftAvatarModal(false);
 
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
       return await createSetProfileImageURITypedData({

@@ -3,12 +3,12 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { SETTINGS } from '@lenster/data/tracking';
-import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
+import type { OnchainSetProfileMetadataRequest } from '@lenster/lens';
 import {
   useBroadcastOnchainMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
-  useProfileQuery
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useProfileQuery,
+  useSetProfileMetadataMutation
 } from '@lenster/lens';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
@@ -61,8 +61,13 @@ const Status: FC = () => {
     schema: editStatusSchema
   });
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -103,39 +108,36 @@ const Status: FC = () => {
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
   });
-  const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async ({ createSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
+  const [createOnchainSetProfileMetadataTypedData] =
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, metadata } = typedData.value;
-          return write?.({ args: [profileId, metadata] });
+          const { profileId, metadataURI } = typedData.value;
+          return write?.({ args: [profileId, metadataURI] });
         }
       },
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-      onError
-    });
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  });
 
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
+  const createOnChain = async (request: OnchainSetProfileMetadataRequest) => {
+    const { data } = await setProfileMetadata({
       variables: { request }
     });
     if (
-      data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
+      data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -200,16 +202,15 @@ const Status: FC = () => {
         metadata_id: uuid()
       });
 
-      const request: CreatePublicSetProfileMetadataUriRequest = {
-        profileId: currentProfile?.id,
-        metadata: `ar://${id}`
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: `ar://${id}`
       };
 
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     } catch (error) {
