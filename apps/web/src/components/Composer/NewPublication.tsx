@@ -38,6 +38,7 @@ import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useCommentOnMomokaMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
@@ -410,13 +411,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         await typedDataGenerator(createMomokaCommentTypedData, true)
     });
 
-  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onCompleted: ({ createCommentViaDispatcher }) => {
-      onCompleted(createCommentViaDispatcher.__typename);
-      if (createCommentViaDispatcher.__typename === 'RelaySuccess') {
+  const [commentOnMomoka] = useCommentOnMomokaMutation({
+    onCompleted: ({ commentOnMomoka }) => {
+      onCompleted(commentOnMomoka.__typename);
+      if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         setTxnQueue([
           generateOptimisticPublication({
-            txId: createCommentViaDispatcher.txId
+            txId: commentOnMomoka.proof
           }),
           ...txnQueue
         ]);
@@ -520,10 +521,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     };
 
     if (isComment) {
-      const { data } = await createCommentViaDispatcher({
+      const { data } = await commentOnMomoka({
         variables: { request }
       });
-      if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
+      if (
+        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
+      ) {
         return await createOnchainCommentTypedData({ variables });
       }
 
