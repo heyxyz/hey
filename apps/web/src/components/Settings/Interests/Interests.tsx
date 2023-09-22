@@ -47,7 +47,7 @@ const Interests: FC = () => {
     onError
   });
 
-  const interestsData = data?.profileInterestsOptions ?? [];
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
   const selectedTopics = currentProfile?.interests ?? [];
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
