@@ -38,6 +38,7 @@ import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -381,11 +382,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   // Normal typed data generation
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) =>
-      await typedDataGenerator(createCommentTypedData),
-    onError
-  });
+  const [createOnchainCommentTypedData] =
+    useCreateOnchainCommentTypedDataMutation({
+      onCompleted: async ({ createOnchainCommentTypedData }) =>
+        await typedDataGenerator(createOnchainCommentTypedData),
+      onError
+    });
 
   const [createPostTypedData] = useCreatePostTypedDataMutation({
     onCompleted: async ({ createPostTypedData }) =>
@@ -520,7 +522,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         variables: { request }
       });
       if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        return await createCommentTypedData({ variables });
+        return await createOnchainCommentTypedData({ variables });
       }
 
       return;
@@ -813,10 +815,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       if (isComment) {
-        return await createCommentTypedData({
+        return await createOnchainCommentTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
-            request: request as CreatePublicCommentRequest
+            request: request
           }
         });
       }
