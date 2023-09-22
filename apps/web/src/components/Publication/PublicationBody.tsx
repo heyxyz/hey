@@ -6,7 +6,6 @@ import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@lenster/lens';
-import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import getNft from '@lenster/lib/nft/getNft';
@@ -37,11 +36,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const hasURLs = urls.length > 0;
   const snapshotProposalId = getSnapshotProposalId(urls);
   const nft = getNft(urls);
-  const quotedPublicationId = getPublicationAttribute(
-    metadata.attributes,
-    'quotedPublicationId'
-  );
-  const filterId = snapshotProposalId || quotedPublicationId;
+  const filterId = snapshotProposalId;
   let rawContent = metadata?.content;
 
   if (filterId) {
@@ -64,16 +59,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showSnapshot = snapshotProposalId;
   // Show attachments if it's there
   const showAttachments = metadata?.media?.length > 0;
-  // Show quoted publication if it's there
-  const showQuotedPublication = quotedPublicationId && !quoted;
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
-    hasURLs &&
-    !showNft &&
-    !showAttachments &&
-    !showSnapshot &&
-    !showQuotedPublication &&
-    !quoted;
+    hasURLs && !showNft && !showAttachments && !showSnapshot && !quoted;
 
   // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
@@ -104,11 +92,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         </div>
       ) : null}
       {/* Attachments and Quotes */}
+      <Quote publication={publication} />
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
-      ) : null}
-      {showQuotedPublication ? (
-        <Quote publicationId={quotedPublicationId} />
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}

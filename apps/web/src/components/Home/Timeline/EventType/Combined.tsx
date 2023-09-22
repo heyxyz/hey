@@ -9,17 +9,17 @@ interface CombinedProps {
 }
 
 const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { mirrors, collects, reactions } = feedItem;
+  const { mirrors, acted, reactions } = feedItem;
   const comments = feedItem.comments ?? [];
 
   const mirrorsLength = mirrors.length;
-  const collectsLength = collects.length;
+  const actedLength = acted.length;
   const reactionsLength = reactions.length;
   const commentsLength = comments?.length ?? 0;
 
   const getAllProfiles = () => {
-    let profiles = [...mirrors, ...collects, ...reactions, ...comments].map(
-      (event) => event.profile
+    let profiles = [...mirrors, ...acted, ...reactions, ...comments].map(
+      (event) => event.by
     );
     profiles = profiles.filter(
       (profile, index, self) =>
@@ -35,8 +35,8 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
   if (commentsLength) {
     actionArray.push(t`commented`);
   }
-  if (collectsLength) {
-    actionArray.push(t`collected`);
+  if (actedLength) {
+    actionArray.push(t`acted`);
   }
   if (reactionsLength) {
     actionArray.push(t`liked`);

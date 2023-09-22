@@ -5,6 +5,7 @@ import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type { AnyPublication, Profile } from '@lenster/lens';
 import { useProfilesQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -14,8 +15,14 @@ interface RelevantPeopleProps {
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
+  const targetPubliction = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const mentions =
-    publication?.metadata?.content?.match(Regex.mention, '$1[~$2]') ?? [];
+    targetPubliction?.metadata?.marketplace?.description?.match(
+      Regex.mention,
+      '$1[~$2]'
+    ) ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');

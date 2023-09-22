@@ -44,7 +44,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
           data-testid={`publication-${publication.id}-menu-items`}
         >
-          {currentProfile?.id === publication?.profile?.id ? (
+          {currentProfile?.id === publication?.by?.id ? (
             <Delete publication={publication} />
           ) : (
             <Report publication={publication} />

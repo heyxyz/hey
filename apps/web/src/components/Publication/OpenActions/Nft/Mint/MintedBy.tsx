@@ -2,7 +2,7 @@ import SmallUserProfileShimmer from '@components/Shared/Shimmer/SmallUserProfile
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
 import type { Profile } from '@lenster/lens';
-import { useDefaultProfileQuery } from '@lenster/lens';
+import { useProfilesManagedQuery } from '@lenster/lens';
 import { type FC } from 'react';
 import type { Address } from 'viem';
 
@@ -11,10 +11,12 @@ interface MintedByProps {
 }
 
 const MintedBy: FC<MintedByProps> = ({ address }) => {
-  const { data, loading } = useDefaultProfileQuery({
-    variables: { request: { ethereumAddress: address } },
+  const { data, loading } = useProfilesManagedQuery({
+    variables: { request: { for: address } },
     skip: !Boolean(address)
   });
+
+  const profile = data?.profilesManaged.items[0];
 
   if (!address) {
     return null;
@@ -25,11 +27,8 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
       <span>by</span>
       {loading ? (
         <SmallUserProfileShimmer smallAvatar />
-      ) : data?.defaultProfile ? (
-        <SmallUserProfile
-          profile={data.defaultProfile as Profile}
-          smallAvatar
-        />
+      ) : profile ? (
+        <SmallUserProfile profile={profile as Profile} smallAvatar />
       ) : (
         <SmallWalletProfile address={address} smallAvatar />
       )}

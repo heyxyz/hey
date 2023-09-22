@@ -80,8 +80,8 @@ const Unfollow: FC<UnfollowProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const { tokenId } = typedData.value;
-        return write?.({ args: [tokenId] });
+        const { idsOfProfilesToUnfollow } = typedData.value;
+        return write?.({ args: [idsOfProfilesToUnfollow] });
       }
     },
     onError,
@@ -100,7 +100,7 @@ const Unfollow: FC<UnfollowProps> = ({
     try {
       setIsLoading(true);
       return await createUnfollowTypedData({
-        variables: { request: { profile: profile?.id } }
+        variables: { request: { unfollow: profile?.id } }
       });
     } catch (error) {
       onError(error);
