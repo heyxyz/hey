@@ -28,10 +28,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
     : publication;
 
   const count = targetPublication.stats.mirrors;
-  const mirrored = isMirrorPublication(publication)
-    ? publication?.mirrorOn?.mirrors?.length > 0
-    : // @ts-expect-error
-      publication?.mirrors?.length > 0;
+  const mirrored = targetPublication.operations.hasMirrored;
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (

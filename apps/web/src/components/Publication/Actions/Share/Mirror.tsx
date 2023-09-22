@@ -45,10 +45,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [mirrored, setMirrored] = useState(
-    isMirrorPublication(publication)
-      ? publication?.mirrorOn?.mirrors?.length > 0
-      : // @ts-expect-error
-        publication?.mirrors?.length > 0
+    targetPublication.operations.hasMirrored
   );
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
