@@ -38,6 +38,7 @@ import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
   usePublicationLazyQuery
@@ -397,11 +398,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   });
 
   // Data availability typed data generation
-  const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityPostTypedData, true)
-    });
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) =>
+      await typedDataGenerator(createMomokaPostTypedData, true)
+  });
 
   const [createDataAvailabilityCommentTypedData] =
     useCreateDataAvailabilityCommentTypedDataMutation({
@@ -506,7 +506,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (
       data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
     ) {
-      await createDataAvailabilityPostTypedData({ variables });
+      await createMomokaPostTypedData({ variables });
     }
 
     return;
