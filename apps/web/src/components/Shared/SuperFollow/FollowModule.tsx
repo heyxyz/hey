@@ -4,13 +4,17 @@ import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PROFILE } from '@lenster/data/tracking';
-import type { ApprovedAllowanceAmountResult, Profile } from '@lenster/lens';
+import type {
+  ApprovedAllowanceAmountResult,
+  FeeFollowModuleSettings,
+  Profile
+} from '@lenster/lens';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useSuperFollowQuery
+  useProfileQuery
 } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -98,32 +102,34 @@ const FollowModule: FC<FollowModuleProps> = ({
     }
   });
 
-  const { data, loading } = useSuperFollowQuery({
-    variables: { request: { profileId: profile?.id } },
+  const { data, loading } = useProfileQuery({
+    variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id
   });
 
-  const followModule: any = data?.profile?.followModule;
+  const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
       variables: {
         request: {
-          currencies: followModule?.amount?.asset?.address,
+          currencies: followModule?.amount?.asset?.contract.address,
           followModules: [FollowModuleType.FeeFollowModule],
-          collectModules: [],
+          openActionModules: [],
           referenceModules: []
         }
       },
-      skip: !followModule?.amount?.asset?.address || !currentProfile,
+      skip: !followModule?.amount?.asset?.contract.address || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+        setAllowed(
+          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        );
       }
     });
 
   const { data: balanceData } = useBalance({
     address: currentProfile?.ownedBy.address,
-    token: followModule?.amount?.asset?.address,
+    token: followModule?.amount?.asset?.contract.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
   });
@@ -150,8 +156,8 @@ const FollowModule: FC<FollowModuleProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const { profileIds, datas } = typedData.value;
-        return write?.({ args: [profileIds, datas] });
+        const { followTokenIds, datas } = typedData.value;
+        return write?.({ args: [followTokenIds, datas] });
       }
     },
     onError
@@ -174,15 +180,8 @@ const FollowModule: FC<FollowModuleProps> = ({
           request: {
             follow: [
               {
-                profile: profile?.id,
-                followModule: {
-                  feeFollowModule: {
-                    amount: {
-                      currency: followModule?.amount?.asset?.address,
-                      value: followModule?.amount?.value
-                    }
-                  }
-                }
+                profileId: profile?.id,
+                followModule: { feeFollowModule: true }
               }
             ]
           }
