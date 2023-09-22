@@ -16,11 +16,11 @@
     "@lenster/lens": "workspace:*",
     "@lenster/types": "workspace:*",
     "axios": "^1.5.0",
-    "viem": "^1.11.1"
+    "viem": "^1.12.1"
   },
   "devDependencies": {
     "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.4"
+    "vitest": "^0.34.5"
   }
 }
