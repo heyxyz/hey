@@ -15,10 +15,7 @@ import type {
   LensEnvironment
 } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
+import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { LensHub } from '@lenster/abis';
 import {
   ALLOWED_AUDIO_TYPES,
@@ -30,7 +27,13 @@ import {
 } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { AnyPublication } from '@lenster/lens';
+import type {
+  AnyPublication,
+  OnchainCommentRequest,
+  OnchainPostRequest,
+  PublicationMetadata,
+  PublicationMetadataV3Attribute
+} from '@lenster/lens';
 import {
   OpenActionModuleType,
   PublicationDocument,
@@ -214,7 +217,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'LensProfileManagerRelayError' | 'RelaySuccess'
+  ) => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -431,7 +436,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const [postOnchain] = usePostOnchainMutation({
     onCompleted: ({ postOnchain }) => {
-      onCompleted(createPostViaDpostOnchainispatcher.__typename);
+      onCompleted(postOnchain.__typename);
       if (postOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({ txId: postOnchain.txId }),
@@ -575,9 +580,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return isComment ? 'Comment' : 'Post';
   };
 
-  const createTokenGatedMetadata = async (
-    metadata: PublicationMetadataV2Input
-  ) => {
+  const createTokenGatedMetadata = async (metadata: PublicationMetadata) => {
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
       provider: publicClient as any,
@@ -627,7 +630,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return contentURI;
   };
 
-  const createMetadata = async (metadata: PublicationMetadataV2Input) => {
+  const createMetadata = async (metadata: PublicationMetadata) => {
     return await uploadToArweave(metadata);
   };
 
@@ -676,17 +679,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      const attributes: MetadataAttributeInput[] = [
+      const attributes: PublicationMetadataV3Attribute[] = [
         {
-          traitType: 'type',
-          displayType: PublicationMetadataDisplayTypes.String,
+          key: 'type',
           value: getMainContentFocus()?.toLowerCase()
         },
         ...(quotedPublication
           ? [
               {
-                traitType: 'quotedPublicationId',
-                displayType: PublicationMetadataDisplayTypes.String,
+                key: 'quotedPublicationId',
                 value: quotedPublication.id
               }
             ]
@@ -694,8 +695,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(hasAudio
           ? [
               {
-                traitType: 'author',
-                displayType: PublicationMetadataDisplayTypes.String,
+                key: 'author',
                 value: audioPublication.author
               }
             ]
@@ -703,8 +703,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(hasVideo
           ? [
               {
-                traitType: 'durationInSeconds',
-                displayType: PublicationMetadataDisplayTypes.String,
+                key: 'durationInSeconds',
                 value: videoDurationInSeconds
               }
             ]
@@ -726,9 +725,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         processedPublicationContent = await createPoll();
       }
 
-      const metadata: PublicationMetadataV2Input = {
-        version: '2.0.0',
-        metadata_id: uuid(),
+      const metadata: PublicationMetadata = {
+        id: uuid(),
         content: processedPublicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image:
@@ -766,13 +764,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       // Payload for the post/comment
-      const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
-        profileId: currentProfile?.id,
+      const request: OnchainPostRequest | OnchainCommentRequest = {
         contentURI: `ar://${arweaveId}`,
         ...(isComment && {
-          publicationId: targetPublication.id
+          commentOn: targetPublication.id
         }),
-        collectModule: collectModuleParams(collectModule, currentProfile),
+        openActionModules: collectModuleParams(collectModule, currentProfile),
         referenceModule:
           selectedReferenceModule ===
           ReferenceModuleType.FollowerOnlyReferenceModule
@@ -781,6 +778,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
                 degreesOfSeparationReferenceModule: {
                   commentsRestricted: true,
                   mirrorsRestricted: true,
+                  quotesRestricted: true,
                   degreesOfSeparation
                 }
               }
