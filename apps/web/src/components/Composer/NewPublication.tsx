@@ -39,6 +39,7 @@ import {
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
   useCreateOnchainCommentTypedDataMutation,
+  useCreateOnchainPostTypedDataMutation,
   usePublicationLazyQuery
 } from '@lenster/lens';
 import { useApolloClient } from '@lenster/lens/apollo';
@@ -389,9 +390,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       onError
     });
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) =>
-      await typedDataGenerator(createPostTypedData),
+  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
+    onCompleted: async ({ createOnchainPostTypedData }) =>
+      await typedDataGenerator(createOnchainPostTypedData),
     onError
   });
 
@@ -530,7 +531,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     const { data } = await createPostViaDispatcher({ variables: { request } });
     if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-      return await createPostTypedData({ variables });
+      return await createOnchainPostTypedData({ variables });
     }
 
     return;
@@ -823,7 +824,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
-      return await createPostTypedData({
+      return await createOnchainPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
     } catch (error) {
