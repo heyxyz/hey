@@ -9,6 +9,7 @@ import type { AnyPublication } from '@lenster/lens';
 import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
 import getURLs from '@lenster/lib/getURLs';
 import getNft from '@lenster/lib/nft/getNft';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
 import type { OG } from '@lenster/types/misc';
 import cn from '@lenster/ui/cn';
@@ -30,14 +31,18 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false,
   quoted = false
 }) => {
-  const { id, metadata } = publication;
-  const canShowMore = metadata?.content?.length > 450 && showMore;
-  const urls = getURLs(metadata?.content);
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { id, metadata } = targetPublication;
+  const canShowMore =
+    metadata?.marketplace?.description?.length > 450 && showMore;
+  const urls = getURLs(metadata?.marketplace?.description);
   const hasURLs = urls.length > 0;
   const snapshotProposalId = getSnapshotProposalId(urls);
   const nft = getNft(urls);
   const filterId = snapshotProposalId;
-  let rawContent = metadata?.content;
+  let rawContent = metadata?.marketplace?.description;
 
   if (filterId) {
     for (const url of urls) {
@@ -49,7 +54,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const [content, setContent] = useState(rawContent);
 
-  if (metadata?.encryptionParams) {
+  if (metadata?.encryptedWith) {
     return <DecryptedPublicationBody encryptedPublication={publication} />;
   }
 
@@ -58,7 +63,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
   // Show attachments if it's there
-  const showAttachments = metadata?.media?.length > 0;
+  const showAttachments =
+    metadata.__typename === 'AudioMetadataV3' ||
+    metadata.__typename === 'ImageMetadataV3' ||
+    metadata.__typename === 'VideoMetadataV3';
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs && !showNft && !showAttachments && !showSnapshot && !quoted;
@@ -94,7 +102,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {/* Attachments and Quotes */}
       <Quote publication={publication} />
       {showAttachments ? (
-        <Attachments attachments={metadata?.media} publication={publication} />
+        <Attachments attachments={metadata} publication={publication} />
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}

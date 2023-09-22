@@ -108,8 +108,10 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   });
 
   const getCondition = (key: string) => {
-    const criteria: any =
-      targetPublication.metadata.encryptedWith?.accessCondition.or?.criteria;
+    const accessCondition =
+      targetPublication.metadata.encryptedWith?.accessCondition;
+    const isOrCondition = accessCondition?.__typename === 'OrCondition';
+    const criteria: any = isOrCondition ? accessCondition.criteria : null;
 
     const getCriteria = (key: string) => {
       return criteria.map((item: any) => item[key]).find((item: any) => item);
@@ -179,9 +181,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     }
 
     setIsDecrypting(true);
-    const contentUri = sanitizeDStorageUrl(
-      encryptedPublication?.onChainContentURI
-    );
+    const contentUri = sanitizeDStorageUrl(targetPublication?.metadata.rawURI);
     const { data } = await axios.get(contentUri);
     const sdk = await LensGatedSDK.create({
       provider: publicClient as any,
