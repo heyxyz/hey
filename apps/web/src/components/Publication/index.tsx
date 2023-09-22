@@ -8,8 +8,10 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@lenster/data/constants';
 import { PAGEVIEW } from '@lenster/data/tracking';
+import type { AnyPublication } from '@lenster/lens';
 import { usePublicationQuery } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -58,16 +60,19 @@ const ViewPublication: NextPage = () => {
     return <Custom404 />;
   }
 
-  const { publication } = data;
-  const canComment = publication?.canComment?.result;
+  const publication = data.publication as AnyPublication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const canComment = targetPublication?.operations.canComment;
 
   return (
     <GridLayout>
       <MetaTags
         title={
-          publication.__typename && publication?.profile?.handle
+          publication.__typename && publication?.by?.handle
             ? `${publication.__typename} by @${formatHandle(
-                publication.profile.handle
+                publication.by.handle
               )} • ${APP_NAME}`
             : APP_NAME
         }
@@ -88,14 +93,7 @@ const ViewPublication: NextPage = () => {
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5" dataTestId="poster-profile">
-          <UserProfile
-            profile={
-              publication.__typename === 'Mirror'
-                ? publication?.mirrorOn?.by
-                : publication?.profile
-            }
-            showBio
-          />
+          <UserProfile profile={targetPublication.by} showBio />
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />
