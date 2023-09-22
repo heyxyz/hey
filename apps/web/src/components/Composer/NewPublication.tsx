@@ -38,6 +38,7 @@ import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useCreateMomokaCommentTypedDataMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
@@ -403,10 +404,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       await typedDataGenerator(createMomokaPostTypedData, true)
   });
 
-  const [createDataAvailabilityCommentTypedData] =
-    useCreateDataAvailabilityCommentTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
+  const [createMomokaCommentTypedData] =
+    useCreateMomokaCommentTypedDataMutation({
+      onCompleted: async ({ createMomokaCommentTypedData }) =>
+        await typedDataGenerator(createMomokaCommentTypedData, true)
     });
 
   const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
@@ -493,7 +494,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
         'RelayError'
       ) {
-        await createDataAvailabilityCommentTypedData({ variables });
+        await createMomokaCommentTypedData({ variables });
       }
 
       return;
