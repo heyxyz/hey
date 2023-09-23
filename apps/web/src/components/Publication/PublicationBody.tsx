@@ -1,7 +1,5 @@
 import Nft from '@components/Publication/OpenActions/Nft';
 import Snapshot from '@components/Publication/OpenActions/Snapshot';
-import Attachments from '@components/Shared/Attachments';
-import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
@@ -17,8 +15,6 @@ import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
-
-import DecryptedPublicationBody from './DecryptedPublicationBody';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
@@ -53,10 +49,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   const [content, setContent] = useState(rawContent);
-
-  if (metadata?.encryptedWith) {
-    return <DecryptedPublicationBody encryptedPublication={publication} />;
-  }
 
   // Show NFT if it's there
   const showNft = nft;
@@ -100,10 +92,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         </div>
       ) : null}
       {/* Attachments and Quotes */}
-      <Quote publication={publication} />
+      {/* <Quote publication={publication} />
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
-      ) : null}
+      ) : null} */}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}

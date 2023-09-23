@@ -8,34 +8,22 @@ import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type { AccessConditionOutput } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { LensHub } from '@lenster/abis';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
-  APP_NAME,
-  LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT
+  LENSHUB_PROXY
 } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   AnyPublication,
-  LegacyPublicationMetadata,
   MomokaCommentRequest,
   MomokaPostRequest,
   OnchainCommentRequest,
-  OnchainPostRequest,
-  PublicationMetadata,
-  PublicationMetadataV3Attribute
+  OnchainPostRequest
 } from '@lenster/lens';
 import {
   LegacyPublicationMetadataMainFocusType,
@@ -65,7 +53,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
-import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
@@ -80,7 +67,6 @@ import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -94,6 +80,7 @@ import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
+import getMetadata from './getMetadata';
 import Discard from './Post/Discard';
 
 const Attachment = dynamic(
@@ -113,12 +100,6 @@ const CollectSettings = dynamic(
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
-const AccessSettings = dynamic(
-  () => import('@components/Composer/Actions/AccessSettings'),
   {
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
@@ -189,14 +170,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
     useReferenceModuleStore();
 
-  // Access module store
-  const {
-    restricted,
-    followToView,
-    collectToView,
-    reset: resetAccessSettings
-  } = useAccessSettingsStore();
-
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
@@ -244,7 +217,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -252,7 +224,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      publication_type: restricted ? 'token_gated' : 'public',
+      publication_type: 'public',
       publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
@@ -554,7 +526,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (hasAudio || hasVideo)) {
+    if (attachments.length > 0 || hasAudio || hasVideo) {
       return attachments[0]?.original.url;
     }
 
@@ -569,72 +541,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       : attachments[0]?.original.url;
   };
 
-  const getAttachmentImageMimeType = () => {
-    return hasAudio
-      ? audioPublication.coverMimeType
-      : attachments[0]?.original.mimeType;
-  };
-
   const getTitlePrefix = () => {
     if (hasVideo) {
       return 'Video';
     }
 
     return isComment ? 'Comment' : 'Post';
-  };
-
-  const createTokenGatedMetadata = async (metadata: PublicationMetadata) => {
-    // Create the SDK instance
-    const tokenGatedSdk = await LensGatedSDK.create({
-      provider: publicClient as any,
-      signer: walletClient as any,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Connect to the SDK
-    await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy.address,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Condition for gating the content
-    const collectAccessCondition: CollectCondition = { thisPublication: true };
-    const followAccessCondition: FollowCondition = {
-      profileId: currentProfile?.id
-    };
-
-    // Create the access condition
-    let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: {
-          criteria: [
-            { collect: collectAccessCondition },
-            { follow: followAccessCondition }
-          ]
-        }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
-    }
-
-    // Generate the encrypted metadata and upload it to Arweave
-    const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
-      metadata,
-      currentProfile?.id,
-      accessCondition,
-      async (data: EncryptedMetadata) => {
-        return await uploadToArweave(data);
-      }
-    );
-
-    return contentURI;
-  };
-
-  const createMetadata = async (metadata: PublicationMetadata) => {
-    return await uploadToArweave(metadata);
   };
 
   const createPublication = async () => {
@@ -679,14 +591,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      const attributes: PublicationMetadataV3Attribute[] = [
+      const attributes = [
         {
+          type: MetadataAttributeType.STRING,
           key: 'type',
           value: getMainContentFocus()?.toLowerCase()
         },
         ...(quotedPublication
           ? [
               {
+                type: MetadataAttributeType.STRING,
                 key: 'quotedPublicationId',
                 value: quotedPublication.id
               }
@@ -695,6 +609,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(hasAudio
           ? [
               {
+                type: MetadataAttributeType.STRING,
                 key: 'author',
                 value: audioPublication.author
               }
@@ -703,6 +618,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(hasVideo
           ? [
               {
+                type: MetadataAttributeType.STRING,
                 key: 'durationInSeconds',
                 value: videoDurationInSeconds
               }
@@ -710,56 +626,37 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : [])
       ];
 
-      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
-        (attachment) => ({
-          item: attachment.original.url,
-          cover: getAttachmentImage(),
-          type: attachment.original.mimeType,
-          altTag: attachment.original.altTag
-        })
-      );
-
       let processedPublicationContent = publicationContent;
 
       if (showPollEditor) {
         processedPublicationContent = await createPoll();
       }
 
-      const metadata: LegacyPublicationMetadata = {
-        version: '2.0.0',
-        metadata_id: uuid(),
+      const baseMetadata = {
         content: processedPublicationContent,
-        external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
-        image:
-          attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType:
-          attachmentsInput.length > 0
-            ? getAttachmentImageMimeType()
-            : textNftImageUrl
-            ? 'image/svg+xml'
-            : null,
-        name: hasAudio
-          ? audioPublication.title
-          : `${getTitlePrefix()} by @${currentProfile?.handle}`,
-        animation_url: getAnimationUrl(),
-        mainContentFocus: getMainContentFocus(),
-        attributes,
-        media: attachmentsInput,
-        locale: getUserLocale(),
-        appId: APP_NAME
+        marketplace: {
+          name: hasAudio
+            ? audioPublication.title
+            : `${getTitlePrefix()} by @${currentProfile?.handle}`,
+          description: processedPublicationContent,
+          animation_url: getAnimationUrl() || textNftImageUrl,
+          external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
+          attributes: attributes
+        }
       };
 
-      const noCollect = !collectModule.type;
-      const useDataAvailability =
-        !restricted &&
-        (isComment ? publication.momoka?.proof && noCollect : noCollect);
+      const metadata = getMetadata({
+        baseMetadata,
+        attachments,
+        cover: getAttachmentImage()
+      });
 
-      let arweaveId = null;
-      if (restricted) {
-        arweaveId = await createTokenGatedMetadata(metadata);
-      } else {
-        arweaveId = await createMetadata(metadata);
-      }
+      const noCollect = !collectModule.type;
+      const useDataAvailability = isComment
+        ? publication.momoka?.proof && noCollect
+        : noCollect;
+
+      const arweaveId = await uploadToArweave(metadata);
 
       // Payload for the post/comment
       const request: OnchainPostRequest | OnchainCommentRequest = {
@@ -856,7 +753,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
   });
 
   return (
@@ -867,6 +763,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         'pb-3'
       )}
     >
+      {JSON.stringify(attachments)}
       {error ? (
         <ErrorMessage
           className="!rounded-none"
@@ -914,7 +811,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             <>
               <CollectSettings />
               <ReferenceSettings />
-              <AccessSettings />
             </>
           ) : null}
           <PollSettings />

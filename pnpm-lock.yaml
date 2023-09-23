@@ -81,6 +81,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.0.18
         version: 2.0.18(react@18.2.0)
+      '@lens-protocol/metadata':
+        specifier: 0.1.0-alpha.28
+        version: 0.1.0-alpha.28(zod@3.22.2)
       '@lens-protocol/sdk-gated':
         specifier: ^1.2.0
         version: 1.2.0(ethers@5.5.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
@@ -4329,6 +4332,19 @@ packages:
 
   /@ledgerhq/connect-kit-loader@1.1.2:
     resolution: {integrity: sha512-mscwGroSJQrCTjtNGBu+18FQbZYA4+q6Tyx6K7CXHl6AwgZKbWfZYdgP2F+fyZcRUdGRsMX8QtvU61VcGGtO1A==}
+    dev: false
+
+  /@lens-protocol/metadata@0.1.0-alpha.28(zod@3.22.2):
+    resolution: {integrity: sha512-CPyoPB1DpwWBrVpro3cKuczJc7JrwhIoR9iNJ7M4PHNr8MaX8sT5VHYjtnFfziMjamqLWZ82Fs7IUVV3AMWBOg==}
+    engines: {node: ^v18.12.1}
+    peerDependencies:
+      zod: ^3.22.0
+    peerDependenciesMeta:
+      zod:
+        optional: true
+    dependencies:
+      uuid: 9.0.1
+      zod: 3.22.2
     dev: false
 
   /@lens-protocol/sdk-gated@1.2.0(ethers@5.5.1)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):

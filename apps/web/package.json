@@ -21,7 +21,7 @@
     "@dnd-kit/sortable": "^7.0.2",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "@lens-protocol/sdk-gated": "^1.2.0",
+    "@lens-protocol/metadata": "0.1.0-alpha.28",
     "@lenster/abis": "workspace:*",
     "@lenster/data": "workspace:*",
     "@lenster/image-cropper": "workspace:*",

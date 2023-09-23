@@ -9,20 +9,6 @@ fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
   mainContentFocus
   appId
   rawURI
-  encryptedWith {
-    encryptionKey
-    encryptedFields {
-      content
-      image
-      media {
-        uri
-        mimeType
-        cover
-      }
-      animationUrl
-      externalUrl
-    }
-  }
   marketplace {
     ...MarketplaceMetadataFields
   }
