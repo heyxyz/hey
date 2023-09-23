@@ -5,7 +5,9 @@ import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
+import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
+import FeaturedChannel from './FeaturedChannel';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -72,12 +74,12 @@ const SinglePublication: FC<SinglePublicationProps> = ({
               publication={rootPublication}
               showMore={showMore}
             />
-            {/* <div className="flex flex-wrap items-center gap-x-7">
+            <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
                 <PublicationActions publication={rootPublication} />
               ) : null}
               <FeaturedChannel className="mt-3" tags={metadata.tags} />
-            </div> */}
+            </div>
             {showModActions ? (
               <ModAction
                 publication={rootPublication}

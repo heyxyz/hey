@@ -25,7 +25,13 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const collectModuleType = publication?.collectModule.__typename;
+  const hasCollectModule =
+    targetPublication.openActionModules?.some(
+      (module) =>
+        module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+        module.__typename === 'SimpleCollectOpenActionSettings'
+    ) ?? false;
+
   const canMirror = currentProfile
     ? targetPublication.operations.canMirror
     : true;
@@ -41,7 +47,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
       <Like publication={publication} showCount={showCount} />
-      {collectModuleType !== 'RevertCollectModuleSettings' ? (
+      {hasCollectModule ? (
         <Collect publication={publication} showCount={showCount} />
       ) : null}
       {gardenerMode ? (

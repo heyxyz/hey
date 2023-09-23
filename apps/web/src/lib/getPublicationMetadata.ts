@@ -1,4 +1,4 @@
-import { audio, textOnly, video } from '@lens-protocol/metadata/*';
+import { article, audio, textOnly, video } from '@lens-protocol/metadata';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
@@ -7,17 +7,17 @@ import {
 import getUserLocale from '@lib/getUserLocale';
 import { v4 as uuid } from 'uuid';
 
-interface GetMetadataProps {
+interface GetPublicationMetadataProps {
   baseMetadata: any;
   attachments: any[];
   cover: string;
 }
 
-const getMetadata = ({
+const getPublicationMetadata = ({
   baseMetadata,
   attachments,
   cover
-}: GetMetadataProps) => {
+}: GetPublicationMetadataProps) => {
   const hasAttachments = attachments.length;
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
     attachments[0]?.original.mimeType
@@ -33,8 +33,13 @@ const getMetadata = ({
   };
 
   switch (true) {
-    case hasAttachments && !hasAudio && !hasVideo:
+    case !hasAttachments:
       return textOnly({
+        ...baseMetadata,
+        ...localBaseMetadata
+      });
+    case hasAttachments && !hasAudio && !hasVideo:
+      return article({
         ...baseMetadata,
         ...localBaseMetadata,
         ...(hasAttachments && {
@@ -47,14 +52,6 @@ const getMetadata = ({
         })
       });
     case hasAttachments && hasAudio:
-      return audio({
-        ...baseMetadata,
-        ...localBaseMetadata,
-        audio: {
-          item: attachments[0]?.original.url,
-          type: attachments[0]?.original.mimeType
-        }
-      });
     case hasAttachments && hasVideo:
       return video({
         ...baseMetadata,
@@ -69,4 +66,4 @@ const getMetadata = ({
   }
 };
 
-export default getMetadata;
+export default getPublicationMetadata;

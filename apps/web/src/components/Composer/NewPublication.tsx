@@ -52,6 +52,7 @@ import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
+import getPublicationMetadata from '@lib/getPublicationMetadata';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -65,7 +66,6 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
-import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -76,11 +76,10 @@ import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
-import getMetadata from './getMetadata';
 import Discard from './Post/Discard';
 
 const Attachment = dynamic(
@@ -175,8 +174,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const publicClient = usePublicClient();
-  const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -645,7 +642,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         }
       };
 
-      const metadata = getMetadata({
+      const metadata = getPublicationMetadata({
         baseMetadata,
         attachments,
         cover: getAttachmentImage()
@@ -763,7 +760,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         'pb-3'
       )}
     >
-      {JSON.stringify(attachments)}
       {error ? (
         <ErrorMessage
           className="!rounded-none"
