@@ -8,10 +8,8 @@ import type {
   PublicationsRequest
 } from '@lenster/lens';
 import {
-  CommentRankingFilterType,
   CustomFiltersType,
   LimitType,
-  PublicationsOrderByType,
   usePublicationsQuery
 } from '@lenster/lens';
 import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
@@ -35,13 +33,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   // Variables
   const request: PublicationsRequest = {
     where: {
-      commentOn: {
-        id: publicationId,
-        commentsRankingFilter: CommentRankingFilterType.Relevant
-      },
+      commentOn: { id: publicationId },
       customFilters: [CustomFiltersType.Gardeners]
     },
-    orderBy: PublicationsOrderByType.CommentOfQueryRanking,
     limit: LimitType.TwentyFive
   };
 
