@@ -1,4 +1,7 @@
-const haveMintedZoraNft = async (by: string, contract: string) => {
+const haveMintedZoraNft = async (
+  by: `0x${string}`,
+  contract: `0x${string}`
+) => {
   const response = await fetch('https://api.zora.co/graphql', {
     method: 'POST',
     headers: {
@@ -7,22 +10,22 @@ const haveMintedZoraNft = async (by: string, contract: string) => {
     },
     body: JSON.stringify({
       query: `
-          query Mints {
-            mints(
-              where: {
-                minterAddresses: "${by.toLowerCase()}",
-                collectionAddresses: "${contract.toLowerCase()}"
-              }
-              networks: {network: ZORA, chain: ZORA_MAINNET}
-            ) {
-              nodes {
-                mint {
-                  tokenId
-                }
+        query Mints {
+          mints(
+            where: {
+              minterAddresses: "${by.toLowerCase()}",
+              collectionAddresses: "${contract.toLowerCase()}"
+            }
+            networks: {network: ZORA, chain: ZORA_MAINNET}
+          ) {
+            nodes {
+              mint {
+                tokenId
               }
             }
           }
-        `
+        }
+      `
     })
   });
 
