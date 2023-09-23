@@ -45,7 +45,7 @@ const ProtectProfile: FC = () => {
     return null;
   }
 
-  const coolOffDate = currentProfile?.guardian?.cooldownEndsOn as any;
+  const coolOffDate = currentProfile?.guardian?.cooldownEndsOn ?? new Date();
   const coolOffTime = new Date(
     new Date(coolOffDate).getTime() + 5 * 60 * 100
   ).toISOString();

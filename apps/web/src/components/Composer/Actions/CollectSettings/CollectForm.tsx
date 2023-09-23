@@ -1,5 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectOpenActionModuleType, useCurrenciesQuery } from '@lenster/lens';
+import {
+  CollectOpenActionModuleType,
+  LimitType,
+  useCurrenciesQuery
+} from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -50,7 +54,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { data, loading, error } = useCurrenciesQuery({});
+  const { data, loading, error } = useCurrenciesQuery({
+    variables: {
+      request: { limit: LimitType.Fifty }
+    }
+  });
 
   if (loading) {
     return (

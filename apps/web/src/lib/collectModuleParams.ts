@@ -34,10 +34,8 @@ const collectModuleParams = (
           ...baseCollectModuleParams,
           ...(amount && {
             referralFee: referralFee,
-            fee: {
-              amount: amount,
-              recipient: currentProfile?.ownedBy.address
-            }
+            amount: amount,
+            recipient: currentProfile?.ownedBy.address
           })
         }
       };

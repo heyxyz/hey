@@ -98,13 +98,13 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {}
   };
 
-  const handleSign = async () => {
+  const handleSign = async (id: string) => {
     let keepModal = false;
     try {
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { for: '0x1c', signedBy: address } }
+        variables: { request: { for: id, signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -128,7 +128,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
       // Get authed profiles
       const { data: profile } = await getUserProfile({
-        variables: { request: { forProfileId: '0x1c' } }
+        variables: { request: { forProfileId: id } }
       });
 
       if (!profile?.profile) {
@@ -154,9 +154,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
           <div>
-            <button onClick={handleSign}>sign</button>
             {profilesManaged?.profilesManaged.items.map((profile) => (
-              <UserProfile key={profile.id} profile={profile as Profile} />
+              <button key={profile.id} onClick={() => handleSign(profile.id)}>
+                <UserProfile
+                  linkToProfile={false}
+                  showUserPreview={false}
+                  profile={profile as Profile}
+                />
+              </button>
             ))}
           </div>
         ) : (

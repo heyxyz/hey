@@ -29,14 +29,17 @@ import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   AnyPublication,
+  LegacyPublicationMetadata,
+  MomokaCommentRequest,
+  MomokaPostRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
   PublicationMetadata,
   PublicationMetadataV3Attribute
 } from '@lenster/lens';
 import {
+  LegacyPublicationMetadataMainFocusType,
   PublicationDocument,
-  PublicationMetadataMainFocusType,
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
@@ -481,37 +484,33 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const createViaDataAvailablityDispatcher = async (request: any) => {
-    const variables = { request };
-
+  const createOnMomka = async (request: any) => {
     if (isComment) {
       const { data } = await commentOnMomoka({
-        variables
+        variables: { request }
       });
 
       if (
         data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
       ) {
-        await createMomokaCommentTypedData({ variables });
+        await createMomokaCommentTypedData({ variables: { request } });
       }
 
       return;
     }
 
     const { data } = await postOnMomoka({
-      variables
+      variables: { request }
     });
 
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaPostTypedData({ variables });
+      await createMomokaPostTypedData({ variables: { request } });
     }
 
     return;
   };
 
-  const createOnChain = async (
-    request: OnchainPostRequest | OnchainCommentRequest
-  ) => {
+  const createOnChain = async (request: any) => {
     const variables = {
       options: { overrideSigNonce: userSigNonce },
       request
@@ -539,18 +538,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const getMainContentFocus = () => {
     if (attachments.length > 0) {
       if (hasAudio) {
-        return PublicationMetadataMainFocusType.Audio;
+        return LegacyPublicationMetadataMainFocusType.Audio;
       } else if (
         ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
       ) {
-        return PublicationMetadataMainFocusType.Image;
+        return LegacyPublicationMetadataMainFocusType.Image;
       } else if (hasVideo) {
-        return PublicationMetadataMainFocusType.Video;
+        return LegacyPublicationMetadataMainFocusType.Video;
       } else {
-        return PublicationMetadataMainFocusType.TextOnly;
+        return LegacyPublicationMetadataMainFocusType.TextOnly;
       }
     } else {
-      return PublicationMetadataMainFocusType.TextOnly;
+      return LegacyPublicationMetadataMainFocusType.TextOnly;
     }
   };
 
@@ -726,8 +725,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         processedPublicationContent = await createPoll();
       }
 
-      const metadata: PublicationMetadata = {
-        id: uuid(),
+      const metadata: LegacyPublicationMetadata = {
+        version: '2.0.0',
+        metadata_id: uuid(),
         content: processedPublicationContent,
         external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
         image:
@@ -790,8 +790,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       // Payload for the data availability post/comment
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
+      const dataAvailablityRequest: MomokaPostRequest | MomokaCommentRequest = {
         ...(isComment && {
           commentOn: targetPublication.id
         }),
@@ -800,9 +799,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (canUseRelay) {
         if (useDataAvailability && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          );
+          return await createOnMomka(dataAvailablityRequest);
         }
 
         return await createOnChain(request);
@@ -812,7 +809,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         return await createOnchainCommentTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
-            request: request
+            request: request as OnchainCommentRequest
           }
         });
       }
