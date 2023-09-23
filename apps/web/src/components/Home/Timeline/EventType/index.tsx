@@ -23,9 +23,9 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   const showThread = isComment || (feedItem.comments?.length ?? 0) > 0;
 
   const canCombined = getCanCombined([
-    feedItem.mirrors.length,
-    feedItem.reactions.length,
-    feedItem.acted.length,
+    feedItem.mirrors?.length ?? 0,
+    feedItem.reactions?.length ?? 0,
+    feedItem.acted?.length ?? 0,
     feedItem.comments?.length ?? 0
   ]);
 
@@ -35,13 +35,13 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
         <Combined feedItem={feedItem} />
       ) : (
         <>
-          {feedItem.mirrors.length && !isComment ? (
+          {feedItem.mirrors?.length && !isComment ? (
             <Mirrored mirrors={feedItem.mirrors} />
           ) : null}
-          {feedItem.acted.length && !isComment ? (
+          {feedItem.acted?.length && !isComment ? (
             <Acted acted={feedItem.acted} />
           ) : null}
-          {feedItem.reactions.length && !isComment ? (
+          {feedItem.reactions?.length && !isComment ? (
             <Liked reactions={feedItem.reactions} />
           ) : null}
         </>
