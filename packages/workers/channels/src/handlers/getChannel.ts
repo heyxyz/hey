@@ -1,6 +1,7 @@
 import response from '@lenster/lib/response';
 import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
+import getMembersCount from '../helpers/getMembersCount';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -14,17 +15,12 @@ export default async (request: WorkerRequest) => {
       .eq('slug', slug)
       .single();
 
-    const membersCountRequest = await fetch(
-      `https://mint.fun/api/mintfun/contract/7777777:${data?.contract?.toLowerCase()}/details`
-    );
-
-    const json: {
-      details: { minterCount: string };
-    } = await membersCountRequest.json();
-
     return response({
       success: true,
-      result: { ...data, members: parseInt(json.details.minterCount || '0') }
+      result: {
+        ...data,
+        members: await getMembersCount(data?.contract as `0x${string}`)
+      }
     });
   } catch (error) {
     throw error;
