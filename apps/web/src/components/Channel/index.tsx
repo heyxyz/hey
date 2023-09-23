@@ -31,11 +31,9 @@ const ViewChannel: NextPage = () => {
 
   const fetchCommunity = async (): Promise<Channel> => {
     const response: {
-      data: {
-        result: Channel;
-      };
+      data: { result: Channel };
     } = await axios.get(`${CHANNELS_WORKER_URL}/get/${slug}`);
-    setMembersCount(response.data?.result.members[0].count);
+    setMembersCount(response.data?.result.members);
 
     return response.data?.result;
   };
