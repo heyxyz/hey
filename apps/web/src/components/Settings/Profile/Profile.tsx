@@ -3,6 +3,7 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import {
+  AVATAR,
   COVER,
   LENSHUB_PROXY,
   STATIC_IMAGES_URL
@@ -18,6 +19,7 @@ import {
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@lenster/lens';
+import getAvatarUrl from '@lenster/lib/getAvatarUrl';
 import getProfileAttribute from '@lenster/lib/getProfileAttribute';
 import getSignature from '@lenster/lib/getSignature';
 import imageKit from '@lenster/lib/imageKit';
@@ -75,13 +77,26 @@ interface ProfileSettingsFormProps {
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [imageSrc, setImageSrc] = useState('');
-  const [showCropModal, setShowCropModal] = useState(false);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+
+  // Cover Picture
+  const [profileCoverIpfsUrl, setProfileCoverIpfsUrl] = useState('');
+  const [coverPictureSrc, setCoverPictureSrc] = useState('');
+  const [showCoverPictureCropModal, setShowCoverPictureCropModal] =
+    useState(false);
+  const [croppedCoverPictureAreaPixels, setCoverPictureCroppedAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadedCoverPictureUrl, setUploadedCoverPictureUrl] = useState('');
+
+  // Picture
+  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState('');
+  const [pictureSrc, setPictureSrc] = useState('');
+  const [showPictureCropModal, setShowPictureCropModal] = useState(false);
+  const [croppedPictureAreaPixels, setPictureCroppedAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadedPictureUrl, setUploadedPictureUrl] = useState('');
+
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
@@ -190,7 +205,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       const id = await uploadToArweave({
         name,
         bio,
-        cover_picture: coverIpfsUrl ? coverIpfsUrl : null,
+        cover_picture: profileCoverIpfsUrl ? profileCoverIpfsUrl : null,
         attributes: [
           ...(profile?.metadata?.attributes
             ?.filter(
@@ -243,7 +258,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
   };
 
-  const uploadAndSave = async () => {
+  const uploadAndSave = async (type: 'avatar' | 'cover') => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -253,28 +268,47 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
 
     try {
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      const croppedImage = await getCroppedImg(
+        type === 'avatar' ? pictureSrc : coverPictureSrc,
+        type === 'avatar'
+          ? croppedPictureAreaPixels
+          : croppedCoverPictureAreaPixels
+      );
       if (!croppedImage) {
         return toast.error(Errors.SomethingWentWrong);
       }
       setUploading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
-      setCoverIpfsUrl(ipfsUrl);
-      setUploadedImageUrl(dataUrl);
+
+      if (type === 'avatar') {
+        setProfileCoverIpfsUrl(ipfsUrl);
+        setUploadedCoverPictureUrl(dataUrl);
+      } else if (type === 'cover') {
+        setProfilePictureIpfsUrl(ipfsUrl);
+        setUploadedPictureUrl(dataUrl);
+      }
     } catch (error) {
       onError(error);
     } finally {
-      setShowCropModal(false);
+      setShowCoverPictureCropModal(false);
       setUploading(false);
     }
   };
 
-  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (
+    evt: ChangeEvent<HTMLInputElement>,
+    type: 'avatar' | 'cover'
+  ) => {
     const file = evt.target.files?.[0];
     if (file) {
-      setImageSrc(await readFile(file));
-      setShowCropModal(true);
+      if (type === 'avatar') {
+        setPictureSrc(await readFile(file));
+        setShowPictureCropModal(true);
+      } else if (type === 'cover') {
+        setCoverPictureSrc(await readFile(file));
+        setShowCoverPictureCropModal(true);
+      }
     }
   };
 
@@ -284,6 +318,11 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     `${STATIC_IMAGES_URL}/patterns/2.svg`;
   const coverPictureIpfsUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
+    : '';
+
+  const pictureUrl = getAvatarUrl(profile);
+  const pictureIpfsUrl = pictureUrl
+    ? imageKit(sanitizeDStorageUrl(pictureUrl), AVATAR)
     : '';
 
   return (
@@ -340,20 +379,38 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             {...form.register('bio')}
           />
           <div className="space-y-1.5">
+            <div className="label">Avatar</div>
+            <div className="space-y-3">
+              <Image
+                className="max-w-xs rounded-lg"
+                src={uploadedPictureUrl || pictureIpfsUrl}
+                alt={t`Profile picture crop preview`}
+              />
+              <div className="flex items-center space-x-3">
+                <ChooseFile
+                  onChange={(event) => onFileChange(event, 'avatar')}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="space-y-1.5">
             <div className="label">Cover</div>
             <div className="space-y-3">
               <div>
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = sanitizeDStorageUrl(coverIpfsUrl);
+                    currentTarget.src =
+                      sanitizeDStorageUrl(profileCoverIpfsUrl);
                   }}
-                  src={uploadedImageUrl || coverPictureIpfsUrl}
+                  src={uploadedCoverPictureUrl || coverPictureIpfsUrl}
                   alt={t`Cover picture crop preview`}
                 />
               </div>
               <div className="flex items-center space-x-3">
-                <ChooseFile onChange={onFileChange} />
+                <ChooseFile
+                  onChange={(event) => onFileChange(event, 'cover')}
+                />
                 {uploading ? <Spinner size="sm" /> : null}
               </div>
             </div>
@@ -361,7 +418,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={isLoading || (!form.formState.isDirty && !imageSrc)}
+            disabled={
+              isLoading || (!form.formState.isDirty && !coverPictureSrc)
+            }
             icon={
               isLoading ? (
                 <Spinner size="xs" />
@@ -376,27 +435,27 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       </Card>
       <Modal
         title={t`Crop image`}
-        show={showCropModal}
+        show={showCoverPictureCropModal}
         size="md"
         onClose={
           isLoading
             ? undefined
             : () => {
-                setImageSrc('');
-                setShowCropModal(false);
+                setCoverPictureSrc('');
+                setShowCoverPictureCropModal(false);
               }
         }
       >
         <div className="p-5 text-right">
           <ImageCropperController
-            imageSrc={imageSrc}
-            setCroppedAreaPixels={setCroppedAreaPixels}
+            imageSrc={coverPictureSrc}
+            setCroppedAreaPixels={setCoverPictureCroppedAreaPixels}
             targetSize={{ width: 1500, height: 500 }}
           />
           <Button
             type="submit"
-            disabled={uploading || !imageSrc}
-            onClick={uploadAndSave}
+            disabled={uploading || !coverPictureSrc}
+            onClick={() => uploadAndSave('cover')}
             icon={
               uploading ? (
                 <Spinner size="xs" />
@@ -406,6 +465,42 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             }
           >
             <Trans>Upload</Trans>
+          </Button>
+        </div>
+      </Modal>
+      {/* Picture */}
+      <Modal
+        title={t`Crop image`}
+        show={showPictureCropModal}
+        size="sm"
+        onClose={
+          isLoading
+            ? undefined
+            : () => {
+                setCoverPictureSrc('');
+                setShowPictureCropModal(false);
+              }
+        }
+      >
+        <div className="p-5 text-right">
+          <ImageCropperController
+            imageSrc={pictureSrc}
+            setCroppedAreaPixels={setPictureCroppedAreaPixels}
+            targetSize={{ width: 300, height: 300 }}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || !pictureSrc}
+            onClick={() => uploadAndSave('avatar')}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="h-4 w-4" />
+              )
+            }
+          >
+            <Trans>Save</Trans>
           </Button>
         </div>
       </Modal>
