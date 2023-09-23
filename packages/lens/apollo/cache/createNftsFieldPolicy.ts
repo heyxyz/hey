@@ -3,7 +3,7 @@ import type { FieldPolicy } from '@apollo/client';
 import { cursorBasedPagination } from '../lib';
 
 const createNftsFieldPolicy = (): FieldPolicy => {
-  return cursorBasedPagination(['request', ['ownerAddress', 'chainIds']]);
+  return cursorBasedPagination(['request', ['where']]);
 };
 
 export default createNftsFieldPolicy;
