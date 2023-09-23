@@ -6,7 +6,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 import { OpenActionModuleType, useProfileLazyQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import splitNumber from '@lenster/lib/splitNumber';
@@ -50,7 +50,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const getIsHandle = (handle: string) => {
     return handle === LENSPROTOCOL_HANDLE
       ? true
-      : handle.includes(HANDLE_SUFFIX);
+      : handle.includes(HANDLE_PREFIX);
   };
 
   const onChangeRecipientOrSplit = (

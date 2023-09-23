@@ -1,10 +1,10 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { HANDLE_SUFFIX } from '@lenster/data/constants';
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
 import { Button, Spinner } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -45,7 +45,7 @@ const Pending: FC<PendingProps> = ({ handle, txHash }) => {
           <div className="text-[40px]">🌿</div>
           <div>Account created successfully</div>
           <div className="pt-3">
-            <Link href={`/u/${handle}${HANDLE_SUFFIX}`}>
+            <Link href={`/u/${formatHandle(handle)}`}>
               <Button
                 className="mx-auto"
                 icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}

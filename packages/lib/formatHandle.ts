@@ -1,13 +1,12 @@
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 
 /**
  * Format the given handle by conditionally removing or appending the .lens or .test suffix.
  *
  * @param handle Complete handle
- * @param keepSuffix Keep the .lens or .test suffix if true, remove if false
- * @returns Formatted handle without .lens or .test suffix, unless keepSuffix is true
+ * @returns Formatted handle without lens/ or test/ prefix
  */
-const formatHandle = (handle: string | null, keepSuffix = false): string => {
+const formatHandle = (handle: string | null): string => {
   if (!handle) {
     return '';
   }
@@ -16,13 +15,7 @@ const formatHandle = (handle: string | null, keepSuffix = false): string => {
     return handle;
   }
 
-  if (keepSuffix) {
-    return handle.match(HANDLE_SUFFIX)
-      ? handle.split(HANDLE_SUFFIX)[0] + HANDLE_SUFFIX
-      : handle + HANDLE_SUFFIX;
-  }
-
-  return handle.replace(HANDLE_SUFFIX, '');
+  return handle.replace(HANDLE_PREFIX, '');
 };
 
 export default formatHandle;

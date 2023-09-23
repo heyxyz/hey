@@ -1,5 +1,4 @@
 import Profile from '@components/Profile';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 import type { PublicationsRequest } from '@lenster/lens';
 import {
   CustomFiltersType,
@@ -26,16 +25,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  let processedHandle;
-  if (handle.includes(HANDLE_SUFFIX)) {
-    processedHandle = handle;
-  } else {
-    processedHandle =
-      handle === LENSPROTOCOL_HANDLE ? handle : handle.concat(HANDLE_SUFFIX);
-  }
   const { data: profileData } = await lensApolloNodeClient.query({
     query: ProfileDocument,
-    variables: { request: { handle: processedHandle } }
+    variables: { request: { handle } }
   });
 
   if (profileData.profile) {

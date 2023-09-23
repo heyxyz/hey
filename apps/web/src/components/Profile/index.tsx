@@ -52,9 +52,9 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
-  const handle = formatHandle(username as string, true);
+  const handle = username as string;
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { forHandle: handle } },
+    variables: { request: { forHandle: `test/@${handle}` } },
     skip: !handle
   });
 
