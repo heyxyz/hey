@@ -16,7 +16,7 @@ const Following: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowingRequest = {
-    for: currentProfile?.ownedBy,
+    for: currentProfile?.id,
     limit: LimitType.Fifty
   };
 

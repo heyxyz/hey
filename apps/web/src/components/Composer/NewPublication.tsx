@@ -580,7 +580,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       setPublicationContentError('');
       let textNftImageUrl = null;
-      if (!attachments.length && !collectModule.type) {
+      if (!attachments.length) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           currentProfile.handle,
