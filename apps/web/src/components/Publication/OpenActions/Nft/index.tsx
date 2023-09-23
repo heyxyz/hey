@@ -2,6 +2,7 @@ import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
+import { ADMIN_ADDRESS } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type { AnyPublication } from '@lenster/lens';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
@@ -60,7 +61,7 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
     token ? `/${token}` : ''
-  }`;
+  }?referrer=${ADMIN_ADDRESS}`;
 
   return (
     <Card

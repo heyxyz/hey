@@ -102,7 +102,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {/* Attachments and Quotes */}
       <Quote publication={publication} />
       {showAttachments ? (
-        <Attachments attachments={metadata} publication={publication} />
+        <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
