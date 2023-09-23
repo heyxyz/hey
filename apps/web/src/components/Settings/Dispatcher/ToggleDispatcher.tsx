@@ -3,7 +3,10 @@ import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
-import { useBroadcastOnchainMutation } from '@lenster/lens';
+import {
+  useBroadcastOnchainMutation,
+  useCreateChangeProfileManagersTypedDataMutation
+} from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
@@ -63,10 +66,10 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
       onCompleted: ({ broadcastOnchain }) =>
         onCompleted(broadcastOnchain.__typename)
     });
-  const [createSetDispatcherTypedData] =
-    useCreateSetDispatcherTypedDataMutation({
-      onCompleted: async ({ createSetDispatcherTypedData }) => {
-        const { id, typedData } = createSetDispatcherTypedData;
+  const [createChangeProfileManagersTypedData] =
+    useCreateChangeProfileManagersTypedDataMutation({
+      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
+        const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
@@ -84,12 +87,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const toggleDispatcher = async () => {
     try {
       setIsLoading(true);
-      return await createSetDispatcherTypedData({
+      return await createChangeProfileManagersTypedData({
         variables: {
-          request: {
-            profileId: currentProfile?.id,
-            enable: canUseRelay ? false : true
-          }
+          request: { approveLensManager: canUseRelay ? false : true }
         }
       });
     } catch (error) {
@@ -106,8 +106,8 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   };
 
   const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelaySuccess' &&
-    broadcastData.broadcast.txHash;
+    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData.broadcastOnchain.txHash;
 
   return writeData?.hash ?? broadcastTxHash ? (
     <div className="mt-2">
