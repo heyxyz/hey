@@ -4,7 +4,7 @@ import type {
   Profile,
   RecipientDataInput
 } from '@lenster/lens';
-import { OpenActionModuleType } from '@lenster/lens';
+import { CollectOpenActionModuleType } from '@lenster/lens';
 import type { CollectModuleType } from 'src/store/collect-module';
 
 import { getTimeAddedNDay } from './formatTime';
@@ -28,7 +28,7 @@ const collectModuleParams = (
   };
 
   switch (collectModule.type) {
-    case OpenActionModuleType.SimpleCollectOpenActionModule:
+    case CollectOpenActionModuleType.SimpleCollectOpenActionModule:
       return {
         simpleCollectOpenAction: {
           ...baseCollectModuleParams,
@@ -41,7 +41,7 @@ const collectModuleParams = (
           })
         }
       };
-    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+    case CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
         multirecipientCollectOpenAction: {
           ...baseCollectModuleParams,

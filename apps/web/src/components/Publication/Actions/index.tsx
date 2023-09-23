@@ -1,4 +1,5 @@
 import type { AnyPublication } from '@lenster/lens';
+import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -19,10 +20,15 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
   showCount = false
 }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
   const collectModuleType = publication?.collectModule.__typename;
-  const canMirror = currentProfile ? publication?.canMirror?.result : true;
+  const canMirror = currentProfile
+    ? targetPublication.operations.canMirror
+    : true;
 
   return (
     <span
