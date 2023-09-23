@@ -21,7 +21,7 @@ const Join: FC<JoinProps> = ({ channel }) => {
 
   const isChannelMember = async () => {
     try {
-      const response = await axios.get(`${CHANNELS_WORKER_URL}/isMember_new`, {
+      const response = await axios.get(`${CHANNELS_WORKER_URL}/isMember`, {
         params: { by: currentProfile?.ownedBy, contract: channel.contract }
       });
       const { data } = response;
