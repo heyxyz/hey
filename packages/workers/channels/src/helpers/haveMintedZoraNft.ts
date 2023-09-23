@@ -10,8 +10,8 @@ const haveMintedZoraNft = async (by: string, contract: string) => {
           query Mints {
             mints(
               where: {
-                minterAddresses: "${by}",
-                collectionAddresses: "${contract}"
+                minterAddresses: "${by.toLowerCase()}",
+                collectionAddresses: "${contract.toLowerCase()}"
               }
               networks: {network: ZORA, chain: ZORA_MAINNET}
             ) {
