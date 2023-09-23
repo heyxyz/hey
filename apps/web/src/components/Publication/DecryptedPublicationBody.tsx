@@ -24,7 +24,7 @@ import {
   RARIBLE_URL
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import type { type AnyPublication, PublicationMetadata } from '@lenster/lens';
+import type { AnyPublication, PublicationMetadata } from '@lenster/lens';
 import { DecryptFailReasonType } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';

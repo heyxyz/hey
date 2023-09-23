@@ -2,10 +2,11 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
+import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
 interface TimeLimitConfigProps {
-  setCollectType: (data: any) => void;
+  setCollectType: (data: CollectModuleType) => void;
 }
 
 const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
@@ -14,10 +15,10 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        on={collectModule.timeLimit ?? false}
+        on={Boolean(collectModule.endsAt) ?? false}
         setOn={() =>
           setCollectType({
-            timeLimit: collectModule.timeLimit ? false : true
+            endsAt: collectModule.endsAt ? false : true
           })
         }
         heading={t`Time limit`}

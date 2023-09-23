@@ -7,6 +7,8 @@ fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
   tags
   contentWarning
   mainContentFocus
+  appId
+  rawURI
   encryptedWith {
     encryptionKey
     encryptedFields {
