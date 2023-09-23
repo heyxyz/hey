@@ -3,10 +3,7 @@ import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@lenster/abis';
 import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { SETTINGS } from '@lenster/data/tracking';
-import {
-  useBroadcastOnchainMutation,
-  useCreateSetDispatcherTypedDataMutation
-} from '@lenster/lens';
+import { useBroadcastOnchainMutation } from '@lenster/lens';
 import getSignature from '@lenster/lib/getSignature';
 import { Button, Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';

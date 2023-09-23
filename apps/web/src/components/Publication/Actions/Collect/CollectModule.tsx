@@ -26,9 +26,7 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCollectModuleQuery,
-  useCreateCollectTypedDataMutation,
-  useProxyActionMutation,
-  usePublicationRevenueQuery
+  useCreateActOnOpenActionTypedDataMutation
 } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
 import formatHandle from '@lenster/lib/formatHandle';
@@ -51,7 +49,6 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
-import { useUpdateEffect } from 'usehooks-ts';
 import {
   useAccount,
   useBalance,
@@ -80,7 +77,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const [revenue, setRevenue] = useState(0);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
     targetPublication.operations.hasActed.value
   );
@@ -130,7 +126,6 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     setIsLoading(false);
-    setRevenue(revenue + parseFloat(amount));
     setCount(count + 1);
     setHasCollectedByMe(true);
     toast.success(t`Collected successfully!`);
@@ -174,7 +169,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         request: {
           currencies: assetAddress,
           followModules: [],
-          collectModules: collectModule?.type,
+          openActionModules: [collectModule?.type],
           referenceModules: []
         }
       },
@@ -186,30 +181,11 @@ const CollectModule: FC<CollectModuleProps> = ({
       }
     });
 
-  const { data: revenueData, loading: revenueLoading } =
-    usePublicationRevenueQuery({
-      variables: {
-        request: {
-          publicationId: targetPublication.id
-        }
-      },
-      pollInterval: 5000,
-      skip: !publication?.id || isFreeCollectModule || isSimpleFreeCollectModule
-    });
-
   const { data: usdPrice } = useQuery(
     ['redstoneData'],
     () => getRedstonePrice(getAssetSymbol(currency)).then((res) => res),
     { enabled: Boolean(amount) }
   );
-
-  useUpdateEffect(() => {
-    setRevenue(
-      parseFloat(
-        (revenueData?.publicationRevenue?.revenue?.total?.value as any) ?? 0
-      )
-    );
-  }, [revenueData]);
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
@@ -229,44 +205,21 @@ const CollectModule: FC<CollectModuleProps> = ({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
   });
-  const [createCollectTypedData] = useCreateCollectTypedDataMutation({
-    onCompleted: async ({ createCollectTypedData }) => {
-      const { id, typedData } = createCollectTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const { profileId, pubId, data: collectData } = typedData.value;
-        return write?.({ args: [profileId, pubId, collectData] });
-      }
-    },
-    onError
-  });
-
-  const [createCollectProxyAction] = useProxyActionMutation({
-    onCompleted: () => onCompleted(),
-    onError
-  });
-
-  const createViaProxyAction = async (variables: any) => {
-    const { data, errors } = await createCollectProxyAction({ variables });
-
-    if (
-      errors?.toString().includes('You have already collected this publication')
-    ) {
-      return;
-    }
-
-    if (!data?.proxyAction) {
-      return await createCollectTypedData({
-        variables: {
-          request: { publicationId: publication?.id },
-          options: { overrideSigNonce: userSigNonce }
+  const [createActOnOpenActionTypedData] =
+    useCreateActOnOpenActionTypedDataMutation({
+      onCompleted: async ({ createActOnOpenActionTypedData }) => {
+        const { id, typedData } = createActOnOpenActionTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const { profileId, pubId, data: collectData } = typedData.value;
+          return write?.({ args: [profileId, pubId, collectData] });
         }
-      });
-    }
-  };
+      },
+      onError
+    });
 
   const createCollect = async () => {
     if (!currentProfile) {
@@ -279,22 +232,12 @@ const CollectModule: FC<CollectModuleProps> = ({
 
     try {
       setIsLoading(true);
-      const canUseProxy =
-        (isSimpleFreeCollectModule || isFreeCollectModule) &&
-        !collectModule?.followerOnly;
-      if (canUseProxy) {
-        return await createViaProxyAction({
-          request: {
-            collect: { freeCollect: { publicationId: publication?.id } }
-          }
-        });
-      }
-
-      return await createCollectTypedData({
+      return await createActOnOpenActionTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
-            publicationId: publication?.id
+            for: publication?.id,
+            actOn: { [collectModule?.type]: true }
           }
         }
       });
@@ -303,7 +246,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
   };
 
-  if (loading || revenueLoading) {
+  if (loading) {
     return <Loader message={t`Loading collect`} />;
   }
 
@@ -333,21 +276,23 @@ const CollectModule: FC<CollectModuleProps> = ({
         {collectModule?.followerOnly ? (
           <div className="pb-5">
             <CollectWarning
-              handle={formatHandle(publication?.profile?.handle)}
+              handle={formatHandle(publication?.by?.handle)}
               isSuperFollow={
-                publication?.profile?.followModule?.__typename ===
+                publication?.by?.followModule?.__typename ===
                 'FeeFollowModuleSettings'
               }
             />
           </div>
         ) : null}
         <div className="mb-4 space-y-1.5">
-          {publication.metadata?.name ? (
-            <div className="text-xl font-bold">{publication.metadata.name}</div>
+          {targetPublication.metadata?.marketplace?.name ? (
+            <div className="text-xl font-bold">
+              {targetPublication.metadata?.marketplace?.name}
+            </div>
           ) : null}
-          {publication.metadata?.content ? (
+          {targetPublication.metadata?.marketplace?.description ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
-              {publication.metadata.content}
+              {targetPublication.metadata?.marketplace?.description}
             </Markup>
           ) : null}
         </div>
@@ -418,38 +363,6 @@ const CollectModule: FC<CollectModuleProps> = ({
               </div>
             ) : null}
           </div>
-          {revenueData?.publicationRevenue ? (
-            <div className="flex items-center space-x-2">
-              <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
-              <div className="flex items-center space-x-1.5">
-                <span>
-                  <Trans>Revenue:</Trans>
-                </span>
-                <span className="flex items-center space-x-1">
-                  <img
-                    src={getTokenImage(currency)}
-                    className="h-5 w-5"
-                    height={20}
-                    width={20}
-                    alt={currency}
-                    title={currency}
-                  />
-                  <div className="flex items-baseline space-x-1.5">
-                    <div className="font-bold">{revenue}</div>
-                    <div className="text-[10px]">{currency}</div>
-                    {usdPrice ? (
-                      <>
-                        <span className="lt-text-gray-500">·</span>
-                        <span className="lt-text-gray-500 text-xs font-bold">
-                          ${(revenue * usdPrice).toFixed(2)}
-                        </span>
-                      </>
-                    ) : null}
-                  </div>
-                </span>
-              </div>
-            </div>
-          ) : null}
           {endTimestamp ? (
             <div className="flex items-center space-x-2">
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
@@ -534,7 +447,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             )
           ) : null}
         </div>
-        {publication?.hasCollectedByMe ? (
+        {targetPublication.operations.hasActed.value ? (
           <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
             <CheckCircleIcon className="h-5 w-5" />
             <div>

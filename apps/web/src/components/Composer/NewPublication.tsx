@@ -35,7 +35,6 @@ import type {
   PublicationMetadataV3Attribute
 } from '@lenster/lens';
 import {
-  OpenActionModuleType,
   PublicationDocument,
   PublicationMetadataMainFocusType,
   ReferenceModuleType,
@@ -510,7 +509,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return;
   };
 
-  const createOnChain = async (request: any) => {
+  const createOnChain = async (
+    request: OnchainPostRequest | OnchainCommentRequest
+  ) => {
     const variables = {
       options: { overrideSigNonce: userSigNonce },
       request
@@ -671,10 +672,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       setPublicationContentError('');
       let textNftImageUrl = null;
-      if (
-        !attachments.length &&
-        collectModule.type !== OpenActionModuleType.LegacyRevertCollectModule
-      ) {
+      if (!attachments.length && !collectModule.type) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           currentProfile.handle,
@@ -751,13 +749,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         appId: APP_NAME
       };
 
-      const isRevertCollectModule =
-        collectModule.type === OpenActionModuleType.LegacyRevertCollectModule;
+      const noCollect = !collectModule.type;
       const useDataAvailability =
         !restricted &&
-        (isComment
-          ? publication.momoka?.proof && isRevertCollectModule
-          : isRevertCollectModule);
+        (isComment ? publication.momoka?.proof && noCollect : noCollect);
 
       let arweaveId = null;
       if (restricted) {
@@ -772,7 +767,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(isComment && {
           commentOn: targetPublication.id
         }),
-        openActionModules: collectModuleParams(collectModule, currentProfile),
+        openActionModules: [
+          {
+            collectOpenAction: collectModuleParams(
+              collectModule,
+              currentProfile
+            )
+          }
+        ],
         referenceModule:
           selectedReferenceModule ===
           ReferenceModuleType.FollowerOnlyReferenceModule

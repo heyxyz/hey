@@ -1,25 +1,33 @@
-import type { RecipientDataInput } from '@lenster/lens';
-import { OpenActionModuleType } from '@lenster/lens';
+import type {
+  AmountInput,
+  CollectOpenActionModuleType,
+  RecipientDataInput
+} from '@lenster/lens';
 import { create } from 'zustand';
 
 export type CollectModuleType = {
-  type?: OpenActionModuleType;
-  amount?: { currency: string | null; value: string | null } | null;
-  referralFee?: number | null;
+  type:
+    | CollectOpenActionModuleType.SimpleCollectOpenActionModule
+    | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+    | null;
+  amount?: AmountInput | null;
   collectLimit?: string | null;
-  timeLimit?: boolean;
+  referralFee?: number | null;
+  recipient?: string | null;
   recipients?: RecipientDataInput[];
-  followerOnlyCollect?: boolean;
+  followerOnly?: boolean;
+  endsAt?: string | null;
 };
 
 const INITIAL_COLLECT_MODULE: CollectModuleType = {
-  type: OpenActionModuleType.LegacyRevertCollectModule,
+  type: null,
   amount: null,
-  referralFee: 0,
   collectLimit: null,
-  timeLimit: false,
+  referralFee: 0,
+  recipient: null,
   recipients: [],
-  followerOnlyCollect: false
+  followerOnly: false,
+  endsAt: null
 };
 
 interface CollectModuleState {

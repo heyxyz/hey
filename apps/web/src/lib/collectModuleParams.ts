@@ -1,6 +1,6 @@
 import type {
-  CollectModuleParams,
-  ModuleFeeAmountParams,
+  AmountInput,
+  CollectActionModuleInput,
   Profile,
   RecipientDataInput
 } from '@lenster/lens';
@@ -12,34 +12,30 @@ import { getTimeAddedNDay } from './formatTime';
 const collectModuleParams = (
   collectModule: CollectModuleType,
   currentProfile: Profile
-): CollectModuleParams => {
+): CollectActionModuleInput | null => {
   const {
     collectLimit,
-    followerOnlyCollect,
-    timeLimit,
+    followerOnly,
     amount,
     referralFee,
-    recipients
+    recipients,
+    endsAt
   } = collectModule;
   const baseCollectModuleParams = {
     collectLimit: collectLimit,
-    followerOnly: followerOnlyCollect as boolean,
-    endTimestamp: timeLimit ? getTimeAddedNDay(1) : null
-  };
-
-  const baseAmountParams = {
-    amount: amount as ModuleFeeAmountParams,
-    referralFee: referralFee as number
+    followerOnly: followerOnly,
+    endsAt: endsAt ? getTimeAddedNDay(1) : null
   };
 
   switch (collectModule.type) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
       return {
-        simpleCollectModule: {
+        simpleCollectOpenAction: {
           ...baseCollectModuleParams,
           ...(amount && {
+            referralFee: referralFee,
             fee: {
-              ...baseAmountParams,
+              amount: amount,
               recipient: currentProfile?.ownedBy.address
             }
           })
@@ -47,14 +43,15 @@ const collectModuleParams = (
       };
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
-        multirecipientFeeCollectModule: {
+        multirecipientCollectOpenAction: {
           ...baseCollectModuleParams,
-          ...baseAmountParams,
+          amount: amount as AmountInput,
+          referralFee: referralFee,
           recipients: recipients as RecipientDataInput[]
         }
       };
     default:
-      return { revertCollectModule: true };
+      return null;
   }
 };
 

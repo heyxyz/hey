@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { OpenActionModuleType, useCurrenciesQuery } from '@lenster/lens';
+import { CollectOpenActionModuleType, useCurrenciesQuery } from '@lenster/lens';
 import isValidEthAddress from '@lenster/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
@@ -25,11 +25,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (state) => state.setCollectModule
   );
 
-  const {
-    LegacyRevertCollectModule,
-    LegacyFreeCollectModule,
-    SimpleCollectOpenActionModule
-  } = OpenActionModuleType;
+  const { LegacyFreeCollectModule, SimpleCollectOpenActionModule } =
+    CollectOpenActionModuleType;
   const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
@@ -77,7 +74,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    if (collectModule.type === LegacyRevertCollectModule) {
+    if (!collectModule.type) {
       setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
       reset();
@@ -87,11 +84,11 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
-        on={collectModule.type !== LegacyRevertCollectModule}
+        on={collectModule.type !== null}
         setOn={toggleCollect}
         description={t`This post can be collected`}
       />
-      {collectModule.type !== LegacyRevertCollectModule ? (
+      {collectModule.type !== null ? (
         <div className="ml-5">
           <AmountConfig
             enabledModuleCurrencies={data?.currencies.items}
@@ -125,7 +122,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <Button
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.type !== LegacyFreeCollectModule) ||
+              collectModule.type !== null) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||

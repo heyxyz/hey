@@ -24,11 +24,8 @@ import {
   RARIBLE_URL
 } from '@lenster/data/constants';
 import { PUBLICATION } from '@lenster/data/tracking';
-import {
-  type AnyPublication,
-  DecryptFailReasonType,
-  usePublicationQuery
-} from '@lenster/lens';
+import type { type AnyPublication, PublicationMetadata } from '@lenster/lens';
+import { DecryptFailReasonType } from '@lenster/lens';
 import formatHandle from '@lenster/lib/formatHandle';
 import getURLs from '@lenster/lib/getURLs';
 import { isMirrorPublication } from '@lenster/lib/publicationHelpers';
@@ -94,18 +91,6 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   const showMore =
     targetPublication?.metadata?.marketplace?.description?.length > 450 &&
     pathname !== '/posts/[id]';
-
-  usePublicationQuery({
-    variables: {
-      request: { forId: encryptedPublication.id }
-    },
-    pollInterval: 5000,
-    skip: canDecrypt || !currentProfile,
-    onCompleted: ({ publication }) => {
-      setCanDecrypt(publication?.canDecrypt.result || false);
-      setReasons(publication?.canDecrypt.reasons || []);
-    }
-  });
 
   const getCondition = (key: string) => {
     const accessCondition =
@@ -354,7 +339,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     );
   }
 
-  const publication: PublicationMetadataV2Input = decryptedData;
+  const publication: PublicationMetadata = decryptedData;
   const urls = getURLs(content);
 
   const onData = () => {
