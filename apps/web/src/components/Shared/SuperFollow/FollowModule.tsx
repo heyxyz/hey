@@ -156,8 +156,20 @@ const FollowModule: FC<FollowModuleProps> = ({
         variables: { request: { id, signature } }
       });
       if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const { followTokenIds, datas } = typedData.value;
-        return write?.({ args: [followTokenIds, datas] });
+        const {
+          followerProfileId,
+          idsOfProfilesToFollow,
+          followTokenIds,
+          datas
+        } = typedData.value;
+        return write?.({
+          args: [
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          ]
+        });
       }
     },
     onError
