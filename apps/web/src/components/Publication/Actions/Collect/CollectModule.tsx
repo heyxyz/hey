@@ -25,7 +25,6 @@ import {
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
-  useCollectModuleQuery,
   useCreateActOnOpenActionTypedDataMutation
 } from '@lenster/lens';
 import formatAddress from '@lenster/lib/formatAddress';
@@ -109,8 +108,6 @@ const CollectModule: FC<CollectModuleProps> = ({
   const referralFee =
     collectModule?.referralFee ?? collectModule?.fee?.referralFee;
 
-  const isRevertCollectModule =
-    collectModule?.type === OpenActionModuleType.LegacyRevertCollectModule;
   const isMultirecipientFeeCollectModule =
     collectModule?.type ===
     OpenActionModuleType.MultirecipientFeeCollectOpenActionModule;
@@ -131,12 +128,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     toast.success(t`Collected successfully!`);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: publication?.id,
-      collect_module: collectModule?.type,
-      ...(!isRevertCollectModule && {
-        collect_amount: amount,
-        collect_currency: currency,
-        collect_limit: collectLimit
-      })
+      collect_module: collectModule?.type
     });
   };
 

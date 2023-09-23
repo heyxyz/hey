@@ -28,7 +28,6 @@ const getAllowancePayload = (currency: string) => {
     currencies: [currency],
     collectModules: [
       OpenActionModuleType.SimpleCollectOpenActionModule,
-      OpenActionModuleType.LegacyRevertCollectModule,
       OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
     ],
     followModules: [FollowModuleType.FeeFollowModule],

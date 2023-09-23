@@ -23,8 +23,6 @@ const getAllowanceModule = (
       return { name: t`Multirecipient paid collect`, field: 'collectModule' };
     case OpenActionModuleType.SimpleCollectOpenActionModule:
       return { name: t`Basic collect`, field: 'collectModule' };
-    case OpenActionModuleType.LegacyRevertCollectModule:
-      return { name: t`No collect`, field: 'collectModule' };
 
     // Follow modules
     case FollowModuleType.FeeFollowModule:
