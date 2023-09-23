@@ -1837,6 +1837,7 @@ msgid "Switch to {0}"
 msgstr "Switch to {0}"
 
 #: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Shared/Channel/Mint.tsx
 msgid "You don't have balance"
 msgstr "You don't have balance"
 
@@ -2582,20 +2583,49 @@ msgid "New"
 msgstr ""
 
 #: src/components/Shared/Channel/Join.tsx
-msgid "Left successfully!"
-msgstr "Left successfully!"
+#~ msgid "Left successfully!"
+#~ msgstr "Left successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
-msgid "Joined successfully!"
-msgstr "Joined successfully!"
+#~ msgid "Joined successfully!"
+#~ msgstr "Joined successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
-msgid "Leave"
-msgstr "Leave"
+#~ msgid "Leave"
+#~ msgstr "Leave"
 
 #: src/components/Shared/Channel/Join.tsx
+msgid "Joined"
+msgstr "Joined"
+
+#: src/components/Shared/Channel/Join.tsx
+#: src/components/Shared/Channel/Mint.tsx
 msgid "Join"
 msgstr "Join"
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Join Channel"
+msgstr "Join Channel"
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "You are already a member in <0>{0}</0> channel."
+msgstr "You are already a member in <0>{0}</0> channel."
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Join <0>{0}</0> channel in Zora network and get your membership NFT."
+msgstr "Join <0>{0}</0> channel in Zora network and get your membership NFT."
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Switch to Zora"
+msgstr "Switch to Zora"
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Joining in progress"
+msgstr "Joining in progress"
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Joined successful"
+msgstr "Joined successful"
 
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
