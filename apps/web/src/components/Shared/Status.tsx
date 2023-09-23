@@ -99,7 +99,7 @@ const Status: FC = () => {
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setProfileMetadataURIWithSig',
+    functionName: 'setProfileMetadataURI',
     onSuccess: () => onCompleted(),
     onError
   });

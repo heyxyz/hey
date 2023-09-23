@@ -150,7 +150,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'collect',
+    functionName: 'act',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -214,8 +214,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, pubId, data: collectData } = typedData.value;
-          return write?.({ args: [profileId, pubId, collectData] });
+          return write?.({ args: [typedData.value] });
         }
       },
       onError

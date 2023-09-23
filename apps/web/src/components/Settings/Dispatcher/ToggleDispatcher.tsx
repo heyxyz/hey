@@ -50,7 +50,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const { data: writeData, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setDispatcher',
+    functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -75,9 +75,21 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, dispatcher } = typedData.value;
+          const {
+            delegatorProfileId,
+            delegatedExecutors,
+            approvals,
+            configNumber,
+            switchToGivenConfig
+          } = typedData.value;
           return write?.({
-            args: [profileId, dispatcher]
+            args: [
+              delegatorProfileId,
+              delegatedExecutors,
+              approvals,
+              configNumber,
+              switchToGivenConfig
+            ]
           });
         }
       },
