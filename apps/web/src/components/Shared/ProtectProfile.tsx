@@ -23,6 +23,8 @@ import IndexStatus from './IndexStatus';
 const ProtectProfile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
+  console.log('currentProfile', currentProfile);
+
   const { data, write, isLoading } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
@@ -34,6 +36,10 @@ const ProtectProfile: FC = () => {
       errorToast(error);
     }
   });
+
+  if (!currentProfile) {
+    return null;
+  }
 
   if (currentProfile?.guardian?.protected) {
     return null;

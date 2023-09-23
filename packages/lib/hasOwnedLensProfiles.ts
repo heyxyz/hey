@@ -11,7 +11,7 @@ const hasOwnedLensProfile = async (
   isMainnet: boolean
 ) => {
   const response = await fetch(
-    isMainnet ? 'https://api.lens.dev' : 'https://api-mumbai.lens.dev',
+    isMainnet ? 'https://api.lens.dev' : 'https://api-v2-mumbai.lens.dev',
     {
       method: 'POST',
       headers: {

@@ -4,13 +4,15 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@lenster/data/errors';
 import { Localstorage } from '@lenster/data/storage';
 import { AUTH } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useUserProfilesLazyQuery
+  useProfileLazyQuery,
+  useProfilesManagedQuery
 } from '@lenster/lens';
 import getWalletDetails from '@lenster/lib/getWalletDetails';
-import { Button, Spinner } from '@lenster/ui';
+import { Spinner } from '@lenster/ui';
 import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -31,6 +33,8 @@ import {
   useDisconnect,
   useSignMessage
 } from 'wagmi';
+
+import UserProfile from '../UserProfile';
 
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
@@ -72,7 +76,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
-  const [getProfiles, { error: errorProfiles }] = useUserProfilesLazyQuery();
+  const {
+    data: profilesManaged,
+    loading: profilesManagedLoading,
+    error: profilesManagedError
+  } = useProfilesManagedQuery({
+    variables: { request: { for: address } },
+    skip: !address
+  });
+  const [getUserProfile] = useProfileLazyQuery();
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -92,7 +104,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { address } }
+        variables: { request: { for: '0x1c', signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -106,7 +118,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
       // Auth user and set cookies
       const auth = await authenticate({
-        variables: { request: { address, signature } }
+        variables: { request: { id: challenge.data.challenge.id, signature } }
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
@@ -115,23 +127,16 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
       // Get authed profiles
-      const { data: profilesData } = await getProfiles({
-        variables: { request: { ownedBy: [address] } }
+      const { data: profile } = await getUserProfile({
+        variables: { request: { forProfileId: '0x1c' } }
       });
 
-      if (profilesData?.profiles?.items?.length === 0) {
+      if (!profile?.profile) {
         setHasProfile?.(false);
         keepModal = true;
       } else {
-        const profiles: any = profilesData?.profiles?.items
-          ?.slice()
-          ?.sort((a, b) => Number(a.id) - Number(b.id))
-          ?.sort((a, b) =>
-            a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
-          );
-        const currentProfile = profiles[0];
-        setProfiles(profiles);
-        setCurrentProfile(currentProfile);
+        const currentProfile = profile.profile;
+        setCurrentProfile(currentProfile as Profile);
         setProfileId(currentProfile.id);
       }
       Leafwatch.track(AUTH.SIWL);
@@ -148,25 +153,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
-          <Button
-            disabled={isLoading}
-            icon={
-              isLoading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img
-                  className="mr-0.5 h-4 w-4"
-                  height={16}
-                  width={16}
-                  src="/lens.png"
-                  alt="Lens Logo"
-                />
-              )
-            }
-            onClick={handleSign}
-          >
-            <Trans>Sign-In with Lens</Trans>
-          </Button>
+          <div>
+            <button onClick={handleSign}>sign</button>
+            {profilesManaged?.profilesManaged.items.map((profile) => (
+              <UserProfile key={profile.id} profile={profile as Profile} />
+            ))}
+          </div>
         ) : (
           <SwitchNetwork toChainId={CHAIN_ID} />
         )}
@@ -183,7 +175,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           </div>
         </button>
       </div>
-      {errorChallenge || errorAuthenticate || errorProfiles ? (
+      {errorChallenge || errorAuthenticate ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="h-5 w-5" />
           <div>{Errors.SomethingWentWrong}</div>
