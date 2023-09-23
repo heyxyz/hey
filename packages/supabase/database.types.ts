@@ -34,6 +34,7 @@ export interface Database {
       channels: {
         Row: {
           avatar: string;
+          contract: string | null;
           cover: string | null;
           created_at: string;
           description: string;
@@ -49,6 +50,7 @@ export interface Database {
         };
         Insert: {
           avatar: string;
+          contract?: string | null;
           cover?: string | null;
           created_at?: string;
           description: string;
@@ -64,6 +66,7 @@ export interface Database {
         };
         Update: {
           avatar?: string;
+          contract?: string | null;
           cover?: string | null;
           created_at?: string;
           description?: string;
