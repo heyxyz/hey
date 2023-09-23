@@ -5,8 +5,6 @@ import { createCors, error, Router, status } from 'itty-router';
 import featuredChannels from './handlers/featuredChannels';
 import getChannel from './handlers/getChannel';
 import isMember from './handlers/isMember';
-import isMember_new from './handlers/isMember_new';
-import joinOrLeave from './handlers/joinOrLeave';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -29,8 +27,6 @@ router
   .get('/get/:slug', getChannel)
   .get('/featured', featuredChannels)
   .get('/isMember', isMember)
-  .get('/isMember_new', isMember_new)
-  .post('/joinOrLeave', joinOrLeave)
   .all('*', () => error(404));
 
 export default {
