@@ -1,9 +1,9 @@
-import { LENSTER_POLLS_SPACE } from '@hey/data/constants';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { Proposal, Vote } from '@hey/snapshot';
-import { useProposalQuery } from '@hey/snapshot';
-import { snapshotApolloClient } from '@hey/snapshot/apollo';
-import { Spinner } from '@hey/ui';
+import { LENSTER_POLLS_SPACE } from '@lenster/data/constants';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { Proposal, Vote } from '@lenster/snapshot';
+import { useProposalQuery } from '@lenster/snapshot';
+import { snapshotApolloClient } from '@lenster/snapshot/apollo';
+import { Spinner } from '@lenster/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 

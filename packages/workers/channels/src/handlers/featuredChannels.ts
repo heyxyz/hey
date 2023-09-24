@@ -1,5 +1,5 @@
-import response from '@hey/lib/response';
-import createSupabaseClient from '@hey/supabase/createSupabaseClient';
+import response from '@lenster/lib/response';
+import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
 import { FEATURED_CHANNELS_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';

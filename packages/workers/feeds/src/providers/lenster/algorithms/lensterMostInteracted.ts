@@ -1,5 +1,5 @@
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
+import { Errors } from '@lenster/data/errors';
+import { PUBLICATION } from '@lenster/data/tracking';
 
 import randomizeIds from '../../../helpers/randomizeIds';
 import type { Env } from '../../../types';

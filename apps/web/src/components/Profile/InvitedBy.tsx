@@ -1,8 +1,8 @@
 import Slug from '@components/Shared/Slug';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getAvatar from '@hey/lib/getAvatar';
-import { Image } from '@hey/ui';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import { Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

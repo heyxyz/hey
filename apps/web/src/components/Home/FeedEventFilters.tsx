@@ -1,8 +1,8 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
-import { Checkbox, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { Checkbox, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';

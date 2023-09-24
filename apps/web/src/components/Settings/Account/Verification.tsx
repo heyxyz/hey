@@ -1,5 +1,5 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/solid';
-import { Card } from '@hey/ui';
+import { Card } from '@lenster/ui';
 import isVerified from '@lib/isVerified';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';

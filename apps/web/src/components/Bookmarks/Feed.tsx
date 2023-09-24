@@ -5,9 +5,9 @@ import type {
   Publication,
   PublicationMainFocus,
   PublicationsProfileBookmarkedQueryRequest
-} from '@hey/lens';
-import { usePublicationsProfileBookmarksQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@lenster/lens';
+import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';

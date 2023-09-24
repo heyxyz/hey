@@ -1,4 +1,4 @@
-import type { Attribute, Maybe } from '@hey/lens';
+import type { Attribute, Maybe } from '@lenster/lens';
 
 type Key = 'x' | 'location' | 'website' | 'statusEmoji' | 'statusMessage';
 

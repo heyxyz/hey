@@ -1,7 +1,7 @@
 import Alpha from '@components/Shared/Badges/Alpha';
 import { TagIcon } from '@heroicons/react/24/outline';
-import { Card } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { Card } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useExploreStore } from 'src/store/explore';

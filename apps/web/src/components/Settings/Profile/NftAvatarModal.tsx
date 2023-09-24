@@ -1,18 +1,18 @@
 import Picker from '@components/Profile/NftGallery/Picker';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   type UpdateProfileImageRequest,
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation,
   useNftChallengeLazyQuery
-} from '@hey/lens';
-import getSignature from '@hey/lib/getSignature';
-import { Button, ErrorMessage, Modal, Spinner } from '@hey/ui';
+} from '@lenster/lens';
+import getSignature from '@lenster/lib/getSignature';
+import { Button, ErrorMessage, Modal, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

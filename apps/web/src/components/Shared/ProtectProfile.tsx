@@ -1,14 +1,14 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
-import { SETTINGS } from '@hey/data/tracking';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { SETTINGS } from '@lenster/data/tracking';
 import {
   Button,
   GridItemEight,
   GridItemFour,
   GridLayout,
   Spinner
-} from '@hey/ui';
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';

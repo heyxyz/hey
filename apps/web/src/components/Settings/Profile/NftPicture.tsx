@@ -1,8 +1,8 @@
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getAvatar from '@hey/lib/getAvatar';
-import { Button, Image } from '@hey/ui';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import { Button, Image } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

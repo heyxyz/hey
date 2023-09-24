@@ -1,6 +1,6 @@
 import Profiles from '@components/Shared/Profiles';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { MirrorEvent } from '@hey/lens';
+import type { MirrorEvent } from '@lenster/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 

@@ -16,15 +16,15 @@
   },
   "dependencies": {
     "@cfworker/base64url": "^1.12.5",
-    "@hey/data": "workspace:*",
-    "@hey/lib": "workspace:*",
-    "@hey/types": "workspace:*",
+    "@lenster/data": "workspace:*",
+    "@lenster/lib": "workspace:*",
+    "@lenster/types": "workspace:*",
     "itty-router": "^4.0.23",
     "linkedom": "^0.15.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
-    "@hey/config": "workspace:*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5",
     "wrangler": "^3.9.0"

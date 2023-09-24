@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
-import { Localstorage } from '@hey/data/storage';
-import { MISCELLANEOUS } from '@hey/data/tracking';
-import cn from '@hey/ui/cn';
+import { Localstorage } from '@lenster/data/storage';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import type { FC } from 'react';

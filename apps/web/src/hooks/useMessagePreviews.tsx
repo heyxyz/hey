@@ -1,5 +1,5 @@
-import type { Profile } from '@hey/lens';
-import { useProfilesLazyQuery } from '@hey/lens';
+import type { Profile } from '@lenster/lens';
+import { useProfilesLazyQuery } from '@lenster/lens';
 import buildConversationId from '@lib/buildConversationId';
 import chunkArray from '@lib/chunkArray';
 import {

@@ -7,9 +7,9 @@ import type {
   Publication,
   PublicationMainFocus,
   PublicationTypes
-} from '@hey/lens';
-import { PublicationSortCriteria, useExploreFeedQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@lenster/lens';
+import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect } from 'react';

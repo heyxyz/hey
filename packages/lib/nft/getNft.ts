@@ -1,4 +1,4 @@
-import type { ZoraNftMetadata } from '@hey/types/zora-nft';
+import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
 
 import getZoraNFT from './getZoraNft';
 

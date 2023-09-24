@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
 
 /**
  * Returns the URL for the token image with the specified symbol.

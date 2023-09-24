@@ -1,4 +1,4 @@
-import type { Attribute } from '@hey/lens';
+import type { Attribute } from '@lenster/lens';
 import { describe, expect, test } from 'vitest';
 
 import getProfileAttribute from './getProfileAttribute';

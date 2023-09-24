@@ -2,7 +2,7 @@ import {
   CurrencyDollarIcon,
   UserCircleIcon
 } from '@heroicons/react/24/outline';
-import { Card } from '@hey/ui';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { Localstorage } from '@lenster/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

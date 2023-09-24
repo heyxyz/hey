@@ -1,6 +1,6 @@
-import { Errors } from '@hey/data/errors';
-import LensEndpoint from '@hey/data/lens-endpoints';
-import response from '@hey/lib/response';
+import { Errors } from '@lenster/data/errors';
+import LensEndpoint from '@lenster/data/lens-endpoints';
+import response from '@lenster/lib/response';
 import { boolean, object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';

@@ -1,4 +1,4 @@
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 

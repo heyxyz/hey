@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { Localstorage } from '@lenster/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';

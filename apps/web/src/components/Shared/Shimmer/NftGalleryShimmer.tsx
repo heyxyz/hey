@@ -1,4 +1,4 @@
-import { Card } from '@hey/ui';
+import { Card } from '@lenster/ui';
 
 const NftGalleryShimmer = () => {
   return (

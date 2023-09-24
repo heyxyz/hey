@@ -6,10 +6,10 @@ import {
   HeartIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
-import nFormatter from '@hey/lib/nFormatter';
-import { Modal } from '@hey/ui';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
+import nFormatter from '@lenster/lib/nFormatter';
+import { Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';

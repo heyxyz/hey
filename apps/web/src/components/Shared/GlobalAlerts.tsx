@@ -1,5 +1,5 @@
 import ModAction from '@components/Publication/Actions/ModAction';
-import { Alert } from '@hey/ui';
+import { Alert } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';

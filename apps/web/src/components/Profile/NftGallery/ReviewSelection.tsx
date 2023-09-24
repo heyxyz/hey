@@ -1,7 +1,7 @@
 import SingleNft from '@components/Shared/SingleNft';
 import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Nft } from '@hey/lens';
-import { EmptyState } from '@hey/ui';
+import type { Nft } from '@lenster/lens';
+import { EmptyState } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
