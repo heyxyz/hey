@@ -1,5 +1,5 @@
-import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
+import NewAttachments from '@components/Shared/NewAttachments';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@lenster/lens';
@@ -102,7 +102,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           <Markup>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
+          <NewAttachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : txn?.attachments && urls.length > 0 ? (
           <Oembed url={urls[0]} onData={onData} />
         ) : null}

@@ -78,7 +78,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   return (
     <div className="break-words">
-      {metadata.__typename}
       <Markup
         className={cn(
           { 'line-clamp-5': canShowMore },

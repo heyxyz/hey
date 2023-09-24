@@ -1,9 +1,9 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
-import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import NewAttachments from '@components/Shared/NewAttachments';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
@@ -803,7 +803,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       </div>
       <div className="px-5">
-        <Attachments attachments={attachments} isNew />
+        <NewAttachments attachments={attachments} />
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

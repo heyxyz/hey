@@ -143,7 +143,9 @@ const Audio: FC<AudioProps> = ({
                           publication?.metadata.attributes,
                           'author'
                         ) ??
-                        sanitizeDisplayName(publication?.profile.name)}
+                        sanitizeDisplayName(
+                          publication?.by.metadata?.displayName
+                        )}
                     </h6>
                   </>
                 )}
