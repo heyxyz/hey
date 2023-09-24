@@ -9,9 +9,32 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      channel_memberships: {
+        Row: {
+          channel_id: string;
+          profile_id: string;
+        };
+        Insert: {
+          channel_id: string;
+          profile_id: string;
+        };
+        Update: {
+          channel_id?: string;
+          profile_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'channel_memberships_channel_id_fkey';
+            columns: ['channel_id'];
+            referencedRelation: 'channels';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
       channels: {
         Row: {
           avatar: string;
+          contract: string | null;
           cover: string | null;
           created_at: string;
           description: string;
@@ -27,6 +50,7 @@ export interface Database {
         };
         Insert: {
           avatar: string;
+          contract?: string | null;
           cover?: string | null;
           created_at?: string;
           description: string;
@@ -42,6 +66,7 @@ export interface Database {
         };
         Update: {
           avatar?: string;
+          contract?: string | null;
           cover?: string | null;
           created_at?: string;
           description?: string;
@@ -101,7 +126,7 @@ export interface Database {
       [_ in never]: never;
     };
     Enums: {
-      community_state: 'Accepted' | 'Pending' | 'Rejected' | 'Suspended';
+      [_ in never]: never;
     };
     CompositeTypes: {
       [_ in never]: never;

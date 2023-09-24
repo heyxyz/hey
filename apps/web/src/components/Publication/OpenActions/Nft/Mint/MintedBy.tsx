@@ -4,9 +4,10 @@ import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
 import type { Profile } from '@lenster/lens';
 import { useDefaultProfileQuery } from '@lenster/lens';
 import { type FC } from 'react';
+import type { Address } from 'viem';
 
 interface MintedByProps {
-  address: `0x${string}`;
+  address: Address;
 }
 
 const MintedBy: FC<MintedByProps> = ({ address }) => {
@@ -14,6 +15,10 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
     variables: { request: { ethereumAddress: address } },
     skip: !Boolean(address)
   });
+
+  if (!address) {
+    return null;
+  }
 
   return (
     <div className="mb-4 flex items-center gap-x-2">

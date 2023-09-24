@@ -1,4 +1,4 @@
-import Unfollow from '@components/Shared/Unfollow';
+import Unfollow from '@components/Shared/Profile/Unfollow';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -20,8 +20,8 @@ import type { FC } from 'react';
 import { memo, useState } from 'react';
 import { usePublicClient } from 'wagmi';
 
-import Follow from './Follow';
 import Markup from './Markup';
+import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';

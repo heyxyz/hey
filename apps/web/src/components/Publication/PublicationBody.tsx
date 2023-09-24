@@ -107,9 +107,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
-      {showQuotedPublication ? (
-        <Quote publicationId={quotedPublicationId} />
-      ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
@@ -119,6 +116,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           publicationId={publication.id}
           onData={onOembedData}
         />
+      ) : null}
+      {showQuotedPublication ? (
+        <Quote publicationId={quotedPublicationId} />
       ) : null}
     </div>
   );

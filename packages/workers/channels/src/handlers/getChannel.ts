@@ -1,6 +1,7 @@
 import response from '@lenster/lib/response';
 import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
 
+import getMembersCount from '../helpers/getMembersCount';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -14,7 +15,13 @@ export default async (request: WorkerRequest) => {
       .eq('slug', slug)
       .single();
 
-    return response({ success: true, result: data });
+    return response({
+      success: true,
+      result: {
+        ...data,
+        members: await getMembersCount(data?.contract as `0x${string}`)
+      }
+    });
   } catch (error) {
     throw error;
   }

@@ -33,8 +33,8 @@ import {
 } from 'wagmi';
 
 interface WalletSelectorProps {
-  setHasConnected: Dispatch<SetStateAction<boolean>>;
-  setHasProfile: Dispatch<SetStateAction<boolean>>;
+  setHasConnected?: Dispatch<SetStateAction<boolean>>;
+  setHasProfile?: Dispatch<SetStateAction<boolean>>;
 }
 
 const WalletSelector: FC<WalletSelectorProps> = ({
@@ -78,7 +78,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     try {
       const account = await connectAsync({ connector });
       if (account) {
-        setHasConnected(true);
+        setHasConnected?.(true);
       }
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
@@ -120,7 +120,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
 
       if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile(false);
+        setHasProfile?.(false);
         keepModal = true;
       } else {
         const profiles: any = profilesData?.profiles?.items

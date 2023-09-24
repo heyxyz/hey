@@ -12,7 +12,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
-import Details from './Details';
+import Details, { useChannelMemberCountStore } from './Details';
 import Feed from './Feed';
 import ChannelPageShimmer from './Shimmer';
 
@@ -21,13 +21,19 @@ const ViewChannel: NextPage = () => {
     query: { slug },
     isReady
   } = useRouter();
+  const setMembersCount = useChannelMemberCountStore(
+    (state) => state.setMembersCount
+  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'channel' });
   });
 
   const fetchCommunity = async (): Promise<Channel> => {
-    const response = await axios.get(`${CHANNELS_WORKER_URL}/get/${slug}`);
+    const response: {
+      data: { result: Channel };
+    } = await axios.get(`${CHANNELS_WORKER_URL}/get/${slug}`);
+    setMembersCount(response.data?.result.members);
 
     return response.data?.result;
   };
