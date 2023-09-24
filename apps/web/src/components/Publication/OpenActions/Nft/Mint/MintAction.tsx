@@ -5,12 +5,12 @@ import {
   CursorArrowRaysIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenster/abis';
-import { ADMIN_ADDRESS } from '@lenster/data/constants';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
-import type { ZoraNft } from '@lenster/types/zora-nft';
-import { Button, Spinner } from '@lenster/ui';
+import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
+import { ADMIN_ADDRESS } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
+import type { ZoraNft } from '@hey/types/zora-nft';
+import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

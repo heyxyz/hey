@@ -1,5 +1,5 @@
-import response from '@lenster/lib/response';
-import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
+import response from '@hey/lib/response';
+import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
 import getMembersCount from '../helpers/getMembersCount';
 import type { WorkerRequest } from '../types';

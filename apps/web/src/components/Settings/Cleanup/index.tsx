@@ -1,15 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { APP_NAME } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import {
-  Button,
-  Card,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from '@lenster/ui';
+import { APP_NAME } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';

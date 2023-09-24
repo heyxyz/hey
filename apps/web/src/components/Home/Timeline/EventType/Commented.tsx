@@ -1,5 +1,5 @@
 import ThreadBody from '@components/Publication/ThreadBody';
-import type { FeedItem } from '@lenster/lens';
+import type { FeedItem } from '@hey/lens';
 import type { FC } from 'react';
 
 interface CommentedProps {

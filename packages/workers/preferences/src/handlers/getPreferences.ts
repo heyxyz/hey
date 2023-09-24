@@ -1,6 +1,6 @@
-import { Errors } from '@lenster/data/errors';
-import response from '@lenster/lib/response';
-import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
+import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
 import type { WorkerRequest } from '../types';
 

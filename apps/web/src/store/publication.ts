@@ -1,5 +1,5 @@
-import type { Publication } from '@lenster/lens';
-import type { NewLensterAttachment } from '@lenster/types/misc';
+import type { Publication } from '@hey/lens';
+import type { NewLensterAttachment } from '@hey/types/misc';
 import { create } from 'zustand';
 
 interface PublicationState {

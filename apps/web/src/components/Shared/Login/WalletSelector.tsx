@@ -1,17 +1,17 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
-import { Errors } from '@lenster/data/errors';
-import { Localstorage } from '@lenster/data/storage';
-import { AUTH } from '@lenster/data/tracking';
+import { Errors } from '@hey/data/errors';
+import { Localstorage } from '@hey/data/storage';
+import { AUTH } from '@hey/data/tracking';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useUserProfilesLazyQuery
-} from '@lenster/lens';
-import getWalletDetails from '@lenster/lib/getWalletDetails';
-import { Button, Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import getWalletDetails from '@hey/lib/getWalletDetails';
+import { Button, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

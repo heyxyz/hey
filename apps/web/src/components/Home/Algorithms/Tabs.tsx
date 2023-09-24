@@ -1,7 +1,7 @@
-import { algorithms } from '@lenster/data/algorithms';
-import type { HomeFeedType } from '@lenster/data/enums';
-import { HOME } from '@lenster/data/tracking';
-import { TabButton } from '@lenster/ui';
+import { algorithms } from '@hey/data/algorithms';
+import type { HomeFeedType } from '@hey/data/enums';
+import { HOME } from '@hey/data/tracking';
+import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useEnabledAlgorithmsPersistStore } from 'src/store/enabled-algorithms';

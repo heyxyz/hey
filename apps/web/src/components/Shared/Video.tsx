@@ -1,7 +1,7 @@
 import 'plyr-react/plyr.css';
 
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Player } from '@livepeer/react';
 import type { FC } from 'react';
 import { memo } from 'react';

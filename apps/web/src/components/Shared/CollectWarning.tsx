@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
 import { StarIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { Card } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 
 interface CollectWarningProps {
