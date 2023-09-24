@@ -1,16 +1,19 @@
 import { Menu } from '@headlessui/react';
 import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
 import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication, PublicationProfileBookmarkRequest } from '@hey/lens';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type {
+  Publication,
+  PublicationProfileBookmarkRequest
+} from '@lenster/lens';
 import {
   useAddPublicationProfileBookmarkMutation,
   useRemovePublicationProfileBookmarkMutation
-} from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
+} from '@lenster/lens';
+import type { ApolloCache } from '@lenster/lens/apollo';
+import { publicationKeyFields } from '@lenster/lens/apollo/lib';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';

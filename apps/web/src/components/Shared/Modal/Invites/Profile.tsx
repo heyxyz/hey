@@ -1,8 +1,8 @@
 import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { type InvitedResult, useDefaultProfileQuery } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
+import { type InvitedResult, useDefaultProfileQuery } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 import type { FC } from 'react';

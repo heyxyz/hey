@@ -3,10 +3,10 @@ import {
   SparklesIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@hey/data/constants';
-import { HomeFeedType } from '@hey/data/enums';
-import { HOME } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
+import { IS_MAINNET } from '@lenster/data/constants';
+import { HomeFeedType } from '@lenster/data/enums';
+import { HOME } from '@lenster/data/tracking';
+import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';

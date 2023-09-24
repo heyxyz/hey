@@ -4,18 +4,18 @@ import {
   ExclamationTriangleIcon,
   PencilIcon
 } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import type { CreateSetDefaultProfileRequest, Profile } from '@hey/lens';
+import { LensHub } from '@lenster/abis';
+import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { SETTINGS } from '@lenster/data/tracking';
+import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetDefaultProfileTypedDataMutation
-} from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getSignature from '@hey/lib/getSignature';
-import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+} from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getSignature from '@lenster/lib/getSignature';
+import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

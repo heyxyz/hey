@@ -1,4 +1,4 @@
-const base = require('@hey/ui/tailwind-preset');
+const base = require('@lenster/ui/tailwind-preset');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

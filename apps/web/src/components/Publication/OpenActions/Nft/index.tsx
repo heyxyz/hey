@@ -2,13 +2,13 @@ import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { ADMIN_ADDRESS } from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
-import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { ZoraNftMetadata } from '@hey/types/zora-nft';
-import { Button, Card, Modal, Tooltip } from '@hey/ui';
+import { ADMIN_ADDRESS } from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
+import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
+import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

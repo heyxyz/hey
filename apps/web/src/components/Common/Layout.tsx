@@ -1,9 +1,9 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import type { Profile } from '@hey/lens';
-import { useUserProfilesWithGuardianInformationQuery } from '@hey/lens';
-import resetAuthData from '@hey/lib/resetAuthData';
+import type { Profile } from '@lenster/lens';
+import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
+import resetAuthData from '@lenster/lib/resetAuthData';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';

@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, CHANNELS_WORKER_URL } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import type { Channel } from '@hey/types/lenster';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { APP_NAME, CHANNELS_WORKER_URL } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import type { Channel } from '@lenster/types/lenster';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

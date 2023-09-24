@@ -1,4 +1,4 @@
-import { LENSPROTOCOL_HANDLE } from '@hey/data/constants';
+import { LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import formatHandle from './formatHandle';

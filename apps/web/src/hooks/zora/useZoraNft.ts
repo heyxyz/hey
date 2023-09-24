@@ -1,5 +1,5 @@
-import { ZORA_WORKER_URL } from '@hey/data/constants';
-import type { ZoraNft } from '@hey/types/zora-nft';
+import { ZORA_WORKER_URL } from '@lenster/data/constants';
+import type { ZoraNft } from '@lenster/types/zora-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 

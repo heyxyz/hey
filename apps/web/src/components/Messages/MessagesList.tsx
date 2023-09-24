@@ -1,11 +1,11 @@
 import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getAvatar from '@hey/lib/getAvatar';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import { Card, Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { Card, Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import {
   formatDate,
   formatTime,

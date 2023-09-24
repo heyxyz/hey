@@ -3,14 +3,14 @@ import {
   ExclamationTriangleIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import { useCreateBurnProfileTypedDataMutation } from '@hey/lens';
-import resetAuthData from '@hey/lib/resetAuthData';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { SETTINGS } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
+import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
+import resetAuthData from '@lenster/lib/resetAuthData';
+import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import Link from 'next/link';

@@ -1,17 +1,17 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@hey/abis';
-import { LENS_PERIPHERY } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { SETTINGS } from '@hey/data/tracking';
-import type { CreatePublicSetProfileMetadataUriRequest } from '@hey/lens';
+import { LensPeriphery } from '@lenster/abis';
+import { LENS_PERIPHERY } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { SETTINGS } from '@lenster/data/tracking';
+import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
-} from '@hey/lens';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import getSignature from '@hey/lib/getSignature';
+} from '@lenster/lens';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import getSignature from '@lenster/lib/getSignature';
 import {
   Button,
   ErrorMessage,
@@ -19,7 +19,7 @@ import {
   Input,
   Spinner,
   useZodForm
-} from '@hey/ui';
+} from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';

@@ -3,7 +3,7 @@ import {
   AVATAR,
   COVER,
   LENS_MEDIA_SNAPSHOT_URL
-} from '@hey/data/constants';
+} from '@lenster/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 

@@ -6,7 +6,7 @@ import {
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
-import { Modal } from '@hey/ui';
+import { Modal } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';

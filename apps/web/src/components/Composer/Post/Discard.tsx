@@ -1,4 +1,4 @@
-import { Alert } from '@hey/ui';
+import { Alert } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';

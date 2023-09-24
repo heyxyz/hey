@@ -1,9 +1,12 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { MutualFollowersProfilesQueryRequest, Profile } from '@hey/lens';
-import { useMutualFollowersQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
+import type {
+  MutualFollowersProfilesQueryRequest,
+  Profile
+} from '@lenster/lens';
+import { useMutualFollowersQuery } from '@lenster/lens';
+import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

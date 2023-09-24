@@ -1,11 +1,11 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
-import type { Wallet } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import imageKit from '@hey/lib/imageKit';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { POLYGONSCAN_URL } from '@lenster/data/constants';
+import type { Wallet } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import imageKit from '@lenster/lib/imageKit';
+import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
 import useEnsName from 'src/hooks/useEnsName';

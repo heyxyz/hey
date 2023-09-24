@@ -1,14 +1,14 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
 import type {
   Profile,
   Wallet,
   WhoCollectedPublicationRequest
-} from '@hey/lens';
-import { useCollectorsQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
+} from '@lenster/lens';
+import { useCollectorsQuery } from '@lenster/lens';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
