@@ -1,10 +1,10 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
-import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
-import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import type { OptimisticTransaction } from '@lenster/types/misc';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
+import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
+import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import type { OptimisticTransaction } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';

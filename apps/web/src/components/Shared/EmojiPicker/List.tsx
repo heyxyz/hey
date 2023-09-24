@@ -1,10 +1,10 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { STATIC_ASSETS_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { Emoji } from '@lenster/types/misc';
-import { ErrorMessage, Input } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { STATIC_ASSETS_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { Emoji } from '@hey/types/misc';
+import { ErrorMessage, Input } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

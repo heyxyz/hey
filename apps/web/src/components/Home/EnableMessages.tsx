@@ -1,7 +1,7 @@
 import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import { XMTP_ENV } from '@lenster/data/constants';
-import { Button, Card } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { XMTP_ENV } from '@hey/data/constants';
+import { Button, Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';

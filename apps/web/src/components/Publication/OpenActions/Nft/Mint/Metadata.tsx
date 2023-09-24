@@ -4,8 +4,8 @@ import {
   ShoppingBagIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import humanize from '@lenster/lib/humanize';
-import type { ZoraNft } from '@lenster/types/zora-nft';
+import humanize from '@hey/lib/humanize';
+import type { ZoraNft } from '@hey/types/zora-nft';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
