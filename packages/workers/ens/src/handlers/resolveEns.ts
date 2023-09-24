@@ -1,5 +1,5 @@
-import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
 import { createPublicClient, http } from 'viem';
 import { mainnet } from 'viem/chains';
 import { array, object, string } from 'zod';

@@ -1,5 +1,5 @@
-import type { Publication } from '@hey/lens';
-import cn from '@hey/ui/cn';
+import type { Publication } from '@lenster/lens';
+import cn from '@lenster/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';

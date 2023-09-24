@@ -1,5 +1,5 @@
-import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
-import response from '@hey/lib/response';
+import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
+import response from '@lenster/lib/response';
 
 import type { WorkerRequest } from '../types';
 

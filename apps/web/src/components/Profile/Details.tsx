@@ -19,18 +19,18 @@ import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
-import { FollowUnfollowSource } from '@hey/data/tracking';
-import getEnvConfig from '@hey/data/utils/getEnvConfig';
-import type { Profile } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
-import getAvatar from '@hey/lib/getAvatar';
-import getMisuseDetails from '@hey/lib/getMisuseDetails';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
-import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+} from '@lenster/data/constants';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
+import getEnvConfig from '@lenster/data/utils/getEnvConfig';
+import type { Profile } from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import getMisuseDetails from '@lenster/lib/getMisuseDetails';
+import getProfileAttribute from '@lenster/lib/getProfileAttribute';
+import hasMisused from '@lenster/lib/hasMisused';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';

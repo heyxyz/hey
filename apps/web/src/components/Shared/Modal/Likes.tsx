@@ -1,9 +1,9 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, WhoReactedPublicationRequest } from '@hey/lens';
-import { useLikesQuery } from '@hey/lens';
-import { EmptyState, ErrorMessage } from '@hey/ui';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
+import type { Profile, WhoReactedPublicationRequest } from '@lenster/lens';
+import { useLikesQuery } from '@lenster/lens';
+import { EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

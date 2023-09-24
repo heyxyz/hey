@@ -5,8 +5,8 @@ import {
   HeartIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { NOTIFICATION } from '@hey/data/tracking';
-import { TabButton } from '@hey/ui';
+import { NOTIFICATION } from '@lenster/data/tracking';
+import { TabButton } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';

@@ -1,4 +1,4 @@
-import cn from '@hey/ui/cn';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';

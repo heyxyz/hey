@@ -7,9 +7,9 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ReferenceModules } from '@hey/lens';
-import { Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { ReferenceModules } from '@lenster/lens';
+import { Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';

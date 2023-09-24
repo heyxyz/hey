@@ -2,14 +2,18 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import type { Comment, Publication, PublicationsQueryRequest } from '@hey/lens';
+import type {
+  Comment,
+  Publication,
+  PublicationsQueryRequest
+} from '@lenster/lens';
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   CustomFiltersTypes,
   useCommentFeedQuery
-} from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';

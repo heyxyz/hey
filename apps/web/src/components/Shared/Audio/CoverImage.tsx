@@ -1,9 +1,9 @@
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { ATTACHMENT } from '@hey/data/constants';
-import imageKit from '@hey/lib/imageKit';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import { Image, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { ATTACHMENT } from '@lenster/data/constants';
+import imageKit from '@lenster/lib/imageKit';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { Image, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC, Ref } from 'react';

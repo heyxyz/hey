@@ -1,5 +1,5 @@
-import type { RecipientDataInput } from '@hey/lens';
-import { CollectModules } from '@hey/lens';
+import type { RecipientDataInput } from '@lenster/lens';
+import { CollectModules } from '@lenster/lens';
 import { create } from 'zustand';
 
 export type CollectModuleType = {

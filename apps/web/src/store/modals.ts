@@ -1,4 +1,4 @@
-import type { Profile, Publication } from '@hey/lens';
+import type { Profile, Publication } from '@lenster/lens';
 import { create } from 'zustand';
 
 interface GlobalModalState {

@@ -1,4 +1,4 @@
-import { Card } from '@hey/ui';
+import { Card } from '@lenster/ui';
 import type { FC } from 'react';
 
 import UserProfileShimmer from './UserProfileShimmer';

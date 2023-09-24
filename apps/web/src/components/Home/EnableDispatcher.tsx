@@ -1,8 +1,8 @@
 import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@hey/data/constants';
-import getIsDispatcherEnabled from '@hey/lib/getIsDispatcherEnabled';
-import { Card } from '@hey/ui';
+import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
+import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

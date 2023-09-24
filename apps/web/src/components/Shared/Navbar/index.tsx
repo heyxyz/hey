@@ -1,9 +1,9 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import cn from '@hey/ui/cn';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import cn from '@lenster/ui/cn';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

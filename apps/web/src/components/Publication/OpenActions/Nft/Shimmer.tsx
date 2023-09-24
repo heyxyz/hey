@@ -1,4 +1,4 @@
-import { Card } from '@hey/ui';
+import { Card } from '@lenster/ui';
 import type { FC } from 'react';
 
 const NftShimmer: FC = () => {

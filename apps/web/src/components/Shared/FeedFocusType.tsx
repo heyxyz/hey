@@ -1,6 +1,6 @@
-import { EXPLORE } from '@hey/data/tracking';
-import { PublicationMainFocus } from '@hey/lens';
-import cn from '@hey/ui/cn';
+import { EXPLORE } from '@lenster/data/tracking';
+import { PublicationMainFocus } from '@lenster/lens';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';

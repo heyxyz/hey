@@ -1,5 +1,5 @@
-import type { Publication } from '@hey/lens';
-import getAppName from '@hey/lib/getAppName';
+import type { Publication } from '@lenster/lens';
+import getAppName from '@lenster/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
 import type { FC } from 'react';
 

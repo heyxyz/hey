@@ -1,4 +1,4 @@
-import { Spinner } from '@hey/ui';
+import { Spinner } from '@lenster/ui';
 import type { FC } from 'react';
 
 interface LoaderProps {

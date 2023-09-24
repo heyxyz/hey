@@ -1,5 +1,5 @@
-import { OPENSEA_KEY } from '@hey/data/constants';
-import type { OpenSeaNft } from '@hey/types/opensea-nft';
+import { OPENSEA_KEY } from '@lenster/data/constants';
+import type { OpenSeaNft } from '@lenster/types/opensea-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 

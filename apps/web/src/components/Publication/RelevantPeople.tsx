@@ -1,11 +1,11 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { Regex } from '@hey/data/regex';
-import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, Publication } from '@hey/lens';
-import { useProfilesQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import { Card, ErrorMessage } from '@hey/ui';
+import { Regex } from '@lenster/data/regex';
+import { FollowUnfollowSource } from '@lenster/data/tracking';
+import type { Profile, Publication } from '@lenster/lens';
+import { useProfilesQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { Card, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
