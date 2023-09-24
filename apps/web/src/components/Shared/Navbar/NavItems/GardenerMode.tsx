@@ -1,9 +1,9 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { GARDENER } from '@lenster/data/tracking';
-import cn from '@lenster/ui/cn';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
+import { GARDENER } from '@hey/data/tracking';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';

@@ -1,4 +1,4 @@
-import cn from '@lenster/ui/cn';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';

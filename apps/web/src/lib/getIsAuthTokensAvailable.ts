@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data/storage';
+import { Localstorage } from '@hey/data/storage';
 
 /**
  * Checks if the access token and refresh token are available in localstorage

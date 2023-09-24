@@ -1,4 +1,4 @@
-import cn from '@lenster/ui/cn';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';

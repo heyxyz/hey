@@ -1,7 +1,7 @@
-import { PUBLICATION } from '@lenster/data/tracking';
-import { useHidePublicationMutation } from '@lenster/lens';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import { Alert } from '@lenster/ui';
+import { PUBLICATION } from '@hey/data/tracking';
+import { useHidePublicationMutation } from '@hey/lens';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import { Alert } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

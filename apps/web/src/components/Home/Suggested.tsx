@@ -2,10 +2,10 @@ import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProf
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useRecommendedProfilesQuery } from '@lenster/lens';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useRecommendedProfilesQuery } from '@hey/lens';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
