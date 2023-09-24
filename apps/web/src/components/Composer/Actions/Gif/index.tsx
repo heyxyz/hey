@@ -1,8 +1,8 @@
 import Loader from '@components/Shared/Loader';
 import { GifIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@hey/data/tracking';
-import type { IGif } from '@hey/types/giphy';
-import { Modal, Tooltip } from '@hey/ui';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { IGif } from '@lenster/types/giphy';
+import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';

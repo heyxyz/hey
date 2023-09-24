@@ -1,5 +1,5 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import response from '@hey/lib/response';
+import response from '@lenster/lib/response';
 
 import type { WorkerRequest } from '../types';
 

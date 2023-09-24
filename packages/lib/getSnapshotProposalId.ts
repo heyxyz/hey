@@ -1,4 +1,4 @@
-import { SNAPSHOT_URL } from '@hey/data/constants';
+import { SNAPSHOT_URL } from '@lenster/data/constants';
 
 /**
  * Get Snapshot proposal ID from URL

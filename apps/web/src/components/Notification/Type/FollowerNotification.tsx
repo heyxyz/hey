@@ -1,6 +1,6 @@
 import UserPreview from '@components/Shared/UserPreview';
 import { UserPlusIcon } from '@heroicons/react/24/solid';
-import type { NewFollowerNotification } from '@hey/lens';
+import type { NewFollowerNotification } from '@lenster/lens';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';

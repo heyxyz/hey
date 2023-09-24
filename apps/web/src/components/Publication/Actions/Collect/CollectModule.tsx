@@ -14,15 +14,15 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { PUBLICATION } from '@lenster/data/tracking';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,
   Publication
-} from '@hey/lens';
+} from '@lenster/lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -31,14 +31,14 @@ import {
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationRevenueQuery
-} from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
-import getAssetSymbol from '@hey/lib/getAssetSymbol';
-import getSignature from '@hey/lib/getSignature';
-import getTokenImage from '@hey/lib/getTokenImage';
-import humanize from '@hey/lib/humanize';
-import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
+} from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAssetSymbol from '@lenster/lib/getAssetSymbol';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import humanize from '@lenster/lib/humanize';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';

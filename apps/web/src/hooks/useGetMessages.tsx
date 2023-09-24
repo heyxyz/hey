@@ -1,4 +1,4 @@
-import { MESSAGE_PAGE_LIMIT } from '@hey/data/constants';
+import { MESSAGE_PAGE_LIMIT } from '@lenster/data/constants';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';

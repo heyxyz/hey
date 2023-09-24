@@ -1,4 +1,4 @@
-import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@hey/data/constants';
+import { APP_NAME, WALLETCONNECT_PROJECT_ID } from '@lenster/data/constants';
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from '@wagmi/connectors/injected';
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect';

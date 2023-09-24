@@ -1,7 +1,7 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import resetAuthData from '@hey/lib/resetAuthData';
-import cn from '@hey/ui/cn';
+import { PROFILE } from '@lenster/data/tracking';
+import resetAuthData from '@lenster/lib/resetAuthData';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';

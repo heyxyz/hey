@@ -1,4 +1,4 @@
-import response from '@hey/lib/response';
+import response from '@lenster/lib/response';
 
 import getMetadata from '../helper/getMetadata';
 import type { WorkerRequest } from '../types';

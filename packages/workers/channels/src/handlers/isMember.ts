@@ -1,4 +1,4 @@
-import response from '@hey/lib/response';
+import response from '@lenster/lib/response';
 
 import haveMintedZoraNft from '../helpers/haveMintedZoraNft';
 import type { WorkerRequest } from '../types';

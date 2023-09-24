@@ -1,8 +1,8 @@
-import { PUBLICATION } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { MarkupLinkProps } from '@hey/types/misc';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { MarkupLinkProps } from '@lenster/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';

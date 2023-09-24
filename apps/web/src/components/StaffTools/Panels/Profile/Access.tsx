@@ -1,8 +1,8 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
-import type { Profile } from '@hey/lens';
-import { Spinner, Toggle } from '@hey/ui';
+import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
+import { Localstorage } from '@lenster/data/storage';
+import type { Profile } from '@lenster/lens';
+import { Spinner, Toggle } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

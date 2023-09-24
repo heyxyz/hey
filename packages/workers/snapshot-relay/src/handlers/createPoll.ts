@@ -4,9 +4,9 @@ import {
   MAINNET_SNAPSHOT_URL,
   TESTNET_SNAPSHOT_SEQUNECER_URL,
   TESTNET_SNAPSHOT_URL
-} from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import response from '@hey/lib/response';
+} from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import response from '@lenster/lib/response';
 
 import {
   MAINNET_PROPOSAL_CREATOR_ADDRESS,

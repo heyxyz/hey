@@ -1,10 +1,10 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import cn from '@hey/ui/cn';
+import { PROFILE } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';

@@ -1,7 +1,7 @@
-import { SETTINGS } from '@hey/data/tracking';
-import type { NotificationRequest } from '@hey/lens';
-import { useNotificationsLazyQuery } from '@hey/lens';
-import { Button, Card } from '@hey/ui';
+import { SETTINGS } from '@lenster/data/tracking';
+import type { NotificationRequest } from '@lenster/lens';
+import { useNotificationsLazyQuery } from '@lenster/lens';
+import { Button, Card } from '@lenster/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';

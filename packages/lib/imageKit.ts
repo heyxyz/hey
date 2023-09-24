@@ -1,4 +1,4 @@
-import { LENS_MEDIA_SNAPSHOT_URL } from '@hey/data/constants';
+import { LENS_MEDIA_SNAPSHOT_URL } from '@lenster/data/constants';
 
 /**
  * Transforms the URL of an image to use ImageKit.

@@ -8,10 +8,10 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
-import { PROFILE, PUBLICATION } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import { Card } from '@hey/ui';
+import { ACHIEVEMENTS_WORKER_URL } from '@lenster/data/constants';
+import { PROFILE, PUBLICATION } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';

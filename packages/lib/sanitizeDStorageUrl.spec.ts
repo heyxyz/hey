@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from '@hey/data/constants';
+import { IPFS_GATEWAY } from '@lenster/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import sanitizeDStorageUrl from './sanitizeDStorageUrl';
