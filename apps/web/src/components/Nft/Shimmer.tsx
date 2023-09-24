@@ -1,5 +1,5 @@
 import Footer from '@components/Shared/Footer';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import type { FC } from 'react';
 
 const NftPageShimmer: FC = () => {

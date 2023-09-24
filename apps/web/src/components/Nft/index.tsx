@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { Card, GridItemEight, GridLayout } from '@hey/ui';
+import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import { Card, GridItemEight, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

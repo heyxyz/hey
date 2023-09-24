@@ -1,6 +1,6 @@
-import { AlgorithmProvider, HomeFeedType } from '@hey/data/enums';
-import type { Profile } from '@hey/lens';
-import getPublicationIds from '@hey/lib/getPublicationIds';
+import { AlgorithmProvider, HomeFeedType } from '@lenster/data/enums';
+import type { Profile } from '@lenster/lens';
+import getPublicationIds from '@lenster/lib/getPublicationIds';
 
 /**
  * Get the algorithmic feed for a given feed type

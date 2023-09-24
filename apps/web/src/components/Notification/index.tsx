@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { APP_NAME } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { APP_NAME } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';

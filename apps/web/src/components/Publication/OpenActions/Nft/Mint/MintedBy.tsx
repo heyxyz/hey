@@ -1,8 +1,8 @@
 import SmallUserProfileShimmer from '@components/Shared/Shimmer/SmallUserProfileShimmer';
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
-import type { Profile } from '@hey/lens';
-import { useDefaultProfileQuery } from '@hey/lens';
+import type { Profile } from '@lenster/lens';
+import { useDefaultProfileQuery } from '@lenster/lens';
 import { type FC } from 'react';
 import type { Address } from 'viem';
 

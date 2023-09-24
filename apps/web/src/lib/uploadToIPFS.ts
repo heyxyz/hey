@@ -3,8 +3,8 @@ import {
   EVER_API,
   S3_BUCKET,
   STS_GENERATOR_WORKER_URL
-} from '@hey/data/constants';
-import type { MediaSetWithoutOnChain } from '@hey/types/misc';
+} from '@lenster/data/constants';
+import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 

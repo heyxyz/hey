@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import type { OpenSeaNft } from '@hey/types/opensea-nft';
-import { Card } from '@hey/ui';
+import type { OpenSeaNft } from '@lenster/types/opensea-nft';
+import { Card } from '@lenster/ui';
 import type { FC } from 'react';
 import useOpenseaCollection from 'src/hooks/opensea/useOpenseaCollection';
 

@@ -1,4 +1,4 @@
-import cn from '@hey/ui/cn';
+import cn from '@lenster/ui/cn';
 import type { FC } from 'react';
 
 interface SmallUserProfileShimmerProps {

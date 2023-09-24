@@ -1,22 +1,22 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PROFILE } from '@hey/data/tracking';
-import type { ApprovedAllowanceAmount, Profile } from '@hey/lens';
+import { LensHub } from '@lenster/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { PROFILE } from '@lenster/data/tracking';
+import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
-} from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
-import getSignature from '@hey/lib/getSignature';
-import getTokenImage from '@hey/lib/getTokenImage';
-import { Button, Spinner, WarningMessage } from '@hey/ui';
+} from '@lenster/lens';
+import formatAddress from '@lenster/lib/formatAddress';
+import formatHandle from '@lenster/lib/formatHandle';
+import getSignature from '@lenster/lib/getSignature';
+import getTokenImage from '@lenster/lib/getTokenImage';
+import { Button, Spinner, WarningMessage } from '@lenster/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

@@ -1,6 +1,6 @@
-import { Localstorage } from '@hey/data/storage';
-import type { Profile } from '@hey/lens';
-import type { Channel } from '@hey/types/lenster';
+import { Localstorage } from '@lenster/data/storage';
+import type { Profile } from '@lenster/lens';
+import type { Channel } from '@lenster/types/lenster';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

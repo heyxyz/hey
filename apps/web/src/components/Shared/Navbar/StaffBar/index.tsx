@@ -3,8 +3,12 @@ import {
   HashtagIcon,
   RectangleGroupIcon
 } from '@heroicons/react/24/outline';
-import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
-import cn from '@hey/ui/cn';
+import {
+  GIT_COMMIT_SHA,
+  IS_MAINNET,
+  IS_PRODUCTION
+} from '@lenster/data/constants';
+import cn from '@lenster/ui/cn';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 

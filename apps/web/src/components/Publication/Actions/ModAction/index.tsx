@@ -1,13 +1,13 @@
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { GARDENER } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import { GARDENER } from '@lenster/data/tracking';
+import type { Publication } from '@lenster/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
-} from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Button } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';

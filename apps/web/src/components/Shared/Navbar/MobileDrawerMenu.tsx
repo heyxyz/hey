@@ -1,9 +1,9 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getAvatar from '@hey/lib/getAvatar';
-import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import type { Profile } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getAvatar from '@lenster/lib/getAvatar';
+import { Image } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

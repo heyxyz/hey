@@ -1,7 +1,7 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { Profile } from '@hey/lens';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import { Button } from '@hey/ui';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import type { Profile } from '@lenster/lens';
+import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
+import { Button } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

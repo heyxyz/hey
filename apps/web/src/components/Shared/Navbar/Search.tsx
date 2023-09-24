@@ -1,13 +1,13 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Profile, ProfileSearchResult } from '@hey/lens';
+import type { Profile, ProfileSearchResult } from '@lenster/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery
-} from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import { Card, Input, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { Card, Input, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';

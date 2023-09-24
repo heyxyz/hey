@@ -6,17 +6,17 @@ import {
   PencilSquareIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
-import { Errors } from '@hey/data/errors';
-import type { Nft, NftGallery } from '@hey/lens';
+import { Errors } from '@lenster/data/errors';
+import type { Nft, NftGallery } from '@lenster/lens';
 import {
   NftGalleriesDocument,
   useDeleteNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
-} from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { Button } from '@hey/ui';
-import cn from '@hey/ui/cn';
+} from '@lenster/lens';
+import { useApolloClient } from '@lenster/lens/apollo';
+import { Button } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

@@ -1,5 +1,5 @@
-import type { ElectedMirror, Publication } from '@hey/lens';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { ElectedMirror, Publication } from '@lenster/lens';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';

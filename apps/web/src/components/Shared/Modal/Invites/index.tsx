@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
-import { useInvitesQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import { useInvitesQuery } from '@lenster/lens';
+import { ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 

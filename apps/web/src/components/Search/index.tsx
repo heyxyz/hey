@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import Sidebar from '@components/Shared/Sidebar';
 import { PencilSquareIcon, UsersIcon } from '@heroicons/react/24/outline';
-import { PAGEVIEW } from '@hey/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';

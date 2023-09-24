@@ -1,10 +1,10 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import type { HomeFeedType } from '@hey/data/enums';
-import type { Publication, PublicationsQueryRequest } from '@hey/lens';
-import { useProfileFeedQuery } from '@hey/lens';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+import type { HomeFeedType } from '@lenster/data/enums';
+import type { Publication, PublicationsQueryRequest } from '@lenster/lens';
+import { useProfileFeedQuery } from '@lenster/lens';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';

@@ -1,14 +1,14 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type { ExplorePublicationRequest, Publication } from '@hey/lens';
+import type { ExplorePublicationRequest, Publication } from '@lenster/lens';
 import {
   PublicationSortCriteria,
   PublicationTypes,
   useExploreFeedQuery
-} from '@hey/lens';
-import type { Channel } from '@hey/types/lenster';
-import { Card, EmptyState, ErrorMessage } from '@hey/ui';
+} from '@lenster/lens';
+import type { Channel } from '@lenster/types/lenster';
+import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';

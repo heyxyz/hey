@@ -1,4 +1,4 @@
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME } from '@lenster/data/constants';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

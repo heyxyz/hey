@@ -1,6 +1,6 @@
 import { SparklesIcon } from '@heroicons/react/24/outline';
-import { HOME } from '@hey/data/tracking';
-import { Modal, Tooltip } from '@hey/ui';
+import { HOME } from '@lenster/data/tracking';
+import { Modal, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

@@ -1,5 +1,5 @@
-import { Errors } from '@hey/data/errors';
-import { PAGEVIEW } from '@hey/data/tracking';
+import { Errors } from '@lenster/data/errors';
+import { PAGEVIEW } from '@lenster/data/tracking';
 
 import randomizeIds from '../../../helpers/randomizeIds';
 import removeParamsFromString from '../../../helpers/removeParamsFromString';
