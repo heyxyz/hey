@@ -1,4 +1,4 @@
-import cn from '@hey/ui/cn';
+import cn from '@lenster/ui/cn';
 import normalizeWheel from 'normalize-wheel';
 import type { RefObject } from 'react';
 import { Component, createRef } from 'react';

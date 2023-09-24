@@ -1,9 +1,9 @@
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
-import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
-import type { MediaSetWithoutOnChain } from '@hey/types/misc';
-import { Spinner } from '@hey/ui';
+import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
+import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
+import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
+import { Spinner } from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';

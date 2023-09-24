@@ -1,11 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import { useProfileQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
+import {
+  APP_NAME,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import type { Profile } from '@lenster/lens';
+import { useProfileQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';

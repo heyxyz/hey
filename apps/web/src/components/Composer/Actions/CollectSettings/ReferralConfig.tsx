@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { CollectModules } from '@hey/lens';
-import { Input } from '@hey/ui';
+import { CollectModules } from '@lenster/lens';
+import { Input } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';

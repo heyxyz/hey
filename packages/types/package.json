@@ -1,5 +1,5 @@
 {
-  "name": "@hey/types",
+  "name": "@lenster/types",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -12,11 +12,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/lens": "workspace:*",
-    "@hey/supabase": "workspace:*"
+    "@lenster/lens": "workspace:*",
+    "@lenster/supabase": "workspace:*"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@lenster/config": "workspace:*",
     "typescript": "^5.2.2"
   }
 }

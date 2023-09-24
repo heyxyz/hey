@@ -1,4 +1,4 @@
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@lenster/lens';
 import type { FC } from 'react';
 
 import Streaks from './Streaks';

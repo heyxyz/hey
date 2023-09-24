@@ -1,5 +1,5 @@
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
-import { Tooltip } from '@hey/ui';
+import { Tooltip } from '@lenster/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

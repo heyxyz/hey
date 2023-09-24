@@ -1,5 +1,5 @@
-import { GIPHY_KEY } from '@hey/data/constants';
-import type { IGif } from '@hey/types/giphy';
+import { GIPHY_KEY } from '@lenster/data/constants';
+import type { IGif } from '@lenster/types/giphy';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useInfiniteQuery } from 'wagmi';

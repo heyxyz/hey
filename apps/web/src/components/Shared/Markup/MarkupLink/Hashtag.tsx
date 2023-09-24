@@ -1,10 +1,10 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import { hashflags } from '@hey/data/hashflags';
-import { prideHashtags } from '@hey/data/pride-hashtags';
-import { PUBLICATION } from '@hey/data/tracking';
-import isPrideMonth from '@hey/lib/isPrideMonth';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { MarkupLinkProps } from '@hey/types/misc';
+import { STATIC_IMAGES_URL } from '@lenster/data/constants';
+import { hashflags } from '@lenster/data/hashflags';
+import { prideHashtags } from '@lenster/data/pride-hashtags';
+import { PUBLICATION } from '@lenster/data/tracking';
+import isPrideMonth from '@lenster/lib/isPrideMonth';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { MarkupLinkProps } from '@lenster/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';

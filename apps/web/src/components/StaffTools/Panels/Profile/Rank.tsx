@@ -6,7 +6,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
+import type { Profile } from '@lenster/lens';
 import { formatDate } from '@lib/formatTime';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';

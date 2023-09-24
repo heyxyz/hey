@@ -1,5 +1,5 @@
 {
-  "name": "@hey/snapshot",
+  "name": "@lenster/snapshot",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",
-    "@hey/data": "workspace:*"
+    "@lenster/data": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
@@ -22,7 +22,7 @@
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@hey/config": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@types/node": "^20.6.3",
     "typescript": "^5.2.2"
   }

@@ -11,21 +11,6 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { LockClosedIcon } from '@heroicons/react/24/solid';
-import {
-  LIT_PROTOCOL_ENVIRONMENT,
-  POLYGONSCAN_URL,
-  RARIBLE_URL
-} from '@hey/data/constants';
-import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication, PublicationMetadataV2Input } from '@hey/lens';
-import { DecryptFailReason, useCanDecryptStatusQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getURLs from '@hey/lib/getURLs';
-import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import { Card, ErrorMessage, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import type { LensEnvironment } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
@@ -33,6 +18,21 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
+import {
+  LIT_PROTOCOL_ENVIRONMENT,
+  POLYGONSCAN_URL,
+  RARIBLE_URL
+} from '@lenster/data/constants';
+import { PUBLICATION } from '@lenster/data/tracking';
+import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
+import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
+import formatHandle from '@lenster/lib/formatHandle';
+import getURLs from '@lenster/lib/getURLs';
+import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
+import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';

@@ -1,6 +1,6 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
-import { HelpTooltip, Modal, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { HelpTooltip, Modal, Tooltip } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

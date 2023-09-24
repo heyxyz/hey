@@ -1,12 +1,16 @@
 import SinglePublication from '@components/Publication/SinglePublication';
-import type { Comment, Publication, PublicationsQueryRequest } from '@hey/lens';
+import type {
+  Comment,
+  Publication,
+  PublicationsQueryRequest
+} from '@lenster/lens';
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   CustomFiltersTypes,
   useCommentFeedQuery
-} from '@hey/lens';
-import { Card } from '@hey/ui';
+} from '@lenster/lens';
+import { Card } from '@lenster/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

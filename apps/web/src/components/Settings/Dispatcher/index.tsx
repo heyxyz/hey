@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@hey/data/constants';
-import { PAGEVIEW } from '@hey/data/tracking';
-import getIsDispatcherEnabled from '@hey/lib/getIsDispatcherEnabled';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { APP_NAME, OLD_LENS_RELAYER_ADDRESS } from '@lenster/data/constants';
+import { PAGEVIEW } from '@lenster/data/tracking';
+import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';

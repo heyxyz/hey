@@ -1,5 +1,5 @@
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
 import type { FC } from 'react';
 
 const ProfilePageShimmer: FC = () => {

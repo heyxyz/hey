@@ -13,15 +13,15 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@hey/data": "workspace:*",
-    "@hey/lib": "workspace:*",
+    "@lenster/data": "workspace:*",
+    "@lenster/lib": "workspace:*",
     "itty-router": "^4.0.23",
     "ua-parser-js": "^1.0.36",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
-    "@hey/config": "workspace:*",
+    "@lenster/config": "workspace:*",
     "@types/ua-parser-js": "^0.7.37",
     "typescript": "^5.2.2",
     "wrangler": "^3.9.0"

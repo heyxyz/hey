@@ -1,10 +1,10 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
 import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
-import { MISCELLANEOUS } from '@hey/data/tracking';
-import type { TagResult } from '@hey/lens';
-import { TagSortCriteria, useTrendingQuery } from '@hey/lens';
-import nFormatter from '@hey/lib/nFormatter';
-import { Card, ErrorMessage } from '@hey/ui';
+import { MISCELLANEOUS } from '@lenster/data/tracking';
+import type { TagResult } from '@lenster/lens';
+import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
+import nFormatter from '@lenster/lib/nFormatter';
+import { Card, ErrorMessage } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';

@@ -1,11 +1,11 @@
 import Profile from '@components/Profile';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
 import {
   CustomFiltersTypes,
   ProfileDocument,
   ProfileFeedDocument
-} from '@hey/lens';
-import { lensApolloNodeClient } from '@hey/lens/apollo';
+} from '@lenster/lens';
+import { lensApolloNodeClient } from '@lenster/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {

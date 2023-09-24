@@ -3,15 +3,15 @@ import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/solid';
-import { APP_NAME, SNAPSHOT_SEQUNECER_URL } from '@hey/data/constants';
-import { Errors } from '@hey/data/errors';
-import { PUBLICATION } from '@hey/data/tracking';
-import humanize from '@hey/lib/humanize';
-import nFormatter from '@hey/lib/nFormatter';
-import type { Proposal, Vote } from '@hey/snapshot';
-import generateTypedData from '@hey/snapshot/lib/generateTypedData';
-import { Card, Modal, Spinner } from '@hey/ui';
-import cn from '@hey/ui/cn';
+import { APP_NAME, SNAPSHOT_SEQUNECER_URL } from '@lenster/data/constants';
+import { Errors } from '@lenster/data/errors';
+import { PUBLICATION } from '@lenster/data/tracking';
+import humanize from '@lenster/lib/humanize';
+import nFormatter from '@lenster/lib/nFormatter';
+import type { Proposal, Vote } from '@lenster/snapshot';
+import generateTypedData from '@lenster/snapshot/lib/generateTypedData';
+import { Card, Modal, Spinner } from '@lenster/ui';
+import cn from '@lenster/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';

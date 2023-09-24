@@ -1,5 +1,5 @@
-import { AUTH } from '@hey/data/tracking';
-import { Button } from '@hey/ui';
+import { AUTH } from '@lenster/data/tracking';
+import { Button } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';

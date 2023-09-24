@@ -1,7 +1,7 @@
 import {
   LENS_MEDIA_SNAPSHOT_URL,
   STATIC_IMAGES_URL
-} from '@hey/data/constants';
+} from '@lenster/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import imageKit from './imageKit';
