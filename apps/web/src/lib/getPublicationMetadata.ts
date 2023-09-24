@@ -1,15 +1,12 @@
 import { article, audio, textOnly, video } from '@lens-protocol/metadata';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_VIDEO_TYPES,
-  APP_NAME
-} from '@lenster/data/constants';
+import { APP_NAME } from '@lenster/data/constants';
+import type { NewLensterAttachment } from '@lenster/types/misc';
 import getUserLocale from '@lib/getUserLocale';
 import { v4 as uuid } from 'uuid';
 
 interface GetPublicationMetadataProps {
   baseMetadata: any;
-  attachments: any[];
+  attachments: NewLensterAttachment[];
   cover: string;
 }
 
@@ -19,12 +16,10 @@ const getPublicationMetadata = ({
   cover
 }: GetPublicationMetadataProps) => {
   const hasAttachments = attachments.length;
-  const hasAudio = ALLOWED_AUDIO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasVideo = ALLOWED_VIDEO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
+  const hasAudio =
+    attachments[0]?.__typename === 'PublicationMetadataMediaAudio';
+  const hasVideo =
+    attachments[0]?.__typename === 'PublicationMetadataMediaVideo';
 
   const localBaseMetadata = {
     id: uuid(),
@@ -44,21 +39,28 @@ const getPublicationMetadata = ({
         ...localBaseMetadata,
         ...(hasAttachments && {
           attachments: attachments.map((attachment) => ({
-            item: attachment.original.url,
-            type: attachment.original.mimeType,
-            cover: cover,
-            altTag: attachment.original.altTag
+            item: attachment.uploaded.uri,
+            type: attachment.uploaded.mimeType,
+            cover: cover
           }))
         })
       });
     case hasAttachments && hasAudio:
+      return audio({
+        ...baseMetadata,
+        ...localBaseMetadata,
+        audio: {
+          item: attachments[0]?.uploaded.uri,
+          type: attachments[0]?.uploaded.mimeType
+        }
+      });
     case hasAttachments && hasVideo:
       return video({
         ...baseMetadata,
         ...localBaseMetadata,
-        audio: {
-          item: attachments[0]?.original.url,
-          type: attachments[0]?.original.mimeType
+        video: {
+          item: attachments[0]?.uploaded.uri,
+          type: attachments[0]?.uploaded.mimeType
         }
       });
     default:

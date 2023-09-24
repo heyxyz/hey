@@ -50,8 +50,8 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       try {
         setUploading(true);
         const attachment = await uploadFileToIPFS(event.target.files[0]);
-        if (attachment.original.url) {
-          setAvatar(attachment.original.url);
+        if (attachment.uploaded.uri) {
+          setAvatar(attachment.uploaded.uri);
         }
       } finally {
         setUploading(false);

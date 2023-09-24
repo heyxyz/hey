@@ -20,7 +20,7 @@ const uploadCroppedImage = async (
     type: (blob as Blob).type
   });
   const attachment = await uploadFileToIPFS(file);
-  const ipfsUrl = attachment.original.url;
+  const ipfsUrl = attachment.uploaded.uri;
   if (!ipfsUrl) {
     throw new Error('uploadToIPFS failed');
   }

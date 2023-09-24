@@ -1,11 +1,25 @@
 import type { MediaSet, ProfileInterestTypes } from '@lenster/lens';
 
-export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
+interface IPFSAttachment {
+  uploaded: {
+    uri: string;
+    mimeType: string;
+  };
+}
 
-export interface NewLensterAttachment extends MediaSetWithoutOnChain {
+export interface NewLensterAttachment extends IPFSAttachment {
   id: string;
   file?: File;
   previewItem: string;
+  uploaded: {
+    uri: string;
+    mimeType: string;
+  };
+  __typename:
+    | 'PublicationMetadataMediaAudio'
+    | 'PublicationMetadataMediaVideo'
+    | 'PublicationMetadataMediaImage'
+    | null;
 }
 
 export interface UserSuggestion {

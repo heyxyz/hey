@@ -26,13 +26,23 @@ const useUploadAttachments = () => {
         (file: any) => {
           const attachmentId = uuid();
           attachmentIds.push(attachmentId);
+          const imageTypename = file.type.includes('image')
+            ? 'PublicationMetadataMediaImage'
+            : null;
+          const videoTypename = file.type.includes('video')
+            ? 'PublicationMetadataMediaVideo'
+            : null;
+          const audioTypename = file.type.includes('audio')
+            ? 'PublicationMetadataMediaAudio'
+            : null;
 
           return {
             id: attachmentId,
             file: file,
+            __typename: imageTypename || videoTypename || audioTypename,
             previewItem: URL.createObjectURL(file),
-            original: {
-              url: URL.createObjectURL(file),
+            uploaded: {
+              uri: URL.createObjectURL(file),
               mimeType: file.type
             }
           };
@@ -76,9 +86,9 @@ const useUploadAttachments = () => {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewLensterAttachment, index: number) => ({
               ...attachment,
-              original: {
-                url: attachmentsUploaded[index].original.url,
-                mimeType: attachmentsUploaded[index].original.mimeType
+              uploaded: {
+                uri: attachmentsUploaded[index].uploaded.uri,
+                mimeType: attachmentsUploaded[index].uploaded.mimeType
               }
             })
           );

@@ -1,5 +1,6 @@
 import Nft from '@components/Publication/OpenActions/Nft';
 import Snapshot from '@components/Publication/OpenActions/Snapshot';
+import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
@@ -56,9 +57,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showSnapshot = snapshotProposalId;
   // Show attachments if it's there
   const showAttachments =
-    metadata.__typename === 'AudioMetadataV3' ||
-    metadata.__typename === 'ImageMetadataV3' ||
-    metadata.__typename === 'VideoMetadataV3';
+    (metadata.__typename === 'AudioMetadataV3' ||
+      metadata.__typename === 'ImageMetadataV3' ||
+      metadata.__typename === 'VideoMetadataV3' ||
+      metadata.__typename === 'ArticleMetadataV3') &&
+    (metadata.attachments?.length ?? 0) > 0;
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs && !showNft && !showAttachments && !showSnapshot && !quoted;
@@ -75,6 +78,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   return (
     <div className="break-words">
+      {metadata.__typename}
       <Markup
         className={cn(
           { 'line-clamp-5': canShowMore },
@@ -92,10 +96,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         </div>
       ) : null}
       {/* Attachments and Quotes */}
-      {/* <Quote publication={publication} />
+      {/* <Quote publication={publication} /> */}
       {showAttachments ? (
-        <Attachments attachments={metadata?.media} publication={publication} />
-      ) : null} */}
+        <Attachments
+          attachments={metadata?.attachments}
+          publication={publication}
+        />
+      ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}

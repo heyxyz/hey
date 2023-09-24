@@ -2,7 +2,7 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
-import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
+import type { IPFSAttachment } from '@lenster/types/misc';
 import { Spinner } from '@lenster/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -34,12 +34,12 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: MediaSetWithoutOnChain = await uploadFileToIPFS(fileToUpload);
-    if (!result.original.url) {
+    const result: IPFSAttachment = await uploadFileToIPFS(fileToUpload);
+    if (!result.uploaded.uri) {
       toast.error(t`Failed to upload thumbnail`);
     }
     setVideoThumbnail({
-      url: result.original.url,
+      url: result.uploaded.uri,
       type: fileToUpload.type || 'image/jpeg',
       uploading: false
     });
@@ -62,7 +62,7 @@ const ChooseThumbnail: FC = () => {
           setThumbnails(
             thumbnails.map((thumbnail, i) => {
               if (i === index) {
-                thumbnail.ipfsUrl = ipfsResult.original.url;
+                thumbnail.ipfsUrl = ipfsResult.uploaded.uri;
               }
               return thumbnail;
             })
@@ -123,7 +123,7 @@ const ChooseThumbnail: FC = () => {
         setThumbnails([
           {
             blobUrl: preview,
-            ipfsUrl: result.original.url,
+            ipfsUrl: result.uploaded.uri,
             mimeType: file.type || 'image/jpeg'
           },
           ...thumbnails

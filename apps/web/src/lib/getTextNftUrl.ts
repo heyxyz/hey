@@ -62,7 +62,7 @@ const getTextNftUrl = async (
   });
   const result = await uploadFileToIPFS(file);
 
-  return result.original.url;
+  return result.uploaded.uri;
 };
 
 export default getTextNftUrl;

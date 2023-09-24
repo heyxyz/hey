@@ -150,7 +150,7 @@ const Composer: FC<ComposerProps> = ({
           );
 
           const uploadedAttachment = await uploadFileToIPFS(file);
-          const url = sanitizeDStorageUrl(uploadedAttachment.original.url);
+          const url = sanitizeDStorageUrl(uploadedAttachment.uploaded.uri);
 
           const remoteAttachment: RemoteAttachment = {
             url,

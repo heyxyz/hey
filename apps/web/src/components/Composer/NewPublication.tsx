@@ -10,12 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { LensHub } from '@lenster/abis';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_VIDEO_TYPES,
-  LENSHUB_PROXY
-} from '@lenster/data/constants';
+import { LENSHUB_PROXY } from '@lenster/data/constants';
 import { Errors } from '@lenster/data/errors';
 import { PUBLICATION } from '@lenster/data/tracking';
 import type {
@@ -26,7 +21,6 @@ import type {
   OnchainPostRequest
 } from '@lenster/lens';
 import {
-  LegacyPublicationMetadataMainFocusType,
   PublicationDocument,
   ReferenceModuleType,
   useBroadcastOnchainMutation,
@@ -178,12 +172,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
-  const hasAudio = ALLOWED_AUDIO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasVideo = ALLOWED_VIDEO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
+  const hasAudio =
+    attachments[0]?.__typename === 'PublicationMetadataMediaAudio';
+  const hasVideo =
+    attachments[0]?.__typename === 'PublicationMetadataMediaVideo';
 
   // Dispatcher
   const canUseRelay = currentProfile?.lensManager;
@@ -232,7 +224,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       publication_has_attachments: attachments.length > 0,
       publication_attachment_types:
         attachments.length > 0
-          ? attachments.map((attachment) => attachment.original.mimeType)
+          ? attachments.map((attachment) => attachment.uploaded.mimeType)
           : null,
       publication_has_poll: showPollEditor
     };
@@ -504,39 +496,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return;
   };
 
-  const getMainContentFocus = () => {
-    if (attachments.length > 0) {
-      if (hasAudio) {
-        return LegacyPublicationMetadataMainFocusType.Audio;
-      } else if (
-        ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
-      ) {
-        return LegacyPublicationMetadataMainFocusType.Image;
-      } else if (hasVideo) {
-        return LegacyPublicationMetadataMainFocusType.Video;
-      } else {
-        return LegacyPublicationMetadataMainFocusType.TextOnly;
-      }
-    } else {
-      return LegacyPublicationMetadataMainFocusType.TextOnly;
-    }
-  };
-
   const getAnimationUrl = () => {
     if (attachments.length > 0 || hasAudio || hasVideo) {
-      return attachments[0]?.original.url;
+      return attachments[0]?.uploaded.uri;
     }
 
     return null;
   };
 
-  const getAttachmentImage = () => {
-    return hasAudio
+  const getAttachmentImage = (): string =>
+    (hasAudio
       ? audioPublication.cover
       : hasVideo
       ? videoThumbnail.url
-      : attachments[0]?.original.url;
-  };
+      : attachments[0]?.uploaded.uri) as string;
 
   const getTitlePrefix = () => {
     if (hasVideo) {
@@ -589,11 +562,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       const attributes = [
-        {
-          type: MetadataAttributeType.STRING,
-          key: 'type',
-          value: getMainContentFocus()?.toLowerCase()
-        },
         ...(quotedPublication
           ? [
               {
@@ -720,10 +688,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const attachment: NewLensterAttachment = {
       id: uuid(),
       previewItem: gif.images.original.url,
-      original: {
-        url: gif.images.original.url,
-        mimeType: 'image/gif',
-        altTag: gif.title
+      __typename: 'PublicationMetadataMediaImage',
+      uploaded: {
+        uri: gif.images.original.url,
+        mimeType: 'image/gif'
       }
     };
     addAttachments([attachment]);

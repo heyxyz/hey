@@ -4,7 +4,7 @@ import {
   S3_BUCKET,
   STS_GENERATOR_WORKER_URL
 } from '@lenster/data/constants';
-import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
+import type { IPFSAttachment } from '@lenster/types/misc';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
@@ -53,7 +53,7 @@ const getS3Client = async (): Promise<S3> => {
  * @param data Files to upload to IPFS.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
+const uploadToIPFS = async (data: any): Promise<IPFSAttachment[]> => {
   try {
     const files = Array.from(data);
     const client = await getS3Client();
@@ -73,8 +73,8 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
         const metadata = result.Metadata;
 
         return {
-          original: {
-            url: `ipfs://${metadata?.['ipfs-hash']}`,
+          uploaded: {
+            uri: `ipfs://${metadata?.['ipfs-hash']}`,
             mimeType: file.type || FALLBACK_TYPE
           }
         };
@@ -93,21 +93,19 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
  * @param file File to upload to IPFS.
  * @returns MediaSet object or null if the upload fails.
  */
-export const uploadFileToIPFS = async (
-  file: File
-): Promise<MediaSetWithoutOnChain> => {
+export const uploadFileToIPFS = async (file: File): Promise<IPFSAttachment> => {
   try {
     const ipfsResponse = await uploadToIPFS([file]);
     const metadata = ipfsResponse[0];
 
     return {
-      original: {
-        url: metadata.original.url,
+      uploaded: {
+        uri: metadata.uploaded.uri,
         mimeType: file.type || FALLBACK_TYPE
       }
     };
   } catch {
-    return { original: { url: '', mimeType: file.type || FALLBACK_TYPE } };
+    return { uploaded: { uri: '', mimeType: file.type || FALLBACK_TYPE } };
   }
 };
 
