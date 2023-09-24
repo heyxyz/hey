@@ -1,12 +1,12 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Spinner, Tooltip } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import type { Publication } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';

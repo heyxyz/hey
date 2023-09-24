@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/lib",
+  "name": "@hey/lib",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -12,14 +12,14 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lenster/data": "workspace:*",
-    "@lenster/lens": "workspace:*",
-    "@lenster/types": "workspace:*",
+    "@hey/data": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@hey/types": "workspace:*",
     "axios": "^1.5.0",
     "viem": "^1.12.1"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   }

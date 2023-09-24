@@ -1,1 +1,1 @@
-# @lenster/types
+# @hey/types

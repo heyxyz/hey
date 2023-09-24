@@ -1,4 +1,4 @@
-import { ReferenceModules } from '@lenster/lens';
+import { ReferenceModules } from '@hey/lens';
 import { create } from 'zustand';
 
 interface ReferenceModuleState {

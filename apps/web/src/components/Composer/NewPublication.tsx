@@ -8,18 +8,7 @@ import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { LensHub } from '@lenster/abis';
+import { LensHub } from '@hey/abis';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -27,16 +16,16 @@ import {
   APP_NAME,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
-} from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
+} from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
   Publication,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CollectModules,
   PublicationDocument,
@@ -54,13 +43,24 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation,
   usePublicationLazyQuery
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import getSignature from '@lenster/lib/getSignature';
-import type { IGif } from '@lenster/types/giphy';
-import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import getSignature from '@hey/lib/getSignature';
+import type { IGif } from '@hey/types/giphy';
+import type { NewLensterAttachment } from '@hey/types/misc';
+import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import type {
+  CollectCondition,
+  EncryptedMetadata,
+  FollowCondition,
+  LensEnvironment
+} from '@lens-protocol/sdk-gated';
+import { LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type {
+  AccessConditionOutput,
+  CreatePublicPostRequest
+} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';

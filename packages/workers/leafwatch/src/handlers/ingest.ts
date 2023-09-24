@@ -1,6 +1,6 @@
-import { Errors } from '@lenster/data/errors';
-import { ALL_EVENTS } from '@lenster/data/tracking';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import { ALL_EVENTS } from '@hey/data/tracking';
+import response from '@hey/lib/response';
 import UAParser from 'ua-parser-js';
 import { any, object, string } from 'zod';
 

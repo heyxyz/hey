@@ -1,5 +1,5 @@
 import Markup from '@components/Shared/Markup';
-import type { Profile } from '@lenster/lens';
+import type { Profile } from '@hey/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
 import { useRef } from 'react';
