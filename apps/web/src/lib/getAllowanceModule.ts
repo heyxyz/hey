@@ -1,4 +1,4 @@
-import { CollectModules, FollowModules, ReferenceModules } from '@lenster/lens';
+import { CollectModules, FollowModules, ReferenceModules } from '@hey/lens';
 import { t } from '@lingui/macro';
 
 /**

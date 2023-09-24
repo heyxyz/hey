@@ -1,9 +1,9 @@
-import { DEFAULT_OG } from '@lenster/data/constants';
-import type { Comment } from '@lenster/lens';
-import { Publication } from '@lenster/lens';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import truncateByWords from '@lenster/lib/truncateByWords';
+import { DEFAULT_OG } from '@hey/data/constants';
+import type { Comment } from '@hey/lens';
+import { Publication } from '@hey/lens';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 

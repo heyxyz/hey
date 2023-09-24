@@ -1,4 +1,4 @@
-import { Regex } from '@lenster/data/regex';
+import { Regex } from '@hey/data/regex';
 
 /**
  * Returns an array of URLs found in the specified text.

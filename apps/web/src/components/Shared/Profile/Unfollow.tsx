@@ -1,15 +1,15 @@
 import { UserMinusIcon } from '@heroicons/react/24/outline';
-import { FollowNft } from '@lenster/abis';
-import { Errors } from '@lenster/data/errors';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
+import { FollowNft } from '@hey/abis';
+import { Errors } from '@hey/data/errors';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateUnfollowTypedDataMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import getSignature from '@lenster/lib/getSignature';
-import { Button, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import getSignature from '@hey/lib/getSignature';
+import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
