@@ -56,7 +56,7 @@ const Search: FC<SearchProps> = ({
   };
 
   useEffect(() => {
-    if (pathname !== '/search' && !hideDropdown) {
+    if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       searchUsers({
         variables: {
           request: {
