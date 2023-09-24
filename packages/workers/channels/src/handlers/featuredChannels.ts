@@ -12,7 +12,7 @@ export default async (request: WorkerRequest) => {
       const client = createSupabaseClient(request.env.SUPABASE_KEY);
       const { data } = await client
         .from('channels')
-        .select('*, members:channel_memberships(count)')
+        .select('*')
         .eq('featured', true);
       await request.env.CHANNELS.put(
         FEATURED_CHANNELS_KV_KEY,
