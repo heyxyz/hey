@@ -1,12 +1,12 @@
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import getAvatar from '@lenster/lib/getAvatar';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import { Image } from '@lenster/ui';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import getAvatar from '@hey/lib/getAvatar';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import { Image } from '@hey/ui';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/message';

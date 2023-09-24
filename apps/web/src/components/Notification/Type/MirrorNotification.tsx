@@ -1,8 +1,8 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
-import type { NewMirrorNotification } from '@lenster/lens';
-import type { MessageDescriptor } from '@lenster/types/misc';
+import type { NewMirrorNotification } from '@hey/lens';
+import type { MessageDescriptor } from '@hey/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';

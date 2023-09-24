@@ -2,21 +2,21 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { AVATAR } from '@lenster/data/constants';
+import { AVATAR } from '@hey/data/constants';
 import type {
   MediaSet,
   NftImage,
   Profile,
   ProfileSearchResult
-} from '@lenster/lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import hasMisused from '@lenster/lib/hasMisused';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import hasMisused from '@hey/lib/hasMisused';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {

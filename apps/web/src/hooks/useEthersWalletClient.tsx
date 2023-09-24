@@ -1,4 +1,4 @@
-import { ZERO_ADDRESS } from '@lenster/data/constants';
+import { ZERO_ADDRESS } from '@hey/data/constants';
 import { CHAIN_ID } from 'src/constants';
 import type { Address } from 'viem';
 import { useWalletClient } from 'wagmi';
