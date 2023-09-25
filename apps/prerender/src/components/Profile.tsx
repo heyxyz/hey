@@ -1,3 +1,4 @@
+import { APP_NAME } from '@hey/data/constants';
 import type { MediaSet, NftImage, Publication } from '@hey/lens';
 import { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
@@ -23,8 +24,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
   }
 
   const title = profile?.name
-    ? `${profile?.name} (@${profile?.handle}) • Lenster`
-    : `@${profile?.handle} • Lenster`;
+    ? `${profile?.name} (@${profile?.handle}) • ${APP_NAME}`
+    : `@${profile?.handle} • ${APP_NAME}`;
   const description = truncateByWords(profile?.bio ?? '', 30);
   const image = sanitizeDStorageUrl(
     profile?.picture?.original?.url ??

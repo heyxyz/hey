@@ -3,7 +3,7 @@ import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatHandle from '@hey/lib/formatHandle';
 import type { Channel } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
@@ -106,7 +106,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
                   className="h-4 w-4"
                   height={16}
                   width={16}
-                  alt="Lenster Logo"
+                  alt={`${APP_NAME} Logo`}
                 />
               }
             >

@@ -42,7 +42,7 @@ export default async (request: WorkerRequest) => {
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
         { name: 'content-type', value: 'application/json' },
-        { name: 'App-Name', value: 'Lenster' }
+        { name: 'App-Name', value: 'Hey' }
       ]
     });
     await tx.sign(signer);

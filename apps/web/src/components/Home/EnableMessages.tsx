@@ -1,5 +1,5 @@
 import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import { XMTP_ENV } from '@hey/data/constants';
+import { APP_NAME, XMTP_ENV } from '@hey/data/constants';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -49,8 +49,8 @@ const EnableMessages: FC = () => {
       </div>
       <p className="mr-10 text-sm leading-[22px]">
         <Trans>
-          Activate XMTP to start using Lenster to send end-to-end encrypted DMs
-          to frens.
+          Activate XMTP to start using {APP_NAME} to send end-to-end encrypted
+          DMs to frens.
         </Trans>
       </p>
       <Button

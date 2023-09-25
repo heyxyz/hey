@@ -1,4 +1,4 @@
-import { DEFAULT_OG } from '@hey/data/constants';
+import { APP_NAME, DEFAULT_OG } from '@hey/data/constants';
 import type { Comment } from '@hey/lens';
 import { Publication } from '@hey/lens';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
@@ -33,7 +33,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
       : __typename === 'Mirror'
       ? 'Mirror'
       : 'Comment'
-  } by @${publication.profile.handle} • Lenster`;
+  } by @${publication.profile.handle} • ${APP_NAME}`;
   const description = truncateByWords(metadata?.content, 30);
   const image = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)

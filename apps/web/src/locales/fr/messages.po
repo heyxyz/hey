@@ -446,11 +446,15 @@ msgid "Signless transactions"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
+#~ msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
+#~ msgstr ""
+
+#: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
-msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
+msgid "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
@@ -1014,6 +1018,18 @@ msgid "Submit"
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
+#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
+#~ msgstr ""
+
+#: src/components/Pages/Privacy.tsx
+#~ msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
+#~ msgstr ""
+
+#: src/components/Pages/Privacy.tsx
+#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+#~ msgstr ""
+
+#: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
 msgstr ""
 
@@ -1032,7 +1048,7 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -1145,8 +1161,16 @@ msgid "10. Contact"
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
 msgstr ""
+
+#: src/components/Pages/Terms.tsx
+#~ msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+#~ msgstr ""
+
+#: src/components/Pages/Terms.tsx
+#~ msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
+#~ msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1157,7 +1181,7 @@ msgid "Terms & Conditions"
 msgstr ""
 
 #: src/components/Pages/Terms.tsx
-msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgid "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
 msgstr ""
 
 #: src/components/Pages/Terms.tsx
@@ -1341,7 +1365,7 @@ msgid "12. Contact Information"
 msgstr ""
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
 msgstr ""
 
 #: src/components/Pages/Thanks.tsx
@@ -2158,11 +2182,15 @@ msgid "Cleared DM keys"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
+#~ msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+#~ msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2361,11 +2389,15 @@ msgid "Your temporary refresh token"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
+#~ msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
+#~ msgstr ""
+
+#: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
-msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
+msgid "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
 msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx

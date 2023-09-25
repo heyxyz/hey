@@ -1,3 +1,4 @@
+import { APP_NAME } from '@hey/data/constants';
 import Head from 'next/head';
 import type { FC } from 'react';
 
@@ -29,7 +30,7 @@ const Tags: FC<TagsProps> = ({
       <meta name="description" content={description} />
       {/* General OG */}
       <meta property="og:url" content={url} />
-      <meta property="og:site_name" content="Lenster" />
+      <meta property="og:site_name" content={APP_NAME} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
@@ -38,7 +39,7 @@ const Tags: FC<TagsProps> = ({
       <meta property="og:type" content="article" />
       {/* Twitter OG */}
       <meta property="twitter:card" content={cardType} />
-      <meta property="twitter:site" content="Lenster" />
+      <meta property="twitter:site" content={APP_NAME} />
       <meta property="twitter:title" content={title} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image} />
@@ -47,7 +48,7 @@ const Tags: FC<TagsProps> = ({
       <meta property="twitter:creator" content="heyxyz" />
       {/* Lens OG */}
       <meta property="lens:card" content={cardType} />
-      <meta property="lens:site" content="Lenster" />
+      <meta property="lens:site" content={APP_NAME} />
       <meta property="lens:title" content={title} />
       <meta property="lens:description" content={description} />
       <meta property="lens:image" content={image} />

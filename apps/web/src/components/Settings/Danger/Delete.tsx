@@ -4,7 +4,7 @@ import {
   TrashIcon
 } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY } from '@hey/data/constants';
+import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
@@ -104,9 +104,9 @@ const DeleteSettings: FC = () => {
       <p>
         <Trans>
           This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including Lenster.
-          All your data will be wiped out immediately and you won't be able to
-          get it back.
+          You will not be able to use any apps built on Lens, including{' '}
+          {APP_NAME}. All your data will be wiped out immediately and you won't
+          be able to get it back.
         </Trans>
       </p>
       <div className="text-lg font-bold">What else you should know</div>

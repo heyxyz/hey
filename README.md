@@ -1,6 +1,6 @@
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Lenster Logo">
-    <h1>Lenster</h1>
+    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Hey Logo">
+    <h1>Hey</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
 <br>
@@ -48,9 +48,9 @@
     <a href="https://github.com/heyxyz/hey/issues/new"><b>Issues</b></a>
 </div>
 
-## 🌿 About Lenster
+## 🌿 About Hey
 
-Lenster is a cutting-edge social media application that leverages the power of [Lens Protocol](http://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Lenster aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
+Hey is a cutting-edge social media application that leverages the power of [Lens Protocol](http://lens.xyz) 🌿 to create a decentralized and permissionless platform for users to interact, share, and engage with one another. With a focus on privacy, security, and user control, Hey aims to revolutionize the social media landscape by providing a more transparent and equitable digital environment for its users.
 
 ## 📦 Environments
 
@@ -80,4 +80,4 @@ We love contributors! Feel free to contribute to this project but please read th
 
 ## ⚖️ License
 
-Lenster is open-sourced software licensed under the © [AGPLv3](LICENSE).
+Hey is open-sourced software licensed under the © [AGPLv3](LICENSE).

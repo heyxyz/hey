@@ -2,7 +2,7 @@ import { useChannelMemberCountStore } from '@components/Channel/Details';
 import { CurrencyDollarIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraERC721Drop } from '@hey/abis';
-import { ADMIN_ADDRESS } from '@hey/data/constants';
+import { ADMIN_ADDRESS, APP_NAME } from '@hey/data/constants';
 import type { Channel } from '@hey/types/hey';
 import { Button, Spinner } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
@@ -35,7 +35,7 @@ const Mint: FC<MintProps> = ({ channel, joined }) => {
 
   const nftAddress = channel.contract as Address;
   const recipient = currentProfile?.ownedBy;
-  const comment = 'Joined from Lenster';
+  const comment = `Joined from ${APP_NAME}`;
   const mintReferral = ADMIN_ADDRESS;
   const mintFee = parseEther('0.000777');
   const value = (parseEther('0') + mintFee) * 1n;
