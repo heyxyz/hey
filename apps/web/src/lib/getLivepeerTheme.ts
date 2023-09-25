@@ -1,7 +1,7 @@
 import type { ThemeConfig } from '@livepeer/react';
 import colors from 'tailwindcss/colors';
 
-import circluarStd from './lensterFont';
+import circluarStd from './heyFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {

@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import { APP_NAME, CHANNELS_WORKER_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Channel } from '@hey/types/lenster';
+import type { Channel } from '@hey/types/hey';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';

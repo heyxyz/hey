@@ -14,7 +14,7 @@ export const algorithms: {
     feedType: HomeFeedType.LENSTER_MOSTVIEWED,
     description:
       'Most viewed posts sorted by the number of views in the last 24 hours in Lenster.',
-    image: `${STATIC_IMAGES_URL}/algorithms/lenster-mostviewed.png`,
+    image: `${STATIC_IMAGES_URL}/algorithms/hey-mostviewed.png`,
     by: 'Lenster'
   },
   {
@@ -22,7 +22,7 @@ export const algorithms: {
     feedType: HomeFeedType.LENSTER_MOSTINTERACTED,
     description:
       'Most interacted posts sorted by the number of interactions in the last 24 hours in Lenster.',
-    image: `${STATIC_IMAGES_URL}/algorithms/lenster-mostinteracted.png`,
+    image: `${STATIC_IMAGES_URL}/algorithms/hey-mostinteracted.png`,
     by: 'Lenster'
   },
   {

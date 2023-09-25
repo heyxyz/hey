@@ -8,8 +8,8 @@
     <a href="https://hey.xyz/u/yoginth">
         <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
     </a>
-    <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
-        <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
+    <a href="https://vercel.com/heyxyz?utm_source=Hey&utm_campaign=oss">
+        <img src="https://therealsujitk-vercel-badge.vercel.app/?app=heyxyz" alt="Vercel">
     </a>
     <a href="https://deepsource.io/gh/heyxyz/hey">
         <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
@@ -18,12 +18,12 @@
         <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
     <a href="https://translate.hey.xyz">
-        <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
+        <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
     </a>
     <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
-    <a href="https://lenster.checklyhq.com">
+    <a href="https://hey.checkly-dashboards.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
     <a href="https://github.com/heyxyz/hey/stargazers">

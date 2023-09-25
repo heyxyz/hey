@@ -35,7 +35,7 @@ describe('imageKit', () => {
   });
 
   test('should return the original url if name is not provided', () => {
-    const originalUrl = 'https://lenster.com/some-image.jpg';
+    const originalUrl = 'https://hey.com/some-image.jpg';
 
     expect(imageKit(originalUrl)).toBe(originalUrl);
   });

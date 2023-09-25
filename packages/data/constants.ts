@@ -159,5 +159,5 @@ export const ATTACHMENT = 'tr:w-1000';
 
 // S3 bucket
 export const S3_BUCKET = {
-  LENSTER_MEDIA: 'lenster-media'
+  LENSTER_MEDIA: 'hey-media'
 };

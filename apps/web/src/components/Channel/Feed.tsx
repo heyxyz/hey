@@ -7,7 +7,7 @@ import {
   PublicationTypes,
   useExploreFeedQuery
 } from '@hey/lens';
-import type { Channel } from '@hey/types/lenster';
+import type { Channel } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

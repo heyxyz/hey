@@ -1,6 +1,6 @@
 import '../styles.css';
 
-import circluarStd from '@lib/lensterFont';
+import circluarStd from '@lib/heyFont';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 
