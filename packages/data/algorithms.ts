@@ -11,7 +11,7 @@ export const algorithms: {
 }[] = [
   {
     name: 'Most viewed',
-    feedType: HomeFeedType.LENSTER_MOSTVIEWED,
+    feedType: HomeFeedType.HEY_MOSTVIEWED,
     description:
       'Most viewed posts sorted by the number of views in the last 24 hours in Hey.',
     image: `${STATIC_IMAGES_URL}/algorithms/hey-mostviewed.png`,
@@ -19,7 +19,7 @@ export const algorithms: {
   },
   {
     name: 'Most interacted',
-    feedType: HomeFeedType.LENSTER_MOSTINTERACTED,
+    feedType: HomeFeedType.HEY_MOSTINTERACTED,
     description:
       'Most interacted posts sorted by the number of interactions in the last 24 hours in Hey.',
     image: `${STATIC_IMAGES_URL}/algorithms/hey-mostinteracted.png`,

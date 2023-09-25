@@ -22,7 +22,7 @@ export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
 // Snapshot
-export const LENSTER_POLLS_SPACE = 'polls.hey.xyz';
+export const HEY_POLLS_SPACE = 'polls.hey.xyz';
 export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'
   : 'https://testnet.snapshot.org';

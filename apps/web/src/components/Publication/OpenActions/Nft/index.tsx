@@ -27,7 +27,7 @@ interface NftProps {
 const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   const { chain, address, token } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
-  const { setQuantity, setCanMintOnLenster } = useZoraMintStore();
+  const { setQuantity, setCanMintOnHey } = useZoraMintStore();
 
   const {
     data: nft,
@@ -96,7 +96,7 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
               size="md"
               onClick={() => {
                 setQuantity(1);
-                setCanMintOnLenster(false);
+                setCanMintOnHey(false);
                 setShowMintModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_MINT, {
                   publication_id: publication.id

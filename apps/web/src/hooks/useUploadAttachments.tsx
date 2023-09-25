@@ -1,4 +1,4 @@
-import type { NewLensterAttachment } from '@hey/types/misc';
+import type { NewHeyAttachment } from '@hey/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
@@ -17,27 +17,25 @@ const useUploadAttachments = () => {
   const setIsUploading = usePublicationStore((state) => state.setIsUploading);
 
   const handleUploadAttachments = useCallback(
-    async (attachments: any): Promise<NewLensterAttachment[]> => {
+    async (attachments: any): Promise<NewHeyAttachment[]> => {
       setIsUploading(true);
       const files = Array.from(attachments);
       const attachmentIds: string[] = [];
 
-      const previewAttachments: NewLensterAttachment[] = files.map(
-        (file: any) => {
-          const attachmentId = uuid();
-          attachmentIds.push(attachmentId);
+      const previewAttachments: NewHeyAttachment[] = files.map((file: any) => {
+        const attachmentId = uuid();
+        attachmentIds.push(attachmentId);
 
-          return {
-            id: attachmentId,
-            file: file,
-            previewItem: URL.createObjectURL(file),
-            original: {
-              url: URL.createObjectURL(file),
-              mimeType: file.type
-            }
-          };
-        }
-      );
+        return {
+          id: attachmentId,
+          file: file,
+          previewItem: URL.createObjectURL(file),
+          original: {
+            url: URL.createObjectURL(file),
+            mimeType: file.type
+          }
+        };
+      });
 
       const hasLargeAttachment = files.map((file: any) => {
         const isImage = file.type.includes('image');
@@ -63,7 +61,7 @@ const useUploadAttachments = () => {
       });
 
       addAttachments(previewAttachments);
-      let attachmentsIPFS: NewLensterAttachment[] = [];
+      let attachmentsIPFS: NewHeyAttachment[] = [];
       try {
         if (hasLargeAttachment.includes(false)) {
           setIsUploading(false);
@@ -74,7 +72,7 @@ const useUploadAttachments = () => {
         const attachmentsUploaded = await uploadToIPFS(attachments);
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map(
-            (attachment: NewLensterAttachment, index: number) => ({
+            (attachment: NewHeyAttachment, index: number) => ({
               ...attachment,
               original: {
                 url: attachmentsUploaded[index].original.url,

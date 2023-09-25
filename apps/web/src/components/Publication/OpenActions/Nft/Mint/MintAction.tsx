@@ -42,7 +42,7 @@ interface MintActionProps {
 }
 
 const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
-  const { quantity, setCanMintOnLenster } = useZoraMintStore();
+  const { quantity, setCanMintOnHey } = useZoraMintStore();
   const chain = useChainId();
   const { address, isDisconnected } = useAccount();
 
@@ -101,7 +101,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   });
 
   useUpdateEffect(() => {
-    setCanMintOnLenster(
+    setCanMintOnHey(
       !isPrepareError ||
         (isPrepareError &&
           ALLOWED_ERRORS_FOR_MINTING.some(
