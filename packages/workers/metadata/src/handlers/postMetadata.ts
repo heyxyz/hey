@@ -1,6 +1,6 @@
-import { createData, EthereumSigner } from '@lenster/bundlr';
-import type { PublicationMetadataV2Input } from '@lenster/lens';
-import response from '@lenster/lib/response';
+import { createData, EthereumSigner } from '@hey/bundlr';
+import type { PublicationMetadataV2Input } from '@hey/lens';
+import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
 

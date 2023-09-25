@@ -1,11 +1,11 @@
 import Loader from '@components/Shared/Loader';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { ElectedMirror, Publication } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Modal, Tooltip } from '@lenster/ui';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { ElectedMirror, Publication } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';

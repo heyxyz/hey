@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import { Card, Image } from '@lenster/ui';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import { Card, Image } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';

@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { CubeIcon, PhotoIcon } from '@heroicons/react/24/outline';
-import { APP_NAME } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { useProfileSettingsQuery } from '@lenster/lens';
+import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { useProfileSettingsQuery } from '@hey/lens';
 import {
   Card,
   GridItemEight,
@@ -11,7 +11,7 @@ import {
   GridLayout,
   PageLoading,
   TabButton
-} from '@lenster/ui';
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { NextPage } from 'next';

@@ -13,7 +13,7 @@ Lenster uses feature flags to control the visibility of new features. This allow
 ### In a component
 
 ```ts
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
+import isFeatureEnabled from '@hey/lib/isFeatureEnabled';
 
 const isNewFeatureEnabled = isFeatureEnabled(FeatureFlag.NewFeature);
 

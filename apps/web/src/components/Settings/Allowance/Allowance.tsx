@@ -1,8 +1,8 @@
 import type {
   ApprovedAllowanceAmount,
   ApprovedModuleAllowanceAmountQuery
-} from '@lenster/lens';
-import { CollectModules } from '@lenster/lens';
+} from '@hey/lens';
+import { CollectModules } from '@hey/lens';
 import type { FC } from 'react';
 
 import Module from './Module';

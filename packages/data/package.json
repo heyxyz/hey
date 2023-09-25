@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/data",
+  "name": "@hey/data",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -13,7 +13,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "@types/node": "^20.6.4",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"

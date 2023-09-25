@@ -1,9 +1,9 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, ZERO_ADDRESS } from '@lenster/data/constants';
-import { Regex } from '@lenster/data/regex';
-import { RelayErrorReasons, useCreateProfileMutation } from '@lenster/lens';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
+import { APP_NAME, ZERO_ADDRESS } from '@hey/data/constants';
+import { Regex } from '@hey/data/regex';
+import { RelayErrorReasons, useCreateProfileMutation } from '@hey/lens';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import {
   Button,
   ErrorMessage,
@@ -11,7 +11,7 @@ import {
   Input,
   Spinner,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';

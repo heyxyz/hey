@@ -11,12 +11,12 @@ import {
   ACHIEVEMENTS_WORKER_URL,
   APP_NAME,
   IS_MAINNET
-} from '@lenster/data/constants';
-import type { Profile } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
-import getFollowModule from '@lenster/lib/getFollowModule';
-import { Card } from '@lenster/ui';
+} from '@hey/data/constants';
+import type { Profile } from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import formatHandle from '@hey/lib/formatHandle';
+import getFollowModule from '@hey/lib/getFollowModule';
+import { Card } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
