@@ -75,7 +75,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                     userInteractionCount: profile.stats.totalPosts
                   }
                 ],
-                url: `https://lenster.xyz/u/${profile.handle}}`
+                url: `https://hey.xyz/u/${profile.handle}}`
               }
             }}
           />

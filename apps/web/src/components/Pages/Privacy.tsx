@@ -54,7 +54,7 @@ const Privacy: FC = () => {
                     This Privacy Policy (the “Privacy Policy”) provides a
                     comprehensive description of how Lenster (“we,” “our,” or
                     “us”) collects, uses, and shares information about you in
-                    connection with the website at lenster.xyz”, as well as your
+                    connection with the website at hey.xyz”, as well as your
                     rights and choices regarding such information.
                   </Trans>
                 </p>
@@ -280,7 +280,7 @@ const Privacy: FC = () => {
                 <Trans>
                   If you have any questions or comments about this Privacy
                   Policy, our data practices, or our compliance with applicable
-                  law, please contact us at privacy@lenster.xyz
+                  law, please contact us at privacy@hey.xyz
                 </Trans>
               </p>
               {/* 10. Contact ends */}

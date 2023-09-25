@@ -41,7 +41,7 @@ const StaffBar: FC = () => {
         </div>
         {GIT_COMMIT_SHA ? (
           <Link
-            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
+            href={`https://github.com/heyxyz/hey/commit/${GIT_COMMIT_SHA}`}
             className="flex items-center space-x-1"
             title="Git commit SHA"
             target="_blank"

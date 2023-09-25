@@ -5,47 +5,47 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://lenster.xyz/u/yoginth">
+    <a href="https://hey.xyz/u/yoginth">
         <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
     </a>
     <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
-    <a href="https://deepsource.io/gh/lensterxyz/lenster">
-        <img src="https://deepsource.io/gh/lensterxyz/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
+    <a href="https://deepsource.io/gh/heyxyz/hey">
+        <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
-        <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
+    <a href="https://www.gitpoap.io/gh/heyxyz/hey">
+        <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
-    <a href="https://translate.lenster.xyz">
+    <a href="https://translate.hey.xyz">
         <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
     </a>
-    <a href="https://status.lenster.xyz">
+    <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
     <a href="https://lenster.checklyhq.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/stargazers">
-        <img src="https://img.shields.io/github/stars/lensterxyz/lenster?label=Stars&logo=github" alt="Stargazers">
+    <a href="https://github.com/heyxyz/hey/stargazers">
+        <img src="https://img.shields.io/github/stars/heyxyz/hey?label=Stars&logo=github" alt="Stargazers">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/lensterxyz/lenster?label=Licence&logo=gnu" alt="License">
+    <a href="https://github.com/heyxyz/hey/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/heyxyz/hey?label=Licence&logo=gnu" alt="License">
     </a>
-    <a href="https://lenster.xyz/discord">
+    <a href="https://hey.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://github.com/orgs/lensterxyz/projects/6/views/3">
-        <img src="https://img.shields.io/github/issues/lensterxyz/lenster/Bounty?color=8b5cf6&label=Bounties&logo=ethereum" alt="Bounties">
+    <a href="https://github.com/orgs/heyxyz/projects/6/views/3">
+        <img src="https://img.shields.io/github/issues/heyxyz/hey/Bounty?color=8b5cf6&label=Bounties&logo=ethereum" alt="Bounties">
     </a>
 </div>
 <div align="center">
     <br>
-    <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
+    <a href="https://hey.xyz"><b>hey.xyz »</b></a>
     <br><br>
-    <a href="https://lenster.xyz/discord"><b>Discord</b></a>
+    <a href="https://hey.xyz/discord"><b>Discord</b></a>
     •
-    <a href="https://github.com/lensterxyz/lenster/issues/new"><b>Issues</b></a>
+    <a href="https://github.com/heyxyz/hey/issues/new"><b>Issues</b></a>
 </div>
 
 ## 🌿 About Lenster
@@ -54,17 +54,17 @@ Lenster is a cutting-edge social media application that leverages the power of [
 
 ## 📦 Environments
 
-| Name            | Link                                |
-| --------------- | ----------------------------------- |
-| Mainnet         | https://lenster.xyz                 |
-| Testnet         | https://testnet.lenster.xyz         |
-| Staging         | https://staging.lenster.xyz         |
-| Sandbox         | https://sandbox.lenster.xyz         |
-| Staging Sandbox | https://staging-sandbox.lenster.xyz |
+| Name            | Link                            |
+| --------------- | ------------------------------- |
+| Mainnet         | https://hey.xyz                 |
+| Testnet         | https://testnet.hey.xyz         |
+| Staging         | https://staging.hey.xyz         |
+| Sandbox         | https://sandbox.hey.xyz         |
+| Staging Sandbox | https://staging-sandbox.hey.xyz |
 
 ## ✅ Community
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
+For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://hey.xyz/discord).
 
 ## 📊 Repo Activity
 
@@ -74,8 +74,8 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
-<a href="https://github.com/lensterxyz/lenster/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lensterxyz/lenster" />
+<a href="https://github.com/heyxyz/hey/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=heyxyz/hey" />
 </a>
 
 ## ⚖️ License

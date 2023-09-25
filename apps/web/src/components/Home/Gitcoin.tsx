@@ -23,7 +23,7 @@ const Gitcoin: FC = () => {
         </div>
         <div>
           <Link
-            href="https://lenster.xyz/gitcoin"
+            href="https://hey.xyz/gitcoin"
             className="font-bold underline"
             target="_blank"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}

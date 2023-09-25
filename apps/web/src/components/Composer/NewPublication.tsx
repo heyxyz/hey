@@ -748,7 +748,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         version: '2.0.0',
         metadata_id: uuid(),
         content: processedPublicationContent,
-        external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
+        external_url: `https://hey.xyz/u/${currentProfile?.handle}`,
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType:
