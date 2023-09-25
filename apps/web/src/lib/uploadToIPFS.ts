@@ -61,7 +61,7 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
       files.map(async (_: any, i: number) => {
         const file = data[i];
         const params = {
-          Bucket: S3_BUCKET.LENSTER_MEDIA,
+          Bucket: S3_BUCKET.HEY_MEDIA,
           Key: uuid()
         };
         await client.putObject({
