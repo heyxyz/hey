@@ -36,7 +36,7 @@ const getAlgorithmicFeed = async (
     case HomeFeedType.HEY_MOSTVIEWED:
     case HomeFeedType.HEY_MOSTINTERACTED:
       return getPublicationIds(
-        AlgorithmProvider.LENSTER,
+        AlgorithmProvider.Hey,
         feedType.replace('HEY_', '').toLowerCase(),
         limit,
         offset

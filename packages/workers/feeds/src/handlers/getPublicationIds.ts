@@ -25,7 +25,7 @@ export default async (request: WorkerRequest) => {
       case AlgorithmProvider.K3L:
         ids = await k3lFeed(strategy, profile, limit, offset);
         break;
-      case AlgorithmProvider.LENSTER:
+      case AlgorithmProvider.Hey:
         ids = await heyFeed(strategy, limit, offset, request.env);
         break;
       default:

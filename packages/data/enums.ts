@@ -14,5 +14,5 @@ export enum HomeFeedType {
 
 export const AlgorithmProvider = {
   K3L: 'k3l',
-  LENSTER: 'hey'
+  Hey: 'hey'
 };

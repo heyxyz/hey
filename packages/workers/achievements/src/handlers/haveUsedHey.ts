@@ -31,7 +31,7 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      hasUsedLenster: parseInt(json.data[0][0]) > 0
+      haveUsedHey: parseInt(json.data[0][0]) > 0
     });
   } catch (error) {
     throw error;
