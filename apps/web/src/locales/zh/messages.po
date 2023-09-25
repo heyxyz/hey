@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: zh\n"
-"Project-Id-Version: lenster\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2023-09-17 00:09\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: messages.po\n"
@@ -444,10 +444,6 @@ msgstr ""
 #: src/components/Settings/Dispatcher/index.tsx
 msgid "Signless transactions"
 msgstr ""
-
-#: src/components/Home/EnableMessages.tsx
-#~ msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-#~ msgstr "激活XMTP以开始使用Lenster将端到端加密的私信发送给朋友。"
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
@@ -1018,18 +1014,6 @@ msgid "Submit"
 msgstr "提交"
 
 #: src/components/Pages/Privacy.tsx
-#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-#~ msgstr "本隐私政策（“隐私政策”）全面描述了 Lenster（“我们”、“我们的“）如何收集、使用和分享与您在 lenster.xyz 网站相关的信息，以及您对此类信息的权利和选择。"
-
-#: src/components/Pages/Privacy.tsx
-#~ msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-#~ msgstr "如果您对本隐私政策、我们的数据惯例或对我们的法律合规性有任何疑问或意见，请通过 privacy@lenster.xyz 联系我们。"
-
-#: src/components/Pages/Privacy.tsx
-#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
-#~ msgstr ""
-
-#: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
 msgstr "隐私政策 • {APP_NAME}"
 
@@ -1163,14 +1147,6 @@ msgstr "10. 联系方式"
 #: src/components/Pages/Privacy.tsx
 msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
 msgstr ""
-
-#: src/components/Pages/Terms.tsx
-#~ msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-#~ msgstr "网站 “lenster.xyz”（以下简称“网站”）为您提供信息、工具和服务，使您能够与 Lens 协议——一种可组合且去中心化的社交图谱协议——进行交互。"
-
-#: src/components/Pages/Terms.tsx
-#~ msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-#~ msgstr "有关条款的问题请发送至 terms@lenster.xyz"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1444,10 +1420,6 @@ msgstr "您认识的关注者"
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "个人内容流无法加载"
-
-#: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -2182,10 +2154,6 @@ msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
 
 #: src/components/Settings/Danger/Delete.tsx
-#~ msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
-#~ msgstr "这将永久地删除你在Lens协议上的个人资料NFT。你将无法使用任何建立在Lens上的应用程序，包括Lenster。你的所有数据将立即被抹去并且无法被取回。"
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr "这将删除你的Lens账户"
 
@@ -2387,10 +2355,6 @@ msgstr ""
 #: src/components/Settings/Export/Tokens.tsx
 msgid "Your temporary refresh token"
 msgstr ""
-
-#: src/components/Settings/Interests/index.tsx
-#~ msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-#~ msgstr "您选择的兴趣用于个性化您在 Lenster 的体验。如果不符合您的兴趣，您可以调整自己的兴趣设置。"
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
@@ -2613,18 +2577,6 @@ msgstr "测试版"
 #: src/components/Shared/Badges/New.tsx
 msgid "New"
 msgstr "新的"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Left successfully!"
-#~ msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Joined successfully!"
-#~ msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Leave"
-#~ msgstr ""
 
 #: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
