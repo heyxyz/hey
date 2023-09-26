@@ -3420,12 +3420,16 @@ msgid "total follows"
 msgstr "total follows"
 
 #: src/hooks/useUploadAttachments.tsx
+#~ msgid "Video size should be less than 200MB"
+#~ msgstr "Video size should be less than 200MB"
+
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr "Image size should be less than 50MB"
 
 #: src/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 200MB"
-msgstr "Video size should be less than 200MB"
+msgid "Video size should be less than 500MB"
+msgstr "Video size should be less than 500MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"

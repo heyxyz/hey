@@ -3420,12 +3420,16 @@ msgid "total follows"
 msgstr "всего подписок"
 
 #: src/hooks/useUploadAttachments.tsx
+#~ msgid "Video size should be less than 200MB"
+#~ msgstr "Размер видео не должен превышать 200MB"
+
+#: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
 msgstr "Размер изображения не должен превышать 50 Мб"
 
 #: src/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 200MB"
-msgstr "Размер видео не должен превышать 200MB"
+msgid "Video size should be less than 500MB"
+msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
