@@ -92,6 +92,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
         publication_id: publication.id,
         chain: nft.chainId,
         nft: nftAddress,
+        price: value,
         quantity
       })
   });
