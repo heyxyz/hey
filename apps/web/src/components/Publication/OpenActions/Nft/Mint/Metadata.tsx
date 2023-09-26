@@ -4,8 +4,10 @@ import {
   ShoppingBagIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@lenster/data/tracking';
 import humanize from '@lenster/lib/humanize';
 import type { ZoraNft } from '@lenster/types/zora-nft';
+import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
@@ -48,6 +50,11 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         className="flex items-center space-x-2"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => {
+          Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+            from: 'mint_modal_link'
+          });
+        }}
       >
         <ArrowTopRightOnSquareIcon className="lt-text-gray-500 h-4 w-4" />
         <b>
