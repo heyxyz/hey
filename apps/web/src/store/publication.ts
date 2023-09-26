@@ -38,6 +38,8 @@ interface PublicationState {
   setVideoDurationInSeconds: (videoDurationInSeconds: string) => void;
   isUploading: boolean;
   setIsUploading: (isUploading: boolean) => void;
+  uploadedPercentage: number;
+  setUploadedPercentage: (uploadedPercentage: number) => void;
   showPollEditor: boolean;
   setShowPollEditor: (showPollEditor: boolean) => void;
   pollConfig: {
@@ -97,6 +99,9 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     set(() => ({ videoDurationInSeconds })),
   isUploading: false,
   setIsUploading: (isUploading) => set(() => ({ isUploading })),
+  uploadedPercentage: 0,
+  setUploadedPercentage: (uploadedPercentage) =>
+    set(() => ({ uploadedPercentage })),
   showPollEditor: false,
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   pollConfig: { length: 7, choices: ['', ''] },
