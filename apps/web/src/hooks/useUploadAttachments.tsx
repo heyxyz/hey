@@ -15,6 +15,9 @@ const useUploadAttachments = () => {
     (state) => state.removeAttachments
   );
   const setIsUploading = usePublicationStore((state) => state.setIsUploading);
+  const setUploadedPercentage = usePublicationStore(
+    (state) => state.setUploadedPercentage
+  );
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewLensterAttachment[]> => {
@@ -71,7 +74,10 @@ const useUploadAttachments = () => {
           return [];
         }
 
-        const attachmentsUploaded = await uploadToIPFS(attachments);
+        const attachmentsUploaded = await uploadToIPFS(
+          attachments,
+          (percentCompleted) => setUploadedPercentage(percentCompleted)
+        );
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewLensterAttachment, index: number) => ({
