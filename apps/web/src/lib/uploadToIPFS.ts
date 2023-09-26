@@ -1,4 +1,5 @@
 import { S3 } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
 import {
   EVER_API,
   S3_BUCKET,
@@ -25,13 +26,13 @@ const getS3Client = async (): Promise<S3> => {
       sessionToken: token.data?.sessionToken
     },
     region: 'us-west-2',
-    maxAttempts: 3
+    maxAttempts: 10
   });
 
   client.middlewareStack.addRelativeTo(
     (next: Function) => async (args: any) => {
       const { response } = await next(args);
-      if (response.body === null) {
+      if (response.body == null) {
         response.body = new Uint8Array();
       }
       return { response };
@@ -53,7 +54,10 @@ const getS3Client = async (): Promise<S3> => {
  * @param data Files to upload to IPFS.
  * @returns Array of MediaSet objects.
  */
-const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
+const uploadToIPFS = async (
+  data: any,
+  onProgress?: (percentage: number) => void
+): Promise<MediaSetWithoutOnChain[]> => {
   try {
     const files = Array.from(data);
     const client = await getS3Client();
@@ -62,13 +66,21 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
         const file = data[i];
         const params = {
           Bucket: S3_BUCKET.HEY_MEDIA,
-          Key: uuid()
-        };
-        await client.putObject({
-          ...params,
+          Key: uuid(),
           Body: file,
           ContentType: file.type
+        };
+        const task = new Upload({
+          client,
+          params
         });
+        task.on('httpUploadProgress', (e) => {
+          const loaded = e.loaded ?? 0;
+          const total = e.total ?? 0;
+          const progress = (loaded / total) * 100;
+          onProgress?.(Math.round(progress));
+        });
+        await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
 
@@ -94,10 +106,11 @@ const uploadToIPFS = async (data: any): Promise<MediaSetWithoutOnChain[]> => {
  * @returns MediaSet object or null if the upload fails.
  */
 export const uploadFileToIPFS = async (
-  file: File
+  file: File,
+  onProgress?: (percentage: number) => void
 ): Promise<MediaSetWithoutOnChain> => {
   try {
-    const ipfsResponse = await uploadToIPFS([file]);
+    const ipfsResponse = await uploadToIPFS([file], onProgress);
     const metadata = ipfsResponse[0];
 
     return {
