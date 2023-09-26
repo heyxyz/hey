@@ -2819,7 +2819,7 @@ msgid "Failed to invite!"
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invite.tsx
-msgid "Send invites to your frens so they can create an Lens account. You can invite a user only once."
+msgid "Send invites to your frens so they can create a Lens account. You can invite a user only once."
 msgstr ""
 
 #: src/components/Shared/Modal/Invites/Invite.tsx
