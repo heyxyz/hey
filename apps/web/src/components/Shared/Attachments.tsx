@@ -62,6 +62,10 @@ const Attachments: FC<AttachmentsProps> = ({
   txn
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const uploadedPercentage = usePublicationStore(
+    (state) => state.uploadedPercentage
+  );
+  const isUploading = usePublicationStore((state) => state.isUploading);
   const setVideoDurationInSeconds = usePublicationStore(
     (state) => state.setVideoDurationInSeconds
   );
@@ -143,6 +147,14 @@ const Attachments: FC<AttachmentsProps> = ({
                 ) : isVideo ? (
                   isNew ? (
                     <>
+                      {isUploading && uploadedPercentage !== 100 ? (
+                        <div className="mb-5 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                          <div
+                            className="bg-brand-500 h-2.5 rounded-full"
+                            style={{ width: `${uploadedPercentage}%` }}
+                          />
+                        </div>
+                      ) : null}
                       <video
                         className="w-full overflow-hidden rounded-xl"
                         src={url}
