@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ru\n"
-"Project-Id-Version: lenster\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 00:09\n"
+"PO-Revision-Date: 2023-09-27 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
-"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-File: messages.po\n"
@@ -2584,15 +2584,15 @@ msgstr "Новый"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Left successfully!"
-#~ msgstr ""
+#~ msgstr "Left successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Joined successfully!"
-#~ msgstr ""
+#~ msgstr "Joined successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Leave"
-#~ msgstr ""
+#~ msgstr "Leave"
 
 #: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
@@ -3437,7 +3437,7 @@ msgstr "всего подписок"
 
 #: src/hooks/useUploadAttachments.tsx
 #~ msgid "Video size should be less than 200MB"
-#~ msgstr "Размер видео не должен превышать 200MB"
+#~ msgstr "Video size should be less than 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
@@ -3491,3 +3491,4 @@ msgstr "Похоже, что-то пошло не так!"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "Мы автоматически отслеживаем эти ошибки, но если проблема не устранена, не стесняйтесь обращаться к нам. А пока попробуйте обновить страницу."
+
