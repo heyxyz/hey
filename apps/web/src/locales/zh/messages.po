@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: zh\n"
-"Project-Id-Version: lenster\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 00:09\n"
+"PO-Revision-Date: 2023-09-27 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: zh-CN\n"
 "X-Crowdin-File: messages.po\n"
@@ -2584,15 +2584,15 @@ msgstr "新的"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Left successfully!"
-#~ msgstr ""
+#~ msgstr "Left successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Joined successfully!"
-#~ msgstr ""
+#~ msgstr "Joined successfully!"
 
 #: src/components/Shared/Channel/Join.tsx
 #~ msgid "Leave"
-#~ msgstr ""
+#~ msgstr "Leave"
 
 #: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
@@ -3437,7 +3437,7 @@ msgstr "总关注数"
 
 #: src/hooks/useUploadAttachments.tsx
 #~ msgid "Video size should be less than 200MB"
-#~ msgstr "视频文件应小于 200MB"
+#~ msgstr "Video size should be less than 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
@@ -3491,3 +3491,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+
