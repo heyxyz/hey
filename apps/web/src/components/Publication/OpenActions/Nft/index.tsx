@@ -73,7 +73,7 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
         src={`https://remote-image.decentralized-content.com/image?url=${nft.coverImageUrl}&w=1200&q=75`}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
       />
-      <div className="flex items-center justify-between px-3 py-2">
+      <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="flex items-center space-x-2">
           <Tooltip
             placement="right"
