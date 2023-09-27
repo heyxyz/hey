@@ -2,6 +2,7 @@ export interface BasicNftMetadata {
   chain: string;
   address: string;
   token: string;
+  provider: 'zora' | 'basepaint';
 }
 
 export interface ZoraNft {

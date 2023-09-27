@@ -15,7 +15,7 @@ const getZoraNFT = (url: string): BasicNftMetadata | null => {
     const address = matches[2];
     const token = matches[4];
 
-    return { chain, address, token };
+    return { chain, address, token, provider: 'zora' };
   }
 
   return null;
