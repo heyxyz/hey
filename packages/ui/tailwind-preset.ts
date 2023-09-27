@@ -12,7 +12,7 @@ module.exports = {
     extend: {
       colors: {
         gray: colors.zinc,
-        brand: colors.violet,
+        brand: colors.pink,
         red: colors.red,
         pink: colors.pink,
         blue: colors.blue,
