@@ -7,7 +7,7 @@ import { PUBLICATION } from '@lenster/data/tracking';
 import type { Publication } from '@lenster/lens';
 import getZoraChainIsMainnet from '@lenster/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
+import type { BasicNftMetadata } from '@lenster/types/zora-nft';
 import { Button, Card, Modal, Tooltip } from '@lenster/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
@@ -20,7 +20,7 @@ import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';
 
 interface NftProps {
-  nftMetadata: ZoraNftMetadata;
+  nftMetadata: BasicNftMetadata;
   publication: Publication;
 }
 
