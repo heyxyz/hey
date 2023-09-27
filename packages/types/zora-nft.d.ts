@@ -1,4 +1,4 @@
-export interface ZoraNftMetadata {
+export interface BasicNftMetadata {
   chain: string;
   address: string;
   token: string;
