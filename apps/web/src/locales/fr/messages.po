@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 00:09\n"
+"PO-Revision-Date: 2023-09-27 00:08\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -3418,10 +3418,6 @@ msgstr ""
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr ""
-
-#: src/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 200MB"
-#~ msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"

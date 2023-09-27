@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 00:09\n"
+"PO-Revision-Date: 2023-09-27 00:08\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -3418,10 +3418,6 @@ msgstr "总收藏数"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr "总关注数"
-
-#: src/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 200MB"
-#~ msgstr "视频文件应小于 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
