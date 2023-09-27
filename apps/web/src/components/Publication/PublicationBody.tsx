@@ -1,4 +1,3 @@
-import Nft from '@components/Publication/OpenActions/Nft';
 import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
@@ -19,6 +18,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
+import Nft from './OpenActions/Nft';
 
 interface PublicationBodyProps {
   publication: Publication;

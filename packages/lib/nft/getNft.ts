@@ -1,4 +1,4 @@
-import type { ZoraNftMetadata } from '@lenster/types/zora-nft';
+import type { BasicNftMetadata } from '@lenster/types/zora-nft';
 
 import getZoraNFT from './getZoraNft';
 
@@ -9,7 +9,7 @@ const knownSites = new Set(['zora.co', 'testnet.zora.co']);
  * @param urls List of URLs
  * @returns NFT metadata
  */
-const getNft = (urls: string[]): ZoraNftMetadata | null => {
+const getNft = (urls: string[]): BasicNftMetadata | null => {
   if (!urls.length) {
     return null;
   }
