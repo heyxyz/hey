@@ -1,4 +1,4 @@
-import NftShimmer from '@components/Publication/OpenActions/Nft/Shimmer';
+import NftShimmer from '@components/Shared/Shimmer/NftShimmer';
 import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
