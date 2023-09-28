@@ -65,7 +65,7 @@ const uploadToIPFS = async (
       files.map(async (_: any, i: number) => {
         const file = data[i];
         const params = {
-          Bucket: S3_BUCKET.LENSTER_MEDIA,
+          Bucket: S3_BUCKET.HEY_MEDIA,
           Key: uuid(),
           Body: file,
           ContentType: file.type

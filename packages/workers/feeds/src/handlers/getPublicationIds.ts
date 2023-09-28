@@ -1,8 +1,8 @@
 import { AlgorithmProvider } from '@hey/data/enums';
 import response from '@hey/lib/response';
 
+import heyFeed from '../providers/hey/heyFeed';
 import k3lFeed from '../providers/k3l/k3lFeed';
-import lensterFeed from '../providers/lenster/lensterFeed';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -25,8 +25,8 @@ export default async (request: WorkerRequest) => {
       case AlgorithmProvider.K3L:
         ids = await k3lFeed(strategy, profile, limit, offset);
         break;
-      case AlgorithmProvider.LENSTER:
-        ids = await lensterFeed(strategy, limit, offset, request.env);
+      case AlgorithmProvider.HEY:
+        ids = await heyFeed(strategy, limit, offset, request.env);
         break;
       default:
         return response({ success: false, message: 'Invalid provider' });

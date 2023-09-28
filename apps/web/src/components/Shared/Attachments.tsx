@@ -14,7 +14,7 @@ import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { NewLensterAttachment } from '@hey/types/misc';
+import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image, LightBox } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -104,7 +104,7 @@ const Attachments: FC<AttachmentsProps> = ({
     <>
       <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map(
-          (attachment: NewLensterAttachment & MediaSet, index: number) => {
+          (attachment: NewAttachment & MediaSet, index: number) => {
             const type = attachment.original?.mimeType;
             const url = isNew
               ? attachment.previewItem
