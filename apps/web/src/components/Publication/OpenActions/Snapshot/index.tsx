@@ -42,13 +42,13 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   }
 
   const { proposal, votes } = data;
-  const isLensterPoll = proposal?.space?.id === HEY_POLLS_SPACE;
+  const isHeyPoll = proposal?.space?.id === HEY_POLLS_SPACE;
 
   if (!proposal) {
     return null;
   }
 
-  if (isLensterPoll) {
+  if (isHeyPoll) {
     return (
       <span
         onClick={stopEventPropagation}
@@ -58,7 +58,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
-          isLensterPoll={isLensterPoll}
+          isHeyPoll={isHeyPoll}
           refetch={refetch}
         />
       </span>

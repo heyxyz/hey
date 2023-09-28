@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
 import { create } from 'zustand';
 
 // Member count state
@@ -33,7 +32,6 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ channel }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
@@ -99,7 +97,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             <MetaDetails
               icon={
                 <img
-                  src="/logo.svg"
+                  src="/logo.png"
                   className="h-4 w-4"
                   height={16}
                   width={16}

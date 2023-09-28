@@ -1,4 +1,4 @@
-query LensterStats($request: GlobalProtocolStatsRequest) {
+query HeyStats($request: GlobalProtocolStatsRequest) {
   globalProtocolStats(request: $request) {
     totalProfiles
     totalPosts

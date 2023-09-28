@@ -24,7 +24,7 @@ const heyMostViewed = async (
           events
       WHERE
           name = '${PAGEVIEW}'
-          AND url LIKE 'https://lenster.xyz/posts/%'
+          AND url LIKE 'https://hey.xyz/posts/%'
           AND created >= now() - INTERVAL 1 DAY
       GROUP BY
           url

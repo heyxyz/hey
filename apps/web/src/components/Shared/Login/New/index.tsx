@@ -106,7 +106,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             className="h-10 w-10"
             height={40}
             width={40}
-            src="/logo.svg"
+            src="/logo.png"
             alt="Logo"
           />
           <div className="text-xl font-bold">

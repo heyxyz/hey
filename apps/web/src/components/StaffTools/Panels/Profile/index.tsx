@@ -68,7 +68,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
                 className="h-4 w-4"
                 height={16}
                 width={16}
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo"
               />
             }

@@ -11,7 +11,7 @@ const Loading: FC = () => {
         className="h-28 w-28"
         height={112}
         width={112}
-        src={isPrideMonth() ? '/pride.svg' : '/logo.svg'}
+        src={isPrideMonth() ? '/pride.png' : '/logo.png'}
         alt="Logo"
       />
     </div>

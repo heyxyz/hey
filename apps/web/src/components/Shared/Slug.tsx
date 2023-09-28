@@ -4,14 +4,20 @@ import type { FC } from 'react';
 interface SlugProps {
   slug: string;
   prefix?: string;
+  useBrandColor?: boolean;
   className?: string;
 }
 
-const Slug: FC<SlugProps> = ({ slug, prefix, className = '' }) => {
+const Slug: FC<SlugProps> = ({
+  slug,
+  prefix,
+  useBrandColor = false,
+  className = ''
+}) => {
   return (
     <span
       className={cn(
-        'from-brand-600 dark:from-brand-400 bg-gradient-to-r to-pink-600 bg-clip-text text-transparent dark:to-pink-400',
+        useBrandColor ? 'text-brand' : 'lt-text-gray-500',
         className
       )}
     >

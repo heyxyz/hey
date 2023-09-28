@@ -4,20 +4,20 @@ import type { FC } from 'react';
 
 const Hero: FC = () => {
   return (
-    <div className="bg-hero divider py-12" data-testid="home-hero">
-      <div className="mx-auto flex w-full max-w-screen-xl items-stretch px-5 py-8 text-center sm:py-12 sm:text-left">
-        <div className="flex-1 space-y-3">
-          <div className="font-serif text-2xl font-extrabold sm:text-4xl">
-            <Trans>Welcome to {APP_NAME} 👋</Trans>
+    <div className="divider py-12" data-testid="home-hero">
+      <div className="mx-auto flex w-full max-w-screen-xl items-center px-5 py-8 sm:py-12">
+        <img
+          src="/logo.png"
+          className="mr-5 h-24 w-24 sm:mr-8 sm:h-36 sm:w-36"
+        />
+        <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
+          <div className="text-2xl font-extrabold sm:text-5xl">
+            <Trans>Welcome to {APP_NAME},</Trans>
           </div>
-          <div className="leading-7 text-gray-700 dark:text-gray-300">
-            <Trans>
-              {APP_NAME} is a decentralized, and permissionless social media app
-              built with Lens Protocol 🌿
-            </Trans>
+          <div className="lt-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+            <Trans>a social network built on Lens Protocol</Trans>
           </div>
         </div>
-        <div className="hidden w-full flex-1 shrink-0 sm:block" />
       </div>
     </div>
   );

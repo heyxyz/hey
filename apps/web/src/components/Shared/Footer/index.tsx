@@ -18,7 +18,7 @@ const Footer: FC = () => {
     >
       <div className={'mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0'}>
         <span className="lt-text-gray-500 font-bold">
-          &copy; {new Date().getFullYear()} {APP_NAME}
+          &copy; {new Date().getFullYear()} {APP_NAME}.xyz
         </span>
         <Link href="/terms">
           <Trans>Terms</Trans>
