@@ -1413,6 +1413,10 @@ msgstr "உங்களைப் பின்தொடர்கிறார்"
 msgid "Edit Profile"
 msgstr "சுயவிவரத்தைத் திருத்து"
 
+#: src/components/Profile/Details.tsx
+msgid "Followers you know"
+msgstr ""
+
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "சுயவிவர ஊட்டத்தை ஏற்றுவதில் தோல்வி"

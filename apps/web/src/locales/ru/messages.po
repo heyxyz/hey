@@ -1413,6 +1413,10 @@ msgstr "Подписан на вас"
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
 
+#: src/components/Profile/Details.tsx
+msgid "Followers you know"
+msgstr ""
+
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "Не удалось загрузить ленту профиля"

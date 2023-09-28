@@ -1413,6 +1413,10 @@ msgstr "关注了您"
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
+#: src/components/Profile/Details.tsx
+msgid "Followers you know"
+msgstr ""
+
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "个人内容流无法加载"
