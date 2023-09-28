@@ -446,10 +446,6 @@ msgid "Signless transactions"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
-#~ msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-#~ msgstr "Активируйте XMTP, чтобы начать использовать Lenster для отправки двусторонне-зашифрованных личных сообщений друзьям."
-
-#: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
 msgstr "Личные сообщения здесь!"
 
@@ -1016,10 +1012,6 @@ msgstr "Чем мы можем помочь?"
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
 msgstr "Отправить"
-
-#: src/components/Pages/Privacy.tsx
-#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
-#~ msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
@@ -2162,10 +2154,6 @@ msgid "Cleared DM keys"
 msgstr "Ключи ЛС сброшены"
 
 #: src/components/Settings/Danger/Delete.tsx
-#~ msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
-#~ msgstr ""
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr ""
 
@@ -2367,10 +2355,6 @@ msgstr ""
 #: src/components/Settings/Export/Tokens.tsx
 msgid "Your temporary refresh token"
 msgstr ""
-
-#: src/components/Settings/Interests/index.tsx
-#~ msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-#~ msgstr "Выбранные вами интересы используются для персонализации вашего взаимодействия с Lenster. Вы можете изменить свои интересы, если что-то не соответствует действительности."
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"

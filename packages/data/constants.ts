@@ -39,9 +39,8 @@ export const SNAPSHOT_URL = IS_MAINNET
   : TESTNET_SNAPSHOT_URL;
 
 // Application
-export const APP_NAME = 'Lenster';
-export const DESCRIPTION =
-  'Lenster is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿';
+export const APP_NAME = 'Hey';
+export const DESCRIPTION = `${APP_NAME} is a composable, decentralized, and permissionless social media web app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
 
 // Git

@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 
-const lensterFont = localFont({
+const heyFont = localFont({
   src: [
     {
       path: '../../public/fonts/SofiaProSoftReg-webfont.woff2',
@@ -23,4 +23,4 @@ const lensterFont = localFont({
   display: 'swap'
 });
 
-export default lensterFont;
+export default heyFont;
