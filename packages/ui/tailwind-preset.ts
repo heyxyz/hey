@@ -17,22 +17,16 @@ module.exports = {
           200: '#FD9EA7',
           300: '#FC7481',
           400: '#FC5868',
-          500: '#FB3A4D',
+          500: '#FB3A5D',
           600: '#FA1128',
           700: '#DA041A',
           800: '#AE0415',
           900: '#83030F'
         },
         gray: colors.zinc,
-        red: colors.red,
-        pink: colors.pink,
-        blue: colors.blue,
-        green: colors.emerald,
-        yellow: colors.yellow
+        green: colors.emerald
       }
     }
   },
-  variants: {
-    extend: {}
-  }
+  variants: { extend: {} }
 };
