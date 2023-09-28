@@ -40,10 +40,10 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
           profile={profile as Profile}
           followStatusLoading={false}
         >
-          <Slug slug={formatHandle(handle)} prefix="@" />
+          <Slug slug={formatHandle(handle)} prefix="@" useBrandColor />
         </UserPreview>
       ) : (
-        <Slug slug={formatHandle(handle)} prefix="@" />
+        <Slug slug={formatHandle(handle)} prefix="@" useBrandColor />
       )}
     </Link>
   );

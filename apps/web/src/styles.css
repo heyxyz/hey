@@ -75,27 +75,6 @@ progress::-moz-progress-bar {
   @apply bg-gray-200 dark:bg-gray-900;
 }
 
-.bg-hero {
-  background: linear-gradient(
-      90deg,
-      theme('colors.white'),
-      theme('colors.white') 50%,
-      theme('colors.transparent')
-    ),
-    url(https://static-assets.hey.xyz/images/hero.webp);
-  background-size: cover;
-}
-.dark .bg-hero {
-  background: linear-gradient(
-      90deg,
-      theme('colors.black'),
-      theme('colors.black') 50%,
-      theme('colors.transparent')
-    ),
-    url(https://static-assets.hey.xyz/images/hero.webp);
-  background-size: cover;
-}
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -143,6 +122,10 @@ iframe {
 }
 
 /** CSS overrides for plyr audio **/
+.plyr__progress__buffer {
+  @apply !bg-white;
+}
+
 .plyr--audio .plyr__controls {
   @apply !bg-transparent !text-white;
 }
