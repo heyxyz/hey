@@ -43,7 +43,7 @@ const Footer: FC = () => {
           <Trans>Donate</Trans>
         </Link>
         <Link
-          href="https://status.lenster.xyz"
+          href="https://status.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
@@ -51,7 +51,7 @@ const Footer: FC = () => {
           <Trans>Status</Trans>
         </Link>
         <Link
-          href="https://feedback.lenster.xyz"
+          href="https://feedback.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
@@ -70,7 +70,7 @@ const Footer: FC = () => {
           <Trans>GitHub</Trans>
         </Link>
         <Link
-          href="https://translate.lenster.xyz"
+          href="https://translate.hey.xyz"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_TRANSLATE)}
