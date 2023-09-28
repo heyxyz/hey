@@ -1,7 +1,7 @@
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { Profile } from '@lenster/lens';
-import { Tooltip } from '@lenster/ui';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import type { Profile } from '@hey/lens';
+import { Tooltip } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

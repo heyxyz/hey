@@ -1,8 +1,8 @@
-import { POLYGONSCAN_URL } from '@lenster/data/constants';
-import type { Wallet } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import { Image } from '@lenster/ui';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
+import type { Wallet } from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import { Image } from '@hey/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
 

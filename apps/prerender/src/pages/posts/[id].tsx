@@ -5,8 +5,8 @@ import {
   CommentRankingFilter,
   CustomFiltersTypes,
   PublicationDocument
-} from '@lenster/lens';
-import { lensApolloNodeClient } from '@lenster/lens/apollo';
+} from '@hey/lens';
+import { lensApolloNodeClient } from '@hey/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {

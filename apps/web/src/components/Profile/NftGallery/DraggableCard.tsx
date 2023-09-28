@@ -1,6 +1,6 @@
 import type { UniqueIdentifier } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
-import type { Nft } from '@lenster/lens';
+import type { Nft } from '@hey/lens';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { memo } from 'react';

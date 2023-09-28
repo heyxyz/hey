@@ -1,10 +1,10 @@
 import { useChannelMemberCountStore } from '@components/Channel/Details';
 import { CurrencyDollarIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { ZoraERC721Drop } from '@lenster/abis';
-import { ADMIN_ADDRESS } from '@lenster/data/constants';
-import type { Channel } from '@lenster/types/lenster';
-import { Button, Spinner } from '@lenster/ui';
+import { ZoraERC721Drop } from '@hey/abis';
+import { ADMIN_ADDRESS } from '@hey/data/constants';
+import type { Channel } from '@hey/types/lenster';
+import { Button, Spinner } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';

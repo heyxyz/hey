@@ -1,8 +1,8 @@
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Tooltip } from '@lenster/ui';
+import type { Publication } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import { Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import Link from 'next/link';

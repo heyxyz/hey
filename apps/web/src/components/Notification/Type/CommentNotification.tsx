@@ -1,8 +1,8 @@
 import Markup from '@components/Shared/Markup';
 import UserPreview from '@components/Shared/UserPreview';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid';
-import type { NewCommentNotification } from '@lenster/lens';
-import type { MessageDescriptor } from '@lenster/types/misc';
+import type { NewCommentNotification } from '@hey/lens';
+import type { MessageDescriptor } from '@hey/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';

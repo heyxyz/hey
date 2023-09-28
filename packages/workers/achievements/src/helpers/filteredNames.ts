@@ -1,4 +1,4 @@
-import { PROFILE, PUBLICATION } from '@lenster/data/tracking';
+import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 
 const filteredEvents = [
   PROFILE.FOLLOW,

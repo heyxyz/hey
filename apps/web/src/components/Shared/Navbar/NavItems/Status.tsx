@@ -1,6 +1,6 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import cn from '@lenster/ui/cn';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

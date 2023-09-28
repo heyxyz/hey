@@ -1,4 +1,4 @@
-import type { Channel } from '@lenster/types/lenster';
+import type { Channel } from '@hey/types/lenster';
 import { featuredChannels } from 'src/store/app';
 
 const getChannelByTag = (tags: string[]): Channel | undefined => {

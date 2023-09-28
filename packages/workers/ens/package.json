@@ -15,15 +15,15 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
+    "@hey/data": "workspace:*",
+    "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23",
     "viem": "^1.12.2",
     "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230914.0",
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5",
     "wrangler": "^3.9.0"
