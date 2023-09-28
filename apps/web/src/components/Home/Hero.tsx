@@ -1,4 +1,4 @@
-import { APP_NAME } from '@hey/data/constants';
+import { APP_NAME, DESCRIPTION } from '@hey/data/constants';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
@@ -11,10 +11,7 @@ const Hero: FC = () => {
             <Trans>Welcome to {APP_NAME} 👋</Trans>
           </div>
           <div className="leading-7 text-gray-700 dark:text-gray-300">
-            <Trans>
-              {APP_NAME} is a decentralized, and permissionless social media app
-              built with Lens Protocol 🌿
-            </Trans>
+            {DESCRIPTION}
           </div>
         </div>
         <div className="hidden w-full flex-1 shrink-0 sm:block" />
