@@ -1,4 +1,4 @@
-import isPrideMonth from '@lenster/lib/isPrideMonth';
+import isPrideMonth from '@hey/lib/isPrideMonth';
 import type { FC } from 'react';
 
 import MetaTags from '../Common/MetaTags';

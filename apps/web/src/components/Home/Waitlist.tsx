@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
-import { Button, Card } from '@lenster/ui';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { MISCELLANEOUS } from '@hey/data/tracking';
+import { Button, Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';

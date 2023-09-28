@@ -1,6 +1,6 @@
 import Profiles from '@components/Shared/Profiles';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type { CollectedEvent } from '@lenster/lens';
+import type { CollectedEvent } from '@hey/lens';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 

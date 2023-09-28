@@ -1,4 +1,4 @@
-import type { MediaSet } from '@lenster/lens';
+import type { MediaSet } from '@hey/lens';
 
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 

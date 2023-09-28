@@ -2,11 +2,11 @@ import {
   INVITE_WORKER_URL,
   IS_MAINNET,
   STATIC_IMAGES_URL
-} from '@lenster/data/constants';
-import { Regex } from '@lenster/data/regex';
-import { Localstorage } from '@lenster/data/storage';
-import { INVITE } from '@lenster/data/tracking';
-import { Button, Form, Input, useZodForm } from '@lenster/ui';
+} from '@hey/data/constants';
+import { Regex } from '@hey/data/regex';
+import { Localstorage } from '@hey/data/storage';
+import { INVITE } from '@hey/data/tracking';
+import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';

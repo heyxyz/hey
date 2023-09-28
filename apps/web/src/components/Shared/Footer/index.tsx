@@ -1,5 +1,5 @@
-import { APP_NAME } from '@lenster/data/constants';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
+import { APP_NAME } from '@hey/data/constants';
+import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';

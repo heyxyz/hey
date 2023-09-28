@@ -1,7 +1,7 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@lenster/data/constants';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { Card } from '@lenster/ui';
+import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';

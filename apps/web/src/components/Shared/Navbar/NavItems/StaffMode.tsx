@@ -1,9 +1,9 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { STAFFTOOLS } from '@lenster/data/tracking';
-import cn from '@lenster/ui/cn';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
+import { STAFFTOOLS } from '@hey/data/tracking';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
