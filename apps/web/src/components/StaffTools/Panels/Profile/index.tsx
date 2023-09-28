@@ -32,21 +32,20 @@ interface ProfileStaffToolProps {
 }
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
-  const getHasUsedLenster = async () => {
+  const getHaveUsedHey = async () => {
     try {
       const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/hasUsedLenster/${profile.id}`
+        `${ACHIEVEMENTS_WORKER_URL}/haveUsedHey/${profile.id}`
       );
 
-      return response.data.hasUsedLenster;
+      return response.data.haveUsedHey;
     } catch (error) {
       return false;
     }
   };
 
-  const { data: hasUsedLenster } = useQuery(
-    ['hasUsedLenster', profile.id],
-    () => getHasUsedLenster().then((res) => res)
+  const { data: haveUsedHey } = useQuery(['haveUsedHey', profile.id], () =>
+    getHaveUsedHey().then((res) => res)
   );
 
   return (
@@ -62,7 +61,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {hasUsedLenster ? (
+        {haveUsedHey ? (
           <MetaDetails
             icon={
               <img
