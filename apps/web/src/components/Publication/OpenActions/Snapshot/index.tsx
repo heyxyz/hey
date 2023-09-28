@@ -1,4 +1,4 @@
-import { LENSTER_POLLS_SPACE } from '@hey/data/constants';
+import { HEY_POLLS_SPACE } from '@hey/data/constants';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Proposal, Vote } from '@hey/snapshot';
 import { useProposalQuery } from '@hey/snapshot';
@@ -42,7 +42,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   }
 
   const { proposal, votes } = data;
-  const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
+  const isLensterPoll = proposal?.space?.id === HEY_POLLS_SPACE;
 
   if (!proposal) {
     return null;
