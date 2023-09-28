@@ -7,8 +7,8 @@ const Hero: FC = () => {
     <div className="bg-hero divider py-12" data-testid="home-hero">
       <div className="mx-auto flex w-full max-w-screen-xl items-stretch px-5 py-8 text-center sm:py-12 sm:text-left">
         <div className="flex-1 space-y-3">
-          <div className="font-serif text-2xl font-extrabold sm:text-4xl">
-            <Trans>Welcome to {APP_NAME} 👋</Trans>
+          <div className="text-2xl font-extrabold sm:text-4xl">
+            <Trans>Welcome to {APP_NAME}!</Trans>
           </div>
           <div className="leading-7 text-gray-700 dark:text-gray-300">
             {DESCRIPTION}
