@@ -4,13 +4,13 @@ import { TEST_URL } from '../constants';
 
 describe('getOembed', () => {
   test('should return valid oembed response if url is provided', async () => {
-    const url = 'https://github.com/lensterxyz/lenster';
+    const url = 'https://github.com/heyxyz/hey';
     const getRequest = await fetch(`${TEST_URL}/oembed?url=${url}`);
     const response: any = await getRequest.json();
 
     expect(response.success).toBeTruthy();
     expect(response.oembed.url).toBe(url);
-    expect(response.oembed.title).toContain('GitHub - lensterxyz/lenster');
+    expect(response.oembed.title).toContain('GitHub - heyxyz/hey');
     expect(response.oembed.description).toContain(
       'Lenster is a decentralized and permissionless social media app'
     );
