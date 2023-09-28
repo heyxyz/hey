@@ -5,10 +5,10 @@ import {
   PhotoIcon
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { APP_NAME } from '@lenster/data/constants';
-import { ONBOARDING } from '@lenster/data/tracking';
-import { Card } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { APP_NAME } from '@hey/data/constants';
+import { ONBOARDING } from '@hey/data/tracking';
+import { Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';

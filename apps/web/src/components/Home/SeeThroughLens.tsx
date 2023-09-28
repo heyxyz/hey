@@ -3,23 +3,23 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import { HOME } from '@lenster/data/tracking';
+import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
   Profile,
   ProfileSearchResult
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery,
   useSeeThroughProfilesLazyQuery
-} from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import { Image, Input, Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import { Image, Input, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';

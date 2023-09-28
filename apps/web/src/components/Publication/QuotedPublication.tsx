@@ -1,5 +1,5 @@
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { Publication } from '@lenster/lens';
+import type { Publication } from '@hey/lens';
 import type { FC } from 'react';
 
 import HiddenPublication from './HiddenPublication';

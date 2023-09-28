@@ -1,8 +1,8 @@
-import { apps } from '@lenster/data/apps';
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { Publication } from '@lenster/lens';
-import getAppName from '@lenster/lib/getAppName';
-import { Tooltip } from '@lenster/ui';
+import { apps } from '@hey/data/apps';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import type { Publication } from '@hey/lens';
+import getAppName from '@hey/lib/getAppName';
+import { Tooltip } from '@hey/ui';
 import type { FC } from 'react';
 
 interface SourceProps {
