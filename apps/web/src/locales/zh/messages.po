@@ -489,7 +489,11 @@ msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME}!"
+msgid "Welcome to {APP_NAME},"
+msgstr ""
+
+#: src/components/Home/Hero.tsx
+msgid "a social network built on Lens Protocol"
 msgstr ""
 
 #: src/components/Home/Highlights.tsx
