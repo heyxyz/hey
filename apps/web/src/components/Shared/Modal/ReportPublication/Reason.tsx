@@ -3,7 +3,7 @@ import {
   PublicationReportingIllegalSubreason,
   PublicationReportingSensitiveSubreason,
   PublicationReportingSpamSubreason
-} from '@lenster/lens';
+} from '@hey/lens';
 import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 

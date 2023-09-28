@@ -1,4 +1,4 @@
-import { misused } from '@lenster/data/misused';
+import { misused } from '@hey/data/misused';
 
 /**
  * Checks whether a profile is scam or not.

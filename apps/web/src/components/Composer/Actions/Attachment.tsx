@@ -10,9 +10,9 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
-} from '@lenster/data/constants';
-import { Spinner, Tooltip } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/data/constants';
+import { Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';

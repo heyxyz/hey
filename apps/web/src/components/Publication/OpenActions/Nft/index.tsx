@@ -1,5 +1,5 @@
-import type { Publication } from '@lenster/lens';
-import type { BasicNftMetadata } from '@lenster/types/zora-nft';
+import type { Publication } from '@hey/lens';
+import type { BasicNftMetadata } from '@hey/types/zora-nft';
 import { type FC } from 'react';
 
 import ZoraNft from './ZoraNft';

@@ -1,5 +1,5 @@
-import { AlgorithmProvider } from '@lenster/data/enums';
-import response from '@lenster/lib/response';
+import { AlgorithmProvider } from '@hey/data/enums';
+import response from '@hey/lib/response';
 
 import k3lFeed from '../providers/k3l/k3lFeed';
 import lensterFeed from '../providers/lenster/lensterFeed';

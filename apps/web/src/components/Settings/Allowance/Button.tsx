@@ -3,10 +3,10 @@ import {
   MinusIcon,
   PlusIcon
 } from '@heroicons/react/24/outline';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { ApprovedAllowanceAmount } from '@lenster/lens';
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenster/lens';
-import { Button, Modal, Spinner, WarningMessage } from '@lenster/ui';
+import { SETTINGS } from '@hey/data/tracking';
+import type { ApprovedAllowanceAmount } from '@hey/lens';
+import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
+import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';

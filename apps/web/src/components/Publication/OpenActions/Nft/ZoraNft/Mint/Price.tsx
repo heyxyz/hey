@@ -1,6 +1,6 @@
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import type { ZoraNft } from '@lenster/types/zora-nft';
-import { HelpTooltip } from '@lenster/ui';
+import type { ZoraNft } from '@hey/types/zora-nft';
+import { HelpTooltip } from '@hey/ui';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { useQuery } from '@tanstack/react-query';
 import { type FC } from 'react';

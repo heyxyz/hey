@@ -1,5 +1,5 @@
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { MarkupLinkProps } from '@lenster/types/misc';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
 import type { FC } from 'react';
 

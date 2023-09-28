@@ -1,6 +1,6 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
-import { API_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
+import { API_URL } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
 import axios from 'axios';
 
 import { parseJwt } from './lib';
