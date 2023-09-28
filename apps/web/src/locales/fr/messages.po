@@ -1032,7 +1032,7 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -1157,7 +1157,7 @@ msgid "Terms & Conditions"
 msgstr ""
 
 #: src/components/Pages/Terms.tsx
-msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgid "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
 msgstr ""
 
 #: src/components/Pages/Terms.tsx
