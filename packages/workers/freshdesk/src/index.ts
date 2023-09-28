@@ -43,7 +43,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
         'X-Postmark-Server-Token': env.POSTMARK_TOKEN
       },
       body: JSON.stringify({
-        From: 'contact@lenster.xyz',
+        From: 'contact@hey.xyz',
         ReplyTo: email,
         To: 'support@lenster.freshdesk.com',
         Subject: category + ': ' + subject,
