@@ -1,7 +1,7 @@
 import type { ThemeConfig } from '@livepeer/react';
 import colors from 'tailwindcss/colors';
 
-import circluarStd from './lensterFont';
+import lensterFont from './lensterFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {
@@ -10,7 +10,7 @@ const getLivepeerTheme: ThemeConfig = {
     loading: colors.violet[500]
   },
   fonts: {
-    display: circluarStd.style.fontFamily
+    display: lensterFont.style.fontFamily
   },
   fontSizes: {
     timeFontSize: '11px'
