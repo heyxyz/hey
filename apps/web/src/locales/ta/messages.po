@@ -446,12 +446,16 @@ msgid "Signless transactions"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
+#~ msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
+#~ msgstr "என்ட்-டு-எண்ட் என்க்ரிப்ட் செய்யப்பட்ட டிஎம்களை நண்பர்களுக்கு அனுப்ப லென்ஸ்டரைப் பயன்படுத்ததுவதற்கு எக்ஸ்எம்டிபியை ஆக்டிவேட் செய்யவும்."
+
+#: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
 msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
-msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr "என்ட்-டு-எண்ட் என்க்ரிப்ட் செய்யப்பட்ட டிஎம்களை நண்பர்களுக்கு அனுப்ப லென்ஸ்டரைப் பயன்படுத்ததுவதற்கு எக்ஸ்எம்டிபியை ஆக்டிவேட் செய்யவும்."
+msgid "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -1014,6 +1018,10 @@ msgid "Submit"
 msgstr "சமர்ப்பி"
 
 #: src/components/Pages/Privacy.tsx
+#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+#~ msgstr ""
+
+#: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
 msgstr "தனியுரிமைக் கொள்கை • {APP_NAME}"
 
@@ -1032,7 +1040,7 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr "தளத்தை அணுகுவதன் மூலம், இந்தத் தனியுரிமைக் கொள்கையை மட்டுமல்ல, எங்கள் பயன்பாட்டு விதிமுறைகள் மற்றும் தளத்தைப் பயன்படுத்துவதற்கான எழுத்துப்பூர்வ ஒப்பந்தங்களையும் ஏற்கிறீர்கள். எங்களின் தனிப்பட்ட தரவு (இங்கே விவரிக்கப்பட்டுள்ளபடி) மற்றும் பொது/அனுமதியற்ற பிளாக்செயின் தொழில்நுட்பத்தின் அம்சங்களைச் சேகரிப்பதற்கும் பயன்படுத்துவதற்கும் நீங்கள் ஒப்புக்கொள்கிறீர்கள்."
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
 msgstr ""
 
 #: src/components/Pages/Privacy.tsx
@@ -2154,11 +2162,15 @@ msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
 
 #: src/components/Settings/Danger/Delete.tsx
+#~ msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+#~ msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2357,12 +2369,16 @@ msgid "Your temporary refresh token"
 msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
+#~ msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
+#~ msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
+
+#: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"
 msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
-msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
+msgid "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
+msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Updating preference settings..."
