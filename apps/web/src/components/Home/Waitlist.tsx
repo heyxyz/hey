@@ -20,7 +20,7 @@ const Waitlist: FC = () => {
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">
-          Join the waitlist to get early access to the vibrant Lens community!
+          Get early access to Lens! (Join waitlist)
         </div>
         <div>
           <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">

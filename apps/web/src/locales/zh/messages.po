@@ -489,12 +489,8 @@ msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME} 👋"
-msgstr "欢迎来到 {APP_NAME} 👋"
-
-#: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} 是一个基于Lens Protocol🌿开发的去中心化的、无需许可的社交媒体应用程序。"
+msgid "Welcome to {APP_NAME}!"
+msgstr ""
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
