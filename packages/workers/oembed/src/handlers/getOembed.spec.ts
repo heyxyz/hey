@@ -12,7 +12,7 @@ describe('getOembed', () => {
     expect(response.oembed.url).toBe(url);
     expect(response.oembed.title).toContain('GitHub - heyxyz/hey');
     expect(response.oembed.description).toContain(
-      'Lenster is a decentralized and permissionless social media app'
+      'Hey is a decentralized and permissionless social media app'
     );
     expect(response.oembed.image).toContain('transform=large');
     expect(response.oembed.site).toBe('GitHub');

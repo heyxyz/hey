@@ -13,17 +13,17 @@ export const algorithms: {
     name: 'Most viewed',
     feedType: HomeFeedType.HEY_MOSTVIEWED,
     description:
-      'Most viewed posts sorted by the number of views in the last 24 hours in Lenster.',
-    image: `${STATIC_IMAGES_URL}/algorithms/lenster-mostviewed.png`,
-    by: 'Lenster'
+      'Most viewed posts sorted by the number of views in the last 24 hours in Hey.',
+    image: `${STATIC_IMAGES_URL}/algorithms/hey-mostviewed.png`,
+    by: 'Hey'
   },
   {
     name: 'Most interacted',
     feedType: HomeFeedType.HEY_MOSTINTERACTED,
     description:
-      'Most interacted posts sorted by the number of interactions in the last 24 hours in Lenster.',
-    image: `${STATIC_IMAGES_URL}/algorithms/lenster-mostinteracted.png`,
-    by: 'Lenster'
+      'Most interacted posts sorted by the number of interactions in the last 24 hours in Hey.',
+    image: `${STATIC_IMAGES_URL}/algorithms/hey-mostinteracted.png`,
+    by: 'Hey'
   },
   {
     name: 'Recommended',

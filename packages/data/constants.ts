@@ -57,7 +57,7 @@ export const OLD_LENS_RELAYER_ADDRESS =
   '0xD1FecCF6881970105dfb2b654054174007f0e07E';
 
 // URLs
-export const STATIC_ASSETS_URL = 'https://static-assets.lenster.xyz';
+export const STATIC_ASSETS_URL = 'https://static-assets.hey.xyz';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
 export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;

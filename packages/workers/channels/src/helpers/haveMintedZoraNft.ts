@@ -6,7 +6,7 @@ const haveMintedZoraNft = async (
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'User-agent': 'Lenster'
+      'User-agent': 'Hey.xyz'
     },
     body: JSON.stringify({
       query: `

@@ -23,10 +23,7 @@ const Waitlist: FC = () => {
           Join the waitlist to get early access to the vibrant Lens community!
         </div>
         <div>
-          <Link
-            href="https://waitlist.lens.xyz?utm_source=lenster"
-            target="_blank"
-          >
+          <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
             <Button
               icon={<ArrowRightIcon className="h-4 w-4" />}
               onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_LENS_WAITLIST)}

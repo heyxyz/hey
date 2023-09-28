@@ -12,7 +12,7 @@ app.register_blueprint(tagger_bp)
 
 @app.route("/")
 def index():
-    return "Welcome to Lenster AI ✨"
+    return "Welcome to Hey AI ✨"
 
 
 if __name__ == "__main__":

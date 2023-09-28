@@ -1,8 +1,8 @@
-# Contributing to Lenster 🌸
+# Contributing to Hey 🌸
 
-👍🎉 Thank you for your interest in contributing to Lenster! 🎉👍
+👍🎉 Thank you for your interest in contributing to Hey! 🎉👍
 
-Lenster is an open-source project maintained by [Lenster team](https://github.com/heyxyz). We appreciate your interest and efforts to contribute to Lenster.
+Hey is an open-source project maintained by [Hey team](https://github.com/heyxyz). We appreciate your interest and efforts to contribute to Hey.
 
 Anyone can be a contributor. Either you found a typo, or you have an awesome feature request you could implement, we encourage you to create a Merge Request.
 
@@ -16,7 +16,7 @@ All efforts to contribute are highly appreciated, we recommend you talk to a mai
 
 ## Open Development & Community Driven
 
-Lenster is an open-source project. See the [LICENSE](https://github.com/heyxyz/hey/blob/main/LICENSE) file for licensing information. All the work done is available on GitHub.
+Hey is an open-source project. See the [LICENSE](https://github.com/heyxyz/hey/blob/main/LICENSE) file for licensing information. All the work done is available on GitHub.
 
 The maintainers and the contributors send merge requests which go through the same validation process.
 

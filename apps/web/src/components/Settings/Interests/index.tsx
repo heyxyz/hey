@@ -42,7 +42,7 @@ const InterestsSettings: NextPage = () => {
             <p>
               <Trans>
                 Interests you select are used to personalize your experience
-                across Lenster. You can adjust your interests if something
+                across {APP_NAME}. You can adjust your interests if something
                 doesn't look right.
               </Trans>
             </p>
