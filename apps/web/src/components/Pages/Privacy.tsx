@@ -280,7 +280,7 @@ const Privacy: FC = () => {
                 <Trans>
                   If you have any questions or comments about this Privacy
                   Policy, our data practices, or our compliance with applicable
-                  law, please contact us at privacy@lenster.xyz
+                  law, please contact us at privacy@hey.xyz
                 </Trans>
               </p>
               {/* 10. Contact ends */}
