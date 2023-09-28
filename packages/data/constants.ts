@@ -42,6 +42,7 @@ export const SNAPSHOT_URL = IS_MAINNET
 export const APP_NAME = 'Hey';
 export const DESCRIPTION = `${APP_NAME}.xyz is a decentralized, and permissionless social media app built with Lens Protocol 🌿`;
 export const APP_VERSION = packageJson.version;
+export const BRAND_COLOR = '#FB3A5D';
 
 // Git
 export const GIT_COMMIT_SHA =

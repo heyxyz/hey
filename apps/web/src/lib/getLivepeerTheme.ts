@@ -1,13 +1,13 @@
+import { BRAND_COLOR } from '@hey/data/constants';
 import type { ThemeConfig } from '@livepeer/react';
-import colors from 'tailwindcss/colors';
 
 import heyFont from './heyFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
-    progressLeft: colors.violet[500],
-    loading: colors.violet[500]
+    progressLeft: BRAND_COLOR,
+    loading: BRAND_COLOR
   },
   fonts: {
     display: heyFont.style.fontFamily
