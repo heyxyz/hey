@@ -1,6 +1,6 @@
 # Feature Flags
 
-Lenster uses feature flags to control the visibility of new features. This allows us to release new features to a subset of users and gradually roll them out to everyone.
+Hey uses feature flags to control the visibility of new features. This allows us to release new features to a subset of users and gradually roll them out to everyone.
 
 ## Using a feature flag
 

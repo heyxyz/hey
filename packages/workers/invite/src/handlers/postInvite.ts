@@ -47,7 +47,7 @@ export default async (request: WorkerRequest) => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'User-agent': 'Lenster'
+          'User-agent': 'Hey.xyz'
         },
         body: JSON.stringify({
           query: mutation,

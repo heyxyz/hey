@@ -46,7 +46,7 @@ const nextConfig = {
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/lenster?utm_source=lenster',
+        destination: 'https://giveth.io/project/hey?utm_source=hey',
         permanent: true
       },
       {
