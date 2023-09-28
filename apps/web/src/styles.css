@@ -143,6 +143,10 @@ iframe {
 }
 
 /** CSS overrides for plyr audio **/
+.plyr__progress__buffer {
+  @apply !bg-white;
+}
+
 .plyr--audio .plyr__controls {
   @apply !bg-transparent !text-white;
 }

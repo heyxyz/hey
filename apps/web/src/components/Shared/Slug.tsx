@@ -4,12 +4,23 @@ import type { FC } from 'react';
 interface SlugProps {
   slug: string;
   prefix?: string;
+  useBrandColor?: boolean;
   className?: string;
 }
 
-const Slug: FC<SlugProps> = ({ slug, prefix, className = '' }) => {
+const Slug: FC<SlugProps> = ({
+  slug,
+  prefix,
+  useBrandColor = false,
+  className = ''
+}) => {
   return (
-    <span className={cn('lt-text-gray-500', className)}>
+    <span
+      className={cn(
+        useBrandColor ? 'text-brand' : 'lt-text-gray-500',
+        className
+      )}
+    >
       {prefix}
       {slug}
     </span>
