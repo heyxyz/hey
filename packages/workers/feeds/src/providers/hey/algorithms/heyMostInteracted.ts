@@ -28,7 +28,7 @@ const generateWeightedCaseStatement = () => {
     .join(' ');
 };
 
-const lensterMostInteracted = async (
+const heyMostInteracted = async (
   limit: number,
   offset: number,
   env: Env
@@ -71,4 +71,4 @@ const lensterMostInteracted = async (
   }
 };
 
-export default lensterMostInteracted;
+export default heyMostInteracted;

@@ -12,7 +12,7 @@ interface PriceProps {
 }
 
 const Price: FC<PriceProps> = ({ nft }) => {
-  const { quantity, setQuantity, canMintOnLenster } = useZoraMintStore();
+  const { quantity, setQuantity, canMintOnHey } = useZoraMintStore();
   const { data: usdPrice, isLoading } = useQuery(
     ['redstoneData'],
     () => getRedstonePrice('ETH').then((res) => res),
@@ -28,7 +28,7 @@ const Price: FC<PriceProps> = ({ nft }) => {
   const mintReferralReward = 0.000222 * quantity;
   const zoraFee = 0.000222 * quantity;
 
-  if (isLoading || !canMintOnLenster) {
+  if (isLoading || !canMintOnHey) {
     return null;
   }
 
