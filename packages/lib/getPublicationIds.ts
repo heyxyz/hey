@@ -1,4 +1,4 @@
-import { FEEDS_WORKER_URL } from '@lenster/data/constants';
+import { FEEDS_WORKER_URL } from '@hey/data/constants';
 import axios from 'axios';
 
 /**

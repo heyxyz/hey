@@ -1,9 +1,9 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { FeedItem, Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import cn from '@lenster/ui/cn';
+import type { FeedItem, Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';

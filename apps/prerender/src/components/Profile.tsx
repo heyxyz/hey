@@ -1,9 +1,9 @@
-import type { MediaSet, NftImage, Publication } from '@lenster/lens';
-import { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import truncateByWords from '@lenster/lib/truncateByWords';
+import type { MediaSet, NftImage, Publication } from '@hey/lens';
+import { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
 import { BASE_URL } from 'src/constants';

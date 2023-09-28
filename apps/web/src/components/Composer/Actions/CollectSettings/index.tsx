@@ -1,5 +1,5 @@
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import { Modal, Tooltip } from '@lenster/ui';
+import { Modal, Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

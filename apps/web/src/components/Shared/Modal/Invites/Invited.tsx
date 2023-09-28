@@ -1,6 +1,6 @@
 import { TicketIcon } from '@heroicons/react/24/outline';
-import type { InvitedResult } from '@lenster/lens';
-import { EmptyState } from '@lenster/ui';
+import type { InvitedResult } from '@hey/lens';
+import { EmptyState } from '@hey/ui';
 import { Plural, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

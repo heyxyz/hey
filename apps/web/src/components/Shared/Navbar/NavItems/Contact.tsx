@@ -1,5 +1,5 @@
 import { LifebuoyIcon } from '@heroicons/react/24/outline';
-import cn from '@lenster/ui/cn';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

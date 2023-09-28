@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/bundlr",
+  "name": "@hey/bundlr",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -15,7 +15,7 @@
     "viem": "^1.12.2"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2"
   }
 }
