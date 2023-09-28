@@ -637,6 +637,10 @@ msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr ""
 
 #: src/components/Home/Waitlist.tsx
+msgid "Get early access to Lens!"
+msgstr ""
+
+#: src/components/Home/Waitlist.tsx
 msgid "Join waitlist"
 msgstr ""
 
