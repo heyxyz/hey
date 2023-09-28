@@ -389,7 +389,7 @@ const Terms: FC = () => {
               <p className="leading-7">
                 <Trans>
                   Questions about the Terms should be sent to us at
-                  terms@lenster.xyz
+                  terms@hey.xyz
                 </Trans>
               </p>
               {/* 12. Contact Information ends */}
