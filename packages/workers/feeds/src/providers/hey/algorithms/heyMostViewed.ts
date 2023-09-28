@@ -6,7 +6,7 @@ import removeParamsFromString from '../../../helpers/removeParamsFromString';
 import type { Env } from '../../../types';
 import clickhouseQuery from '../clickhouseQuery';
 
-const lensterMostViewed = async (
+const heyMostViewed = async (
   limit: number,
   offset: number,
   env: Env
@@ -48,4 +48,4 @@ const lensterMostViewed = async (
   }
 };
 
-export default lensterMostViewed;
+export default heyMostViewed;

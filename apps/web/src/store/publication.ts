@@ -1,5 +1,5 @@
 import type { Publication } from '@hey/lens';
-import type { NewLensterAttachment } from '@hey/types/misc';
+import type { NewAttachment } from '@hey/types/misc';
 import { create } from 'zustand';
 
 interface PublicationState {
@@ -19,10 +19,10 @@ interface PublicationState {
     cover: string;
     coverMimeType: string;
   }) => void;
-  attachments: NewLensterAttachment[];
-  setAttachments: (attachments: NewLensterAttachment[]) => void;
-  addAttachments: (attachments: NewLensterAttachment[]) => void;
-  updateAttachments: (attachments: NewLensterAttachment[]) => void;
+  attachments: NewAttachment[];
+  setAttachments: (attachments: NewAttachment[]) => void;
+  addAttachments: (attachments: NewAttachment[]) => void;
+  updateAttachments: (attachments: NewAttachment[]) => void;
   removeAttachments: (ids: string[]) => void;
   videoThumbnail: {
     url?: string;
