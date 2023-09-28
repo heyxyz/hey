@@ -41,9 +41,9 @@ const Terms: FC = () => {
               <div className="space-y-5 leading-7">
                 <p>
                   <Trans>
-                    The website lenster.xyz” (the “Site”) offers information,
-                    tools and services to you to allow you to interact with the
-                    Lens Protocol - a composable and decentralised social graph
+                    The website hey.xyz” (the “Site”) offers information, tools
+                    and services to you to allow you to interact with the Lens
+                    Protocol - a composable and decentralised social graph
                     protocol.
                   </Trans>
                 </p>
