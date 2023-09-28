@@ -1145,8 +1145,8 @@ msgid "10. Contact"
 msgstr "10. தொடர்பு"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "இந்தத் தனியுரிமைக் கொள்கை, எங்கள் தரவு நடைமுறைகள் அல்லது பொருந்தக்கூடிய சட்டத்திற்கு இணங்குதல் பற்றி ஏதேனும் கேள்விகள் அல்லது கருத்துகள் இருந்தால், தயவுசெய்து எங்களை privacy@lenster.xyz இல் தொடர்பு கொள்ளவும்"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1341,8 +1341,8 @@ msgid "12. Contact Information"
 msgstr "12. தொடர்புத் தகவல்"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "விதிமுறைகள்பற்றிய கேள்விகள் எங்களுக்கு term@lenster.xyz இல் அனுப்பப்பட வேண்டும்"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1413,17 +1413,9 @@ msgstr "உங்களைப் பின்தொடர்கிறார்"
 msgid "Edit Profile"
 msgstr "சுயவிவரத்தைத் திருத்து"
 
-#: src/components/Profile/Details.tsx
-msgid "Followers you know"
-msgstr "உங்களுக்குத் தெரிந்த பின்தொடர்பவர்கள்"
-
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "சுயவிவர ஊட்டத்தை ஏற்றுவதில் தோல்வி"
-
-#: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -2583,18 +2575,6 @@ msgid "New"
 msgstr "புதியது"
 
 #: src/components/Shared/Channel/Join.tsx
-#~ msgid "Left successfully!"
-#~ msgstr "Left successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Joined successfully!"
-#~ msgstr "Joined successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Leave"
-#~ msgstr "Leave"
-
-#: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
 msgstr ""
 
@@ -3434,10 +3414,6 @@ msgstr "மொத்த சேகரிப்புகள்"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr "மொத்த பின்பற்றுபவர்கள்"
-
-#: src/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 200MB"
-#~ msgstr "Video size should be less than 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"

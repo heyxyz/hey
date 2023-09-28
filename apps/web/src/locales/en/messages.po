@@ -1145,8 +1145,8 @@ msgid "10. Contact"
 msgstr "10. Contact"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1341,8 +1341,8 @@ msgid "12. Contact Information"
 msgstr "12. Contact Information"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "Questions about the Terms should be sent to us at terms@lenster.xyz"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr "Questions about the Terms should be sent to us at terms@hey.xyz"
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1420,10 +1420,6 @@ msgstr ""
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr ""
-
-#: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -2583,18 +2579,6 @@ msgid "New"
 msgstr ""
 
 #: src/components/Shared/Channel/Join.tsx
-#~ msgid "Left successfully!"
-#~ msgstr "Left successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Joined successfully!"
-#~ msgstr "Joined successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Leave"
-#~ msgstr "Leave"
-
-#: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
 msgstr "Joined"
 
@@ -3434,10 +3418,6 @@ msgstr "total collects"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr "total follows"
-
-#: src/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 200MB"
-#~ msgstr "Video size should be less than 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"

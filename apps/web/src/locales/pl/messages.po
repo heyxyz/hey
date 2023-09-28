@@ -1422,10 +1422,6 @@ msgid "Failed to load profile feed"
 msgstr ""
 
 #: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
-
-#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr ""
 
