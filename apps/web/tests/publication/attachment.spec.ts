@@ -1,3 +1,4 @@
+import { APP_NAME } from '@hey/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 
@@ -73,7 +74,7 @@ test.describe('Publication attachments', () => {
           'snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718'
         );
       await expect(snapshotWidget).toContainText(
-        'Do you like the Snapshot integration with Lenster?'
+        `Do you like the Snapshot integration with ${APP_NAME}?`
       );
       await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });

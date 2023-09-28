@@ -1,6 +1,6 @@
 # Packages
 
-This folder contains all the shared packages that are used in the Lenster project.
+This folder contains all the shared packages that are used in the Hey project.
 
 - [ABIs](./abis/README.md) - Contract ABIs
 - [Bundlr](./bundlr/README.md) - Create bundles on Arweave
@@ -19,11 +19,11 @@ This folder contains all the shared packages that are used in the Lenster projec
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
   - [ENS Resolver](../packages/workers/ens/README.md) - Resolve Ethereum address to ENS names
   - [Oembed](../packages/workers/oembed/README.md) - Create rich embeds for URLs also proxy images
-  - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Lenster
-  - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Lenster
-  - [Invite](../packages/workers/invite/README.md) - Invite API for Lenster
-  - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Lenster
-  - [Access](../packages/workers/access/README.md) - Access API for Lenster
-  - [Preferences](../packages/workers/preferences/README.md) - Preferences API for Lenster
-  - [Channels](../packages/workers/channels/README.md) - Channels API for Lenster
-  - [Zora](../packages/workers/zora/README.md) - Zora NFT API for Lenster
+  - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry for Hey
+  - [Achievements](../packages/workers/achievements/README.md) - Achievements API for Hey
+  - [Invite](../packages/workers/invite/README.md) - Invite API for Hey
+  - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Hey
+  - [Access](../packages/workers/access/README.md) - Access API for Hey
+  - [Preferences](../packages/workers/preferences/README.md) - Preferences API for Hey
+  - [Channels](../packages/workers/channels/README.md) - Channels API for Hey
+  - [Zora](../packages/workers/zora/README.md) - Zora NFT API for Hey

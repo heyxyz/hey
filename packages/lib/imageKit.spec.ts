@@ -12,7 +12,7 @@ describe('imageKit', () => {
     expect(result).toEqual('');
   });
 
-  test('should return the same url if it includes static-assets.lenster.xyz', () => {
+  test('should return the same url if it includes static-assets.hey.xyz', () => {
     const url = `${STATIC_IMAGES_URL}/placeholder.webp`;
     const result = imageKit(url);
     expect(result).toEqual(url);

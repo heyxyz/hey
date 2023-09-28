@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -19,7 +19,7 @@ const Gitcoin: FC = () => {
       />
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
-          Support Lenster on Gitcoin Grants Round 18
+          Support ${APP_NAME} on Gitcoin Grants Round 18
         </div>
         <div>
           <Link

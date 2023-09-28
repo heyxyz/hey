@@ -23,7 +23,7 @@ const generateTypedData = (
       space: proposal.space?.id as string,
       proposal: proposal.id as `0x${string}`,
       choice: position,
-      app: 'lenster',
+      app: 'hey',
       reason: '',
       metadata: '{}',
       from,
