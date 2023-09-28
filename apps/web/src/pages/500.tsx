@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import { HomeIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Button } from '@hey/ui';
-import circluarStd from '@lib/lensterFont';
+import heyFont from '@lib/heyFont';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ const Custom500: FC = () => {
     <div className="page-center flex-col">
       <style jsx global>{`
         body {
-          font-family: ${circluarStd.style.fontFamily};
+          font-family: ${heyFont.style.fontFamily};
         }
       `}</style>
       <MetaTags title={`500 • ${APP_NAME}`} />

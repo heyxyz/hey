@@ -1,19 +1,19 @@
 import localFont from 'next/font/local';
 
-const circluarStd = localFont({
+const heyFont = localFont({
   src: [
     {
-      path: '../../public/fonts/CircularXXSub-Book.woff',
+      path: '../../public/fonts/SofiaProSoftReg-webfont.woff2',
       weight: '400',
       style: 'normal'
     },
     {
-      path: '../../public/fonts/CircularXXSub-Medium.woff',
+      path: '../../public/fonts/SofiaProSoftMed-webfont.woff2',
       weight: '500',
       style: 'medium'
     },
     {
-      path: '../../public/fonts/CircularXXSub-Bold.woff',
+      path: '../../public/fonts/SofiaProSoftBold-webfont.woff2',
       weight: '700',
       style: 'bold'
     }
@@ -23,4 +23,4 @@ const circluarStd = localFont({
   display: 'swap'
 });
 
-export default circluarStd;
+export default heyFont;

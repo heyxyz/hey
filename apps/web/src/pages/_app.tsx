@@ -1,6 +1,6 @@
 import '../styles.css';
 
-import circluarStd from '@lib/lensterFont';
+import heyFont from '@lib/heyFont';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 
@@ -13,7 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <Providers>
       <style jsx global>{`
         body {
-          font-family: ${circluarStd.style.fontFamily};
+          font-family: ${heyFont.style.fontFamily};
         }
       `}</style>
       <Component {...pageProps} />

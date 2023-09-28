@@ -38,9 +38,12 @@ const TabButton: FC<TabButtonProps> = ({
         onClick();
       }}
       className={cn(
-        { 'text-brand bg-brand-100 dark:bg-brand-300/20': active },
+        {
+          '!text-brand-500 dark:!text-brand-400/80 bg-brand-50 dark:bg-brand-300/20':
+            active
+        },
         'flex items-center space-x-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-500 sm:px-3 sm:py-1.5',
-        'hover:bg-brand-100/80 dark:hover:bg-brand-300/30 justify-center',
+        'hover:bg-brand-50/80 hover:text-brand-400 dark:hover:bg-brand-300/30 justify-center',
         className
       )}
       data-testid={`tab-button-${name.toLowerCase()}`}

@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
-"Project-Id-Version: lenstertest\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2022-12-25 13:24\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: lenstertest\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 556737\n"
 "X-Crowdin-Language: en\n"
 "X-Crowdin-File: /src/locales/en/messages.po\n"
@@ -446,10 +446,6 @@ msgid "Signless transactions"
 msgstr "Signless transactions"
 
 #: src/components/Home/EnableMessages.tsx
-#~ msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-#~ msgstr ""
-
-#: src/components/Home/EnableMessages.tsx
 msgid "Direct messages are here!"
 msgstr ""
 
@@ -493,12 +489,12 @@ msgid "Contribute now"
 msgstr "Contribute now"
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgid "Welcome to {APP_NAME},"
+msgstr "Welcome to {APP_NAME},"
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr ""
+msgid "a social network built on Lens Protocol"
+msgstr "a social network built on Lens Protocol"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -639,6 +635,10 @@ msgstr ""
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+
+#: src/components/Home/Waitlist.tsx
+msgid "Get early access to Lens!"
+msgstr "Get early access to Lens!"
 
 #: src/components/Home/Waitlist.tsx
 msgid "Join waitlist"
@@ -1016,10 +1016,6 @@ msgstr ""
 #: src/components/Pages/Contact.tsx
 msgid "Submit"
 msgstr ""
-
-#: src/components/Pages/Privacy.tsx
-#~ msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
-#~ msgstr "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
 
 #: src/components/Pages/Privacy.tsx
 msgid "Privacy Policy • {APP_NAME}"
@@ -2162,10 +2158,6 @@ msgid "Cleared DM keys"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-#~ msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
-#~ msgstr "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
-
-#: src/components/Settings/Danger/Delete.tsx
 msgid "This will delete your Lens profile"
 msgstr "This will delete your Lens profile"
 
@@ -2367,10 +2359,6 @@ msgstr "Your temporary access token"
 #: src/components/Settings/Export/Tokens.tsx
 msgid "Your temporary refresh token"
 msgstr "Your temporary refresh token"
-
-#: src/components/Settings/Interests/index.tsx
-#~ msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-#~ msgstr ""
 
 #: src/components/Settings/Interests/index.tsx
 msgid "Interests settings • {APP_NAME}"

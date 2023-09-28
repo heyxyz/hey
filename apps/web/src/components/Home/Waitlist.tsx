@@ -1,4 +1,3 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Button, Card } from '@hey/ui';
@@ -9,10 +8,7 @@ import type { FC } from 'react';
 
 const Waitlist: FC = () => {
   return (
-    <Card
-      as="aside"
-      className="!border-brand-600 !bg-brand-50 text-brand-600 dark:bg-brand-900 mb-4 space-y-4 p-5"
-    >
+    <Card as="aside" className="mb-4 space-y-4 p-5">
       <img
         src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
         alt="Dizzy emoji"
@@ -20,12 +16,13 @@ const Waitlist: FC = () => {
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">
-          Join the waitlist to get early access to the vibrant Lens community!
+          <Trans>Get early access to Lens!</Trans>
         </div>
         <div>
           <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
             <Button
-              icon={<ArrowRightIcon className="h-4 w-4" />}
+              variant="black"
+              size="lg"
               onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_LENS_WAITLIST)}
             >
               <Trans>Join waitlist</Trans>

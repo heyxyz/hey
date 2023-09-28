@@ -1,7 +1,7 @@
 import { prideHashtags } from './pride-hashtags';
 
 export const hashflags: Record<string, string> = {
-  lenster: 'lenster',
+  hey: 'hey',
   lenstube: 'lenstube',
   bitcoin: 'bitcoin',
   btc: 'bitcoin',

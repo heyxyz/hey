@@ -49,7 +49,7 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
             profile.handle
           )} has {{count}} activities in ${new Date().getFullYear()}`
         }}
-        theme={{ light: ['#ede9fe', '#7c3aed'] }}
+        theme={{ light: ['#FED5D9', '#FB3A5D'] }}
       />
     </Card>
   );

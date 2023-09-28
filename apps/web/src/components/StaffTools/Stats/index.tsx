@@ -13,7 +13,7 @@ import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import { APP_NAME } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { useLensterStatsQuery } from '@hey/lens';
+import { useHeyStatsQuery } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import {
   Card,
@@ -89,11 +89,11 @@ const Stats: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
-  const { data, loading, error } = useLensterStatsQuery({
+  const { data, loading, error } = useHeyStatsQuery({
     variables: { request: { sources: [APP_NAME] } }
   });
 
-  const { data: todayData, loading: todayLoading } = useLensterStatsQuery({
+  const { data: todayData, loading: todayLoading } = useHeyStatsQuery({
     variables: {
       request: {
         sources: [APP_NAME],
@@ -103,16 +103,15 @@ const Stats: NextPage = () => {
     }
   });
 
-  const { data: yesterdayData, loading: yesterdayLoading } =
-    useLensterStatsQuery({
-      variables: {
-        request: {
-          sources: [APP_NAME],
-          fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
-          toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
-        }
+  const { data: yesterdayData, loading: yesterdayLoading } = useHeyStatsQuery({
+    variables: {
+      request: {
+        sources: [APP_NAME],
+        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
+        toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
       }
-    });
+    }
+  });
 
   if (!staffMode) {
     return <Custom404 />;
