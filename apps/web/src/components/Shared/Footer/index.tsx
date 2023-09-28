@@ -62,7 +62,7 @@ const Footer: FC = () => {
           <Trans>Thanks</Trans>
         </Link>
         <Link
-          href="https://github.com/lensterxyz/lenster"
+          href="https://github.com/heyxyz/hey"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
