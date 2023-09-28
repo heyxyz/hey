@@ -1,6 +1,6 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CHANNELS_WORKER_URL } from '@hey/data/constants';
-import type { Channel } from '@hey/types/lenster';
+import type { Channel } from '@hey/types/hey';
 import { Button, Modal } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';

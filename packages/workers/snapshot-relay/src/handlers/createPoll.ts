@@ -1,5 +1,5 @@
 import {
-  LENSTER_POLLS_SPACE,
+  HEY_POLLS_SPACE,
   MAINNET_SNAPSHOT_SEQUNECER_URL,
   MAINNET_SNAPSHOT_URL,
   TESTNET_SNAPSHOT_SEQUNECER_URL,
@@ -93,7 +93,7 @@ export default async (request: WorkerRequest) => {
         ]
       },
       message: {
-        space: LENSTER_POLLS_SPACE,
+        space: HEY_POLLS_SPACE,
         type: 'single-choice',
         title,
         body: description,
@@ -132,7 +132,7 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
+      snapshotUrl: `${snapshotUrl}/#/${HEY_POLLS_SPACE}/proposal/${snapshotResponse.id}`
     });
   } catch (error) {
     throw error;

@@ -47,7 +47,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import type { IGif } from '@hey/types/giphy';
-import type { NewLensterAttachment } from '@hey/types/misc';
+import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type {
@@ -847,7 +847,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const setGifAttachment = (gif: IGif) => {
-    const attachment: NewLensterAttachment = {
+    const attachment: NewAttachment = {
       id: uuid(),
       previewItem: gif.images.original.url,
       original: {

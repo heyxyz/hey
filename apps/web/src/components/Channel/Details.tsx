@@ -5,7 +5,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatHandle from '@hey/lib/formatHandle';
-import type { Channel } from '@hey/types/lenster';
+import type { Channel } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import { t } from '@lingui/macro';
