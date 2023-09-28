@@ -10,7 +10,7 @@ const Hero: FC = () => {
           src="/logo.png"
           className="mr-5 h-24 w-24 sm:mr-8 sm:h-36 sm:w-36"
         />
-        <div className="max-w-[250px] flex-1 space-y-1 sm:max-w-lg">
+        <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
           <div className="text-2xl font-extrabold sm:text-5xl">
             <Trans>Welcome to {APP_NAME},</Trans>
           </div>
