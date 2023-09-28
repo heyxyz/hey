@@ -5,7 +5,7 @@ async function handleRequest(request: Request) {
   if (re.test(userAgent)) {
     const url = new URL(request.url);
     const path = url.pathname;
-    const res = await fetch(`https://prerender.lenster.xyz/${path}`);
+    const res = await fetch(`https://prerender.hey.xyz/${path}`);
 
     return res;
   }

@@ -4,7 +4,7 @@ compatibility_date = "2023-01-25"
 keep_vars = true
 
 routes = [
-	{ pattern = "sts.lenster.xyz", custom_domain = true }
+	{ pattern = "sts.hey.xyz", custom_domain = true }
 ]
 
 [env.production.vars]

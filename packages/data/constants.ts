@@ -74,41 +74,41 @@ export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
 
 // Workers
 export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
-  ? 'https://sts.lenster.xyz'
+  ? 'https://sts.hey.xyz'
   : 'http://localhost:8082';
 export const METADATA_WORKER_URL = IS_PRODUCTION
-  ? 'https://metadata.lenster.xyz'
+  ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
 export const FRESHDESK_WORKER_URL = IS_PRODUCTION
-  ? 'https://freshdesk.lenster.xyz'
+  ? 'https://freshdesk.hey.xyz'
   : 'http://localhost:8084';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
-  ? 'https://snapshot-relay.lenster.xyz'
+  ? 'https://snapshot-relay.hey.xyz'
   : 'http://localhost:8085';
 export const ENS_WORKER_URL = IS_PRODUCTION
-  ? 'https://ens.lenster.xyz'
+  ? 'https://ens.hey.xyz'
   : 'http://localhost:8086';
 export const OEMBED_WORKER_URL = IS_PRODUCTION
-  ? 'https://oembed.lenster.xyz'
+  ? 'https://oembed.hey.xyz'
   : 'http://localhost:8087';
 export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
-  ? 'https://leafwatch.lenster.xyz'
+  ? 'https://leafwatch.hey.xyz'
   : 'http://localhost:8088';
-export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenster.xyz';
+export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.hey.xyz';
 export const INVITE_WORKER_URL = IS_PRODUCTION
-  ? 'https://invite.lenster.xyz'
+  ? 'https://invite.hey.xyz'
   : 'http://localhost:8090';
 export const FEEDS_WORKER_URL = IS_PRODUCTION
-  ? 'https://feeds.lenster.xyz'
+  ? 'https://feeds.hey.xyz'
   : 'http://localhost:8091';
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
-  ? 'https://preferences.lenster.xyz'
+  ? 'https://preferences.hey.xyz'
   : 'http://localhost:8092';
 export const CHANNELS_WORKER_URL = IS_PRODUCTION
-  ? 'https://channels.lenster.xyz'
+  ? 'https://channels.hey.xyz'
   : 'http://localhost:8093';
 export const ZORA_WORKER_URL = IS_PRODUCTION
-  ? 'https://zora.lenster.xyz'
+  ? 'https://zora.hey.xyz'
   : 'http://localhost:8094';
 
 // Tokens / Keys
