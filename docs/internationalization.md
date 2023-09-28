@@ -1,6 +1,6 @@
 # Internationalization
 
-Lenster uses [Crowdin](https://translate.lenster.xyz) for managing translations. A GitHub workflow uploads new strings for translation to the Crowdin project whenever code using the lingui translation macros is merged into `main`.
+Lenster uses [Crowdin](https://translate.hey.xyz) for managing translations. A GitHub workflow uploads new strings for translation to the Crowdin project whenever code using the lingui translation macros is merged into `main`.
 
 Every day, translations are synced back down from Crowdin to a pull request to `main`. We then merge these PR's into `main` manually.
 
@@ -24,7 +24,7 @@ pnpm i18n:extract
 
 ## Contributing translations
 
-- Sign up to Crowdin and go to [Lenster](https://translate.lenster.xyz) project page.
+- Sign up to Crowdin and go to [Lenster](https://translate.hey.xyz) project page.
 - Select the language you’d like to contribute to and request access:
   <img width="1465" alt="image" src="https://user-images.githubusercontent.com/69431456/213901159-abc8e619-089c-4bd3-acf9-6428c77cc918.png">
 - Drop a message in the Translators channel of our Discord to introduce yourself and let us know you’ve requested access.

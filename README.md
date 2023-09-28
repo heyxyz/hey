@@ -17,13 +17,13 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
         <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
     </a>
-    <a href="https://translate.lenster.xyz">
-        <img src="https://badges.crowdin.net/lenster/localized.svg" alt="Crowdin">
+    <a href="https://translate.hey.xyz">
+        <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
     </a>
-    <a href="https://status.lenster.xyz">
+    <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
-    <a href="https://lenster.checklyhq.com">
+    <a href="https://hey.checkly-dashboards.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
     <a href="https://github.com/lensterxyz/lenster/stargazers">
