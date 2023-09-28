@@ -15,9 +15,7 @@ const Waitlist: FC = () => {
         className="mx-auto h-14 w-14"
       />
       <div className="space-y-3 text-center">
-        <div className="font-bold">
-          Get early access to Lens! (Join waitlist)
-        </div>
+        <div className="font-bold">Get early access to Lens!</div>
         <div>
           <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
             <Button
