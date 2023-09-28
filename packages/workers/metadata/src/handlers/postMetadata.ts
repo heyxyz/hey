@@ -10,7 +10,7 @@ export default async (request: WorkerRequest) => {
     const signer = new EthereumSigner(request.env.BUNDLR_PRIVATE_KEY);
     if (payload.content?.length) {
       try {
-        const aiEndpoint = 'https://ai.lenster.xyz';
+        const aiEndpoint = 'https://ai.hey.xyz';
         const fetchPayload = {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
