@@ -5,11 +5,11 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://lenster.xyz/u/yoginth">
+    <a href="https://hey.xyz/u/yoginth">
         <img src="https://lens-badge.vercel.app/api/badge/yoginth.lens" alt="Lens">
     </a>
-    <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
-        <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
+    <a href="https://vercel.com/heyxyz?utm_source=Hey&utm_campaign=oss">
+        <img src="https://therealsujitk-vercel-badge.vercel.app/?app=heyxyz" alt="Vercel">
     </a>
     <a href="https://deepsource.io/gh/heyxyz/hey">
         <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
@@ -32,7 +32,7 @@
     <a href="https://github.com/heyxyz/hey/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/heyxyz/hey?label=Licence&logo=gnu" alt="License">
     </a>
-    <a href="https://lenster.xyz/discord">
+    <a href="https://hey.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
     <a href="https://github.com/orgs/heyxyz/projects/6/views/3">
@@ -41,9 +41,9 @@
 </div>
 <div align="center">
     <br>
-    <a href="https://lenster.xyz"><b>lenster.xyz »</b></a>
+    <a href="https://hey.xyz"><b>hey.xyz »</b></a>
     <br><br>
-    <a href="https://lenster.xyz/discord"><b>Discord</b></a>
+    <a href="https://hey.xyz/discord"><b>Discord</b></a>
     •
     <a href="https://github.com/heyxyz/hey/issues/new"><b>Issues</b></a>
 </div>
@@ -54,17 +54,17 @@ Lenster is a cutting-edge social media application that leverages the power of [
 
 ## 📦 Environments
 
-| Name            | Link                                |
-| --------------- | ----------------------------------- |
-| Mainnet         | https://lenster.xyz                 |
-| Testnet         | https://testnet.lenster.xyz         |
-| Staging         | https://staging.lenster.xyz         |
-| Sandbox         | https://sandbox.lenster.xyz         |
-| Staging Sandbox | https://staging-sandbox.lenster.xyz |
+| Name            | Link                            |
+| --------------- | ------------------------------- |
+| Mainnet         | https://hey.xyz                 |
+| Testnet         | https://testnet.hey.xyz         |
+| Staging         | https://staging.hey.xyz         |
+| Sandbox         | https://sandbox.hey.xyz         |
+| Staging Sandbox | https://staging-sandbox.hey.xyz |
 
 ## ✅ Community
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://lenster.xyz/discord).
+For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://hey.xyz/discord).
 
 ## 📊 Repo Activity
 
