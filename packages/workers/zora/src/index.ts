@@ -1,5 +1,5 @@
-import { Errors } from '@lenster/data/errors';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import getNft from './handlers/getNft';

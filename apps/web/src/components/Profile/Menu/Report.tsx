@@ -1,6 +1,6 @@
 import { FlagIcon } from '@heroicons/react/24/outline';
-import type { Profile } from '@lenster/lens';
-import cn from '@lenster/ui/cn';
+import type { Profile } from '@hey/lens';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';

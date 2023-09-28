@@ -1,4 +1,4 @@
-import type { NewLensterAttachment } from '@lenster/types/misc';
+import type { NewLensterAttachment } from '@hey/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
@@ -98,6 +98,7 @@ const useUploadAttachments = () => {
 
       return attachmentsIPFS;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [addAttachments, removeAttachments, updateAttachments, setIsUploading]
   );
 

@@ -1,11 +1,11 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { FollowingRequest, Profile } from '@lenster/lens';
-import { useFollowingQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { FollowingRequest, Profile } from '@hey/lens';
+import { useFollowingQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

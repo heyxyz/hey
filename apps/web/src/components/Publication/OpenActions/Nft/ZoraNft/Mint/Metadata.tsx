@@ -4,9 +4,9 @@ import {
   ShoppingBagIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@lenster/data/tracking';
-import humanize from '@lenster/lib/humanize';
-import type { ZoraNft } from '@lenster/types/zora-nft';
+import { PUBLICATION } from '@hey/data/tracking';
+import humanize from '@hey/lib/humanize';
+import type { ZoraNft } from '@hey/types/zora-nft';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';

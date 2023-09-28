@@ -1,4 +1,4 @@
-import { ApolloProvider, lensApolloWebClient } from '@lenster/lens/apollo';
+import { ApolloProvider, lensApolloWebClient } from '@hey/lens/apollo';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,

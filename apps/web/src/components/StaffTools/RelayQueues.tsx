@@ -1,15 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, POLYGONSCAN_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { useRelayQueuesQuery } from '@lenster/lens';
+import { APP_NAME, POLYGONSCAN_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { useRelayQueuesQuery } from '@hey/lens';
 import {
   Card,
   GridItemEight,
   GridItemFour,
   GridLayout,
   Spinner
-} from '@lenster/ui';
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
