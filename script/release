@@ -4,7 +4,7 @@
 #/ Release to all environments.
 
 git config user.name bigint
-git config user.email bigint@lenster.xyz
+git config user.email bigint@hey.xyz
 
 branches=("testnet" "staging" "sandbox" "staging-sandbox")
 
