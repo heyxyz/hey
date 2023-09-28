@@ -11,11 +11,11 @@
     <a href="https://vercel.com/lenster?utm_source=Lenster&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=lenster" alt="Vercel">
     </a>
-    <a href="https://deepsource.io/gh/lensterxyz/lenster">
-        <img src="https://deepsource.io/gh/lensterxyz/lenster.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
+    <a href="https://deepsource.io/gh/heyxyz/hey">
+        <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://www.gitpoap.io/gh/lensterxyz/lenster">
-        <img src="https://public-api.gitpoap.io/v1/repo/lensterxyz/lenster/badge" alt="Gitpoap">
+    <a href="https://www.gitpoap.io/gh/heyxyz/hey">
+        <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
     <a href="https://translate.hey.xyz">
         <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
@@ -26,17 +26,17 @@
     <a href="https://hey.checkly-dashboards.com">
         <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/stargazers">
-        <img src="https://img.shields.io/github/stars/lensterxyz/lenster?label=Stars&logo=github" alt="Stargazers">
+    <a href="https://github.com/heyxyz/hey/stargazers">
+        <img src="https://img.shields.io/github/stars/heyxyz/hey?label=Stars&logo=github" alt="Stargazers">
     </a>
-    <a href="https://github.com/lensterxyz/lenster/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/lensterxyz/lenster?label=Licence&logo=gnu" alt="License">
+    <a href="https://github.com/heyxyz/hey/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/heyxyz/hey?label=Licence&logo=gnu" alt="License">
     </a>
     <a href="https://lenster.xyz/discord">
         <img src="https://img.shields.io/discord/953679040722665512.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://github.com/orgs/lensterxyz/projects/6/views/3">
-        <img src="https://img.shields.io/github/issues/lensterxyz/lenster/Bounty?color=8b5cf6&label=Bounties&logo=ethereum" alt="Bounties">
+    <a href="https://github.com/orgs/heyxyz/projects/6/views/3">
+        <img src="https://img.shields.io/github/issues/heyxyz/hey/Bounty?color=8b5cf6&label=Bounties&logo=ethereum" alt="Bounties">
     </a>
 </div>
 <div align="center">
@@ -45,7 +45,7 @@
     <br><br>
     <a href="https://lenster.xyz/discord"><b>Discord</b></a>
     •
-    <a href="https://github.com/lensterxyz/lenster/issues/new"><b>Issues</b></a>
+    <a href="https://github.com/heyxyz/hey/issues/new"><b>Issues</b></a>
 </div>
 
 ## 🌿 About Lenster
@@ -74,8 +74,8 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
-<a href="https://github.com/lensterxyz/lenster/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=lensterxyz/lenster" />
+<a href="https://github.com/heyxyz/hey/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=heyxyz/hey" />
 </a>
 
 ## ⚖️ License
