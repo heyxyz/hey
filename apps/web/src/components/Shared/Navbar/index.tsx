@@ -91,7 +91,7 @@ const Navbar: FC = () => {
                 className="h-8 w-8"
                 height={32}
                 width={32}
-                src={isPride ? '/pride.svg' : '/logo.svg'}
+                src={isPride ? '/pride.png' : '/logo.png'}
                 alt="Logo"
               />
             </Link>
@@ -112,7 +112,7 @@ const Navbar: FC = () => {
               className="h-7 w-7"
               height={32}
               width={32}
-              src={isPride ? '/pride.svg' : '/logo.svg'}
+              src={isPride ? '/pride.png' : '/logo.png'}
               alt="Logo"
             />
           </Link>

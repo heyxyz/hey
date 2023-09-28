@@ -97,7 +97,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             <MetaDetails
               icon={
                 <img
-                  src="/logo.svg"
+                  src="/logo.png"
                   className="h-4 w-4"
                   height={16}
                   width={16}

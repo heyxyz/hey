@@ -50,7 +50,7 @@ const IsPride: FC = () => {
       setOn={toggleIsPride}
       heading={t`Celebrate pride every day`}
       description={t`Turn this on to show your pride and turn the ${APP_NAME} logo rainbow every day.`}
-      icon={<img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />}
+      icon={<img className="h-5 w-5" src="/pride.png" alt="Pride Logo" />}
     />
   );
 };
