@@ -1145,8 +1145,8 @@ msgid "10. Contact"
 msgstr "10. 联系方式"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "如果您对本隐私政策、我们的数据惯例或对我们的法律合规性有任何疑问或意见，请通过 privacy@lenster.xyz 联系我们。"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1341,8 +1341,8 @@ msgid "12. Contact Information"
 msgstr "12. 联系方式"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "有关条款的问题请发送至 terms@lenster.xyz"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1413,17 +1413,9 @@ msgstr "关注了您"
 msgid "Edit Profile"
 msgstr "编辑个人资料"
 
-#: src/components/Profile/Details.tsx
-msgid "Followers you know"
-msgstr "您认识的关注者"
-
 #: src/components/Profile/Feed.tsx
 msgid "Failed to load profile feed"
 msgstr "个人内容流无法加载"
-
-#: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 msgid "Feed"
@@ -2583,18 +2575,6 @@ msgid "New"
 msgstr "新的"
 
 #: src/components/Shared/Channel/Join.tsx
-#~ msgid "Left successfully!"
-#~ msgstr "Left successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Joined successfully!"
-#~ msgstr "Joined successfully!"
-
-#: src/components/Shared/Channel/Join.tsx
-#~ msgid "Leave"
-#~ msgstr "Leave"
-
-#: src/components/Shared/Channel/Join.tsx
 msgid "Joined"
 msgstr ""
 
@@ -3434,10 +3414,6 @@ msgstr "总收藏数"
 #: src/components/StaffTools/Stats/index.tsx
 msgid "total follows"
 msgstr "总关注数"
-
-#: src/hooks/useUploadAttachments.tsx
-#~ msgid "Video size should be less than 200MB"
-#~ msgstr "Video size should be less than 200MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
