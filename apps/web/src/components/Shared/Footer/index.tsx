@@ -27,7 +27,7 @@ const Footer: FC = () => {
           <Trans>Privacy</Trans>
         </Link>
         <Link
-          href="https://lenster.xyz/discord"
+          href="https://hey.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
@@ -35,7 +35,7 @@ const Footer: FC = () => {
           <Trans>Discord</Trans>
         </Link>
         <Link
-          href="https://lenster.xyz/donate"
+          href="https://hey.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DONATE)}

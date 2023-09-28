@@ -22,4 +22,4 @@ Disallow: /_next/*
 Disallow: /settings/*
 Disallow: /messages/*
 
-Sitemap: https://lenster.xyz/sitemap.xml
+Sitemap: https://hey.xyz/sitemap.xml

@@ -19,11 +19,11 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://sitemap.lenster.xyz/sitemap.xml'
+        destination: 'https://sitemap.hey.xyz/sitemap.xml'
       },
       {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.lenster.xyz/:match*'
+        destination: 'https://sitemap.hey.xyz/:match*'
       }
     ];
   },
