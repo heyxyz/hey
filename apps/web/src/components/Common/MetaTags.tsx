@@ -35,7 +35,7 @@ const MetaTags: FC<MetaTagsProps> = ({
       <meta property="twitter:image" content={DEFAULT_OG} />
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
-      <meta property="twitter:creator" content="lensterxyz" />
+      <meta property="twitter:creator" content="heydotxyz" />
 
       <link
         rel="search"
