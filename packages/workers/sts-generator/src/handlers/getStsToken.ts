@@ -1,11 +1,10 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
-import { EVER_API, S3_BUCKET } from '@hey/data/constants';
 import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
 
-const bucketName = S3_BUCKET.HEY_MEDIA;
-const everEndpoint = EVER_API;
+const bucketName = 'lenster-media';
+const everEndpoint = 'https://endpoint.4everland.co';
 
 const params = {
   DurationSeconds: 900,
