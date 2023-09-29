@@ -18,4 +18,4 @@ The following ports are exposed by the repository
 | 8091 | Feeds gateway              | http://localhost:8091 | https://feeds.hey.xyz          |
 | 8092 | Preferences worker         | http://localhost:8092 | https://preferences.hey.xyz    |
 | 8093 | Channels worker            | http://localhost:8093 | https://channels.hey.xyz       |
-| 8094 | Zora worker                | http://localhost:8094 | https://zora.hey.xyz           |
+| 8094 | NFT worker                 | http://localhost:8094 | https://nft.hey.xyz            |
