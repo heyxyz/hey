@@ -815,6 +815,34 @@ importers:
         specifier: ^3.10.1
         version: 3.10.1
 
+  packages/workers/nft:
+    dependencies:
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@hey/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      itty-router:
+        specifier: ^4.0.23
+        version: 4.0.23
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230922.0
+        version: 4.20230922.0
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      vitest:
+        specifier: ^0.34.5
+        version: 0.34.5
+      wrangler:
+        specifier: ^3.10.1
+        version: 3.10.1
+
   packages/workers/oembed:
     dependencies:
       '@cfworker/base64url':
@@ -953,34 +981,6 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
-      wrangler:
-        specifier: ^3.10.1
-        version: 3.10.1
-
-  packages/workers/zora:
-    dependencies:
-      '@hey/data':
-        specifier: workspace:*
-        version: link:../../data
-      '@hey/lib':
-        specifier: workspace:*
-        version: link:../../lib
-      itty-router:
-        specifier: ^4.0.23
-        version: 4.0.23
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: ^4.20230922.0
-        version: 4.20230922.0
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-      vitest:
-        specifier: ^0.34.5
-        version: 0.34.5
       wrangler:
         specifier: ^3.10.1
         version: 3.10.1
