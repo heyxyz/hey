@@ -43,9 +43,7 @@ export default async (request: WorkerRequest) => {
     });
     const canvas: {
       data: {
-        canvass: {
-          id: number;
-        }[];
+        canvass: { id: number }[];
         canvas: any;
       };
     } = await basePaintResponse.json();
