@@ -94,7 +94,7 @@ const uploadToIPFS = async (
     );
 
     return attachments;
-  } catch (error) {
+  } catch {
     return [];
   }
 };
