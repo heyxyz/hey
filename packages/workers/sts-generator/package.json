@@ -13,15 +13,15 @@
     "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.418.0",
+    "@aws-sdk/client-sts": "^3.421.0",
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230914.0",
+    "@cloudflare/workers-types": "^4.20230922.0",
     "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
-    "wrangler": "^3.9.0"
+    "wrangler": "^3.10.1"
   }
 }
