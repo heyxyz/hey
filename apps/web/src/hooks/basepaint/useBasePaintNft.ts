@@ -1,35 +1,31 @@
 import { NFT_WORKER_URL } from '@hey/data/constants';
-import type { ZoraNft } from '@hey/types/nft';
+import type { BasePaintNft } from '@hey/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface UseZoraNftProps {
-  chain: string;
-  address: string;
-  token: string;
+interface UseBasePaintNftProps {
+  id: number;
   enabled?: boolean;
 }
 
-const useZoraNft = ({
-  chain,
-  address,
-  token,
+const useBasePaintNft = ({
+  id,
   enabled
-}: UseZoraNftProps): {
-  data: ZoraNft;
+}: UseBasePaintNftProps): {
+  data: BasePaintNft;
   loading: boolean;
   error: unknown;
 } => {
   const loadNftDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/zora`, {
-      params: { chain, address, token }
+    const response = await axios.get(`${NFT_WORKER_URL}/basepaint`, {
+      params: { id }
     });
 
-    return response.data?.nft;
+    return response.data?.canvas;
   };
 
   const { data, isLoading, error } = useQuery(
-    ['zoraNftMetadata', chain, address, token],
+    ['basePaintNftMetadata', id],
     () => loadNftDetails().then((res) => res),
     { enabled }
   );
@@ -37,4 +33,4 @@ const useZoraNft = ({
   return { data, loading: isLoading, error };
 };
 
-export default useZoraNft;
+export default useBasePaintNft;

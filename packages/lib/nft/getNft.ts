@@ -1,15 +1,16 @@
-import type { BasicNftMetadata } from '@hey/types/zora-nft';
+import type { NftMetadata } from '@hey/types/nft';
 
+import getBasePaintNft from './getBasePaintNft';
 import getZoraNFT from './getZoraNft';
 
-const knownSites = new Set(['zora.co', 'testnet.zora.co']);
+const knownSites = new Set(['zora.co', 'testnet.zora.co', 'basepaint.art']);
 
 /**
  * Get NFT metadata from a list of URLs
  * @param urls List of URLs
  * @returns NFT metadata
  */
-const getNft = (urls: string[]): BasicNftMetadata | null => {
+const getNft = (urls: string[]): NftMetadata | null => {
   if (!urls.length) {
     return null;
   }
@@ -24,7 +25,18 @@ const getNft = (urls: string[]): BasicNftMetadata | null => {
     return null;
   }
 
-  return getZoraNFT(knownUrls[0]);
+  const url = knownUrls[0];
+  const hostname = new URL(url).hostname.replace('www.', '');
+
+  switch (hostname) {
+    case 'zora.co':
+    case 'testnet.zora.co':
+      return getZoraNFT(url);
+    case 'basepaint.art':
+      return getBasePaintNft(url);
+    default:
+      return null;
+  }
 };
 
 export default getNft;
