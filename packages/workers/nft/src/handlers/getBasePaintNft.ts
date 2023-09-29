@@ -29,6 +29,9 @@ export default async (request: WorkerRequest) => {
               totalEarned
               totalMints
               pixelsCount
+              bitmap {
+                gif
+              }
               contributions(first: 20) {
                 account {
                   id
@@ -52,9 +55,12 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      canContribute: currentCanvas === numberId,
-      canMint: currentCanvas - 1 === numberId,
-      canvas: canvas.data.canvas || null
+      canvas:
+        {
+          canContribute: currentCanvas === numberId,
+          canMint: currentCanvas - 1 === numberId,
+          ...canvas.data.canvas
+        } || null
     });
   } catch (error) {
     throw error;
