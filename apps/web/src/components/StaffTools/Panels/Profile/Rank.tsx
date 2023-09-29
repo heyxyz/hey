@@ -131,8 +131,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
                   {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
                   <span className="lt-text-gray-500 text-xs">
                     {' '}
-                    (Updated:{' '}
-                    {formatDate(gitcoinScore?.evidence?.last_score_timestamp)})
+                    (Updated: {formatDate(gitcoinScore?.last_score_timestamp)})
                   </span>
                 </>
               ) : (
