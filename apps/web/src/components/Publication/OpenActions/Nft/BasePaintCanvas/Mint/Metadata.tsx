@@ -6,13 +6,13 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
-import type { BasePaintNft } from '@hey/types/nft';
+import type { BasePaintCanvas } from '@hey/types/nft';
 import { Trans } from '@lingui/macro';
 import { type FC } from 'react';
 import { formatEther } from 'viem';
 
 interface MetadataProps {
-  canvas: BasePaintNft;
+  canvas: BasePaintCanvas;
 }
 
 const Metadata: FC<MetadataProps> = ({ canvas }) => {
