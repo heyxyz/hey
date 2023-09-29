@@ -3,7 +3,7 @@ import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
 
-const bucketName = 'hey-media';
+const bucketName = 'lenster-media';
 const everEndpoint = 'https://endpoint.4everland.co';
 
 const params = {
