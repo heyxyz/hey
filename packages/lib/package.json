@@ -15,8 +15,8 @@
     "@hey/data": "workspace:*",
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
-    "axios": "^1.5.0",
-    "viem": "^1.12.2"
+    "axios": "^1.5.1",
+    "viem": "^1.13.2"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

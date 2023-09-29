@@ -16,16 +16,16 @@
   "dependencies": {
     "@apollo/client": "^3.8.4",
     "@hey/data": "workspace:*",
-    "axios": "^1.5.0"
+    "axios": "^1.5.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+    "@graphql-codegen/typescript-react-apollo": "^4.0.0",
     "@hey/config": "workspace:*",
-    "@types/node": "^20.6.4",
+    "@types/node": "^20.7.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   }
