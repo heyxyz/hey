@@ -9,7 +9,7 @@ import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
 import { ADMIN_ADDRESS, APP_NAME } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { Publication } from '@hey/lens';
-import type { ZoraNft } from '@hey/types/zora-nft';
+import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
@@ -88,7 +88,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   } = useContractWrite({
     ...config,
     onSuccess: () =>
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.MINT_NFT, {
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
         publication_id: publication.id,
         chain: nft.chainId,
         nft: nftAddress,
@@ -168,7 +168,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               icon={<CursorArrowRaysIcon className="h-5 w-5" />}
               size="md"
               onClick={() =>
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   publication_id: publication.id,
                   from: 'mint_modal',
                   type: saleInactiveError ? 'collect' : 'mint'

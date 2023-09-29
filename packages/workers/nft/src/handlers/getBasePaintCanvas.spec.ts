@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest';
 
 import { TEST_URL } from '../constants';
 
-describe('getBasePaintNft', () => {
+describe('getBasePaintCanvas', () => {
   test('should return valid basepaint nft response if id is provided', async () => {
     const getRequest = await fetch(`${TEST_URL}/basepaint?id=44`);
     const response: any = await getRequest.json();
