@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
+import getBasePaintNft from './handlers/getBasePaintNft';
 import getZoraNft from './handlers/getZoraNft';
 import buildRequest from './helper/buildRequest';
 import type { Env, WorkerRequest } from './types';
@@ -23,6 +24,7 @@ router
     })
   )
   .get('/zora', getZoraNft)
+  .get('/basepaint', getBasePaintNft)
   .all('*', () => error(404));
 
 export default {
