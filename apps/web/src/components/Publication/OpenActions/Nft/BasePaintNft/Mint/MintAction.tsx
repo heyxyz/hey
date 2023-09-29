@@ -31,18 +31,22 @@ const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 
 interface MintActionProps {
   canvas: BasePaintNft;
+  openEditionPrice: number;
   publication: Publication;
 }
 
-const MintAction: FC<MintActionProps> = ({ canvas, publication }) => {
+const MintAction: FC<MintActionProps> = ({
+  canvas,
+  openEditionPrice,
+  publication
+}) => {
   const { quantity } = useBasePaintMintStore();
   const chain = useChainId();
   const { isDisconnected } = useAccount();
 
   const nftAddress = BASEPAINT_CONTRACT;
   const day = canvas.id;
-  const nftPriceInEth = 0.0026;
-  const value = parseEther(nftPriceInEth.toString()) * BigInt(quantity);
+  const value = parseEther(openEditionPrice.toString()) * BigInt(quantity);
 
   const {
     config,

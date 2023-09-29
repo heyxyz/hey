@@ -5,17 +5,23 @@ import { type FC } from 'react';
 
 import { useBasePaintMintStore } from '.';
 
-const Price: FC = () => {
+interface PriceProps {
+  openEditionPrice: number;
+}
+
+const Price: FC<PriceProps> = ({ openEditionPrice }) => {
   const { quantity, setQuantity } = useBasePaintMintStore();
-  const { data: usdPrice, isLoading } = useQuery(['redstoneData'], () =>
-    getRedstonePrice('ETH').then((res) => res)
+  const { data: usdPrice, isLoading } = useQuery(
+    ['redstoneData'],
+    () => getRedstonePrice('ETH').then((res) => res),
+    { enabled: Boolean(openEditionPrice) }
   );
 
   if (isLoading) {
     return null;
   }
 
-  const priceInEth = quantity * 0.0026;
+  const priceInEth = quantity * openEditionPrice;
   const priceInUsd = usdPrice * priceInEth;
 
   return (
