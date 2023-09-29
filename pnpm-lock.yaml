@@ -929,7 +929,7 @@ importers:
         specifier: ^3.10.1
         version: 3.10.1
 
-  packages/workers/sts-generator:
+  packages/workers/sts:
     dependencies:
       '@aws-sdk/client-sts':
         specifier: ^3.421.0
