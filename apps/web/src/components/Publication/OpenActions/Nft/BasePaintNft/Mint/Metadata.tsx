@@ -2,6 +2,7 @@ import {
   CurrencyDollarIcon,
   PaintBrushIcon,
   QrCodeIcon,
+  SwatchIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
@@ -52,6 +53,21 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
           </b>
         </div>
       ) : null}
+      <div className="flex items-center space-x-2">
+        <SwatchIcon className="lt-text-gray-500 h-4 w-4" />
+        <b>
+          <Trans>Color Palette</Trans>
+        </b>
+        <div className="flex items-center space-x-1">
+          {canvas.palette.map((color, index) => (
+            <span
+              key={index}
+              className="inline-block h-4 w-4"
+              style={{ backgroundColor: color }}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
