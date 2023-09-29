@@ -46,7 +46,7 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
     return null;
   }
 
-  const { canMint, bitmap, theme } = canvas;
+  const { canMint, canContribute, bitmap, theme } = canvas;
 
   return (
     <Card
@@ -57,9 +57,10 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
       <img
         src={`data://image/gif;base64,${bitmap.gif}`}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
+        style={{ imageRendering: 'pixelated' }}
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
-        <div className="flex items-center space-x-2">
+        <div className="mr-5 flex flex-wrap items-center gap-2">
           <Tooltip placement="right" content={t`BasePaint`}>
             <img
               src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
@@ -68,6 +69,15 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
           </Tooltip>
           <div className="text-sm font-bold">
             Day #{canvas.id}: {theme}
+          </div>
+          <div className="flex items-center space-x-1">
+            {canvas.palette.map((color, index) => (
+              <span
+                key={index}
+                className="inline-block h-4 w-4"
+                style={{ backgroundColor: color }}
+              />
+            ))}
           </div>
         </div>
         {canMint ? (
@@ -98,6 +108,29 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
               <Mint canvas={canvas} publication={publication} />
             </Modal>
           </>
+        ) : canContribute ? (
+          <Link
+            href={`https://basepaint.art/mint/${canvas.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              className="text-sm"
+              icon={<CursorArrowRaysIcon className="h-4 w-4" />}
+              size="md"
+              onClick={() =>
+                Leafwatch.track(
+                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
+                  {
+                    publication_id: publication.id,
+                    from: 'mint_embed'
+                  }
+                )
+              }
+            >
+              <Trans>Contribute</Trans>
+            </Button>
+          </Link>
         ) : (
           <Link
             href={`https://opensea.io/assets/base/${BASEPAINT_CONTRACT}/${canvas.id}`}
@@ -110,7 +143,7 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
               size="md"
               onClick={() =>
                 Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
+                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
                   {
                     publication_id: publication.id,
                     from: 'mint_embed'
