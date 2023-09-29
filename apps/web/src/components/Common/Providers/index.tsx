@@ -27,8 +27,8 @@ const queryClient = new QueryClient({
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <LanguageProvider>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <LanguageProvider>
         <Web3Provider>
           <ApolloProvider client={lensApolloWebClient}>
             <UserSigNoncesProvider />
@@ -43,8 +43,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
             </QueryClientProvider>
           </ApolloProvider>
         </Web3Provider>
-      </ErrorBoundary>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 };
 

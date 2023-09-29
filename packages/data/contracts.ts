@@ -14,3 +14,5 @@ export enum SandboxContracts {
   LensHubProxy = '0x7582177F9E536aB0b6c721e11f383C326F2Ad1D5',
   LensPeriphery = '0x5dDD1d6c04E805D830574A31Bf7979D416c6d7c5'
 }
+
+export const BASEPAINT_CONTRACT = '0xba5e05cb26b78eda3a2f8e3b3814726305dcac83';
