@@ -20,7 +20,7 @@ const plugins = [
 
 const components = {
   a: MarkupLink,
-  inline: Code
+  code: Code
 };
 
 interface MarkupProps {
