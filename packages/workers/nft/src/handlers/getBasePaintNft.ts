@@ -32,12 +32,8 @@ export default async (request: WorkerRequest) => {
               bitmap {
                 gif
               }
-              contributions(first: 20) {
-                account {
-                  id
-                  screenName
-                  totalPixels
-                }
+              contributions(first: 1000, orderBy: "pixelsCount", orderDirection: "ASC") {
+                id
               }
             }
           }

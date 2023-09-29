@@ -1,6 +1,11 @@
+import { BasePaint } from '@hey/abis';
+import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import type { Publication } from '@hey/lens';
 import type { BasePaintNft } from '@hey/types/nft';
 import { type FC } from 'react';
+import { formatEther } from 'viem';
+import { base } from 'viem/chains';
+import { useContractRead } from 'wagmi';
 import { create } from 'zustand';
 
 import Metadata from './Metadata';
@@ -23,6 +28,16 @@ interface MintProps {
 }
 
 const Mint: FC<MintProps> = ({ canvas, publication }) => {
+  const { data, isSuccess } = useContractRead({
+    address: BASEPAINT_CONTRACT,
+    abi: BasePaint,
+    functionName: 'openEditionPrice',
+    chainId: base.id
+  });
+
+  const openEditionPrice = parseInt(data?.toString() || '0');
+  const etherPrice = parseFloat(formatEther(BigInt(openEditionPrice)));
+
   return (
     <div className="p-5">
       <div className="mb-4">
@@ -30,9 +45,18 @@ const Mint: FC<MintProps> = ({ canvas, publication }) => {
           Day #{canvas.id}: {canvas.theme}
         </div>
       </div>
+      {etherPrice}
       <Metadata canvas={canvas} />
-      <Price />
-      <MintAction canvas={canvas} publication={publication} />
+      {isSuccess ? (
+        <>
+          <Price openEditionPrice={etherPrice} />
+          <MintAction
+            canvas={canvas}
+            openEditionPrice={etherPrice}
+            publication={publication}
+          />
+        </>
+      ) : null}
     </div>
   );
 };
