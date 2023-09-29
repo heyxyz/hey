@@ -74,7 +74,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             }
             value={formatHandle(profile?.handle)}
           >
-            <Trans>Has used {APP_NAME}</Trans>
+            <Trans>Have used {APP_NAME}</Trans>
           </MetaDetails>
         ) : null}
         <MetaDetails

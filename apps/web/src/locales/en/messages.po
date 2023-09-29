@@ -3331,8 +3331,8 @@ msgid "Staff tool"
 msgstr "Staff tool"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Has used {APP_NAME}"
-msgstr "Has used {APP_NAME}"
+msgid "Have used {APP_NAME}"
+msgstr "Have used {APP_NAME}"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Profile ID"
