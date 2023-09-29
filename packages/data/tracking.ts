@@ -72,10 +72,16 @@ export const PUBLICATION = {
     }
   },
   OPEN_ACTIONS: {
-    NFT: {
-      OPEN_ZORA_LINK: 'Open Zora link',
-      OPEN_MINT: 'Open mint NFT modal',
-      MINT_NFT: 'Mint NFT'
+    ZORA_NFT: {
+      OPEN_LINK: 'Open Zora link',
+      OPEN_MINT: 'Open Zora mint modal',
+      MINT: 'Mint Zora NFT'
+    },
+    BASEPAINT_NFT: {
+      OPEN_LINK: 'Open BasePaint link',
+      OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link',
+      OPEN_MINT: 'Open BasePaint mint modal',
+      MINT: 'Mint BasePaint NFT'
     }
   }
 };
