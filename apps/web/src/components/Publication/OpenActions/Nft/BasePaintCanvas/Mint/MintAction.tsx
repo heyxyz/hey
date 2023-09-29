@@ -9,7 +9,7 @@ import { BasePaint } from '@hey/abis';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { Publication } from '@hey/lens';
-import type { BasePaintNft } from '@hey/types/nft';
+import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -30,7 +30,7 @@ import { useBasePaintMintStore } from '.';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 
 interface MintActionProps {
-  canvas: BasePaintNft;
+  canvas: BasePaintCanvas;
   openEditionPrice: number;
   publication: Publication;
 }

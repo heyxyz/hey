@@ -1,6 +1,6 @@
 import type { NftMetadata } from '@hey/types/nft';
 
-import getBasePaintNft from './getBasePaintNft';
+import getBasePaintCanvas from './getBasePaintCanvas';
 import getZoraNFT from './getZoraNft';
 
 const knownSites = new Set(['zora.co', 'testnet.zora.co', 'basepaint.art']);
@@ -33,7 +33,7 @@ const getNft = (urls: string[]): NftMetadata | null => {
     case 'testnet.zora.co':
       return getZoraNFT(url);
     case 'basepaint.art':
-      return getBasePaintNft(url);
+      return getBasePaintCanvas(url);
     default:
       return null;
   }

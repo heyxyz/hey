@@ -1,18 +1,18 @@
 import { NFT_WORKER_URL } from '@hey/data/constants';
-import type { BasePaintNft } from '@hey/types/nft';
+import type { BasePaintCanvas } from '@hey/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface UseBasePaintNftProps {
+interface UseBasePaintCanvasProps {
   id: number;
   enabled?: boolean;
 }
 
-const useBasePaintNft = ({
+const useBasePaintCanvas = ({
   id,
   enabled
-}: UseBasePaintNftProps): {
-  data: BasePaintNft;
+}: UseBasePaintCanvasProps): {
+  data: BasePaintCanvas;
   loading: boolean;
   error: unknown;
 } => {
@@ -25,7 +25,7 @@ const useBasePaintNft = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['basePaintNftMetadata', id],
+    ['basePaintCanvasMetadata', id],
     () => loadNftDetails().then((res) => res),
     { enabled }
   );
@@ -33,4 +33,4 @@ const useBasePaintNft = ({
   return { data, loading: isLoading, error };
 };
 
-export default useBasePaintNft;
+export default useBasePaintCanvas;
