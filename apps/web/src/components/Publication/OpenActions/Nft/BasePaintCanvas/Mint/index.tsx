@@ -45,7 +45,6 @@ const Mint: FC<MintProps> = ({ canvas, publication }) => {
           Day #{canvas.id}: {canvas.theme}
         </div>
       </div>
-      {etherPrice}
       <Metadata canvas={canvas} />
       {isSuccess ? (
         <>
