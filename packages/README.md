@@ -13,7 +13,7 @@ This folder contains all the shared packages that are used in the Hey project.
 - [UI](./ui/README.md) - Shared UI components
 - [Workers](./workers/README.md) - Cloudflare Workers
   - [Prerender](../packages/workers/prerender/README.md) - Prerender for SEO only for bots
-  - [STS Token Generator](../packages/workers/sts-generator/README.md) - Generate S3 Compatible STS token in 4Everland
+  - [STS Token Generator](../packages/workers/sts/README.md) - Generate S3 Compatible STS token in 4Everland
   - [Metadata](../packages/workers/metadata/README.md) - Create metadata on Arweave via Bundlr
   - [Freshdesk](../packages/workers/freshdesk/README.md) - Create Freshdesk tickets
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
