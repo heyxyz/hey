@@ -18,7 +18,7 @@ router
   .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
-      message: 'gm, to zora service 👋',
+      message: 'gm, to nft service 👋',
       version: request.env.RELEASE ?? 'unknown'
     })
   )
