@@ -8,11 +8,11 @@ export interface BasicNftMetadata extends NftProvider {
   token: string;
 }
 
-export interface BasePaintNftMetadata extends NftProvider {
+export interface BasePaintCanvasMetadata extends NftProvider {
   id: number;
 }
 
-export type NftMetadata = BasicNftMetadata | BasePaintNftMetadata;
+export type NftMetadata = BasicNftMetadata | BasePaintCanvasMetadata;
 
 export interface ZoraNft {
   chainId: number;
@@ -37,7 +37,7 @@ export interface ZoraNft {
   contractStandard: 'ERC721' | 'ERC1155';
 }
 
-export interface BasePaintNft {
+export interface BasePaintCanvas {
   id: number;
   canContribute: boolean;
   canMint: boolean;

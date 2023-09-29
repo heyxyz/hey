@@ -4,23 +4,26 @@ import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { Publication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { BasePaintNftMetadata } from '@hey/types/nft';
+import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
-import useBasePaintNft from 'src/hooks/basepaint/useBasePaintNft';
+import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
 
 import Mint, { useBasePaintMintStore } from './Mint';
 import NftShimmer from './Shimmer';
 
-interface BasePaintNftProps {
-  nftMetadata: BasePaintNftMetadata;
+interface BasePaintCanvasProps {
+  nftMetadata: BasePaintCanvasMetadata;
   publication: Publication;
 }
 
-const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
+const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
+  nftMetadata,
+  publication
+}) => {
   const { id } = nftMetadata;
   const [showMintModal, setShowMintModal] = useState(false);
   const { setQuantity } = useBasePaintMintStore();
@@ -29,7 +32,7 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
     data: canvas,
     loading,
     error
-  } = useBasePaintNft({
+  } = useBasePaintCanvas({
     id,
     enabled: Boolean(id)
   });
@@ -160,4 +163,4 @@ const BasePaintNft: FC<BasePaintNftProps> = ({ nftMetadata, publication }) => {
   );
 };
 
-export default BasePaintNft;
+export default BasePaintCanvas;

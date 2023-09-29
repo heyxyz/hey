@@ -1,13 +1,13 @@
 import type { Publication } from '@hey/lens';
 import type {
-  BasePaintNftMetadata,
+  BasePaintCanvasMetadata,
   BasicNftMetadata,
   NftMetadata
 } from '@hey/types/nft';
 import { type FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 
-import BasePaintNft from './BasePaintNft';
+import BasePaintCanvas from './BasePaintCanvas';
 import ZoraNft from './ZoraNft';
 
 interface NftProps {
@@ -25,8 +25,8 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
       publication={publication}
     />
   ) : provider === 'basepaint' && isLensMember ? (
-    <BasePaintNft
-      nftMetadata={nftMetadata as BasePaintNftMetadata}
+    <BasePaintCanvas
+      nftMetadata={nftMetadata as BasePaintCanvasMetadata}
       publication={publication}
     />
   ) : null;

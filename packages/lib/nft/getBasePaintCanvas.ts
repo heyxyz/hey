@@ -1,13 +1,13 @@
-import type { BasePaintNftMetadata } from '@hey/types/nft';
+import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 
 const regex = /https:\/\/basepaint\.art\/mint\/(\d+)/;
 
 /**
- * Get BasePaint NFT metadata from a URL
+ * Get BasePaint canvas id from a URL
  * @param url URL
- * @returns BasePaint NFT metadata
+ * @returns BasePaint canvas metadata
  */
-const getBasePaintNft = (url: string): BasePaintNftMetadata | null => {
+const getBasePaintCanvas = (url: string): BasePaintCanvasMetadata | null => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const id = parseInt(matches[1]);
@@ -17,4 +17,4 @@ const getBasePaintNft = (url: string): BasePaintNftMetadata | null => {
   return null;
 };
 
-export default getBasePaintNft;
+export default getBasePaintCanvas;
