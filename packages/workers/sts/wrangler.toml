@@ -1,4 +1,4 @@
-name = "sts-generator"
+name = "sts"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 keep_vars = true
