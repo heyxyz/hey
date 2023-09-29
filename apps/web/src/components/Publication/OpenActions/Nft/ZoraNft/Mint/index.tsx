@@ -1,6 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import type { Publication } from '@hey/lens';
-import type { ZoraNft } from '@hey/types/zora-nft';
+import type { ZoraNft } from '@hey/types/nft';
 import { type FC } from 'react';
 import { create } from 'zustand';
 

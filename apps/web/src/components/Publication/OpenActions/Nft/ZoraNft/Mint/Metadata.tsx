@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
-import type { ZoraNft } from '@hey/types/zora-nft';
+import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -51,7 +51,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => {
-          Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+          Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
             from: 'mint_modal_link'
           });
         }}

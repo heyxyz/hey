@@ -7,7 +7,7 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { Publication } from '@hey/lens';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
-import type { BasicNftMetadata } from '@hey/types/zora-nft';
+import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
@@ -98,7 +98,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 setQuantity(1);
                 setCanMintOnHey(false);
                 setShowMintModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_MINT, {
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
                   publication_id: publication.id
                 });
               }}
@@ -121,7 +121,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
               onClick={() =>
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.NFT.OPEN_ZORA_LINK, {
+                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
                   publication_id: publication.id,
                   from: 'mint_embed'
                 })
