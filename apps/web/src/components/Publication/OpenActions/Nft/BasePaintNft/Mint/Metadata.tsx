@@ -1,5 +1,6 @@
 import {
   CurrencyDollarIcon,
+  PaintBrushIcon,
   QrCodeIcon,
   UsersIcon
 } from '@heroicons/react/24/outline';
@@ -14,29 +15,40 @@ interface MetadataProps {
 }
 
 const Metadata: FC<MetadataProps> = ({ canvas }) => {
+  const { totalMints, pixelsCount, totalEarned, contributions } = canvas;
+
   return (
     <div className="space-y-1.5">
-      {canvas.totalMints > 0 ? (
+      {totalMints > 0 ? (
         <div className="flex items-center space-x-2">
           <UsersIcon className="lt-text-gray-500 h-4 w-4" />
           <b>
-            <Trans>{humanize(canvas.totalMints)} minted</Trans>
+            <Trans>{humanize(totalMints)} minted</Trans>
           </b>
         </div>
       ) : null}
-      {canvas.pixelsCount > 0 ? (
+      <div className="flex items-center space-x-2">
+        <PaintBrushIcon className="lt-text-gray-500 h-4 w-4" />
+        <b>
+          <Trans>
+            {contributions.length > 1000 ? '1000+' : contributions.length}{' '}
+            artists
+          </Trans>
+        </b>
+      </div>
+      {pixelsCount > 0 ? (
         <div className="flex items-center space-x-2">
           <QrCodeIcon className="lt-text-gray-500 h-4 w-4" />
           <b>
-            <Trans>{humanize(canvas.pixelsCount)} pixels used</Trans>
+            <Trans>{humanize(pixelsCount)} pixels used</Trans>
           </b>
         </div>
       ) : null}
-      {canvas.totalEarned ? (
+      {totalEarned ? (
         <div className="flex items-center space-x-2">
           <CurrencyDollarIcon className="lt-text-gray-500 h-4 w-4" />
           <b>
-            <Trans>{formatEther(BigInt(canvas.totalEarned))} ETH earned</Trans>
+            <Trans>{formatEther(BigInt(totalEarned))} ETH earned</Trans>
           </b>
         </div>
       ) : null}
