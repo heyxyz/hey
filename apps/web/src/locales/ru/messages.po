@@ -1816,12 +1816,72 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
-msgid "Type:"
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} artists"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} pixels used"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} ETH earned"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "Color Palette"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Shared/Channel/Mint.tsx
+msgid "You don't have balance"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Mint on BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Contribute"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "View on OpenSea"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
-msgid "{0} minted"
+msgid "Type:"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
@@ -1830,15 +1890,6 @@ msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
 msgid "Open in Zora"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
-msgid "Switch to {0}"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
-#: src/components/Shared/Channel/Mint.tsx
-msgid "You don't have balance"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
@@ -1856,20 +1907,8 @@ msgstr ""
 msgid "Mint on Zora"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
-msgid "Minting in progress"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
-msgid "Minted successful"
-msgstr ""
-
 #: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
 msgid "ERC-1155 Collection"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
-msgid "Mint"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
