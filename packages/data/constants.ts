@@ -112,7 +112,7 @@ export const NFT_WORKER_URL = IS_PRODUCTION
   : 'http://localhost:8094';
 
 // Tokens / Keys
-export const ALCHEMY_KEY = '7jxlM7yIx-aJXDivcEZxsLFFRKQS6-ue';
+export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
 export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
 export const GIPHY_KEY = 'yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd';
