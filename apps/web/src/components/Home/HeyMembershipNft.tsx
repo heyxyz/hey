@@ -26,7 +26,7 @@ const HeyMembershipNft: FC = () => {
 
   const fetchPreferences = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.id}`
+      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy}`
     );
     const { data } = response;
 
