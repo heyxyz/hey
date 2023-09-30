@@ -55,7 +55,7 @@ const HeyMembershipNft: FC = () => {
         axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
           {
-            id: currentProfile?.id,
+            id: currentProfile?.ownedBy,
             dismissedOrMinted: true
           },
           {
