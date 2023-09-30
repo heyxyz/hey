@@ -6,6 +6,7 @@ import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
 import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
 import updateGardenerMode from './handlers/updateGardenerMode';
+import updateHeyMemberNftStatus from './handlers/updateHeyMemberNftStatus';
 import updatePreferences from './handlers/updatePreferences';
 import updateStaffMode from './handlers/updateStaffMode';
 import buildRequest from './helpers/buildRequest';
@@ -29,8 +30,9 @@ router
   )
   .get('/get/:id', getPreferences)
   .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
-  .post('/update', updatePreferences)
   .get('/verified', getVerified)
+  .post('/update', updatePreferences)
+  .post('/updateHeyMemberNftStatus', updateHeyMemberNftStatus)
   .post('/staffMode', updateStaffMode)
   .post('/gardenerMode', updateGardenerMode)
   .all('*', () => error(404));

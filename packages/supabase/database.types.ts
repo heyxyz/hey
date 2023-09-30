@@ -59,19 +59,16 @@ export interface Database {
       };
       'membership-nft': {
         Row: {
-          dismissed: boolean;
+          dismissedOrMinted: boolean;
           id: string;
-          minted: boolean;
         };
         Insert: {
-          dismissed?: boolean;
+          dismissedOrMinted?: boolean;
           id: string;
-          minted?: boolean;
         };
         Update: {
-          dismissed?: boolean;
+          dismissedOrMinted?: boolean;
           id?: string;
-          minted?: boolean;
         };
         Relationships: [];
       };
