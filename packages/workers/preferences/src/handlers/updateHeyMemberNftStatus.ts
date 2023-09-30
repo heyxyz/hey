@@ -1,5 +1,4 @@
 import { Errors } from '@hey/data/errors';
-import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/validateLensAccount';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
@@ -44,10 +43,9 @@ export default async (request: WorkerRequest) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
-    if (!hasOwned) {
+    if (payload.id !== id) {
       return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
+        JSON.stringify({ success: false, error: Errors.InvalidAddress })
       );
     }
 
