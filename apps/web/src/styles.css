@@ -188,7 +188,6 @@ div[data-lexical-editor='true'] {
 }
 
 /* Markup styles */
-
 .markup > p,
 ul {
   @apply !leading-6 sm:!leading-7;
