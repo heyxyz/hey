@@ -497,6 +497,18 @@ msgid "a social network built on Lens Protocol"
 msgstr ""
 
 #: src/components/Home/HeyMembershipNft.tsx
+msgid "Updating..."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updated!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Error updating."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
 msgid "Hey Buddy! Grab your special Hey NFT Here."
 msgstr ""
 
