@@ -2,6 +2,7 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
+import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
 import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
 import updateGardenerMode from './handlers/updateGardenerMode';
@@ -27,6 +28,7 @@ router
     })
   )
   .get('/get/:id', getPreferences)
+  .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
   .post('/update', updatePreferences)
   .get('/verified', getVerified)
   .post('/staffMode', updateStaffMode)
