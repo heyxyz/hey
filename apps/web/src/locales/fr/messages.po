@@ -496,6 +496,25 @@ msgstr ""
 msgid "a social network built on Lens Protocol"
 msgstr ""
 
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Hey Buddy! Grab your special Hey NFT Here."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Mint now"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr ""
+
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
 msgstr ""
@@ -1846,12 +1865,6 @@ msgstr ""
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
 #: src/components/Shared/Channel/Mint.tsx
 msgid "You don't have balance"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
-#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
-#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
-msgid "Mint"
 msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx

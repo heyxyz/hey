@@ -496,6 +496,25 @@ msgstr "Welcome to {APP_NAME},"
 msgid "a social network built on Lens Protocol"
 msgstr "a social network built on Lens Protocol"
 
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Hey Buddy! Grab your special Hey NFT Here."
+msgstr "Hey Buddy! Grab your special Hey NFT Here."
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+msgstr "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Mint now"
+msgstr "Mint now"
+
+#: src/components/Home/HeyMembershipNft.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr "Mint"
+
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
 msgstr ""
@@ -1847,12 +1866,6 @@ msgstr "Switch to {0}"
 #: src/components/Shared/Channel/Mint.tsx
 msgid "You don't have balance"
 msgstr "You don't have balance"
-
-#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
-#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
-#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
-msgid "Mint"
-msgstr "Mint"
 
 #: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx

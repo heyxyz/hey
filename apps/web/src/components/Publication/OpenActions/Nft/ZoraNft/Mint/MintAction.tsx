@@ -38,10 +38,16 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 interface MintActionProps {
   nft: ZoraNft;
   zoraLink: string;
-  publication: Publication;
+  publication?: Publication;
+  onCompleted?: () => void;
 }
 
-const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
+const MintAction: FC<MintActionProps> = ({
+  nft,
+  zoraLink,
+  publication,
+  onCompleted
+}) => {
   const { quantity, setCanMintOnHey } = useZoraMintStore();
   const chain = useChainId();
   const { address, isDisconnected } = useAccount();
@@ -51,9 +57,10 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
   const comment = `Minted from ${APP_NAME}`;
   const mintReferral = ADMIN_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
-  const mintFee = parseEther('0.000777');
+  const mintFee = 0.000777;
+  const mintFeeInEth = parseEther(mintFee.toString());
   const value =
-    (parseEther(nftPriceInEth.toString()) + mintFee) * BigInt(quantity);
+    (parseEther(nftPriceInEth.toString()) + mintFeeInEth) * BigInt(quantity);
 
   const abi =
     nft.contractStandard === 'ERC721' ? ZoraERC721Drop : ZoraCreator1155Impl;
@@ -85,21 +92,29 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
     write,
     data,
     isLoading: isContractWriteLoading
-  } = useContractWrite({
-    ...config,
-    onSuccess: () =>
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
-        publication_id: publication.id,
-        chain: nft.chainId,
-        nft: nftAddress,
-        price: value,
-        quantity
-      })
-  });
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  } = useContractWrite({ ...config });
+  const {
+    data: txnData,
+    isLoading,
+    isSuccess
+  } = useWaitForTransaction({
     chainId: nft.chainId,
     hash: data?.hash
   });
+
+  useUpdateEffect(() => {
+    if (txnData?.transactionHash) {
+      onCompleted?.();
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
+        ...(publication && { publication_id: publication.id }),
+        chain: nft.chainId,
+        nft: nftAddress,
+        price: (nftPriceInEth + mintFee) * quantity,
+        quantity,
+        hash: txnData.transactionHash
+      });
+    }
+  }, [isSuccess]);
 
   useUpdateEffect(() => {
     setCanMintOnHey(
@@ -169,7 +184,7 @@ const MintAction: FC<MintActionProps> = ({ nft, zoraLink, publication }) => {
               size="md"
               onClick={() =>
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
-                  publication_id: publication.id,
+                  ...(publication && { publication_id: publication.id }),
                   from: 'mint_modal',
                   type: saleInactiveError ? 'collect' : 'mint'
                 })

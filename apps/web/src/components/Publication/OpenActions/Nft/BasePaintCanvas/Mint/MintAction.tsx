@@ -15,6 +15,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
+import { useUpdateEffect } from 'usehooks-ts';
 import { parseEther } from 'viem';
 import { base } from 'viem/chains';
 import {
@@ -65,19 +66,27 @@ const MintAction: FC<MintActionProps> = ({
     data,
     isLoading: isContractWriteLoading
   } = useContractWrite({
-    ...config,
-    onSuccess: () =>
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.MINT, {
-        publication_id: publication.id,
-        nft: nftAddress,
-        price: value,
-        quantity
-      })
+    ...config
   });
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const {
+    data: txnData,
+    isLoading,
+    isSuccess
+  } = useWaitForTransaction({
     chainId: base.id,
     hash: data?.hash
   });
+
+  useUpdateEffect(() => {
+    if (txnData?.transactionHash) {
+      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.MINT, {
+        publication_id: publication.id,
+        nft: nftAddress,
+        price: openEditionPrice * quantity,
+        quantity
+      });
+    }
+  }, [isSuccess]);
 
   const mintingOrSuccess = isLoading || isSuccess;
 

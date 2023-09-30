@@ -181,6 +181,7 @@ export const MISCELLANEOUS = {
   SELECT_LOCALE: 'Select locale',
   OPEN_LENS_WAITLIST: 'Open Lens waitlist',
   OPEN_GITCOIN: 'Open Gitcoin',
+  DISMISSED_MEMBERSHIP_NFT_BANNER: 'Dismissed membership NFT banner',
   FOOTER: {
     OPEN_DISCORD: 'Open Discord',
     OPEN_GITHUB: 'Open GitHub',
