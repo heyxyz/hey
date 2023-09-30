@@ -291,13 +291,12 @@ const FollowModule: FC<FollowModuleProps> = ({
           hasAmount ? (
             <Button
               className="mt-5 !px-3 !py-1.5 text-sm"
-              variant="super"
               outline
               onClick={createFollow}
               disabled={isLoading}
               icon={
                 isLoading ? (
-                  <Spinner variant="super" size="xs" />
+                  <Spinner size="xs" />
                 ) : (
                   <StarIcon className="h-4 w-4" />
                 )
