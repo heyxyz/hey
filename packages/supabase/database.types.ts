@@ -9,33 +9,10 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      channel_memberships: {
-        Row: {
-          channel_id: string;
-          profile_id: string;
-        };
-        Insert: {
-          channel_id: string;
-          profile_id: string;
-        };
-        Update: {
-          channel_id?: string;
-          profile_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'channel_memberships_channel_id_fkey';
-            columns: ['channel_id'];
-            referencedRelation: 'channels';
-            referencedColumns: ['id'];
-          }
-        ];
-      };
       channels: {
         Row: {
           avatar: string;
           contract: string | null;
-          cover: string | null;
           created_at: string;
           description: string;
           discord: string | null;
@@ -51,7 +28,6 @@ export interface Database {
         Insert: {
           avatar: string;
           contract?: string | null;
-          cover?: string | null;
           created_at?: string;
           description: string;
           discord?: string | null;
@@ -67,7 +43,6 @@ export interface Database {
         Update: {
           avatar?: string;
           contract?: string | null;
-          cover?: string | null;
           created_at?: string;
           description?: string;
           discord?: string | null;
@@ -79,6 +54,24 @@ export interface Database {
           slug?: string;
           tags?: string[] | null;
           x?: string | null;
+        };
+        Relationships: [];
+      };
+      'membership-nft': {
+        Row: {
+          dismissed: boolean;
+          id: string;
+          minted: boolean;
+        };
+        Insert: {
+          dismissed?: boolean;
+          id: string;
+          minted?: boolean;
+        };
+        Update: {
+          dismissed?: boolean;
+          id?: string;
+          minted?: boolean;
         };
         Relationships: [];
       };
