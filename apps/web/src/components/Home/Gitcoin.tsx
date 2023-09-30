@@ -19,7 +19,7 @@ const Gitcoin: FC = () => {
       />
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
-          Support ${APP_NAME} on Gitcoin Grants Round 18
+          Support {APP_NAME} on Gitcoin Grants Round 18
         </div>
         <div>
           <Link
