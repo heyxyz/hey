@@ -65,13 +65,13 @@ const HeyMembershipNft: FC = () => {
           }
         ),
         {
-          loading: 'Updating...',
+          loading: t`Updating...`,
           success: () => {
             refetch();
             setShowMintModal(false);
-            return 'Updated!';
+            return t`Updated!`;
           },
-          error: 'Error updating.'
+          error: t`Error updating.`
         }
       );
     } catch {}
