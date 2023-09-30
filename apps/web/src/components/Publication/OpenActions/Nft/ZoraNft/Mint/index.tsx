@@ -26,10 +26,11 @@ export const useZoraMintStore = create<ZoraMintState>((set) => ({
 interface MintProps {
   nft: ZoraNft;
   zoraLink: string;
-  publication: Publication;
+  publication?: Publication;
+  onCompleted?: () => void;
 }
 
-const Mint: FC<MintProps> = ({ nft, zoraLink, publication }) => {
+const Mint: FC<MintProps> = ({ nft, zoraLink, publication, onCompleted }) => {
   return (
     <div className="p-5">
       <div className="mb-4">
@@ -41,7 +42,12 @@ const Mint: FC<MintProps> = ({ nft, zoraLink, publication }) => {
       </div>
       <Metadata nft={nft} zoraLink={zoraLink} />
       <Price nft={nft} />
-      <MintAction nft={nft} zoraLink={zoraLink} publication={publication} />
+      <MintAction
+        nft={nft}
+        zoraLink={zoraLink}
+        publication={publication}
+        onCompleted={onCompleted}
+      />
     </div>
   );
 };
