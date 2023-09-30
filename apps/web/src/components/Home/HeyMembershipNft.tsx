@@ -2,7 +2,7 @@ import Mint from '@components/Publication/OpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
-import { PUBLICATION } from '@hey/data/tracking';
+import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -124,7 +124,10 @@ const HeyMembershipNft: FC = () => {
           </Modal>
           <button
             className="text-sm underline"
-            onClick={updateHeyMemberNftStatus}
+            onClick={() => {
+              Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
+              updateHeyMemberNftStatus();
+            }}
           >
             Dismiss
           </button>
