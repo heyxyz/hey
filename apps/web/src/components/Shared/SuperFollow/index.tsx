@@ -47,7 +47,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
     <>
       <Button
         className="!px-3 !py-1.5 text-sm"
-        variant="super"
         outline
         onClick={() => {
           if (!currentProfile) {

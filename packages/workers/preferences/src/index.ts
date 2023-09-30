@@ -2,9 +2,11 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
+import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
 import getPreferences from './handlers/getPreferences';
 import getVerified from './handlers/getVerified';
 import updateGardenerMode from './handlers/updateGardenerMode';
+import updateHeyMemberNftStatus from './handlers/updateHeyMemberNftStatus';
 import updatePreferences from './handlers/updatePreferences';
 import updateStaffMode from './handlers/updateStaffMode';
 import buildRequest from './helpers/buildRequest';
@@ -27,8 +29,10 @@ router
     })
   )
   .get('/get/:id', getPreferences)
-  .post('/update', updatePreferences)
+  .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
   .get('/verified', getVerified)
+  .post('/update', updatePreferences)
+  .post('/updateHeyMemberNftStatus', updateHeyMemberNftStatus)
   .post('/staffMode', updateStaffMode)
   .post('/gardenerMode', updateGardenerMode)
   .all('*', () => error(404));

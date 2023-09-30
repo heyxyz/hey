@@ -99,7 +99,8 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 setCanMintOnHey(false);
                 setShowMintModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
-                  publication_id: publication.id
+                  publication_id: publication.id,
+                  from: 'mint_embed'
                 });
               }}
             >

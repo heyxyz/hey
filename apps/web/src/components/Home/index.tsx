@@ -18,6 +18,7 @@ import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import ForYou from './ForYou';
 import Hero from './Hero';
+import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
@@ -66,6 +67,7 @@ const Home: NextPage = () => {
           {/* <Gitcoin /> */}
           {currentProfile ? (
             <>
+              <HeyMembershipNft />
               <EnableDispatcher />
               <EnableMessages />
               <SetDefaultProfile />
