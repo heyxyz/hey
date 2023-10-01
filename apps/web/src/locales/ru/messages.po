@@ -540,6 +540,7 @@ msgid "No recommendations!"
 msgstr "Нет рекомендаций!"
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/StaffPicks/index.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
 msgstr "Не удалось загрузить рекомендации"
@@ -616,6 +617,14 @@ msgstr "Укажи свои интересы"
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
 msgstr "Обновить профиль"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Staff Picks"
+msgstr ""
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "No Staff picks!"
+msgstr ""
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
