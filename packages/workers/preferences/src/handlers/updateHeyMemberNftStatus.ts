@@ -44,9 +44,7 @@ export default async (request: WorkerRequest) => {
 
     const { payload } = jwt.decode(accessToken);
     if (payload.id !== id) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidAddress })
-      );
+      return response({ success: false, error: Errors.InvalidAddress });
     }
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
