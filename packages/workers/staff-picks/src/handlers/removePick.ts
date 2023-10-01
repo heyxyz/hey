@@ -6,6 +6,7 @@ import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { object, string } from 'zod';
 
+import { STAFFPICKS_KV_KEY } from '../constants';
 import checkIsStaffFromDb from '../helpers/checkIsStaffFromDb';
 import type { WorkerRequest } from '../types';
 
@@ -62,6 +63,8 @@ export default async (request: WorkerRequest) => {
     if (error) {
       throw error;
     }
+
+    await request.env.STAFFPICKS.delete(STAFFPICKS_KV_KEY);
 
     return response({ success: true });
   } catch (error) {
