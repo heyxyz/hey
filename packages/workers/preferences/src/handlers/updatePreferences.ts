@@ -73,9 +73,7 @@ export default async (request: WorkerRequest) => {
 
     const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
     if (!updateByAdmin && !hasOwned) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
-      );
+      return response({ success: false, error: Errors.InvalidProfileId });
     }
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);

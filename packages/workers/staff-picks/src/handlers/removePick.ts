@@ -4,18 +4,19 @@ import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/validateLensAccount';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object, string } from 'zod';
+import { object, string } from 'zod';
 
+import checkIsStaffFromDb from '../helpers/checkIsStaffFromDb';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id: string;
-  enabled: boolean;
+  picker_id: string;
 };
 
 const validationSchema = object({
   id: string(),
-  enabled: boolean()
+  picker_id: string()
 });
 
 export default async (request: WorkerRequest) => {
@@ -35,7 +36,7 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, enabled } = body as ExtensionRequest;
+  const { id, picker_id } = body as ExtensionRequest;
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, true);
@@ -44,27 +45,27 @@ export default async (request: WorkerRequest) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
+    const hasOwned = await hasOwnedLensProfiles(payload.id, picker_id, true);
     if (!hasOwned) {
       return response({ success: false, error: Errors.InvalidProfileId });
     }
 
+    const isStaffOnDb = await checkIsStaffFromDb(request, picker_id);
+    if (!isStaffOnDb) {
+      return response({ success: false, error: Errors.NotAdmin });
+    }
+
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
-    const { data, error } = await client
-      .from('rights')
-      .update({ staff_mode: enabled })
-      .eq('is_staff', true)
-      .eq('id', id)
-      .select()
-      .single();
+    const { error } = await client.from('staff-picks').delete().eq('id', id);
 
     if (error) {
       throw error;
     }
 
-    return response({ success: true, result: data });
+    return response({ success: true });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
