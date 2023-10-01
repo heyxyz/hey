@@ -19,7 +19,7 @@ const Title = () => {
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <CursorArrowRippleIconSolid className="text-brand h-4 w-4" />
       <div>
-        <Trans>Staff Picks</Trans>
+        <Trans>What's poppin'?</Trans>
       </div>
     </div>
   );
@@ -60,7 +60,7 @@ const StaffPicks: FC = () => {
       <div className="mb-4">
         <Title />
         <EmptyState
-          message={t`No Staff picks!`}
+          message={t`Nothing here!`}
           icon={<CursorArrowRippleIconOutline className="text-brand h-8 w-8" />}
         />
       </div>
