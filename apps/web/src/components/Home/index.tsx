@@ -66,6 +66,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {/* <Gitcoin /> */}
+          {!currentProfile ? <Waitlist /> : null}
           <StaffPicks />
           {currentProfile ? (
             <>
@@ -76,9 +77,7 @@ const Home: NextPage = () => {
               <SetProfile />
               <RecommendedProfiles />
             </>
-          ) : (
-            <Waitlist />
-          )}
+          ) : null}
           <Footer />
         </GridItemFour>
       </GridLayout>
