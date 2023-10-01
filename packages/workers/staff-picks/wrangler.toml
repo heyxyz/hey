@@ -8,6 +8,10 @@ routes = [
 	{ pattern = "staff-picks.hey.xyz", custom_domain = true }
 ]
 
+kv_namespaces = [
+  { binding = "STAFFPICKS", id = "589dbbe3a36d4f2c922c9c06393fc3d4", preview_id = "589dbbe3a36d4f2c922c9c06393fc3d4" }
+]
+
 [env.production.vars]
 RELEASE = ""
 SUPABASE_KEY = ""
