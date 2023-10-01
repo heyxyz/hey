@@ -108,6 +108,37 @@ export interface Database {
         };
         Relationships: [];
       };
+      'staff-picks': {
+        Row: {
+          created_at: string;
+          id: string;
+          picker_id: string;
+          score: number;
+          type: string;
+        };
+        Insert: {
+          created_at?: string;
+          id: string;
+          picker_id: string;
+          score?: number;
+          type: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          picker_id?: string;
+          score?: number;
+          type?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'staff-picks_picker_id_fkey';
+            columns: ['picker_id'];
+            referencedRelation: 'rights';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
