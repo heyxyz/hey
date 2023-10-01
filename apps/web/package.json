@@ -88,7 +88,7 @@
     "@playwright/test": "^1.38.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
-    "@types/node": "^20.7.1",
+    "@types/node": "^20.8.0",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
     "@types/uuid": "^9.0.4",
