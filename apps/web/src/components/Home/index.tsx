@@ -23,6 +23,7 @@ import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
+import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 
@@ -65,6 +66,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {/* <Gitcoin /> */}
+          <StaffPicks />
           {currentProfile ? (
             <>
               <HeyMembershipNft />
