@@ -21,7 +21,7 @@ router
   .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
-      message: 'gm, to preferences service 👋',
+      message: 'gm, to staff-picks service 👋',
       version: request.env.RELEASE ?? 'unknown'
     })
   )
