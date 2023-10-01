@@ -540,6 +540,7 @@ msgid "No recommendations!"
 msgstr "பரிந்துரைகள் இல்லை!"
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/StaffPicks/index.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
 msgstr "பரிந்துரைகளை ஏற்ற முடியவில்லை"
@@ -616,6 +617,14 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
 msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Staff Picks"
+msgstr ""
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "No Staff picks!"
+msgstr ""
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
