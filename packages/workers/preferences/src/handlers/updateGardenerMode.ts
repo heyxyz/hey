@@ -46,9 +46,7 @@ export default async (request: WorkerRequest) => {
     const { payload } = jwt.decode(accessToken);
     const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
     if (!hasOwned) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
-      );
+      return response({ success: false, error: Errors.InvalidProfileId });
     }
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
