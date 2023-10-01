@@ -17,6 +17,8 @@ export default async (request: WorkerRequest) => {
         .order('score', { ascending: false })
         .limit(10);
 
+      await request.env.STAFFPICKS.put(STAFFPICKS_KV_KEY, JSON.stringify(data));
+
       return response({ success: true, result: data });
     }
 
