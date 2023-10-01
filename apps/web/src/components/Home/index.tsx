@@ -37,6 +37,9 @@ const Home: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
 
+  const loggedIn = Boolean(currentProfile);
+  const loggedOut = !loggedIn;
+
   return (
     <>
       <MetaTags />
@@ -66,18 +69,18 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {/* <Gitcoin /> */}
-          {!currentProfile ? <Waitlist /> : null}
+          {loggedOut && <Waitlist />}
+          {loggedIn && <HeyMembershipNft />}
           <StaffPicks />
-          {currentProfile ? (
+          {loggedIn && (
             <>
-              <HeyMembershipNft />
               <EnableDispatcher />
               <EnableMessages />
               <SetDefaultProfile />
               <SetProfile />
               <RecommendedProfiles />
             </>
-          ) : null}
+          )}
           <Footer />
         </GridItemFour>
       </GridLayout>
