@@ -619,12 +619,20 @@ msgid "Update profile now"
 msgstr ""
 
 #: src/components/Home/StaffPicks/index.tsx
-msgid "Staff Picks"
-msgstr "Staff Picks"
+#~ msgid "Staff Picks"
+#~ msgstr "Staff Picks"
 
 #: src/components/Home/StaffPicks/index.tsx
-msgid "No Staff picks!"
-msgstr "No Staff picks!"
+#~ msgid "No Staff picks!"
+#~ msgstr "No Staff picks!"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "What's poppin'?"
+msgstr "What's poppin'?"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Nothing here!"
+msgstr "Nothing here!"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
