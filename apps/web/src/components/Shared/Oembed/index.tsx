@@ -3,6 +3,7 @@ import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 import Embed from './Embed';
 import Player from './Player';
@@ -34,7 +35,9 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     title: data?.title,
     description: data?.description,
     site: data?.site,
-    favicon: `https://www.google.com/s2/favicons?domain=${data.url}`,
+    favicon: urlcat('https://www.google.com/s2/favicons', {
+      domain: data.url
+    }),
     image: data?.image,
     isLarge: data?.isLarge,
     html: data?.html
