@@ -1,3 +1,5 @@
+import urlcat from 'urlcat';
+
 import randomizeIds from '../../../helpers/randomizeIds';
 
 const k3lGlobalFeed = async (
@@ -7,7 +9,11 @@ const k3lGlobalFeed = async (
 ) => {
   try {
     const response = await fetch(
-      `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}`,
+      urlcat('https://lens-api.k3l.io/feed/:strategy', {
+        strategy,
+        limit,
+        offset
+      }),
       { headers: { 'User-Agent': 'Hey.xyz' } }
     );
     const json: {
