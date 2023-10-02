@@ -2239,7 +2239,16 @@ msgid "Cleared DM keys"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Your profile cannot be deleted while profile guardian is enabled."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
