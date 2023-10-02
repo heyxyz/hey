@@ -53,7 +53,7 @@ export default async (request: WorkerRequest) => {
     }
 
     const json: {
-      data: [string][][];
+      data: string[][];
     } = await clickhouseResponse.json();
     const data = json.data[0] || null;
 
@@ -65,7 +65,7 @@ export default async (request: WorkerRequest) => {
             country: data?.[1],
             region: data?.[2],
             city: data?.[3],
-            events: data?.[4],
+            events: parseInt(data?.[4]),
             os: data?.[5],
             browser: data?.[6],
             version: data?.[7]
