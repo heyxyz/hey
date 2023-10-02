@@ -108,7 +108,6 @@ msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
-#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
 msgid "Access"
 msgstr "访问"
 
@@ -2562,6 +2561,7 @@ msgid "Name"
 msgstr "名称"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr "位置"
 
@@ -3392,8 +3392,20 @@ msgstr ""
 msgid "Trusted member"
 msgstr ""
 
-#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Total events"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
