@@ -15,6 +15,7 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
+import urlcat from 'urlcat';
 
 import Mint, { useZoraMintStore } from './Mint';
 import NftShimmer from './Shimmer';
@@ -59,9 +60,11 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
   ].includes(nft.contractType);
 
   const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
-  const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
-    token ? `/${token}` : ''
-  }?referrer=${ADMIN_ADDRESS}`;
+  const zoraLink = urlcat(`https://${network}zora.co/collect/:chain::address`, {
+    chain,
+    address,
+    referrer: ADMIN_ADDRESS
+  });
 
   return (
     <Card
@@ -70,7 +73,11 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
       onClick={(event) => stopEventPropagation(event)}
     >
       <img
-        src={`https://remote-image.decentralized-content.com/image?url=${nft.coverImageUrl}&w=1200&q=75`}
+        src={urlcat('https://remote-image.decentralized-content.com/image', {
+          url: nft.coverImageUrl,
+          w: 1200,
+          q: 75
+        })}
         className="h-[400px] max-h-[400px] w-full rounded-t-xl object-cover"
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">

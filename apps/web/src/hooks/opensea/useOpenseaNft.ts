@@ -2,6 +2,7 @@ import { OPENSEA_KEY } from '@hey/data/constants';
 import type { OpenSeaNft } from '@hey/types/opensea-nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import urlcat from 'urlcat';
 
 interface UseOpenseaNftProps {
   chain: number;
@@ -37,7 +38,15 @@ const useOpenseaNft = ({
 
   const loadNftDetails = async () => {
     const response = await axios.get(
-      `https://api.opensea.io/v2/chain/${getOpenSeaChainName()}/contract/${address}/nfts/${token}`,
+      urlcat(
+        'https://api.opensea.io/v2/chains/:chain/contract/:address/nfts/:token',
+        {
+          chain: getOpenSeaChainName(),
+          address,
+          token,
+          format: 'json'
+        }
+      ),
       { headers: { 'X-API-KEY': OPENSEA_KEY } }
     );
 
