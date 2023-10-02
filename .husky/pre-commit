@@ -1,5 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+if [ -z "$(git diff --cached --ignore-blank-lines --unified=0 | grep -E '^[+-]\s' | grep -vE '^[+-]\s*$')" ]; then
+  echo "Error: commit must contain new content."
+  exit 1
+else
+  exit 0
+fi
+
 pnpm lint:affected
 pnpm typecheck:affected
