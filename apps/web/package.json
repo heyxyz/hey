@@ -73,6 +73,7 @@
     "remark-linkify-regex": "^1.2.1",
     "shared-zustand": "^2.0.0",
     "strip-markdown": "^5.0.1",
+    "urlcat": "^3.1.0",
     "use-resize-observer": "^9.1.0",
     "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.1",

@@ -237,6 +237,9 @@ importers:
       strip-markdown:
         specifier: ^5.0.1
         version: 5.0.1
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
       use-resize-observer:
         specifier: ^9.1.0
         version: 9.1.0(react-dom@18.2.0)(react@18.2.0)
@@ -454,6 +457,9 @@ importers:
       axios:
         specifier: ^1.5.1
         version: 1.5.1
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
       viem:
         specifier: ^1.13.2
         version: 1.14.0(typescript@5.2.2)(zod@3.22.2)
@@ -687,6 +693,9 @@ importers:
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230922.0
@@ -761,6 +770,9 @@ importers:
       ua-parser-js:
         specifier: ^1.0.36
         version: 1.0.36
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
       zod:
         specifier: ^3.22.2
         version: 3.22.2
@@ -826,6 +838,9 @@ importers:
       itty-router:
         specifier: ^4.0.23
         version: 4.0.23
+      urlcat:
+        specifier: ^3.1.0
+        version: 3.1.0
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20230922.0
@@ -14142,6 +14157,12 @@ packages:
 
   /url-polyfill@1.1.12:
     resolution: {integrity: sha512-mYFmBHCapZjtcNHW0MDq9967t+z4Dmg5CJ0KqysK3+ZbyoNOWQHksGCTWwDhxGXllkWlOc10Xfko6v4a3ucM6A==}
+    dev: false
+
+  /urlcat@3.1.0:
+    resolution: {integrity: sha512-qY6b94/aGMIHh70EEQ/4hfR2LUGZ+fPQNp64cf7yRX9kAp4XG2tx7LgYUU1Qkh17bFylME0u4n3lOezonougPw==}
+    dependencies:
+      qs: 6.11.2
     dev: false
 
   /urlpattern-polyfill@8.0.2:
