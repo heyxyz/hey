@@ -1,4 +1,5 @@
 import { IS_MAINNET } from '@hey/data/constants';
+import urlcat from 'urlcat';
 
 /**
  * Returns the Uniswap URL for the specified amount and output currency symbol.
@@ -8,8 +9,12 @@ import { IS_MAINNET } from '@hey/data/constants';
  * @returns The Uniswap URL.
  */
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
-  const chain = IS_MAINNET ? 'polygon' : 'polygon_mumbai';
-  return `https://app.uniswap.org/#/swap?exactField=output&exactAmount=${amount}&outputCurrency=${outputCurrency}&chain=${chain}`;
+  return urlcat('https://app.uniswap.org/#/swap', {
+    exactField: 'output',
+    exactAmount: amount,
+    outputCurrency,
+    chain: IS_MAINNET ? 'polygon' : 'polygon_mumbai'
+  });
 };
 
 export default getUniswapURL;
