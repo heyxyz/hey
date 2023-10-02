@@ -32,7 +32,6 @@ export default async (request: WorkerRequest) => {
             WHERE actor = '${id}'
             GROUP BY actor, country, region, city, os, browser, browser_version
         )
-        
         SELECT
             actor,
             argMax(country, cnt) AS most_common_country,
@@ -61,14 +60,14 @@ export default async (request: WorkerRequest) => {
     return response({
       success: true,
       result: {
-        actor: data[0],
-        country: data[1],
-        region: data[2],
-        city: data[3],
-        events: data[4],
-        os: data[5],
-        browser: data[6],
-        version: data[7]
+        actor: data?.[0] || null,
+        country: data?.[1] || null,
+        region: data?.[2] || null,
+        city: data?.[3] || null,
+        events: data?.[4] || null,
+        os: data?.[5] || null,
+        browser: data?.[6] || null,
+        version: data?.[7] || null
       }
     });
   } catch (error) {
