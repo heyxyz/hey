@@ -3,7 +3,7 @@ import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import ingest from './handlers/ingest';
-import userDetails from './handlers/userDetails';
+import profileDetails from './handlers/profileDetails';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -23,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/user', userDetails)
+  .get('/profile', profileDetails)
   .post('/ingest', ingest)
   .all('*', () => error(404));
 
