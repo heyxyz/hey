@@ -108,6 +108,7 @@ msgstr ""
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
 msgid "Access"
 msgstr "Access"
 
@@ -3390,6 +3391,10 @@ msgstr "Lens Team member"
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr "Trusted member"
+
+#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
+msgid "Total events"
+msgstr "Total events"
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
