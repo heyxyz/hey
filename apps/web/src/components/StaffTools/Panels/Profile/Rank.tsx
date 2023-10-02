@@ -12,6 +12,7 @@ import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 import MetaDetails from '../MetaDetails';
 
@@ -23,7 +24,10 @@ const Rank: FC<RankProps> = ({ profile }) => {
   const getRank = async (strategy: string) => {
     try {
       const response = await axios.get(
-        `https://lens-api.k3l.io/profile/rank?strategy=${strategy}&handle=${profile.handle}`
+        urlcat('https://lens-api.k3l.io/profile/rank', {
+          strategy,
+          handle: profile.handle
+        })
       );
 
       return response.data;
@@ -35,7 +39,10 @@ const Rank: FC<RankProps> = ({ profile }) => {
   const getGitcoinScore = async () => {
     try {
       const response = await axios.get(
-        `https://api.scorer.gitcoin.co/registry/score/335/${profile.ownedBy}`,
+        urlcat('https://api.scorer.gitcoin.co/registry/score/:id/:address', {
+          id: 335,
+          address: profile.ownedBy
+        }),
         {
           headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
         }

@@ -43,6 +43,7 @@ import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/preferences';
+import urlcat from 'urlcat';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -250,9 +251,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           >
             <Tooltip content={`#${profile.id}`}>
               <Link
-                href={`${RARIBLE_URL}/token/polygon/${
-                  getEnvConfig().lensHubProxyAddress
-                }:${parseInt(profile.id)}`}
+                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
+                  address: getEnvConfig().lensHubProxyAddress,
+                  id: parseInt(profile.id)
+                })}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -288,12 +290,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`https://www.google.com/s2/favicons?domain=${getProfileAttribute(
-                    profile?.attributes,
-                    'website'
-                  )
-                    ?.replace('https://', '')
-                    .replace('http://', '')}`}
+                  src={urlcat('https://www.google.com/s2/favicons', {
+                    domain: getProfileAttribute(profile?.attributes, 'website')
+                      ?.replace('https://', '')
+                      .replace('http://', '')
+                  })}
                   className="h-4 w-4 rounded-full"
                   height={16}
                   width={16}
@@ -334,10 +335,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               dataTestId="profile-meta-x"
             >
               <Link
-                href={`https://x.com/${getProfileAttribute(
-                  profile?.attributes,
-                  'x'
-                )?.replace('https://x.com/', '')}`}
+                href={urlcat('https://x.com/:username', {
+                  username: getProfileAttribute(
+                    profile?.attributes,
+                    'x'
+                  )?.replace('https://x.com/', '')
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
