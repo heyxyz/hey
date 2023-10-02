@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import urlcat from 'urlcat';
 import { create } from 'zustand';
 
 // Member count state
@@ -125,7 +126,9 @@ const Details: FC<DetailsProps> = ({ channel }) => {
               }
             >
               <Link
-                href={`https://x.com/${channel.x}`}
+                href={urlcat('https://x.com/:username', {
+                  username: channel.x
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -146,7 +149,9 @@ const Details: FC<DetailsProps> = ({ channel }) => {
               }
             >
               <Link
-                href={`https://instagram.com/${channel.instagram}`}
+                href={urlcat('https://instagram.com/:username', {
+                  username: channel.instagram
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >

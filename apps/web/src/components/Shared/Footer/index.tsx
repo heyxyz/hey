@@ -5,6 +5,7 @@ import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
+import urlcat from 'urlcat';
 
 import Locale from './Locale';
 
@@ -82,7 +83,10 @@ const Footer: FC = () => {
         <Locale />
         <Link
           className="hover:font-bold"
-          href={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+          href={urlcat('https://vercel.com', {
+            utm_source: APP_NAME,
+            utm_campaign: 'oss'
+          })}
           target="_blank"
           rel="noreferrer noopener"
           onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_VERCEL)}
