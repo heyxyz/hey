@@ -1,6 +1,7 @@
 import type { Publication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
+import { useRouter } from 'next/router';
 import { type FC, useEffect, useRef } from 'react';
 
 import PublicationActions from './Actions';
@@ -34,12 +35,17 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
   const publicationRef = useRef<HTMLDivElement>(null);
 
+  const { pathname } = useRouter();
   useEffect(() => {
-    if (publicationRef?.current) {
+    if (
+      publicationRef?.current &&
+      publication.__typename === 'Comment' &&
+      pathname === '/posts/[id]'
+    ) {
       publicationRef.current.style.scrollMargin = '4.2rem';
       publicationRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, []);
+  }, [pathname, publication.__typename]);
 
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
