@@ -8,6 +8,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface TranslateProps {
   publication: Publication;
@@ -16,7 +17,9 @@ interface TranslateProps {
 const Translate: FC<TranslateProps> = ({ publication }) => {
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
-      `https://translate.google.com/#auto|en|${encodeURIComponent(text)}`
+      urlcat('https://translate.google.com/#auto|en|:text', {
+        text: encodeURIComponent(text)
+      })
     );
   };
 

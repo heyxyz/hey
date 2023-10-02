@@ -1,3 +1,5 @@
+import urlcat from 'urlcat';
+
 /**
  * Returns the cdn.stamp.fyi URL for the specified Ethereum address.
  *
@@ -6,7 +8,10 @@
  */
 const getStampFyiURL = (address: string): string => {
   const lowerCaseAddress = address.toLowerCase();
-  return `https://cdn.stamp.fyi/avatar/eth:${lowerCaseAddress}?s=300`;
+  return urlcat('https://cdn.stamp.fyi/avatar/eth::address', {
+    address: `eth:${lowerCaseAddress}`,
+    s: 300
+  });
 };
 
 export default getStampFyiURL;

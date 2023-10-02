@@ -89,6 +89,7 @@ import { useNonceStore } from 'src/store/nonce';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import urlcat from 'urlcat';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
@@ -748,7 +749,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         version: '2.0.0',
         metadata_id: uuid(),
         content: processedPublicationContent,
-        external_url: `https://hey.xyz/u/${currentProfile?.handle}`,
+        external_url: urlcat('https://hey.xyz/:handle', {
+          handle: currentProfile.handle
+        }),
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType:
