@@ -10,19 +10,19 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 import { PencilSquareIcon } from '@heroicons/react/24/solid';
-import { APP_NAME } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { useLensterStatsQuery } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
+import { APP_NAME } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { useHeyStatsQuery } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
 import {
   Card,
   GridItemEight,
   GridItemFour,
   GridLayout,
   Spinner
-} from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -89,11 +89,11 @@ const Stats: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
-  const { data, loading, error } = useLensterStatsQuery({
+  const { data, loading, error } = useHeyStatsQuery({
     variables: { request: { sources: [APP_NAME] } }
   });
 
-  const { data: todayData, loading: todayLoading } = useLensterStatsQuery({
+  const { data: todayData, loading: todayLoading } = useHeyStatsQuery({
     variables: {
       request: {
         sources: [APP_NAME],
@@ -103,16 +103,15 @@ const Stats: NextPage = () => {
     }
   });
 
-  const { data: yesterdayData, loading: yesterdayLoading } =
-    useLensterStatsQuery({
-      variables: {
-        request: {
-          sources: [APP_NAME],
-          fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
-          toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
-        }
+  const { data: yesterdayData, loading: yesterdayLoading } = useHeyStatsQuery({
+    variables: {
+      request: {
+        sources: [APP_NAME],
+        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
+        toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
       }
-    });
+    }
+  });
 
   if (!staffMode) {
     return <Custom404 />;

@@ -1,4 +1,4 @@
-import type { NewLensterAttachment } from '@lenster/types/misc';
+import type { NewAttachment } from '@hey/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { t } from '@lingui/macro';
 import { useCallback } from 'react';
@@ -15,29 +15,30 @@ const useUploadAttachments = () => {
     (state) => state.removeAttachments
   );
   const setIsUploading = usePublicationStore((state) => state.setIsUploading);
+  const setUploadedPercentage = usePublicationStore(
+    (state) => state.setUploadedPercentage
+  );
 
   const handleUploadAttachments = useCallback(
-    async (attachments: any): Promise<NewLensterAttachment[]> => {
+    async (attachments: any): Promise<NewAttachment[]> => {
       setIsUploading(true);
       const files = Array.from(attachments);
       const attachmentIds: string[] = [];
 
-      const previewAttachments: NewLensterAttachment[] = files.map(
-        (file: any) => {
-          const attachmentId = uuid();
-          attachmentIds.push(attachmentId);
+      const previewAttachments: NewAttachment[] = files.map((file: any) => {
+        const attachmentId = uuid();
+        attachmentIds.push(attachmentId);
 
-          return {
-            id: attachmentId,
-            file: file,
-            previewItem: URL.createObjectURL(file),
-            original: {
-              url: URL.createObjectURL(file),
-              mimeType: file.type
-            }
-          };
-        }
-      );
+        return {
+          id: attachmentId,
+          file: file,
+          previewItem: URL.createObjectURL(file),
+          original: {
+            url: URL.createObjectURL(file),
+            mimeType: file.type
+          }
+        };
+      });
 
       const hasLargeAttachment = files.map((file: any) => {
         const isImage = file.type.includes('image');
@@ -49,8 +50,8 @@ const useUploadAttachments = () => {
           return false;
         }
 
-        if (isVideo && file.size > 200000000) {
-          toast.error(t`Video size should be less than 200MB`);
+        if (isVideo && file.size > 500000000) {
+          toast.error(t`Video size should be less than 500MB`);
           return false;
         }
 
@@ -63,7 +64,7 @@ const useUploadAttachments = () => {
       });
 
       addAttachments(previewAttachments);
-      let attachmentsIPFS: NewLensterAttachment[] = [];
+      let attachmentsIPFS: NewAttachment[] = [];
       try {
         if (hasLargeAttachment.includes(false)) {
           setIsUploading(false);
@@ -71,10 +72,13 @@ const useUploadAttachments = () => {
           return [];
         }
 
-        const attachmentsUploaded = await uploadToIPFS(attachments);
+        const attachmentsUploaded = await uploadToIPFS(
+          attachments,
+          (percentCompleted) => setUploadedPercentage(percentCompleted)
+        );
         if (attachmentsUploaded) {
           attachmentsIPFS = previewAttachments.map(
-            (attachment: NewLensterAttachment, index: number) => ({
+            (attachment: NewAttachment, index: number) => ({
               ...attachment,
               original: {
                 url: attachmentsUploaded[index].original.url,
@@ -92,6 +96,7 @@ const useUploadAttachments = () => {
 
       return attachmentsIPFS;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [addAttachments, removeAttachments, updateAttachments, setIsUploading]
   );
 

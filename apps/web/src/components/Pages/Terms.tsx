@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { APP_NAME } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
+import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -41,9 +41,9 @@ const Terms: FC = () => {
               <div className="space-y-5 leading-7">
                 <p>
                   <Trans>
-                    The website lenster.xyz” (the “Site”) offers information,
-                    tools and services to you to allow you to interact with the
-                    Lens Protocol - a composable and decentralised social graph
+                    The website hey.xyz” (the “Site”) offers information, tools
+                    and services to you to allow you to interact with the Lens
+                    Protocol - a composable and decentralised social graph
                     protocol.
                   </Trans>
                 </p>
@@ -389,7 +389,7 @@ const Terms: FC = () => {
               <p className="leading-7">
                 <Trans>
                   Questions about the Terms should be sent to us at
-                  terms@lenster.xyz
+                  terms@hey.xyz
                 </Trans>
               </p>
               {/* 12. Contact Information ends */}

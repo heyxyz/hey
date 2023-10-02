@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/prerender",
+  "name": "@hey/prerender",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -15,20 +15,20 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lenster/data": "workspace:*",
-    "@lenster/lens": "workspace:*",
-    "@lenster/lib": "workspace:*",
-    "next": "^13.5.1",
+    "@hey/data": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "next": "^13.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-schemaorg": "^2.0.0",
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
-    "@lenster/lens": "workspace:*",
-    "@playwright/test": "^1.38.0",
-    "@types/react": "^18.2.22",
+    "@hey/config": "workspace:*",
+    "@hey/lens": "workspace:*",
+    "@playwright/test": "^1.38.1",
+    "@types/react": "^18.2.23",
     "typescript": "^5.2.2"
   }
 }

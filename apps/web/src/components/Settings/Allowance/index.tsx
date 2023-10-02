@@ -1,17 +1,17 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import type { Erc20 } from '@lenster/lens';
+import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
+import type { Erc20 } from '@hey/lens';
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useEnabledModulesQuery
-} from '@lenster/lens';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+} from '@hey/lens';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';

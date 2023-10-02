@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import LoginButton from '@components/Shared/Navbar/LoginButton';
-import { APP_NAME } from '@lenster/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
@@ -12,7 +12,7 @@ const NotLoggedIn: FC = () => {
         className="h-20 w-20"
         height={80}
         width={80}
-        src={'/logo.svg'}
+        src={'/logo.png'}
         alt="Logo"
       />
       <div className="py-10 text-center">

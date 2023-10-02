@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-class LensterDocument extends Document {
+class HeyDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -9,20 +9,18 @@ class LensterDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 
           {/* Prefetch and Preconnect */}
-          <link rel="preconnect" href="https://user-content.lenster.xyz" />
-          <link rel="dns-prefetch" href="https://user-content.lenster.xyz" />
-          <link rel="preconnect" href="https://static-assets.lenster.xyz" />
-          <link rel="dns-prefetch" href="https://static-assets.lenster.xyz" />
+          <link rel="preconnect" href="https://static-assets.hey.xyz" />
+          <link rel="dns-prefetch" href="https://static-assets.hey.xyz" />
 
           {/* Misc */}
-          <meta name="application-name" content="Lenster" />
+          <meta name="application-name" content="Hey" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
-          <meta name="apple-mobile-web-app-title" content="Lenster" />
+          <meta name="apple-mobile-web-app-title" content="Hey" />
 
           {/* Icons */}
           <link
@@ -51,7 +49,7 @@ class LensterDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
-          <meta name="apple-mobile-web-app-title" content="Lenster" />
+          <meta name="apple-mobile-web-app-title" content="Hey" />
           <link rel="icon" href="/images/icons/iconmain-512x512.png" />
           <meta name="theme-color" content="#ffffff" />
         </Head>
@@ -64,4 +62,4 @@ class LensterDocument extends Document {
   }
 }
 
-export default LensterDocument;
+export default HeyDocument;

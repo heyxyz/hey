@@ -6,7 +6,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
-import type { Profile } from '@lenster/lens';
+import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -131,8 +131,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
                   {parseFloat(gitcoinScore?.evidence?.rawScore).toFixed(2)}
                   <span className="lt-text-gray-500 text-xs">
                     {' '}
-                    (Updated:{' '}
-                    {formatDate(gitcoinScore?.evidence?.last_score_timestamp)})
+                    (Updated: {formatDate(gitcoinScore?.last_score_timestamp)})
                   </span>
                 </>
               ) : (

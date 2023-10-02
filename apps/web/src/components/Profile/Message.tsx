@@ -1,5 +1,5 @@
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
-import { Button } from '@lenster/ui';
+import { Button } from '@hey/ui';
 import type { FC } from 'react';
 
 interface MessageProps {

@@ -1,7 +1,7 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { ElectedMirror, FeedItem, Publication } from '@lenster/lens';
-import cn from '@lenster/ui/cn';
+import type { ElectedMirror, FeedItem, Publication } from '@hey/lens';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';

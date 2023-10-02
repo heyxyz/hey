@@ -9,32 +9,10 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      channel_memberships: {
-        Row: {
-          channel_id: string;
-          profile_id: string;
-        };
-        Insert: {
-          channel_id: string;
-          profile_id: string;
-        };
-        Update: {
-          channel_id?: string;
-          profile_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'channel_memberships_channel_id_fkey';
-            columns: ['channel_id'];
-            referencedRelation: 'channels';
-            referencedColumns: ['id'];
-          }
-        ];
-      };
       channels: {
         Row: {
           avatar: string;
-          cover: string | null;
+          contract: string | null;
           created_at: string;
           description: string;
           discord: string | null;
@@ -49,7 +27,7 @@ export interface Database {
         };
         Insert: {
           avatar: string;
-          cover?: string | null;
+          contract?: string | null;
           created_at?: string;
           description: string;
           discord?: string | null;
@@ -64,7 +42,7 @@ export interface Database {
         };
         Update: {
           avatar?: string;
-          cover?: string | null;
+          contract?: string | null;
           created_at?: string;
           description?: string;
           discord?: string | null;
@@ -76,6 +54,21 @@ export interface Database {
           slug?: string;
           tags?: string[] | null;
           x?: string | null;
+        };
+        Relationships: [];
+      };
+      'membership-nft': {
+        Row: {
+          dismissedOrMinted: boolean;
+          id: string;
+        };
+        Insert: {
+          dismissedOrMinted?: boolean;
+          id: string;
+        };
+        Update: {
+          dismissedOrMinted?: boolean;
+          id?: string;
         };
         Relationships: [];
       };
@@ -114,6 +107,37 @@ export interface Database {
           staff_mode?: boolean;
         };
         Relationships: [];
+      };
+      'staff-picks': {
+        Row: {
+          created_at: string;
+          id: string;
+          picker_id: string;
+          score: number;
+          type: string;
+        };
+        Insert: {
+          created_at?: string;
+          id: string;
+          picker_id: string;
+          score?: number;
+          type: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          picker_id?: string;
+          score?: number;
+          type?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'staff-picks_picker_id_fkey';
+            columns: ['picker_id'];
+            referencedRelation: 'rights';
+            referencedColumns: ['id'];
+          }
+        ];
       };
     };
     Views: {

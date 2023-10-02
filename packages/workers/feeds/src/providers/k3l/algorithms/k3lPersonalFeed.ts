@@ -9,7 +9,7 @@ const k3lPersonalFeed = async (
   try {
     const response = await fetch(
       `https://lens-api.k3l.io/feed/personal/${profile}/${strategy}?limit=${limit}&offset=${offset}`,
-      { headers: { 'User-Agent': 'Lenster' } }
+      { headers: { 'User-Agent': 'Hey.xyz' } }
     );
     const json: {
       postId: string;

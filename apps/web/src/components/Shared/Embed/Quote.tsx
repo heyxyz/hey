@@ -1,6 +1,6 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
-import type { Publication } from '@lenster/lens';
-import { usePublicationQuery } from '@lenster/lens';
+import type { Publication } from '@hey/lens';
+import { usePublicationQuery } from '@hey/lens';
 import type { FC } from 'react';
 
 import PublicationShimmer from '../Shimmer/PublicationShimmer';

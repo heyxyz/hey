@@ -2,9 +2,9 @@ import MetaTags from '@components/Common/MetaTags';
 import SettingsHelper from '@components/Shared/SettingsHelper';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { APP_NAME, FRESHDESK_WORKER_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PAGEVIEW } from '@lenster/data/tracking';
+import { APP_NAME, FRESHDESK_WORKER_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PAGEVIEW } from '@hey/data/tracking';
 import {
   Button,
   Card,
@@ -18,7 +18,7 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';

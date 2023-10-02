@@ -1,27 +1,27 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@lenster/abis';
-import { COVER, LENS_PERIPHERY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
-import { SETTINGS } from '@lenster/data/tracking';
-import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
-import type { Area } from '@lenster/image-cropper/types';
+import { LensPeriphery } from '@hey/abis';
+import { COVER, LENS_PERIPHERY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { Regex } from '@hey/data/regex';
+import { SETTINGS } from '@hey/data/tracking';
+import { getCroppedImg } from '@hey/image-cropper/cropUtils';
+import type { Area } from '@hey/image-cropper/types';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
-} from '@lenster/lens';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import getSignature from '@lenster/lib/getSignature';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+} from '@hey/lens';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import getSignature from '@hey/lib/getSignature';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import {
   Button,
   Card,
@@ -33,7 +33,7 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';

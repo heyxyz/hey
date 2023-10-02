@@ -1,5 +1,5 @@
-import { OEMBED_WORKER_URL } from '@lenster/data/constants';
-import type { OG } from '@lenster/types/misc';
+import { OEMBED_WORKER_URL } from '@hey/data/constants';
+import type { OG } from '@hey/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';

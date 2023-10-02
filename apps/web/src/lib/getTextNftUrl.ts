@@ -35,8 +35,8 @@ const getTextNftUrl = async (
     <p class="content" xmlns="http://www.w3.org/1999/xhtml">${content}</p>
     </foreignObject>
 
-    <path d="M0 25C0 11.1929 11.1929 0 25 0H475C488.807 0 500 11.1929 500 25V78H0V25Z" fill="#8B5CF6" fill-opacity="0.16"/>
-    <path d="M500.06 474.236C500.026 488.043 488.806 499.208 474.999 499.174L24.9999 498.062C11.193 498.027 0.0276556 486.807 0.0617778 473L0.192759 420L500.191 421.236L500.06 474.236Z" fill="#8B5CF6" fill-opacity="0.16"/>
+    <path d="M0 25C0 11.1929 11.1929 0 25 0H475C488.807 0 500 11.1929 500 25V78H0V25Z" fill="#FB3A4D" fill-opacity="0.16"/>
+    <path d="M500.06 474.236C500.026 488.043 488.806 499.208 474.999 499.174L24.9999 498.062C11.193 498.027 0.0276556 486.807 0.0617778 473L0.192759 420L500.191 421.236L500.06 474.236Z" fill="#FB3A4D" fill-opacity="0.16"/>
 
     <foreignObject x="350" y="440" width="440" height="300">
     <p class="timestamp" xmlns="http://www.w3.org/1999/xhtml">${timestamp}</p>

@@ -1,9 +1,9 @@
-import { Errors } from '@lenster/data/errors';
-import { adminAddresses } from '@lenster/data/staffs';
-import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
-import response from '@lenster/lib/response';
-import validateLensAccount from '@lenster/lib/validateLensAccount';
-import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
+import { Errors } from '@hey/data/errors';
+import { adminAddresses } from '@hey/data/staffs';
+import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
+import response from '@hey/lib/response';
+import validateLensAccount from '@hey/lib/validateLensAccount';
+import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
 
@@ -73,9 +73,7 @@ export default async (request: WorkerRequest) => {
 
     const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
     if (!updateByAdmin && !hasOwned) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
-      );
+      return response({ success: false, error: Errors.InvalidProfileId });
     }
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);

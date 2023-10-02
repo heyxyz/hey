@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { HANDLE_SUFFIX } from '@lenster/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
-import { Button, Spinner } from '@lenster/ui';
+import { HANDLE_SUFFIX } from '@hey/data/constants';
+import { useHasTxHashBeenIndexedQuery } from '@hey/lens';
+import { Button, Spinner } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

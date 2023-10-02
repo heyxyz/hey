@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
-import type { Profile } from '@lenster/lens';
-import getMisuseDetails from '@lenster/lib/getMisuseDetails';
-import { Card } from '@lenster/ui';
+import type { Profile } from '@hey/lens';
+import getMisuseDetails from '@hey/lib/getMisuseDetails';
+import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

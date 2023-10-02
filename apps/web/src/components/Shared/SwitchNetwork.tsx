@@ -1,6 +1,6 @@
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { SYSTEM } from '@lenster/data/tracking';
-import { Button } from '@lenster/ui';
+import { SYSTEM } from '@hey/data/tracking';
+import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';

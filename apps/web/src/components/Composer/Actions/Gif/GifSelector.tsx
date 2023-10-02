@@ -1,5 +1,5 @@
-import type { IGif } from '@lenster/types/giphy';
-import { Input } from '@lenster/ui';
+import type { IGif } from '@hey/types/giphy';
+import { Input } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';

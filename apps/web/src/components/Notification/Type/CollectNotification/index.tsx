@@ -8,8 +8,8 @@ import {
 } from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
 import { RectangleStackIcon } from '@heroicons/react/24/solid';
-import type { NewCollectNotification } from '@lenster/lens';
-import type { MessageDescriptor } from '@lenster/types/misc';
+import type { NewCollectNotification } from '@hey/lens';
+import type { MessageDescriptor } from '@hey/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';

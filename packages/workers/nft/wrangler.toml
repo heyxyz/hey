@@ -1,0 +1,11 @@
+name = "nft"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "nft.hey.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+RELEASE = ""

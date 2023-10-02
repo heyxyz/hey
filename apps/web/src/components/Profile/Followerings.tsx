@@ -1,8 +1,8 @@
 import { UsersIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import { Modal } from '@lenster/ui';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t } from '@lingui/macro';
 import type { FC } from 'react';

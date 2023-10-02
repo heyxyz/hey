@@ -1,0 +1,13 @@
+name = "sts"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "sts.hey.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+RELEASE = ""
+EVER_ACCESS_KEY = ""
+EVER_ACCESS_SECRET = ""

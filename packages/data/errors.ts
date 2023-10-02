@@ -7,6 +7,7 @@ export enum Errors {
   Limit500 = 'Limit must be less than 500!',
   InvalidAccesstoken = 'Invalid access token!',
   InvalidProfileId = 'Invalid profile id!',
+  InvalidAddress = 'Invalid address!',
   NotAdmin = 'You are not admin!',
   NoBody = 'No body provided!'
 }

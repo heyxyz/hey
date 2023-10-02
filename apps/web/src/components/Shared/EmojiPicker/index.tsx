@@ -1,7 +1,7 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Tooltip } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import { type Dispatch, type FC, type SetStateAction, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';

@@ -5,7 +5,7 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "feeds.lenster.xyz", custom_domain = true }
+	{ pattern = "feeds.hey.xyz", custom_domain = true }
 ]
 
 [env.production.vars]

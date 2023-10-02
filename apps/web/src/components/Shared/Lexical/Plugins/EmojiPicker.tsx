@@ -1,6 +1,6 @@
-import { STATIC_ASSETS_URL } from '@lenster/data/constants';
-import type { Emoji } from '@lenster/types/misc';
-import cn from '@lenster/ui/cn';
+import { STATIC_ASSETS_URL } from '@hey/data/constants';
+import type { Emoji } from '@hey/types/misc';
+import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   LexicalTypeaheadMenuPlugin,

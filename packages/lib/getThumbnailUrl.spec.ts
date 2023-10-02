@@ -1,6 +1,6 @@
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { MetadataOutput } from '@lenster/lens';
-import { PublicationMainFocus } from '@lenster/lens';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import type { MetadataOutput } from '@hey/lens';
+import { PublicationMainFocus } from '@hey/lens';
 import { describe, expect, test } from 'vitest';
 
 import getThumbnailUrl from './getThumbnailUrl';

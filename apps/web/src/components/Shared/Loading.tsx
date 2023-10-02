@@ -1,4 +1,4 @@
-import isPrideMonth from '@lenster/lib/isPrideMonth';
+import isPrideMonth from '@hey/lib/isPrideMonth';
 import type { FC } from 'react';
 
 import MetaTags from '../Common/MetaTags';
@@ -11,7 +11,7 @@ const Loading: FC = () => {
         className="h-28 w-28"
         height={112}
         width={112}
-        src={isPrideMonth() ? '/pride.svg' : '/logo.svg'}
+        src={isPrideMonth() ? '/pride.png' : '/logo.png'}
         alt="Logo"
       />
     </div>

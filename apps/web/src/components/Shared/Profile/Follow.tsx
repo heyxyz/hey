@@ -1,16 +1,16 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import getSignature from '@lenster/lib/getSignature';
-import { Button, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import getSignature from '@hey/lib/getSignature';
+import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';

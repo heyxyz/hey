@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/supabase",
+  "name": "@hey/supabase",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -15,7 +15,7 @@
     "@supabase/supabase-js": "^2.36.0"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2"
   }
 }

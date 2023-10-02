@@ -1,4 +1,4 @@
-import humanize from '@lenster/lib/humanize';
+import humanize from '@hey/lib/humanize';
 import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 

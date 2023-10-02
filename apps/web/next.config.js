@@ -19,11 +19,11 @@ const nextConfig = {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://sitemap.lenster.xyz/sitemap.xml'
+        destination: 'https://sitemap.hey.xyz/sitemap.xml'
       },
       {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.lenster.xyz/:match*'
+        destination: 'https://sitemap.hey.xyz/:match*'
       }
     ];
   },
@@ -46,7 +46,7 @@ const nextConfig = {
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/lenster?utm_source=lenster',
+        destination: 'https://giveth.io/project/hey?utm_source=hey',
         permanent: true
       },
       {

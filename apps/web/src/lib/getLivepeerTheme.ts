@@ -1,16 +1,16 @@
+import { BRAND_COLOR } from '@hey/data/constants';
 import type { ThemeConfig } from '@livepeer/react';
-import colors from 'tailwindcss/colors';
 
-import circluarStd from './lensterFont';
+import heyFont from './heyFont';
 
 const getLivepeerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
-    progressLeft: colors.violet[500],
-    loading: colors.violet[500]
+    progressLeft: BRAND_COLOR,
+    loading: BRAND_COLOR
   },
   fonts: {
-    display: circluarStd.style.fontFamily
+    display: heyFont.style.fontFamily
   },
   fontSizes: {
     timeFontSize: '11px'

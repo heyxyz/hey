@@ -1,18 +1,18 @@
 import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { PUBLICATION } from '@lenster/data/tracking';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   Publication,
   PublicationProfileNotInterestedRequest
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useAddPublicationProfileNotInterestedMutation,
   useRemovePublicationProfileNotInterestedMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';

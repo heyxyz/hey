@@ -7,16 +7,16 @@ import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
   ATTACHMENT
-} from '@lenster/data/constants';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { MediaSet, Publication } from '@lenster/lens';
-import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Image, LightBox } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { MediaSet, Publication } from '@hey/lens';
+import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { NewAttachment } from '@hey/types/misc';
+import { Button, Image, LightBox } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -62,6 +62,10 @@ const Attachments: FC<AttachmentsProps> = ({
   txn
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const uploadedPercentage = usePublicationStore(
+    (state) => state.uploadedPercentage
+  );
+  const isUploading = usePublicationStore((state) => state.isUploading);
   const setVideoDurationInSeconds = usePublicationStore(
     (state) => state.setVideoDurationInSeconds
   );
@@ -100,7 +104,7 @@ const Attachments: FC<AttachmentsProps> = ({
     <>
       <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map(
-          (attachment: NewLensterAttachment & MediaSet, index: number) => {
+          (attachment: NewAttachment & MediaSet, index: number) => {
             const type = attachment.original?.mimeType;
             const url = isNew
               ? attachment.previewItem
@@ -143,6 +147,14 @@ const Attachments: FC<AttachmentsProps> = ({
                 ) : isVideo ? (
                   isNew ? (
                     <>
+                      {isUploading && uploadedPercentage !== 100 ? (
+                        <div className="mb-5 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                          <div
+                            className="bg-brand-500 h-2.5 rounded-full"
+                            style={{ width: `${uploadedPercentage}%` }}
+                          />
+                        </div>
+                      ) : null}
                       <video
                         className="w-full overflow-hidden rounded-xl"
                         src={url}

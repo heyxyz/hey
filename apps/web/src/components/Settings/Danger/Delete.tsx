@@ -3,14 +3,14 @@ import {
   ExclamationTriangleIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
-import resetAuthData from '@lenster/lib/resetAuthData';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
+import { LensHub } from '@hey/abis';
+import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useCreateBurnProfileTypedDataMutation } from '@hey/lens';
+import resetAuthData from '@hey/lib/resetAuthData';
+import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -104,9 +104,9 @@ const DeleteSettings: FC = () => {
       <p>
         <Trans>
           This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including Lenster.
-          All your data will be wiped out immediately and you won't be able to
-          get it back.
+          You will not be able to use any apps built on Lens, including{' '}
+          {APP_NAME}. All your data will be wiped out immediately and you won't
+          be able to get it back.
         </Trans>
       </p>
       <div className="text-lg font-bold">What else you should know</div>
