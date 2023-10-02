@@ -2239,8 +2239,17 @@ msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
-msgstr "这将删除你的Lens账户"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr "这将删除你的Lens账户"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
