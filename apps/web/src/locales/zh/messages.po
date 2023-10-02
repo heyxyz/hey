@@ -108,6 +108,7 @@ msgstr "保存"
 
 #: src/components/Composer/Actions/AccessSettings/index.tsx
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
 msgid "Access"
 msgstr "访问"
 
@@ -3389,6 +3390,10 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/Leafwatch.tsx
+msgid "Total events"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
