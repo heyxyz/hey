@@ -227,6 +227,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(
     attachments[0]?.original.mimeType
   );
+  const hasLiveVideo =
+    showLiveVideoEditor && liveVideoConfig.playbackId.length > 0;
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -245,6 +247,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -575,6 +579,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         return PublicationMainFocus.TextOnly;
       }
     } else {
+      if (hasLiveVideo) {
+        return PublicationMainFocus.Video;
+      }
+
       return PublicationMainFocus.TextOnly;
     }
   };
@@ -711,11 +719,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       const attributes: MetadataAttributeInput[] = [
-        {
-          traitType: 'type',
-          displayType: PublicationMetadataDisplayTypes.String,
-          value: getMainContentFocus()?.toLowerCase()
-        },
+        ...(hasLiveVideo
+          ? [
+              {
+                traitType: 'isLive',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: 'true'
+              },
+              {
+                traitType: 'liveId',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: liveVideoConfig.id
+              },
+              {
+                traitType: 'livePlaybackId',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: liveVideoConfig.playbackId
+              }
+            ]
+          : []),
         ...(quotedPublication
           ? [
               {
@@ -745,14 +767,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : [])
       ];
 
-      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
-        (attachment) => ({
-          item: attachment.original.url,
-          cover: getAttachmentImage(),
-          type: attachment.original.mimeType,
-          altTag: attachment.original.altTag
-        })
-      );
+      const attachmentsInput: PublicationMetadataMediaInput[] = hasLiveVideo
+        ? [
+            {
+              item: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+              type: 'video/mp4'
+            }
+          ]
+        : attachments.map((attachment) => ({
+            item: attachment.original.url,
+            cover: getAttachmentImage(),
+            type: attachment.original.mimeType,
+            altTag: attachment.original.altTag
+          }));
 
       let processedPublicationContent = publicationContent;
 
@@ -931,7 +958,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          <Attachment />
+          {!showLiveVideoEditor && (
+            <>
+              <Attachment />
+              <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+            </>
+          )}
           <EmojiPicker
             emojiClassName="text-brand"
             setShowEmojiPicker={setShowEmojiPicker}
@@ -952,7 +984,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               });
             }}
           />
-          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           {!publication?.isDataAvailability ? (
             <>
               <CollectSettings />
@@ -961,7 +992,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          {isStaff && <LivestreamSettings />}
+          {!isComment && attachments.length <= 0 && isStaff && (
+            <LivestreamSettings />
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
