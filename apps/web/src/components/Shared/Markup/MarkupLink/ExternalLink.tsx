@@ -9,8 +9,14 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   }
 
   let link = href;
-  if (!link.startsWith('https://')) {
+  if (!link.startsWith('https://') && !link.startsWith('http://')) {
     link = `https://${href}`;
+  }
+
+  const regex =
+    /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[\dA-Za-z]+(\.[\dA-Za-z]{2,})/gm;
+  if (!regex.test(link)) {
+    return null;
   }
 
   return (
