@@ -51,10 +51,12 @@ interface PublicationState {
   showLiveVideoEditor: boolean;
   setShowLiveVideoEditor: (showLiveVideoEditor: boolean) => void;
   liveVideoConfig: {
+    id: string;
     streamKey: string;
     playbackId: string;
   };
   setLiveVideoConfig: (liveVideoConfig: {
+    id: string;
     streamKey: string;
     playbackId: string;
   }) => void;
@@ -122,8 +124,8 @@ export const usePublicationStore = create<PublicationState>((set) => ({
   showLiveVideoEditor: false,
   setShowLiveVideoEditor: (showLiveVideoEditor) =>
     set(() => ({ showLiveVideoEditor })),
-  liveVideoConfig: { streamKey: '', playbackId: '' },
+  liveVideoConfig: { id: '', streamKey: '', playbackId: '' },
   setLiveVideoConfig: (liveVideoConfig) => set(() => ({ liveVideoConfig })),
   resetLiveVideoConfig: () =>
-    set(() => ({ liveVideoConfig: { streamKey: '', playbackId: '' } }))
+    set(() => ({ liveVideoConfig: { id: '', streamKey: '', playbackId: '' } }))
 }));
