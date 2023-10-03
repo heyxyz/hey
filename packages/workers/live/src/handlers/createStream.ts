@@ -57,7 +57,6 @@ export default async (request: WorkerRequest) => {
       body: JSON.stringify({
         name: `${id}-${crypto.randomUUID()}`,
         profiles: [
-          { name: '480p0', fps: 0, bitrate: 1600000, width: 854, height: 480 },
           { name: '720p0', fps: 0, bitrate: 3000000, width: 1280, height: 720 }
         ]
       })
