@@ -56,7 +56,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta
             name={t`ARWEAVE TRANSACTION`}
-            uri={urlcat('https://arweave.net/tx/:hash', { hash })}
+            uri={urlcat('https://arweave.net/:hash', { hash })}
             hash={hash}
           />
         ) : null}
