@@ -19,7 +19,7 @@
     "itty-router": "^4.0.23"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230922.0",
+    "@cloudflare/workers-types": "^4.20231002.0",
     "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
     "wrangler": "^3.10.1"
