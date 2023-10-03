@@ -21,7 +21,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230922.0",
+    "@cloudflare/workers-types": "^4.20231002.0",
     "@hey/config": "workspace:*",
     "@types/ua-parser-js": "^0.7.37",
     "typescript": "^5.2.2",
