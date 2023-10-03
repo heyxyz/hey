@@ -18,14 +18,24 @@ jobs:
         with:
           upload_translations: false
           download_translations: true
-          create_pull_request: true
+          create_pull_request: false
           project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
           token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
-          pull_request_title: 'chore(i18n): synchronize translations from crowdin'
-          pull_request_body: 'New Crowdin pull request with translations'
-          pull_request_assignees: 'crowdin-bot'
-          pull_request_reviewers: 'bigint'
           source: '/**/locales/en/*.po'
           translation: '/**/locales/%two_letters_code%/%original_file_name%'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove last empty lines from translations
+        run: |
+          find '/**/locales/' -type f -name '*.po' -exec sed -i -e '${/^$/d;}' {} \;
+      
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: 'chore(i18n): synchronize translations from crowdin'
+          body: 'New Crowdin pull request with translations'
+          assignees: 'crowdin-bot'
+          reviewers: 'bigint'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
