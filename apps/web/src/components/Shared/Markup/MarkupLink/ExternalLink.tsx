@@ -11,10 +11,17 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   const hasProtocol = href.includes('://');
   const isValidSimpleLink =
     href.split('.').length > 1 && href.split(' ').length === 1;
+  // Check if there is a path after the domain
+  const hasPath = href
+    .split('.')
+    .some(
+      (segment, index, array) =>
+        index === array.length - 2 && segment.includes('/')
+    );
 
-  if (!hasProtocol && isValidSimpleLink) {
+  if (!hasProtocol && isValidSimpleLink && hasPath) {
     href = `https://${href}`;
-  } else if (!hasProtocol && !isValidSimpleLink) {
+  } else if (!hasProtocol && (!isValidSimpleLink || !hasPath)) {
     return null;
   }
 
