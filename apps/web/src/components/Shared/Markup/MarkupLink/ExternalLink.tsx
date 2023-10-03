@@ -8,13 +8,14 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
     return null;
   }
 
+  let link = href;
   if (!href.includes('://')) {
-    href = `https://${href}`;
+    link = `https://${href}`;
   }
 
   return (
     <Link
-      href={href}
+      href={link}
       onClick={stopEventPropagation}
       target={href.includes(location.host) ? '_self' : '_blank'}
       rel="noopener"
