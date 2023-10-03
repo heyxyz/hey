@@ -8,7 +8,7 @@ import { memo } from 'react';
 
 interface VideoProps {
   src: string;
-  poster: string;
+  poster?: string;
 }
 
 const Video: FC<VideoProps> = ({ src, poster }) => {

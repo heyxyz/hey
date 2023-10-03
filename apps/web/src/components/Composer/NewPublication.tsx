@@ -86,6 +86,7 @@ import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
+import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
@@ -94,6 +95,7 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
+import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
@@ -131,6 +133,12 @@ const PollSettings = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
+const LivestreamSettings = dynamic(
+  () => import('@components/Composer/Actions/LivestreamSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
 
 interface NewPublicationProps {
   publication: Publication;
@@ -149,6 +157,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
+
+  // Preferences store
+  const isStaff = usePreferencesStore((state) => state.isStaff);
 
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
@@ -170,7 +181,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
-    pollConfig
+    pollConfig,
+    showLiveVideoEditor,
+    setShowLiveVideoEditor,
+    resetLiveVideoConfig,
+    liveVideoConfig
   } = usePublicationStore();
 
   // Transaction persist store
@@ -908,6 +923,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
+      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication publication={quotedPublication} isNew />
@@ -945,6 +961,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
+          {isStaff && <LivestreamSettings />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
