@@ -29,3 +29,7 @@ jobs:
           translation: '/**/locales/%two_letters_code%/%original_file_name%'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove last empty lines from translations
+        run: |
+          find '/**/locales/' -type f -name '*.po' -exec sed -i -e '${/^$/d;}' {} \;
