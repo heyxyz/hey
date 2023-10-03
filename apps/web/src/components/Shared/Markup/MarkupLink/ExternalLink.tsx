@@ -1,3 +1,4 @@
+import { Regex } from '@hey/data/regex';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
@@ -13,9 +14,7 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
     link = `https://${href}`;
   }
 
-  const regex =
-    /(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[\dA-Za-z]+(\.[\dA-Za-z]{2,})/gm;
-  if (!regex.test(link)) {
+  if (!Regex.url.test(link)) {
     return null;
   }
 
