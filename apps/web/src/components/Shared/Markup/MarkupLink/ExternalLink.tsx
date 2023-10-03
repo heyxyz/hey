@@ -8,8 +8,14 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
     return null;
   }
 
-  if (!href.includes('://')) {
+  const hasProtocol = href.includes('://');
+  const isValidSimpleLink =
+    href.split('.').length > 1 && href.split(' ').length === 1;
+
+  if (!hasProtocol && isValidSimpleLink) {
     href = `https://${href}`;
+  } else if (!hasProtocol && !isValidSimpleLink) {
+    return null;
   }
 
   return (
