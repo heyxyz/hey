@@ -793,6 +793,37 @@ importers:
         specifier: ^3.10.1
         version: 3.10.1
 
+  packages/workers/live:
+    dependencies:
+      '@hey/data':
+        specifier: workspace:*
+        version: link:../../data
+      '@hey/lib':
+        specifier: workspace:*
+        version: link:../../lib
+      '@tsndr/cloudflare-worker-jwt':
+        specifier: ^2.2.2
+        version: 2.2.2
+      itty-router:
+        specifier: ^4.0.23
+        version: 4.0.23
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230922.0
+        version: 4.20230922.0
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../../config
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+      wrangler:
+        specifier: ^3.10.1
+        version: 3.10.1
+
   packages/workers/metadata:
     dependencies:
       '@hey/bundlr':
