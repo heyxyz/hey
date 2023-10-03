@@ -243,6 +243,47 @@ msgstr ""
 msgid "Select GIF"
 msgstr ""
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "删除"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr "已复制到剪贴板！"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -254,12 +295,6 @@ msgstr "投票时长"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr "投票时长（天数）"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "删除"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -1551,13 +1586,6 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr ""
-
-#: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr "已复制到剪贴板！"
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"

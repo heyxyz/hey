@@ -243,6 +243,47 @@ msgstr "GIF"
 msgid "Select GIF"
 msgstr "Select GIF"
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr "Error creating live stream"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr "Go Live"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr "Stream URL:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr "Stream Key:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr "Creating Live Stream..."
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr "Create Live Stream"
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr "{0, plural, zero {day} one {day} other {days}}"
@@ -254,12 +295,6 @@ msgstr "Poll length"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr "Poll length (days)"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Delete"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -1551,13 +1586,6 @@ msgstr "Invited by <0/>"
 #: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr "Report profile"
-
-#: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
