@@ -1,9 +1,16 @@
 const linguiConfig = require('./lingui.config');
+const withPWA = require('next-pwa')({
+  dest: '/public',
+  register: true,
+  skipWaiting: true,
+  // disableDevLogs: true,
+  // disable: process.env.NODE_ENV === 'development'
+});
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withPWA({
   productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
@@ -72,6 +79,6 @@ const nextConfig = {
       { source: '/thanks', headers }
     ];
   }
-};
+});
 
 module.exports = nextConfig;
