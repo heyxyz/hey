@@ -16,17 +16,17 @@
   },
   "dependencies": {
     "@cfworker/base64url": "^1.12.5",
-    "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
-    "@lenster/types": "workspace:*",
+    "@hey/data": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "@hey/types": "workspace:*",
     "itty-router": "^4.0.23",
     "linkedom": "^0.15.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230914.0",
-    "@lenster/config": "workspace:*",
+    "@cloudflare/workers-types": "^4.20231002.0",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.4",
-    "wrangler": "^3.8.0"
+    "vitest": "^0.34.5",
+    "wrangler": "^3.10.1"
   }
 }

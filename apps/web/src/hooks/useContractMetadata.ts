@@ -1,4 +1,4 @@
-import { ALCHEMY_KEY } from '@lenster/data/constants';
+import { ALCHEMY_KEY } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 

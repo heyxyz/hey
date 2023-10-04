@@ -2,18 +2,18 @@ import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
-import type { Profile } from '@lenster/lens';
+import type { Profile } from '@hey/lens';
 import {
   PublicationDocument,
   PublicationMetadataStatusType,
   useHasTxHashBeenIndexedQuery,
   usePublicationLazyQuery
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import getURLs from '@lenster/lib/getURLs';
-import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
-import type { OptimisticTransaction } from '@lenster/types/misc';
-import { Tooltip } from '@lenster/ui';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import getURLs from '@hey/lib/getURLs';
+import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
+import type { OptimisticTransaction } from '@hey/types/misc';
+import { Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

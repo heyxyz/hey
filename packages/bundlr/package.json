@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/bundlr",
+  "name": "@hey/bundlr",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.11.0"
+    "viem": "^1.15.1"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2"
   }
 }

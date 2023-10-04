@@ -1,5 +1,5 @@
-import response from '@lenster/lib/response';
-import createSupabaseClient from '@lenster/supabase/createSupabaseClient';
+import response from '@hey/lib/response';
+import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
 import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';

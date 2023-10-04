@@ -16,14 +16,14 @@ describe('postMetadata', () => {
     const postRequest = await fetch(TEST_URL, {
       method: 'POST',
       body: JSON.stringify({
-        content: 'gm, running test from lenster codebase'
+        content: 'gm, running test from hey codebase'
       })
     });
     const response: any = await postRequest.json();
 
     expect(response.success).toBeTruthy();
     expect(response.metadata).toEqual({
-      content: 'gm, running test from lenster codebase',
+      content: 'gm, running test from hey codebase',
       tags: ['science_&_technology'],
       locale: 'en'
     });

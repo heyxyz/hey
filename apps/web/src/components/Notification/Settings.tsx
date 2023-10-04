@@ -1,6 +1,6 @@
 import HighSignalNotificationFilter from '@components/Settings/Preferences/HighSignalNotificationFilter';
 import { BellIcon, Cog6ToothIcon } from '@heroicons/react/24/outline';
-import { Modal, Tooltip } from '@lenster/ui';
+import { Modal, Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

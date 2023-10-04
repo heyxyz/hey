@@ -1,4 +1,4 @@
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
 
 /**
  * Format the given handle by conditionally removing or appending the .lens or .test suffix.

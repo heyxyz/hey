@@ -1,8 +1,9 @@
-import { Errors } from '@lenster/data/errors';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import ingest from './handlers/ingest';
+import profileDetails from './handlers/profileDetails';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -22,6 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
+  .get('/profile', profileDetails)
   .post('/ingest', ingest)
   .all('*', () => error(404));
 

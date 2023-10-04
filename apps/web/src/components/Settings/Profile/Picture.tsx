@@ -1,27 +1,27 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@lenster/abis';
-import { AVATAR, LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
-import type { Area } from '@lenster/image-cropper/types';
+import { LensHub } from '@hey/abis';
+import { AVATAR, LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import { getCroppedImg } from '@hey/image-cropper/cropUtils';
+import type { Area } from '@hey/image-cropper/types';
 import type {
   MediaSet,
   NftImage,
   Profile,
   UpdateProfileImageRequest
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
-} from '@lenster/lens';
-import getSignature from '@lenster/lib/getSignature';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Button, ErrorMessage, Image, Modal, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import getSignature from '@hey/lib/getSignature';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import { Button, ErrorMessage, Image, Modal, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';

@@ -26045,23 +26045,11 @@ export type HasTxHashBeenIndexedQuery = {
       };
 };
 
-export type InvitesQueryVariables = Exact<{ [key: string]: never }>;
-
-export type InvitesQuery = {
-  __typename?: 'Query';
-  invitesLeft: number;
-  invited: Array<{
-    __typename?: 'InvitedResult';
-    address: any;
-    when?: any | null;
-  }>;
-};
-
-export type LensterStatsQueryVariables = Exact<{
+export type HeyStatsQueryVariables = Exact<{
   request?: InputMaybe<GlobalProtocolStatsRequest>;
 }>;
 
-export type LensterStatsQuery = {
+export type HeyStatsQuery = {
   __typename?: 'Query';
   globalProtocolStats: {
     __typename?: 'GlobalProtocolStats';
@@ -26073,6 +26061,18 @@ export type LensterStatsQuery = {
     totalCollects: number;
     totalFollows: number;
   };
+};
+
+export type InvitesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type InvitesQuery = {
+  __typename?: 'Query';
+  invitesLeft: number;
+  invited: Array<{
+    __typename?: 'InvitedResult';
+    address: any;
+    when?: any | null;
+  }>;
 };
 
 export type LikesQueryVariables = Exact<{
@@ -54128,6 +54128,65 @@ export type HasTxHashBeenIndexedQueryResult = Apollo.QueryResult<
   HasTxHashBeenIndexedQuery,
   HasTxHashBeenIndexedQueryVariables
 >;
+export const HeyStatsDocument = gql`
+  query HeyStats($request: GlobalProtocolStatsRequest) {
+    globalProtocolStats(request: $request) {
+      totalProfiles
+      totalPosts
+      totalBurntProfiles
+      totalMirrors
+      totalComments
+      totalCollects
+      totalFollows
+    }
+  }
+`;
+
+/**
+ * __useHeyStatsQuery__
+ *
+ * To run a query within a React component, call `useHeyStatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHeyStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useHeyStatsQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useHeyStatsQuery(
+  baseOptions?: Apollo.QueryHookOptions<HeyStatsQuery, HeyStatsQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<HeyStatsQuery, HeyStatsQueryVariables>(
+    HeyStatsDocument,
+    options
+  );
+}
+export function useHeyStatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    HeyStatsQuery,
+    HeyStatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<HeyStatsQuery, HeyStatsQueryVariables>(
+    HeyStatsDocument,
+    options
+  );
+}
+export type HeyStatsQueryHookResult = ReturnType<typeof useHeyStatsQuery>;
+export type HeyStatsLazyQueryHookResult = ReturnType<
+  typeof useHeyStatsLazyQuery
+>;
+export type HeyStatsQueryResult = Apollo.QueryResult<
+  HeyStatsQuery,
+  HeyStatsQueryVariables
+>;
 export const InvitesDocument = gql`
   query Invites {
     invitesLeft
@@ -54176,70 +54235,6 @@ export type InvitesLazyQueryHookResult = ReturnType<typeof useInvitesLazyQuery>;
 export type InvitesQueryResult = Apollo.QueryResult<
   InvitesQuery,
   InvitesQueryVariables
->;
-export const LensterStatsDocument = gql`
-  query LensterStats($request: GlobalProtocolStatsRequest) {
-    globalProtocolStats(request: $request) {
-      totalProfiles
-      totalPosts
-      totalBurntProfiles
-      totalMirrors
-      totalComments
-      totalCollects
-      totalFollows
-    }
-  }
-`;
-
-/**
- * __useLensterStatsQuery__
- *
- * To run a query within a React component, call `useLensterStatsQuery` and pass it any options that fit your needs.
- * When your component renders, `useLensterStatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLensterStatsQuery({
- *   variables: {
- *      request: // value for 'request'
- *   },
- * });
- */
-export function useLensterStatsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    LensterStatsQuery,
-    LensterStatsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<LensterStatsQuery, LensterStatsQueryVariables>(
-    LensterStatsDocument,
-    options
-  );
-}
-export function useLensterStatsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    LensterStatsQuery,
-    LensterStatsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<LensterStatsQuery, LensterStatsQueryVariables>(
-    LensterStatsDocument,
-    options
-  );
-}
-export type LensterStatsQueryHookResult = ReturnType<
-  typeof useLensterStatsQuery
->;
-export type LensterStatsLazyQueryHookResult = ReturnType<
-  typeof useLensterStatsLazyQuery
->;
-export type LensterStatsQueryResult = Apollo.QueryResult<
-  LensterStatsQuery,
-  LensterStatsQueryVariables
 >;
 export const LikesDocument = gql`
   query Likes($request: WhoReactedPublicationRequest!) {

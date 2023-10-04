@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';

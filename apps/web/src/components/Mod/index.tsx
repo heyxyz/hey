@@ -1,12 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { APP_NAME } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
+import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
   PublicationTypes
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   Button,
   Card,
@@ -14,7 +14,7 @@ import {
   GridItemEight,
   GridItemFour,
   GridLayout
-} from '@lenster/ui';
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';

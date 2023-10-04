@@ -1,4 +1,4 @@
-import { Toggle } from '@lenster/ui';
+import { Toggle } from '@hey/ui';
 import type { FC, ReactNode } from 'react';
 
 interface ToggleWithHelperProps {

@@ -1,8 +1,8 @@
 import { StarIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { Button, Modal } from '@lenster/ui';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import dynamic from 'next/dynamic';
@@ -47,7 +47,6 @@ const SuperFollow: FC<SuperFollowProps> = ({
     <>
       <Button
         className="!px-3 !py-1.5 text-sm"
-        variant="super"
         outline
         onClick={() => {
           if (!currentProfile) {

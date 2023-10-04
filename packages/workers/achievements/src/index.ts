@@ -1,8 +1,8 @@
-import { Errors } from '@lenster/data/errors';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import hasUsedLenster from './handlers/hasUsedLenster';
+import haveUsedHey from './handlers/haveUsedHey';
 import streaksCalendar from './handlers/streaksCalendar';
 import streaksList from './handlers/streaksList';
 import buildRequest from './helpers/buildRequest';
@@ -24,7 +24,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/hasUsedLenster/:id', hasUsedLenster)
+  .get('/haveUsedHey/:id', haveUsedHey)
   .get('/streaks/:id', streaksCalendar)
   .get('/streaks/:id/:date', streaksList)
   .all('*', () => error(404));

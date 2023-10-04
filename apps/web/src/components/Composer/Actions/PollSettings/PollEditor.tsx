@@ -1,6 +1,6 @@
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { Button, Card, Input, Modal, Tooltip } from '@lenster/ui';
+import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
 import { Plural, t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';

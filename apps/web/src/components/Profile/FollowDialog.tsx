@@ -1,10 +1,10 @@
 import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import { Button, Image } from '@lenster/ui';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import { Button, Image } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 

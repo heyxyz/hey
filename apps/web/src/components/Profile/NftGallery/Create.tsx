@@ -1,17 +1,17 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@lenster/data/errors';
-import type { NftGallery } from '@lenster/lens';
+import { Errors } from '@hey/data/errors';
+import type { NftGallery } from '@hey/lens';
 import {
   NftGalleriesDocument,
   useCreateNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryInfoMutation,
   useUpdateNftGalleryItemsMutation
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import trimify from '@lenster/lib/trimify';
-import { Button, Input, Modal, Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import trimify from '@hey/lib/trimify';
+import { Button, Input, Modal, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';

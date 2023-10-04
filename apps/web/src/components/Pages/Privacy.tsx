@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { APP_NAME } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
+import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -52,9 +52,9 @@ const Privacy: FC = () => {
                 <p>
                   <Trans>
                     This Privacy Policy (the “Privacy Policy”) provides a
-                    comprehensive description of how Lenster (“we,” “our,” or
+                    comprehensive description of how {APP_NAME} (“we,” “our,” or
                     “us”) collects, uses, and shares information about you in
-                    connection with the website at lenster.xyz”, as well as your
+                    connection with the website at hey.xyz”, as well as your
                     rights and choices regarding such information.
                   </Trans>
                 </p>
@@ -280,7 +280,7 @@ const Privacy: FC = () => {
                 <Trans>
                   If you have any questions or comments about this Privacy
                   Policy, our data practices, or our compliance with applicable
-                  law, please contact us at privacy@lenster.xyz
+                  law, please contact us at privacy@hey.xyz
                 </Trans>
               </p>
               {/* 10. Contact ends */}

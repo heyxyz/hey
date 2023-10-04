@@ -1,5 +1,5 @@
-import { Regex } from '@lenster/data/regex';
-import trimify from '@lenster/lib/trimify';
+import { Regex } from '@hey/data/regex';
+import trimify from '@hey/lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkBreaks from 'remark-breaks';

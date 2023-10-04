@@ -2,18 +2,18 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useProfileLazyQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import hasMisused from '@lenster/lib/hasMisused';
-import nFormatter from '@lenster/lib/nFormatter';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import truncateByWords from '@lenster/lib/truncateByWords';
-import { Image } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useProfileLazyQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import hasMisused from '@hey/lib/hasMisused';
+import nFormatter from '@hey/lib/nFormatter';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import truncateByWords from '@hey/lib/truncateByWords';
+import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
 import { Plural, Trans } from '@lingui/macro';
 import Tippy from '@tippyjs/react';

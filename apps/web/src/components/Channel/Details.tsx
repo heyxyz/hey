@@ -1,22 +1,19 @@
-import Join from '@components/Shared/Channel/Join';
 import Markup from '@components/Shared/Markup';
 import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import formatHandle from '@lenster/lib/formatHandle';
-import type { Channel } from '@lenster/types/lenster';
-import { Image, LightBox, Tooltip } from '@lenster/ui';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import formatHandle from '@hey/lib/formatHandle';
+import type { Channel } from '@hey/types/hey';
+import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import urlcat from 'urlcat';
 import { create } from 'zustand';
-
-import Members from './Members';
 
 // Member count state
 interface ChannelMemberCountState {
@@ -36,7 +33,6 @@ interface DetailsProps {
 }
 
 const Details: FC<DetailsProps> = ({ channel }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
@@ -94,19 +90,19 @@ const Details: FC<DetailsProps> = ({ channel }) => {
         <Markup>{channel.description}</Markup>
       </div>
       <div className="space-y-5">
-        <Members />
-        {currentProfile ? <Join channel={channel} /> : null}
+        {/* <Members /> */}
+        {/* {currentProfile ? <Join channel={channel} /> : null} */}
         <div className="divider w-full" />
         <div className="space-y-2">
           {channel.instagram ? (
             <MetaDetails
               icon={
                 <img
-                  src="/logo.svg"
+                  src="/logo.png"
                   className="h-4 w-4"
                   height={16}
                   width={16}
-                  alt="Lenster Logo"
+                  alt={`${APP_NAME} Logo`}
                 />
               }
             >
@@ -130,7 +126,9 @@ const Details: FC<DetailsProps> = ({ channel }) => {
               }
             >
               <Link
-                href={`https://x.com/${channel.x}`}
+                href={urlcat('https://x.com/:username', {
+                  username: channel.x
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -151,7 +149,9 @@ const Details: FC<DetailsProps> = ({ channel }) => {
               }
             >
               <Link
-                href={`https://instagram.com/${channel.instagram}`}
+                href={urlcat('https://instagram.com/:username', {
+                  username: channel.instagram
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >

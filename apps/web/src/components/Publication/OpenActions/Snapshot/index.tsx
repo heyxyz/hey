@@ -1,9 +1,9 @@
-import { LENSTER_POLLS_SPACE } from '@lenster/data/constants';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { Proposal, Vote } from '@lenster/snapshot';
-import { useProposalQuery } from '@lenster/snapshot';
-import { snapshotApolloClient } from '@lenster/snapshot/apollo';
-import { Spinner } from '@lenster/ui';
+import { HEY_POLLS_SPACE } from '@hey/data/constants';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { Proposal, Vote } from '@hey/snapshot';
+import { useProposalQuery } from '@hey/snapshot';
+import { snapshotApolloClient } from '@hey/snapshot/apollo';
+import { Spinner } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -42,13 +42,13 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
   }
 
   const { proposal, votes } = data;
-  const isLensterPoll = proposal?.space?.id === LENSTER_POLLS_SPACE;
+  const isHeyPoll = proposal?.space?.id === HEY_POLLS_SPACE;
 
   if (!proposal) {
     return null;
   }
 
-  if (isLensterPoll) {
+  if (isHeyPoll) {
     return (
       <span
         onClick={stopEventPropagation}
@@ -58,7 +58,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
-          isLensterPoll={isLensterPoll}
+          isHeyPoll={isHeyPoll}
           refetch={refetch}
         />
       </span>

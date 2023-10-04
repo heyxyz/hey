@@ -1,24 +1,24 @@
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
   Publication
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import getSignature from '@lenster/lib/getSignature';
-import cn from '@lenster/ui/cn';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import getSignature from '@hey/lib/getSignature';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';

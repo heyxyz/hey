@@ -1,4 +1,4 @@
-import type { MetadataAttributeOutput } from '@lenster/lens';
+import type { MetadataAttributeOutput } from '@hey/lens';
 import { describe, expect, test } from 'vitest';
 
 import getPublicationAttribute from './getPublicationAttribute';

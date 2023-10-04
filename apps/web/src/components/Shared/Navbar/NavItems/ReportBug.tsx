@@ -2,10 +2,11 @@ import {
   ArrowTopRightOnSquareIcon,
   HandRaisedIcon
 } from '@heroicons/react/24/outline';
-import cn from '@lenster/ui/cn';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface ReportBugProps {
   onClick?: () => void;
@@ -15,12 +16,16 @@ interface ReportBugProps {
 const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   return (
     <Link
-      href="https://github.com/lensterxyz/lenster/issues/new?assignees=bigint&labels=needs+review&template=bug_report.yml"
-      target="_blank"
+      href={urlcat('https://github.com/heyxyz/hey/issues/new', {
+        assignees: 'bigint',
+        labels: 'needs review',
+        template: 'bug_report.yml'
+      })}
       className={cn(
         'flex w-full items-center justify-between px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
+      target="_blank"
       onClick={onClick}
     >
       <div className="flex items-center space-x-1.5">

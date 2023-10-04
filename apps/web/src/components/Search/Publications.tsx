@@ -5,13 +5,13 @@ import type {
   Publication,
   PublicationSearchResult,
   SearchQueryRequest
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchPublicationsQuery
-} from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';

@@ -1,5 +1,5 @@
 {
-  "name": "@lenster/ui",
+  "name": "@hey/ui",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -14,20 +14,20 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@hey/data": "workspace:*",
+    "@hey/lib": "workspace:*",
     "@hookform/resolvers": "^3.3.1",
-    "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^2.0.0",
-    "next": "^13.5.1",
+    "next": "^13.5.4",
     "react": "^18.2.0",
-    "react-hook-form": "^7.46.1",
+    "react-hook-form": "^7.47.0",
     "tailwind-merge": "^1.14.0",
-    "zod": "^3.22.2"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
-    "@lenster/config": "workspace:*",
-    "@types/react": "^18.2.22",
+    "@hey/config": "workspace:*",
+    "@types/react": "^18.2.24",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   }

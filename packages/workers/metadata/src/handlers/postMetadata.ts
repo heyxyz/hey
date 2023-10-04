@@ -1,6 +1,6 @@
-import { createData, EthereumSigner } from '@lenster/bundlr';
-import type { PublicationMetadataV2Input } from '@lenster/lens';
-import response from '@lenster/lib/response';
+import { createData, EthereumSigner } from '@hey/bundlr';
+import type { PublicationMetadataV2Input } from '@hey/lens';
+import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
 
@@ -10,7 +10,7 @@ export default async (request: WorkerRequest) => {
     const signer = new EthereumSigner(request.env.BUNDLR_PRIVATE_KEY);
     if (payload.content?.length) {
       try {
-        const aiEndpoint = 'https://ai.lenster.xyz';
+        const aiEndpoint = 'https://ai.hey.xyz';
         const fetchPayload = {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
@@ -42,7 +42,7 @@ export default async (request: WorkerRequest) => {
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
         { name: 'content-type', value: 'application/json' },
-        { name: 'App-Name', value: 'Lenster' }
+        { name: 'App-Name', value: 'Hey.xyz' }
       ]
     });
     await tx.sign(signer);

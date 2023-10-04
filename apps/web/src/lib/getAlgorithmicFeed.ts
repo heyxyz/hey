@@ -1,6 +1,6 @@
-import { AlgorithmProvider, HomeFeedType } from '@lenster/data/enums';
-import type { Profile } from '@lenster/lens';
-import getPublicationIds from '@lenster/lib/getPublicationIds';
+import { AlgorithmProvider, HomeFeedType } from '@hey/data/enums';
+import type { Profile } from '@hey/lens';
+import getPublicationIds from '@hey/lib/getPublicationIds';
 
 /**
  * Get the algorithmic feed for a given feed type
@@ -33,11 +33,11 @@ const getAlgorithmicFeed = async (
         offset,
         profile?.handle
       ).then((data) => data);
-    case HomeFeedType.LENSTER_MOSTVIEWED:
-    case HomeFeedType.LENSTER_MOSTINTERACTED:
+    case HomeFeedType.HEY_MOSTVIEWED:
+    case HomeFeedType.HEY_MOSTINTERACTED:
       return getPublicationIds(
-        AlgorithmProvider.LENSTER,
-        feedType.replace('LENSTER_', '').toLowerCase(),
+        AlgorithmProvider.HEY,
+        feedType.replace('HEY_', '').toLowerCase(),
         limit,
         offset
       ).then((data) => data);

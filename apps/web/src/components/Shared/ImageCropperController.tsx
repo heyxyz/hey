@@ -4,8 +4,8 @@ import {
   MagnifyingGlassMinusIcon,
   MagnifyingGlassPlusIcon
 } from '@heroicons/react/24/outline';
-import ImageCropper from '@lenster/image-cropper/ImageCropper';
-import type { Area, Point, Size } from '@lenster/image-cropper/types';
+import ImageCropper from '@hey/image-cropper/ImageCropper';
+import type { Area, Point, Size } from '@hey/image-cropper/types';
 import Slider from 'rc-slider';
 import type { Dispatch, FC } from 'react';
 import { useRef, useState } from 'react';

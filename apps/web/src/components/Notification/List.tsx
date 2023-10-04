@@ -7,13 +7,13 @@ import type {
   NewMirrorNotification,
   NewReactionNotification,
   NotificationRequest
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CustomFiltersTypes,
   NotificationTypes,
   useNotificationsQuery
-} from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';

@@ -1,7 +1,7 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useDismissRecommendedProfilesMutation } from '@lenster/lens';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useDismissRecommendedProfilesMutation } from '@hey/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 

@@ -3,15 +3,15 @@ import {
   Bars3BottomLeftIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/solid';
-import { APP_NAME, SNAPSHOT_SEQUNECER_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import type { Proposal, Vote } from '@lenster/snapshot';
-import generateTypedData from '@lenster/snapshot/lib/generateTypedData';
-import { Card, Modal, Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { APP_NAME, SNAPSHOT_SEQUNECER_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import type { Proposal, Vote } from '@hey/snapshot';
+import generateTypedData from '@hey/snapshot/lib/generateTypedData';
+import { Card, Modal, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
@@ -28,14 +28,14 @@ import VoteProposal from './VoteProposal';
 interface ChoicesProps {
   proposal: Proposal;
   votes: Vote[];
-  isLensterPoll?: boolean;
+  isHeyPoll?: boolean;
   refetch?: () => void;
 }
 
 const Choices: FC<ChoicesProps> = ({
   proposal,
   votes,
-  isLensterPoll = false,
+  isHeyPoll = false,
   refetch
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -87,7 +87,7 @@ const Choices: FC<ChoicesProps> = ({
     });
   };
 
-  const voteLensterPoll = async (position: number) => {
+  const voteHeyPoll = async (position: number) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -133,8 +133,8 @@ const Choices: FC<ChoicesProps> = ({
 
   return (
     <>
-      <Card className={cn(isLensterPoll ? 'mt-3' : 'mt-5')}>
-        {!isLensterPoll ? (
+      <Card className={cn(isHeyPoll ? 'mt-3' : 'mt-5')}>
+        {!isHeyPoll ? (
           <div className="divider flex items-center justify-between px-5 py-3 ">
             <div className="flex items-center space-x-2 text-sm">
               <Bars3BottomLeftIcon className="h-4 w-4" />
@@ -149,17 +149,17 @@ const Choices: FC<ChoicesProps> = ({
               <button
                 key={choice}
                 className="flex w-full items-center space-x-2.5 rounded-xl p-2 text-xs hover:bg-gray-100 dark:hover:bg-gray-900 sm:text-sm"
-                disabled={isLensterPoll ? voteSubmitting : false}
+                disabled={isHeyPoll ? voteSubmitting : false}
                 onClick={() => {
-                  if (isLensterPoll) {
+                  if (isHeyPoll) {
                     setSelectedPosition(position);
-                    return voteLensterPoll(position);
+                    return voteHeyPoll(position);
                   }
 
                   return openVoteModal(position);
                 }}
               >
-                {isLensterPoll &&
+                {isHeyPoll &&
                 voteSubmitting &&
                 position === selectedPosition ? (
                   <Spinner className="mr-1" size="sm" />
@@ -176,7 +176,7 @@ const Choices: FC<ChoicesProps> = ({
                     <b>{choice}</b>
                     <div>
                       <span>
-                        {nFormatter(score)} {isLensterPoll ? null : symbol}
+                        {nFormatter(score)} {isHeyPoll ? null : symbol}
                       </span>
                       <span className="mx-1.5">·</span>
                       <span className="lt-text-gray-500">
@@ -195,7 +195,7 @@ const Choices: FC<ChoicesProps> = ({
             )
           )}
         </div>
-        {isLensterPoll ? (
+        {isHeyPoll ? (
           <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
             <div className="flex items-center space-x-2 text-xs text-gray-500">
               <Bars3BottomLeftIcon className="h-4 w-4" />

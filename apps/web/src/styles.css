@@ -1,4 +1,4 @@
-@import url('@lenster/image-cropper/styles.css');
+@import url('@hey/image-cropper/styles.css');
 
 @tailwind base;
 @tailwind components;
@@ -75,27 +75,6 @@ progress::-moz-progress-bar {
   @apply bg-gray-200 dark:bg-gray-900;
 }
 
-.bg-hero {
-  background: linear-gradient(
-      90deg,
-      theme('colors.white'),
-      theme('colors.white') 50%,
-      theme('colors.transparent')
-    ),
-    url(https://static-assets.lenster.xyz/images/hero.webp);
-  background-size: cover;
-}
-.dark .bg-hero {
-  background: linear-gradient(
-      90deg,
-      theme('colors.black'),
-      theme('colors.black') 50%,
-      theme('colors.transparent')
-    ),
-    url(https://static-assets.lenster.xyz/images/hero.webp);
-  background-size: cover;
-}
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -143,6 +122,10 @@ iframe {
 }
 
 /** CSS overrides for plyr audio **/
+.plyr__progress__buffer {
+  @apply !bg-white;
+}
+
 .plyr--audio .plyr__controls {
   @apply !bg-transparent !text-white;
 }
@@ -205,7 +188,6 @@ div[data-lexical-editor='true'] {
 }
 
 /* Markup styles */
-
 .markup > p,
 ul {
   @apply !leading-6 sm:!leading-7;

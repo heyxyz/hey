@@ -3,17 +3,11 @@ import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
 import Search from '@components/Shared/Navbar/Search';
 import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
-import { Errors } from '@lenster/data/errors';
-import { MESSAGES } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import {
-  Card,
-  ErrorMessage,
-  GridItemFour,
-  Modal,
-  TabButton
-} from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { Errors } from '@hey/data/errors';
+import { MESSAGES } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { Card, ErrorMessage, GridItemFour, Modal, TabButton } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';

@@ -4,8 +4,8 @@ import {
   TagIcon
 } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
-import type { Publication } from '@lenster/lens';
-import { Card } from '@lenster/ui';
+import type { Publication } from '@hey/lens';
+import { Card } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

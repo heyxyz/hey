@@ -6,9 +6,9 @@ import {
   RectangleGroupIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { IS_MAINNET } from '@lenster/data/constants';
-import { PROFILE } from '@lenster/data/tracking';
-import { TabButton } from '@lenster/ui';
+import { IS_MAINNET } from '@hey/data/constants';
+import { PROFILE } from '@hey/data/tracking';
+import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';

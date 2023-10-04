@@ -1,9 +1,9 @@
 import { ArrowRightIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
-import { MESSAGES } from '@lenster/data/tracking';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Button, Input } from '@lenster/ui';
+import { MIN_WIDTH_DESKTOP } from '@hey/data/constants';
+import { MESSAGES } from '@hey/data/tracking';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import { Button, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';

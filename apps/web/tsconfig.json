@@ -1,5 +1,5 @@
 {
-  "extends": "@lenster/config/react.tsconfig.json",
+  "extends": "@hey/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

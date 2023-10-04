@@ -1,5 +1,5 @@
 export const apps = [
-  'lenster',
+  'hey',
   'lenstube',
   'lenstube-bytes',
   'orb',

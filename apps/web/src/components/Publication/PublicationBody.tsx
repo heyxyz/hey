@@ -1,24 +1,24 @@
-import Nft from '@components/Publication/OpenActions/Nft';
 import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@lenster/lens';
-import getPublicationAttribute from '@lenster/lib/getPublicationAttribute';
-import getSnapshotProposalId from '@lenster/lib/getSnapshotProposalId';
-import getURLs from '@lenster/lib/getURLs';
-import getNft from '@lenster/lib/nft/getNft';
-import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
-import type { OG } from '@lenster/types/misc';
-import cn from '@lenster/ui/cn';
+import type { Publication } from '@hey/lens';
+import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
+import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
+import getURLs from '@hey/lib/getURLs';
+import getNft from '@hey/lib/nft/getNft';
+import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
+import type { OG } from '@hey/types/misc';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
+import Nft from './OpenActions/Nft';
 
 interface PublicationBodyProps {
   publication: Publication;
@@ -107,9 +107,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showAttachments ? (
         <Attachments attachments={metadata?.media} publication={publication} />
       ) : null}
-      {showQuotedPublication ? (
-        <Quote publicationId={quotedPublicationId} />
-      ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
@@ -119,6 +116,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           publicationId={publication.id}
           onData={onOembedData}
         />
+      ) : null}
+      {showQuotedPublication ? (
+        <Quote publicationId={quotedPublicationId} />
       ) : null}
     </div>
   );

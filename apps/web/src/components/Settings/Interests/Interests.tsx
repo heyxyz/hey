@@ -1,13 +1,13 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { SETTINGS } from '@lenster/data/tracking';
+import { SETTINGS } from '@hey/data/tracking';
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
   useRemoveProfileInterestMutation
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import { Button } from '@lenster/ui';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import { Button } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import sanitizeProfileInterests from '@lib/sanitizeProfileInterests';

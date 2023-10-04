@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ru\n"
-"Project-Id-Version: lenster\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 00:09\n"
+"PO-Revision-Date: 2023-10-03 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
-"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: ru\n"
 "X-Crowdin-File: messages.po\n"
@@ -243,6 +243,47 @@ msgstr ""
 msgid "Select GIF"
 msgstr ""
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Удалить"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr "Скопировано в буфер обмена!"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -254,12 +295,6 @@ msgstr "Продолжительность опроса"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr "Продолжительность опроса (дней)"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Удалить"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -450,8 +485,8 @@ msgid "Direct messages are here!"
 msgstr "Личные сообщения здесь!"
 
 #: src/components/Home/EnableMessages.tsx
-msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr "Активируйте XMTP, чтобы начать использовать Lenster для отправки двусторонне-зашифрованных личных сообщений друзьям."
+msgid "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -489,12 +524,43 @@ msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME} 👋"
-msgstr "Добро пожаловать в {APP_NAME} 👋"
+msgid "Welcome to {APP_NAME},"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} – представляет собой децентрализованное приложение соцсети без ограничений, созданное на основе Lens Protocol. 🌿"
+msgid "a social network built on Lens Protocol"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updating..."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updated!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Error updating."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Hey Buddy! Grab your special Hey NFT Here."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Mint now"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr ""
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -509,6 +575,7 @@ msgid "No recommendations!"
 msgstr "Нет рекомендаций!"
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/StaffPicks/index.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
 msgstr "Не удалось загрузить рекомендации"
@@ -586,6 +653,22 @@ msgstr "Укажи свои интересы"
 msgid "Update profile now"
 msgstr "Обновить профиль"
 
+#: src/components/Home/StaffPicks/index.tsx
+#~ msgid "Staff Picks"
+#~ msgstr "Staff Picks"
+
+#: src/components/Home/StaffPicks/index.tsx
+#~ msgid "No Staff picks!"
+#~ msgstr "No Staff picks!"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "What's poppin'?"
+msgstr ""
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Nothing here!"
+msgstr ""
+
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
 msgstr "Загружается предложенное"
@@ -634,6 +717,10 @@ msgstr "Не удалось загрузить тренды"
 
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
+#: src/components/Home/Waitlist.tsx
+msgid "Get early access to Lens!"
 msgstr ""
 
 #: src/components/Home/Waitlist.tsx
@@ -1032,8 +1119,8 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr "Заходя на Сайт, вы соглашаетесь не только с настоящей Политикой конфиденциальности, но и с нашими Условиями использования и любыми другими письменными соглашениями об использовании Сайта. И вы соглашаетесь с тем, что мы собираем и используем любые персональные данные (как описано здесь), а также с особенностями публичной/не требующей разрешений технологии блокчейн."
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr "Настоящая Политика конфиденциальности (далее \"Политика конфиденциальности\") содержит полное описание того, как Lenster (\"мы\", \"наш\" или \"нас\") собирает, использует и распространяет информацию о вас в отношении сайта \"lenster.xyz\", а также ваши права и возможности выбора в отношении такой информации."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
@@ -1145,8 +1232,8 @@ msgid "10. Contact"
 msgstr "10. Контакт"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "Если у вас есть какие-либо вопросы или комментарии по поводу настоящей Политики конфиденциальности, наших методов работы с данными или соблюдения нами применимого законодательства, свяжитесь с нами по адресу privacy@lenster.xyz"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1157,8 +1244,8 @@ msgid "Terms & Conditions"
 msgstr "Условия & Соглашения"
 
 #: src/components/Pages/Terms.tsx
-msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-msgstr "Веб-сайт Lenster.xyz” (далее - ”Сайт”) предлагает вам информацию, инструменты и услуги, позволяющие вам взаимодействовать с Lens Protocol — компонуемым и децентрализованным протоколом социального графа."
+msgid "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
@@ -1341,8 +1428,8 @@ msgid "12. Contact Information"
 msgstr "12. Контактная информация"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "Вопросы об Условиях следует направлять нам по адресу terms@lenster.xyz"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1422,10 +1509,6 @@ msgid "Failed to load profile feed"
 msgstr "Не удалось загрузить ленту профиля"
 
 #: src/components/Profile/FeedType.tsx
-#~ msgid "NFTs"
-#~ msgstr ""
-
-#: src/components/Profile/FeedType.tsx
 msgid "Feed"
 msgstr "Лента"
 
@@ -1503,13 +1586,6 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr ""
-
-#: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr "Скопировано в буфер обмена!"
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
@@ -1816,62 +1892,96 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "АДРЕС NFT"
 
-#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
-msgid "Type:"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
 msgid "{0} minted"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
-msgid "{0} remaining"
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} artists"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/Metadata.tsx
-msgid "Open in Zora"
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} pixels used"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} ETH earned"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "Color Palette"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
 msgid "Switch to {0}"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Shared/Channel/Mint.tsx
 msgid "You don't have balance"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
-msgid "You exceeded the mint limit"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
-msgid "Collect on Zora"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
-#: src/components/Publication/OpenActions/Nft/index.tsx
-#: src/components/Publication/OpenActions/Nft/index.tsx
-msgid "Mint on Zora"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
 msgid "Minting in progress"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
 msgid "Minted successful"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Mint on BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Contribute"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "View on OpenSea"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Collect on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
 msgid "ERC-1155 Collection"
 msgstr ""
 
-#: src/components/Publication/OpenActions/Nft/index.tsx
-msgid "Mint"
-msgstr ""
-
-#: src/components/Publication/OpenActions/Nft/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
 msgid "Mint all on Zora"
 msgstr ""
 
@@ -2157,11 +2267,20 @@ msgid "Cleared DM keys"
 msgstr "Ключи ЛС сброшены"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr "This will delete your Lens profile"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2364,8 +2483,8 @@ msgid "Interests settings • {APP_NAME}"
 msgstr "Настройки интересов • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
-msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr "Выбранные вами интересы используются для персонализации вашего взаимодействия с Lenster. Вы можете изменить свои интересы, если что-то не соответствует действительности."
+msgid "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
+msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Updating preference settings..."
@@ -2470,6 +2589,7 @@ msgid "Name"
 msgstr "Имя"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr "Местоположение"
 
@@ -2582,19 +2702,36 @@ msgid "New"
 msgstr "Новый"
 
 #: src/components/Shared/Channel/Join.tsx
-msgid "Left successfully!"
+msgid "Joined"
 msgstr ""
 
 #: src/components/Shared/Channel/Join.tsx
-msgid "Joined successfully!"
-msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
-msgid "Leave"
-msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
+#: src/components/Shared/Channel/Mint.tsx
 msgid "Join"
+msgstr ""
+
+#: src/components/Shared/Channel/Join.tsx
+msgid "Join Channel"
+msgstr ""
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "You are already a member in <0>{0}</0> channel."
+msgstr ""
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Join <0>{0}</0> channel in Zora network and get your membership NFT."
+msgstr ""
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Switch to Zora"
+msgstr ""
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Joining in progress"
+msgstr ""
+
+#: src/components/Shared/Channel/Mint.tsx
+msgid "Joined successful"
 msgstr ""
 
 #: src/components/Shared/CommentWarning.tsx
@@ -3283,6 +3420,22 @@ msgstr ""
 msgid "Trusted member"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
 msgstr ""
@@ -3313,7 +3466,7 @@ msgid "Staff tool"
 msgstr "Панель управления"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Has used {APP_NAME}"
+msgid "Have used {APP_NAME}"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
@@ -3410,8 +3563,8 @@ msgid "Image size should be less than 50MB"
 msgstr "Размер изображения не должен превышать 50 Мб"
 
 #: src/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 200MB"
-msgstr "Размер видео не должен превышать 200MB"
+msgid "Video size should be less than 500MB"
+msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"

@@ -3,14 +3,14 @@ import {
   ExclamationTriangleIcon,
   TrashIcon
 } from '@heroicons/react/24/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useCreateBurnProfileTypedDataMutation } from '@lenster/lens';
-import resetAuthData from '@lenster/lib/resetAuthData';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
+import { LensHub } from '@hey/abis';
+import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useCreateBurnProfileTypedDataMutation } from '@hey/lens';
+import resetAuthData from '@hey/lib/resetAuthData';
+import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -21,6 +21,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
+import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
@@ -34,6 +35,9 @@ const DeleteSettings: FC = () => {
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
   const handleWrongNetwork = useHandleWrongNetwork();
+  const profileGuardianInformation = useProfileGuardianInformationStore(
+    (state) => state.profileGuardianInformation
+  );
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
@@ -95,18 +99,41 @@ const DeleteSettings: FC = () => {
     }
   };
 
+  const cooldownEnded = () => {
+    const cooldownDate =
+      profileGuardianInformation.disablingProtectionTimestamp as any;
+    return new Date(cooldownDate).getTime() < Date.now();
+  };
+
+  const canDelete = !profileGuardianInformation.isProtected && cooldownEnded();
+
+  if (!canDelete) {
+    return (
+      <Card className="space-y-5 p-5">
+        <div className="text-lg font-bold text-red-500">
+          <Trans>Delete Lens profile</Trans>
+        </div>
+        <p>
+          <Trans>
+            Your profile cannot be deleted while profile guardian is enabled.
+          </Trans>
+        </p>
+      </Card>
+    );
+  }
+
   return (
     <Card className="space-y-5 p-5">
       <UserProfile profile={currentProfile as Profile} />
       <div className="text-lg font-bold text-red-500">
-        <Trans>This will delete your Lens profile</Trans>
+        <Trans>Delete Lens profile</Trans>
       </div>
       <p>
         <Trans>
           This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including Lenster.
-          All your data will be wiped out immediately and you won't be able to
-          get it back.
+          You will not be able to use any apps built on Lens, including{' '}
+          {APP_NAME}. All your data will be wiped out immediately and you won't
+          be able to get it back.
         </Trans>
       </p>
       <div className="text-lg font-bold">What else you should know</div>

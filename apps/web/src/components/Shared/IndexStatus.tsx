@@ -1,16 +1,17 @@
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { POLYGONSCAN_URL } from '@lenster/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
-import { Spinner } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { useHasTxHashBeenIndexedQuery } from '@hey/lens';
+import { Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import type { Address } from 'viem';
 
 interface IndexStatusProps {
   type?: string;
-  txHash: `0x${string}`;
+  txHash: Address;
   reload?: boolean;
 }
 

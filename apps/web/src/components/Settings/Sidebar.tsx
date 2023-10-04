@@ -11,7 +11,7 @@ import {
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
-import type { Profile } from '@lenster/lens';
+import type { Profile } from '@hey/lens';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';

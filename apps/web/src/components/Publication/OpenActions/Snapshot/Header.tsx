@@ -1,10 +1,11 @@
-import { SNAPSHOT_URL } from '@lenster/data/constants';
-import formatAddress from '@lenster/lib/formatAddress';
-import type { Proposal } from '@lenster/snapshot';
-import { Image } from '@lenster/ui';
-import cn from '@lenster/ui/cn';
+import { SNAPSHOT_URL } from '@hey/data/constants';
+import formatAddress from '@hey/lib/formatAddress';
+import type { Proposal } from '@hey/snapshot';
+import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface HeaderProps {
   proposal: Proposal;
@@ -26,7 +27,9 @@ const Header: FC<HeaderProps> = ({ proposal }) => {
           {state}
         </div>
         <Image
-          src={`https://cdn.stamp.fyi/space/${space?.id}`}
+          src={urlcat('https://cdn.stamp.fyi/space/:address', {
+            address: space?.id
+          })}
           className="mr-1 h-5 w-5 rounded-full"
           alt={space?.id}
         />

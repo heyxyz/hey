@@ -1,6 +1,6 @@
-import { Errors } from '@lenster/data/errors';
-import LensEndpoint from '@lenster/data/lens-endpoints';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import LensEndpoint from '@hey/data/lens-endpoints';
+import response from '@hey/lib/response';
 import { boolean, object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';
@@ -47,7 +47,7 @@ export default async (request: WorkerRequest) => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'User-agent': 'Lenster'
+          'User-agent': 'Hey.xyz'
         },
         body: JSON.stringify({
           query: mutation,

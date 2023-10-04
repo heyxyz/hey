@@ -1,5 +1,5 @@
 module.exports = {
-  extends: [require.resolve('@lenster/config/eslint/base.js')],
+  extends: [require.resolve('@hey/config/eslint/base.js')],
   rules: {
     'import/no-anonymous-default-export': 'off',
     'no-use-before-define': 'off'
