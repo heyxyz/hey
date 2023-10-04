@@ -72,7 +72,6 @@ export class ServiceWorkerCache {
     const response = await fetch(pathname, {
       cache: 'reload'
     });
-
     const isValidResponse =
       !response.redirected && [200, 304].includes(response.status);
 
