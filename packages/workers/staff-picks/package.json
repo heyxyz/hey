@@ -18,7 +18,7 @@
     "@hey/supabase": "workspace:*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.5",
     "itty-router": "^4.0.23",
-    "zod": "^3.22.2"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231002.0",

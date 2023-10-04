@@ -78,10 +78,10 @@
     "use-resize-observer": "^9.1.0",
     "usehooks-ts": "^2.9.1",
     "uuid": "^9.0.1",
-    "viem": "^1.15.0",
+    "viem": "^1.15.1",
     "wagmi": "^1.4.3",
     "xmtp-content-type-remote-attachment": "^1.0.7",
-    "zod": "^3.22.2",
+    "zod": "^3.22.3",
     "zustand": "^4.4.2"
   },
   "devDependencies": {
