@@ -7,7 +7,7 @@ import {
   PublicationTypes,
   useExploreFeedQuery
 } from '@hey/lens';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -15,16 +15,16 @@ import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
-  channel: Channel;
+  group: Group;
 }
 
-const Feed: FC<FeedProps> = ({ channel }) => {
+const Feed: FC<FeedProps> = ({ group }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const request: ExplorePublicationRequest = {
     publicationTypes: [PublicationTypes.Post],
     sortCriteria: PublicationSortCriteria.Latest,
-    metadata: { tags: { oneOf: channel.tags } },
+    metadata: { tags: { oneOf: group.tags } },
     limit: 30
   };
   const reactionRequest = currentProfile
@@ -34,7 +34,7 @@ const Feed: FC<FeedProps> = ({ channel }) => {
 
   const { data, loading, error, fetchMore } = useExploreFeedQuery({
     variables: { request, reactionRequest, profileId },
-    skip: !channel.id
+    skip: !group.id
   });
 
   const publications = data?.explorePublications?.items;
@@ -66,7 +66,7 @@ const Feed: FC<FeedProps> = ({ channel }) => {
       <EmptyState
         message={
           <div>
-            <span className="mr-1 font-bold">{channel.name}</span>
+            <span className="mr-1 font-bold">{group.name}</span>
             <span>{t`don't have any publications yet`}</span>
           </div>
         }
@@ -76,9 +76,7 @@ const Feed: FC<FeedProps> = ({ channel }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load channel feed`} error={error} />
-    );
+    return <ErrorMessage title={t`Failed to load group feed`} error={error} />;
   }
 
   return (

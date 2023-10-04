@@ -4,7 +4,7 @@ import { formatDate, formatTime } from '@lib/formatTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
-import FeaturedChannel from './FeaturedChannel';
+import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -53,7 +53,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                     <span> · Posted via {getAppName(publication.appId)}</span>
                   ) : null}
                 </div>
-                <FeaturedChannel tags={publication.metadata.tags} />
+                <FeaturedGroup tags={publication.metadata.tags} />
               </div>
               {showStats ? (
                 <>

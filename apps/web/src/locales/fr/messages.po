@@ -30,22 +30,6 @@ msgstr ""
 msgid "Bookmarks • {APP_NAME}"
 msgstr ""
 
-#: src/components/Channel/Details.tsx
-msgid "Featured"
-msgstr ""
-
-#: src/components/Channel/Feed.tsx
-msgid "don't have any publications yet"
-msgstr ""
-
-#: src/components/Channel/Feed.tsx
-msgid "Failed to load channel feed"
-msgstr ""
-
-#: src/components/Channel/Members.tsx
-msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
-msgstr ""
-
 #: src/components/Comment/Feed.tsx
 msgid "Failed to load comment feed"
 msgstr "Échec du chargement des commentaires"
@@ -442,6 +426,22 @@ msgstr ""
 msgid "Explore • {APP_NAME}"
 msgstr ""
 
+#: src/components/Group/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Group/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Group/Feed.tsx
+msgid "Failed to load group feed"
+msgstr ""
+
+#: src/components/Group/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
+msgstr ""
+
 #: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 msgid "Failed to load for you"
@@ -654,14 +654,6 @@ msgid "Update profile now"
 msgstr ""
 
 #: src/components/Home/StaffPicks/index.tsx
-#~ msgid "Staff Picks"
-#~ msgstr "Staff Picks"
-
-#: src/components/Home/StaffPicks/index.tsx
-#~ msgid "No Staff picks!"
-#~ msgstr "No Staff picks!"
-
-#: src/components/Home/StaffPicks/index.tsx
 msgid "What's poppin'?"
 msgstr ""
 
@@ -776,7 +768,7 @@ msgid "This is the beginning of the conversation"
 msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
-#: src/components/Shared/Channel/Join.tsx
+#: src/components/Shared/Group/Join.tsx
 msgid "Loading..."
 msgstr ""
 
@@ -1920,7 +1912,7 @@ msgstr ""
 
 #: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
-#: src/components/Shared/Channel/Mint.tsx
+#: src/components/Shared/Group/Mint.tsx
 msgid "You don't have balance"
 msgstr ""
 
@@ -2265,10 +2257,6 @@ msgstr ""
 #: src/components/Settings/Cleanup/index.tsx
 msgid "Cleared DM keys"
 msgstr ""
-
-#: src/components/Settings/Danger/Delete.tsx
-#~ msgid "This will delete your Lens profile"
-#~ msgstr "This will delete your Lens profile"
 
 #: src/components/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Delete.tsx
@@ -2701,39 +2689,6 @@ msgstr ""
 msgid "New"
 msgstr ""
 
-#: src/components/Shared/Channel/Join.tsx
-msgid "Joined"
-msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
-#: src/components/Shared/Channel/Mint.tsx
-msgid "Join"
-msgstr ""
-
-#: src/components/Shared/Channel/Join.tsx
-msgid "Join Channel"
-msgstr ""
-
-#: src/components/Shared/Channel/Mint.tsx
-msgid "You are already a member in <0>{0}</0> channel."
-msgstr ""
-
-#: src/components/Shared/Channel/Mint.tsx
-msgid "Join <0>{0}</0> channel in Zora network and get your membership NFT."
-msgstr ""
-
-#: src/components/Shared/Channel/Mint.tsx
-msgid "Switch to Zora"
-msgstr ""
-
-#: src/components/Shared/Channel/Mint.tsx
-msgid "Joining in progress"
-msgstr ""
-
-#: src/components/Shared/Channel/Mint.tsx
-msgid "Joined successful"
-msgstr ""
-
 #: src/components/Shared/CommentWarning.tsx
 msgid "You can't reply to this post"
 msgstr ""
@@ -2819,6 +2774,39 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Invites.tsx
 msgid "Invites"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Joined"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Join Group"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "You are already a member in <0>{0}</0> group."
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join <0>{0}</0> group in Zora network and get your membership NFT."
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Switch to Zora"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joining in progress"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joined successful"
 msgstr ""
 
 #: src/components/Shared/IndexStatus.tsx

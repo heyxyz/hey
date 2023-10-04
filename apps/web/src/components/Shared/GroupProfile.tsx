@@ -1,7 +1,7 @@
 import { FireIcon } from '@heroicons/react/24/solid';
 import getAvatar from '@hey/lib/getAvatar';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -10,7 +10,7 @@ import { memo } from 'react';
 import Slug from './Slug';
 
 interface GroupProfileProps {
-  group: Channel;
+  group: Group;
   linkToProfile?: boolean;
 }
 
@@ -57,7 +57,7 @@ const GroupProfile: FC<GroupProfileProps> = ({
   };
 
   return linkToProfile ? (
-    <Link href={`/c/${group.slug}`}>
+    <Link href={`/g/${group.slug}`}>
       <GroupInfo />
     </Link>
   ) : (
