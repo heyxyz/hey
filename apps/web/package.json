@@ -4,8 +4,9 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "lingui compile; next build",
-    "dev": "lingui compile; next dev --port 4783",
+    "build:sw": "node scripts/build-sw.js",
+    "build": "lingui compile; next build; pnpm run build:sw",
+    "dev": "lingui compile; pnpm run build:sw; next dev --port 4783",
     "extract": "lingui compile; lingui extract",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --fix --ext .ts,.tsx",
@@ -53,6 +54,7 @@
     "dayjs-twitter": "^0.5.0",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.6",
+    "esbuild": "^0.19.4",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
@@ -94,6 +96,7 @@
     "@types/react-dom": "^18.2.8",
     "@types/uuid": "^9.0.4",
     "autoprefixer": "^10.4.16",
+    "dotenv": "^16.3.1",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
