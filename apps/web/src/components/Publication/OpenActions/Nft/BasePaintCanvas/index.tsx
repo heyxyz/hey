@@ -11,6 +11,7 @@ import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
+import urlcat from 'urlcat';
 
 import Mint, { useBasePaintMintStore } from './Mint';
 import NftShimmer from './Shimmer';
@@ -113,7 +114,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </>
         ) : canContribute ? (
           <Link
-            href={`https://basepaint.art/mint/${canvas.id}`}
+            href={urlcat('https://basepaint.art/mint/:id', { id: canvas.id })}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -136,7 +137,10 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
           </Link>
         ) : (
           <Link
-            href={`https://opensea.io/assets/base/${BASEPAINT_CONTRACT}/${canvas.id}`}
+            href={urlcat('https://opensea.io/assets/base/:contract/:token', {
+              contract: BASEPAINT_CONTRACT,
+              token: canvas.id
+            })}
             target="_blank"
             rel="noopener noreferrer"
           >

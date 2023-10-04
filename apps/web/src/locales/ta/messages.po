@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-30 17:54\n"
+"PO-Revision-Date: 2023-10-03 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -243,6 +243,47 @@ msgstr ""
 msgid "Select GIF"
 msgstr ""
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "அழி"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -254,12 +295,6 @@ msgstr ""
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr ""
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "அழி"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -620,11 +655,11 @@ msgstr "சுயவிவரத்தை இப்போது புதுப�
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "Staff Picks"
-#~ msgstr ""
+#~ msgstr "Staff Picks"
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "No Staff picks!"
-#~ msgstr ""
+#~ msgstr "No Staff picks!"
 
 #: src/components/Home/StaffPicks/index.tsx
 msgid "What's poppin'?"
@@ -1553,13 +1588,6 @@ msgid "Report profile"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
-
-#: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
 msgstr ""
 
@@ -2239,7 +2267,16 @@ msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr "This will delete your Lens profile"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Your profile cannot be deleted while profile guardian is enabled."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2552,6 +2589,7 @@ msgid "Name"
 msgstr "பெயர்"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr "இடம்"
 
@@ -3382,6 +3420,22 @@ msgstr ""
 msgid "Trusted member"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
 msgstr ""
@@ -3556,3 +3610,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+

@@ -113,6 +113,9 @@ export const NFT_WORKER_URL = IS_PRODUCTION
 export const STAFF_PICKS_WORKER_URL = IS_PRODUCTION
   ? 'https://staff-picks.hey.xyz'
   : 'http://localhost:8095';
+export const LIVE_WORKER_URL = IS_PRODUCTION
+  ? 'https://live.hey.xyz'
+  : 'http://localhost:8096';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';

@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-30 17:54\n"
+"PO-Revision-Date: 2023-10-03 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -243,6 +243,47 @@ msgstr ""
 msgid "Select GIF"
 msgstr ""
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "删除"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr "已复制到剪贴板！"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -254,12 +295,6 @@ msgstr "投票时长"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr "投票时长（天数）"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "删除"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -620,11 +655,11 @@ msgstr "更新个人资料"
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "Staff Picks"
-#~ msgstr ""
+#~ msgstr "Staff Picks"
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "No Staff picks!"
-#~ msgstr ""
+#~ msgstr "No Staff picks!"
 
 #: src/components/Home/StaffPicks/index.tsx
 msgid "What's poppin'?"
@@ -1553,13 +1588,6 @@ msgid "Report profile"
 msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr "已复制到剪贴板！"
-
-#: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
 msgstr ""
 
@@ -2239,8 +2267,17 @@ msgid "Cleared DM keys"
 msgstr "已清除私信密钥"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
-msgstr "这将删除你的Lens账户"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr "This will delete your Lens profile"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
@@ -2552,6 +2589,7 @@ msgid "Name"
 msgstr "名称"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr "位置"
 
@@ -3382,6 +3420,22 @@ msgstr ""
 msgid "Trusted member"
 msgstr ""
 
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
 msgstr ""
@@ -3556,3 +3610,4 @@ msgstr "系统似乎出现了故障！"
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "我们会自动追踪这些错误，但如果问题仍然存在，请随时与我们联系。 与此同时，您可以尝试刷新页面。"
+

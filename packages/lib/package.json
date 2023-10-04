@@ -16,7 +16,8 @@
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.5.1",
-    "viem": "^1.13.2"
+    "urlcat": "^3.1.0",
+    "viem": "^1.15.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

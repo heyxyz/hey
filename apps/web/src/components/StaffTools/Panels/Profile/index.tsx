@@ -25,6 +25,7 @@ import type { FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
 import Access from './Access';
+import ProfileDetails from './ProfileDetails';
 import Rank from './Rank';
 
 interface ProfileStaffToolProps {
@@ -133,6 +134,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       </div>
       {IS_MAINNET ? (
         <>
+          <ProfileDetails profile={profile} />
           <Rank profile={profile} />
           <Access profile={profile} />
         </>

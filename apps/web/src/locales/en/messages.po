@@ -243,6 +243,47 @@ msgstr "GIF"
 msgid "Select GIF"
 msgstr "Select GIF"
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr "Error creating live stream"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr "Go Live"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr "Stream URL:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr "Stream Key:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr "Creating Live Stream..."
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr "Create Live Stream"
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr "{0, plural, zero {day} one {day} other {days}}"
@@ -254,12 +295,6 @@ msgstr "Poll length"
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Poll length (days)"
 msgstr "Poll length (days)"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Delete"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
@@ -1553,13 +1588,6 @@ msgid "Report profile"
 msgstr "Report profile"
 
 #: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr ""
-
-#: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
 msgstr "Copy link"
 
@@ -2239,8 +2267,17 @@ msgid "Cleared DM keys"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
-msgstr "This will delete your Lens profile"
+#~ msgid "This will delete your Lens profile"
+#~ msgstr "This will delete your Lens profile"
+
+#: src/components/Settings/Danger/Delete.tsx
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr "Delete Lens profile"
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr "Your profile cannot be deleted while profile guardian is enabled."
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
@@ -2552,6 +2589,7 @@ msgid "Name"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr ""
 
@@ -3381,6 +3419,22 @@ msgstr "Lens Team member"
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr "Trusted member"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr "Leafwatch Details"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr "Total events"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr "OS"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
+msgstr "Browser"
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
