@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      channels: {
+      groups: {
         Row: {
           avatar: string;
           contract: string | null;
