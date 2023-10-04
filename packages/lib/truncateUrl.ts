@@ -7,12 +7,22 @@
  */
 const truncateUrl = (url: string, maxLength: number): string => {
   let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
-  if (new URL(url).hostname.endsWith('hey.xyz')) {
+
+  /** now we are also allowing urls that don't have https or http or www
+   * so this functions will try to give error becuse it will try to remove
+   * https from url which don't contain it so here we need to modify fucntion */
+
+  try {
+    // Check if the URL is valid before creating a URL object
+    new URL(url);
+  } catch (error) {
     return strippedUrl;
   }
+
   if (strippedUrl.length > maxLength) {
     return strippedUrl.substring(0, maxLength - 1) + '…';
   }
+
   return strippedUrl;
 };
 

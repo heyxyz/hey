@@ -8,22 +8,32 @@ const validate = (text: string) => {
 };
 
 describe('url regex', () => {
-  test('should pass for valid URLs', () => {
-    expect(validate('http://www.example.com')).toBe(true);
-    expect(validate('https://www.example.com')).toBe(true);
-    expect(validate('http://subdomain.example.com')).toBe(true);
-    expect(validate('https://www.example.com/path/to/something')).toBe(true);
-    expect(validate('http://www.example.com/page?id=123&name=John')).toBe(true);
-    expect(validate('https://www.example.com/@username')).toBe(true);
-    expect(validate('https://www.example.com/#selector')).toBe(true);
+  test('should pass for more valid URLs', () => {
+    expect(validate('http://example.com')).toBe(true);
+    expect(validate('https://example.com')).toBe(true);
+    expect(validate('ftp://example.com')).toBe(true);
+    expect(validate('http://sub.example.com')).toBe(true);
+    expect(validate('https://sub.example.com')).toBe(true);
+    expect(validate('http://example.com/path/to/page')).toBe(true);
+    expect(validate('https://example.com/path/to/page')).toBe(true);
+    expect(validate('http://example.com/page?id=123')).toBe(true);
+    expect(validate('https://example.com/page?id=123')).toBe(true);
+    expect(validate('http://example.com/page#section')).toBe(true);
+    expect(validate('https://example.com/page#section')).toBe(true);
+    expect(validate('https://example.com/page?id=123&name=John')).toBe(true);
+    expect(validate('https://example.com/page?id=123&name=John#section')).toBe(
+      true
+    );
   });
 
-  test('should fail for invalid URLs', () => {
-    expect(validate('www.example.com')).toBe(false);
-    expect(validate('example.com')).toBe(false);
-    expect(validate('example')).toBe(false);
-    expect(validate('example.')).toBe(false);
-    expect(validate('example.c')).toBe(false);
+  test('should fail for more invalid URLs', () => {
+    expect(validate('://example.com')).toBe(false);
+    expect(validate('http://')).toBe(false);
+    expect(validate('http:/example.com')).toBe(false);
+    expect(validate('http://example')).toBe(false);
+    expect(validate('http://.com')).toBe(false);
+    expect(validate('http://example..com')).toBe(false);
+    expect(validate('http://example.com/path with spaces')).toBe(false);
   });
 
   test('should pass for multiple URLs in the same string', () => {

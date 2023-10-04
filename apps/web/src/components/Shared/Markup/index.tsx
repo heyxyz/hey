@@ -13,9 +13,9 @@ import MarkupLink from './MarkupLink';
 const plugins = [
   [stripMarkdown, { keep: ['strong', 'emphasis', 'inlineCode'] }],
   remarkBreaks,
-  linkifyRegex(Regex.url),
   linkifyRegex(Regex.mention),
-  linkifyRegex(Regex.hashtag)
+  linkifyRegex(Regex.hashtag),
+  linkifyRegex(Regex.url)
 ];
 
 const components = {
