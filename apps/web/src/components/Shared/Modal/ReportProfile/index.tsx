@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { Button, Card, Form, Radio, TextArea, useZodForm } from '@lenster/ui';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -99,7 +99,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           className="flex w-full justify-center"
           type="submit"
           variant="primary"
-          icon={<PencilAltIcon className="h-4 w-4" />}
+          icon={<PencilSquareIcon className="h-4 w-4" />}
           disabled={!form.watch('type')}
         >
           <Trans>Report</Trans>

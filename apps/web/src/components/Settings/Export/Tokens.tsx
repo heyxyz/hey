@@ -1,5 +1,5 @@
-import { Localstorage } from '@lenster/data/storage';
-import { Card } from '@lenster/ui';
+import { Localstorage } from '@hey/data/storage';
+import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

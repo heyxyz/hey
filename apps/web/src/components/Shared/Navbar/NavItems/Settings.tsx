@@ -1,6 +1,6 @@
-import { CogIcon } from '@heroicons/react/outline';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 
 interface SettingsProps {
@@ -10,12 +10,14 @@ interface SettingsProps {
 const Settings: FC<SettingsProps> = ({ className = '' }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
-      <CogIcon className="h-4 w-4" />
+      <div>
+        <Cog6ToothIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Settings</Trans>
       </div>

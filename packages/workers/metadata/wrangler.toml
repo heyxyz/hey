@@ -5,12 +5,13 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "metadata.lenster.xyz", custom_domain = true }
+	{ pattern = "metadata.hey.xyz", custom_domain = true }
 ]
 
 [placement]
 mode = "smart"
 
 [env.production.vars]
+RELEASE = ""
 BUNDLR_PRIVATE_KEY = ""
 HUGGINGFACE_API_KEY = ""

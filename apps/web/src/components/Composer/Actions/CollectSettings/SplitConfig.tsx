@@ -1,16 +1,16 @@
 import Beta from '@components/Shared/Badges/Beta';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
+  ArrowsRightLeftIcon,
   PlusIcon,
-  SwitchHorizontalIcon,
   UsersIcon,
   XCircleIcon
-} from '@heroicons/react/outline';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenster/data/constants';
-import { CollectModules, useProfileLazyQuery } from '@lenster/lens';
-import isValidEthAddress from '@lenster/lib/isValidEthAddress';
-import splitNumber from '@lenster/lib/splitNumber';
-import { Button, Input } from '@lenster/ui';
+} from '@heroicons/react/24/outline';
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
+import { CollectModules, useProfileLazyQuery } from '@hey/lens';
+import isValidEthAddress from '@hey/lib/isValidEthAddress';
+import splitNumber from '@hey/lib/splitNumber';
+import { Button, Input } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -182,7 +182,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Button
               size="sm"
               outline
-              icon={<SwitchHorizontalIcon className="h-3 w-3" />}
+              icon={<ArrowsRightLeftIcon className="h-3 w-3" />}
               onClick={splitEvenly}
             >
               Split evenly

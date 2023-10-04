@@ -1,7 +1,7 @@
-import { FlagIcon } from '@heroicons/react/outline';
-import type { Profile } from '@lenster/lens';
+import { FlagIcon } from '@heroicons/react/24/outline';
+import type { Profile } from '@hey/lens';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -17,7 +17,7 @@ const Report: FC<ReportProfileProps> = ({ profile }) => {
   return (
     <button
       type="button"
-      className={clsx(
+      className={cn(
         'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm hover:bg-gray-300/20'
       )}
       onClick={() => setShowReportProfileModal(true, profile)}

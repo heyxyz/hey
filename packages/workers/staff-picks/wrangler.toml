@@ -1,0 +1,17 @@
+name = "staff-picks"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+node_compat = true
+
+routes = [
+	{ pattern = "staff-picks.hey.xyz", custom_domain = true }
+]
+
+kv_namespaces = [
+  { binding = "STAFFPICKS", id = "589dbbe3a36d4f2c922c9c06393fc3d4", preview_id = "589dbbe3a36d4f2c922c9c06393fc3d4" }
+]
+
+[env.production.vars]
+RELEASE = ""
+SUPABASE_KEY = ""

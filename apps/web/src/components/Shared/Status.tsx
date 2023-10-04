@@ -1,17 +1,17 @@
-import { PencilIcon } from '@heroicons/react/outline';
-import { LensPeriphery } from '@lenster/abis';
-import { LENS_PERIPHERY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { CreatePublicSetProfileMetadataUriRequest } from '@lenster/lens';
+import { PencilIcon } from '@heroicons/react/24/outline';
+import { LensPeriphery } from '@hey/abis';
+import { LENS_PERIPHERY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import type { CreatePublicSetProfileMetadataUriRequest } from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation,
   useProfileSettingsQuery
-} from '@lenster/lens';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import getSignature from '@lenster/lib/getSignature';
+} from '@hey/lens';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import getSignature from '@hey/lib/getSignature';
 import {
   Button,
   ErrorMessage,
@@ -19,7 +19,7 @@ import {
   Input,
   Spinner,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -27,6 +27,7 @@ import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { v4 as uuid } from 'uuid';
@@ -50,6 +51,7 @@ const Status: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [emoji, setEmoji] = useState<string>('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -141,6 +143,10 @@ const Status: FC = () => {
   const editStatus = async (emoji: string, status: string) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
@@ -236,6 +242,7 @@ const Status: FC = () => {
               showEmojiPicker={showEmojiPicker}
               emoji={emoji}
               setEmoji={setEmoji}
+              emojiClassName="mt-[8px]"
             />
           }
           placeholder={t`What's happening?`}

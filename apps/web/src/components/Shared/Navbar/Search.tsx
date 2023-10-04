@@ -1,14 +1,14 @@
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import type { Profile, ProfileSearchResult } from '@lenster/lens';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import type { Profile, ProfileSearchResult } from '@hey/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery
-} from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { Card, Input, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { Card, Input, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -56,7 +56,7 @@ const Search: FC<SearchProps> = ({
   };
 
   useEffect(() => {
-    if (pathname !== '/search' && !hideDropdown) {
+    if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
       searchUsers({
         variables: {
           request: {
@@ -84,10 +84,10 @@ const Search: FC<SearchProps> = ({
           className="px-3 py-2 text-sm"
           placeholder={placeholder}
           value={searchText}
-          iconLeft={<SearchIcon />}
+          iconLeft={<MagnifyingGlassIcon />}
           iconRight={
-            <XIcon
-              className={clsx(
+            <XMarkIcon
+              className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
@@ -101,7 +101,7 @@ const Search: FC<SearchProps> = ({
       !hideDropdown &&
       debouncedSearchText.length > 0 ? (
         <div
-          className={clsx(
+          className={cn(
             'absolute mt-2 flex w-[94%] flex-col',
             modalWidthClassName
           )}

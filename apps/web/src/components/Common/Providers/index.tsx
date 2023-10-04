@@ -1,4 +1,4 @@
-import { ApolloProvider, lensApolloWebClient } from '@lenster/lens/apollo';
+import { ApolloProvider, lensApolloWebClient } from '@hey/lens/apollo';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -11,6 +11,7 @@ import type { ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
+import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import LanguageProvider from './LanguageProvider';
 import PreferencesProvider from './PreferencesProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
@@ -26,13 +27,14 @@ const queryClient = new QueryClient({
 
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
-    <LanguageProvider>
-      <ErrorBoundary>
+    <ErrorBoundary>
+      <LanguageProvider>
         <Web3Provider>
           <ApolloProvider client={lensApolloWebClient}>
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />
+              <FeaturedGroupsProvider />
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
                 <ThemeProvider defaultTheme="light" attribute="class">
                   <Layout>{children}</Layout>
@@ -41,8 +43,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
             </QueryClientProvider>
           </ApolloProvider>
         </Web3Provider>
-      </ErrorBoundary>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 };
 

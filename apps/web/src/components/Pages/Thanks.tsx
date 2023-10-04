@@ -1,13 +1,14 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
-import { HeartIcon } from '@heroicons/react/outline';
-import { APP_NAME, STATIC_IMAGES_URL } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
+import { HeartIcon } from '@heroicons/react/24/outline';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
+import urlcat from 'urlcat';
 import { useEffectOnce } from 'usehooks-ts';
 
 interface BrandProps {
@@ -71,7 +72,10 @@ const Thanks: FC = () => {
               <Brand
                 name="Vercel"
                 logo="vercel"
-                url={`https://vercel.com/?utm_source=${APP_NAME}&utm_campaign=oss`}
+                url={urlcat('https://vercel.com', {
+                  utm_source: APP_NAME,
+                  utm_campaign: 'oss'
+                })}
                 size={40}
                 type="svg"
               >
@@ -82,7 +86,7 @@ const Thanks: FC = () => {
               <Brand
                 name="4EVERLAND"
                 logo="4everland"
-                url="https://4everland.org"
+                url={urlcat('https://4everland.org', { utm_source: APP_NAME })}
                 size={50}
                 type="png"
               >

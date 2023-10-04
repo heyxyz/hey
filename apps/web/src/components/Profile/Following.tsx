@@ -1,15 +1,16 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { FollowingRequest, Profile } from '@lenster/lens';
-import { useFollowingQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { UsersIcon } from '@heroicons/react/24/outline';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { FollowingRequest, Profile } from '@hey/lens';
+import { useFollowingQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
+import { useAppStore } from 'src/store/app';
 
 interface FollowingProps {
   profile: Profile;
@@ -18,7 +19,8 @@ interface FollowingProps {
 
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request: FollowingRequest = { address: profile?.ownedBy, limit: 30 };
+  const request: FollowingRequest = { address: profile?.ownedBy, limit: 50 };
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
     variables: { request },
@@ -102,8 +104,8 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
-                showFollow
-                showUnfollow
+                showFollow={currentProfile?.id !== following?.profile.id}
+                showUnfollow={currentProfile?.id !== following?.profile.id}
                 showUserPreview={false}
               />
             </motion.div>

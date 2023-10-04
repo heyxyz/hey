@@ -1,31 +1,31 @@
 import MetaTags from '@components/Common/MetaTags';
 import {
   ArrowDownIcon,
+  ArrowsRightLeftIcon,
   ArrowUpIcon,
-  ChatAlt2Icon,
-  CollectionIcon,
+  ChatBubbleLeftRightIcon,
   FireIcon,
-  SwitchHorizontalIcon,
-  UserAddIcon,
+  RectangleStackIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { PencilAltIcon } from '@heroicons/react/solid';
-import { APP_NAME } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { useLensterStatsQuery } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
+} from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
+import { APP_NAME } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { useHeyStatsQuery } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
 import {
   Card,
   GridItemEight,
   GridItemFour,
   GridLayout,
   Spinner
-} from '@lenster/ui';
+} from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { getTimeAddedNDayUnix, getTimeMinusNDayUnix } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { NextPage } from 'next';
 import type { FC, ReactNode } from 'react';
 import Custom404 from 'src/pages/404';
@@ -57,14 +57,14 @@ const StatBox: FC<StatBoxProps> = ({
         <div className="text-lg font-bold">{humanize(value)}</div>
         <div className="flex items-center space-x-1 text-xs">
           {differenceValue === 0 ? (
-            <SwitchHorizontalIcon className="h-3 w-3 text-yellow-500" />
+            <ArrowsRightLeftIcon className="h-3 w-3 text-yellow-500" />
           ) : differenceValue <= 0 ? (
             <ArrowDownIcon className="h-3 w-3 text-red-500" />
           ) : (
             <ArrowUpIcon className="h-3 w-3 text-green-500" />
           )}
           <span
-            className={clsx(
+            className={cn(
               differenceValue === 0
                 ? 'text-yellow-500'
                 : differenceValue <= 0
@@ -89,11 +89,11 @@ const Stats: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'stafftools', subpage: 'stats' });
   });
 
-  const { data, loading, error } = useLensterStatsQuery({
+  const { data, loading, error } = useHeyStatsQuery({
     variables: { request: { sources: [APP_NAME] } }
   });
 
-  const { data: todayData, loading: todayLoading } = useLensterStatsQuery({
+  const { data: todayData, loading: todayLoading } = useHeyStatsQuery({
     variables: {
       request: {
         sources: [APP_NAME],
@@ -103,16 +103,15 @@ const Stats: NextPage = () => {
     }
   });
 
-  const { data: yesterdayData, loading: yesterdayLoading } =
-    useLensterStatsQuery({
-      variables: {
-        request: {
-          sources: [APP_NAME],
-          fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
-          toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
-        }
+  const { data: yesterdayData, loading: yesterdayLoading } = useHeyStatsQuery({
+    variables: {
+      request: {
+        sources: [APP_NAME],
+        fromTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24 * 2,
+        toTimestamp: Math.floor(Date.now() / 1000) - 60 * 60 * 24
       }
-    });
+    }
+  });
 
   if (!staffMode) {
     return <Custom404 />;
@@ -162,7 +161,7 @@ const Stats: NextPage = () => {
                   title={t`profiles burnt`}
                 />
                 <StatBox
-                  icon={<PencilAltIcon className="h-6 w-6" />}
+                  icon={<PencilSquareIcon className="h-6 w-6" />}
                   value={stats?.totalPosts}
                   todayValue={todayStats?.totalPosts}
                   differenceValue={
@@ -173,7 +172,7 @@ const Stats: NextPage = () => {
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
-                  icon={<SwitchHorizontalIcon className="h-6 w-6" />}
+                  icon={<ArrowsRightLeftIcon className="h-6 w-6" />}
                   value={stats?.totalMirrors}
                   todayValue={todayStats?.totalMirrors}
                   differenceValue={
@@ -182,7 +181,7 @@ const Stats: NextPage = () => {
                   title={t`total mirrors`}
                 />
                 <StatBox
-                  icon={<ChatAlt2Icon className="h-6 w-6" />}
+                  icon={<ChatBubbleLeftRightIcon className="h-6 w-6" />}
                   value={stats?.totalComments}
                   todayValue={todayStats?.totalComments}
                   differenceValue={
@@ -193,7 +192,7 @@ const Stats: NextPage = () => {
               </div>
               <div className="block justify-between space-y-3 sm:flex sm:space-x-3 sm:space-y-0">
                 <StatBox
-                  icon={<CollectionIcon className="h-6 w-6" />}
+                  icon={<RectangleStackIcon className="h-6 w-6" />}
                   value={stats?.totalCollects}
                   todayValue={todayStats?.totalCollects}
                   differenceValue={
@@ -202,7 +201,7 @@ const Stats: NextPage = () => {
                   title={t`total collects`}
                 />
                 <StatBox
-                  icon={<UserAddIcon className="h-6 w-6" />}
+                  icon={<UserPlusIcon className="h-6 w-6" />}
                   value={stats?.totalFollows}
                   todayValue={todayStats?.totalFollows}
                   differenceValue={

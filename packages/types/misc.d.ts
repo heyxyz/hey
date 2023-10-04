@@ -1,8 +1,8 @@
-import type { MediaSet } from '@lenster/lens';
+import type { MediaSet } from '@hey/lens';
 
 export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
 
-export interface NewLensterAttachment extends MediaSetWithoutOnChain {
+export interface NewAttachment extends MediaSetWithoutOnChain {
   id: string;
   file?: File;
   previewItem: string;
@@ -17,14 +17,14 @@ export interface UserSuggestion {
 }
 
 export interface OG {
-  title: string;
-  description: string;
-  site: string;
   url: string;
-  favicon: string;
-  thumbnail: string;
-  isLarge: boolean;
-  html: string;
+  title: string | null;
+  description: string | null;
+  site: string | null;
+  image: string | null;
+  favicon: string | null;
+  isLarge: boolean | null;
+  html: string | null;
 }
 
 export interface ProfileInterest {

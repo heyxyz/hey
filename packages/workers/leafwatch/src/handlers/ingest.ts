@@ -1,7 +1,8 @@
-import { Errors } from '@lenster/data/errors';
-import { ALL_EVENTS } from '@lenster/data/tracking';
-import response from '@lenster/lib/response';
+import { Errors } from '@hey/data/errors';
+import { ALL_EVENTS } from '@hey/data/tracking';
+import response from '@hey/lib/response';
 import UAParser from 'ua-parser-js';
+import urlcat from 'urlcat';
 import { any, object, string } from 'zod';
 
 import checkEventExistence from '../helpers/checkEventExistence';
@@ -57,9 +58,13 @@ export default async (request: WorkerRequest) => {
       country: string;
       regionName: string;
     } | null = null;
+
     try {
       const ipResponse = await fetch(
-        `https://pro.ip-api.com/json/${ip}?key=${request.env.IPAPI_KEY}`
+        urlcat('https://pro.ip-api.com/json/:ip', {
+          ip,
+          key: request.env.IPAPI_KEY
+        })
       );
       ipData = await ipResponse.json();
     } catch {}
@@ -125,7 +130,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true });
   } catch (error) {
-    request.sentry?.captureException(error);
     throw error;
   }
 };

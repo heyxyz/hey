@@ -6,11 +6,11 @@ import CommentWarning from '@components/Shared/CommentWarning';
 import Footer from '@components/Shared/Footer';
 import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
-import { APP_NAME } from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { usePublicationQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { APP_NAME } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { usePublicationQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -80,7 +80,7 @@ const ViewPublication: NextPage = () => {
       />
       <GridItemEight className="space-y-5">
         <Card>
-          <FullPublication publication={publication} />
+          <FullPublication publication={publication} key={publication?.id} />
         </Card>
         {currentProfile && !publication?.hidden && !showNewPostModal ? (
           canComment ? (

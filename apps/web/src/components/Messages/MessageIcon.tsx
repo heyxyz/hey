@@ -1,4 +1,4 @@
-import { MailIcon } from '@heroicons/react/outline';
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
@@ -137,7 +137,7 @@ const MessageIcon: FC = () => {
         currentProfile && clearMessagesBadge(currentProfile.id);
       }}
     >
-      <MailIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+      <EnvelopeIcon className="h-5 w-5 sm:h-6 sm:w-6" />
       {showMessagesBadge.get(currentProfile?.id) ? (
         <span className="h-2 w-2 rounded-full bg-red-500" />
       ) : null}

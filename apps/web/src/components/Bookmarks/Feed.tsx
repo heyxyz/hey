@@ -1,13 +1,13 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { BookmarkIcon } from '@heroicons/react/outline';
+import { BookmarkIcon } from '@heroicons/react/24/outline';
 import type {
   Publication,
   PublicationMainFocus,
   PublicationsProfileBookmarkedQueryRequest
-} from '@lenster/lens';
-import { usePublicationsProfileBookmarksQuery } from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { usePublicationsProfileBookmarksQuery } from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -26,7 +26,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
     metadata: {
       ...(focus && { mainContentFocus: [focus] })
     },
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

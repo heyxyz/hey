@@ -1,22 +1,23 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { KeyIcon } from '@heroicons/react/outline';
-import { XCircleIcon } from '@heroicons/react/solid';
-import { Errors } from '@lenster/data/errors';
-import { Localstorage } from '@lenster/data/storage';
-import { AUTH } from '@lenster/data/tracking';
+import { KeyIcon } from '@heroicons/react/24/outline';
+import { XCircleIcon } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data/errors';
+import { Localstorage } from '@hey/data/storage';
+import { AUTH } from '@hey/data/tracking';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useUserProfilesLazyQuery
-} from '@lenster/lens';
-import getWalletDetails from '@lenster/lib/getWalletDetails';
-import { Button, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import getWalletDetails from '@hey/lib/getWalletDetails';
+import { Button, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -25,15 +26,15 @@ import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
   useAccount,
+  useChainId,
   useConnect,
   useDisconnect,
-  useNetwork,
   useSignMessage
 } from 'wagmi';
 
 interface WalletSelectorProps {
-  setHasConnected: Dispatch<SetStateAction<boolean>>;
-  setHasProfile: Dispatch<SetStateAction<boolean>>;
+  setHasConnected?: Dispatch<SetStateAction<boolean>>;
+  setHasProfile?: Dispatch<SetStateAction<boolean>>;
 }
 
 const WalletSelector: FC<WalletSelectorProps> = ({
@@ -54,7 +55,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const isMounted = useIsMounted();
-  const { chain } = useNetwork();
+  const chain = useChainId();
   const {
     connectors,
     error,
@@ -77,7 +78,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     try {
       const account = await connectAsync({ connector });
       if (account) {
-        setHasConnected(true);
+        setHasConnected?.(true);
       }
       Leafwatch.track(AUTH.CONNECT_WALLET, {
         wallet: connector.name.toLowerCase()
@@ -119,7 +120,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
 
       if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile(false);
+        setHasProfile?.(false);
         keepModal = true;
       } else {
         const profiles: any = profilesData?.profiles?.items
@@ -146,20 +147,14 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
-        {chain?.id === CHAIN_ID ? (
+        {chain === CHAIN_ID ? (
           <Button
             disabled={isLoading}
             icon={
               isLoading ? (
                 <Spinner className="mr-0.5" size="xs" />
               ) : (
-                <img
-                  className="mr-0.5 h-4 w-4"
-                  height={16}
-                  width={16}
-                  src="/lens.png"
-                  alt="Lens Logo"
-                />
+                <img className="mr-0.5 h-3" src="/lens.svg" alt="Lens Logo" />
               )
             }
             onClick={handleSign}
@@ -167,7 +162,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
             <Trans>Sign-In with Lens</Trans>
           </Button>
         ) : (
-          <SwitchNetwork />
+          <SwitchNetwork toChainId={CHAIN_ID} />
         )}
         <button
           onClick={() => {
@@ -191,49 +186,53 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     </div>
   ) : (
     <div className="inline-block w-full space-y-3 overflow-hidden text-left align-middle">
-      {connectors.map((connector) => {
-        return (
-          <button
-            type="button"
-            key={connector.id}
-            className={clsx(
-              {
-                'hover:bg-gray-100 dark:hover:bg-gray-700':
-                  connector.id !== activeConnector?.id
-              },
-              'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
-            )}
-            onClick={() => onConnect(connector)}
-            disabled={
-              isMounted()
-                ? !connector.ready || connector.id === activeConnector?.id
-                : false
-            }
-          >
-            <span>
-              {isMounted()
-                ? connector.id === 'injected'
-                  ? t`Browser Wallet`
-                  : getWalletDetails(connector.name).name
-                : getWalletDetails(connector.name).name}
-              {isMounted() ? !connector.ready && ' (unsupported)' : ''}
-            </span>
-            <div className="flex items-center space-x-4">
-              {isConnectLoading && pendingConnector?.id === connector.id ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : null}
-              <img
-                src={getWalletDetails(connector.name).logo}
-                draggable={false}
-                className="h-6 w-6"
-                height={24}
-                width={24}
-                alt={connector.id}
-              />
-            </div>
-          </button>
-        );
-      })}
+      {connectors
+        .filter((connector) => {
+          return isMobile ? connector.id !== 'injected' : true;
+        })
+        .map((connector) => {
+          return (
+            <button
+              type="button"
+              key={connector.id}
+              className={cn(
+                {
+                  'hover:bg-gray-100 dark:hover:bg-gray-700':
+                    connector.id !== activeConnector?.id
+                },
+                'flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border px-4 py-3 outline-none dark:border-gray-700'
+              )}
+              onClick={() => onConnect(connector)}
+              disabled={
+                isMounted()
+                  ? !connector.ready || connector.id === activeConnector?.id
+                  : false
+              }
+            >
+              <span>
+                {isMounted()
+                  ? connector.id === 'injected'
+                    ? t`Browser Wallet`
+                    : getWalletDetails(connector.name).name
+                  : getWalletDetails(connector.name).name}
+                {isMounted() ? !connector.ready && ' (unsupported)' : ''}
+              </span>
+              <div className="flex items-center space-x-4">
+                {isConnectLoading && pendingConnector?.id === connector.id ? (
+                  <Spinner className="mr-0.5" size="xs" />
+                ) : null}
+                <img
+                  src={getWalletDetails(connector.name).logo}
+                  draggable={false}
+                  className="h-6 w-6"
+                  height={24}
+                  width={24}
+                  alt={connector.id}
+                />
+              </div>
+            </button>
+          );
+        })}
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />

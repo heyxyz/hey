@@ -1,11 +1,11 @@
-import { PhotographIcon } from '@heroicons/react/outline';
-import { ATTACHMENT } from '@lenster/data/constants';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Image, Spinner } from '@lenster/ui';
+import { PhotoIcon } from '@heroicons/react/24/outline';
+import { ATTACHMENT } from '@hey/data/constants';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import { Image, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import clsx from 'clsx';
 import type { ChangeEvent, FC, Ref } from 'react';
 import { useState } from 'react';
 
@@ -64,7 +64,7 @@ const CoverImage: FC<CoverImageProps> = ({
       </button>
       {isNew ? (
         <label
-          className={clsx(
+          className={cn(
             { visible: loading && !cover, invisible: cover },
             'absolute top-0 grid h-24 w-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900 md:h-40 md:w-40'
           )}
@@ -73,7 +73,7 @@ const CoverImage: FC<CoverImageProps> = ({
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-sm text-black opacity-60 dark:text-white">
-              <PhotographIcon className="h-5 w-5" />
+              <PhotoIcon className="h-5 w-5" />
               <span>Add cover</span>
             </div>
           )}

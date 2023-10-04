@@ -1,10 +1,10 @@
 import TrendingTagShimmer from '@components/Shared/Shimmer/TrendingTagShimmer';
-import { TrendingUpIcon } from '@heroicons/react/solid';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
-import type { TagResult } from '@lenster/lens';
-import { TagSortCriteria, useTrendingQuery } from '@lenster/lens';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Card, ErrorMessage } from '@lenster/ui';
+import { ArrowTrendingUpIcon } from '@heroicons/react/24/solid';
+import { MISCELLANEOUS } from '@hey/data/tracking';
+import type { TagResult } from '@hey/lens';
+import { TagSortCriteria, useTrendingQuery } from '@hey/lens';
+import nFormatter from '@hey/lib/nFormatter';
+import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ import type { FC } from 'react';
 const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
-      <TrendingUpIcon className="h-4 w-4 text-green-500" />
+      <ArrowTrendingUpIcon className="h-4 w-4 text-green-500" />
       <div>
         <Trans>Trending</Trans>
       </div>

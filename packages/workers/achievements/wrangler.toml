@@ -5,11 +5,12 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "achievements.lenster.xyz", custom_domain = true }
+	{ pattern = "achievements.hey.xyz", custom_domain = true }
 ]
 
 [placement]
 mode = "smart"
 
 [env.production.vars]
+RELEASE = ""
 CLICKHOUSE_REST_ENDPOINT = ""

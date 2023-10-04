@@ -20,9 +20,9 @@ const handleRequest = async (request: Request, env: EnvType) => {
   }
 
   const payload: any = await request.json();
-  const { email, subject, body } = payload;
+  const { email, profile, category, subject, body } = payload;
 
-  if (!email || !subject || !body) {
+  if (!email || !category || !subject || !body) {
     return new Response(
       JSON.stringify({ success: false, message: 'Please fill all the fields' }),
       {
@@ -31,6 +31,10 @@ const handleRequest = async (request: Request, env: EnvType) => {
     );
   }
 
+  const profileInfo = profile
+    ? `User ID: ${profile.id}\nHandle: ${profile.handle}`
+    : 'Not signed in';
+  const textBody = `${profileInfo}\n\nMessage:\n${body}`;
   try {
     await fetch('https://api.postmarkapp.com/email', {
       method: 'POST',
@@ -39,15 +43,20 @@ const handleRequest = async (request: Request, env: EnvType) => {
         'X-Postmark-Server-Token': env.POSTMARK_TOKEN
       },
       body: JSON.stringify({
-        From: 'contact@lenster.xyz',
+        From: 'contact@hey.xyz',
         ReplyTo: email,
         To: 'support@lenster.freshdesk.com',
-        Subject: subject,
-        TextBody: body,
+        Subject: category + ': ' + subject,
+        TextBody: textBody,
         MessageStream: 'outbound'
       })
-    });
+    }).then((response) => {
+      if (response.status >= 400 && response.status < 600) {
+        throw new Error(`Bad response: ${response.status}`);
+      }
 
+      return response;
+    });
     return new Response(JSON.stringify({ success: true }), {
       headers
     });

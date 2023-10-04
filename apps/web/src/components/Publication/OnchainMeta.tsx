@@ -1,10 +1,11 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import type { Publication } from '@lenster/lens';
-import { Card } from '@lenster/ui';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@hey/data/constants';
+import type { Publication } from '@hey/lens';
+import { Card } from '@hey/ui';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface MetaProps {
   name: string;
@@ -22,7 +23,7 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
     >
       <div className="flex items-center space-x-1">
         <div className="text-[10px]">{name}</div>
-        <ExternalLinkIcon className="h-4 w-4" />
+        <ArrowTopRightOnSquareIcon className="h-4 w-4" />
       </div>
       <div className="truncate text-xs">{hash}</div>
     </Link>
@@ -55,16 +56,16 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta
             name={t`ARWEAVE TRANSACTION`}
-            uri={`https://arweave.app/tx/${hash}`}
+            uri={urlcat('https://arweave.net/:hash', { hash })}
             hash={hash}
           />
         ) : null}
         {publication?.isDataAvailability ? (
           <Meta
             name={t`MOMOKA PROOF`}
-            uri={`https://momoka.lens.xyz/tx/${publication.dataAvailabilityProofs
-              ?.split('/')
-              .pop()}`}
+            uri={urlcat('https://momoka.lens.xyz/tx/:proof', {
+              proof: publication.dataAvailabilityProofs?.split('/').pop()
+            })}
             hash={
               publication.dataAvailabilityProofs?.split('/').pop() as string
             }

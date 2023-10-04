@@ -1,9 +1,9 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { DotsVerticalIcon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import clsx from 'clsx';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
+import type { Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -33,8 +33,8 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           aria-label="More"
           data-testid={`publication-${publication.id}-menu`}
         >
-          <DotsVerticalIcon
-            className={clsx('lt-text-gray-500', iconClassName)}
+          <EllipsisVerticalIcon
+            className={cn('lt-text-gray-500', iconClassName)}
           />
         </button>
       </Menu.Button>

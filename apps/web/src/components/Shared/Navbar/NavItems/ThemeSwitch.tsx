@@ -1,8 +1,8 @@
-import { MoonIcon, SunIcon } from '@heroicons/react/outline';
-import { SYSTEM } from '@lenster/data/tracking';
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { SYSTEM } from '@hey/data/tracking';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
@@ -17,8 +17,8 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
   return (
     <button
       type="button"
-      className={clsx(
-        'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+      className={cn(
+        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
       onClick={() => {
@@ -32,14 +32,18 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
       <div className="flex items-center space-x-1.5">
         {theme === 'light' ? (
           <>
-            <MoonIcon className="h-4 w-4" />
+            <div>
+              <MoonIcon className="h-4 w-4" />
+            </div>
             <div>
               <Trans>Dark mode</Trans>
             </div>
           </>
         ) : (
           <>
-            <SunIcon className="h-4 w-4" />
+            <div>
+              <SunIcon className="h-4 w-4" />
+            </div>
             <div>
               <Trans>Light mode</Trans>
             </div>

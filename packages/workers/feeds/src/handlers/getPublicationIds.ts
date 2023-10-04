@@ -1,12 +1,11 @@
-import { AlgorithmProvider } from '@lenster/data/enums';
-import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
+import { AlgorithmProvider } from '@hey/data/enums';
+import response from '@hey/lib/response';
 
+import heyFeed from '../providers/hey/heyFeed';
 import k3lFeed from '../providers/k3l/k3lFeed';
-import lensterFeed from '../providers/lenster/lensterFeed';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   const provider = request.query.provider as string;
   const strategy = request.query.strategy as string;
   const profile = request.query.profile as string;
@@ -26,8 +25,8 @@ export default async (request: IRequest, env: Env) => {
       case AlgorithmProvider.K3L:
         ids = await k3lFeed(strategy, profile, limit, offset);
         break;
-      case AlgorithmProvider.LENSTER:
-        ids = await lensterFeed(strategy, limit, offset, env);
+      case AlgorithmProvider.HEY:
+        ids = await heyFeed(strategy, limit, offset, request.env);
         break;
       default:
         return response({ success: false, message: 'Invalid provider' });

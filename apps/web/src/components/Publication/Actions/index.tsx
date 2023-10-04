@@ -1,5 +1,5 @@
-import type { ElectedMirror, Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import type { ElectedMirror, Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
@@ -28,7 +28,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
 
   return (
     <span
-      className="-ml-2 flex flex-wrap items-center gap-x-6 gap-y-1 pt-3 sm:gap-8"
+      className="-ml-2 mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
       onClick={stopEventPropagation}
       aria-hidden="true"
     >

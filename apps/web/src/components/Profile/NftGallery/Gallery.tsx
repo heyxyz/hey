@@ -1,23 +1,23 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
-  ArrowsExpandIcon,
-  DotsVerticalIcon,
-  PencilAltIcon,
+  ArrowsPointingOutIcon,
+  EllipsisVerticalIcon,
+  PencilSquareIcon,
   TrashIcon
-} from '@heroicons/react/outline';
-import { Errors } from '@lenster/data/errors';
-import type { Nft, NftGallery } from '@lenster/lens';
+} from '@heroicons/react/24/outline';
+import { Errors } from '@hey/data/errors';
+import type { Nft, NftGallery } from '@hey/lens';
 import {
   NftGalleriesDocument,
   useDeleteNftGalleryMutation,
   useNftGalleriesLazyQuery,
   useUpdateNftGalleryOrderMutation
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import { Button } from '@lenster/ui';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import { Button } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -175,7 +175,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         ) : currentProfile && currentProfile?.id === gallery.profileId ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
-              <DotsVerticalIcon className="h-4 w-4" />
+              <EllipsisVerticalIcon className="h-4 w-4" />
             </Menu.Button>
             <MenuTransition>
               <Menu.Items
@@ -186,14 +186,14 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onClickEditGallery}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
                 >
                   <div className="flex items-center space-x-2">
-                    <PencilAltIcon className="h-4 w-4" />
+                    <PencilSquareIcon className="h-4 w-4" />
                     <div>
                       <Trans>Edit</Trans>
                     </div>
@@ -203,14 +203,14 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onClickRearrange}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
                   }
                 >
                   <div className="flex items-center space-x-2">
-                    <ArrowsExpandIcon className="h-4 w-4" />
+                    <ArrowsPointingOutIcon className="h-4 w-4" />
                     <div>
                       <Trans>Rearrrange</Trans>
                     </div>
@@ -220,7 +220,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   as="div"
                   onClick={onDelete}
                   className={({ active }) =>
-                    clsx(
+                    cn(
                       { 'dropdown-active': active },
                       'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
                     )
@@ -247,7 +247,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
-              <NftCard nft={nft as Nft} />
+              <NftCard nft={nft as Nft} linkToDetail />
             </div>
           ))}
         </div>

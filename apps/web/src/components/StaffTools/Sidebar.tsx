@@ -1,5 +1,5 @@
 import Sidebar from '@components/Shared/Sidebar';
-import { ChartPieIcon, ViewListIcon } from '@heroicons/react/outline';
+import { ChartPieIcon, QueueListIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
@@ -14,7 +14,7 @@ const StaffToolsSidebar: FC = () => {
         },
         {
           title: t`Relay queues`,
-          icon: <ViewListIcon className="h-4 w-4" />,
+          icon: <QueueListIcon className="h-4 w-4" />,
           url: '/stafftools/relayqueues'
         }
       ]}

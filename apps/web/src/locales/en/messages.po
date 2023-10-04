@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
-"Project-Id-Version: lenstertest\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2022-12-25 13:24\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: lenstertest\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 556737\n"
 "X-Crowdin-Language: en\n"
 "X-Crowdin-File: /src/locales/en/messages.po\n"
@@ -227,6 +227,47 @@ msgstr "GIF"
 msgid "Select GIF"
 msgstr "Select GIF"
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr "Error creating live stream"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr "Go Live"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr "Stream URL:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr "Stream Key:"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr "Creating Live Stream..."
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr "Create Live Stream"
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr "{0, plural, zero {day} one {day} other {days}}"
@@ -240,12 +281,6 @@ msgid "Poll length (days)"
 msgstr "Poll length (days)"
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "Delete"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
 msgstr "Choice {0}"
 
@@ -254,7 +289,7 @@ msgid "Add another option"
 msgstr "Add another option"
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr "Poll"
 
@@ -391,6 +426,22 @@ msgstr ""
 msgid "Explore • {APP_NAME}"
 msgstr "Explore • {APP_NAME}"
 
+#: src/components/Group/Details.tsx
+msgid "Featured"
+msgstr "Featured"
+
+#: src/components/Group/Feed.tsx
+msgid "don't have any publications yet"
+msgstr "don't have any publications yet"
+
+#: src/components/Group/Feed.tsx
+msgid "Failed to load group feed"
+msgstr "Failed to load group feed"
+
+#: src/components/Group/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
+msgstr "{membersCount, plural, zero {Member} one {Member} other {Members}}"
+
 #: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 msgid "Failed to load for you"
@@ -434,8 +485,8 @@ msgid "Direct messages are here!"
 msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
-msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr ""
+msgid "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
+msgstr "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -460,7 +511,7 @@ msgstr ""
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Shared/Unfollow.tsx
+#: src/components/Shared/Profile/Unfollow.tsx
 msgid "Following"
 msgstr ""
 
@@ -473,12 +524,43 @@ msgid "Contribute now"
 msgstr "Contribute now"
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME} 👋"
-msgstr ""
+msgid "Welcome to {APP_NAME},"
+msgstr "Welcome to {APP_NAME},"
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr ""
+msgid "a social network built on Lens Protocol"
+msgstr "a social network built on Lens Protocol"
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updating..."
+msgstr "Updating..."
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updated!"
+msgstr "Updated!"
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Error updating."
+msgstr "Error updating."
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Hey Buddy! Grab your special Hey NFT Here."
+msgstr "Hey Buddy! Grab your special Hey NFT Here."
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+msgstr "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Mint now"
+msgstr "Mint now"
+
+#: src/components/Home/HeyMembershipNft.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr "Mint"
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -493,6 +575,7 @@ msgid "No recommendations!"
 msgstr ""
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/StaffPicks/index.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
 msgstr ""
@@ -568,7 +651,15 @@ msgstr ""
 
 #: src/components/Home/SetProfile.tsx
 msgid "Update profile now"
-msgstr ""
+msgstr "Update profile now"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "What's poppin'?"
+msgstr "What's poppin'?"
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Nothing here!"
+msgstr "Nothing here!"
 
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
@@ -584,30 +675,29 @@ msgid "Tags"
 msgstr "Tags"
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "collected"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr ""
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr "mirrored"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr ""
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr ""
+msgid "commented"
+msgstr "commented"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
-msgstr "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
+msgstr "and"
 
 #: src/components/Home/Timeline/index.tsx
 msgid "Failed to load timeline"
@@ -620,6 +710,10 @@ msgstr ""
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
 msgstr "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+
+#: src/components/Home/Waitlist.tsx
+msgid "Get early access to Lens!"
+msgstr "Get early access to Lens!"
 
 #: src/components/Home/Waitlist.tsx
 msgid "Join waitlist"
@@ -645,6 +739,14 @@ msgstr ""
 msgid "Loading messages"
 msgstr ""
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr ""
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr ""
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr "Not delivered"
@@ -666,6 +768,7 @@ msgid "This is the beginning of the conversation"
 msgstr ""
 
 #: src/components/Messages/MessagesList.tsx
+#: src/components/Shared/Group/Join.tsx
 msgid "Loading..."
 msgstr ""
 
@@ -696,18 +799,6 @@ msgstr "Attachments are not loaded automatically from people you don’t follow.
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr "Large attachments are not loaded automatically."
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "Messages • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -778,6 +869,23 @@ msgstr "Custom filters"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "Gardeners"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr "Traits"
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr "Contract address"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr "Token ID"
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -941,6 +1049,30 @@ msgid "Email"
 msgstr "Email"
 
 #: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr "Category"
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr "Support"
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr "Bug report"
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr "Feature request"
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
+msgstr "Report copyright infringement"
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr "Other"
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject"
 msgstr ""
 
@@ -979,8 +1111,8 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr "By accessing the Site, you agree to not only this Privacy Policy, but also to our Terms of Use and any other written agreements for using the Site. And you agree to our collection and use of any personal data (as described here) as well as the features of public/permissionless blockchain technology."
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+msgstr "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
@@ -1092,8 +1224,8 @@ msgid "10. Contact"
 msgstr "10. Contact"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1104,8 +1236,8 @@ msgid "Terms & Conditions"
 msgstr "Terms & Conditions"
 
 #: src/components/Pages/Terms.tsx
-msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-msgstr "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgid "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgstr "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
 
 #: src/components/Pages/Terms.tsx
 msgid "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
@@ -1288,8 +1420,8 @@ msgid "12. Contact Information"
 msgstr "12. Contact Information"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "Questions about the Terms should be sent to us at terms@lenster.xyz"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr "Questions about the Terms should be sent to us at terms@hey.xyz"
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1381,8 +1513,8 @@ msgid "Collected"
 msgstr "Collected"
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr ""
+msgid "Gallery"
+msgstr "Gallery"
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
@@ -1446,13 +1578,6 @@ msgstr "Invited by <0/>"
 #: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr "Report profile"
-
-#: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr ""
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
@@ -1759,6 +1884,135 @@ msgstr "MOMOKA PROOF"
 msgid "NFT ADDRESS"
 msgstr ""
 
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr "{0} minted"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} artists"
+msgstr "{0} artists"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} pixels used"
+msgstr "{0} pixels used"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} ETH earned"
+msgstr "{0} ETH earned"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "Color Palette"
+msgstr "Color Palette"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr "Switch to {0}"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Shared/Group/Mint.tsx
+msgid "You don't have balance"
+msgstr "You don't have balance"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr "Minting in progress"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr "Minted successful"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "BasePaint"
+msgstr "BasePaint"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Mint on BasePaint"
+msgstr "Mint on BasePaint"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Contribute"
+msgstr "Contribute"
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "View on OpenSea"
+msgstr "View on OpenSea"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr "Type:"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr "{0} remaining"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr "Open in Zora"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr "You exceeded the mint limit"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Collect on Zora"
+msgstr "Collect on Zora"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint on Zora"
+msgstr "Mint on Zora"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr "ERC-1155 Collection"
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint all on Zora"
+msgstr "Mint all on Zora"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "This proposal is closed!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} voting is not supported yet!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr "This poll is ended!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr "Your vote has been casted!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "Current results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "Results"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr "{0} left"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "Cast your vote"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
@@ -1800,6 +2054,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr ""
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr ""
 
@@ -2004,12 +2259,17 @@ msgid "Cleared DM keys"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
-msgstr "This will delete your Lens profile"
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
+msgstr "Delete Lens profile"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
-msgstr "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr "Your profile cannot be deleted while profile guardian is enabled."
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
+msgstr "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
 
 #: src/components/Settings/Danger/Delete.tsx
 msgid "You cannot restore your Lens profile if it was accidentally or wrongfully deleted."
@@ -2211,8 +2471,8 @@ msgid "Interests settings • {APP_NAME}"
 msgstr "Interests settings • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
-msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr ""
+msgid "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
+msgstr "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Updating preference settings..."
@@ -2317,6 +2577,7 @@ msgid "Name"
 msgstr ""
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr ""
 
@@ -2417,8 +2678,8 @@ msgid "Add author"
 msgstr ""
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
-msgstr "Alpha"
+msgid "Alpha 🤫"
+msgstr "Alpha 🤫"
 
 #: src/components/Shared/Badges/Beta.tsx
 msgid "Beta"
@@ -2436,18 +2697,13 @@ msgstr ""
 msgid "Loading emojis"
 msgstr ""
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr "Emoji"
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr ""
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr ""
-
-#: src/components/Shared/Follow.tsx
-msgid "Follow"
-msgstr "Follow"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
@@ -2508,6 +2764,10 @@ msgid "Login"
 msgstr ""
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr "Wrong Network"
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr ""
 
@@ -2515,6 +2775,39 @@ msgstr ""
 #: src/components/Shared/Navbar/NavItems/Invites.tsx
 msgid "Invites"
 msgstr "Invites"
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Joined"
+msgstr "Joined"
+
+#: src/components/Shared/Group/Join.tsx
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join"
+msgstr "Join"
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Join Group"
+msgstr "Join Group"
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "You are already a member in <0>{0}</0> group."
+msgstr "You are already a member in <0>{0}</0> group."
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join <0>{0}</0> group in Zora network and get your membership NFT."
+msgstr "Join <0>{0}</0> group in Zora network and get your membership NFT."
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Switch to Zora"
+msgstr "Switch to Zora"
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joining in progress"
+msgstr "Joining in progress"
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joined successful"
+msgstr "Joined successful"
 
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
@@ -2587,6 +2880,14 @@ msgstr ""
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr "Change network"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr "Connect to the correct network to continue"
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2826,10 +3127,6 @@ msgid "Failed to report"
 msgstr ""
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr ""
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr ""
 
@@ -2926,9 +3223,38 @@ msgstr ""
 msgid "Explore"
 msgstr ""
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr "Not logged in!"
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr "Log in to continue"
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr ""
+
+#: src/components/Shared/Profile/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr ""
+
+#: src/components/Shared/Profile/Follow.tsx
+msgid "Follow"
+msgstr "Follow"
+
+#: src/components/Shared/Profile/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr "other"
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr "others"
 
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
@@ -2949,42 +3275,6 @@ msgstr "Protect now"
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "This proposal is closed!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} voting is not supported yet!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr "This poll is ended!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr "Your vote has been casted!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "Current results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "Results"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr "{0} left"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "Cast your vote"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -3056,20 +3346,20 @@ msgid "Super follow"
 msgstr "Super follow"
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Please change your network wallet!"
+msgid "Switch Network"
 msgstr ""
 
 #: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
+msgid "Please change your network wallet!"
 msgstr ""
+
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr "Loading Profiles"
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
 msgstr "Create Profile"
-
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
-msgstr ""
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
@@ -3078,6 +3368,10 @@ msgstr "You don't have enough <0>{currency}</0>"
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr ""
+
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr "No profile found"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
@@ -3107,9 +3401,28 @@ msgid "Gardener member"
 msgstr "Gardener member"
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr "Lens Team member"
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
 msgstr "Trusted member"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr "Leafwatch Details"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr "Total events"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr "OS"
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
+msgstr "Browser"
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
 msgid "Scores"
@@ -3141,8 +3454,8 @@ msgid "Staff tool"
 msgstr "Staff tool"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Has used {APP_NAME}"
-msgstr "Has used {APP_NAME}"
+msgid "Have used {APP_NAME}"
+msgstr "Have used {APP_NAME}"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Profile ID"
@@ -3238,8 +3551,8 @@ msgid "Image size should be less than 50MB"
 msgstr "Image size should be less than 50MB"
 
 #: src/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 200MB"
-msgstr "Video size should be less than 200MB"
+msgid "Video size should be less than 500MB"
+msgstr "Video size should be less than 500MB"
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"

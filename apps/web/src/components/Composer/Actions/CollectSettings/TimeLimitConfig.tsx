@@ -1,5 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ClockIcon } from '@heroicons/react/outline';
+import { ClockIcon } from '@heroicons/react/24/outline';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';

@@ -1,24 +1,25 @@
-import { StarIcon, XIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { Erc20 } from '@lenster/lens';
+import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { DEFAULT_COLLECT_TOKEN, LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { Regex } from '@hey/data/regex';
+import { SETTINGS } from '@hey/data/tracking';
+import type { Erc20 } from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModulesQuery
-} from '@lenster/lens';
-import getSignature from '@lenster/lib/getSignature';
-import getTokenImage from '@lenster/lib/getTokenImage';
-import { Button, Card, Form, Input, Spinner, useZodForm } from '@lenster/ui';
+} from '@hey/lens';
+import getSignature from '@hey/lib/getSignature';
+import getTokenImage from '@hey/lib/getTokenImage';
+import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -41,6 +42,7 @@ const SuperFollow: FC = () => {
   );
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
     useState('WMATIC');
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -111,6 +113,10 @@ const SuperFollow: FC = () => {
   ) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
@@ -225,7 +231,7 @@ const SuperFollow: FC = () => {
                 outline
                 onClick={() => setSuperFollow(null, null)}
                 disabled={isLoading}
-                icon={<XIcon className="h-4 w-4" />}
+                icon={<XMarkIcon className="h-4 w-4" />}
               >
                 <Trans>Disable Super follow</Trans>
               </Button>

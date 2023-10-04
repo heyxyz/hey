@@ -1,9 +1,8 @@
 import { decode } from '@cfworker/base64url';
-import type { IRequest } from 'itty-router';
 
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   try {
     const hash = request.query.hash as string;
     const transform = request.query.transform as 'square' | 'large' | string;
@@ -12,7 +11,7 @@ export default async (request: IRequest, env: Env) => {
     const height = isSquare ? 400 : 600;
     const width = isSquare ? 400 : 'auto';
     const image = await fetch(
-      `${env.IMAGEKIT_URL}/tr:di-placeholder.webp,h-${height},w-${width}/${url}`,
+      `${request.env.IMAGEKIT_URL}/tr:di-placeholder.webp,h-${height},w-${width}/${url}`,
       {
         cf: {
           cacheTtl: 60 * 60 * 24 * 7,

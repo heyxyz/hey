@@ -1,21 +1,24 @@
-import Unfollow from '@components/Shared/Unfollow';
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import hasMisused from '@lenster/lib/hasMisused';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import { Image } from '@lenster/ui';
+import Unfollow from '@components/Shared/Profile/Unfollow';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import hasMisused from '@hey/lib/hasMisused';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo, useState } from 'react';
 
-import Follow from './Follow';
 import Markup from './Markup';
+import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 import UserPreview from './UserPreview';
@@ -65,7 +68,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <Image
       src={getAvatar(profile)}
       loading="lazy"
-      className={clsx(
+      className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
@@ -78,14 +81,14 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserName = () => (
     <>
       <div className="flex max-w-sm items-center">
-        <div className={clsx(isBig ? 'font-bold' : 'text-md', 'grid')}>
+        <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
             {sanitizeDisplayName(profile?.name) ??
               formatHandle(profile?.handle)}
           </div>
         </div>
         {isVerified(profile.id) ? (
-          <BadgeCheckIcon className="text-brand ml-1 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
@@ -134,7 +137,7 @@ const UserProfile: FC<UserProfileProps> = ({
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
-                className={clsx(
+                className={cn(
                   isBig ? 'text-base' : 'text-sm',
                   'mt-2',
                   'linkify leading-6'

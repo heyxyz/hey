@@ -1,7 +1,7 @@
 import {
   LENS_MEDIA_SNAPSHOT_URL,
   STATIC_IMAGES_URL
-} from '@lenster/data/constants';
+} from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import imageKit from './imageKit';
@@ -12,7 +12,7 @@ describe('imageKit', () => {
     expect(result).toEqual('');
   });
 
-  test('should return the same url if it includes static-assets.lenster.xyz', () => {
+  test('should return the same url if it includes static-assets.hey.xyz', () => {
     const url = `${STATIC_IMAGES_URL}/placeholder.webp`;
     const result = imageKit(url);
     expect(result).toEqual(url);
@@ -35,7 +35,7 @@ describe('imageKit', () => {
   });
 
   test('should return the original url if name is not provided', () => {
-    const originalUrl = 'https://lenster.com/some-image.jpg';
+    const originalUrl = 'https://hey.com/some-image.jpg';
 
     expect(imageKit(originalUrl)).toBe(originalUrl);
   });

@@ -1,16 +1,13 @@
 import {
   GlobeAltIcon,
   HashtagIcon,
-  TemplateIcon
-} from '@heroicons/react/outline';
-import {
-  GIT_COMMIT_SHA,
-  IS_MAINNET,
-  IS_PRODUCTION
-} from '@lenster/data/constants';
-import clsx from 'clsx';
+  RectangleGroupIcon
+} from '@heroicons/react/24/outline';
+import { GIT_COMMIT_SHA, IS_MAINNET, IS_PRODUCTION } from '@hey/data/constants';
+import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
+import urlcat from 'urlcat';
 
 import Performance from './Performance';
 
@@ -31,7 +28,7 @@ const StaffBar: FC = () => {
         <Performance />
         <div className="flex items-center space-x-1">
           <GlobeAltIcon
-            className={clsx(
+            className={cn(
               IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500',
               'h-4 w-4'
             )}
@@ -45,7 +42,9 @@ const StaffBar: FC = () => {
         </div>
         {GIT_COMMIT_SHA ? (
           <Link
-            href={`https://github.com/lensterxyz/lenster/commit/${GIT_COMMIT_SHA}`}
+            href={urlcat('https://github.com/heyxyz/hey/commit/:sha', {
+              sha: GIT_COMMIT_SHA
+            })}
             className="flex items-center space-x-1"
             title="Git commit SHA"
             target="_blank"
@@ -58,7 +57,7 @@ const StaffBar: FC = () => {
       </div>
       <div className="flex items-center">
         <Link href="/stafftools">
-          <TemplateIcon className="h-4 w-4" />
+          <RectangleGroupIcon className="h-4 w-4" />
         </Link>
       </div>
     </div>

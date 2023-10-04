@@ -1,19 +1,19 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
-  MusicNoteIcon,
-  PhotographIcon,
+  MusicalNoteIcon,
+  PhotoIcon,
   VideoCameraIcon
-} from '@heroicons/react/outline';
+} from '@heroicons/react/24/outline';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
   ALLOWED_MEDIA_TYPES,
   ALLOWED_VIDEO_TYPES
-} from '@lenster/data/constants';
-import { Spinner, Tooltip } from '@lenster/ui';
+} from '@hey/data/constants';
+import { Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -85,7 +85,7 @@ const Attachment: FC = () => {
             <Spinner size="sm" />
           ) : (
             <Tooltip placement="top" content={t`Media`}>
-              <PhotographIcon className="text-brand h-5 w-5" />
+              <PhotoIcon className="text-brand h-5 w-5" />
             </Tooltip>
           )}
         </button>
@@ -100,14 +100,14 @@ const Attachment: FC = () => {
             as="label"
             disabled={disableImageUpload()}
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             htmlFor={`image_${id}`}
           >
-            <PhotographIcon className="text-brand h-4 w-4" />
+            <PhotoIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
@@ -123,7 +123,7 @@ const Attachment: FC = () => {
             as="label"
             disabled={Boolean(attachments.length)}
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -145,14 +145,14 @@ const Attachment: FC = () => {
             disabled={Boolean(attachments.length)}
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicNoteIcon className="text-brand h-4 w-4" />
+            <MusicalNoteIcon className="text-brand h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}

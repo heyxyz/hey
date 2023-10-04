@@ -1,18 +1,22 @@
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
-import { AVATAR } from '@lenster/data/constants';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
+import { AVATAR } from '@hey/data/constants';
 import type {
   MediaSet,
   NftImage,
   Profile,
   ProfileSearchResult
-} from '@lenster/lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import hasMisused from '@lenster/lib/hasMisused';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+} from '@hey/lens';
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import hasMisused from '@hey/lib/hasMisused';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
@@ -21,7 +25,6 @@ import {
   useBasicTypeaheadTriggerMatch
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import isVerified from '@lib/isVerified';
-import clsx from 'clsx';
 import type { TextNode } from 'lexical';
 import type { FC } from 'react';
 import { useCallback, useMemo, useState } from 'react';
@@ -146,7 +149,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
       aria-hidden="true"
     >
       <div
-        className={clsx(
+        className={cn(
           { 'bg-gray-200 dark:bg-gray-800': isSelected },
           'm-1.5 flex items-center space-x-2 rounded-xl px-3 py-1 hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800'
         )}
@@ -162,7 +165,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
           <div className="flex items-center space-x-1 text-sm">
             <span>{option.name}</span>
             {isVerified(option.id) ? (
-              <BadgeCheckIcon className="text-brand h-4 w-4" />
+              <CheckBadgeIcon className="text-brand h-4 w-4" />
             ) : null}
             {hasMisused(option.id) ? (
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />

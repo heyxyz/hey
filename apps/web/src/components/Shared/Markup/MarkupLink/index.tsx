@@ -1,5 +1,5 @@
-import truncateUrl from '@lenster/lib/truncateUrl';
-import type { MarkupLinkProps } from '@lenster/types/misc';
+import truncateUrl from '@hey/lib/truncateUrl';
+import type { MarkupLinkProps } from '@hey/types/misc';
 
 import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';

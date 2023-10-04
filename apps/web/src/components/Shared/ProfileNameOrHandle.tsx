@@ -1,7 +1,7 @@
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import clsx from 'clsx';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
 
@@ -26,7 +26,7 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
     <>
       <Link
         href={`/u/${formatHandle(profile?.handle)}`}
-        className={clsx('max-w-sm truncate hover:underline', className)}
+        className={cn('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">
           {profile?.name ? (

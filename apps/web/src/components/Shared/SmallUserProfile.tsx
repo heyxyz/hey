@@ -1,13 +1,16 @@
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import hasMisused from '@lenster/lib/hasMisused';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import { Image } from '@lenster/ui';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import hasMisused from '@hey/lib/hasMisused';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { formatTime, getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
@@ -29,7 +32,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     <Image
       src={getAvatar(profile)}
       loading="lazy"
-      className={clsx(
+      className={cn(
         smallAvatar ? 'h-5 w-5' : 'h-6 w-6',
         'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
@@ -45,7 +48,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
       </div>
       {isVerified(profile.id) ? (
-        <BadgeCheckIcon className="text-brand mr-1 h-4 w-4" />
+        <CheckBadgeIcon className="text-brand mr-1 h-4 w-4" />
       ) : null}
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />

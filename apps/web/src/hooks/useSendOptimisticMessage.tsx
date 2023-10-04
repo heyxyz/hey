@@ -256,7 +256,7 @@ const useSendOptimisticMessage = (
         }
       }
     };
-    checkUserIsOnXmtp();
+    conversationKey && checkUserIsOnXmtp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey, client]);
 

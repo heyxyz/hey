@@ -1,8 +1,8 @@
-import { ChatAlt2Icon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Tooltip } from '@lenster/ui';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import type { Publication } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import { Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -23,16 +23,16 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
     : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className="flex items-center space-x-1 text-blue-500">
+    <div className="lt-text-gray-500 flex items-center space-x-1">
       <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
         <Link href={`/posts/${publication.id}`}>
-          <div className="rounded-full p-1.5 hover:bg-blue-300/20">
+          <div className="rounded-full p-1.5 hover:bg-gray-300/20">
             <Tooltip
               placement="top"
               content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
               withDelay
             >
-              <ChatAlt2Icon className={iconClassName} />
+              <ChatBubbleLeftRightIcon className={iconClassName} />
             </Tooltip>
           </div>
         </Link>

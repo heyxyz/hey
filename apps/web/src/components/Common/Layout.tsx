@@ -1,16 +1,15 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import type { Profile } from '@lenster/lens';
-import { useUserProfilesWithGuardianInformationQuery } from '@lenster/lens';
-import resetAuthData from '@lenster/lib/resetAuthData';
+import type { Profile } from '@hey/lens';
+import { useUserProfilesWithGuardianInformationQuery } from '@hey/lens';
+import resetAuthData from '@hey/lib/resetAuthData';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
@@ -83,9 +82,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     const currentProfileAddress = currentProfile?.ownedBy;
     const isSwitchedAccount =
       currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const isWrongNetworkChain = chain?.id !== CHAIN_ID;
-    const shouldLogout =
-      !getIsAuthTokensAvailable() || isWrongNetworkChain || isSwitchedAccount;
+    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {

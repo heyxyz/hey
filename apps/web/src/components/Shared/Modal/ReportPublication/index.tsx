@@ -1,9 +1,9 @@
-import { PencilAltIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
-import { PAGEVIEW, PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
-import { useReportPublicationMutation } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
+import { useReportPublicationMutation } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
   Button,
   EmptyState,
@@ -12,7 +12,7 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -113,7 +113,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                     submitLoading ? (
                       <Spinner size="xs" />
                     ) : (
-                      <PencilAltIcon className="h-4 w-4" />
+                      <PencilSquareIcon className="h-4 w-4" />
                     )
                   }
                 >

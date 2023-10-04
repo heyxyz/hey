@@ -16,7 +16,7 @@ export enum ProfileFeedType {
   Replies = 'REPLIES',
   Media = 'MEDIA',
   Collects = 'COLLECTS',
-  Nft = 'NFT',
+  Gallery = 'GALLERY',
   Stats = 'STATS'
 }
 

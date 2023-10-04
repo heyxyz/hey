@@ -1,6 +1,6 @@
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { Nft } from '@lenster/lens';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import type { Nft } from '@hey/lens';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
@@ -51,7 +51,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
 const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.contractAddress}/${nft.tokenId}`}
+      href={`/nft/${nft.chainId}/${nft.contractAddress}/${nft.tokenId}`}
       className="w-full"
     >
       <NFTImage nft={nft} />

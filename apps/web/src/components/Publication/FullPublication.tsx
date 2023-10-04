@@ -1,9 +1,10 @@
-import type { Publication } from '@lenster/lens';
-import getAppName from '@lenster/lib/getAppName';
+import type { Publication } from '@hey/lens';
+import getAppName from '@hey/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
+import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -43,13 +44,16 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
           ) : (
             <>
               <PublicationBody publication={publication} />
-              <div className="lt-text-gray-500 my-3 text-sm">
-                <span title={formatTime(timestamp)}>
-                  {formatDate(new Date(timestamp), 'hh:mm A · MMM D, YYYY')}
-                </span>
-                {publication?.appId ? (
-                  <span> · Posted via {getAppName(publication?.appId)}</span>
-                ) : null}
+              <div className="flex items-center gap-x-3">
+                <div className="lt-text-gray-500 my-3 text-sm">
+                  <span title={formatTime(timestamp)}>
+                    {formatDate(new Date(timestamp), 'hh:mm A · MMM D, YYYY')}
+                  </span>
+                  {publication?.appId ? (
+                    <span> · Posted via {getAppName(publication.appId)}</span>
+                  ) : null}
+                </div>
+                <FeaturedGroup tags={publication.metadata.tags} />
               </div>
               {showStats ? (
                 <>

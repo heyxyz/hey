@@ -1,4 +1,4 @@
-import { Localstorage } from '@lenster/data/storage';
+import { Localstorage } from '@hey/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
@@ -43,6 +43,8 @@ interface MessageState {
   ) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
+  conversationKey: string;
+  setConversationKey: (conversationKey: string) => void;
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
   syncedProfiles: Set<string>;
@@ -140,7 +142,9 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  selectedTab: MessageTabs.Inbox,
+  conversationKey: '',
+  setConversationKey: (conversationKey) => set(() => ({ conversationKey })),
+  selectedTab: MessageTabs.Following,
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>

@@ -1,22 +1,19 @@
 import { Menu } from '@headlessui/react';
-import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/outline';
-import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/solid';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type {
-  Publication,
-  PublicationProfileBookmarkRequest
-} from '@lenster/lens';
+import { BookmarkIcon as BookmarkIconOutline } from '@heroicons/react/24/outline';
+import { BookmarkIcon as BookmarkIconSolid } from '@heroicons/react/24/solid';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication, PublicationProfileBookmarkRequest } from '@hey/lens';
 import {
   useAddPublicationProfileBookmarkMutation,
   useRemovePublicationProfileBookmarkMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -106,7 +103,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )

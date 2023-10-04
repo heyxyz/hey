@@ -1,4 +1,4 @@
-import { APP_NAME } from '@lenster/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { expect, test } from '@playwright/test';
 import { WEB_BASE_URL } from 'tests/constants';
 
@@ -12,7 +12,7 @@ test('should have page title', async ({ page }) => {
 
 test('should have hero', async ({ page }) => {
   await expect(page.getByTestId('home-hero')).toContainText(
-    'Welcome to Lenster 👋'
+    `Welcome to ${APP_NAME},a social network built on Lens Protocol`
   );
 });
 

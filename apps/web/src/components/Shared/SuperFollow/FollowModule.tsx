@@ -1,22 +1,22 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
-import { StarIcon, UserIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PROFILE } from '@lenster/data/tracking';
-import type { ApprovedAllowanceAmount, Profile } from '@lenster/lens';
+import { StarIcon, UserIcon } from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PROFILE } from '@hey/data/tracking';
+import type { ApprovedAllowanceAmount, Profile } from '@hey/lens';
 import {
   FollowModules,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useSuperFollowQuery
-} from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
-import getSignature from '@lenster/lib/getSignature';
-import getTokenImage from '@lenster/lib/getTokenImage';
-import { Button, Spinner, WarningMessage } from '@lenster/ui';
+} from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import formatHandle from '@hey/lib/formatHandle';
+import getSignature from '@hey/lib/getSignature';
+import getTokenImage from '@hey/lib/getTokenImage';
+import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
@@ -25,6 +25,7 @@ import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
@@ -58,6 +59,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -157,6 +159,10 @@ const FollowModule: FC<FollowModuleProps> = ({
   const createFollow = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
@@ -285,13 +291,12 @@ const FollowModule: FC<FollowModuleProps> = ({
           hasAmount ? (
             <Button
               className="mt-5 !px-3 !py-1.5 text-sm"
-              variant="super"
               outline
               onClick={createFollow}
               disabled={isLoading}
               icon={
                 isLoading ? (
-                  <Spinner variant="super" size="xs" />
+                  <Spinner size="xs" />
                 ) : (
                   <StarIcon className="h-4 w-4" />
                 )

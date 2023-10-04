@@ -1,21 +1,21 @@
 import { Menu } from '@headlessui/react';
-import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
-import { PUBLICATION } from '@lenster/data/tracking';
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   Publication,
   PublicationProfileNotInterestedRequest
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useAddPublicationProfileNotInterestedMutation,
   useRemovePublicationProfileNotInterestedMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -86,7 +86,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
@@ -104,7 +104,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
           </>
         ) : (
           <>
-            <EyeOffIcon className="h-4 w-4" />
+            <EyeSlashIcon className="h-4 w-4" />
             <div>Not interested</div>
           </>
         )}

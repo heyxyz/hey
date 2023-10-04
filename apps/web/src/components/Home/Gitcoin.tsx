@@ -1,6 +1,6 @@
-import { STATIC_IMAGES_URL } from '@lenster/data/constants';
-import { MISCELLANEOUS } from '@lenster/data/tracking';
-import { Card } from '@lenster/ui';
+import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { MISCELLANEOUS } from '@hey/data/tracking';
+import { Card } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -19,11 +19,11 @@ const Gitcoin: FC = () => {
       />
       <div className="space-y-3 text-center text-sm">
         <div className="font-bold">
-          Support Lenster on Gitcoin Grants Round 18
+          Support {APP_NAME} on Gitcoin Grants Round 18
         </div>
         <div>
           <Link
-            href="https://lenster.xyz/gitcoin"
+            href="https://hey.xyz/gitcoin"
             className="font-bold underline"
             target="_blank"
             onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}

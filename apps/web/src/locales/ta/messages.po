@@ -6,13 +6,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: ta\n"
-"Project-Id-Version: lenster\n"
+"Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-21 00:08\n"
+"PO-Revision-Date: 2023-10-03 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Crowdin-Project: lenster\n"
+"X-Crowdin-Project: heyxyz\n"
 "X-Crowdin-Project-ID: 552311\n"
 "X-Crowdin-Language: ta\n"
 "X-Crowdin-File: messages.po\n"
@@ -227,6 +227,47 @@ msgstr ""
 msgid "Select GIF"
 msgstr ""
 
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Error creating live stream"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/index.tsx
+msgid "Go Live"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
+#: src/components/Profile/NftGallery/Gallery.tsx
+#: src/components/Shared/Alert/DeletePublication.tsx
+msgid "Delete"
+msgstr "அழி"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream URL:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+#: src/components/Profile/Menu/Share.tsx
+#: src/components/Publication/Actions/Menu/CopyPostText.tsx
+#: src/components/Publication/Actions/Menu/Share.tsx
+#: src/components/StaffTools/Panels/MetaDetails.tsx
+msgid "Copied to clipboard!"
+msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Stream Key:"
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Creating Live Stream..."
+msgstr ""
+
+#: src/components/Composer/Actions/LivestreamSettings/LivestreamEditor.tsx
+msgid "Create Live Stream"
+msgstr ""
+
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "{0, plural, zero {day} one {day} other {days}}"
 msgstr ""
@@ -240,12 +281,6 @@ msgid "Poll length (days)"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/PollEditor.tsx
-#: src/components/Profile/NftGallery/Gallery.tsx
-#: src/components/Shared/Alert/DeletePublication.tsx
-msgid "Delete"
-msgstr "அழி"
-
-#: src/components/Composer/Actions/PollSettings/PollEditor.tsx
 msgid "Choice {0}"
 msgstr ""
 
@@ -254,7 +289,7 @@ msgid "Add another option"
 msgstr ""
 
 #: src/components/Composer/Actions/PollSettings/index.tsx
-#: src/components/Shared/Snapshot/Choices.tsx
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
 msgid "Poll"
 msgstr ""
 
@@ -391,6 +426,22 @@ msgstr "கவர்ச்சியான"
 msgid "Explore • {APP_NAME}"
 msgstr "எக்ஸ்ப்ளோர் • {APP_NAME}"
 
+#: src/components/Group/Details.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Group/Feed.tsx
+msgid "don't have any publications yet"
+msgstr ""
+
+#: src/components/Group/Feed.tsx
+msgid "Failed to load group feed"
+msgstr ""
+
+#: src/components/Group/Members.tsx
+msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
+msgstr ""
+
 #: src/components/Home/AlgorithmicFeed.tsx
 #: src/components/Home/ForYou.tsx
 msgid "Failed to load for you"
@@ -434,8 +485,8 @@ msgid "Direct messages are here!"
 msgstr "நேரடி செய்திகள் இங்கே!"
 
 #: src/components/Home/EnableMessages.tsx
-msgid "Activate XMTP to start using Lenster to send end-to-end encrypted DMs to frens."
-msgstr "என்ட்-டு-எண்ட் என்க்ரிப்ட் செய்யப்பட்ட டிஎம்களை நண்பர்களுக்கு அனுப்ப லென்ஸ்டரைப் பயன்படுத்ததுவதற்கு எக்ஸ்எம்டிபியை ஆக்டிவேட் செய்யவும்."
+msgid "Activate XMTP to start using {APP_NAME} to send end-to-end encrypted DMs to frens."
+msgstr ""
 
 #: src/components/Home/EnableMessages.tsx
 msgid "Enable DMs"
@@ -460,7 +511,7 @@ msgstr "விருப்பங்களைக் காட்டு"
 
 #: src/components/Home/FeedType.tsx
 #: src/components/Profile/Followerings.tsx
-#: src/components/Shared/Unfollow.tsx
+#: src/components/Shared/Profile/Unfollow.tsx
 msgid "Following"
 msgstr "பின்தொடர்கிறீர்கள்"
 
@@ -473,12 +524,43 @@ msgid "Contribute now"
 msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "Welcome to {APP_NAME} 👋"
-msgstr "{APP_NAME} க்கு வரவேற்கிறோம் 👋"
+msgid "Welcome to {APP_NAME},"
+msgstr ""
 
 #: src/components/Home/Hero.tsx
-msgid "{APP_NAME} is a decentralized, and permissionless social media app built with Lens Protocol 🌿"
-msgstr "{APP_NAME} என்பது லென்ஸ் புரோட்டோகால் 🌿 மூலம் உருவாக்கப்பட்ட ஒரு பரவலாக்கப்பட்ட மற்றும் அனுமதியற்ற சமூக ஊடகப் பயன்பாடாகும்"
+msgid "a social network built on Lens Protocol"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updating..."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Updated!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Error updating."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Hey Buddy! Grab your special Hey NFT Here."
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "New or OG, this NFT's for our epic times together. Let's keep the vibe alive!"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+msgid "Mint now"
+msgstr ""
+
+#: src/components/Home/HeyMembershipNft.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint"
+msgstr ""
 
 #: src/components/Home/Highlights.tsx
 msgid "Failed to load highlights"
@@ -493,6 +575,7 @@ msgid "No recommendations!"
 msgstr "பரிந்துரைகள் இல்லை!"
 
 #: src/components/Home/RecommendedProfiles.tsx
+#: src/components/Home/StaffPicks/index.tsx
 #: src/components/Home/Suggested.tsx
 msgid "Failed to load recommendations"
 msgstr "பரிந்துரைகளை ஏற்ற முடியவில்லை"
@@ -570,6 +653,14 @@ msgstr "உங்கள் ஆர்வங்களைத் தேர்ந்�
 msgid "Update profile now"
 msgstr "சுயவிவரத்தை இப்போது புதுப்பிக்கவும்"
 
+#: src/components/Home/StaffPicks/index.tsx
+msgid "What's poppin'?"
+msgstr ""
+
+#: src/components/Home/StaffPicks/index.tsx
+msgid "Nothing here!"
+msgstr ""
+
 #: src/components/Home/Suggested.tsx
 msgid "Loading suggested"
 msgstr ""
@@ -584,29 +675,28 @@ msgid "Tags"
 msgstr ""
 
 #: src/components/Home/Timeline/EventType/Collected.tsx
+#: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
 msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "mirrored{0}"
-msgstr "{0} மிரர் செய்யப்பட்டது"
+#: src/components/Home/Timeline/EventType/Mirrored.tsx
+#: src/components/Publication/Type/Mirrored.tsx
+msgid "mirrored"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "commented{0}{1}"
-msgstr "கருத்து தெரிவிக்கப்பட்டது{0}{1}"
-
-#: src/components/Home/Timeline/EventType/Combined.tsx
-msgid "collected{0}"
-msgstr "சேகரிக்கப்பட்டது{0}"
+msgid "commented"
+msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Liked.tsx
 msgid "liked"
 msgstr ""
 
-#: src/components/Home/Timeline/EventType/Mirrored.tsx
-#: src/components/Publication/Type/Mirrored.tsx
-msgid "mirrored"
+#: src/components/Home/Timeline/EventType/Combined.tsx
+#: src/components/Shared/Profiles.tsx
+msgid "and"
 msgstr ""
 
 #: src/components/Home/Timeline/index.tsx
@@ -619,6 +709,10 @@ msgstr "டிரெண்டிங்கை ஏற்றுவதில் த�
 
 #: src/components/Home/Trending.tsx
 msgid "{0, plural, zero {Publication} one {Publication} other {Publications}}"
+msgstr ""
+
+#: src/components/Home/Waitlist.tsx
+msgid "Get early access to Lens!"
 msgstr ""
 
 #: src/components/Home/Waitlist.tsx
@@ -645,6 +739,14 @@ msgstr "அனுப்பு"
 msgid "Loading messages"
 msgstr "செய்திகளை ஏற்றுகிறது"
 
+#: src/components/Messages/Message.tsx
+msgid "Select a conversation"
+msgstr "உரையாடலைத் தேர்ந்தெடுக்கவும்"
+
+#: src/components/Messages/Message.tsx
+msgid "Choose an existing conversation or create a new one to start messaging"
+msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
+
 #: src/components/Messages/MessagesList.tsx
 msgid "Not delivered"
 msgstr ""
@@ -666,6 +768,7 @@ msgid "This is the beginning of the conversation"
 msgstr "இதுதான் உரையாடலின் ஆரம்பம்"
 
 #: src/components/Messages/MessagesList.tsx
+#: src/components/Shared/Group/Join.tsx
 msgid "Loading..."
 msgstr "ஏற்றுகிறது..."
 
@@ -696,18 +799,6 @@ msgstr ""
 #: src/components/Messages/RemoteAttachmentPreview.tsx
 msgid "Large attachments are not loaded automatically."
 msgstr ""
-
-#: src/components/Messages/index.tsx
-msgid "Select a conversation"
-msgstr "உரையாடலைத் தேர்ந்தெடுக்கவும்"
-
-#: src/components/Messages/index.tsx
-msgid "Choose an existing conversation or create a new one to start messaging"
-msgstr "ஏற்கனவே உள்ள உரையாடலைத் தேர்வுசெய்யவும் அல்லது செய்தி அனுப்பத் தொடங்க புதிய ஒன்றை உருவாக்கவும்"
-
-#: src/components/Messages/index.tsx
-msgid "Messages • {APP_NAME}"
-msgstr "செய்திகள் • {APP_NAME}"
 
 #: src/components/Mod/Feed.tsx
 msgid "Failed to load moderation feed"
@@ -778,6 +869,23 @@ msgstr "தனிப்பயன் வடிப்பான்கள்"
 #: src/components/Mod/index.tsx
 msgid "Gardeners"
 msgstr "கார்ட்னர்ஸ்"
+
+#: src/components/Nft/Details/Traits.tsx
+msgid "Traits"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+#: src/components/Shared/Modal/ReportPublication/index.tsx
+msgid "Description"
+msgstr "விளக்கம்"
+
+#: src/components/Nft/Details/index.tsx
+msgid "Contract address"
+msgstr ""
+
+#: src/components/Nft/Details/index.tsx
+msgid "Token ID"
+msgstr ""
 
 #: src/components/Notification/FeedType.tsx
 msgid "All notifications"
@@ -941,6 +1049,30 @@ msgid "Email"
 msgstr "மின்னஞ்சல்"
 
 #: src/components/Pages/Contact.tsx
+msgid "Category"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Support"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Bug report"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Feature request"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Report copyright infringement"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
+msgid "Other"
+msgstr ""
+
+#: src/components/Pages/Contact.tsx
 msgid "Subject"
 msgstr "தலைப்பு"
 
@@ -979,8 +1111,8 @@ msgid "By accessing the Site, you agree to not only this Privacy Policy, but als
 msgstr "தளத்தை அணுகுவதன் மூலம், இந்தத் தனியுரிமைக் கொள்கையை மட்டுமல்ல, எங்கள் பயன்பாட்டு விதிமுறைகள் மற்றும் தளத்தைப் பயன்படுத்துவதற்கான எழுத்துப்பூர்வ ஒப்பந்தங்களையும் ஏற்கிறீர்கள். எங்களின் தனிப்பட்ட தரவு (இங்கே விவரிக்கப்பட்டுள்ளபடி) மற்றும் பொது/அனுமதியற்ற பிளாக்செயின் தொழில்நுட்பத்தின் அம்சங்களைச் சேகரிப்பதற்கும் பயன்படுத்துவதற்கும் நீங்கள் ஒப்புக்கொள்கிறீர்கள்."
 
 #: src/components/Pages/Privacy.tsx
-msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how Lenster (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at lenster.xyz”, as well as your rights and choices regarding such information."
-msgstr "இந்த தனியுரிமைக் கொள்கை (\"தனியுரிமைக் கொள்கை\") lenster.xyz இல் உள்ள இணையதளம் தொடர்பாக உங்களைப் பற்றிய தகவல்களை லென்ஸ்டர் (\"நாங்கள்,\" \"எங்கள்\" அல்லது \"எங்களுக்கு\") எவ்வாறு சேகரிக்கிறது, பயன்படுத்துகிறது மற்றும் பகிர்கிறது என்பதற்கான விரிவான விளக்கத்தை வழங்குகிறது. , அத்துடன் அத்தகைய தகவல் தொடர்பான உங்கள் உரிமைகள் மற்றும் தேர்வுகள்."
+msgid "This Privacy Policy (the “Privacy Policy”) provides a comprehensive description of how {APP_NAME} (“we,” “our,” or “us”) collects, uses, and shares information about you in connection with the website at hey.xyz”, as well as your rights and choices regarding such information."
+msgstr ""
 
 #: src/components/Pages/Privacy.tsx
 msgid "By accessing or using the Site, you accept and assume certain inherent features related to engaging in recording the data on the blockchain. Interactions with the Lens Protocol rely on smart contracts stored on a publicly available blockchain, cryptographic tokens generated by the smart contracts, and other nascent software, applications and systems that interact with blockchain-based networks. One of the defining features of blockchain technology is that its entries are immutable, which means, as a technical matter, they generally cannot be deleted or modified by anyone. If you are not comfortable assuming the inherently immutable and public nature of all entries on the blockchain, you should not engage with our Site."
@@ -1092,8 +1224,8 @@ msgid "10. Contact"
 msgstr "10. தொடர்பு"
 
 #: src/components/Pages/Privacy.tsx
-msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@lenster.xyz"
-msgstr "இந்தத் தனியுரிமைக் கொள்கை, எங்கள் தரவு நடைமுறைகள் அல்லது பொருந்தக்கூடிய சட்டத்திற்கு இணங்குதல் பற்றி ஏதேனும் கேள்விகள் அல்லது கருத்துகள் இருந்தால், தயவுசெய்து எங்களை privacy@lenster.xyz இல் தொடர்பு கொள்ளவும்"
+msgid "If you have any questions or comments about this Privacy Policy, our data practices, or our compliance with applicable law, please contact us at privacy@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "Terms & Conditions • {APP_NAME}"
@@ -1104,8 +1236,8 @@ msgid "Terms & Conditions"
 msgstr "விதிமுறைகள் மற்றும் நிபந்தனைகள்"
 
 #: src/components/Pages/Terms.tsx
-msgid "The website lenster.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
-msgstr "lenster.xyz” (“தளம்”) என்ற இணையதளம், லென்ஸ் புரோட்டோகால் - தொகுக்கக்கூடிய மற்றும் பரவலாக்கப்பட்ட சமூக வரைபட நெறிமுறையுடன் தொடர்பு கொள்ள உங்களை அனுமதிக்கும் தகவல், கருவிகள் மற்றும் சேவைகளை உங்களுக்கு வழங்குகிறது."
+msgid "The website hey.xyz” (the “Site”) offers information, tools and services to you to allow you to interact with the Lens Protocol - a composable and decentralised social graph protocol."
+msgstr ""
 
 #: src/components/Pages/Terms.tsx
 msgid "By visiting the Site, you agree to be bound by the following terms and conditions (“Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink (collectively, the “Agreement”). The Agreement applies to all users of the Site, including without limitation users who are browsers, builders, and/or contributors of content."
@@ -1288,8 +1420,8 @@ msgid "12. Contact Information"
 msgstr "12. தொடர்புத் தகவல்"
 
 #: src/components/Pages/Terms.tsx
-msgid "Questions about the Terms should be sent to us at terms@lenster.xyz"
-msgstr "விதிமுறைகள்பற்றிய கேள்விகள் எங்களுக்கு term@lenster.xyz இல் அனுப்பப்பட வேண்டும்"
+msgid "Questions about the Terms should be sent to us at terms@hey.xyz"
+msgstr ""
 
 #: src/components/Pages/Thanks.tsx
 msgid "Thanks • {APP_NAME}"
@@ -1381,8 +1513,8 @@ msgid "Collected"
 msgstr "சேகரிக்கப்பட்டது"
 
 #: src/components/Profile/FeedType.tsx
-msgid "NFTs"
-msgstr "NFTகள்"
+msgid "Gallery"
+msgstr ""
 
 #: src/components/Profile/FeedType.tsx
 #: src/components/StaffTools/Sidebar.tsx
@@ -1446,13 +1578,6 @@ msgstr ""
 #: src/components/Shared/GlobalModals.tsx
 msgid "Report profile"
 msgstr ""
-
-#: src/components/Profile/Menu/Share.tsx
-#: src/components/Publication/Actions/Menu/CopyPostText.tsx
-#: src/components/Publication/Actions/Menu/Share.tsx
-#: src/components/StaffTools/Panels/MetaDetails.tsx
-msgid "Copied to clipboard!"
-msgstr "கிளிப்போர்டுக்கு நகலெடுக்கப்பட்டது!"
 
 #: src/components/Profile/Menu/Share.tsx
 msgid "Copy link"
@@ -1759,6 +1884,135 @@ msgstr ""
 msgid "NFT ADDRESS"
 msgstr "NFT முகவரி"
 
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "{0} minted"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} artists"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} pixels used"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "{0} ETH earned"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
+msgid "Color Palette"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Switch to {0}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Shared/Group/Mint.tsx
+msgid "You don't have balance"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minting in progress"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Minted successful"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Mint on BasePaint"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "Contribute"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/BasePaintCanvas/index.tsx
+msgid "View on OpenSea"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Type:"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "{0} remaining"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
+msgid "Open in Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "You exceeded the mint limit"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+msgid "Collect on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/MintAction.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "ERC-1155 Collection"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/ZoraNft/index.tsx
+msgid "Mint all on Zora"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This proposal is closed!"
+msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{type} voting is not supported yet!"
+msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "This poll is ended!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Your vote has been casted!"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Current results"
+msgstr "தற்போதைய முடிவுகள்"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Results"
+msgstr "முடிவுகள்"
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "{0} left"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Snapshot/Choices.tsx
+msgid "Cast your vote"
+msgstr "வாக்களிக்கவும்"
+
 #: src/components/Publication/PublicationStats.tsx
 msgid "{commentsCount, plural, zero {Comment} one {Comment} other {Comments}}"
 msgstr ""
@@ -1800,6 +2054,7 @@ msgid "No profiles for <0>“{query}”</0>"
 msgstr "<0>“{query}”க்கு சுயவிவரங்கள் இல்லை</0>"
 
 #: src/components/Search/Profiles.tsx
+#: src/components/Shared/SwitchProfiles.tsx
 msgid "Failed to load profiles"
 msgstr "சுயவிவரங்களை ஏற்றுவதில் தோல்வி"
 
@@ -2004,11 +2259,16 @@ msgid "Cleared DM keys"
 msgstr "டிஎம் விசைகள் அழிக்கப்பட்டது"
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will delete your Lens profile"
+#: src/components/Settings/Danger/Delete.tsx
+msgid "Delete Lens profile"
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
-msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including Lenster. All your data will be wiped out immediately and you won't be able to get it back."
+msgid "Your profile cannot be deleted while profile guardian is enabled."
+msgstr ""
+
+#: src/components/Settings/Danger/Delete.tsx
+msgid "This will permanently delete your Profile NFT on the Lens Protocol. You will not be able to use any apps built on Lens, including {APP_NAME}. All your data will be wiped out immediately and you won't be able to get it back."
 msgstr ""
 
 #: src/components/Settings/Danger/Delete.tsx
@@ -2211,8 +2471,8 @@ msgid "Interests settings • {APP_NAME}"
 msgstr "ஆர்வங்கள் அமைப்புகள் • {APP_NAME}"
 
 #: src/components/Settings/Interests/index.tsx
-msgid "Interests you select are used to personalize your experience across Lenster. You can adjust your interests if something doesn't look right."
-msgstr "லென்ஸ்டர் முழுவதும் உங்கள் அனுபவத்தைத் தனிப்பயனாக்க நீங்கள் தேர்ந்தெடுக்கும் விருப்பங்கள் பயன்படுத்தப்படும். ஏதேனும் தவறாகத் தோன்றினால் உங்கள் விருப்பங்களைச் சரிசெய்யலாம்."
+msgid "Interests you select are used to personalize your experience across {APP_NAME}. You can adjust your interests if something doesn't look right."
+msgstr ""
 
 #: src/components/Settings/Preferences/HighSignalNotificationFilter.tsx
 msgid "Updating preference settings..."
@@ -2317,6 +2577,7 @@ msgid "Name"
 msgstr "பெயர்"
 
 #: src/components/Settings/Profile/Profile.tsx
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
 msgid "Location"
 msgstr "இடம்"
 
@@ -2417,7 +2678,7 @@ msgid "Add author"
 msgstr "ஆசிரியரைச் சேர்க்கவும்"
 
 #: src/components/Shared/Badges/Alpha.tsx
-msgid "Alpha"
+msgid "Alpha 🤫"
 msgstr ""
 
 #: src/components/Shared/Badges/Beta.tsx
@@ -2436,18 +2697,13 @@ msgstr "இந்த இடுகைக்கு நீங்கள் பதி
 msgid "Loading emojis"
 msgstr "ஈமோஜிகளை ஏற்றுகிறது"
 
+#: src/components/Shared/EmojiPicker/index.tsx
+msgid "Emoji"
+msgstr ""
+
 #: src/components/Shared/FeedFocusType.tsx
 msgid "All posts"
 msgstr "அனைத்து பதிவுகள்"
-
-#: src/components/Shared/Follow.tsx
-#: src/components/Shared/SuperFollow/FollowModule.tsx
-msgid "Followed successfully!"
-msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
-
-#: src/components/Shared/Follow.tsx
-msgid "Follow"
-msgstr "பின்பற்றவும்"
 
 #: src/components/Shared/Footer/index.tsx
 msgid "Terms"
@@ -2508,12 +2764,49 @@ msgid "Login"
 msgstr "புகுபதிகை"
 
 #: src/components/Shared/GlobalModals.tsx
+msgid "Wrong Network"
+msgstr ""
+
+#: src/components/Shared/GlobalModals.tsx
 msgid "Create post"
 msgstr "போஸ்ட்-ஐ உருவாக்கு"
 
 #: src/components/Shared/GlobalModals.tsx
 #: src/components/Shared/Navbar/NavItems/Invites.tsx
 msgid "Invites"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Joined"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join"
+msgstr ""
+
+#: src/components/Shared/Group/Join.tsx
+msgid "Join Group"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "You are already a member in <0>{0}</0> group."
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Join <0>{0}</0> group in Zora network and get your membership NFT."
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Switch to Zora"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joining in progress"
+msgstr ""
+
+#: src/components/Shared/Group/Mint.tsx
+msgid "Joined successful"
 msgstr ""
 
 #: src/components/Shared/IndexStatus.tsx
@@ -2587,6 +2880,14 @@ msgstr "உலாவி வாலட்"
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Failed to connect"
 msgstr "இணைக்க முடியவில்லை"
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Change network"
+msgstr ""
+
+#: src/components/Shared/Login/WrongNetwork.tsx
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/components/Shared/Login/index.tsx
 msgid "Please sign the message"
@@ -2826,10 +3127,6 @@ msgid "Failed to report"
 msgstr "புகாரளிக்க முடியவில்லை"
 
 #: src/components/Shared/Modal/ReportPublication/index.tsx
-msgid "Description"
-msgstr "விளக்கம்"
-
-#: src/components/Shared/Modal/ReportPublication/index.tsx
 msgid "Please provide additional details"
 msgstr "கூடுதல் விவரங்களை வழங்கவும்"
 
@@ -2926,9 +3223,38 @@ msgstr "முகப்பு"
 msgid "Explore"
 msgstr "உலாவு"
 
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Not logged in!"
+msgstr ""
+
+#: src/components/Shared/NotLoggedIn.tsx
+msgid "Log in to continue"
+msgstr ""
+
 #: src/components/Shared/Pending.tsx
 msgid "Go to {type}"
 msgstr "{type} க்கு செல்க"
+
+#: src/components/Shared/Profile/Follow.tsx
+#: src/components/Shared/SuperFollow/FollowModule.tsx
+msgid "Followed successfully!"
+msgstr "வெற்றிகரமாக பின்பற்றப்பட்டது!"
+
+#: src/components/Shared/Profile/Follow.tsx
+msgid "Follow"
+msgstr "பின்பற்றவும்"
+
+#: src/components/Shared/Profile/Unfollow.tsx
+msgid "Unfollowed successfully!"
+msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
+
+#: src/components/Shared/Profiles.tsx
+msgid "other"
+msgstr ""
+
+#: src/components/Shared/Profiles.tsx
+msgid "others"
+msgstr ""
 
 #: src/components/Shared/ProtectProfile.tsx
 msgid "Attention! Your profile is currently unlocked."
@@ -2949,42 +3275,6 @@ msgstr ""
 #: src/components/Shared/ReferralAlert.tsx
 msgid "will get <0>{referralFee}%</0> referral fee"
 msgstr "<0>{referralFee}%</0> பரிந்துரை கட்டணம் கிடைக்கும்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This proposal is closed!"
-msgstr "இந்த முன்மொழிவு மூடப்பட்டுள்ளது!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{type} voting is not supported yet!"
-msgstr "{type} வாக்களிப்பு இன்னும் ஆதரிக்கப்படவில்லை!"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "This poll is ended!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Your vote has been casted!"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Current results"
-msgstr "தற்போதைய முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Results"
-msgstr "முடிவுகள்"
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0, plural, zero {Vote} one {Vote} other {Votes}}"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "{0} left"
-msgstr ""
-
-#: src/components/Shared/Snapshot/Choices.tsx
-msgid "Cast your vote"
-msgstr "வாக்களிக்கவும்"
 
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
@@ -3056,20 +3346,20 @@ msgid "Super follow"
 msgstr "சூப்பர் ஃபாலோ"
 
 #: src/components/Shared/SwitchNetwork.tsx
+msgid "Switch Network"
+msgstr "நெட்வொர்க்கை மாற்றவும்"
+
+#: src/components/Shared/SwitchNetwork.tsx
 msgid "Please change your network wallet!"
 msgstr "தயவுசெய்து உங்கள் நெட்வொர்க் வாலெட்டை மாற்றுங்கள்!"
 
-#: src/components/Shared/SwitchNetwork.tsx
-msgid "Switch Network"
-msgstr "நெட்வொர்க்கை மாற்றவும்"
+#: src/components/Shared/SwitchProfiles.tsx
+msgid "Loading Profiles"
+msgstr ""
 
 #: src/components/Shared/SwitchProfiles.tsx
 msgid "Create Profile"
 msgstr ""
-
-#: src/components/Shared/Unfollow.tsx
-msgid "Unfollowed successfully!"
-msgstr "வெற்றிகரமாக பின்தொடரவில்லை!"
 
 #: src/components/Shared/Uniswap.tsx
 msgid "You don't have enough <0>{currency}</0>"
@@ -3078,6 +3368,10 @@ msgstr ""
 #: src/components/Shared/Uniswap.tsx
 msgid "Swap in Uniswap"
 msgstr "யூனிஸ்வாப்பில் ஸ்வாப் செய்யுங்கள்"
+
+#: src/components/Shared/UserPreview.tsx
+msgid "No profile found"
+msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Updating access..."
@@ -3107,8 +3401,27 @@ msgid "Gardener member"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Access.tsx
+msgid "Lens Team member"
+msgstr ""
+
 #: src/components/StaffTools/Panels/Profile/Access.tsx
 msgid "Trusted member"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Leafwatch Details"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Total events"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "OS"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Profile/ProfileDetails.tsx
+msgid "Browser"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/Rank.tsx
@@ -3141,7 +3454,7 @@ msgid "Staff tool"
 msgstr "பணியாளர் கருவி"
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Has used {APP_NAME}"
+msgid "Have used {APP_NAME}"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
@@ -3238,7 +3551,7 @@ msgid "Image size should be less than 50MB"
 msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx
-msgid "Video size should be less than 200MB"
+msgid "Video size should be less than 500MB"
 msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx

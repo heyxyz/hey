@@ -1,9 +1,9 @@
-import { MailIcon, MailOpenIcon } from '@heroicons/react/solid';
-import { XMTP_ENV } from '@lenster/data/constants';
-import { Button, Card } from '@lenster/ui';
+import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
+import { APP_NAME, XMTP_ENV } from '@hey/data/constants';
+import { Button, Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import { Client } from '@xmtp/xmtp-js';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -42,20 +42,20 @@ const EnableMessages: FC = () => {
       className="mb-4 space-y-2.5 border-green-400 !bg-green-300/20 p-5 text-green-600"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <MailOpenIcon className="h-5 w-5" />
+        <EnvelopeOpenIcon className="h-5 w-5" />
         <p>
           <Trans>Direct messages are here!</Trans>
         </p>
       </div>
       <p className="mr-10 text-sm leading-[22px]">
         <Trans>
-          Activate XMTP to start using Lenster to send end-to-end encrypted DMs
-          to frens.
+          Activate XMTP to start using {APP_NAME} to send end-to-end encrypted
+          DMs to frens.
         </Trans>
       </p>
       <Button
-        className={clsx({ 'text-sm': true }, 'mr-auto')}
-        icon={<MailIcon className="h-4 w-4" />}
+        className={cn({ 'text-sm': true }, 'mr-auto')}
+        icon={<EnvelopeIcon className="h-4 w-4" />}
         onClick={onConversationSelected}
       >
         <Trans>Enable DMs</Trans>

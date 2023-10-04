@@ -1,25 +1,24 @@
 import DismissRecommendedProfile from '@components/Shared/DismissRecommendedProfile';
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/outline';
-import { FeatureFlag } from '@lenster/data/feature-flags';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useRecommendedProfilesQuery } from '@lenster/lens';
-import isFeatureEnabled from '@lenster/lib/isFeatureEnabled';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { UsersIcon } from '@heroicons/react/24/outline';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useRecommendedProfilesQuery } from '@hey/lens';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/app';
+import { usePreferencesStore } from 'src/store/preferences';
 
 const Suggested: FC = () => {
-  const isWTF2Enabled = isFeatureEnabled(FeatureFlag.WTF2);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const { data, loading, error } = useRecommendedProfilesQuery({
     variables: {
-      options: { profileId: isWTF2Enabled ? currentProfile?.id : null }
+      options: { profileId: isLensMember ? currentProfile?.id : null }
     }
   });
 

@@ -1,22 +1,22 @@
 import {
-  CashIcon,
-  HandIcon,
+  BanknotesIcon,
+  HandRaisedIcon,
   HashtagIcon,
   IdentificationIcon,
   LinkIcon,
-  PhotographIcon
-} from '@heroicons/react/outline';
-import { ShieldCheckIcon } from '@heroicons/react/solid';
+  PhotoIcon
+} from '@heroicons/react/24/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import {
   ACHIEVEMENTS_WORKER_URL,
   APP_NAME,
   IS_MAINNET
-} from '@lenster/data/constants';
-import type { Profile } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
-import getFollowModule from '@lenster/lib/getFollowModule';
-import { Card } from '@lenster/ui';
+} from '@hey/data/constants';
+import type { Profile } from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import formatHandle from '@hey/lib/formatHandle';
+import getFollowModule from '@hey/lib/getFollowModule';
+import { Card } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -25,6 +25,7 @@ import type { FC } from 'react';
 
 import MetaDetails from '../MetaDetails';
 import Access from './Access';
+import ProfileDetails from './ProfileDetails';
 import Rank from './Rank';
 
 interface ProfileStaffToolProps {
@@ -32,21 +33,20 @@ interface ProfileStaffToolProps {
 }
 
 const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
-  const getHasUsedLenster = async () => {
+  const getHaveUsedHey = async () => {
     try {
       const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/hasUsedLenster/${profile.id}`
+        `${ACHIEVEMENTS_WORKER_URL}/haveUsedHey/${profile.id}`
       );
 
-      return response.data.hasUsedLenster;
+      return response.data.haveUsedHey;
     } catch (error) {
       return false;
     }
   };
 
-  const { data: hasUsedLenster } = useQuery(
-    ['hasUsedLenster', profile.id],
-    () => getHasUsedLenster().then((res) => res)
+  const { data: haveUsedHey } = useQuery(['haveUsedHey', profile.id], () =>
+    getHaveUsedHey().then((res) => res)
   );
 
   return (
@@ -62,20 +62,20 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {hasUsedLenster ? (
+        {haveUsedHey ? (
           <MetaDetails
             icon={
               <img
                 className="h-4 w-4"
                 height={16}
                 width={16}
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo"
               />
             }
             value={formatHandle(profile?.handle)}
           >
-            <Trans>Has used {APP_NAME}</Trans>
+            <Trans>Have used {APP_NAME}</Trans>
           </MetaDetails>
         ) : null}
         <MetaDetails
@@ -86,7 +86,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           {profile?.id}
         </MetaDetails>
         <MetaDetails
-          icon={<CashIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.ownedBy}
           title={t`Address`}
         >
@@ -94,7 +94,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
-            icon={<PhotographIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile?.followNftAddress}
             title={t`NFT address`}
           >
@@ -102,14 +102,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
           title={t`Can use relay`}
         >
           {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<HandIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
           title={t`Gas sponsored`}
         >
@@ -134,6 +134,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
       </div>
       {IS_MAINNET ? (
         <>
+          <ProfileDetails profile={profile} />
           <Rank profile={profile} />
           <Access profile={profile} />
         </>

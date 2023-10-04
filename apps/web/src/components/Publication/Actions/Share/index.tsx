@@ -1,13 +1,13 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
-import humanize from '@lenster/lib/humanize';
-import nFormatter from '@lenster/lib/nFormatter';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Spinner, Tooltip } from '@lenster/ui';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import type { Publication } from '@hey/lens';
+import humanize from '@hey/lib/humanize';
+import nFormatter from '@hey/lib/nFormatter';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Spinner, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';
 
@@ -37,9 +37,11 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       <Menu as="div" className="relative">
         <Menu.Button as={Fragment}>
           <button
-            className={clsx(
-              mirrored ? 'text-green-500' : 'text-brand',
-              'rounded-full p-1.5 hover:bg-gray-300/20'
+            className={cn(
+              mirrored
+                ? 'text-brand hover:bg-brand-300/20'
+                : 'lt-text-gray-500 hover:bg-gray-300/20',
+              'rounded-full p-1.5'
             )}
             onClick={stopEventPropagation}
             aria-label="Mirror"
@@ -56,7 +58,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
                 content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
                 withDelay
               >
-                <SwitchHorizontalIcon className={iconClassName} />
+                <ArrowsRightLeftIcon className={iconClassName} />
               </Tooltip>
             )}
           </button>
@@ -77,8 +79,8 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       </Menu>
       {count > 0 && !showCount ? (
         <span
-          className={clsx(
-            mirrored ? 'text-green-500' : 'text-brand',
+          className={cn(
+            mirrored ? 'text-brand' : 'lt-text-gray-500',
             'text-[11px] sm:text-xs'
           )}
         >

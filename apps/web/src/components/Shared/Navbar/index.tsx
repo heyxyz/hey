@@ -1,10 +1,10 @@
 import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -38,7 +38,7 @@ const Navbar: FC = () => {
     return (
       <Link
         href={url}
-        className={clsx(
+        className={cn(
           'cursor-pointer rounded-md px-2 py-1 text-left text-sm font-bold tracking-wide md:px-3',
           {
             'bg-gray-200 text-black dark:bg-gray-800 dark:text-white': current,
@@ -81,9 +81,9 @@ const Navbar: FC = () => {
               onClick={() => setShowSearch(!showSearch)}
             >
               {showSearch ? (
-                <XIcon className="h-6 w-6" />
+                <XMarkIcon className="h-6 w-6" />
               ) : (
-                <SearchIcon className="h-6 w-6" />
+                <MagnifyingGlassIcon className="h-6 w-6" />
               )}
             </button>
             <Link href="/" className="hidden md:block">
@@ -91,7 +91,7 @@ const Navbar: FC = () => {
                 className="h-8 w-8"
                 height={32}
                 width={32}
-                src={isPride ? '/pride.svg' : '/logo.svg'}
+                src={isPride ? '/pride.png' : '/logo.png'}
                 alt="Logo"
               />
             </Link>
@@ -106,13 +106,13 @@ const Navbar: FC = () => {
           </div>
           <Link
             href="/"
-            className={clsx('md:hidden', !currentProfile?.id && 'ml-[60px]')}
+            className={cn('md:hidden', !currentProfile?.id && 'ml-[60px]')}
           >
             <img
               className="h-7 w-7"
               height={32}
               width={32}
-              src={isPride ? '/pride.svg' : '/logo.svg'}
+              src={isPride ? '/pride.png' : '/logo.png'}
               alt="Logo"
             />
           </Link>

@@ -2,18 +2,23 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**"],
+      "outputMode": "new-only"
     },
-    "lint": { "outputs": [] },
-    "lint:fix": { "outputs": [] },
-    "prettier": { "outputs": [] },
-    "prettier:fix": { "outputs": [] },
-    "typecheck": { "outputs": [] },
+    "lint": { "outputs": [], "outputMode": "errors-only" },
+    "lint:fix": { "outputs": [], "outputMode": "errors-only" },
+    "prettier": { "outputs": [], "outputMode": "errors-only" },
+    "prettier:fix": { "outputs": [], "outputMode": "errors-only" },
+    "typecheck": { "outputs": [], "outputMode": "errors-only" },
     "codegen": { "outputs": [] },
     "extract": { "outputs": [] },
     "worker:deploy": { "outputs": [] },
-    "dev": { "cache": false },
-    "start": { "cache": false },
+    "dev": { "cache": false, "persistent": true },
+    "start": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true
+    },
     "test:dev": { "cache": false }
   }
 }

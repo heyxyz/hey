@@ -1,10 +1,10 @@
 import { Menu } from '@headlessui/react';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import { Image } from '@lenster/ui';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import { Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -72,8 +72,10 @@ const SignedUser: FC = () => {
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
-              <span>
-                <Trans>Logged in as</Trans>
+              <div className="flex w-full flex-col">
+                <div>
+                  <Trans>Logged in as</Trans>
+                </div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"
@@ -81,13 +83,13 @@ const SignedUser: FC = () => {
                     prefix="@"
                   />
                 </div>
-              </span>
+              </div>
             </Menu.Item>
             <div className="divider" />
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx(
+                cn(
                   { 'dropdown-active': active },
                   'm-2 rounded-lg border dark:border-gray-700'
                 )
@@ -98,7 +100,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx(
+                cn(
                   { 'dropdown-active': active },
                   'm-2 rounded-lg border dark:border-gray-700'
                 )
@@ -111,7 +113,7 @@ const SignedUser: FC = () => {
               as={NextLink}
               href={`/u/${formatHandle(currentProfile?.handle)}`}
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                cn({ 'dropdown-active': active }, 'menu-item')
               }
             >
               <YourProfile />
@@ -120,7 +122,7 @@ const SignedUser: FC = () => {
               as={NextLink}
               href={'/settings'}
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'menu-item')
+                cn({ 'dropdown-active': active }, 'menu-item')
               }
             >
               <Settings />
@@ -130,7 +132,7 @@ const SignedUser: FC = () => {
                 as={NextLink}
                 href={'/mod'}
                 className={({ active }: { active: boolean }) =>
-                  clsx({ 'dropdown-active': active }, 'menu-item')
+                  cn({ 'dropdown-active': active }, 'menu-item')
                 }
               >
                 <Mod />
@@ -139,7 +141,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }: { active: boolean }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <Invites />
@@ -147,7 +149,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <Logout />
@@ -156,7 +158,7 @@ const SignedUser: FC = () => {
             <Menu.Item
               as="div"
               className={({ active }) =>
-                clsx({ 'dropdown-active': active }, 'm-2 rounded-lg')
+                cn({ 'dropdown-active': active }, 'm-2 rounded-lg')
               }
             >
               <ThemeSwitch />
@@ -165,7 +167,7 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx(
+                  cn(
                     { 'bg-yellow-100 dark:bg-yellow-800': active },
                     'm-2 rounded-lg'
                   )
@@ -178,7 +180,7 @@ const SignedUser: FC = () => {
               <Menu.Item
                 as="div"
                 className={({ active }) =>
-                  clsx(
+                  cn(
                     { 'bg-yellow-100 dark:bg-yellow-800': active },
                     'm-2 rounded-lg'
                   )

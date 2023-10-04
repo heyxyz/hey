@@ -1,19 +1,15 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatAlt2Icon } from '@heroicons/react/outline';
-import type {
-  Comment,
-  Publication,
-  PublicationsQueryRequest
-} from '@lenster/lens';
+import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import type { Comment, Publication, PublicationsQueryRequest } from '@hey/lens';
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   CustomFiltersTypes,
   useCommentFeedQuery
-} from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -94,7 +90,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     return (
       <EmptyState
         message={t`Be the first one to comment!`}
-        icon={<ChatAlt2Icon className="text-brand h-8 w-8" />}
+        icon={<ChatBubbleLeftRightIcon className="text-brand h-8 w-8" />}
       />
     );
   }
@@ -114,9 +110,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
           )
       )}
       {comments?.map((comment, index) =>
-        comment?.__typename === 'Comment' && comment.hidden ? null : (
+        comment?.__typename !== 'Comment' || comment.hidden ? null : (
           <SinglePublication
-            key={`${publicationId}_${index}`}
+            key={`${comment.id}`}
             isFirst={index === 0}
             isLast={index === comments.length - 1}
             publication={comment as Comment}

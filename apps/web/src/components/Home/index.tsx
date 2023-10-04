@@ -2,9 +2,9 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { HomeFeedType } from '@lenster/data/enums';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@lenster/ui';
+import { HomeFeedType } from '@hey/data/enums';
+import { PAGEVIEW } from '@hey/data/tracking';
+import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -17,12 +17,13 @@ import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import ForYou from './ForYou';
-import Gitcoin from './Gitcoin';
 import Hero from './Hero';
+import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
 import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
+import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 
@@ -35,6 +36,9 @@ const Home: NextPage = () => {
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'home' });
   });
+
+  const loggedIn = Boolean(currentProfile);
+  const loggedOut = !loggedIn;
 
   return (
     <>
@@ -64,8 +68,11 @@ const Home: NextPage = () => {
           )}
         </GridItemEight>
         <GridItemFour>
-          <Gitcoin />
-          {currentProfile ? (
+          {/* <Gitcoin /> */}
+          {loggedOut && <Waitlist />}
+          {loggedIn && <HeyMembershipNft />}
+          <StaffPicks />
+          {loggedIn && (
             <>
               <EnableDispatcher />
               <EnableMessages />
@@ -73,8 +80,6 @@ const Home: NextPage = () => {
               <SetProfile />
               <RecommendedProfiles />
             </>
-          ) : (
-            <Waitlist />
           )}
           <Footer />
         </GridItemFour>

@@ -12,20 +12,20 @@
     "start": "pnpm dev",
     "test:dev": "vitest --run",
     "typecheck": "tsc --pretty",
-    "worker:deploy": "wrangler deploy"
+    "worker:deploy": "wrangler deploy --var RELEASE:\"$(git rev-parse HEAD)\""
   },
   "dependencies": {
-    "@lenster/data": "workspace:*",
-    "@lenster/lib": "workspace:*",
-    "itty-router": "^4.0.22",
-    "viem": "^1.8.0",
-    "zod": "^3.22.2"
+    "@hey/data": "workspace:*",
+    "@hey/lib": "workspace:*",
+    "itty-router": "^4.0.23",
+    "viem": "^1.15.1",
+    "zod": "^3.22.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
-    "@lenster/config": "workspace:*",
+    "@cloudflare/workers-types": "^4.20231002.0",
+    "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
-    "vitest": "^0.34.3",
-    "wrangler": "^3.6.0"
+    "vitest": "^0.34.5",
+    "wrangler": "^3.10.1"
   }
 }

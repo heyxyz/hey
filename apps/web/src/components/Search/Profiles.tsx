@@ -1,13 +1,13 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { UsersIcon } from '@heroicons/react/outline';
-import type { ProfileSearchResult, SearchQueryRequest } from '@lenster/lens';
+import { UsersIcon } from '@heroicons/react/24/outline';
+import type { ProfileSearchResult, SearchQueryRequest } from '@hey/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesQuery
-} from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -23,7 +23,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     query,
     type: SearchRequestTypes.Profile,
     customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 10
+    limit: 30
   };
 
   const { data, loading, error, fetchMore } = useSearchProfilesQuery({

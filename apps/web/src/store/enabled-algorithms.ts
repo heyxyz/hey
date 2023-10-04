@@ -1,5 +1,5 @@
-import type { HomeFeedType } from '@lenster/data/enums';
-import { Localstorage } from '@lenster/data/storage';
+import type { HomeFeedType } from '@hey/data/enums';
+import { Localstorage } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

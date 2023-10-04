@@ -1,9 +1,9 @@
-import { ArrowRightIcon, PhotographIcon } from '@heroicons/react/outline';
-import { XIcon } from '@heroicons/react/solid';
-import { MIN_WIDTH_DESKTOP } from '@lenster/data/constants';
-import { MESSAGES } from '@lenster/data/tracking';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Button, Input } from '@lenster/ui';
+import { ArrowRightIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { MIN_WIDTH_DESKTOP } from '@hey/data/constants';
+import { MESSAGES } from '@hey/data/tracking';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import { Button, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -43,6 +43,7 @@ interface ComposerProps {
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 interface AttachmentPreviewProps {
@@ -64,7 +65,7 @@ const AttachmentPreview: FC<AttachmentPreviewProps> = ({
         className="absolute top-2 rounded-full bg-gray-900 p-1.5 opacity-75"
         onClick={onDismiss}
       >
-        <XIcon className="h-4 w-4 text-white" />
+        <XMarkIcon className="h-4 w-4 text-white" />
       </button>
       <Attachment attachment={attachment} />
     </div>
@@ -89,7 +90,8 @@ const AttachmentPreviewInline: FC<
 const Composer: FC<ComposerProps> = ({
   sendMessage,
   conversationKey,
-  disabledInput
+  disabledInput,
+  listRef
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
@@ -203,6 +205,11 @@ const Composer: FC<ComposerProps> = ({
       }
     }
 
+    listRef.current?.scrollTo({
+      left: 0,
+      top: listRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
     setSending(false);
   };
 
@@ -251,7 +258,7 @@ const Composer: FC<ComposerProps> = ({
   };
 
   return (
-    <div className="bg-brand-100/75">
+    <div className="border-t dark:border-gray-700">
       {attachment && !sending ? (
         <AttachmentPreview
           onDismiss={onDismiss}
@@ -261,7 +268,7 @@ const Composer: FC<ComposerProps> = ({
       ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
-          <PhotographIcon className="text-brand-900 h-6 w-5" />
+          <PhotoIcon className="text-brand-500 h-6 w-5" />
           <input
             ref={fileInputRef}
             type="file"
@@ -270,7 +277,6 @@ const Composer: FC<ComposerProps> = ({
             onChange={onAttachmentChange}
           />
         </label>
-
         <Input
           type="text"
           placeholder={t`Type Something`}

@@ -1,8 +1,11 @@
-import { createCors, error, json, Router } from 'itty-router';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
+import { createCors, error, Router, status } from 'itty-router';
 
 import getImage from './handlers/getImage';
 import getOembed from './handlers/getOembed';
-import type { Env } from './types';
+import buildRequest from './helper/buildRequest';
+import type { Env, WorkerRequest } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -11,26 +14,32 @@ const { preflight, corsify } = createCors({
 
 const router = Router();
 
-router.all('*', preflight);
-router.get('/', getOembed);
-router.get('/image', getImage);
-
-const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
-  router.handle(request, env, ctx).then(json);
-
-const handleFetch = async (
-  request: Request,
-  env: Env,
-  ctx: ExecutionContext
-) => {
-  try {
-    return await routerHandleStack(request, env, ctx);
-  } catch {
-    return error(500);
-  }
-};
+router
+  .all('*', preflight)
+  .head('*', () => status(200))
+  .get('/', (request: WorkerRequest) =>
+    response({
+      message: 'gm, to oembed service 👋',
+      version: request.env.RELEASE ?? 'unknown'
+    })
+  )
+  .get('/oembed', getOembed)
+  .get('/image', getImage)
+  .all('*', () => error(404));
 
 export default {
-  fetch: (request: Request, env: Env, context: ExecutionContext) =>
-    handleFetch(request, env, context).then(corsify)
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
+    const incomingRequest = buildRequest(request, env, ctx);
+
+    return await router
+      .handle(incomingRequest)
+      .then(corsify)
+      .catch(() => {
+        return error(500, Errors.InternalServerError);
+      });
+  }
 };

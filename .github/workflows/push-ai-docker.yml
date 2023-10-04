@@ -10,7 +10,7 @@ on:
 jobs:
   push:
     name: Push AI Docker Image
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout files
         uses: Bhacaz/checkout-files@v2

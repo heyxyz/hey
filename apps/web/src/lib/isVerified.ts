@@ -1,4 +1,4 @@
-import { IS_MAINNET } from '@lenster/data/constants';
+import { IS_MAINNET } from '@hey/data/constants';
 import { verifiedMembers } from 'src/store/app';
 
 /**

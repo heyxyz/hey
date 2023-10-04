@@ -1,4 +1,4 @@
-const { withSentryConfig } = require('@sentry/nextjs');
+const linguiConfig = require('./lingui.config');
 
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
@@ -9,18 +9,21 @@ const nextConfig = {
   reactStrictMode: false,
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true,
     swcPlugins: [['@lingui/swc-plugin', {}]]
+  },
+  i18n: {
+    locales: linguiConfig.locales,
+    defaultLocale: linguiConfig.sourceLocale
   },
   async rewrites() {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://sitemap.lenster.xyz/sitemap.xml'
+        destination: 'https://sitemap.hey.xyz/sitemap.xml'
       },
       {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.lenster.xyz/:match*'
+        destination: 'https://sitemap.hey.xyz/:match*'
       }
     ];
   },
@@ -43,7 +46,7 @@ const nextConfig = {
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/lenster?utm_source=lenster',
+        destination: 'https://giveth.io/project/hey?utm_source=hey',
         permanent: true
       },
       {
@@ -71,18 +74,4 @@ const nextConfig = {
   }
 };
 
-module.exports = withSentryConfig(
-  nextConfig,
-  {
-    silent: true,
-    org: 'lenster',
-    project: 'web',
-    url: 'https://sentry.lenster.xyz'
-  },
-  {
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    disableLogger: true,
-    hideSourceMaps: false
-  }
-);
+module.exports = nextConfig;

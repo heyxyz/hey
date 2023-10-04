@@ -1,12 +1,12 @@
 import { Menu } from '@headlessui/react';
-import { ClipboardCopyIcon } from '@heroicons/react/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -19,7 +19,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
@@ -36,7 +36,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <ClipboardCopyIcon className="h-4 w-4" />
+        <ClipboardDocumentIcon className="h-4 w-4" />
         <div>
           <Trans>Copy link</Trans>
         </div>

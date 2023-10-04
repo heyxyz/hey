@@ -1,13 +1,13 @@
-import { SearchIcon, XIcon } from '@heroicons/react/outline';
-import { STATIC_ASSETS_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { Emoji } from '@lenster/types/misc';
-import { ErrorMessage, Input } from '@lenster/ui';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { STATIC_ASSETS_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { Emoji } from '@hey/types/misc';
+import { ErrorMessage, Input } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { clsx } from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -71,10 +71,10 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           className="px-3 py-2 text-sm"
           placeholder={'Search...'}
           value={searchText}
-          iconLeft={<SearchIcon />}
+          iconLeft={<MagnifyingGlassIcon />}
           iconRight={
-            <XIcon
-              className={clsx(
+            <XMarkIcon
+              className={cn(
                 'cursor-pointer',
                 searchText ? 'visible' : 'invisible'
               )}
@@ -88,7 +88,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           onChange={onChange}
         />
       </div>
-      <div className="grid max-h-[16rem] grid-cols-7 overflow-y-auto p-2 pt-2 text-lg">
+      <div className="grid max-h-[10rem] grid-cols-8 overflow-y-auto p-2 pt-2 text-lg">
         {filteredEmojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"

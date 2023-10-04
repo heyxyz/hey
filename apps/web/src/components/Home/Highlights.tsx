@@ -1,10 +1,10 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { LightBulbIcon } from '@heroicons/react/outline';
-import type { FeedHighlightsRequest, Publication } from '@lenster/lens';
-import { useFeedHighlightsQuery } from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import { LightBulbIcon } from '@heroicons/react/24/outline';
+import type { FeedHighlightsRequest, Publication } from '@hey/lens';
+import { useFeedHighlightsQuery } from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -23,7 +23,7 @@ const Highlights: FC = () => {
   // Variables
   const request: FeedHighlightsRequest = {
     profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

@@ -1,9 +1,9 @@
 import UserProfile from '@components/Shared/UserProfile';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import type { Profile, ProfileQueryRequest } from '@lenster/lens';
-import { useProfilesQuery } from '@lenster/lens';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import type { Profile, ProfileQueryRequest } from '@hey/lens';
+import { useProfilesQuery } from '@hey/lens';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -19,7 +19,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
   const request: ProfileQueryRequest = {
     whoMirroredPublicationId: publicationId,
-    limit: 10
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({
@@ -50,7 +50,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message={t`No mirrors.`}
-          icon={<SwitchHorizontalIcon className="text-brand h-8 w-8" />}
+          icon={<ArrowsRightLeftIcon className="text-brand h-8 w-8" />}
           hideCard
         />
       </div>

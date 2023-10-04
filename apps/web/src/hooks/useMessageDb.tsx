@@ -1,4 +1,4 @@
-import type { Profile } from '@lenster/lens';
+import type { Profile } from '@hey/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useCallback } from 'react';
@@ -120,7 +120,7 @@ export const useGetProfile = (
   conversationKey: string
 ) => {
   const profile = useLiveQuery(() => {
-    if (!myProfileId) {
+    if (!myProfileId || !conversationKey) {
       return;
     }
     return db.lensProfiles.get([myProfileId, conversationKey]);

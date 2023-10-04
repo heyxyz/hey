@@ -1,9 +1,9 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
-import { AdjustmentsIcon } from '@heroicons/react/outline';
-import { Checkbox, Tooltip } from '@lenster/ui';
+import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
+import { Checkbox, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { ChangeEvent, FC } from 'react';
 import { useTimelinePersistStore } from 'src/store/timeline';
 
@@ -26,7 +26,7 @@ const FeedEventFilters: FC = () => {
     <Menu as="div" className="relative">
       <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
         <Tooltip placement="top" content={t`Filter`}>
-          <AdjustmentsIcon className="text-brand h-5 w-5" />
+          <AdjustmentsVerticalIcon className="text-brand h-5 w-5" />
         </Tooltip>
       </Menu.Button>
       <MenuTransition>
@@ -37,7 +37,7 @@ const FeedEventFilters: FC = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -53,7 +53,7 @@ const FeedEventFilters: FC = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )
@@ -69,7 +69,7 @@ const FeedEventFilters: FC = () => {
           <Menu.Item
             as="label"
             className={({ active }) =>
-              clsx(
+              cn(
                 { 'dropdown-active': active },
                 'menu-item flex cursor-pointer items-center gap-1 space-x-1 rounded-lg'
               )

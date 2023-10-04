@@ -2,15 +2,15 @@ import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import {
   GlobeAltIcon,
-  UserAddIcon,
   UserGroupIcon,
+  UserPlusIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
-import { ReferenceModules } from '@lenster/lens';
-import { Tooltip } from '@lenster/ui';
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { ReferenceModules } from '@hey/lens';
+import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -60,7 +60,7 @@ const ReferenceSettings: FC = () => {
   const Module: FC<ModuleProps> = ({ title, icon, onClick, selected }) => (
     <Menu.Item
       as="a"
-      className={clsx({ 'dropdown-active': selected }, 'menu-item')}
+      className={cn({ 'dropdown-active': selected }, 'menu-item')}
       onClick={onClick}
     >
       <div className="flex items-center justify-between space-x-2">
@@ -95,7 +95,7 @@ const ReferenceSettings: FC = () => {
           <div className="text-brand">
             {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
             {isMyFollowers ? <UsersIcon className="w-5" /> : null}
-            {isMyFollows ? <UserAddIcon className="w-5" /> : null}
+            {isMyFollows ? <UserPlusIcon className="w-5" /> : null}
             {isFriendsOfFriends ? <UserGroupIcon className="w-5" /> : null}
           </div>
         </Menu.Button>
@@ -130,7 +130,7 @@ const ReferenceSettings: FC = () => {
           <Module
             title={MY_FOLLOWS}
             selected={isMyFollows}
-            icon={<UserAddIcon className="h-4 w-4" />}
+            icon={<UserPlusIcon className="h-4 w-4" />}
             onClick={() => {
               setSelectedReferenceModule(
                 ReferenceModules.DegreesOfSeparationReferenceModule

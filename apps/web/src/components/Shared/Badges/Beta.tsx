@@ -1,4 +1,4 @@
-import { StarIcon } from '@heroicons/react/solid';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

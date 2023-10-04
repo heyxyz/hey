@@ -2,20 +2,13 @@ import QuotedPublication from '@components/Publication/QuotedPublication';
 import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
+import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
-import { ChatAlt2Icon, PencilAltIcon } from '@heroicons/react/outline';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
-import { LensHub } from '@lenster/abis';
+import {
+  ChatBubbleLeftRightIcon,
+  PencilSquareIcon
+} from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_IMAGE_TYPES,
@@ -23,16 +16,16 @@ import {
   APP_NAME,
   LENSHUB_PROXY,
   LIT_PROTOCOL_ENVIRONMENT
-} from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
+} from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   CreatePublicCommentRequest,
   MetadataAttributeInput,
   Publication,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CollectModules,
   PublicationDocument,
@@ -50,12 +43,24 @@ import {
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation,
   usePublicationLazyQuery
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import getSignature from '@lenster/lib/getSignature';
-import type { IGif } from '@lenster/types/giphy';
-import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import getSignature from '@hey/lib/getSignature';
+import type { IGif } from '@hey/types/giphy';
+import type { NewAttachment } from '@hey/types/misc';
+import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
+import type {
+  CollectCondition,
+  EncryptedMetadata,
+  FollowCondition,
+  LensEnvironment
+} from '@lens-protocol/sdk-gated';
+import { LensGatedSDK } from '@lens-protocol/sdk-gated';
+import type {
+  AccessConditionOutput,
+  CreatePublicPostRequest
+} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -65,7 +70,6 @@ import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -76,18 +80,22 @@ import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
+import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
+import urlcat from 'urlcat';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
 
+import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
@@ -125,6 +133,12 @@ const PollSettings = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
+const LivestreamSettings = dynamic(
+  () => import('@components/Composer/Actions/LivestreamSettings'),
+  {
+    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+  }
+);
 
 interface NewPublicationProps {
   publication: Publication;
@@ -134,6 +148,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
@@ -142,6 +157,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
+
+  // Preferences store
+  const isStaff = usePreferencesStore((state) => state.isStaff);
 
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
@@ -163,7 +181,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
-    pollConfig
+    pollConfig,
+    showLiveVideoEditor,
+    setShowLiveVideoEditor,
+    resetLiveVideoConfig,
+    liveVideoConfig
   } = usePublicationStore();
 
   // Transaction persist store
@@ -196,6 +218,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const publicClient = usePublicClient();
   const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
   const hasAudio = ALLOWED_AUDIO_TYPES.includes(
@@ -204,6 +227,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = ALLOWED_VIDEO_TYPES.includes(
     attachments[0]?.original.mimeType
   );
+  const hasLiveVideo =
+    showLiveVideoEditor && liveVideoConfig.playbackId.length > 0;
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -222,6 +247,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -552,6 +579,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         return PublicationMainFocus.TextOnly;
       }
     } else {
+      if (hasLiveVideo) {
+        return PublicationMainFocus.Video;
+      }
+
       return PublicationMainFocus.TextOnly;
     }
   };
@@ -589,14 +620,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createTokenGatedMetadata = async (
     metadata: PublicationMetadataV2Input
   ) => {
-    if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
-    }
-
-    if (!walletClient) {
-      return toast.error(Errors.SignWallet);
-    }
-
     // Create the SDK instance
     const tokenGatedSdk = await LensGatedSDK.create({
       provider: publicClient as any,
@@ -606,14 +629,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Connect to the SDK
     await tokenGatedSdk.connect({
-      address: currentProfile.ownedBy,
+      address: currentProfile?.ownedBy,
       env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
     });
 
     // Condition for gating the content
     const collectAccessCondition: CollectCondition = { thisPublication: true };
     const followAccessCondition: FollowCondition = {
-      profileId: currentProfile.id
+      profileId: currentProfile?.id
     };
 
     // Create the access condition
@@ -636,7 +659,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     // Generate the encrypted metadata and upload it to Arweave
     const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
       metadata,
-      currentProfile.id,
+      currentProfile?.id,
       accessCondition,
       async (data: EncryptedMetadata) => {
         return await uploadToArweave(data);
@@ -653,6 +676,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const createPublication = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     if (isComment && publication.isDataAvailability && !isSponsored) {
@@ -692,11 +719,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       const attributes: MetadataAttributeInput[] = [
-        {
-          traitType: 'type',
-          displayType: PublicationMetadataDisplayTypes.String,
-          value: getMainContentFocus()?.toLowerCase()
-        },
+        ...(hasLiveVideo
+          ? [
+              {
+                traitType: 'isLive',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: 'true'
+              },
+              {
+                traitType: 'liveId',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: liveVideoConfig.id
+              },
+              {
+                traitType: 'livePlaybackId',
+                displayType: PublicationMetadataDisplayTypes.String,
+                value: liveVideoConfig.playbackId
+              }
+            ]
+          : []),
         ...(quotedPublication
           ? [
               {
@@ -726,14 +767,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           : [])
       ];
 
-      const attachmentsInput: PublicationMetadataMediaInput[] = attachments.map(
-        (attachment) => ({
-          item: attachment.original.url,
-          cover: getAttachmentImage(),
-          type: attachment.original.mimeType,
-          altTag: attachment.original.altTag
-        })
-      );
+      const attachmentsInput: PublicationMetadataMediaInput[] = hasLiveVideo
+        ? [
+            {
+              item: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+              type: 'video/mp4'
+            }
+          ]
+        : attachments.map((attachment) => ({
+            item: attachment.original.url,
+            cover: getAttachmentImage(),
+            type: attachment.original.mimeType,
+            altTag: attachment.original.altTag
+          }));
 
       let processedPublicationContent = publicationContent;
 
@@ -745,7 +791,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         version: '2.0.0',
         metadata_id: uuid(),
         content: processedPublicationContent,
-        external_url: `https://lenster.xyz/u/${currentProfile?.handle}`,
+        external_url: urlcat('https://hey.xyz/:handle', {
+          handle: currentProfile.handle
+        }),
         image:
           attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
         imageMimeType:
@@ -844,7 +892,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   const setGifAttachment = (gif: IGif) => {
-    const attachment: NewLensterAttachment = {
+    const attachment: NewAttachment = {
       id: uuid(),
       previewItem: gif.images.original.url,
       original: {
@@ -882,7 +930,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   return (
     <Card
-      className={clsx(
+      onClick={() => setShowEmojiPicker(false)}
+      className={cn(
         { '!rounded-b-xl !rounded-t-none border-none': !isComment },
         'pb-3'
       )}
@@ -901,6 +950,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
+      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication publication={quotedPublication} isNew />
@@ -908,8 +958,32 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          <Attachment />
-          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          {!showLiveVideoEditor && (
+            <>
+              <Attachment />
+              <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+            </>
+          )}
+          <EmojiPicker
+            emojiClassName="text-brand"
+            setShowEmojiPicker={setShowEmojiPicker}
+            showEmojiPicker={showEmojiPicker}
+            setEmoji={(emoji) => {
+              setShowEmojiPicker(false);
+              editor.update(() => {
+                // @ts-ignore
+                const index = editor?._editorState?._selection?.focus?.offset;
+                const updatedContent =
+                  publicationContent.substring(0, index) +
+                  emoji +
+                  publicationContent.substring(
+                    index,
+                    publicationContent.length
+                  );
+                $convertFromMarkdownString(updatedContent);
+              });
+            }}
+          />
           {!publication?.isDataAvailability ? (
             <>
               <CollectSettings />
@@ -918,6 +992,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
+          {!isComment && attachments.length <= 0 && isStaff && (
+            <LivestreamSettings />
+          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -931,9 +1008,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatAlt2Icon className="h-4 w-4" />
+                <ChatBubbleLeftRightIcon className="h-4 w-4" />
               ) : (
-                <PencilAltIcon className="h-4 w-4" />
+                <PencilSquareIcon className="h-4 w-4" />
               )
             }
             onClick={createPublication}

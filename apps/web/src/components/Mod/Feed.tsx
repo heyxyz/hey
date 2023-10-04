@@ -1,15 +1,15 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import type {
   CustomFiltersTypes,
   ExplorePublicationRequest,
   Publication,
   PublicationMainFocus,
   PublicationTypes
-} from '@lenster/lens';
-import { PublicationSortCriteria, useExploreFeedQuery } from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { PublicationSortCriteria, useExploreFeedQuery } from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect } from 'react';
@@ -87,7 +87,7 @@ const Feed: FC<FeedProps> = ({
     return (
       <EmptyState
         message={t`No posts yet!`}
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );
   }

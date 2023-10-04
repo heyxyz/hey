@@ -1,13 +1,17 @@
-import { SNAPSHOT_URL } from '@lenster/data/constants';
+import { SNAPSHOT_URL } from '@hey/data/constants';
 
 /**
  * Get Snapshot proposal ID from URL
  * @param url Snapshot proposal URL
  * @returns Snapshot proposal ID
  */
-const getSnapshotProposalId = (url: string[]): string | null => {
+const getSnapshotProposalId = (urls: string[]): string | null => {
+  if (!urls.length) {
+    return null;
+  }
+
   const snapshotHost = SNAPSHOT_URL.replace('https://', '');
-  const snapshotUrl = url.find((url) => url.includes(`${snapshotHost}/#/`));
+  const snapshotUrl = urls.find((url) => url.includes(`${snapshotHost}/#/`));
 
   if (!snapshotUrl) {
     return null;

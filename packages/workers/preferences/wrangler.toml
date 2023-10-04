@@ -5,7 +5,7 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "preferences.lenster.xyz", custom_domain = true }
+	{ pattern = "preferences.hey.xyz", custom_domain = true }
 ]
 
 kv_namespaces = [
@@ -13,4 +13,5 @@ kv_namespaces = [
 ]
 
 [env.production.vars]
+RELEASE = ""
 SUPABASE_KEY = ""

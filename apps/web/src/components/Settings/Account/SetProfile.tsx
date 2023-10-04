@@ -1,24 +1,28 @@
+import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import UserProfile from '@components/Shared/UserProfile';
-import { ExclamationIcon, PencilIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import { APP_NAME, LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import type { CreateSetDefaultProfileRequest, Profile } from '@lenster/lens';
+import {
+  ExclamationTriangleIcon,
+  PencilIcon
+} from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import type { CreateSetDefaultProfileRequest, Profile } from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetDefaultProfileTypedDataMutation
-} from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getSignature from '@lenster/lib/getSignature';
-import { Button, Card, ErrorMessage, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getSignature from '@hey/lib/getSignature';
+import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import Custom404 from 'src/pages/404';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useEffectOnce } from 'usehooks-ts';
@@ -31,6 +35,7 @@ const SetProfile: FC = () => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const [selectedUser, setSelectedUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
     if (__typename === 'RelayError') {
@@ -95,6 +100,10 @@ const SetProfile: FC = () => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const request: CreateSetDefaultProfileRequest = {
@@ -112,7 +121,7 @@ const SetProfile: FC = () => {
   };
 
   if (!currentProfile) {
-    return <Custom404 />;
+    return <NotLoggedIn />;
   }
 
   return (
@@ -129,7 +138,7 @@ const SetProfile: FC = () => {
         </>
       ) : (
         <div className="flex items-center space-x-1.5 font-bold text-yellow-500">
-          <ExclamationIcon className="h-5 w-5" />
+          <ExclamationTriangleIcon className="h-5 w-5" />
           <div>
             <Trans>You don't have any default profile set!</Trans>
           </div>

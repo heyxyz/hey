@@ -1,10 +1,9 @@
-import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
+import response from '@hey/lib/response';
 
 import getMetadata from '../helper/getMetadata';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   const url = request.query.url as string;
 
   if (!url) {
@@ -12,9 +11,10 @@ export default async (request: IRequest, env: Env) => {
   }
 
   try {
-    const data = await getMetadata(url as string, env);
-
-    return response({ success: true, oembed: data });
+    return response({
+      success: true,
+      oembed: await getMetadata(url as string, request.env)
+    });
   } catch (error) {
     throw error;
   }

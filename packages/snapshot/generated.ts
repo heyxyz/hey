@@ -172,6 +172,7 @@ export type Proposal = {
   symbol: Scalars['String']['output'];
   title: Scalars['String']['output'];
   type?: Maybe<Scalars['String']['output']>;
+  updated?: Maybe<Scalars['Int']['output']>;
   validation?: Maybe<Validation>;
   votes?: Maybe<Scalars['Int']['output']>;
 };
@@ -219,6 +220,12 @@ export type ProposalWhere = {
   title_contains?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<Scalars['String']['input']>;
   type_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  updated?: InputMaybe<Scalars['Int']['input']>;
+  updated_gt?: InputMaybe<Scalars['Int']['input']>;
+  updated_gte?: InputMaybe<Scalars['Int']['input']>;
+  updated_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  updated_lt?: InputMaybe<Scalars['Int']['input']>;
+  updated_lte?: InputMaybe<Scalars['Int']['input']>;
   validation?: InputMaybe<Scalars['String']['input']>;
 };
 

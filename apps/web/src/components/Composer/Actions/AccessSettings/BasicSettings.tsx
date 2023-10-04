@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectionIcon, UsersIcon } from '@heroicons/react/outline';
-import { CollectModules } from '@lenster/lens';
-import { Button, Card } from '@lenster/ui';
+import { RectangleStackIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { CollectModules } from '@hey/lens';
+import { Button, Card } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
@@ -64,7 +64,7 @@ const BasicSettings: FC<BasicSettingsProps> = ({ setShowModal }) => {
               }}
               heading={t`Collectors can view`}
               description={t`People need to collect it first to be able to view it`}
-              icon={<CollectionIcon className="h-4 w-4" />}
+              icon={<RectangleStackIcon className="h-4 w-4" />}
             />
           </Card>
           <Card className="mt-5 p-5">

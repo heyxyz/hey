@@ -1,27 +1,27 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
-import { ChevronDownIcon } from '@heroicons/react/solid';
-import { HOME } from '@lenster/data/tracking';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
   Profile,
   ProfileSearchResult
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CustomFiltersTypes,
   SearchRequestTypes,
   useSearchProfilesLazyQuery,
   useSeeThroughProfilesLazyQuery
-} from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import { Image, Input, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import { Image, Input, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -136,8 +136,8 @@ const SeeThroughLens: FC = () => {
               value={searchText}
               autoComplete="off"
               iconRight={
-                <XIcon
-                  className={clsx(
+                <XMarkIcon
+                  className={cn(
                     'cursor-pointer',
                     searchText ? 'visible' : 'invisible'
                   )}
@@ -172,7 +172,7 @@ const SeeThroughLens: FC = () => {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className={({ active }) =>
-                      clsx(
+                      cn(
                         { 'dropdown-active': active },
                         'cursor-pointer overflow-hidden rounded-lg p-1'
                       )

@@ -1,45 +1,49 @@
 import Message from '@components/Profile/Message';
-import Follow from '@components/Shared/Follow';
 import Markup from '@components/Shared/Markup';
+import Follow from '@components/Shared/Profile/Follow';
+import Unfollow from '@components/Shared/Profile/Unfollow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import Unfollow from '@components/Shared/Unfollow';
 import ProfileStaffTool from '@components/StaffTools/Panels/Profile';
 import {
-  CogIcon,
+  Cog6ToothIcon,
   HashtagIcon,
-  LocationMarkerIcon,
+  MapPinIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { BadgeCheckIcon, ExclamationCircleIcon } from '@heroicons/react/solid';
+} from '@heroicons/react/24/outline';
+import {
+  CheckBadgeIcon,
+  ExclamationCircleIcon
+} from '@heroicons/react/24/solid';
 import {
   EXPANDED_AVATAR,
   RARIBLE_URL,
   STATIC_IMAGES_URL
-} from '@lenster/data/constants';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
-import getEnvConfig from '@lenster/data/utils/getEnvConfig';
-import type { Profile } from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import getMisuseDetails from '@lenster/lib/getMisuseDetails';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import hasMisused from '@lenster/lib/hasMisused';
-import sanitizeDisplayName from '@lenster/lib/sanitizeDisplayName';
-import { Button, Image, LightBox, Modal, Tooltip } from '@lenster/ui';
+} from '@hey/data/constants';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import getEnvConfig from '@hey/data/utils/getEnvConfig';
+import type { Profile } from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import getMisuseDetails from '@hey/lib/getMisuseDetails';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import hasMisused from '@hey/lib/hasMisused';
+import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
+import { useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/preferences';
+import urlcat from 'urlcat';
 
 import Badges from './Badges';
 import Followerings from './Followerings';
@@ -57,13 +61,15 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
-  const router = useRouter();
 
   const { persistProfile } = useMessageDb();
 
@@ -77,7 +83,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       conversationId
     );
     persistProfile(conversationKey, profile);
-    router.push(`/messages/${conversationKey}`);
+    setConversationKey(conversationKey);
   };
 
   const MetaDetails = ({
@@ -124,7 +130,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </div>
           {isVerified(profile.id) ? (
             <Tooltip content={t`Verified`}>
-              <BadgeCheckIcon
+              <CheckBadgeIcon
                 className="text-brand h-6 w-6"
                 data-testid="profile-verified-badge"
               />
@@ -180,7 +186,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <Link href="/settings">
               <Button
                 variant="secondary"
-                icon={<CogIcon className="h-5 w-5" />}
+                icon={<Cog6ToothIcon className="h-5 w-5" />}
                 outline
               >
                 <Trans>Edit Profile</Trans>
@@ -245,9 +251,10 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           >
             <Tooltip content={`#${profile.id}`}>
               <Link
-                href={`${RARIBLE_URL}/token/polygon/${
-                  getEnvConfig().lensHubProxyAddress
-                }:${parseInt(profile.id)}`}
+                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
+                  address: getEnvConfig().lensHubProxyAddress,
+                  id: parseInt(profile.id)
+                })}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -257,7 +264,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </MetaDetails>
           {getProfileAttribute(profile?.attributes, 'location') ? (
             <MetaDetails
-              icon={<LocationMarkerIcon className="h-4 w-4" />}
+              icon={<MapPinIcon className="h-4 w-4" />}
               dataTestId="profile-meta-location"
             >
               {getProfileAttribute(profile?.attributes, 'location')}
@@ -283,12 +290,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`https://www.google.com/s2/favicons?domain=${getProfileAttribute(
-                    profile?.attributes,
-                    'website'
-                  )
-                    ?.replace('https://', '')
-                    .replace('http://', '')}`}
+                  src={urlcat('https://www.google.com/s2/favicons', {
+                    domain: getProfileAttribute(profile?.attributes, 'website')
+                      ?.replace('https://', '')
+                      .replace('http://', '')
+                  })}
                   className="h-4 w-4 rounded-full"
                   height={16}
                   width={16}
@@ -316,31 +322,25 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {getProfileAttribute(profile?.attributes, 'x') ? (
             <MetaDetails
               icon={
-                resolvedTheme === 'dark' ? (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-dark.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                ) : (
-                  <img
-                    src={`${STATIC_IMAGES_URL}/brands/x-light.png`}
-                    className="h-4 w-4"
-                    height={16}
-                    width={16}
-                    alt="X Logo"
-                  />
-                )
+                <img
+                  src={`${STATIC_IMAGES_URL}/brands/${
+                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                  }`}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                />
               }
               dataTestId="profile-meta-x"
             >
               <Link
-                href={`https://x.com/${getProfileAttribute(
-                  profile?.attributes,
-                  'x'
-                )?.replace('https://x.com/', '')}`}
+                href={urlcat('https://x.com/:username', {
+                  username: getProfileAttribute(
+                    profile?.attributes,
+                    'x'
+                  )?.replace('https://x.com/', '')
+                })}
                 target="_blank"
                 rel="noreferrer noopener"
               >

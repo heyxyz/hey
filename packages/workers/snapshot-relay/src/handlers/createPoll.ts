@@ -1,13 +1,12 @@
 import {
-  LENSTER_POLLS_SPACE,
+  HEY_POLLS_SPACE,
   MAINNET_SNAPSHOT_SEQUNECER_URL,
   MAINNET_SNAPSHOT_URL,
   TESTNET_SNAPSHOT_SEQUNECER_URL,
   TESTNET_SNAPSHOT_URL
-} from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import response from '@lenster/lib/response';
-import type { IRequest } from 'itty-router';
+} from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import response from '@hey/lib/response';
 
 import {
   MAINNET_PROPOSAL_CREATOR_ADDRESS,
@@ -17,7 +16,7 @@ import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
 import serializedTypedData from '../helpers/serializedTypedData';
 import walletClient from '../helpers/walletClient';
-import type { Env } from '../types';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   title: string;
@@ -44,7 +43,7 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
   'length'
 ];
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
@@ -66,8 +65,8 @@ export default async (request: IRequest, env: Env) => {
     ? MAINNET_PROPOSAL_CREATOR_ADDRESS
     : TESTNET_PROPOSAL_CREATOR_ADDRESS;
   const relayerPrivateKey = isMainnet
-    ? env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
-    : env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
+    ? request.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
+    : request.env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
 
   const client = walletClient(relayerPrivateKey, isMainnet);
   const block = await publicClient(isMainnet).getBlockNumber();
@@ -94,7 +93,7 @@ export default async (request: IRequest, env: Env) => {
         ]
       },
       message: {
-        space: LENSTER_POLLS_SPACE,
+        space: HEY_POLLS_SPACE,
         type: 'single-choice',
         title,
         body: description,
@@ -133,7 +132,7 @@ export default async (request: IRequest, env: Env) => {
 
     return response({
       success: true,
-      snapshotUrl: `${snapshotUrl}/#/${LENSTER_POLLS_SPACE}/proposal/${snapshotResponse.id}`
+      snapshotUrl: `${snapshotUrl}/#/${HEY_POLLS_SPACE}/proposal/${snapshotResponse.id}`
     });
   } catch (error) {
     throw error;

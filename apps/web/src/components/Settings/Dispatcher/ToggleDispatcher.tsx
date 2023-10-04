@@ -1,22 +1,19 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { CheckCircleIcon, XIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import {
-  LENSHUB_PROXY,
-  OLD_LENS_RELAYER_ADDRESS
-} from '@lenster/data/constants';
-import { SETTINGS } from '@lenster/data/tracking';
+import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from '@hey/data/constants';
+import { SETTINGS } from '@hey/data/tracking';
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation
-} from '@lenster/lens';
-import getIsDispatcherEnabled from '@lenster/lib/getIsDispatcherEnabled';
-import getSignature from '@lenster/lib/getSignature';
-import { Button, Spinner } from '@lenster/ui';
+} from '@hey/lens';
+import getIsDispatcherEnabled from '@hey/lib/getIsDispatcherEnabled';
+import getSignature from '@hey/lib/getSignature';
+import { Button, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -130,13 +127,13 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   ) : (
     <Button
       variant={canUseRelay ? 'danger' : 'primary'}
-      className={clsx({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
+      className={cn({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
       icon={
         isLoading ? (
           <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
         ) : canUseRelay ? (
-          <XIcon className="h-4 w-4" />
+          <XMarkIcon className="h-4 w-4" />
         ) : (
           <CheckCircleIcon className="h-4 w-4" />
         )

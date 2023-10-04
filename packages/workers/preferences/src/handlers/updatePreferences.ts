@@ -1,44 +1,46 @@
-import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
-import { adminAddresses } from '@lenster/data/staffs';
-import hasOwnedLensProfiles from '@lenster/lib/hasOwnedLensProfiles';
-import response from '@lenster/lib/response';
-import validateLensAccount from '@lenster/lib/validateLensAccount';
+import { Errors } from '@hey/data/errors';
+import { adminAddresses } from '@hey/data/staffs';
+import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
+import response from '@hey/lib/response';
+import validateLensAccount from '@hey/lib/validateLensAccount';
+import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import type { IRequest } from 'itty-router';
 import { boolean, object, string } from 'zod';
 
-import createSupabaseClient from '../helpers/createSupabaseClient';
-import type { Env } from '../types';
+import { VERIFIED_KV_KEY } from '../constants';
+import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id: string;
   isStaff?: boolean;
   isGardener?: boolean;
-  isTrustedMember?: boolean;
+  isLensMember?: boolean;
   isVerified?: boolean;
   isPride?: boolean;
   highSignalNotificationFilter?: boolean;
   updateByAdmin?: boolean;
-  accessToken: string;
 };
 
 const validationSchema = object({
   id: string(),
   isStaff: boolean().optional(),
   isGardener: boolean().optional(),
-  isTrustedMember: boolean().optional(),
+  isLensMember: boolean().optional(),
   isVerified: boolean().optional(),
   isPride: boolean().optional(),
   highSignalNotificationFilter: boolean().optional(),
-  updateByAdmin: boolean().optional(),
-  accessToken: string().regex(Regex.accessToken)
+  updateByAdmin: boolean().optional()
 });
 
-export default async (request: IRequest, env: Env) => {
+export default async (request: WorkerRequest) => {
   const body = await request.json();
   if (!body) {
     return response({ success: false, error: Errors.NoBody });
+  }
+
+  const accessToken = request.headers.get('X-Access-Token');
+  if (!accessToken) {
+    return response({ success: false, error: Errors.NoAccessToken });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -51,12 +53,11 @@ export default async (request: IRequest, env: Env) => {
     id,
     isGardener,
     isStaff,
-    isTrustedMember,
+    isLensMember,
     updateByAdmin,
     isVerified,
     isPride,
-    highSignalNotificationFilter,
-    accessToken
+    highSignalNotificationFilter
   } = body as ExtensionRequest;
 
   try {
@@ -72,12 +73,10 @@ export default async (request: IRequest, env: Env) => {
 
     const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
     if (!updateByAdmin && !hasOwned) {
-      return new Response(
-        JSON.stringify({ success: false, error: Errors.InvalidProfileId })
-      );
+      return response({ success: false, error: Errors.InvalidProfileId });
     }
 
-    const client = createSupabaseClient(env);
+    const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data, error } = await client
       .from('rights')
@@ -86,7 +85,7 @@ export default async (request: IRequest, env: Env) => {
         ...(updateByAdmin && {
           is_staff: isStaff,
           is_gardener: isGardener,
-          is_trusted_member: isTrustedMember,
+          is_lens_member: isLensMember,
           is_verified: isVerified
         }),
         is_pride: isPride,
@@ -101,7 +100,7 @@ export default async (request: IRequest, env: Env) => {
 
     if (updateByAdmin) {
       // Clear cache in Cloudflare KV
-      await env.PREFERENCES.delete('verified-list');
+      await request.env.PREFERENCES.delete(VERIFIED_KV_KEY);
     }
 
     return response({ success: true, result: data });

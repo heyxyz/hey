@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
-import { AnnotationIcon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
+import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
+import type { Publication } from '@hey/lens';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
@@ -28,7 +28,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
@@ -39,7 +39,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        <AnnotationIcon className="h-4 w-4" />
+        <ChatBubbleBottomCenterTextIcon className="h-4 w-4" />
         <div>
           {publicationType === 'Comment' ? (
             <Trans>Quote comment</Trans>

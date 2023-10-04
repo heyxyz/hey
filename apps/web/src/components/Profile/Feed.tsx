@@ -1,18 +1,14 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { CollectionIcon } from '@heroicons/react/outline';
-import type {
-  Profile,
-  Publication,
-  PublicationsQueryRequest
-} from '@lenster/lens';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import type { Profile, Publication, PublicationsQueryRequest } from '@hey/lens';
 import {
   PublicationMainFocus,
   PublicationTypes,
   useProfileFeedQuery
-} from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -74,7 +70,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     ...(type !== ProfileFeedType.Collects
       ? { profileId: profile?.id }
       : { collectedBy: profile?.ownedBy }),
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }
@@ -132,7 +128,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
             <span>{emptyMessage}</span>
           </div>
         }
-        icon={<CollectionIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );
   }

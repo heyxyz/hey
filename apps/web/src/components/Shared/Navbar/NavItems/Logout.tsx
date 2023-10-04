@@ -1,9 +1,9 @@
-import { LogoutIcon } from '@heroicons/react/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import resetAuthData from '@lenster/lib/resetAuthData';
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { PROFILE } from '@hey/data/tracking';
+import resetAuthData from '@hey/lib/resetAuthData';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -47,13 +47,15 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         logout();
         onClick?.();
       }}
-      className={clsx(
-        'flex w-full px-2 py-1.5 text-sm text-gray-700 dark:text-gray-200',
+      className={cn(
+        'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
       <div className="flex items-center space-x-1.5">
-        <LogoutIcon className="h-4 w-4" />
+        <div>
+          <ArrowRightOnRectangleIcon className="h-4 w-4" />
+        </div>
         <div>
           <Trans>Logout</Trans>
         </div>

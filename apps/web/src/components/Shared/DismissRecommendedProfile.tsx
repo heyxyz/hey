@@ -1,7 +1,7 @@
-import { XIcon } from '@heroicons/react/outline';
-import { PROFILE } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useDismissRecommendedProfilesMutation } from '@lenster/lens';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { PROFILE } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useDismissRecommendedProfilesMutation } from '@hey/lens';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 
@@ -34,7 +34,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
 
   return (
     <button onClick={handleDismiss}>
-      <XIcon className="h-4 w-4 text-gray-500" />
+      <XMarkIcon className="h-4 w-4 text-gray-500" />
     </button>
   );
 };

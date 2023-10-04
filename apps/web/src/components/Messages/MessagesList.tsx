@@ -1,10 +1,11 @@
-import { ClockIcon, EmojiSadIcon } from '@heroicons/react/outline';
-import { CheckIcon, ExclamationIcon } from '@heroicons/react/solid';
-import type { Profile } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAvatar from '@lenster/lib/getAvatar';
-import getStampFyiURL from '@lenster/lib/getStampFyiURL';
-import { Card, Image } from '@lenster/ui';
+import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import type { Profile } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getAvatar from '@hey/lib/getAvatar';
+import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import { Card, Image } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import {
   formatDate,
   formatTime,
@@ -13,9 +14,8 @@ import {
 } from '@lib/formatTime';
 import { Trans } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
 import {
   type FailedMessage,
@@ -46,7 +46,7 @@ const MessageTile: FC<MessageTileProps> = ({
   if (isQueuedMessage(message)) {
     switch (message.status) {
       case 'failed':
-        statusIcon = <ExclamationIcon width={14} height={14} />;
+        statusIcon = <ExclamationTriangleIcon width={14} height={14} />;
         break;
       case 'pending':
         statusIcon = <ClockIcon width={14} height={14} />;
@@ -86,21 +86,21 @@ const MessageTile: FC<MessageTileProps> = ({
 
   return (
     <div
-      className={clsx(
-        address === message.senderAddress ? 'mr-4 items-end' : 'items-start',
-        'mx-auto mb-4 flex flex-col'
+      className={cn(
+        address === message.senderAddress ? 'mx-4 items-end' : 'items-start',
+        'mb-4 flex flex-col'
       )}
     >
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress ? (
           <Image
-            src={url ?? getAvatar(profile)}
+            src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />
         ) : null}
         <div
-          className={clsx(
+          className={cn(
             address === message.senderAddress
               ? 'bg-brand-500'
               : 'bg-gray-100 dark:bg-gray-700',
@@ -108,7 +108,7 @@ const MessageTile: FC<MessageTileProps> = ({
           )}
         >
           <span
-            className={clsx(
+            className={cn(
               address === message.senderAddress && 'text-white',
               'text-md linkify-message block break-words'
             )}
@@ -121,9 +121,9 @@ const MessageTile: FC<MessageTileProps> = ({
           </span>
         </div>
       </div>
-      <div className={clsx(address !== message.senderAddress ? 'ml-12' : '')}>
+      <div className={cn(address !== message.senderAddress ? 'ml-12' : '')}>
         <span
-          className={clsx(
+          className={cn(
             address === message.senderAddress ? 'flex-row' : 'flex-row-reverse',
             'flex items-center gap-1 text-xs text-gray-400'
           )}
@@ -165,7 +165,7 @@ const MissingXmtpAuth: FC = () => (
     className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300/20 p-5"
   >
     <div className="flex items-center space-x-2 font-bold">
-      <EmojiSadIcon className="h-5 w-5" />
+      <FaceFrownIcon className="h-5 w-5" />
       <p>
         <Trans>This fren hasn't enabled DMs yet</Trans>
       </p>
@@ -198,6 +198,7 @@ interface MessageListProps {
   currentProfile?: Profile | null;
   hasMore: boolean;
   missingXmtpAuth: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 const MessagesList: FC<MessageListProps> = ({
@@ -207,10 +208,11 @@ const MessagesList: FC<MessageListProps> = ({
   profile,
   currentProfile,
   hasMore,
-  missingXmtpAuth
+  missingXmtpAuth,
+  listRef
 }) => {
-  const listRef = useRef<HTMLSpanElement | null>(null);
   let lastMessageDate: Date | undefined;
+
   const { observe } = useInView({
     onChange: ({ inView }) => {
       if (!inView) {
@@ -224,6 +226,7 @@ const MessagesList: FC<MessageListProps> = ({
   // scroll to the bottom of the message list when a conversation is selected
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);
 
   const ensNames = useMessageStore((state) => state.ensNames);
@@ -236,7 +239,7 @@ const MessagesList: FC<MessageListProps> = ({
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth ? <MissingXmtpAuth /> : null}
-          <span
+          <div
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
@@ -264,7 +267,7 @@ const MessagesList: FC<MessageListProps> = ({
               return messageDiv;
             })}
             {hasMore ? <LoadingMore /> : <ConversationBeginningNotice />}
-          </span>
+          </div>
         </div>
       </div>
     </div>

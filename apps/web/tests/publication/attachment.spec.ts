@@ -73,7 +73,7 @@ test.describe('Publication attachments', () => {
           'snapshot-0x9287c40edcd68c362c7c4139fe3489bbaaa27cf4de68be5c218a82d0f252e718'
         );
       await expect(snapshotWidget).toContainText(
-        'Do you like the Snapshot integration with Lenster?'
+        `Do you like the Snapshot integration`
       );
       await expect(snapshotWidget).toContainText('Yes ser 🙌');
     });

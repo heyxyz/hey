@@ -5,11 +5,10 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "leafwatch.lenster.xyz", custom_domain = true }
+	{ pattern = "leafwatch.hey.xyz", custom_domain = true }
 ]
 
 [env.production.vars]
-SENTRY_DSN = ""
 RELEASE = ""
 CLICKHOUSE_REST_ENDPOINT = ""
 IPAPI_KEY = ""

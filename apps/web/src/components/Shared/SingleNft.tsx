@@ -1,7 +1,7 @@
-import { RARIBLE_URL, STATIC_IMAGES_URL } from '@lenster/data/constants';
-import type { Nft } from '@lenster/lens';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import { Card } from '@lenster/ui';
+import { RARIBLE_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
+import type { Nft } from '@hey/lens';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { CHAIN_ID } from 'src/constants';
 
@@ -18,7 +18,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
     : undefined;
 
   return (
-    <Card>
+    <Card forceRounded>
       <div
         onClick={() => nftURL && window.open(nftURL, '_blank')}
         className="cursor-pointer"

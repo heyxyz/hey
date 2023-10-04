@@ -7,9 +7,9 @@ import {
   NotificationWalletProfileName
 } from '@components/Notification/WalletProfile';
 import UserPreview from '@components/Shared/UserPreview';
-import { CollectionIcon } from '@heroicons/react/solid';
-import type { NewCollectNotification } from '@lenster/lens';
-import type { MessageDescriptor } from '@lenster/types/misc';
+import { RectangleStackIcon } from '@heroicons/react/24/solid';
+import type { NewCollectNotification } from '@hey/lens';
+import type { MessageDescriptor } from '@hey/types/misc';
 import { formatTime, getTimeFromNow } from '@lib/formatTime';
 import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/react';
@@ -50,7 +50,7 @@ const CollectNotification: FC<CollectNotificationProps> = ({
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <CollectionIcon className="h-6 w-6 text-pink-500/70" />
+            <RectangleStackIcon className="h-6 w-6 text-pink-500/70" />
             {notification?.wallet?.defaultProfile ? (
               <UserPreview
                 isBig={false}

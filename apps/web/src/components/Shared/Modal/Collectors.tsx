@@ -1,14 +1,14 @@
 import UserProfile from '@components/Shared/UserProfile';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { CollectionIcon } from '@heroicons/react/outline';
-import { FollowUnfollowSource } from '@lenster/data/tracking';
+import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { FollowUnfollowSource } from '@hey/data/tracking';
 import type {
   Profile,
   Wallet,
   WhoCollectedPublicationRequest
-} from '@lenster/lens';
-import { useCollectorsQuery } from '@lenster/lens';
-import { EmptyState, ErrorMessage } from '@lenster/ui';
+} from '@hey/lens';
+import { useCollectorsQuery } from '@hey/lens';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -24,7 +24,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
   const request: WhoCollectedPublicationRequest = {
     publicationId: publicationId,
-    limit: 10
+    limit: 50
   };
 
   const { data, loading, error, fetchMore } = useCollectorsQuery({
@@ -55,7 +55,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message={t`No collectors.`}
-          icon={<CollectionIcon className="text-brand h-8 w-8" />}
+          icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
           hideCard
         />
       </div>

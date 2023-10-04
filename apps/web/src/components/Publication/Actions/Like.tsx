@@ -1,17 +1,18 @@
-import { HeartIcon } from '@heroicons/react/outline';
-import { HeartIcon as HeartIconSolid } from '@heroicons/react/solid';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import { HeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
 import {
   ReactionTypes,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@lenster/lens';
-import type { ApolloCache } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import nFormatter from '@lenster/lib/nFormatter';
-import { Tooltip } from '@lenster/ui';
+} from '@hey/lens';
+import type { ApolloCache } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import nFormatter from '@hey/lib/nFormatter';
+import { Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -142,13 +143,23 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className="flex items-center space-x-1 text-pink-500">
+    <div
+      className={cn(
+        liked ? 'text-brand-500' : 'lt-text-gray-500',
+        'flex items-center space-x-1'
+      )}
+    >
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={createLike}
         aria-label="Like"
       >
-        <div className="rounded-full p-1.5 hover:bg-pink-300/20">
+        <div
+          className={cn(
+            liked ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
+            'rounded-full p-1.5'
+          )}
+        >
           <Tooltip
             placement="top"
             content={liked ? t`Unlike` : t`Like`}

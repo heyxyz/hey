@@ -1,21 +1,24 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
-import { ExternalLinkIcon, XIcon } from '@heroicons/react/outline';
+import {
+  ArrowTopRightOnSquareIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
   ATTACHMENT
-} from '@lenster/data/constants';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { MediaSet, Publication } from '@lenster/lens';
-import getThumbnailUrl from '@lenster/lib/getThumbnailUrl';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import type { NewLensterAttachment } from '@lenster/types/misc';
-import { Button, Image, LightBox } from '@lenster/ui';
+} from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { MediaSet, Publication } from '@hey/lens';
+import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import type { NewAttachment } from '@hey/types/misc';
+import { Button, Image, LightBox } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -59,6 +62,10 @@ const Attachments: FC<AttachmentsProps> = ({
   txn
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
+  const uploadedPercentage = usePublicationStore(
+    (state) => state.uploadedPercentage
+  );
+  const isUploading = usePublicationStore((state) => state.isUploading);
   const setVideoDurationInSeconds = usePublicationStore(
     (state) => state.setVideoDurationInSeconds
   );
@@ -95,11 +102,9 @@ const Attachments: FC<AttachmentsProps> = ({
 
   return attachmentsLength !== 0 ? (
     <>
-      <div
-        className={clsx(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}
-      >
+      <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
         {slicedAttachments?.map(
-          (attachment: NewLensterAttachment & MediaSet, index: number) => {
+          (attachment: NewAttachment & MediaSet, index: number) => {
             const type = attachment.original?.mimeType;
             const url = isNew
               ? attachment.previewItem
@@ -110,7 +115,7 @@ const Attachments: FC<AttachmentsProps> = ({
 
             return (
               <div
-                className={clsx(
+                className={cn(
                   isImage
                     ? `${getClass(attachmentsLength, isNew)?.aspect} ${
                         attachmentsLength === 3 && index === 0
@@ -120,7 +125,7 @@ const Attachments: FC<AttachmentsProps> = ({
                     : '',
                   {
                     'w-full': isAudio || isVideo,
-                    'w-2/3': !isVideo && attachmentsLength === 1
+                    'w-2/3': isImage && attachmentsLength === 1
                   },
                   'relative'
                 )}
@@ -132,7 +137,7 @@ const Attachments: FC<AttachmentsProps> = ({
                   <Button
                     className="text-sm"
                     variant="primary"
-                    icon={<ExternalLinkIcon className="h-4 w-4" />}
+                    icon={<ArrowTopRightOnSquareIcon className="h-4 w-4" />}
                     onClick={() => window.open(url, '_blank')}
                   >
                     <span>
@@ -142,6 +147,14 @@ const Attachments: FC<AttachmentsProps> = ({
                 ) : isVideo ? (
                   isNew ? (
                     <>
+                      {isUploading && uploadedPercentage !== 100 ? (
+                        <div className="mb-5 h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+                          <div
+                            className="bg-brand-500 h-2.5 rounded-full"
+                            style={{ width: `${uploadedPercentage}%` }}
+                          />
+                        </div>
+                      ) : null}
                       <video
                         className="w-full overflow-hidden rounded-xl"
                         src={url}
@@ -194,7 +207,7 @@ const Attachments: FC<AttachmentsProps> = ({
                       className="mt-3"
                       variant="danger"
                       size="sm"
-                      icon={<XIcon className="h-4 w-4" />}
+                      icon={<XMarkIcon className="h-4 w-4" />}
                       onClick={() => removeAttachment(attachment)}
                       outline
                     >
@@ -202,16 +215,14 @@ const Attachments: FC<AttachmentsProps> = ({
                     </Button>
                   ) : (
                     <div
-                      className={clsx(
-                        isAudio ? 'absolute left-2 top-2' : 'm-3'
-                      )}
+                      className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}
                     >
                       <button
                         type="button"
                         className="rounded-full bg-gray-900 p-1.5 opacity-75"
                         onClick={() => removeAttachment(attachment)}
                       >
-                        <XIcon className="h-4 w-4 text-white" />
+                        <XMarkIcon className="h-4 w-4 text-white" />
                       </button>
                     </div>
                   ))}

@@ -1,16 +1,20 @@
 import IndexStatus from '@components/Shared/IndexStatus';
-import { ExclamationIcon, LockOpenIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { SETTINGS } from '@lenster/data/tracking';
-import { Button, Card, Modal, Spinner, WarningMessage } from '@lenster/ui';
+import {
+  ExclamationTriangleIcon,
+  LockOpenIcon
+} from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { SETTINGS } from '@hey/data/tracking';
+import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite } from 'wagmi';
@@ -22,6 +26,7 @@ const GuardianSettings: FC = () => {
   );
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -43,6 +48,10 @@ const GuardianSettings: FC = () => {
   const handleDisable = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
@@ -105,7 +114,7 @@ const GuardianSettings: FC = () => {
       )}
       <Modal
         title={t`Danger zone`}
-        icon={<ExclamationIcon className="h-5 w-5 text-red-500" />}
+        icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >

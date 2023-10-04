@@ -1,6 +1,6 @@
-name: "Bug Report"
-description: "Report a reproducible bug in the Lenster"
-labels: "needs review"
+name: 'Bug Report'
+description: 'Report a reproducible bug in the Hey'
+labels: 'needs review'
 body:
   - type: markdown
     attributes:

@@ -1,6 +1,6 @@
-import { UserIcon } from '@heroicons/react/outline';
+import { UserIcon } from '@heroicons/react/24/outline';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 
 interface YourProfileProps {
@@ -10,12 +10,14 @@ interface YourProfileProps {
 const YourProfile: FC<YourProfileProps> = ({ className = '' }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
-      <UserIcon className="h-4 w-4" />
+      <div>
+        <UserIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Your profile</Trans>
       </div>

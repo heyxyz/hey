@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { APP_NAME, PREFERENCES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { SETTINGS } from '@lenster/data/tracking';
+import { APP_NAME, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
+import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import axios from 'axios';
@@ -17,11 +17,18 @@ const IsPride: FC = () => {
 
   const toggleIsPride = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: currentProfile?.id,
-        isPride: !isPride,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/update`,
+        {
+          id: currentProfile?.id,
+          isPride: !isPride
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Updating pride preference...`,
         success: () => {
@@ -43,7 +50,7 @@ const IsPride: FC = () => {
       setOn={toggleIsPride}
       heading={t`Celebrate pride every day`}
       description={t`Turn this on to show your pride and turn the ${APP_NAME} logo rainbow every day.`}
-      icon={<img className="h-5 w-5" src="/pride.svg" alt="Pride Logo" />}
+      icon={<img className="h-5 w-5" src="/pride.png" alt="Pride Logo" />}
     />
   );
 };

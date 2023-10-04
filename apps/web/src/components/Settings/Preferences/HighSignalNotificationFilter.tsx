@@ -1,8 +1,8 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { ColorSwatchIcon } from '@heroicons/react/outline';
-import { PREFERENCES_WORKER_URL } from '@lenster/data/constants';
-import { Localstorage } from '@lenster/data/storage';
-import { SETTINGS } from '@lenster/data/tracking';
+import { SwatchIcon } from '@heroicons/react/24/outline';
+import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { Localstorage } from '@hey/data/storage';
+import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import axios from 'axios';
@@ -22,11 +22,18 @@ const HighSignalNotificationFilter: FC = () => {
 
   const toggleHighSignalNotificationFilter = () => {
     toast.promise(
-      axios.post(`${PREFERENCES_WORKER_URL}/update`, {
-        id: currentProfile?.id,
-        highSignalNotificationFilter: !highSignalNotificationFilter,
-        accessToken: localStorage.getItem(Localstorage.AccessToken)
-      }),
+      axios.post(
+        `${PREFERENCES_WORKER_URL}/update`,
+        {
+          id: currentProfile?.id,
+          highSignalNotificationFilter: !highSignalNotificationFilter
+        },
+        {
+          headers: {
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+          }
+        }
+      ),
       {
         loading: t`Updating preference settings...`,
         success: () => {
@@ -51,7 +58,7 @@ const HighSignalNotificationFilter: FC = () => {
       setOn={toggleHighSignalNotificationFilter}
       heading={t`Notification Signal filter`}
       description={t`Turn on high-signal notification filter`}
-      icon={<ColorSwatchIcon className="h-4 w-4" />}
+      icon={<SwatchIcon className="h-4 w-4" />}
     />
   );
 };

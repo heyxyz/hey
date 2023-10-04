@@ -2,15 +2,30 @@ import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import {
-  CollectionIcon,
-  DatabaseIcon,
+  ArrowRightOnRectangleIcon,
+  CircleStackIcon,
   EyeIcon,
   FingerPrintIcon,
-  LogoutIcon,
-  PhotographIcon,
-  UserAddIcon
-} from '@heroicons/react/outline';
-import { LockClosedIcon } from '@heroicons/react/solid';
+  PhotoIcon,
+  RectangleStackIcon,
+  UserPlusIcon
+} from '@heroicons/react/24/outline';
+import { LockClosedIcon } from '@heroicons/react/24/solid';
+import {
+  LIT_PROTOCOL_ENVIRONMENT,
+  POLYGONSCAN_URL,
+  RARIBLE_URL
+} from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication, PublicationMetadataV2Input } from '@hey/lens';
+import { DecryptFailReason, useCanDecryptStatusQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import getURLs from '@hey/lib/getURLs';
+import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Card, ErrorMessage, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import type { LensEnvironment } from '@lens-protocol/sdk-gated';
 import { LensGatedSDK } from '@lens-protocol/sdk-gated';
 import type {
@@ -18,30 +33,15 @@ import type {
   Erc20OwnershipOutput,
   NftOwnershipOutput
 } from '@lens-protocol/sdk-gated/dist/graphql/types';
-import {
-  LIT_PROTOCOL_ENVIRONMENT,
-  POLYGONSCAN_URL,
-  RARIBLE_URL
-} from '@lenster/data/constants';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication, PublicationMetadataV2Input } from '@lenster/lens';
-import { DecryptFailReason, useCanDecryptStatusQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import getURLs from '@lenster/lib/getURLs';
-import removeUrlAtEnd from '@lenster/lib/removeUrlAtEnd';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Card, ErrorMessage, Tooltip } from '@lenster/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import useContractMetadata from 'src/hooks/useContractMetadata';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
-import useNft from 'src/hooks/useNft';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicClient, useToken } from 'wagmi';
@@ -135,7 +135,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     enabled: Boolean(tokenCondition)
   });
 
-  const { data: nftData } = useNft({
+  const { data: contractMetadata } = useContractMetadata({
     address: nftCondition?.contractAddress,
     chainId: nftCondition?.chainID,
     enabled: Boolean(nftCondition)
@@ -192,14 +192,14 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!currentProfile) {
     return (
       <Card
-        className={clsx(cardClasses, '!cursor-pointer')}
+        className={cn(cardClasses, '!cursor-pointer')}
         onClick={(event) => {
           stopEventPropagation(event);
           setShowAuthModal(true);
         }}
       >
         <div className="flex items-center space-x-1 font-bold text-white">
-          <LogoutIcon className="h-5 w-5" />
+          <ArrowRightOnRectangleIcon className="h-5 w-5" />
           <span>Login to decrypt</span>
         </div>
       </Card>
@@ -209,7 +209,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!canDecrypt) {
     return (
       <Card
-        className={clsx(cardClasses, 'cursor-text')}
+        className={cn(cardClasses, 'cursor-text')}
         onClick={stopEventPropagation}
       >
         <div className="flex items-center space-x-2 font-bold">
@@ -221,7 +221,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
         <div className="space-y-2 pt-3.5 text-white">
           {/* Collect checks */}
           {hasNotCollectedPublication ? (
-            <DecryptMessage icon={<CollectionIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<RectangleStackIcon className="h-4 w-4" />}>
               Collect the{' '}
               <Link
                 href={`/posts/${collectCondition?.publicationId}`}
@@ -238,7 +238,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           ) : null}
           {collectNotFinalisedOnChain ? (
             <DecryptMessage
-              icon={<CollectionIcon className="h-4 w-4 animate-pulse" />}
+              icon={<RectangleStackIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Collect finalizing on chain...</Trans>
             </DecryptMessage>
@@ -246,7 +246,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* Follow checks */}
           {doesNotFollowProfile ? (
-            <DecryptMessage icon={<UserAddIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<UserPlusIcon className="h-4 w-4" />}>
               Follow{' '}
               <Link
                 href={`/u/${formatHandle(
@@ -260,7 +260,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
           ) : null}
           {followNotFinalisedOnChain ? (
             <DecryptMessage
-              icon={<UserAddIcon className="h-4 w-4 animate-pulse" />}
+              icon={<UserPlusIcon className="h-4 w-4 animate-pulse" />}
             >
               <Trans>Follow finalizing on chain...</Trans>
             </DecryptMessage>
@@ -268,7 +268,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* Token check */}
           {unauthorizedBalance ? (
-            <DecryptMessage icon={<DatabaseIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<CircleStackIcon className="h-4 w-4" />}>
               You need{' '}
               <Link
                 href={`${POLYGONSCAN_URL}/token/${tokenCondition.contractAddress}`}
@@ -289,12 +289,9 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
 
           {/* NFT check */}
           {doesNotOwnNft ? (
-            <DecryptMessage icon={<PhotographIcon className="h-4 w-4" />}>
+            <DecryptMessage icon={<PhotoIcon className="h-4 w-4" />}>
               You need{' '}
-              <Tooltip
-                content={nftData?.contractMetadata?.name}
-                placement="top"
-              >
+              <Tooltip content={contractMetadata?.name} placement="top">
                 <Link
                   href={`${RARIBLE_URL}/collection/polygon/${nftCondition.contractAddress}/items`}
                   className="font-bold underline"
@@ -306,7 +303,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  {nftData?.contractMetadata?.symbol}
+                  {contractMetadata?.symbol}
                 </Link>
               </Tooltip>{' '}
               nft to unlock
@@ -335,7 +332,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   if (!decryptedData) {
     return (
       <Card
-        className={clsx(cardClasses, '!cursor-pointer')}
+        className={cn(cardClasses, '!cursor-pointer')}
         onClick={async (event) => {
           stopEventPropagation(event);
           await getDecryptedData();
@@ -366,7 +363,7 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
   return (
     <div className="break-words">
       <Markup
-        className={clsx(
+        className={cn(
           { 'line-clamp-5': showMore },
           'markup linkify text-md break-words'
         )}

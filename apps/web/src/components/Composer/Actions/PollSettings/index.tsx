@@ -1,5 +1,5 @@
-import { MenuAlt2Icon } from '@heroicons/react/solid';
-import { Tooltip } from '@lenster/ui';
+import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
+import { Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -23,7 +23,7 @@ const PollSettings: FC = () => {
         }}
         aria-label="Poll"
       >
-        <MenuAlt2Icon className="text-brand h-5 w-5" />
+        <Bars3BottomLeftIcon className="text-brand h-5 w-5" />
       </motion.button>
     </Tooltip>
   );

@@ -1,4 +1,4 @@
-import { SparklesIcon } from '@heroicons/react/solid';
+import { SparklesIcon } from '@heroicons/react/24/solid';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

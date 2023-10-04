@@ -1,15 +1,15 @@
-import { CashIcon, DocumentTextIcon } from '@heroicons/react/outline';
-import { GARDENER } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
+import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
+import { GARDENER } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
-} from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import { Button } from '@lenster/ui';
+} from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import { Button } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
@@ -92,7 +92,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
 
   return (
     <span
-      className={clsx('flex flex-wrap items-center gap-3 text-sm', className)}
+      className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
       onClick={stopEventPropagation}
       aria-hidden="true"
     >
@@ -113,7 +113,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
-        icon={<CashIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="h-4 w-4" />}
         label={t`Stop Sponsor`}
       />
       <ReportButton
@@ -127,7 +127,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             subreason: PublicationReportingSpamSubreason.LowSignal
           }
         ]}
-        icon={<CashIcon className="h-4 w-4" />}
+        icon={<BanknotesIcon className="h-4 w-4" />}
         label={t`Poor content & Stop Sponsor`}
       />
     </span>

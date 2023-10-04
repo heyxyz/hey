@@ -1,5 +1,8 @@
-import { CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/outline';
-import { Card } from '@lenster/ui';
+import {
+  CurrencyDollarIcon,
+  UserCircleIcon
+} from '@heroicons/react/24/outline';
+import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';

@@ -1,9 +1,9 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
-import { XIcon } from '@heroicons/react/outline';
-import type { FeedItem, Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import clsx from 'clsx';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import type { FeedItem, Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
@@ -48,7 +48,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         quoted ? 'pb-2' : 'pb-4',
         'relative flex justify-between space-x-1.5'
       )}
@@ -79,7 +79,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
             }}
             aria-label="Remove Quote"
           >
-            <XIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
+            <XMarkIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
         ) : null}
       </div>

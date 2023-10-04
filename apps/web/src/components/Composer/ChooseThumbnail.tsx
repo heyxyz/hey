@@ -1,9 +1,9 @@
 import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
-import { CheckCircleIcon, PhotographIcon } from '@heroicons/react/outline';
-import { generateVideoThumbnails } from '@lenster/lib/generateVideoThumbnails';
-import getFileFromDataURL from '@lenster/lib/getFileFromDataURL';
-import type { MediaSetWithoutOnChain } from '@lenster/types/misc';
-import { Spinner } from '@lenster/ui';
+import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
+import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
+import type { MediaSetWithoutOnChain } from '@hey/types/misc';
+import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
@@ -160,7 +160,7 @@ const ChooseThumbnail: FC = () => {
             <Spinner size="sm" />
           ) : (
             <>
-              <PhotographIcon className="mb-1 h-5 w-5" />
+              <PhotoIcon className="mb-1 h-5 w-5" />
               <span className="text-sm">
                 <Trans>Upload</Trans>
               </span>

@@ -1,6 +1,6 @@
-import { ShieldCheckIcon } from '@heroicons/react/outline';
+import { ShieldCheckIcon } from '@heroicons/react/24/outline';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 
 interface ModProps {
@@ -10,12 +10,14 @@ interface ModProps {
 const Mod: FC<ModProps> = ({ className = '' }) => {
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex w-full items-center space-x-1.5 text-sm text-gray-700 dark:text-gray-200',
         className
       )}
     >
-      <ShieldCheckIcon className="h-4 w-4" />
+      <div>
+        <ShieldCheckIcon className="h-4 w-4" />
+      </div>
       <div>
         <Trans>Moderation</Trans>
       </div>

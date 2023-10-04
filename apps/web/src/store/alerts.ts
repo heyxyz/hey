@@ -1,4 +1,4 @@
-import type { Publication } from '@lenster/lens';
+import type { Publication } from '@hey/lens';
 import { create } from 'zustand';
 
 interface GlobalAlertState {

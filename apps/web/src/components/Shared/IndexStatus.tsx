@@ -1,16 +1,17 @@
-import { CheckCircleIcon } from '@heroicons/react/solid';
-import { POLYGONSCAN_URL } from '@lenster/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@lenster/lens';
-import { Spinner } from '@lenster/ui';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { useHasTxHashBeenIndexedQuery } from '@hey/lens';
+import { Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import type { Address } from 'viem';
 
 interface IndexStatusProps {
   type?: string;
-  txHash: `0x${string}`;
+  txHash: Address;
   reload?: boolean;
 }
 
@@ -42,7 +43,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
 
   return (
     <Link
-      className={clsx({ hidden: hide }, 'ml-auto text-sm font-medium')}
+      className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}
       href={`${POLYGONSCAN_URL}/tx/${txHash}`}
       target="_blank"
       rel="noreferrer noopener"

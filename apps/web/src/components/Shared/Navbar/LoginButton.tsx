@@ -1,26 +1,23 @@
-import { AUTH } from '@lenster/data/tracking';
-import { Button } from '@lenster/ui';
+import { AUTH } from '@hey/data/tracking';
+import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
-const LoginButton: FC = () => {
+interface LoginButtonProps {
+  isBig?: boolean;
+}
+
+const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
 
   return (
     <Button
-      icon={
-        <img
-          className="mr-0.5 h-4 w-4"
-          height={16}
-          width={16}
-          src="/lens.png"
-          alt="Lens Logo"
-        />
-      }
+      size={isBig ? 'lg' : 'md'}
+      icon={<img className="mr-0.5 h-3" src="/lens.svg" alt="Lens Logo" />}
       onClick={() => {
         setShowAuthModal(true);
         Leafwatch.track(AUTH.LOGIN);

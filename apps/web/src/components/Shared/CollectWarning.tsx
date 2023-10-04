@@ -1,7 +1,7 @@
 import Slug from '@components/Shared/Slug';
-import { StarIcon, UsersIcon } from '@heroicons/react/outline';
-import { Card } from '@lenster/ui';
-import clsx from 'clsx';
+import { StarIcon, UsersIcon } from '@heroicons/react/24/outline';
+import { Card } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 
 interface CollectWarningProps {
@@ -15,7 +15,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
 }) => {
   return (
     <Card
-      className={clsx(
+      className={cn(
         { 'border-pink-300 !bg-pink-100': isSuperFollow },
         'flex items-center space-x-1.5 p-5 text-sm font-bold text-gray-500'
       )}

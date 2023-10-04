@@ -1,4 +1,4 @@
-import { Card } from '@lenster/ui';
+import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 

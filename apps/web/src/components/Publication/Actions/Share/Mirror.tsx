@@ -1,30 +1,31 @@
 import { Menu } from '@headlessui/react';
-import { SwitchHorizontalIcon } from '@heroicons/react/outline';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
+import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   CreateDataAvailabilityMirrorRequest,
   CreateMirrorRequest,
   Publication
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
-} from '@lenster/lens';
-import { useApolloClient } from '@lenster/lens/apollo';
-import { publicationKeyFields } from '@lenster/lens/apollo/lib';
-import getSignature from '@lenster/lib/getSignature';
+} from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
+import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import getSignature from '@hey/lib/getSignature';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -46,6 +47,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       : // @ts-expect-error
         publication?.mirrors?.length > 0
   );
+  const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
   // Dispatcher
@@ -164,6 +166,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     if (publication.isDataAvailability && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
@@ -211,7 +217,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           mirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
@@ -221,7 +227,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       disabled={isLoading}
     >
       <div className="flex items-center space-x-2">
-        <SwitchHorizontalIcon className="h-4 w-4" />
+        <ArrowsRightLeftIcon className="h-4 w-4" />
         <div>{mirrored ? <Trans>Unmirror</Trans> : <Trans>Mirror</Trans>}</div>
       </div>
     </Menu.Item>

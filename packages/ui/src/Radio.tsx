@@ -1,6 +1,7 @@
-import clsx from 'clsx';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import { forwardRef, useId } from 'react';
+
+import cn from '../cn';
 
 interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   heading: ReactNode;
@@ -17,7 +18,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
   const id = useId();
 
   return (
-    <div className={clsx('flex items-center space-x-3', className)}>
+    <div className={cn('flex items-center space-x-3', className)}>
       <input
         id={id}
         type="radio"

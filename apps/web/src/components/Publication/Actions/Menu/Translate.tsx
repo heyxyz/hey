@@ -1,13 +1,14 @@
 import { Menu } from '@headlessui/react';
-import { TranslateIcon } from '@heroicons/react/outline';
-import { PUBLICATION } from '@lenster/data/tracking';
-import type { Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
+import { LanguageIcon } from '@heroicons/react/24/outline';
+import { PUBLICATION } from '@hey/data/tracking';
+import type { Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
-import clsx from 'clsx';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface TranslateProps {
   publication: Publication;
@@ -16,7 +17,9 @@ interface TranslateProps {
 const Translate: FC<TranslateProps> = ({ publication }) => {
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
-      `https://translate.google.com/#auto|en|${encodeURIComponent(text)}`
+      urlcat('https://translate.google.com/#auto|en|:text', {
+        text: encodeURIComponent(text)
+      })
     );
   };
 
@@ -24,7 +27,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     <Menu.Item
       as={Link}
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm'
         )
@@ -39,7 +42,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
       target="_blank"
     >
       <div className="flex items-center space-x-2">
-        <TranslateIcon className="h-4 w-4" />
+        <LanguageIcon className="h-4 w-4" />
         <div>
           <Trans>Translate</Trans>
         </div>

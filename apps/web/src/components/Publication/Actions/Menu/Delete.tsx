@@ -1,8 +1,8 @@
 import { Menu } from '@headlessui/react';
-import { TrashIcon } from '@heroicons/react/outline';
-import type { Publication } from '@lenster/lens';
-import stopEventPropagation from '@lenster/lib/stopEventPropagation';
-import clsx from 'clsx';
+import { TrashIcon } from '@heroicons/react/24/outline';
+import type { Publication } from '@hey/lens';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
+import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
@@ -19,7 +19,7 @@ const Delete: FC<DeleteProps> = ({ publication }) => {
     <Menu.Item
       as="div"
       className={({ active }) =>
-        clsx(
+        cn(
           { 'dropdown-active': active },
           'm-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm text-red-500'
         )

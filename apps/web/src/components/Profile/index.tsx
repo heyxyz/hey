@@ -1,15 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import {
-  APP_NAME,
-  IS_MAINNET,
-  STATIC_IMAGES_URL
-} from '@lenster/data/constants';
-import { PAGEVIEW } from '@lenster/data/tracking';
-import type { Profile } from '@lenster/lens';
-import { useProfileQuery } from '@lenster/lens';
-import formatHandle from '@lenster/lib/formatHandle';
-import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lenster/ui';
+import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { PAGEVIEW } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
+import { useProfileQuery } from '@hey/lens';
+import formatHandle from '@hey/lib/formatHandle';
+import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -39,7 +35,7 @@ const ViewProfile: NextPage = () => {
     ProfileFeedType.Replies.toLowerCase(),
     ProfileFeedType.Media.toLowerCase(),
     ProfileFeedType.Collects.toLowerCase(),
-    ProfileFeedType.Nft.toLowerCase(),
+    ProfileFeedType.Gallery.toLowerCase(),
     ProfileFeedType.Stats.toLowerCase()
   ];
   const [feedType, setFeedType] = useState(
@@ -89,16 +85,16 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (error) {
-    return <Custom500 />;
-  }
-
   if (loading || !data) {
     return <ProfilePageShimmer />;
   }
 
   if (!data?.profile) {
     return <Custom404 />;
+  }
+
+  if (error) {
+    return <Custom500 />;
   }
 
   return (
@@ -143,7 +139,7 @@ const ViewProfile: NextPage = () => {
           feedType === ProfileFeedType.Collects ? (
             <Feed profile={profile as Profile} type={feedType} />
           ) : null}
-          {feedType === ProfileFeedType.Nft ? (
+          {feedType === ProfileFeedType.Gallery ? (
             <NftGallery profile={profile as Profile} />
           ) : null}
           {feedType === ProfileFeedType.Stats && IS_MAINNET ? (

@@ -6,23 +6,23 @@ import Collectors from '@components/Shared/Modal/Collectors';
 import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
 import {
-  CashIcon,
+  BanknotesIcon,
   ClockIcon,
-  CollectionIcon,
-  PhotographIcon,
-  PuzzleIcon,
+  PhotoIcon,
+  PuzzlePieceIcon,
+  RectangleStackIcon,
   UsersIcon
-} from '@heroicons/react/outline';
-import { CheckCircleIcon } from '@heroicons/react/solid';
-import { LensHub } from '@lenster/abis';
-import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { PUBLICATION } from '@lenster/data/tracking';
+} from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { PUBLICATION } from '@hey/data/tracking';
 import type {
   ApprovedAllowanceAmount,
   ElectedMirror,
   Publication
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   CollectModules,
   useApprovedModuleAllowanceAmountQuery,
@@ -31,14 +31,14 @@ import {
   useCreateCollectTypedDataMutation,
   useProxyActionMutation,
   usePublicationRevenueQuery
-} from '@lenster/lens';
-import formatAddress from '@lenster/lib/formatAddress';
-import formatHandle from '@lenster/lib/formatHandle';
-import getAssetSymbol from '@lenster/lib/getAssetSymbol';
-import getSignature from '@lenster/lib/getSignature';
-import getTokenImage from '@lenster/lib/getTokenImage';
-import humanize from '@lenster/lib/humanize';
-import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@lenster/ui';
+} from '@hey/lens';
+import formatAddress from '@hey/lib/formatAddress';
+import formatHandle from '@hey/lib/formatHandle';
+import getAssetSymbol from '@hey/lib/getAssetSymbol';
+import getSignature from '@hey/lib/getSignature';
+import getTokenImage from '@hey/lib/getTokenImage';
+import humanize from '@hey/lib/humanize';
+import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
@@ -49,6 +49,7 @@ import Link from 'next/link';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -85,6 +86,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   const { data, loading } = useCollectModuleQuery({
     variables: { request: { publicationId: publication?.id } }
@@ -268,6 +270,10 @@ const CollectModule: FC<CollectModuleProps> = ({
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const canUseProxy =
@@ -334,15 +340,13 @@ const CollectModule: FC<CollectModuleProps> = ({
             />
           </div>
         ) : null}
-        <div className="space-y-1.5 pb-2">
-          {publication?.metadata?.name ? (
-            <div className="text-xl font-bold">
-              {publication?.metadata?.name}
-            </div>
+        <div className="mb-4 space-y-1.5">
+          {publication.metadata?.name ? (
+            <div className="text-xl font-bold">{publication.metadata.name}</div>
           ) : null}
-          {publication?.metadata?.content ? (
+          {publication.metadata?.content ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
-              {publication?.metadata?.content}
+              {publication.metadata.content}
             </Markup>
           ) : null}
           <ReferralAlert
@@ -394,7 +398,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               </button>
               <Modal
                 title={t`Collected by`}
-                icon={<CollectionIcon className="text-brand h-5 w-5" />}
+                icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >
@@ -409,7 +413,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             </div>
             {collectLimit ? (
               <div className="flex items-center space-x-2">
-                <PhotographIcon className="lt-text-gray-500 h-4 w-4" />
+                <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{parseInt(collectLimit) - count} available</Trans>
                 </div>
@@ -417,7 +421,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
-                <CashIcon className="lt-text-gray-500 h-4 w-4" />
+                <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   <Trans>{referralFee}% referral fee</Trans>
                 </div>
@@ -426,7 +430,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           </div>
           {revenueData?.publicationRevenue ? (
             <div className="flex items-center space-x-2">
-              <CashIcon className="lt-text-gray-500 h-4 w-4" />
+              <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="flex items-center space-x-1.5">
                 <span>
                   <Trans>Revenue:</Trans>
@@ -475,7 +479,7 @@ const CollectModule: FC<CollectModuleProps> = ({
           ) : null}
           {data?.publication?.collectNftAddress ? (
             <div className="flex items-center space-x-2">
-              <PuzzleIcon className="lt-text-gray-500 h-4 w-4" />
+              <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>
                   <Trans>Token:</Trans>
@@ -512,7 +516,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                       isLoading ? (
                         <Spinner size="xs" />
                       ) : (
-                        <CollectionIcon className="h-4 w-4" />
+                        <RectangleStackIcon className="h-4 w-4" />
                       )
                     }
                   >

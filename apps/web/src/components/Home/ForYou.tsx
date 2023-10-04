@@ -1,10 +1,10 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { SparklesIcon } from '@heroicons/react/outline';
-import type { Publication, PublicationForYouRequest } from '@lenster/lens';
-import { useForYouQuery } from '@lenster/lens';
-import { Card, EmptyState, ErrorMessage } from '@lenster/ui';
+import { SparklesIcon } from '@heroicons/react/24/outline';
+import type { Publication, PublicationForYouRequest } from '@hey/lens';
+import { useForYouQuery } from '@hey/lens';
+import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -23,7 +23,7 @@ const ForYou: FC = () => {
   // Variables
   const request: PublicationForYouRequest = {
     for: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 10
+    limit: 30
   };
   const reactionRequest = currentProfile
     ? { profileId: currentProfile?.id }

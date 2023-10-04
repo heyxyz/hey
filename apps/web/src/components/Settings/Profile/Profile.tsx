@@ -1,27 +1,27 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
-import { PencilIcon } from '@heroicons/react/outline';
-import { LensPeriphery } from '@lenster/abis';
-import { COVER, LENS_PERIPHERY } from '@lenster/data/constants';
-import { Errors } from '@lenster/data/errors';
-import { Regex } from '@lenster/data/regex';
-import { SETTINGS } from '@lenster/data/tracking';
-import { getCroppedImg } from '@lenster/image-cropper/cropUtils';
-import type { Area } from '@lenster/image-cropper/types';
+import { PencilIcon } from '@heroicons/react/24/outline';
+import { LensPeriphery } from '@hey/abis';
+import { COVER, LENS_PERIPHERY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { Regex } from '@hey/data/regex';
+import { SETTINGS } from '@hey/data/tracking';
+import { getCroppedImg } from '@hey/image-cropper/cropUtils';
+import type { Area } from '@hey/image-cropper/types';
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile
-} from '@lenster/lens';
+} from '@hey/lens';
 import {
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
-} from '@lenster/lens';
-import getProfileAttribute from '@lenster/lib/getProfileAttribute';
-import getSignature from '@lenster/lib/getSignature';
-import imageKit from '@lenster/lib/imageKit';
-import sanitizeDStorageUrl from '@lenster/lib/sanitizeDStorageUrl';
+} from '@hey/lens';
+import getProfileAttribute from '@hey/lib/getProfileAttribute';
+import getSignature from '@hey/lib/getSignature';
+import imageKit from '@hey/lib/imageKit';
+import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import {
   Button,
   Card,
@@ -33,7 +33,7 @@ import {
   Spinner,
   TextArea,
   useZodForm
-} from '@lenster/ui';
+} from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
@@ -42,7 +42,9 @@ import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
+import urlcat from 'urlcat';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string, union } from 'zod';
@@ -81,6 +83,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const [showCropModal, setShowCropModal] = useState(false);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+  const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
   const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
@@ -176,6 +179,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       return toast.error(Errors.SignWallet);
     }
 
+    if (handleWrongNetwork()) {
+      return;
+    }
+
     try {
       setIsLoading(true);
       const id = await uploadToArweave({
@@ -214,7 +221,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
       const request: CreatePublicSetProfileMetadataUriRequest = {
         profileId: currentProfile?.id,
-        metadata: `https://arweave.net/${id}`
+        metadata: urlcat('https://arweave.net/:id', { id })
       };
 
       if (canUseRelay && isSponsored) {
@@ -233,12 +240,16 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
-    const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
-    if (!croppedImage) {
-      return toast.error(Errors.SomethingWentWrong);
+
+    if (handleWrongNetwork()) {
+      return;
     }
 
     try {
+      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      if (!croppedImage) {
+        return toast.error(Errors.SomethingWentWrong);
+      }
       setUploading(true);
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
@@ -340,7 +351,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           <Button
             className="ml-auto"
             type="submit"
-            disabled={isLoading}
+            disabled={isLoading || (!form.formState.isDirty && !imageSrc)}
             icon={
               isLoading ? (
                 <Spinner size="xs" />
