@@ -104,8 +104,8 @@ export const FEEDS_WORKER_URL = IS_PRODUCTION
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.hey.xyz'
   : 'http://localhost:8092';
-export const CHANNELS_WORKER_URL = IS_PRODUCTION
-  ? 'https://channels.hey.xyz'
+export const GROUPS_WORKER_URL = IS_PRODUCTION
+  ? 'https://groups.hey.xyz'
   : 'http://localhost:8093';
 export const NFT_WORKER_URL = IS_PRODUCTION
   ? 'https://nft.hey.xyz'

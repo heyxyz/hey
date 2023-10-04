@@ -1,9 +1,9 @@
-import { useChannelMemberCountStore } from '@components/Channel/Details';
+import { useGroupMemberCountStore } from '@components/Group/Details';
 import { CurrencyDollarIcon, UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraERC721Drop } from '@hey/abis';
 import { ADMIN_ADDRESS, APP_NAME } from '@hey/data/constants';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { Button, Spinner } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -24,16 +24,16 @@ import SwitchNetwork from '../SwitchNetwork';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 
 interface MintProps {
-  channel: Channel;
+  group: Group;
   joined: boolean;
 }
 
-const Mint: FC<MintProps> = ({ channel, joined }) => {
-  const { membersCount, setMembersCount } = useChannelMemberCountStore();
+const Mint: FC<MintProps> = ({ group, joined }) => {
+  const { membersCount, setMembersCount } = useGroupMemberCountStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const chain = useChainId();
 
-  const nftAddress = channel.contract as Address;
+  const nftAddress = group.contract as Address;
   const recipient = currentProfile?.ownedBy;
   const comment = `Joined from ${APP_NAME}`;
   const mintReferral = ADMIN_ADDRESS;
@@ -75,16 +75,16 @@ const Mint: FC<MintProps> = ({ channel, joined }) => {
   return (
     <div className="p-5">
       {!joined ? (
-        <div className="mb-3 text-lg font-bold">Join {channel.name}</div>
+        <div className="mb-3 text-lg font-bold">Join {group.name}</div>
       ) : null}
       <div>
         {joined ? (
           <Trans>
-            You are already a member in <b>{channel.name}</b> channel.
+            You are already a member in <b>{group.name}</b> group.
           </Trans>
         ) : (
           <Trans>
-            Join <b>{channel.name}</b> channel in Zora network and get your
+            Join <b>{group.name}</b> group in Zora network and get your
             membership NFT.
           </Trans>
         )}

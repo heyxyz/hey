@@ -1,6 +1,6 @@
 import type { Database } from '@hey/supabase/database.types';
 
-export type Channel = Database['public']['Tables']['channels']['Row'] & {
+export type Group = Database['public']['Tables']['groups']['Row'] & {
   members: number;
 };
 
