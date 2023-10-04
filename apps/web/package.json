@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "build:sw": "node scripts/build-sw.js",
+    "build:sw": "node script/build-sw.js",
     "build": "lingui compile; next build; pnpm run build:sw",
     "dev": "lingui compile; pnpm run build:sw; next dev --port 4783",
     "extract": "lingui compile; lingui extract",
