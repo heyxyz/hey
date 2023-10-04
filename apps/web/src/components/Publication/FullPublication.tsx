@@ -43,7 +43,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
       pathname === '/posts/[id]'
     ) {
       publicationRef.current.style.scrollMargin = '4.2rem';
-      publicationRef.current.scrollIntoView({ behavior: 'smooth' });
+      publicationRef.current.scrollIntoView();
     }
   }, [pathname, publication.__typename]);
 
