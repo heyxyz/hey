@@ -6,7 +6,7 @@ import type { FC } from 'react';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
-import FeaturedChannel from './FeaturedChannel';
+import FeaturedGroup from './FeaturedGroup';
 import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
@@ -77,7 +77,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
                   electedMirror={feedItem?.electedMirror as ElectedMirror}
                 />
               ) : null}
-              <FeaturedChannel
+              <FeaturedGroup
                 className="mt-3"
                 tags={publication.metadata.tags}
               />

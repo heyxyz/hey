@@ -1,38 +1,35 @@
 import type { MetadataOutput } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
-import getChannelByTag from '@lib/getChannelByTag';
+import getGroupByTag from '@lib/getGroupByTag';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface FeaturedChannelProps {
+interface FeaturedGroupProps {
   tags: MetadataOutput['tags'];
   className?: string;
 }
 
-const FeaturedChannel: FC<FeaturedChannelProps> = ({
-  tags,
-  className = ''
-}) => {
-  const channel = getChannelByTag(tags);
+const FeaturedGroup: FC<FeaturedGroupProps> = ({ tags, className = '' }) => {
+  const group = getGroupByTag(tags);
 
-  if (!channel) {
+  if (!group) {
     return null;
   }
 
   return (
     <Link
-      href={`/c/${channel.slug}`}
+      href={`/g/${group.slug}`}
       className={cn(
         'flex items-center space-x-2 text-xs hover:underline',
         className
       )}
       onClick={(e) => stopEventPropagation(e)}
     >
-      <img src={channel.avatar} className="h-4 w-4 rounded" />
-      <div className="font-bold">{channel.name}</div>
+      <img src={group.avatar} className="h-4 w-4 rounded" />
+      <div className="font-bold">{group.name}</div>
     </Link>
   );
 };
 
-export default FeaturedChannel;
+export default FeaturedGroup;
