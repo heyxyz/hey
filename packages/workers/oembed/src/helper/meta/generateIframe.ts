@@ -3,6 +3,7 @@ const knownSites = [
   'youtu.be',
   'lenstube.xyz',
   'open.spotify.com',
+  'spotify.link',
   'soundcloud.com',
   'oohlala.xyz'
 ];
@@ -13,6 +14,8 @@ const spotifyTrackUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/track\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const spotifyPlaylistUrlRegex =
   /^ht{2}ps?:\/{2}open\.spotify\.com\/playlist\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
+const spotifyShortLinkRegex =
+  /^ht{2}ps?:\/{2}spotify\.link\/[\dA-Za-z]+(\?si=[\dA-Za-z]+)?$/;
 const oohlalaUrlRegex =
   /^ht{2}ps?:\/{2}oohlala\.xyz\/playlist\/[\dA-Fa-f-]+(\?si=[\dA-Za-z]+)?$/;
 const soundCloudRegex =
@@ -46,6 +49,13 @@ const generateIframe = (
     case 'lenstube.xyz':
       if (lenstubeRegex.test(url)) {
         return `<iframe src="${pickedUrl}" ${universalSize} allow="accelerometer; encrypted-media" allowfullscreen></iframe>`;
+      }
+
+      return null;
+    case 'spotify.link':
+      const spotifyShortLinkSize = `style="max-width: 560px;" width="100%"`;
+      if (spotifyShortLinkRegex.test(url)) {
+        return `<iframe src="${url}" ${spotifyShortLinkSize} height="155" allow="encrypted-media"></iframe>`;
       }
 
       return null;
