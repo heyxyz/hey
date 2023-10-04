@@ -8,7 +8,7 @@ msgstr ""
 "Language: ta\n"
 "Project-Id-Version: heyxyz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-30 17:54\n"
+"PO-Revision-Date: 2023-10-03 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Tamil\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -655,11 +655,11 @@ msgstr "சுயவிவரத்தை இப்போது புதுப�
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "Staff Picks"
-#~ msgstr ""
+#~ msgstr "Staff Picks"
 
 #: src/components/Home/StaffPicks/index.tsx
 #~ msgid "No Staff picks!"
-#~ msgstr ""
+#~ msgstr "No Staff picks!"
 
 #: src/components/Home/StaffPicks/index.tsx
 msgid "What's poppin'?"
@@ -2268,7 +2268,7 @@ msgstr "டிஎம் விசைகள் அழிக்கப்பட்�
 
 #: src/components/Settings/Danger/Delete.tsx
 #~ msgid "This will delete your Lens profile"
-#~ msgstr ""
+#~ msgstr "This will delete your Lens profile"
 
 #: src/components/Settings/Danger/Delete.tsx
 #: src/components/Settings/Danger/Delete.tsx
@@ -3610,3 +3610,4 @@ msgstr "ஏதோ தவறாகிவிட்டது போல் தெர
 #: src/pages/500.tsx
 msgid "We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing."
 msgstr "இந்தப் பிழைகளைத் தானாகக் கண்காணிக்கிறோம், ஆனால் சிக்கல் தொடர்ந்தால், எங்களைத் தொடர்பு கொள்ளலாம். இதற்கிடையில், புதுப்பித்து முயற்சிக்கவும்."
+
