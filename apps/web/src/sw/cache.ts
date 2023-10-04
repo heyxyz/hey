@@ -7,7 +7,6 @@ export class ServiceWorkerCache {
   cachePrefix: string;
   staticAssets: Set<string>;
   cacheableRoutes: Set<string>;
-
   withQueryParams?: boolean;
 
   constructor({
@@ -72,7 +71,6 @@ export class ServiceWorkerCache {
     const response = await fetch(pathname, {
       cache: 'reload'
     });
-
     const isValidResponse =
       !response.redirected && [200, 304].includes(response.status);
 
@@ -88,25 +86,20 @@ export class ServiceWorkerCache {
     const { pathname, search } = new URL(request.url);
     const uniquePath = `${pathname}${this.withQueryParams ? search : ''}`;
 
-    console.log('>>> pathname', pathname, uniquePath);
     if (this.staticAssets.has(pathname) || this.cacheableRoutes.has(pathname)) {
-      console.log('>>> cacheName', this.cacheName);
       if (this.cacheName) {
         const cache = await caches.open(this.cacheName);
         const cachedResponse = await cache.match(uniquePath);
 
-        console.log('>>> navigator', navigator.onLine);
         if (navigator.onLine) {
           event.waitUntil(this.put(uniquePath, cache));
         }
 
-        console.log('>>> cachedResponse', cachedResponse);
         if (cachedResponse) {
           return cachedResponse;
         }
       }
     }
-    console.log('>>> fetch', fetch);
     return await fetch(request);
   };
 }

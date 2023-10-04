@@ -23,7 +23,7 @@ const getFilesInDirectory = (directory) => {
     const extension = file.split(".").pop();
     if (
       EXTENSIONS_TO_INCLUDE.includes(extension) &&
-      !file.endsWith("service-worker.js")
+      !file.endsWith("sw.js")
     ) {
       filesToInclude.push(file.replace(directory, ""));
     }

@@ -8,7 +8,7 @@
       "@lib*": ["src/lib*"],
       "@gql*": ["src/graphql*"],
       "@generated*": ["src/generated*"],
-      "@sw/*": ["src/service-worker/*"]
+      "@sw/*": ["src/sw/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]

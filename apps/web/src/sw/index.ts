@@ -14,13 +14,11 @@ const cache = new ServiceWorkerCache({
 async function handleInstall(): Promise<void> {
   void self.skipWaiting();
   await cache.cacheStaticAssets();
-  console.debug(`Service Worker Installed`);
 }
 
 const handleActivate = async (): Promise<void> => {
   await self.clients.claim();
   await cache.invalidatePreviousCache();
-  console.debug(`Service Worker Activated`);
 };
 
 const handleFetch = (event: FetchEvent): void => {

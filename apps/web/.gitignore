@@ -1,4 +1,4 @@
 src/locales/**/*.js
 
 # ServiceWorker
-public/service-worker.js
+public/sw.js

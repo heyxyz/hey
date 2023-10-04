@@ -1,15 +1,16 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
+import { useEffectOnce } from 'usehooks-ts';
 
-const ServiceWorker: FC = () => {
-  useEffect(() => {
+const SW: FC = () => {
+  useEffectOnce(() => {
     if ('serviceWorker' in navigator) {
       (navigator.serviceWorker as ServiceWorkerContainer)
-        .register('/service-worker.js', { scope: '/' })
+        .register('/sw.js', { scope: '/' })
         .catch(console.error);
     }
-  }, []);
+  });
 
   return null;
 };
 
-export default ServiceWorker;
+export default SW;
