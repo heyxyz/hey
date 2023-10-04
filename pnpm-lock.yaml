@@ -314,22 +314,6 @@ importers:
         specifier: ^5.2.2
         version: 5.2.2
 
-  packages/bundlr:
-    dependencies:
-      base64url:
-        specifier: ^3.0.1
-        version: 3.0.1
-      viem:
-        specifier: ^1.15.1
-        version: 1.15.1(typescript@5.2.2)(zod@3.22.3)
-    devDependencies:
-      '@hey/config':
-        specifier: workspace:*
-        version: link:../config
-      typescript:
-        specifier: ^5.2.2
-        version: 5.2.2
-
   packages/config:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
@@ -399,6 +383,22 @@ importers:
       '@types/react':
         specifier: ^18.2.24
         version: 18.2.24
+      typescript:
+        specifier: ^5.2.2
+        version: 5.2.2
+
+  packages/irys:
+    dependencies:
+      base64url:
+        specifier: ^3.0.1
+        version: 3.0.1
+      viem:
+        specifier: ^1.15.1
+        version: 1.15.1(typescript@5.2.2)(zod@3.22.3)
+    devDependencies:
+      '@hey/config':
+        specifier: workspace:*
+        version: link:../config
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -826,12 +826,12 @@ importers:
 
   packages/workers/metadata:
     dependencies:
-      '@hey/bundlr':
-        specifier: workspace:*
-        version: link:../../bundlr
       '@hey/data':
         specifier: workspace:*
         version: link:../../data
+      '@hey/irys':
+        specifier: workspace:*
+        version: link:../../irys
       '@hey/lens':
         specifier: workspace:*
         version: link:../../lens
