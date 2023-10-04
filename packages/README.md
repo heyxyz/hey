@@ -3,7 +3,7 @@
 This folder contains all the shared packages that are used in the Hey project.
 
 - [ABIs](./abis/README.md) - Contract ABIs
-- [Bundlr](./bundlr/README.md) - Create bundles on Arweave
+- [Irys](./irys/README.md) - Create bundles on Arweave
 - [Config](./config/README.md) - ESlint and TypeScript config
 - [Data](./data/README.md) - Data like constants, storage, etc.
 - [Types](./types/README.md) - Shared types
@@ -14,7 +14,7 @@ This folder contains all the shared packages that are used in the Hey project.
 - [Workers](./workers/README.md) - Cloudflare Workers
   - [Prerender](../packages/workers/prerender/README.md) - Prerender for SEO only for bots
   - [STS Token Generator](../packages/workers/sts/README.md) - Generate S3 Compatible STS token in 4Everland
-  - [Metadata](../packages/workers/metadata/README.md) - Create metadata on Arweave via Bundlr
+  - [Metadata](../packages/workers/metadata/README.md) - Create metadata on Arweave via Irys
   - [Freshdesk](../packages/workers/freshdesk/README.md) - Create Freshdesk tickets
   - [Snapshot Relay](../packages/workers/snapshot-relay/README.md) - Relayer for Snapshot for Polls and Proposals
   - [ENS Resolver](../packages/workers/ens/README.md) - Resolve Ethereum address to ENS names
