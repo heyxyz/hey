@@ -1,4 +1,4 @@
-import { createData, EthereumSigner } from '@hey/bundlr';
+import { createData, EthereumSigner } from '@hey/irys';
 import type { PublicationMetadataV2Input } from '@hey/lens';
 import response from '@hey/lib/response';
 
@@ -7,7 +7,7 @@ import type { WorkerRequest } from '../types';
 export default async (request: WorkerRequest) => {
   try {
     const payload: PublicationMetadataV2Input = await request.json();
-    const signer = new EthereumSigner(request.env.BUNDLR_PRIVATE_KEY);
+    const signer = new EthereumSigner(request.env.IRYS_PRIVATE_KEY);
     if (payload.content?.length) {
       try {
         const aiEndpoint = 'https://ai.hey.xyz';
@@ -47,16 +47,16 @@ export default async (request: WorkerRequest) => {
     });
     await tx.sign(signer);
 
-    const bundlrRes = await fetch('http://node2.bundlr.network/tx/matic', {
+    const irysRes = await fetch('http://node2.irys.xyz/tx/matic', {
       method: 'POST',
       headers: { 'content-type': 'application/octet-stream' },
       body: tx.getRaw()
     });
 
-    if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
+    if (irysRes.statusText === 'Created' || irysRes.statusText === 'OK') {
       return response({ success: true, id: tx.id, metadata: payload });
     } else {
-      return response({ success: false, message: 'Bundlr error!', bundlrRes });
+      return response({ success: false, message: 'Irys error!', irysRes });
     }
   } catch (error) {
     throw error;
