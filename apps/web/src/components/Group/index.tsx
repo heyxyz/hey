@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags';
-import { APP_NAME, CHANNELS_WORKER_URL } from '@hey/data/constants';
+import { APP_NAME, GROUPS_WORKER_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
@@ -12,45 +12,45 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
-import Details, { useChannelMemberCountStore } from './Details';
+import Details, { useGroupMemberCountStore } from './Details';
 import Feed from './Feed';
-import ChannelPageShimmer from './Shimmer';
+import GroupPageShimmer from './Shimmer';
 
-const ViewChannel: NextPage = () => {
+const ViewGroup: NextPage = () => {
   const {
     query: { slug },
     isReady
   } = useRouter();
-  const setMembersCount = useChannelMemberCountStore(
+  const setMembersCount = useGroupMemberCountStore(
     (state) => state.setMembersCount
   );
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'channel' });
+    Leafwatch.track(PAGEVIEW, { page: 'group' });
   });
 
-  const fetchCommunity = async (): Promise<Channel> => {
+  const fetchGroup = async (): Promise<Group> => {
     const response: {
-      data: { result: Channel };
-    } = await axios.get(`${CHANNELS_WORKER_URL}/get/${slug}`);
+      data: { result: Group };
+    } = await axios.get(`${GROUPS_WORKER_URL}/get/${slug}`);
     setMembersCount(response.data?.result.members);
 
     return response.data?.result;
   };
 
   const {
-    data: channel,
+    data: group,
     isLoading,
     error
-  } = useQuery(['channel', slug], () => fetchCommunity().then((res) => res), {
+  } = useQuery(['fetchGroup', slug], () => fetchGroup().then((res) => res), {
     enabled: isReady
   });
 
   if (isLoading) {
-    return <ChannelPageShimmer />;
+    return <GroupPageShimmer />;
   }
 
-  if (!channel) {
+  if (!group) {
     return <Custom404 />;
   }
 
@@ -60,17 +60,17 @@ const ViewChannel: NextPage = () => {
 
   return (
     <>
-      <MetaTags title={`Channel • ${channel.name} • ${APP_NAME}`} />
+      <MetaTags title={`Group • ${group.name} • ${APP_NAME}`} />
       <GridLayout className="pt-6">
         <GridItemFour>
-          <Details channel={channel} />
+          <Details group={group} />
         </GridItemFour>
         <GridItemEight className="space-y-5">
-          <Feed channel={channel} />
+          <Feed group={group} />
         </GridItemEight>
       </GridLayout>
     </>
   );
 };
 
-export default ViewChannel;
+export default ViewGroup;
