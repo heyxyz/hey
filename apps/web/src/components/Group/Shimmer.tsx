@@ -2,7 +2,7 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import type { FC } from 'react';
 
-const ChannelPageShimmer: FC = () => {
+const GroupPageShimmer: FC = () => {
   return (
     <GridLayout className="pt-6">
       <GridItemFour>
@@ -43,4 +43,4 @@ const ChannelPageShimmer: FC = () => {
   );
 };
 
-export default ChannelPageShimmer;
+export default GroupPageShimmer;
