@@ -2,8 +2,8 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import featuredChannels from './handlers/featuredChannels';
-import getChannel from './handlers/getChannel';
+import featuredGroups from './handlers/featuredGroups';
+import getGroup from './handlers/getGroup';
 import isMember from './handlers/isMember';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
@@ -20,12 +20,12 @@ router
   .head('*', () => status(200))
   .get('/', (request: WorkerRequest) =>
     response({
-      message: 'gm, to channels service 👋',
+      message: 'gm, to groups service 👋',
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/get/:slug', getChannel)
-  .get('/featured', featuredChannels)
+  .get('/get/:slug', getGroup)
+  .get('/featured', featuredGroups)
   .get('/isMember', isMember)
   .all('*', () => error(404));
 

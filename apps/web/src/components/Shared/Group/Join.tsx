@@ -1,6 +1,6 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { CHANNELS_WORKER_URL } from '@hey/data/constants';
-import type { Channel } from '@hey/types/hey';
+import { GROUPS_WORKER_URL } from '@hey/data/constants';
+import type { Group } from '@hey/types/hey';
 import { Button, Modal } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
@@ -11,18 +11,18 @@ import { useAppStore } from 'src/store/app';
 import Mint from './Mint';
 
 interface JoinProps {
-  channel: Channel;
+  group: Group;
 }
 
-const Join: FC<JoinProps> = ({ channel }) => {
+const Join: FC<JoinProps> = ({ group }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showMintModal, setShowMintModal] = useState(false);
   const [joined, setJoined] = useState(false);
 
-  const isChannelMember = async () => {
+  const isGroupMember = async () => {
     try {
-      const response = await axios.get(`${CHANNELS_WORKER_URL}/isMember`, {
-        params: { by: currentProfile?.ownedBy, contract: channel.contract }
+      const response = await axios.get(`${GROUPS_WORKER_URL}/isMember`, {
+        params: { by: currentProfile?.ownedBy, contract: group.contract }
       });
       const { data } = response;
       setJoined(data.isMember);
@@ -30,8 +30,8 @@ const Join: FC<JoinProps> = ({ channel }) => {
   };
 
   const { isLoading } = useQuery(
-    ['isChannelMember', channel.contract, currentProfile?.ownedBy],
-    () => isChannelMember(),
+    ['isGroupMember', group.contract, currentProfile?.ownedBy],
+    () => isGroupMember(),
     { enabled: Boolean(currentProfile) }
   );
 
@@ -53,11 +53,11 @@ const Join: FC<JoinProps> = ({ channel }) => {
       </Button>
       <Modal
         show={showMintModal}
-        title={t`Join Channel`}
+        title={t`Join Group`}
         icon={<UserPlusIcon className="text-brand h-5 w-5" />}
         onClose={() => setShowMintModal(false)}
       >
-        <Mint channel={channel} joined={joined} />
+        <Mint group={group} joined={joined} />
       </Modal>
     </>
   );

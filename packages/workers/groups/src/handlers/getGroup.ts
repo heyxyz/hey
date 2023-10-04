@@ -10,7 +10,7 @@ export default async (request: WorkerRequest) => {
   try {
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
     const { data } = await client
-      .from('channels')
+      .from('groups')
       .select('*')
       .eq('slug', slug)
       .single();
