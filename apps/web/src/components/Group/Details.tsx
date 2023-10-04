@@ -4,7 +4,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatHandle from '@hey/lib/formatHandle';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import { t } from '@lingui/macro';
@@ -16,12 +16,12 @@ import urlcat from 'urlcat';
 import { create } from 'zustand';
 
 // Member count state
-interface ChannelMemberCountState {
+interface GroupsMemberCountState {
   membersCount: number;
   setMembersCount: (membersCount: number) => void;
 }
 
-export const useChannelMemberCountStore = create<ChannelMemberCountState>(
+export const useGroupMemberCountStore = create<GroupsMemberCountState>(
   (set) => ({
     membersCount: 0,
     setMembersCount: (membersCount) => set({ membersCount })
@@ -29,10 +29,10 @@ export const useChannelMemberCountStore = create<ChannelMemberCountState>(
 );
 
 interface DetailsProps {
-  channel: Channel;
+  group: Group;
 }
 
-const Details: FC<DetailsProps> = ({ channel }) => {
+const Details: FC<DetailsProps> = ({ group }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
@@ -53,12 +53,12 @@ const Details: FC<DetailsProps> = ({ channel }) => {
     <div className="mb-4 space-y-5 px-5 sm:px-0">
       <div className="relative h-32 w-32 sm:h-52 sm:w-52">
         <Image
-          onClick={() => setExpandedImage(channel.avatar)}
-          src={channel.avatar}
+          onClick={() => setExpandedImage(group.avatar)}
+          src={group.avatar}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
-          alt={channel.slug}
+          alt={group.slug}
         />
         <LightBox
           show={Boolean(expandedImage)}
@@ -69,32 +69,26 @@ const Details: FC<DetailsProps> = ({ channel }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {channel.name}
+            {group.name}
           </div>
-          {channel.featured ? (
+          {group.featured ? (
             <Tooltip content={t`Featured`}>
               <FireIcon className="h-6 w-6 text-yellow-500" />
             </Tooltip>
           ) : null}
         </div>
-        <Slug
-          className="text-sm sm:text-base"
-          prefix="c/"
-          slug={channel.slug}
-        />
+        <Slug className="text-sm sm:text-base" prefix="g/" slug={group.slug} />
       </div>
       <div
         className="markup linkify text-md mr-0 break-words sm:mr-10"
         data-testid="profile-bio"
       >
-        <Markup>{channel.description}</Markup>
+        <Markup>{group.description}</Markup>
       </div>
       <div className="space-y-5">
-        {/* <Members /> */}
-        {/* {currentProfile ? <Join channel={channel} /> : null} */}
         <div className="divider w-full" />
         <div className="space-y-2">
-          {channel.instagram ? (
+          {group.instagram ? (
             <MetaDetails
               icon={
                 <img
@@ -106,12 +100,12 @@ const Details: FC<DetailsProps> = ({ channel }) => {
                 />
               }
             >
-              <Link href={`/u/${formatHandle(channel.lens)}`}>
-                <Slug slug={formatHandle(channel.lens)} />
+              <Link href={`/u/${formatHandle(group.lens)}`}>
+                <Slug slug={formatHandle(group.lens)} />
               </Link>
             </MetaDetails>
           ) : null}
-          {channel.x ? (
+          {group.x ? (
             <MetaDetails
               icon={
                 <img
@@ -127,16 +121,16 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             >
               <Link
                 href={urlcat('https://x.com/:username', {
-                  username: channel.x
+                  username: group.x
                 })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {channel.x}
+                {group.x}
               </Link>
             </MetaDetails>
           ) : null}
-          {channel.instagram ? (
+          {group.instagram ? (
             <MetaDetails
               icon={
                 <img
@@ -150,16 +144,16 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             >
               <Link
                 href={urlcat('https://instagram.com/:username', {
-                  username: channel.instagram
+                  username: group.instagram
                 })}
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                {channel.instagram}
+                {group.instagram}
               </Link>
             </MetaDetails>
           ) : null}
-          {channel.discord ? (
+          {group.discord ? (
             <MetaDetails
               icon={
                 <img
@@ -172,7 +166,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
               }
             >
               <Link
-                href={channel.discord}
+                href={group.discord}
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -181,7 +175,7 @@ const Details: FC<DetailsProps> = ({ channel }) => {
             </MetaDetails>
           ) : null}
           <MetaDetails icon={<ClockIcon className="h-4 w-4" />}>
-            {formatDate(new Date(channel.created_at))}
+            {formatDate(new Date(group.created_at))}
           </MetaDetails>
         </div>
       </div>

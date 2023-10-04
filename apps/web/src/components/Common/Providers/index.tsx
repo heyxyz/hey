@@ -11,7 +11,7 @@ import type { ReactNode } from 'react';
 
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
-import FeaturedChannelsProvider from './FeaturedChannelsProvider';
+import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import LanguageProvider from './LanguageProvider';
 import PreferencesProvider from './PreferencesProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
@@ -34,7 +34,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <UserSigNoncesProvider />
             <QueryClientProvider client={queryClient}>
               <PreferencesProvider />
-              <FeaturedChannelsProvider />
+              <FeaturedGroupsProvider />
               <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
                 <ThemeProvider defaultTheme="light" attribute="class">
                   <Layout>{children}</Layout>

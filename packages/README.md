@@ -25,5 +25,7 @@ This folder contains all the shared packages that are used in the Hey project.
   - [Feeds](../packages/workers/feeds/README.md) - Feeds API for Hey
   - [Access](../packages/workers/access/README.md) - Access API for Hey
   - [Preferences](../packages/workers/preferences/README.md) - Preferences API for Hey
-  - [Channels](../packages/workers/channels/README.md) - Channels API for Hey
-  - [Zora](../packages/workers/zora/README.md) - Zora NFT API for Hey
+  - [Groups](../packages/workers/groups/README.md) - Groups API for Hey
+  - [NFT](../packages/workers/nft/README.md) - NFT API for Hey
+  - [Staff Picks](../packages/workers/staff-picks/README.md) - Staff Picks API for Hey
+  - [Live](../packages/workers/live/README.md) - Live API for Hey
