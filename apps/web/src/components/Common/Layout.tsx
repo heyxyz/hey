@@ -94,7 +94,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   useUpdateEffect(() => {
-    console.log(address, chain, disconnect, profileId);
     validateAuthentication();
   }, [address, chain, disconnect, profileId]);
 
