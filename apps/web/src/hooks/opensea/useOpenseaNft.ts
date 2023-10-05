@@ -36,7 +36,7 @@ const useOpenseaNft = ({
     }
   };
 
-  const loadNftDetails = async () => {
+  const loadOpenseaNftDetails = async () => {
     const response = await axios.get(
       urlcat(
         'https://api.opensea.io/v2/chains/:chain/contract/:address/nfts/:token',
@@ -54,8 +54,8 @@ const useOpenseaNft = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['nftMetadata', chain, address, token],
-    () => loadNftDetails().then((res) => res),
+    ['loadOpenseaNftDetails', chain, address, token],
+    () => loadOpenseaNftDetails().then((res) => res),
     { enabled }
   );
 

@@ -13,8 +13,6 @@ const checkIsStaffFromDb = async (
     .select('id')
     .eq('id', profileId);
 
-  console.log(data, profileId);
-
   if (error) {
     return false;
   }
