@@ -42,7 +42,7 @@ const UserPreview: FC<UserPreviewProps> = ({
   followStatusLoading,
   showUserPreview = true
 }) => {
-  if (!handle || !profile) {
+  if (!handle && !profile) {
     throw new Error('UserPreview need to receive a profile or a handle');
   }
 
@@ -53,13 +53,21 @@ const UserPreview: FC<UserPreviewProps> = ({
     fetchPolicy: 'cache-first'
   });
 
-  const onPreviewStart = () =>
+  const [fakeLoading, setFakeLoading] = useState<boolean>(loading);
+
+  const onPreviewStart = () => {
+    !lazyProfile && setFakeLoading(true);
     !data &&
-    loadProfile({
-      variables: {
-        request: { handle: formatHandle(compositeHandle, true) }
-      }
-    });
+      loadProfile({
+        variables: {
+          request: { handle: formatHandle(compositeHandle, true) }
+        }
+      });
+
+    setTimeout(() => {
+      setFakeLoading(false);
+    }, 500);
+  };
 
   if (data && !lazyProfile) {
     setLazyProfile(data?.profile as Profile);
@@ -69,14 +77,14 @@ const UserPreview: FC<UserPreviewProps> = ({
   const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
 
   const Preview = () => {
-    if (loading) {
+    if (loading || fakeLoading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
             <div />
           </div>
           <div className="flex p-3">
-            <div>{profile?.handle}</div>
+            <div>{compositeHandle}</div>
           </div>
         </div>
       );
