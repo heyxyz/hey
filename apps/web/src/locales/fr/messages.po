@@ -1942,6 +1942,28 @@ msgstr ""
 msgid "View on OpenSea"
 msgstr ""
 
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Unlonely Channel"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Live"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Offline"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+#: src/components/Publication/OpenActions/Nft/UnlonelyNfc/index.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
+msgid "Open"
+msgstr ""
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyNfc/index.tsx
+msgid "Unlonely Nfc"
+msgstr ""
+
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
 msgid "Type:"
 msgstr ""
@@ -3483,10 +3505,6 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Metadata"
-msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Open"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
