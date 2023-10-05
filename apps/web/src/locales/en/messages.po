@@ -1942,6 +1942,28 @@ msgstr "Contribute"
 msgid "View on OpenSea"
 msgstr "View on OpenSea"
 
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Unlonely Channel"
+msgstr "Unlonely Channel"
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Live"
+msgstr "Live"
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+msgid "Offline"
+msgstr "Offline"
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyChannel/index.tsx
+#: src/components/Publication/OpenActions/Nft/UnlonelyNfc/index.tsx
+#: src/components/StaffTools/Panels/Profile/index.tsx
+msgid "Open"
+msgstr "Open"
+
+#: src/components/Publication/OpenActions/Nft/UnlonelyNfc/index.tsx
+msgid "Unlonely Nfc"
+msgstr "Unlonely Nfc"
+
 #: src/components/Publication/OpenActions/Nft/ZoraNft/Mint/Metadata.tsx
 msgid "Type:"
 msgstr "Type:"
@@ -3484,10 +3506,6 @@ msgstr "Follow module"
 #: src/components/StaffTools/Panels/Profile/index.tsx
 msgid "Metadata"
 msgstr "Metadata"
-
-#: src/components/StaffTools/Panels/Profile/index.tsx
-msgid "Open"
-msgstr "Open"
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Publication ID"
