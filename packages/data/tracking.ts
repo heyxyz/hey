@@ -82,6 +82,12 @@ export const PUBLICATION = {
       OPEN_OPENSEA_LINK: 'Open BasePaint OpenSea link',
       OPEN_MINT: 'Open BasePaint mint modal',
       MINT: 'Mint BasePaint NFT'
+    },
+    UNLONELY_CHANNEL: {
+      OPEN_LINK: 'Open Unlonely Channel link'
+    },
+    UNLONELY_NFC: {
+      OPEN_LINK: 'Open Unlonely NFC link'
     }
   }
 };

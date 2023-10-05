@@ -17,7 +17,7 @@ const useOpenseaCollection = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadCollectionDetails = async () => {
+  const loadOpenseaCollectionDetails = async () => {
     const response = await axios.get(
       urlcat('https://api.opensea.io/api/v1/collection/:slug', { slug }),
       { headers: { 'X-API-KEY': OPENSEA_KEY } }
@@ -27,8 +27,8 @@ const useOpenseaCollection = ({
   };
 
   const { data, isLoading, error } = useQuery(
-    ['openseaCollectionDetails', slug],
-    () => loadCollectionDetails().then((res) => res),
+    ['loadOpenseaCollectionDetails', slug],
+    () => loadOpenseaCollectionDetails().then((res) => res),
     { enabled }
   );
 
