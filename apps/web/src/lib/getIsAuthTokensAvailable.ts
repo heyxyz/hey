@@ -8,7 +8,7 @@ import { CookiesKeys, cookieStorage } from '@hey/data/cookieStorage';
 const getIsAuthTokensAvailable = () => {
   const accessToken = cookieStorage.getItem(CookiesKeys.AccessToken);
   const refreshToken = cookieStorage.getItem(CookiesKeys.RefreshToken);
-  console.log(accessToken);
+  
   return accessToken !== undefined && refreshToken !== undefined;
 };
 
