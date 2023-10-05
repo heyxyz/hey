@@ -2,6 +2,7 @@ import type { NftMetadata } from '@hey/types/nft';
 
 import getBasePaintCanvas from './getBasePaintCanvas';
 import getUnlonelyChannel from './getUnlonelyChannel';
+import getUnlonelyNfc from './getUnlonelyNfc';
 import getZoraNFT from './getZoraNft';
 
 const knownSites = new Set([
@@ -33,15 +34,18 @@ const getNft = (urls: string[]): NftMetadata | null => {
 
   const url = knownUrls[0];
   const hostname = new URL(url).hostname.replace('www.', '');
+  const path = new URL(url).pathname;
 
-  switch (hostname) {
-    case 'zora.co':
-    case 'testnet.zora.co':
+  switch (true) {
+    case hostname === 'zora.co':
+    case hostname === 'testnet.zora.co':
       return getZoraNFT(url);
-    case 'basepaint.art':
+    case hostname === 'basepaint.art':
       return getBasePaintCanvas(url);
-    case 'unlonely.app':
+    case hostname === 'unlonely.app' && path.startsWith('/channels'):
       return getUnlonelyChannel(url);
+    case hostname === 'unlonely.app' && path.startsWith('/nfc'):
+      return getUnlonelyNfc(url);
     default:
       return null;
   }

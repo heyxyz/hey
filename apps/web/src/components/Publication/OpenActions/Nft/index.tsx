@@ -3,12 +3,14 @@ import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
   NftMetadata,
-  UnlonelyChannelMetadata
+  UnlonelyChannelMetadata,
+  UnlonelyNfcMetadata
 } from '@hey/types/nft';
 import { type FC } from 'react';
 
 import BasePaintCanvas from './BasePaintCanvas';
 import UnlonelyChannel from './UnlonelyChannel';
+import UnlonelyNfc from './UnlonelyNfc';
 import ZoraNft from './ZoraNft';
 
 interface NftProps {
@@ -32,6 +34,11 @@ const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
   ) : provider === 'unlonely-channel' ? (
     <UnlonelyChannel
       nftMetadata={nftMetadata as UnlonelyChannelMetadata}
+      publication={publication}
+    />
+  ) : provider === 'unlonely-nfc' ? (
+    <UnlonelyNfc
+      nftMetadata={nftMetadata as UnlonelyNfcMetadata}
       publication={publication}
     />
   ) : null;
