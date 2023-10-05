@@ -83,6 +83,7 @@ export interface UnlonelyNfc {
   id: number;
   createdAt: string;
   videoLink: string;
+  videoThumbnail: string;
   openseaLink: string;
   title: string;
   owner: {
