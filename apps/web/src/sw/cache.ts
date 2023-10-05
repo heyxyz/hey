@@ -86,20 +86,19 @@ export class ServiceWorkerCache {
     const { pathname, search } = new URL(request.url);
     const uniquePath = `${pathname}${this.withQueryParams ? search : ''}`;
 
-    if (this.staticAssets.has(pathname) || this.cacheableRoutes.has(pathname)) {
-      if (this.cacheName) {
-        const cache = await caches.open(this.cacheName);
-        const cachedResponse = await cache.match(uniquePath);
+    if ((this.staticAssets.has(pathname) || this.cacheableRoutes.has(pathname)) && this.cacheName) {
+      const cache = await caches.open(this.cacheName);
+      const cachedResponse = await cache.match(uniquePath);
 
-        if (navigator.onLine) {
-          event.waitUntil(this.put(uniquePath, cache));
-        }
-
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+      if (navigator.onLine) {
+        event.waitUntil(this.put(uniquePath, cache));
       }
+
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+    } else {
+      return await fetch(request);
     }
-    return await fetch(request);
   };
 }

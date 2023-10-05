@@ -1,9 +1,9 @@
 import '../styles.css';
 
+import ServiceWorker from '@components/ServiceWorker';
 import heyFont from '@lib/heyFont';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
-import ServiceWorker from '@components/ServiceWorker';
 
 const Providers = dynamic(() => import('@components/Common/Providers'), {
   ssr: false
