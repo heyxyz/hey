@@ -18,7 +18,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
   const getGoogleTranslateUrl = (text: string): string => {
     return encodeURI(
       urlcat('https://translate.google.com/#auto|en|:text', {
-        text: encodeURIComponent(text)
+        text
       })
     );
   };
