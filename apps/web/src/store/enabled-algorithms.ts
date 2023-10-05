@@ -1,5 +1,5 @@
 import type { HomeFeedType } from '@hey/data/enums';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -26,6 +26,6 @@ export const useEnabledAlgorithmsPersistStore = create(
         }));
       }
     }),
-    { name: Localstorage.AlgorithmStore }
+    { name: CookieData.AlgorithmStore }
   )
 );

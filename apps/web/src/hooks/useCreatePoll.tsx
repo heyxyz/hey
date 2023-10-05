@@ -1,6 +1,7 @@
 import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -26,7 +27,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': Cookies.get(CookieData.AccessToken)
           }
         }
       );

@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -186,6 +182,9 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       lexical:
         specifier: ^0.12.2
         version: 0.12.2
@@ -280,6 +279,9 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.6
         version: 0.5.6(tailwindcss@3.3.3)
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2
@@ -414,6 +416,9 @@ importers:
       axios:
         specifier: ^1.5.1
         version: 1.5.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -433,6 +438,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2
@@ -457,6 +465,9 @@ importers:
       axios:
         specifier: ^1.5.1
         version: 1.5.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0
@@ -467,6 +478,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
@@ -6485,6 +6499,10 @@ packages:
     dependencies:
       '@types/istanbul-lib-report': 3.0.1
 
+  /@types/js-cookie@3.0.4:
+    resolution: {integrity: sha512-vMMnFF+H5KYqdd/myCzq6wLDlPpteJK+jGFgBus3Da7lw+YsDmx2C8feGTzY2M3Fo823yON+HC2CL240j4OV+w==}
+    dev: true
+
   /@types/js-yaml@4.0.6:
     resolution: {integrity: sha512-ACTuifTSIIbyksx2HTon3aFtCKWcID7/h3XEmRpDYdMCXxPbl+m9GteOJeaAkiAta/NJaSFuA7ahZ0NkwajDSw==}
     dev: true
@@ -10819,6 +10837,11 @@ packages:
     resolution: {integrity: sha512-3MEt5DTINKqfScXKfJFrRbxkrnk2AxPWGBL/ycjz4dK8iqiSJ06UxD8jh8xuh6p10TX4t2+7FsBYVxxQbMg+qA==}
     dev: false
 
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+    dev: false
+
   /js-sha3@0.8.0:
     resolution: {integrity: sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q==}
     dev: false
@@ -14998,3 +15021,7 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false

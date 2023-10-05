@@ -1,17 +1,18 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
+import Cookies from 'js-cookie';
 
 /**
  * Resets the auth data
  */
 const resetAuthData = () => {
-  localStorage.removeItem(Localstorage.ModeStore);
-  localStorage.removeItem(Localstorage.NotificationStore);
-  localStorage.removeItem(Localstorage.TransactionStore);
-  localStorage.removeItem(Localstorage.TimelineStore);
-  localStorage.removeItem(Localstorage.MessageStore);
-  localStorage.removeItem(Localstorage.AttachmentCache);
-  localStorage.removeItem(Localstorage.AttachmentStore);
-  localStorage.removeItem(Localstorage.NonceStore);
+  Cookies.remove(CookieData.ModeStore);
+  Cookies.remove(CookieData.NotificationStore);
+  Cookies.remove(CookieData.TransactionStore);
+  Cookies.remove(CookieData.TimelineStore);
+  Cookies.remove(CookieData.MessageStore);
+  Cookies.remove(CookieData.AttachmentCache);
+  Cookies.remove(CookieData.AttachmentStore);
+  Cookies.remove(CookieData.NonceStore);
 };
 
 export default resetAuthData;

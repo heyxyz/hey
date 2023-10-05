@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -43,6 +43,6 @@ export const useNotificationPersistStore = create(
         return index > -1 ? notificationCountMap[index].count : 0;
       }
     }),
-    { name: Localstorage.NotificationStore }
+    { name: CookieData.NotificationStore }
   )
 );

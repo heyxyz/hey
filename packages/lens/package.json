@@ -16,7 +16,8 @@
   "dependencies": {
     "@apollo/client": "^3.8.4",
     "@hey/data": "workspace:*",
-    "axios": "^1.5.1"
+    "axios": "^1.5.1",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
@@ -25,6 +26,7 @@
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^4.0.0",
     "@hey/config": "workspace:*",
+    "@types/js-cookie": "^3.0.4",
     "@types/node": "^20.8.2",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"

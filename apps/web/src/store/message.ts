@@ -1,7 +1,8 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
+import Cookies from 'js-cookie';
 import { MessageTabs } from 'src/enums';
 import type {
   FailedMessage,
@@ -216,7 +217,7 @@ export const useMessagePersistStore = create(
       setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages }))
     }),
     {
-      name: Localstorage.MessageStore,
+      name: CookieData.MessageStore,
       storage: {
         // Persist storage doesn't work well with Map by default.
         // Workaround from: https://github.com/pmndrs/zustand/issues/618#issuecomment-954806720.
@@ -230,10 +231,10 @@ export const useMessagePersistStore = create(
               unsentMessages: Array.from(data.state.unsentMessages)
             }
           });
-          localStorage.setItem(name, jsonData);
+          Cookies.set(name, jsonData);
         },
         getItem: (name: string) => {
-          const jsonData = localStorage.getItem(name);
+          const jsonData = Cookies.get(name);
           if (!jsonData) {
             return null;
           }
@@ -246,7 +247,7 @@ export const useMessagePersistStore = create(
           return data;
         },
         removeItem(name) {
-          localStorage.removeItem(name);
+          Cookies.remove(name);
         }
       }
     }

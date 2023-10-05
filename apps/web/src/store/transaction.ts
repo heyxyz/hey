@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -13,6 +13,6 @@ export const useTransactionPersistStore = create(
       txnQueue: [],
       setTxnQueue: (txnQueue) => set(() => ({ txnQueue }))
     }),
-    { name: Localstorage.TransactionStore }
+    { name: CookieData.TransactionStore }
   )
 );

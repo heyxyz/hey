@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -25,7 +25,7 @@ export const useTimelinePersistStore = create(
       setFeedEventFilters: (feedEventFilters) =>
         set(() => ({ feedEventFilters }))
     }),
-    { name: Localstorage.TimelineStore }
+    { name: CookieData.TimelineStore }
   )
 );
 

@@ -1,6 +1,7 @@
 import { IS_MAINNET } from '@hey/data/constants';
 import { featureFlags } from '@hey/data/feature-flags';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
+import Cookies from 'js-cookie';
 
 /**
  * Returns whether a given feature is enabled for a given profile ID.
@@ -10,7 +11,7 @@ import { Localstorage } from '@hey/data/storage';
  */
 const isFeatureEnabled = (featureKey: string): boolean => {
   const user = JSON.parse(
-    localStorage.getItem(Localstorage.AppStore) ||
+    Cookies.get(CookieData.AppStore) ||
       JSON.stringify({ state: { profileId: null } })
   );
   const feature = featureFlags.find((f) => f.key === featureKey);

@@ -1,6 +1,7 @@
 import { APP_NAME, APP_VERSION, XMTP_ENV } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { Client } from '@xmtp/xmtp-js';
+import Cookies from 'js-cookie';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
@@ -13,22 +14,22 @@ import useEthersWalletClient from './useEthersWalletClient';
 
 const ENCODING = 'binary';
 
-const buildLocalStorageKey = (walletAddress: string) =>
+const buildCookiesgeKey = (walletAddress: string) =>
   `xmtp:${XMTP_ENV}:keys:${walletAddress}`;
 
 const loadKeys = (walletAddress: string): Uint8Array | null => {
-  const val = localStorage.getItem(buildLocalStorageKey(walletAddress));
+  const val = Cookies.get(buildCookiesgeKey(walletAddress));
   return val ? Buffer.from(val, ENCODING) : null;
 };
 
 /**
  * Anyone copying this code will want to be careful about leakage of sensitive keys.
  * Make sure that there are no third party services, such as bug reporting SDKs or ad networks, exporting the contents
- * of your LocalStorage before implementing something like this.
+ * of your Cookies before implementing something like this.
  */
 const storeKeys = (walletAddress: string, keys: Uint8Array) => {
-  localStorage.setItem(
-    buildLocalStorageKey(walletAddress),
+  Cookies.set(
+    buildCookiesgeKey(walletAddress),
     Buffer.from(keys).toString(ENCODING)
   );
 };
@@ -37,7 +38,7 @@ const storeKeys = (walletAddress: string, keys: Uint8Array) => {
  * This will clear the conversation cache + the private keys
  */
 const wipeKeys = (walletAddress: string) => {
-  localStorage.removeItem(buildLocalStorageKey(walletAddress));
+  Cookies.remove(buildCookiesgeKey(walletAddress));
 };
 
 const useXmtpClient = (cacheOnly = false) => {
@@ -107,9 +108,9 @@ export const useDisconnectXmtp = () => {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
-    localStorage.removeItem(Localstorage.MessageStore);
-    localStorage.removeItem(Localstorage.AttachmentCache);
-    localStorage.removeItem(Localstorage.AttachmentStore);
+    Cookies.remove(CookieData.MessageStore);
+    Cookies.remove(CookieData.AttachmentCache);
+    Cookies.remove(CookieData.AttachmentStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [walletClient, client]);
 

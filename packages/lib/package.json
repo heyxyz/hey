@@ -16,11 +16,13 @@
     "@hey/lens": "workspace:*",
     "@hey/types": "workspace:*",
     "axios": "^1.5.1",
+    "js-cookie": "^3.0.5",
     "urlcat": "^3.1.0",
     "viem": "^1.15.1"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
+    "@types/js-cookie": "^3.0.4",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   }

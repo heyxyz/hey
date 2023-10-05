@@ -1,19 +1,21 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import { parseJwt } from './lib';
 
 const resetAuthData = () => {
-  localStorage.removeItem(Localstorage.ModeStore);
-  localStorage.removeItem(Localstorage.NotificationStore);
-  localStorage.removeItem(Localstorage.TransactionStore);
-  localStorage.removeItem(Localstorage.TimelineStore);
-  localStorage.removeItem(Localstorage.MessageStore);
-  localStorage.removeItem(Localstorage.AttachmentCache);
-  localStorage.removeItem(Localstorage.AttachmentStore);
-  localStorage.removeItem(Localstorage.NonceStore);
+  // Remove cookies data
+  Cookies.remove(CookieData.ModeStore);
+  Cookies.remove(CookieData.NotificationStore);
+  Cookies.remove(CookieData.TransactionStore);
+  Cookies.remove(CookieData.TimelineStore);
+  Cookies.remove(CookieData.MessageStore);
+  Cookies.remove(CookieData.AttachmentCache);
+  Cookies.remove(CookieData.AttachmentStore);
+  Cookies.remove(CookieData.NonceStore);
 };
 
 const REFRESH_AUTHENTICATION_MUTATION = `
@@ -26,8 +28,8 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `;
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
-  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
+  const accessToken = Cookies.get(CookieData.AccessToken);
+  const refreshToken = Cookies.get(CookieData.RefreshToken);
 
   if (!accessToken || accessToken === 'undefined') {
     resetAuthData();
@@ -58,14 +60,21 @@ const authLink = new ApolloLink((operation, forward) => {
         { headers: { 'Content-Type': 'application/json' } }
       )
       .then(({ data }) => {
-        const accessToken = data?.data?.refresh?.accessToken;
-        const refreshToken = data?.data?.refresh?.refreshToken;
+        const newAccessToken = data?.data?.refresh?.accessToken;
+        const newRefreshToken = data?.data?.refresh?.refreshToken;
         operation.setContext({
-          headers: { 'x-access-token': `Bearer ${accessToken}` }
+          headers: { 'x-access-token': `Bearer ${newAccessToken}` }
         });
 
-        localStorage.setItem(Localstorage.AccessToken, accessToken);
-        localStorage.setItem(Localstorage.RefreshToken, refreshToken);
+        // Use Cookies.set() with secure and sameSite attributes
+        Cookies.set(CookieData.AccessToken, newAccessToken, {
+          secure: true,
+          sameSite: 'strict'
+        });
+        Cookies.set(CookieData.RefreshToken, newRefreshToken, {
+          secure: true,
+          sameSite: 'strict'
+        });
 
         return toPromise(forward(operation));
       })

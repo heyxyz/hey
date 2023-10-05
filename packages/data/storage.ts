@@ -1,5 +1,5 @@
-// Localstorage keys
-export const Localstorage = {
+// Cookie item keys
+export const CookieData = {
   AccessToken: 'accessToken',
   RefreshToken: 'refreshToken',
   AppStore: 'app.store',

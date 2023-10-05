@@ -6,10 +6,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -40,7 +41,7 @@ const LivestreamEditor: FC = () => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': Cookies.get(CookieData.AccessToken)
           }
         }
       );

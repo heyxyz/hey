@@ -1,12 +1,13 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -31,7 +32,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': Cookies.get(CookieData.AccessToken)
           }
         }
       ),

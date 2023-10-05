@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { del, get, set } from 'idb-keyval';
 import type { Attachment } from 'xmtp-content-type-remote-attachment';
 import { create } from 'zustand';
@@ -46,7 +46,7 @@ export const useAttachmentCachePersistStore = create(
       }
     }),
     {
-      name: Localstorage.AttachmentCache,
+      name: CookieData.AttachmentCache,
       storage: {
         async getItem(name) {
           return JSON.parse((await get(name)) || '{}', reviver);
@@ -84,7 +84,7 @@ export const useAttachmentStore = create(
         })
     }),
     {
-      name: Localstorage.AttachmentStore
+      name: CookieData.AttachmentStore
     }
   )
 );

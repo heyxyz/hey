@@ -1,11 +1,12 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
+import Cookies from 'js-cookie';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
@@ -27,7 +28,7 @@ const CleanupSettings: NextPage = () => {
   }
 
   const cleanup = (key: string) => {
-    localStorage.removeItem(key);
+    Cookies.remove(key);
     toast.success(t`Cleared ${key}`);
   };
 
@@ -64,7 +65,7 @@ const CleanupSettings: NextPage = () => {
                   </Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
+              <Button onClick={() => cleanup(CookieData.TransactionStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -77,7 +78,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(Localstorage.TimelineStore)}>
+              <Button onClick={() => cleanup(CookieData.TimelineStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>

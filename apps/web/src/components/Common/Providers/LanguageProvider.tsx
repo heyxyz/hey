@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { i18n } from '@lingui/core';
 import { detect, fromStorage } from '@lingui/detect-locale';
 import { I18nProvider } from '@lingui/react';
@@ -11,7 +11,7 @@ const getLocale = (): string => {
     return DEFAULT_LOCALE;
   }
 
-  let locale = detect(fromStorage(Localstorage.LocaleStore)) ?? DEFAULT_LOCALE;
+  let locale = detect(fromStorage(CookieData.LocaleStore)) ?? DEFAULT_LOCALE;
   if (!SUPPORTED_LOCALES.hasOwnProperty(locale)) {
     locale = DEFAULT_LOCALE;
   }

@@ -1,4 +1,4 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import type { Group } from '@hey/types/hey';
 import { create } from 'zustand';
@@ -37,7 +37,7 @@ export const useAppPersistStore = create(
       profileId: null,
       setProfileId: (profileId) => set(() => ({ profileId }))
     }),
-    { name: Localstorage.AppStore }
+    { name: CookieData.AppStore }
   )
 );
 

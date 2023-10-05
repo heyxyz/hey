@@ -1,5 +1,6 @@
 import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
+import Cookies from 'js-cookie';
 
 let worker: Worker;
 
@@ -13,7 +14,7 @@ if (typeof Worker !== 'undefined') {
 export const Leafwatch = {
   track: (name: string, properties?: Record<string, unknown>) => {
     const user = JSON.parse(
-      localStorage.getItem(Localstorage.AppStore) ||
+      Cookies.get(CookieData.AppStore) ||
         JSON.stringify({ state: { profileId: null } })
     );
     const { referrer } = document;

@@ -1,10 +1,11 @@
 import { Menu } from '@headlessui/react';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
-import { Localstorage } from '@hey/data/storage';
+import { CookieData } from '@hey/data/storage';
 import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
@@ -24,7 +25,7 @@ const Locale: FC = () => {
   );
 
   const setLanguage = useCallback((locale: string) => {
-    localStorage.setItem(Localstorage.LocaleStore, locale);
+    Cookies.set(CookieData.LocaleStore, locale);
     location.reload();
   }, []);
 
