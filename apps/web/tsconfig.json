@@ -4,6 +4,8 @@
     "baseUrl": ".",
     "lib": [
       "DOM",
+      "DOM.Iterable",
+      "ESNext",
       "webworker"
     ],
     "paths": {
