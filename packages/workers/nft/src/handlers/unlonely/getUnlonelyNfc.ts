@@ -25,6 +25,7 @@ export default async (request: WorkerRequest) => {
                 id
                 createdAt 
                 videoLink
+                videoThumbnail
                 openseaLink
                 title
                 owner {
