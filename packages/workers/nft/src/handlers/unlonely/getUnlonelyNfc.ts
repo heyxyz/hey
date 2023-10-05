@@ -38,13 +38,13 @@ export default async (request: WorkerRequest) => {
         })
       }
     );
-    const channel: {
+    const nfc: {
       data: { getNFC: any };
     } = await unlonelyResponse.json();
 
     return response({
       success: true,
-      result: channel.data.getNFC
+      nfc: nfc.data.getNFC
     });
   } catch (error) {
     throw error;
