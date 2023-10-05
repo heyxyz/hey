@@ -26,74 +26,61 @@ import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
 interface UserPreviewProps {
-  profile: Profile;
   children: ReactNode;
+  handle?: Profile['handle'];
+  profile?: Profile;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
 }
 
 const UserPreview: FC<UserPreviewProps> = ({
+  children,
+  handle,
   profile,
   isBig,
   followStatusLoading,
-  children,
   showUserPreview = true
 }) => {
-  const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
+  if (!handle || !profile) {
+    throw new Error('UserPreview need to receive a profile or a handle');
+  }
 
+  const compositeHandle = handle ?? profile?.handle;
+
+  const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
   const [loadProfile, { loading, data }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
+
+  const onPreviewStart = () =>
+    !data &&
+    loadProfile({
+      variables: {
+        request: { handle: formatHandle(compositeHandle, true) }
+      }
+    });
 
   if (data && !lazyProfile) {
     setLazyProfile(data?.profile as Profile);
   }
 
-  const UserAvatar = () => (
-    <Image
-      src={getAvatar(lazyProfile)}
-      loading="lazy"
-      className={cn(
-        isBig ? 'h-14 w-14' : 'h-10 w-10',
-        'rounded-full border bg-gray-200 dark:border-gray-700'
-      )}
-      height={isBig ? 56 : 40}
-      width={isBig ? 56 : 40}
-      alt={formatHandle(lazyProfile?.handle)}
-    />
-  );
+  const compositeProfile = lazyProfile ?? profile;
+  const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
 
-  const UserName = () => (
-    <>
-      <div className="flex max-w-sm items-center gap-1 truncate">
-        <div className={cn(isBig ? 'font-bold' : 'text-md')}>
-          {sanitizeDisplayName(lazyProfile?.name) ??
-            formatHandle(lazyProfile?.handle)}
+  const Preview = () => {
+    if (loading) {
+      return (
+        <div className="flex flex-col">
+          <div className="horizontal-loader w-full">
+            <div />
+          </div>
+          <div className="flex p-3">
+            <div>{profile?.handle}</div>
+          </div>
         </div>
-        {isVerified(lazyProfile?.id) ? (
-          <CheckBadgeIcon className="text-brand h-4 w-4" />
-        ) : null}
-        {hasMisused(lazyProfile?.id) ? (
-          <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-        ) : null}
-      </div>
-      <Slug
-        className="text-sm"
-        slug={formatHandle(lazyProfile?.handle)}
-        prefix="@"
-      />
-    </>
-  );
-
-  const UserProfileContent = ({
-    compositeProfile
-  }: {
-    compositeProfile: Profile;
-  }) => {
-    const [following, setFollowing] = useState(
-      compositeProfile?.isFollowedByMe
-    );
+      );
+    }
 
     if (!compositeProfile) {
       return (
@@ -102,6 +89,42 @@ const UserPreview: FC<UserPreviewProps> = ({
         </div>
       );
     }
+
+    const UserAvatar = () => (
+      <Image
+        src={getAvatar(lazyProfile)}
+        loading="lazy"
+        className={cn(
+          isBig ? 'h-14 w-14' : 'h-10 w-10',
+          'rounded-full border bg-gray-200 dark:border-gray-700'
+        )}
+        height={isBig ? 56 : 40}
+        width={isBig ? 56 : 40}
+        alt={formatHandle(compositeProfile.handle)}
+      />
+    );
+
+    const UserName = () => (
+      <>
+        <div className="flex max-w-sm items-center gap-1 truncate">
+          <div className={cn(isBig ? 'font-bold' : 'text-md')}>
+            {sanitizeDisplayName(compositeProfile.name) ??
+              formatHandle(compositeProfile.handle)}
+          </div>
+          {isVerified(compositeProfile.id) ? (
+            <CheckBadgeIcon className="text-brand h-4 w-4" />
+          ) : null}
+          {hasMisused(compositeProfile.id) ? (
+            <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+          ) : null}
+        </div>
+        <Slug
+          className="text-sm"
+          slug={formatHandle(compositeProfile.handle)}
+          prefix="@"
+        />
+      </>
+    );
 
     return (
       <>
@@ -175,31 +198,6 @@ const UserPreview: FC<UserPreviewProps> = ({
       </>
     );
   };
-
-  const Preview = () => {
-    if (loading) {
-      return (
-        <div className="flex flex-col">
-          <div className="horizontal-loader w-full">
-            <div />
-          </div>
-          <div className="flex p-3">
-            <div>{profile?.handle}</div>
-          </div>
-        </div>
-      );
-    }
-
-    return <UserProfileContent compositeProfile={lazyProfile || profile} />;
-  };
-
-  const onPreviewStart = () =>
-    !data &&
-    loadProfile({
-      variables: {
-        request: { handle: formatHandle(profile?.handle, true) }
-      }
-    });
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
