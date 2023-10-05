@@ -1,9 +1,15 @@
 import type { NftMetadata } from '@hey/types/nft';
 
 import getBasePaintCanvas from './getBasePaintCanvas';
+import getUnlonelyChannel from './getUnlonelyChannel';
 import getZoraNFT from './getZoraNft';
 
-const knownSites = new Set(['zora.co', 'testnet.zora.co', 'basepaint.art']);
+const knownSites = new Set([
+  'zora.co',
+  'testnet.zora.co',
+  'basepaint.art',
+  'unlonely.app'
+]);
 
 /**
  * Get NFT metadata from a list of URLs
@@ -34,6 +40,8 @@ const getNft = (urls: string[]): NftMetadata | null => {
       return getZoraNFT(url);
     case 'basepaint.art':
       return getBasePaintCanvas(url);
+    case 'unlonely.app':
+      return getUnlonelyChannel(url);
     default:
       return null;
   }
