@@ -18,7 +18,7 @@
     "axios": "^1.5.1",
     "js-cookie": "^3.0.5",
     "urlcat": "^3.1.0",
-    "viem": "^1.15.1"
+    "viem": "^1.15.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
