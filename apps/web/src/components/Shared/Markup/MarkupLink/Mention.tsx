@@ -1,5 +1,4 @@
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
@@ -17,13 +16,6 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
     return null;
   }
 
-  const profile = {
-    __typename: 'Profile',
-    handle: handle,
-    name: null,
-    id: null
-  };
-
   return (
     <Link
       href={`/u/${formatHandle(handle)}`}
@@ -34,12 +26,8 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
         });
       }}
     >
-      {profile?.handle ? (
-        <UserPreview
-          isBig={false}
-          profile={profile as Profile}
-          followStatusLoading={false}
-        >
+      {handle ? (
+        <UserPreview isBig={false} handle={handle} followStatusLoading={false}>
           <Slug slug={formatHandle(handle)} prefix="@" useBrandColor />
         </UserPreview>
       ) : (
