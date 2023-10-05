@@ -69,8 +69,7 @@ export const Image = forwardRef(function Image(
       {...props}
       src={imageLoadFailed ? `${STATIC_IMAGES_URL}/placeholder.webp` : src}
       style={{
-        filter: isLoaded ? 'none' : 'blur(20px)',
-        transition: isLoaded ? 'filter 0.2s cubic' : 'none'
+        filter: isLoaded ? 'none' : 'blur(10px)'
       }}
       onError={handleError}
       alt={props.alt || ''}
