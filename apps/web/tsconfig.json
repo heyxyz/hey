@@ -2,14 +2,31 @@
   "extends": "@hey/config/react.tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["webworker"],
+    "lib": [
+      "DOM",
+      "webworker"
+    ],
     "paths": {
-      "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"],
-      "@gql*": ["src/graphql*"],
-      "@generated*": ["src/generated*"],
-      "@sw/*": ["src/sw/*"]
+      "@components*": [
+        "src/components*"
+      ],
+      "@lib*": [
+        "src/lib*"
+      ],
+      "@gql*": [
+        "src/graphql*"
+      ],
+      "@generated*": [
+        "src/generated*"
+      ],
+      "@sw/*": [
+        "src/sw/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

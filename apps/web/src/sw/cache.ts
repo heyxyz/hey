@@ -103,5 +103,6 @@ export class ServiceWorkerCache {
     } else {
       return await fetch(request);
     }
+    return await fetch(request)
   };
 }
