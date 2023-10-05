@@ -1,4 +1,5 @@
 import Slug from '@components/Shared/Slug';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -21,7 +22,8 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
         <Image
           key={profile.handle}
           className="h-5 w-5 rounded-full border dark:border-gray-700"
-          src={getAvatar(profile)}
+          src={getAvatar(profile, AVATAR)}
+          lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
           alt={formatHandle(profile?.handle)}
         />
         <span>

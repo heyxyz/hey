@@ -2,7 +2,9 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Wallet } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getStampFyiURL, {
+  getPlaceholderStampFyiURL
+} from '@hey/lib/getStampFyiURL';
 import imageKit from '@hey/lib/imageKit';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
@@ -34,6 +36,7 @@ const WalletProfile: FC<WalletProfileProps> = ({ wallet }) => {
             currentTarget.src = getStampFyiURL(wallet?.address);
           }}
           src={imageKit(getStampFyiURL(wallet?.address))}
+          lowQualitySrc={imageKit(getPlaceholderStampFyiURL(wallet?.address))}
           className="h-10 w-10 rounded-full border bg-gray-200"
           height={40}
           width={40}

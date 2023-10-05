@@ -2,6 +2,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
@@ -50,7 +51,8 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   const UserAvatar = () => (
     <Image
-      src={getAvatar(lazyProfile)}
+      src={getAvatar(lazyProfile, AVATAR)}
+      lowQualitySrc={getAvatar(lazyProfile, LOADING_PLACEHOLDER)}
       loading="lazy"
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',

@@ -1,4 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { AVATAR } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -55,7 +56,8 @@ const MobileDrawerMenu: FC = () => {
         >
           <div className="flex w-full space-x-1.5">
             <Image
-              src={getAvatar(currentProfile as Profile)}
+              src={getAvatar(currentProfile as Profile, AVATAR)}
+              lowQualitySrc={getAvatar(currentProfile as Profile, AVATAR)}
               className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
               alt={formatHandle(currentProfile?.handle)}
             />

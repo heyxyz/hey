@@ -1,4 +1,5 @@
 import { FireIcon } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import getAvatar from '@hey/lib/getAvatar';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import type { Group } from '@hey/types/hey';
@@ -20,7 +21,8 @@ const GroupProfile: FC<GroupProfileProps> = ({
 }) => {
   const GroupAvatar = () => (
     <Image
-      src={getAvatar(group)}
+      src={getAvatar(group, AVATAR)}
+      lowQualitySrc={getAvatar(group, LOADING_PLACEHOLDER)}
       loading="lazy"
       className="h-10 w-10 rounded-lg border bg-gray-200 dark:border-gray-700"
       height={40}

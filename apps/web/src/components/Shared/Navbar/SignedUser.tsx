@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -39,7 +40,8 @@ const SignedUser: FC = () => {
 
   const Avatar = () => (
     <Image
-      src={getAvatar(currentProfile as Profile)}
+      src={getAvatar(currentProfile as Profile, AVATAR)}
+      lowQualitySrc={getAvatar(currentProfile as Profile, LOADING_PLACEHOLDER)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
       alt={formatHandle(currentProfile?.handle)}
     />

@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-import getStampFyiURL from './getStampFyiURL';
+import getStampFyiURL, { getPlaceholderStampFyiURL } from './getStampFyiURL';
 
 describe('getStampFyiURL', () => {
   const address = '0x1234567890123456789012345678901234567890';
@@ -8,6 +8,11 @@ describe('getStampFyiURL', () => {
 
   test('should return the correct URL for a valid Ethereum address', () => {
     const result = getStampFyiURL(address);
+    expect(result).toBe(expectedURL);
+  });
+
+  test('should return small  URL for a valid Ethereum address', () => {
+    const result = getPlaceholderStampFyiURL(address);
     expect(result).toBe(expectedURL);
   });
 

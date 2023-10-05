@@ -1,9 +1,10 @@
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { ATTACHMENT } from '@hey/data/constants';
+import { ATTACHMENT, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
-import { Image, Spinner } from '@hey/ui';
+import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { Image } from '@hey/ui/src/Image';
 import errorToast from '@lib/errorToast';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ChangeEvent, FC, Ref } from 'react';
@@ -59,6 +60,10 @@ const CoverImage: FC<CoverImageProps> = ({
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}
           data-testid={`attachment-audio-cover-${cover}`}
+          lowQualitySrc={imageKit(
+            sanitizeDStorageUrl(cover),
+            LOADING_PLACEHOLDER
+          )}
           ref={imageRef}
         />
       </button>

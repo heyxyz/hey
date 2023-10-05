@@ -1,6 +1,6 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { IS_MAINNET } from '@hey/data/constants';
+import { AVATAR, IS_MAINNET, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
@@ -62,7 +62,8 @@ const SwitchProfiles: FC = () => {
               className="h-6 w-6 rounded-full border dark:border-gray-700"
               height={20}
               width={20}
-              src={getAvatar(profile)}
+              src={getAvatar(profile, AVATAR)}
+              lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
               alt={formatHandle(profile?.handle)}
             />
             <div className="truncate">{formatHandle(profile?.handle)}</div>

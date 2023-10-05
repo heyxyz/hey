@@ -3,6 +3,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -66,7 +67,8 @@ const UserProfile: FC<UserProfileProps> = ({
 
   const UserAvatar = () => (
     <Image
-      src={getAvatar(profile)}
+      src={getAvatar(profile, AVATAR)}
+      lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
       loading="lazy"
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',

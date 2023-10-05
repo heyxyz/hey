@@ -2,7 +2,7 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensPeriphery } from '@hey/abis';
-import { COVER, LENS_PERIPHERY } from '@hey/data/constants';
+import { COVER, LENS_PERIPHERY, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
@@ -339,6 +339,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                     currentTarget.src = sanitizeDStorageUrl(coverIpfsUrl);
                   }}
                   src={uploadedImageUrl || coverPictureIpfsUrl}
+                  lowQualitySrc={`${STATIC_IMAGES_URL}/placeholder.webp`}
                   alt={t`Cover picture crop preview`}
                 />
               </div>

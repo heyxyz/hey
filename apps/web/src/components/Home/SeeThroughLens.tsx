@@ -3,6 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { Menu } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
@@ -105,7 +106,8 @@ const SeeThroughLens: FC = () => {
           onClick={() => fetchRecommendedProfiles()}
         >
           <Image
-            src={getAvatar(profile)}
+            src={getAvatar(profile, AVATAR)}
+            lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
             loading="lazy"
             width={20}
             height={20}

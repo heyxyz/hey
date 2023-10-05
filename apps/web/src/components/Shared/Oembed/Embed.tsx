@@ -1,4 +1,4 @@
-import { ATTACHMENT } from '@hey/data/constants';
+import { ATTACHMENT, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import imageKit from '@hey/lib/imageKit';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
@@ -39,6 +39,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                 currentTarget.src = og.image as string;
               }}
               src={imageKit(og.image, ATTACHMENT)}
+              lowQualitySrc={imageKit(og.image, LOADING_PLACEHOLDER)}
               alt="Thumbnail"
             />
           ) : null}
@@ -52,6 +53,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   currentTarget.src = og.image as string;
                 }}
                 src={imageKit(og.image, ATTACHMENT)}
+                lowQualitySrc={imageKit(og.image, LOADING_PLACEHOLDER)}
                 alt="Thumbnail"
               />
             ) : null}

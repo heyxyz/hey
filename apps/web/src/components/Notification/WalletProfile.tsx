@@ -1,7 +1,9 @@
 import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Wallet } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getStampFyiURL, {
+  getPlaceholderStampFyiURL
+} from '@hey/lib/getStampFyiURL';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -24,6 +26,7 @@ export const NotificationWalletProfileAvatar: FC<
           currentTarget.src = getStampFyiURL(wallet?.address);
         }}
         src={getStampFyiURL(wallet?.address)}
+        lowQualitySrc={getPlaceholderStampFyiURL(wallet?.address)}
         className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
         height={32}
         width={32}

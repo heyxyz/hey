@@ -1,5 +1,6 @@
 import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -94,7 +95,20 @@ const MessageTile: FC<MessageTileProps> = ({
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress ? (
           <Image
-            src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
+            src={
+              profile
+                ? getAvatar(profile, AVATAR)
+                : url
+                ? url
+                : getAvatar('', AVATAR)
+            }
+            lowQualitySrc={
+              profile
+                ? getAvatar(profile, LOADING_PLACEHOLDER)
+                : url
+                ? url
+                : getAvatar('', LOADING_PLACEHOLDER)
+            }
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />

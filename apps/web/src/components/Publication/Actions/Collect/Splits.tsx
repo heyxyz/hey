@@ -1,5 +1,5 @@
 import Slug from '@components/Shared/Slug';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
+import { AVATAR, POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Profile, RecipientDataOutput } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
@@ -55,7 +55,11 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                 <>
                   <img
                     className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
-                    src={profile ? getAvatar(profile) : getStampFyiURL(address)}
+                    src={
+                      profile
+                        ? getAvatar(profile, AVATAR)
+                        : getStampFyiURL(address)
+                    }
                     alt="Avatar"
                   />
                   {profile ? (

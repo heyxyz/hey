@@ -16,7 +16,9 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import {
+  AVATAR,
   EXPANDED_AVATAR,
+  LOADING_PLACEHOLDER,
   RARIBLE_URL,
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
@@ -109,7 +111,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="relative -mt-24 h-32 w-32 sm:-mt-32 sm:h-52 sm:w-52">
         <Image
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
-          src={getAvatar(profile)}
+          src={getAvatar(profile, AVATAR)}
+          lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}

@@ -1,6 +1,7 @@
 import Unfollow from '@components/Shared/Profile/Unfollow';
 import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
@@ -64,7 +65,10 @@ const MessageHeader: FC<MessageHeaderProps> = ({
         ) : (
           <div className="flex min-h-[48px] items-center space-x-3">
             <Image
-              src={ensName ? url : getAvatar(profile)}
+              src={ensName ? url : getAvatar(profile, AVATAR)}
+              lowQualitySrc={
+                ensName ? url : getAvatar(profile, LOADING_PLACEHOLDER)
+              }
               loading="lazy"
               className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
               height={40}

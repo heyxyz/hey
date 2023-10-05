@@ -6,7 +6,8 @@ import {
 import {
   ALLOWED_AUDIO_TYPES,
   ALLOWED_VIDEO_TYPES,
-  ATTACHMENT
+  ATTACHMENT,
+  LOADING_PLACEHOLDER
 } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { MediaSet, Publication } from '@hey/lens';
@@ -46,7 +47,6 @@ const getClass = (attachments: number, isNew = false) => {
   }
 };
 
-///// test
 interface AttachmentsProps {
   attachments: any;
   isNew?: boolean;
@@ -198,6 +198,9 @@ const Attachments: FC<AttachmentsProps> = ({
                     }}
                     src={isNew ? url : imageKit(url, ATTACHMENT)}
                     alt={isNew ? url : imageKit(url, ATTACHMENT)}
+                    lowQualitySrc={
+                      isNew ? url : imageKit(url, LOADING_PLACEHOLDER)
+                    }
                     data-testid={`attachment-image-${url}`}
                   />
                 )}

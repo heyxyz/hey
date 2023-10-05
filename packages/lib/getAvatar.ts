@@ -1,4 +1,4 @@
-import { AVATAR, ZERO_ADDRESS } from '@hey/data/constants';
+import { ZERO_ADDRESS } from '@hey/data/constants';
 
 import getStampFyiURL from './getStampFyiURL';
 import imageKit from './imageKit';
@@ -11,7 +11,7 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  * @param namedTransform The named transform to use.
  * @returns The avatar image URL.
  */
-const getAvatar = (profile: any, namedTransform = AVATAR): string => {
+const getAvatar = (profile: any, namedTransform: string): string => {
   const avatarUrl =
     profile?.avatar ??
     profile?.picture?.original?.url ??

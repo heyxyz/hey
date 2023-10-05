@@ -1,3 +1,4 @@
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { useMutualFollowersQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
@@ -43,7 +44,8 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
           <Image
             key={profile.handle}
             className="h-5 w-5 rounded-full border dark:border-gray-700"
-            src={getAvatar(profile)}
+            src={getAvatar(profile, AVATAR)}
+            lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
             alt={formatHandle(profile?.handle)}
           />
         ))}

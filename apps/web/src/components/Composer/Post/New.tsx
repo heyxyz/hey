@@ -1,4 +1,5 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Card, Image } from '@hey/ui';
@@ -49,7 +50,8 @@ const NewPost: FC = () => {
     <Card className="space-y-3 p-5">
       <div className="flex items-center space-x-3">
         <Image
-          src={getAvatar(currentProfile)}
+          src={getAvatar(currentProfile, AVATAR)}
+          lowQualitySrc={getAvatar(currentProfile, LOADING_PLACEHOLDER)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(`/u/${currentProfile?.handle}`)}
           alt={formatHandle(currentProfile?.handle)}

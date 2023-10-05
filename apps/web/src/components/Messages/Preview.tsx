@@ -2,6 +2,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
@@ -77,10 +78,17 @@ const Preview: FC<PreviewProps> = ({
           <Image
             src={
               profile?.handle
-                ? getAvatar(profile)
+                ? getAvatar(profile, AVATAR)
                 : ensName
                 ? url
-                : getAvatar('')
+                : getAvatar('', AVATAR)
+            }
+            lowQualitySrc={
+              profile?.handle
+                ? getAvatar(profile, LOADING_PLACEHOLDER)
+                : ensName
+                ? url
+                : getAvatar('', LOADING_PLACEHOLDER)
             }
             loading="lazy"
             className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"

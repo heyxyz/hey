@@ -162,6 +162,7 @@ export const AVATAR = 'tr:w-300,h-300';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';
 export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
+export const LOADING_PLACEHOLDER = 'tr:w-50,h-50';
 
 // S3 bucket
 export const S3_BUCKET = {

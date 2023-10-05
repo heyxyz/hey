@@ -2,6 +2,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -22,7 +23,8 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   return (
     <Link href={`/u/${formatHandle(profile?.handle)}`}>
       <Image
-        src={getAvatar(profile)}
+        src={getAvatar(profile, AVATAR)}
+        lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
         className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
         height={32}
         width={32}

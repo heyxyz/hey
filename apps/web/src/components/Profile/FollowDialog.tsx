@@ -1,6 +1,7 @@
 import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -26,7 +27,8 @@ const FollowModal: FC<FollowModalProps> = ({
       <div className="flex justify-between text-lg font-bold">
         <span className="flex">
           <Image
-            src={getAvatar(profile)}
+            src={getAvatar(profile, AVATAR)}
+            lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={formatHandle(profile?.handle)}
           />

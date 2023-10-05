@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY } from '@hey/data/constants';
+import { AVATAR, IPFS_GATEWAY, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
 import getAvatar from './getAvatar';
@@ -8,7 +8,13 @@ describe('getAvatar', () => {
 
   test('should return original avatar url', () => {
     const profile = { picture: { original: { url: ipfsLink } } };
-    const result = getAvatar(profile);
+    const result = getAvatar(profile, AVATAR);
+    expect(result).toBe(ipfsLink);
+  });
+
+  test('should return placeholder avatar url', () => {
+    const profile = { picture: { original: { url: ipfsLink } } };
+    const result = getAvatar(profile, LOADING_PLACEHOLDER);
     expect(result).toBe(ipfsLink);
   });
 
@@ -17,7 +23,7 @@ describe('getAvatar', () => {
     const profile = {
       picture: { uri: avatarUrl, original: { url: avatarUrl } }
     };
-    const result = getAvatar(profile);
+    const result = getAvatar(profile, AVATAR);
     expect(result).toBe(avatarUrl);
   });
 
@@ -26,7 +32,7 @@ describe('getAvatar', () => {
       ownedBy: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3',
       picture: {}
     };
-    const result = getAvatar(profile);
+    const result = getAvatar(profile, AVATAR);
     expect(result).toBe(
       `https://cdn.stamp.fyi/avatar/eth:${profile.ownedBy}?s=300`
     );

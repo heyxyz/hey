@@ -1,4 +1,5 @@
 import { PhotoIcon } from '@heroicons/react/24/outline';
+import { AVATAR, LOADING_PLACEHOLDER } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -19,7 +20,8 @@ const NftPicture: FC<NftPictureProps> = ({ profile }) => {
   return (
     <div className="space-y-3">
       <Image
-        src={getAvatar(profile)}
+        src={getAvatar(profile, AVATAR)}
+        lowQualitySrc={getAvatar(profile, LOADING_PLACEHOLDER)}
         loading="lazy"
         className={'max-w-xs rounded-lg'}
         alt={formatHandle(profile?.handle)}
