@@ -4,9 +4,9 @@ const { getFilesInDirectory } = require('./utils');
 
 const STATIC_ASSETS = getFilesInDirectory('public/');
 
-const outfile = !!process.env.NEXT_PUBLIC_IS_PRODUCTION
-  ? '.vercel/output/static/sw.js' // this vary based deployment environment
-  : 'public/sw.js';
+const outfile = !process.env.NEXT_PUBLIC_IS_PRODUCTION
+  ? 'public/sw.js'
+  : '.next/static/sw.js' // this vary based deployment environment
 
 esbuild.build({
   target: 'es2020',
