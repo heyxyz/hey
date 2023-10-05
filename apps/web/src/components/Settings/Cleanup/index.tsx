@@ -1,7 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import type { CookiesKey } from '@hey/data/cookieStorage';
+import { CookiesKeys, cookieStorage } from '@hey/data/cookieStorage';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -26,8 +27,8 @@ const CleanupSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
-  const cleanup = (key: string) => {
-    localStorage.removeItem(key);
+  const cleanup = (key: CookiesKey) => {
+    cookieStorage.removeItem(key);
     toast.success(t`Cleared ${key}`);
   };
 
@@ -64,7 +65,7 @@ const CleanupSettings: NextPage = () => {
                   </Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(Localstorage.TransactionStore)}>
+              <Button onClick={() => cleanup(CookiesKeys.TransactionStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
@@ -77,7 +78,7 @@ const CleanupSettings: NextPage = () => {
                   <Trans>Clean your timeline filter settings</Trans>
                 </div>
               </div>
-              <Button onClick={() => cleanup(Localstorage.TimelineStore)}>
+              <Button onClick={() => cleanup(CookiesKeys.TimelineStore)}>
                 <Trans>Cleanup</Trans>
               </Button>
             </div>
