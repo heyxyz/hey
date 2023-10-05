@@ -85,6 +85,9 @@ export const PUBLICATION = {
     },
     UNLONELY_CHANNEL: {
       OPEN_LINK: 'Open Unlonely Channel link'
+    },
+    UNLONELY_NFC: {
+      OPEN_LINK: 'Open Unlonely NFC link'
     }
   }
 };
