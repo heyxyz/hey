@@ -23,11 +23,11 @@
     "react": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "tailwind-merge": "^1.14.0",
-    "zod": "^3.22.3"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.25",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2"
   }
