@@ -40,13 +40,16 @@ const UserPreview: FC<UserPreviewProps> = ({
   children,
   showUserPreview = true
 }) => {
-  const [lazyProfile, setLazyProfile] = useState(profile);
-  const [loading, setLoading] = useState(false);
+  const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
   const [following, setFollowing] = useState(profile?.isFollowedByMe);
 
-  const [loadProfile] = useProfileLazyQuery({
+  const [loadProfile, { loading, data }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
+
+  if (data && !lazyProfile) {
+    setLazyProfile(data?.profile as Profile);
+  }
 
   const UserAvatar = () => (
     <Image
@@ -69,10 +72,10 @@ const UserPreview: FC<UserPreviewProps> = ({
           {sanitizeDisplayName(lazyProfile?.name) ??
             formatHandle(lazyProfile?.handle)}
         </div>
-        {isVerified(lazyProfile.id) ? (
+        {isVerified(lazyProfile?.id) ? (
           <CheckBadgeIcon className="text-brand h-4 w-4" />
         ) : null}
-        {hasMisused(lazyProfile.id) ? (
+        {hasMisused(lazyProfile?.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
         ) : null}
       </div>
@@ -92,13 +95,13 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div />
           </div>
           <div className="flex p-3">
-            <div>{lazyProfile.handle}</div>
+            <div>{profile?.handle}</div>
           </div>
         </div>
       );
     }
 
-    if (!lazyProfile.id) {
+    if (!lazyProfile) {
       return (
         <div className="flex h-12 items-center px-3">
           <Trans>No profile found</Trans>
@@ -179,26 +182,13 @@ const UserPreview: FC<UserPreviewProps> = ({
     );
   };
 
-  const onPreviewStart = async () => {
-    if (!lazyProfile.id) {
-      setLoading(true);
-      const { data } = await loadProfile({
-        variables: {
-          request: { handle: formatHandle(lazyProfile?.handle, true) }
-        }
-      });
-
-      const getProfile = data?.profile;
-
-      if (getProfile) {
-        setLazyProfile(getProfile as Profile);
+  const onPreviewStart = () =>
+    !data &&
+    loadProfile({
+      variables: {
+        request: { handle: formatHandle(profile?.handle, true) }
       }
-
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }
-  };
+    });
 
   return showUserPreview ? (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
