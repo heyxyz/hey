@@ -86,7 +86,10 @@ export class ServiceWorkerCache {
     const { pathname, search } = new URL(request.url);
     const uniquePath = `${pathname}${this.withQueryParams ? search : ''}`;
 
-    if ((this.staticAssets.has(pathname) || this.cacheableRoutes.has(pathname)) && this.cacheName) {
+    if (
+      (this.staticAssets.has(pathname) || this.cacheableRoutes.has(pathname)) &&
+      this.cacheName
+    ) {
       const cache = await caches.open(this.cacheName);
       const cachedResponse = await cache.match(uniquePath);
 
