@@ -95,9 +95,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 setShowMintModal(true);
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
-                  {
-                    publication_id: publication.id
-                  }
+                  { publication_id: publication.id }
                 );
               }}
             >
@@ -125,10 +123,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                  {
-                    publication_id: publication.id,
-                    from: 'mint_embed'
-                  }
+                  { publication_id: publication.id, from: 'mint_embed' }
                 )
               }
             >
@@ -151,10 +146,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               onClick={() =>
                 Leafwatch.track(
                   PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                  {
-                    publication_id: publication.id,
-                    from: 'mint_embed'
-                  }
+                  { publication_id: publication.id, from: 'mint_embed' }
                 )
               }
             >
