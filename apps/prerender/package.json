@@ -28,7 +28,7 @@
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
     "@playwright/test": "^1.38.1",
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.25",
     "typescript": "^5.2.2"
   }
 }
