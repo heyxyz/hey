@@ -1,12 +1,9 @@
-require('dotenv').config();
 const esbuild = require('esbuild');
 const { getFilesInDirectory } = require('./utils');
 
 const STATIC_ASSETS = getFilesInDirectory('public/');
 
-const outfile = !process.env.NEXT_PUBLIC_IS_PRODUCTION
-  ? 'public/sw.js'
-  : '_next/static/sw.js' // this vary based deployment environment
+const outfile = 'public/sw.js'
 
 esbuild.build({
   target: 'es2020',

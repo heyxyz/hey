@@ -5,7 +5,7 @@
   "license": "AGPL-3.0",
   "scripts": {
     "build:sw": "node script/build-sw.js",
-    "build": "lingui compile; next build; pnpm run build:sw",
+    "build": "lingui compile; pnpm run build:sw; next build",
     "dev": "lingui compile; pnpm run build:sw; next dev --port 4783",
     "extract": "lingui compile; lingui extract",
     "lint": "eslint . --ext .ts,.tsx",
