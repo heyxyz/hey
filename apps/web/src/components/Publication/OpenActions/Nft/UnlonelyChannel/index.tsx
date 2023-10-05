@@ -1,11 +1,16 @@
 import Video from '@components/Shared/Video';
-import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
+import {
+  CursorArrowRaysIcon,
+  SignalIcon,
+  SignalSlashIcon
+} from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { Publication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
@@ -47,7 +52,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
     return null;
   }
 
-  const { name, playbackUrl } = channel;
+  const { name, playbackUrl, isLive } = channel;
 
   return (
     <Card
@@ -55,18 +60,34 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
       forceRounded
       onClick={(event) => stopEventPropagation(event)}
     >
-      <Video src={playbackUrl} />
+      <Video
+        src={playbackUrl}
+        className="[&>div>div]:rounded-b-none [&>div>div]:border-0"
+        autoPlay
+      />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content={t`BasePaint`}>
+          <Tooltip placement="right" content={t`Unlonely Channel`}>
             <img
-              src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
+              src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
               className="h-5 w-5 rounded-full"
             />
           </Tooltip>
           <div className="text-sm font-bold">{name}</div>
+          <div
+            className={cn(
+              isLive ? 'bg-red-500' : 'bg-gray-500',
+              'flex items-center gap-1 rounded-md px-2 py-0.5 text-xs text-white'
+            )}
+          >
+            {isLive ? (
+              <SignalIcon className="h-3 w-3 animate-pulse" />
+            ) : (
+              <SignalSlashIcon className="h-3 w-3" />
+            )}
+            <span>{isLive ? t`Live` : t`Offline`}</span>
+          </div>
         </div>
-
         <Link
           href={urlcat('https://www.unlonely.app/channels/:slug', {
             slug: channel.slug
@@ -80,11 +101,8 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             size="md"
             onClick={() =>
               Leafwatch.track(
-                PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                {
-                  publication_id: publication.id,
-                  from: 'mint_embed'
-                }
+                PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
+                { publication_id: publication.id, from: 'mint_embed' }
               )
             }
           >
