@@ -2,7 +2,7 @@ import type { IRequestStrict } from 'itty-router';
 
 export interface Env {
   RELEASE: string;
-  BUNDLR_PRIVATE_KEY: string;
+  IRYS_PRIVATE_KEY: string;
   HUGGINGFACE_API_KEY: string;
 }
 

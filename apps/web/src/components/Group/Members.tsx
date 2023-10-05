@@ -2,12 +2,10 @@ import humanize from '@hey/lib/humanize';
 import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 
-import { useChannelMemberCountStore } from './Details';
+import { useGroupMemberCountStore } from './Details';
 
 const Members: FC = () => {
-  const membersCount = useChannelMemberCountStore(
-    (state) => state.membersCount
-  );
+  const membersCount = useGroupMemberCountStore((state) => state.membersCount);
 
   return (
     <div className="text-left">

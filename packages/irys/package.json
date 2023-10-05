@@ -1,5 +1,5 @@
 {
-  "name": "@hey/bundlr",
+  "name": "@hey/irys",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.15.0"
+    "viem": "^1.15.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

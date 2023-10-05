@@ -13,5 +13,5 @@ mode = "smart"
 
 [env.production.vars]
 RELEASE = ""
-BUNDLR_PRIVATE_KEY = ""
+IRYS_PRIVATE_KEY = ""
 HUGGINGFACE_API_KEY = ""

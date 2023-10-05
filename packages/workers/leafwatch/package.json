@@ -18,7 +18,7 @@
     "itty-router": "^4.0.23",
     "ua-parser-js": "^1.0.36",
     "urlcat": "^3.1.0",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231002.0",

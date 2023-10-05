@@ -1,5 +1,5 @@
 {
-  "name": "@workers/channels",
+  "name": "@workers/groups",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -18,7 +18,7 @@
     "@hey/supabase": "workspace:*",
     "@tsndr/cloudflare-worker-jwt": "^2.2.5",
     "itty-router": "^4.0.23",
-    "zod": "^3.22.2"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231002.0",

@@ -1,6 +1,6 @@
 import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
-import type { Channel } from '@hey/types/hey';
+import type { Group } from '@hey/types/hey';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -11,8 +11,8 @@ interface AppState {
   setCurrentProfile: (currentProfile: Profile | null) => void;
   verifiedMembers: string[];
   setVerifiedMembers: (verifiedMembers: string[]) => void;
-  featuredChannels: Channel[];
-  setFeaturedChannels: (featuredChannels: Channel[]) => void;
+  featuredGroups: Group[];
+  setFeaturedGroups: (featuredGroups: Group[]) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -22,8 +22,8 @@ export const useAppStore = create<AppState>((set) => ({
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   verifiedMembers: [],
   setVerifiedMembers: (verifiedMembers) => set(() => ({ verifiedMembers })),
-  featuredChannels: [],
-  setFeaturedChannels: (featuredChannels) => set(() => ({ featuredChannels }))
+  featuredGroups: [],
+  setFeaturedGroups: (featuredGroups) => set(() => ({ featuredGroups }))
 }));
 
 interface AppPerisistState {
@@ -42,4 +42,4 @@ export const useAppPersistStore = create(
 );
 
 export const verifiedMembers = () => useAppStore.getState().verifiedMembers;
-export const featuredChannels = () => useAppStore.getState().featuredChannels;
+export const featuredGroups = () => useAppStore.getState().featuredGroups;

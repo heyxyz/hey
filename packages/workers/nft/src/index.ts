@@ -4,6 +4,8 @@ import { createCors, error, Router, status } from 'itty-router';
 
 import getBasePaintCanvas from './handlers/getBasePaintCanvas';
 import getZoraNft from './handlers/getZoraNft';
+import getUnlonelyChannel from './handlers/unlonely/getUnlonelyChannel';
+import getUnlonelyNfc from './handlers/unlonely/getUnlonelyNfc';
 import buildRequest from './helper/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -25,6 +27,8 @@ router
   )
   .get('/zora', getZoraNft)
   .get('/basepaint', getBasePaintCanvas)
+  .get('/unlonely/channel', getUnlonelyChannel)
+  .get('/unlonely/nfc', getUnlonelyNfc)
   .all('*', () => error(404));
 
 export default {
