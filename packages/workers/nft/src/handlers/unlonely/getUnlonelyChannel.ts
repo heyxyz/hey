@@ -23,10 +23,11 @@ export default async (request: WorkerRequest) => {
             query GetChannelBySlug {
               getChannelBySlug(slug: "${slug}") {
                 id
-                playbackUrl
-                isLive
+                slug
                 name
                 description
+                playbackUrl
+                isLive
               }
             }
           `
@@ -39,7 +40,7 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      result: channel.data.getChannelBySlug
+      channel: channel.data.getChannelBySlug
     });
   } catch (error) {
     throw error;
