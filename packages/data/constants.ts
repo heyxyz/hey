@@ -164,6 +164,8 @@ export const COVER = 'tr:w-1500,h-500';
 export const ATTACHMENT = 'tr:w-1000';
 export const LOADING_PLACEHOLDER = 'tr:w-50,h-50';
 
+export const LOADING_PLACEHOLDER_IMAGE_PATH = '/pixalted-palceholder.png';
+
 // S3 bucket
 export const S3_BUCKET = {
   HEY_MEDIA: 'hey-media'
