@@ -1,6 +1,6 @@
 // checks if url contains valid tld
 
-import { tlds } from './tlds';
+import tlds from 'tlds';
 
 export const isUrlContainsValidTld = (url: string) => {
   const lowerCaseUrl = url.toLowerCase();

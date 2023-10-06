@@ -1,8 +1,7 @@
+import { isUrlContainsValidTld } from '@hey/data/utils/check_valid_tld';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
 import type { FC } from 'react';
-
-import { isUrlContainsValidTld } from '../../../../../../../packages/data/utils/check_valid_tld';
 
 const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   if (!href) {

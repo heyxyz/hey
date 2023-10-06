@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -345,6 +341,10 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.7.4)(eslint@8.50.0)
 
   packages/data:
+    dependencies:
+      tlds:
+        specifier: ^1.242.0
+        version: 1.242.0
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -13774,6 +13774,11 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /tlds@1.242.0:
+    resolution: {integrity: sha512-aP3dXawgmbfU94mA32CJGHmJUE1E58HCB1KmlKRhBNtqBL27mSQcAEmcaMaQ1Za9kIVvOdbxJD3U5ycDy7nJ3w==}
+    hasBin: true
+    dev: false
+
   /tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
     engines: {node: '>=0.6.0'}
@@ -14998,3 +15003,7 @@ packages:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
