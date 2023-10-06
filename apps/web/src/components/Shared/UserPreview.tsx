@@ -25,80 +25,80 @@ import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
+const MINIMUM_LOADING_ANIMATION_MS = 500;
+const POPOVER_SHOW_ANIMATION_MS = 100;
+const POPOVER_HIDE_ANIMATION_MS = 0;
+
 interface UserPreviewProps {
-  profile: Profile;
   children: ReactNode;
+  handle?: string;
+  profile?: Profile;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
 }
 
 const UserPreview: FC<UserPreviewProps> = ({
+  children,
+  handle,
   profile,
   isBig,
   followStatusLoading,
-  children,
   showUserPreview = true
 }) => {
-  const [lazyProfile, setLazyProfile] = useState(profile);
-  const [loading, setLoading] = useState(false);
-  const [following, setFollowing] = useState(profile?.isFollowedByMe);
-
-  const [loadProfile] = useProfileLazyQuery({
+  const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
+  const [loadProfile, { loading: networkLoading, data }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
 
-  const UserAvatar = () => (
-    <Image
-      src={getAvatar(lazyProfile)}
-      loading="lazy"
-      className={cn(
-        isBig ? 'h-14 w-14' : 'h-10 w-10',
-        'rounded-full border bg-gray-200 dark:border-gray-700'
-      )}
-      height={isBig ? 56 : 40}
-      width={isBig ? 56 : 40}
-      alt={formatHandle(lazyProfile?.handle)}
-    />
-  );
+  const compositeHandle = handle ?? profile?.handle;
+  const [syntheticLoading, setSyntheticLoading] =
+    useState<boolean>(networkLoading);
 
-  const UserName = () => (
-    <>
-      <div className="flex max-w-sm items-center gap-1 truncate">
-        <div className={cn(isBig ? 'font-bold' : 'text-md')}>
-          {sanitizeDisplayName(lazyProfile?.name) ??
-            formatHandle(lazyProfile?.handle)}
-        </div>
-        {isVerified(lazyProfile.id) ? (
-          <CheckBadgeIcon className="text-brand h-4 w-4" />
-        ) : null}
-        {hasMisused(lazyProfile.id) ? (
-          <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-        ) : null}
-      </div>
-      <Slug
-        className="text-sm"
-        slug={formatHandle(lazyProfile?.handle)}
-        prefix="@"
-      />
-    </>
-  );
+  const onPreviewStart = () => {
+    if (!lazyProfile) {
+      setSyntheticLoading(true);
+      loadProfile({
+        variables: {
+          request: { handle: formatHandle(compositeHandle, true) }
+        }
+      });
+      setTimeout(() => {
+        setSyntheticLoading(false);
+      }, MINIMUM_LOADING_ANIMATION_MS);
+    }
+  };
+
+  if (data && !lazyProfile) {
+    setLazyProfile(data?.profile as Profile);
+  }
+
+  const compositeProfile = lazyProfile ?? profile;
+  const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
+
+  if (!handle && !profile) {
+    return null;
+  }
+
+  if (!showUserPreview) {
+    return <span>{children}</span>;
+  }
 
   const Preview = () => {
-    if (loading) {
+    if (networkLoading || syntheticLoading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
             <div />
           </div>
           <div className="flex p-3">
-            <div>{lazyProfile.handle}</div>
+            <div>{compositeHandle}</div>
           </div>
         </div>
       );
     }
 
-    if (!lazyProfile.id) {
+    if (!compositeProfile) {
       return (
         <div className="flex h-12 items-center px-3">
           <Trans>No profile found</Trans>
@@ -106,24 +106,60 @@ const UserPreview: FC<UserPreviewProps> = ({
       );
     }
 
+    const UserAvatar = () => (
+      <Image
+        src={getAvatar(compositeProfile)}
+        loading="lazy"
+        className={cn(
+          isBig ? 'h-14 w-14' : 'h-10 w-10',
+          'rounded-full border bg-gray-200 dark:border-gray-700'
+        )}
+        height={isBig ? 56 : 40}
+        width={isBig ? 56 : 40}
+        alt={formatHandle(compositeProfile.handle)}
+      />
+    );
+
+    const UserName = () => (
+      <>
+        <div className="flex max-w-sm items-center gap-1 truncate">
+          <div className={cn(isBig ? 'font-bold' : 'text-md')}>
+            {sanitizeDisplayName(compositeProfile.name) ??
+              formatHandle(compositeProfile.handle)}
+          </div>
+          {isVerified(compositeProfile.id) ? (
+            <CheckBadgeIcon className="text-brand h-4 w-4" />
+          ) : null}
+          {hasMisused(compositeProfile.id) ? (
+            <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+          ) : null}
+        </div>
+        <Slug
+          className="text-sm"
+          slug={formatHandle(compositeProfile.handle)}
+          prefix="@"
+        />
+      </>
+    );
+
     return (
       <>
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
-            {!lazyProfile.isFollowedByMe ? (
+            {!compositeProfile.isFollowedByMe ? (
               followStatusLoading ? (
                 <div className="shimmer h-8 w-10 rounded-lg" />
-              ) : following ? null : lazyProfile?.followModule?.__typename ===
-                'FeeFollowModuleSettings' ? (
+              ) : following ? null : compositeProfile.followModule
+                  ?.__typename === 'FeeFollowModuleSettings' ? (
                 <SuperFollow
-                  profile={lazyProfile}
+                  profile={compositeProfile}
                   setFollowing={setFollowing}
                   followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
                 />
               ) : (
                 <Follow
-                  profile={lazyProfile}
+                  profile={compositeProfile}
                   setFollowing={setFollowing}
                   followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
                 />
@@ -134,7 +170,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="space-y-3 p-4 pt-0">
           <UserName />
           <div>
-            {lazyProfile?.bio ? (
+            {compositeProfile.bio ? (
               <div
                 className={cn(
                   isBig ? 'text-base' : 'text-sm',
@@ -142,18 +178,18 @@ const UserPreview: FC<UserPreviewProps> = ({
                   'linkify break-words leading-6'
                 )}
               >
-                <Markup>{truncateByWords(lazyProfile?.bio, 20)}</Markup>
+                <Markup>{truncateByWords(compositeProfile.bio, 20)}</Markup>
               </div>
             ) : null}
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(lazyProfile?.stats?.totalFollowing)}
+                {nFormatter(compositeProfile.stats.totalFollowing)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={lazyProfile?.stats?.totalFollowing}
+                  value={compositeProfile.stats.totalFollowing}
                   zero="Following"
                   one="Following"
                   other="Following"
@@ -162,11 +198,11 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
             <div className="text-md flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(lazyProfile?.stats?.totalFollowers)}
+                {nFormatter(compositeProfile.stats.totalFollowers)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={lazyProfile?.stats?.totalFollowers}
+                  value={compositeProfile.stats.totalFollowers}
                   zero="Follower"
                   one="Follower"
                   other="Followers"
@@ -179,32 +215,11 @@ const UserPreview: FC<UserPreviewProps> = ({
     );
   };
 
-  const onPreviewStart = async () => {
-    if (!lazyProfile.id) {
-      setLoading(true);
-      const { data } = await loadProfile({
-        variables: {
-          request: { handle: formatHandle(lazyProfile?.handle, true) }
-        }
-      });
-
-      const getProfile = data?.profile;
-
-      if (getProfile) {
-        setLazyProfile(getProfile as Profile);
-      }
-
-      setTimeout(() => {
-        setLoading(false);
-      }, 500);
-    }
-  };
-
-  return showUserPreview ? (
+  return (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       <Tippy
         placement="bottom-start"
-        delay={[100, 0]}
+        delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}
         content={<Preview />}
         arrow={false}
@@ -216,8 +231,6 @@ const UserPreview: FC<UserPreviewProps> = ({
         <span>{children}</span>
       </Tippy>
     </span>
-  ) : (
-    <span>{children}</span>
   );
 };
 
