@@ -25,6 +25,10 @@ import Follow from './Profile/Follow';
 import Slug from './Slug';
 import SuperFollow from './SuperFollow';
 
+const MINIMUM_LOADING_ANIMATION_MS = 500;
+const POPOVER_SHOW_ANIMATION_MS = 100;
+const POPOVER_HIDE_ANIMATION_MS = 0;
+
 interface UserPreviewProps {
   children: ReactNode;
   handle?: Profile['handle'];
@@ -43,30 +47,29 @@ const UserPreview: FC<UserPreviewProps> = ({
   showUserPreview = true
 }) => {
   if (!handle && !profile) {
-    throw new Error('UserPreview need to receive a profile or a handle');
+    throw new Error('UserPreview needs to receive a profile or a handle');
   }
-
-  const compositeHandle = handle ?? profile?.handle;
 
   const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
   const [loadProfile, { loading, data }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
 
+  const compositeHandle = handle ?? profile?.handle;
   const [fakeLoading, setFakeLoading] = useState<boolean>(loading);
 
   const onPreviewStart = () => {
-    !lazyProfile && setFakeLoading(true);
-    !data &&
+    if (!lazyProfile) {
+      setFakeLoading(true);
       loadProfile({
         variables: {
           request: { handle: formatHandle(compositeHandle, true) }
         }
       });
-
-    setTimeout(() => {
-      setFakeLoading(false);
-    }, 500);
+      setTimeout(() => {
+        setFakeLoading(false);
+      }, MINIMUM_LOADING_ANIMATION_MS);
+    }
   };
 
   if (data && !lazyProfile) {
@@ -75,6 +78,10 @@ const UserPreview: FC<UserPreviewProps> = ({
 
   const compositeProfile = lazyProfile ?? profile;
   const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
+
+  if (!showUserPreview) {
+    return <span>{children}</span>;
+  }
 
   const Preview = () => {
     if (loading || fakeLoading) {
@@ -100,7 +107,7 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     const UserAvatar = () => (
       <Image
-        src={getAvatar(lazyProfile)}
+        src={getAvatar(compositeProfile)}
         loading="lazy"
         className={cn(
           isBig ? 'h-14 w-14' : 'h-10 w-10',
@@ -207,11 +214,11 @@ const UserPreview: FC<UserPreviewProps> = ({
     );
   };
 
-  return showUserPreview ? (
+  return (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       <Tippy
         placement="bottom-start"
-        delay={[100, 0]}
+        delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}
         content={<Preview />}
         arrow={false}
@@ -223,8 +230,6 @@ const UserPreview: FC<UserPreviewProps> = ({
         <span>{children}</span>
       </Tippy>
     </span>
-  ) : (
-    <span>{children}</span>
   );
 };
 
