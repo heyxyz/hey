@@ -1,5 +1,5 @@
 export interface NftProvider {
-  provider: 'zora' | 'basepaint';
+  provider: 'zora' | 'basepaint' | 'unlonely-channel' | 'unlonely-nfc';
 }
 
 export interface BasicNftMetadata extends NftProvider {
@@ -12,7 +12,19 @@ export interface BasePaintCanvasMetadata extends NftProvider {
   id: number;
 }
 
-export type NftMetadata = BasicNftMetadata | BasePaintCanvasMetadata;
+export interface UnlonelyChannelMetadata extends NftProvider {
+  slug: string;
+}
+
+export interface UnlonelyNfcMetadata extends NftProvider {
+  id: string;
+}
+
+export type NftMetadata =
+  | BasicNftMetadata
+  | BasePaintCanvasMetadata
+  | UnlonelyChannelMetadata
+  | UnlonelyNfcMetadata;
 
 export interface ZoraNft {
   chainId: number;
@@ -56,4 +68,27 @@ export interface BasePaintCanvas {
       totalPixels: number;
     };
   }[];
+}
+
+export interface UnlonelyChannel {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  playbackUrl: string;
+  isLive: boolean;
+}
+
+export interface UnlonelyNfc {
+  id: number;
+  createdAt: string;
+  videoLink: string;
+  videoThumbnail: string;
+  openseaLink: string;
+  title: string;
+  owner: {
+    username: string;
+    FCImageUrl: string;
+    lensImageUrl: string;
+  };
 }
