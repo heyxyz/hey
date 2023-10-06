@@ -150,7 +150,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             {!compositeProfile.isFollowedByMe ? (
               followStatusLoading ? (
                 <div className="shimmer h-8 w-10 rounded-lg" />
-              ) : following ? null : compositeProfile?.followModule
+              ) : following ? null : compositeProfile.followModule
                   ?.__typename === 'FeeFollowModuleSettings' ? (
                 <SuperFollow
                   profile={compositeProfile}
@@ -170,7 +170,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="space-y-3 p-4 pt-0">
           <UserName />
           <div>
-            {compositeProfile?.bio ? (
+            {compositeProfile.bio ? (
               <div
                 className={cn(
                   isBig ? 'text-base' : 'text-sm',
@@ -178,18 +178,18 @@ const UserPreview: FC<UserPreviewProps> = ({
                   'linkify break-words leading-6'
                 )}
               >
-                <Markup>{truncateByWords(compositeProfile?.bio, 20)}</Markup>
+                <Markup>{truncateByWords(compositeProfile.bio, 20)}</Markup>
               </div>
             ) : null}
           </div>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(compositeProfile?.stats?.totalFollowing)}
+                {nFormatter(compositeProfile.stats.totalFollowing)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={compositeProfile?.stats?.totalFollowing}
+                  value={compositeProfile.stats.totalFollowing}
                   zero="Following"
                   one="Following"
                   other="Following"
@@ -198,11 +198,11 @@ const UserPreview: FC<UserPreviewProps> = ({
             </div>
             <div className="text-md flex items-center space-x-1">
               <div className="text-base">
-                {nFormatter(compositeProfile?.stats?.totalFollowers)}
+                {nFormatter(compositeProfile.stats.totalFollowers)}
               </div>
               <div className="lt-text-gray-500 text-sm">
                 <Plural
-                  value={compositeProfile?.stats?.totalFollowers}
+                  value={compositeProfile.stats.totalFollowers}
                   zero="Follower"
                   one="Follower"
                   other="Followers"
