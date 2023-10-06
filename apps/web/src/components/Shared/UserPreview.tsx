@@ -31,7 +31,7 @@ const POPOVER_HIDE_ANIMATION_MS = 0;
 
 interface UserPreviewProps {
   children: ReactNode;
-  handle?: Profile['handle'];
+  handle?: string;
   profile?: Profile;
   isBig?: boolean;
   followStatusLoading?: boolean;
@@ -46,28 +46,25 @@ const UserPreview: FC<UserPreviewProps> = ({
   followStatusLoading,
   showUserPreview = true
 }) => {
-  if (!handle && !profile) {
-    throw new Error('UserPreview needs to receive a profile or a handle');
-  }
-
   const [lazyProfile, setLazyProfile] = useState<Profile | undefined>();
-  const [loadProfile, { loading, data }] = useProfileLazyQuery({
+  const [loadProfile, { loading: networkLoading, data }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
 
   const compositeHandle = handle ?? profile?.handle;
-  const [fakeLoading, setFakeLoading] = useState<boolean>(loading);
+  const [syntheticLoading, setSyntheticLoading] =
+    useState<boolean>(networkLoading);
 
   const onPreviewStart = () => {
     if (!lazyProfile) {
-      setFakeLoading(true);
+      setSyntheticLoading(true);
       loadProfile({
         variables: {
           request: { handle: formatHandle(compositeHandle, true) }
         }
       });
       setTimeout(() => {
-        setFakeLoading(false);
+        setSyntheticLoading(false);
       }, MINIMUM_LOADING_ANIMATION_MS);
     }
   };
@@ -79,12 +76,16 @@ const UserPreview: FC<UserPreviewProps> = ({
   const compositeProfile = lazyProfile ?? profile;
   const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
 
+  if (!handle && !profile) {
+    return null;
+  }
+
   if (!showUserPreview) {
     return <span>{children}</span>;
   }
 
   const Preview = () => {
-    if (loading || fakeLoading) {
+    if (networkLoading || syntheticLoading) {
       return (
         <div className="flex flex-col">
           <div className="horizontal-loader w-full">
