@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { CookiesKeys, cookieStorage } from '@hey/data/storage';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
@@ -40,7 +40,7 @@ const LivestreamEditor: FC = () => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
           }
         }
       );

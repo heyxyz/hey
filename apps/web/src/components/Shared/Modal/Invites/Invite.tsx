@@ -4,7 +4,7 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import { Localstorage } from '@hey/data/storage';
+import { CookiesKeys, cookieStorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -41,7 +41,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         { address, isMainnet: IS_MAINNET },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
           }
         }
       );

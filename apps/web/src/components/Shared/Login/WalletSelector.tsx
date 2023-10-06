@@ -2,7 +2,7 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
-import { Localstorage } from '@hey/data/storage';
+import { CookiesKeys, cookieStorage } from '@hey/data/storage';
 import { AUTH } from '@hey/data/tracking';
 import {
   useAuthenticateMutation,
@@ -111,8 +111,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
 
-      localStorage.setItem(Localstorage.AccessToken, accessToken);
-      localStorage.setItem(Localstorage.RefreshToken, refreshToken);
+      cookieStorage.setItem(CookiesKeys.AccessToken, accessToken);
+      cookieStorage.setItem(CookiesKeys.RefreshToken, refreshToken);
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({

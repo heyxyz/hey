@@ -1,11 +1,11 @@
-import { Localstorage } from '@hey/data/storage';
+import { CookiesKeys, cookieStorage } from '@hey/data/storage';
 import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 const Tokens: FC = () => {
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
-  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
+  const accessToken = cookieStorage.getItem(CookiesKeys.AccessToken);
+  const refreshToken = cookieStorage.getItem(CookiesKeys.RefreshToken);
 
   return (
     <>
