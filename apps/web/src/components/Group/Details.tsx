@@ -13,20 +13,6 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import urlcat from 'urlcat';
-import { create } from 'zustand';
-
-// Member count state
-interface GroupsMemberCountState {
-  membersCount: number;
-  setMembersCount: (membersCount: number) => void;
-}
-
-export const useGroupMemberCountStore = create<GroupsMemberCountState>(
-  (set) => ({
-    membersCount: 0,
-    setMembersCount: (membersCount) => set({ membersCount })
-  })
-);
 
 interface DetailsProps {
   group: Group;
