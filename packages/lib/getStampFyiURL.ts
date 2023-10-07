@@ -9,7 +9,7 @@ import urlcat from 'urlcat';
 const getStampFyiURL = (address: string): string => {
   const lowerCaseAddress = address.toLowerCase();
   return urlcat('https://cdn.stamp.fyi/avatar/eth::address', {
-    address: `eth:${lowerCaseAddress}`,
+    address: lowerCaseAddress,
     s: 300
   });
 };
