@@ -1,4 +1,5 @@
-import type { ElectedMirror, Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -11,20 +12,29 @@ import Mod from './Mod';
 import ShareMenu from './Share';
 
 interface PublicationActionsProps {
-  publication: Publication;
-  electedMirror?: ElectedMirror;
+  publication: AnyPublication;
   showCount?: boolean;
 }
 
 const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
-  electedMirror,
   showCount = false
 }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const collectModuleType = publication?.collectModule.__typename;
-  const canMirror = currentProfile ? publication?.canMirror?.result : true;
+  const hasCollectModule =
+    targetPublication.openActionModules?.some(
+      (module) =>
+        module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+        module.__typename === 'SimpleCollectOpenActionSettings'
+    ) ?? false;
+
+  const canMirror = currentProfile
+    ? targetPublication.operations.canMirror
+    : true;
 
   return (
     <span
@@ -37,12 +47,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
       <Like publication={publication} showCount={showCount} />
-      {collectModuleType !== 'RevertCollectModuleSettings' ? (
-        <Collect
-          electedMirror={electedMirror}
-          publication={publication}
-          showCount={showCount}
-        />
+      {hasCollectModule ? (
+        <Collect publication={publication} showCount={showCount} />
       ) : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
