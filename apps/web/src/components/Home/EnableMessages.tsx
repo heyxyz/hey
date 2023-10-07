@@ -1,5 +1,5 @@
 import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import { APP_NAME, XMTP_ENV } from '@hey/data/constants';
+import { XMTP_ENV } from '@hey/data/constants';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
@@ -23,7 +23,7 @@ const EnableMessages: FC = () => {
   useUpdateEffect(() => {
     const fetchCanMessage = async () => {
       const isMessagesEnabled = await Client.canMessage(
-        currentProfile?.ownedBy,
+        currentProfile?.ownedBy.address,
         { env: XMTP_ENV }
       );
       setCanMessage(isMessagesEnabled);

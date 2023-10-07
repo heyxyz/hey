@@ -2,8 +2,8 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { HomeFeedType } from '@hey/data/enums';
-import type { Publication, PublicationsQueryRequest } from '@hey/lens';
-import { useProfileFeedQuery } from '@hey/lens';
+import type { AnyPublication, PublicationsRequest } from '@hey/lens';
+import { LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
 import { t } from '@lingui/macro';
@@ -21,7 +21,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
-  const limit = 20;
+  const limit = LimitType.TwentyFive;
   const offset = displayedPublications.length;
 
   const {
@@ -29,9 +29,9 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     isLoading: algoLoading,
     error: algoError
   } = useQuery(
-    ['algorithmicFeed', feedType, currentProfile?.id, limit, offset],
+    ['algorithmicFeed', feedType, currentProfile?.id, 25, offset],
     () => {
-      return getAlgorithmicFeed(feedType, currentProfile, limit, offset);
+      return getAlgorithmicFeed(feedType, currentProfile, 25, offset);
     }
   );
 
@@ -39,14 +39,13 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     setDisplayedPublications([]);
   }, [feedType, currentProfile?.id]);
 
-  const request: PublicationsQueryRequest = { publicationIds, limit };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
+  const request: PublicationsRequest = {
+    where: { publicationIds },
+    limit
+  };
 
-  const { data, loading, error } = useProfileFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error } = usePublicationsQuery({
+    variables: { request },
     skip: !publicationIds,
     fetchPolicy: 'no-cache'
   });
@@ -91,7 +90,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       <span ref={observe} />
