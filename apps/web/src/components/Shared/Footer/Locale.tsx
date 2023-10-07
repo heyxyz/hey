@@ -6,7 +6,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import type { FC } from 'react';
-import { useCallback, useRef } from 'react'; // Remove useState and useEffect
+import { useCallback, useRef } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
 import { usePreferencesStore } from 'src/store/preferences';
 
@@ -29,7 +29,6 @@ const Locale: FC = () => {
     location.reload();
   }, []);
 
-  // Calculate whether to open the dropdown upwards or downwards initially
   const initialOpenUpwards =
     dropdownRef.current &&
     dropdownRef.current.getBoundingClientRect().bottom > window.innerHeight;
@@ -47,9 +46,9 @@ const Locale: FC = () => {
         <Menu.Items
           static
           className={`absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900 ${
-            initialOpenUpwards ? 'bottom-full' : '' // Add a CSS class to open upwards initially
+            initialOpenUpwards ? 'bottom-full' : ''
           }`}
-          ref={dropdownRef} // Attach the ref to the dropdown
+          ref={dropdownRef}
           data-testid="locale-selector-menu"
         >
           {Object.entries(locales).map(([localeCode, localeName]) => (
