@@ -11,15 +11,9 @@ interface VideoProps {
   src: string;
   poster?: string;
   className?: string;
-  autoPlay?: boolean;
 }
 
-const Video: FC<VideoProps> = ({
-  src,
-  poster,
-  className = '',
-  autoPlay = false
-}) => {
+const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
   return (
     <div
       className={cn('lp-player', className)}
@@ -32,7 +26,6 @@ const Video: FC<VideoProps> = ({
         showLoadingSpinner
         showPipButton={false}
         showUploadingIndicator={false}
-        autoPlay={autoPlay}
         controls={{ defaultVolume: 1 }}
       />
     </div>
