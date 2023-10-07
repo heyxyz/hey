@@ -2,11 +2,11 @@ import Loader from '@components/Shared/Loader';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { RectangleStackIcon as RectangleStackIconSolid } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { ElectedMirror, Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { plural, t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -19,34 +19,21 @@ const CollectModule = dynamic(() => import('./CollectModule'), {
 });
 
 interface CollectProps {
-  publication: Publication;
-  electedMirror?: ElectedMirror;
+  publication: AnyPublication;
   showCount: boolean;
 }
 
-const Collect: FC<CollectProps> = ({
-  publication,
-  electedMirror,
-  showCount
-}) => {
+const Collect: FC<CollectProps> = ({ publication, showCount }) => {
   const [count, setCount] = useState(0);
   const [showCollectModal, setShowCollectModal] = useState(false);
-  const isMirror = publication.__typename === 'Mirror';
-  const hasCollected = isMirror
-    ? publication?.mirrorOf?.hasCollectedByMe
-    : publication?.hasCollectedByMe;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const hasCollected = targetPublication.operations.hasActed;
 
   useEffect(() => {
-    if (
-      isMirror
-        ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-        : publication?.stats?.totalAmountOfCollects
-    ) {
-      setCount(
-        publication.__typename === 'Mirror'
-          ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-          : publication?.stats?.totalAmountOfCollects
-      );
+    if (targetPublication.stats.countOpenActions) {
+      setCount(targetPublication.stats.countOpenActions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
@@ -57,12 +44,7 @@ const Collect: FC<CollectProps> = ({
 
   return (
     <>
-      <div
-        className={cn(
-          hasCollected ? 'text-brand-500' : 'lt-text-gray-500',
-          'flex items-center space-x-1'
-        )}
-      >
+      <div className="flex items-center space-x-1 text-red-500">
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
@@ -71,12 +53,7 @@ const Collect: FC<CollectProps> = ({
           }}
           aria-label="Collect"
         >
-          <div
-            className={cn(
-              hasCollected ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
-              'rounded-full p-1.5'
-            )}
-          >
+          <div className="rounded-full p-1.5 hover:bg-red-300/20">
             <Tooltip
               placement="top"
               content={`${humanize(count)} ${plural(count, {
@@ -105,7 +82,6 @@ const Collect: FC<CollectProps> = ({
         onClose={() => setShowCollectModal(false)}
       >
         <CollectModule
-          electedMirror={electedMirror}
           publication={publication}
           count={count}
           setCount={setCount}
