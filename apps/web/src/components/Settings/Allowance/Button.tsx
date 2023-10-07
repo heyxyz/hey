@@ -4,7 +4,7 @@ import {
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import type { ApprovedAllowanceAmount } from '@hey/lens';
+import type { ApprovedAllowanceAmountResult } from '@hey/lens';
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@hey/lens';
 import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -18,7 +18,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi';
 
 interface AllowanceButtonProps {
   title?: string;
-  module: ApprovedAllowanceAmount;
+  module: ApprovedAllowanceAmountResult;
   allowed: boolean;
   setAllowed: Dispatch<SetStateAction<boolean>>;
 }
@@ -56,8 +56,8 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       setShowWarningModal(false);
       setAllowed(!allowed);
       Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        module: module.module,
-        currency: module.currency,
+        module: module.moduleName,
+        currency: module.allowance.asset.symbol,
         allowed: !allowed
       });
     },
@@ -72,9 +72,13 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     generateAllowanceQuery({
       variables: {
         request: {
-          currency: currencies,
-          value: value,
-          [getAllowanceModule(module.module).field]: selectedModule
+          allowance: {
+            currency: currencies,
+            value: value
+          },
+          module: {
+            [getAllowanceModule(module.moduleName).field]: selectedModule
+          }
         }
       }
     }).then((res) => {
@@ -97,7 +101,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
           <MinusIcon className="h-4 w-4" />
         )
       }
-      onClick={() => handleAllowance(module.currency, '0', module.module)}
+      onClick={() =>
+        handleAllowance(module.allowance.asset.symbol, '0', module.moduleName)
+      }
     >
       <Trans>Revoke</Trans>
     </Button>
@@ -138,9 +144,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             }
             onClick={() =>
               handleAllowance(
-                module.currency,
+                module.allowance.asset.symbol,
                 Number.MAX_SAFE_INTEGER.toString(),
-                module.module
+                module.moduleName
               )
             }
           >

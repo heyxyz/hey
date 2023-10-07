@@ -5,11 +5,11 @@ import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
-  CollectModules,
-  FollowModules,
-  ReferenceModules,
+  FollowModuleType,
+  OpenActionModuleType,
+  ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useEnabledModulesQuery
+  useEnabledCurrenciesQuery
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -27,12 +27,11 @@ const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
     collectModules: [
-      CollectModules.SimpleCollectModule,
-      CollectModules.RevertCollectModule,
-      CollectModules.MultirecipientFeeCollectModule
+      OpenActionModuleType.SimpleCollectOpenActionModule,
+      OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
     ],
-    followModules: [FollowModules.FeeFollowModule],
-    referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
+    followModules: [FollowModuleType.FeeFollowModule],
+    referenceModules: [ReferenceModuleType.FollowerOnlyReferenceModule]
   };
 };
 
@@ -44,7 +43,7 @@ const AllowanceSettings: NextPage = () => {
     data: enabledModules,
     loading: enabledModulesLoading,
     error: enabledModulesError
-  } = useEnabledModulesQuery();
+  } = useEnabledCurrenciesQuery({});
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
@@ -100,13 +99,14 @@ const AllowanceSettings: NextPage = () => {
               {enabledModulesLoading ? (
                 <option>Loading...</option>
               ) : (
-                enabledModules?.enabledModuleCurrencies.map(
-                  (currency: Erc20) => (
-                    <option key={currency.address} value={currency.address}>
-                      {currency.name}
-                    </option>
-                  )
-                )
+                enabledModules?.currencies.items.map((currency: Erc20) => (
+                  <option
+                    key={currency.contract.address}
+                    value={currency.contract.address}
+                  >
+                    {currency.name}
+                  </option>
+                ))
               )}
             </select>
           </div>

@@ -30,7 +30,6 @@
     "@hey/snapshot": "workspace:*",
     "@hey/types": "workspace:*",
     "@hey/ui": "workspace:*",
-    "@lens-protocol/sdk-gated": "^1.2.0",
     "@lexical/code": "^0.12.2",
     "@lexical/hashtag": "^0.12.2",
     "@lexical/link": "^0.12.2",

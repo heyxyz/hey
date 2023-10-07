@@ -14,8 +14,7 @@ import {
   ALLOWED_IMAGE_TYPES,
   ALLOWED_VIDEO_TYPES,
   APP_NAME,
-  LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT
+  LENSHUB_PROXY
 } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
@@ -50,17 +49,6 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
@@ -264,7 +252,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      publication_type: restricted ? 'token_gated' : 'public',
+      publication_type: 'public',
       publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
@@ -617,58 +605,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return isComment ? 'Comment' : 'Post';
   };
 
-  const createTokenGatedMetadata = async (
-    metadata: PublicationMetadataV2Input
-  ) => {
-    // Create the SDK instance
-    const tokenGatedSdk = await LensGatedSDK.create({
-      provider: publicClient as any,
-      signer: walletClient as any,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Connect to the SDK
-    await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Condition for gating the content
-    const collectAccessCondition: CollectCondition = { thisPublication: true };
-    const followAccessCondition: FollowCondition = {
-      profileId: currentProfile?.id
-    };
-
-    // Create the access condition
-    let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: {
-          criteria: [
-            { collect: collectAccessCondition },
-            { follow: followAccessCondition }
-          ]
-        }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
-    }
-
-    // Generate the encrypted metadata and upload it to Arweave
-    const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
-      metadata,
-      currentProfile?.id,
-      accessCondition,
-      async (data: EncryptedMetadata) => {
-        return await uploadToArweave(data);
-      }
-    );
-
-    return contentURI;
-  };
-
   const createMetadata = async (metadata: PublicationMetadataV2Input) => {
     return await uploadToArweave(metadata);
   };
@@ -821,12 +757,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? publication.isDataAvailability && isRevertCollectModule
           : isRevertCollectModule);
 
-      let arweaveId = null;
-      if (restricted) {
-        arweaveId = await createTokenGatedMetadata(metadata);
-      } else {
-        arweaveId = await createMetadata(metadata);
-      }
+      const arweaveId = await createMetadata(metadata);
 
       // Payload for the post/comment
       const request: CreatePublicPostRequest | CreatePublicCommentRequest = {

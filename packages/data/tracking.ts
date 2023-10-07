@@ -59,12 +59,6 @@ export const PUBLICATION = {
     COLLECT: 'Collect publication',
     OPEN_UNISWAP: 'Open Uniswap'
   },
-  TOKEN_GATED: {
-    CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
-    CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
-    DECRYPT: 'Decrypt token gated publication'
-  },
   WIDGET: {
     SNAPSHOT: {
       OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',

@@ -6,9 +6,9 @@ import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModulesQuery
+  useEnabledCurrenciesQuery
 } from '@hey/lens';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
@@ -44,7 +44,7 @@ const SuperFollow: FC = () => {
     useState('WMATIC');
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -62,7 +62,7 @@ const SuperFollow: FC = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } = useEnabledModulesQuery();
+  const { data: currencyData, loading } = useEnabledCurrenciesQuery({});
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -81,22 +81,23 @@ const SuperFollow: FC = () => {
   const form = useZodForm({
     schema: newSuperFollowSchema,
     defaultValues: {
-      recipient: currentProfile?.ownedBy
+      recipient: currentProfile?.ownedBy.address
     }
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
           const { profileId, followModule, followModuleInitData } =
             typedData.value;
           return write?.({
@@ -125,7 +126,6 @@ const SuperFollow: FC = () => {
         variables: {
           options: { overrideSigNonce: userSigNonce },
           request: {
-            profileId: currentProfile?.id,
             followModule: amount
               ? {
                   feeFollowModule: {
@@ -188,10 +188,10 @@ const SuperFollow: FC = () => {
               setSelectedCurrencySymbol(currency[1]);
             }}
           >
-            {currencyData?.enabledModuleCurrencies?.map((currency: Erc20) => (
+            {currencyData?.currencies.items?.map((currency: Erc20) => (
               <option
-                key={currency.address}
-                value={`${currency.address}-${currency.symbol}`}
+                key={currency.contract.address}
+                value={`${currency.contract.address}-${currency.symbol}`}
               >
                 {currency.name}
               </option>

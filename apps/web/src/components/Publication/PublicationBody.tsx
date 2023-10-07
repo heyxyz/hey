@@ -1,14 +1,13 @@
 import Snapshot from '@components/Publication/OpenActions/Snapshot';
 import Attachments from '@components/Shared/Attachments';
-import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
-import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
+import type { AnyPublication } from '@hey/lens';
 import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
@@ -17,11 +16,10 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 
-import DecryptedPublicationBody from './DecryptedPublicationBody';
 import Nft from './OpenActions/Nft';
 
 interface PublicationBodyProps {
-  publication: Publication;
+  publication: AnyPublication;
   showMore?: boolean;
   quoted?: boolean;
 }
@@ -31,17 +29,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   showMore = false,
   quoted = false
 }) => {
-  const { id, metadata } = publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { id, metadata } = targetPublication;
   const canShowMore = metadata?.content?.length > 450 && showMore;
   const urls = getURLs(metadata?.content);
   const hasURLs = urls.length > 0;
   const snapshotProposalId = getSnapshotProposalId(urls);
   const nft = getNft(urls);
-  const quotedPublicationId = getPublicationAttribute(
-    metadata.attributes,
-    'quotedPublicationId'
-  );
-  const filterId = snapshotProposalId || quotedPublicationId;
+
+  const filterId = snapshotProposalId;
   let rawContent = metadata?.content;
 
   if (filterId) {
@@ -53,10 +51,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   const [content, setContent] = useState(rawContent);
-
-  if (metadata?.encryptionParams) {
-    return <DecryptedPublicationBody encryptedPublication={publication} />;
-  }
 
   // Show NFT if it's there
   const showNft = nft;
@@ -117,9 +111,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           onData={onOembedData}
         />
       ) : null}
-      {showQuotedPublication ? (
+      {/* {showQuotedPublication ? (
         <Quote publicationId={quotedPublicationId} />
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
