@@ -4,13 +4,17 @@ import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
-import type { ApprovedAllowanceAmount, Profile } from '@hey/lens';
+import type {
+  ApprovedAllowanceAmountResult,
+  FeeFollowModuleSettings,
+  Profile
+} from '@hey/lens';
 import {
-  FollowModules,
+  FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useSuperFollowQuery
+  useProfileQuery
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
@@ -61,7 +65,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [allowed, setAllowed] = useState(true);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -98,32 +102,34 @@ const FollowModule: FC<FollowModuleProps> = ({
     }
   });
 
-  const { data, loading } = useSuperFollowQuery({
-    variables: { request: { profileId: profile?.id } },
+  const { data, loading } = useProfileQuery({
+    variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id
   });
 
-  const followModule: any = data?.profile?.followModule;
+  const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
       variables: {
         request: {
-          currencies: followModule?.amount?.asset?.address,
-          followModules: [FollowModules.FeeFollowModule],
-          collectModules: [],
+          currencies: followModule?.amount?.asset?.contract.address,
+          followModules: [FollowModuleType.FeeFollowModule],
+          openActionModules: [],
           referenceModules: []
         }
       },
-      skip: !followModule?.amount?.asset?.address || !currentProfile,
+      skip: !followModule?.amount?.asset?.contract.address || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+        setAllowed(
+          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        );
       }
     });
 
   const { data: balanceData } = useBalance({
-    address: currentProfile?.ownedBy,
-    token: followModule?.amount?.asset?.address,
+    address: currentProfile?.ownedBy.address,
+    token: followModule?.amount?.asset?.contract.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
   });
@@ -138,19 +144,32 @@ const FollowModule: FC<FollowModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
-        const { profileIds, datas } = typedData.value;
-        return write?.({ args: [profileIds, datas] });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        const {
+          followerProfileId,
+          idsOfProfilesToFollow,
+          followTokenIds,
+          datas
+        } = typedData.value;
+        return write?.({
+          args: [
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          ]
+        });
       }
     },
     onError
@@ -173,15 +192,8 @@ const FollowModule: FC<FollowModuleProps> = ({
           request: {
             follow: [
               {
-                profile: profile?.id,
-                followModule: {
-                  feeFollowModule: {
-                    amount: {
-                      currency: followModule?.amount?.asset?.address,
-                      value: followModule?.amount?.value
-                    }
-                  }
-                }
+                profileId: profile?.id,
+                followModule: { feeFollowModule: true }
               }
             ]
           }
@@ -316,7 +328,7 @@ const FollowModule: FC<FollowModuleProps> = ({
               title={t`Allow follow module`}
               module={
                 allowanceData
-                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
               }
               allowed={allowed}
               setAllowed={setAllowed}
