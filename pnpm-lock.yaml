@@ -182,6 +182,9 @@ importers:
       idb-keyval:
         specifier: ^6.2.1
         version: 6.2.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
       lexical:
         specifier: ^0.12.2
         version: 0.12.2
@@ -276,6 +279,9 @@ importers:
       '@tailwindcss/forms':
         specifier: ^0.5.6
         version: 0.5.6(tailwindcss@3.3.3)
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2
@@ -341,17 +347,10 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.7.4)(eslint@8.50.0)
 
   packages/data:
-    dependencies:
-      js-cookie:
-        specifier: ^3.0.5
-        version: 3.0.5
     devDependencies:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
-      '@types/js-cookie':
-        specifier: ^3.0.4
-        version: 3.0.4
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2
@@ -417,6 +416,9 @@ importers:
       axios:
         specifier: ^1.5.1
         version: 1.5.1
+      js-cookie:
+        specifier: ^3.0.5
+        version: 3.0.5
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.0
@@ -436,6 +438,9 @@ importers:
       '@hey/config':
         specifier: workspace:*
         version: link:../config
+      '@types/js-cookie':
+        specifier: ^3.0.4
+        version: 3.0.4
       '@types/node':
         specifier: ^20.8.2
         version: 20.8.2

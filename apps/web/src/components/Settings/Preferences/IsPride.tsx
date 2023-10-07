@@ -1,10 +1,11 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { APP_NAME, PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -25,7 +26,7 @@ const IsPride: FC = () => {
         },
         {
           headers: {
-            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+            'X-Access-Token': Cookies.get(Cookie.AccessToken)
           }
         }
       ),

@@ -1,12 +1,13 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
@@ -31,7 +32,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         },
         {
           headers: {
-            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+            'X-Access-Token': Cookies.get(Cookie.AccessToken)
           }
         }
       ),

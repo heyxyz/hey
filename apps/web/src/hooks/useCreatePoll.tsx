@@ -1,6 +1,7 @@
 import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
@@ -26,7 +27,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         },
         {
           headers: {
-            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+            'X-Access-Token': Cookies.get(Cookie.AccessToken)
           }
         }
       );

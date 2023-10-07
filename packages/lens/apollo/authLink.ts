@@ -1,7 +1,8 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage, Localstorage } from '@hey/data/storage';
+import { Cookie, Localstorage } from '@hey/data/storage';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 import { parseJwt } from './lib';
 
@@ -26,8 +27,8 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `;
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = cookieStorage.getItem(CookiesKeys.AccessToken);
-  const refreshToken = cookieStorage.getItem(CookiesKeys.RefreshToken);
+  const accessToken = Cookies.get(Cookie.AccessToken);
+  const refreshToken = Cookies.get(Cookie.RefreshToken);
 
   if (!accessToken || accessToken === 'undefined') {
     resetAuthData();
@@ -64,8 +65,8 @@ const authLink = new ApolloLink((operation, forward) => {
           headers: { 'x-access-token': `Bearer ${accessToken}` }
         });
 
-        cookieStorage.setItem(CookiesKeys.AccessToken, accessToken);
-        cookieStorage.setItem(CookiesKeys.RefreshToken, refreshToken);
+        Cookies.set(Cookie.AccessToken, accessToken);
+        Cookies.set(Cookie.RefreshToken, refreshToken);
 
         return toPromise(forward(operation));
       })

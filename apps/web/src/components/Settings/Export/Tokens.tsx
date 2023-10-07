@@ -1,11 +1,12 @@
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { Card } from '@hey/ui';
 import { Trans } from '@lingui/macro';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 
 const Tokens: FC = () => {
-  const accessToken = cookieStorage.getItem(CookiesKeys.AccessToken);
-  const refreshToken = cookieStorage.getItem(CookiesKeys.RefreshToken);
+  const accessToken = Cookies.get(Cookie.AccessToken);
+  const refreshToken = Cookies.get(Cookie.RefreshToken);
 
   return (
     <>

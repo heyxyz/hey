@@ -1,11 +1,12 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -82,7 +83,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         },
         {
           headers: {
-            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+            'X-Access-Token': Cookies.get(Cookie.AccessToken)
           }
         }
       ),

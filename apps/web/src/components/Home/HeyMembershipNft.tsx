@@ -1,13 +1,14 @@
 import Mint from '@components/Publication/OpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
@@ -60,7 +61,7 @@ const HeyMembershipNft: FC = () => {
           },
           {
             headers: {
-              'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+              'X-Access-Token': Cookies.get(Cookie.AccessToken)
             }
           }
         ),

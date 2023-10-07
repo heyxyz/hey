@@ -1,4 +1,5 @@
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
+import Cookies from 'js-cookie';
 
 /**
  * Checks if the access token and refresh token are available in localstorage
@@ -6,8 +7,8 @@ import { CookiesKeys, cookieStorage } from '@hey/data/storage';
  * @returns True if the access token and refresh token are available, `false` otherwise
  */
 const getIsAuthTokensAvailable = () => {
-  const accessToken = cookieStorage.getItem(CookiesKeys.AccessToken);
-  const refreshToken = cookieStorage.getItem(CookiesKeys.RefreshToken);
+  const accessToken = Cookies.get(Cookie.AccessToken);
+  const refreshToken = Cookies.get(Cookie.RefreshToken);
 
   return accessToken !== 'undefined' && refreshToken !== 'undefined';
 };

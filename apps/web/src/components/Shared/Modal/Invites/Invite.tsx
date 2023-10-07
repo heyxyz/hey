@@ -4,12 +4,13 @@ import {
   STATIC_IMAGES_URL
 } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import { CookiesKeys, cookieStorage } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -41,7 +42,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         { address, isMainnet: IS_MAINNET },
         {
           headers: {
-            'X-Access-Token': cookieStorage.getItem(CookiesKeys.AccessToken)
+            'X-Access-Token': Cookies.get(Cookie.AccessToken)
           }
         }
       );
