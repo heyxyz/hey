@@ -3,7 +3,6 @@ import CollectWarning from '@components/Shared/CollectWarning';
 import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
-import ReferralAlert from '@components/Shared/ReferralAlert';
 import Uniswap from '@components/Shared/Uniswap';
 import {
   BanknotesIcon,
@@ -349,11 +348,6 @@ const CollectModule: FC<CollectModuleProps> = ({
               {publication.metadata.content}
             </Markup>
           ) : null}
-          <ReferralAlert
-            electedMirror={electedMirror}
-            mirror={publication}
-            referralFee={referralFee}
-          />
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">

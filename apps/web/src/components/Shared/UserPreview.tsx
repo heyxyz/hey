@@ -60,7 +60,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       setSyntheticLoading(true);
       loadProfile({
         variables: {
-          request: { handle: formatHandle(compositeHandle, true) }
+          request: { forHandle: formatHandle(compositeHandle) }
         }
       });
       setTimeout(() => {
@@ -74,7 +74,9 @@ const UserPreview: FC<UserPreviewProps> = ({
   }
 
   const compositeProfile = lazyProfile ?? profile;
-  const [following, setFollowing] = useState(compositeProfile?.isFollowedByMe);
+  const [following, setFollowing] = useState(
+    compositeProfile?.operations.isFollowedByMe.value
+  );
 
   if (!handle && !profile) {
     return null;
@@ -147,7 +149,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
-            {!compositeProfile.isFollowedByMe ? (
+            {!compositeProfile.operations.isFollowedByMe.value ? (
               followStatusLoading ? (
                 <div className="shimmer h-8 w-10 rounded-lg" />
               ) : following ? null : compositeProfile.followModule

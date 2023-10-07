@@ -48,9 +48,9 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
-  const handle = formatHandle(username as string, true);
+  const handle = username as string;
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { handle }, who: currentProfile?.id ?? null },
+    variables: { request: { forHandle: `test/@${handle}` } },
     skip: !handle
   });
 
@@ -58,7 +58,8 @@ const ViewProfile: NextPage = () => {
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const isFollowedByMe =
-    Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
+    Boolean(currentProfile) &&
+    Boolean(profile?.operations.isFollowedByMe.value);
 
   const followType = profile?.followModule?.__typename;
   const initState = following === null;
@@ -106,9 +107,9 @@ const ViewProfile: NextPage = () => {
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>
-      {profile?.name ? (
+      {profile?.metadata?.displayName ? (
         <MetaTags
-          title={`${profile?.name} (@${formatHandle(
+          title={`${profile.metadata?.displayName} (@${formatHandle(
             profile?.handle
           )}) • ${APP_NAME}`}
         />
@@ -117,9 +118,9 @@ const ViewProfile: NextPage = () => {
       )}
       <Cover
         cover={
-          profile?.coverPicture?.__typename === 'MediaSet'
-            ? profile?.coverPicture?.original?.url
-            : `${STATIC_IMAGES_URL}/patterns/2.svg`
+          profile?.metadata?.coverPicture?.raw.uri ||
+          profile?.metadata?.coverPicture?.optimized?.uri ||
+          `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout className="pt-6">

@@ -2,20 +2,27 @@ import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { Regex } from '@hey/data/regex';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, Publication } from '@hey/lens';
+import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
+  const targetPubliction = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const mentions =
-    publication?.metadata?.content?.match(Regex.mention, '$1[~$2]') ?? [];
+    targetPubliction?.metadata?.marketplace?.description?.match(
+      Regex.mention,
+      '$1[~$2]'
+    ) ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
     const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
@@ -24,7 +31,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
       return mention.trim().replace("'s", '').replace(Regex.santiizeHandle, '');
     }
 
-    return formatHandle(publication?.profile?.handle);
+    return formatHandle(publication?.by?.handle);
   });
 
   const cleanedMentions = processedMentions.reduce(
@@ -39,7 +46,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   );
 
   const { data, loading, error } = useProfilesQuery({
-    variables: { request: { handles: cleanedMentions.slice(0, 5) } },
+    variables: { request: { where: { handles: cleanedMentions.slice(0, 5) } } },
     skip: mentions.length <= 0
   });
 
@@ -70,7 +77,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
         <div key={profile?.id} className="truncate">
           <UserProfile
             profile={profile as Profile}
-            isFollowing={profile.isFollowedByMe}
+            isFollowing={profile.operations.isFollowedByMe.value}
             followUnfollowPosition={index + 1}
             followUnfollowSource={
               FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES

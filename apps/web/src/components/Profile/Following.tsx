@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { FollowingRequest, Profile } from '@hey/lens';
-import { useFollowingQuery } from '@hey/lens';
+import { LimitType, useFollowingQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
@@ -19,7 +19,10 @@ interface FollowingProps {
 
 const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
-  const request: FollowingRequest = { address: profile?.ownedBy, limit: 50 };
+  const request: FollowingRequest = {
+    for: profile.id,
+    limit: LimitType.Fifty
+  };
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, loading, error, fetchMore } = useFollowingQuery({
@@ -89,23 +92,23 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
                 'cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-900'
               }`}
               onClick={
-                onProfileSelected && following.profile
+                onProfileSelected && following
                   ? () => {
-                      onProfileSelected(following.profile as Profile);
+                      onProfileSelected(following as Profile);
                     }
                   : undefined
               }
               aria-hidden="true"
             >
               <UserProfile
-                profile={following?.profile as Profile}
+                profile={following as Profile}
                 linkToProfile={!onProfileSelected}
-                isFollowing={following?.profile?.isFollowedByMe}
+                isFollowing={following.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.FOLLOWING_MODAL}
                 showBio
-                showFollow={currentProfile?.id !== following?.profile.id}
-                showUnfollow={currentProfile?.id !== following?.profile.id}
+                showFollow={currentProfile?.id !== following.id}
+                showUnfollow={currentProfile?.id !== following.id}
                 showUserPreview={false}
               />
             </motion.div>
