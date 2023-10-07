@@ -22,7 +22,7 @@ const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
     client: snapshotApolloClient,
     variables: {
       id: proposalId,
-      where: { proposal: proposalId, voter: currentProfile?.ownedBy }
+      where: { proposal: proposalId, voter: currentProfile?.ownedBy.address }
     }
   });
 

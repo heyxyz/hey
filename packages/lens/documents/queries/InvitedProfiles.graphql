@@ -1,0 +1,9 @@
+query InvitedProfiles {
+  invitedProfiles {
+    by
+    when
+    profileMinted {
+      ...ProfileFields
+    }
+  }
+}

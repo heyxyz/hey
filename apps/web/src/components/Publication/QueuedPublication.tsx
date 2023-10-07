@@ -1,12 +1,12 @@
-import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
+import NewAttachments from '@components/Shared/NewAttachments';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@hey/lens';
 import {
+  LensTransactionStatusType,
   PublicationDocument,
-  PublicationMetadataStatusType,
-  useHasTxHashBeenIndexedQuery,
+  useLensTransactionStatusQuery,
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
@@ -67,35 +67,22 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     }
   });
 
-  useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash, txId } },
+  useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval: 1000,
-    onCompleted: ({ hasTxHashBeenIndexed }) => {
-      if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
+    onCompleted: ({ lensTransactionStatus }) => {
+      if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
         return removeTxn();
       }
 
-      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
-        const status = hasTxHashBeenIndexed.metadataStatus?.status;
-
-        if (
-          status === PublicationMetadataStatusType.MetadataValidationFailed ||
-          status === PublicationMetadataStatusType.NotFound
-        ) {
-          return removeTxn();
-        }
-
-        if (hasTxHashBeenIndexed.indexed) {
-          getPublication({
-            variables: {
-              request: { txHash: hasTxHashBeenIndexed.txHash },
-              reactionRequest: currentProfile
-                ? { profileId: currentProfile?.id }
-                : null,
-              profileId: currentProfile?.id ?? null
-            }
-          });
-        }
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        getPublication({
+          variables: {
+            request: { forTxHash: lensTransactionStatus?.txHash }
+          }
+        });
       }
     }
   });
@@ -115,7 +102,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           <Markup>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
+          <NewAttachments attachments={txn?.attachments} txn={txn} hideDelete />
         ) : txn?.attachments && urls.length > 0 ? (
           <Oembed url={urls[0]} onData={onData} />
         ) : null}
