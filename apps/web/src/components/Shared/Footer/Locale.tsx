@@ -10,6 +10,7 @@ import { useCallback } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
 import { usePreferencesStore } from 'src/store/preferences';
 
+import { usePopper } from '../../../hooks/usePopper';
 import MenuTransition from '../MenuTransition';
 
 const Locale: FC = () => {
@@ -28,41 +29,56 @@ const Locale: FC = () => {
     location.reload();
   }, []);
 
+  const [popperTrigger, popperContainer] = usePopper({
+    placement: 'bottom-start',
+    modifiers: [
+      {
+        name: 'preventOverflow',
+        options: {
+          rootBoundary: 'clippingParents'
+        }
+      }
+    ]
+  });
+
   return (
     <Menu as="span">
       <Menu.Button
         className="inline-flex items-center space-x-1"
         data-testid="locale-selector"
+        ref={popperTrigger}
       >
         <GlobeAltIcon className="h-4 w-4" />
         <span>{locales[i18n.locale]}</span>
       </Menu.Button>
-      <MenuTransition>
-        <Menu.Items
-          static
-          className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          data-testid="locale-selector-menu"
-        >
-          {Object.entries(locales).map(([localeCode, localeName]) => (
-            <Menu.Item
-              key={localeCode}
-              as="div"
-              onClick={() => {
-                setLanguage(localeCode);
-                Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
-                  locale: localeCode
-                });
-                location.reload();
-              }}
-              className={({ active }: { active: boolean }) =>
-                cn({ 'dropdown-active': active }, 'menu-item')
-              }
-            >
-              {localeName}
-            </Menu.Item>
-          ))}
-        </Menu.Items>
-      </MenuTransition>
+      <div ref={popperContainer}>
+        <MenuTransition>
+          <Menu.Items
+            static
+            className="mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+            data-testid="locale-selector-menu"
+          >
+            {Object.entries(locales).map(([localeCode, localeName]) => (
+              <Menu.Item
+                key={localeCode}
+                as="div"
+                onClick={() => {
+                  setLanguage(localeCode);
+                  Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
+                    locale: localeCode
+                  });
+                  location.reload();
+                }}
+                className={({ active }: { active: boolean }) =>
+                  cn({ 'dropdown-active': active }, 'menu-item')
+                }
+              >
+                {localeName}
+              </Menu.Item>
+            ))}
+          </Menu.Items>
+        </MenuTransition>
+      </div>
     </Menu>
   );
 };
