@@ -1,7 +1,7 @@
 {
   "git": {
     "deploymentEnabled": {
-      "v2": false
+      "lens-v2": false
     }
   }
 }
