@@ -12,7 +12,7 @@ import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useEffectOnce } from 'usehooks-ts';
 
-import Details, { useGroupMemberCountStore } from './Details';
+import Details from './Details';
 import Feed from './Feed';
 import GroupPageShimmer from './Shimmer';
 
@@ -21,9 +21,6 @@ const ViewGroup: NextPage = () => {
     query: { slug },
     isReady
   } = useRouter();
-  const setMembersCount = useGroupMemberCountStore(
-    (state) => state.setMembersCount
-  );
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'group' });
@@ -33,7 +30,6 @@ const ViewGroup: NextPage = () => {
     const response: {
       data: { result: Group };
     } = await axios.get(`${GROUPS_WORKER_URL}/get/${slug}`);
-    setMembersCount(response.data?.result.members);
 
     return response.data?.result;
   };

@@ -1,7 +1,6 @@
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 
-import getMembersCount from '../helpers/getMembersCount';
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
@@ -17,10 +16,7 @@ export default async (request: WorkerRequest) => {
 
     return response({
       success: true,
-      result: {
-        ...data,
-        members: await getMembersCount(data?.contract as `0x${string}`)
-      }
+      result: data
     });
   } catch (error) {
     throw error;

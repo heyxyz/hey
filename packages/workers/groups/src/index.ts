@@ -4,7 +4,6 @@ import { createCors, error, Router, status } from 'itty-router';
 
 import featuredGroups from './handlers/featuredGroups';
 import getGroup from './handlers/getGroup';
-import isMember from './handlers/isMember';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -26,7 +25,6 @@ router
   )
   .get('/get/:slug', getGroup)
   .get('/featured', featuredGroups)
-  .get('/isMember', isMember)
   .all('*', () => error(404));
 
 export default {
