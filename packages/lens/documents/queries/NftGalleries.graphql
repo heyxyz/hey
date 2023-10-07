@@ -1,0 +1,18 @@
+query NftGalleries($request: NftGalleriesRequest!) {
+  nftGalleries(request: $request) {
+    items {
+      id
+      name
+      owner
+      items {
+        ...NftFields
+      }
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      prev
+      next
+    }
+  }
+}

@@ -79,7 +79,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     }
     const conversationId = buildConversationId(currentProfile.id, profile.id);
     const conversationKey = buildConversationKey(
-      profile.ownedBy,
+      profile.ownedBy.address,
       conversationId
     );
     persistProfile(conversationKey, profile);
@@ -125,7 +125,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {sanitizeDisplayName(profile?.name) ??
+            {sanitizeDisplayName(profile.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
           {isVerified(profile.id) ? (
@@ -149,7 +149,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="flex items-center space-x-3"
           data-testid="profile-handle"
         >
-          {profile?.name ? (
+          {profile.metadata?.displayName ? (
             <Slug
               className="text-sm sm:text-base"
               slug={formatHandle(profile?.handle)}
@@ -158,24 +158,24 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : (
             <Slug
               className="text-sm sm:text-base"
-              slug={formatAddress(profile?.ownedBy)}
+              slug={formatAddress(profile.ownedBy.address)}
             />
           )}
           {currentProfile &&
           currentProfile?.id !== profile.id &&
-          profile?.isFollowing ? (
+          profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               <Trans>Follows you</Trans>
             </div>
           ) : null}
         </div>
       </div>
-      {profile?.bio ? (
+      {profile.metadata?.bio ? (
         <div
           className="markup linkify text-md mr-0 break-words sm:mr-10"
           data-testid="profile-bio"
         >
-          <Markup>{profile?.bio}</Markup>
+          <Markup>{profile.metadata.bio}</Markup>
         </div>
       ) : null}
       <div className="space-y-5">

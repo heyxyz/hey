@@ -63,12 +63,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         cache.evict({ id: normalizedId });
         cache.gc();
         deleteNftGallery({
-          variables: {
-            request: {
-              profileId: currentProfile?.id,
-              galleryId: gallery.id
-            }
-          }
+          variables: { request: { galleryId: gallery.id } }
         });
       }
     } catch (error: any) {
@@ -92,7 +87,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     const items = nfts.map((nft) => {
       return {
         ...nft,
-        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+        itemId: `${nft.contract.chainId}_${nft.contract.address}_${nft.tokenId}`
       };
     });
     setIsRearrange(true);
@@ -104,7 +99,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
     const items = nfts.map((nft) => {
       return {
         ...nft,
-        itemId: `${nft.chainId}_${nft.contractAddress}_${nft.tokenId}`
+        itemId: `${nft.contract.chainId}_${nft.contract.address}_${nft.tokenId}`
       };
     });
     setItemsToGallery(items);
@@ -113,30 +108,26 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const onSaveRearrange = async () => {
     try {
       const updates = galleryStore.reArrangedItems?.map(
-        ({ tokenId, contractAddress, chainId, newOrder }, i) => {
-          return { tokenId, contractAddress, chainId, newOrder: newOrder ?? i };
+        ({ tokenId, contract, newOrder }, i) => {
+          return { tokenId, contract, newOrder: newOrder ?? i };
         }
       );
 
       await orderGallery({
         variables: {
-          request: {
-            galleryId: galleryStore.id,
-            profileId: currentProfile?.id,
-            updates
-          }
+          request: { galleryId: galleryStore.id, updates }
         }
       });
 
       const { data } = await fetchNftGalleries({
-        variables: { request: { profileId: currentProfile?.id } }
+        variables: { request: { for: currentProfile?.id } }
       });
 
       cache.modify({
         fields: {
           nftGalleries: () => {
             cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-              data: data?.nftGalleries as NftGallery[]
+              data: data?.nftGalleries
             }));
           }
         }
@@ -172,7 +163,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               <Trans>Save</Trans>
             </Button>
           </div>
-        ) : currentProfile && currentProfile?.id === gallery.profileId ? (
+        ) : currentProfile && currentProfile?.id === gallery.owner ? (
           <Menu as="div" className="relative">
             <Menu.Button className="rounded-md p-1 hover:bg-gray-300/20">
               <EllipsisVerticalIcon className="h-4 w-4" />
@@ -244,7 +235,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
         <div className="grid gap-5 md:grid-cols-3">
           {nfts?.map((nft) => (
             <div
-              key={`${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`}
+              key={`${nft?.contract.address}_${nft?.contract.chainId}_${nft?.tokenId}`}
               className="break-inside flex w-full items-center overflow-hidden text-white"
             >
               <NftCard nft={nft as Nft} linkToDetail />

@@ -1,6 +1,5 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
-import type { NftGallery } from '@hey/lens';
 import {
   NftGalleriesDocument,
   useCreateNftGalleryMutation,
@@ -56,30 +55,22 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const create = async () => {
     try {
       const sanitizedItems = gallery.items.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
       const { data } = await createGallery({
         variables: {
-          request: {
-            items: sanitizedItems,
-            name: gallery.name,
-            profileId: currentProfile?.id
-          }
+          request: { items: sanitizedItems, name: gallery.name }
         }
       });
       if (data?.createNftGallery) {
         const { data } = await fetchNftGalleries({
-          variables: { request: { profileId: currentProfile?.id } }
+          variables: { request: { for: currentProfile?.id } }
         });
         cache.modify({
           fields: {
             nftGalleries: () => {
               cache.writeQuery({
-                data: data?.nftGalleries as NftGallery[],
+                data: data?.nftGalleries,
                 query: NftGalleriesDocument
               });
             }
@@ -97,11 +88,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
     try {
       const { data } = await renameGallery({
         variables: {
-          request: {
-            name: gallery.name,
-            galleryId: gallery.id,
-            profileId: currentProfile?.id
-          }
+          request: { name: gallery.name, galleryId: gallery.id }
         }
       });
       if (data) {
@@ -137,19 +124,12 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
             ?.itemId
       );
       const sanitizedAddItems = newlyAddedItems?.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
       const sanitizedRemoveItems = newlyRemovedItems?.map((el) => {
-        return {
-          tokenId: el.tokenId,
-          contractAddress: el.contractAddress,
-          chainId: el.chainId
-        };
+        return { contract: el.contract, tokenId: el.tokenId };
       });
+
       // if gallery name only update
       if (!sanitizedAddItems.length && !sanitizedRemoveItems.length) {
         return await rename();
@@ -159,20 +139,19 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           request: {
             galleryId: gallery.id,
             toAdd: sanitizedAddItems,
-            toRemove: sanitizedRemoveItems,
-            profileId: currentProfile?.id
+            toRemove: sanitizedRemoveItems
           }
         }
       });
       if (data) {
         const { data } = await fetchNftGalleries({
-          variables: { request: { profileId: currentProfile?.id } }
+          variables: { request: { for: currentProfile?.id } }
         });
         cache.modify({
           fields: {
             nftGalleries: () => {
               cache.updateQuery({ query: NftGalleriesDocument }, () => ({
-                data: data?.nftGalleries as NftGallery[]
+                data: data?.nftGalleries
               }));
             }
           }

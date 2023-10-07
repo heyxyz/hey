@@ -60,8 +60,9 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
         {!isOwner ? (
           <>
             <h5 className="mb-2 text-xl">
-              {sanitizeDisplayName(profile.name) ?? profile.handle} hasn't setup
-              gallery yet!
+              {sanitizeDisplayName(profile.metadata?.displayName) ??
+                profile.handle}{' '}
+              hasn't setup gallery yet!
             </h5>
             <p className="text-sm opacity-60">Check again later</p>
           </>
