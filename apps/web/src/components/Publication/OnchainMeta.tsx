@@ -1,11 +1,11 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@hey/data/constants';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import { t } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import urlcat from 'urlcat';
 
 interface MetaProps {
   name: string;
@@ -31,18 +31,15 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
 );
 
 interface OnchainMetaProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
-  const hash =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOf.onChainContentURI?.split('/').pop()
-      : publication.onChainContentURI?.split('/').pop();
-  const collectNftAddress =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOf?.collectNftAddress
-      : publication?.collectNftAddress;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const hash = targetPublication.metadata.rawURI?.split('/').pop();
+  const collectNftAddress = targetPublication?.collectNftAddress;
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
@@ -56,19 +53,17 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta
             name={t`ARWEAVE TRANSACTION`}
-            uri={urlcat('https://arweave.net/:hash', { hash })}
+            uri={`https://arweave.app/tx/${hash}`}
             hash={hash}
           />
         ) : null}
-        {publication?.isDataAvailability ? (
+        {publication?.momoka?.proof ? (
           <Meta
             name={t`MOMOKA PROOF`}
-            uri={urlcat('https://momoka.lens.xyz/tx/:proof', {
-              proof: publication.dataAvailabilityProofs?.split('/').pop()
-            })}
-            hash={
-              publication.dataAvailabilityProofs?.split('/').pop() as string
-            }
+            uri={`https://momoka.lens.xyz/tx/${publication.momoka.proof
+              ?.split('/')
+              .pop()}`}
+            hash={publication.momoka.proof?.split('/').pop() as string}
           />
         ) : null}
         {isIPFSHash ? (
