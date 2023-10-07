@@ -63,7 +63,6 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
       <Video
         src={playbackUrl}
         className="[&>div>div]:rounded-b-none [&>div>div]:border-0"
-        autoPlay
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
