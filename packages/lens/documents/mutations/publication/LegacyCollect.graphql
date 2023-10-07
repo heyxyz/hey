@@ -1,0 +1,46 @@
+mutation CreateLegacyCollectTypedData(
+  $options: TypedDataOptions
+  $request: LegacyCollectRequest!
+) {
+  createLegacyCollectTypedData(options: $options, request: $request) {
+    expiresAt
+    id
+    typedData {
+      domain {
+        chainId
+        name
+        verifyingContract
+        version
+      }
+      types {
+        Act {
+          name
+          type
+        }
+      }
+      value {
+        actionModuleAddress
+        actionModuleData
+        actorProfileId
+        deadline
+        nonce
+        publicationActedId
+        publicationActedProfileId
+        referrerProfileIds
+        referrerPubIds
+      }
+    }
+  }
+}
+
+mutation LegacyCollect($request: LegacyCollectRequest!) {
+  legacyCollect(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

@@ -1,0 +1,43 @@
+mutation CreateFollowTypedData(
+  $options: TypedDataOptions
+  $request: FollowRequest!
+) {
+  createFollowTypedData(options: $options, request: $request) {
+    expiresAt
+    id
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        Follow {
+          name
+          type
+        }
+      }
+      value {
+        nonce
+        deadline
+        followerProfileId
+        idsOfProfilesToFollow
+        followTokenIds
+        datas
+      }
+    }
+  }
+}
+
+mutation Follow($request: FollowLensManagerRequest!) {
+  follow(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

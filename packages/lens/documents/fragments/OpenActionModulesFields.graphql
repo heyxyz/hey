@@ -1,0 +1,194 @@
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    optionalAmount: amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    followerOnly
+    recipient
+    referralFee
+    collectNft
+    optionalEndsAt: endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    collectNft
+    optionalEndsAt: endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    followerOnly
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    collectLimit
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    collectLimit
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+    endTimestamp
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    referralFee
+    followerOnly
+    endTimestamp
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndsAt: endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    optionalAmount: amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    followerOnly
+    recipient
+    referralFee
+    optionalEndsAt: endsAt
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    vault {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndsAt: endsAt
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    optionalCollectLimit: collectLimit
+    referralFee
+    followerOnly
+    optionalEndsAt: endsAt
+    recipient
+  }
+  ... on UnknownOpenActionModuleSettings {
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}

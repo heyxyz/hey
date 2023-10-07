@@ -1,0 +1,14 @@
+fragment MarketplaceMetadataFields on MarketplaceMetadata {
+  name
+  description
+  externalURL
+  attributes {
+    displayType
+    traitType
+    value
+  }
+  image {
+    ...ImageSetFields
+  }
+  animationUrl
+}

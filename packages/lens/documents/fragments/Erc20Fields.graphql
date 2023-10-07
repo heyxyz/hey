@@ -1,0 +1,10 @@
+fragment Erc20Fields on Asset {
+  ... on Erc20 {
+    name
+    symbol
+    decimals
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+}

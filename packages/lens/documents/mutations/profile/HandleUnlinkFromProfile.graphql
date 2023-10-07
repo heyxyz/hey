@@ -1,0 +1,41 @@
+mutation CreateHandleUnlinkFromProfileTypedData(
+  $options: TypedDataOptions
+  $request: HandleUnlinkFromProfileRequest!
+) {
+  createHandleUnlinkFromProfileTypedData(options: $options, request: $request) {
+    id
+    expiresAt
+    typedData {
+      types {
+        Unlink {
+          name
+          type
+        }
+      }
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        handleId
+      }
+    }
+  }
+}
+
+mutation HandleUnlinkFromProfile($request: HandleUnlinkFromProfileRequest!) {
+  handleUnlinkFromProfile(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

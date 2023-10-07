@@ -1,0 +1,25 @@
+query RevenueFromPublications($request: RevenueFromPublicationsRequest!) {
+  revenueFromPublications(request: $request) {
+    items {
+      publication {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+        ... on Mirror {
+          ...MirrorFields
+        }
+        ... on Quote {
+          ...QuoteFields
+        }
+      }
+      revenue {
+        total {
+          ...AmountFields
+        }
+      }
+    }
+  }
+}

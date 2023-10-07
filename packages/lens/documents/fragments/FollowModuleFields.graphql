@@ -1,0 +1,25 @@
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+  }
+  ... on UnknownFollowModuleSettings {
+    contract {
+      ...NetworkAddressFields
+    }
+    followModuleReturnData
+  }
+}

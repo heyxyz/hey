@@ -1,0 +1,51 @@
+mutation PostOnMomoka($request: MomokaPostRequest!) {
+  postOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+      proof
+      momokaId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}
+
+mutation CommentOnMomoka($request: MomokaCommentRequest!) {
+  commentOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+      proof
+      momokaId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}
+
+mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
+  quoteOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+      proof
+      momokaId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}
+
+mutation MirrorOnMomoka($request: MomokaMirrorRequest!) {
+  mirrorOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+      proof
+      momokaId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}
