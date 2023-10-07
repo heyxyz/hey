@@ -21,7 +21,7 @@ test.describe('Profile', () => {
 
     await expect(avatar).toHaveAttribute(
       'src',
-      `${LENS_MEDIA_SNAPSHOT_URL}/${AVATAR}/9ab05cc018d5976f8454278742fca49e77ffd86bdaee7bb30644ad842c9b8381.png`
+      `${LENS_MEDIA_SNAPSHOT_URL}/${AVATAR}/9caf74be27cca70afabf170375626878e534d5266494a78462dac479a39ccf48.png`
     );
   });
 
