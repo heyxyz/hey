@@ -9,8 +9,6 @@ const ExternalLink: FC<MarkupLinkProps> = ({ href, title = href }) => {
   }
 
   if (!isUrlContainsValidTld(href)) {
-    // if href not contains valid tld then we will not render as link
-
     return href;
   }
 
