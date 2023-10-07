@@ -1,14 +1,14 @@
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@hey/abis';
-import { LENS_PERIPHERY } from '@hey/data/constants';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
-import type { CreatePublicSetProfileMetadataUriRequest } from '@hey/lens';
+import type { OnchainSetProfileMetadataRequest } from '@hey/lens';
 import {
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
-  useProfileSettingsQuery
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useProfileQuery,
+  useSetProfileMetadataMutation
 } from '@hey/lens';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
@@ -54,15 +54,20 @@ const Status: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
   const form = useZodForm({
     schema: editStatusSchema
   });
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -76,63 +81,63 @@ const Status: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading, error } = useProfileSettingsQuery({
-    variables: { request: { profileId: currentProfile?.id } },
+  const { data, loading, error } = useProfileQuery({
+    variables: { request: { forProfileId: currentProfile?.id } },
     skip: !currentProfile?.id,
     onCompleted: ({ profile }) => {
       form.setValue(
         'status',
-        getProfileAttribute(profile?.attributes, 'statusMessage')
+        getProfileAttribute(profile?.metadata?.attributes, 'statusMessage')
       );
-      setEmoji(getProfileAttribute(profile?.attributes, 'statusEmoji'));
+      setEmoji(
+        getProfileAttribute(profile?.metadata?.attributes, 'statusEmoji')
+      );
     }
   });
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY,
-    abi: LensPeriphery,
-    functionName: 'setProfileMetadataURIWithSig',
+    address: LENSHUB_PROXY,
+    abi: LensHub,
+    functionName: 'setProfileMetadataURI',
     onSuccess: () => onCompleted(),
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
-  const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async ({ createSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
+  const [createOnchainSetProfileMetadataTypedData] =
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
-          const { profileId, metadata } = typedData.value;
-          return write?.({ args: [profileId, metadata] });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const { profileId, metadataURI } = typedData.value;
+          return write?.({ args: [profileId, metadataURI] });
         }
       },
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-      onError
-    });
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  });
 
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
+  const createOnChain = async (request: OnchainSetProfileMetadataRequest) => {
+    const { data } = await setProfileMetadata({
       variables: { request }
     });
     if (
-      data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
+      data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -152,14 +157,14 @@ const Status: FC = () => {
     try {
       setIsLoading(true);
       const id = await uploadToArweave({
-        name: profile?.name ?? '',
-        bio: profile?.bio ?? '',
+        name: profile?.metadata?.displayName ?? '',
+        bio: profile?.metadata?.bio ?? '',
         cover_picture:
-          profile?.coverPicture?.__typename === 'MediaSet'
-            ? profile?.coverPicture?.original?.url ?? ''
-            : '',
+          profile?.metadata?.coverPicture?.raw.uri ||
+          profile?.metadata?.coverPicture?.optimized?.uri ||
+          '',
         attributes: [
-          ...(profile?.attributes
+          ...(profile?.metadata?.attributes
             ?.filter(
               (attr) =>
                 ![
@@ -174,18 +179,21 @@ const Status: FC = () => {
             .map(({ key, value }) => ({ key, value })) ?? []),
           {
             key: 'location',
-            value: getProfileAttribute(profile?.attributes, 'location')
+            value: getProfileAttribute(
+              profile?.metadata?.attributes,
+              'location'
+            )
           },
           {
             key: 'website',
-            value: getProfileAttribute(profile?.attributes, 'website')
+            value: getProfileAttribute(profile?.metadata?.attributes, 'website')
           },
           {
             key: 'x',
-            value: getProfileAttribute(profile?.attributes, 'x')?.replace(
-              'https://x.com/',
-              ''
-            )
+            value: getProfileAttribute(
+              profile?.metadata?.attributes,
+              'x'
+            )?.replace('https://x.com/', '')
           },
           { key: 'statusEmoji', value: emoji },
           { key: 'statusMessage', value: status }
@@ -194,16 +202,15 @@ const Status: FC = () => {
         metadata_id: uuid()
       });
 
-      const request: CreatePublicSetProfileMetadataUriRequest = {
-        profileId: currentProfile?.id,
-        metadata: `ar://${id}`
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: `ar://${id}`
       };
 
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     } catch (error) {

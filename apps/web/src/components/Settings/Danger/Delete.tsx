@@ -8,7 +8,6 @@ import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { useCreateBurnProfileTypedDataMutation } from '@hey/lens';
 import resetAuthData from '@hey/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -20,13 +19,10 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/nonce';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
@@ -58,23 +54,7 @@ const DeleteSettings: FC = () => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'burn',
-    onSuccess: () => {
-      onCompleted();
-      setUserSigNonce(userSigNonce + 1);
-    },
-    onError: (error) => {
-      onError(error);
-      setUserSigNonce(userSigNonce - 1);
-    }
-  });
-
-  const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
-    onCompleted: async ({ createBurnProfileTypedData }) => {
-      const { typedData } = createBurnProfileTypedData;
-      const { tokenId } = typedData.value;
-      write?.({ args: [tokenId] });
-    },
-    onError
+    onSuccess: onCompleted
   });
 
   const handleDelete = async () => {
@@ -88,12 +68,7 @@ const DeleteSettings: FC = () => {
 
     try {
       setIsLoading(true);
-      return await createBurnProfileTypedData({
-        variables: {
-          options: { overrideSigNonce: userSigNonce },
-          request: { profileId: currentProfile?.id }
-        }
-      });
+      return write?.({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
     }

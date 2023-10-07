@@ -3,15 +3,14 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { AVATAR } from '@hey/data/constants';
-import type {
-  MediaSet,
-  NftImage,
-  Profile,
-  ProfileSearchResult
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import {
+  CustomFiltersType,
+  LimitType,
+  useSearchProfilesLazyQuery
 } from '@hey/lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getAvatarUrl from '@hey/lib/getAvatarUrl';
 import hasMisused from '@hey/lib/hasMisused';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
@@ -184,45 +183,30 @@ const MentionsPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 
-  const getUserPicture = (user: Profile | undefined) => {
-    const picture = user?.picture;
-    if (picture && picture.hasOwnProperty('original')) {
-      const mediaSet = user.picture as MediaSet;
-      return mediaSet.original?.url;
-    }
-
-    if (picture && picture.hasOwnProperty('uri')) {
-      const nftImage = user.picture as NftImage;
-      return nftImage?.uri;
-    }
-
-    return getStampFyiURL(user?.ownedBy);
-  };
-
   useUpdateEffect(() => {
     if (queryString) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: queryString,
-            limit: 5
-          }
-        }
-      }).then(({ data }) => {
-        const search = data?.search;
-        const profileSearchResult = search as ProfileSearchResult;
-        const profiles: Profile[] =
+      // Variables
+      const request: ProfileSearchRequest = {
+        where: { customFilters: [CustomFiltersType.Gardeners] },
+        query: queryString,
+        limit: LimitType.Ten
+      };
+
+      searchUsers({ variables: { request } }).then(({ data }) => {
+        const search = data?.searchProfiles;
+        const profileSearchResult = search;
+        const profiles = (
           search && search.hasOwnProperty('items')
             ? profileSearchResult?.items
-            : [];
+            : []
+        ) as Profile[];
         const profilesResults = profiles.map(
-          (user: Profile) =>
+          (user) =>
             ({
               id: user?.id,
-              name: sanitizeDisplayName(user?.name),
+              name: sanitizeDisplayName(user.metadata?.displayName),
               handle: user?.handle,
-              picture: getUserPicture(user)
+              picture: getAvatarUrl(user)
             }) as Record<string, string>
         );
         setResults(profilesResults);
