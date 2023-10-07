@@ -55,7 +55,7 @@ const Preview: FC<PreviewProps> = ({
   const setConversationKey = useMessageStore(
     (state) => state.setConversationKey
   );
-  const address = currentProfile?.ownedBy;
+  const address = currentProfile?.ownedBy.address;
 
   const onConversationSelected = () => {
     setConversationKey(conversationKey);
@@ -93,7 +93,7 @@ const Preview: FC<PreviewProps> = ({
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
                   {profile?.handle
-                    ? sanitizeDisplayName(profile?.name) ||
+                    ? sanitizeDisplayName(profile.metadata?.displayName) ||
                       formatHandle(profile.handle)
                     : ensName || formatAddress(conversationKey?.split('/')[0])}
                 </div>
