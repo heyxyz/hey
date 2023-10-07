@@ -4,9 +4,9 @@ import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useProxyActionMutation
+  useFollowMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
@@ -60,8 +60,13 @@ const Follow: FC<FollowProps> = ({
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -90,8 +95,9 @@ const Follow: FC<FollowProps> = ({
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
@@ -101,37 +107,35 @@ const Follow: FC<FollowProps> = ({
         getSignature(JSON.parse(JSON.stringify(typedData)))
       );
       setUserSigNonce(userSigNonce + 1);
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
-        const { profileIds, datas } = typedData.value;
-        return write?.({ args: [profileIds, datas] });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        const {
+          followerProfileId,
+          idsOfProfilesToFollow,
+          followTokenIds,
+          datas
+        } = typedData.value;
+        return write?.({
+          args: [
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          ]
+        });
       }
     },
     onError,
     update: updateCache
   });
 
-  const [createFollowProxyAction] = useProxyActionMutation({
-    onCompleted: () => onCompleted(),
+  const [follow] = useFollowMutation({
+    onCompleted: ({ follow }) => onCompleted(follow.__typename),
     onError,
     update: updateCache
   });
-
-  const createViaProxyAction = async (variables: any) => {
-    const { data } = await createFollowProxyAction({
-      variables
-    });
-    if (!data?.proxyAction) {
-      return await createFollowTypedData({
-        variables: {
-          request: { follow: [{ profile: profile?.id }] },
-          options: { overrideSigNonce: userSigNonce }
-        }
-      });
-    }
-  };
 
   const createFollow = async () => {
     if (!currentProfile) {
@@ -145,33 +149,18 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-      if (profile?.followModule) {
+      const { data } = await follow({
+        variables: { request: { follow: [{ profileId: profile?.id }] } }
+      });
+
+      if (!data?.follow) {
         return await createFollowTypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              follow: [
-                {
-                  profile: profile?.id,
-                  followModule:
-                    profile?.followModule?.__typename ===
-                    'ProfileFollowModuleSettings'
-                      ? {
-                          profileFollowModule: { profileId: currentProfile?.id }
-                        }
-                      : null
-                }
-              ]
-            }
+            request: { follow: [{ profileId: profile?.id }] },
+            options: { overrideSigNonce: userSigNonce }
           }
         });
       }
-
-      return await createViaProxyAction({
-        request: {
-          follow: { freeFollow: { profileId: profile?.id } }
-        }
-      });
     } catch (error) {
       onError(error);
     }

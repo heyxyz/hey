@@ -10,7 +10,7 @@ interface SybilProps {
 }
 
 const Sybil: FC<SybilProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) {
+  if (!profile?.onchainIdentity?.sybilDotOrg?.verified) {
     return null;
   }
 
@@ -27,7 +27,7 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
           <span>
             X:{' '}
             <b>
-              @{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}
+              @{profile?.onchainIdentity?.sybilDotOrg?.source?.twitter?.handle}
             </b>
           </span>
         </span>
