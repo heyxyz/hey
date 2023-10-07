@@ -6,7 +6,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import type { FC } from 'react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react'; // Remove useState and useEffect
 import { SUPPORTED_LOCALES } from 'src/i18n';
 import { usePreferencesStore } from 'src/store/preferences';
 
@@ -16,7 +16,6 @@ const Locale: FC = () => {
   const { i18n } = useLingui();
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [openUpwards, setOpenUpwards] = useState(false);
 
   const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
@@ -30,12 +29,10 @@ const Locale: FC = () => {
     location.reload();
   }, []);
 
-  useEffect(() => {
-    if (dropdownRef.current) {
-      const dropdownRect = dropdownRef.current.getBoundingClientRect();
-      setOpenUpwards(dropdownRect.bottom > window.innerHeight);
-    }
-  }, []);
+  // Calculate whether to open the dropdown upwards or downwards initially
+  const initialOpenUpwards =
+    dropdownRef.current &&
+    dropdownRef.current.getBoundingClientRect().bottom > window.innerHeight;
 
   return (
     <Menu as="span">
@@ -49,7 +46,10 @@ const Locale: FC = () => {
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          className={`absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900 ${
+            initialOpenUpwards ? 'bottom-full' : '' // Add a CSS class to open upwards initially
+          }`}
+          ref={dropdownRef} // Attach the ref to the dropdown
           data-testid="locale-selector-menu"
         >
           {Object.entries(locales).map(([localeCode, localeName]) => (
@@ -59,7 +59,7 @@ const Locale: FC = () => {
               onClick={() => {
                 setLanguage(localeCode);
                 Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
-                  locale: localeCode,
+                  locale: localeCode
                 });
                 location.reload();
               }}
