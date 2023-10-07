@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -8,14 +9,14 @@ import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
 
 interface QuoteProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const publicationType = isMirror
-    ? publication.mirrorOf.__typename
-    : publication.__typename;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
 
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal

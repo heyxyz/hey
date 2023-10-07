@@ -67,9 +67,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
-import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAccessSettingsStore } from 'src/store/access-settings';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -81,7 +79,7 @@ import { useTransactionPersistStore } from 'src/store/transaction';
 import urlcat from 'urlcat';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
@@ -105,12 +103,6 @@ const CollectSettings = dynamic(
 );
 const ReferenceSettings = dynamic(
   () => import('@components/Composer/Actions/ReferenceSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
-const AccessSettings = dynamic(
-  () => import('@components/Composer/Actions/AccessSettings'),
   {
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
@@ -190,21 +182,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
     useReferenceModuleStore();
 
-  // Access module store
-  const {
-    restricted,
-    followToView,
-    collectToView,
-    reset: resetAccessSettings
-  } = useAccessSettingsStore();
-
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const publicClient = usePublicClient();
-  const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -244,7 +226,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -751,11 +732,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       const isRevertCollectModule =
         collectModule.type === CollectModules.RevertCollectModule;
-      const useDataAvailability =
-        !restricted &&
-        (isComment
-          ? publication.isDataAvailability && isRevertCollectModule
-          : isRevertCollectModule);
+      const useDataAvailability = isComment
+        ? publication.isDataAvailability && isRevertCollectModule
+        : isRevertCollectModule;
 
       const arweaveId = await createMetadata(metadata);
 
@@ -856,7 +835,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
   });
 
   return (
@@ -919,7 +897,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             <>
               <CollectSettings />
               <ReferenceSettings />
-              <AccessSettings />
             </>
           ) : null}
           <PollSettings />

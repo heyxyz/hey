@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { PAGEVIEW, PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { useReportPublicationMutation } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import {
@@ -29,7 +29,7 @@ const newReportPublicationSchema = object({
 });
 
 interface ReportProps {
-  publication: Publication | null;
+  publication: AnyPublication | null;
 }
 
 const ReportPublication: FC<ReportProps> = ({ publication }) => {
@@ -59,7 +59,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     createReport({
       variables: {
         request: {
-          publicationId: publication?.id,
+          for: publication?.id,
           reason: {
             [type]: {
               reason: type.replace('Reason', '').toUpperCase(),

@@ -1,5 +1,5 @@
 import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import { XMTP_ENV } from '@hey/data/constants';
+import { APP_NAME, XMTP_ENV } from '@hey/data/constants';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';

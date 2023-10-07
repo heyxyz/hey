@@ -1,7 +1,8 @@
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -9,15 +10,15 @@ import Link from 'next/link';
 import type { FC } from 'react';
 
 interface CommentProps {
-  publication: Publication;
+  publication: AnyPublication;
   showCount: boolean;
 }
 
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
-  const count =
-    publication.__typename === 'Mirror'
-      ? publication?.mirrorOf?.stats?.totalAmountOfComments
-      : publication?.stats?.totalAmountOfComments;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const count = targetPublication.stats.comments;
   const iconClassName = showCount
     ? 'w-[17px] sm:w-[20px]'
     : 'w-[15px] sm:w-[18px]';

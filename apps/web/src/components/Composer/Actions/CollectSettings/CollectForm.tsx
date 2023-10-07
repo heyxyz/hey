@@ -29,7 +29,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (state) => state.setCollectModule
   );
 
-  const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
+  const { LegacyFreeCollectModule, SimpleCollectOpenActionModule } =
+    CollectOpenActionModuleType;
   const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(

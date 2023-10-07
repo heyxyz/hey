@@ -1,9 +1,10 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -15,21 +16,19 @@ import Mirror from './Mirror';
 import Quote from './Quote';
 
 interface PublicationMenuProps {
-  publication: Publication;
+  publication: AnyPublication;
   showCount: boolean;
 }
 
 const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const isMirror = publication.__typename === 'Mirror';
-  const count = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const mirrored = isMirror
-    ? publication?.mirrorOf?.mirrors?.length > 0
-    : // @ts-expect-error
-      publication?.mirrors?.length > 0;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const count = targetPublication.stats.mirrors;
+  const mirrored = targetPublication.operations.hasMirrored;
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
@@ -38,10 +37,8 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
         <Menu.Button as={Fragment}>
           <button
             className={cn(
-              mirrored
-                ? 'text-brand hover:bg-brand-300/20'
-                : 'lt-text-gray-500 hover:bg-gray-300/20',
-              'rounded-full p-1.5'
+              mirrored ? 'text-green-500' : 'text-brand',
+              'rounded-full p-1.5 hover:bg-gray-300/20'
             )}
             onClick={stopEventPropagation}
             aria-label="Mirror"
@@ -80,7 +77,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       {count > 0 && !showCount ? (
         <span
           className={cn(
-            mirrored ? 'text-brand' : 'lt-text-gray-500',
+            mirrored ? 'text-green-500' : 'text-brand',
             'text-[11px] sm:text-xs'
           )}
         >

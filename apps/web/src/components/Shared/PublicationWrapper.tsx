@@ -1,11 +1,11 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 
 interface PublicationWrapperProps {
-  publication: Publication;
+  publication: AnyPublication;
   className?: string;
   children: ReactNode[];
 }
