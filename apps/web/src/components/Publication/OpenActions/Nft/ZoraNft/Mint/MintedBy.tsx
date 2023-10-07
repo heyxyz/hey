@@ -31,7 +31,7 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
           smallAvatar
         />
       ) : (
-        <SmallWalletProfile wallet={{ address }} smallAvatar />
+        <SmallWalletProfile address={address} smallAvatar />
       )}
     </div>
   );

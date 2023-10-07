@@ -45,7 +45,8 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className="mr-2 max-w-[75%] truncate">
-        {sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle)}
+        {sanitizeDisplayName(profile.metadata?.displayName) ??
+          formatHandle(profile?.handle)}
       </div>
       {isVerified(profile.id) ? (
         <CheckBadgeIcon className="text-brand mr-1 h-4 w-4" />

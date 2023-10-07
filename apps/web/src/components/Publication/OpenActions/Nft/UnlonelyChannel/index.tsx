@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
@@ -22,7 +22,7 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyChannelProps {
   nftMetadata: UnlonelyChannelMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const UnlonelyChannel: FC<UnlonelyChannelProps> = ({

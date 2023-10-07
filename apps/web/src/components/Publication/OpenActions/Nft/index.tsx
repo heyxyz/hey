@@ -1,4 +1,4 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
@@ -15,7 +15,7 @@ import ZoraNft from './ZoraNft';
 
 interface NftProps {
   nftMetadata: NftMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {

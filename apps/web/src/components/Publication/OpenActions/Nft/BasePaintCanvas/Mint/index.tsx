@@ -1,6 +1,6 @@
 import { BasePaint } from '@hey/abis';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import { type FC } from 'react';
 import { formatEther } from 'viem';
@@ -24,7 +24,7 @@ export const useBasePaintMintStore = create<BasePaintMintState>((set) => ({
 
 interface MintProps {
   canvas: BasePaintCanvas;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const Mint: FC<MintProps> = ({ canvas, publication }) => {

@@ -4,7 +4,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ADMIN_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasicNftMetadata } from '@hey/types/nft';
@@ -22,7 +22,7 @@ import NftShimmer from './Shimmer';
 
 interface ZoraNftProps {
   nftMetadata: BasicNftMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {

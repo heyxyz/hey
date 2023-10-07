@@ -8,7 +8,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
 import { ADMIN_ADDRESS, APP_NAME } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
@@ -38,7 +38,7 @@ const ALLOWED_ERRORS_FOR_MINTING = [NO_BALANCE_ERROR, MAX_MINT_EXCEEDED_ERROR];
 interface MintActionProps {
   nft: ZoraNft;
   zoraLink: string;
-  publication?: Publication;
+  publication?: AnyPublication;
   onCompleted?: () => void;
 }
 

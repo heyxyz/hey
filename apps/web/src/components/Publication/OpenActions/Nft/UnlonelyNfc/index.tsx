@@ -2,7 +2,7 @@ import Video from '@components/Shared/Video';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
@@ -17,7 +17,7 @@ import NftShimmer from './Shimmer';
 
 interface UnlonelyNfcProps {
   nftMetadata: UnlonelyNfcMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {

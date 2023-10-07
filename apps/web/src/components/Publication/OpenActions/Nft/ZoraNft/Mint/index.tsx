@@ -1,5 +1,5 @@
 import Markup from '@components/Shared/Markup';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
 import { type FC } from 'react';
 import { create } from 'zustand';
@@ -26,7 +26,7 @@ export const useZoraMintStore = create<ZoraMintState>((set) => ({
 interface MintProps {
   nft: ZoraNft;
   zoraLink: string;
-  publication?: Publication;
+  publication?: AnyPublication;
   onCompleted?: () => void;
 }
 

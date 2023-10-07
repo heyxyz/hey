@@ -8,7 +8,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { BasePaint } from '@hey/abis';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -33,7 +33,7 @@ const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 interface MintActionProps {
   canvas: BasePaintCanvas;
   openEditionPrice: number;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const MintAction: FC<MintActionProps> = ({

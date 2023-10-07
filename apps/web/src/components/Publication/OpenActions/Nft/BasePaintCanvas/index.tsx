@@ -2,7 +2,7 @@ import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
@@ -18,7 +18,7 @@ import NftShimmer from './Shimmer';
 
 interface BasePaintCanvasProps {
   nftMetadata: BasePaintCanvasMetadata;
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
