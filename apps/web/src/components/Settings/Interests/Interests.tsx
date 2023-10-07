@@ -1,10 +1,11 @@
 import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { SETTINGS } from '@hey/data/tracking';
+import type { ProfileInterestsRequest, ProfileInterestTypes } from '@hey/lens';
 import {
-  useAddProfileInterestMutation,
-  useProfileInterestsQuery,
-  useRemoveProfileInterestMutation
+  useAddProfileInterestsMutation,
+  useProfileInterestsOptionsQuery,
+  useRemoveProfileInterestsMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
@@ -33,32 +34,32 @@ const Interests: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading } = useProfileInterestsQuery();
-  const [addProfileInterests] = useAddProfileInterestMutation({
+  const { data, loading } = useProfileInterestsOptionsQuery();
+  const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
   });
-  const [removeProfileInterests] = useRemoveProfileInterestMutation({
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
     onError
   });
 
-  const interestsData = data?.profileInterests ?? [];
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
   const selectedTopics = currentProfile?.interests ?? [];
 
-  const onSelectTopic = (topic: string) => {
-    const variables = {
-      request: { profileId: currentProfile?.id, interests: [topic] }
+  const onSelectTopic = (topic: ProfileInterestTypes) => {
+    const request: ProfileInterestsRequest = {
+      interests: [topic]
     };
     if (!selectedTopics.includes(topic)) {
       const interests = [...selectedTopics, topic];
       updateCache(interests);
-      return addProfileInterests({ variables });
+      return addProfileInterests({ variables: { request } });
     }
     const topics = [...selectedTopics];
     topics.splice(topics.indexOf(topic), 1);
     updateCache(topics);
-    return removeProfileInterests({ variables });
+    return removeProfileInterests({ variables: { request } });
   };
 
   if (loading) {
@@ -93,7 +94,9 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(subCategory.id)}
+                  onClick={() =>
+                    onSelectTopic(subCategory.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{subCategory.label}</div>
@@ -120,7 +123,9 @@ const Interests: FC = () => {
                       <PlusCircleIcon className="h-4 w-4" />
                     )
                   }
-                  onClick={() => onSelectTopic(category.id)}
+                  onClick={() =>
+                    onSelectTopic(category.id as ProfileInterestTypes)
+                  }
                   outline
                 >
                   <div>{category.label}</div>

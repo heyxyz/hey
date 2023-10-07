@@ -1,5 +1,4 @@
 import { SETTINGS } from '@hey/data/tracking';
-import type { NotificationRequest } from '@hey/lens';
 import { useNotificationsLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
@@ -7,18 +6,11 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
 
 const Notifications: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [notifications, setNotifications] = useState<any[]>([]);
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
-
-  const request: NotificationRequest = {
-    profileId: currentProfile?.id,
-    limit: 50
-  };
 
   const [exportNotificiations] = useNotificationsLazyQuery({
     fetchPolicy: 'network-only'
@@ -29,15 +21,13 @@ const Notifications: FC = () => {
     setExporting(true);
     const fetchNotifications = async (cursor?: string) => {
       const { data } = await exportNotificiations({
-        variables: { request: { ...request, cursor } },
+        variables: { request: { cursor } },
         onCompleted: (data) => {
           setNotifications((prev) => {
             const newNotifications = data.notifications.items.filter(
               (newNotification) => {
                 return !prev.some(
-                  (notification) =>
-                    notification.notificationId ===
-                    newNotification.notificationId
+                  (notification) => notification.id === newNotification.id
                 );
               }
             );

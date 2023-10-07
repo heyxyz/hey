@@ -1,6 +1,6 @@
 import { SETTINGS } from '@hey/data/tracking';
-import type { PublicationsQueryRequest } from '@hey/lens';
-import { PublicationTypes, useProfileFeedLazyQuery } from '@hey/lens';
+import type { PublicationsRequest } from '@hey/lens';
+import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
@@ -15,17 +15,12 @@ const Publications: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: PublicationsQueryRequest = {
-    profileId: currentProfile?.id,
-    publicationTypes: [
-      PublicationTypes.Post,
-      PublicationTypes.Comment,
-      PublicationTypes.Mirror
-    ],
-    limit: 50
+  const request: PublicationsRequest = {
+    where: { from: currentProfile?.id },
+    limit: LimitType.Fifty
   };
 
-  const [exportPublications] = useProfileFeedLazyQuery({
+  const [exportPublications] = usePublicationsLazyQuery({
     fetchPolicy: 'network-only'
   });
 

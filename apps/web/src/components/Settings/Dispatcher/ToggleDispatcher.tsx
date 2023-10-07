@@ -1,13 +1,12 @@
 import IndexStatus from '@components/Shared/IndexStatus';
 import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import { LENSHUB_PROXY, OLD_LENS_RELAYER_ADDRESS } from '@hey/data/constants';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import {
-  useBroadcastMutation,
-  useCreateSetDispatcherTypedDataMutation
+  useBroadcastOnchainMutation,
+  useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
-import getIsDispatcherEnabled from '@hey/lib/getIsDispatcherEnabled';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -30,23 +29,16 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
-  const canUseRelay = getIsDispatcherEnabled(currentProfile);
-  const isOldDispatcherEnabled =
-    currentProfile?.dispatcher?.address?.toLocaleLowerCase() ===
-    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase();
+  const canUseRelay = currentProfile?.lensManager;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
 
     setIsLoading(false);
     toast.success(t`Profile updated successfully!`);
-    if (isOldDispatcherEnabled) {
-      Leafwatch.track(SETTINGS.DISPATCHER.UPDATE);
-    } else {
-      Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
-    }
+    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 
   const onError = (error: any) => {
@@ -58,7 +50,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const { data: writeData, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'setDispatcher',
+    functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -69,21 +61,35 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   });
 
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
-  });
-  const [createSetDispatcherTypedData] =
-    useCreateSetDispatcherTypedDataMutation({
-      onCompleted: async ({ createSetDispatcherTypedData }) => {
-        const { id, typedData } = createSetDispatcherTypedData;
+  const [broadcastOnchain, { data: broadcastData }] =
+    useBroadcastOnchainMutation({
+      onCompleted: ({ broadcastOnchain }) =>
+        onCompleted(broadcastOnchain.__typename)
+    });
+  const [createChangeProfileManagersTypedData] =
+    useCreateChangeProfileManagersTypedDataMutation({
+      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
+        const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
-          const { profileId, dispatcher } = typedData.value;
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const {
+            delegatorProfileId,
+            delegatedExecutors,
+            approvals,
+            configNumber,
+            switchToGivenConfig
+          } = typedData.value;
           return write?.({
-            args: [profileId, dispatcher]
+            args: [
+              delegatorProfileId,
+              delegatedExecutors,
+              approvals,
+              configNumber,
+              switchToGivenConfig
+            ]
           });
         }
       },
@@ -93,12 +99,9 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const toggleDispatcher = async () => {
     try {
       setIsLoading(true);
-      return await createSetDispatcherTypedData({
+      return await createChangeProfileManagersTypedData({
         variables: {
-          request: {
-            profileId: currentProfile?.id,
-            enable: canUseRelay ? false : true
-          }
+          request: { approveLensManager: canUseRelay ? false : true }
         }
       });
     } catch (error) {
@@ -109,16 +112,14 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   const getButtonText = () => {
     if (canUseRelay) {
       return <Trans>Disable</Trans>;
-    } else if (isOldDispatcherEnabled) {
-      return <Trans>Update</Trans>;
-    } else {
-      return <Trans>Enable</Trans>;
     }
+
+    return <Trans>Enable</Trans>;
   };
 
   const broadcastTxHash =
-    broadcastData?.broadcast.__typename === 'RelayerResult' &&
-    broadcastData.broadcast.txHash;
+    broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
+    broadcastData.broadcastOnchain.txHash;
 
   return writeData?.hash ?? broadcastTxHash ? (
     <div className="mt-2">

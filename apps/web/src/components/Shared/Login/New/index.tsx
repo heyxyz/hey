@@ -2,7 +2,10 @@ import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { APP_NAME, ZERO_ADDRESS } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import { RelayErrorReasons, useCreateProfileMutation } from '@hey/lens';
+import {
+  RelayErrorReasons,
+  useCreateProfileWithHandleMutation
+} from '@hey/lens';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import {
   Button,
@@ -38,7 +41,8 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
-  const [createProfile, { data, loading }] = useCreateProfileMutation();
+  const [createProfile, { data, loading }] =
+    useCreateProfileWithHandleMutation();
 
   const form = useZodForm({
     schema: newUserSchema
@@ -50,8 +54,8 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       try {
         setUploading(true);
         const attachment = await uploadFileToIPFS(event.target.files[0]);
-        if (attachment.original.url) {
-          setAvatar(attachment.original.url);
+        if (attachment.uploaded.uri) {
+          setAvatar(attachment.uploaded.uri);
         }
       } finally {
         setUploading(false);
@@ -65,11 +69,11 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       : error;
   };
 
-  return data?.createProfile.__typename === 'RelayerResult' &&
-    data?.createProfile.txHash ? (
+  return data?.createProfileWithHandle.__typename === 'RelaySuccess' &&
+    data?.createProfileWithHandle.txHash ? (
     <Pending
       handle={form.getValues('handle')}
-      txHash={data?.createProfile?.txHash}
+      txHash={data?.createProfileWithHandle?.txHash}
     />
   ) : (
     <Form
@@ -106,7 +110,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             className="h-10 w-10"
             height={40}
             width={40}
-            src="/logo.png"
+            src="/logo.svg"
             alt="Logo"
           />
           <div className="text-xl font-bold">

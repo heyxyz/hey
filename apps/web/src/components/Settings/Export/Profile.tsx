@@ -1,5 +1,5 @@
 import { SETTINGS } from '@hey/data/tracking';
-import type { Profile as TProfile, SingleProfileQueryRequest } from '@hey/lens';
+import type { Profile as TProfile, ProfileRequest } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
@@ -15,8 +15,8 @@ const Profile: FC = () => {
   const [exporting, setExporting] = useState(false);
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
-  const request: SingleProfileQueryRequest = {
-    profileId: currentProfile?.id
+  const request: ProfileRequest = {
+    forProfileId: currentProfile?.id
   };
 
   const [exportProfile] = useProfileLazyQuery({
