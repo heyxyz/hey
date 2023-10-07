@@ -112,8 +112,18 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
 
-      Cookies.set(Cookie.AccessToken, accessToken);
-      Cookies.set(Cookie.RefreshToken, refreshToken);
+      Cookies.set(Cookie.AccessToken, accessToken, {
+        expires: 30,
+        path: '/',
+        sameSite: 'Lax',
+        secure: true
+      });
+      Cookies.set(Cookie.RefreshToken, refreshToken, {
+        expires: 30,
+        path: '/',
+        sameSite: 'Lax',
+        secure: true
+      });
 
       // Get authed profiles
       const { data: profilesData } = await getProfiles({
