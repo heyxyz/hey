@@ -2,7 +2,7 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import type { Erc20 } from '@hey/lens';
-import { CollectModules } from '@hey/lens';
+import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
@@ -26,10 +26,10 @@ const AmountConfig: FC<AmountConfigProps> = ({
         setOn={() => {
           setCollectType({
             type: collectModule.amount?.value
-              ? CollectModules.SimpleCollectModule
+              ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
-              ? CollectModules.MultirecipientFeeCollectModule
-              : CollectModules.SimpleCollectModule,
+              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+              : OpenActionModuleType.SimpleCollectOpenActionModule,
             amount: collectModule.amount?.value
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }
@@ -75,10 +75,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
               >
                 {enabledModuleCurrencies?.map((currency: Erc20) => (
                   <option
-                    key={currency.address}
-                    value={currency.address}
+                    key={currency.contract.address}
+                    value={currency.contract.address}
                     selected={
-                      currency?.address === collectModule.amount?.currency
+                      currency.contract.address ===
+                      collectModule.amount?.currency
                     }
                   >
                     {currency.name}

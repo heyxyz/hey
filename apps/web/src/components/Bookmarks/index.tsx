@@ -6,7 +6,7 @@ import Footer from '@components/Shared/Footer';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { PublicationMainFocus } from '@hey/lens';
+import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
@@ -20,7 +20,7 @@ import Feed from './Feed';
 
 const Bookmarks: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [focus, setFocus] = useState<PublicationMainFocus>();
+  const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
 
   useEffectOnce(() => {

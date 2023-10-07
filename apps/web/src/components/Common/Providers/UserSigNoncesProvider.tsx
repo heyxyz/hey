@@ -16,7 +16,7 @@ const UserSigNoncesProvider: FC = () => {
   useUserSigNoncesQuery({
     skip: !profileId,
     onCompleted: ({ userSigNonces }) => {
-      setUserSigNonce(userSigNonces.lensHubOnChainSigNonce);
+      setUserSigNonce(userSigNonces.lensHubOnchainSigNonce);
     },
     pollInterval: 10000
   });

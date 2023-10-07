@@ -1,5 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { CollectModules, useEnabledModulesQuery } from '@hey/lens';
+import {
+  CollectOpenActionModuleType,
+  LimitType,
+  useEnabledCurrenciesQuery
+} from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
@@ -25,8 +29,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     (state) => state.setCollectModule
   );
 
-  const { RevertCollectModule, FreeCollectModule, SimpleCollectModule } =
-    CollectModules;
+  const { SimpleCollectOpenActionModule } = CollectOpenActionModuleType;
   const recipients = collectModule.recipients ?? [];
   const splitTotal = recipients.reduce((acc, curr) => acc + curr.split, 0);
   const hasEmptyRecipients = recipients.some(
@@ -50,7 +53,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     });
   };
 
-  const { error, data, loading } = useEnabledModulesQuery();
+  const { data, loading, error } = useEnabledCurrenciesQuery({
+    variables: { request: { limit: LimitType.Fifty } }
+  });
 
   if (loading) {
     return (
@@ -74,8 +79,8 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   }
 
   const toggleCollect = () => {
-    if (collectModule.type === RevertCollectModule) {
-      setCollectType({ type: SimpleCollectModule });
+    if (!collectModule.type) {
+      setCollectType({ type: SimpleCollectOpenActionModule });
     } else {
       reset();
     }
@@ -84,14 +89,14 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   return (
     <div className="space-y-3 p-5">
       <ToggleWithHelper
-        on={collectModule.type !== RevertCollectModule}
+        on={collectModule.type !== null}
         setOn={toggleCollect}
         description={t`This post can be collected`}
       />
-      {collectModule.type !== RevertCollectModule ? (
+      {collectModule.type !== null ? (
         <div className="ml-5">
           <AmountConfig
-            enabledModuleCurrencies={data?.enabledModuleCurrencies}
+            enabledModuleCurrencies={data?.currencies.items}
             setCollectType={setCollectType}
           />
           {collectModule.amount?.value ? (
@@ -122,7 +127,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
         <Button
           disabled={
             (parseFloat(collectModule.amount?.value as string) <= 0 &&
-              collectModule.type !== FreeCollectModule) ||
+              collectModule.type !== null) ||
             splitTotal > 100 ||
             hasEmptyRecipients ||
             hasInvalidEthAddressInRecipients ||
