@@ -16,12 +16,10 @@ import Tabs from './Algorithms/Tabs';
 import EnableDispatcher from './EnableDispatcher';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
-import ForYou from './ForYou';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
-import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
@@ -53,9 +51,7 @@ const Home: NextPage = () => {
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
                 <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
-              {feedType === HomeFeedType.FOR_YOU ? (
-                <ForYou />
-              ) : feedType === HomeFeedType.FOLLOWING ? (
+              {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
@@ -76,7 +72,6 @@ const Home: NextPage = () => {
             <>
               <EnableDispatcher />
               <EnableMessages />
-              <SetDefaultProfile />
               <SetProfile />
               <RecommendedProfiles />
             </>

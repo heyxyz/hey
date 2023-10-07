@@ -34,16 +34,14 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetProfile: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
   const doneSetup =
-    Boolean(currentProfile?.name) &&
-    Boolean(currentProfile?.bio) &&
-    Boolean(currentProfile?.picture) &&
+    Boolean(currentProfile?.metadata?.displayName) &&
+    Boolean(currentProfile?.metadata?.bio) &&
+    Boolean(currentProfile?.metadata?.picture) &&
     Boolean(currentProfile?.interests?.length);
 
-  if (!hasDefaultProfile || doneSetup) {
+  if (doneSetup) {
     return null;
   }
 
@@ -60,15 +58,15 @@ const SetProfile: FC = () => {
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
         <Status
-          finished={Boolean(currentProfile?.name)}
+          finished={Boolean(currentProfile?.metadata?.displayName)}
           title={t`Set profile name`}
         />
         <Status
-          finished={Boolean(currentProfile?.bio)}
+          finished={Boolean(currentProfile?.metadata?.bio)}
           title={t`Set profile bio`}
         />
         <Status
-          finished={Boolean(currentProfile?.picture)}
+          finished={Boolean(currentProfile?.metadata?.picture)}
           title={t`Set your avatar`}
         />
         <div>

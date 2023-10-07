@@ -7,14 +7,14 @@ import { HOME } from '@hey/data/tracking';
 import type {
   FeedItem,
   FeedRequest,
-  Profile,
-  ProfileSearchResult
+  PaginatedProfileResult,
+  Profile
 } from '@hey/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
-  useSearchProfilesLazyQuery,
-  useSeeThroughProfilesLazyQuery
+  CustomFiltersType,
+  LimitType,
+  useFeedLazyQuery,
+  useSearchProfilesLazyQuery
 } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -45,13 +45,13 @@ const SeeThroughLens: FC = () => {
     let uniqueProfileIds: string[] = [];
     let profiles: Profile[] = [];
     for (const feedItem of feedItems) {
-      const profileId = feedItem.root?.profile.id;
+      const profileId = feedItem.root.by.id;
       if (
         !uniqueProfileIds.includes(profileId) &&
         profileId !== seeThroughProfile?.id &&
         profileId !== currentProfile?.id
       ) {
-        profiles.push(feedItem.root?.profile as Profile);
+        profiles.push(feedItem.root.by as Profile);
         uniqueProfileIds.push(profileId);
       }
     }
@@ -59,19 +59,18 @@ const SeeThroughLens: FC = () => {
   };
 
   const profile = seeThroughProfile ?? currentProfile;
-  const request: FeedRequest = { profileId: profile?.id, limit: 50 };
+  const request: FeedRequest = { where: { for: profile?.id } };
 
   const [searchUsers, { data: searchUsersData, loading: searchUsersLoading }] =
     useSearchProfilesLazyQuery();
 
-  const [fetchRecommendedProfiles, { loading, error }] =
-    useSeeThroughProfilesLazyQuery({
-      variables: { request },
-      onCompleted: ({ feed }) => {
-        const feedItems = feed?.items as FeedItem[];
-        setRecommendedProfiles(feedItems);
-      }
-    });
+  const [fetchRecommendedProfiles, { loading, error }] = useFeedLazyQuery({
+    variables: { request },
+    onCompleted: ({ feed }) => {
+      const feedItems = feed?.items as FeedItem[];
+      setRecommendedProfiles(feedItems);
+    }
+  });
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     const keyword = evt.target.value;
@@ -79,16 +78,17 @@ const SeeThroughLens: FC = () => {
     searchUsers({
       variables: {
         request: {
-          type: SearchRequestTypes.Profile,
+          where: {
+            customFilters: [CustomFiltersType.Gardeners]
+          },
           query: keyword,
-          customFilters: [CustomFiltersTypes.Gardeners],
-          limit: 5
+          limit: LimitType.TwentyFive
         }
       }
     });
   };
 
-  const search = searchUsersData?.search as ProfileSearchResult;
+  const search = searchUsersData?.searchProfiles as PaginatedProfileResult;
   const searchProfiles = search?.items ?? [];
   const recommendedProfiles = recommendedProfilesToSeeThrough ?? [];
 
