@@ -29,8 +29,8 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
         className={cn('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">
-          {profile?.name ? (
-            sanitizeDisplayName(profile?.name)
+          {profile.metadata?.displayName ? (
+            sanitizeDisplayName(profile.metadata.displayName)
           ) : (
             <Slug slug={formatHandle(profile?.handle)} prefix="@" />
           )}

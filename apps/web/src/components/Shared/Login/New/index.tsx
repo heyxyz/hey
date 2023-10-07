@@ -1,12 +1,11 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { APP_NAME, ZERO_ADDRESS } from '@hey/data/constants';
+import { APP_NAME } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import {
-  RelayErrorReasons,
+  CreateProfileWithHandleErrorReasonType,
   useCreateProfileWithHandleMutation
 } from '@hey/lens';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import {
   Button,
   ErrorMessage,
@@ -41,7 +40,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   const [avatar, setAvatar] = useState('');
   const [uploading, setUploading] = useState(false);
   const { address } = useAccount();
-  const [createProfile, { data, loading }] =
+  const [createProfileWithHandle, { data, loading }] =
     useCreateProfileWithHandleMutation();
 
   const form = useZodForm({
@@ -63,8 +62,10 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     }
   };
 
-  const relayErrorToString = (error: RelayErrorReasons): string => {
-    return error === RelayErrorReasons.HandleTaken
+  const relayErrorToString = (
+    error: CreateProfileWithHandleErrorReasonType
+  ): string => {
+    return error === CreateProfileWithHandleErrorReasonType.HandleTaken
       ? t`The selected handle is already taken`
       : error;
   };
@@ -81,26 +82,20 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
       className="space-y-4"
       onSubmit={({ handle }) => {
         const username = handle.toLowerCase();
-        createProfile({
-          variables: {
-            request: {
-              handle: username,
-              profilePictureUri: avatar
-                ? avatar
-                : getStampFyiURL(address ?? ZERO_ADDRESS)
-            }
-          }
+        createProfileWithHandle({
+          variables: { request: { handle: username, to: address } }
         });
       }}
     >
-      {data?.createProfile.__typename === 'RelayError' &&
-      data?.createProfile.reason ? (
+      {data?.createProfileWithHandle.__typename ===
+        'CreateProfileWithHandleErrorResult' &&
+      data?.createProfileWithHandle.reason ? (
         <ErrorMessage
           className="mb-3"
           title="Create profile failed!"
           error={{
             name: 'Create profile failed!',
-            message: relayErrorToString(data?.createProfile?.reason)
+            message: relayErrorToString(data?.createProfileWithHandle?.reason)
           }}
         />
       ) : null}
