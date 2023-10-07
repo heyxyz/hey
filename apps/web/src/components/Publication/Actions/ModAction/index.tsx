@@ -1,6 +1,6 @@
 import { BanknotesIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { GARDENER } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication, ReportPublicationRequest } from '@hey/lens';
 import {
   PublicationReportingSpamSubreason,
   useReportPublicationMutation
@@ -15,7 +15,7 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
 interface ModActionProps {
-  publication: Publication;
+  publication: AnyPublication;
   className?: string;
 }
 
@@ -32,18 +32,19 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     type: string;
     subreason: string;
   }) => {
-    return await createReport({
-      variables: {
-        request: {
-          publicationId: publication?.id,
-          reason: {
-            [type]: {
-              reason: type.replace('Reason', '').toUpperCase(),
-              subreason
-            }
-          }
+    // Variables
+    const request: ReportPublicationRequest = {
+      for: publication?.id,
+      reason: {
+        [type]: {
+          reason: type.replace('Reason', '').toUpperCase(),
+          subreason
         }
-      },
+      }
+    };
+
+    return await createReport({
+      variables: { request },
       onCompleted: () => {
         setShowModActionAlert(false, null);
       }

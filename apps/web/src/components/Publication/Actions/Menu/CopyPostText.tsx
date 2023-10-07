@@ -1,7 +1,8 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -10,14 +11,14 @@ import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const publicationType = isMirror
-    ? publication.mirrorOf.__typename
-    : publication.__typename;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
 
   return (
     <Menu.Item
@@ -31,7 +32,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       onClick={async (event) => {
         stopEventPropagation(event);
         await navigator.clipboard.writeText(
-          publication?.metadata?.content || ''
+          targetPublication?.metadata?.marketplace?.description || ''
         );
         toast.success(t`Copied to clipboard!`);
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
