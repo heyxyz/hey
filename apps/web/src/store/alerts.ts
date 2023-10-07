@@ -1,18 +1,18 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { create } from 'zustand';
 
 interface GlobalAlertState {
   showPublicationDeleteAlert: boolean;
-  deletingPublication: Publication | null;
+  deletingPublication: AnyPublication | null;
   setShowPublicationDeleteAlert: (
     showPublicationDeleteAlert: boolean,
-    deletingPublication: Publication | null
+    deletingPublication: AnyPublication | null
   ) => void;
   showModActionAlert: boolean;
-  modingPublication: Publication | null;
+  modingPublication: AnyPublication | null;
   setShowModActionAlert: (
     showModActionAlert: boolean,
-    modingPublication: Publication | null
+    modingPublication: AnyPublication | null
   ) => void;
 }
 
