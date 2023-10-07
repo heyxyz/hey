@@ -1,4 +1,4 @@
-import { isUrlContainsValidTld } from '@hey/data/utils/check_valid_tld';
+import { isUrlContainsValidTld } from '@hey/lib/check_valid_tld';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import Link from 'next/link';
 import type { FC } from 'react';

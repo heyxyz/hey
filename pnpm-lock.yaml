@@ -341,10 +341,6 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@6.7.4)(eslint@8.51.0)
 
   packages/data:
-    dependencies:
-      tlds:
-        specifier: ^1.242.0
-        version: 1.242.0
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -457,6 +453,9 @@ importers:
       axios:
         specifier: ^1.5.1
         version: 1.5.1
+      tlds:
+        specifier: ^1.242.0
+        version: 1.242.0
       urlcat:
         specifier: ^3.1.0
         version: 3.1.0

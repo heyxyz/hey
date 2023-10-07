@@ -18,7 +18,5 @@
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   },
-  "dependencies": {
-    "tlds": "^1.242.0"
-  }
+  "dependencies": {}
 }

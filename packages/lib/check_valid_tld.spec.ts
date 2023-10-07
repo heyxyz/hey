@@ -1,7 +1,6 @@
 import { describe, expect, test } from 'vitest';
 
-// Assuming you have a list of valid TLDs in an array named 'tlds'
-import { isUrlContainsValidTld } from '../../utils/check_valid_tld';
+import { isUrlContainsValidTld } from './check_valid_tld';
 
 describe('isUrlContainsValidTld function', () => {
   test('should return true for URLs with valid TLDs', () => {
