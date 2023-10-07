@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Cookies } from '@hey/data/storage';
+import { Cookie } from '@hey/data/storage';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
