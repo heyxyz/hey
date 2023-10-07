@@ -1,8 +1,8 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, ProfileQueryRequest } from '@hey/lens';
-import { useProfilesQuery } from '@hey/lens';
+import type { Profile, ProfilesRequest } from '@hey/lens';
+import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
@@ -17,9 +17,9 @@ interface MirrorsProps {
 
 const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   // Variables
-  const request: ProfileQueryRequest = {
-    whoMirroredPublicationId: publicationId,
-    limit: 50
+  const request: ProfilesRequest = {
+    where: { whoMirroredPublication: publicationId },
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({
@@ -78,7 +78,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
             >
               <UserProfile
                 profile={profile as Profile}
-                isFollowing={profile?.isFollowedByMe}
+                isFollowing={profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.MIRRORS_MODAL}
                 showBio

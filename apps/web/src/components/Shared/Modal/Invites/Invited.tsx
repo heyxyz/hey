@@ -7,11 +7,11 @@ import type { FC } from 'react';
 import Profile from './Profile';
 
 interface InvitedProps {
-  invited: InvitedResult[];
+  invitedProfiles: InvitedResult[];
 }
 
-const Invited: FC<InvitedProps> = ({ invited }) => {
-  if (invited?.length === 0) {
+const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
+  if (invitedProfiles?.length === 0) {
     return (
       <EmptyState
         message={
@@ -25,7 +25,7 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
     );
   }
 
-  const sortedInvited = [...invited].sort(
+  const sortedInvited = [...invitedProfiles].sort(
     (a, b) => Date.parse(b.when) - Date.parse(a.when)
   );
 
@@ -35,10 +35,10 @@ const Invited: FC<InvitedProps> = ({ invited }) => {
         <Trans>
           You have already invited{' '}
           <b>
-            {invited.length}
-            {invited.length >= 50 ? '+' : null}{' '}
+            {invitedProfiles.length}
+            {invitedProfiles.length >= 50 ? '+' : null}{' '}
             <Plural
-              value={invited.length}
+              value={invitedProfiles.length}
               zero="address"
               one="address"
               other="addresses"

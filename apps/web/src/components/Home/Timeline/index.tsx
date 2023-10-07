@@ -2,8 +2,8 @@ import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import type { FeedItem, FeedRequest, Publication } from '@hey/lens';
-import { FeedEventItemType, useTimelineQuery } from '@hey/lens';
+import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
+import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
@@ -29,35 +29,27 @@ const Timeline: FC = () => {
       filters.push(FeedEventItemType.Post, FeedEventItemType.Comment);
     }
     if (feedEventFilters.collects) {
-      filters.push(
-        FeedEventItemType.CollectPost,
-        FeedEventItemType.CollectComment
-      );
+      filters.push(FeedEventItemType.Collect, FeedEventItemType.Comment);
     }
     if (feedEventFilters.mirrors) {
       filters.push(FeedEventItemType.Mirror);
     }
     if (feedEventFilters.likes) {
-      filters.push(
-        FeedEventItemType.ReactionPost,
-        FeedEventItemType.ReactionComment
-      );
+      filters.push(FeedEventItemType.Reaction, FeedEventItemType.Comment);
     }
     return filters;
   };
 
   // Variables
   const request: FeedRequest = {
-    profileId: seeThroughProfile?.id ?? currentProfile?.id,
-    limit: 50,
-    feedEventItemTypes: getFeedEventItems()
+    where: {
+      for: seeThroughProfile?.id ?? currentProfile?.id,
+      feedEventItemTypes: getFeedEventItems()
+    }
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
 
-  const { data, loading, error, fetchMore } = useTimelineQuery({
-    variables: { request, reactionRequest, profileId: currentProfile?.id }
+  const { data, loading, error, fetchMore } = useFeedQuery({
+    variables: { request }
   });
 
   const publications = data?.feed?.items;
@@ -71,11 +63,7 @@ const Timeline: FC = () => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId: currentProfile?.id
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });
@@ -108,11 +96,11 @@ const Timeline: FC = () => {
       )}
       {publications?.map((publication, index) => (
         <SinglePublication
-          key={`${publication?.root.id}_${index}`}
+          key={`${publication.root.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           feedItem={publication as FeedItem}
-          publication={publication.root as Publication}
+          publication={publication.root as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}
