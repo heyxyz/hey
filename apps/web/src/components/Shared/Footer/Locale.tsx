@@ -6,7 +6,7 @@ import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
 import type { FC } from 'react';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
 import { usePreferencesStore } from 'src/store/preferences';
 
@@ -15,6 +15,8 @@ import MenuTransition from '../MenuTransition';
 const Locale: FC = () => {
   const { i18n } = useLingui();
   const isStaff = usePreferencesStore((state) => state.isStaff);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [openUpwards, setOpenUpwards] = useState(false);
 
   const gatedLocales = ['fr', 'ru', 'ta'];
   const locales = Object.fromEntries(
@@ -26,6 +28,13 @@ const Locale: FC = () => {
   const setLanguage = useCallback((locale: string) => {
     localStorage.setItem(Localstorage.LocaleStore, locale);
     location.reload();
+  }, []);
+
+  useEffect(() => {
+    if (dropdownRef.current) {
+      const dropdownRect = dropdownRef.current.getBoundingClientRect();
+      setOpenUpwards(dropdownRect.bottom > window.innerHeight);
+    }
   }, []);
 
   return (
@@ -50,7 +59,7 @@ const Locale: FC = () => {
               onClick={() => {
                 setLanguage(localeCode);
                 Leafwatch.track(MISCELLANEOUS.SELECT_LOCALE, {
-                  locale: localeCode
+                  locale: localeCode,
                 });
                 location.reload();
               }}
