@@ -7,8 +7,8 @@ import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@hey/data/constants';
 import { EXPLORE, PAGEVIEW } from '@hey/data/tracking';
-import type { PublicationMainFocus } from '@hey/lens';
-import { PublicationSortCriteria } from '@hey/lens';
+import type { PublicationMetadataMainFocusType } from '@hey/lens';
+import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -26,17 +26,20 @@ const Explore: NextPage = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
-  const [focus, setFocus] = useState<PublicationMainFocus>();
+  const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'explore' });
   });
 
   const tabs = [
-    { name: t`For you`, type: PublicationSortCriteria.CuratedProfiles },
-    { name: t`Popular`, type: PublicationSortCriteria.TopCommented },
-    { name: t`Trending`, type: PublicationSortCriteria.TopCollected },
-    { name: t`Interesting`, type: PublicationSortCriteria.TopMirrored }
+    { name: t`For you`, type: ExplorePublicationsOrderByType.LensCurated },
+    { name: t`Popular`, type: ExplorePublicationsOrderByType.TopCommented },
+    {
+      name: t`Trending`,
+      type: ExplorePublicationsOrderByType.TopCollectedOpenAction
+    },
+    { name: t`Interesting`, type: ExplorePublicationsOrderByType.TopMirrored }
   ];
 
   return (

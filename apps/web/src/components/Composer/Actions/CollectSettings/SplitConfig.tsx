@@ -6,8 +6,8 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
-import { CollectModules, useProfileLazyQuery } from '@hey/lens';
+import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
+import { OpenActionModuleType, useProfileLazyQuery } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
@@ -50,7 +50,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const getIsHandle = (handle: string) => {
     return handle === LENSPROTOCOL_HANDLE
       ? true
-      : handle.includes(HANDLE_SUFFIX);
+      : handle.includes(HANDLE_PREFIX);
   };
 
   const onChangeRecipientOrSplit = (
@@ -72,10 +72,12 @@ const SplitConfig: FC<SplitConfigProps> = ({
 
     if (type === 'recipient' && getIsHandle(value)) {
       getProfileByHandle({
-        variables: { request: { handle: value } },
+        variables: { request: { forHandle: value } },
         onCompleted: ({ profile }) => {
           if (profile) {
-            setCollectType({ recipients: getRecipients(profile.ownedBy) });
+            setCollectType({
+              recipients: getRecipients(profile.ownedBy.address)
+            });
           }
         }
       });
@@ -92,12 +94,12 @@ const SplitConfig: FC<SplitConfigProps> = ({
           setCollectType({
             type:
               recipients.length > 0
-                ? CollectModules.SimpleCollectModule
-                : CollectModules.MultirecipientFeeCollectModule,
+                ? OpenActionModuleType.SimpleCollectOpenActionModule
+                : OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
             recipients:
               recipients.length > 0
                 ? []
-                : [{ recipient: currentProfile?.ownedBy, split: 100 }]
+                : [{ recipient: currentProfile?.ownedBy.address, split: 100 }]
           });
         }}
         heading={
