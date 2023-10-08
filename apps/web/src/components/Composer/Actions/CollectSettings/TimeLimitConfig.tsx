@@ -1,5 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
+import { getTimeAddedNDay } from '@lib/formatTime';
 import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';
@@ -16,7 +17,7 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
     <div className="pt-5">
       <ToggleWithHelper
         on={Boolean(collectModule.endsAt) ?? false}
-        setOn={() => setCollectType({ endsAt: collectModule.endsAt })}
+        setOn={() => setCollectType({ endsAt: getTimeAddedNDay(1) })}
         heading={t`Time limit`}
         description={t`Limit collecting to the first 24h`}
         icon={<ClockIcon className="h-4 w-4" />}

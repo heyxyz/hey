@@ -6,7 +6,7 @@ import type {
 import { create } from 'zustand';
 
 export type CollectModuleType = {
-  type:
+  type?:
     | CollectOpenActionModuleType.SimpleCollectOpenActionModule
     | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
     | null;
@@ -15,7 +15,7 @@ export type CollectModuleType = {
   referralFee?: number | null;
   recipient?: string | null;
   recipients?: RecipientDataInput[];
-  followerOnly: boolean;
+  followerOnly?: boolean;
   endsAt?: string | null;
 };
 

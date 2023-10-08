@@ -14,7 +14,7 @@ const FollowersConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        on={collectModule.followerOnlyCollect ?? false}
+        on={collectModule.followerOnly ?? false}
         setOn={() => setCollectType({ followerOnlyCollect: true })}
         heading={t`Who can collect`}
         description={t`Only followers can collect`}
