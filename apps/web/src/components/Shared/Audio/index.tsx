@@ -1,10 +1,7 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
-import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
-import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import type { OptimisticTransaction } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
 import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';
@@ -20,9 +17,9 @@ export const AudioPublicationSchema = object({
   title: string()
     .trim()
     .min(1, { message: t`Invalid audio title` }),
-  author: string()
+  artist: string()
     .trim()
-    .min(1, { message: t`Invalid author name` }),
+    .min(1, { message: t`Invalid artist name` }),
   cover: string()
     .trim()
     .min(1, { message: t`Invalid cover image` })
@@ -30,17 +27,21 @@ export const AudioPublicationSchema = object({
 
 interface AudioProps {
   src: string;
+  poster: string;
+  artist?: string;
+  title?: string;
   isNew?: boolean;
   publication?: AnyPublication;
-  txn: OptimisticTransaction;
   expandCover: (url: string) => void;
 }
 
 const Audio: FC<AudioProps> = ({
   src,
+  poster,
+  artist,
+  title,
   isNew = false,
   publication,
-  txn,
   expandCover
 }) => {
   const [playing, setPlaying] = useState(false);
@@ -86,12 +87,8 @@ const Audio: FC<AudioProps> = ({
     >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
-          isNew={isNew && !txn}
-          cover={
-            isNew
-              ? txn?.cover ?? audioPublication.cover
-              : getThumbnailUrl(publication?.metadata)
-          }
+          isNew={isNew}
+          cover={poster}
           setCover={(url, mimeType) =>
             setAudioPublication({
               ...audioPublication,
@@ -113,7 +110,7 @@ const Audio: FC<AudioProps> = ({
                 )}
               </button>
               <div className="w-full truncate pr-3">
-                {isNew && !txn ? (
+                {isNew ? (
                   <div className="flex w-full flex-col">
                     <input
                       className="border-none bg-transparent text-lg text-white outline-none placeholder:text-white"
@@ -125,24 +122,18 @@ const Audio: FC<AudioProps> = ({
                     />
                     <input
                       className="border-none bg-transparent text-white/70 outline-none placeholder:text-white/70"
-                      placeholder={t`Add author`}
-                      name="author"
-                      value={audioPublication.author}
+                      placeholder={t`Add artist`}
+                      name="artist"
+                      value={audioPublication.artist}
                       onChange={handleChange}
                       autoComplete="off"
                     />
                   </div>
                 ) : (
                   <>
-                    <h5 className="truncate text-lg text-white">
-                      {publication?.metadata.name ?? txn.title}
-                    </h5>
+                    <h5 className="truncate text-lg text-white">{title}</h5>
                     <h6 className="truncate text-white/70">
-                      {txn?.author ??
-                        getPublicationAttribute(
-                          publication?.metadata.attributes,
-                          'author'
-                        ) ??
+                      {artist ??
                         sanitizeDisplayName(
                           publication?.by.metadata?.displayName
                         )}

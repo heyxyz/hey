@@ -9,13 +9,13 @@ interface PublicationState {
   setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
   audioPublication: {
     title: string;
-    author: string;
+    artist: string;
     cover: string;
     coverMimeType: string;
   };
   setAudioPublication: (audioPublication: {
     title: string;
-    author: string;
+    artist: string;
     cover: string;
     coverMimeType: string;
   }) => void;
@@ -72,7 +72,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     set(() => ({ quotedPublication })),
   audioPublication: {
     title: '',
-    author: '',
+    artist: '',
     cover: '',
     coverMimeType: 'image/jpeg'
   },

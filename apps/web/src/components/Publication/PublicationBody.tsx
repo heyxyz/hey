@@ -3,18 +3,15 @@ import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import type {
-  AnyPublication,
-  Maybe,
-  PublicationMetadataMedia
-} from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
-import type { OG } from '@hey/types/misc';
+import type { MetadataAsset, OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
+import getAttachmentsData from '@lib/getAttachmentsData';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
@@ -39,42 +36,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const { id, metadata } = targetPublication;
   const metadataType = metadata.__typename;
 
-  const getAttachmentsData = (
-    attachments?: Maybe<PublicationMetadataMedia[]>
-  ) => {
-    if (!attachments) {
-      return [];
-    }
-
-    attachments.map((attachment) => {
-      switch (attachment.__typename) {
-        case 'PublicationMetadataMediaImage':
-          return {
-            uri: attachment.image.optimized?.uri,
-            type: 'Image'
-          };
-        case 'PublicationMetadataMediaVideo':
-          return {
-            uri: attachment.video.optimized?.uri,
-            type: 'Video'
-          };
-        case 'PublicationMetadataMediaAudio':
-          return {
-            uri: attachment.audio.optimized?.uri,
-            type: 'Audio'
-          };
-        default:
-          return [];
-      }
-    });
-  };
-
   const getPublicationData = (): {
     content?: string;
-    asset?: {
-      uri: string;
-      type: 'Image' | 'Video' | 'Audio';
-    };
+    asset?: MetadataAsset;
     attachments?: {
       uri: string;
       type: 'Image' | 'Video' | 'Audio';
@@ -104,6 +68,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           content: metadata.content,
           asset: {
             uri: metadata.asset.audio.optimized?.uri,
+            cover: metadata.asset.cover?.optimized?.uri,
+            artist: metadata.asset.artist,
+            title: metadata.title,
             type: 'Audio'
           }
         };
@@ -112,6 +79,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           content: metadata.content,
           asset: {
             uri: metadata.asset.video.optimized?.uri,
+            cover: metadata.asset.cover?.optimized?.uri,
             type: 'Video'
           },
           attachments: getAttachmentsData(metadata.attachments)
