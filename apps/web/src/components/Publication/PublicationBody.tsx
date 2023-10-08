@@ -16,6 +16,7 @@ import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { isMobile, isSafari } from 'react-device-detect';
 
 import DecryptedPublicationBody from './DecryptedPublicationBody';
 import Nft from './OpenActions/Nft';
@@ -43,6 +44,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
   const filterId = snapshotProposalId || quotedPublicationId;
   let rawContent = metadata?.content;
+
+  if (isSafari && isMobile && canShowMore) {
+    const truncatedRawContent = rawContent?.split('\n')?.[0];
+    if (truncatedRawContent) {
+      rawContent = truncatedRawContent;
+    }
+  }
 
   if (filterId) {
     for (const url of urls) {
