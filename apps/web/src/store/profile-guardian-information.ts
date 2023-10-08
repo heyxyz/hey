@@ -1,17 +1,14 @@
 import { create } from 'zustand';
 
+type ProfileGuardianInformationType =
+  | { isProtected: true; disablingProtectionTimestamp: null }
+  | { isProtected: false; disablingProtectionTimestamp: string };
+
 interface ProfileGuardianInformationState {
-  profileGuardianInformation: {
-    isProtected: boolean;
-    disablingProtectionTimestamp: number | null | undefined;
-  };
-  setProfileGuardianInformation: ({
-    isProtected,
-    disablingProtectionTimestamp
-  }: {
-    isProtected: boolean;
-    disablingProtectionTimestamp: number | null | undefined;
-  }) => void;
+  profileGuardianInformation: ProfileGuardianInformationType;
+  setProfileGuardianInformation: (
+    profileGuardianInformation: ProfileGuardianInformationType
+  ) => void;
   resetProfileGuardianInformation: () => void;
 }
 
@@ -21,15 +18,11 @@ export const useProfileGuardianInformationStore =
       isProtected: true,
       disablingProtectionTimestamp: null
     },
-    setProfileGuardianInformation: ({
-      isProtected,
-      disablingProtectionTimestamp
-    }) =>
+    setProfileGuardianInformation: (
+      profileGuardianInformation: ProfileGuardianInformationType
+    ) =>
       set(() => ({
-        profileGuardianInformation: {
-          isProtected,
-          disablingProtectionTimestamp
-        }
+        profileGuardianInformation
       })),
     resetProfileGuardianInformation: () =>
       set(() => ({
