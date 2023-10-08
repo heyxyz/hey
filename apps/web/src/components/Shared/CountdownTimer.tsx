@@ -57,15 +57,17 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
     if (value === 0) {
       return '';
     }
-    return `${value}${label} `;
+    return `${value}${label}`;
   };
 
   return (
     <span>
-      {formatTimeValue(timeLeft.days, 'd')}
-      {formatTimeValue(timeLeft.hours, 'h')}
-      {formatTimeValue(timeLeft.minutes, 'm')}
-      {formatTimeValue(timeLeft.seconds, 's')}
+      {[
+        formatTimeValue(timeLeft.days, 'd'),
+        formatTimeValue(timeLeft.hours, 'h'),
+        formatTimeValue(timeLeft.minutes, 'm'),
+        formatTimeValue(timeLeft.seconds, 's')
+      ].join(' ')}
     </span>
   );
 };
