@@ -66,7 +66,7 @@ const CountdownTimer: FC<CountdownTimerProps> = ({ targetDate }) => {
         formatTimeValue(timeLeft.days, 'd'),
         formatTimeValue(timeLeft.hours, 'h'),
         formatTimeValue(timeLeft.minutes, 'm'),
-        formatTimeValue(timeLeft.seconds, 's')
+        formatTimeValue(timeLeft.seconds, 's') || '0s'
       ].join(' ')}
     </span>
   );
