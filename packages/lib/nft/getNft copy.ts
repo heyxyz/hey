@@ -23,13 +23,9 @@ const getNft = (urls: string[]): NftMetadata | null => {
   }
 
   const knownUrls = urls.filter((url) => {
-    try {
-      const parsedUrl = new URL(url);
-      const hostname = parsedUrl.hostname.replace('www.', '');
-      return knownSites.has(hostname);
-    } catch (error) {
-      return false;
-    }
+    const parsedUrl = new URL(url);
+    const hostname = parsedUrl.hostname.replace('www.', '');
+    return knownSites.has(hostname);
   });
 
   if (!knownUrls.length) {
@@ -37,7 +33,6 @@ const getNft = (urls: string[]): NftMetadata | null => {
   }
 
   const url = knownUrls[0];
-
   const hostname = new URL(url).hostname.replace('www.', '');
   const path = new URL(url).pathname;
 
