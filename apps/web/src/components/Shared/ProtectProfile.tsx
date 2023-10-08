@@ -37,16 +37,15 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  if (profileGuardianInformation.isProtected) {
+  const { isProtected, disablingProtectionTimestamp } =
+    profileGuardianInformation;
+
+  if (isProtected) {
     return null;
   }
 
-  const coolOffDate =
-    profileGuardianInformation.disablingProtectionTimestamp as any;
-  const coolOffTime = new Date(
-    new Date(coolOffDate).getTime() + 5 * 60 * 100
-  ).toISOString();
-  const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
+  const coolOffDate = new Date(disablingProtectionTimestamp);
+  const isCoolOffPassed = coolOffDate.getTime() < Date.now();
 
   return (
     <div className="border-b border-red-300 bg-red-500/20">
@@ -75,15 +74,16 @@ const ProtectProfile: FC = () => {
                 Your profile protection disabling has been triggered. It will
                 take effect in{' '}
                 <b>
-                  <CountdownTimer targetDate={coolOffTime} />
+                  <CountdownTimer targetDate={disablingProtectionTimestamp} />
                 </b>
+                .
               </Trans>
             )}
           </div>
         </GridItemEight>
         <GridItemFour className="mt-5 flex items-center sm:ml-auto sm:mt-0">
           {data?.hash ? (
-            <IndexStatus txHash={data?.hash} reload />
+            <IndexStatus txHash={data.hash} reload />
           ) : (
             <Button
               disabled={isLoading}
