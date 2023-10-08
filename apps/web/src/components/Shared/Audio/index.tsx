@@ -89,11 +89,10 @@ const Audio: FC<AudioProps> = ({
         <CoverImage
           isNew={isNew}
           cover={poster}
-          setCover={(url, mimeType) =>
+          setCover={(url) =>
             setAudioPublication({
               ...audioPublication,
-              cover: url,
-              coverMimeType: mimeType
+              cover: url
             })
           }
           imageRef={imageRef}

@@ -1,6 +1,6 @@
 import { APP_NAME } from '@hey/data/constants';
 import type { NewAttachment } from '@hey/types/misc';
-import { article, audio, textOnly, video } from '@lens-protocol/metadata';
+import { audio, image, textOnly, video } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { v4 as uuid } from 'uuid';
 
@@ -16,10 +16,9 @@ const getPublicationMetadata = ({
   cover
 }: GetPublicationMetadataProps) => {
   const hasAttachments = attachments.length;
-  const hasAudio =
-    attachments[0]?.__typename === 'PublicationMetadataMediaAudio';
-  const hasVideo =
-    attachments[0]?.__typename === 'PublicationMetadataMediaVideo';
+  const hasImage = attachments[0]?.type === 'Image';
+  const hasAudio = attachments[0]?.type === 'Audio';
+  const hasVideo = attachments[0]?.type === 'Video';
 
   const localBaseMetadata = {
     id: uuid(),
@@ -33,35 +32,29 @@ const getPublicationMetadata = ({
         ...baseMetadata,
         ...localBaseMetadata
       });
-    case hasAttachments && !hasAudio && !hasVideo:
-      return article({
+    case hasImage:
+      return image({
         ...baseMetadata,
         ...localBaseMetadata,
-        ...(hasAttachments && {
-          attachments: attachments.map((attachment) => ({
-            item: attachment.uploaded.uri,
-            type: attachment.uploaded.mimeType,
-            cover: cover
-          }))
-        })
+        image: {
+          item: attachments[0]?.uri
+        },
+        attachments: attachments.map((attachment) => ({
+          item: attachment.uri,
+          cover: cover
+        }))
       });
-    case hasAttachments && hasAudio:
+    case hasAudio:
       return audio({
         ...baseMetadata,
         ...localBaseMetadata,
-        audio: {
-          item: attachments[0]?.uploaded.uri,
-          type: attachments[0]?.uploaded.mimeType
-        }
+        audio: { item: attachments[0]?.uri }
       });
-    case hasAttachments && hasVideo:
+    case hasVideo:
       return video({
         ...baseMetadata,
         ...localBaseMetadata,
-        video: {
-          item: attachments[0]?.uploaded.uri,
-          type: attachments[0]?.uploaded.mimeType
-        }
+        video: { item: attachments[0]?.uri, duration: 0 }
       });
     default:
       return null;

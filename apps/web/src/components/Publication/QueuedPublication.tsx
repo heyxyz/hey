@@ -102,7 +102,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           <Markup>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <NewAttachments attachments={txn?.attachments} txn={txn} hideDelete />
+          <NewAttachments attachments={txn?.attachments} hideDelete />
         ) : txn?.attachments && urls.length > 0 ? (
           <Oembed url={urls[0]} onData={onData} />
         ) : null}

@@ -557,15 +557,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       const attributes = [
-        ...(quotedPublication
-          ? [
-              {
-                type: MetadataAttributeType.STRING,
-                key: 'quotedPublicationId',
-                value: quotedPublication.id
-              }
-            ]
-          : []),
         ...(hasAudio
           ? [
               {

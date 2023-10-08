@@ -17,7 +17,6 @@ export const THUMBNAIL_GENERATE_COUNT = 4;
 interface Thumbnail {
   blobUrl: string;
   ipfsUrl: string;
-  mimeType: string;
 }
 
 const ChooseThumbnail: FC = () => {
@@ -71,7 +70,6 @@ const ChooseThumbnail: FC = () => {
     } else {
       setVideoThumbnail({
         url: thumbnails[index]?.ipfsUrl,
-        type: thumbnails[index]?.mimeType || 'image/jpeg',
         uploading: false
       });
     }
@@ -85,11 +83,7 @@ const ChooseThumbnail: FC = () => {
       );
       const thumbnailList: Thumbnail[] = [];
       for (const thumbnailBlob of thumbnailArray) {
-        thumbnailList.push({
-          blobUrl: thumbnailBlob,
-          ipfsUrl: '',
-          mimeType: 'image/jpeg'
-        });
+        thumbnailList.push({ blobUrl: thumbnailBlob, ipfsUrl: '' });
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
@@ -120,11 +114,7 @@ const ChooseThumbnail: FC = () => {
         const result = await uploadThumbnailToIpfs(file);
         const preview = window.URL?.createObjectURL(file);
         setThumbnails([
-          {
-            blobUrl: preview,
-            ipfsUrl: result.uri,
-            mimeType: file.type || 'image/jpeg'
-          },
+          { blobUrl: preview, ipfsUrl: result.uri },
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
