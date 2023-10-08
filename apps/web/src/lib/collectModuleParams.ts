@@ -23,7 +23,7 @@ const collectModuleParams = (
   } = collectModule;
   const baseCollectModuleParams = {
     collectLimit: collectLimit,
-    followerOnly: followerOnly,
+    followerOnly: followerOnly || false,
     endsAt: endsAt ? getTimeAddedNDay(1) : null
   };
 
