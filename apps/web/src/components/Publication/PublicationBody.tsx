@@ -9,9 +9,9 @@ import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
-import type { MetadataAsset, OG } from '@hey/types/misc';
+import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
-import getAttachmentsData from '@lib/getAttachmentsData';
+import getPublicationData from '@lib/getPublicationData';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
@@ -34,68 +34,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     ? publication.mirrorOn
     : publication;
   const { id, metadata } = targetPublication;
-  const metadataType = metadata.__typename;
 
-  const getPublicationData = (): {
-    content?: string;
-    asset?: MetadataAsset;
-    attachments?: {
-      uri: string;
-      type: 'Image' | 'Video' | 'Audio';
-    }[];
-  } | null => {
-    switch (metadataType) {
-      case 'ArticleMetadataV3':
-        return {
-          content: metadata.content,
-          attachments: getAttachmentsData(metadata.attachments)
-        };
-      case 'TextOnlyMetadataV3':
-        return {
-          content: metadata.content
-        };
-      case 'LinkMetadataV3':
-        return {
-          content: metadata.content
-        };
-      case 'ImageMetadataV3':
-        return {
-          content: metadata.content,
-          asset: {
-            uri: metadata.asset.image.optimized?.uri,
-            type: 'Image'
-          },
-          attachments: getAttachmentsData(metadata.attachments)
-        };
-      case 'AudioMetadataV3':
-        return {
-          content: metadata.content,
-          asset: {
-            uri: metadata.asset.audio.optimized?.uri,
-            cover: metadata.asset.cover?.optimized?.uri,
-            artist: metadata.asset.artist,
-            title: metadata.title,
-            type: 'Audio'
-          }
-        };
-      case 'VideoMetadataV3':
-        return {
-          content: metadata.content,
-          asset: {
-            uri: metadata.asset.video.optimized?.uri,
-            cover: metadata.asset.cover?.optimized?.uri,
-            type: 'Video'
-          },
-          attachments: getAttachmentsData(metadata.attachments)
-        };
-      default:
-        return null;
-    }
-  };
-
-  const filteredContent = getPublicationData()?.content || '';
-  const filteredAttachments = getPublicationData()?.attachments || [];
-  const filteredAsset = getPublicationData()?.asset;
+  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
+  const filteredAsset = getPublicationData(metadata)?.asset;
 
   const canShowMore = filteredContent?.length > 450 && showMore;
   const urls = getURLs(filteredContent);
