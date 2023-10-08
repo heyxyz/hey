@@ -31,12 +31,14 @@ const useUploadAttachments = () => {
 
         return {
           id: attachmentId,
-          file: file,
-          previewItem: URL.createObjectURL(file),
-          original: {
-            url: URL.createObjectURL(file),
-            mimeType: file.type
-          }
+          type: file.type.includes('image')
+            ? 'Image'
+            : file.type.includes('video')
+            ? 'Video'
+            : 'Audio',
+          uri: URL.createObjectURL(file),
+          previewUri: URL.createObjectURL(file),
+          file
         };
       });
 
@@ -80,10 +82,7 @@ const useUploadAttachments = () => {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewAttachment, index: number) => ({
               ...attachment,
-              original: {
-                url: attachmentsUploaded[index].original.url,
-                mimeType: attachmentsUploaded[index].original.mimeType
-              }
+              uri: attachmentsUploaded[index].uri
             })
           );
           updateAttachments(attachmentsIPFS);

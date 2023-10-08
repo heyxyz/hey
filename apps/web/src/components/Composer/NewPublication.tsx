@@ -173,10 +173,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
-  const hasAudio =
-    attachments[0]?.__typename === 'PublicationMetadataMediaAudio';
-  const hasVideo =
-    attachments[0]?.__typename === 'PublicationMetadataMediaVideo';
+  const hasAudio = attachments[0]?.type === 'Audio';
+  const hasVideo = attachments[0]?.type === 'Video';
 
   // Dispatcher
   const canUseRelay = currentProfile?.lensManager;
@@ -223,10 +221,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
-      publication_attachment_types:
-        attachments.length > 0
-          ? attachments.map((attachment) => attachment.uploaded.mimeType)
-          : null,
       publication_has_poll: showPollEditor
     };
     Leafwatch.track(
@@ -269,7 +263,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       attachments,
       title: audioPublication.title,
       cover: audioPublication.cover,
-      author: audioPublication.author
+      author: audioPublication.artist
     };
   };
 
@@ -499,7 +493,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const getAnimationUrl = () => {
     if (attachments.length > 0 || hasAudio || hasVideo) {
-      return attachments[0]?.uploaded.uri;
+      return attachments[0]?.uri;
     }
 
     return null;
@@ -510,7 +504,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ? audioPublication.cover
       : hasVideo
       ? videoThumbnail.url
-      : attachments[0]?.uploaded.uri) as string;
+      : attachments[0].uri) as string;
 
   const getTitlePrefix = () => {
     if (hasVideo) {
@@ -577,7 +571,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               {
                 type: MetadataAttributeType.STRING,
                 key: 'author',
-                value: audioPublication.author
+                value: audioPublication.artist
               }
             ]
           : []),
@@ -688,12 +682,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
       id: uuid(),
-      previewItem: gif.images.original.url,
-      __typename: 'PublicationMetadataMediaImage',
-      uploaded: {
-        uri: gif.images.original.url,
-        mimeType: 'image/gif'
-      }
+      uri: gif.images.original.url,
+      previewUri: gif.images.original.url,
+      type: 'Image'
     };
     addAttachments([attachment]);
   };

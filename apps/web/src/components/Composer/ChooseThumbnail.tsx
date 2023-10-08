@@ -2,7 +2,6 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
-import type { MediaSetWithoutOnChain } from '@hey/types/misc';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import { t, Trans } from '@lingui/macro';
@@ -34,12 +33,12 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: MediaSetWithoutOnChain = await uploadFileToIPFS(fileToUpload);
-    if (!result.original.url) {
+    const result = await uploadFileToIPFS(fileToUpload);
+    if (!result.uri) {
       toast.error(t`Failed to upload thumbnail`);
     }
     setVideoThumbnail({
-      url: result.original.url,
+      url: result.uri,
       type: fileToUpload.type || 'image/jpeg',
       uploading: false
     });
@@ -62,7 +61,7 @@ const ChooseThumbnail: FC = () => {
           setThumbnails(
             thumbnails.map((thumbnail, i) => {
               if (i === index) {
-                thumbnail.ipfsUrl = ipfsResult.original.url;
+                thumbnail.ipfsUrl = ipfsResult.uri;
               }
               return thumbnail;
             })
@@ -123,7 +122,7 @@ const ChooseThumbnail: FC = () => {
         setThumbnails([
           {
             blobUrl: preview,
-            ipfsUrl: result.original.url,
+            ipfsUrl: result.uri,
             mimeType: file.type || 'image/jpeg'
           },
           ...thumbnails

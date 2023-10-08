@@ -1,6 +1,5 @@
 import ChooseThumbnail from '@components/Composer/ChooseThumbnail';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { PublicationMetadataMedia } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
@@ -33,15 +32,13 @@ const getClass = (attachments: number) => {
 };
 
 interface NewAttachmentsProps {
-  attachments: any;
+  attachments: NewAttachment[];
   hideDelete?: boolean;
-  txn?: any;
 }
 
 const NewAttachments: FC<NewAttachmentsProps> = ({
   attachments = [],
-  hideDelete = false,
-  txn
+  hideDelete = false
 }) => {
   const setAttachments = usePublicationStore((state) => state.setAttachments);
   const setVideoDurationInSeconds = usePublicationStore(
@@ -71,9 +68,8 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   };
 
   const slicedAttachments = attachments?.some(
-    (attachment: PublicationMetadataMedia) =>
-      attachment.__typename === 'PublicationMetadataMediaVideo' ||
-      attachment.__typename === 'PublicationMetadataMediaAudio'
+    (attachment: NewAttachment) =>
+      attachment.type === 'Video' || attachment.type === 'Audio'
   )
     ? attachments?.slice(0, 1)
     : attachments?.slice(0, 4);
@@ -82,12 +78,9 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
   return attachmentsLength !== 0 ? (
     <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
-        const isAudio =
-          attachment.__typename === 'PublicationMetadataMediaAudio';
-        const isVideo =
-          attachment.__typename === 'PublicationMetadataMediaVideo';
-        const isImage =
-          attachment.__typename === 'PublicationMetadataMediaImage';
+        const isImage = attachment.type === 'Image';
+        const isAudio = attachment.type === 'Audio';
+        const isVideo = attachment.type === 'Video';
 
         return (
           <div
@@ -111,7 +104,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               <>
                 <video
                   className="w-full overflow-hidden rounded-xl"
-                  src={attachment.previewItem}
+                  src={attachment.previewUri}
                   ref={videoRef}
                   disablePictureInPicture
                   disableRemotePlayback
@@ -122,9 +115,9 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
               </>
             ) : isAudio ? (
               <Audio
-                src={attachment.previewItem}
+                src={attachment.previewUri}
+                poster=""
                 isNew
-                txn={txn}
                 expandCover={() => {}}
               />
             ) : isImage ? (
@@ -134,10 +127,10 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                 height={1000}
                 width={1000}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = attachment.previewItem;
+                  currentTarget.src = attachment.previewUri;
                 }}
-                src={attachment.previewItem}
-                alt={attachment.previewItem}
+                src={attachment.previewUri}
+                alt={attachment.previewUri}
               />
             ) : null}
             {!hideDelete &&

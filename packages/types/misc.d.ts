@@ -1,11 +1,15 @@
 import type { MediaSet } from '@hey/lens';
 
-export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
+export interface IPFSResponse {
+  uri: string;
+}
 
-export interface NewAttachment extends MediaSetWithoutOnChain {
-  id: string;
+export interface NewAttachment {
+  id?: string;
+  type: 'Image' | 'Video' | 'Audio';
+  uri: string;
+  previewUri: string;
   file?: File;
-  previewItem: string;
 }
 
 export interface UserSuggestion {

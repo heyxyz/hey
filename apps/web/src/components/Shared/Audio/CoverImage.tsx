@@ -36,7 +36,7 @@ const CoverImage: FC<CoverImageProps> = ({
       try {
         setLoading(true);
         const attachment = await uploadFileToIPFS(event.target.files[0]);
-        setCover(attachment.uploaded.uri, attachment.uploaded.mimeType);
+        setCover(attachment.uri, attachment.mimeType);
       } catch (error) {
         onError(error);
       }
