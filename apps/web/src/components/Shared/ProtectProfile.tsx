@@ -61,7 +61,7 @@ const ProtectProfile: FC = () => {
           <div className="text-red-500">
             {isCoolOffPassed ? (
               <Trans>
-                Your profile protection disabled.
+                Your profile protection is disabled.
                 <Link
                   className="ml-1.5 underline"
                   href="https://github.com/lens-protocol/LIPs/blob/main/LIPs/lip-4.md"
