@@ -28,6 +28,11 @@ fragment QuoteFields on Quote {
     ...ReferenceModuleFields
   }
   quoteOn {
-    ...PrimaryPublicationFields
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentFields
+    }
   }
 }
