@@ -33,10 +33,34 @@ const Locale: FC = () => {
     placement: 'bottom-start',
     modifiers: [
       {
-        name: 'preventOverflow',
-        options: {
-          rootBoundary: 'clippingParents'
+        name:'toggle-placement',
+        enabled: true,
+        phase: 'main',
+        fn: ({ state, instance }) => {
+          const popperElement = state?.elements?.popper;
+          const popperHeight = popperElement.clientHeight || 105;
+          const referenceElement = state?.elements?.reference;
+          const referenceElementDistance = referenceElement?.getBoundingClientRect()?.bottom+popperHeight;
+          const windowHeight = window.innerHeight;
+          const togglePlacement = (referenceElementDistance - windowHeight)>0;
+          if(togglePlacement){
+            if(state.placement==='bottom-start'){
+               instance.setOptions({
+                 placement: 'top-start'
+              })
+            }
+          }
+          else{
+            if(state.placement==='top-start'){
+              instance.setOptions({
+                placement: 'bottom-start'
+              })
+            }
+          }
         }
+      },
+      {
+        name: 'preventOverflow'
       }
     ]
   });
