@@ -53,9 +53,38 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
     asset?.type === 'Audio' ||
     attachments.map((attachment) => attachment.type === 'Audio').includes(true);
 
+  const ImageComponent = ({ uri }: { uri: string }) => (
+    <Image
+      className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+      loading="lazy"
+      height={1000}
+      width={1000}
+      onError={({ currentTarget }) => {
+        currentTarget.src = uri;
+      }}
+      onClick={() => {
+        setExpandedImage(uri);
+        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
+          // publication_id: publication?.id
+        });
+      }}
+      src={imageKit(uri, ATTACHMENT)}
+      alt={imageKit(uri, ATTACHMENT)}
+      data-testid={`attachment-image-${uri}`}
+    />
+  );
+
   return (
     <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
-      {isImages &&
+      {isImages && asset?.type === 'Image' ? (
+        <div
+          className={cn(getClass(1)?.aspect, 'w-2/3')}
+          onClick={stopEventPropagation}
+          aria-hidden="true"
+        >
+          <ImageComponent uri={asset.uri} />
+        </div>
+      ) : (
         attachments.map((attachment, index) => {
           return (
             <div
@@ -70,27 +99,11 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
               onClick={stopEventPropagation}
               aria-hidden="true"
             >
-              <Image
-                className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
-                loading="lazy"
-                height={1000}
-                width={1000}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = attachment.uri;
-                }}
-                onClick={() => {
-                  setExpandedImage(attachment.uri);
-                  Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
-                    // publication_id: publication?.id
-                  });
-                }}
-                src={imageKit(attachment.uri, ATTACHMENT)}
-                alt={imageKit(attachment.uri, ATTACHMENT)}
-                data-testid={`attachment-image-${attachment.uri}`}
-              />
+              <ImageComponent uri={attachment.uri} />
             </div>
           );
-        })}
+        })
+      )}
       {isVideo && (
         <Video src={asset?.uri || attachments[0].uri} poster={asset?.cover} />
       )}
