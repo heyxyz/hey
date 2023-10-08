@@ -58,11 +58,11 @@ const UserProfile: FC<UserProfileProps> = ({
 }) => {
   const [following, setFollowing] = useState(isFollowing);
   const statusEmoji = getProfileAttribute(
-    profile.metadata?.attributes,
+    profile?.metadata?.attributes,
     'statusEmoji'
   );
   const statusMessage = getProfileAttribute(
-    profile.metadata?.attributes,
+    profile?.metadata?.attributes,
     'statusMessage'
   );
   const hasStatus = statusEmoji && statusMessage;
@@ -86,7 +86,7 @@ const UserProfile: FC<UserProfileProps> = ({
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
-            {sanitizeDisplayName(profile.metadata?.displayName) ??
+            {sanitizeDisplayName(profile?.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
         </div>
@@ -136,7 +136,7 @@ const UserProfile: FC<UserProfileProps> = ({
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile.metadata?.bio ? (
+            {showBio && profile?.metadata?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
@@ -146,7 +146,7 @@ const UserProfile: FC<UserProfileProps> = ({
                   'linkify leading-6'
                 )}
               >
-                <Markup>{profile.metadata.bio}</Markup>
+                <Markup>{profile?.metadata.bio}</Markup>
               </div>
             ) : null}
           </div>

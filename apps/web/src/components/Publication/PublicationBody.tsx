@@ -54,6 +54,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         return {
           content: metadata.content
         };
+      case 'LinkMetadataV3':
+        return {
+          content: metadata.content
+        };
       case 'ImageMetadataV3':
         return {
           content: metadata.content,

@@ -174,14 +174,14 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const form = useZodForm({
     schema: editProfileSchema,
     defaultValues: {
-      name: profile.metadata?.displayName ?? '',
-      location: getProfileAttribute(profile.metadata?.attributes, 'location'),
-      website: getProfileAttribute(profile.metadata?.attributes, 'website'),
-      x: getProfileAttribute(profile.metadata?.attributes, 'x')?.replace(
+      name: profile?.metadata?.displayName ?? '',
+      location: getProfileAttribute(profile?.metadata?.attributes, 'location'),
+      website: getProfileAttribute(profile?.metadata?.attributes, 'website'),
+      x: getProfileAttribute(profile?.metadata?.attributes, 'x')?.replace(
         /(https:\/\/)?x\.com\//,
         ''
       ),
-      bio: profile.metadata?.bio ?? ''
+      bio: profile?.metadata?.bio ?? ''
     }
   });
 
@@ -226,14 +226,14 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           {
             key: 'statusEmoji',
             value: getProfileAttribute(
-              profile.metadata?.attributes,
+              profile?.metadata?.attributes,
               'statusEmoji'
             )
           },
           {
             key: 'statusMessage',
             value: getProfileAttribute(
-              profile.metadata?.attributes,
+              profile?.metadata?.attributes,
               'statusMessage'
             )
           }

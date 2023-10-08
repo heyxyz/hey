@@ -109,7 +109,7 @@ const ViewProfile: NextPage = () => {
       </Modal>
       {profile?.metadata?.displayName ? (
         <MetaTags
-          title={`${profile.metadata?.displayName} (@${formatHandle(
+          title={`${profile?.metadata?.displayName} (@${formatHandle(
             profile?.handle
           )}) • ${APP_NAME}`}
         />

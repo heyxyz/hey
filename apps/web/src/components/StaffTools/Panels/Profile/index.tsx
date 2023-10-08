@@ -124,11 +124,11 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.metadata?.rawURI}
+          value={profile?.metadata?.rawURI}
           title={t`Metadata`}
         >
           <Link
-            href={profile.metadata?.rawURI}
+            href={profile?.metadata?.rawURI}
             target="_blank"
             rel="noreferrer"
           >

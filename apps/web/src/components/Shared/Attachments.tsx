@@ -1,6 +1,11 @@
+import { ATTACHMENT } from '@hey/data/constants';
+import { PUBLICATION } from '@hey/data/tracking';
+import imageKit from '@hey/lib/imageKit';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MetadataAsset } from '@hey/types/misc';
-import { LightBox } from '@hey/ui';
+import { Image, LightBox } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -38,6 +43,9 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const attachmentsLength = attachments.length;
 
+  const isImages =
+    asset?.type === 'Image' ||
+    attachments.map((attachment) => attachment.type === 'Image').includes(true);
   const isVideo =
     asset?.type === 'Video' ||
     attachments.map((attachment) => attachment.type === 'Video').includes(true);
@@ -47,6 +55,42 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
 
   return (
     <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
+      {isImages &&
+        attachments.map((attachment, index) => {
+          return (
+            <div
+              key={index}
+              className={cn(
+                `${getClass(attachmentsLength)?.aspect} ${
+                  attachmentsLength === 3 && index === 0 ? 'row-span-2' : ''
+                }`,
+                { 'w-2/3': attachmentsLength === 1 },
+                'relative'
+              )}
+              onClick={stopEventPropagation}
+              aria-hidden="true"
+            >
+              <Image
+                className="cursor-pointer rounded-lg border bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                loading="lazy"
+                height={1000}
+                width={1000}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = attachment.uri;
+                }}
+                onClick={() => {
+                  setExpandedImage(attachment.uri);
+                  Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
+                    // publication_id: publication?.id
+                  });
+                }}
+                src={imageKit(attachment.uri, ATTACHMENT)}
+                alt={imageKit(attachment.uri, ATTACHMENT)}
+                data-testid={`attachment-image-${attachment.uri}`}
+              />
+            </div>
+          );
+        })}
       {isVideo && (
         <Video src={asset?.uri || attachments[0].uri} poster={asset?.cover} />
       )}
@@ -59,8 +103,6 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
           expandCover={setExpandedImage}
         />
       )}
-      {/* att: {JSON.stringify(attachments)}
-      asset: {JSON.stringify(asset)} */}{' '}
       <LightBox
         show={Boolean(expandedImage)}
         url={expandedImage}

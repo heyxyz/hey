@@ -125,7 +125,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {sanitizeDisplayName(profile.metadata?.displayName) ??
+            {sanitizeDisplayName(profile?.metadata?.displayName) ??
               formatHandle(profile?.handle)}
           </div>
           {isVerified(profile.id) ? (
@@ -149,7 +149,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="flex items-center space-x-3"
           data-testid="profile-handle"
         >
-          {profile.metadata?.displayName ? (
+          {profile?.metadata?.displayName ? (
             <Slug
               className="text-sm sm:text-base"
               slug={formatHandle(profile?.handle)}
@@ -170,12 +170,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : null}
         </div>
       </div>
-      {profile.metadata?.bio ? (
+      {profile?.metadata?.bio ? (
         <div
           className="markup linkify text-md mr-0 break-words sm:mr-10"
           data-testid="profile-bio"
         >
-          <Markup>{profile.metadata.bio}</Markup>
+          <Markup>{profile?.metadata.bio}</Markup>
         </div>
       ) : null}
       <div className="space-y-5">
@@ -262,12 +262,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               </Link>
             </Tooltip>
           </MetaDetails>
-          {getProfileAttribute(profile.metadata?.attributes, 'location') ? (
+          {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
             <MetaDetails
               icon={<MapPinIcon className="h-4 w-4" />}
               dataTestId="profile-meta-location"
             >
-              {getProfileAttribute(profile.metadata?.attributes, 'location')}
+              {getProfileAttribute(profile?.metadata?.attributes, 'location')}
             </MetaDetails>
           ) : null}
           {profile?.onchainIdentity?.ens?.name ? (
@@ -286,13 +286,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile.metadata?.attributes, 'website') ? (
+          {getProfileAttribute(profile?.metadata?.attributes, 'website') ? (
             <MetaDetails
               icon={
                 <img
                   src={urlcat('https://www.google.com/s2/favicons', {
                     domain: getProfileAttribute(
-                      profile.metadata?.attributes,
+                      profile?.metadata?.attributes,
                       'website'
                     )
                       ?.replace('https://', '')
@@ -308,7 +308,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             >
               <Link
                 href={`https://${getProfileAttribute(
-                  profile.metadata?.attributes,
+                  profile?.metadata?.attributes,
                   'website'
                 )
                   ?.replace('https://', '')
@@ -316,13 +316,13 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 target="_blank"
                 rel="noreferrer noopener me"
               >
-                {getProfileAttribute(profile.metadata?.attributes, 'website')
+                {getProfileAttribute(profile?.metadata?.attributes, 'website')
                   ?.replace('https://', '')
                   .replace('http://', '')}
               </Link>
             </MetaDetails>
           ) : null}
-          {getProfileAttribute(profile.metadata?.attributes, 'x') ? (
+          {getProfileAttribute(profile?.metadata?.attributes, 'x') ? (
             <MetaDetails
               icon={
                 <img
@@ -340,7 +340,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               <Link
                 href={urlcat('https://x.com/:username', {
                   username: getProfileAttribute(
-                    profile.metadata?.attributes,
+                    profile?.metadata?.attributes,
                     'x'
                   )?.replace('https://x.com/', '')
                 })}
@@ -348,7 +348,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 rel="noreferrer noopener"
               >
                 {getProfileAttribute(
-                  profile.metadata?.attributes,
+                  profile?.metadata?.attributes,
                   'x'
                 )?.replace('https://x.com/', '')}
               </Link>
