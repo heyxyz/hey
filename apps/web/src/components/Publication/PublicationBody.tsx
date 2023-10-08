@@ -1,6 +1,7 @@
 import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
+import Oembed from '@components/Shared/Oembed';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
@@ -17,6 +18,9 @@ import cn from '@hey/ui/cn';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
+
+import Nft from './OpenActions/Nft';
+import Snapshot from './OpenActions/Snapshot';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
@@ -187,7 +191,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Attachments attachments={filteredAttachments} asset={filteredAsset} />
       ) : null}
       {/* Open actions */}
-      {/* {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
+      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
       {showOembed ? (
         <Oembed
@@ -195,7 +199,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           publicationId={publication.id}
           onData={onOembedData}
         />
-      ) : null} */}
+      ) : null}
       {targetPublication.__typename === 'Quote' && (
         <Quote publication={targetPublication.quoteOn} />
       )}
