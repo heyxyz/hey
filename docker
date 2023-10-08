@@ -1,0 +1,17 @@
+# Use an official Node.js runtime as a parent image
+FROM node:14
+
+WORKDIR /app
+
+COPY package*.json pnpm-lock.yaml ./
+
+# Install project dependencies using pnpm
+RUN npm install -g pnpm
+RUN pnpm install
+
+# Copy the rest of the application code to the container
+COPY . .
+
+EXPOSE 8080
+
+CMD ["pnpm", "dev"]
