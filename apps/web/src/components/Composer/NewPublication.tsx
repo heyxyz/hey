@@ -17,7 +17,8 @@ import type {
   MomokaCommentRequest,
   MomokaPostRequest,
   OnchainCommentRequest,
-  OnchainPostRequest
+  OnchainPostRequest,
+  Quote
 } from '@hey/lens';
 import {
   PublicationDocument,
@@ -744,7 +745,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showPollEditor ? <PollEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPublication publication={quotedPublication} isNew />
+          <QuotedPublication publication={quotedPublication as Quote} isNew />
         </Wrapper>
       ) : null}
       <div className="block items-center px-5 sm:flex">

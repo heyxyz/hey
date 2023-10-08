@@ -26,7 +26,7 @@ const HeyMembershipNft: FC = () => {
 
   const fetchPreferences = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy}`
+      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy.address}`
     );
     const { data } = response;
 
@@ -55,7 +55,7 @@ const HeyMembershipNft: FC = () => {
         axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
           {
-            id: currentProfile?.ownedBy,
+            id: currentProfile?.ownedBy.address,
             dismissedOrMinted: true
           },
           {

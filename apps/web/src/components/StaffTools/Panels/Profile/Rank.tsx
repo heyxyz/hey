@@ -41,7 +41,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       const response = await axios.get(
         urlcat('https://api.scorer.gitcoin.co/registry/score/:id/:address', {
           id: 335,
-          address: profile.ownedBy
+          address: profile.ownedBy.address
         }),
         {
           headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }

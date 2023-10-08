@@ -60,7 +60,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       setSyntheticLoading(true);
       loadProfile({
         variables: {
-          request: { forHandle: formatHandle(compositeHandle) }
+          request: { forHandle: compositeHandle }
         }
       });
       setTimeout(() => {
