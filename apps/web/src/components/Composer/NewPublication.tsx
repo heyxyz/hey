@@ -720,7 +720,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         'pb-3'
       )}
     >
-      {JSON.stringify(getAttachmentImage())}
       {error ? (
         <ErrorMessage
           className="!rounded-none"

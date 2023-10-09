@@ -2,12 +2,12 @@ import type { Maybe, PublicationMetadataMedia } from '@hey/lens';
 
 const getAttachmentsData = (
   attachments?: Maybe<PublicationMetadataMedia[]>
-) => {
+): any => {
   if (!attachments) {
     return [];
   }
 
-  attachments.map((attachment) => {
+  return attachments.map((attachment) => {
     switch (attachment.__typename) {
       case 'PublicationMetadataMediaImage':
         return {
