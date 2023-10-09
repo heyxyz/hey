@@ -1,6 +1,5 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
-import Loader from '@components/Shared/Loader';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import Uniswap from '@components/Shared/Uniswap';
@@ -17,7 +16,12 @@ import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication, ApprovedAllowanceAmountResult } from '@hey/lens';
+import type {
+  AnyPublication,
+  ApprovedAllowanceAmountResult,
+  MultirecipientFeeCollectOpenActionSettings,
+  SimpleCollectOpenActionSettings
+} from '@hey/lens';
 import {
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -81,38 +85,23 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const { data, loading } = useCollectModuleQuery({
-    variables: { request: { publicationId: publication?.id } }
-  });
+  const collectModule = targetPublication?.openActionModules[0] as
+    | SimpleCollectOpenActionSettings
+    | MultirecipientFeeCollectOpenActionSettings;
 
-  const collectModule: any = data?.publication?.collectModule;
+  const endTimestamp = collectModule?.endsAt;
+  const collectLimit = collectModule?.collectLimit || '0';
+  const amount = collectModule?.amount?.value || '0';
+  const currency = collectModule?.amount?.asset?.symbol;
+  const assetAddress = collectModule?.amount?.asset?.contract.address;
+  const assetDecimals = collectModule?.amount?.asset?.decimals;
+  const referralFee = collectModule?.referralFee;
 
-  const endTimestamp =
-    collectModule?.endTimestamp ?? collectModule?.optionalEndTimestamp;
-  const collectLimit =
-    collectModule?.collectLimit ?? collectModule?.optionalCollectLimit;
-  const amount =
-    collectModule?.amount?.value ?? collectModule?.fee?.amount?.value;
-  const currency =
-    collectModule?.amount?.asset?.symbol ??
-    collectModule?.fee?.amount?.asset?.symbol;
-  const assetAddress =
-    collectModule?.amount?.asset?.address ??
-    collectModule?.fee?.amount?.asset?.address;
-  const assetDecimals =
-    collectModule?.amount?.asset?.decimals ??
-    collectModule?.fee?.amount?.asset?.decimals;
-  const referralFee =
-    collectModule?.referralFee ?? collectModule?.fee?.referralFee;
-
-  const isMultirecipientFeeCollectModule =
-    collectModule?.type ===
-    OpenActionModuleType.MultirecipientFeeCollectOpenActionModule;
-  const isFreeCollectModule =
-    collectModule?.type === OpenActionModuleType.LegacyFreeCollectModule;
+  const isFreeCollectModule = !collectModule;
   const isSimpleFreeCollectModule =
-    collectModule?.type ===
-      OpenActionModuleType.SimpleCollectOpenActionModule && !amount;
+    collectModule?.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+  const isMultirecipientFeeCollectModule =
+    collectModule?.__typename === 'MultirecipientFeeCollectOpenActionSettings';
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -125,7 +114,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     toast.success(t`Collected successfully!`);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: publication?.id,
-      collect_module: collectModule?.type
+      collect_module: collectModule?.__typename
     });
   };
 
@@ -158,7 +147,12 @@ const CollectModule: FC<CollectModuleProps> = ({
         request: {
           currencies: assetAddress,
           followModules: [],
-          openActionModules: [collectModule?.type],
+          openActionModules: [
+            collectModule?.__typename ===
+            'MultirecipientFeeCollectOpenActionSettings'
+              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+              : OpenActionModuleType.SimpleCollectOpenActionModule
+          ],
           referenceModules: []
         }
       },
@@ -233,10 +227,6 @@ const CollectModule: FC<CollectModuleProps> = ({
       onError(error);
     }
   };
-
-  if (loading) {
-    return <Loader message={t`Loading collect`} />;
-  }
 
   const isLimitedCollectAllCollected = collectLimit
     ? count >= parseInt(collectLimit)
@@ -368,7 +358,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               </div>
             </div>
           ) : null}
-          {data?.publication?.collectNftAddress ? (
+          {collectModule.contract.address ? (
             <div className="flex items-center space-x-2">
               <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
@@ -376,12 +366,12 @@ const CollectModule: FC<CollectModuleProps> = ({
                   <Trans>Token:</Trans>
                 </span>
                 <Link
-                  href={`${POLYGONSCAN_URL}/token/${data?.publication?.collectNftAddress}`}
+                  href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
                   target="_blank"
                   className="font-bold text-gray-600"
                   rel="noreferrer noopener"
                 >
-                  {formatAddress(data?.publication?.collectNftAddress)}
+                  {formatAddress(collectModule.contract.address)}
                 </Link>
               </div>
             </div>
