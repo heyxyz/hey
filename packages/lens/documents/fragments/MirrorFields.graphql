@@ -10,6 +10,14 @@ fragment MirrorFields on Mirror {
   txHash
   createdAt
   mirrorOn {
-    ...PrimaryPublicationFields
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
   }
 }
