@@ -2,6 +2,7 @@ import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
 import { publicationKeyFields } from '../lib';
+import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
@@ -14,7 +15,6 @@ import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
 import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
 import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
-import createWhoCollectedPublicationFieldPolicy from './createWhoCollectedPublicationFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -36,7 +36,7 @@ const cache = new InMemoryCache({
         profiles: createProfilesFieldPolicy(),
         searchProfiles: createSearchProfilesFieldPolicy(),
         searchPublications: createSearchPublicationsPolicy(),
-        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
+        whoActedOnPublication: createActedOnPublicationFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
       }
     }

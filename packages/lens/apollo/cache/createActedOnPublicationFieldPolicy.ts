@@ -2,8 +2,8 @@ import type { FieldPolicy } from '@apollo/client';
 
 import { cursorBasedPagination } from '../lib';
 
-const createWhoCollectedPublicationFieldPolicy = (): FieldPolicy => {
+const createActedOnPublicationFieldPolicy = (): FieldPolicy => {
   return cursorBasedPagination([['request', ['where', 'on']]]);
 };
 
-export default createWhoCollectedPublicationFieldPolicy;
+export default createActedOnPublicationFieldPolicy;
