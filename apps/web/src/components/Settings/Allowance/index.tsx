@@ -6,6 +6,7 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
   FollowModuleType,
+  LimitType,
   OpenActionModuleType,
   ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -43,7 +44,9 @@ const AllowanceSettings: NextPage = () => {
     data: enabledModules,
     loading: enabledModulesLoading,
     error: enabledModulesError
-  } = useEnabledCurrenciesQuery({});
+  } = useEnabledCurrenciesQuery({
+    variables: { request: { limit: LimitType.Fifty } }
+  });
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });

@@ -6,6 +6,7 @@ import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
+  LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrenciesQuery
@@ -62,7 +63,9 @@ const SuperFollow: FC = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   });
-  const { data: currencyData, loading } = useEnabledCurrenciesQuery({});
+  const { data: currencyData, loading } = useEnabledCurrenciesQuery({
+    variables: { request: { limit: LimitType.Fifty } }
+  });
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,

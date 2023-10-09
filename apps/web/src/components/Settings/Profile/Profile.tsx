@@ -356,7 +356,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   return (
     <>
       <Card className="p-5">
-        {JSON.stringify(profile?.metadata?.attributes)}
         <Form
           form={form}
           className="space-y-4"

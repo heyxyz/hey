@@ -7,15 +7,11 @@ import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
-import createForYouFieldPolicy from './createForYouFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
-import createSearchFieldPolicy from './createSearchFieldPolicy';
-import createWhoCollectedPublicationFieldPolicy from './createWhoCollectedPublicationFieldPolicy';
-import createWhoReactedPublicationFieldPolicy from './createWhoReactedPublicationFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -27,7 +23,6 @@ const cache = new InMemoryCache({
       fields: {
         feed: createFeedFieldPolicy(),
         feedHighlights: createFeedHighlightsFieldPolicy(),
-        forYou: createForYouFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
         publications: createPublicationsFieldPolicy(),
         publicationsProfileBookmarks: createPublicationsFieldPolicy(),
@@ -35,10 +30,7 @@ const cache = new InMemoryCache({
         notifications: createNotificationsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
-        search: createSearchFieldPolicy(),
         profiles: createProfilesFieldPolicy(),
-        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
-        whoReactedPublication: createWhoReactedPublicationFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
       }
     }
