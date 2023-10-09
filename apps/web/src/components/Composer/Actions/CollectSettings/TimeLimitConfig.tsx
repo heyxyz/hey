@@ -16,8 +16,12 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
   return (
     <div className="pt-5">
       <ToggleWithHelper
-        on={Boolean(collectModule.endsAt) ?? false}
-        setOn={() => setCollectType({ endsAt: getTimeAddedNDay(1) })}
+        on={Boolean(collectModule.endsAt)}
+        setOn={() =>
+          setCollectType({
+            endsAt: Boolean(collectModule.endsAt) ? null : getTimeAddedNDay(1)
+          })
+        }
         heading={t`Time limit`}
         description={t`Limit collecting to the first 24h`}
         icon={<ClockIcon className="h-4 w-4" />}
