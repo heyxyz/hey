@@ -81,8 +81,8 @@ const GuardianSettings: FC = () => {
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           <Trans>
-            A 5-minute Security Cooldown Period need to be elapsed for the
-            Profile Guardian to become effectively disabled.
+            A 7-day Security Cooldown Period need to be elapsed for the Profile
+            Guardian to become effectively disabled.
           </Trans>
         </p>
         <p className="py-3">
