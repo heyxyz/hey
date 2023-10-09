@@ -3,6 +3,7 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
+  APP_NAME,
   AVATAR,
   COVER,
   LENSHUB_PROXY,
@@ -24,6 +25,7 @@ import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import trimify from '@hey/lib/trimify';
 import {
   Button,
   Card,
@@ -36,6 +38,14 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
+import type {
+  MetadataAttribute,
+  ProfileOptions
+} from '@lens-protocol/metadata';
+import {
+  MetadataAttributeType,
+  profile as profileMetadata
+} from '@lens-protocol/metadata';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
@@ -46,8 +56,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
-import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import type { z } from 'zod';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
@@ -70,6 +80,8 @@ const editProfileSchema = object({
   }),
   bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
 });
+
+type FormData = z.infer<typeof editProfileSchema>;
 
 interface ProfileSettingsFormProps {
   profile: Profile;
@@ -185,13 +197,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
   });
 
-  const editProfile = async (
-    name: string,
-    location: string | null,
-    website?: string | null,
-    x?: string | null,
-    bio?: string | null
-  ) => {
+  const editProfile = async (data: FormData) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -202,28 +208,40 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     try {
       setIsLoading(true);
-      const id = await uploadToArweave({
-        name,
-        bio,
-        cover_picture: profileCoverIpfsUrl ? profileCoverIpfsUrl : null,
+      const otherAttributes =
+        profile.metadata?.attributes
+          ?.filter(
+            (attr) =>
+              ![
+                'location',
+                'website',
+                'x',
+                'statusEmoji',
+                'statusMessage',
+                'app'
+              ].includes(attr.key)
+          )
+          .map(({ key, value }) => ({ key, value })) ?? [];
+
+      const preparedProfileMetadata: ProfileOptions = {
+        ...(data.name && { name: data.name }),
+        ...(data.bio && { bio: data.bio }),
+        coverPicture: profileCoverIpfsUrl ? profileCoverIpfsUrl : undefined,
         attributes: [
-          ...(profile?.metadata?.attributes
-            ?.filter(
-              (attr) =>
-                ![
-                  'location',
-                  'website',
-                  'x',
-                  'statusEmoji',
-                  'statusMessage',
-                  'app'
-                ].includes(attr.key)
-            )
-            .map(({ key, value }) => ({ key, value })) ?? []),
-          { key: 'location', value: location },
-          { key: 'website', value: website },
-          { key: 'x', value: x },
+          ...(otherAttributes as MetadataAttribute[]),
           {
+            type: MetadataAttributeType.STRING,
+            key: 'location',
+            value: data.location
+          },
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'website',
+            value: data.website
+          },
+          { type: MetadataAttributeType.STRING, key: 'x', value: data.x },
+          {
+            type: MetadataAttributeType.STRING,
             key: 'statusEmoji',
             value: getProfileAttribute(
               profile?.metadata?.attributes,
@@ -231,16 +249,26 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             )
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'statusMessage',
             value: getProfileAttribute(
               profile?.metadata?.attributes,
               'statusMessage'
             )
+          },
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'app',
+            value: APP_NAME
           }
-        ],
-        version: '1.0.0',
-        metadata_id: uuid()
-      });
+        ]
+      };
+      preparedProfileMetadata.attributes =
+        preparedProfileMetadata.attributes?.filter((m) =>
+          Boolean(trimify(m.value))
+        );
+      const metadata = profileMetadata(preparedProfileMetadata);
+      const id = await uploadToArweave(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: `https://arweave.net/${id}`
@@ -328,11 +356,12 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   return (
     <>
       <Card className="p-5">
+        {JSON.stringify(profile?.metadata?.attributes)}
         <Form
           form={form}
           className="space-y-4"
-          onSubmit={({ name, location, website, x, bio }) => {
-            editProfile(name, location, website, x, bio);
+          onSubmit={(data) => {
+            editProfile(data);
           }}
         >
           {error ? (
