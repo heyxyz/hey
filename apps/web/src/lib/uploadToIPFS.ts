@@ -9,6 +9,8 @@ import type { IPFSResponse } from '@hey/types/misc';
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 
+const FALLBACK_TYPE = 'image/jpeg';
+
 /**
  * Returns an S3 client with temporary credentials obtained from the STS service.
  *
@@ -83,7 +85,8 @@ const uploadToIPFS = async (
         const metadata = result.Metadata;
 
         return {
-          uri: `ipfs://${metadata?.['ipfs-hash']}`
+          uri: `ipfs://${metadata?.['ipfs-hash']}`,
+          mimeType: file.type || FALLBACK_TYPE
         };
       })
     );
@@ -108,9 +111,9 @@ export const uploadFileToIPFS = async (
     const ipfsResponse = await uploadToIPFS([file], onProgress);
     const metadata = ipfsResponse[0];
 
-    return { uri: metadata.uri };
+    return { uri: metadata.uri, mimeType: file.type || FALLBACK_TYPE };
   } catch {
-    return { uri: '' };
+    return { uri: '', mimeType: file.type || FALLBACK_TYPE };
   }
 };
 

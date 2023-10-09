@@ -2,12 +2,14 @@ import type { MediaSet } from '@hey/lens';
 
 export interface IPFSResponse {
   uri: string;
+  mimeType: string;
 }
 
 export interface NewAttachment {
   id?: string;
   type: 'Image' | 'Video' | 'Audio';
   uri: string;
+  mimeType: string;
   previewUri: string;
   file?: File;
 }

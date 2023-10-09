@@ -504,7 +504,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       ? audioPublication.cover
       : hasVideo
       ? videoThumbnail.url
-      : attachments[0].uri) as string;
+      : attachments[0]?.uri) as string;
 
   const getTitlePrefix = () => {
     if (hasVideo) {
@@ -596,6 +596,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         }
       };
 
+      console.log(
+        'baseMetadata',
+        baseMetadata,
+        attachments,
+        getAttachmentImage()
+      );
+
       const metadata = getPublicationMetadata({
         baseMetadata,
         attachments,
@@ -666,6 +673,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
     } catch (error) {
+      console.log('error', error);
       onError(error);
     }
   };
@@ -674,6 +682,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const attachment: NewAttachment = {
       id: uuid(),
       uri: gif.images.original.url,
+      mimeType: 'image/gif',
       previewUri: gif.images.original.url,
       type: 'Image'
     };
@@ -711,6 +720,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         'pb-3'
       )}
     >
+      {JSON.stringify(getAttachmentImage())}
       {error ? (
         <ErrorMessage
           className="!rounded-none"

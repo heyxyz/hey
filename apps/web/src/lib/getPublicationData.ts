@@ -28,6 +28,7 @@ const getPublicationData = (
         content: metadata.content
       };
     case 'ImageMetadataV3':
+      console.log('yogi', getAttachmentsData(metadata.attachments));
       return {
         content: metadata.content,
         asset: {

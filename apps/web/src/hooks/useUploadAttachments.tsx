@@ -36,6 +36,7 @@ const useUploadAttachments = () => {
             : file.type.includes('video')
             ? 'Video'
             : 'Audio',
+          mimeType: file.type,
           uri: URL.createObjectURL(file),
           previewUri: URL.createObjectURL(file),
           file
@@ -82,7 +83,8 @@ const useUploadAttachments = () => {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewAttachment, index: number) => ({
               ...attachment,
-              uri: attachmentsUploaded[index].uri
+              uri: attachmentsUploaded[index].uri,
+              mimeType: attachmentsUploaded[index].mimeType
             })
           );
           updateAttachments(attachmentsIPFS);

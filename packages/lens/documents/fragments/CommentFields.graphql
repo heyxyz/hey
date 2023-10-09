@@ -1,39 +1,17 @@
 fragment CommentFields on Comment {
-  id
-  publishedOn {
-    id
-  }
-  isHidden
-  momoka {
-    proof
-  }
-  txHash
-  createdAt
-  by {
-    ...ProfileFields
-  }
-  stats {
-    ...PublicationStatsFields
-  }
-  operations {
-    ...PublicationOperationFields
-  }
-  metadata {
-    ...AnyPublicationMetadataFields
-  }
-  openActionModules {
-    ...OpenActionModulesFields
-  }
-  root {
-    ...PrimaryPublicationFields
-  }
+  ...CommentBaseFields
   commentOn {
-    ...PrimaryPublicationFields
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
   }
   firstComment {
-    ...PrimaryPublicationFields
-  }
-  referenceModule {
-    ...ReferenceModuleFields
+    ...CommentBaseFields
   }
 }

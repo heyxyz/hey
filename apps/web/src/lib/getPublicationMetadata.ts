@@ -37,10 +37,12 @@ const getPublicationMetadata = ({
         ...baseMetadata,
         ...localBaseMetadata,
         image: {
-          item: attachments[0]?.uri
+          item: attachments[0]?.uri,
+          type: attachments[0]?.mimeType
         },
         attachments: attachments.map((attachment) => ({
           item: attachment.uri,
+          type: attachment.mimeType,
           cover: cover
         }))
       });
@@ -48,13 +50,17 @@ const getPublicationMetadata = ({
       return audio({
         ...baseMetadata,
         ...localBaseMetadata,
-        audio: { item: attachments[0]?.uri }
+        audio: { item: attachments[0]?.uri, type: attachments[0]?.mimeType }
       });
     case hasVideo:
       return video({
         ...baseMetadata,
         ...localBaseMetadata,
-        video: { item: attachments[0]?.uri, duration: 0 }
+        video: {
+          item: attachments[0]?.uri,
+          type: attachments[0]?.mimeType,
+          duration: 0
+        }
       });
     default:
       return null;

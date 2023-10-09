@@ -76,6 +76,7 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
 
   return (
     <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
+      {JSON.stringify(attachments)}
       {isImages && asset?.type === 'Image' ? (
         <div
           className={cn(getClass(1)?.aspect, 'w-2/3')}
