@@ -12,6 +12,9 @@ import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
+import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
+import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
+import createWhoCollectedPublicationFieldPolicy from './createWhoCollectedPublicationFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -31,6 +34,9 @@ const cache = new InMemoryCache({
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
         profiles: createProfilesFieldPolicy(),
+        searchProfiles: createSearchProfilesFieldPolicy(),
+        searchPublications: createSearchPublicationsPolicy(),
+        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
       }
     }
