@@ -40,6 +40,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { isIOS, isMobile } from 'react-device-detect';
 import useContractMetadata from 'src/hooks/useContractMetadata';
 import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import { useAppStore } from 'src/store/app';
@@ -188,6 +189,13 @@ const DecryptedPublicationBody: FC<DecryptedPublicationBodyProps> = ({
     setDecryptError(error);
     setIsDecrypting(false);
   };
+
+  if (isIOS && isMobile && showMore) {
+    const truncatedContent = content?.split('\n')?.[0];
+    if (truncatedContent) {
+      setContent(truncatedContent);
+    }
+  }
 
   if (!currentProfile) {
     return (
