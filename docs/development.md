@@ -5,18 +5,18 @@
 ### Install dependencies
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### Run the development server
 
 ```bash
-pnpm dev
+bun dev
 ```
 
 ### Run the production server
 
 ```bash
-pnpm build
-pnpm start
+bun build
+bun start
 ```

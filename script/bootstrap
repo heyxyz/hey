@@ -32,7 +32,7 @@ echo "IMAGEKIT_URL=https://ik.imagekit.io/lensterdev" >> .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-pnpm install --frozen-lockfile
+bun install --frozen-lockfile
 echo "Dependencies installed 📦"
 # -------------------------------------
 echo "Installing playwright 🎭"
@@ -40,7 +40,7 @@ pnpx playwright install
 echo "Playwright installed 🎭"
 # -------------------------------------
 echo "GraphQL Codegen 🧬"
-pnpm codegen
+bun codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"

@@ -15,22 +15,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm 🌸
-        uses: pnpm/action-setup@v2.2.4
+      - name: Setup bun 🌸
+        uses: bun/action-setup@v2.2.4
 
       - name: Setup node 🍀
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'pnpm'
+          cache: 'bun'
 
       - name: Install 📦
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Deploy 🚀
         run: |
-          pnpm add wrangler -g
-          pnpm workers:deploy
+          bun add wrangler -g
+          bun workers:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
