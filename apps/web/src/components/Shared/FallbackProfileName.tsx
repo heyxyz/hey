@@ -7,13 +7,13 @@ import type { FC, ReactNode } from 'react';
 
 import Slug from './Slug';
 
-interface ProfileNameOrHandleProps {
+interface FallbackProfileNameProps {
   profile?: Profile;
   className?: string;
   separator?: ReactNode;
 }
 
-const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
+const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   profile,
   className = '',
   separator = ''
@@ -32,7 +32,10 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
           {profile?.metadata?.displayName ? (
             sanitizeDisplayName(profile?.metadata.displayName)
           ) : (
-            <Slug slug={formatHandle(profile?.handle)} prefix="@" />
+            <Slug
+              slug={formatHandle(profile?.handle) ?? profile.id}
+              prefix={profile?.handle ? '@' : '#'}
+            />
           )}
         </b>
       </Link>
@@ -41,4 +44,4 @@ const ProfileNameOrHandle: FC<ProfileNameOrHandleProps> = ({
   );
 };
 
-export default ProfileNameOrHandle;
+export default FallbackProfileName;

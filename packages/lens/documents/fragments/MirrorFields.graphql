@@ -9,6 +9,9 @@ fragment MirrorFields on Mirror {
   }
   txHash
   createdAt
+  by {
+    ...ProfileFields
+  }
   mirrorOn {
     ... on Post {
       ...PostFields
