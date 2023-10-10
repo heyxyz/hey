@@ -42,12 +42,10 @@ import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { MetadataAttributeType } from '@lens-protocol/metadata';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
-import getPublicationMetadata from '@lib/getPublicationMetadata';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
@@ -62,6 +60,7 @@ import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -143,7 +142,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     isUploading,
     videoThumbnail,
     setVideoThumbnail,
-    videoDurationInSeconds,
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
@@ -170,6 +168,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const [editor] = useLexicalComposerContext();
   const [createPoll] = useCreatePoll();
+  const getMetadata = usePublicationMetadata();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
@@ -499,13 +498,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return null;
   };
 
-  const getAttachmentImage = (): string =>
-    (hasAudio
-      ? audioPublication.cover
-      : hasVideo
-      ? videoThumbnail.url
-      : attachments[0]?.uri) as string;
-
   const getTitlePrefix = () => {
     if (hasVideo) {
       return 'Video';
@@ -556,27 +548,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      const attributes = [
-        ...(hasAudio
-          ? [
-              {
-                type: MetadataAttributeType.STRING,
-                key: 'author',
-                value: audioPublication.artist
-              }
-            ]
-          : []),
-        ...(hasVideo
-          ? [
-              {
-                type: MetadataAttributeType.STRING,
-                key: 'durationInSeconds',
-                value: videoDurationInSeconds
-              }
-            ]
-          : [])
-      ];
-
       let processedPublicationContent = publicationContent;
 
       if (showPollEditor) {
@@ -591,23 +562,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             : `${getTitlePrefix()} by @${currentProfile?.handle}`,
           description: processedPublicationContent,
           animation_url: getAnimationUrl() || textNftImageUrl,
-          external_url: `https://hey.xyz/u/${currentProfile?.handle}`,
-          attributes: attributes
+          external_url: `https://hey.xyz/u/${currentProfile?.handle}`
         }
       };
 
-      console.log(
-        'baseMetadata',
-        baseMetadata,
-        attachments,
-        getAttachmentImage()
-      );
-
-      const metadata = getPublicationMetadata({
-        baseMetadata,
-        attachments,
-        cover: getAttachmentImage()
-      });
+      const metadata = getMetadata({ baseMetadata });
 
       const noCollect = !collectModule.type;
       const useDataAvailability = isComment
