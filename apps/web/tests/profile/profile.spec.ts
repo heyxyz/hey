@@ -21,7 +21,7 @@ test.describe('Profile', () => {
 
     await expect(avatar).toHaveAttribute(
       'src',
-      `${LENS_MEDIA_SNAPSHOT_URL}/${AVATAR}/9ab05cc018d5976f8454278742fca49e77ffd86bdaee7bb30644ad842c9b8381.png`
+      `${LENS_MEDIA_SNAPSHOT_URL}/${AVATAR}/9caf74be27cca70afabf170375626878e534d5266494a78462dac479a39ccf48.png`
     );
   });
 
@@ -30,7 +30,7 @@ test.describe('Profile', () => {
     const style = await cover.getAttribute('style');
 
     await expect(style).toContain(
-      `${LENS_MEDIA_SNAPSHOT_URL}/${COVER}/344d357eeca656d8c075a31dff8d2fc635aa8ff9c75c055764e79670e3a93e36.jpg`
+      `${LENS_MEDIA_SNAPSHOT_URL}/${COVER}/cec102043296a17cbe39416bbd7abb6df6bacdb768c6ef1b358411e45e86b5fa.png`
     );
   });
 });
