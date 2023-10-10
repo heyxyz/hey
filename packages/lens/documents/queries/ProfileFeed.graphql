@@ -8,6 +8,9 @@ query Feed($request: FeedRequest!) {
         ... on Comment {
           ...CommentFields
         }
+        ... on Quote {
+          ...QuoteFields
+        }
       }
     }
     pageInfo {
