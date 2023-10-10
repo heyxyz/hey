@@ -44,3 +44,4 @@ bun codegen
 echo "GraphQL Codegen complete 🧬"
 # -------------------------------------
 echo "Project bootstrap complete 🎉"
+
