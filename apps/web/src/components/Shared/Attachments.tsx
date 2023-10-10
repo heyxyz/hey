@@ -84,7 +84,7 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
         >
           <ImageComponent uri={asset.uri} />
         </div>
-      ) : (
+      ) : isImages ? (
         attachments.map((attachment, index) => {
           return (
             <div
@@ -103,7 +103,7 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
             </div>
           );
         })
-      )}
+      ) : null}
       {isVideo && (
         <Video src={asset?.uri || attachments[0].uri} poster={asset?.cover} />
       )}
