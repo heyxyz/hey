@@ -4,16 +4,9 @@ declare let self: ServiceWorkerGlobalScope;
 
 const preCachedAssets = (process.env.STATIC_ASSETS ?? []) as string[];
 
-const CACHEABLE_PATHS = [
-  '/',
-  '/contact',
-  '/explore',
-]
+const CACHEABLE_PATHS = ['/', '/contact', '/explore'];
 
-const CACHEABLE_DOMAINS = [
-  'https://static-assets.hey.xyz'
-]
-
+const CACHEABLE_DOMAINS = ['https://static-assets.hey.xyz'];
 
 const cache = new ServiceWorkerCache({
   cachePrefix: 'SWCache',
@@ -50,4 +43,4 @@ self.addEventListener('fetch', handleFetch);
 self.addEventListener('install', (event) => event.waitUntil(handleInstall()));
 self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
 
-export { };
+export {};
