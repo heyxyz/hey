@@ -220,6 +220,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 'x',
                 'statusEmoji',
                 'statusMessage',
+                'timestamp',
                 'app'
               ].includes(attr.key)
           )
@@ -262,7 +263,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           {
             type: MetadataAttributeType.STRING,
             key: 'timestamp',
-            value: new Date().toString()
+            value: new Date().toISOString()
           }
         ]
       };
@@ -270,6 +271,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         preparedProfileMetadata.attributes?.filter((m) =>
           Boolean(trimify(m.value))
         );
+      console.log(preparedProfileMetadata);
       const metadata = profileMetadata(preparedProfileMetadata);
       const id = await uploadToArweave(metadata);
 
@@ -305,6 +307,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           ? croppedProfilePictureAreaPixels
           : croppedCoverPictureAreaPixels
       );
+
       if (!croppedImage) {
         return toast.error(Errors.SomethingWentWrong);
       }
@@ -321,18 +324,19 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
       // Update Profile Picture
       if (type === 'avatar') {
-        setCoverPictureIpfsUrl(ipfsUrl);
-        setUploadedCoverPictureUrl(dataUrl);
-      } else if (type === 'cover') {
         setProfilePictureIpfsUrl(ipfsUrl);
         setUploadedProfilePictureUrl(dataUrl);
+      } else if (type === 'cover') {
+        setCoverPictureIpfsUrl(ipfsUrl);
+        setUploadedCoverPictureUrl(dataUrl);
       }
     } catch (error) {
       onError(error);
     } finally {
       setShowCoverPictureCropModal(false);
-      setUploadingCoverPicture(false);
       setShowProfilePictureCropModal(false);
+      setUploadingCoverPicture(false);
+      setUploadingProfilePicture(false);
     }
   };
 
@@ -431,12 +435,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 src={uploadedProfilePictureUrl || renderProfilePictureUrl}
                 alt={t`Profile picture crop preview`}
               />
-              <div className="flex items-center space-x-3">
-                <ChooseFile
-                  onChange={(event) => onFileChange(event, 'avatar')}
-                />
-                {uploadingProfilePicture ? <Spinner size="sm" /> : null}
-              </div>
+              <ChooseFile onChange={(event) => onFileChange(event, 'avatar')} />
             </div>
           </div>
           <div className="space-y-1.5">
@@ -453,12 +452,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                   alt={t`Cover picture crop preview`}
                 />
               </div>
-              <div className="flex items-center space-x-3">
-                <ChooseFile
-                  onChange={(event) => onFileChange(event, 'cover')}
-                />
-                {uploadingCoverPicture ? <Spinner size="sm" /> : null}
-              </div>
+              <ChooseFile onChange={(event) => onFileChange(event, 'cover')} />
             </div>
           </div>
           <Button
@@ -480,7 +474,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         </Form>
       </Card>
       <Modal
-        title={t`Crop image`}
+        title={t`Crop cover picture`}
         show={showCoverPictureCropModal}
         size="md"
         onClose={
@@ -516,7 +510,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       </Modal>
       {/* Picture */}
       <Modal
-        title={t`Crop image`}
+        title={t`Crop profile picture`}
         show={showProfilePictureCropModal}
         size="sm"
         onClose={
@@ -536,7 +530,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           />
           <Button
             type="submit"
-            disabled={uploadingProfilePicture || !coverPictureSrc}
+            disabled={uploadingProfilePicture || !profilePictureSrc}
             onClick={() => uploadAndSave('avatar')}
             icon={
               uploadingProfilePicture ? (
@@ -546,7 +540,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               )
             }
           >
-            <Trans>Save</Trans>
+            <Trans>Upload</Trans>
           </Button>
         </div>
       </Modal>
