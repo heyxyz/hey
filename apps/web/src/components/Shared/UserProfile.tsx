@@ -77,7 +77,7 @@ const UserProfile: FC<UserProfileProps> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={formatHandle(profile?.handle)}
+      alt={formatHandle(profile?.handle) ?? profile.id}
     />
   );
 
@@ -87,7 +87,8 @@ const UserProfile: FC<UserProfileProps> = ({
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
           <div className="truncate">
             {sanitizeDisplayName(profile?.metadata?.displayName) ??
-              formatHandle(profile?.handle)}
+              formatHandle(profile?.handle) ??
+              profile.id}
           </div>
         </div>
         {isVerified(profile.id) ? (
@@ -109,8 +110,8 @@ const UserProfile: FC<UserProfileProps> = ({
       <div>
         <Slug
           className="text-sm"
-          slug={formatHandle(profile?.handle)}
-          prefix="@"
+          slug={formatHandle(profile?.handle) ?? profile.id}
+          prefix={profile?.handle ? '@' : '#'}
         />
         {timestamp ? (
           <span className="lt-text-gray-500">
@@ -130,7 +131,7 @@ const UserProfile: FC<UserProfileProps> = ({
         isBig={isBig}
         profile={profile}
         followStatusLoading={followStatusLoading}
-        showUserPreview={showUserPreview}
+        showUserPreview={showUserPreview && profile.handle}
       >
         <div className="mr-8 flex items-center space-x-3">
           <UserAvatar />
@@ -160,7 +161,7 @@ const UserProfile: FC<UserProfileProps> = ({
       className="flex items-center justify-between"
       data-testid={`user-profile-${profile.id}`}
     >
-      {linkToProfile ? (
+      {linkToProfile && profile.handle ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />
         </Link>

@@ -33,14 +33,13 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
     ? firstComment
       ? firstComment
       : feedItem?.root
     : targetPublication;
-  const profile = feedItem ? rootPublication.by : publication.by;
+  const profile = feedItem ? rootPublication.by : targetPublication.by;
   const timestamp = feedItem
     ? rootPublication.createdAt
     : targetPublication.createdAt;
@@ -51,7 +50,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         quoted ? 'pb-2' : 'pb-4',
         'relative flex justify-between space-x-1.5'
       )}
-      data-testid={`publication-${publication.id}-header`}
+      data-testid={`publication-${targetPublication.id}-header`}
     >
       <span
         className="max-w-full"
@@ -67,7 +66,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
       <div className="!-mr-[7px] flex items-center space-x-1">
         {gardenerMode ? <Source publication={targetPublication} /> : null}
         {!publication.isHidden && !quoted ? (
-          <PublicationMenu publication={publication} />
+          <PublicationMenu publication={targetPublication} />
         ) : null}
         {quoted && isNew ? (
           <button

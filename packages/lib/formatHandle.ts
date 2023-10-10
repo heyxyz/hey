@@ -6,9 +6,9 @@ import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
  * @param handle Complete handle
  * @returns Formatted handle without lens/ or test/ prefix
  */
-const formatHandle = (handle: string | null): string => {
+const formatHandle = (handle: string | null): string | null => {
   if (!handle) {
-    return '';
+    return null;
   }
 
   if (handle.toLowerCase() === LENSPROTOCOL_HANDLE) {
