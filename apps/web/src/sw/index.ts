@@ -3,11 +3,21 @@ import { ServiceWorkerCache } from './cache';
 declare let self: ServiceWorkerGlobalScope;
 
 const preCachedAssets = (process.env.STATIC_ASSETS ?? []) as string[];
-const cacheableRoutes = ['/', '/explore', '/contact'];
+
+const CACHEABLE_PATHS = [
+  '/',
+  '/contact',
+  '/explore',
+]
+
+const CACHEABLE_DOMAINS = [
+  'https://static-assets.hey.xyz'
+]
+
 
 const cache = new ServiceWorkerCache({
   cachePrefix: 'SWCache',
-  cacheableRoutes,
+  cacheableRoutes: [...CACHEABLE_PATHS, ...CACHEABLE_DOMAINS],
   staticAssets: preCachedAssets
 });
 
@@ -25,7 +35,7 @@ const handleFetch = (event: FetchEvent): void => {
   const request = event.request.clone();
   const { origin } = new URL(request.url);
 
-  if (self.location.origin === origin) {
+  if (self.location.origin === origin || CACHEABLE_DOMAINS.includes(origin)) {
     // responding for same origin requests - assets, documents
     event.respondWith(cache.get(event));
     // can respond to api calls to cache using indexedDB
@@ -40,4 +50,4 @@ self.addEventListener('fetch', handleFetch);
 self.addEventListener('install', (event) => event.waitUntil(handleInstall()));
 self.addEventListener('activate', (event) => event.waitUntil(handleActivate()));
 
-export {};
+export { };
