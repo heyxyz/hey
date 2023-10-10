@@ -1,8 +1,4 @@
-import {
-  FollowModuleType,
-  OpenActionModuleType,
-  ReferenceModuleType
-} from '@hey/lens';
+import { FollowModuleType, OpenActionModuleType } from '@hey/lens';
 import { t } from '@lingui/macro';
 
 /**
@@ -28,9 +24,6 @@ const getAllowanceModule = (
     case FollowModuleType.FeeFollowModule:
       return { name: t`Fee follow`, field: 'followModule' };
 
-    // Reference modules
-    case ReferenceModuleType.FollowerOnlyReferenceModule:
-      return { name: t`Follower only reference`, field: 'referenceModule' };
     default:
       return { name, field: 'collectModule' };
   }

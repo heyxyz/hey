@@ -8,7 +8,6 @@ import {
   FollowModuleType,
   LimitType,
   OpenActionModuleType,
-  ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useEnabledCurrenciesQuery
 } from '@hey/lens';
@@ -27,12 +26,11 @@ import Allowance from './Allowance';
 const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
-    collectModules: [
+    openActionModules: [
       OpenActionModuleType.SimpleCollectOpenActionModule,
       OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
     ],
-    followModules: [FollowModuleType.FeeFollowModule],
-    referenceModules: [ReferenceModuleType.FollowerOnlyReferenceModule]
+    followModules: [FollowModuleType.FeeFollowModule]
   };
 };
 
