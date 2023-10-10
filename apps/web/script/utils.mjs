@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-const getFilesInDirectory = (directory) => {
+export const getFilesInDirectory = (directory) => {
   const EXTENSIONS_TO_INCLUDE = [
     'txt',
     'js',
@@ -27,8 +27,4 @@ const getFilesInDirectory = (directory) => {
   }
 
   return filesToInclude;
-};
-
-module.exports = {
-  getFilesInDirectory
 };

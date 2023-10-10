@@ -295,6 +295,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
       esbuild:
         specifier: ^0.19.4
         version: 0.19.4

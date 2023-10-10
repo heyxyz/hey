@@ -1,7 +1,7 @@
 /**
  * NOTE - Remember to increment version upon adding/updating any static assets inside the /public folder or whenever new pages introduced
  */
-const CACHE_VERSION = '0.0.1';
+const CACHE_VERSION = process.env.LATEST_GIT_COMMIT_SHA;
 export class ServiceWorkerCache {
   cacheName: string;
   cachePrefix: string;
