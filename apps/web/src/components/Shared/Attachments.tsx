@@ -41,7 +41,11 @@ interface AttachmentsProps {
 
 const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const attachmentsLength = attachments.length;
+  const attachmentsLength = attachments.length
+    ? attachments.length
+    : asset
+    ? 1
+    : 0;
 
   const isImages =
     asset?.type === 'Image' ||
