@@ -23,6 +23,7 @@ import type {
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
 import {
+  FollowModuleType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
@@ -99,9 +100,10 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const isFreeCollectModule = !collectModule;
   const isSimpleFreeCollectModule =
-    collectModule?.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+    collectModule?.type === OpenActionModuleType.SimpleCollectOpenActionModule;
   const isMultirecipientFeeCollectModule =
-    collectModule?.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+    collectModule?.type ===
+    OpenActionModuleType.MultirecipientFeeCollectOpenActionModule;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -114,7 +116,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     toast.success(t`Collected successfully!`);
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: publication?.id,
-      collect_module: collectModule?.__typename
+      collect_module: collectModule?.type
     });
   };
 
@@ -147,12 +149,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         request: {
           currencies: assetAddress,
           followModules: [],
-          openActionModules: [
-            collectModule?.__typename ===
-            'MultirecipientFeeCollectOpenActionSettings'
-              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-              : OpenActionModuleType.SimpleCollectOpenActionModule
-          ],
+          openActionModules: [collectModule?.type],
           referenceModules: []
         }
       },
@@ -254,10 +251,12 @@ const CollectModule: FC<CollectModuleProps> = ({
         {collectModule?.followerOnly ? (
           <div className="pb-5">
             <CollectWarning
-              handle={formatHandle(publication?.by?.handle)}
+              handle={
+                formatHandle(publication?.by?.handle) || publication.by.id
+              }
               isSuperFollow={
-                publication?.by?.followModule?.__typename ===
-                'FeeFollowModuleSettings'
+                publication?.by?.followModule?.type ===
+                FollowModuleType.FeeFollowModule
               }
             />
           </div>
