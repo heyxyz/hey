@@ -29,7 +29,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
     where: {
       commentOn: {
         id: publicationId,
-        commentsRankingFilter: CommentRankingFilterType.NoneRelevant
+        ranking: { filter: CommentRankingFilterType.NoneRelevant }
       },
       customFilters: [CustomFiltersType.Gardeners]
     },
