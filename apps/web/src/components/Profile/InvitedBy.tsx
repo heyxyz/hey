@@ -19,14 +19,18 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
         href={`/u/${formatHandle(profile.handle)}`}
       >
         <Image
-          key={profile.handle}
+          key={profile.id}
           className="h-5 w-5 rounded-full border dark:border-gray-700"
           src={getAvatar(profile)}
-          alt={formatHandle(profile?.handle)}
+          alt={profile.id}
         />
         <span>
           <Trans>
-            Invited by <Slug prefix="@" slug={formatHandle(profile.handle)} />
+            Invited by{' '}
+            <Slug
+              prefix="@"
+              slug={formatHandle(profile.handle) || profile.id}
+            />
           </Trans>
         </span>
       </Link>

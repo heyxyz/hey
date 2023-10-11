@@ -212,7 +212,8 @@ const FollowModule: FC<FollowModuleProps> = ({
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+          Super follow{' '}
+          <Slug slug={formatHandle(profile?.handle) || profile.id} prefix="@" />{' '}
           {again ? 'again' : ''}
         </div>
         <div className="lt-text-gray-500">

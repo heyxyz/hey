@@ -65,7 +65,10 @@ const SuperFollow: FC<SuperFollowProps> = ({
         title={
           <span>
             Super follow{' '}
-            <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+            <Slug
+              slug={formatHandle(profile?.handle) || profile.id}
+              prefix="@"
+            />{' '}
             {again ? 'again' : ''}
           </span>
         }

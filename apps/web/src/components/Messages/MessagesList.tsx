@@ -1,7 +1,6 @@
 import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Card, Image } from '@hey/ui';
@@ -96,7 +95,7 @@ const MessageTile: FC<MessageTileProps> = ({
           <Image
             src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
         ) : null}
         <div

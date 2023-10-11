@@ -86,7 +86,7 @@ const Preview: FC<PreviewProps> = ({
             className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
             height={40}
             width={40}
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
           <div className="grow overflow-hidden">
             <div className="flex justify-between space-x-1">

@@ -1,5 +1,4 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Card, Image } from '@hey/ui';
 import { Trans } from '@lingui/macro';
@@ -52,7 +51,7 @@ const NewPost: FC = () => {
           src={getAvatar(currentProfile)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
           onClick={() => push(`/u/${currentProfile?.handle}`)}
-          alt={formatHandle(currentProfile?.handle)}
+          alt={currentProfile?.id}
         />
         <button
           className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"

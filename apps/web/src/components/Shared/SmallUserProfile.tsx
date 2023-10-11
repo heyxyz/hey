@@ -38,7 +38,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       )}
       height={smallAvatar ? 20 : 24}
       width={smallAvatar ? 20 : 24}
-      alt={formatHandle(profile?.handle)}
+      alt={profile.id}
     />
   );
 
@@ -56,7 +56,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       ) : null}
       <Slug
         className="text-sm"
-        slug={formatHandle(profile?.handle)}
+        slug={formatHandle(profile?.handle) || profile.id}
         prefix="@"
       />
       {timestamp ? (

@@ -40,10 +40,10 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
       <div className="contents -space-x-2">
         {profiles?.map((profile) => (
           <Image
-            key={profile.handle}
+            key={profile.id}
             className="h-5 w-5 rounded-full border dark:border-gray-700"
             src={getAvatar(profile)}
-            alt={formatHandle(profile?.handle)}
+            alt={profile.id}
           />
         ))}
       </div>

@@ -18,15 +18,19 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
       <span>
         <b>
           {invite.profileMinted ? (
-            <Link
-              href={`/u/${formatHandle(invite.profileMinted.handle)}`}
-              target="_blank"
-            >
-              <Slug
-                prefix="@"
-                slug={formatHandle(invite.profileMinted.handle)}
-              />
-            </Link>
+            invite.profileMinted.handle ? (
+              <Link
+                href={`/u/${formatHandle(invite.profileMinted.handle)}`}
+                target="_blank"
+              >
+                <Slug
+                  prefix="@"
+                  slug={formatHandle(invite.profileMinted.handle) as string}
+                />
+              </Link>
+            ) : (
+              <Slug prefix="#" slug={invite.profileMinted.id} />
+            )
           ) : (
             formatAddress(invite.by)
           )}

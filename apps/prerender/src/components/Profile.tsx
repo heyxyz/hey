@@ -84,48 +84,58 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img
-          alt={`@${formatHandle(profile.handle)}'s avatar`}
+          alt={`@${formatHandle(profile.handle) || profile.id}'s avatar`}
           src={image}
           width="64"
         />
         <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
-        <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
+        <h2 data-testid="profile-handle">
+          @{formatHandle(profile.handle) || profile.id}
+        </h2>
         <h3 data-testid="profile-bio">
           {truncateByWords(profile?.bio ?? '', 30)}
         </h3>
         <div>
-          <div>{profile.stats.totalPosts} Posts</div>
-          <div>{profile.stats.totalComments} Replies</div>
-          <div>{profile.stats.totalFollowing} Following</div>
-          <div>{profile.stats.totalFollowers} Followers</div>
-          <div>{profile.stats.totalMirrors} Mirrors</div>
+          <div>{profile.stats.posts} Posts</div>
+          <div>{profile.stats.comments} Replies</div>
+          <div>{profile.stats.following} Following</div>
+          <div>{profile.stats.followers} Followers</div>
+          <div>{profile.stats.mirrors} Mirrors</div>
         </div>
         <hr />
         <nav>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>Feed</a>
+            <a
+              href={`${BASE_URL}/u/${
+                formatHandle(profile.handle) || profile.id
+              }`}
+            >
+              Feed
+            </a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=replies`}
+              href={`${BASE_URL}/u/${
+                formatHandle(profile.handle) || profile.id
+              }?type=replies`}
             >
               Replies
             </a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}
+              href={`${BASE_URL}/u/${
+                formatHandle(profile.handle) || profile.id
+              }?type=media`}
             >
               Media
             </a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=collects`}
+              href={`${BASE_URL}/u/${
+                formatHandle(profile.handle) || profile.id
+              }?type=collects`}
             >
               Collected
             </a>

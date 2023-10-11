@@ -118,7 +118,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         )}
         height={isBig ? 56 : 40}
         width={isBig ? 56 : 40}
-        alt={formatHandle(compositeProfile.handle)}
+        alt={compositeProfile.id}
       />
     );
 
@@ -138,7 +138,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         </div>
         <Slug
           className="text-sm"
-          slug={formatHandle(compositeProfile.handle)}
+          slug={formatHandle(compositeProfile.handle) || compositeProfile.id}
           prefix="@"
         />
       </>

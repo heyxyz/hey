@@ -57,7 +57,7 @@ const MobileDrawerMenu: FC = () => {
             <Image
               src={getAvatar(currentProfile as Profile)}
               className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
-              alt={formatHandle(currentProfile?.handle)}
+              alt={currentProfile?.id}
             />
             <div>
               <Trans>Logged in as</Trans>

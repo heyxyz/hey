@@ -26,7 +26,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
         className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
         height={32}
         width={32}
-        alt={formatHandle(profile?.handle)}
+        alt={profile.id}
       />
     </Link>
   );

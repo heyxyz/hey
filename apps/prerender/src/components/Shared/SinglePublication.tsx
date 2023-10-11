@@ -1,4 +1,4 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
@@ -7,7 +7,7 @@ import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
 interface PublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   h1Content?: boolean;
 }
 

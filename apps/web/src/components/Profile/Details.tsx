@@ -113,7 +113,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
-          alt={formatHandle(profile?.handle)}
+          alt={profile.id}
           data-testid="profile-avatar"
         />
         <LightBox
@@ -152,7 +152,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {profile?.metadata?.displayName ? (
             <Slug
               className="text-sm sm:text-base"
-              slug={formatHandle(profile?.handle)}
+              slug={formatHandle(profile?.handle) || profile.id}
               prefix="@"
             />
           ) : (

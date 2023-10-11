@@ -73,17 +73,17 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
                 alt="Logo"
               />
             }
-            value={formatHandle(profile?.handle)}
+            value={profile.id}
           >
             <Trans>Have used {APP_NAME}</Trans>
           </MetaDetails>
         ) : null}
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.id}
+          value={profile.id}
           title={t`Profile ID`}
         >
-          {profile?.id}
+          {profile.id}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}

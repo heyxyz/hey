@@ -77,7 +77,7 @@ const UserProfile: FC<UserProfileProps> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={formatHandle(profile?.handle) ?? profile.id}
+      alt={profile.id}
     />
   );
 

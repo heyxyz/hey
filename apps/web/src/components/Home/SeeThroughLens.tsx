@@ -110,7 +110,7 @@ const SeeThroughLens: FC = () => {
             width={20}
             height={20}
             className="h-5 w-5 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
           <span>
             {seeThroughProfile

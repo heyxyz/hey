@@ -74,7 +74,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
-          {group.instagram ? (
+          {group.lens ? (
             <MetaDetails
               icon={
                 <img
@@ -87,7 +87,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link href={`/u/${formatHandle(group.lens)}`}>
-                <Slug slug={formatHandle(group.lens)} />
+                <Slug slug={formatHandle(group.lens) as string} />
               </Link>
             </MetaDetails>
           ) : null}

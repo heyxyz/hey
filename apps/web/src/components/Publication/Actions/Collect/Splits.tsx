@@ -61,9 +61,16 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     alt="Avatar"
                   />
                   {profile ? (
-                    <Link href={`/u/${formatHandle(profile?.handle)}`}>
-                      <Slug slug={formatHandle(profile?.handle)} prefix="@" />
-                    </Link>
+                    profile.handle ? (
+                      <Link href={`/u/${formatHandle(profile.handle)}`}>
+                        <Slug
+                          slug={formatHandle(profile.handle) as string}
+                          prefix="@"
+                        />
+                      </Link>
+                    ) : (
+                      <Slug slug={profile.id} prefix="#" />
+                    )
                   ) : (
                     <Link
                       href={`${POLYGONSCAN_URL}/address/${address}`}

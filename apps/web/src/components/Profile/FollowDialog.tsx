@@ -28,11 +28,11 @@ const FollowModal: FC<FollowModalProps> = ({
           <Image
             src={getAvatar(profile)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
           <Slug
             className="flex items-center"
-            slug={formatHandle(profile?.handle)}
+            slug={formatHandle(profile?.handle) || profile.id}
             prefix="@"
           />{' '}
         </span>

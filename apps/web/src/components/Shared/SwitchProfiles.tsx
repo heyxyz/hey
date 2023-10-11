@@ -63,7 +63,7 @@ const SwitchProfiles: FC = () => {
               height={20}
               width={20}
               src={getAvatar(profile)}
-              alt={formatHandle(profile?.handle)}
+              alt={profile.id}
             />
             <div className="truncate">{formatHandle(profile?.handle)}</div>
           </span>

@@ -41,7 +41,7 @@ const SignedUser: FC = () => {
     <Image
       src={getAvatar(currentProfile as Profile)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
-      alt={formatHandle(currentProfile?.handle)}
+      alt={currentProfile?.id}
     />
   );
 
@@ -79,7 +79,9 @@ const SignedUser: FC = () => {
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={formatHandle(currentProfile?.handle)}
+                    slug={
+                      formatHandle(currentProfile?.handle) || currentProfile?.id
+                    }
                     prefix="@"
                   />
                 </div>
