@@ -41,6 +41,7 @@ const Locale: FC = () => {
         <Menu.Items
           static
           className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          style={{ transform: 'translateY(-100%)' }}
           data-testid="locale-selector-menu"
         >
           {Object.entries(locales).map(([localeCode, localeName]) => (
