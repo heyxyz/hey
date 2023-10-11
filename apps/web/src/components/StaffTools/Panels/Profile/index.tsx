@@ -14,7 +14,6 @@ import {
 } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
 import { t, Trans } from '@lingui/macro';
@@ -117,7 +116,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={formatHandle(profile?.handle)}
+          value={profile.id}
           title={t`Follow module`}
         >
           {getFollowModule(profile?.followModule?.__typename).description}

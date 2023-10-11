@@ -26,7 +26,7 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
+  const { currentProfile, setCurrentProfile } = useAppStore();
   const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
 
@@ -54,7 +54,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       }
 
       const selectedUser = profiles.find((profile) => profile.id === profileId);
-      setProfiles(profiles as Profile[]);
       setCurrentProfile(selectedUser as Profile);
       setProfileId(selectedUser?.id);
     },

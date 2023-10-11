@@ -64,7 +64,9 @@ const MobileDrawerMenu: FC = () => {
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={formatHandle(currentProfile?.handle)}
+                  slug={
+                    formatHandle(currentProfile?.handle) || currentProfile?.id
+                  }
                   prefix="@"
                 />
               </div>

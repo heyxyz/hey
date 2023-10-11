@@ -45,7 +45,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
   setHasProfile
 }) => {
-  const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowAuthModal = useGlobalModalStateStore(

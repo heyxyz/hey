@@ -5,8 +5,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface AppState {
-  profiles: Profile[] | [];
-  setProfiles: (profiles: Profile[]) => void;
   currentProfile: Profile | null;
   setCurrentProfile: (currentProfile: Profile | null) => void;
   verifiedMembers: string[];
@@ -16,8 +14,6 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  profiles: [],
-  setProfiles: (profiles) => set(() => ({ profiles })),
   currentProfile: null,
   setCurrentProfile: (currentProfile) => set(() => ({ currentProfile })),
   verifiedMembers: [],
