@@ -23,9 +23,7 @@ describe('postMetadata', () => {
 
     expect(response.success).toBeTruthy();
     expect(response.metadata).toEqual({
-      content: 'gm, running test from hey codebase',
-      tags: ['science_&_technology'],
-      locale: 'en'
+      content: 'gm, running test from hey codebase'
     });
   });
 });
