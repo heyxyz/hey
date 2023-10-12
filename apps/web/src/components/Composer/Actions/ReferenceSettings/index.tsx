@@ -10,7 +10,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ReferenceModuleType } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/reference-module';
@@ -32,10 +31,10 @@ const ReferenceSettings: FC = () => {
   const setDegreesOfSeparation = useReferenceModuleStore(
     (state) => state.setDegreesOfSeparation
   );
-  const MY_FOLLOWS = t`My follows`;
-  const MY_FOLLOWERS = t`My followers`;
-  const FRIENDS_OF_FRIENDS = t`Friends of friends`;
-  const EVERYONE = t`Everyone`;
+  const MY_FOLLOWS = 'My follows';
+  const MY_FOLLOWERS = 'My followers';
+  const FRIENDS_OF_FRIENDS = 'Friends of friends';
+  const EVERYONE = 'Everyone';
 
   const isFollowerOnlyReferenceModule =
     selectedReferenceModule === ReferenceModuleType.FollowerOnlyReferenceModule;
@@ -75,13 +74,13 @@ const ReferenceSettings: FC = () => {
 
   const getSelectedReferenceModuleTooltipText = () => {
     if (isMyFollowers) {
-      return t`My followers can comment and mirror`;
+      return 'My followers can comment and mirror';
     } else if (isMyFollows) {
-      return t`My follows can comment and mirror`;
+      return 'My follows can comment and mirror';
     } else if (isFriendsOfFriends) {
-      return t`Friend of friends can comment and mirror`;
+      return 'Friend of friends can comment and mirror';
     } else {
-      return t`Everyone can comment and mirror`;
+      return 'Everyone can comment and mirror';
     }
   };
 

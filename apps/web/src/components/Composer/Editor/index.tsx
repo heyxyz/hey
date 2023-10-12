@@ -16,7 +16,7 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import {
   COMMAND_PRIORITY_NORMAL,
   INSERT_LINE_BREAK_COMMAND,
@@ -44,7 +44,7 @@ const Editor: FC = () => {
       attachments.length === 4 ||
       attachments.length + pastedFiles.length > 4
     ) {
-      return toast.error(t`Please choose either 1 video or up to 4 photos.`);
+      return toast.error('Please choose either 1 video or up to 4 photos.');
     }
 
     if (pastedFiles) {

@@ -1,7 +1,7 @@
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -39,14 +39,14 @@ const PollEditor: FC = () => {
             />
           </Button>
           <Modal
-            title={t`Poll length`}
+            title="Poll length"
             icon={<ClockIcon className="text-brand h-5 w-5" />}
             show={showPollLengthModal}
             onClose={() => setShowPollLengthModal(false)}
           >
             <div className="p-5">
               <Input
-                label={t`Poll length (days)`}
+                label="Poll length (days)"
                 type="number"
                 value={pollConfig.length}
                 min={1}
@@ -80,7 +80,7 @@ const PollEditor: FC = () => {
               </div>
             </div>
           </Modal>
-          <Tooltip placement="top" content={t`Delete`}>
+          <Tooltip placement="top" content="Delete">
             <button
               className="flex"
               onClick={() => {
@@ -97,7 +97,7 @@ const PollEditor: FC = () => {
         {pollConfig.choices.map((choice, index) => (
           <div key={index} className="flex items-center space-x-2 text-sm">
             <Input
-              placeholder={t`Choice ${index + 1}`}
+              placeholder={`Choice ${index + 1}`}
               value={choice}
               onChange={(event) => {
                 const newChoices = [...pollConfig.choices];

@@ -4,7 +4,7 @@ import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -34,7 +34,7 @@ const ChooseThumbnail: FC = () => {
     setVideoThumbnail({ uploading: true });
     const result = await uploadFileToIPFS(fileToUpload);
     if (!result.uri) {
-      toast.error(t`Failed to upload thumbnail`);
+      toast.error('Failed to upload thumbnail');
     }
     setVideoThumbnail({
       url: result.uri,
@@ -54,7 +54,7 @@ const ChooseThumbnail: FC = () => {
         'thumbnail.jpeg',
         async (file: any) => {
           if (!file) {
-            return toast.error(t`Please upload a custom thumbnail`);
+            return toast.error('Please upload a custom thumbnail');
           }
           const ipfsResult = await uploadThumbnailToIpfs(file);
           setThumbnails(
@@ -119,7 +119,7 @@ const ChooseThumbnail: FC = () => {
         ]);
         setSelectedThumbnailIndex(0);
       } catch {
-        toast.error(t`Failed to upload thumbnail`);
+        toast.error('Failed to upload thumbnail');
       } finally {
         setImageUploading(false);
       }

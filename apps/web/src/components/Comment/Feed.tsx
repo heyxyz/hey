@@ -5,7 +5,6 @@ import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
@@ -66,15 +65,13 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load comment feed`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load comment feed" error={error} />;
   }
 
   if (!publication?.isHidden && totalComments === 0) {
     return (
       <EmptyState
-        message={t`Be the first one to comment!`}
+        message="Be the first one to comment!"
         icon={<ChatBubbleLeftRightIcon className="text-brand h-8 w-8" />}
       />
     );

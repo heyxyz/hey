@@ -1,5 +1,3 @@
-const linguiConfig = require('./lingui.config');
-
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
@@ -7,14 +5,7 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   transpilePackages: ['data'],
   reactStrictMode: false,
-  experimental: {
-    scrollRestoration: true,
-    swcPlugins: [['@lingui/swc-plugin', {}]]
-  },
-  i18n: {
-    locales: linguiConfig.locales,
-    defaultLocale: linguiConfig.sourceLocale
-  },
+  experimental: { scrollRestoration: true },
   async rewrites() {
     return [
       {

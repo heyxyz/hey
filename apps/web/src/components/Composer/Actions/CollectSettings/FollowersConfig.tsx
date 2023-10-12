@@ -1,6 +1,5 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -18,8 +17,8 @@ const FollowersConfig: FC<FollowersConfigProps> = ({ setCollectType }) => {
         setOn={() =>
           setCollectType({ followerOnly: !collectModule.followerOnly })
         }
-        heading={t`Who can collect`}
-        description={t`Only followers can collect`}
+        heading="Who can collect"
+        description="Only followers can collect"
         icon={<UserGroupIcon className="h-4 w-4" />}
       />
     </div>

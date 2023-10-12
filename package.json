@@ -7,7 +7,6 @@
     "build": "turbo run build --parallel",
     "codegen": "turbo run codegen --parallel",
     "dev": "turbo run dev --parallel",
-    "i18n:extract": "turbo run extract",
     "lint": "turbo run lint --parallel",
     "lint:affected": "turbo run lint --parallel --filter=[origin/main]",
     "lint:fix": "turbo run lint:fix --parallel",

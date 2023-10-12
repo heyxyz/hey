@@ -6,7 +6,7 @@ import {
 } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -72,7 +72,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     return (
       <ErrorMessage
         className="p-5"
-        title={t`Failed to load modules`}
+        title="Failed to load modules"
         error={error}
       />
     );
@@ -91,7 +91,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
       <ToggleWithHelper
         on={collectModule.type !== null}
         setOn={toggleCollect}
-        description={t`This post can be collected`}
+        description="This post can be collected"
       />
       {collectModule.type !== null ? (
         <div className="ml-5">

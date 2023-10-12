@@ -9,7 +9,6 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -33,7 +32,7 @@ const Bookmarks: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Bookmarks • ${APP_NAME}`} />
+      <MetaTags title={`Bookmarks • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <FeedFocusType focus={focus} setFocus={setFocus} />
         <Feed focus={focus} />

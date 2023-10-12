@@ -8,7 +8,7 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { Card, Spinner, Tooltip } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -51,7 +51,7 @@ const LivestreamEditor: FC = () => {
         streamKey: data.result.streamKey
       });
     } catch {
-      toast.error(t`Error creating live stream`);
+      toast.error('Error creating live stream');
     } finally {
       setCreating(false);
     }
@@ -67,7 +67,7 @@ const LivestreamEditor: FC = () => {
           </b>
         </div>
         <div className="flex items-center space-x-3">
-          <Tooltip placement="top" content={t`Delete`}>
+          <Tooltip placement="top" content={'Delete'}>
             <button
               className="flex"
               onClick={() => {
@@ -94,7 +94,7 @@ const LivestreamEditor: FC = () => {
                     await navigator.clipboard.writeText(
                       'rtmp://rtmp.livepeer.com/live'
                     );
-                    toast.success(t`Copied to clipboard!`);
+                    toast.success('Copied to clipboard!');
                   }}
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />
@@ -110,7 +110,7 @@ const LivestreamEditor: FC = () => {
                     await navigator.clipboard.writeText(
                       liveVideoConfig.streamKey
                     );
-                    toast.success(t`Copied to clipboard!`);
+                    toast.success('Copied to clipboard!');
                   }}
                 >
                   <ClipboardDocumentIcon className="h-4 w-4 text-gray-400" />

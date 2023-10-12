@@ -13,7 +13,6 @@ import {
 } from '@hey/data/constants';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -61,17 +60,17 @@ const Attachment: FC = () => {
     try {
       const { files } = evt.target;
       if (!isUploadAllowed(files as FileList)) {
-        toast.error(t`Exceeded max limit of 1 audio, or 1 video, or 4 images`);
+        toast.error('Exceeded max limit of 1 audio, or 1 video, or 4 images');
         return;
       }
       if (isTypeAllowed(files as FileList)) {
         await handleUploadAttachments(files);
         evt.target.value = '';
       } else {
-        return toast.error(t`File format not allowed.`);
+        return toast.error('File format not allowed.');
       }
     } catch {
-      toast.error(t`Something went wrong while uploading!`);
+      toast.error('Something went wrong while uploading!');
     }
   };
 
@@ -82,7 +81,7 @@ const Attachment: FC = () => {
           {isUploading ? (
             <Spinner size="sm" />
           ) : (
-            <Tooltip placement="top" content={t`Media`}>
+            <Tooltip placement="top" content={'Media'}>
               <PhotoIcon className="text-brand h-5 w-5" />
             </Tooltip>
           )}

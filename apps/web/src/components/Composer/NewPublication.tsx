@@ -49,7 +49,6 @@ import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -517,7 +516,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     if (isComment && publication.momoka?.proof && !isSponsored) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       );
     }
 
@@ -682,7 +681,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {error ? (
         <ErrorMessage
           className="!rounded-none"
-          title={t`Transaction failed!`}
+          title="Transaction failed!"
           error={error}
         />
       ) : null}
@@ -749,7 +748,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment ? t`Comment` : t`Post`}
+            {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
       </div>

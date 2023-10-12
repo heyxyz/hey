@@ -2,7 +2,6 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -25,14 +24,14 @@ const ReferralConfig: FC<ReferralConfigProps> = ({ setCollectType }) => {
             referralFee: collectModule.referralFee ? 0 : 25
           })
         }
-        heading={t`Mirror referral reward`}
-        description={t`Share your fee with people who amplify your content`}
+        heading="Mirror referral reward"
+        description="Share your fee with people who amplify your content"
         icon={<ArrowsRightLeftIcon className="h-4 w-4" />}
       />
       {collectModule.referralFee ? (
         <div className="flex space-x-2 pt-4 text-sm">
           <Input
-            label={t`Referral fee`}
+            label="Referral fee"
             type="number"
             placeholder="5"
             iconRight="%"

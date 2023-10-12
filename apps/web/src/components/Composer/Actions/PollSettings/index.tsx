@@ -1,6 +1,5 @@
 import { Bars3BottomLeftIcon } from '@heroicons/react/24/solid';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -13,7 +12,7 @@ const PollSettings: FC = () => {
   const resetPollConfig = usePublicationStore((state) => state.resetPollConfig);
 
   return (
-    <Tooltip placement="top" content={t`Poll`}>
+    <Tooltip placement="top" content="Poll">
       <motion.button
         whileTap={{ scale: 0.9 }}
         type="button"

@@ -8,7 +8,6 @@ import type {
 } from '@hey/lens';
 import { LimitType, usePublicationBookmarksQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -50,16 +49,14 @@ const Feed: FC<FeedProps> = ({ focus }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={t`No bookmarks yet!`}
+        message="No bookmarks yet!"
         icon={<BookmarkIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load bookmark feed`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load bookmark feed" error={error} />;
   }
 
   return (

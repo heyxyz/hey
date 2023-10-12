@@ -4,7 +4,7 @@ import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import type { Erc20 } from '@hey/lens';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -35,15 +35,15 @@ const AmountConfig: FC<AmountConfigProps> = ({
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }
           });
         }}
-        heading={t`Charge for collecting`}
-        description={t`Get paid whenever someone collects your post`}
+        heading="Charge for collecting"
+        description="Get paid whenever someone collects your post"
         icon={<CurrencyDollarIcon className="h-4 w-4" />}
       />
       {collectModule.amount?.value ? (
         <div className="pt-4">
           <div className="flex space-x-2 text-sm">
             <Input
-              label={t`Price`}
+              label="Price"
               type="number"
               placeholder="0.5"
               min="0"

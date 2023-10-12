@@ -1,7 +1,6 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { StarIcon } from '@heroicons/react/24/outline';
 import { Input } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -23,14 +22,14 @@ const CollectLimitConfig: FC<CollectLimitConfigProps> = ({
             collectLimit: collectModule.collectLimit ? null : '1'
           })
         }
-        heading={t`Limited edition`}
-        description={t`Make the collects exclusive`}
+        heading="Limited edition"
+        description="Make the collects exclusive"
         icon={<StarIcon className="h-4 w-4" />}
       />
       {collectModule.collectLimit ? (
         <div className="pt-4 text-sm">
           <Input
-            label={t`Collect limit`}
+            label="Collect limit"
             type="number"
             placeholder="5"
             min="1"

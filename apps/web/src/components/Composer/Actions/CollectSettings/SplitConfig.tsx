@@ -11,7 +11,7 @@ import { OpenActionModuleType, useProfileLazyQuery } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -110,7 +110,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             <Beta />
           </div>
         }
-        description={t`Set multiple recipients for the collect fee`}
+        description="Set multiple recipients for the collect fee"
         icon={<UsersIcon className="h-4 w-4" />}
       />
       {hasRecipients ? (
