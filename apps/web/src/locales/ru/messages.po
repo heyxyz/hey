@@ -669,11 +669,6 @@ msgstr "Загружается предложенное"
 msgid "Nothing to suggest"
 msgstr "Нечего предложить"
 
-#: src/components/Home/Tags.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "Tags"
-msgstr "Теги"
-
 #: src/components/Home/Timeline/EventType/Collected.tsx
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
@@ -3516,6 +3511,10 @@ msgstr "Включить комментарии"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr "Теги"
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
