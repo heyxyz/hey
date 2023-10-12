@@ -75,10 +75,6 @@ const SinglePublication: FC<PublicationProps> = ({
       <div>
         <div>{commentsCount} Comments</div>
         <div>{likesCount} Likes</div>
-        {publication.collectModule.__typename !==
-        'RevertCollectModuleSettings' ? (
-          <div>{collectsCount} Collects</div>
-        ) : null}
         <div>{mirrorsCount} Mirrors</div>
         <hr />
       </div>
