@@ -669,11 +669,6 @@ msgstr ""
 msgid "Nothing to suggest"
 msgstr ""
 
-#: src/components/Home/Tags.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "Tags"
-msgstr ""
-
 #: src/components/Home/Timeline/EventType/Collected.tsx
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
@@ -3515,6 +3510,10 @@ msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
+msgstr ""
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
 msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx
