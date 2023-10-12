@@ -46,38 +46,6 @@ msgstr "Masquer plus de commentaires"
 msgid "Show more comments"
 msgstr "Afficher plus de commentaires"
 
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Add restrictions on who can view this post"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Enable collect first to use collect based token gating"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Collectors can view"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "People need to collect it first to be able to view it"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Followers can view"
-#~ msgstr "Les abonnés peuvent voir"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "People need to follow you to be able to view it"
-#~ msgstr ""
-
-#: src/components/Composer/Actions/AccessSettings/index.tsx
-#~ msgid "Access settings"
-#~ msgstr "Accéder aux paramètres"
-
-#: src/components/Composer/Actions/AccessSettings/index.tsx
-#~ msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-#~ msgstr ""
-
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr ""
@@ -424,10 +392,6 @@ msgstr ""
 msgid "Failed to load group feed"
 msgstr ""
 
-#: src/components/Group/Members.tsx
-#~ msgid "{membersCount, plural, zero {Member} one {Member} other {Members}}"
-#~ msgstr "{membersCount, plural, zero {Member} one {Member} other {Members}}"
-
 #: src/components/Home/AlgorithmicFeed.tsx
 msgid "Failed to load for you"
 msgstr ""
@@ -444,16 +408,6 @@ msgstr ""
 #: src/components/Home/Algorithms/index.tsx
 msgid "Algorithms"
 msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-#~ msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless transactions upgrade"
-#~ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
@@ -600,18 +554,6 @@ msgstr ""
 msgid "No matching users"
 msgstr "Aucun utilisateur correspondant"
 
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "Set default profile"
-#~ msgstr ""
-
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "You own {count} {0} but you don't have a default one."
-#~ msgstr ""
-
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "Set default profile here"
-#~ msgstr ""
-
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
 msgstr ""
@@ -662,11 +604,6 @@ msgstr ""
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "acted"
 msgstr ""
-
-#: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "collected"
-#~ msgstr ""
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
@@ -905,95 +842,6 @@ msgstr ""
 #: src/components/Notification/Settings.tsx
 msgid "Notification settings"
 msgstr ""
-
-#: src/components/Notification/Type/CollectNotification/Amount.tsx
-#~ msgid "Collected for {0} {currency}"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>comment</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>mirror</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CollectNotification/index.tsx
-#~ msgid "<0><1/> collected your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>comment</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>mirror</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/CommentNotification.tsx
-#~ msgid "<0><1/> commented on your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/FollowerNotification.tsx
-#~ msgid "<0><1/> followed you</0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/FollowerNotification.tsx
-#~ msgid "<0><1/> super followed you</0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>comment</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>mirror</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/LikeNotification.tsx
-#~ msgid "<0><1/> liked your <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>comment</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>mirror</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MentionNotification.tsx
-#~ msgid "<0><1/> mentioned you in a <2>post</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>comment</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>mirror</2></0>"
-#~ msgstr ""
-
-#. js-lingui-explicit-id
-#: src/components/Notification/Type/MirrorNotification.tsx
-#~ msgid "<0><1/> mirrored your <2>post</2></0>"
-#~ msgstr ""
 
 #: src/components/Notification/index.tsx
 msgid "Notifications • {APP_NAME}"
@@ -1689,10 +1537,6 @@ msgid "Profile is marked as {0}!"
 msgstr ""
 
 #: src/components/Publication/Actions/Collect/CollectModule.tsx
-#~ msgid "Revenue:"
-#~ msgstr ""
-
-#: src/components/Publication/Actions/Collect/CollectModule.tsx
 msgid "Collected successfully!"
 msgstr ""
 
@@ -1843,22 +1687,6 @@ msgstr ""
 #: src/components/Publication/Actions/Share/index.tsx
 msgid "{0} Mirrors"
 msgstr ""
-
-#: src/components/Publication/DecryptedPublicationBody.tsx
-#~ msgid "To view this..."
-#~ msgstr ""
-
-#: src/components/Publication/DecryptedPublicationBody.tsx
-#~ msgid "Collect finalizing on chain..."
-#~ msgstr ""
-
-#: src/components/Publication/DecryptedPublicationBody.tsx
-#~ msgid "Follow finalizing on chain..."
-#~ msgstr ""
-
-#: src/components/Publication/DecryptedPublicationBody.tsx
-#~ msgid "Error while decrypting!"
-#~ msgstr ""
 
 #: src/components/Publication/HeyOpenActions/Nft/BasePaintCanvas/Mint/Metadata.tsx
 #: src/components/Publication/HeyOpenActions/Nft/ZoraNft/Mint/Metadata.tsx
@@ -2015,10 +1843,6 @@ msgid "{type} was hidden by the author"
 msgstr ""
 
 #: src/components/Publication/OnchainMeta.tsx
-#~ msgid "NFT ADDRESS"
-#~ msgstr ""
-
-#: src/components/Publication/OnchainMeta.tsx
 msgid "ARWEAVE TRANSACTION"
 msgstr ""
 
@@ -2086,42 +1910,6 @@ msgstr ""
 #: src/components/Search/index.tsx
 msgid "Profiles"
 msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Default profile updated successfully!"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Your default profile"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "You don't have any default profile set!"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Select default profile"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Selecting your default account helps to display the selected profile across {APP_NAME}, you can change your default profile anytime."
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "What else you should know"
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Only the default profile will be visible across the {APP_NAME}, example notifications, follow etc."
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "You can change default profile anytime here."
-#~ msgstr ""
-
-#: src/components/Settings/Account/SetProfile.tsx
-#~ msgid "Select profile"
-#~ msgstr ""
 
 #: src/components/Settings/Account/SuperFollow.tsx
 msgid "Invalid amount"
@@ -2355,10 +2143,6 @@ msgid "Delete Profile • {APP_NAME}"
 msgstr ""
 
 #: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
-#~ msgid "Update"
-#~ msgstr ""
-
-#: src/components/Settings/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Profile updated successfully!"
 msgstr ""
@@ -2535,24 +2319,6 @@ msgstr ""
 msgid "Update your preferences to control how you can change your experience on {APP_NAME}."
 msgstr ""
 
-#: src/components/Settings/Profile/NftAvatarModal.tsx
-#: src/components/Settings/Profile/Picture.tsx
-#~ msgid "Avatar updated successfully!"
-#~ msgstr ""
-
-#: src/components/Settings/Profile/NftAvatarModal.tsx
-#~ msgid "Select a NFT"
-#~ msgstr ""
-
-#: src/components/Settings/Profile/NftPicture.tsx
-#~ msgid "Choose NFT avatar"
-#~ msgstr ""
-
-#: src/components/Settings/Profile/Picture.tsx
-#: src/components/Settings/Profile/Profile.tsx
-#~ msgid "Crop image"
-#~ msgstr ""
-
 #: src/components/Settings/Profile/Profile.tsx
 msgid "Name should not exceed 100 characters"
 msgstr ""
@@ -2669,18 +2435,6 @@ msgstr ""
 #: src/components/Shared/Alert/DeletePublication.tsx
 msgid "This can't be undone and it will be removed from your profile, the timeline of any accounts that follow you, and from search results."
 msgstr ""
-
-#: src/components/Shared/Attachments.tsx
-#~ msgid "Open Image in new tab"
-#~ msgstr ""
-
-#: src/components/Shared/Audio/index.tsx
-#~ msgid "Invalid author name"
-#~ msgstr ""
-
-#: src/components/Shared/Audio/index.tsx
-#~ msgid "Add author"
-#~ msgstr ""
 
 #: src/components/Shared/Audio/index.tsx
 msgid "Invalid audio title"
@@ -2801,39 +2555,6 @@ msgstr ""
 msgid "Invites"
 msgstr ""
 
-#: src/components/Shared/Group/Join.tsx
-#~ msgid "Joined"
-#~ msgstr "Joined"
-
-#: src/components/Shared/Group/Join.tsx
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "Join"
-#~ msgstr "Join"
-
-#: src/components/Shared/Group/Join.tsx
-#~ msgid "Join Group"
-#~ msgstr "Join Group"
-
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "You are already a member in <0>{0}</0> group."
-#~ msgstr "You are already a member in <0>{0}</0> group."
-
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "Join <0>{0}</0> group in Zora network and get your membership NFT."
-#~ msgstr "Join <0>{0}</0> group in Zora network and get your membership NFT."
-
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "Switch to Zora"
-#~ msgstr "Switch to Zora"
-
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "Joining in progress"
-#~ msgstr "Joining in progress"
-
-#: src/components/Shared/Group/Mint.tsx
-#~ msgid "Joined successful"
-#~ msgstr "Joined successful"
-
 #: src/components/Shared/IndexStatus.tsx
 msgid "{type} Indexing"
 msgstr ""
@@ -2897,10 +2618,6 @@ msgstr ""
 #: src/components/Shared/Login/New/index.tsx
 msgid "Sign up"
 msgstr ""
-
-#: src/components/Shared/Login/WalletSelector.tsx
-#~ msgid "Sign-In with Lens"
-#~ msgstr ""
 
 #: src/components/Shared/Login/WalletSelector.tsx
 msgid "Change wallet"
@@ -3309,10 +3026,6 @@ msgstr ""
 msgid "Protect now"
 msgstr ""
 
-#: src/components/Shared/ReferralAlert.tsx
-#~ msgid "will get <0>{referralFee}%</0> referral fee"
-#~ msgstr ""
-
 #: src/components/Shared/Status.tsx
 msgid "Status should not be empty"
 msgstr ""
@@ -3490,10 +3203,6 @@ msgid "Gitcoin Score"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Profile/index.tsx
-#~ msgid "Can use relay"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Profile/index.tsx
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Staff tool"
 msgstr ""
@@ -3531,10 +3240,6 @@ msgid "Metadata"
 msgstr ""
 
 #: src/components/StaffTools/Panels/Publication.tsx
-#~ msgid "Collect module"
-#~ msgstr ""
-
-#: src/components/StaffTools/Panels/Publication.tsx
 msgid "Publication ID"
 msgstr ""
 
@@ -3545,51 +3250,6 @@ msgstr ""
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Open action modules"
 msgstr ""
-
-#: src/components/StaffTools/RelayQueues.tsx
-#~ msgid "Transactions"
-#~ msgstr ""
-
-#: src/components/StaffTools/RelayQueues.tsx
-#~ msgid "Stafftools | Relay queues • {APP_NAME}"
-#~ msgstr ""
-
-#: src/components/StaffTools/RelayQueues.tsx
-#: src/components/StaffTools/Sidebar.tsx
-#~ msgid "Relay queues"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "Stafftools | Stats • {APP_NAME}"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total profiles"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "profiles burnt"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total posts"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total mirrors"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total comments"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total collects"
-#~ msgstr ""
-
-#: src/components/StaffTools/Stats/index.tsx
-#~ msgid "total follows"
-#~ msgstr ""
 
 #: src/hooks/useUploadAttachments.tsx
 msgid "Image size should be less than 50MB"
@@ -3602,14 +3262,6 @@ msgstr ""
 #: src/hooks/useUploadAttachments.tsx
 msgid "Audio size should be less than 100MB"
 msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "No collect"
-#~ msgstr ""
-
-#: src/lib/getAllowanceModule.ts
-#~ msgid "Follower only reference"
-#~ msgstr ""
 
 #: src/lib/getAllowanceModule.ts
 msgid "Multirecipient paid collect"
