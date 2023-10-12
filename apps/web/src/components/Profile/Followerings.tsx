@@ -4,7 +4,7 @@ import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -34,12 +34,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
         <div className="lt-text-gray-500">
-          <Plural
-            value={profile.stats.following}
-            zero="Following"
-            one="Following"
-            other="Following"
-          />
+          {plur('Following', profile.stats.following)}
         </div>
       </button>
       <button
@@ -55,12 +50,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       >
         <div className="text-xl">{humanize(profile.stats.followers)}</div>
         <div className="lt-text-gray-500">
-          <Plural
-            value={profile.stats.followers}
-            zero="Follower"
-            one="Follower"
-            other="Followers"
-          />
+          {plur('Followers', profile.stats.followers)}
         </div>
       </button>
       <Modal

@@ -41,9 +41,9 @@ import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+import plur from 'plur';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -306,13 +306,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {humanize(count)}{' '}
-                <Plural
-                  value={count}
-                  zero="collector"
-                  one="collector"
-                  other="collectors"
-                />
+                {humanize(count)} {plur('collector', count)}
               </button>
               <Modal
                 title="Collected by"

@@ -1,7 +1,7 @@
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import { Plural } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -30,13 +30,7 @@ const PollEditor: FC = () => {
             onClick={() => setShowPollLengthModal(true)}
             outline
           >
-            {pollConfig.length}{' '}
-            <Plural
-              value={pollConfig.length}
-              zero="day"
-              one="day"
-              other="days"
-            />
+            {pollConfig.length} {plur('day', pollConfig.length)}
           </Button>
           <Modal
             title="Poll length"

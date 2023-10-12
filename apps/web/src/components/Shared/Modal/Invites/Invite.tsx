@@ -8,8 +8,8 @@ import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
 import axios from 'axios';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -77,13 +77,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         </p>
         <div className="pt-2 font-mono text-lg">
           <b>
-            {invitesLeft}{' '}
-            <Plural
-              value={invitesLeft}
-              zero="invite"
-              one="invite"
-              other="invites"
-            />
+            {invitesLeft} {plur('invite', invitesLeft)}
           </b>{' '}
           available!
         </div>

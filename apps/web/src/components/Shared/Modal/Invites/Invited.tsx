@@ -1,7 +1,7 @@
 import { TicketIcon } from '@heroicons/react/24/outline';
 import type { InvitedResult } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import { Plural } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 
 import Profile from './Profile';
@@ -32,12 +32,7 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
         <b>
           {invitedProfiles.length}
           {invitedProfiles.length >= 50 ? '+' : null}{' '}
-          <Plural
-            value={invitedProfiles.length}
-            zero="address"
-            one="address"
-            other="addresses"
-          />
+          {plur('address', invitedProfiles.length)}
         </b>
         !
       </div>

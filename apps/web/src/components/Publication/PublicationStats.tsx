@@ -12,7 +12,7 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -43,12 +43,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <b className="text-black dark:text-white">
             {nFormatter(commentsCount)}
           </b>{' '}
-          <Plural
-            value={commentsCount}
-            zero="Comment"
-            one="Comment"
-            other="Comments"
-          />
+          {plur('Comment', commentsCount)}
         </span>
       ) : null}
       {mirrorCount > 0 ? (
@@ -66,12 +61,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(mirrorCount)}
             </b>{' '}
-            <Plural
-              value={mirrorCount}
-              zero="Mirror"
-              one="Mirror"
-              other="Mirrors"
-            />
+            {plur('Mirror', commentsCount)}
           </button>
           <Modal
             title="Mirrored by"
@@ -98,12 +88,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(reactionCount)}
             </b>{' '}
-            <Plural
-              value={reactionCount}
-              zero="Like"
-              one="Like"
-              other="Likes"
-            />
+            {plur('Like', reactionCount)}
           </button>
           <Modal
             title="Liked by"
@@ -130,12 +115,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(collectCount)}
             </b>{' '}
-            <Plural
-              value={collectCount}
-              zero="Collect"
-              one="Collect"
-              other="Collects"
-            />
+            {plur('Collect', collectCount)}
           </button>
           <Modal
             title="Collected by"
@@ -152,12 +132,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <b className="text-black dark:text-white">
             {nFormatter(bookmarkCount)}
           </b>{' '}
-          <Plural
-            value={bookmarkCount}
-            zero="Bookmark"
-            one="Bookmark"
-            other="Bookmarks"
-          />
+          {plur('Bookmarks', bookmarkCount)}
         </span>
       ) : null}
     </div>

@@ -15,8 +15,8 @@ import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
-import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
+import plur from 'plur';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 
@@ -190,12 +190,7 @@ const UserPreview: FC<UserPreviewProps> = ({
                 {nFormatter(compositeProfile.stats.following)}
               </div>
               <div className="lt-text-gray-500 text-sm">
-                <Plural
-                  value={compositeProfile.stats.following}
-                  zero="Following"
-                  one="Following"
-                  other="Following"
-                />
+                {plur('Following', compositeProfile.stats.following)}
               </div>
             </div>
             <div className="text-md flex items-center space-x-1">
@@ -203,12 +198,7 @@ const UserPreview: FC<UserPreviewProps> = ({
                 {nFormatter(compositeProfile.stats.followers)}
               </div>
               <div className="lt-text-gray-500 text-sm">
-                <Plural
-                  value={compositeProfile.stats.followers}
-                  zero="Follower"
-                  one="Follower"
-                  other="Followers"
-                />
+                {plur('Follower', compositeProfile.stats.followers)}
               </div>
             </div>
           </div>

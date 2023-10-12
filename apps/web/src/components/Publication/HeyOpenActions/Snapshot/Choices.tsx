@@ -14,8 +14,8 @@ import { Card, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
 import axios from 'axios';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -202,13 +202,7 @@ const Choices: FC<ChoicesProps> = ({
               <b>Poll</b>
               <span>·</span>
               <span>
-                {humanize(scores_total ?? 0)}{' '}
-                <Plural
-                  value={scores_total ?? 0}
-                  zero="Vote"
-                  one="Vote"
-                  other="Votes"
-                />
+                {humanize(scores_total ?? 0)} {plur('Vote', scores_total || 0)}
               </span>
               {state === 'active' ? (
                 <>

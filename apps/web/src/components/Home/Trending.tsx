@@ -10,8 +10,8 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural } from '@lingui/macro';
 import Link from 'next/link';
+import plur from 'plur';
 import type { FC } from 'react';
 
 const Title = () => {
@@ -67,13 +67,7 @@ const Trending: FC = () => {
               >
                 <div className="font-bold">{tag?.tag}</div>
                 <div className="lt-text-gray-500 text-[12px]">
-                  {nFormatter(tag?.total)}{' '}
-                  <Plural
-                    value={tag?.total}
-                    zero="Publication"
-                    one="Publication"
-                    other="Publications"
-                  />
+                  {nFormatter(tag?.total)} {plur('Publication', tag?.total)}
                 </div>
               </Link>
             </div>

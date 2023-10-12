@@ -8,9 +8,9 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { plural } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
@@ -56,11 +56,7 @@ const Collect: FC<CollectProps> = ({ publication, showCount }) => {
           <div className="rounded-full p-1.5 hover:bg-red-300/20">
             <Tooltip
               placement="top"
-              content={`${humanize(count)} ${plural(count, {
-                zero: 'Collect',
-                one: 'Collect',
-                other: 'Collects'
-              })}`}
+              content={`${humanize(count)} ${plur('Collect', count)}`}
               withDelay
             >
               {hasCollected ? (
