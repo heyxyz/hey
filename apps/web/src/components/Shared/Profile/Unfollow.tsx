@@ -13,7 +13,6 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -62,7 +61,7 @@ const Unfollow: FC<UnfollowProps> = ({
 
     setIsLoading(false);
     setFollowing(true);
-    toast.success(t`Unfollowed successfully!`);
+    toast.success('Unfollowed successfully!');
     Leafwatch.track(PROFILE.UNFOLLOW, {
       target: profile?.id
     });
@@ -160,7 +159,7 @@ const Unfollow: FC<UnfollowProps> = ({
         )
       }
     >
-      {showText ? t`Following` : null}
+      {showText ? 'Following' : null}
     </Button>
   );
 };

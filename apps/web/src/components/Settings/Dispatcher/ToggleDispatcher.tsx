@@ -12,7 +12,7 @@ import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -37,7 +37,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
 
     setIsLoading(false);
-    toast.success(t`Profile updated successfully!`);
+    toast.success('Profile updated successfully!');
     Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
   };
 

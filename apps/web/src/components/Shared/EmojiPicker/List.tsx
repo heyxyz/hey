@@ -5,7 +5,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Emoji } from '@hey/types/misc';
 import { ErrorMessage, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { ChangeEvent, FC } from 'react';
@@ -54,7 +53,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   }
 
   if (isLoading) {
-    return <Loader message={t`Loading emojis`} />;
+    return <Loader message="Loading emojis" />;
   }
 
   return (

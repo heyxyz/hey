@@ -49,7 +49,7 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -61,23 +61,19 @@ import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
   name: string()
-    .max(100, {
-      message: t`Name should not exceed 100 characters`
-    })
+    .max(100, { message: 'Name should not exceed 100 characters' })
     .regex(Regex.profileNameValidator, {
-      message: t`Profile name must not contain restricted symbols`
+      message: 'Profile name must not contain restricted symbols'
     }),
   location: string().max(100, {
-    message: t`Location should not exceed 100 characters`
+    message: 'Location should not exceed 100 characters'
   }),
   website: union([
-    string().regex(Regex.url, { message: t`Invalid website` }),
+    string().regex(Regex.url, { message: 'Invalid website' }),
     string().max(0)
   ]),
-  x: string().max(100, {
-    message: t`X handle must not exceed 100 characters`
-  }),
-  bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
+  x: string().max(100, { message: 'X handle must not exceed 100 characters' }),
+  bio: string().max(260, { message: 'Bio should not exceed 260 characters' })
 });
 
 type FormData = z.infer<typeof editProfileSchema>;
@@ -128,7 +124,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
 
     setIsLoading(false);
-    toast.success(t`Profile updated successfully!`);
+    toast.success('Profile updated successfully!');
     Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
@@ -386,44 +382,44 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
           {error ? (
             <ErrorMessage
               className="mb-3"
-              title={t`Transaction failed!`}
+              title="Transaction failed!"
               error={error}
             />
           ) : null}
           <Input
-            label={t`Profile Id`}
+            label="Profile Id"
             type="text"
             value={currentProfile?.id}
             disabled
           />
           <Input
-            label={t`Name`}
+            label="Name"
             type="text"
             placeholder="Gavin"
             {...form.register('name')}
           />
           <Input
-            label={t`Location`}
+            label="Location"
             type="text"
             placeholder="Miami"
             {...form.register('location')}
           />
           <Input
-            label={t`Website`}
+            label="Website"
             type="text"
             placeholder="https://hooli.com"
             {...form.register('website')}
           />
           <Input
-            label={t`X`}
+            label="X"
             type="text"
             prefix="https://x.com"
             placeholder="gavin"
             {...form.register('x')}
           />
           <TextArea
-            label={t`Bio`}
-            placeholder={t`Tell us something about you!`}
+            label="Bio"
+            placeholder="Tell us something about you!"
             {...form.register('bio')}
           />
           <div className="space-y-1.5">
@@ -437,7 +433,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                   );
                 }}
                 src={uploadedProfilePictureUrl || renderProfilePictureUrl}
-                alt={t`Profile picture crop preview`}
+                alt="Profile picture crop preview"
               />
               <ChooseFile onChange={(event) => onFileChange(event, 'avatar')} />
             </div>
@@ -453,7 +449,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                       sanitizeDStorageUrl(coverPictureIpfsUrl);
                   }}
                   src={uploadedCoverPictureUrl || renderCoverPictureUrl}
-                  alt={t`Cover picture crop preview`}
+                  alt="Cover picture crop preview"
                 />
               </div>
               <ChooseFile onChange={(event) => onFileChange(event, 'cover')} />
@@ -478,7 +474,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         </Form>
       </Card>
       <Modal
-        title={t`Crop cover picture`}
+        title="Crop cover picture"
         show={showCoverPictureCropModal}
         size="md"
         onClose={
@@ -514,7 +510,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       </Modal>
       {/* Picture */}
       <Modal
-        title={t`Crop profile picture`}
+        title="Crop profile picture"
         show={showProfilePictureCropModal}
         size="sm"
         onClose={

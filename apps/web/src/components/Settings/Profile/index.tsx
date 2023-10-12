@@ -5,7 +5,6 @@ import { PAGEVIEW } from '@hey/data/tracking';
 import { useProfileQuery } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout, PageLoading } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -31,7 +30,7 @@ const ProfileSettings: NextPage = () => {
   }
 
   if (loading) {
-    return <PageLoading message={t`Loading settings`} />;
+    return <PageLoading message="Loading settings" />;
   }
 
   if (!currentProfile) {
@@ -42,7 +41,7 @@ const ProfileSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Profile settings • ${APP_NAME}`} />
+      <MetaTags title={`Profile settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

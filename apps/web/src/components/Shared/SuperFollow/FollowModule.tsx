@@ -23,7 +23,7 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -73,7 +73,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setIsLoading(false);
     setFollowing(true);
     setShowFollowModal(false);
-    toast.success(t`Followed successfully!`);
+    toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
@@ -205,7 +205,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message={t`Loading Super follow`} />;
+    return <Loader message="Loading Super follow" />;
   }
 
   return (
@@ -315,7 +315,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                 )
               }
             >
-              {again ? t`Super follow again` : t`Super follow now`}
+              {again ? 'Super follow again' : 'Super follow now'}
             </Button>
           ) : (
             <WarningMessage
@@ -326,7 +326,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         ) : (
           <div className="mt-5">
             <AllowanceButton
-              title={t`Allow follow module`}
+              title="Allow follow module"
               module={
                 allowanceData
                   ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult

@@ -3,7 +3,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -14,15 +13,9 @@ import CoverImage from './CoverImage';
 import Player from './Player';
 
 export const AudioPublicationSchema = object({
-  title: string()
-    .trim()
-    .min(1, { message: t`Invalid audio title` }),
-  artist: string()
-    .trim()
-    .min(1, { message: t`Invalid artist name` }),
-  cover: string()
-    .trim()
-    .min(1, { message: t`Invalid cover image` })
+  title: string().trim().min(1, { message: 'Invalid audio title' }),
+  artist: string().trim().min(1, { message: 'Invalid artist name' }),
+  cover: string().trim().min(1, { message: 'Invalid cover image' })
 });
 
 interface AudioProps {
@@ -113,7 +106,7 @@ const Audio: FC<AudioProps> = ({
                   <div className="flex w-full flex-col">
                     <input
                       className="border-none bg-transparent text-lg text-white outline-none placeholder:text-white"
-                      placeholder={t`Add title`}
+                      placeholder="Add title"
                       name="title"
                       value={audioPublication.title}
                       autoComplete="off"
@@ -121,7 +114,7 @@ const Audio: FC<AudioProps> = ({
                     />
                     <input
                       className="border-none bg-transparent text-white/70 outline-none placeholder:text-white/70"
-                      placeholder={t`Add artist`}
+                      placeholder="Add artist"
                       name="artist"
                       value={audioPublication.artist}
                       onChange={handleChange}

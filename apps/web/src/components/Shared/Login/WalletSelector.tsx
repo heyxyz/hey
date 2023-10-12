@@ -16,7 +16,7 @@ import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -214,7 +214,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               <span>
                 {isMounted()
                   ? connector.id === 'injected'
-                    ? t`Browser Wallet`
+                    ? 'Browser Wallet'
                     : getWalletDetails(connector.name).name
                   : getWalletDetails(connector.name).name}
                 {isMounted() ? !connector.ready && ' (unsupported)' : ''}
@@ -238,7 +238,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />
-          <div>{error?.message ?? t`Failed to connect`}</div>
+          <div>{error?.message ?? 'Failed to connect'}</div>
         </div>
       ) : null}
     </div>

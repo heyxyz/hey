@@ -3,7 +3,7 @@ import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC, ReactNode } from 'react';
@@ -87,7 +87,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         }
       ),
       {
-        loading: t`Updating access...`,
+        loading: 'Updating access...',
         success: () => {
           if (type === Type.VERIFIED) {
             setIsVerified(!isVerified);
@@ -99,9 +99,9 @@ const Access: FC<RankProps> = ({ profile }) => {
             setIsLensMember(!isLensMember);
           }
 
-          return t`Access updated`;
+          return 'Access updated';
         },
-        error: t`Error updating access`
+        error: 'Error updating access'
       }
     );
   };

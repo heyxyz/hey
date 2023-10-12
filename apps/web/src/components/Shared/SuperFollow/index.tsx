@@ -4,7 +4,6 @@ import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -15,7 +14,7 @@ import Loader from '../Loader';
 import Slug from '../Slug';
 
 const FollowModule = dynamic(() => import('./FollowModule'), {
-  loading: () => <Loader message={t`Loading Super follow`} />
+  loading: () => <Loader message="Loading Super follow" />
 });
 
 interface SuperFollowProps {
@@ -59,7 +58,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
         aria-label="Super follow"
         icon={<StarIcon className="h-4 w-4" />}
       >
-        {showText ? t`Super follow` : null}
+        {showText ? 'Super follow' : null}
       </Button>
       <Modal
         title={

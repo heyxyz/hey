@@ -8,7 +8,6 @@ import {
   type WhoReactedPublicationRequest
 } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -46,14 +45,14 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading likes`} />;
+    return <Loader message="Loading likes" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No likes.`}
+          message="No likes."
           icon={<HeartIcon className="text-brand h-8 w-8" />}
           hideCard
         />
@@ -65,7 +64,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load likes`}
+        title="Failed to load likes"
         error={error}
       />
       <Virtuoso

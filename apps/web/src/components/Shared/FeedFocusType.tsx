@@ -2,7 +2,6 @@ import { EXPLORE } from '@hey/data/tracking';
 import { PublicationMetadataMainFocusType } from '@hey/lens';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FeedLinkProps {
@@ -43,17 +42,11 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
 
   return (
     <div className="mt-3 flex flex-wrap gap-3 px-5 sm:mt-0 sm:px-0">
-      <FeedLink name={t`All posts`} />
-      <FeedLink
-        name={t`Text`}
-        type={PublicationMetadataMainFocusType.TextOnly}
-      />
-      <FeedLink name={t`Video`} type={PublicationMetadataMainFocusType.Video} />
-      <FeedLink name={t`Audio`} type={PublicationMetadataMainFocusType.Audio} />
-      <FeedLink
-        name={t`Images`}
-        type={PublicationMetadataMainFocusType.Image}
-      />
+      <FeedLink name="All posts" />
+      <FeedLink name="Text" type={PublicationMetadataMainFocusType.TextOnly} />
+      <FeedLink name="Video" type={PublicationMetadataMainFocusType.Video} />
+      <FeedLink name="Audio" type={PublicationMetadataMainFocusType.Audio} />
+      <FeedLink name="Images" type={PublicationMetadataMainFocusType.Image} />
     </div>
   );
 };

@@ -4,7 +4,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile, WhoActedOnPublicationRequest } from '@hey/lens';
 import { LimitType, useWhoActedOnPublicationQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -42,14 +41,14 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading collectors`} />;
+    return <Loader message="Loading collectors" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No collectors.`}
+          message="No collectors."
           icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
           hideCard
         />
@@ -64,7 +63,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
     >
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load collectors`}
+        title="Failed to load collectors"
         error={error}
       />
       <Virtuoso

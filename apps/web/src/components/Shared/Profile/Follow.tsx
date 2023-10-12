@@ -13,7 +13,6 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -72,7 +71,7 @@ const Follow: FC<FollowProps> = ({
 
     setIsLoading(false);
     setFollowing(true);
-    toast.success(t`Followed successfully!`);
+    toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
@@ -177,7 +176,7 @@ const Follow: FC<FollowProps> = ({
         isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
       }
     >
-      {showText ? t`Follow` : null}
+      {showText ? 'Follow' : null}
     </Button>
   );
 };

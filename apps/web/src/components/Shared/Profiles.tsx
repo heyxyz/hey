@@ -1,6 +1,5 @@
 import FallbackProfileName from '@components/Shared/FallbackProfileName';
 import type { Profile } from '@hey/lens';
-import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 
 interface ProfileCirclesProps {
@@ -29,7 +28,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   }
 
   const andSep = () => {
-    return ' ' + t`and` + ' ';
+    return ' ' + 'and' + ' ';
   };
 
   if (profiles?.length === 2) {
@@ -58,7 +57,7 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
             !isZero ? (
               <span className="whitespace-nowrap">
                 {andSep()}
-                {calculatedCount} {calculatedCount === 1 ? t`other` : t`others`}
+                {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
               </span>
             ) : null
           }

@@ -1,6 +1,5 @@
 import ModAction from '@components/Publication/Actions/ModAction';
 import { Alert } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
@@ -23,8 +22,8 @@ const GlobalAlerts: FC = () => {
       {modingPublication ? (
         <Alert
           show={showModActionAlert}
-          title={t`Mod actions`}
-          description={t`Perform mod actions on this publication.`}
+          title="Mod actions"
+          description="Perform mod actions on this publication."
           onClose={() => setShowModActionAlert(false, null)}
         >
           <ModAction publication={modingPublication} />

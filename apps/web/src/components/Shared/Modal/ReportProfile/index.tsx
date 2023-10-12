@@ -4,7 +4,7 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -16,7 +16,7 @@ const reportReportProfileSchema = object({
   type: ReportType,
   description: string()
     .max(300, {
-      message: t`Report should not exceed 300 characters`
+      message: 'Report should not exceed 300 characters'
     })
     .optional()
 });
@@ -48,7 +48,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
             profile: profile?.id
           });
           setShowReportProfileModal(false, null);
-          toast.success(t`Reported Successfully!`);
+          toast.success('Reported Successfully!');
         }}
       >
         {profile ? (

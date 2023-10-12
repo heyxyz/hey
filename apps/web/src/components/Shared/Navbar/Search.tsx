@@ -8,7 +8,7 @@ import {
 import formatHandle from '@hey/lib/formatHandle';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -27,7 +27,7 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
-  placeholder = t`Search…`,
+  placeholder = 'Search…',
   modalWidthClassName = 'max-w-md'
 }) => {
   const { push, pathname, query } = useRouter();

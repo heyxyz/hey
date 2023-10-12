@@ -5,7 +5,7 @@ import { Localstorage } from '@hey/data/storage';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -36,14 +36,14 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         }
       ),
       {
-        loading: t`Toggling staff mode...`,
+        loading: 'Toggling staff mode...',
         success: () => {
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
-          return t`Staff mode toggled!`;
+          return 'Staff mode toggled!';
         },
-        error: t`Failed to toggle staff mode!`
+        error: 'Failed to toggle staff mode!'
       }
     );
   };

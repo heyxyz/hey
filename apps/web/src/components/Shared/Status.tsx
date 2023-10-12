@@ -23,7 +23,7 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -39,8 +39,8 @@ import Loader from './Loader';
 
 const editStatusSchema = object({
   status: string()
-    .min(1, { message: t`Status should not be empty` })
-    .max(100, { message: t`Status should not exceed 100 characters` })
+    .min(1, { message: 'Status should not be empty' })
+    .max(100, { message: 'Status should not exceed 100 characters' })
 });
 
 const Status: FC = () => {
@@ -71,7 +71,7 @@ const Status: FC = () => {
       return;
     }
 
-    toast.success(t`Status updated successfully!`);
+    toast.success('Status updated successfully!');
     setIsLoading(false);
     setShowStatusModal(false);
   };
@@ -221,14 +221,14 @@ const Status: FC = () => {
   if (loading) {
     return (
       <div className="p-5">
-        <Loader message={t`Loading status settings`} />
+        <Loader message="Loading status settings" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <ErrorMessage title={t`Failed to load status settings`} error={error} />
+      <ErrorMessage title="Failed to load status settings" error={error} />
     );
   }
 
@@ -252,7 +252,7 @@ const Status: FC = () => {
               emojiClassName="mt-[8px]"
             />
           }
-          placeholder={t`What's happening?`}
+          placeholder="What's happening?"
           {...form.register('status')}
         />
         <div className="ml-auto flex items-center space-x-2">

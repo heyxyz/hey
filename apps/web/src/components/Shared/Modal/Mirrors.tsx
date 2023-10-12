@@ -4,7 +4,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile, ProfilesRequest } from '@hey/lens';
 import { LimitType, useProfilesQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -42,14 +41,14 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading mirrors`} />;
+    return <Loader message="Loading mirrors" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No mirrors.`}
+          message="No mirrors."
           icon={<ArrowsRightLeftIcon className="text-brand h-8 w-8" />}
           hideCard
         />
@@ -61,7 +60,7 @@ const Mirrors: FC<MirrorsProps> = ({ publicationId }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="mirrors-modal">
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load mirrors`}
+        title="Failed to load mirrors"
         error={error}
       />
       <Virtuoso

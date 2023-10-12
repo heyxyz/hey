@@ -7,7 +7,6 @@ import {
   TicketIcon
 } from '@heroicons/react/24/outline';
 import { Modal } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
@@ -75,7 +74,7 @@ const GlobalModals: FC = () => {
   return (
     <>
       <Modal
-        title={t`Report Publication`}
+        title="Report Publication"
         icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
         show={showPublicationReportModal}
         onClose={() =>
@@ -85,7 +84,7 @@ const GlobalModals: FC = () => {
         <ReportPublication publication={reportingPublication} />
       </Modal>
       <Modal
-        title={t`Report profile`}
+        title="Report profile"
         icon={<ShieldCheckIcon className="text-brand h-5 w-5" />}
         show={showReportProfileModal}
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
@@ -93,7 +92,7 @@ const GlobalModals: FC = () => {
         <ReportProfile profile={reportingProfile} />
       </Modal>
       <Modal
-        title={t`Set status`}
+        title="Set status"
         icon={<FaceSmileIcon className="text-brand h-5 w-5" />}
         show={showStatusModal}
         onClose={() => setShowStatusModal(false)}
@@ -101,7 +100,7 @@ const GlobalModals: FC = () => {
         <Status />
       </Modal>
       <Modal
-        title={t`Change Profile`}
+        title="Change Profile"
         show={showProfileSwitchModal}
         onClose={() => setShowProfileSwitchModal(false)}
         size="xs"
@@ -109,7 +108,7 @@ const GlobalModals: FC = () => {
         <SwitchProfiles />
       </Modal>
       <Modal
-        title={t`Login`}
+        title="Login"
         icon={<ArrowRightCircleIcon className="text-brand h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
@@ -118,7 +117,7 @@ const GlobalModals: FC = () => {
         <Login />
       </Modal>
       <Modal
-        title={t`Wrong Network`}
+        title="Wrong Network"
         show={showWrongNetworkModal}
         onClose={() => setShowWrongNetworkModal(false)}
         dataTestId="wrong-network-modal"
@@ -126,7 +125,7 @@ const GlobalModals: FC = () => {
         <WrongNetwork />
       </Modal>
       <Modal
-        title={t`Create post`}
+        title="Create post"
         size="md"
         show={showNewPostModal}
         onClose={() => {
@@ -140,7 +139,7 @@ const GlobalModals: FC = () => {
         <NewPublication />
       </Modal>
       <Modal
-        title={t`Invites`}
+        title="Invites"
         icon={<TicketIcon className="text-brand h-5 w-5" />}
         show={showInvitesModal}
         onClose={() => setShowInvitesModal(false)}

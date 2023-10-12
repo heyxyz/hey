@@ -8,7 +8,7 @@ import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { ErrorMessage, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -30,7 +30,7 @@ const SwitchProfiles: FC = () => {
   });
 
   if (loading) {
-    return <Loader message={t`Loading Profiles`} />;
+    return <Loader message="Loading Profiles" />;
   }
 
   const profiles = data?.profiles.items || [];
@@ -39,7 +39,7 @@ const SwitchProfiles: FC = () => {
     <div className="max-h-[80vh] overflow-y-auto p-2">
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load profiles`}
+        title="Failed to load profiles"
         error={error}
       />
       {profiles.map((profile, index) => (

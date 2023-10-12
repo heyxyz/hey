@@ -14,7 +14,7 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -24,7 +24,7 @@ import Reason from './Reason';
 
 const newReportPublicationSchema = object({
   additionalComments: string().max(260, {
-    message: t`Additional comments should not exceed 260 characters`
+    message: 'Additional comments should not exceed 260 characters'
   })
 });
 

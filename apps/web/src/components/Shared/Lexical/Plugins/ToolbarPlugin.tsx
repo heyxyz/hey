@@ -1,5 +1,4 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { t } from '@lingui/macro';
 import {
   $getSelection,
   $isRangeSelection,
@@ -43,7 +42,7 @@ const ToolbarPlugin: FC = () => {
     <div className="toolbar-icons divider flex items-center space-x-1 px-5 py-2">
       <button
         className={isBold ? 'bg-brand-100' : ''}
-        title={t`Bold`}
+        title="Bold"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
@@ -52,7 +51,7 @@ const ToolbarPlugin: FC = () => {
       </button>
       <button
         className={isItalic ? 'bg-brand-100' : ''}
-        title={t`Italic`}
+        title="Italic"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
@@ -61,7 +60,7 @@ const ToolbarPlugin: FC = () => {
       </button>
       <button
         className={isCode ? 'bg-brand-100' : ''}
-        title={t`Code`}
+        title="Code"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
         }}

@@ -15,7 +15,7 @@ import {
   useZodForm
 } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
@@ -25,10 +25,10 @@ import Pending from './Pending';
 
 const newUserSchema = object({
   handle: string()
-    .min(5, { message: t`Handle should be at least 5 characters` })
-    .max(26, { message: t`Handle should not exceed 26 characters` })
+    .min(5, { message: 'Handle should be at least 5 characters' })
+    .max(26, { message: 'Handle should not exceed 26 characters' })
     .regex(Regex.handle, {
-      message: t`Handle should only contain alphanumeric characters`
+      message: 'Handle should only contain alphanumeric characters'
     })
 });
 
@@ -66,7 +66,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
     error: CreateProfileWithHandleErrorReasonType
   ): string => {
     return error === CreateProfileWithHandleErrorReasonType.HandleTaken
-      ? t`The selected handle is already taken`
+      ? 'The selected handle is already taken'
       : error;
   };
 
@@ -114,7 +114,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         </div>
       ) : null}
       <Input
-        label={t`Handle`}
+        label="Handle"
         type="text"
         placeholder="gavin"
         {...form.register('handle')}

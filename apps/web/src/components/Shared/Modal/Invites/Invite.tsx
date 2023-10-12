@@ -8,7 +8,7 @@ import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -17,8 +17,8 @@ import { object, string } from 'zod';
 
 const inviteSchema = object({
   address: string()
-    .max(42, { message: t`Ethereum address should be within 42 characters` })
-    .regex(Regex.ethereumAddress, { message: t`Invalid Ethereum address` })
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
 });
 
 interface InviteProps {
@@ -51,12 +51,12 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         form.reset();
         Leafwatch.track(INVITE.INVITE);
 
-        return toast.success(t`Invited successfully!`);
+        return toast.success('Invited successfully!');
       }
 
-      return toast.error(t`Address already invited!`);
+      return toast.error('Address already invited!');
     } catch {
-      return toast.error(t`Failed to invite!`);
+      return toast.error('Failed to invite!');
     } finally {
       setInviting(false);
     }

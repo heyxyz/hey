@@ -2,7 +2,6 @@ import Loader from '@components/Shared/Loader';
 import type { InvitedResult } from '@hey/lens';
 import { useInvitedProfilesQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -14,11 +13,11 @@ const Invites: FC = () => {
   const { data, loading, error, refetch } = useInvitedProfilesQuery();
 
   if (loading) {
-    return <Loader message={t`Loading invites`} />;
+    return <Loader message="Loading invites" />;
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load invites`} error={error} />;
+    return <ErrorMessage title="Failed to load invites" error={error} />;
   }
 
   return (
