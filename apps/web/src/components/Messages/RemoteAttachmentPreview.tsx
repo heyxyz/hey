@@ -1,6 +1,5 @@
 import type { Profile } from '@hey/lens';
 import { Spinner } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useXmtpClient from 'src/hooks/useXmtpClient';
@@ -60,12 +59,12 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
     }
 
     if (profile && !profile.operations.isFollowedByMe.value && !sentByMe) {
-      return t`Attachments are not loaded automatically from people you don’t follow.`;
+      return 'Attachments are not loaded automatically from people you don’t follow.';
     }
 
     // if it's bigger than 100 megabytes
     if (remoteAttachment.contentLength > 104857600 && !sentByMe) {
-      return t`Large attachments are not loaded automatically.`;
+      return 'Large attachments are not loaded automatically.';
     }
 
     return null;

@@ -10,7 +10,7 @@ import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
 import { type Profile, useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -63,7 +63,7 @@ const RecommendedProfiles: FC = () => {
       <>
         <Title />
         <EmptyState
-          message={t`No recommendations!`}
+          message="No recommendations!"
           icon={<UsersIcon className="text-brand h-8 w-8" />}
         />
       </>
@@ -79,10 +79,7 @@ const RecommendedProfiles: FC = () => {
       <Title />
       <Card as="aside">
         <div className="space-y-4 p-5">
-          <ErrorMessage
-            title={t`Failed to load recommendations`}
-            error={error}
-          />
+          <ErrorMessage title="Failed to load recommendations" error={error} />
           {recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
             <motion.div
               initial={{ opacity: 0 }}
@@ -123,7 +120,7 @@ const RecommendedProfiles: FC = () => {
         </button>
       </Card>
       <Modal
-        title={t`Suggested for you`}
+        title="Suggested for you"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}

@@ -6,7 +6,7 @@ import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -65,13 +65,13 @@ const HeyMembershipNft: FC = () => {
           }
         ),
         {
-          loading: t`Updating...`,
+          loading: 'Updating...',
           success: () => {
             refetch();
             setShowMintModal(false);
-            return t`Updated!`;
+            return 'Updated!';
           },
-          error: t`Error updating.`
+          error: 'Error updating.'
         }
       );
     } catch {}
@@ -111,7 +111,7 @@ const HeyMembershipNft: FC = () => {
             <Trans>Mint now</Trans>
           </Button>
           <Modal
-            title={t`Mint`}
+            title="Mint"
             show={showMintModal}
             icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
             onClose={() => setShowMintModal(false)}

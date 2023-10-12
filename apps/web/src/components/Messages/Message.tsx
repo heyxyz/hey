@@ -9,7 +9,7 @@ import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -191,7 +191,7 @@ const Message: FC<MessageProps> = ({}) => {
               >
                 {showLoading ? (
                   <div className="flex h-full grow items-center justify-center">
-                    <Loader message={t`Loading messages`} />
+                    <Loader message="Loading messages" />
                   </div>
                 ) : (
                   <>

@@ -9,7 +9,6 @@ import type { Profile } from '@hey/lens';
 import { Card, ErrorMessage, GridItemFour, Modal, TabButton } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -163,12 +162,12 @@ const PreviewList: FC<PreviewListProps> = ({
             </div>
           ) : showLoading ? (
             <div className="flex h-full grow items-center justify-center">
-              <Loader message={t`Loading conversations`} />
+              <Loader message="Loading conversations" />
             </div>
           ) : profilesError ? (
             <ErrorMessage
               className="m-5"
-              title={t`Failed to load messages`}
+              title="Failed to load messages"
               error={{
                 message: Errors.SomethingWentWrong,
                 name: Errors.SomethingWentWrong
@@ -184,7 +183,7 @@ const PreviewList: FC<PreviewListProps> = ({
                 <div>
                   <EnvelopeIcon className="text-brand h-8 w-8" />
                 </div>
-                <div>{t`Start messaging your Lens frens`}</div>
+                <div>Start messaging your Lens frens</div>
               </div>
             </button>
           ) : (
@@ -209,7 +208,7 @@ const PreviewList: FC<PreviewListProps> = ({
         </div>
       </Card>
       <Modal
-        title={t`New message`}
+        title="New message"
         icon={<EnvelopeIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}
@@ -218,7 +217,7 @@ const PreviewList: FC<PreviewListProps> = ({
         <div className="w-full px-4 pt-4">
           <Search
             modalWidthClassName="max-w-lg"
-            placeholder={t`Search for someone to message...`}
+            placeholder="Search for someone to message..."
             onProfileSelected={onProfileSelected}
           />
         </div>

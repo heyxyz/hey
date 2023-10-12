@@ -1,7 +1,7 @@
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@hey/lens';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface CombinedProps {
@@ -30,16 +30,16 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   const actionArray = [];
   if (mirrorsLength) {
-    actionArray.push(t`mirrored`);
+    actionArray.push('mirrored');
   }
   if (commentsLength) {
-    actionArray.push(t`commented`);
+    actionArray.push('commented');
   }
   if (actedLength) {
-    actionArray.push(t`acted`);
+    actionArray.push('acted');
   }
   if (reactionsLength) {
-    actionArray.push(t`liked`);
+    actionArray.push('liked');
   }
 
   return (

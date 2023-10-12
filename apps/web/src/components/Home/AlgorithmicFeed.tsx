@@ -6,7 +6,6 @@ import type { AnyPublication, PublicationsRequest } from '@hey/lens';
 import { LimitType, usePublicationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import getAlgorithmicFeed from '@lib/getAlgorithmicFeed';
-import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
@@ -73,14 +72,14 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={t`No posts yet!`}
+        message="No posts yet!"
         icon={<SparklesIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (publications.length == 0 && (error || algoError)) {
-    return <ErrorMessage title={t`Failed to load for you`} error={error} />;
+    return <ErrorMessage title="Failed to load for you" error={error} />;
   }
 
   return (

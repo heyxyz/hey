@@ -10,7 +10,6 @@ import {
 } from '@hey/lens';
 import type { Group } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -59,7 +58,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
         message={
           <div>
             <span className="mr-1 font-bold">{group.name}</span>
-            <span>{t`don't have any publications yet`}</span>
+            <span>don't have any publications yet</span>
           </div>
         }
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
@@ -68,7 +67,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load group feed`} error={error} />;
+    return <ErrorMessage title="Failed to load group feed" error={error} />;
   }
 
   return (

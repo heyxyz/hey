@@ -10,7 +10,7 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -59,15 +59,15 @@ const SetProfile: FC = () => {
       <div className="space-y-1 text-sm leading-[22px]">
         <Status
           finished={Boolean(currentProfile?.metadata?.displayName)}
-          title={t`Set profile name`}
+          title="Set profile name"
         />
         <Status
           finished={Boolean(currentProfile?.metadata?.bio)}
-          title={t`Set profile bio`}
+          title="Set profile bio"
         />
         <Status
           finished={Boolean(currentProfile?.metadata?.picture)}
-          title={t`Set your avatar`}
+          title="Set your avatar"
         />
         <div>
           <Link
@@ -79,7 +79,7 @@ const SetProfile: FC = () => {
           >
             <Status
               finished={Boolean(currentProfile?.interests?.length)}
-              title={t`Select profile interests`}
+              title="Select profile interests"
             />
             <New />
           </Link>

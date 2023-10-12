@@ -12,7 +12,6 @@ import { ExplorePublicationsOrderByType } from '@hey/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -33,19 +32,19 @@ const Explore: NextPage = () => {
   });
 
   const tabs = [
-    { name: t`For you`, type: ExplorePublicationsOrderByType.LensCurated },
-    { name: t`Popular`, type: ExplorePublicationsOrderByType.TopCommented },
+    { name: 'For you', type: ExplorePublicationsOrderByType.LensCurated },
+    { name: 'Popular', type: ExplorePublicationsOrderByType.TopCommented },
     {
-      name: t`Trending`,
+      name: 'Trending',
       type: ExplorePublicationsOrderByType.TopCollectedOpenAction
     },
-    { name: t`Interesting`, type: ExplorePublicationsOrderByType.TopMirrored }
+    { name: 'Interesting', type: ExplorePublicationsOrderByType.TopMirrored }
   ];
 
   return (
     <GridLayout>
       <MetaTags
-        title={t`Explore • ${APP_NAME}`}
+        title={`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
       <GridItemEight className="space-y-5">

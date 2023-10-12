@@ -16,7 +16,7 @@ import {
   GridLayout
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -76,7 +76,7 @@ const Mod: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Mod Center • ${APP_NAME}`} />
+      <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <Feed
           refresh={refresh}
@@ -107,7 +107,7 @@ const Mod: NextPage = () => {
                 }
                 checked={publicationTypes.includes(ExplorePublicationType.Post)}
                 name="posts"
-                label={t`Posts`}
+                label="Posts"
               />
               <Checkbox
                 onChange={() =>
@@ -117,7 +117,7 @@ const Mod: NextPage = () => {
                   ExplorePublicationType.Quote
                 )}
                 name="quotes"
-                label={t`Quotes`}
+                label="Quotes"
               />
             </div>
           </div>
@@ -137,7 +137,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Article
                 )}
                 name="articles"
-                label={t`Articles`}
+                label="Articles"
               />
               <Checkbox
                 onChange={() =>
@@ -147,7 +147,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Audio
                 )}
                 name="audio"
-                label={t`Audio`}
+                label="Audio"
               />
               <Checkbox
                 onChange={() =>
@@ -157,7 +157,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Embed
                 )}
                 name="embeds"
-                label={t`Embeds`}
+                label="Embeds"
               />
               <Checkbox
                 onChange={() =>
@@ -167,7 +167,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Image
                 )}
                 name="images"
-                label={t`Images`}
+                label="Images"
               />
               <Checkbox
                 onChange={() =>
@@ -177,7 +177,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Link
                 )}
                 name="links"
-                label={t`Links`}
+                label="Links"
               />
               <Checkbox
                 onChange={() =>
@@ -189,7 +189,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.TextOnly
                 )}
                 name="text"
-                label={t`Text`}
+                label="Text"
               />
               <Checkbox
                 onChange={() =>
@@ -199,7 +199,7 @@ const Mod: NextPage = () => {
                   PublicationMetadataMainFocusType.Video
                 )}
                 name="videos"
-                label={t`Videos`}
+                label="Videos"
               />
             </div>
           </div>
@@ -226,7 +226,7 @@ const Mod: NextPage = () => {
                 }}
                 checked={customFilters.includes(CustomFiltersType.Gardeners)}
                 name="gardeners"
-                label={t`Gardeners`}
+                label="Gardeners"
               />
             </div>
           </div>

@@ -21,7 +21,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -115,7 +115,7 @@ const SeeThroughLens: FC = () => {
           <span>
             {seeThroughProfile
               ? `@${formatHandle(profile?.handle)}`
-              : t`My Feed`}
+              : 'My Feed'}
           </span>
           <ChevronDownIcon className="h-4 w-4" />
         </button>
@@ -132,7 +132,7 @@ const SeeThroughLens: FC = () => {
             <Input
               type="text"
               className="px-3 py-2 text-sm"
-              placeholder={t`Search`}
+              placeholder="Search"
               value={searchText}
               autoComplete="off"
               iconRight={
