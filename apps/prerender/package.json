@@ -27,8 +27,8 @@
   "devDependencies": {
     "@hey/config": "workspace:*",
     "@hey/lens": "workspace:*",
-    "@playwright/test": "^1.38.1",
-    "@types/react": "^18.2.25",
+    "@playwright/test": "^1.39.0",
+    "@types/react": "^18.2.28",
     "typescript": "^5.2.2"
   }
 }

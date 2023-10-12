@@ -1,16 +1,14 @@
-import {
-  HEY_POLLS_SPACE,
-  MAINNET_SNAPSHOT_SEQUNECER_URL,
-  MAINNET_SNAPSHOT_URL,
-  TESTNET_SNAPSHOT_SEQUNECER_URL,
-  TESTNET_SNAPSHOT_URL
-} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 
 import {
+  HEY_POLLS_SPACE,
   MAINNET_PROPOSAL_CREATOR_ADDRESS,
-  TESTNET_PROPOSAL_CREATOR_ADDRESS
+  MAINNET_SNAPSHOT_SEQUNECER_URL,
+  MAINNET_SNAPSHOT_URL,
+  TESTNET_PROPOSAL_CREATOR_ADDRESS,
+  TESTNET_SNAPSHOT_SEQUNECER_URL,
+  TESTNET_SNAPSHOT_URL
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
