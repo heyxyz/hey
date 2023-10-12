@@ -28,7 +28,6 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const isGardener = usePreferencesStore((state) => state.isGardener);
@@ -75,9 +74,7 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          {profiles.length > 1 ? (
-            <SwitchProfile className={cn(itemClass, 'px-4')} />
-          ) : null}
+          <SwitchProfile className={cn(itemClass, 'px-4')} />
           <div className="divider" />
           <Status className={cn(itemClass, 'px-4')} />
           <div className="divider" />
