@@ -4,7 +4,6 @@ import { LimitType, usePublicationsLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -68,28 +67,20 @@ const Publications: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export publications</Trans>
-      </div>
+      <div className="text-lg font-bold">Export publications</div>
       <div className="pb-2">
-        <Trans>
-          Export all your posts, comments and mirrors to a JSON file.
-        </Trans>
+        Export all your posts, comments and mirrors to a JSON file.
       </div>
       {publications.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{publications.length}</b> publications
-          </Trans>
+          Exported <b>{publications.length}</b> publications
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download publications</Trans>
-        </Button>
+        <Button onClick={download}>Download publications</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

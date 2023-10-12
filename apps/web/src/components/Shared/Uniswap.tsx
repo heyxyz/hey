@@ -2,7 +2,6 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -20,9 +19,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
   return (
     <div className="space-y-1">
       <div className="text-sm">
-        <Trans>
-          You don't have enough <b>{currency}</b>
-        </Trans>
+        You don't have enough <b>{currency}</b>
       </div>
       <Link
         href={getUniswapURL(parseFloat(amount), assetAddress)}
@@ -38,9 +35,7 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
           width={20}
           alt="Uniswap"
         />
-        <div>
-          <Trans>Swap in Uniswap</Trans>
-        </div>
+        <div>Swap in Uniswap</div>
       </Link>
     </div>
   );

@@ -4,7 +4,6 @@ import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -59,7 +58,7 @@ const MobileDrawerMenu: FC = () => {
               alt={currentProfile?.id}
             />
             <div>
-              <Trans>Logged in as</Trans>
+              Logged in as
               <div className="truncate">
                 <Slug
                   className="font-bold"

@@ -6,7 +6,6 @@ import {
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -55,24 +54,18 @@ const IndexStatus: FC<IndexStatusProps> = ({
         LensTransactionStatusType.Processing ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>
-            <Trans>{type} Indexing</Trans>
-          </div>
+          <div>{type} Indexing</div>
         </div>
       ) : data?.lensTransactionStatus?.status ===
         LensTransactionStatusType.Failed ? (
         <div className="flex items-center space-x-1.5">
           <XCircleIcon className="h-5 w-5 text-red-500" />
-          <div>
-            <Trans>Index failed</Trans>
-          </div>
+          <div>Index failed</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">
           <CheckCircleIcon className="h-5 w-5 text-green-500" />
-          <div className="text-black dark:text-white">
-            <Trans>Index Successful</Trans>
-          </div>
+          <div className="text-black dark:text-white">Index Successful</div>
         </div>
       )}
     </Link>

@@ -8,7 +8,6 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
-import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -55,9 +54,7 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <AdjustmentsVerticalIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Leafwatch Details</Trans>
-        </div>
+        <div className="text-lg font-bold">Leafwatch Details</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
         <MetaDetails

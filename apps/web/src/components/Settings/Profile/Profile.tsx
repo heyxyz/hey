@@ -49,7 +49,6 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
-import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -469,7 +468,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               )
             }
           >
-            <Trans>Save</Trans>
+            Save
           </Button>
         </Form>
       </Card>
@@ -504,7 +503,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               )
             }
           >
-            <Trans>Upload</Trans>
+            Upload
           </Button>
         </div>
       </Modal>
@@ -540,7 +539,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               )
             }
           >
-            <Trans>Upload</Trans>
+            Upload
           </Button>
         </div>
       </Modal>

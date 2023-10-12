@@ -1,7 +1,7 @@
 import { TicketIcon } from '@heroicons/react/24/outline';
 import type { InvitedResult } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 
 import Profile from './Profile';
@@ -14,11 +14,7 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
   if (invitedProfiles?.length === 0) {
     return (
       <EmptyState
-        message={
-          <div>
-            <Trans>You haven't invited anyone.</Trans>
-          </div>
-        }
+        message={<div>You haven't invited anyone.</div>}
         icon={<TicketIcon className="text-brand h-8 w-8" />}
         hideCard
       />
@@ -32,20 +28,18 @@ const Invited: FC<InvitedProps> = ({ invitedProfiles }) => {
   return (
     <div className="space-y-3">
       <div>
-        <Trans>
-          You have already invited{' '}
-          <b>
-            {invitedProfiles.length}
-            {invitedProfiles.length >= 50 ? '+' : null}{' '}
-            <Plural
-              value={invitedProfiles.length}
-              zero="address"
-              one="address"
-              other="addresses"
-            />
-          </b>
-          !
-        </Trans>
+        You have already invited{' '}
+        <b>
+          {invitedProfiles.length}
+          {invitedProfiles.length >= 50 ? '+' : null}{' '}
+          <Plural
+            value={invitedProfiles.length}
+            zero="address"
+            one="address"
+            other="addresses"
+          />
+        </b>
+        !
       </div>
       {sortedInvited.map((invite, key) => (
         <div key={key}>

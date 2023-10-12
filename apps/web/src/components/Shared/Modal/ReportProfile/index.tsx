@@ -4,7 +4,6 @@ import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Button, Card, Form, Radio, TextArea, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -59,11 +58,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
 
         <div className="space-y-5">
           <Radio
-            heading={
-              <span className="font-medium">
-                <Trans>Misleading Account</Trans>
-              </span>
-            }
+            heading={<span className="font-medium">Misleading Account</span>}
             description="Impersonation or false claims about identity or affiliation"
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
@@ -75,7 +70,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           <Radio
             heading={
               <span className="font-medium">
-                <Trans>Frequently Posts Unwanted Content</Trans>
+                Frequently Posts Unwanted Content
               </span>
             }
             description="Spam; excessive mentions or replies"
@@ -102,7 +97,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
           icon={<PencilSquareIcon className="h-4 w-4" />}
           disabled={!form.watch('type')}
         >
-          <Trans>Report</Trans>
+          Report
         </Button>
       </Form>
     </div>

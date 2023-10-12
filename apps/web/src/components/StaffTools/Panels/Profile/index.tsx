@@ -16,7 +16,6 @@ import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -56,9 +55,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Staff tool</Trans>
-        </div>
+        <div className="text-lg font-bold">Staff tool</div>
       </div>
       <div className="mt-3 space-y-2">
         {haveUsedHey ? (
@@ -74,7 +71,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             }
             value={profile.id}
           >
-            <Trans>Have used {APP_NAME}</Trans>
+            Have used {APP_NAME}
           </MetaDetails>
         ) : null}
         <MetaDetails
@@ -131,7 +128,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
             target="_blank"
             rel="noreferrer"
           >
-            <Trans>Open</Trans>
+            Open
           </Link>
         </MetaDetails>
       </div>

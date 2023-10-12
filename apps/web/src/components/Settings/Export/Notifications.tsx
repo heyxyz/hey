@@ -3,7 +3,6 @@ import { useNotificationsLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -60,26 +59,18 @@ const Notifications: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export notifications</Trans>
-      </div>
-      <div className="pb-2">
-        <Trans>Export all your notifications to a JSON file.</Trans>
-      </div>
+      <div className="text-lg font-bold">Export notifications</div>
+      <div className="pb-2">Export all your notifications to a JSON file.</div>
       {notifications.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{notifications.length}</b> notifications
-          </Trans>
+          Exported <b>{notifications.length}</b> notifications
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download notifications</Trans>
-        </Button>
+        <Button onClick={download}>Download notifications</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

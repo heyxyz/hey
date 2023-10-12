@@ -8,7 +8,7 @@ import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -72,24 +72,20 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         />
         <div className="text-xl">Invite a Fren</div>
         <p className="lt-text-gray-500">
-          <Trans>
-            Send invites to your frens so they can create an Lens account. You
-            can invite a user only once.
-          </Trans>
+          Send invites to your frens so they can create an Lens account. You can
+          invite a user only once.
         </p>
         <div className="pt-2 font-mono text-lg">
-          <Trans>
-            <b>
-              {invitesLeft}{' '}
-              <Plural
-                value={invitesLeft}
-                zero="invite"
-                one="invite"
-                other="invites"
-              />
-            </b>{' '}
-            available!
-          </Trans>
+          <b>
+            {invitesLeft}{' '}
+            <Plural
+              value={invitesLeft}
+              zero="invite"
+              one="invite"
+              other="invites"
+            />
+          </b>{' '}
+          available!
         </div>
       </div>
       {invitesLeft !== 0 ? (
@@ -107,7 +103,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
             {...form.register('address')}
           />
           <Button type="submit" disabled={inviting}>
-            <Trans>Invite</Trans>
+            Invite
           </Button>
         </Form>
       ) : null}

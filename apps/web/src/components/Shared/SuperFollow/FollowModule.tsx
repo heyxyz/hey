@@ -23,7 +23,6 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -239,9 +238,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       <div className="flex items-center space-x-2">
         <UserIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
-          <span>
-            <Trans>Recipient:</Trans>
-          </span>
+          <span>Recipient:</span>
           <Link
             href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
             target="_blank"
@@ -258,42 +255,31 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You can comment on @{formatHandle(profile?.handle)}'s
-                publications
-              </Trans>
+              You can comment on @{formatHandle(profile?.handle)}'s publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You can collect @{formatHandle(profile?.handle)}'s publications
-              </Trans>
+              You can collect @{formatHandle(profile?.handle)}'s publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You will get Super follow badge in @
-                {formatHandle(profile?.handle)}'s profile
-              </Trans>
+              You will get Super follow badge in @
+              {formatHandle(profile?.handle)}'s profile
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You will have high voting power if you followed multiple times
-              </Trans>
+              You will have high voting power if you followed multiple times
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
-            <div>
-              <Trans>More coming soon™</Trans>
-            </div>
+            <div>More coming soon™</div>
           </li>
         </ul>
       </div>

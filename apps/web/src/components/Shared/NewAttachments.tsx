@@ -4,7 +4,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -143,7 +142,7 @@ const NewAttachments: FC<NewAttachmentsProps> = ({
                   onClick={() => removeAttachment(attachment)}
                   outline
                 >
-                  <Trans>Cancel Upload</Trans>
+                  Cancel Upload
                 </Button>
               ) : (
                 <div className={cn(isAudio ? 'absolute left-2 top-2' : 'm-3')}>

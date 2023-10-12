@@ -55,12 +55,12 @@ const ProtectProfile: FC = () => {
           <div className="flex items-center space-x-2 text-red-700">
             <LockOpenIcon className="h-5 w-5" />
             <div className="text-base font-bold sm:text-lg">
-              <Trans>Attention! Your profile is currently unlocked.</Trans>
+              Attention! Your profile is currently unlocked.
             </div>
           </div>
           <div className="text-red-500">
             {isCoolOffPassed ? (
-              <Trans>
+              <>
                 Your profile protection disabled.
                 <Link
                   className="ml-1.5 underline"
@@ -69,15 +69,15 @@ const ProtectProfile: FC = () => {
                 >
                   Learn more
                 </Link>
-              </Trans>
+              </>
             ) : (
-              <Trans>
+              <>
                 Your profile protection disabling has been triggered. It will
                 take effect in{' '}
                 <b>
                   <CountdownTimer targetDate={coolOffTime} />
                 </b>
-              </Trans>
+              </>
             )}
           </div>
         </GridItemEight>

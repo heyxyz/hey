@@ -14,7 +14,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -117,7 +116,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
                     )
                   }
                 >
-                  <Trans>Report</Trans>
+                  Report
                 </Button>
               </>
             ) : null}

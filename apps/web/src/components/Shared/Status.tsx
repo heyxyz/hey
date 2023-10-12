@@ -23,7 +23,6 @@ import {
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -268,7 +267,7 @@ const Status: FC = () => {
               Leafwatch.track(SETTINGS.PROFILE.CLEAR_STATUS);
             }}
           >
-            <Trans>Clear status</Trans>
+            Clear status
           </Button>
           <Button
             type="submit"
@@ -281,7 +280,7 @@ const Status: FC = () => {
               )
             }
           >
-            <Trans>Save</Trans>
+            Save
           </Button>
         </div>
       </Form>

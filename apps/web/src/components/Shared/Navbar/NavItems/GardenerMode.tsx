@@ -5,7 +5,6 @@ import { Localstorage } from '@hey/data/storage';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -61,9 +60,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       ) : (
         <BoltIconOutline className="h-4 w-4 text-red-500" />
       )}
-      <div>
-        <Trans>Gardener mode</Trans>
-      </div>
+      <div>Gardener mode</div>
     </button>
   );
 };

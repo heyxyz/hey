@@ -8,7 +8,6 @@ import {
 import formatHandle from '@hey/lib/formatHandle';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -112,9 +111,7 @@ const Search: FC<SearchProps> = ({
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
-                <div>
-                  <Trans>Searching users</Trans>
-                </div>
+                <div>Searching users</div>
               </div>
             ) : (
               <>
@@ -144,9 +141,7 @@ const Search: FC<SearchProps> = ({
                   </motion.div>
                 ))}
                 {profiles.length === 0 ? (
-                  <div className="px-4 py-2">
-                    <Trans>No matching users</Trans>
-                  </div>
+                  <div className="px-4 py-2">No matching users</div>
                 ) : null}
               </>
             )}

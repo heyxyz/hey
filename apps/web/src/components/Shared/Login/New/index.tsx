@@ -15,7 +15,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import { useAccount } from 'wagmi';
@@ -108,9 +107,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
             src="/logo.svg"
             alt="Logo"
           />
-          <div className="text-xl font-bold">
-            <Trans>Sign up to {APP_NAME}</Trans>
-          </div>
+          <div className="text-xl font-bold">Sign up to {APP_NAME}</div>
         </div>
       ) : null}
       <Input
@@ -153,7 +150,7 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
           loading ? <Spinner size="xs" /> : <PlusIcon className="h-4 w-4" />
         }
       >
-        <Trans>Sign up</Trans>
+        Sign up
       </Button>
     </Form>
   );
