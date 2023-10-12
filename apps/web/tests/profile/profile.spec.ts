@@ -30,7 +30,7 @@ test.describe('Profile', () => {
     const style = await cover.getAttribute('style');
 
     await expect(style).toContain(
-      `${LENS_MEDIA_SNAPSHOT_URL}/${COVER}/cec102043296a17cbe39416bbd7abb6df6bacdb768c6ef1b358411e45e86b5fa.png`
+      `${LENS_MEDIA_SNAPSHOT_URL}/${COVER}/ed9609fb7d07a0b4d2515f9f06ba81bbaaf0cde484886295b50128555bb948b0.jpg`
     );
   });
 });
