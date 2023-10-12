@@ -46,38 +46,6 @@ msgstr "Скрыть комментарии"
 msgid "Show more comments"
 msgstr "Показать больше комментариев"
 
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Add restrictions on who can view this post"
-#~ msgstr "Добавить ограничения на то, кто может просматривать эту публикацию"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Enable collect first to use collect based token gating"
-#~ msgstr "Сначала включите функцию collect, чтобы использовать систему управления токенами на основе коллекта"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Collectors can view"
-#~ msgstr "Люди, сделавшие коллект, могут просматривать"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "People need to collect it first to be able to view it"
-#~ msgstr "Люди должны сделать коллект публикации, чтобы увидеть ее"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "Followers can view"
-#~ msgstr "Подписчики могут просматривать"
-
-#: src/components/Composer/Actions/AccessSettings/BasicSettings.tsx
-#~ msgid "People need to follow you to be able to view it"
-#~ msgstr "Для просмотра человек должен подписаться на вас"
-
-#: src/components/Composer/Actions/AccessSettings/index.tsx
-#~ msgid "Access settings"
-#~ msgstr "Настройки доступа"
-
-#: src/components/Composer/Actions/AccessSettings/index.tsx
-#~ msgid "Add restrictions on who can view your content, and who can't. For instance - token gate your posts on the condition of owning specific NFTs or tokens."
-#~ msgstr "Добавить ограничения на то, кто может просматривать ваш контент, а кто нет. Например, можно ограничить доступ к вашим постам на условии владения определенными NFT или токенами."
-
 #: src/components/Composer/Actions/Attachment.tsx
 msgid "Exceeded max limit of 1 audio, or 1 video, or 4 images"
 msgstr "Превышено максимальное ограничение в 1 аудио, 1 видео или 4 изображения"
@@ -447,16 +415,6 @@ msgstr ""
 
 #: src/components/Home/EnableDispatcher.tsx
 #: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-#~ msgstr "Обновите диспетчер до последней версии, чтобы улучшить, ускорить и повысить эффективность транзакций без подписи."
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
-#~ msgid "Signless transactions upgrade"
-#~ msgstr ""
-
-#: src/components/Home/EnableDispatcher.tsx
-#: src/components/Settings/Dispatcher/index.tsx
 msgid "You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions."
 msgstr "Вы можете включить диспетчер для взаимодействия с {APP_NAME} без подтверждения транзакций."
 
@@ -600,18 +558,6 @@ msgstr "Поиск пользователей"
 msgid "No matching users"
 msgstr "Нет подходящих пользователей"
 
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "Set default profile"
-#~ msgstr "Установить профиль по умолчанию"
-
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "You own {count} {0} but you don't have a default one."
-#~ msgstr "У вас есть {count} {0}, но нет стандартного."
-
-#: src/components/Home/SetDefaultProfile.tsx
-#~ msgid "Set default profile here"
-#~ msgstr "Установить профиль по умолчанию"
-
 #: src/components/Home/SetProfile.tsx
 msgid "Setup your {APP_NAME} profile"
 msgstr "Настройте ваш {APP_NAME} профиль"
@@ -662,11 +608,6 @@ msgstr "Теги"
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "acted"
 msgstr ""
-
-#: src/components/Home/Timeline/EventType/Collected.tsx
-#: src/components/Home/Timeline/EventType/Combined.tsx
-#~ msgid "collected"
-#~ msgstr "коллектнуто"
 
 #: src/components/Home/Timeline/EventType/Combined.tsx
 #: src/components/Home/Timeline/EventType/Mirrored.tsx
