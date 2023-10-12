@@ -39,5 +39,5 @@ module.exports = {
     'unicorn/no-useless-undefined': 'error',
     'unicorn/prefer-array-find': 'error'
   },
-  ignorePatterns: ['generated.ts', 'node_modules', "sw.js"]
+  ignorePatterns: ['generated.ts', 'node_modules']
 };

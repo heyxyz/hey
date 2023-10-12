@@ -27,14 +27,9 @@ const handleFetch = (event: FetchEvent): void => {
   const { origin } = new URL(request.url);
 
   if (self.location.origin === origin || CACHEABLE_DOMAINS.includes(origin)) {
-    // responding for same origin requests - assets, documents
     event.respondWith(cache.get(event));
-    // can respond to api calls to cache using indexedDB
-    // ...
-  } else {
-    // can further cache third-party api calls, if not needed just do a return - where network will take care the request
-    return;
   }
+  return;
 };
 
 self.addEventListener('fetch', handleFetch);

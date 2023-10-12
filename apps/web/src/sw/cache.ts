@@ -100,8 +100,6 @@ export class ServiceWorkerCache {
       if (cachedResponse) {
         return cachedResponse;
       }
-    } else {
-      return await fetch(request);
     }
     return await fetch(request);
   };
