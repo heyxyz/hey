@@ -234,6 +234,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         {currentStep === CreateSteps.NAME ? (
           <Input
             value={gallery.name}
+            placeholder={t`Gallery name`}
             onChange={(event) =>
               setGallery({
                 ...gallery,

@@ -45,7 +45,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   };
 
   // Variables
-  const publicationTypes =
+  const publicationTypes: PublicationType[] =
     type === ProfileFeedType.Feed
       ? [PublicationType.Post, PublicationType.Mirror]
       : type === ProfileFeedType.Replies
@@ -65,7 +65,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       metadata,
       ...(type !== ProfileFeedType.Collects
         ? { from: profile?.id }
-        : { collectedBy: profile?.ownedBy.address })
+        : { actedBy: profile?.ownedBy.address })
     },
     limit: LimitType.TwentyFive
   };
