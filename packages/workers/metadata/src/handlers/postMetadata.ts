@@ -1,43 +1,12 @@
 import { createData, EthereumSigner } from '@hey/irys';
-import type { PublicationMetadataV2Input } from '@hey/lens';
 import response from '@hey/lib/response';
 
 import type { WorkerRequest } from '../types';
 
 export default async (request: WorkerRequest) => {
   try {
-    const payload: PublicationMetadataV2Input = await request.json();
+    const payload = await request.json();
     const signer = new EthereumSigner(request.env.IRYS_PRIVATE_KEY);
-    if (payload.content?.length) {
-      try {
-        const aiEndpoint = 'https://ai.hey.xyz';
-        const fetchPayload = {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ text: payload.content })
-        };
-
-        const responses = await Promise.all([
-          fetch(`${aiEndpoint}/tagger`, fetchPayload),
-          fetch(`${aiEndpoint}/locale`, fetchPayload)
-        ]);
-
-        // Append Tags to metadata
-        const taggerResponseJson: any = await responses[0].json();
-        payload.tags = [
-          ...new Set([
-            ...(payload.tags || []),
-            ...(taggerResponseJson.topics || [])
-          ])
-        ];
-
-        // Append Locale to metadata
-        const localeResponse: any = await responses[1].json();
-        if (localeResponse.locale) {
-          payload.locale = localeResponse.locale;
-        }
-      } catch {}
-    }
 
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
