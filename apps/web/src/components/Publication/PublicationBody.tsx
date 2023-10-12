@@ -14,7 +14,9 @@ import cn from '@hey/ui/cn';
 import getPublicationData from '@lib/getPublicationData';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { isIOS, isMobile } from 'react-device-detect';
 
 import Nft from './OpenActions/Nft';
 import Snapshot from './OpenActions/Snapshot';
@@ -47,6 +49,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const filterId = snapshotProposalId;
   let rawContent = filteredContent;
+
+  if (isIOS && isMobile && canShowMore) {
+    const truncatedRawContent = rawContent?.split('\n')?.[0];
+    if (truncatedRawContent) {
+      rawContent = truncatedRawContent;
+    }
+  }
 
   if (filterId) {
     for (const url of urls) {
