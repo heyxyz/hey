@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const STATIC_ASSETS = getFilesInDirectory('public/');
-
 const outfile = 'public/sw.js'
 
 esbuild.build({

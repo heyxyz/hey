@@ -669,11 +669,6 @@ msgstr "正在加载推荐"
 msgid "Nothing to suggest"
 msgstr "没有可以推荐的内容"
 
-#: src/components/Home/Tags.tsx
-#: src/components/StaffTools/Panels/Publication.tsx
-msgid "Tags"
-msgstr ""
-
 #: src/components/Home/Timeline/EventType/Collected.tsx
 #: src/components/Home/Timeline/EventType/Combined.tsx
 msgid "collected"
@@ -3516,6 +3511,10 @@ msgstr "评论"
 #: src/components/StaffTools/Panels/Publication.tsx
 msgid "Collect module"
 msgstr "收藏模块"
+
+#: src/components/StaffTools/Panels/Publication.tsx
+msgid "Tags"
+msgstr ""
 
 #: src/components/StaffTools/RelayQueues.tsx
 msgid "Transactions"
