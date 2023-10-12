@@ -1,7 +1,7 @@
 import { APP_NAME, DEFAULT_OG } from '@hey/data/constants';
-import type { Comment } from '@hey/lens';
-import { Publication } from '@hey/lens';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import type { AnyPublication, Comment } from '@hey/lens';
+import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
@@ -12,7 +12,7 @@ import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface PublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   comments: Comment[];
 }
 
@@ -21,28 +21,19 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     return <DefaultTags />;
   }
 
-  const { metadata, __typename } = publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+
+  const { metadata } = targetPublication;
   const hasMedia = metadata?.media.length;
-  const profile: any =
-    __typename === 'Mirror'
-      ? publication?.mirrorOf?.profile
-      : publication.profile;
-  const title = `${
-    __typename === 'Post'
-      ? 'Post'
-      : __typename === 'Mirror'
-      ? 'Mirror'
-      : 'Comment'
-  } by @${publication.profile.handle} • ${APP_NAME}`;
-  const description = truncateByWords(metadata?.content, 30);
+  const profile = targetPublication.by;
+  const title = `${targetPublication.__typename} by @${publication.by.handle} • ${APP_NAME}`;
+  const description = truncateByWords(metadata?.marketplace?.description, 30);
   const image = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : profile
-    ? sanitizeDStorageUrl(
-        profile?.picture?.original?.url ??
-          profile?.picture?.uri ??
-          getStampFyiURL(profile?.ownedBy.address)
-      )
+    ? sanitizeDStorageUrl(getAvatarUrl(profile))
     : DEFAULT_OG;
 
   return (

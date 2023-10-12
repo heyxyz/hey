@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
@@ -15,36 +16,24 @@ const SinglePublication: FC<PublicationProps> = ({
   publication,
   h1Content = false
 }) => {
-  const { id, stats, metadata, __typename } = publication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { stats, metadata } = targetPublication;
   const hasMedia = metadata?.media.length;
-  const isMirror = __typename === 'Mirror';
-  const profile: any = isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
-  const publicationId = isMirror ? publication?.mirrorOf?.id : id;
-  const avatar = sanitizeDStorageUrl(
-    profile.picture?.original?.url ??
-      profile.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy.address)
-  );
+  const profile = targetPublication.by;
+  const publicationId = targetPublication.id;
+  const avatar = sanitizeDStorageUrl(getAvatarUrl(profile));
   const attachment = hasMedia
     ? sanitizeDStorageUrl(metadata?.media[0].original.url)
     : null;
-  const content = truncateByWords(metadata?.content, 30);
+  const content = truncateByWords(metadata?.marketplace?.description, 30);
 
   // Stats
-  const commentsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfComments
-    : stats.totalAmountOfComments;
-  const likesCount = isMirror
-    ? publication.mirrorOf.stats.totalUpvotes
-    : stats.totalUpvotes;
-  const collectsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfCollects
-    : stats.totalAmountOfCollects;
-  const mirrorsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfMirrors
-    : stats.totalAmountOfMirrors;
+  const commentsCount = stats.comments;
+  const likesCount = stats.reactions;
+  const collectsCount = stats.countOpenActions;
+  const mirrorsCount = stats.mirrors;
 
   return (
     <>
@@ -60,7 +49,7 @@ const SinglePublication: FC<PublicationProps> = ({
       <div data-testid={`publication-${publicationId}`}>
         <div>
           <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            {profile.name ?? profile.handle}
+            {profile.metadata?.displayName ?? profile.handle}
           </a>
         </div>
         <div>

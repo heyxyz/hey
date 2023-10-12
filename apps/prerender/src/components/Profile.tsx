@@ -1,8 +1,8 @@
 import { APP_NAME } from '@hey/data/constants';
-import type { MediaSet, NftImage, Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getAvatarUrl from '@hey/lib/getAvatarUrl';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
@@ -14,8 +14,8 @@ import SinglePublication from './Shared/SinglePublication';
 import Tags from './Shared/Tags';
 
 interface ProfileProps {
-  profile: Profile & { picture: MediaSet & NftImage };
-  publications: Publication[];
+  profile: Profile;
+  publications: AnyPublication[];
 }
 
 const Profile: FC<ProfileProps> = ({ profile, publications }) => {
@@ -23,15 +23,11 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     return <DefaultTags />;
   }
 
-  const title = profile?.name
-    ? `${profile?.name} (@${profile?.handle}) • ${APP_NAME}`
+  const title = profile.metadata?.displayName
+    ? `${profile.metadata.displayName} (@${profile?.handle}) • ${APP_NAME}`
     : `@${profile?.handle} • ${APP_NAME}`;
-  const description = truncateByWords(profile?.bio ?? '', 30);
-  const image = sanitizeDStorageUrl(
-    profile?.picture?.original?.url ??
-      profile?.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy.address)
-  );
+  const description = truncateByWords(profile.metadata?.bio ?? '', 30);
+  const image = sanitizeDStorageUrl(getAvatarUrl(profile));
 
   return (
     <>
@@ -48,8 +44,8 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
               author: {
                 '@type': 'Person',
                 additionalName: profile.handle,
-                description: profile.bio,
-                givenName: profile.name ?? profile.handle,
+                description: profile.metadata?.bio,
+                givenName: profile.metadata?.displayName ?? profile.handle,
                 identifier: profile.id,
                 image: {
                   '@type': 'ImageObject',
@@ -61,19 +57,19 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/FollowAction',
                     name: 'Follows',
-                    userInteractionCount: profile.stats.totalFollowers
+                    userInteractionCount: profile.stats.followers
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/SubscribeAction',
                     name: 'Following',
-                    userInteractionCount: profile.stats.totalFollowing
+                    userInteractionCount: profile.stats.following
                   },
                   {
                     '@type': 'InteractionCounter',
                     interactionType: 'https://schema.org/WriteAction',
                     name: 'Posts',
-                    userInteractionCount: profile.stats.totalPosts
+                    userInteractionCount: profile.stats.posts
                   }
                 ],
                 url: `https://hey.xyz/u/${profile.handle}}`
@@ -84,16 +80,16 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img
-          alt={`@${formatHandle(profile.handle) || profile.id}'s avatar`}
+          alt={`@${formatHandle(profile.handle)}'s avatar`}
           src={image}
           width="64"
         />
-        <h1 data-testid="profile-name">{profile.name ?? profile.handle}</h1>
-        <h2 data-testid="profile-handle">
-          @{formatHandle(profile.handle) || profile.id}
-        </h2>
+        <h1 data-testid="profile-name">
+          {profile.metadata?.displayName ?? profile.handle}
+        </h1>
+        <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
         <h3 data-testid="profile-bio">
-          {truncateByWords(profile?.bio ?? '', 30)}
+          {truncateByWords(profile.metadata?.bio ?? '', 30)}
         </h3>
         <div>
           <div>{profile.stats.posts} Posts</div>
@@ -105,37 +101,29 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         <hr />
         <nav>
           <div>
-            <a
-              href={`${BASE_URL}/u/${
-                formatHandle(profile.handle) || profile.id
-              }`}
-            >
-              Feed
-            </a>
+            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>Feed</a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${
-                formatHandle(profile.handle) || profile.id
-              }?type=replies`}
+              href={`${BASE_URL}/u/${formatHandle(
+                profile.handle
+              )}?type=replies`}
             >
               Replies
             </a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${
-                formatHandle(profile.handle) || profile.id
-              }?type=media`}
+              href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}
             >
               Media
             </a>
           </div>
           <div>
             <a
-              href={`${BASE_URL}/u/${
-                formatHandle(profile.handle) || profile.id
-              }?type=collects`}
+              href={`${BASE_URL}/u/${formatHandle(
+                profile.handle
+              )}?type=collects`}
             >
               Collected
             </a>
@@ -159,7 +147,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
             <div
               key={
                 __typename === 'Mirror'
-                  ? publication.mirrorOf.id
+                  ? publication.mirrorOn.id
                   : publication.id
               }
             >

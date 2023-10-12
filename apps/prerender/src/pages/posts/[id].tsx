@@ -1,10 +1,12 @@
 import Publication from '@components/Publication';
+import type { PublicationsRequest } from '@hey/lens';
 import {
-  CommentFeedDocument,
-  CommentOrderingTypes,
-  CommentRankingFilter,
-  CustomFiltersTypes,
-  PublicationDocument
+  CommentRankingFilterType,
+  CustomFiltersType,
+  LimitType,
+  PublicationDocument,
+  PublicationsDocument,
+  PublicationType
 } from '@hey/lens';
 import { lensApolloNodeClient } from '@hey/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
@@ -31,27 +33,27 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   });
 
   if (publicationData.publication) {
-    const profileId = null;
-    const reactionRequest = { profileId };
     const { publication } = publicationData;
     const id =
       publication.__typename === 'Mirror'
-        ? publication.mirrorOf.id
+        ? publication.mirrorOn.id
         : publication.id;
 
-    const { data: commentsData } = await lensApolloNodeClient.query({
-      query: CommentFeedDocument,
-      variables: {
-        request: {
-          commentsOf: id,
-          customFilters: [CustomFiltersTypes.Gardeners],
-          commentsOfOrdering: CommentOrderingTypes.Ranking,
-          commentsRankingFilter: CommentRankingFilter.Relevant,
-          limit: 30
+    const request: PublicationsRequest = {
+      where: {
+        commentOn: {
+          id,
+          ranking: { filter: CommentRankingFilterType.Relevant }
         },
-        reactionRequest,
-        profileId
-      }
+        publicationTypes: [PublicationType.Comment],
+        customFilters: [CustomFiltersType.Gardeners]
+      },
+      limit: LimitType.Fifty
+    };
+
+    const { data: commentsData } = await lensApolloNodeClient.query({
+      query: PublicationsDocument,
+      variables: { request }
     });
 
     return {
