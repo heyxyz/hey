@@ -26,12 +26,18 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     : publication;
 
   const { metadata } = targetPublication;
-  const hasMedia = metadata?.media.length;
+  const metadataType = metadata.__typename;
+  const media =
+    metadataType === 'ImageMetadataV3'
+      ? metadata.asset.image.optimized?.uri
+      : metadataType === 'VideoMetadataV3'
+      ? metadata.asset.cover?.optimized?.uri
+      : null;
   const profile = targetPublication.by;
   const title = `${targetPublication.__typename} by @${publication.by.handle} • ${APP_NAME}`;
   const description = truncateByWords(metadata?.marketplace?.description, 30);
-  const image = hasMedia
-    ? sanitizeDStorageUrl(metadata?.media[0].original.url)
+  const image = media
+    ? sanitizeDStorageUrl(media)
     : profile
     ? sanitizeDStorageUrl(getAvatarUrl(profile))
     : DEFAULT_OG;
@@ -43,7 +49,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
         description={description}
         image={image}
         publishedTime={publication?.createdAt}
-        cardType={hasMedia ? 'summary_large_image' : 'summary'}
+        cardType={media ? 'summary_large_image' : 'summary'}
         url={`${BASE_URL}/posts/${publication.id}`}
       />
       <header>

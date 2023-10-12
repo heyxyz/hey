@@ -20,19 +20,22 @@ const SinglePublication: FC<PublicationProps> = ({
     ? publication.mirrorOn
     : publication;
   const { stats, metadata } = targetPublication;
-  const hasMedia = metadata?.media.length;
+  const metadataType = metadata.__typename;
+  const media =
+    metadataType === 'ImageMetadataV3'
+      ? metadata.asset.image.optimized?.uri
+      : metadataType === 'VideoMetadataV3'
+      ? metadata.asset.cover?.optimized?.uri
+      : null;
   const profile = targetPublication.by;
   const publicationId = targetPublication.id;
   const avatar = sanitizeDStorageUrl(getAvatarUrl(profile));
-  const attachment = hasMedia
-    ? sanitizeDStorageUrl(metadata?.media[0].original.url)
-    : null;
+  const attachment = media ? sanitizeDStorageUrl(media) : null;
   const content = truncateByWords(metadata?.marketplace?.description, 30);
 
   // Stats
   const commentsCount = stats.comments;
   const likesCount = stats.reactions;
-  const collectsCount = stats.countOpenActions;
   const mirrorsCount = stats.mirrors;
 
   return (
