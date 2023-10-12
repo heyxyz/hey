@@ -6,7 +6,6 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Button, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { ChangeEvent, FC } from 'react';
@@ -292,11 +291,7 @@ const Composer: FC<ComposerProps> = ({
           aria-label="Send message"
         >
           <div className="flex items-center space-x-2">
-            {Number(width) > MIN_WIDTH_DESKTOP ? (
-              <span>
-                <Trans>Send</Trans>
-              </span>
-            ) : null}
+            {Number(width) > MIN_WIDTH_DESKTOP ? <span>Send</span> : null}
             <ArrowRightIcon className="h-5 w-5" />
           </div>
         </Button>

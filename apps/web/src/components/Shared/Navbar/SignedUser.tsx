@@ -4,7 +4,6 @@ import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -73,9 +72,7 @@ const SignedUser: FC = () => {
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <div className="flex w-full flex-col">
-                <div>
-                  <Trans>Logged in as</Trans>
-                </div>
+                <div>Logged in as</div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"

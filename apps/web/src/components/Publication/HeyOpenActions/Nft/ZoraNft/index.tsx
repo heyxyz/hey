@@ -11,7 +11,6 @@ import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
@@ -111,7 +110,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 });
               }}
             >
-              <Trans>Mint</Trans>
+              Mint
             </Button>
             <Modal
               title="Mint on Zora"
@@ -135,11 +134,9 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 })
               }
             >
-              {nft.contractType === 'ERC1155_COLLECTION' ? (
-                <Trans>Mint all on Zora</Trans>
-              ) : (
-                <Trans>Mint on Zora</Trans>
-              )}
+              {nft.contractType === 'ERC1155_COLLECTION'
+                ? 'Mint all on Zora'
+                : 'Mint on Zora'}
             </Button>
           </Link>
         )}

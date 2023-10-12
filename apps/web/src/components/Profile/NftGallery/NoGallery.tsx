@@ -2,7 +2,6 @@ import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Button } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -68,21 +67,15 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
           </>
         ) : (
           <>
-            <h5 className="mb-2 text-xl">
-              <Trans>Welcome to your gallery</Trans>
-            </h5>
+            <h5 className="mb-2 text-xl">Welcome to your gallery</h5>
             <p className="text-sm opacity-60">
-              <Trans>
-                Create a curated space for your digital collectibles
-              </Trans>
+              Create a curated space for your digital collectibles
             </p>
           </>
         )}
       </div>
       {isOwner ? (
-        <Button onClick={() => setShowCreateModal(true)}>
-          <Trans>Let's do it!</Trans>
-        </Button>
+        <Button onClick={() => setShowCreateModal(true)}>Let's do it!</Button>
       ) : null}
     </div>
   );

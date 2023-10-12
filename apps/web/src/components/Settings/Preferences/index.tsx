@@ -4,7 +4,6 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -33,14 +32,10 @@ const PreferencesSettings: NextPage = () => {
       <GridItemEight>
         <Card className="p-5">
           <div className="space-y-5">
-            <div className="text-lg font-bold">
-              <Trans>Your Preferences</Trans>
-            </div>
+            <div className="text-lg font-bold">Your Preferences</div>
             <p>
-              <Trans>
-                Update your preferences to control how you can change your
-                experience on {APP_NAME}.
-              </Trans>
+              Update your preferences to control how you can change your
+              experience on {APP_NAME}.
             </p>
           </div>
           <div className="divider my-5" />

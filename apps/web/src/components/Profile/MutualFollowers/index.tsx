@@ -3,7 +3,6 @@ import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -48,9 +47,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
         ))}
       </div>
       <div>
-        <span>
-          <Trans>Followed by</Trans>{' '}
-        </span>
+        <span>Followed by </span>
         {children}
       </div>
     </div>

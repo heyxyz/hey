@@ -16,7 +16,6 @@ import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -174,9 +173,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           className="flex items-center space-x-1 text-sm underline"
         >
           <KeyIcon className="h-4 w-4" />
-          <div>
-            <Trans>Change wallet</Trans>
-          </div>
+          <div>Change wallet</div>
         </button>
       </div>
       {errorChallenge || errorAuthenticate ? (

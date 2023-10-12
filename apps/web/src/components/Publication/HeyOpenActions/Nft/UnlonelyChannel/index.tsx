@@ -12,7 +12,6 @@ import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
@@ -105,7 +104,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
               )
             }
           >
-            <Trans>Open</Trans>
+            Open
           </Button>
         </Link>
       </div>

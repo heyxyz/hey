@@ -10,7 +10,6 @@ import {
   isMirrorPublication
 } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
@@ -35,9 +34,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
     >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Staff tool</Trans>
-        </div>
+        <div className="text-lg font-bold">Staff tool</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails

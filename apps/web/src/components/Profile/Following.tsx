@@ -6,7 +6,6 @@ import type { FollowingRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowingQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -56,9 +55,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
             <span className="mr-1 font-bold">
               @{formatHandle(profile?.handle)}
             </span>
-            <span>
-              <Trans>doesn’t follow anyone.</Trans>
-            </span>
+            <span>doesn’t follow anyone.</span>
           </div>
         }
         icon={<UsersIcon className="text-brand h-8 w-8" />}

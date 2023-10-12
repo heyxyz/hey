@@ -7,7 +7,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
@@ -99,7 +98,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 );
               }}
             >
-              <Trans>Mint</Trans>
+              Mint
             </Button>
             <Modal
               title="Mint on BasePaint"
@@ -127,7 +126,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 )
               }
             >
-              <Trans>Contribute</Trans>
+              Contribute
             </Button>
           </Link>
         ) : (
@@ -150,7 +149,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
                 )
               }
             >
-              <Trans>View on OpenSea</Trans>
+              View on OpenSea
             </Button>
           </Link>
         )}

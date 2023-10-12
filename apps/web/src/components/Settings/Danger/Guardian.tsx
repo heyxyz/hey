@@ -10,7 +10,6 @@ import { SETTINGS } from '@hey/data/tracking';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -65,27 +64,21 @@ const GuardianSettings: FC = () => {
   return (
     <Card className="space-y-5 p-5">
       <div className="text-lg font-bold text-red-500">
-        <Trans>Disable profile guardian</Trans>
+        Disable profile guardian
       </div>
       <p>
-        <Trans>
-          This will disable the Profile Guardian and allow you to do some
-          actions like transfer, burn and approve without restrictions.
-        </Trans>
+        This will disable the Profile Guardian and allow you to do some actions
+        like transfer, burn and approve without restrictions.
       </p>
       <div className="text-lg font-bold">What else you should know</div>
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
-          <Trans>
-            A 7-day Security Cooldown Period need to be elapsed for the Profile
-            Guardian to become effectively disabled.
-          </Trans>
+          A 7-day Security Cooldown Period need to be elapsed for the Profile
+          Guardian to become effectively disabled.
         </p>
         <p className="py-3">
-          <Trans>
-            After the Profile Guardian is effectively disabled, you will be able
-            to execute approvals and transfers without restrictions.
-          </Trans>
+          After the Profile Guardian is effectively disabled, you will be able
+          to execute approvals and transfers without restrictions.
         </p>
       </div>
       {data?.hash ? (
@@ -119,10 +112,8 @@ const GuardianSettings: FC = () => {
             title="Are you sure?"
             message={
               <div className="leading-6">
-                <Trans>
-                  Confirm that you have read all consequences and want to
-                  disable the Profile Guardian.
-                </Trans>
+                Confirm that you have read all consequences and want to disable
+                the Profile Guardian.
               </div>
             }
           />
@@ -134,7 +125,7 @@ const GuardianSettings: FC = () => {
               await handleDisable();
             }}
           >
-            <Trans>Yes, disable</Trans>
+            Yes, disable
           </Button>
         </div>
       </Modal>

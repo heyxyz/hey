@@ -7,7 +7,6 @@ import {
 } from '@heroicons/react/24/outline';
 import humanize from '@hey/lib/humanize';
 import type { BasePaintCanvas } from '@hey/types/nft';
-import { Trans } from '@lingui/macro';
 import { type FC } from 'react';
 import { formatEther } from 'viem';
 
@@ -23,41 +22,30 @@ const Metadata: FC<MetadataProps> = ({ canvas }) => {
       {totalMints > 0 ? (
         <div className="flex items-center space-x-2">
           <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{humanize(totalMints)} minted</Trans>
-          </b>
+          <b>{humanize(totalMints)} minted</b>
         </div>
       ) : null}
       <div className="flex items-center space-x-2">
         <PaintBrushIcon className="lt-text-gray-500 h-4 w-4" />
         <b>
-          <Trans>
-            {contributions.length > 1000 ? '1000+' : contributions.length}{' '}
-            artists
-          </Trans>
+          {contributions.length > 1000 ? '1000+' : contributions.length} artists
         </b>
       </div>
       {pixelsCount > 0 ? (
         <div className="flex items-center space-x-2">
           <QrCodeIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{humanize(pixelsCount)} pixels used</Trans>
-          </b>
+          <b>{humanize(pixelsCount)} pixels used</b>
         </div>
       ) : null}
       {totalEarned ? (
         <div className="flex items-center space-x-2">
           <CurrencyDollarIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{formatEther(BigInt(totalEarned))} ETH earned</Trans>
-          </b>
+          <b>{formatEther(BigInt(totalEarned))} ETH earned</b>
         </div>
       ) : null}
       <div className="flex items-center space-x-2">
         <SwatchIcon className="lt-text-gray-500 h-4 w-4" />
-        <b>
-          <Trans>Color Palette</Trans>
-        </b>
+        <b>Color Palette</b>
         <div className="flex items-center space-x-1">
           {canvas.palette.map((color, index) => (
             <span

@@ -4,7 +4,6 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -22,19 +21,14 @@ const DispatcherSettings: FC = () => {
 
   const getTitleText = () => {
     if (canUseRelay) {
-      return <Trans>Disable signless transactions</Trans>;
+      return 'Disable signless transactions';
     }
 
-    return <Trans>Signless transactions</Trans>;
+    return 'Signless transactions';
   };
 
   const getDescription = () => {
-    return (
-      <Trans>
-        You can enable dispatcher to interact with {APP_NAME} without signing
-        any of your transactions.
-      </Trans>
-    );
+    return 'You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions.';
   };
 
   if (!currentProfile) {

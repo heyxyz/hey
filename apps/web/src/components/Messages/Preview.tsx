@@ -11,7 +11,7 @@ import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { formatTime, getTimeFromNow } from '@lib/formatTime';
+import { getTimeFromNow } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
@@ -105,10 +105,7 @@ const Preview: FC<PreviewProps> = ({
                 ) : null}
               </div>
               {message?.sent ? (
-                <span
-                  className="lt-text-gray-500 shrink-0 pt-0.5 text-xs"
-                  title={formatTime(message.sent)}
-                >
+                <span className="lt-text-gray-500 shrink-0 pt-0.5 text-xs">
                   {getTimeFromNow(message.sent)}
                 </span>
               ) : null}

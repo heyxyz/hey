@@ -15,7 +15,7 @@ import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import Tippy from '@tippyjs/react';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
@@ -102,9 +102,7 @@ const UserPreview: FC<UserPreviewProps> = ({
 
     if (!compositeProfile) {
       return (
-        <div className="flex h-12 items-center px-3">
-          <Trans>No profile found</Trans>
-        </div>
+        <div className="flex h-12 items-center px-3">No profile found</div>
       );
     }
 

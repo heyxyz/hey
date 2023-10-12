@@ -3,7 +3,6 @@ import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -25,13 +24,8 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
           alt={profile.id}
         />
         <span>
-          <Trans>
-            Invited by{' '}
-            <Slug
-              prefix="@"
-              slug={formatHandle(profile.handle) || profile.id}
-            />
-          </Trans>
+          Invited by{' '}
+          <Slug prefix="@" slug={formatHandle(profile.handle) || profile.id} />
         </span>
       </Link>
     </div>

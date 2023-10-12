@@ -5,12 +5,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Card, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import {
-  formatDate,
-  formatTime,
-  getTimeFromNow,
-  isOnSameDay
-} from '@lib/formatTime';
+import { formatDate, getTimeFromNow, isOnSameDay } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
 import React, { memo, useEffect } from 'react';
@@ -125,7 +120,6 @@ const MessageTile: FC<MessageTileProps> = ({
             address === message.senderAddress ? 'flex-row' : 'flex-row-reverse',
             'flex items-center gap-1 text-xs text-gray-400'
           )}
-          title={formatTime(message.sent)}
         >
           {statusIcon}
           {statusContent}

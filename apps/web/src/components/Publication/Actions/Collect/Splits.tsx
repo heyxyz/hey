@@ -6,7 +6,6 @@ import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -35,9 +34,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
 
   return (
     <div className="space-y-2 pt-3">
-      <div className="mb-2 font-bold">
-        <Trans>Fee recipients</Trans>
-      </div>
+      <div className="mb-2 font-bold">Fee recipients</div>
       {recipients.map((recipient) => {
         const { recipient: address, split } = recipient;
         const profile = getProfileByAddress(address) as Profile;

@@ -8,7 +8,6 @@ import {
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -52,11 +51,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={
-          <Trans>
-            No publications for <b>&ldquo;{query}&rdquo;</b>
-          </Trans>
-        }
+        message={'No publications for <b>&ldquo;{query}&rdquo;</b>'}
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );

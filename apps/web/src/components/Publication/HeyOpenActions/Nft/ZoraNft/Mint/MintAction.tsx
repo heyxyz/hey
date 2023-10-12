@@ -13,7 +13,6 @@ import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -161,14 +160,14 @@ const MintAction: FC<MintActionProps> = ({
               icon={<CurrencyDollarIcon className="h-5 w-5" />}
               size="md"
             >
-              <Trans>You don't have balance</Trans>
+              You don't have balance
             </Button>
           </Link>
         ) : maxMintExceededError ? (
           <div className="mt-5 w-full">
             <div className="divider" />
             <b className="mt-5 flex w-full justify-center">
-              <Trans>You exceeded the mint limit</Trans>
+              You exceeded the mint limit
             </b>
           </div>
         ) : (
@@ -190,11 +189,7 @@ const MintAction: FC<MintActionProps> = ({
                 })
               }
             >
-              {saleInactiveError ? (
-                <Trans>Collect on Zora</Trans>
-              ) : (
-                <Trans>Mint on Zora</Trans>
-              )}
+              {saleInactiveError ? 'Collect on Zora' : 'Mint on Zora'}
             </Button>
           </Link>
         )
@@ -211,7 +206,7 @@ const MintAction: FC<MintActionProps> = ({
             )
           }
         >
-          <Trans>Mint on Zora</Trans>
+          Mint on Zora
         </Button>
       )}
     </div>
@@ -220,17 +215,13 @@ const MintAction: FC<MintActionProps> = ({
       {isLoading ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>
-            <Trans>Minting in progress</Trans>
-          </div>
+          <div>Minting in progress</div>
         </div>
       ) : null}
       {isSuccess ? (
         <div className="flex items-center space-x-1.5">
           <CheckCircleIcon className="h-5 w-5 text-green-500" />
-          <div>
-            <Trans>Minted successful</Trans>
-          </div>
+          <div>Minted successful</div>
         </div>
       ) : null}
     </div>

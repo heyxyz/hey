@@ -10,7 +10,6 @@ import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -105,7 +104,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         handleAllowance(module.allowance.asset.symbol, '0', module.moduleName)
       }
     >
-      <Trans>Revoke</Trans>
+      Revoke
     </Button>
   ) : (
     <>
@@ -126,11 +125,9 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             title="Handle with care!"
             message={
               <div className="leading-6">
-                <Trans>
-                  Please be aware that by allowing this module, the amount
-                  indicated will be automatically deducted when you{' '}
-                  <b>Collect</b> and <b>Super follow</b>.
-                </Trans>
+                Please be aware that by allowing this module, the amount
+                indicated will be automatically deducted when you <b>Collect</b>{' '}
+                and <b>Super follow</b>.
               </div>
             }
           />

@@ -11,7 +11,6 @@ import { useApolloClient } from '@hey/lens/apollo';
 import trimify from '@hey/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -250,17 +249,13 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         )}
       </div>
       <div className="flex items-center justify-between space-x-2 border-t p-5 px-5 py-3 dark:border-t-gray-700">
-        {currentStep === 'NAME' ? (
-          <div />
-        ) : (
-          <Trans>{gallery.items.length} selected</Trans>
-        )}
+        {currentStep === 'NAME' ? <div /> : `${gallery.items.length} selected`}
         <Button
           disabled={loadingNext}
           onClick={() => onClickNext()}
           icon={loadingNext ? <Spinner size="xs" /> : null}
         >
-          <Trans>Next</Trans>
+          Next
         </Button>
       </div>
     </Modal>

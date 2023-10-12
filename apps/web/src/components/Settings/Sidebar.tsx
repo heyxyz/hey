@@ -12,7 +12,6 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -70,11 +69,7 @@ const SettingsSidebar: FC = () => {
             url: '/settings/export'
           },
           {
-            title: (
-              <div className="text-red-500">
-                <Trans>Danger zone</Trans>
-              </div>
-            ),
+            title: <div className="text-red-500">Danger zone</div>,
             icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
             url: '/settings/danger'
           }

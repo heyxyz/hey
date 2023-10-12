@@ -1,7 +1,6 @@
 import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -45,9 +44,7 @@ const Status: FC<StatusProps> = ({ className = '' }) => {
           <div>
             <FaceSmileIcon className="h-4 w-4" />
           </div>
-          <span>
-            <Trans>Set status</Trans>
-          </span>
+          <span>Set status</span>
         </>
       )}
     </button>

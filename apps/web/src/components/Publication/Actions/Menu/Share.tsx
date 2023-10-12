@@ -5,7 +5,6 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -36,9 +35,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
     >
       <div className="flex items-center space-x-2">
         <ClipboardDocumentIcon className="h-4 w-4" />
-        <div>
-          <Trans>Share</Trans>
-        </div>
+        <div>Share</div>
       </div>
     </Menu.Item>
   );

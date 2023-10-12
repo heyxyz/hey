@@ -8,7 +8,6 @@ import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { ErrorMessage, Image } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -82,9 +81,7 @@ const SwitchProfiles: FC = () => {
             <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
               <UserPlusIcon className="text-brand h-3 w-3" />
             </div>
-            <div>
-              <Trans>Create Profile</Trans>
-            </div>
+            <div>Create Profile</div>
           </span>
         </Link>
       ) : null}

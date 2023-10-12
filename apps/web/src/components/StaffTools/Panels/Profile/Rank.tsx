@@ -8,7 +8,6 @@ import {
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
-import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -81,9 +80,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <HashtagIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Scores</Trans>
-        </div>
+        <div className="text-lg font-bold">Scores</div>
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails

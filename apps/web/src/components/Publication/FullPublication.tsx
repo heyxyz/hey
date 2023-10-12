@@ -1,7 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
-import { formatDate, formatTime } from '@lib/formatTime';
+import { formatDate } from '@lib/formatTime';
 import type { FC } from 'react';
 
 import PublicationActions from './Actions';
@@ -42,7 +42,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
               <PublicationBody publication={targetPublication} />
               <div className="flex items-center gap-x-3">
                 <div className="lt-text-gray-500 my-3 text-sm">
-                  <span title={formatTime(createdAt)}>
+                  <span>
                     {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
                   </span>
                   {metadata.appId ? (

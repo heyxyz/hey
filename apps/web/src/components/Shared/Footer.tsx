@@ -6,8 +6,6 @@ import type { FC } from 'react';
 import { usePreferencesStore } from 'src/store/preferences';
 import urlcat from 'urlcat';
 
-import Locale from './Locale';
-
 const Footer: FC = () => {
   const staffMode = usePreferencesStore((state) => state.staffMode);
 
@@ -72,8 +70,7 @@ const Footer: FC = () => {
           Translate
         </Link>
       </div>
-      <div className="mt-2 flex space-x-4">
-        <Locale />
+      <div className="mt-2">
         <Link
           className="hover:font-bold"
           href={urlcat('https://vercel.com', {

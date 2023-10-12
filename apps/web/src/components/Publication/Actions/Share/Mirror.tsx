@@ -22,7 +22,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -223,7 +222,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{mirrored ? <Trans>Unmirror</Trans> : <Trans>Mirror</Trans>}</div>
+        <div>{mirrored ? 'Unmirror' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );

@@ -14,7 +14,7 @@ import { Card, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -199,9 +199,7 @@ const Choices: FC<ChoicesProps> = ({
           <div className="flex items-center justify-between border-t px-5 py-3 dark:border-gray-700 ">
             <div className="flex items-center space-x-2 text-xs text-gray-500">
               <Bars3BottomLeftIcon className="h-4 w-4" />
-              <b>
-                <Trans>Poll</Trans>
-              </b>
+              <b>Poll</b>
               <span>·</span>
               <span>
                 {humanize(scores_total ?? 0)}{' '}
@@ -215,9 +213,7 @@ const Choices: FC<ChoicesProps> = ({
               {state === 'active' ? (
                 <>
                   <span>·</span>
-                  <span>
-                    <Trans>{getTimetoNow(new Date(end * 1000))} left</Trans>
-                  </span>
+                  <span>{getTimetoNow(new Date(end * 1000))} left</span>
                 </>
               ) : null}
             </div>

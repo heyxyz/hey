@@ -9,7 +9,7 @@ import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { formatTime, getTwitterFormat } from '@lib/formatTime';
+import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -62,9 +62,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       {timestamp ? (
         <span className="lt-text-gray-500">
           <span className="mx-1.5">·</span>
-          <span className="text-xs" title={formatTime(timestamp as Date)}>
-            {getTwitterFormat(timestamp)}
-          </span>
+          <span className="text-xs">{getTwitterFormat(timestamp)}</span>
         </span>
       ) : null}
     </div>

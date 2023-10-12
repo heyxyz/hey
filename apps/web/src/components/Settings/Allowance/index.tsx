@@ -13,7 +13,6 @@ import {
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/pages/500';
@@ -74,20 +73,14 @@ const AllowanceSettings: NextPage = () => {
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-5">
-              <div className="text-lg font-bold">
-                <Trans>Allow / revoke modules</Trans>
-              </div>
+              <div className="text-lg font-bold">Allow / revoke modules</div>
               <p>
-                <Trans>
-                  In order to use collect feature you need to allow the module
-                  you use, you can allow and revoke the module anytime.
-                </Trans>
+                In order to use collect feature you need to allow the module you
+                use, you can allow and revoke the module anytime.
               </p>
             </div>
             <div className="divider my-5" />
-            <div className="label mt-6">
-              <Trans>Select currency</Trans>
-            </div>
+            <div className="label mt-6">Select currency</div>
             <select
               className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => {

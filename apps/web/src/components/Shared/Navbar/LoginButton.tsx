@@ -1,7 +1,6 @@
 import { AUTH } from '@hey/data/tracking';
 import { Button } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 
@@ -24,7 +23,7 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
       }}
       data-testid="login-button"
     >
-      <Trans>Login</Trans>
+      Login
     </Button>
   );
 };

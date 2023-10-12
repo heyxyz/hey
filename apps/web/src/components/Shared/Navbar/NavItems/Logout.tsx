@@ -3,7 +3,6 @@ import { PROFILE } from '@hey/data/tracking';
 import resetAuthData from '@hey/lib/resetAuthData';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
@@ -56,9 +55,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         <div>
           <ArrowRightOnRectangleIcon className="h-4 w-4" />
         </div>
-        <div>
-          <Trans>Logout</Trans>
-        </div>
+        <div>Logout</div>
       </div>
     </button>
   );

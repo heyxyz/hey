@@ -4,7 +4,6 @@ import { LimitType, useFollowersLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -64,26 +63,18 @@ const Followers: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export followers</Trans>
-      </div>
-      <div className="pb-2">
-        <Trans>Export all your followers to a JSON file.</Trans>
-      </div>
+      <div className="text-lg font-bold">Export followers</div>
+      <div className="pb-2">Export all your followers to a JSON file.</div>
       {followers.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{followers.length}</b> followers
-          </Trans>
+          Exported <b>{followers.length}</b> followers
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download followers</Trans>
-        </Button>
+        <Button onClick={download}>Download followers</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

@@ -8,7 +8,6 @@ import { LimitType, useNftsQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -71,9 +70,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
             <span className="mr-1 font-bold">
               @{formatHandle(currentProfile?.handle)}
             </span>
-            <span>
-              <Trans>doesn't have any NFTs!</Trans>
-            </span>
+            <span>doesn't have any NFTs!</span>
           </div>
         </div>
       </div>

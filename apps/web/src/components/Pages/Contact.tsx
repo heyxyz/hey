@@ -20,7 +20,6 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -147,7 +146,7 @@ const Contact: FC = () => {
                     )
                   }
                 >
-                  <Trans>Submit</Trans>
+                  Submit
                 </Button>
               </div>
             </Form>

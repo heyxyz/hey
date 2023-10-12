@@ -34,7 +34,6 @@ import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -165,7 +164,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           currentProfile?.id !== profile.id &&
           profile.operations.isFollowingMe.value ? (
             <div className="rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
-              <Trans>Follows you</Trans>
+              Follows you
             </div>
           ) : null}
         </div>
@@ -189,7 +188,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 icon={<Cog6ToothIcon className="h-5 w-5" />}
                 outline
               >
-                <Trans>Edit Profile</Trans>
+                Edit Profile
               </Button>
             </Link>
           ) : followType !== 'RevertFollowModuleSettings' ? (

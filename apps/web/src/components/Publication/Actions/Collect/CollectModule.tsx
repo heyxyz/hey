@@ -38,7 +38,7 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { formatDate, formatTime } from '@lib/formatTime';
+import { formatDate } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { Plural } from '@lingui/macro';
@@ -343,10 +343,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
-                <span
-                  className="font-bold text-gray-600"
-                  title={formatTime(endTimestamp)}
-                >
+                <span className="font-bold text-gray-600">
                   {formatDate(endTimestamp, 'MMMM DD, YYYY')} at{' '}
                   {formatDate(endTimestamp, 'hh:mm a')}
                 </span>

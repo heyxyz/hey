@@ -1,5 +1,4 @@
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface HiddenPublicationProps {
@@ -11,9 +10,7 @@ const HiddenPublication: FC<HiddenPublicationProps> = ({
 }) => {
   return (
     <Card className="!bg-gray-100 dark:!bg-gray-800">
-      <div className="px-4 py-3 text-sm">
-        <Trans>{type} was hidden by the author</Trans>
-      </div>
+      <div className="px-4 py-3 text-sm">{type} was hidden by the author</div>
     </Card>
   );
 };

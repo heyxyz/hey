@@ -2,7 +2,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface WorldcoinProps {
@@ -18,9 +17,7 @@ const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
     <Tooltip
       content={
         <span className="flex items-center space-x-1">
-          <span>
-            <Trans>Worldcoin verified</Trans>
-          </span>
+          <span>Worldcoin verified</span>
           <CheckCircleIcon className="h-4 w-4" />
         </span>
       }

@@ -1,7 +1,6 @@
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@hey/lens';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface CombinedProps {
@@ -51,11 +50,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
           <>
             <span key={index}>{action}</span>
             {index < actionArray.length - 2 && <span>, </span>}
-            {index == actionArray.length - 2 && (
-              <span>
-                <Trans>and</Trans>
-              </span>
-            )}
+            {index == actionArray.length - 2 && <span>and</span>}
           </>
         ))}
       </div>

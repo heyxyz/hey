@@ -6,7 +6,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -43,11 +42,9 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <ClipboardDocumentIcon className="h-4 w-4" />
         <div>
-          {publicationType === 'Comment' ? (
-            <Trans>Copy comment text</Trans>
-          ) : (
-            <Trans>Copy post text</Trans>
-          )}
+          {publicationType === 'Comment'
+            ? 'Copy comment text'
+            : 'Copy post text'}
         </div>
       </div>
     </Menu.Item>

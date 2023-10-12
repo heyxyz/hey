@@ -12,7 +12,6 @@ import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -109,14 +108,6 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
     }
   };
 
-  const getButtonText = () => {
-    if (canUseRelay) {
-      return <Trans>Disable</Trans>;
-    }
-
-    return <Trans>Enable</Trans>;
-  };
-
   const broadcastTxHash =
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
     broadcastData.broadcastOnchain.txHash;
@@ -141,7 +132,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
       }
       onClick={toggleDispatcher}
     >
-      {getButtonText()}
+      {canUseRelay ? 'Disable' : 'Enable'}
     </Button>
   );
 };

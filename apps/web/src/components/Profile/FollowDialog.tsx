@@ -5,7 +5,6 @@ import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Button, Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FollowModalProps {
@@ -63,7 +62,7 @@ const FollowModal: FC<FollowModalProps> = ({
             }}
             aria-label="Not now"
           >
-            <Trans>Not now</Trans>
+            Not now
           </Button>
         </span>
       </div>

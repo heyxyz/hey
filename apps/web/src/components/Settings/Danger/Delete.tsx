@@ -12,7 +12,6 @@ import resetAuthData from '@hey/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -86,13 +85,9 @@ const DeleteSettings: FC = () => {
     return (
       <Card className="space-y-5 p-5">
         <div className="text-lg font-bold text-red-500">
-          <Trans>Delete Lens profile</Trans>
+          Delete Lens profile
         </div>
-        <p>
-          <Trans>
-            Your profile cannot be deleted while profile guardian is enabled.
-          </Trans>
-        </p>
+        <p>Your profile cannot be deleted while profile guardian is enabled.</p>
       </Card>
     );
   }
@@ -100,36 +95,25 @@ const DeleteSettings: FC = () => {
   return (
     <Card className="space-y-5 p-5">
       <UserProfile profile={currentProfile as Profile} />
-      <div className="text-lg font-bold text-red-500">
-        <Trans>Delete Lens profile</Trans>
-      </div>
+      <div className="text-lg font-bold text-red-500">Delete Lens profile</div>
       <p>
-        <Trans>
-          This will permanently delete your Profile NFT on the Lens Protocol.
-          You will not be able to use any apps built on Lens, including{' '}
-          {APP_NAME}. All your data will be wiped out immediately and you won't
-          be able to get it back.
-        </Trans>
+        This will permanently delete your Profile NFT on the Lens Protocol. You
+        will not be able to use any apps built on Lens, including {APP_NAME}.
+        All your data will be wiped out immediately and you won't be able to get
+        it back.
       </p>
       <div className="text-lg font-bold">What else you should know</div>
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
-          <Trans>
-            You cannot restore your Lens profile if it was accidentally or
-            wrongfully deleted.
-          </Trans>
+          You cannot restore your Lens profile if it was accidentally or
+          wrongfully deleted.
         </p>
         <p className="py-3">
-          <Trans>
-            Some account information may still be available in search engines,
-            such as Google or Bing.
-          </Trans>
+          Some account information may still be available in search engines,
+          such as Google or Bing.
         </p>
         <p className="py-3">
-          <Trans>
-            Your @handle will be released immediately after deleting the
-            account.
-          </Trans>
+          Your @handle will be released immediately after deleting the account.
         </p>
       </div>
       <Button
@@ -157,10 +141,8 @@ const DeleteSettings: FC = () => {
             title="Are you sure?"
             message={
               <div className="leading-6">
-                <Trans>
-                  Confirm that you have read all consequences and want to delete
-                  your account anyway
-                </Trans>
+                Confirm that you have read all consequences and want to delete
+                your account anyway
               </div>
             }
           />
@@ -172,7 +154,7 @@ const DeleteSettings: FC = () => {
               await handleDelete();
             }}
           >
-            <Trans>Yes, delete my account</Trans>
+            Yes, delete my account
           </Button>
         </div>
       </Modal>

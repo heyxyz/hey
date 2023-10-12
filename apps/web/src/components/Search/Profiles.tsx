@@ -8,7 +8,6 @@ import {
   useSearchProfilesQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -52,11 +51,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   if (profiles?.length === 0) {
     return (
       <EmptyState
-        message={
-          <Trans>
-            No profiles for <b>&ldquo;{query}&rdquo;</b>
-          </Trans>
-        }
+        message={'No profiles for <b>&ldquo;{query}&rdquo;</b>'}
         icon={<UsersIcon className="text-brand h-8 w-8" />}
       />
     );

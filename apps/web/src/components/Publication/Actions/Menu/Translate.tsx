@@ -6,7 +6,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import urlcat from 'urlcat';
@@ -47,9 +46,7 @@ const Translate: FC<TranslateProps> = ({ publication }) => {
     >
       <div className="flex items-center space-x-2">
         <LanguageIcon className="h-4 w-4" />
-        <div>
-          <Trans>Translate</Trans>
-        </div>
+        <div>Translate</div>
       </div>
     </Menu.Item>
   );

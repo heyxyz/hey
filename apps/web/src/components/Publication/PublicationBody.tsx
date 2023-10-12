@@ -12,7 +12,6 @@ import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OG } from '@hey/types/misc';
 import cn from '@hey/ui/cn';
 import getPublicationData from '@lib/getPublicationData';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -104,9 +103,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {canShowMore ? (
         <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
-          <Link href={`/posts/${id}`}>
-            <Trans>Show more</Trans>
-          </Link>
+          <Link href={`/posts/${id}`}>Show more</Link>
         </div>
       ) : null}
       {/* Attachments and Quotes */}

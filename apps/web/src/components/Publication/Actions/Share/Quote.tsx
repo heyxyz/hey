@@ -3,7 +3,6 @@ import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { usePublicationStore } from 'src/store/publication';
@@ -42,11 +41,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <ChatBubbleBottomCenterTextIcon className="h-4 w-4" />
         <div>
-          {publicationType === 'Comment' ? (
-            <Trans>Quote comment</Trans>
-          ) : (
-            <Trans>Quote post</Trans>
-          )}
+          {publicationType === 'Comment' ? 'Quote comment' : 'Quote post'}
         </div>
       </div>
     </Menu.Item>

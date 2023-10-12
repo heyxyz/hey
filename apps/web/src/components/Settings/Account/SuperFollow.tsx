@@ -16,7 +16,6 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -150,9 +149,7 @@ const SuperFollow: FC = () => {
       <Card>
         <div className="space-y-2 p-5 py-10 text-center">
           <Spinner size="md" className="mx-auto" />
-          <div>
-            <Trans>Loading Super follow settings</Trans>
-          </div>
+          <div>Loading Super follow settings</div>
         </div>
       </Card>
     );
@@ -169,20 +166,14 @@ const SuperFollow: FC = () => {
           await setSuperFollow(amount, recipient);
         }}
       >
-        <div className="text-lg font-bold">
-          <Trans>Set Super follow</Trans>
-        </div>
+        <div className="text-lg font-bold">Set Super follow</div>
         <p>
-          <Trans>
-            Setting Super follow makes users spend crypto to follow you, and
-            it's a good way to earn it, you can change the amount and currency
-            or disable/enable it anytime.
-          </Trans>
+          Setting Super follow makes users spend crypto to follow you, and it's
+          a good way to earn it, you can change the amount and currency or
+          disable/enable it anytime.
         </p>
         <div className="pt-2">
-          <div className="label">
-            <Trans>Select currency</Trans>
-          </div>
+          <div className="label">Select currency</div>
           <select
             className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
             onChange={(e) => {
@@ -236,7 +227,7 @@ const SuperFollow: FC = () => {
                 disabled={isLoading}
                 icon={<XMarkIcon className="h-4 w-4" />}
               >
-                <Trans>Disable Super follow</Trans>
+                Disable Super follow
               </Button>
             ) : null}
             <Button

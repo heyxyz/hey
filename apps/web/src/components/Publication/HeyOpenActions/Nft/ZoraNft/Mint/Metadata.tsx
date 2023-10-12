@@ -8,7 +8,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import humanize from '@hey/lib/humanize';
 import type { ZoraNft } from '@hey/types/nft';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 
@@ -23,26 +22,20 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
       <div className="flex items-center space-x-2">
         <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
-          <span>
-            <Trans>Type:</Trans>
-          </span>
+          <span>Type:</span>
           <b>{nft.contractStandard === 'ERC721' ? 'ERC-721' : 'ERC-1155'}</b>
         </div>
       </div>
       {nft.totalMinted > 0 ? (
         <div className="flex items-center space-x-2">
           <UsersIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{humanize(nft.totalMinted)} minted</Trans>
-          </b>
+          <b>{humanize(nft.totalMinted)} minted</b>
         </div>
       ) : null}
       {!nft.isOpenEdition ? (
         <div className="flex items-center space-x-2">
           <ShoppingBagIcon className="lt-text-gray-500 h-4 w-4" />
-          <b>
-            <Trans>{humanize(nft.remainingSupply)} remaining</Trans>
-          </b>
+          <b>{humanize(nft.remainingSupply)} remaining</b>
         </div>
       ) : null}
       <Link
@@ -57,9 +50,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         }}
       >
         <ArrowTopRightOnSquareIcon className="lt-text-gray-500 h-4 w-4" />
-        <b>
-          <Trans>Open in Zora</Trans>
-        </b>
+        <b>Open in Zora</b>
       </Link>
     </div>
   );

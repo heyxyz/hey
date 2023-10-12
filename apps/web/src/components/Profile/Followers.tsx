@@ -6,7 +6,6 @@ import type { FollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowersQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -56,9 +55,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
             <span className="mr-1 font-bold">
               @{formatHandle(profile?.handle)}
             </span>
-            <span>
-              <Trans>doesn’t have any followers yet.</Trans>
-            </span>
+            <span>doesn’t have any followers yet.</span>
           </div>
         }
         icon={<UsersIcon className="text-brand h-8 w-8" />}

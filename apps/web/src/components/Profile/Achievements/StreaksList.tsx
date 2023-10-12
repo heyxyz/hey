@@ -12,7 +12,6 @@ import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -103,9 +102,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
         <CalendarIcon className="text-brand h-6 w-6" />
-        <span>
-          <Trans>Latest events</Trans>
-        </span>
+        <span>Latest events</span>
       </div>
       <div className="divider" />
       <div className="space-y-4 p-6">

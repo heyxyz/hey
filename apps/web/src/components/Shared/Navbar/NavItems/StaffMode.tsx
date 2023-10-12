@@ -5,7 +5,6 @@ import { Localstorage } from '@hey/data/storage';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -61,9 +60,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       ) : (
         <ShieldCheckIconOutline className="h-4 w-4 text-red-500" />
       )}
-      <div>
-        <Trans>Staff mode</Trans>
-      </div>
+      <div>Staff mode</div>
     </button>
   );
 };
