@@ -3,7 +3,7 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
@@ -17,7 +17,7 @@ const Privacy: FC = () => {
 
   return (
     <>
-      <MetaTags title={t`Privacy Policy • ${APP_NAME}`} />
+      <MetaTags title={`Privacy Policy • ${APP_NAME}`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <h1 className="text-3xl font-bold text-white md:text-4xl">

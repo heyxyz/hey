@@ -3,7 +3,6 @@ import { IPFS_GATEWAY } from '@hey/data/constants';
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -51,14 +50,14 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta
-            name={t`ARWEAVE TRANSACTION`}
+            name="ARWEAVE TRANSACTION"
             uri={`https://arweave.app/tx/${hash}`}
             hash={hash}
           />
         ) : null}
         {publication?.momoka?.proof ? (
           <Meta
-            name={t`MOMOKA PROOF`}
+            name="MOMOKA PROOF"
             uri={`https://momoka.lens.xyz/tx/${publication.momoka.proof
               ?.split('/')
               .pop()}`}

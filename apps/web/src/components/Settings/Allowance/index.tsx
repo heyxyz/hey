@@ -13,7 +13,7 @@ import {
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/pages/500';
@@ -66,7 +66,7 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Allowance settings • ${APP_NAME}`} />
+      <MetaTags title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

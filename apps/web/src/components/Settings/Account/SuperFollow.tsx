@@ -16,7 +16,7 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -27,10 +27,10 @@ import { useContractWrite, useSignTypedData } from 'wagmi';
 import { object, string } from 'zod';
 
 const newSuperFollowSchema = object({
-  amount: string().min(1, { message: t`Invalid amount` }),
+  amount: string().min(1, { message: 'Invalid amount' }),
   recipient: string()
-    .max(42, { message: t`Ethereum address should be within 42 characters` })
-    .regex(Regex.ethereumAddress, { message: t`Invalid Ethereum address` })
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
 });
 
 const SuperFollow: FC = () => {
@@ -51,7 +51,7 @@ const SuperFollow: FC = () => {
     }
 
     setIsLoading(false);
-    toast.success(t`Super follow updated successfully!`);
+    toast.success('Super follow updated successfully!');
     Leafwatch.track(SETTINGS.ACCOUNT.SET_SUPER_FOLLOW);
   };
 
@@ -202,7 +202,7 @@ const SuperFollow: FC = () => {
           </select>
         </div>
         <Input
-          label={t`Follow amount`}
+          label="Follow amount"
           type="number"
           step="0.0001"
           min="0"
@@ -220,7 +220,7 @@ const SuperFollow: FC = () => {
           {...form.register('amount')}
         />
         <Input
-          label={t`Funds recipient`}
+          label="Funds recipient"
           type="text"
           placeholder="0x3A5bd...5e3"
           {...form.register('recipient')}
@@ -245,8 +245,8 @@ const SuperFollow: FC = () => {
               icon={<StarIcon className="h-4 w-4" />}
             >
               {followType === 'FeeFollowModuleSettings'
-                ? t`Update Super follow`
-                : t`Set Super follow`}
+                ? 'Update Super follow'
+                : 'Set Super follow'}
             </Button>
           </div>
         </div>

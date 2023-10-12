@@ -1,7 +1,6 @@
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
@@ -26,7 +25,7 @@ const Mod: FC<ModProps> = ({ publication, isFullPublication = false }) => {
       aria-label="Mod"
     >
       <div className="rounded-full p-1.5 text-yellow-600 hover:bg-yellow-400/20">
-        <Tooltip placement="top" content={t`Mod actions`} withDelay>
+        <Tooltip placement="top" content="Mod actions" withDelay>
           <ShieldCheckIcon className={iconClassName} />
         </Tooltip>
       </div>

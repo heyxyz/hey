@@ -4,7 +4,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -46,14 +45,14 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
   });
 
   if (loading) {
-    return <Loader message={t`Loading mutual followers`} />;
+    return <Loader message="Loading mutual followers" />;
   }
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load mutual followers`}
+        title="Failed to load mutual followers"
         error={error}
       />
 

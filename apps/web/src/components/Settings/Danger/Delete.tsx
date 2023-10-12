@@ -12,7 +12,7 @@ import resetAuthData from '@hey/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -144,10 +144,10 @@ const DeleteSettings: FC = () => {
         disabled={isLoading}
         onClick={() => setShowWarningModal(true)}
       >
-        {isLoading ? t`Deleting...` : t`Delete your account`}
+        {isLoading ? 'Deleting...' : 'Delete your account'}
       </Button>
       <Modal
-        title={t`Danger zone`}
+        title={'Danger zone'}
         icon={<ExclamationTriangleIcon className="h-5 w-5 text-red-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}

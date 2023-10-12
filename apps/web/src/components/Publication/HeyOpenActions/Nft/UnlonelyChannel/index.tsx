@@ -12,7 +12,7 @@ import type { UnlonelyChannelMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import useUnlonelyChannel from 'src/hooks/unlonely/useUnlonelyChannel';
@@ -66,7 +66,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content={t`Unlonely Channel`}>
+          <Tooltip placement="right" content="Unlonely Channel">
             <img
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
               className="h-5 w-5 rounded-full"
@@ -84,7 +84,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             ) : (
               <SignalSlashIcon className="h-3 w-3" />
             )}
-            <span>{isLive ? t`Live` : t`Offline`}</span>
+            <span>{isLive ? 'Live' : 'Offline'}</span>
           </div>
         </div>
         <Link

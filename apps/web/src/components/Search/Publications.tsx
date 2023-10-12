@@ -8,7 +8,7 @@ import {
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 
@@ -63,9 +63,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load publications`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load publications" error={error} />;
   }
 
   return (

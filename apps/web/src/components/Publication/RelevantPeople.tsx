@@ -7,7 +7,6 @@ import { useProfilesQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
@@ -72,7 +71,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
 
   return (
     <Card as="aside" className="space-y-4 p-5" dataTestId="relevant-profiles">
-      <ErrorMessage title={t`Failed to load relevant people`} error={error} />
+      <ErrorMessage title="Failed to load relevant people" error={error} />
       {data?.profiles?.items?.map((profile, index) => (
         <div key={profile?.id} className="truncate">
           <UserProfile

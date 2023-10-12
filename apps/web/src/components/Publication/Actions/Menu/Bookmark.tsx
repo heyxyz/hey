@@ -15,7 +15,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -62,7 +61,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     variables: { request },
     onError,
     onCompleted: () => {
-      toast.success(t`Publication bookmarked`);
+      toast.success('Publication bookmarked');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
         publication_id: publication.id,
         bookmarked: true
@@ -75,7 +74,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     variables: { request },
     onError,
     onCompleted: () => {
-      toast.success(t`Removed publication bookmark`);
+      toast.success('Removed publication bookmark');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
         publication_id: publication.id,
         bookmarked: false

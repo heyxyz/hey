@@ -16,7 +16,6 @@ import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -150,7 +149,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         >
           <Tooltip
             placement="top"
-            content={liked ? t`Unlike` : t`Like`}
+            content={liked ? 'Unlike' : 'Like'}
             withDelay
           >
             {liked ? (

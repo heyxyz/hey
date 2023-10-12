@@ -11,7 +11,7 @@ import { useApolloClient } from '@hey/lens/apollo';
 import trimify from '@hey/lib/trimify';
 import { Button, Input, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -77,7 +77,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           }
         });
         closeModal();
-        toast.success(t`Gallery created`);
+        toast.success('Gallery created');
       }
     } catch (error: any) {
       toast.error(error?.messaage ?? Errors.SomethingWentWrong);
@@ -102,7 +102,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           }
         });
         closeModal();
-        toast.success(t`Gallery name updated`);
+        toast.success('Gallery name updated');
       }
     } catch (error: any) {
       toast.error(error?.messaage ?? Errors.SomethingWentWrong);
@@ -157,7 +157,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           }
         });
         closeModal();
-        toast.success(t`Gallery updated`);
+        toast.success('Gallery updated');
       }
     } catch (error: any) {
       toast.error(error?.message);
@@ -167,15 +167,15 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
   const onClickNext = () => {
     const galleryName = trimify(gallery.name);
     if (galleryName.length > 255) {
-      return toast.error(t`Gallery name should be less than 255 characters`);
+      return toast.error('Gallery name should be less than 255 characters');
     } else if (!galleryName.length) {
-      return toast.error(t`Gallery name required`);
+      return toast.error('Gallery name required');
     } else if (
       !gallery.items.length &&
       (currentStep === CreateSteps.REVIEW ||
         currentStep === CreateSteps.PICK_NFTS)
     ) {
-      return toast.error(t`Select collectibles for your gallery`);
+      return toast.error('Select collectibles for your gallery');
     }
 
     if (currentStep === CreateSteps.NAME) {
@@ -211,14 +211,14 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
           </button>
           <span>
             {currentStep === CreateSteps.REVIEW
-              ? t`Review collection`
-              : t`Select collectibles you want others to see`}
+              ? 'Review collection'
+              : 'Select collectibles you want others to see'}
           </span>
         </div>
       );
     }
 
-    return t`What's your gallery name?`;
+    return "What's your gallery name?";
   };
 
   const loadingNext = loading || updating || renaming;
@@ -234,7 +234,7 @@ const Create: FC<CreateProps> = ({ showModal, setShowModal }) => {
         {currentStep === CreateSteps.NAME ? (
           <Input
             value={gallery.name}
-            placeholder={t`Gallery name`}
+            placeholder="Gallery name"
             onChange={(event) =>
               setGallery({
                 ...gallery,

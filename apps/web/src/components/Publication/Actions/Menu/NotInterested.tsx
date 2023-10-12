@@ -14,7 +14,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -47,7 +46,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     variables: { request },
     onError,
     onCompleted: () => {
-      toast.success(t`Marked as not Interested`);
+      toast.success('Marked as not Interested');
       Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
         publication_id: publication.id,
         not_interested: true
@@ -61,7 +60,7 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
       variables: { request },
       onError,
       onCompleted: () => {
-        toast.success(t`Undo Not interested`);
+        toast.success('Undo Not interested');
         Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
           publication_id: publication.id,
           not_interested: false

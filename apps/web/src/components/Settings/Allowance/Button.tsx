@@ -10,7 +10,7 @@ import { Button, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import getAllowanceModule from '@lib/getAllowanceModule';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -24,7 +24,7 @@ interface AllowanceButtonProps {
 }
 
 const AllowanceButton: FC<AllowanceButtonProps> = ({
-  title = t`Allow`,
+  title = 'Allow',
   module,
   allowed,
   setAllowed
@@ -50,8 +50,8 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
     onSuccess: () => {
       toast.success(
         allowed
-          ? t`Module disabled successfully!`
-          : t`Module enabled successfully!`
+          ? 'Module disabled successfully!'
+          : 'Module enabled successfully!'
       );
       setShowWarningModal(false);
       setAllowed(!allowed);
@@ -116,14 +116,14 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         {title}
       </Button>
       <Modal
-        title={t`Warning`}
+        title="Warning"
         icon={<ExclamationTriangleIcon className="h-5 w-5 text-yellow-500" />}
         show={showWarningModal}
         onClose={() => setShowWarningModal(false)}
       >
         <div className="space-y-3 p-5">
           <WarningMessage
-            title={t`Handle with care!`}
+            title="Handle with care!"
             message={
               <div className="leading-6">
                 <Trans>

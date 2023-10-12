@@ -8,7 +8,7 @@ import { LimitType, useNftsQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -81,12 +81,12 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load nft feed`} error={error} />;
+    return <ErrorMessage title="Failed to load nft feed" error={error} />;
   }
 
   const onSelectItem = (item: Nft) => {
     if (gallery.items.length === 50) {
-      return toast.error(t`Only 50 items allowed for gallery`);
+      return toast.error('Only 50 items allowed for gallery');
     }
 
     const customId = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;

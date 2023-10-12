@@ -20,7 +20,7 @@ import {
   useZodForm
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -30,18 +30,14 @@ import { useEffectOnce } from 'usehooks-ts';
 import { object, string } from 'zod';
 
 const newContactSchema = object({
-  email: string().email({ message: t`Email is not valid` }),
+  email: string().email({ message: 'Email is not valid' }),
   category: string(),
   subject: string()
-    .min(1, { message: t`Subject should not be empty` })
-    .max(260, {
-      message: t`Subject should not exceed 260 characters`
-    }),
+    .min(1, { message: 'Subject should not be empty' })
+    .max(260, { message: 'Subject should not exceed 260 characters' }),
   message: string()
-    .min(1, { message: t`Message should not be empty` })
-    .max(1000, {
-      message: t`Message should not exceed 1000 characters`
-    })
+    .min(1, { message: 'Message should not be empty' })
+    .max(1000, { message: 'Message should not exceed 1000 characters' })
 });
 
 const Contact: FC = () => {
@@ -90,18 +86,18 @@ const Contact: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Contact • ${APP_NAME}`} />
+      <MetaTags title={`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
-          heading={t`Contact ${APP_NAME}`}
-          description={t`Contact us to help you get the issue resolved.`}
+          heading="Contact ${APP_NAME}"
+          description="Contact us to help you get the issue resolved."
         />
       </GridItemFour>
       <GridItemEight>
         <Card>
           {submitted ? (
             <EmptyState
-              message={t`Your message has been sent!`}
+              message="Your message has been sent!"
               icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
               hideCard
             />
@@ -114,29 +110,29 @@ const Contact: FC = () => {
               }}
             >
               <Input
-                label={t`Email`}
+                label="Email"
                 placeholder="gavin@hooli.com"
                 {...form.register('email')}
               />
               <Select
-                label={t`Category`}
+                label="Category"
                 values={[
-                  t`Support`,
-                  t`Bug report`,
-                  t`Feature request`,
-                  t`Report copyright infringement`,
-                  t`Other`
+                  'Support',
+                  'Bug report',
+                  'Feature request',
+                  'Report copyright infringement',
+                  'Other'
                 ]}
                 {...form.register('category')}
               />
               <Input
-                label={t`Subject`}
-                placeholder={t`What happened?`}
+                label="Subject"
+                placeholder="What happened?"
                 {...form.register('subject')}
               />
               <TextArea
-                label={t`Message`}
-                placeholder={t`How can we help?`}
+                label="Message"
+                placeholder="How can we help?"
                 {...form.register('message')}
               />
               <div className="ml-auto">

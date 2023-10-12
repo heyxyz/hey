@@ -41,7 +41,7 @@ import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -113,7 +113,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     setIsLoading(false);
     setCount(count + 1);
     setHasCollectedByMe(true);
-    toast.success(t`Collected successfully!`);
+    toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: publication?.id,
       collect_module: collectModule?.type
@@ -315,7 +315,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 />
               </button>
               <Modal
-                title={t`Collected by`}
+                title="Collected by"
                 icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}

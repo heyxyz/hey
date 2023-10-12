@@ -6,7 +6,6 @@ import {
   useNotificationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -83,7 +82,7 @@ const List: FC<ListProps> = ({ feedType }) => {
     return (
       <ErrorMessage
         className="m-3"
-        title={t`Failed to load notifications`}
+        title="Failed to load notifications"
         error={error}
       />
     );
@@ -92,7 +91,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   if (notifications?.length === 0) {
     return (
       <EmptyState
-        message={t`Inbox zero!`}
+        message="Inbox zero!"
         icon={<BellIcon className="text-brand h-8 w-8" />}
         hideCard
       />

@@ -13,7 +13,7 @@ import type { ZoraNft } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -146,7 +146,7 @@ const MintAction: FC<MintActionProps> = ({
         <SwitchNetwork
           className="mt-5 w-full justify-center"
           toChainId={nft.chainId}
-          title={t`Switch to ${getZoraChainInfo(nft.chainId).name}`}
+          title={`Switch to ${getZoraChainInfo(nft.chainId).name}`}
         />
       ) : isPrepareError ? (
         noBalanceError ? (

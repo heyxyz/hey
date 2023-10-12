@@ -4,7 +4,7 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -43,7 +43,7 @@ const DispatcherSettings: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Dispatcher • ${APP_NAME}`} />
+      <MetaTags title={`Dispatcher • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

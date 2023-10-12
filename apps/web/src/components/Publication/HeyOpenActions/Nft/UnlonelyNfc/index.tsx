@@ -7,7 +7,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { UnlonelyNfcMetadata } from '@hey/types/nft';
 import { Button, Card, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import useUnlonelyNfc from 'src/hooks/unlonely/useUnlonelyNfc';
@@ -59,7 +59,7 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content={t`Unlonely Nfc`}>
+          <Tooltip placement="right" content="Unlonely Nfc">
             <img
               src={`${STATIC_IMAGES_URL}/brands/unlonely.png`}
               className="h-5 w-5 rounded-full"

@@ -6,7 +6,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -34,7 +34,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
         await navigator.clipboard.writeText(
           targetPublication?.metadata?.marketplace?.description || ''
         );
-        toast.success(t`Copied to clipboard!`);
+        toast.success('Copied to clipboard!');
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
           publication_id: publication.id
         });

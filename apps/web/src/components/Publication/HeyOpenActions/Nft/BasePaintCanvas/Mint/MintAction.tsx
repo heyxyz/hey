@@ -12,7 +12,7 @@ import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
 import { Button, Spinner } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
@@ -103,7 +103,7 @@ const MintAction: FC<MintActionProps> = ({
         <SwitchNetwork
           className="mt-5 w-full justify-center"
           toChainId={base.id}
-          title={t`Switch to ${base.name}`}
+          title={`Switch to ${base.name}`}
         />
       ) : isPrepareError ? (
         noBalanceError ? (

@@ -12,7 +12,7 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -74,7 +74,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             />
           </button>
           <Modal
-            title={t`Mirrored by`}
+            title="Mirrored by"
             icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
@@ -106,7 +106,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             />
           </button>
           <Modal
-            title={t`Liked by`}
+            title="Liked by"
             icon={<HeartIcon className="text-brand h-5 w-5" />}
             show={showLikesModal}
             onClose={() => setShowLikesModal(false)}
@@ -138,7 +138,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             />
           </button>
           <Modal
-            title={t`Collected by`}
+            title="Collected by"
             icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}

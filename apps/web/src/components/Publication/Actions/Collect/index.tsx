@@ -8,14 +8,14 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { plural, t } from '@lingui/macro';
+import { plural } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
 const CollectModule = dynamic(() => import('./CollectModule'), {
-  loading: () => <Loader message={t`Loading collect`} />
+  loading: () => <Loader message="Loading collect" />
 });
 
 interface CollectProps {
@@ -76,7 +76,7 @@ const Collect: FC<CollectProps> = ({ publication, showCount }) => {
         ) : null}
       </div>
       <Modal
-        title={t`Collect`}
+        title="Collect"
         icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
         show={showCollectModal}
         onClose={() => setShowCollectModal(false)}

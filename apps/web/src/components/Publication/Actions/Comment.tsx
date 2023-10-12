@@ -4,7 +4,6 @@ import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -30,7 +29,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
           <div className="rounded-full p-1.5 hover:bg-gray-300/20">
             <Tooltip
               placement="top"
-              content={count > 0 ? t`${humanize(count)} Comments` : t`Comment`}
+              content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
               withDelay
             >
               <ChatBubbleLeftRightIcon className={iconClassName} />

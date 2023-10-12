@@ -2,7 +2,6 @@ import SingleNft from '@components/Shared/SingleNft';
 import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Nft } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
@@ -51,7 +50,7 @@ const ReviewSelection = () => {
       <div className="p-10">
         <EmptyState
           hideCard
-          message={t`No collectables selected!`}
+          message="No collectables selected!"
           icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
         />
       </div>

@@ -14,7 +14,6 @@ import getURLs from '@hey/lib/getURLs';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -91,7 +90,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     <article className="p-5">
       <div className="flex items-start justify-between pb-4">
         <UserProfile profile={currentProfile as Profile} />
-        <Tooltip content={t`Indexing`} placement="top">
+        <Tooltip content="Indexing" placement="top">
           <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />
           </div>

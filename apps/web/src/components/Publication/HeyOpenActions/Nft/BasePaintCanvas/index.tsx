@@ -7,7 +7,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
@@ -65,7 +65,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
       />
       <div className="flex items-center justify-between border-t px-3 py-2 dark:border-gray-700">
         <div className="mr-5 flex flex-wrap items-center gap-2">
-          <Tooltip placement="right" content={t`BasePaint`}>
+          <Tooltip placement="right" content="BasePaint">
             <img
               src={`${STATIC_IMAGES_URL}/brands/basepaint.jpeg`}
               className="h-5 w-5 rounded-full"
@@ -102,7 +102,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={t`Mint on BasePaint`}
+              title="Mint on BasePaint"
               show={showMintModal}
               icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}

@@ -5,7 +5,6 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -26,7 +25,7 @@ const AccountSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Account settings • ${APP_NAME}`} />
+      <MetaTags title={`Account settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>

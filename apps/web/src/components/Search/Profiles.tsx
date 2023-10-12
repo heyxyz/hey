@@ -8,7 +8,7 @@ import {
   useSearchProfilesQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -63,7 +63,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load profiles`} error={error} />;
+    return <ErrorMessage title="Failed to load profiles" error={error} />;
   }
 
   return (

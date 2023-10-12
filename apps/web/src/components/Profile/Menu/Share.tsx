@@ -6,7 +6,7 @@ import formatHandle from '@hey/lib/formatHandle';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -29,7 +29,7 @@ const Share: FC<ShareProps> = ({ profile }) => {
         await navigator.clipboard.writeText(
           `${location.origin}/u/${formatHandle(profile?.handle)}`
         );
-        toast.success(t`Copied to clipboard!`);
+        toast.success('Copied to clipboard!');
         Leafwatch.track(PROFILE.COPY_PROFILE_LINK, {
           profile_id: profile.id
         });

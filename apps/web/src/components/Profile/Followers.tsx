@@ -6,7 +6,7 @@ import type { FollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowersQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -45,7 +45,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading followers`} />;
+    return <Loader message="Loading followers" />;
   }
 
   if (followers?.length === 0) {
@@ -71,7 +71,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
     <div className="max-h-[80vh] overflow-y-auto" data-testid="followers-modal">
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load followers`}
+        title="Failed to load followers"
         error={error}
       />
       <Virtuoso

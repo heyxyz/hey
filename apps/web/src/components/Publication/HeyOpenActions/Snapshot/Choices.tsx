@@ -14,7 +14,7 @@ import { Card, Modal, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTimetoNow } from '@lib/formatTime';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -69,7 +69,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     if (state !== 'active') {
-      return toast.error(t`This proposal is closed!`);
+      return toast.error('This proposal is closed!');
     }
 
     if (
@@ -78,7 +78,7 @@ const Choices: FC<ChoicesProps> = ({
       type === 'ranked-choice' ||
       type === 'weighted'
     ) {
-      return toast.error(t`${type} voting is not supported yet!`);
+      return toast.error(`${type} voting is not supported yet!`);
     }
 
     setVoteConfig({ show: true, position });
@@ -93,7 +93,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     if (state !== 'active') {
-      return toast.error(t`This poll is ended!`);
+      return toast.error('This poll is ended!');
     }
 
     try {
@@ -123,7 +123,7 @@ const Choices: FC<ChoicesProps> = ({
         proposal_id: id,
         proposal_source: APP_NAME.toLowerCase()
       });
-      toast.success(t`Your vote has been casted!`);
+      toast.success('Your vote has been casted!');
     } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {
@@ -138,7 +138,7 @@ const Choices: FC<ChoicesProps> = ({
           <div className="divider flex items-center justify-between px-5 py-3 ">
             <div className="flex items-center space-x-2 text-sm">
               <Bars3BottomLeftIcon className="h-4 w-4" />
-              <b>{state === 'active' ? t`Current results` : t`Results`}</b>
+              <b>{state === 'active' ? 'Current results' : 'Results'}</b>
             </div>
             <New />
           </div>
@@ -227,7 +227,7 @@ const Choices: FC<ChoicesProps> = ({
       </Card>
       <Modal
         show={voteConfig.show}
-        title={t`Cast your vote`}
+        title="Cast your vote"
         icon={<CheckCircleIconOutline className="text-brand h-5 w-5" />}
         onClose={() => setVoteConfig({ show: false, position: 0 })}
       >

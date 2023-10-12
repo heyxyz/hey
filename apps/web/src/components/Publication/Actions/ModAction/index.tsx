@@ -9,7 +9,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
@@ -80,9 +79,9 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
             })
           ),
           {
-            loading: t`Reporting publication...`,
-            success: t`Publication reported successfully`,
-            error: t`Error reporting publication`
+            loading: 'Reporting publication...',
+            success: 'Publication reported successfully',
+            error: 'Error reporting publication'
           }
         );
       }}
@@ -105,7 +104,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
           }
         ]}
         icon={<DocumentTextIcon className="h-4 w-4" />}
-        label={t`Poor content`}
+        label="Poor content"
       />
       <ReportButton
         config={[
@@ -115,7 +114,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
           }
         ]}
         icon={<BanknotesIcon className="h-4 w-4" />}
-        label={t`Stop Sponsor`}
+        label="Stop Sponsor"
       />
       <ReportButton
         config={[
@@ -129,7 +128,7 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
           }
         ]}
         icon={<BanknotesIcon className="h-4 w-4" />}
-        label={t`Poor content & Stop Sponsor`}
+        label="Poor content & Stop Sponsor"
       />
     </span>
   );

@@ -5,7 +5,7 @@ import { Localstorage } from '@hey/data/storage';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
@@ -28,12 +28,12 @@ const CleanupSettings: NextPage = () => {
 
   const cleanup = (key: string) => {
     localStorage.removeItem(key);
-    toast.success(t`Cleared ${key}`);
+    toast.success(`Cleared ${key}`);
   };
 
   return (
     <GridLayout>
-      <MetaTags title={t`Cleanup settings • ${APP_NAME}`} />
+      <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
@@ -93,7 +93,7 @@ const CleanupSettings: NextPage = () => {
               <Button
                 onClick={() => {
                   disconnectXmtp();
-                  toast.success(t`Cleared DM keys`);
+                  toast.success('Cleared DM keys');
                 }}
               >
                 <Trans>Cleanup</Trans>

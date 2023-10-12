@@ -4,7 +4,7 @@ import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -64,7 +64,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         </div>
       </button>
       <Modal
-        title={t`Following`}
+        title="Following"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showFollowingModal}
         onClose={() => setShowFollowingModal(false)}
@@ -72,7 +72,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <Following profile={profile} />
       </Modal>
       <Modal
-        title={t`Followers`}
+        title="Followers"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showFollowersModal}
         onClose={() => setShowFollowersModal(false)}

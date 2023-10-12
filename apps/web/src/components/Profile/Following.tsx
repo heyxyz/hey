@@ -6,7 +6,7 @@ import type { FollowingRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowingQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -45,7 +45,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading following`} />;
+    return <Loader message="Loading following" />;
   }
 
   if (followings?.length === 0) {
@@ -74,7 +74,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
     >
       <ErrorMessage
         className="m-5"
-        title={t`Failed to load following`}
+        title="Failed to load following"
         error={error}
       />
       <Virtuoso

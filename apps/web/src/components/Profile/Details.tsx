@@ -34,7 +34,7 @@ import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -129,7 +129,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               formatHandle(profile?.handle)}
           </div>
           {isVerified(profile.id) ? (
-            <Tooltip content={t`Verified`}>
+            <Tooltip content="Verified">
               <CheckBadgeIcon
                 className="text-brand h-6 w-6"
                 data-testid="profile-verified-badge"
@@ -234,7 +234,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               profile={profile}
             />
             <Modal
-              title={t`Followers you know`}
+              title="Followers you know"
               icon={<UsersIcon className="text-brand h-5 w-5" />}
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}

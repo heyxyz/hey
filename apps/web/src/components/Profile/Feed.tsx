@@ -10,7 +10,6 @@ import {
 } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
@@ -123,9 +122,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load profile feed`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load profile feed" error={error} />;
   }
 
   return (

@@ -8,7 +8,6 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';
 
@@ -54,7 +53,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
             ) : (
               <Tooltip
                 placement="top"
-                content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
+                content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'}
                 withDelay
               >
                 <ArrowsRightLeftIcon className={iconClassName} />

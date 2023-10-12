@@ -22,7 +22,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -84,7 +84,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     updateCache();
     setIsLoading(false);
     setMirrored(true);
-    toast.success(t`Post has been mirrored!`);
+    toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
     });
@@ -174,7 +174,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
     if (publication.momoka?.proof && !isSponsored) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       );
     }
 

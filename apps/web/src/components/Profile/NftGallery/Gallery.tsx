@@ -17,7 +17,7 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -48,14 +48,14 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
   const [orderGallery] = useUpdateNftGalleryOrderMutation();
   const [deleteNftGallery] = useDeleteNftGalleryMutation({
     onCompleted: () => {
-      toast.success(t`Gallery deleted`);
+      toast.success('Gallery deleted');
       setGallery(GALLERY_DEFAULTS);
     }
   });
 
   const onDelete = () => {
     try {
-      if (confirm(t`Are you sure you want to delete?`)) {
+      if (confirm('Are you sure you want to delete?')) {
         const normalizedId = cache.identify({
           id: gallery.id,
           __typename: 'NftGallery'

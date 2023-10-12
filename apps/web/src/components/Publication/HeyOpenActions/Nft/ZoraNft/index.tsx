@@ -11,7 +11,7 @@ import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { type FC, useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
@@ -90,7 +90,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
           </Tooltip>
           <div className="text-sm font-bold">{nft.name}</div>
           {nft.contractType === 'ERC1155_COLLECTION' ? (
-            <Tooltip placement="right" content={t`ERC-1155 Collection`}>
+            <Tooltip placement="right" content="ERC-1155 Collection">
               <RectangleStackIcon className="h-4 w-4" />
             </Tooltip>
           ) : null}
@@ -114,7 +114,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
               <Trans>Mint</Trans>
             </Button>
             <Modal
-              title={t`Mint on Zora`}
+              title="Mint on Zora"
               show={showMintModal}
               icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
               onClose={() => setShowMintModal(false)}

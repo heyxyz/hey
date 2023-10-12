@@ -5,7 +5,7 @@ import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
@@ -28,7 +28,7 @@ const Share: FC<ShareProps> = ({ publication }) => {
         await navigator.clipboard.writeText(
           `${location.origin}/posts/${publication?.id}`
         );
-        toast.success(t`Copied to clipboard!`);
+        toast.success('Copied to clipboard!');
         Leafwatch.track(PUBLICATION.SHARE, {
           publication_id: publication.id
         });
