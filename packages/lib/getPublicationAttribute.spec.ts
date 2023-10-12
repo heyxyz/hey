@@ -1,13 +1,13 @@
-import type { MetadataAttributeOutput } from '@hey/lens';
+import type { MetadataAttribute } from '@hey/lens';
 import { describe, expect, test } from 'vitest';
 
 import getPublicationAttribute from './getPublicationAttribute';
 
 describe('getPublicationAttribute', () => {
-  const attributes: MetadataAttributeOutput[] = [
-    { traitType: 'type', value: 'book' },
-    { traitType: 'author', value: 'John Doe' },
-    { traitType: 'year', value: '2021' }
+  const attributes: MetadataAttribute[] = [
+    { key: 'type', value: 'book' },
+    { key: 'author', value: 'John Doe' },
+    { key: 'year', value: '2021' }
   ];
 
   test('should return empty string if attributes is undefined', () => {
@@ -26,7 +26,7 @@ describe('getPublicationAttribute', () => {
   test('should return the first matching traitType if there are multiple matches', () => {
     const updatedAttributes = [
       ...attributes,
-      { traitType: 'author', value: 'Jane Smith' }
+      { key: 'author', value: 'Jane Smith' }
     ];
     expect(getPublicationAttribute(updatedAttributes, 'author')).toBe(
       'John Doe'
