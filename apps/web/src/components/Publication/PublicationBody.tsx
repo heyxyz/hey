@@ -18,8 +18,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
-import Nft from './OpenActions/Nft';
-import Snapshot from './OpenActions/Snapshot';
+import Nft from './HeyOpenActions/Nft';
+import Snapshot from './HeyOpenActions/Snapshot';
 
 interface PublicationBodyProps {
   publication: AnyPublication;

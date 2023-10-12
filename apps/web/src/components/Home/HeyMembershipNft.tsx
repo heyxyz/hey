@@ -1,4 +1,4 @@
-import Mint from '@components/Publication/OpenActions/Nft/ZoraNft/Mint';
+import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
