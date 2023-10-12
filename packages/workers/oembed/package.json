@@ -20,13 +20,13 @@
     "@hey/lib": "workspace:*",
     "@hey/types": "workspace:*",
     "itty-router": "^4.0.23",
-    "linkedom": "^0.15.4"
+    "linkedom": "^0.15.6"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231002.0",
+    "@cloudflare/workers-types": "^4.20231010.0",
     "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5",
-    "wrangler": "^3.11.0"
+    "wrangler": "^3.12.0"
   }
 }
