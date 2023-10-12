@@ -8,7 +8,7 @@ import {
 import { HashtagIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -89,7 +89,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
         <MetaDetails
           icon={<UserPlusIcon className="lt-text-gray-500 h-4 w-4" />}
           value={followship?.rank}
-          title={t`Followship Rank`}
+          title="Followship Rank"
         >
           {followship ? (
             followship.rank
@@ -100,7 +100,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={engagement?.rank}
-          title={t`Engagement Rank`}
+          title="Engagement Rank"
         >
           {engagement ? (
             engagement.rank
@@ -111,7 +111,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
         <MetaDetails
           icon={<UserCircleIcon className="lt-text-gray-500 h-4 w-4" />}
           value={influencer?.rank}
-          title={t`Influencer Rank`}
+          title="Influencer Rank"
         >
           {influencer ? (
             influencer.rank
@@ -122,14 +122,14 @@ const Rank: FC<RankProps> = ({ profile }) => {
         <MetaDetails
           icon={<CurrencyDollarIcon className="lt-text-gray-500 h-4 w-4" />}
           value={creator?.rank}
-          title={t`Creator Rank`}
+          title="Creator Rank"
         >
           {creator ? creator.rank : <div className="shimmer h-4 w-5 rounded" />}
         </MetaDetails>
         <MetaDetails
           icon={<CheckCircleIcon className="lt-text-gray-500 h-4 w-4" />}
           value={gitcoinScore?.evidence?.rawScore}
-          title={t`Gitcoin Score`}
+          title="Gitcoin Score"
         >
           {gitcoinScore ? (
             <span>

@@ -14,7 +14,6 @@ import {
   useExplorePublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -77,7 +76,7 @@ const Feed: FC<FeedProps> = ({
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={t`No posts yet!`}
+        message="No posts yet!"
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );
@@ -85,7 +84,7 @@ const Feed: FC<FeedProps> = ({
 
   if (error) {
     return (
-      <ErrorMessage title={t`Failed to load moderation feed`} error={error} />
+      <ErrorMessage title="Failed to load moderation feed" error={error} />
     );
   }
 

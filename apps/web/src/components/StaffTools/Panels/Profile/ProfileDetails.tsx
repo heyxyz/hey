@@ -8,7 +8,7 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { LEAFWATCH_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -63,28 +63,28 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
         <MetaDetails
           icon={<CursorArrowRaysIcon className="lt-text-gray-500 h-4 w-4" />}
           value={humanize(data.events)}
-          title={t`Total events`}
+          title="Total events"
         >
           {humanize(data.events)}
         </MetaDetails>
         <MetaDetails
           icon={<MapPinIcon className="lt-text-gray-500 h-4 w-4" />}
           value={data.city}
-          title={t`Location`}
+          title="Location"
         >
           {data.city}, {data.region}, {data.country}
         </MetaDetails>
         <MetaDetails
           icon={<ComputerDesktopIcon className="lt-text-gray-500 h-4 w-4" />}
           value={data.os}
-          title={t`OS`}
+          title="OS"
         >
           {data.os}
         </MetaDetails>
         <MetaDetails
           icon={<GlobeAltIcon className="lt-text-gray-500 h-4 w-4" />}
           value={data.browser}
-          title={t`Browser`}
+          title="Browser"
         >
           {data.browser} {data.version}
         </MetaDetails>

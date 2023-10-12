@@ -6,7 +6,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileRecommendationsQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -19,13 +18,13 @@ const Suggested: FC = () => {
   });
 
   if (loading) {
-    return <Loader message={t`Loading suggested`} />;
+    return <Loader message="Loading suggested" />;
   }
 
   if (data?.profileRecommendations.items.length === 0) {
     return (
       <EmptyState
-        message={t`Nothing to suggest`}
+        message="Nothing to suggest"
         icon={<UsersIcon className="text-brand h-8 w-8" />}
         hideCard
       />
@@ -34,7 +33,7 @@ const Suggested: FC = () => {
 
   return (
     <div className="max-h-[80vh] overflow-y-auto">
-      <ErrorMessage title={t`Failed to load recommendations`} error={error} />
+      <ErrorMessage title="Failed to load recommendations" error={error} />
       <Virtuoso
         className="virtual-profile-list"
         data={data?.profileRecommendations.items}

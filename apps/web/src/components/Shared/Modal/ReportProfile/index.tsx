@@ -64,7 +64,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
                 <Trans>Misleading Account</Trans>
               </span>
             }
-            description={t`Impersonation or false claims about identity or affiliation`}
+            description="Impersonation or false claims about identity or affiliation"
             value={ReportType.Enum.MISLEADING_ACCOUNT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.MISLEADING_ACCOUNT}
@@ -78,7 +78,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
                 <Trans>Frequently Posts Unwanted Content</Trans>
               </span>
             }
-            description={t`Spam; excessive mentions or replies`}
+            description="Spam; excessive mentions or replies"
             value={ReportType.Enum.UNWANTED_CONTENT}
             {...form.register('type')}
             checked={form.watch('type') === ReportType.Enum.UNWANTED_CONTENT}
@@ -90,8 +90,8 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         <div className="divider my-5" />
         <div>
           <TextArea
-            label={t`Add details to report`}
-            placeholder={t`Enter a reason or any other details here...`}
+            label="Add details to report"
+            placeholder="Enter a reason or any other details here..."
             {...form.register('description')}
           />
         </div>

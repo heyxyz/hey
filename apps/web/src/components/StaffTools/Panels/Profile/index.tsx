@@ -16,7 +16,7 @@ import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -80,14 +80,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.id}
-          title={t`Profile ID`}
+          title="Profile ID"
         >
           {profile.id}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.ownedBy.address}
-          title={t`Address`}
+          title="Address"
         >
           {formatAddress(profile.ownedBy.address)}
         </MetaDetails>
@@ -95,7 +95,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           <MetaDetails
             icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile.followNftAddress.address}
-            title={t`NFT address`}
+            title="NFT address"
           >
             {formatAddress(profile.followNftAddress.address)}
           </MetaDetails>
@@ -103,28 +103,28 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.lensManager ? 'Yes' : 'No'}
-          title={t`Has Lens Manager`}
+          title="Has Lens Manager"
         >
           {profile.lensManager ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.sponsor ? 'Yes' : 'No'}
-          title={t`Gas sponsored`}
+          title="Gas sponsored"
         >
           {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.id}
-          title={t`Follow module`}
+          title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
         <MetaDetails
           icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile?.metadata?.rawURI}
-          title={t`Metadata`}
+          title="Metadata"
         >
           <Link
             href={profile?.metadata?.rawURI}

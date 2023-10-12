@@ -10,7 +10,7 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
+import { Plural, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -55,7 +55,7 @@ const Trending: FC = () => {
     <>
       <Title />
       <Card as="aside" className="mb-4 space-y-4 p-5">
-        <ErrorMessage title={t`Failed to load trending`} error={error} />
+        <ErrorMessage title="Failed to load trending" error={error} />
         {data?.publicationsTags?.items?.map((tag: TagResult) =>
           tag?.tag !== '{}' ? (
             <div key={tag?.tag}>

@@ -5,7 +5,6 @@ import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedItem, FeedRequest } from '@hey/lens';
 import { FeedEventItemType, useFeedQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
@@ -75,14 +74,14 @@ const Timeline: FC = () => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message={t`No posts yet!`}
+        message="No posts yet!"
         icon={<UserGroupIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load timeline`} error={error} />;
+    return <ErrorMessage title="Failed to load timeline" error={error} />;
   }
 
   return (

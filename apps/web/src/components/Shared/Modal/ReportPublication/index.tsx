@@ -76,7 +76,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
     <div onClick={stopEventPropagation} aria-hidden="true">
       {submitData?.reportPublication === null ? (
         <EmptyState
-          message={t`Publication reported successfully!`}
+          message="Publication reported successfully!"
           icon={<CheckCircleIcon className="h-14 w-14 text-green-500" />}
           hideCard
         />
@@ -90,7 +90,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
             }}
           >
             {submitError ? (
-              <ErrorMessage title={t`Failed to report`} error={submitError} />
+              <ErrorMessage title="Failed to report" error={submitError} />
             ) : null}
             <Reason
               setType={setType}
@@ -101,8 +101,8 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
             {subReason ? (
               <>
                 <TextArea
-                  label={t`Description`}
-                  placeholder={t`Please provide additional details`}
+                  label="Description"
+                  placeholder="Please provide additional details"
                   {...form.register('additionalComments')}
                 />
                 <Button

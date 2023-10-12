@@ -10,7 +10,7 @@ import {
   isMirrorPublication
 } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 import MetaDetails from './MetaDetails';
@@ -43,7 +43,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={publication?.id}
-          title={t`Publication ID`}
+          title="Publication ID"
         >
           {publication?.id}
         </MetaDetails>
@@ -51,7 +51,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           <MetaDetails
             icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
             value={targetPublication?.commentOn?.id}
-            title={t`Comment on`}
+            title="Comment on"
           >
             {targetPublication?.commentOn?.id}
           </MetaDetails>
@@ -60,7 +60,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           <MetaDetails
             icon={<RectangleStackIcon className="lt-text-gray-500 h-4 w-4" />}
             value={JSON.stringify(targetPublication?.openActionModules)}
-            title={t`Open action modules`}
+            title="Open action modules"
             noFlex
           >
             {(targetPublication?.openActionModules ?? []).map((module) => (
@@ -72,7 +72,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
           <MetaDetails
             icon={<TagIcon className="lt-text-gray-500 h-4 w-4" />}
             value={JSON.stringify(targetPublication?.metadata?.tags)}
-            title={t`Tags`}
+            title="Tags"
             noFlex
           >
             {(targetPublication?.metadata?.tags ?? []).map((tag) => (

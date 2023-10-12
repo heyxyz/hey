@@ -5,7 +5,7 @@ import { CursorArrowRippleIcon as CursorArrowRippleIconSolid } from '@heroicons/
 import { STAFF_PICKS_WORKER_URL } from '@hey/data/constants';
 import type { StaffPick } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -60,7 +60,7 @@ const StaffPicks: FC = () => {
       <div className="mb-4">
         <Title />
         <EmptyState
-          message={t`Nothing here!`}
+          message="Nothing here!"
           icon={<CursorArrowRippleIconOutline className="text-brand h-8 w-8" />}
         />
       </div>
@@ -73,7 +73,7 @@ const StaffPicks: FC = () => {
       <Card as="aside" className="mb-4">
         <div className="space-y-4 p-5">
           <ErrorMessage
-            title={t`Failed to load recommendations`}
+            title="Failed to load recommendations"
             error={error as Error}
           />
           {picks?.map((pick) => (
