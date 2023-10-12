@@ -6,7 +6,6 @@ import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import axios from 'axios';
 import { type FC, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -89,13 +88,11 @@ const HeyMembershipNft: FC = () => {
       />
       <div className="p-5">
         <div className="mb-1 font-bold">
-          <Trans>Hey Buddy! Grab your special Hey NFT Here.</Trans>
+          Hey Buddy! Grab your special Hey NFT Here.
         </div>
         <div className="text-brand-400 mb-4">
-          <Trans>
-            New or OG, this NFT's for our epic times together. Let's keep the
-            vibe alive!
-          </Trans>
+          New or OG, this NFT's for our epic times together. Let's keep the vibe
+          alive!
         </div>
         <div className="flex flex-col items-center space-y-1.5">
           <Button
@@ -108,7 +105,7 @@ const HeyMembershipNft: FC = () => {
             }}
             disabled={loading}
           >
-            <Trans>Mint now</Trans>
+            Mint now
           </Button>
           <Modal
             title="Mint"

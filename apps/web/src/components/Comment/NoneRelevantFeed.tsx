@@ -8,7 +8,6 @@ import {
   usePublicationsQuery
 } from '@hey/lens';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -72,11 +71,7 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
         }}
         dataTestId="none-relevant-feed"
       >
-        {showMore ? (
-          <Trans>Hide more comments</Trans>
-        ) : (
-          <Trans>Show more comments</Trans>
-        )}
+        {showMore ? 'Hide more comments' : 'Show more comments'}
       </Card>
       {showMore ? (
         <Card className="divide-y-[1px] dark:divide-gray-700">

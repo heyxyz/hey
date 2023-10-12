@@ -41,7 +41,7 @@ import errorToast from '@lib/errorToast';
 import { formatDate, formatTime } from '@lib/formatTime';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -327,16 +327,14 @@ const CollectModule: FC<CollectModuleProps> = ({
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  <Trans>{parseInt(collectLimit) - count} available</Trans>
+                  {parseInt(collectLimit) - count} available
                 </div>
               </div>
             ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
                 <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
-                <div className="font-bold">
-                  <Trans>{referralFee}% referral fee</Trans>
-                </div>
+                <div className="font-bold">{referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
@@ -344,9 +342,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             <div className="flex items-center space-x-2">
               <ClockIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
-                <span>
-                  <Trans>Sale Ends:</Trans>
-                </span>
+                <span>Sale Ends:</span>
                 <span
                   className="font-bold text-gray-600"
                   title={formatTime(endTimestamp)}
@@ -361,9 +357,7 @@ const CollectModule: FC<CollectModuleProps> = ({
             <div className="flex items-center space-x-2">
               <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
-                <span>
-                  <Trans>Token:</Trans>
-                </span>
+                <span>Token:</span>
                 <Link
                   href={`${POLYGONSCAN_URL}/token/${collectModule.contract.address}`}
                   target="_blank"
@@ -400,7 +394,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                       )
                     }
                   >
-                    <Trans>Collect now</Trans>
+                    Collect now
                   </Button>
                 ) : null
               ) : (
@@ -427,9 +421,7 @@ const CollectModule: FC<CollectModuleProps> = ({
         {targetPublication.operations.hasActed.value ? (
           <div className="mt-3 flex items-center space-x-1.5 font-bold text-green-500">
             <CheckCircleIcon className="h-5 w-5" />
-            <div>
-              <Trans>You already collected this</Trans>
-            </div>
+            <div>You already collected this</div>
           </div>
         ) : null}
       </div>

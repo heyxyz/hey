@@ -1,7 +1,7 @@
 import { ClockIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Bars3BottomLeftIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { Button, Card, Input, Modal, Tooltip } from '@hey/ui';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -68,14 +68,14 @@ const PollEditor: FC = () => {
                   }}
                   outline
                 >
-                  <Trans>Cancel</Trans>
+                  Cancel
                 </Button>
                 <Button
                   className="ml-auto"
                   variant="primary"
                   onClick={() => setShowPollLengthModal(false)}
                 >
-                  <Trans>Save</Trans>
+                  Save
                 </Button>
               </div>
             </div>
@@ -131,9 +131,7 @@ const PollEditor: FC = () => {
             }}
           >
             <PlusIcon className="h-4 w-4" />
-            <span>
-              <Trans>Add another option</Trans>
-            </span>
+            <span>Add another option</span>
           </button>
         ) : null}
       </div>

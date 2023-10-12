@@ -11,7 +11,6 @@ import { OpenActionModuleType, useProfileLazyQuery } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -104,9 +103,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
         }}
         heading={
           <div className="flex items-center space-x-2">
-            <span>
-              <Trans>Split revenue</Trans>
-            </span>
+            <span>Split revenue</span>
             <Beta />
           </div>
         }
@@ -192,14 +189,12 @@ const SplitConfig: FC<SplitConfigProps> = ({
           </div>
           {splitTotal > 100 ? (
             <div className="text-sm font-bold text-red-500">
-              <Trans>
-                Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
-              </Trans>
+              Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
             </div>
           ) : null}
           {isRecipientsDuplicated() ? (
             <div className="text-sm font-bold text-red-500">
-              <Trans>Duplicate recipient address found</Trans>
+              Duplicate recipient address found
             </div>
           ) : null}
         </div>

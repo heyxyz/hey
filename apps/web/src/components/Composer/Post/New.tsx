@@ -1,7 +1,6 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
 import { Card, Image } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -59,9 +58,7 @@ const NewPost: FC = () => {
           onClick={() => openModal()}
         >
           <PencilSquareIcon className="h-5 w-5" />
-          <span>
-            <Trans>What's happening?</Trans>
-          </span>
+          <span>What's happening?</span>
         </button>
       </div>
     </Card>

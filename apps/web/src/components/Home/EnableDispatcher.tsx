@@ -2,26 +2,12 @@ import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
 const EnableDispatcher: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const canUseRelay = currentProfile?.lensManager;
-
-  const getDescription = () => {
-    return (
-      <Trans>
-        You can enable dispatcher to interact with {APP_NAME} without signing
-        any of your transactions.
-      </Trans>
-    );
-  };
-
-  const getTitle = () => {
-    return <Trans>Signless transactions</Trans>;
-  };
 
   if (canUseRelay) {
     return null;
@@ -34,9 +20,12 @@ const EnableDispatcher: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <HandRaisedIcon className="h-5 w-5" />
-        <p>{getTitle()}</p>
+        <p>Signless transactions</p>
       </div>
-      <p className="text-sm leading-[22px]">{getDescription()}</p>
+      <p className="text-sm leading-[22px]">
+        You can enable dispatcher to interact with {APP_NAME} without signing
+        any of your transactions.
+      </p>
       <ToggleDispatcher buttonSize="sm" />
     </Card>
   );

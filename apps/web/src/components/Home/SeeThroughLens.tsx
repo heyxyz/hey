@@ -21,7 +21,6 @@ import getAvatar from '@hey/lib/getAvatar';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
@@ -125,9 +124,7 @@ const SeeThroughLens: FC = () => {
           static
           className="absolute right-0 z-[5] mt-1 w-64 rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
         >
-          <div className="px-3 pt-2 text-xs">
-            <Trans>👀 See the feed through...</Trans>
-          </div>
+          <div className="px-3 pt-2 text-xs">👀 See the feed through...</div>
           <div className="p-2">
             <Input
               type="text"
@@ -152,16 +149,14 @@ const SeeThroughLens: FC = () => {
               className="mb-2 mt-1 w-full bg-gray-200 px-3 py-2 text-left text-sm outline-none dark:bg-gray-700"
               onClick={() => setSeeThroughProfile(null)}
             >
-              <Trans>Reset filter to your own feed</Trans>
+              Reset filter to your own feed
             </button>
           )}
           <div className="mx-2 mb-2">
             {searchUsersLoading || loading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
-                <div>
-                  <Trans>Searching users</Trans>
-                </div>
+                <div>Searching users</div>
               </div>
             ) : (
               <>
@@ -194,9 +189,7 @@ const SeeThroughLens: FC = () => {
                   </Menu.Item>
                 ))}
                 {profiles.length === 0 || error ? (
-                  <div className="py-4 text-center">
-                    <Trans>No matching users</Trans>
-                  </div>
+                  <div className="py-4 text-center">No matching users</div>
                 ) : null}
               </>
             )}

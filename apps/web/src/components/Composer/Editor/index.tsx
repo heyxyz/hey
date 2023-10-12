@@ -16,7 +16,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { Trans } from '@lingui/macro';
 import {
   COMMAND_PRIORITY_NORMAL,
   INSERT_LINE_BREAK_COMMAND,
@@ -73,11 +72,7 @@ const Editor: FC = () => {
         }
         placeholder={
           <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            {showPollEditor ? (
-              <Trans>Ask a question...</Trans>
-            ) : (
-              <Trans>What's happening?</Trans>
-            )}
+            {showPollEditor ? 'Ask a question...' : "What's happening?"}
           </div>
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}

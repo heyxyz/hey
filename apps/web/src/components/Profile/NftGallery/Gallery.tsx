@@ -17,7 +17,6 @@ import {
 import { useApolloClient } from '@hey/lens/apollo';
 import { Button } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -157,10 +156,10 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
               size="sm"
               variant="secondary"
             >
-              <Trans>Cancel</Trans>
+              Cancel
             </Button>
             <Button onClick={onSaveRearrange} size="sm">
-              <Trans>Save</Trans>
+              Save
             </Button>
           </div>
         ) : currentProfile && currentProfile?.id === gallery.owner ? (
@@ -185,9 +184,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <PencilSquareIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Edit</Trans>
-                    </div>
+                    <div>Edit</div>
                   </div>
                 </Menu.Item>
                 <Menu.Item
@@ -202,9 +199,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <ArrowsPointingOutIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Rearrrange</Trans>
-                    </div>
+                    <div>Rearrrange</div>
                   </div>
                 </Menu.Item>
                 <Menu.Item
@@ -219,9 +214,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                 >
                   <div className="flex items-center space-x-2">
                     <TrashIcon className="h-4 w-4" />
-                    <div>
-                      <Trans>Delete</Trans>
-                    </div>
+                    <div>Delete</div>
                   </div>
                 </Menu.Item>
               </Menu.Items>

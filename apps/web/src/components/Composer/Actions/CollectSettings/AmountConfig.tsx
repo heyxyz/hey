@@ -4,7 +4,6 @@ import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import type { Erc20 } from '@hey/lens';
 import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -59,9 +58,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
               }}
             />
             <div>
-              <div className="label">
-                <Trans>Select currency</Trans>
-              </div>
+              <div className="label">Select currency</div>
               <select
                 className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
                 onChange={(e) => {

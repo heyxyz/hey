@@ -10,7 +10,6 @@ import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
 import { type Profile, useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -23,9 +22,7 @@ const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <SparklesIcon className="h-4 w-4 text-yellow-500" />
-      <div>
-        <Trans>Who to follow</Trans>
-      </div>
+      <div>Who to follow</div>
     </div>
   );
 };
@@ -114,9 +111,7 @@ const RecommendedProfiles: FC = () => {
           }}
         >
           <EllipsisHorizontalCircleIcon className="h-4 w-4" />
-          <span>
-            <Trans>Show more</Trans>
-          </span>
+          <span>Show more</span>
         </button>
       </Card>
       <Modal

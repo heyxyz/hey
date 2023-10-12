@@ -16,7 +16,6 @@ import {
   GridLayout
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
@@ -93,13 +92,11 @@ const Mod: NextPage = () => {
             className="w-full"
             onClick={() => setRefresh(!refresh)}
           >
-            <Trans>Refresh feed</Trans>
+            Refresh feed
           </Button>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Publication filters</Trans>
-            </span>
+            <span className="font-bold">Publication filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() =>
@@ -123,9 +120,7 @@ const Mod: NextPage = () => {
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Media filters</Trans>
-            </span>
+            <span className="font-bold">Media filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() =>
@@ -205,9 +200,7 @@ const Mod: NextPage = () => {
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Custom filters</Trans>
-            </span>
+            <span className="font-bold">Custom filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() => {

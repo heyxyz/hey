@@ -6,7 +6,6 @@ import {
 } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import type { CollectModuleType } from 'src/store/collect-module';
 import { useCollectModuleStore } from 'src/store/collect-module';
@@ -61,9 +60,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
     return (
       <div className="space-y-2 px-5 py-3.5 text-center font-bold">
         <Spinner size="md" className="mx-auto" />
-        <div>
-          <Trans>Loading collect settings</Trans>
-        </div>
+        <div>Loading collect settings</div>
       </div>
     );
   }
@@ -122,7 +119,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
             setShowModal(false);
           }}
         >
-          <Trans>Cancel</Trans>
+          Cancel
         </Button>
         <Button
           disabled={
@@ -135,7 +132,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
           }
           onClick={() => setShowModal(false)}
         >
-          <Trans>Save</Trans>
+          Save
         </Button>
       </div>
     </div>

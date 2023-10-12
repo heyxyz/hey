@@ -4,7 +4,6 @@ import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -130,9 +129,7 @@ const ChooseThumbnail: FC = () => {
 
   return (
     <div className="mt-5">
-      <b>
-        <Trans>Choose Thumbnail</Trans>
-      </b>
+      <b>Choose Thumbnail</b>
       <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
           htmlFor="chooseThumbnail"
@@ -150,9 +147,7 @@ const ChooseThumbnail: FC = () => {
           ) : (
             <>
               <PhotoIcon className="mb-1 h-5 w-5" />
-              <span className="text-sm">
-                <Trans>Upload</Trans>
-              </span>
+              <span className="text-sm">Upload</span>
             </>
           )}
         </label>

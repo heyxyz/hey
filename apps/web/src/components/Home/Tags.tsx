@@ -2,7 +2,6 @@ import Alpha from '@components/Shared/Badges/Alpha';
 import { TagIcon } from '@heroicons/react/24/outline';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useExploreStore } from 'src/store/explore';
 
@@ -10,9 +9,7 @@ const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <TagIcon className="h-4 w-4 text-pink-500" />
-      <div>
-        <Trans>Tags</Trans>
-      </div>
+      <div>Tags</div>
       <Alpha />
     </div>
   );

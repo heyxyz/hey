@@ -10,7 +10,7 @@ import {
 import nFormatter from '@hey/lib/nFormatter';
 import { Card, ErrorMessage } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, Trans } from '@lingui/macro';
+import { Plural } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -18,9 +18,7 @@ const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <ArrowTrendingUpIcon className="h-4 w-4 text-green-500" />
-      <div>
-        <Trans>Trending</Trans>
-      </div>
+      <div>Trending</div>
     </div>
   );
 };

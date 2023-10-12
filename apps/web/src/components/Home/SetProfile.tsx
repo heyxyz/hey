@@ -10,7 +10,6 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -52,9 +51,7 @@ const SetProfile: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <PhotoIcon className="h-5 w-5" />
-        <p>
-          <Trans>Setup your {APP_NAME} profile</Trans>
-        </p>
+        <p>Setup your {APP_NAME} profile</p>
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
         <Status
@@ -91,7 +88,7 @@ const SetProfile: FC = () => {
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
         >
-          <Trans>Update profile now</Trans>
+          Update profile now
         </Link>
       </div>
     </Card>
