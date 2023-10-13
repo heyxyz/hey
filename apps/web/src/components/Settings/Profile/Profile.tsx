@@ -374,9 +374,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         <Form
           form={form}
           className="space-y-4"
-          onSubmit={(data) => {
-            editProfile(data);
-          }}
+          onSubmit={(data) => editProfile(data)}
         >
           {error ? (
             <ErrorMessage

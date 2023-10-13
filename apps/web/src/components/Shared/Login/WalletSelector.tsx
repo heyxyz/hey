@@ -80,7 +80,12 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
       variables: { request: { for: address } },
-      skip: !address
+      skip: !address,
+      onCompleted: ({ profilesManaged }) => {
+        if (profilesManaged.items.length <= 0) {
+          setHasProfile?.(false);
+        }
+      }
     });
   const [getUserProfile] = useProfileLazyQuery();
 
@@ -97,7 +102,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   };
 
   const handleSign = async (id: string) => {
-    let keepModal = false;
     try {
       setLoggingInProfileId(id);
       setIsLoading(true);
@@ -130,22 +134,17 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         variables: { request: { forProfileId: id } }
       });
 
-      if (!profile?.profile) {
-        setHasProfile?.(false);
-        keepModal = true;
-      } else {
+      if (profile?.profile) {
         const currentProfile = profile.profile;
         setCurrentProfile(currentProfile as Profile);
         setProfileId(currentProfile.id);
+        Leafwatch.track(AUTH.SIWL);
       }
-      Leafwatch.track(AUTH.SIWL);
     } catch {
     } finally {
       setIsLoading(false);
       setLoggingInProfileId(null);
-      if (!keepModal) {
-        setShowAuthModal(false);
-      }
+      setShowAuthModal(false);
     }
   };
 
@@ -155,7 +154,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         {chain === CHAIN_ID ? (
           <Card className="w-full divide-y dark:divide-gray-700">
             {profilesManagedLoading ? (
-              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
+              <div className="space-y-2 p-4 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
                 <div>Loading profiles managed by you...</div>
               </div>

@@ -84,9 +84,9 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
           <Form
             form={form}
             className="space-y-4"
-            onSubmit={({ additionalComments }) => {
-              reportPublication(additionalComments);
-            }}
+            onSubmit={({ additionalComments }) =>
+              reportPublication(additionalComments)
+            }
           >
             {submitError ? (
               <ErrorMessage title="Failed to report" error={submitError} />

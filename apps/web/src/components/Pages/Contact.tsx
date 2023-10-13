@@ -104,9 +104,9 @@ const Contact: FC = () => {
             <Form
               form={form}
               className="space-y-4 p-5"
-              onSubmit={({ email, category, subject, message }) => {
-                submitToFreshdesk(email, category, subject, message);
-              }}
+              onSubmit={({ email, category, subject, message }) =>
+                submitToFreshdesk(email, category, subject, message)
+              }
             >
               <Input
                 label="Email"
