@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 
-import Collect from './Collect';
+import OpenAction from '../LensOpenActions';
 import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';
@@ -25,12 +25,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const hasCollectModule =
-    targetPublication.openActionModules?.some(
-      (module) =>
-        module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
-        module.__typename === 'SimpleCollectOpenActionSettings'
-    ) ?? false;
+  const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
 
   const canMirror = currentProfile
     ? targetPublication.operations.canMirror
@@ -47,8 +42,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
       <Like publication={publication} showCount={showCount} />
-      {hasCollectModule ? (
-        <Collect publication={publication} showCount={showCount} />
+      {hasOpenAction ? (
+        <OpenAction publication={publication} showCount={showCount} />
       ) : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />

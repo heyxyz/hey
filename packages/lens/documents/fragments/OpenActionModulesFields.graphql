@@ -1,5 +1,6 @@
 fragment OpenActionModulesFields on OpenActionModule {
   ... on SimpleCollectOpenActionSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -17,6 +18,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalEndsAt: endsAt
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -37,6 +39,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
   }
   ... on LegacyFreeCollectModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -44,6 +47,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
   }
   ... on LegacyFeeCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -59,6 +63,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
   }
   ... on LegacyLimitedFeeCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -75,6 +80,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
   }
   ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -92,11 +98,13 @@ fragment OpenActionModulesFields on OpenActionModule {
     endTimestamp
   }
   ... on LegacyRevertCollectModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
   }
   ... on LegacyTimedFeeCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -113,6 +121,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     endTimestamp
   }
   ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -133,6 +142,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
   }
   ... on LegacySimpleCollectModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
@@ -150,6 +160,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalEndsAt: endsAt
   }
   ... on LegacyERC4626FeeCollectModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -169,6 +180,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalEndsAt: endsAt
   }
   ... on LegacyAaveFeeCollectModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -185,6 +197,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     recipient
   }
   ... on UnknownOpenActionModuleSettings {
+    type
     collectNft
     contract {
       ...NetworkAddressFields
