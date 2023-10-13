@@ -77,14 +77,11 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
-  const {
-    data: profilesManaged,
-    loading: profilesManagedLoading,
-    error: profilesManagedError
-  } = useProfilesManagedQuery({
-    variables: { request: { for: address } },
-    skip: !address
-  });
+  const { data: profilesManaged, loading: profilesManagedLoading } =
+    useProfilesManagedQuery({
+      variables: { request: { for: address } },
+      skip: !address
+    });
   const [getUserProfile] = useProfileLazyQuery();
 
   const onConnect = async (connector: Connector) => {
