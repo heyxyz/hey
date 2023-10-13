@@ -12,8 +12,20 @@ import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { create } from 'zustand';
 
 import List from './List';
+
+interface OpenActionState {
+  openActionCount: number;
+  setOpenActionCount: (openActionCount: number) => void;
+}
+
+export const useOpenActionStore = create<OpenActionState>((set) => ({
+  openActionCount: 0,
+  setOpenActionCount: (openActionCount) =>
+    set((state) => ({ ...state, openActionCount }))
+}));
 
 interface OpenActionProps {
   publication: AnyPublication;
@@ -21,7 +33,7 @@ interface OpenActionProps {
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
-  const [count, setCount] = useState(0);
+  const { openActionCount, setOpenActionCount } = useOpenActionStore();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -30,7 +42,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
 
   useEffect(() => {
     if (targetPublication.stats.countOpenActions) {
-      setCount(targetPublication.stats.countOpenActions);
+      setOpenActionCount(targetPublication.stats.countOpenActions);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
@@ -63,7 +75,10 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
           >
             <Tooltip
               placement="top"
-              content={`${humanize(count)} ${plur('Action', count)}`}
+              content={`${humanize(openActionCount)} ${plur(
+                'Action',
+                openActionCount
+              )}`}
               withDelay
             >
               {hasActed ? (
@@ -74,8 +89,10 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
             </Tooltip>
           </div>
         </motion.button>
-        {count > 0 && !showCount ? (
-          <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+        {openActionCount > 0 && !showCount ? (
+          <span className="text-[11px] sm:text-xs">
+            {nFormatter(openActionCount)}
+          </span>
         ) : null}
       </div>
       <Modal

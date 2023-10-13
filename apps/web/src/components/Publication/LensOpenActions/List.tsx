@@ -4,6 +4,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import { type FC, useState } from 'react';
 
+import CollectModule from './CollectModule';
+
 interface ListProps {
   publication: AnyPublication;
 }
@@ -50,6 +52,15 @@ const List: FC<ListProps> = ({ publication }) => {
             </button>
             <div className="font-bold">{selectedOpenAction?.type}</div>
           </div>
+          {selectedOpenAction?.__typename ===
+            'SimpleCollectOpenActionSettings' ||
+          selectedOpenAction?.__typename ===
+            'MultirecipientFeeCollectOpenActionSettings' ? (
+            <CollectModule
+              publication={publication}
+              openAction={selectedOpenAction}
+            />
+          ) : null}
         </div>
       )}
     </div>

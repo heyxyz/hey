@@ -20,6 +20,7 @@ import type {
   AnyPublication,
   ApprovedAllowanceAmountResult,
   MultirecipientFeeCollectOpenActionSettings,
+  OpenActionModule,
   SimpleCollectOpenActionSettings
 } from '@hey/lens';
 import {
@@ -43,7 +44,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import plur from 'plur';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
@@ -56,26 +57,24 @@ import {
   useSignTypedData
 } from 'wagmi';
 
+import { useOpenActionStore } from '..';
 import Splits from './Splits';
 
 interface CollectModuleProps {
-  count: number;
-  setCount: Dispatch<SetStateAction<number>>;
   publication: AnyPublication;
+  openAction: OpenActionModule;
 }
 
-const CollectModule: FC<CollectModuleProps> = ({
-  count,
-  setCount,
-  publication
-}) => {
+const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
+  const { openActionCount, setOpenActionCount } = useOpenActionStore();
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const currentProfile = useAppStore((state) => state.currentProfile);
+
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [hasCollectedByMe, setHasCollectedByMe] = useState(
     targetPublication.operations.hasActed.value
@@ -85,7 +84,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const collectModule = targetPublication?.openActionModules?.[0] as
+  const collectModule = openAction as
     | SimpleCollectOpenActionSettings
     | MultirecipientFeeCollectOpenActionSettings;
 
@@ -109,7 +108,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
 
     setIsLoading(false);
-    setCount(count + 1);
+    setOpenActionCount(openActionCount + 1);
     setHasCollectedByMe(true);
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
@@ -139,7 +138,7 @@ const CollectModule: FC<CollectModuleProps> = ({
     }
   });
 
-  const percentageCollected = (count / parseInt(collectLimit)) * 100;
+  const percentageCollected = (openActionCount / parseInt(collectLimit)) * 100;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
@@ -224,7 +223,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   };
 
   const isLimitedCollectAllCollected = collectLimit
-    ? count >= parseInt(collectLimit)
+    ? openActionCount >= parseInt(collectLimit)
     : false;
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
@@ -304,7 +303,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 type="button"
                 onClick={() => setShowCollectorsModal(!showCollectorsModal)}
               >
-                {humanize(count)} {plur('collector', count)}
+                {humanize(openActionCount)} {plur('collector', openActionCount)}
               </button>
               <Modal
                 title="Collected by"
@@ -319,7 +318,7 @@ const CollectModule: FC<CollectModuleProps> = ({
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  {parseInt(collectLimit) - count} available
+                  {parseInt(collectLimit) - openActionCount} available
                 </div>
               </div>
             ) : null}
