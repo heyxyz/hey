@@ -1,5 +1,5 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { KeyIcon } from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { Localstorage } from '@hey/data/storage';
@@ -12,7 +12,7 @@ import {
   useProfilesManagedQuery
 } from '@hey/lens';
 import getWalletDetails from '@hey/lib/getWalletDetails';
-import { Spinner } from '@hey/ui';
+import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -50,6 +50,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
+    null
+  );
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -100,6 +103,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     let keepModal = false;
     try {
       setIsLoading(true);
+      setLoggingInProfileId(id);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { for: id, signedBy: address } }
@@ -141,6 +145,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {
     } finally {
       setIsLoading(false);
+      setLoggingInProfileId(null);
       if (!keepModal) {
         setShowAuthModal(false);
       }
@@ -151,17 +156,40 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
-          <div>
-            {profilesManaged?.profilesManaged.items.map((profile) => (
-              <button key={profile.id} onClick={() => handleSign(profile.id)}>
-                <UserProfile
-                  linkToProfile={false}
-                  showUserPreview={false}
-                  profile={profile as Profile}
-                />
-              </button>
-            ))}
-          </div>
+          <Card className="w-full p-3">
+            {profilesManagedLoading ? (
+              <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
+                <Spinner size="sm" className="mx-auto" />
+                <div>Loading profiles managed by you...</div>
+              </div>
+            ) : (
+              profilesManaged?.profilesManaged.items.map((profile) => (
+                <div
+                  key={profile.id}
+                  className="flex items-center justify-between"
+                >
+                  <UserProfile
+                    linkToProfile={false}
+                    showUserPreview={false}
+                    profile={profile as Profile}
+                  />
+                  <Button
+                    onClick={() => handleSign(profile.id)}
+                    icon={
+                      isLoading || loggingInProfileId === profile.id ? (
+                        <Spinner className="mr-1" size="xs" />
+                      ) : (
+                        <ArrowRightCircleIcon className="h-5 w-5" />
+                      )
+                    }
+                    disabled={isLoading || loggingInProfileId === profile.id}
+                  >
+                    Login
+                  </Button>
+                </div>
+              ))
+            )}
+          </Card>
         ) : (
           <SwitchNetwork toChainId={CHAIN_ID} />
         )}
