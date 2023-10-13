@@ -67,15 +67,17 @@ const Home: NextPage = () => {
           {/* <Gitcoin /> */}
           {loggedOut && <Waitlist />}
           {loggedIn && <HeyMembershipNft />}
-          <StaffPicks />
+          {/* Onboarding steps */}
           {loggedIn && (
             <>
               <EnableDispatcher />
               <EnableMessages />
               <SetProfile />
-              <RecommendedProfiles />
             </>
           )}
+          {/* Recommendations */}
+          <StaffPicks />
+          {loggedIn && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>
