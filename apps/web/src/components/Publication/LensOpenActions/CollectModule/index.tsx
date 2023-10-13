@@ -39,6 +39,7 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
+import getOpenActionActOnKey from '@lib/getOpenActionActOnKey';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
 import { useQuery } from '@tanstack/react-query';
@@ -214,7 +215,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           options: { overrideSigNonce: userSigNonce },
           request: {
             for: publication?.id,
-            actOn: { [collectModule?.type]: true }
+            actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
           }
         }
       });
