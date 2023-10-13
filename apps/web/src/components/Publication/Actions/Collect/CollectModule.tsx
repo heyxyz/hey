@@ -24,7 +24,6 @@ import type {
 } from '@hey/lens';
 import {
   FollowModuleType,
-  OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
@@ -86,7 +85,7 @@ const CollectModule: FC<CollectModuleProps> = ({
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const collectModule = targetPublication?.openActionModules[0] as
+  const collectModule = targetPublication?.openActionModules?.[0] as
     | SimpleCollectOpenActionSettings
     | MultirecipientFeeCollectOpenActionSettings;
 
@@ -100,10 +99,9 @@ const CollectModule: FC<CollectModuleProps> = ({
 
   const isFreeCollectModule = !collectModule;
   const isSimpleFreeCollectModule =
-    collectModule?.type === OpenActionModuleType.SimpleCollectOpenActionModule;
+    collectModule.__typename === 'SimpleCollectOpenActionSettings';
   const isMultirecipientFeeCollectModule =
-    collectModule?.type ===
-    OpenActionModuleType.MultirecipientFeeCollectOpenActionModule;
+    collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -290,7 +288,7 @@ const CollectModule: FC<CollectModuleProps> = ({
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
                   <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(amount * usdPrice).toFixed(2)}
+                    ${(parseFloat(amount) * usdPrice).toFixed(2)}
                   </span>
                 </>
               ) : null}
