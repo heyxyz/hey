@@ -19,18 +19,6 @@ const DispatcherSettings: FC = () => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
   });
 
-  const getTitleText = () => {
-    if (canUseRelay) {
-      return 'Disable signless transactions';
-    }
-
-    return 'Signless transactions';
-  };
-
-  const getDescription = () => {
-    return 'You can enable dispatcher to interact with {APP_NAME} without signing any of your transactions.';
-  };
-
   if (!currentProfile) {
     return <NotLoggedIn />;
   }
@@ -44,9 +32,16 @@ const DispatcherSettings: FC = () => {
       <GridItemEight>
         <Card className="linkify space-y-2 p-5">
           <div className="flex items-center space-x-2">
-            <div className="text-lg font-bold">{getTitleText()}</div>
+            <div className="text-lg font-bold">
+              {canUseRelay
+                ? 'Disable signless transactions'
+                : 'Signless transactions'}
+            </div>
           </div>
-          <div className="pb-2">{getDescription()}</div>
+          <div className="pb-2">
+            You can enable dispatcher to interact with {APP_NAME} without
+            signing any of your transactions.
+          </div>
           <ToggleDispatcher />
         </Card>
       </GridItemEight>
