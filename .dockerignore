@@ -1,0 +1,16 @@
+**/node_modules
+**/*.tsbuildinfo
+**/.next
+**/.turbo
+**/build
+**/dist
+**/.wrangler
+**/.dev.vars
+**/.gitsigners
+**/.idea
+.vercel
+test-results/
+playwright-report/
+playwright/.cache/
+build
+out
