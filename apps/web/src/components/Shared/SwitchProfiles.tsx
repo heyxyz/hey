@@ -1,4 +1,4 @@
-import { UserPlusIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
@@ -50,11 +50,10 @@ const SwitchProfiles: FC = () => {
       request: { where: { ownedBy: currentProfile?.ownedBy.address } }
     }
   });
-  const [loadChallenge, { error: errorChallenge }] = useChallengeLazyQuery({
+  const [loadChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
   });
-  const [authenticate, { error: errorAuthenticate }] =
-    useAuthenticateMutation();
+  const [authenticate] = useAuthenticateMutation();
   const [getUserProfile] = useProfileLazyQuery();
 
   if (loading) {
@@ -117,12 +116,6 @@ const SwitchProfiles: FC = () => {
         title="Failed to load profiles"
         error={error}
       />
-      {errorChallenge || errorAuthenticate ? (
-        <div className="flex items-center space-x-1 font-bold text-red-500">
-          <XCircleIcon className="h-5 w-5" />
-          <div>{Errors.SomethingWentWrong}</div>
-        </div>
-      ) : null}
       {profiles.map((profile, index) => (
         <button
           key={profile?.id}
