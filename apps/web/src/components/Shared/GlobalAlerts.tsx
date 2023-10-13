@@ -11,7 +11,7 @@ const GlobalAlerts: FC = () => {
     showModActionAlert,
     setShowModActionAlert,
     modingPublication,
-    blockingProfile
+    blockingorUnblockingProfile
   } = useGlobalAlertStateStore();
 
   return (
@@ -27,7 +27,7 @@ const GlobalAlerts: FC = () => {
           <ModAction publication={modingPublication} />
         </Alert>
       ) : null}
-      {blockingProfile ? <BlockOrUnBlockProfile /> : null}
+      {blockingorUnblockingProfile ? <BlockOrUnBlockProfile /> : null}
     </>
   );
 };

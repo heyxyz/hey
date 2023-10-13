@@ -9,15 +9,19 @@ import { toast } from 'react-hot-toast';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
 const BlockOrUnBlockProfile: FC = () => {
-  const { showBlockAlert, setShowBlockAlert, blockingProfile } =
-    useGlobalAlertStateStore();
-  const isBlockedByMe = blockingProfile?.operations.isBlockedByMe.value;
+  const {
+    showBlockOrUnblockAlert,
+    setShowBlockOrUnblockAlert,
+    blockingorUnblockingProfile
+  } = useGlobalAlertStateStore();
+  const isBlockedByMe =
+    blockingorUnblockingProfile?.operations.isBlockedByMe.value;
 
   const [blockProfile, { loading: blocking }] = useBlockMutation({
     onCompleted: () => {
-      setShowBlockAlert(false, null);
+      setShowBlockOrUnblockAlert(false, null);
       Leafwatch.track(PROFILE.BLOCK, {
-        profile_id: blockingProfile?.id
+        profile_id: blockingorUnblockingProfile?.id
       });
       toast.success('Profile blocked successfully');
     }
@@ -25,9 +29,9 @@ const BlockOrUnBlockProfile: FC = () => {
 
   const [unBlockProfile, { loading: unBlocking }] = useUnblockMutation({
     onCompleted: () => {
-      setShowBlockAlert(false, null);
+      setShowBlockOrUnblockAlert(false, null);
       Leafwatch.track(PROFILE.UNBLOCK, {
-        profile_id: blockingProfile?.id
+        profile_id: blockingorUnblockingProfile?.id
       });
       toast.success('Profile un-blocked successfully');
     }
@@ -38,21 +42,21 @@ const BlockOrUnBlockProfile: FC = () => {
       title="Block Profile"
       description={`Are you sure you want to ${
         isBlockedByMe ? 'un-block' : 'block'
-      } @${formatHandle(blockingProfile?.handle)}?`}
-      confirmText="Block"
-      show={showBlockAlert}
+      } @${formatHandle(blockingorUnblockingProfile?.handle)}?`}
+      confirmText={isBlockedByMe ? 'Unblock' : 'Block'}
+      show={showBlockOrUnblockAlert}
       isDestructive
       isPerformingAction={blocking || unBlocking}
       onConfirm={async () => {
         const request: BlockRequest | UnblockRequest = {
-          profiles: [blockingProfile?.id]
+          profiles: [blockingorUnblockingProfile?.id]
         };
 
         isBlockedByMe
           ? await unBlockProfile({ variables: { request } })
           : await blockProfile({ variables: { request } });
       }}
-      onClose={() => setShowBlockAlert(false, null)}
+      onClose={() => setShowBlockOrUnblockAlert(false, null)}
     />
   );
 };

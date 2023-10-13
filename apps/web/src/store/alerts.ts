@@ -14,11 +14,11 @@ interface GlobalAlertState {
     showModActionAlert: boolean,
     modingPublication: AnyPublication | null
   ) => void;
-  showBlockAlert: boolean;
-  blockingProfile: Profile | null;
-  setShowBlockAlert: (
-    showBlockAlert: boolean,
-    blockingProfile: Profile | null
+  showBlockOrUnblockAlert: boolean;
+  blockingorUnblockingProfile: Profile | null;
+  setShowBlockOrUnblockAlert: (
+    showBlockOrUnblockAlert: boolean,
+    blockingorUnblockingProfile: Profile | null
   ) => void;
 }
 
@@ -34,8 +34,10 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   modingPublication: null,
   setShowModActionAlert: (showModActionAlert, modingPublication) =>
     set(() => ({ showModActionAlert, modingPublication })),
-  showBlockAlert: false,
-  blockingProfile: null,
-  setShowBlockAlert: (showBlockAlert, blockingProfile) =>
-    set(() => ({ showBlockAlert, blockingProfile }))
+  showBlockOrUnblockAlert: false,
+  blockingorUnblockingProfile: null,
+  setShowBlockOrUnblockAlert: (
+    showBlockOrUnblockAlert,
+    blockingorUnblockingProfile
+  ) => set(() => ({ showBlockOrUnblockAlert, blockingorUnblockingProfile }))
 }));

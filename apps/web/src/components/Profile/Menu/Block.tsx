@@ -12,7 +12,7 @@ interface BlockProps {
 }
 
 const Block: FC<BlockProps> = ({ profile }) => {
-  const { setShowBlockAlert } = useGlobalAlertStateStore();
+  const { setShowBlockOrUnblockAlert } = useGlobalAlertStateStore();
   const isBlockedByMe = profile.operations.isBlockedByMe.value;
 
   return (
@@ -26,7 +26,7 @@ const Block: FC<BlockProps> = ({ profile }) => {
       }
       onClick={async (event) => {
         stopEventPropagation(event);
-        setShowBlockAlert(true, profile);
+        setShowBlockOrUnblockAlert(true, profile);
       }}
     >
       <div className="flex items-center space-x-2">
