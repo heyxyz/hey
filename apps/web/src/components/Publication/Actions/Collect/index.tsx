@@ -7,6 +7,7 @@ import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal, Tooltip } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
@@ -29,7 +30,7 @@ const Collect: FC<CollectProps> = ({ publication, showCount }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const hasCollected = targetPublication.operations.hasActed;
+  const hasActed = targetPublication.operations.hasActed.value;
 
   useEffect(() => {
     if (targetPublication.stats.countOpenActions) {
@@ -44,7 +45,12 @@ const Collect: FC<CollectProps> = ({ publication, showCount }) => {
 
   return (
     <>
-      <div className="flex items-center space-x-1 text-red-500">
+      <div
+        className={cn(
+          hasActed ? 'text-brand-500' : 'lt-text-gray-500',
+          'flex items-center space-x-1'
+        )}
+      >
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => {
@@ -53,13 +59,18 @@ const Collect: FC<CollectProps> = ({ publication, showCount }) => {
           }}
           aria-label="Collect"
         >
-          <div className="rounded-full p-1.5 hover:bg-red-300/20">
+          <div
+            className={cn(
+              hasActed ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
+              'rounded-full p-1.5'
+            )}
+          >
             <Tooltip
               placement="top"
               content={`${humanize(count)} ${plur('Collect', count)}`}
               withDelay
             >
-              {hasCollected ? (
+              {hasActed ? (
                 <RectangleStackIconSolid className={iconClassName} />
               ) : (
                 <RectangleStackIcon className={iconClassName} />
