@@ -64,7 +64,7 @@ const LivestreamEditor: FC = () => {
           <b>Go Live</b>
         </div>
         <div className="flex items-center space-x-3">
-          <Tooltip placement="top" content={'Delete'}>
+          <Tooltip placement="top" content="Delete">
             <button
               className="flex"
               onClick={() => {

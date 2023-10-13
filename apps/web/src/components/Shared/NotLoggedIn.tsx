@@ -11,7 +11,7 @@ const NotLoggedIn: FC = () => {
         className="h-20 w-20"
         height={80}
         width={80}
-        src={'/logo.png'}
+        src="/logo.png"
         alt="Logo"
       />
       <div className="py-10 text-center">

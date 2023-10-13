@@ -87,7 +87,7 @@ const MobileDrawerMenu: FC = () => {
             >
               <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
-            <Link href={'/settings'} onClick={closeDrawer}>
+            <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks

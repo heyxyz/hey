@@ -68,7 +68,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           autoFocus
           type="text"
           className="px-3 py-2 text-sm"
-          placeholder={'Search...'}
+          placeholder="Search..."
           value={searchText}
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={

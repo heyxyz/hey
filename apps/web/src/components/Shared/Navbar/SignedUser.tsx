@@ -119,7 +119,7 @@ const SignedUser: FC = () => {
             </Menu.Item>
             <Menu.Item
               as={NextLink}
-              href={'/settings'}
+              href="/settings"
               className={({ active }: { active: boolean }) =>
                 cn({ 'dropdown-active': active }, 'menu-item')
               }
@@ -129,7 +129,7 @@ const SignedUser: FC = () => {
             {isGardener ? (
               <Menu.Item
                 as={NextLink}
-                href={'/mod'}
+                href="/mod"
                 className={({ active }: { active: boolean }) =>
                   cn({ 'dropdown-active': active }, 'menu-item')
                 }
