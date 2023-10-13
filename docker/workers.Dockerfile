@@ -20,6 +20,11 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 FROM base AS runner
 WORKDIR /app
 
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ca-certificates
+
+RUN update-ca-certificates
+
 COPY --from=installer /app/ .
 COPY --from=pruner /app/out/full/ .
 
