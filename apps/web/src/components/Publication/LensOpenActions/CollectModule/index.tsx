@@ -231,7 +231,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
-      {/* {JSON.stringify(Boolean(collectLimit))} */}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"

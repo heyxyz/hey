@@ -10,7 +10,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     followerOnly
     recipient
     referralFee
@@ -28,7 +28,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
     collectNft
@@ -132,7 +132,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
     optionalEndsAt: endsAt
@@ -153,7 +153,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     followerOnly
     recipient
     referralFee
@@ -174,7 +174,7 @@ fragment OpenActionModulesFields on OpenActionModule {
       }
     }
     recipient
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
     optionalEndsAt: endsAt
@@ -190,7 +190,7 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
     optionalEndsAt: endsAt
