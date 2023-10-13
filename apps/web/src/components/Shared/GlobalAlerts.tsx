@@ -3,18 +3,16 @@ import { Alert } from '@hey/ui';
 import type { FC } from 'react';
 import { useGlobalAlertStateStore } from 'src/store/alerts';
 
+import BlockOrUnBlockProfile from './Alert/BlockOrUnBlockProfile';
 import DeletePublication from './Alert/DeletePublication';
 
 const GlobalAlerts: FC = () => {
-  const showModActionAlert = useGlobalAlertStateStore(
-    (state) => state.showModActionAlert
-  );
-  const modingPublication = useGlobalAlertStateStore(
-    (state) => state.modingPublication
-  );
-  const setShowModActionAlert = useGlobalAlertStateStore(
-    (state) => state.setShowModActionAlert
-  );
+  const {
+    showModActionAlert,
+    setShowModActionAlert,
+    modingPublication,
+    blockingProfile
+  } = useGlobalAlertStateStore();
 
   return (
     <>
@@ -29,6 +27,7 @@ const GlobalAlerts: FC = () => {
           <ModAction publication={modingPublication} />
         </Alert>
       ) : null}
+      {blockingProfile ? <BlockOrUnBlockProfile /> : null}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@hey/lens';
+import type { AnyPublication, Profile } from '@hey/lens';
 import { create } from 'zustand';
 
 interface GlobalAlertState {
@@ -14,6 +14,12 @@ interface GlobalAlertState {
     showModActionAlert: boolean,
     modingPublication: AnyPublication | null
   ) => void;
+  showBlockAlert: boolean;
+  blockingProfile: Profile | null;
+  setShowBlockAlert: (
+    showBlockAlert: boolean,
+    blockingProfile: Profile | null
+  ) => void;
 }
 
 export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
@@ -27,5 +33,9 @@ export const useGlobalAlertStateStore = create<GlobalAlertState>((set) => ({
   showModActionAlert: false,
   modingPublication: null,
   setShowModActionAlert: (showModActionAlert, modingPublication) =>
-    set(() => ({ showModActionAlert, modingPublication }))
+    set(() => ({ showModActionAlert, modingPublication })),
+  showBlockAlert: false,
+  blockingProfile: null,
+  setShowBlockAlert: (showBlockAlert, blockingProfile) =>
+    set(() => ({ showBlockAlert, blockingProfile }))
 }));
