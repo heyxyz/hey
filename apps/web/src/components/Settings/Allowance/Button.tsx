@@ -29,7 +29,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   setAllowed
 }) => {
   const [showWarningModal, setShowWarningModal] = useState(false);
-  const [generateAllowanceQuery, { loading: queryLoading }] =
+  const [generateModuleCurrencyApprovalData, { loading: queryLoading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery();
 
   const onError = (error: any) => {
@@ -64,17 +64,14 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
   });
 
   const handleAllowance = (
-    currencies: string,
+    contract: string,
     value: string,
     selectedModule: string
   ) => {
-    generateAllowanceQuery({
+    generateModuleCurrencyApprovalData({
       variables: {
         request: {
-          allowance: {
-            currency: currencies,
-            value: value
-          },
+          allowance: { currency: contract, value: value },
           module: {
             [getAllowanceModule(module.moduleName).field]: selectedModule
           }
@@ -101,7 +98,11 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
         )
       }
       onClick={() =>
-        handleAllowance(module.allowance.asset.symbol, '0', module.moduleName)
+        handleAllowance(
+          module.allowance.asset.contract.address,
+          '0',
+          module.moduleName
+        )
       }
     >
       Revoke
@@ -141,7 +142,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
             }
             onClick={() =>
               handleAllowance(
-                module.allowance.asset.symbol,
+                module.allowance.asset.contract.address,
                 Number.MAX_SAFE_INTEGER.toString(),
                 module.moduleName
               )
