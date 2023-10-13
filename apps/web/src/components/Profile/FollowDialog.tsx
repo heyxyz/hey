@@ -1,7 +1,7 @@
 import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import type { Profile } from '@hey/lens';
+import { FollowModuleType, type Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import { Button, Image } from '@hey/ui';
@@ -18,7 +18,7 @@ const FollowModal: FC<FollowModalProps> = ({
   setFollowing,
   setShowFollowModal
 }) => {
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
 
   return (
     <div className="p-5">
@@ -36,7 +36,7 @@ const FollowModal: FC<FollowModalProps> = ({
           />{' '}
         </span>
         <span className="flex">
-          {followType === 'FeeFollowModuleSettings' ? (
+          {followType === FollowModuleType.FeeFollowModule ? (
             <div className="flex space-x-2">
               <SuperFollow
                 profile={profile}

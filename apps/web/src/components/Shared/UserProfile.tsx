@@ -3,7 +3,7 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
+import { FollowModuleType, type Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
@@ -169,8 +169,8 @@ const UserProfile: FC<UserProfileProps> = ({
       {showFollow ? (
         followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? null : profile?.followModule?.__typename ===
-          'FeeFollowModuleSettings' ? (
+        ) : following ? null : profile?.followModule?.type ===
+          FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             profile={profile}
             setFollowing={setFollowing}

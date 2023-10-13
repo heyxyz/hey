@@ -52,15 +52,17 @@ const List: FC<ListProps> = ({ publication }) => {
             </button>
             <div className="font-bold">{selectedOpenAction?.type}</div>
           </div>
-          {selectedOpenAction?.__typename ===
-            'SimpleCollectOpenActionSettings' ||
-          selectedOpenAction?.__typename ===
-            'MultirecipientFeeCollectOpenActionSettings' ? (
-            <CollectModule
-              publication={publication}
-              openAction={selectedOpenAction}
-            />
-          ) : null}
+          <Card className="mt-5">
+            {selectedOpenAction?.__typename ===
+              'SimpleCollectOpenActionSettings' ||
+            selectedOpenAction?.__typename ===
+              'MultirecipientFeeCollectOpenActionSettings' ? (
+              <CollectModule
+                publication={publication}
+                openAction={selectedOpenAction}
+              />
+            ) : null}
+          </Card>
         </div>
       )}
     </div>

@@ -6,6 +6,7 @@ import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
+  FollowModuleType,
   LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
@@ -155,7 +156,7 @@ const SuperFollow: FC = () => {
     );
   }
 
-  const followType = currentProfile?.followModule?.__typename;
+  const followType = currentProfile?.followModule?.type;
 
   return (
     <Card>
@@ -218,7 +219,7 @@ const SuperFollow: FC = () => {
         />
         <div className="ml-auto">
           <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
-            {followType === 'FeeFollowModuleSettings' ? (
+            {followType === FollowModuleType.FeeFollowModule ? (
               <Button
                 type="button"
                 variant="danger"
@@ -235,7 +236,7 @@ const SuperFollow: FC = () => {
               disabled={isLoading}
               icon={<StarIcon className="h-4 w-4" />}
             >
-              {followType === 'FeeFollowModuleSettings'
+              {followType === FollowModuleType.FeeFollowModule
                 ? 'Update Super follow'
                 : 'Set Super follow'}
             </Button>

@@ -1,7 +1,0 @@
-query ProfileFollowModule($request: ProfileRequest!) {
-  profile(request: $request) {
-    followModule {
-      ...FollowModuleFields
-    }
-  }
-}

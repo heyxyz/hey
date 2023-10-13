@@ -1,5 +1,6 @@
 fragment FollowModuleFields on FollowModule {
   ... on FeeFollowModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
@@ -12,11 +13,13 @@ fragment FollowModuleFields on FollowModule {
     recipient
   }
   ... on RevertFollowModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }
   }
   ... on UnknownFollowModuleSettings {
+    type
     contract {
       ...NetworkAddressFields
     }

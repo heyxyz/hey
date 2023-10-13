@@ -23,6 +23,7 @@ import {
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
+import { FollowModuleType } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
@@ -100,7 +101,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
     </div>
   );
 
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
   const misuseDetails = getMisuseDetails(profile.id);
 
   return (
@@ -191,7 +192,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 Edit Profile
               </Button>
             </Link>
-          ) : followType !== 'RevertFollowModuleSettings' ? (
+          ) : followType !== FollowModuleType.RevertFollowModule ? (
             following ? (
               <>
                 <Unfollow
@@ -199,7 +200,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   setFollowing={setFollowing}
                   showText
                 />
-                {followType === 'FeeFollowModuleSettings' ? (
+                {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow
                     profile={profile}
                     setFollowing={setFollowing}
@@ -207,7 +208,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   />
                 ) : null}
               </>
-            ) : followType === 'FeeFollowModuleSettings' ? (
+            ) : followType === FollowModuleType.FeeFollowModule ? (
               <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}

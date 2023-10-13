@@ -89,8 +89,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     | MultirecipientFeeCollectOpenActionSettings;
 
   const endTimestamp = collectModule?.endsAt;
-  const collectLimit = collectModule?.collectLimit || '0';
-  const amount = collectModule?.amount?.value || '0';
+  const collectLimit = parseInt(collectModule?.collectLimit || '0');
+  const amount = parseFloat(collectModule?.amount?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
   const assetAddress = collectModule?.amount?.asset?.contract.address;
   const assetDecimals = collectModule?.amount?.asset?.decimals;
@@ -138,7 +138,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     }
   });
 
-  const percentageCollected = (openActionCount / parseInt(collectLimit)) * 100;
+  const percentageCollected = (openActionCount / collectLimit) * 100;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
@@ -172,7 +172,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   });
 
   let hasAmount = false;
-  if (balanceData && parseFloat(balanceData?.formatted) < parseFloat(amount)) {
+  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -223,7 +223,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   };
 
   const isLimitedCollectAllCollected = collectLimit
-    ? openActionCount >= parseInt(collectLimit)
+    ? openActionCount >= collectLimit
     : false;
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
@@ -231,14 +231,15 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
+      {/* {JSON.stringify(Boolean(collectLimit))} */}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
           content={`${percentageCollected.toFixed(0)}% Collected`}
         >
-          <div className="h-2.5 w-full bg-gray-200 dark:bg-gray-700">
+          <div className="h-2.5 w-full rounded-t-xl bg-gray-200 dark:bg-gray-700">
             <div
-              className="bg-brand-500 h-2.5"
+              className="bg-brand-500 h-2.5 rounded-t-xl"
               style={{ width: `${percentageCollected}%` }}
             />
           </div>
@@ -287,7 +288,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
                 <>
                   <span className="lt-text-gray-500 px-0.5">·</span>
                   <span className="lt-text-gray-500 text-xs font-bold">
-                    ${(parseFloat(amount) * usdPrice).toFixed(2)}
+                    ${(amount * usdPrice).toFixed(2)}
                   </span>
                 </>
               ) : null}
@@ -318,7 +319,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="flex items-center space-x-2">
                 <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
-                  {parseInt(collectLimit) - openActionCount} available
+                  {collectLimit - openActionCount} available
                 </div>
               </div>
             ) : null}

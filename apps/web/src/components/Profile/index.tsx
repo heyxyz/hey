@@ -3,7 +3,7 @@ import NewPost from '@components/Composer/Post/New';
 import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { useProfileQuery } from '@hey/lens';
+import { FollowModuleType, useProfileQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -61,12 +61,12 @@ const ViewProfile: NextPage = () => {
     Boolean(currentProfile) &&
     Boolean(profile?.operations.isFollowedByMe.value);
 
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
   const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
     const canFollow =
-      followType !== 'RevertFollowModuleSettings' && !isFollowedByMe;
+      followType !== FollowModuleType.RevertFollowModule && !isFollowedByMe;
     if (followIntent && canFollow) {
       setShowFollowModal(true);
     }
