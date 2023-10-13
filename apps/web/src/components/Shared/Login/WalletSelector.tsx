@@ -102,8 +102,8 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   const handleSign = async (id: string) => {
     let keepModal = false;
     try {
-      setIsLoading(true);
       setLoggingInProfileId(id);
+      setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request: { for: id, signedBy: address } }
@@ -156,7 +156,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
-          <Card className="w-full p-3">
+          <Card className="w-full divide-y dark:divide-gray-700">
             {profilesManagedLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
@@ -166,7 +166,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               profilesManaged?.profilesManaged.items.map((profile) => (
                 <div
                   key={profile.id}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between p-3"
                 >
                   <UserProfile
                     linkToProfile={false}
@@ -176,13 +176,13 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                   <Button
                     onClick={() => handleSign(profile.id)}
                     icon={
-                      isLoading || loggingInProfileId === profile.id ? (
+                      isLoading && loggingInProfileId === profile.id ? (
                         <Spinner className="mr-1" size="xs" />
                       ) : (
                         <ArrowRightCircleIcon className="h-5 w-5" />
                       )
                     }
-                    disabled={isLoading || loggingInProfileId === profile.id}
+                    disabled={isLoading && loggingInProfileId === profile.id}
                   >
                     Login
                   </Button>
