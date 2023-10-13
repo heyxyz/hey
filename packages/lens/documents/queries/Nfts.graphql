@@ -4,15 +4,13 @@ query Nfts($request: NftsRequest!) {
       tokenId
       contentURI
       contract {
-        address
-        chainId
+        ...NetworkAddressFields
       }
       contractType
       totalSupply
       collection {
         contract {
-          address
-          chainId
+          ...NetworkAddressFields
         }
         name
         symbol
@@ -46,7 +44,6 @@ query Nfts($request: NftsRequest!) {
       }
     }
     pageInfo {
-      prev
       next
     }
   }

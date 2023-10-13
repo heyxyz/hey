@@ -1,3 +1,0 @@
-query TxIdToTxHash($for: TxId!) {
-  txIdToTxHash(for: $for)
-}

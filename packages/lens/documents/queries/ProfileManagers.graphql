@@ -4,7 +4,6 @@ query ProfileManagers($request: ProfileManagersRequest!) {
       address
     }
     pageInfo {
-      prev
       next
     }
   }

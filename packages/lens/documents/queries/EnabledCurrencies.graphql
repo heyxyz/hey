@@ -5,12 +5,10 @@ query EnabledCurrencies($request: PaginatedOffsetRequest!) {
       symbol
       decimals
       contract {
-        address
-        chainId
+        ...NetworkAddressFields
       }
     }
     pageInfo {
-      prev
       next
     }
   }

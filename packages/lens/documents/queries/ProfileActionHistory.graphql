@@ -8,7 +8,6 @@ query ProfileActionHistory($request: ProfileActionHistoryRequest!) {
       actionedOn
     }
     pageInfo {
-      prev
       next
     }
   }
