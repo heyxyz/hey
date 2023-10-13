@@ -4,7 +4,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    optionalAmount: amount {
+    amount {
       ...AmountFields
       rate(request: { for: USD }) {
         ...FiatAmountFields
@@ -15,7 +15,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     recipient
     referralFee
     collectNft
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
     type
@@ -32,7 +32,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     referralFee
     followerOnly
     collectNft
-    optionalEndsAt: endsAt
+    endsAt
     recipients {
       recipient
       split
@@ -135,7 +135,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
     recipients {
       recipient
       split
@@ -157,7 +157,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
     recipient
     referralFee
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on LegacyERC4626FeeCollectModuleSettings {
     type
@@ -177,7 +177,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on LegacyAaveFeeCollectModuleSettings {
     type
@@ -193,7 +193,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
     recipient
   }
   ... on UnknownOpenActionModuleSettings {

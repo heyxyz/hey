@@ -90,11 +90,12 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
-  const amount = parseFloat(collectModule?.amount?.value || '0');
+  const rawAmount = parseFloat(collectModule?.amount?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
   const assetAddress = collectModule?.amount?.asset?.contract.address;
   const assetDecimals = collectModule?.amount?.asset?.decimals;
   const referralFee = collectModule?.referralFee;
+  const amount = rawAmount / 10 ** assetDecimals;
 
   const isFreeCollectModule = !collectModule;
   const isSimpleFreeCollectModule =
@@ -231,6 +232,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
+      {/* {JSON.stringify(collectModule.amount)} */}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
