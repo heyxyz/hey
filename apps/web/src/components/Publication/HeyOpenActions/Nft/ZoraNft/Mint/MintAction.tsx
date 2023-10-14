@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
-import { ADMIN_ADDRESS, APP_NAME } from '@hey/data/constants';
+import { APP_NAME, REWARDS_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
@@ -54,7 +54,7 @@ const MintAction: FC<MintActionProps> = ({
   const nftAddress = nft.address;
   const recipient = address as Address;
   const comment = `Minted from ${APP_NAME}`;
-  const mintReferral = ADMIN_ADDRESS;
+  const mintReferral = REWARDS_ADDRESS;
   const nftPriceInEth = parseInt(nft.price) / 10 ** 18;
   const mintFee = 0.000777;
   const mintFeeInEth = parseEther(mintFee.toString());

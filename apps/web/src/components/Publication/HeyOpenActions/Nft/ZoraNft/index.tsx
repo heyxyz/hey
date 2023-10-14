@@ -2,7 +2,7 @@ import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { ADMIN_ADDRESS } from '@hey/data/constants';
+import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
@@ -62,7 +62,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
   const zoraLink = urlcat(`https://${network}zora.co/collect/:chain::address`, {
     chain,
     address,
-    referrer: ADMIN_ADDRESS
+    referrer: REWARDS_ADDRESS
   });
 
   return (
