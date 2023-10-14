@@ -1,7 +1,7 @@
 import type { Publication } from '@hey/lens';
 import getAppName from '@hey/lib/getAppName';
 import { formatDate, formatTime } from '@lib/formatTime';
-import type { FC } from 'react';
+import type { FC, Ref } from 'react';
 
 import PublicationActions from './Actions';
 import FeaturedGroup from './FeaturedGroup';
@@ -13,9 +13,13 @@ import PublicationType from './Type';
 
 interface FullPublicationProps {
   publication: Publication;
+  mainPostRef: Ref<HTMLDivElement>;
 }
 
-const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
+const FullPublication: FC<FullPublicationProps> = ({
+  publication,
+  mainPostRef
+}) => {
   const isMirror = publication.__typename === 'Mirror';
   const timestamp = isMirror
     ? publication?.mirrorOf?.createdAt
@@ -36,7 +40,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
       <PublicationType publication={publication} showType />
-      <div>
+      <div className="scroll-mt-14 sm:scroll-mt-16" ref={mainPostRef}>
         <PublicationHeader publication={publication} />
         <div className="ml-[53px]">
           {publication?.hidden ? (
