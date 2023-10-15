@@ -17,7 +17,8 @@ interface PendingProps {
 const Pending: FC<PendingProps> = ({ handle, txHash }) => {
   const { data, loading } = useLensTransactionStatusQuery({
     variables: { request: { forTxHash: txHash } },
-    pollInterval: 1000
+    pollInterval: 1000,
+    notifyOnNetworkStatusChange: true
   });
 
   return (

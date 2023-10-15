@@ -27,6 +27,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
   const { data, loading } = useLensTransactionStatusQuery({
     variables: { request: { forTxHash: txHash } },
     pollInterval,
+    notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {
       if (
         lensTransactionStatus?.status === LensTransactionStatusType.Complete
