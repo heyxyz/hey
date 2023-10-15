@@ -588,18 +588,20 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             )
           }
         ],
-        referenceModule:
-          selectedReferenceModule ===
-          ReferenceModuleType.FollowerOnlyReferenceModule
-            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-            : {
-                degreesOfSeparationReferenceModule: {
-                  commentsRestricted: true,
-                  mirrorsRestricted: true,
-                  quotesRestricted: true,
-                  degreesOfSeparation
+        ...(onlyFollowers && {
+          referenceModule:
+            selectedReferenceModule ===
+            ReferenceModuleType.FollowerOnlyReferenceModule
+              ? { followerOnlyReferenceModule: true }
+              : {
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: true,
+                    mirrorsRestricted: true,
+                    quotesRestricted: true,
+                    degreesOfSeparation
+                  }
                 }
-              }
+        })
       };
 
       // Payload for the data availability post/comment
