@@ -19,7 +19,7 @@ import {
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@hey/lens';
-import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import getAvatar from '@hey/lib/getAvatar';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
 import imageKit from '@hey/lib/imageKit';
@@ -363,7 +363,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
     : '';
 
-  const profilePictureUrl = getAvatarUrl(profile);
+  const profilePictureUrl = getAvatar(profile);
   const renderProfilePictureUrl = profilePictureUrl
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';

@@ -2,7 +2,6 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { AVATAR } from '@hey/data/constants';
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
   CustomFiltersType,
@@ -10,11 +9,9 @@ import {
   useSearchProfilesLazyQuery
 } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import getAvatar from '@hey/lib/getAvatar';
 import hasMisused from '@hey/lib/hasMisused';
-import imageKit from '@hey/lib/imageKit';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
@@ -45,7 +42,7 @@ const PUNC = DocumentMentionsRegex.PUNCTUATION;
 const TRIGGERS = ['@'].join('');
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
 const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
-const LENGTH_LIMIT = 75;
+const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -206,7 +203,7 @@ const MentionsPlugin: FC = () => {
               id: user?.id,
               name: sanitizeDisplayName(user.metadata?.displayName),
               handle: user?.handle,
-              picture: getAvatarUrl(user)
+              picture: getAvatar(user)
             }) as Record<string, string>
         );
         setResults(profilesResults);
@@ -225,7 +222,7 @@ const MentionsPlugin: FC = () => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            imageKit(sanitizeDStorageUrl(picture), AVATAR),
+            picture,
             handle
           );
         })

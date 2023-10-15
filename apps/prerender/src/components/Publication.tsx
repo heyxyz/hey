@@ -1,6 +1,6 @@
 import { APP_NAME, DEFAULT_OG } from '@hey/data/constants';
 import type { AnyPublication, Comment } from '@hey/lens';
-import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import getAvatar from '@hey/lib/getAvatar';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -39,7 +39,7 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const image = media
     ? sanitizeDStorageUrl(media)
     : profile
-    ? sanitizeDStorageUrl(getAvatarUrl(profile))
+    ? getAvatar(profile)
     : DEFAULT_OG;
 
   return (

@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getAvatarUrl from '@hey/lib/getAvatarUrl';
+import getAvatar from '@hey/lib/getAvatar';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -29,7 +29,7 @@ const SinglePublication: FC<PublicationProps> = ({
       : null;
   const profile = targetPublication.by;
   const publicationId = targetPublication.id;
-  const avatar = sanitizeDStorageUrl(getAvatarUrl(profile));
+  const avatar = getAvatar(profile);
   const attachment = media ? sanitizeDStorageUrl(media) : null;
   const content = truncateByWords(metadata?.marketplace?.description, 30);
 

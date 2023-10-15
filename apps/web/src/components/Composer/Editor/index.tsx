@@ -1,7 +1,6 @@
 import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
-import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { Errors } from '@hey/data/errors';
@@ -85,7 +84,6 @@ const Editor: FC = () => {
           });
         }}
       />
-      <EmojisPlugin />
       <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />

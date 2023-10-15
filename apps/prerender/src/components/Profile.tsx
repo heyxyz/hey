@@ -2,8 +2,7 @@ import { APP_NAME } from '@hey/data/constants';
 import type { AnyPublication } from '@hey/lens';
 import { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
-import getAvatarUrl from '@hey/lib/getAvatarUrl';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import getAvatar from '@hey/lib/getAvatar';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
@@ -27,7 +26,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     ? `${profile.metadata.displayName} (@${profile?.handle}) • ${APP_NAME}`
     : `@${profile?.handle} • ${APP_NAME}`;
   const description = truncateByWords(profile.metadata?.bio ?? '', 30);
-  const image = sanitizeDStorageUrl(getAvatarUrl(profile));
+  const image = getAvatar(profile);
 
   return (
     <>
