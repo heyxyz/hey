@@ -3,6 +3,7 @@ import { InMemoryCache } from '@apollo/client';
 import result from '../../generated';
 import { publicationKeyFields } from '../lib';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
+import createApprovedAuthenticationFieldPolicy from './createApprovedAuthenticationFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
@@ -11,6 +12,7 @@ import createFollowingFieldPolicy from './createFollowingFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
+import createProfileActionHistoryFieldPolicy from './createProfileActionHistoryFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
 import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
@@ -37,7 +39,9 @@ const cache = new InMemoryCache({
         searchProfiles: createSearchProfilesFieldPolicy(),
         searchPublications: createSearchPublicationsPolicy(),
         whoActedOnPublication: createActedOnPublicationFieldPolicy(),
-        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
+        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
+        approvedAuthentication: createApprovedAuthenticationFieldPolicy(),
+        profileActionHistory: createProfileActionHistoryFieldPolicy()
       }
     }
   }
