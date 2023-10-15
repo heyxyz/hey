@@ -15,7 +15,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import type { MutableRefObject } from 'react';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
@@ -52,9 +52,10 @@ const ViewPublication: NextPage = () => {
     (state) => state.showNewPostModal
   );
 
+  const router = useRouter();
   const {
     query: { id }
-  } = useRouter();
+  } = router;
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'publication' });
@@ -71,11 +72,22 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
+  const publicationType = data?.publication?.__typename;
+
   const wrapperRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
   const mainSectionRef = useRef<HTMLDivElement>(null);
   const mainPostRef = useRef<HTMLDivElement>(null);
   const profileSectionRef = useRef<HTMLDivElement>(null);
+
   const hasScrolledRef = useRef(false);
+  const scrollMainPostIntoView = useCallback(() => {
+    // Skip scroll if there's nothing above the publication
+    if (publicationType === 'Post') {
+      return;
+    }
+
+    mainPostRef.current?.scrollIntoView();
+  }, [mainPostRef, publicationType]);
 
   const configureSize = useCallback(() => {
     const wrapperElement = wrapperRef.current;
@@ -105,19 +117,30 @@ const ViewPublication: NextPage = () => {
     const additionalSpace = `100vh - ${navbarHeight} - ${mainPostElement.clientHeight}px - ${secondarySection.clientHeight}px - ${profileSectionHeight}`;
 
     mainSectionElement.style.minHeight = `calc(${sectionHeights} + ${additionalSpace})`;
+  }, [mainSectionRef, mainPostRef]);
 
-    if (!hasScrolledRef.current) {
-      mainPostElement.scrollIntoView();
-      hasScrolledRef.current = true;
-    }
-  }, [mainSectionRef, mainPostRef, hasScrolledRef]);
+  const resizeObserver = useMemo(
+    () =>
+      new ResizeObserver(() => {
+        configureSize();
+        scrollMainPostIntoView();
+      }),
+    [configureSize, scrollMainPostIntoView]
+  );
 
   useEffect(() => {
+    const resetScrollRef = () => (hasScrolledRef.current = false);
+
     window.addEventListener('resize', configureSize);
+    // Reset the scroll ref on route change
+    // to handle switching between posts
+    router.events.on('routeChangeStart', resetScrollRef);
+
     return () => {
       window.removeEventListener('resize', configureSize);
+      router.events.off('routeChangeStart', resetScrollRef);
     };
-  }, [configureSize]);
+  }, [router, configureSize]);
 
   if (error) {
     return <Custom500 />;
@@ -137,15 +160,26 @@ const ViewPublication: NextPage = () => {
   return (
     <GridLayout
       ref={(element) => {
+        // Clean up previously observed elements
+        resizeObserver.disconnect();
+
         if (element) {
           wrapperRef.current = element;
 
-          // Skip scroll if there's nothing above the publication
-          if (data.publication?.__typename === 'Post') {
-            hasScrolledRef.current = true;
+          configureSize();
+
+          if (hasScrolledRef.current) {
+            return;
           }
 
-          configureSize();
+          // Observe image tags to account for content that changes
+          // height dynamically because they take time to load.
+          const imageElements = element.querySelectorAll('img');
+          for (const imageElement of imageElements) {
+            resizeObserver.observe(imageElement);
+          }
+
+          scrollMainPostIntoView();
         }
       }}
     >
