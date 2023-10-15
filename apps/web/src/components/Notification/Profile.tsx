@@ -38,12 +38,12 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   return (
     <Link
       href={`/u/${formatHandle(profile?.handle)}`}
-      className="inline-flex items-center space-x-1 font-bold"
+      className="inline-flex items-center space-x-1 font-bold hover:underline"
     >
-      <div>
+      <span>
         {sanitizeDisplayName(profile?.metadata?.displayName) ??
           formatHandle(profile?.handle)}
-      </div>
+      </span>
       {isVerified(profile.id) ? (
         <CheckBadgeIcon className="text-brand h-4 w-4" />
       ) : null}
@@ -51,5 +51,23 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
         <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
       ) : null}
     </Link>
+  );
+};
+
+interface AggregatedNotificationTitleProps {
+  firstProfile: Profile;
+  text: string;
+  type?: string;
+}
+
+export const AggregatedNotificationTitle: FC<
+  AggregatedNotificationTitleProps
+> = ({ firstProfile, text, type }) => {
+  return (
+    <div className="font bold">
+      <NotificationProfileName profile={firstProfile} />
+      <span>{text}</span>
+      <span>{type ? type.toLowerCase() : null}</span>
+    </div>
   );
 };

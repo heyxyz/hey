@@ -8,10 +8,10 @@ query Notifications($request: NotificationRequest!) {
             ...PostFields
           }
           ... on Comment {
-            ...CommentFields
+            ...CommentBaseFields
           }
           ... on Quote {
-            ...QuoteFields
+            ...QuoteBaseFields
           }
         }
         reactions {
@@ -27,7 +27,7 @@ query Notifications($request: NotificationRequest!) {
       ... on CommentNotification {
         id
         comment {
-          ...CommentFields
+          ...CommentBaseFields
         }
       }
       ... on MirrorNotification {
@@ -44,17 +44,17 @@ query Notifications($request: NotificationRequest!) {
             ...PostFields
           }
           ... on Comment {
-            ...CommentFields
+            ...CommentBaseFields
           }
           ... on Quote {
-            ...QuoteFields
+            ...QuoteBaseFields
           }
         }
       }
       ... on QuoteNotification {
         id
         quote {
-          ...QuoteFields
+          ...QuoteBaseFields
         }
       }
       ... on ActedNotification {
@@ -79,7 +79,7 @@ query Notifications($request: NotificationRequest!) {
             ...PostFields
           }
           ... on Comment {
-            ...CommentFields
+            ...CommentBaseFields
           }
           ... on Mirror {
             ...MirrorFields
@@ -99,10 +99,10 @@ query Notifications($request: NotificationRequest!) {
             ...PostFields
           }
           ... on Comment {
-            ...CommentFields
+            ...CommentBaseFields
           }
           ... on Quote {
-            ...QuoteFields
+            ...QuoteBaseFields
           }
         }
       }

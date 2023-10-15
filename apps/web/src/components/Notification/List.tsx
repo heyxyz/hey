@@ -1,5 +1,8 @@
 import { BellIcon } from '@heroicons/react/24/outline';
-import type { NotificationRequest } from '@hey/lens';
+import type {
+  MirrorNotification as MirrorNotificationType,
+  NotificationRequest
+} from '@hey/lens';
 import {
   CustomFiltersType,
   NotificationType,
@@ -13,6 +16,7 @@ import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/preferences';
 
 import NotificationShimmer from './Shimmer';
+import MirrorNotification from './Type/MirrorNotification';
 
 interface ListProps {
   feedType: string;
@@ -117,28 +121,28 @@ const List: FC<ListProps> = ({ feedType }) => {
                 <FollowerNotification
                   notification={notification as FollowNotificationType}
                 />
-              ) : null}
-              {notification.__typename === 'MentionNotification' ? (
+              ) : null} */}
+              {/* {notification.__typename === 'MentionNotification' ? (
                 <MentionNotification
                   notification={notification as MentionNotificationType}
                 />
-              ) : null}
-              {notification.__typename === 'ReactionNotification' ? (
+              ) : null} */}
+              {/* {notification.__typename === 'ReactionNotification' ? (
                 <LikeNotification
                   notification={notification as ReactionNotification}
                 />
-              ) : null}
-              {notification.__typename === 'CommentNotification' ? (
+              ) : null} */}
+              {/* {notification.__typename === 'CommentNotification' ? (
                 <CommentNotification
                   notification={notification as CommentNotificationType}
                 />
-              ) : null}
+              ) : null} */}
               {notification.__typename === 'MirrorNotification' ? (
                 <MirrorNotification
                   notification={notification as MirrorNotificationType}
                 />
               ) : null}
-              {notification.__typename === 'ActedNotification' ? (
+              {/* {notification.__typename === 'ActedNotification' ? (
                 <CollectNotification
                   notification={notification as ActedNotificationType}
                 />

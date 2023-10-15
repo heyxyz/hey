@@ -4,10 +4,7 @@ import type { FC } from 'react';
 
 const NotificationIcon: FC = () => {
   return (
-    <Link
-      href="/notifications"
-      className="hidden rounded-md p-1 hover:bg-gray-300/20"
-    >
+    <Link href="/notifications" className="rounded-md p-1 hover:bg-gray-300/20">
       <BellIcon className="h-5 w-5 sm:h-6 sm:w-6" />
     </Link>
   );
