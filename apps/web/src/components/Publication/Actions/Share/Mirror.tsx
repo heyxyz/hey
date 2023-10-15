@@ -141,6 +141,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     onError
   });
 
+  if (targetPublication.operations.canMirror === 'NO') {
+    return null;
+  }
+
   const createViaMomoka = async (request: MomokaMirrorRequest) => {
     await createMomokaMirrorTypedData({
       variables: { request }

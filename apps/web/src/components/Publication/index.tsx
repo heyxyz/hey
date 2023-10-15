@@ -64,7 +64,7 @@ const ViewPublication: NextPage = () => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const canComment = targetPublication?.operations.canComment;
+  const canComment = targetPublication?.operations.canComment === 'YES';
 
   return (
     <GridLayout>

@@ -24,6 +24,10 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
     (state) => state.setQuotedPublication
   );
 
+  if (targetPublication.operations.canQuote === 'NO') {
+    return null;
+  }
+
   return (
     <Menu.Item
       as="div"
