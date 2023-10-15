@@ -13,16 +13,14 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
+import { useAppStore } from 'src/store/app';
 import { useContractWrite } from 'wagmi';
 
 import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const profileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.profileGuardianInformation
-  );
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, write, isLoading } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -36,12 +34,11 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  if (profileGuardianInformation.isProtected) {
+  if (currentProfile?.guardian?.protected) {
     return null;
   }
 
-  const coolOffDate =
-    profileGuardianInformation.disablingProtectionTimestamp as any;
+  const coolOffDate = currentProfile?.guardian?.cooldownEndsOn || Date.now();
   const coolOffTime = new Date(
     new Date(coolOffDate).getTime() + 5 * 60 * 100
   ).toISOString();

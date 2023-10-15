@@ -18,7 +18,6 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
@@ -30,9 +29,6 @@ const DeleteSettings: FC = () => {
   const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
   const handleWrongNetwork = useHandleWrongNetwork();
-  const profileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.profileGuardianInformation
-  );
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
@@ -74,12 +70,11 @@ const DeleteSettings: FC = () => {
   };
 
   const cooldownEnded = () => {
-    const cooldownDate =
-      profileGuardianInformation.disablingProtectionTimestamp as any;
+    const cooldownDate = currentProfile?.guardian?.cooldownEndsOn as any;
     return new Date(cooldownDate).getTime() < Date.now();
   };
 
-  const canDelete = !profileGuardianInformation.isProtected && cooldownEnded();
+  const canDelete = !currentProfile?.guardian?.protected && cooldownEnded();
 
   if (!canDelete) {
     return (
