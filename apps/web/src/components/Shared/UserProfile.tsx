@@ -127,7 +127,7 @@ const UserProfile: FC<UserProfileProps> = ({
     return (
       <UserPreview
         isBig={isBig}
-        profile={profile}
+        handle={profile.handle}
         followStatusLoading={followStatusLoading}
         showUserPreview={showUserPreview && profile.handle}
       >
