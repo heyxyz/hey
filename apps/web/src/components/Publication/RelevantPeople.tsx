@@ -1,12 +1,13 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
+import getPublicationData from '@lib/getPublicationData';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
@@ -14,23 +15,19 @@ interface RelevantPeopleProps {
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
-  const targetPubliction = isMirrorPublication(publication)
+  const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
+  const { metadata } = targetPublication;
+  const filteredContent = getPublicationData(metadata)?.content || '';
+
   const mentions =
-    targetPubliction?.metadata?.marketplace?.description?.match(
-      Regex.mention,
-      '$1[~$2]'
-    ) ?? [];
+    filteredContent
+      .replace(`@${HANDLE_PREFIX}/`, HANDLE_PREFIX)
+      ?.match(Regex.mention) ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
-    const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
-
-    if (trimmedMention.length > 9) {
-      return mention.trim().replace("'s", '').replace(Regex.santiizeHandle, '');
-    }
-
-    return formatHandle(publication?.by?.handle);
+    return mention.trim().replace('@', '');
   });
 
   const cleanedMentions = processedMentions.reduce(
