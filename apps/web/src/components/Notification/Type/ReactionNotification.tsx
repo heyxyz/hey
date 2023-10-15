@@ -22,7 +22,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
   const reactions = notification?.reactions;
   const firstProfile = reactions?.[0]?.profile;
   const length = reactions.length - 1;
-  const moreThanOneProfile = length - 1 > 1;
+  const moreThanOneProfile = length > 1;
 
   const text = moreThanOneProfile
     ? `and ${length} ${plur('other', length)} liked your`

@@ -20,7 +20,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const mirrors = notification?.mirrors;
   const firstProfile = mirrors?.[0]?.profile;
   const length = mirrors.length - 1;
-  const moreThanOneProfile = length - 1 > 1;
+  const moreThanOneProfile = length > 1;
 
   const text = moreThanOneProfile
     ? `and ${length} ${plur('other', length)} mirrored your`
