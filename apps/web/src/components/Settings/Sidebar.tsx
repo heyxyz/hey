@@ -66,9 +66,9 @@ const SettingsSidebar: FC = () => {
             url: '/settings/sessions'
           },
           {
-            title: 'Activity History',
+            title: 'Action History',
             icon: <QueueListIcon className="h-4 w-4" />,
-            url: '/settings/activities'
+            url: '/settings/actions'
           },
           {
             title: 'Cleanup',

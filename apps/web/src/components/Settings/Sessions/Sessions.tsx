@@ -1,10 +1,7 @@
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
-import { Localstorage } from '@hey/data/storage';
 import { SETTINGS } from '@hey/data/tracking';
-import {
-  type ApprovedAuthentication,
-  useRevokeAuthenticationMutation
-} from '@hey/lens';
+import type { ApprovedAuthentication } from '@hey/lens';
+import { useRevokeAuthenticationMutation } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
@@ -23,8 +20,6 @@ const Sessions: FC<SessionsProps> = ({ sessions }) => {
   const [revokeingSessionId, setRevokeingSessionId] = useState<string | null>(
     null
   );
-
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
 
   const onError = (error: any) => {
     setRevoking(false);

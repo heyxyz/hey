@@ -3,7 +3,7 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { LimitType, useApprovedAuthenticationQuery } from '@hey/lens';
+import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -12,16 +12,16 @@ import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Sessions from './Sessions';
+import Actions from './Actions';
 
-const SessionsSettings: NextPage = () => {
+const ActionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'sessions' });
   });
 
-  const { data, loading, error } = useApprovedAuthenticationQuery({
+  const { data, loading, error } = useProfileActionHistoryQuery({
     variables: { request: { limit: LimitType.Fifty } },
     skip: !currentProfile?.id
   });
@@ -36,7 +36,7 @@ const SessionsSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Sessions settings • ${APP_NAME}`} />
+      <MetaTags title={`Action History • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
@@ -44,11 +44,8 @@ const SessionsSettings: NextPage = () => {
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-3">
-              <div className="text-lg font-bold">Sessions</div>
-              <p>
-                This is a list of devices that have logged into your account.
-                Revoke any sessions that you do not recognize.
-              </p>
+              <div className="text-lg font-bold">Actions</div>
+              <p>This is a list of actions on your account.</p>
             </div>
             <div className="divider my-5" />
           </div>
@@ -57,7 +54,7 @@ const SessionsSettings: NextPage = () => {
               <Loader />
             </div>
           ) : (
-            <Sessions sessions={data?.approvedAuthentication?.items} />
+            <Actions actions={data?.profileActionHistory?.items} />
           )}
         </Card>
       </GridItemEight>
@@ -65,4 +62,4 @@ const SessionsSettings: NextPage = () => {
   );
 };
 
-export default SessionsSettings;
+export default ActionsSettings;
