@@ -18,7 +18,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const filteredContent = getPublicationData(metadata)?.content || '';
   const firstProfile = notification.quote.by;
 
-  const text = `quoted your`;
+  const text = 'quoted your';
   const type = notification.quote.quoteOn.__typename;
 
   return (

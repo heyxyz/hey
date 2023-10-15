@@ -1,4 +1,4 @@
-import { HeartIcon } from '@heroicons/react/24/outline';
+import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { FollowNotification } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import plur from 'plur';
@@ -28,7 +28,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <HeartIcon className="text-brand-500/70 h-6 w-6" />
+        <UserPlusIcon className="text-brand-500/70 h-6 w-6" />
         <div className="flex items-center space-x-1">
           {followers.map((follower) => (
             <div key={follower.id}>

@@ -2,6 +2,7 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import type {
   CommentNotification as CommentNotificationType,
   FollowNotification as FollowNotificationType,
+  MentionNotification as MentionNotificationType,
   MirrorNotification as MirrorNotificationType,
   NotificationRequest,
   QuoteNotification as QuoteNotificationType,
@@ -22,6 +23,7 @@ import { usePreferencesStore } from 'src/store/preferences';
 import NotificationShimmer from './Shimmer';
 import CommentNotification from './Type/CommentNotification';
 import FollowNotification from './Type/FollowNotification';
+import MentionNotification from './Type/MentionNotification';
 import MirrorNotification from './Type/MirrorNotification';
 import QuoteNotification from './Type/QuoteNotification';
 import ReactionNotification from './Type/ReactionNotification';
@@ -130,11 +132,11 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as FollowNotificationType}
                 />
               ) : null}
-              {/* {notification.__typename === 'MentionNotification' ? (
+              {notification.__typename === 'MentionNotification' ? (
                 <MentionNotification
                   notification={notification as MentionNotificationType}
                 />
-              ) : null} */}
+              ) : null}
               {notification.__typename === 'ReactionNotification' ? (
                 <ReactionNotification
                   notification={notification as ReactionNotificationType}
