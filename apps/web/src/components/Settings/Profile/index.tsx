@@ -25,16 +25,16 @@ const ProfileSettings: NextPage = () => {
     skip: !currentProfile?.id
   });
 
-  if (error) {
-    return <Custom500 />;
-  }
-
   if (loading) {
     return <PageLoading message="Loading settings" />;
   }
 
   if (!currentProfile) {
     return <NotLoggedIn />;
+  }
+
+  if (error) {
+    return <Custom500 />;
   }
 
   const profile = data?.profile;
