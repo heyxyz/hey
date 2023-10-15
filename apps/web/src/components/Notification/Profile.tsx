@@ -53,21 +53,3 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
     </Link>
   );
 };
-
-interface AggregatedNotificationTitleProps {
-  firstProfile: Profile;
-  text: string;
-  type?: string;
-}
-
-export const AggregatedNotificationTitle: FC<
-  AggregatedNotificationTitleProps
-> = ({ firstProfile, text, type }) => {
-  return (
-    <div className="font bold">
-      <NotificationProfileName profile={firstProfile} />
-      <span> {text} </span>
-      <span>{type ? type.toLowerCase() : null}</span>
-    </div>
-  );
-};

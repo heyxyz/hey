@@ -6,10 +6,8 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
 
-import {
-  AggregatedNotificationTitle,
-  NotificationProfileAvatar
-} from '../Profile';
+import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
+import { NotificationProfileAvatar } from '../Profile';
 
 interface CommentNotificationProps {
   notification: CommentNotification;
@@ -39,6 +37,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
           firstProfile={firstProfile}
           text={text}
           type={type}
+          linkToType={`/posts/${notification?.comment?.id}`}
         />
         <Link
           href={`/posts/${notification?.comment?.id}`}

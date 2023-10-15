@@ -6,10 +6,8 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';
 
-import {
-  AggregatedNotificationTitle,
-  NotificationProfileAvatar
-} from '../Profile';
+import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
+import { NotificationProfileAvatar } from '../Profile';
 
 interface QuoteNotificationProps {
   notification: QuoteNotification;
@@ -36,6 +34,7 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
           firstProfile={firstProfile}
           text={text}
           type={type}
+          linkToType={`/posts/${notification?.quote?.id}`}
         />
         <Link
           href={`/posts/${notification?.quote?.id}`}

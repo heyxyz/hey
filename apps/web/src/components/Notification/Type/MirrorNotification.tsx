@@ -7,10 +7,8 @@ import plur from 'plur';
 import type { FC } from 'react';
 import { memo } from 'react';
 
-import {
-  AggregatedNotificationTitle,
-  NotificationProfileAvatar
-} from '../Profile';
+import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
+import { NotificationProfileAvatar } from '../Profile';
 
 interface MirrorNotificationProps {
   notification: MirrorNotification;
@@ -46,6 +44,7 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
           firstProfile={firstProfile}
           text={text}
           type={type}
+          linkToType={`/posts/${notification?.publication?.id}`}
         />
         <Link
           href={`/posts/${notification?.publication?.id}`}
