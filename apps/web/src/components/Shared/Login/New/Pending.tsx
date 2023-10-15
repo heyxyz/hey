@@ -7,18 +7,27 @@ import {
 import formatHandle from '@hey/lib/formatHandle';
 import { Button, Spinner } from '@hey/ui';
 import Link from 'next/link';
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 
 interface PendingProps {
   handle: string;
-  txHash: string;
+  txId: string;
 }
 
-const Pending: FC<PendingProps> = ({ handle, txHash }) => {
+const Pending: FC<PendingProps> = ({ handle, txId }) => {
+  const [pollInterval, setPollInterval] = useState(500);
+
   const { data, loading } = useLensTransactionStatusQuery({
-    variables: { request: { forTxHash: txHash } },
-    pollInterval: 1000,
-    notifyOnNetworkStatusChange: true
+    variables: { request: { forTxId: txId } },
+    pollInterval,
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ lensTransactionStatus }) => {
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        setPollInterval(0);
+      }
+    }
   });
 
   return (

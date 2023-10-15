@@ -63,10 +63,10 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
   };
 
   return data?.createProfileWithHandle.__typename === 'RelaySuccess' &&
-    data?.createProfileWithHandle.txHash ? (
+    data?.createProfileWithHandle.txId ? (
     <Pending
       handle={form.getValues('handle')}
-      txHash={data?.createProfileWithHandle?.txHash}
+      txId={data?.createProfileWithHandle?.txId}
     />
   ) : (
     <Form
