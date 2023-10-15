@@ -18,12 +18,12 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23",
-    "viem": "^1.16.4"
+    "viem": "^1.16.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231010.0",
     "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
-    "wrangler": "^3.12.0"
+    "wrangler": "^3.13.1"
   }
 }
