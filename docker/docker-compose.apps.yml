@@ -28,7 +28,7 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope "@hey/web"
+        - TURBO_SCOPE=--scope @hey/web
     ports:
       - 4783:4783
     volumes:
