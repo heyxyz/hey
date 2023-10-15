@@ -23,7 +23,7 @@ const BlockOrUnBlockProfile: FC = () => {
       Leafwatch.track(PROFILE.BLOCK, {
         profile_id: blockingorUnblockingProfile?.id
       });
-      toast.success('Profile blocked successfully');
+      toast.success('Profile blocked successfully!');
     }
   });
 

@@ -2,6 +2,7 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
+import { Warnings } from '@hey/data/warnings';
 import type { AnyPublication, ReactionRequest } from '@hey/lens';
 import {
   PublicationReactionType,
@@ -37,6 +38,8 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
 
   const [liked, setLiked] = useState(targetPublication.operations.hasReacted);
   const [count, setCount] = useState(targetPublication.stats.reactions);
+
+  const disabled = targetPublication.operations.canAct === 'NO';
 
   const onError = (error: any) => {
     errorToast(error);
@@ -140,6 +143,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         whileTap={{ scale: 0.9 }}
         onClick={createLike}
         aria-label="Like"
+        disabled={disabled}
       >
         <div
           className={cn(
@@ -149,7 +153,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         >
           <Tooltip
             placement="top"
-            content={liked ? 'Unlike' : 'Like'}
+            content={disabled ? Warnings.Blocked : liked ? 'Unlike' : 'Like'}
             withDelay
           >
             {liked ? (
