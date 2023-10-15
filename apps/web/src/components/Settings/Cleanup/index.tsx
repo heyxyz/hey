@@ -38,7 +38,7 @@ const CleanupSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">
-          <div className="space-y-5">
+          <div className="space-y-3">
             <div className="text-lg font-bold">Cleanup local storage</div>
             <p>
               If you stuck with some issues, you can try to clean up the

@@ -33,7 +33,7 @@ const getAllowancePayload = (currency: string) => {
   };
 };
 
-const AllowanceSettings: NextPage = () => {
+const SessionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [currencyLoading, setCurrencyLoading] = useState(false);
 
@@ -73,10 +73,10 @@ const AllowanceSettings: NextPage = () => {
         <Card>
           <div className="mx-5 mt-5">
             <div className="space-y-3">
-              <div className="text-lg font-bold">Allow / revoke modules</div>
+              <div className="text-lg font-bold">Sessions</div>
               <p>
-                In order to use collect feature you need to allow the module you
-                use, you can allow and revoke the module anytime.
+                This is a list of devices that have logged into your account.
+                Revoke any sessions that you do not recognize.
               </p>
             </div>
             <div className="divider my-5" />
@@ -117,4 +117,4 @@ const AllowanceSettings: NextPage = () => {
   );
 };
 
-export default AllowanceSettings;
+export default SessionsSettings;

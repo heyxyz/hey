@@ -31,16 +31,16 @@ const DispatcherSettings: FC = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="linkify space-y-2 p-5">
-          <div className="flex items-center space-x-2">
+          <div className="space-y-3 pb-2">
             <div className="text-lg font-bold">
               {canUseRelay
                 ? 'Disable signless transactions'
                 : 'Signless transactions'}
             </div>
-          </div>
-          <div className="pb-2">
-            You can enable dispatcher to interact with {APP_NAME} without
-            signing any of your transactions.
+            <p>
+              You can enable dispatcher to interact with {APP_NAME} without
+              signing any of your transactions.
+            </p>
           </div>
           <ToggleDispatcher />
         </Card>

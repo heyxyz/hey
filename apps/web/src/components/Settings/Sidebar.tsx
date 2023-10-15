@@ -7,6 +7,8 @@ import {
   CpuChipIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
+  GlobeAltIcon,
+  QueueListIcon,
   ShareIcon,
   SparklesIcon,
   UserIcon
@@ -57,6 +59,16 @@ const SettingsSidebar: FC = () => {
             title: 'Allowance',
             icon: <ShareIcon className="h-4 w-4" />,
             url: '/settings/allowance'
+          },
+          {
+            title: 'Sessions',
+            icon: <GlobeAltIcon className="h-4 w-4" />,
+            url: '/settings/sessions'
+          },
+          {
+            title: 'Activity History',
+            icon: <QueueListIcon className="h-4 w-4" />,
+            url: '/settings/activities'
           },
           {
             title: 'Cleanup',

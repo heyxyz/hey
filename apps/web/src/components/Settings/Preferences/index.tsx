@@ -31,7 +31,7 @@ const PreferencesSettings: NextPage = () => {
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">
-          <div className="space-y-5">
+          <div className="space-y-3">
             <div className="text-lg font-bold">Your Preferences</div>
             <p>
               Update your preferences to control how you can change your

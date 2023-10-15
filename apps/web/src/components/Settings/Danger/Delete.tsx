@@ -78,7 +78,7 @@ const DeleteSettings: FC = () => {
 
   if (!canDelete) {
     return (
-      <Card className="space-y-5 p-5">
+      <Card className="space-y-3 p-5">
         <div className="text-lg font-bold text-red-500">
           Delete Lens profile
         </div>
@@ -90,13 +90,17 @@ const DeleteSettings: FC = () => {
   return (
     <Card className="space-y-5 p-5">
       <UserProfile profile={currentProfile as Profile} />
-      <div className="text-lg font-bold text-red-500">Delete Lens profile</div>
-      <p>
-        This will permanently delete your Profile NFT on the Lens Protocol. You
-        will not be able to use any apps built on Lens, including {APP_NAME}.
-        All your data will be wiped out immediately and you won't be able to get
-        it back.
-      </p>
+      <div className="space-y-3">
+        <div className="text-lg font-bold text-red-500">
+          Delete Lens profile
+        </div>
+        <p>
+          This will permanently delete your Profile NFT on the Lens Protocol.
+          You will not be able to use any apps built on Lens, including{' '}
+          {APP_NAME}. All your data will be wiped out immediately and you won't
+          be able to get it back.
+        </p>
+      </div>
       <div className="text-lg font-bold">What else you should know</div>
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">

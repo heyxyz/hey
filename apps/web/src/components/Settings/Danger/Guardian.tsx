@@ -63,13 +63,15 @@ const GuardianSettings: FC = () => {
 
   return (
     <Card className="space-y-5 p-5">
-      <div className="text-lg font-bold text-red-500">
-        Disable profile guardian
+      <div className="space-y-3">
+        <div className="text-lg font-bold text-red-500">
+          Disable profile guardian
+        </div>
+        <p>
+          This will disable the Profile Guardian and allow you to do some
+          actions like transfer, burn and approve without restrictions.
+        </p>
       </div>
-      <p>
-        This will disable the Profile Guardian and allow you to do some actions
-        like transfer, burn and approve without restrictions.
-      </p>
       <div className="text-lg font-bold">What else you should know</div>
       <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
