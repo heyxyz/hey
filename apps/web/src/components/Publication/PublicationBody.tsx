@@ -66,10 +66,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   const [content, setContent] = useState(rawContent);
 
-  if (!filteredContent) {
-    return <i>Content not supported!</i>;
-  }
-
   // Show NFT if it's there
   const showNft = nft;
   // Show snapshot if it's there
