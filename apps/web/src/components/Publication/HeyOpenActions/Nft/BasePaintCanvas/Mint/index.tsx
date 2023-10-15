@@ -2,7 +2,7 @@ import { BasePaint } from '@hey/abis';
 import { BASEPAINT_CONTRACT } from '@hey/data/contracts';
 import type { AnyPublication } from '@hey/lens';
 import type { BasePaintCanvas } from '@hey/types/nft';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { formatEther } from 'viem';
 import { base } from 'viem/chains';
 import { useContractRead } from 'wagmi';

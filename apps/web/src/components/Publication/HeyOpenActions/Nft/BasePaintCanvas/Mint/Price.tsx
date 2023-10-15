@@ -1,7 +1,7 @@
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { useQuery } from '@tanstack/react-query';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { useBasePaintMintStore } from '.';
 

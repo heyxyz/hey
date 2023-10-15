@@ -12,7 +12,8 @@ import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import urlcat from 'urlcat';
 

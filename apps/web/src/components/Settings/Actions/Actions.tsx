@@ -1,6 +1,6 @@
 import type { ProfileActionHistory } from '@hey/lens';
 import { Card } from '@hey/ui';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 interface ActionsProps {
   actions?: ProfileActionHistory[];

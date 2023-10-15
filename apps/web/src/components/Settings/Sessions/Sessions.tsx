@@ -8,7 +8,8 @@ import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 interface SessionsProps {

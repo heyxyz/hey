@@ -14,7 +14,7 @@ import { Button, Spinner } from '@hey/ui';
 import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import { useUpdateEffect } from 'usehooks-ts';
 import type { Address } from 'viem';
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem';

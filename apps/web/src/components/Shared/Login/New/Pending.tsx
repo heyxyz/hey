@@ -7,7 +7,8 @@ import {
 import formatHandle from '@hey/lib/formatHandle';
 import { Button, Spinner } from '@hey/ui';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 interface PendingProps {
   handle: string;

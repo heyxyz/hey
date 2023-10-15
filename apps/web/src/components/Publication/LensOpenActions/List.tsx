@@ -2,7 +2,8 @@ import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 import CollectModule from './CollectModule';
 

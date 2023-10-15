@@ -1,6 +1,6 @@
 import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import { type InvitedResult } from '@hey/lens';
+import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import { formatDate } from '@lib/formatTime';

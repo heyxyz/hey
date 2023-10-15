@@ -1,5 +1,5 @@
 import SmallWalletProfile from '@components/Shared/SmallWalletProfile';
-import { type FC } from 'react';
+import type { FC } from 'react';
 import type { Address } from 'viem';
 
 interface MintedByProps {

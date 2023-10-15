@@ -7,7 +7,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
-import { type Profile, useProfileRecommendationsQuery } from '@hey/lens';
+import type { Profile } from '@hey/lens';
+import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';

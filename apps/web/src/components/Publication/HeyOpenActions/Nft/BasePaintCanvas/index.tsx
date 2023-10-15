@@ -8,7 +8,8 @@ import type { BasePaintCanvasMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import useBasePaintCanvas from 'src/hooks/basepaint/useBasePaintCanvas';
 import urlcat from 'urlcat';
 
