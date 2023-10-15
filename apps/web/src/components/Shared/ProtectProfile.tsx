@@ -34,13 +34,18 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  if (currentProfile?.guardian?.protected) {
+  console.log(
+    'currentProfile?.guardian?.cooldownEndsOn',
+    currentProfile?.guardian
+  );
+
+  if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
     return null;
   }
 
-  const coolOffDate = currentProfile?.guardian?.cooldownEndsOn || Date.now();
+  const coolOffDate = new Date(currentProfile?.guardian?.cooldownEndsOn);
   const coolOffTime = new Date(
-    new Date(coolOffDate).getTime() + 5 * 60 * 100
+    coolOffDate.getTime() + 5 * 60 * 100
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 

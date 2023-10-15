@@ -23,6 +23,7 @@ const Pending: FC<PendingProps> = ({ handle, txHash }) => {
   return (
     <div className="p-5 text-center font-bold">
       {loading ||
+      !data?.lensTransactionStatus ||
       data?.lensTransactionStatus?.status ===
         LensTransactionStatusType.Processing ? (
         <div className="space-y-3">

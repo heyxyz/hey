@@ -50,6 +50,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
       rel="noreferrer noopener"
     >
       {loading ||
+      !data?.lensTransactionStatus ||
       data?.lensTransactionStatus?.status ===
         LensTransactionStatusType.Processing ? (
         <div className="flex items-center space-x-1.5">
