@@ -111,6 +111,8 @@ export type Message = {
 };
 
 export type MessageWhere = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  address_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   id?: InputMaybe<Scalars['String']['input']>;
   id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   mci?: InputMaybe<Scalars['Int']['input']>;
@@ -239,6 +241,7 @@ export type Query = {
   proposal?: Maybe<Proposal>;
   proposals?: Maybe<Array<Maybe<Proposal>>>;
   ranking?: Maybe<RankingObject>;
+  roles?: Maybe<Array<Maybe<Role>>>;
   skins?: Maybe<Array<Maybe<Item>>>;
   space?: Maybe<Space>;
   spaces?: Maybe<Array<Maybe<Space>>>;
@@ -295,6 +298,10 @@ export type QueryRankingArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RankingWhere>;
+};
+
+export type QueryRolesArgs = {
+  where?: InputMaybe<RolesWhere>;
 };
 
 export type QuerySpaceArgs = {
@@ -375,6 +382,16 @@ export type RankingWhere = {
   id_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   network?: InputMaybe<Scalars['String']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type Role = {
+  __typename?: 'Role';
+  permissions?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  space?: Maybe<Scalars['String']['output']>;
+};
+
+export type RolesWhere = {
+  address?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Space = {
