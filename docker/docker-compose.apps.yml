@@ -1,0 +1,40 @@
+version: "3.8"
+
+x-defaults-build: &defaults-build
+  context: ../
+  dockerfile: ./docker/Dockerfile
+x-defaults-healthcheck: &defaults-healthcheck
+  start_period: 5s
+  interval: 5s
+  timeout: 5s
+  retries: 5
+
+services:
+  prerender:
+    build:
+      <<: *defaults-build
+      args:
+        - TURBO_SCOPE=--scope @hey/prerender
+    ports:
+      - 4784:4784
+    volumes:
+      - ../apps/prerender:/app/apps/prerender
+      - /app/apps/prerender/node_modules
+      - /app/apps/prerender/.next
+    healthcheck:
+      <<: *defaults-healthcheck
+      test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:4784/' ]
+  web:
+    build:
+      <<: *defaults-build
+      args:
+        - TURBO_SCOPE=--scope "@hey/web"
+    ports:
+      - 4783:4783
+    volumes:
+      - ../apps/web:/app/apps/web
+      - /app/apps/web/node_modules
+      - /app/apps/web/.next
+    healthcheck:
+      <<: *defaults-healthcheck
+      test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:4783/' ]

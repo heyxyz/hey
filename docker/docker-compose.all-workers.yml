@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  workers:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+      args:
+        - TURBO_SCOPE=--scope @workers/feeds --scope @workers/invite --scope @workers/metadata --scope @workers/preferences --scope @workers/staff-picks --scope @workers/achievements --scope @workers/freshdesk --scope @workers/leafwatch --scope @workers/nft --scope @workers/prerender --scope @workers/sts --scope @workers/ens --scope @workers/groups --scope @workers/live --scope @workers/oembed --scope @workers/snapshot-relay
+    ports:
+      - 8096:8096
+      - 8095:8095
+      - 8094:8094
+      - 8093:8093
+      - 8092:8092
+      - 8091:8091
+      - 8090:8090
+      - 8089:8089
+      - 8088:8088
+      - 8087:8087
+      - 8086:8086
+      - 8085:8085
+      - 8084:8084
+      - 8083:8083
+      - 8082:8082
+    volumes:
+      - ../packages/workers:/app/packages/workers
+      - /app/packages/workers/feeds/node_modules
+      - /app/packages/workers/invite/node_modules
+      - /app/packages/workers/metadata/node_modules
+      - /app/packages/workers/preferences/node_modules
+      - /app/packages/workers/staff-picks/node_modules
+      - /app/packages/workers/achievements/node_modules
+      - /app/packages/workers/freshdesk/node_modules
+      - /app/packages/workers/leafwatch/node_modules
+      - /app/packages/workers/nft/node_modules
+      - /app/packages/workers/prerender/node_modules
+      - /app/packages/workers/sts/node_modules
+      - /app/packages/workers/ens/node_modules
+      - /app/packages/workers/groups/node_modules
+      - /app/packages/workers/live/node_modules
+      - /app/packages/workers/oembed/node_modules
+      - /app/packages/workers/snapshot-relay/node_modules
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'curl',
+          '-f',
+          '-k',
+          'http://localhost:8096/',
+          'http://localhost:8095/',
+          'http://localhost:8094/',
+          'http://localhost:8093/',
+          'http://localhost:8092/',
+          'http://localhost:8091/',
+          'http://localhost:8090/',
+          'http://localhost:8089/',
+          'http://localhost:8088/',
+          'http://localhost:8087/',
+          'http://localhost:8086/',
+          'http://localhost:8085/',
+          'http://localhost:8084/',
+          'http://localhost:8083/',
+          'http://localhost:8082/'
+        ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5

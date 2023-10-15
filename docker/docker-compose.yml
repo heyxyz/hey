@@ -2,84 +2,14 @@ version: "3.8"
 
 services:
   prerender:
-    container_name: prerender
-    build:
-      context: ../
-      dockerfile: ./docker/prerender.Dockerfile
-    ports:
-      - 4784:4784
-    volumes:
-      - ../apps/prerender:/app/apps/prerender
-      - /app/apps/prerender/node_modules
-      - /app/apps/prerender/.next
-    healthcheck:
-      test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:4784/' ]
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    extends:
+      file: docker-compose.apps.yml
+      service: prerender
   web:
-    container_name: web
-    build:
-      context: ../
-      dockerfile: ./docker/web.Dockerfile
-    ports:
-      - 4783:4783
-    volumes:
-      - ../apps/web:/app/apps/web
-      - /app/apps/web/node_modules
-      - /app/apps/web/.next
-    healthcheck:
-      test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:4783/' ]
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    extends:
+      file: docker-compose.apps.yml
+      service: web
   workers:
-    container_name: workers
-    build:
-      context: ../
-      dockerfile: ./docker/workers.Dockerfile
-    ports:
-      - 8096:8096
-      - 8095:8095
-      - 8094:8094
-      - 8093:8093
-      - 8092:8092
-      - 8091:8091
-      - 8090:8090
-      - 8089:8089
-      - 8088:8088
-      - 8087:8087
-      - 8086:8086
-      - 8085:8085
-      - 8084:8084
-      - 8083:8083
-      - 8082:8082
-    healthcheck:
-      test:
-        [
-          'CMD',
-          'curl',
-          '-f',
-          '-k',
-          'http://localhost:8096/',
-          'http://localhost:8095/',
-          'http://localhost:8094/',
-          'http://localhost:8093/',
-          'http://localhost:8092/',
-          'http://localhost:8091/',
-          'http://localhost:8090/',
-          'http://localhost:8089/',
-          'http://localhost:8088/',
-          'http://localhost:8087/',
-          'http://localhost:8086/',
-          'http://localhost:8085/',
-          'http://localhost:8084/',
-          'http://localhost:8083/',
-          'http://localhost:8082/'
-        ]
-      start_period: 5s
-      interval: 5s
-      timeout: 5s
-      retries: 5
+    extends:
+      file: docker-compose.all-workers.yml
+      service: workers
