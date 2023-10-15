@@ -207,6 +207,12 @@ const FollowModule: FC<FollowModuleProps> = ({
     return <Loader message="Loading Super follow" />;
   }
 
+  const rawAmount = parseFloat(followModule?.amount?.value || '0');
+  const currency = followModule?.amount?.asset?.symbol;
+  const assetDecimals = followModule?.amount?.asset?.decimals;
+  const assetName = followModule?.amount?.asset?.name;
+  const amount = rawAmount / 10 ** assetDecimals;
+
   return (
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
@@ -224,15 +230,13 @@ const FollowModule: FC<FollowModuleProps> = ({
           className="h-7 w-7"
           height={28}
           width={28}
-          src={getTokenImage(followModule?.amount?.asset?.symbol)}
-          alt={followModule?.amount?.asset?.symbol}
-          title={followModule?.amount?.asset?.name}
+          src={getTokenImage(currency)}
+          alt={currency}
+          title={assetName}
         />
         <span className="space-x-1">
-          <span className="text-2xl font-bold">
-            {followModule?.amount?.value}
-          </span>
-          <span className="text-xs">{followModule?.amount?.asset?.symbol}</span>
+          <span className="text-2xl font-bold">{amount}</span>
+          <span className="text-xs">{currency}</span>
         </span>
       </div>
       <div className="flex items-center space-x-2">
