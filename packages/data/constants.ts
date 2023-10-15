@@ -15,8 +15,8 @@ export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
 export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
-export const ADMIN_ADDRESS = '0xe8397972bFB4fbaf643B2900ab7a96caf7bB84F8';
-export const REWARDS_ADDRESS = '0xfef5e4a24d9f237883ad0f0937da78c3089563f8';
+export const ADMIN_ADDRESS = '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef';
+export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 
 // XMTP
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
