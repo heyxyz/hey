@@ -17,6 +17,7 @@ import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
 import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
 import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
+import createWhoHaveBlockedFieldPolicy from './createWhoHaveBlockedFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -39,6 +40,7 @@ const cache = new InMemoryCache({
         searchProfiles: createSearchProfilesFieldPolicy(),
         searchPublications: createSearchPublicationsPolicy(),
         whoActedOnPublication: createActedOnPublicationFieldPolicy(),
+        whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
         approvedAuthentication: createApprovedAuthenticationFieldPolicy(),
         profileActionHistory: createProfileActionHistoryFieldPolicy()
