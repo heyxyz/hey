@@ -54,7 +54,7 @@ query Notifications($request: NotificationRequest!) {
       ... on QuoteNotification {
         id
         quote {
-          ...QuoteBaseFields
+          ...QuoteFields
         }
       }
       ... on ActedNotification {

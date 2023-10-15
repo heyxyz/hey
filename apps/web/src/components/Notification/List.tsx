@@ -1,7 +1,9 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import type {
+  CommentNotification as CommentNotificationType,
   MirrorNotification as MirrorNotificationType,
   NotificationRequest,
+  QuoteNotification as QuoteNotificationType,
   ReactionNotification as ReactionNotificationType
 } from '@hey/lens';
 import {
@@ -17,7 +19,9 @@ import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/preferences';
 
 import NotificationShimmer from './Shimmer';
+import CommentNotification from './Type/CommentNotification';
 import MirrorNotification from './Type/MirrorNotification';
+import QuoteNotification from './Type/QuoteNotification';
 import ReactionNotification from './Type/ReactionNotification';
 
 interface ListProps {
@@ -134,14 +138,19 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as ReactionNotificationType}
                 />
               ) : null}
-              {/* {notification.__typename === 'CommentNotification' ? (
+              {notification.__typename === 'CommentNotification' ? (
                 <CommentNotification
                   notification={notification as CommentNotificationType}
                 />
-              ) : null} */}
+              ) : null}
               {notification.__typename === 'MirrorNotification' ? (
                 <MirrorNotification
                   notification={notification as MirrorNotificationType}
+                />
+              ) : null}
+              {notification.__typename === 'QuoteNotification' ? (
+                <QuoteNotification
+                  notification={notification as QuoteNotificationType}
                 />
               ) : null}
               {/* {notification.__typename === 'ActedNotification' ? (
