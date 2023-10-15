@@ -34,11 +34,6 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  console.log(
-    'currentProfile?.guardian?.cooldownEndsOn',
-    currentProfile?.guardian
-  );
-
   if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
     return null;
   }

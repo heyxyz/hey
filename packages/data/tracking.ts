@@ -139,6 +139,9 @@ export const SETTINGS = {
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'
   },
+  SESSIONS: {
+    REVOKE: 'Revoke session'
+  },
   INTERESTS: {
     ADD: 'Add profile interest',
     REMOVE: 'Remove profile interest'
