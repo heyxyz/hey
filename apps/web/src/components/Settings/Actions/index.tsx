@@ -4,10 +4,15 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
-import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
+import {
+  Card,
+  ErrorMessage,
+  GridItemEight,
+  GridItemFour,
+  GridLayout
+} from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
-import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -25,10 +30,6 @@ const ActionsSettings: NextPage = () => {
     variables: { request: { limit: LimitType.Fifty } },
     skip: !currentProfile?.id
   });
-
-  if (error) {
-    return <Custom500 />;
-  }
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -53,6 +54,8 @@ const ActionsSettings: NextPage = () => {
             <div className="py-5">
               <Loader />
             </div>
+          ) : error ? (
+            <ErrorMessage className="m-5" error={error} />
           ) : (
             <Actions actions={data?.profileActionHistory?.items} />
           )}
