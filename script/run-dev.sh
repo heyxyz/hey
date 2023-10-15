@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if ! command -v docker &> /dev/null; then
+    echo "Docker has not been found on your system."
+    echo "https://docs.docker.com/get-docker/"
+    exit 1
+fi
+
+
 script_name="$0"
 script_full_path=$(dirname "$0")
 
