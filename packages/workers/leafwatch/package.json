@@ -25,6 +25,6 @@
     "@hey/config": "workspace:*",
     "@types/ua-parser-js": "^0.7.37",
     "typescript": "^5.2.2",
-    "wrangler": "^3.12.0"
+    "wrangler": "^3.13.1"
   }
 }
