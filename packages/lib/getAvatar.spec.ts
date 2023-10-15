@@ -23,7 +23,7 @@ describe('getAvatar', () => {
 
   test("should use profile's ownedBy address to build URL when all else fails", () => {
     const profile = {
-      ownedBy: '0x3a5bd1e37b099ae3386d13947b6a90d97675e5e3',
+      ownedBy: '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef',
       picture: {}
     };
     const result = getAvatar(profile);
