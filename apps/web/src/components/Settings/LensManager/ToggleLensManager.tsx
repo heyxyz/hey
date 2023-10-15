@@ -19,11 +19,13 @@ import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-interface ToggleDispatcherProps {
+interface ToggleLensManagerProps {
   buttonSize?: 'sm';
 }
 
-const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
+const ToggleLensManager: FC<ToggleLensManagerProps> = ({
+  buttonSize = 'md'
+}) => {
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -37,7 +39,7 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
 
     setIsLoading(false);
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.DISPATCHER.TOGGLE);
+    Leafwatch.track(SETTINGS.MANAGER.TOGGLE);
   };
 
   const onError = (error: any) => {
@@ -137,4 +139,4 @@ const ToggleDispatcher: FC<ToggleDispatcherProps> = ({ buttonSize = 'md' }) => {
   );
 };
 
-export default ToggleDispatcher;
+export default ToggleLensManager;

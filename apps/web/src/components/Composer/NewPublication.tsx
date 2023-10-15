@@ -174,7 +174,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasAudio = attachments[0]?.type === 'Audio';
   const hasVideo = attachments[0]?.type === 'Video';
 
-  // Dispatcher
+  // Lens manager
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 

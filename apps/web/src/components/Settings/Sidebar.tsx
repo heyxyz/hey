@@ -51,9 +51,9 @@ const SettingsSidebar: FC = () => {
             url: '/settings/interests'
           },
           {
-            title: 'Dispatcher',
+            title: 'Manager',
             icon: <FingerPrintIcon className="h-4 w-4" />,
-            url: '/settings/dispatcher'
+            url: '/settings/manager'
           },
           {
             title: 'Allowance',

@@ -49,7 +49,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
 
-  // Dispatcher
+  // Lens manager
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 

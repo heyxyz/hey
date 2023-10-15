@@ -132,9 +132,9 @@ export const SETTINGS = {
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride'
   },
-  DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher',
-    UPDATE: 'Update dispatcher'
+  MANAGER: {
+    TOGGLE: 'Toggle lens manager',
+    UPDATE: 'Update lens manager'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'

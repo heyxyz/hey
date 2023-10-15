@@ -4,19 +4,19 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import type { FC } from 'react';
+import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import ToggleDispatcher from './ToggleDispatcher';
+import ToggleLensManager from './ToggleLensManager';
 
-const DispatcherSettings: FC = () => {
+const LensManagerSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const canUseRelay = currentProfile?.lensManager;
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'dispatcher' });
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'manager' });
   });
 
   if (!currentProfile) {
@@ -25,7 +25,7 @@ const DispatcherSettings: FC = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={`Dispatcher • ${APP_NAME}`} />
+      <MetaTags title={`Manager • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
@@ -38,15 +38,15 @@ const DispatcherSettings: FC = () => {
                 : 'Signless transactions'}
             </div>
             <p>
-              You can enable dispatcher to interact with {APP_NAME} without
+              You can enable Lens manager to interact with {APP_NAME} without
               signing any of your transactions.
             </p>
           </div>
-          <ToggleDispatcher />
+          <ToggleLensManager />
         </Card>
       </GridItemEight>
     </GridLayout>
   );
 };
 
-export default DispatcherSettings;
+export default LensManagerSettings;

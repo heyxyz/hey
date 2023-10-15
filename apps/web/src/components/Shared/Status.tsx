@@ -52,7 +52,7 @@ const Status: FC = () => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  // Dispatcher
+  // Lens manager
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 

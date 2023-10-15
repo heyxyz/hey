@@ -1,11 +1,11 @@
-import ToggleDispatcher from '@components/Settings/Dispatcher/ToggleDispatcher';
+import ToggleLensManager from '@components/Settings/LensManager/ToggleLensManager';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-const EnableDispatcher: FC = () => {
+const EnableLensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const canUseRelay = currentProfile?.lensManager;
 
@@ -23,12 +23,12 @@ const EnableDispatcher: FC = () => {
         <p>Signless transactions</p>
       </div>
       <p className="text-sm leading-[22px]">
-        You can enable dispatcher to interact with {APP_NAME} without signing
+        You can enable Lens manager to interact with {APP_NAME} without signing
         any of your transactions.
       </p>
-      <ToggleDispatcher buttonSize="sm" />
+      <ToggleLensManager buttonSize="sm" />
     </Card>
   );
 };
 
-export default EnableDispatcher;
+export default EnableLensManager;
