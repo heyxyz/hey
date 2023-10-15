@@ -8,6 +8,7 @@ import {
   ExclamationTriangleIcon,
   FingerPrintIcon,
   GlobeAltIcon,
+  NoSymbolIcon,
   QueueListIcon,
   ShareIcon,
   SparklesIcon,
@@ -69,6 +70,11 @@ const SettingsSidebar: FC = () => {
             title: 'Action History',
             icon: <QueueListIcon className="h-4 w-4" />,
             url: '/settings/actions'
+          },
+          {
+            title: 'Blocked Profiles',
+            icon: <NoSymbolIcon className="h-4 w-4" />,
+            url: '/settings/blocked'
           },
           {
             title: 'Cleanup',
