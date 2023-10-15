@@ -77,5 +77,5 @@ else
 fi
 
 
-docker compose $internal_compose_args $external_compose_args -p hey up --remove-orphans
+docker compose $internal_compose_args  -p hey up --remove-orphans $external_compose_args
 
