@@ -571,8 +571,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const useDataAvailability = isComment
         ? publication.momoka?.proof && noCollect
         : noCollect;
-
       const arweaveId = await uploadToArweave(metadata);
+
+      // Payload for the open action module
+      let openActionModules = [];
+      if (collectModule.type) {
+        openActionModules.push({
+          collectOpenAction: collectModuleParams(collectModule, currentProfile)
+        });
+      }
 
       // Payload for the post/comment
       const request: OnchainPostRequest | OnchainCommentRequest = {
@@ -580,14 +587,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         ...(isComment && {
           commentOn: targetPublication.id
         }),
-        openActionModules: [
-          {
-            collectOpenAction: collectModuleParams(
-              collectModule,
-              currentProfile
-            )
-          }
-        ],
+        openActionModules,
         ...(onlyFollowers && {
           referenceModule:
             selectedReferenceModule ===
