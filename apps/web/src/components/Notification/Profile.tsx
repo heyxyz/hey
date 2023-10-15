@@ -66,7 +66,7 @@ export const AggregatedNotificationTitle: FC<
   return (
     <div className="font bold">
       <NotificationProfileName profile={firstProfile} />
-      <span>{text}</span>
+      <span> {text} </span>
       <span>{type ? type.toLowerCase() : null}</span>
     </div>
   );

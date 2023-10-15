@@ -3,6 +3,7 @@ import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { MirrorNotification } from '@hey/lens';
 import getPublicationData from '@lib/getPublicationData';
 import Link from 'next/link';
+import plur from 'plur';
 import type { FC } from 'react';
 import { memo } from 'react';
 
@@ -39,7 +40,10 @@ const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
         <div className="ml-9">
           <AggregatedNotificationTitle
             firstProfile={firstProfile}
-            text={`and ${mirrors.length} mirrored your`}
+            text={`and ${mirrors.length} ${plur(
+              'other',
+              mirrors.length
+            )} mirrored your`}
             type={notification?.publication.__typename}
           />
           <Link
