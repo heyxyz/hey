@@ -136,7 +136,7 @@ const SwitchProfiles: FC = () => {
               alt={profile.id}
             />
             <div className="truncate">
-              {getProfile(profile as Profile).slug}
+              {getProfile(profile as Profile).slugWithPrefix}
             </div>
           </span>
           {isLoading && profile.id === loggingInProfileId ? (
