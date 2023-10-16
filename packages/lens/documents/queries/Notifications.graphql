@@ -27,7 +27,7 @@ query Notifications($request: NotificationRequest!) {
       ... on CommentNotification {
         id
         comment {
-          ...CommentBaseFields
+          ...CommentFields
         }
       }
       ... on MirrorNotification {
