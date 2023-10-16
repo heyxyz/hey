@@ -128,8 +128,9 @@ const UserProfile: FC<UserProfileProps> = ({
       <UserPreview
         isBig={isBig}
         handle={profile.handle}
+        id={profile.id}
         followStatusLoading={followStatusLoading}
-        showUserPreview={showUserPreview && profile.handle}
+        showUserPreview={showUserPreview}
       >
         <div className="mr-8 flex items-center space-x-3">
           <UserAvatar />
@@ -159,7 +160,7 @@ const UserProfile: FC<UserProfileProps> = ({
       className="flex items-center justify-between"
       data-testid={`user-profile-${profile.id}`}
     >
-      {linkToProfile && profile.handle ? (
+      {linkToProfile && profile.id ? (
         <Link href={`/u/${formatHandle(profile?.handle)}`}>
           <UserInfo />
         </Link>

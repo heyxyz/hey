@@ -32,6 +32,7 @@ const POPOVER_HIDE_ANIMATION_MS = 0;
 interface UserPreviewProps {
   children: ReactNode;
   handle?: string;
+  id?: string;
   isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
@@ -40,6 +41,7 @@ interface UserPreviewProps {
 const UserPreview: FC<UserPreviewProps> = ({
   children,
   handle,
+  id,
   isBig,
   followStatusLoading,
   showUserPreview = true
@@ -58,7 +60,11 @@ const UserPreview: FC<UserPreviewProps> = ({
     }
 
     setSyntheticLoading(true);
-    loadProfile({ variables: { request: { forHandle: handle } } });
+    loadProfile({
+      variables: {
+        request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
+      }
+    });
     setTimeout(() => {
       setSyntheticLoading(false);
     }, MINIMUM_LOADING_ANIMATION_MS);
@@ -72,7 +78,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     profile?.operations.isFollowedByMe.value
   );
 
-  if (!handle) {
+  if (!id && !handle) {
     return null;
   }
 
@@ -88,7 +94,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div />
           </div>
           <div className="flex p-3">
-            <div>@{formatHandle(handle)}</div>
+            <div>{handle ? `@${formatHandle(handle)}` : `#${id}`}</div>
           </div>
         </div>
       );
