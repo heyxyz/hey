@@ -17,7 +17,6 @@ import {
   useProfileQuery
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
@@ -263,20 +262,22 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can comment on @{formatHandle(profile?.handle)}'s publications
+              You can comment on {getProfile(profile).slugWithPrefix}'s
+              publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You can collect @{formatHandle(profile?.handle)}'s publications
+              You can collect {getProfile(profile).slugWithPrefix}'s
+              publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              You will get Super follow badge in @
-              {formatHandle(profile?.handle)}'s profile
+              You will get Super follow badge in{' '}
+              {getProfile(profile).slugWithPrefix}'s profile
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">

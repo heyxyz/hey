@@ -5,7 +5,7 @@ import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import type { Nft, NftsRequest } from '@hey/lens';
 import { LimitType, useNftsQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
@@ -68,7 +68,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         <div>
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(currentProfile?.handle)}
+              {getProfile(currentProfile).slugWithPrefix}
             </span>
             <span>doesn't have any NFTs!</span>
           </div>

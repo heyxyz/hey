@@ -1,7 +1,7 @@
 import { PROFILE } from '@hey/data/tracking';
 import type { BlockRequest, UnblockRequest } from '@hey/lens';
 import { useBlockMutation, useUnblockMutation } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Alert } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
@@ -42,7 +42,7 @@ const BlockOrUnBlockProfile: FC = () => {
       title="Block Profile"
       description={`Are you sure you want to ${
         isBlockedByMe ? 'un-block' : 'block'
-      } @${formatHandle(blockingorUnblockingProfile?.handle)}?`}
+      } ${getProfile(blockingorUnblockingProfile).slugWithPrefix}?`}
       confirmText={isBlockedByMe ? 'Unblock' : 'Block'}
       show={showBlockOrUnblockAlert}
       isDestructive

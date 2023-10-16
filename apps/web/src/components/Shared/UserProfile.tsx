@@ -4,12 +4,10 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import { FollowModuleType, type Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
@@ -86,11 +84,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">
-            {sanitizeDisplayName(profile?.metadata?.displayName) ??
-              formatHandle(profile?.handle) ??
-              profile.id}
-          </div>
+          <div className="truncate">{getProfile(profile).displayName}</div>
         </div>
         {isVerified(profile.id) ? (
           <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />

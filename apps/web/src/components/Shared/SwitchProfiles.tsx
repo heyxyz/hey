@@ -11,8 +11,8 @@ import {
   useProfileLazyQuery,
   useProfilesQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -135,7 +135,9 @@ const SwitchProfiles: FC = () => {
               src={getAvatar(profile)}
               alt={profile.id}
             />
-            <div className="truncate">{formatHandle(profile?.handle)}</div>
+            <div className="truncate">
+              {getProfile(profile as Profile).slug}
+            </div>
           </span>
           {isLoading && profile.id === loggingInProfileId ? (
             <Spinner size="xs" />

@@ -3,11 +3,9 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTwitterFormat } from '@lib/formatTime';
@@ -46,8 +44,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   const UserName = () => (
     <div className="flex max-w-full flex-wrap items-center">
       <div className="mr-2 max-w-[75%] truncate">
-        {sanitizeDisplayName(profile?.metadata?.displayName) ??
-          formatHandle(profile?.handle)}
+        {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
         <CheckBadgeIcon className="text-brand mr-1 h-4 w-4" />
