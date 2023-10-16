@@ -50,9 +50,15 @@ Instead, you can connect VSCode directly to your container:
 
 2. Go to the Command Palette by pressing `F1`.
 
-3. Search for "Dev Containers: Attach to Running Container" and select it. 
+3. Search for "Dev Containers: Attach to Running Container" and select it.
 
-4. Select the container you want to connect to.
+![Screenshot 2023-10-16 at 10 00 18](https://github.com/Clueed/hey/assets/7318830/36ab1eed-1ac9-4ec5-a870-3dc552604206)
+
+
+5. Select the container you want to connect to.
+
+![Screenshot 2023-10-16 at 10 01 26](https://github.com/Clueed/hey/assets/7318830/3f6459f2-5246-4ac3-9c12-6807f36b5b74)
+
 
 Now, you're connected to your running Docker container. VSCode can access the dependencies and settings within the container, making your development environment consistent with the runtime environment. You can install extensions, edit code, and debug just like you would when working with a local folder.
 
