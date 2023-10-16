@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
+import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -13,15 +14,13 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
-import EnableDispatcher from './EnableDispatcher';
+import EnableLensManager from './EnableLensManager';
 import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
-import ForYou from './ForYou';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
 import RecommendedProfiles from './RecommendedProfiles';
-import SetDefaultProfile from './SetDefaultProfile';
 import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
@@ -53,9 +52,7 @@ const Home: NextPage = () => {
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
                 <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
-              {feedType === HomeFeedType.FOR_YOU ? (
-                <ForYou />
-              ) : feedType === HomeFeedType.FOLLOWING ? (
+              {feedType === HomeFeedType.FOLLOWING ? (
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
@@ -71,16 +68,17 @@ const Home: NextPage = () => {
           {/* <Gitcoin /> */}
           {loggedOut && <Waitlist />}
           {loggedIn && <HeyMembershipNft />}
-          <StaffPicks />
+          {/* Onboarding steps */}
           {loggedIn && (
             <>
-              <EnableDispatcher />
+              <EnableLensManager />
               <EnableMessages />
-              <SetDefaultProfile />
               <SetProfile />
-              <RecommendedProfiles />
             </>
           )}
+          {/* Recommendations */}
+          {IS_MAINNET && <StaffPicks />}
+          {loggedIn && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>

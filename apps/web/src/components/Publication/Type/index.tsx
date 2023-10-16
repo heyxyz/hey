@@ -1,4 +1,4 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -7,7 +7,7 @@ import Commented from './Commented';
 import Mirrored from './Mirrored';
 
 interface PublicationTypeProps {
-  publication: Publication;
+  publication: AnyPublication;
   showType: boolean;
   showThread?: boolean;
 }

@@ -22,6 +22,8 @@ export const PROFILE = {
   SWITCH_PROFILE_STATS_TAB: 'Switch profile stats tab',
   SWITCH_PROFILE: 'Switch profile',
   REPORT_PROFILE: 'Report profile',
+  BLOCK: 'Block profile',
+  UNBLOCK: 'Unblock profile',
   LOGOUT: 'Profile logout'
 };
 
@@ -59,12 +61,6 @@ export const PUBLICATION = {
     COLLECT: 'Collect publication',
     OPEN_UNISWAP: 'Open Uniswap'
   },
-  TOKEN_GATED: {
-    CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
-    CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
-    DECRYPT: 'Decrypt token gated publication'
-  },
   WIDGET: {
     SNAPSHOT: {
       OPEN_CAST_VOTE: 'Snapshot: Open cast vote modal',
@@ -97,7 +93,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',
@@ -137,12 +132,15 @@ export const SETTINGS = {
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride'
   },
-  DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher',
-    UPDATE: 'Update dispatcher'
+  MANAGER: {
+    TOGGLE: 'Toggle lens manager',
+    UPDATE: 'Update lens manager'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'
+  },
+  SESSIONS: {
+    REVOKE: 'Revoke session'
   },
   INTERESTS: {
     ADD: 'Add profile interest',

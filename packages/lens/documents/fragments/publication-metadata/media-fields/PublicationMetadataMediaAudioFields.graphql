@@ -1,0 +1,25 @@
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  artist
+  audio {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  cover {
+    raw {
+      uri
+    }
+    optimized {
+      uri
+    }
+  }
+  duration
+  license
+  genre
+  recordLabel
+  credits
+  lyrics
+}

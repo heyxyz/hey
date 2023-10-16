@@ -11,9 +11,9 @@ interface NFTProps {
 }
 
 const NFTImage: FC<NFTProps> = ({ nft }) => {
-  return nft?.originalContent?.animatedUrl ? (
+  return nft?.metadata?.animationUrl ? (
     <div className="h-64 rounded-xl bg-gray-200 object-cover dark:bg-gray-800">
-      {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
+      {nft?.metadata?.animationUrl?.includes('.gltf') ? (
         <div
           style={{
             backgroundImage: `url(${`${STATIC_IMAGES_URL}/placeholder.webp`})`,
@@ -24,10 +24,10 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
         />
       ) : (
         <iframe
-          title={`${nft.contractAddress}:${nft.tokenId}`}
+          title={`${nft.contract.address}:${nft.tokenId}`}
           sandbox=""
           className="h-full w-full rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
-          src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
+          src={sanitizeDStorageUrl(nft?.metadata?.animationUrl)}
         />
       )}
     </div>
@@ -36,8 +36,8 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
       className="h-64 rounded-xl bg-gray-200 object-cover dark:bg-gray-800"
       style={{
         backgroundImage: `url(${
-          nft.originalContent.uri
-            ? sanitizeDStorageUrl(nft.originalContent.uri)
+          nft.metadata.image?.optimized?.uri
+            ? sanitizeDStorageUrl(nft.metadata.image?.optimized?.uri)
             : `${STATIC_IMAGES_URL}/placeholder.webp`
         })`,
         backgroundSize: 'contain',
@@ -51,7 +51,7 @@ const NFTImage: FC<NFTProps> = ({ nft }) => {
 const NftCard: FC<NFTProps> = ({ nft, linkToDetail = false }) => {
   return linkToDetail ? (
     <Link
-      href={`/nft/${nft.chainId}/${nft.contractAddress}/${nft.tokenId}`}
+      href={`/nft/${nft.contract.chainId}/${nft.contract.address}/${nft.tokenId}`}
       className="w-full"
     >
       <NFTImage nft={nft} />

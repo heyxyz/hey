@@ -5,7 +5,6 @@ import { Localstorage } from '@hey/data/storage';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -36,14 +35,14 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         }
       ),
       {
-        loading: t`Toggling gardener mode...`,
+        loading: 'Toggling gardener mode...',
         success: () => {
           setGardenerMode(!gardenerMode);
           Leafwatch.track(GARDENER.TOGGLE_MODE);
 
-          return t`Gardener mode toggled!`;
+          return 'Gardener mode toggled!';
         },
-        error: t`Failed to toggle gardener mode!`
+        error: 'Failed to toggle gardener mode!'
       }
     );
   };
@@ -61,9 +60,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
       ) : (
         <BoltIconOutline className="h-4 w-4 text-red-500" />
       )}
-      <div>
-        <Trans>Gardener mode</Trans>
-      </div>
+      <div>Gardener mode</div>
     </button>
   );
 };

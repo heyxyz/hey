@@ -18,6 +18,7 @@ const parseJwt = (
 ): {
   id: string;
   role: string;
+  authorizationId: string;
   iat: number;
   exp: number;
 } => {
@@ -27,6 +28,7 @@ const parseJwt = (
     return {
       id: '',
       role: '',
+      authorizationId: '',
       iat: 0,
       exp: 0
     };

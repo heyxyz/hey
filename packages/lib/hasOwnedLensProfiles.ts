@@ -20,9 +20,9 @@ const hasOwnedLensProfile = async (
       },
       body: JSON.stringify({
         query: `
-          query Profiles {
-            profiles(request: {
-              ownedBy: "${address}"
+          query ProfilesManaged {
+            profilesManaged(request: {
+              for: "${address}"
             }) {
               items {
                 id
@@ -34,10 +34,10 @@ const hasOwnedLensProfile = async (
     }
   );
 
-  const json: { data: { profiles: { items: { id: string }[] } } } =
+  const json: { data: { profilesManaged: { items: { id: string }[] } } } =
     await response.json();
 
-  const ids = json.data.profiles.items.map((item) => item.id);
+  const ids = json.data.profilesManaged.items.map((item) => item.id);
   const hasOwned = ids.includes(id);
 
   return hasOwned;

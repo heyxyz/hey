@@ -9,7 +9,6 @@ import LensEndpoint from '../lens-endpoints';
 const getEnvConfig = (): {
   apiEndpoint: string;
   lensHubProxyAddress: `0x${string}`;
-  lensPeripheryAddress: `0x${string}`;
   defaultCollectToken: string;
   litProtocolEnvironment: string;
 } => {
@@ -18,7 +17,6 @@ const getEnvConfig = (): {
       return {
         apiEndpoint: LensEndpoint.Testnet,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        lensPeripheryAddress: TestnetContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
         litProtocolEnvironment: 'mumbai'
       };
@@ -26,7 +24,6 @@ const getEnvConfig = (): {
       return {
         apiEndpoint: LensEndpoint.Staging,
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        lensPeripheryAddress: TestnetContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
         litProtocolEnvironment: 'mumbai'
       };
@@ -34,7 +31,6 @@ const getEnvConfig = (): {
       return {
         apiEndpoint: LensEndpoint.Sandbox,
         lensHubProxyAddress: SandboxContracts.LensHubProxy,
-        lensPeripheryAddress: SandboxContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
         litProtocolEnvironment: 'mumbai-sandbox'
       };
@@ -42,7 +38,6 @@ const getEnvConfig = (): {
       return {
         apiEndpoint: LensEndpoint.StagingSandbox,
         lensHubProxyAddress: SandboxContracts.LensHubProxy,
-        lensPeripheryAddress: SandboxContracts.LensPeriphery,
         defaultCollectToken: TestnetContracts.DefaultToken,
         litProtocolEnvironment: 'mumbai-sandbox'
       };
@@ -50,7 +45,6 @@ const getEnvConfig = (): {
       return {
         apiEndpoint: LensEndpoint.Mainnet,
         lensHubProxyAddress: MainnetContracts.LensHubProxy,
-        lensPeripheryAddress: MainnetContracts.LensPeriphery,
         defaultCollectToken: MainnetContracts.DefaultToken,
         litProtocolEnvironment: 'polygon'
       };

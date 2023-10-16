@@ -7,7 +7,6 @@ import formatHandle from '@hey/lib/formatHandle';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -58,7 +57,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
             {group.name}
           </div>
           {group.featured ? (
-            <Tooltip content={t`Featured`}>
+            <Tooltip content="Featured">
               <FireIcon className="h-6 w-6 text-yellow-500" />
             </Tooltip>
           ) : null}
@@ -74,7 +73,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
-          {group.instagram ? (
+          {group.lens ? (
             <MetaDetails
               icon={
                 <img
@@ -87,7 +86,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link href={`/u/${formatHandle(group.lens)}`}>
-                <Slug slug={formatHandle(group.lens)} />
+                <Slug slug={formatHandle(group.lens) as string} />
               </Link>
             </MetaDetails>
           ) : null}

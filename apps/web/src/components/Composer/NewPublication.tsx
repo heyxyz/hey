@@ -1,75 +1,55 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
-import Attachments from '@components/Shared/Attachments';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
 import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
+import NewAttachments from '@components/Shared/NewAttachments';
 import {
   ChatBubbleLeftRightIcon,
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_VIDEO_TYPES,
-  APP_NAME,
-  LENSHUB_PROXY,
-  LIT_PROTOCOL_ENVIRONMENT
-} from '@hey/data/constants';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
-  CreatePublicCommentRequest,
-  MetadataAttributeInput,
-  Publication,
-  PublicationMetadataMediaInput,
-  PublicationMetadataV2Input
+  AnyPublication,
+  MomokaCommentRequest,
+  MomokaPostRequest,
+  OnchainCommentRequest,
+  OnchainPostRequest,
+  Quote
 } from '@hey/lens';
 import {
-  CollectModules,
   PublicationDocument,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  ReferenceModules,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation,
-  useCreateDataAvailabilityCommentTypedDataMutation,
-  useCreateDataAvailabilityCommentViaDispatcherMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation,
+  ReferenceModuleType,
+  useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
+  useCommentOnchainMutation,
+  useCommentOnMomokaMutation,
+  useCreateMomokaCommentTypedDataMutation,
+  useCreateMomokaPostTypedDataMutation,
+  useCreateOnchainCommentTypedDataMutation,
+  useCreateOnchainPostTypedDataMutation,
+  usePostOnchainMutation,
+  usePostOnMomokaMutation,
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import type {
-  CollectCondition,
-  EncryptedMetadata,
-  FollowCondition,
-  LensEnvironment
-} from '@lens-protocol/sdk-gated';
-import { LensGatedSDK } from '@lens-protocol/sdk-gated';
-import type {
-  AccessConditionOutput,
-  CreatePublicPostRequest
-} from '@lens-protocol/sdk-gated/dist/graphql/types';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
-import getUserLocale from '@lib/getUserLocale';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t } from '@lingui/macro';
 import { useUnmountEffect } from 'framer-motion';
 import { $getRoot } from 'lexical';
 import dynamic from 'next/dynamic';
@@ -79,23 +59,19 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
-import useEthersWalletClient from 'src/hooks/useEthersWalletClient';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAccessSettingsStore } from 'src/store/access-settings';
+import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
 import { useAppStore } from 'src/store/app';
 import { useCollectModuleStore } from 'src/store/collect-module';
 import { useGlobalModalStateStore } from 'src/store/modals';
 import { useNonceStore } from 'src/store/nonce';
-import { usePreferencesStore } from 'src/store/preferences';
 import { usePublicationStore } from 'src/store/publication';
 import { useReferenceModuleStore } from 'src/store/reference-module';
 import { useTransactionPersistStore } from 'src/store/transaction';
-import urlcat from 'urlcat';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
-import { useContractWrite, usePublicClient, useSignTypedData } from 'wagmi';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
-import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
@@ -121,27 +97,15 @@ const ReferenceSettings = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
-const AccessSettings = dynamic(
-  () => import('@components/Composer/Actions/AccessSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
 const PollSettings = dynamic(
   () => import('@components/Composer/Actions/PollSettings'),
   {
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
-const LivestreamSettings = dynamic(
-  () => import('@components/Composer/Actions/LivestreamSettings'),
-  {
-    loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
-  }
-);
 
 interface NewPublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
@@ -150,6 +114,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
 
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
   // Modal store
   const setShowNewPostModal = useGlobalModalStateStore(
     (state) => state.setShowNewPostModal
@@ -157,9 +125,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setShowDiscardModal = useGlobalModalStateStore(
     (state) => state.setShowDiscardModal
   );
-
-  // Preferences store
-  const isStaff = usePreferencesStore((state) => state.isStaff);
 
   // Nonce store
   const { userSigNonce, setUserSigNonce } = useNonceStore();
@@ -177,15 +142,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     isUploading,
     videoThumbnail,
     setVideoThumbnail,
-    videoDurationInSeconds,
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
-    pollConfig,
-    showLiveVideoEditor,
-    setShowLiveVideoEditor,
-    resetLiveVideoConfig,
-    liveVideoConfig
+    pollConfig
   } = usePublicationStore();
 
   // Transaction persist store
@@ -202,40 +162,30 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
     useReferenceModuleStore();
 
-  // Access module store
-  const {
-    restricted,
-    followToView,
-    collectToView,
-    reset: resetAccessSettings
-  } = useAccessSettingsStore();
-
   // States
   const [isLoading, setIsLoading] = useState(false);
   const [publicationContentError, setPublicationContentError] = useState('');
 
   const [editor] = useLexicalComposerContext();
-  const publicClient = usePublicClient();
-  const { data: walletClient } = useEthersWalletClient();
   const [createPoll] = useCreatePoll();
+  const getMetadata = usePublicationMetadata();
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
-  const hasAudio = ALLOWED_AUDIO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasVideo = ALLOWED_VIDEO_TYPES.includes(
-    attachments[0]?.original.mimeType
-  );
-  const hasLiveVideo =
-    showLiveVideoEditor && liveVideoConfig.playbackId.length > 0;
+  const hasAudio = attachments[0]?.type === 'Audio';
+  const hasVideo = attachments[0]?.type === 'Video';
 
-  // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  // Lens manager
+  const canUseRelay = currentProfile?.lensManager;
+  const isSponsored = currentProfile?.sponsor;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -247,8 +197,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
-    setShowLiveVideoEditor(false);
-    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -256,7 +204,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
 
     if (!isComment) {
       setShowNewPostModal(false);
@@ -264,19 +211,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
-      publication_type: restricted ? 'token_gated' : 'public',
+      publication_type: 'public',
       publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
       publication_reference_module_degrees_of_separation:
         selectedReferenceModule ===
-        ReferenceModules.DegreesOfSeparationReferenceModule
+        ReferenceModuleType.DegreesOfSeparationReferenceModule
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
-      publication_attachment_types:
-        attachments.length > 0
-          ? attachments.map((attachment) => attachment.original.mimeType)
-          : null,
       publication_has_poll: showPollEditor
     };
     Leafwatch.track(
@@ -319,7 +262,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       attachments,
       title: audioPublication.title,
       cover: audioPublication.cover,
-      author: audioPublication.author
+      author: audioPublication.artist
     };
   };
 
@@ -345,29 +288,28 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   });
 
-  const [broadcastDataAvailability] = useBroadcastDataAvailabilityMutation({
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: (data) => {
       onCompleted();
-      if (data?.broadcastDataAvailability.__typename === 'RelayError') {
+      if (data?.broadcastOnMomoka.__typename === 'RelayError') {
         return toast.error(Errors.SomethingWentWrong);
       }
 
       if (
-        data?.broadcastDataAvailability.__typename ===
-        'CreateDataAvailabilityPublicationResult'
+        data?.broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult'
       ) {
-        push(`/posts/${data?.broadcastDataAvailability.id}`);
+        push(`/posts/${data?.broadcastOnMomoka.id}`);
       }
     },
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename);
-      if (broadcast.__typename === 'RelayerResult') {
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename);
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: broadcast.txId }),
+          generateOptimisticPublication({ txId: broadcastOnchain.txId }),
           ...txnQueue
         ]);
       }
@@ -398,52 +340,52 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
     if (isDataAvailabilityPublication) {
-      return await broadcastDataAvailability({
+      return await broadcastOnMomoka({
         variables: { request: { id, signature } }
       });
     }
 
-    const { data } = await broadcast({
+    const { data } = await broadcastOnchain({
       variables: { request: { id, signature } }
     });
-    if (data?.broadcast.__typename === 'RelayError') {
+    if (data?.broadcastOnchain.__typename === 'RelayError') {
       return write({ args: [typedData.value] });
     }
   };
 
   // Normal typed data generation
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) =>
-      await typedDataGenerator(createCommentTypedData),
-    onError
-  });
+  const [createOnchainCommentTypedData] =
+    useCreateOnchainCommentTypedDataMutation({
+      onCompleted: async ({ createOnchainCommentTypedData }) =>
+        await typedDataGenerator(createOnchainCommentTypedData),
+      onError
+    });
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) =>
-      await typedDataGenerator(createPostTypedData),
+  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
+    onCompleted: async ({ createOnchainPostTypedData }) =>
+      await typedDataGenerator(createOnchainPostTypedData),
     onError
   });
 
   // Data availability typed data generation
-  const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityPostTypedData, true)
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) =>
+      await typedDataGenerator(createMomokaPostTypedData, true)
+  });
+
+  const [createMomokaCommentTypedData] =
+    useCreateMomokaCommentTypedDataMutation({
+      onCompleted: async ({ createMomokaCommentTypedData }) =>
+        await typedDataGenerator(createMomokaCommentTypedData, true)
     });
 
-  const [createDataAvailabilityCommentTypedData] =
-    useCreateDataAvailabilityCommentTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityCommentTypedData }) =>
-        await typedDataGenerator(createDataAvailabilityCommentTypedData, true)
-    });
-
-  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onCompleted: ({ createCommentViaDispatcher }) => {
-      onCompleted(createCommentViaDispatcher.__typename);
-      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+  const [commentOnchain] = useCommentOnchainMutation({
+    onCompleted: ({ commentOnchain }) => {
+      onCompleted(commentOnchain.__typename);
+      if (commentOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
           generateOptimisticPublication({
-            txId: createCommentViaDispatcher.txId
+            txId: commentOnchain.txId
           }),
           ...txnQueue
         ]);
@@ -452,12 +394,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename);
-      if (createPostViaDispatcher.__typename === 'RelayerResult') {
+  const [postOnchain] = usePostOnchainMutation({
+    onCompleted: ({ postOnchain }) => {
+      onCompleted(postOnchain.__typename);
+      if (postOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: createPostViaDispatcher.txId }),
+          generateOptimisticPublication({ txId: postOnchain.txId }),
           ...txnQueue
         ]);
       }
@@ -465,148 +407,95 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityPostViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
+  const [commentOnMomoka] = useCommentOnMomokaMutation({
+    onCompleted: (data) => {
+      if (
+        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
+      ) {
+        return;
+      }
 
-        if (
-          data.createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityPostViaDispatcher;
-          push(`/posts/${id}`);
-        }
-      },
-      onError
-    });
+      if (data.commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        const { id } = data.commentOnMomoka;
+        getPublication({ variables: { request: { forId: id } } });
+      }
+    },
+    onError
+  });
 
-  const [createDataAvailabilityCommentViaDispatcher] =
-    useCreateDataAvailabilityCommentViaDispatcherMutation({
-      onCompleted: (data) => {
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return;
-        }
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onCompleted: (data) => {
+      if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+        return;
+      }
 
-        if (
-          data.createDataAvailabilityCommentViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted();
-          const { id } = data.createDataAvailabilityCommentViaDispatcher;
-          getPublication({ variables: { request: { publicationId: id } } });
-        }
-      },
-      onError
-    });
+      if (data.postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        const { id } = data.postOnMomoka;
+        push(`/posts/${id}`);
+      }
+    },
+    onError
+  });
 
-  const createViaDataAvailablityDispatcher = async (request: any) => {
-    const variables = { request };
-
+  const createOnMomka = async (request: any) => {
     if (isComment) {
-      const { data } = await createDataAvailabilityCommentViaDispatcher({
-        variables
+      const { data } = await commentOnMomoka({
+        variables: { request }
       });
 
       if (
-        data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-        'RelayError'
+        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
       ) {
-        await createDataAvailabilityCommentTypedData({ variables });
+        await createMomokaCommentTypedData({ variables: { request } });
       }
 
       return;
     }
 
-    const { data } = await createDataAvailabilityPostViaDispatcher({
-      variables
+    const { data } = await postOnMomoka({
+      variables: { request }
     });
 
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
-      await createDataAvailabilityPostTypedData({ variables });
+    if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      await createMomokaPostTypedData({ variables: { request } });
     }
 
     return;
   };
 
-  const createViaDispatcher = async (request: any) => {
+  const createOnChain = async (request: any) => {
     const variables = {
       options: { overrideSigNonce: userSigNonce },
       request
     };
 
     if (isComment) {
-      const { data } = await createCommentViaDispatcher({
+      const { data } = await commentOnchain({
         variables: { request }
       });
-      if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-        return await createCommentTypedData({ variables });
+      if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
+        return await createOnchainCommentTypedData({ variables });
       }
 
       return;
     }
 
-    const { data } = await createPostViaDispatcher({ variables: { request } });
-    if (data?.createPostViaDispatcher?.__typename === 'RelayError') {
-      return await createPostTypedData({ variables });
+    const { data } = await postOnchain({ variables: { request } });
+    if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
+      return await createOnchainPostTypedData({ variables });
     }
 
     return;
   };
 
-  const getMainContentFocus = () => {
-    if (attachments.length > 0) {
-      if (hasAudio) {
-        return PublicationMainFocus.Audio;
-      } else if (
-        ALLOWED_IMAGE_TYPES.includes(attachments[0]?.original.mimeType)
-      ) {
-        return PublicationMainFocus.Image;
-      } else if (hasVideo) {
-        return PublicationMainFocus.Video;
-      } else {
-        return PublicationMainFocus.TextOnly;
-      }
-    } else {
-      if (hasLiveVideo) {
-        return PublicationMainFocus.Video;
-      }
-
-      return PublicationMainFocus.TextOnly;
-    }
-  };
-
   const getAnimationUrl = () => {
-    if (attachments.length > 0 && (hasAudio || hasVideo)) {
-      return attachments[0]?.original.url;
+    if (attachments.length > 0 || hasAudio || hasVideo) {
+      return attachments[0]?.uri;
     }
 
     return null;
-  };
-
-  const getAttachmentImage = () => {
-    return hasAudio
-      ? audioPublication.cover
-      : hasVideo
-      ? videoThumbnail.url
-      : attachments[0]?.original.url;
-  };
-
-  const getAttachmentImageMimeType = () => {
-    return hasAudio
-      ? audioPublication.coverMimeType
-      : attachments[0]?.original.mimeType;
   };
 
   const getTitlePrefix = () => {
@@ -615,62 +504,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
 
     return isComment ? 'Comment' : 'Post';
-  };
-
-  const createTokenGatedMetadata = async (
-    metadata: PublicationMetadataV2Input
-  ) => {
-    // Create the SDK instance
-    const tokenGatedSdk = await LensGatedSDK.create({
-      provider: publicClient as any,
-      signer: walletClient as any,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Connect to the SDK
-    await tokenGatedSdk.connect({
-      address: currentProfile?.ownedBy,
-      env: LIT_PROTOCOL_ENVIRONMENT as LensEnvironment
-    });
-
-    // Condition for gating the content
-    const collectAccessCondition: CollectCondition = { thisPublication: true };
-    const followAccessCondition: FollowCondition = {
-      profileId: currentProfile?.id
-    };
-
-    // Create the access condition
-    let accessCondition: AccessConditionOutput = {};
-    if (collectToView && followToView) {
-      accessCondition = {
-        and: {
-          criteria: [
-            { collect: collectAccessCondition },
-            { follow: followAccessCondition }
-          ]
-        }
-      };
-    } else if (collectToView) {
-      accessCondition = { collect: collectAccessCondition };
-    } else if (followToView) {
-      accessCondition = { follow: followAccessCondition };
-    }
-
-    // Generate the encrypted metadata and upload it to Arweave
-    const { contentURI } = await tokenGatedSdk.gated.encryptMetadata(
-      metadata,
-      currentProfile?.id,
-      accessCondition,
-      async (data: EncryptedMetadata) => {
-        return await uploadToArweave(data);
-      }
-    );
-
-    return contentURI;
-  };
-
-  const createMetadata = async (metadata: PublicationMetadataV2Input) => {
-    return await uploadToArweave(metadata);
   };
 
   const createPublication = async () => {
@@ -682,9 +515,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
-    if (isComment && publication.isDataAvailability && !isSponsored) {
+    if (isComment && publication.momoka?.proof && !isSponsored) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       );
     }
 
@@ -707,79 +540,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       setPublicationContentError('');
       let textNftImageUrl = null;
-      if (
-        !attachments.length &&
-        collectModule.type !== CollectModules.RevertCollectModule
-      ) {
+      if (!attachments.length) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
-          currentProfile.handle,
+          getProfile(currentProfile).slug,
           new Date().toLocaleString()
         );
       }
-
-      const attributes: MetadataAttributeInput[] = [
-        ...(hasLiveVideo
-          ? [
-              {
-                traitType: 'isLive',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: 'true'
-              },
-              {
-                traitType: 'liveId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: liveVideoConfig.id
-              },
-              {
-                traitType: 'livePlaybackId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: liveVideoConfig.playbackId
-              }
-            ]
-          : []),
-        ...(quotedPublication
-          ? [
-              {
-                traitType: 'quotedPublicationId',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: quotedPublication.id
-              }
-            ]
-          : []),
-        ...(hasAudio
-          ? [
-              {
-                traitType: 'author',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: audioPublication.author
-              }
-            ]
-          : []),
-        ...(hasVideo
-          ? [
-              {
-                traitType: 'durationInSeconds',
-                displayType: PublicationMetadataDisplayTypes.String,
-                value: videoDurationInSeconds
-              }
-            ]
-          : [])
-      ];
-
-      const attachmentsInput: PublicationMetadataMediaInput[] = hasLiveVideo
-        ? [
-            {
-              item: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
-              type: 'video/mp4'
-            }
-          ]
-        : attachments.map((attachment) => ({
-            item: attachment.original.url,
-            cover: getAttachmentImage(),
-            type: attachment.original.mimeType,
-            altTag: attachment.original.altTag
-          }));
 
       let processedPublicationContent = publicationContent;
 
@@ -787,106 +554,89 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         processedPublicationContent = await createPoll();
       }
 
-      const metadata: PublicationMetadataV2Input = {
-        version: '2.0.0',
-        metadata_id: uuid(),
+      const baseMetadata = {
         content: processedPublicationContent,
-        external_url: urlcat('https://hey.xyz/:handle', {
-          handle: currentProfile.handle
-        }),
-        image:
-          attachmentsInput.length > 0 ? getAttachmentImage() : textNftImageUrl,
-        imageMimeType:
-          attachmentsInput.length > 0
-            ? getAttachmentImageMimeType()
-            : textNftImageUrl
-            ? 'image/svg+xml'
-            : null,
-        name: hasAudio
-          ? audioPublication.title
-          : `${getTitlePrefix()} by @${currentProfile?.handle}`,
-        animation_url: getAnimationUrl(),
-        mainContentFocus: getMainContentFocus(),
-        attributes,
-        media: attachmentsInput,
-        locale: getUserLocale(),
-        appId: APP_NAME
+        marketplace: {
+          name: hasAudio
+            ? audioPublication.title
+            : `${getTitlePrefix()} by ${
+                getProfile(currentProfile).slugWithPrefix
+              }`,
+          description: processedPublicationContent,
+          animation_url: getAnimationUrl() || textNftImageUrl,
+          external_url: `https://hey.xyz${getProfile(currentProfile).link}`
+        }
       };
 
-      const isRevertCollectModule =
-        collectModule.type === CollectModules.RevertCollectModule;
-      const useDataAvailability =
-        !restricted &&
-        (isComment
-          ? publication.isDataAvailability && isRevertCollectModule
-          : isRevertCollectModule);
+      const metadata = getMetadata({ baseMetadata });
 
-      let arweaveId = null;
-      if (restricted) {
-        arweaveId = await createTokenGatedMetadata(metadata);
-      } else {
-        arweaveId = await createMetadata(metadata);
+      const noCollect = !collectModule.type;
+      const useDataAvailability = isComment
+        ? publication.momoka?.proof && noCollect
+        : noCollect;
+      const arweaveId = await uploadToArweave(metadata);
+
+      // Payload for the open action module
+      let openActionModules = [];
+      if (collectModule.type) {
+        openActionModules.push({
+          collectOpenAction: collectModuleParams(collectModule, currentProfile)
+        });
       }
 
       // Payload for the post/comment
-      const request: CreatePublicPostRequest | CreatePublicCommentRequest = {
-        profileId: currentProfile?.id,
+      const request: OnchainPostRequest | OnchainCommentRequest = {
         contentURI: `ar://${arweaveId}`,
         ...(isComment && {
-          publicationId:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.id
+          commentOn: targetPublication.id
         }),
-        collectModule: collectModuleParams(collectModule, currentProfile),
-        referenceModule:
-          selectedReferenceModule ===
-          ReferenceModules.FollowerOnlyReferenceModule
-            ? { followerOnlyReferenceModule: onlyFollowers ? true : false }
-            : {
-                degreesOfSeparationReferenceModule: {
-                  commentsRestricted: true,
-                  mirrorsRestricted: true,
-                  degreesOfSeparation
+        openActionModules,
+        ...(onlyFollowers && {
+          referenceModule:
+            selectedReferenceModule ===
+            ReferenceModuleType.FollowerOnlyReferenceModule
+              ? { followerOnlyReferenceModule: true }
+              : {
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: true,
+                    mirrorsRestricted: true,
+                    quotesRestricted: true,
+                    degreesOfSeparation
+                  }
                 }
-              }
+        })
       };
 
       // Payload for the data availability post/comment
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
+      const dataAvailablityRequest: MomokaPostRequest | MomokaCommentRequest = {
         ...(isComment && {
-          commentOn:
-            publication.__typename === 'Mirror'
-              ? publication?.mirrorOf?.id
-              : publication?.id
+          commentOn: targetPublication.id
         }),
         contentURI: `ar://${arweaveId}`
       };
 
       if (canUseRelay) {
         if (useDataAvailability && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          );
+          return await createOnMomka(dataAvailablityRequest);
         }
 
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
       if (isComment) {
-        return await createCommentTypedData({
+        return await createOnchainCommentTypedData({
           variables: {
             options: { overrideSigNonce: userSigNonce },
-            request: request as CreatePublicCommentRequest
+            request: request as OnchainCommentRequest
           }
         });
       }
 
-      return await createPostTypedData({
+      return await createOnchainPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
     } catch (error) {
+      console.log('error', error);
       onError(error);
     }
   };
@@ -894,12 +644,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
       id: uuid(),
-      previewItem: gif.images.original.url,
-      original: {
-        url: gif.images.original.url,
-        mimeType: 'image/gif',
-        altTag: gif.title
-      }
+      uri: gif.images.original.url,
+      mimeType: 'image/gif',
+      previewUri: gif.images.original.url,
+      type: 'Image'
     };
     addAttachments([attachment]);
   };
@@ -925,7 +673,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       uploading: false
     });
     resetCollectSettings();
-    resetAccessSettings();
   });
 
   return (
@@ -939,7 +686,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {error ? (
         <ErrorMessage
           className="!rounded-none"
-          title={t`Transaction failed!`}
+          title="Transaction failed!"
           error={error}
         />
       ) : null}
@@ -950,20 +697,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
-      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPublication publication={quotedPublication} isNew />
+          <QuotedPublication publication={quotedPublication as Quote} isNew />
         </Wrapper>
       ) : null}
       <div className="block items-center px-5 sm:flex">
         <div className="flex items-center space-x-4">
-          {!showLiveVideoEditor && (
-            <>
-              <Attachment />
-              <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
-            </>
-          )}
+          <Attachment />
           <EmojiPicker
             emojiClassName="text-brand"
             setShowEmojiPicker={setShowEmojiPicker}
@@ -984,17 +725,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               });
             }}
           />
-          {!publication?.isDataAvailability ? (
+          <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          {!publication?.momoka?.proof ? (
             <>
               <CollectSettings />
               <ReferenceSettings />
-              <AccessSettings />
             </>
           ) : null}
           <PollSettings />
-          {!isComment && attachments.length <= 0 && isStaff && (
-            <LivestreamSettings />
-          )}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
@@ -1015,12 +753,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             }
             onClick={createPublication}
           >
-            {isComment ? t`Comment` : t`Post`}
+            {isComment ? 'Comment' : 'Post'}
           </Button>
         </div>
       </div>
       <div className="px-5">
-        <Attachments attachments={attachments} isNew />
+        <NewAttachments attachments={attachments} />
       </div>
       <Discard onDiscard={onDiscardClick} />
     </Card>

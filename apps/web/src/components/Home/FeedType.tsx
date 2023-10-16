@@ -1,16 +1,10 @@
-import {
-  LightBulbIcon,
-  SparklesIcon,
-  UserGroupIcon
-} from '@heroicons/react/24/outline';
+import { LightBulbIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
 import { HomeFeedType } from '@hey/data/enums';
 import { HOME } from '@hey/data/tracking';
 import { TabButton } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { usePreferencesStore } from 'src/store/preferences';
 
 import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';
@@ -22,13 +16,11 @@ interface FeedTypeProps {
 }
 
 const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
-
   return (
     <div className="flex flex-wrap items-center justify-between px-1 md:px-0">
       <div className="flex gap-3 overflow-x-auto sm:px-0">
         <TabButton
-          name={t`Following`}
+          name="Following"
           icon={<UserGroupIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.FOLLOWING}
           onClick={() => {
@@ -36,19 +28,8 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
           }}
         />
-        {isLensMember ? (
-          <TabButton
-            name={t`For you`}
-            icon={<SparklesIcon className="h-4 w-4" />}
-            active={feedType === HomeFeedType.FOR_YOU}
-            onClick={() => {
-              setFeedType(HomeFeedType.FOR_YOU);
-              Leafwatch.track(HOME.SWITCH_FOR_YOU_FEED);
-            }}
-          />
-        ) : null}
         <TabButton
-          name={t`Highlights`}
+          name="Highlights"
           icon={<LightBulbIcon className="h-4 w-4" />}
           active={feedType === HomeFeedType.HIGHLIGHTS}
           onClick={() => {

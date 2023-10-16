@@ -6,7 +6,6 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/app';
 import { useEffectOnce } from 'usehooks-ts';
@@ -26,25 +25,21 @@ const InterestsSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Interests settings • ${APP_NAME}`} />
+      <MetaTags title={`Interests settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">
-          <div className="space-y-5">
+          <div className="space-y-3">
             <div className="flex items-center space-x-2">
-              <div className="text-lg font-bold">
-                <Trans>Select profile interests</Trans>
-              </div>
+              <div className="text-lg font-bold">Select profile interests</div>
               <Beta />
             </div>
             <p>
-              <Trans>
-                Interests you select are used to personalize your experience
-                across {APP_NAME}. You can adjust your interests if something
-                doesn't look right.
-              </Trans>
+              Interests you select are used to personalize your experience
+              across {APP_NAME}. You can adjust your interests if something
+              doesn't look right.
             </p>
           </div>
           <div className="divider my-5" />

@@ -10,7 +10,6 @@ export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 
 export const API_URL = getEnvConfig().apiEndpoint;
 export const LENSHUB_PROXY = getEnvConfig().lensHubProxyAddress;
-export const LENS_PERIPHERY = getEnvConfig().lensPeripheryAddress;
 export const DEFAULT_COLLECT_TOKEN = getEnvConfig().defaultCollectToken;
 export const LIT_PROTOCOL_ENVIRONMENT = getEnvConfig().litProtocolEnvironment;
 
@@ -52,10 +51,7 @@ export const GIT_COMMIT_SHA =
 // Misc
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
-export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
-// TODO: Remove this once everyone has migrated to the new Lens relayer
-export const OLD_LENS_RELAYER_ADDRESS =
-  '0xD1FecCF6881970105dfb2b654054174007f0e07E';
+export const HANDLE_PREFIX = IS_MAINNET ? 'lens/@' : 'test/@';
 
 // URLs
 export const STATIC_ASSETS_URL = 'https://static-assets.hey.xyz';

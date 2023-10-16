@@ -1,11 +1,10 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@hey/data/constants';
-import type { Publication } from '@hey/lens';
+import { IPFS_GATEWAY } from '@hey/data/constants';
+import type { AnyPublication } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import urlcat from 'urlcat';
 
 interface MetaProps {
   name: string;
@@ -31,22 +30,18 @@ const Meta: FC<MetaProps> = ({ name, uri, hash }) => (
 );
 
 interface OnchainMetaProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
-  const hash =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOf.onChainContentURI?.split('/').pop()
-      : publication.onChainContentURI?.split('/').pop();
-  const collectNftAddress =
-    publication?.__typename === 'Mirror'
-      ? publication.mirrorOf?.collectNftAddress
-      : publication?.collectNftAddress;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const hash = targetPublication.metadata.rawURI?.split('/').pop();
   const isArweaveHash = hash?.length === 43;
   const isIPFSHash = hash?.length === 46 || hash?.length === 59;
 
-  if (!isArweaveHash && !isIPFSHash && !collectNftAddress) {
+  if (!isArweaveHash && !isIPFSHash) {
     return null;
   }
 
@@ -55,20 +50,18 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
       <div className="lt-text-gray-500 divide-y dark:divide-gray-700">
         {isArweaveHash ? (
           <Meta
-            name={t`ARWEAVE TRANSACTION`}
-            uri={urlcat('https://arweave.net/:hash', { hash })}
+            name="ARWEAVE TRANSACTION"
+            uri={`https://arweave.app/tx/${hash}`}
             hash={hash}
           />
         ) : null}
-        {publication?.isDataAvailability ? (
+        {publication?.momoka?.proof ? (
           <Meta
-            name={t`MOMOKA PROOF`}
-            uri={urlcat('https://momoka.lens.xyz/tx/:proof', {
-              proof: publication.dataAvailabilityProofs?.split('/').pop()
-            })}
-            hash={
-              publication.dataAvailabilityProofs?.split('/').pop() as string
-            }
+            name="MOMOKA PROOF"
+            uri={`https://momoka.lens.xyz/tx/${publication.momoka.proof
+              ?.split('/')
+              .pop()}`}
+            hash={publication.momoka.proof?.split('/').pop() as string}
           />
         ) : null}
         {isIPFSHash ? (
@@ -76,13 +69,6 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
             name="IPFS TRANSACTION"
             uri={`${IPFS_GATEWAY}${hash}`}
             hash={hash}
-          />
-        ) : null}
-        {collectNftAddress ? (
-          <Meta
-            name={t`NFT ADDRESS`}
-            uri={`${POLYGONSCAN_URL}/token/${collectNftAddress}`}
-            hash={collectNftAddress}
           />
         ) : null}
       </div>

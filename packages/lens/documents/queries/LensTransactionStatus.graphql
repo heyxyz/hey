@@ -1,0 +1,8 @@
+query LensTransactionStatus($request: LensTransactionStatusRequest!) {
+  lensTransactionStatus(request: $request) {
+    status
+    txHash
+    reason
+    extraInfo
+  }
+}

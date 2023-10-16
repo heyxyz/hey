@@ -1,18 +1,11 @@
 import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Card, Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import {
-  formatDate,
-  formatTime,
-  getTimeFromNow,
-  isOnSameDay
-} from '@lib/formatTime';
-import { Trans } from '@lingui/macro';
+import { formatDate, getTimeFromNow, isOnSameDay } from '@lib/formatTime';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
 import React, { memo, useEffect } from 'react';
@@ -39,7 +32,7 @@ const MessageTile: FC<MessageTileProps> = ({
   profile,
   currentProfile
 }) => {
-  const address = currentProfile?.ownedBy;
+  const address = currentProfile?.ownedBy.address;
 
   // icon to display to indicate status of message
   let statusIcon: JSX.Element | null = null;
@@ -64,13 +57,13 @@ const MessageTile: FC<MessageTileProps> = ({
       case 'failed':
         statusContent = (
           <span className="flex items-center gap-1 text-red-500">
-            <Trans>Not delivered</Trans> &bull;
+            Not delivered &bull;
             <span className="cursor-pointer underline" onClick={message.retry}>
-              <Trans>Retry</Trans>
+              Retry
             </span>
             &bull;
             <span className="cursor-pointer underline" onClick={message.cancel}>
-              <Trans>Cancel</Trans>
+              Cancel
             </span>
           </span>
         );
@@ -96,7 +89,7 @@ const MessageTile: FC<MessageTileProps> = ({
           <Image
             src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
         ) : null}
         <div
@@ -127,7 +120,6 @@ const MessageTile: FC<MessageTileProps> = ({
             address === message.senderAddress ? 'flex-row' : 'flex-row-reverse',
             'flex items-center gap-1 text-xs text-gray-400'
           )}
-          title={formatTime(message.sent)}
         >
           {statusIcon}
           {statusContent}
@@ -166,12 +158,10 @@ const MissingXmtpAuth: FC = () => (
   >
     <div className="flex items-center space-x-2 font-bold">
       <FaceFrownIcon className="h-5 w-5" />
-      <p>
-        <Trans>This fren hasn't enabled DMs yet</Trans>
-      </p>
+      <p>This fren hasn't enabled DMs yet</p>
     </div>
     <p className="text-sm leading-[22px]">
-      <Trans>You can't send them a message until they enable DMs.</Trans>
+      You can't send them a message until they enable DMs.
     </p>
   </Card>
 );
@@ -179,14 +169,14 @@ const MissingXmtpAuth: FC = () => (
 const ConversationBeginningNotice: FC = () => (
   <div className="align-items-center mt-6 flex justify-center pb-4">
     <span className="text-sm font-bold text-gray-300">
-      <Trans>This is the beginning of the conversation</Trans>
+      This is the beginning of the conversation
     </span>
   </div>
 );
 
 const LoadingMore: FC = () => (
   <div className="mt-6 p-1 text-center text-sm font-bold text-gray-300">
-    <Trans>Loading...</Trans>
+    Loading...
   </div>
 );
 

@@ -3,15 +3,14 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { formatTime, getTwitterFormat } from '@lib/formatTime';
+import { getTwitterFormat } from '@lib/formatTime';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -57,9 +56,12 @@ const UserProfile: FC<UserProfileProps> = ({
   followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-  const statusEmoji = getProfileAttribute(profile?.attributes, 'statusEmoji');
+  const statusEmoji = getProfileAttribute(
+    profile?.metadata?.attributes,
+    'statusEmoji'
+  );
   const statusMessage = getProfileAttribute(
-    profile?.attributes,
+    profile?.metadata?.attributes,
     'statusMessage'
   );
   const hasStatus = statusEmoji && statusMessage;
@@ -74,7 +76,7 @@ const UserProfile: FC<UserProfileProps> = ({
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
-      alt={formatHandle(profile?.handle)}
+      alt={profile.id}
     />
   );
 
@@ -82,10 +84,7 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          <div className="truncate">
-            {sanitizeDisplayName(profile?.name) ??
-              formatHandle(profile?.handle)}
-          </div>
+          <div className="truncate">{getProfile(profile).displayName}</div>
         </div>
         {isVerified(profile.id) ? (
           <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
@@ -106,15 +105,13 @@ const UserProfile: FC<UserProfileProps> = ({
       <div>
         <Slug
           className="text-sm"
-          slug={formatHandle(profile?.handle)}
-          prefix="@"
+          slug={getProfile(profile).slug}
+          prefix={getProfile(profile).prefix}
         />
         {timestamp ? (
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
-            <span className="text-xs" title={formatTime(timestamp as Date)}>
-              {getTwitterFormat(timestamp)}
-            </span>
+            <span className="text-xs">{getTwitterFormat(timestamp)}</span>
           </span>
         ) : null}
       </div>
@@ -125,7 +122,8 @@ const UserProfile: FC<UserProfileProps> = ({
     return (
       <UserPreview
         isBig={isBig}
-        profile={profile}
+        handle={profile.handle}
+        id={profile.id}
         followStatusLoading={followStatusLoading}
         showUserPreview={showUserPreview}
       >
@@ -133,7 +131,7 @@ const UserProfile: FC<UserProfileProps> = ({
           <UserAvatar />
           <div>
             <UserName />
-            {showBio && profile?.bio ? (
+            {showBio && profile?.metadata?.bio ? (
               <div
                 // Replace with Tailwind
                 style={{ wordBreak: 'break-word' }}
@@ -143,7 +141,7 @@ const UserProfile: FC<UserProfileProps> = ({
                   'linkify leading-6'
                 )}
               >
-                <Markup>{profile?.bio}</Markup>
+                <Markup>{profile?.metadata.bio}</Markup>
               </div>
             ) : null}
           </div>
@@ -157,8 +155,8 @@ const UserProfile: FC<UserProfileProps> = ({
       className="flex items-center justify-between"
       data-testid={`user-profile-${profile.id}`}
     >
-      {linkToProfile ? (
-        <Link href={`/u/${formatHandle(profile?.handle)}`}>
+      {linkToProfile && profile.id ? (
+        <Link href={getProfile(profile).link}>
           <UserInfo />
         </Link>
       ) : (
@@ -167,8 +165,8 @@ const UserProfile: FC<UserProfileProps> = ({
       {showFollow ? (
         followStatusLoading ? (
           <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? null : profile?.followModule?.__typename ===
-          'FeeFollowModuleSettings' ? (
+        ) : following ? null : profile?.followModule?.type ===
+          FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             profile={profile}
             setFollowing={setFollowing}

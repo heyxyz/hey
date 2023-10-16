@@ -8,8 +8,10 @@ import UserProfile from '@components/Shared/UserProfile';
 import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import type { AnyPublication } from '@hey/lens';
 import { usePublicationQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -42,19 +44,9 @@ const ViewPublication: NextPage = () => {
   });
 
   const { data, loading, error } = usePublicationQuery({
-    variables: {
-      request: { publicationId: id },
-      reactionRequest: currentProfile
-        ? { profileId: currentProfile?.id }
-        : null,
-      profileId: currentProfile?.id ?? null
-    },
+    variables: { request: { forId: id } },
     skip: !id
   });
-
-  if (error) {
-    return <Custom500 />;
-  }
 
   if (loading || !data) {
     return <PublicationPageShimmer />;
@@ -64,16 +56,23 @@ const ViewPublication: NextPage = () => {
     return <Custom404 />;
   }
 
-  const { publication } = data as any;
-  const canComment = publication?.canComment?.result;
+  if (error) {
+    return <Custom500 />;
+  }
+
+  const publication = data.publication as AnyPublication;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const canComment = targetPublication?.operations.canComment === 'YES';
 
   return (
     <GridLayout>
       <MetaTags
         title={
-          publication.__typename && publication?.profile?.handle
+          publication.__typename && publication?.by?.handle
             ? `${publication.__typename} by @${formatHandle(
-                publication.profile.handle
+                publication.by.handle
               )} • ${APP_NAME}`
             : APP_NAME
         }
@@ -82,7 +81,7 @@ const ViewPublication: NextPage = () => {
         <Card>
           <FullPublication publication={publication} key={publication?.id} />
         </Card>
-        {currentProfile && !publication?.hidden && !showNewPostModal ? (
+        {currentProfile && !publication.isHidden && !showNewPostModal ? (
           canComment ? (
             <NewPublication publication={publication} />
           ) : (
@@ -94,14 +93,7 @@ const ViewPublication: NextPage = () => {
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5" dataTestId="poster-profile">
-          <UserProfile
-            profile={
-              publication.__typename === 'Mirror'
-                ? publication?.mirrorOf?.profile
-                : publication?.profile
-            }
-            showBio
-          />
+          <UserProfile profile={targetPublication.by} showBio />
         </Card>
         <RelevantPeople publication={publication} />
         <OnchainMeta publication={publication} />

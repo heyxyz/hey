@@ -1,13 +1,15 @@
-import type { Publication } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import type { AnyPublication } from '@hey/lens';
+import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
+import getPublicationData from '@hey/lib/getPublicationData';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { BASE_URL } from 'src/constants';
 
 interface PublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   h1Content?: boolean;
 }
 
@@ -15,43 +17,37 @@ const SinglePublication: FC<PublicationProps> = ({
   publication,
   h1Content = false
 }) => {
-  const { id, stats, metadata, __typename } = publication;
-  const hasMedia = metadata?.media.length;
-  const isMirror = __typename === 'Mirror';
-  const profile: any = isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
-  const publicationId = isMirror ? publication?.mirrorOf?.id : id;
-  const avatar = sanitizeDStorageUrl(
-    profile.picture?.original?.url ??
-      profile.picture?.uri ??
-      getStampFyiURL(profile?.ownedBy)
-  );
-  const attachment = hasMedia
-    ? sanitizeDStorageUrl(metadata?.media[0].original.url)
-    : null;
-  const content = truncateByWords(metadata?.content, 30);
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { stats, metadata } = targetPublication;
+
+  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
+  const filteredAsset = getPublicationData(metadata)?.asset;
+
+  const media =
+    filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
+  const mediaType = filteredAsset?.type || filteredAttachments[0]?.type;
+  const isVideo = mediaType === 'Video';
+  const isAudio = mediaType === 'Audio';
+  const profile = targetPublication.by;
+  const publicationId = targetPublication.id;
+  const avatar = getAvatar(profile);
+  const attachment = media ? sanitizeDStorageUrl(media) : null;
+  const content = truncateByWords(filteredContent, 30);
 
   // Stats
-  const commentsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfComments
-    : stats.totalAmountOfComments;
-  const likesCount = isMirror
-    ? publication.mirrorOf.stats.totalUpvotes
-    : stats.totalUpvotes;
-  const collectsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfCollects
-    : stats.totalAmountOfCollects;
-  const mirrorsCount = isMirror
-    ? publication.mirrorOf.stats.totalAmountOfMirrors
-    : stats.totalAmountOfMirrors;
+  const commentsCount = stats.comments;
+  const likesCount = stats.reactions;
+  const mirrorsCount = stats.mirrors;
 
   return (
     <>
       <div>
-        <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
+        <a href={`${BASE_URL}${getProfile(profile).link}`}>
           <img
-            alt={`@${formatHandle(profile.handle)}'s avatar`}
+            alt={`${getProfile(profile).slugWithPrefix}'s avatar`}
             src={avatar}
             width="64"
           />
@@ -59,13 +55,13 @@ const SinglePublication: FC<PublicationProps> = ({
       </div>
       <div data-testid={`publication-${publicationId}`}>
         <div>
-          <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            {profile.name ?? profile.handle}
+          <a href={`${BASE_URL}${getProfile(profile).link}`}>
+            {getProfile(profile).displayName}
           </a>
         </div>
         <div>
-          <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            @{formatHandle(profile.handle)}
+          <a href={`${BASE_URL}${getProfile(profile).link}`}>
+            {getProfile(profile).slugWithPrefix}
           </a>
         </div>
         {h1Content ? (
@@ -78,18 +74,18 @@ const SinglePublication: FC<PublicationProps> = ({
           </div>
         )}
         {attachment ? (
-          <div>
+          isVideo ? (
+            <video src={attachment} />
+          ) : isAudio ? (
+            <audio src={attachment} />
+          ) : (
             <img alt="attachment" src={attachment} width="500" />
-          </div>
+          )
         ) : null}
       </div>
       <div>
         <div>{commentsCount} Comments</div>
         <div>{likesCount} Likes</div>
-        {publication.collectModule.__typename !==
-        'RevertCollectModuleSettings' ? (
-          <div>{collectsCount} Collects</div>
-        ) : null}
         <div>{mirrorsCount} Mirrors</div>
         <hr />
       </div>

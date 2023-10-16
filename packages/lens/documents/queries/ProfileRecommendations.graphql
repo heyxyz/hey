@@ -1,0 +1,7 @@
+query ProfileRecommendations($request: ProfileRecommendationsRequest!) {
+  profileRecommendations(request: $request) {
+    items {
+      ...ProfileFields
+    }
+  }
+}

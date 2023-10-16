@@ -1,29 +1,27 @@
 import UserProfilesShimmer from '@components/Shared/Shimmer/UserProfilesShimmer';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import type { ProfileSearchResult, SearchQueryRequest } from '@hey/lens';
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
+  CustomFiltersType,
+  LimitType,
   useSearchProfilesQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 interface ProfilesProps {
-  query: string | string[];
+  query: string;
 }
 
 const Profiles: FC<ProfilesProps> = ({ query }) => {
   // Variables
-  const request: SearchQueryRequest = {
+  const request: ProfileSearchRequest = {
+    where: { customFilters: [CustomFiltersType.Gardeners] },
     query,
-    type: SearchRequestTypes.Profile,
-    customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 30
+    limit: LimitType.Fifty
   };
 
   const { data, loading, error, fetchMore } = useSearchProfilesQuery({
@@ -31,7 +29,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
     skip: !query
   });
 
-  const search = data?.search as ProfileSearchResult;
+  const search = data?.searchProfiles;
   const profiles = search?.items;
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
@@ -53,18 +51,14 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   if (profiles?.length === 0) {
     return (
       <EmptyState
-        message={
-          <Trans>
-            No profiles for <b>&ldquo;{query}&rdquo;</b>
-          </Trans>
-        }
+        message="No profiles for <b>&ldquo;{query}&rdquo;</b>"
         icon={<UsersIcon className="text-brand h-8 w-8" />}
       />
     );
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load profiles`} error={error} />;
+    return <ErrorMessage title="Failed to load profiles" error={error} />;
   }
 
   return (
@@ -81,7 +75,7 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
             exit={{ opacity: 0 }}
           >
             <Card key={profile?.id} className="p-5">
-              <UserProfile profile={profile} showBio isBig />
+              <UserProfile profile={profile as Profile} showBio isBig />
             </Card>
           </motion.div>
         );

@@ -4,7 +4,6 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import type { FC } from 'react';
 
-import { EmojiNode } from './Nodes/EmojiNode';
 import { MentionNode } from './Nodes/MentionsNode';
 
 const initialConfig = {
@@ -18,14 +17,7 @@ const initialConfig = {
     link: 'text-brand',
     hashtag: 'text-brand'
   },
-  nodes: [
-    CodeNode,
-    MentionNode,
-    HashtagNode,
-    AutoLinkNode,
-    LinkNode,
-    EmojiNode
-  ],
+  nodes: [CodeNode, MentionNode, HashtagNode, AutoLinkNode, LinkNode],
   editorState: null,
   onError: () => {}
 };

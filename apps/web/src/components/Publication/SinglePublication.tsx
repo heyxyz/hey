@@ -1,6 +1,7 @@
 import ActionType from '@components/Home/Timeline/EventType';
 import PublicationWrapper from '@components/Shared/PublicationWrapper';
-import type { ElectedMirror, FeedItem, Publication } from '@hey/lens';
+import type { AnyPublication, FeedItem } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 
@@ -13,7 +14,7 @@ import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
 
 interface SinglePublicationProps {
-  publication: Publication;
+  publication: AnyPublication;
   feedItem?: FeedItem;
   showType?: boolean;
   showActions?: boolean;
@@ -41,6 +42,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       ? firstComment
       : feedItem?.root
     : publication;
+  const { metadata } = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
 
   return (
     <PublicationWrapper
@@ -62,7 +66,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
       <div className="ml-[53px]">
-        {publication?.hidden ? (
+        {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (
           <>
@@ -72,15 +76,9 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             />
             <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
-                <PublicationActions
-                  publication={rootPublication}
-                  electedMirror={feedItem?.electedMirror as ElectedMirror}
-                />
+                <PublicationActions publication={rootPublication} />
               ) : null}
-              <FeaturedGroup
-                className="mt-3"
-                tags={publication.metadata.tags}
-              />
+              <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>
             {showModActions ? (
               <ModAction

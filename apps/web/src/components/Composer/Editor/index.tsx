@@ -1,7 +1,6 @@
 import MentionsPlugin from '@components/Shared/Lexical/Plugins/AtMentionsPlugin';
 import LexicalAutoLinkPlugin from '@components/Shared/Lexical/Plugins/AutoLinkPlugin';
 import EmojiPickerPlugin from '@components/Shared/Lexical/Plugins/EmojiPicker';
-import EmojisPlugin from '@components/Shared/Lexical/Plugins/EmojisPlugin';
 import ImagesPlugin from '@components/Shared/Lexical/Plugins/ImagesPlugin';
 import ToolbarPlugin from '@components/Shared/Lexical/Plugins/ToolbarPlugin';
 import { Errors } from '@hey/data/errors';
@@ -16,7 +15,6 @@ import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
-import { t, Trans } from '@lingui/macro';
 import {
   COMMAND_PRIORITY_NORMAL,
   INSERT_LINE_BREAK_COMMAND,
@@ -44,7 +42,7 @@ const Editor: FC = () => {
       attachments.length === 4 ||
       attachments.length + pastedFiles.length > 4
     ) {
-      return toast.error(t`Please choose either 1 video or up to 4 photos.`);
+      return toast.error('Please choose either 1 video or up to 4 photos.');
     }
 
     if (pastedFiles) {
@@ -73,11 +71,7 @@ const Editor: FC = () => {
         }
         placeholder={
           <div className="pointer-events-none absolute top-[65px] whitespace-nowrap px-5 text-gray-400">
-            {showPollEditor ? (
-              <Trans>Ask a question...</Trans>
-            ) : (
-              <Trans>What's happening?</Trans>
-            )}
+            {showPollEditor ? 'Ask a question...' : "What's happening?"}
           </div>
         }
         ErrorBoundary={() => <div>{Errors.SomethingWentWrong}</div>}
@@ -90,7 +84,6 @@ const Editor: FC = () => {
           });
         }}
       />
-      <EmojisPlugin />
       <LexicalAutoLinkPlugin />
       <HistoryPlugin />
       <HashtagPlugin />

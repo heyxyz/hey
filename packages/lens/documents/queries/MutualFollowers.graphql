@@ -1,12 +1,10 @@
-query MutualFollowers($request: MutualFollowersProfilesQueryRequest!) {
-  mutualFollowersProfiles(request: $request) {
+query MutualFollowers($request: MutualFollowersRequest!) {
+  mutualFollowers(request: $request) {
     items {
       ...ProfileFields
-      isFollowedByMe
     }
     pageInfo {
       next
-      totalCount
     }
   }
 }

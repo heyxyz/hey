@@ -12,9 +12,9 @@ interface SingleNftProps {
 
 const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
   const nftURL = linkToDetail
-    ? `${RARIBLE_URL}/token/${nft.chainId === CHAIN_ID ? 'polygon/' : ''}${
-        nft.contractAddress
-      }:${nft.tokenId}`.toLowerCase()
+    ? `${RARIBLE_URL}/token/${
+        nft.contract.chainId === CHAIN_ID ? 'polygon/' : ''
+      }${nft.contract.address}:${nft.tokenId}`.toLowerCase()
     : undefined;
 
   return (
@@ -23,9 +23,9 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
         onClick={() => nftURL && window.open(nftURL, '_blank')}
         className="cursor-pointer"
       >
-        {nft?.originalContent?.animatedUrl ? (
+        {nft?.metadata?.animationUrl ? (
           <div className="divider h-52 sm:h-60 sm:rounded-t-[10px]">
-            {nft?.originalContent?.animatedUrl?.includes('.gltf') ? (
+            {nft?.metadata?.animationUrl?.includes('.gltf') ? (
               <div
                 style={{
                   backgroundImage: `url(${`${STATIC_IMAGES_URL}/placeholder.webp`})`,
@@ -37,9 +37,9 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
             ) : (
               <iframe
                 className="h-full w-full rounded-b-none"
-                title={`${nft.contractAddress}:${nft.tokenId}`}
+                title={`${nft.contract.address}:${nft.tokenId}`}
                 sandbox=""
-                src={sanitizeDStorageUrl(nft?.originalContent?.animatedUrl)}
+                src={sanitizeDStorageUrl(nft?.metadata?.animationUrl)}
               />
             )}
           </div>
@@ -48,8 +48,8 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
             className="divider h-52 sm:h-60 sm:rounded-t-[10px]"
             style={{
               backgroundImage: `url(${
-                nft.originalContent.uri
-                  ? sanitizeDStorageUrl(nft.originalContent.uri)
+                nft.metadata.image?.optimized?.uri
+                  ? sanitizeDStorageUrl(nft.metadata.image.optimized.uri)
                   : `${STATIC_IMAGES_URL}/placeholder.webp`
               })`,
               backgroundSize: 'contain',
@@ -59,13 +59,13 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
           />
         )}
         <div className="space-y-1 px-5 py-3 text-sm">
-          {nft.collectionName ? (
+          {nft.collection.name ? (
             <div className="lt-text-gray-500 truncate">
-              {nft.collectionName}
+              {nft.collection.name}
             </div>
           ) : null}
           <div className="truncate">
-            {nft.name ? nft.name : `#${nft.tokenId}`}
+            {nft.metadata.name ? nft.metadata.name : `#${nft.tokenId}`}
           </div>
         </div>
       </div>

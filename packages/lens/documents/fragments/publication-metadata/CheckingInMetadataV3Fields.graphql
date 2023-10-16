@@ -1,0 +1,25 @@
+fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  location
+  geographic {
+    rawURI
+    latitude
+    longitude
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}

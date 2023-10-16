@@ -6,7 +6,6 @@ import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Button, Input } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { t, Trans } from '@lingui/macro';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { ChangeEvent, FC } from 'react';
@@ -150,7 +149,7 @@ const Composer: FC<ComposerProps> = ({
           );
 
           const uploadedAttachment = await uploadFileToIPFS(file);
-          const url = sanitizeDStorageUrl(uploadedAttachment.original.url);
+          const url = sanitizeDStorageUrl(uploadedAttachment.uri);
 
           const remoteAttachment: RemoteAttachment = {
             url,
@@ -191,7 +190,7 @@ const Composer: FC<ComposerProps> = ({
       if (sentAttachment) {
         Leafwatch.track(MESSAGES.SEND);
       } else {
-        toast.error(t`Error sending attachment`);
+        toast.error('Error sending attachment');
       }
     }
 
@@ -201,7 +200,7 @@ const Composer: FC<ComposerProps> = ({
       if (sentText) {
         Leafwatch.track(MESSAGES.SEND);
       } else {
-        toast.error(t`Error sending message`);
+        toast.error('Error sending message');
       }
     }
 
@@ -279,7 +278,7 @@ const Composer: FC<ComposerProps> = ({
         </label>
         <Input
           type="text"
-          placeholder={t`Type Something`}
+          placeholder="Type Something"
           value={message}
           disabled={disabledInput}
           onKeyDown={handleKeyDown}
@@ -292,11 +291,7 @@ const Composer: FC<ComposerProps> = ({
           aria-label="Send message"
         >
           <div className="flex items-center space-x-2">
-            {Number(width) > MIN_WIDTH_DESKTOP ? (
-              <span>
-                <Trans>Send</Trans>
-              </span>
-            ) : null}
+            {Number(width) > MIN_WIDTH_DESKTOP ? <span>Send</span> : null}
             <ArrowRightIcon className="h-5 w-5" />
           </div>
         </Button>

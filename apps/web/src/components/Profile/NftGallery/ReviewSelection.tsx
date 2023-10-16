@@ -2,7 +2,6 @@ import SingleNft from '@components/Shared/SingleNft';
 import { RectangleStackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Nft } from '@hey/lens';
 import { EmptyState } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { NftGalleryItem } from 'src/store/nft-gallery';
 import { useNftGalleryStore } from 'src/store/nft-gallery';
 
@@ -11,7 +10,7 @@ const ReviewSelection = () => {
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   const onRemoveItem = (item: Nft) => {
-    const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    const id = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
     const index = gallery.items.findIndex((n) => n.itemId === id);
 
     const nft = {
@@ -51,7 +50,7 @@ const ReviewSelection = () => {
       <div className="p-10">
         <EmptyState
           hideCard
-          message={t`No collectables selected!`}
+          message="No collectables selected!"
           icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
         />
       </div>
@@ -61,7 +60,9 @@ const ReviewSelection = () => {
   return (
     <div className="grid h-[68vh] grid-cols-1 gap-4 overflow-y-auto p-5 sm:grid-cols-3">
       {gallery.items?.map((item) => (
-        <div key={`${item.chainId}_${item.contractAddress}_${item.tokenId}`}>
+        <div
+          key={`${item.contract.chainId}_${item.contract.address}_${item.tokenId}`}
+        >
           <div className="relative rounded-xl">
             <button
               onClick={() => onRemoveItem(item)}

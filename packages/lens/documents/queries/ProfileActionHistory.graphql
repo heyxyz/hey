@@ -1,0 +1,14 @@
+query ProfileActionHistory($request: ProfileActionHistoryRequest!) {
+  profileActionHistory(request: $request) {
+    items {
+      id
+      actionType
+      who
+      txHash
+      actionedOn
+    }
+    pageInfo {
+      next
+    }
+  }
+}

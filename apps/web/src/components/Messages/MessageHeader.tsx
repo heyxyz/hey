@@ -45,8 +45,8 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   };
 
   useEffect(() => {
-    setFollowing(profile?.isFollowedByMe ?? false);
-  }, [profile?.isFollowedByMe]);
+    setFollowing(profile?.operations.isFollowedByMe.value ?? false);
+  }, [profile?.operations.isFollowedByMe.value]);
 
   if (!profile && !conversationKey) {
     return null;

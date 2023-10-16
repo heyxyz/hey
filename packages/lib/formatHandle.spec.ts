@@ -13,19 +13,7 @@ describe('formatHandle', () => {
     expect(output).toBe(LENSPROTOCOL_HANDLE);
   });
 
-  test('should add handle suffix when keepSuffix is true and suffix not present', () => {
-    expect(formatHandle('username123', true)).toBe('username123.lens');
-  });
-
-  test('should remove handle suffix when keepSuffix is false and suffix present', () => {
-    expect(formatHandle('username123.lens', false)).toBe('username123');
-  });
-
-  test('should not modify handle when keepSuffix is false and suffix not present', () => {
-    expect(formatHandle('username123', false)).toBe('username123');
-  });
-
-  test('should keep handle suffix when keepSuffix is true and suffix present', () => {
-    expect(formatHandle('username123.lens', true)).toBe('username123.lens');
+  test('should remove handle prefix', () => {
+    expect(formatHandle('@lens/username123')).toBe('username123');
   });
 });

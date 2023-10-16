@@ -1,10 +1,9 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -28,7 +27,6 @@ import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
 
 const MobileDrawerMenu: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const isGardener = usePreferencesStore((state) => state.isGardener);
@@ -50,22 +48,22 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
-          href={`/u/${formatHandle(currentProfile?.handle)}`}
+          href={getProfile(currentProfile).link}
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
             <Image
               src={getAvatar(currentProfile as Profile)}
               className="h-12 w-12 cursor-pointer rounded-full border dark:border-gray-700"
-              alt={formatHandle(currentProfile?.handle)}
+              alt={currentProfile?.id}
             />
             <div>
-              <Trans>Logged in as</Trans>
+              Logged in as
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={formatHandle(currentProfile?.handle)}
-                  prefix="@"
+                  slug={getProfile(currentProfile).slug}
+                  prefix={getProfile(currentProfile).prefix}
                 />
               </div>
             </div>
@@ -73,9 +71,7 @@ const MobileDrawerMenu: FC = () => {
         </Link>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          {profiles.length > 1 ? (
-            <SwitchProfile className={cn(itemClass, 'px-4')} />
-          ) : null}
+          <SwitchProfile className={cn(itemClass, 'px-4')} />
           <div className="divider" />
           <Status className={cn(itemClass, 'px-4')} />
           <div className="divider" />
@@ -83,13 +79,10 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
-              onClick={closeDrawer}
-            >
+            <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
               <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
-            <Link href={'/settings'} onClick={closeDrawer}>
+            <Link href="/settings" onClick={closeDrawer}>
               <Settings className={cn(itemClass, 'px-4')} />
             </Link>
             <Bookmarks

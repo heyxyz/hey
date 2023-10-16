@@ -4,7 +4,6 @@ import { PUBLICATION } from '@hey/data/tracking';
 import type { IGif } from '@hey/types/giphy';
 import { Modal, Tooltip } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
@@ -12,7 +11,7 @@ import { useState } from 'react';
 import { usePublicationStore } from 'src/store/publication';
 
 const GifSelector = dynamic(() => import('./GifSelector'), {
-  loading: () => <Loader message={t`Loading GIFs`} />
+  loading: () => <Loader message="Loading GIFs" />
 });
 
 interface GiphyProps {
@@ -25,7 +24,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
 
   return (
     <>
-      <Tooltip placement="top" content={t`GIF`}>
+      <Tooltip placement="top" content="GIF">
         <motion.button
           whileTap={{ scale: 0.9 }}
           type="button"
@@ -40,7 +39,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
         </motion.button>
       </Tooltip>
       <Modal
-        title={t`Select GIF`}
+        title="Select GIF"
         icon={<PhotoIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => setShowModal(false)}

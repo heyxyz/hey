@@ -1,0 +1,13 @@
+fragment ProfileStatsFields on ProfileStats {
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  reactions
+  reacted
+  countOpenActions
+}

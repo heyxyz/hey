@@ -1,0 +1,33 @@
+fragment CommentBaseFields on Comment {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...ProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  referenceModule {
+    ...ReferenceModuleFields
+  }
+  root {
+    ...PostFields
+  }
+}

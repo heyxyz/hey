@@ -8,8 +8,8 @@ import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
 import axios from 'axios';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -17,8 +17,8 @@ import { object, string } from 'zod';
 
 const inviteSchema = object({
   address: string()
-    .max(42, { message: t`Ethereum address should be within 42 characters` })
-    .regex(Regex.ethereumAddress, { message: t`Invalid Ethereum address` })
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
 });
 
 interface InviteProps {
@@ -51,12 +51,12 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         form.reset();
         Leafwatch.track(INVITE.INVITE);
 
-        return toast.success(t`Invited successfully!`);
+        return toast.success('Invited successfully!');
       }
 
-      return toast.error(t`Address already invited!`);
+      return toast.error('Address already invited!');
     } catch {
-      return toast.error(t`Failed to invite!`);
+      return toast.error('Failed to invite!');
     } finally {
       setInviting(false);
     }
@@ -72,24 +72,14 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         />
         <div className="text-xl">Invite a Fren</div>
         <p className="lt-text-gray-500">
-          <Trans>
-            Send invites to your frens so they can create an Lens account. You
-            can invite a user only once.
-          </Trans>
+          Send invites to your frens so they can create an Lens account. You can
+          invite a user only once.
         </p>
         <div className="pt-2 font-mono text-lg">
-          <Trans>
-            <b>
-              {invitesLeft}{' '}
-              <Plural
-                value={invitesLeft}
-                zero="invite"
-                one="invite"
-                other="invites"
-              />
-            </b>{' '}
-            available!
-          </Trans>
+          <b>
+            {invitesLeft} {plur('invite', invitesLeft)}
+          </b>{' '}
+          available!
         </div>
       </div>
       {invitesLeft !== 0 ? (
@@ -107,7 +97,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
             {...form.register('address')}
           />
           <Button type="submit" disabled={inviting}>
-            <Trans>Invite</Trans>
+            Invite
           </Button>
         </Form>
       ) : null}

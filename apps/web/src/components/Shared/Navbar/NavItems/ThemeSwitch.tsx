@@ -2,7 +2,6 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import { SYSTEM } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import { useTheme } from 'next-themes';
 import type { FC } from 'react';
 
@@ -35,18 +34,14 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
             <div>
               <MoonIcon className="h-4 w-4" />
             </div>
-            <div>
-              <Trans>Dark mode</Trans>
-            </div>
+            <div>Dark mode</div>
           </>
         ) : (
           <>
             <div>
               <SunIcon className="h-4 w-4" />
             </div>
-            <div>
-              <Trans>Light mode</Trans>
-            </div>
+            <div>Light mode</div>
           </>
         )}
       </div>

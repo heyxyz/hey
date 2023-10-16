@@ -1,0 +1,11 @@
+mutation Unblock($request: UnblockRequest!) {
+  unblock(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

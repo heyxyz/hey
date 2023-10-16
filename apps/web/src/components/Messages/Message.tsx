@@ -4,12 +4,11 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import formatHandle from '@hey/lib/formatHandle';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import type { Profile } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -154,8 +153,7 @@ const Message: FC<MessageProps> = ({}) => {
 
   const showLoading = !missingXmtpAuth && !currentProfile;
 
-  const userNameForTitle =
-    sanitizeDisplayName(profile?.name) ?? formatHandle(profile?.handle);
+  const userNameForTitle = getProfile(profile as Profile).displayName;
 
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
@@ -190,7 +188,7 @@ const Message: FC<MessageProps> = ({}) => {
               >
                 {showLoading ? (
                   <div className="flex h-full grow items-center justify-center">
-                    <Loader message={t`Loading messages`} />
+                    <Loader message="Loading messages" />
                   </div>
                 ) : (
                   <>
@@ -222,14 +220,10 @@ const Message: FC<MessageProps> = ({}) => {
                 <div className="flex h-full flex-col text-center">
                   <div className="m-auto">
                     <span className="text-center text-5xl">👋</span>
-                    <h3 className="mb-2 mt-3 text-lg">
-                      <Trans>Select a conversation</Trans>
-                    </h3>
+                    <h3 className="mb-2 mt-3 text-lg">Select a conversation</h3>
                     <p className="text-md lt-text-gray-500 max-w-xs">
-                      <Trans>
-                        Choose an existing conversation or create a new one to
-                        start messaging
-                      </Trans>
+                      Choose an existing conversation or create a new one to
+                      start messaging
                     </p>
                   </div>
                 </div>

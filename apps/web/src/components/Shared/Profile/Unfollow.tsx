@@ -1,23 +1,25 @@
 import { UserMinusIcon } from '@heroicons/react/24/outline';
-import { FollowNft } from '@hey/abis';
-import { Errors } from '@hey/data/errors';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import {
-  useBroadcastMutation,
-  useCreateUnfollowTypedDataMutation
+  useBroadcastOnchainMutation,
+  useCreateUnfollowTypedDataMutation,
+  useUnfollowMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
+import { useGlobalModalStateStore } from 'src/store/modals';
+import { useNonceStore } from 'src/store/nonce';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface UnfollowProps {
@@ -32,6 +34,11 @@ const Unfollow: FC<UnfollowProps> = ({
   setFollowing
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const userSigNonce = useNonceStore((state) => state.userSigNonce);
+  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const setShowAuthModal = useGlobalModalStateStore(
+    (state) => state.setShowAuthModal
+  );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -42,15 +49,22 @@ const Unfollow: FC<UnfollowProps> = ({
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
     setIsLoading(false);
-    setFollowing(false);
-    toast.success(t`Unfollowed successfully!`);
-    Leafwatch.track(PROFILE.UNFOLLOW);
+    setFollowing(true);
+    toast.success('Unfollowed successfully!');
+    Leafwatch.track(PROFILE.UNFOLLOW, {
+      target: profile?.id
+    });
   };
 
   const onError = (error: any) => {
@@ -60,36 +74,50 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
-    address: profile.followNftAddress,
-    abi: FollowNft,
-    functionName: 'burn',
+    address: LENSHUB_PROXY,
+    abi: LensHub,
+    functionName: 'unfollow',
     onSuccess: () => onCompleted(),
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
-
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
-      const { typedData, id } = createUnfollowTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { id, typedData } = createUnfollowTypedData;
+      // TODO: Replace deep clone with right helper
+      const signature = await signTypedDataAsync(
+        getSignature(JSON.parse(JSON.stringify(typedData)))
+      );
+      setUserSigNonce(userSigNonce + 1);
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
-        const { tokenId } = typedData.value;
-        return write?.({ args: [tokenId] });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        const { unfollowerProfileId, idsOfProfilesToUnfollow } =
+          typedData.value;
+        return write?.({
+          args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+        });
       }
     },
     onError,
     update: updateCache
   });
 
+  const [unfollow] = useUnfollowMutation({
+    onCompleted: ({ unfollow }) => onCompleted(unfollow.__typename),
+    onError,
+    update: updateCache
+  });
+
   const createUnfollow = async () => {
     if (!currentProfile) {
-      return toast.error(Errors.SignWallet);
+      setShowAuthModal(true);
+      return;
     }
 
     if (handleWrongNetwork()) {
@@ -98,9 +126,18 @@ const Unfollow: FC<UnfollowProps> = ({
 
     try {
       setIsLoading(true);
-      return await createUnfollowTypedData({
-        variables: { request: { profile: profile?.id } }
+      const { data } = await unfollow({
+        variables: { request: { unfollow: [{ profileId: profile?.id }] } }
       });
+
+      if (!data?.unfollow) {
+        return await createUnfollowTypedData({
+          variables: {
+            request: { unfollow: [{ profileId: profile?.id }] },
+            options: { overrideSigNonce: userSigNonce }
+          }
+        });
+      }
     } catch (error) {
       onError(error);
     }
@@ -122,7 +159,7 @@ const Unfollow: FC<UnfollowProps> = ({
         )
       }
     >
-      {showText ? t`Following` : null}
+      {showText ? 'Following' : null}
     </Button>
   );
 };

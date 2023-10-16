@@ -1,12 +1,8 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
-import getPublicationAttribute from '@hey/lib/getPublicationAttribute';
-import getThumbnailUrl from '@hey/lib/getThumbnailUrl';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import type { OptimisticTransaction } from '@hey/types/misc';
+import type { AnyPublication, Profile } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
 import { useRef, useState } from 'react';
@@ -17,30 +13,28 @@ import CoverImage from './CoverImage';
 import Player from './Player';
 
 export const AudioPublicationSchema = object({
-  title: string()
-    .trim()
-    .min(1, { message: t`Invalid audio title` }),
-  author: string()
-    .trim()
-    .min(1, { message: t`Invalid author name` }),
-  cover: string()
-    .trim()
-    .min(1, { message: t`Invalid cover image` })
+  title: string().trim().min(1, { message: 'Invalid audio title' }),
+  artist: string().trim().min(1, { message: 'Invalid artist name' }),
+  cover: string().trim().min(1, { message: 'Invalid cover image' })
 });
 
 interface AudioProps {
   src: string;
+  poster: string;
+  artist?: string;
+  title?: string;
   isNew?: boolean;
-  publication?: Publication;
-  txn: OptimisticTransaction;
+  publication?: AnyPublication;
   expandCover: (url: string) => void;
 }
 
 const Audio: FC<AudioProps> = ({
   src,
+  poster,
+  artist,
+  title,
   isNew = false,
   publication,
-  txn,
   expandCover
 }) => {
   const [playing, setPlaying] = useState(false);
@@ -81,22 +75,17 @@ const Audio: FC<AudioProps> = ({
 
   return (
     <div
-      className="bg-brand-500/80 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
+      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
       data-testid={`attachment-audio-${src}`}
     >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
-          isNew={isNew && !txn}
-          cover={
-            isNew
-              ? txn?.cover ?? audioPublication.cover
-              : getThumbnailUrl(publication?.metadata)
-          }
-          setCover={(url, mimeType) =>
+          isNew={isNew}
+          cover={poster}
+          setCover={(url) =>
             setAudioPublication({
               ...audioPublication,
-              cover: url,
-              coverMimeType: mimeType
+              cover: url
             })
           }
           imageRef={imageRef}
@@ -113,11 +102,11 @@ const Audio: FC<AudioProps> = ({
                 )}
               </button>
               <div className="w-full truncate pr-3">
-                {isNew && !txn ? (
+                {isNew ? (
                   <div className="flex w-full flex-col">
                     <input
                       className="border-none bg-transparent text-lg text-white outline-none placeholder:text-white"
-                      placeholder={t`Add title`}
+                      placeholder="Add title"
                       name="title"
                       value={audioPublication.title}
                       autoComplete="off"
@@ -125,25 +114,19 @@ const Audio: FC<AudioProps> = ({
                     />
                     <input
                       className="border-none bg-transparent text-white/70 outline-none placeholder:text-white/70"
-                      placeholder={t`Add author`}
-                      name="author"
-                      value={audioPublication.author}
+                      placeholder="Add artist"
+                      name="artist"
+                      value={audioPublication.artist}
                       onChange={handleChange}
                       autoComplete="off"
                     />
                   </div>
                 ) : (
                   <>
-                    <h5 className="truncate text-lg text-white">
-                      {publication?.metadata.name ?? txn.title}
-                    </h5>
+                    <h5 className="truncate text-lg text-white">{title}</h5>
                     <h6 className="truncate text-white/70">
-                      {txn?.author ??
-                        getPublicationAttribute(
-                          publication?.metadata.attributes,
-                          'author'
-                        ) ??
-                        sanitizeDisplayName(publication?.profile.name)}
+                      {artist ??
+                        getProfile(publication?.by as Profile).displayName}
                     </h6>
                   </>
                 )}

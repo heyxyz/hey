@@ -1,6 +1,5 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -26,7 +25,7 @@ const MoreNavItems: FC = () => {
               }
             )}
           >
-            <Trans>More</Trans>
+            More
           </Menu.Button>
           <MenuTransition>
             <Menu.Items

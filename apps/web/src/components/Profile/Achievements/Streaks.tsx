@@ -1,6 +1,6 @@
 import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Card } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -45,9 +45,9 @@ const Streaks: FC<StreaksProps> = ({ profile }) => {
         colorScheme="light"
         blockRadius={50}
         labels={{
-          totalCount: `@${formatHandle(
-            profile.handle
-          )} has {{count}} activities in ${new Date().getFullYear()}`
+          totalCount: `${
+            getProfile(profile).slugWithPrefix
+          } has {{count}} activities in ${new Date().getFullYear()}`
         }}
         theme={{ light: ['#FED5D9', '#FB3A5D'] }}
       />

@@ -1,14 +1,12 @@
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import type { Profile, ProfileSearchResult } from '@hey/lens';
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
+  CustomFiltersType,
+  LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import type { ChangeEvent, FC } from 'react';
@@ -27,7 +25,7 @@ interface SearchProps {
 const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
-  placeholder = t`Search…`,
+  placeholder = 'Search…',
   modalWidthClassName = 'max-w-md'
 }) => {
   const { push, pathname, query } = useRouter();
@@ -57,24 +55,24 @@ const Search: FC<SearchProps> = ({
 
   useEffect(() => {
     if (pathname !== '/search' && !hideDropdown && debouncedSearchText) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: debouncedSearchText,
-            customFilters: [CustomFiltersTypes.Gardeners],
-            limit: 8
-          }
-        }
-      });
+      // Variables
+      const request: ProfileSearchRequest = {
+        where: { customFilters: [CustomFiltersType.Gardeners] },
+        query: debouncedSearchText,
+        limit: LimitType.Ten
+      };
+
+      searchUsers({ variables: { request } });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchText]);
 
-  const searchResult = searchUsersData?.search as ProfileSearchResult;
+  const searchResult = searchUsersData?.searchProfiles;
   const isProfileSearchResult =
     searchResult && searchResult.hasOwnProperty('items');
-  const profiles = isProfileSearchResult ? searchResult.items : [];
+  const profiles = (
+    isProfileSearchResult ? searchResult.items : []
+  ) as Profile[];
 
   return (
     <div aria-hidden="true" className="w-full" data-testid="global-search">
@@ -112,13 +110,11 @@ const Search: FC<SearchProps> = ({
             {searchUsersLoading ? (
               <div className="space-y-2 px-4 py-2 text-center text-sm font-bold">
                 <Spinner size="sm" className="mx-auto" />
-                <div>
-                  <Trans>Searching users</Trans>
-                </div>
+                <div>Searching users</div>
               </div>
             ) : (
               <>
-                {profiles.map((profile: Profile) => (
+                {profiles.map((profile) => (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -131,9 +127,7 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
-                    data-testid={`search-profile-${formatHandle(
-                      profile?.handle
-                    )}`}
+                    data-testid={`search-profile-${profile.id}`}
                     aria-hidden="true"
                   >
                     <UserProfile
@@ -144,9 +138,7 @@ const Search: FC<SearchProps> = ({
                   </motion.div>
                 ))}
                 {profiles.length === 0 ? (
-                  <div className="px-4 py-2">
-                    <Trans>No matching users</Trans>
-                  </div>
+                  <div className="px-4 py-2">No matching users</div>
                 ) : null}
               </>
             )}

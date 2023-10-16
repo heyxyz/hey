@@ -2,20 +2,22 @@ import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
 import { publicationKeyFields } from '../lib';
+import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
+import createApprovedAuthenticationFieldPolicy from './createApprovedAuthenticationFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
 import createFollowersFieldPolicy from './createFollowersFieldPolicy';
 import createFollowingFieldPolicy from './createFollowingFieldPolicy';
-import createForYouFieldPolicy from './createForYouFieldPolicy';
 import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersProfilesFieldPolicy';
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
+import createProfileActionHistoryFieldPolicy from './createProfileActionHistoryFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
-import createSearchFieldPolicy from './createSearchFieldPolicy';
-import createWhoCollectedPublicationFieldPolicy from './createWhoCollectedPublicationFieldPolicy';
-import createWhoReactedPublicationFieldPolicy from './createWhoReactedPublicationFieldPolicy';
+import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
+import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
+import createWhoHaveBlockedFieldPolicy from './createWhoHaveBlockedFieldPolicy';
 
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
@@ -27,7 +29,6 @@ const cache = new InMemoryCache({
       fields: {
         feed: createFeedFieldPolicy(),
         feedHighlights: createFeedHighlightsFieldPolicy(),
-        forYou: createForYouFieldPolicy(),
         explorePublications: createExplorePublicationsFieldPolicy(),
         publications: createPublicationsFieldPolicy(),
         publicationsProfileBookmarks: createPublicationsFieldPolicy(),
@@ -35,11 +36,14 @@ const cache = new InMemoryCache({
         notifications: createNotificationsFieldPolicy(),
         followers: createFollowersFieldPolicy(),
         following: createFollowingFieldPolicy(),
-        search: createSearchFieldPolicy(),
         profiles: createProfilesFieldPolicy(),
-        whoCollectedPublication: createWhoCollectedPublicationFieldPolicy(),
-        whoReactedPublication: createWhoReactedPublicationFieldPolicy(),
-        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy()
+        searchProfiles: createSearchProfilesFieldPolicy(),
+        searchPublications: createSearchPublicationsPolicy(),
+        whoActedOnPublication: createActedOnPublicationFieldPolicy(),
+        whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
+        mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
+        approvedAuthentication: createApprovedAuthenticationFieldPolicy(),
+        profileActionHistory: createProfileActionHistoryFieldPolicy()
       }
     }
   }

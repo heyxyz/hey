@@ -3,12 +3,11 @@ import NftsShimmer from '@components/Shared/Shimmer/NftsShimmer';
 import SingleNft from '@components/Shared/SingleNft';
 import { CheckIcon, RectangleStackIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET } from '@hey/data/constants';
-import type { Nft, NfTsRequest } from '@hey/lens';
-import { useNftFeedQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import type { Nft, NftsRequest } from '@hey/lens';
+import { LimitType, useNftsQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import { VirtuosoGrid } from 'react-virtuoso';
@@ -28,15 +27,17 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   const setGallery = useNftGalleryStore((state) => state.setGallery);
 
   // Variables
-  const request: NfTsRequest = {
-    chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
-    ownerAddress: currentProfile?.ownedBy,
-    limit: 20
+  const request: NftsRequest = {
+    where: {
+      chainIds: IS_MAINNET ? [CHAIN_ID, mainnet.id] : [CHAIN_ID],
+      forProfileId: currentProfile?.id
+    },
+    limit: LimitType.TwentyFive
   };
 
-  const { data, loading, fetchMore, error } = useNftFeedQuery({
+  const { data, loading, fetchMore, error } = useNftsQuery({
     variables: { request },
-    skip: !currentProfile?.ownedBy
+    skip: !currentProfile?.ownedBy.address
   });
 
   const nfts = data?.nfts?.items ?? [];
@@ -67,11 +68,9 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         <div>
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(currentProfile?.handle)}
+              {getProfile(currentProfile).slugWithPrefix}
             </span>
-            <span>
-              <Trans>doesn't have any NFTs!</Trans>
-            </span>
+            <span>doesn't have any NFTs!</span>
           </div>
         </div>
       </div>
@@ -79,15 +78,15 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load nft feed`} error={error} />;
+    return <ErrorMessage title="Failed to load nft feed" error={error} />;
   }
 
   const onSelectItem = (item: Nft) => {
     if (gallery.items.length === 50) {
-      return toast.error(t`Only 50 items allowed for gallery`);
+      return toast.error('Only 50 items allowed for gallery');
     }
 
-    const customId = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+    const customId = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
     const nft = {
       itemId: customId,
       ...item
@@ -172,7 +171,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
         ScrollSeekPlaceholder: () => <NftShimmer />
       }}
       itemContent={(index, nft) => {
-        const id = `${nft?.chainId}_${nft?.contractAddress}_${nft?.tokenId}`;
+        const id = `${nft?.contract.chainId}_${nft?.contract.address}_${nft?.tokenId}`;
         const isSelected = selectedItems.includes(id);
         return (
           <div

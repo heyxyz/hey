@@ -1,89 +1,14 @@
 fragment CommentFields on Comment {
-  id
-  profile {
-    ...ProfileFields
-  }
-  reaction(request: $reactionRequest)
-  mirrors(by: $profileId)
-  bookmarked(by: $profileId)
-  notInterested(by: $profileId)
-  hasCollectedByMe
-  onChainContentURI
-  isGated
-  isDataAvailability
-  dataAvailabilityProofs
-  canComment(profileId: $profileId) {
-    result
-  }
-  canMirror(profileId: $profileId) {
-    result
-  }
-  canDecrypt(profileId: $profileId) {
-    result
-    reasons
-  }
-  collectModule {
-    ...CollectModuleFields
-  }
-  stats {
-    ...StatsFields
-  }
-  metadata {
-    ...MetadataFields
-  }
-  hidden
-  createdAt
-  appId
+  ...CommentBaseFields
   commentOn {
     ... on Post {
       ...PostFields
     }
     ... on Comment {
-      id
-      profile {
-        ...ProfileFields
-      }
-      reaction(request: $reactionRequest)
-      mirrors(by: $profileId)
-      bookmarked(by: $profileId)
-      notInterested(by: $profileId)
-      hasCollectedByMe
-      onChainContentURI
-      isGated
-      isDataAvailability
-      dataAvailabilityProofs
-      canComment(profileId: $profileId) {
-        result
-      }
-      canMirror(profileId: $profileId) {
-        result
-      }
-      canDecrypt(profileId: $profileId) {
-        result
-        reasons
-      }
-      collectModule {
-        ...CollectModuleFields
-      }
-      metadata {
-        ...MetadataFields
-      }
-      stats {
-        ...StatsFields
-      }
-      mainPost {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Mirror {
-          ...MirrorFields
-        }
-      }
-      hidden
-      createdAt
+      ...CommentBaseFields
     }
-    ... on Mirror {
-      ...MirrorFields
+    ... on Quote {
+      ...QuoteBaseFields
     }
   }
 }

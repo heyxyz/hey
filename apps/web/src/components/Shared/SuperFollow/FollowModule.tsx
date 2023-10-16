@@ -4,22 +4,25 @@ import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PROFILE } from '@hey/data/tracking';
-import type { ApprovedAllowanceAmount, Profile } from '@hey/lens';
+import type {
+  ApprovedAllowanceAmountResult,
+  FeeFollowModuleSettings,
+  Profile
+} from '@hey/lens';
 import {
-  FollowModules,
+  FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useSuperFollowQuery
+  useProfileQuery
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -61,7 +64,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   const [allowed, setAllowed] = useState(true);
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
     }
@@ -69,7 +72,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setIsLoading(false);
     setFollowing(true);
     setShowFollowModal(false);
-    toast.success(t`Followed successfully!`);
+    toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
@@ -98,32 +101,34 @@ const FollowModule: FC<FollowModuleProps> = ({
     }
   });
 
-  const { data, loading } = useSuperFollowQuery({
-    variables: { request: { profileId: profile?.id } },
+  const { data, loading } = useProfileQuery({
+    variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id
   });
 
-  const followModule: any = data?.profile?.followModule;
+  const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
 
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
       variables: {
         request: {
-          currencies: followModule?.amount?.asset?.address,
-          followModules: [FollowModules.FeeFollowModule],
-          collectModules: [],
+          currencies: followModule?.amount?.asset?.contract.address,
+          followModules: [FollowModuleType.FeeFollowModule],
+          openActionModules: [],
           referenceModules: []
         }
       },
-      skip: !followModule?.amount?.asset?.address || !currentProfile,
+      skip: !followModule?.amount?.asset?.contract.address || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(approvedModuleAllowanceAmount[0]?.allowance !== '0x00');
+        setAllowed(
+          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        );
       }
     });
 
   const { data: balanceData } = useBalance({
-    address: currentProfile?.ownedBy,
-    token: followModule?.amount?.asset?.address,
+    address: currentProfile?.ownedBy.address,
+    token: followModule?.amount?.asset?.contract.address,
     formatUnits: followModule?.amount?.asset?.decimals,
     watch: true
   });
@@ -138,19 +143,32 @@ const FollowModule: FC<FollowModuleProps> = ({
     hasAmount = true;
   }
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
-        const { profileIds, datas } = typedData.value;
-        return write?.({ args: [profileIds, datas] });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        const {
+          followerProfileId,
+          idsOfProfilesToFollow,
+          followTokenIds,
+          datas
+        } = typedData.value;
+        return write?.({
+          args: [
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          ]
+        });
       }
     },
     onError
@@ -173,15 +191,8 @@ const FollowModule: FC<FollowModuleProps> = ({
           request: {
             follow: [
               {
-                profile: profile?.id,
-                followModule: {
-                  feeFollowModule: {
-                    amount: {
-                      currency: followModule?.amount?.asset?.address,
-                      value: followModule?.amount?.value
-                    }
-                  }
-                }
+                profileId: profile?.id,
+                followModule: { feeFollowModule: true }
               }
             ]
           }
@@ -193,14 +204,24 @@ const FollowModule: FC<FollowModuleProps> = ({
   };
 
   if (loading) {
-    return <Loader message={t`Loading Super follow`} />;
+    return <Loader message="Loading Super follow" />;
   }
+
+  const rawAmount = parseFloat(followModule?.amount?.value || '0');
+  const currency = followModule?.amount?.asset?.symbol;
+  const assetDecimals = followModule?.amount?.asset?.decimals;
+  const assetName = followModule?.amount?.asset?.name;
+  const amount = rawAmount / 10 ** assetDecimals;
 
   return (
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
-          Super follow <Slug slug={formatHandle(profile?.handle)} prefix="@" />{' '}
+          Super follow{' '}
+          <Slug
+            slug={getProfile(profile).slug}
+            prefix={getProfile(profile).prefix}
+          />{' '}
           {again ? 'again' : ''}
         </div>
         <div className="lt-text-gray-500">
@@ -212,23 +233,19 @@ const FollowModule: FC<FollowModuleProps> = ({
           className="h-7 w-7"
           height={28}
           width={28}
-          src={getTokenImage(followModule?.amount?.asset?.symbol)}
-          alt={followModule?.amount?.asset?.symbol}
-          title={followModule?.amount?.asset?.name}
+          src={getTokenImage(currency)}
+          alt={currency}
+          title={assetName}
         />
         <span className="space-x-1">
-          <span className="text-2xl font-bold">
-            {followModule?.amount?.value}
-          </span>
-          <span className="text-xs">{followModule?.amount?.asset?.symbol}</span>
+          <span className="text-2xl font-bold">{amount}</span>
+          <span className="text-xs">{currency}</span>
         </span>
       </div>
       <div className="flex items-center space-x-2">
         <UserIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
-          <span>
-            <Trans>Recipient:</Trans>
-          </span>
+          <span>Recipient:</span>
           <Link
             href={`${POLYGONSCAN_URL}/address/${followModule?.recipient}`}
             target="_blank"
@@ -245,42 +262,33 @@ const FollowModule: FC<FollowModuleProps> = ({
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You can comment on @{formatHandle(profile?.handle)}'s
-                publications
-              </Trans>
+              You can comment on {getProfile(profile).slugWithPrefix}'s
+              publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You can collect @{formatHandle(profile?.handle)}'s publications
-              </Trans>
+              You can collect {getProfile(profile).slugWithPrefix}'s
+              publications
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You will get Super follow badge in @
-                {formatHandle(profile?.handle)}'s profile
-              </Trans>
+              You will get Super follow badge in{' '}
+              {getProfile(profile).slugWithPrefix}'s profile
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>
-              <Trans>
-                You will have high voting power if you followed multiple times
-              </Trans>
+              You will have high voting power if you followed multiple times
             </div>
           </li>
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
-            <div>
-              <Trans>More coming soon™</Trans>
-            </div>
+            <div>More coming soon™</div>
           </li>
         </ul>
       </div>
@@ -302,7 +310,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                 )
               }
             >
-              {again ? t`Super follow again` : t`Super follow now`}
+              {again ? 'Super follow again' : 'Super follow now'}
             </Button>
           ) : (
             <WarningMessage
@@ -313,10 +321,10 @@ const FollowModule: FC<FollowModuleProps> = ({
         ) : (
           <div className="mt-5">
             <AllowanceButton
-              title={t`Allow follow module`}
+              title="Allow follow module"
               module={
                 allowanceData
-                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                  ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmountResult
               }
               allowed={allowed}
               setAllowed={setAllowed}
