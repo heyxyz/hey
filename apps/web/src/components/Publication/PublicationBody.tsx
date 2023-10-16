@@ -7,6 +7,7 @@ import type { AnyPublication } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
 import getURLs from '@hey/lib/getURLs';
+import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
 import getNft from '@hey/lib/nft/getNft';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
@@ -19,6 +20,7 @@ import { isIOS, isMobile } from 'react-device-detect';
 
 import Nft from './HeyOpenActions/Nft';
 import Snapshot from './HeyOpenActions/Snapshot';
+import NotSupportedPublication from './NotSupportedPublication';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
@@ -65,6 +67,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   const [content, setContent] = useState(rawContent);
+
+  if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
+    return <NotSupportedPublication type={metadata.__typename} />;
+  }
 
   // Show NFT if it's there
   const showNft = nft;
