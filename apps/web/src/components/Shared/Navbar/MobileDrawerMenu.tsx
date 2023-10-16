@@ -48,7 +48,11 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
-          href={`/u/${formatHandle(currentProfile?.handle)}`}
+          href={
+            currentProfile?.handle
+              ? `/u/${formatHandle(currentProfile?.handle)}`
+              : `/profile/${currentProfile?.id}`
+          }
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
@@ -82,7 +86,11 @@ const MobileDrawerMenu: FC = () => {
           <div className="divider" />
           <div>
             <Link
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              href={
+                currentProfile?.handle
+                  ? `/u/${formatHandle(currentProfile?.handle)}`
+                  : `/profile/${currentProfile?.id}`
+              }
               onClick={closeDrawer}
             >
               <YourProfile className={cn(itemClass, 'px-4')} />

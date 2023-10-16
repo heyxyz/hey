@@ -59,7 +59,13 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   />
                   {profile ? (
                     profile.handle ? (
-                      <Link href={`/u/${formatHandle(profile.handle)}`}>
+                      <Link
+                        href={
+                          profile.handle
+                            ? `/u/${formatHandle(profile.handle)}`
+                            : `/profile/${profile.id}`
+                        }
+                      >
                         <Slug
                           slug={formatHandle(profile.handle) as string}
                           prefix="@"

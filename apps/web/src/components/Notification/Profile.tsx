@@ -20,7 +20,13 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <Link href={`/u/${formatHandle(profile?.handle)}`}>
+    <Link
+      href={
+        profile.handle
+          ? `/u/${formatHandle(profile.handle)}`
+          : `/profile/${profile.id}`
+      }
+    >
       <Image
         src={getAvatar(profile)}
         className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
@@ -37,7 +43,11 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
 }) => {
   return (
     <Link
-      href={`/u/${formatHandle(profile?.handle)}`}
+      href={
+        profile.handle
+          ? `/u/${formatHandle(profile.handle)}`
+          : `/profile/${profile.id}`
+      }
       className="inline-flex items-center space-x-1 font-bold hover:underline"
     >
       <span>

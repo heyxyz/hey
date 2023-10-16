@@ -15,7 +15,11 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
     <div data-testid="profile-invited-by">
       <Link
         className="lt-text-gray-500 flex items-center space-x-2 text-sm"
-        href={`/u/${formatHandle(profile.handle)}`}
+        href={
+          profile.handle
+            ? `/u/${formatHandle(profile.handle)}`
+            : `/profile/${profile.id}`
+        }
       >
         <Image
           key={profile.id}

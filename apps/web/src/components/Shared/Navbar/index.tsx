@@ -24,7 +24,11 @@ const Navbar: FC = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(`/u/${formatHandle(profile?.handle)}`);
+    router.push(
+      profile.handle
+        ? `/u/${formatHandle(profile.handle)}`
+        : `/profile/${profile.id}`
+    );
   };
 
   interface NavItemProps {

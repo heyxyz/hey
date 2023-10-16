@@ -69,7 +69,13 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   );
 
   return (
-    <Link href={`/u/${formatHandle(profile?.handle)}`}>
+    <Link
+      href={
+        profile.handle
+          ? `/u/${formatHandle(profile.handle)}`
+          : `/profile/${profile.id}`
+      }
+    >
       <div className="flex items-center space-x-2">
         <UserAvatar />
         <UserName />

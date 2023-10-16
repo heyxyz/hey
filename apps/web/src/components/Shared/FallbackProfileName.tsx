@@ -25,7 +25,11 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   return (
     <>
       <Link
-        href={`/u/${formatHandle(profile?.handle)}`}
+        href={
+          profile.handle
+            ? `/u/${formatHandle(profile.handle)}`
+            : `/profile/${profile.id}`
+        }
         className={cn('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">

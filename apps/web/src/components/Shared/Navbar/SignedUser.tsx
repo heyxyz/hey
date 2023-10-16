@@ -68,7 +68,11 @@ const SignedUser: FC = () => {
           >
             <Menu.Item
               as={NextLink}
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              href={
+                currentProfile?.handle
+                  ? `/u/${formatHandle(currentProfile?.handle)}`
+                  : `/profile/${currentProfile?.id}`
+              }
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <div className="flex w-full flex-col">
@@ -110,7 +114,11 @@ const SignedUser: FC = () => {
             <div className="divider" />
             <Menu.Item
               as={NextLink}
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              href={
+                currentProfile?.handle
+                  ? `/u/${formatHandle(currentProfile?.handle)}`
+                  : `/profile/${currentProfile?.id}`
+              }
               className={({ active }: { active: boolean }) =>
                 cn({ 'dropdown-active': active }, 'menu-item')
               }

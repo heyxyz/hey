@@ -42,7 +42,11 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
           firstProfile={firstProfile}
           text={text}
           type={type}
-          linkToType={`/u/${formatHandle(currentProfile?.handle)}`}
+          linkToType={
+            currentProfile?.handle
+              ? `/u/${formatHandle(currentProfile?.handle)}`
+              : `/profile/${currentProfile?.id}`
+          }
         />
       </div>
     </div>

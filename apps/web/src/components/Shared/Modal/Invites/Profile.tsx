@@ -20,12 +20,19 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
           {invite.profileMinted ? (
             invite.profileMinted.handle ? (
               <Link
-                href={`/u/${formatHandle(invite.profileMinted.handle)}`}
+                href={
+                  invite.profileMinted.handle
+                    ? `/u/${formatHandle(invite.profileMinted.handle)}`
+                    : `/profile/${invite.profileMinted.id}`
+                }
                 target="_blank"
               >
                 <Slug
                   prefix="@"
-                  slug={formatHandle(invite.profileMinted.handle) as string}
+                  slug={
+                    formatHandle(invite.profileMinted.handle) ||
+                    invite.profileMinted.id
+                  }
                 />
               </Link>
             ) : (

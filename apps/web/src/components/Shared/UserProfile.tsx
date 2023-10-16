@@ -161,7 +161,13 @@ const UserProfile: FC<UserProfileProps> = ({
       data-testid={`user-profile-${profile.id}`}
     >
       {linkToProfile && profile.id ? (
-        <Link href={`/u/${formatHandle(profile?.handle)}`}>
+        <Link
+          href={
+            profile.handle
+              ? `/u/${formatHandle(profile.handle)}`
+              : `/profile/${profile.id}`
+          }
+        >
           <UserInfo />
         </Link>
       ) : (
