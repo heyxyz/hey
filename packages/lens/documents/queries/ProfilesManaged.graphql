@@ -1,0 +1,10 @@
+query ProfilesManaged($request: ProfilesManagedRequest!) {
+  profilesManaged(request: $request) {
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

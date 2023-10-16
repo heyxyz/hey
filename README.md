@@ -17,9 +17,6 @@
     <a href="https://www.gitpoap.io/gh/heyxyz/hey">
         <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
-    <a href="https://translate.hey.xyz">
-        <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
-    </a>
     <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>

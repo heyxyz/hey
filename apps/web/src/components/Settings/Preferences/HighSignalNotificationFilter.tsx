@@ -4,7 +4,6 @@ import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
@@ -35,7 +34,7 @@ const HighSignalNotificationFilter: FC = () => {
         }
       ),
       {
-        loading: t`Updating preference settings...`,
+        loading: 'Updating preference settings...',
         success: () => {
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
           Leafwatch.track(
@@ -45,9 +44,9 @@ const HighSignalNotificationFilter: FC = () => {
             }
           );
 
-          return t`Notification preference updated`;
+          return 'Notification preference updated';
         },
-        error: t`Error updating notification preference`
+        error: 'Error updating notification preference'
       }
     );
   };
@@ -56,8 +55,8 @@ const HighSignalNotificationFilter: FC = () => {
     <ToggleWithHelper
       on={highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
-      heading={t`Notification Signal filter`}
-      description={t`Turn on high-signal notification filter`}
+      heading="Notification Signal filter"
+      description="Turn on high-signal notification filter"
       icon={<SwatchIcon className="h-4 w-4" />}
     />
   );

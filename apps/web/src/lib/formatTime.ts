@@ -1,4 +1,3 @@
-import { i18n } from '@lingui/core';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
@@ -25,18 +24,6 @@ export const formatDate = (date?: Date, format = 'MMMM D, YYYY') => {
  */
 export const isOnSameDay = (date1?: Date, date2?: Date): boolean => {
   return dayjs(date1).format('YYYYMMDD') === dayjs(date2).format('YYYYMMDD');
-};
-
-/**
- * Formats a date using the 'medium' date and time styles of the current locale.
- *
- * @param date The date to format.
- * @returns The formatted date and time.
- */
-export const formatTime = (date: Date | undefined): string => {
-  return date
-    ? i18n.date(date, { dateStyle: 'medium', timeStyle: 'medium' })
-    : '';
 };
 
 /**

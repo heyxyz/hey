@@ -1,0 +1,11 @@
+mutation SetFollowModule($request: SetFollowModuleRequest!) {
+  setFollowModule(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

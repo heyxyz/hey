@@ -1,10 +1,9 @@
 import { Menu } from '@headlessui/react';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 import { useGlobalModalStateStore } from 'src/store/modals';
@@ -41,7 +40,7 @@ const SignedUser: FC = () => {
     <Image
       src={getAvatar(currentProfile as Profile)}
       className="h-8 w-8 cursor-pointer rounded-full border dark:border-gray-700"
-      alt={formatHandle(currentProfile?.handle)}
+      alt={currentProfile?.id}
     />
   );
 
@@ -69,18 +68,16 @@ const SignedUser: FC = () => {
           >
             <Menu.Item
               as={NextLink}
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              href={getProfile(currentProfile).link}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <div className="flex w-full flex-col">
-                <div>
-                  <Trans>Logged in as</Trans>
-                </div>
+                <div>Logged in as</div>
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={formatHandle(currentProfile?.handle)}
-                    prefix="@"
+                    slug={getProfile(currentProfile).slug}
+                    prefix={getProfile(currentProfile).prefix}
                   />
                 </div>
               </div>
@@ -111,7 +108,7 @@ const SignedUser: FC = () => {
             <div className="divider" />
             <Menu.Item
               as={NextLink}
-              href={`/u/${formatHandle(currentProfile?.handle)}`}
+              href={getProfile(currentProfile).link}
               className={({ active }: { active: boolean }) =>
                 cn({ 'dropdown-active': active }, 'menu-item')
               }
@@ -120,7 +117,7 @@ const SignedUser: FC = () => {
             </Menu.Item>
             <Menu.Item
               as={NextLink}
-              href={'/settings'}
+              href="/settings"
               className={({ active }: { active: boolean }) =>
                 cn({ 'dropdown-active': active }, 'menu-item')
               }
@@ -130,7 +127,7 @@ const SignedUser: FC = () => {
             {isGardener ? (
               <Menu.Item
                 as={NextLink}
-                href={'/mod'}
+                href="/mod"
                 className={({ active }: { active: boolean }) =>
                   cn({ 'dropdown-active': active }, 'menu-item')
                 }

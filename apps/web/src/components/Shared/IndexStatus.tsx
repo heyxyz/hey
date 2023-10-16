@@ -1,9 +1,11 @@
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 import { POLYGONSCAN_URL } from '@hey/data/constants';
-import { useHasTxHashBeenIndexedQuery } from '@hey/lens';
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -22,13 +24,13 @@ const IndexStatus: FC<IndexStatusProps> = ({
 }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
-  const { data, loading } = useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash } },
+  const { data, loading } = useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash } },
     pollInterval,
-    onCompleted: ({ hasTxHashBeenIndexed }) => {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ lensTransactionStatus }) => {
       if (
-        hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        hasTxHashBeenIndexed?.indexed
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
       ) {
         setPollInterval(0);
         if (reload) {
@@ -49,20 +51,23 @@ const IndexStatus: FC<IndexStatusProps> = ({
       rel="noreferrer noopener"
     >
       {loading ||
-      (data?.hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult' &&
-        !data?.hasTxHashBeenIndexed.indexed) ? (
+      !data?.lensTransactionStatus ||
+      data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Processing ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>
-            <Trans>{type} Indexing</Trans>
-          </div>
+          <div>{type} Indexing</div>
+        </div>
+      ) : data?.lensTransactionStatus?.status ===
+        LensTransactionStatusType.Failed ? (
+        <div className="flex items-center space-x-1.5">
+          <XCircleIcon className="h-5 w-5 text-red-500" />
+          <div>Index failed</div>
         </div>
       ) : (
         <div className="flex items-center space-x-1">
           <CheckCircleIcon className="h-5 w-5 text-green-500" />
-          <div className="text-black dark:text-white">
-            <Trans>Index Successful</Trans>
-          </div>
+          <div className="text-black dark:text-white">Index Successful</div>
         </div>
       )}
     </Link>

@@ -106,7 +106,8 @@ const MessageIcon: FC = () => {
 
       for await (const message of messageStream) {
         if (messageValidator(currentProfile.id)) {
-          const isFromPeer = currentProfile.ownedBy !== message.senderAddress;
+          const isFromPeer =
+            currentProfile.ownedBy.address !== message.senderAddress;
           if (isFromPeer) {
             const showBadge = shouldShowBadge(
               viewedMessagesAtNs.get(currentProfile.id),

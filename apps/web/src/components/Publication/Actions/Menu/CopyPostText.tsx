@@ -1,23 +1,26 @@
 import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
+import getPublicationData from '@hey/lib/getPublicationData';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import toast from 'react-hot-toast';
 
 interface CopyPostTextProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const publicationType = isMirror
-    ? publication.mirrorOf.__typename
-    : publication.__typename;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const publicationType = targetPublication.__typename;
+  const filteredContent =
+    getPublicationData(targetPublication.metadata)?.content || '';
 
   return (
     <Menu.Item
@@ -30,10 +33,8 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       }
       onClick={async (event) => {
         stopEventPropagation(event);
-        await navigator.clipboard.writeText(
-          publication?.metadata?.content || ''
-        );
-        toast.success(t`Copied to clipboard!`);
+        await navigator.clipboard.writeText(filteredContent || '');
+        toast.success('Copied to clipboard!');
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
           publication_id: publication.id
         });
@@ -42,11 +43,9 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       <div className="flex items-center space-x-2">
         <ClipboardDocumentIcon className="h-4 w-4" />
         <div>
-          {publicationType === 'Comment' ? (
-            <Trans>Copy comment text</Trans>
-          ) : (
-            <Trans>Copy post text</Trans>
-          )}
+          {publicationType === 'Comment'
+            ? 'Copy comment text'
+            : 'Copy post text'}
         </div>
       </div>
     </Menu.Item>

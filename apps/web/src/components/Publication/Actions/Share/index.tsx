@@ -1,13 +1,13 @@
 import MenuTransition from '@components/Shared/MenuTransition';
 import { Menu } from '@headlessui/react';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { Fragment, useState } from 'react';
 
@@ -15,21 +15,19 @@ import Mirror from './Mirror';
 import Quote from './Quote';
 
 interface PublicationMenuProps {
-  publication: Publication;
+  publication: AnyPublication;
   showCount: boolean;
 }
 
 const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const isMirror = publication.__typename === 'Mirror';
-  const count = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const mirrored = isMirror
-    ? publication?.mirrorOf?.mirrors?.length > 0
-    : // @ts-expect-error
-      publication?.mirrors?.length > 0;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const count = targetPublication.stats.mirrors;
+  const mirrored = targetPublication.operations.hasMirrored;
   const iconClassName = 'w-[15px] sm:w-[18px]';
 
   return (
@@ -55,7 +53,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
             ) : (
               <Tooltip
                 placement="top"
-                content={count > 0 ? t`${humanize(count)} Mirrors` : t`Mirror`}
+                content={count > 0 ? `${humanize(count)} Mirrors` : 'Mirror'}
                 withDelay
               >
                 <ArrowsRightLeftIcon className={iconClassName} />

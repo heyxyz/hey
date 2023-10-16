@@ -1,5 +1,6 @@
 import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
+import getProfile from '@hey/lib/getProfile';
 import axios from 'axios';
 import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
@@ -18,7 +19,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
       const response = await axios.post(
         `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
         {
-          title: `Poll by @${currentProfile?.handle}`,
+          title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
           length: pollConfig.length,

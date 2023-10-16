@@ -2,7 +2,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface ProofOfHumanityProps {
@@ -10,7 +9,7 @@ interface ProofOfHumanityProps {
 }
 
 const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.proofOfHumanity) {
+  if (!profile?.onchainIdentity?.proofOfHumanity) {
     return null;
   }
 
@@ -18,9 +17,7 @@ const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
     <Tooltip
       content={
         <span className="flex items-center space-x-1">
-          <span>
-            <Trans>Proof of Humanity verified</Trans>
-          </span>
+          <span>Proof of Humanity verified</span>
           <CheckCircleIcon className="h-4 w-4" />
         </span>
       }

@@ -1,6 +1,5 @@
 import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface SettingsProps {
@@ -18,9 +17,7 @@ const Settings: FC<SettingsProps> = ({ className = '' }) => {
       <div>
         <Cog6ToothIcon className="h-4 w-4" />
       </div>
-      <div>
-        <Trans>Settings</Trans>
-      </div>
+      <div>Settings</div>
     </div>
   );
 };

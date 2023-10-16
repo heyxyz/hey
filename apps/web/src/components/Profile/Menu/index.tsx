@@ -7,6 +7,7 @@ import type { FC } from 'react';
 import { Fragment } from 'react';
 import { useAppStore } from 'src/store/app';
 
+import Block from './Block';
 import Report from './Report';
 import Share from './Share';
 
@@ -37,7 +38,10 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
         >
           <Share profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
-            <Report profile={profile} />
+            <>
+              <Block profile={profile} />
+              <Report profile={profile} />
+            </>
           ) : null}
         </Menu.Items>
       </MenuTransition>

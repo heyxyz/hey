@@ -1,39 +1,34 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type { ExplorePublicationRequest, Publication } from '@hey/lens';
+import type { AnyPublication, ExplorePublicationRequest } from '@hey/lens';
 import {
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreFeedQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  useExplorePublicationsQuery
 } from '@hey/lens';
 import type { Group } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 
 interface FeedProps {
   group: Group;
 }
 
 const Feed: FC<FeedProps> = ({ group }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   const request: ExplorePublicationRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    sortCriteria: PublicationSortCriteria.Latest,
-    metadata: { tags: { oneOf: group.tags } },
-    limit: 30
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      metadata: { tags: { oneOf: group.tags } }
+    },
+    orderBy: ExplorePublicationsOrderByType.Latest,
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useExploreFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+    variables: { request },
     skip: !group.id
   });
 
@@ -48,11 +43,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });
@@ -67,7 +58,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
         message={
           <div>
             <span className="mr-1 font-bold">{group.name}</span>
-            <span>{t`don't have any publications yet`}</span>
+            <span>don't have any publications yet</span>
           </div>
         }
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
@@ -76,7 +67,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
   }
 
   if (error) {
-    return <ErrorMessage title={t`Failed to load group feed`} error={error} />;
+    return <ErrorMessage title="Failed to load group feed" error={error} />;
   }
 
   return (
@@ -86,7 +77,7 @@ const Feed: FC<FeedProps> = ({ group }) => {
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
         />
       ))}
       {hasMore ? <span ref={observe} /> : null}

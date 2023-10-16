@@ -1,10 +1,9 @@
 import { SETTINGS } from '@hey/data/tracking';
 import type { FollowingRequest } from '@hey/lens';
-import { useFollowingLazyQuery } from '@hey/lens';
+import { LimitType, useFollowingLazyQuery } from '@hey/lens';
 import { Button, Card } from '@hey/ui';
 import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -16,8 +15,8 @@ const Following: FC = () => {
   const [fetchCompleted, setFetchCompleted] = useState(false);
 
   const request: FollowingRequest = {
-    address: currentProfile?.ownedBy,
-    limit: 50
+    for: currentProfile?.id,
+    limit: LimitType.Fifty
   };
 
   const [exportFollowing] = useFollowingLazyQuery({
@@ -34,7 +33,7 @@ const Following: FC = () => {
           setFollowing((prev) => {
             const newFollowing = data.following.items.filter((newFollowing) => {
               return !prev.some(
-                (following) => following.profile.id === newFollowing.profile.id
+                (following) => following.id === newFollowing.id
               );
             });
 
@@ -66,26 +65,18 @@ const Following: FC = () => {
 
   return (
     <Card className="space-y-2 p-5">
-      <div className="text-lg font-bold">
-        <Trans>Export following</Trans>
-      </div>
-      <div className="pb-2">
-        <Trans>Export all your following to a JSON file.</Trans>
-      </div>
+      <div className="text-lg font-bold">Export following</div>
+      <div className="pb-2">Export all your following to a JSON file.</div>
       {following.length > 0 ? (
         <div className="pb-2">
-          <Trans>
-            Exported <b>{following.length}</b> following
-          </Trans>
+          Exported <b>{following.length}</b> following
         </div>
       ) : null}
       {fetchCompleted ? (
-        <Button onClick={download}>
-          <Trans>Download following</Trans>
-        </Button>
+        <Button onClick={download}>Download following</Button>
       ) : (
         <Button onClick={handleExportClick} disabled={exporting}>
-          {exporting ? <Trans>Exporting...</Trans> : <Trans>Export now</Trans>}
+          {exporting ? 'Exporting...' : 'Export now'}
         </Button>
       )}
     </Card>

@@ -2,9 +2,8 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import type { Erc20 } from '@hey/lens';
-import { CollectModules } from '@hey/lens';
+import { OpenActionModuleType } from '@hey/lens';
 import { Input } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useCollectModuleStore } from 'src/store/collect-module';
 
@@ -26,24 +25,24 @@ const AmountConfig: FC<AmountConfigProps> = ({
         setOn={() => {
           setCollectType({
             type: collectModule.amount?.value
-              ? CollectModules.SimpleCollectModule
+              ? OpenActionModuleType.SimpleCollectOpenActionModule
               : collectModule.recipients?.length
-              ? CollectModules.MultirecipientFeeCollectModule
-              : CollectModules.SimpleCollectModule,
+              ? OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+              : OpenActionModuleType.SimpleCollectOpenActionModule,
             amount: collectModule.amount?.value
               ? null
               : { currency: DEFAULT_COLLECT_TOKEN, value: '1' }
           });
         }}
-        heading={t`Charge for collecting`}
-        description={t`Get paid whenever someone collects your post`}
+        heading="Charge for collecting"
+        description="Get paid whenever someone collects your post"
         icon={<CurrencyDollarIcon className="h-4 w-4" />}
       />
       {collectModule.amount?.value ? (
         <div className="pt-4">
           <div className="flex space-x-2 text-sm">
             <Input
-              label={t`Price`}
+              label="Price"
               type="number"
               placeholder="0.5"
               min="0"
@@ -59,9 +58,7 @@ const AmountConfig: FC<AmountConfigProps> = ({
               }}
             />
             <div>
-              <div className="label">
-                <Trans>Select currency</Trans>
-              </div>
+              <div className="label">Select currency</div>
               <select
                 className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
                 onChange={(e) => {
@@ -75,10 +72,11 @@ const AmountConfig: FC<AmountConfigProps> = ({
               >
                 {enabledModuleCurrencies?.map((currency: Erc20) => (
                   <option
-                    key={currency.address}
-                    value={currency.address}
+                    key={currency.contract.address}
+                    value={currency.contract.address}
                     selected={
-                      currency?.address === collectModule.amount?.currency
+                      currency.contract.address ===
+                      collectModule.amount?.currency
                     }
                   >
                     {currency.name}

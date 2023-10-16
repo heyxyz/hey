@@ -12,7 +12,7 @@ import { useState } from 'react';
 interface CoverImageProps {
   isNew: boolean;
   cover: string;
-  setCover: (url: string, mimeType: string) => void;
+  setCover: (url: string) => void;
   imageRef: Ref<HTMLImageElement>;
   expandCover: (url: string) => void;
 }
@@ -36,7 +36,7 @@ const CoverImage: FC<CoverImageProps> = ({
       try {
         setLoading(true);
         const attachment = await uploadFileToIPFS(event.target.files[0]);
-        setCover(attachment.original.url, attachment.original.mimeType);
+        setCover(attachment.uri);
       } catch (error) {
         onError(error);
       }

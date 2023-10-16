@@ -1,0 +1,6 @@
+fragment AmountFields on Amount {
+  asset {
+    ...Erc20Fields
+  }
+  value
+}

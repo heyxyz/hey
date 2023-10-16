@@ -29,6 +29,10 @@ interface MarkupProps {
 }
 
 const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
+  if (!children) {
+    return null;
+  }
+
   return (
     <ReactMarkdown
       className={className}

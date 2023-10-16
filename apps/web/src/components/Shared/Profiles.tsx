@@ -1,6 +1,5 @@
-import ProfileNameOrHandle from '@components/Shared/ProfileNameOrHandle';
+import FallbackProfileName from '@components/Shared/FallbackProfileName';
 import type { Profile } from '@hey/lens';
-import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 
 interface ProfileCirclesProps {
@@ -23,20 +22,20 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <ProfileNameOrHandle profile={profileOne} />
+        <FallbackProfileName profile={profileOne} />
       </Wrapper>
     );
   }
 
   const andSep = () => {
-    return ' ' + t`and` + ' ';
+    return ' ' + 'and' + ' ';
   };
 
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <ProfileNameOrHandle profile={profileOne} separator={andSep()} />
-        <ProfileNameOrHandle profile={profileTwo} />
+        <FallbackProfileName profile={profileOne} separator={andSep()} />
+        <FallbackProfileName profile={profileTwo} />
       </Wrapper>
     );
   }
@@ -47,18 +46,18 @@ const Profiles: FC<ProfileCirclesProps> = ({ profiles, context }) => {
 
     return (
       <Wrapper>
-        <ProfileNameOrHandle profile={profileOne} separator=", " />
-        <ProfileNameOrHandle
+        <FallbackProfileName profile={profileOne} separator=", " />
+        <FallbackProfileName
           profile={profileTwo}
           separator={isZero ? andSep() : ', '}
         />
-        <ProfileNameOrHandle
+        <FallbackProfileName
           profile={profileThree}
           separator={
             !isZero ? (
               <span className="whitespace-nowrap">
                 {andSep()}
-                {calculatedCount} {calculatedCount === 1 ? t`other` : t`others`}
+                {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
               </span>
             ) : null
           }

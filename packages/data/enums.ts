@@ -1,5 +1,4 @@
 export enum HomeFeedType {
-  FOR_YOU = 'FOR_YOU',
   FOLLOWING = 'FOLLOWING',
   HIGHLIGHTS = 'HIGHLIGHTS',
   // Thirdparty Algorithms

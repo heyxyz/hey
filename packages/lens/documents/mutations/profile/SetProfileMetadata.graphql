@@ -1,0 +1,11 @@
+mutation SetProfileMetadata($request: OnchainSetProfileMetadataRequest!) {
+  setProfileMetadata(request: $request) {
+    ... on RelaySuccess {
+      txHash
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

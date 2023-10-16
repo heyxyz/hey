@@ -1,30 +1,33 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, Publication } from '@hey/lens';
+import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getPublicationData from '@hey/lib/getPublicationData';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
+  const { metadata } = targetPublication;
+  const filteredContent = getPublicationData(metadata)?.content || '';
+
   const mentions =
-    publication?.metadata?.content?.match(Regex.mention, '$1[~$2]') ?? [];
+    filteredContent
+      .replace(`@${HANDLE_PREFIX}/`, HANDLE_PREFIX)
+      ?.match(Regex.mention) ?? [];
 
   const processedMentions = mentions.map((mention: string) => {
-    const trimmedMention = mention.trim().replace('@', '').replace("'s", '');
-
-    if (trimmedMention.length > 9) {
-      return mention.trim().replace("'s", '').replace(Regex.santiizeHandle, '');
-    }
-
-    return formatHandle(publication?.profile?.handle);
+    return mention.trim().replace('@', '');
   });
 
   const cleanedMentions = processedMentions.reduce(
@@ -39,7 +42,7 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   );
 
   const { data, loading, error } = useProfilesQuery({
-    variables: { request: { handles: cleanedMentions.slice(0, 5) } },
+    variables: { request: { where: { handles: cleanedMentions.slice(0, 5) } } },
     skip: mentions.length <= 0
   });
 
@@ -65,12 +68,12 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
 
   return (
     <Card as="aside" className="space-y-4 p-5" dataTestId="relevant-profiles">
-      <ErrorMessage title={t`Failed to load relevant people`} error={error} />
+      <ErrorMessage title="Failed to load relevant people" error={error} />
       {data?.profiles?.items?.map((profile, index) => (
         <div key={profile?.id} className="truncate">
           <UserProfile
             profile={profile as Profile}
-            isFollowing={profile.isFollowedByMe}
+            isFollowing={profile.operations.isFollowedByMe.value}
             followUnfollowPosition={index + 1}
             followUnfollowSource={
               FollowUnfollowSource.PUBLICATION_RELEVANT_PROFILES

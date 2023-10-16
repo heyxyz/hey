@@ -1,12 +1,12 @@
-import Attachments from '@components/Shared/Attachments';
 import Markup from '@components/Shared/Markup';
+import NewAttachments from '@components/Shared/NewAttachments';
 import Oembed from '@components/Shared/Oembed';
 import UserProfile from '@components/Shared/UserProfile';
 import type { Profile } from '@hey/lens';
 import {
+  LensTransactionStatusType,
   PublicationDocument,
-  PublicationMetadataStatusType,
-  useHasTxHashBeenIndexedQuery,
+  useLensTransactionStatusQuery,
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
@@ -14,7 +14,6 @@ import getURLs from '@hey/lib/getURLs';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@hey/types/misc';
 import { Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -67,35 +66,23 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     }
   });
 
-  useHasTxHashBeenIndexedQuery({
-    variables: { request: { txHash, txId } },
+  useLensTransactionStatusQuery({
+    variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval: 1000,
-    onCompleted: ({ hasTxHashBeenIndexed }) => {
-      if (hasTxHashBeenIndexed.__typename === 'TransactionError') {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: ({ lensTransactionStatus }) => {
+      if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
         return removeTxn();
       }
 
-      if (hasTxHashBeenIndexed.__typename === 'TransactionIndexedResult') {
-        const status = hasTxHashBeenIndexed.metadataStatus?.status;
-
-        if (
-          status === PublicationMetadataStatusType.MetadataValidationFailed ||
-          status === PublicationMetadataStatusType.NotFound
-        ) {
-          return removeTxn();
-        }
-
-        if (hasTxHashBeenIndexed.indexed) {
-          getPublication({
-            variables: {
-              request: { txHash: hasTxHashBeenIndexed.txHash },
-              reactionRequest: currentProfile
-                ? { profileId: currentProfile?.id }
-                : null,
-              profileId: currentProfile?.id ?? null
-            }
-          });
-        }
+      if (
+        lensTransactionStatus?.status === LensTransactionStatusType.Complete
+      ) {
+        getPublication({
+          variables: {
+            request: { forTxHash: lensTransactionStatus?.txHash }
+          }
+        });
       }
     }
   });
@@ -104,7 +91,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     <article className="p-5">
       <div className="flex items-start justify-between pb-4">
         <UserProfile profile={currentProfile as Profile} />
-        <Tooltip content={t`Indexing`} placement="top">
+        <Tooltip content="Indexing" placement="top">
           <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />
           </div>
@@ -115,7 +102,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
           <Markup>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
-          <Attachments attachments={txn?.attachments} txn={txn} hideDelete />
+          <NewAttachments attachments={txn?.attachments} hideDelete />
         ) : txn?.attachments && urls.length > 0 ? (
           <Oembed url={urls[0]} onData={onData} />
         ) : null}

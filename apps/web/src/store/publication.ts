@@ -1,21 +1,21 @@
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import type { NewAttachment } from '@hey/types/misc';
 import { create } from 'zustand';
 
 interface PublicationState {
   publicationContent: string;
   setPublicationContent: (publicationContent: string) => void;
-  quotedPublication: Publication | null;
-  setQuotedPublication: (quotedPublication: Publication | null) => void;
+  quotedPublication: AnyPublication | null;
+  setQuotedPublication: (quotedPublication: AnyPublication | null) => void;
   audioPublication: {
     title: string;
-    author: string;
+    artist: string;
     cover: string;
     coverMimeType: string;
   };
   setAudioPublication: (audioPublication: {
     title: string;
-    author: string;
+    artist: string;
     cover: string;
     coverMimeType: string;
   }) => void;
@@ -72,7 +72,7 @@ export const usePublicationStore = create<PublicationState>((set) => ({
     set(() => ({ quotedPublication })),
   audioPublication: {
     title: '',
-    author: '',
+    artist: '',
     cover: '',
     coverMimeType: 'image/jpeg'
   },

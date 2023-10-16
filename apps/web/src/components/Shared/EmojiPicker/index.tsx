@@ -2,8 +2,8 @@ import { FaceSmileIcon } from '@heroicons/react/24/outline';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
-import { type Dispatch, type FC, type SetStateAction, useRef } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
+import { useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import List from './List';
@@ -40,7 +40,7 @@ const EmojiPicker: FC<EmojiPickerProps> = ({
         {emoji ? (
           <span>{emoji}</span>
         ) : (
-          <Tooltip placement="top" content={t`Emoji`}>
+          <Tooltip placement="top" content="Emoji">
             <FaceSmileIcon className={cn('h-5 w-5', emojiClassName)} />
           </Tooltip>
         )}

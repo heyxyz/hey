@@ -1,0 +1,15 @@
+query EnabledCurrencies($request: PaginatedOffsetRequest!) {
+  currencies(request: $request) {
+    items {
+      name
+      symbol
+      decimals
+      contract {
+        ...NetworkAddressFields
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

@@ -60,7 +60,7 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
       )}
       ref={setRefElement}
       role="option"
-      id={'typeahead-item-' + index}
+      id={`typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
       aria-selected={isSelected}

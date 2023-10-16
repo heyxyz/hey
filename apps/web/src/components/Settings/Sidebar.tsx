@@ -7,12 +7,14 @@ import {
   CpuChipIcon,
   ExclamationTriangleIcon,
   FingerPrintIcon,
+  GlobeAltIcon,
+  NoSymbolIcon,
+  QueueListIcon,
   ShareIcon,
   SparklesIcon,
   UserIcon
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
@@ -30,51 +32,62 @@ const SettingsSidebar: FC = () => {
       <Sidebar
         items={[
           {
-            title: t`Profile`,
+            title: 'Profile',
             icon: <UserIcon className="h-4 w-4" />,
             url: '/settings'
           },
           {
-            title: t`Account`,
+            title: 'Account',
             icon: <CpuChipIcon className="h-4 w-4" />,
             url: '/settings/account'
           },
           {
-            title: t`Preferences`,
+            title: 'Preferences',
             icon: <AdjustmentsVerticalIcon className="h-4 w-4" />,
             url: '/settings/preferences'
           },
           {
-            title: t`Interests`,
+            title: 'Interests',
             icon: <BookmarkIcon className="h-4 w-4" />,
             url: '/settings/interests'
           },
           {
-            title: t`Dispatcher`,
+            title: 'Manager',
             icon: <FingerPrintIcon className="h-4 w-4" />,
-            url: '/settings/dispatcher'
+            url: '/settings/manager'
           },
           {
-            title: t`Allowance`,
+            title: 'Allowance',
             icon: <ShareIcon className="h-4 w-4" />,
             url: '/settings/allowance'
           },
           {
-            title: t`Cleanup`,
+            title: 'Sessions',
+            icon: <GlobeAltIcon className="h-4 w-4" />,
+            url: '/settings/sessions'
+          },
+          {
+            title: 'Action History',
+            icon: <QueueListIcon className="h-4 w-4" />,
+            url: '/settings/actions'
+          },
+          {
+            title: 'Blocked Profiles',
+            icon: <NoSymbolIcon className="h-4 w-4" />,
+            url: '/settings/blocked'
+          },
+          {
+            title: 'Cleanup',
             icon: <SparklesIcon className="h-4 w-4" />,
             url: '/settings/cleanup'
           },
           {
-            title: t`Export`,
+            title: 'Export',
             icon: <CircleStackIcon className="h-4 w-4" />,
             url: '/settings/export'
           },
           {
-            title: (
-              <div className="text-red-500">
-                <Trans>Danger zone</Trans>
-              </div>
-            ),
+            title: <div className="text-red-500">Danger zone</div>,
             icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
             url: '/settings/danger'
           }

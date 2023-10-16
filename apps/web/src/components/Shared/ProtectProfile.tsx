@@ -11,19 +11,16 @@ import {
 } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
+import { useAppStore } from 'src/store/app';
 import { useContractWrite } from 'wagmi';
 
 import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
-  const profileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.profileGuardianInformation
-  );
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const { data, write, isLoading } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -37,14 +34,13 @@ const ProtectProfile: FC = () => {
     }
   });
 
-  if (profileGuardianInformation.isProtected) {
+  if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
     return null;
   }
 
-  const coolOffDate =
-    profileGuardianInformation.disablingProtectionTimestamp as any;
+  const coolOffDate = new Date(currentProfile?.guardian?.cooldownEndsOn);
   const coolOffTime = new Date(
-    new Date(coolOffDate).getTime() + 5 * 60 * 100
+    coolOffDate.getTime() + 5 * 60 * 100
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
 
@@ -55,12 +51,12 @@ const ProtectProfile: FC = () => {
           <div className="flex items-center space-x-2 text-red-700">
             <LockOpenIcon className="h-5 w-5" />
             <div className="text-base font-bold sm:text-lg">
-              <Trans>Attention! Your profile is currently unlocked.</Trans>
+              Attention! Your profile is currently unlocked.
             </div>
           </div>
           <div className="text-red-500">
             {isCoolOffPassed ? (
-              <Trans>
+              <>
                 Your profile protection disabled.
                 <Link
                   className="ml-1.5 underline"
@@ -69,15 +65,15 @@ const ProtectProfile: FC = () => {
                 >
                   Learn more
                 </Link>
-              </Trans>
+              </>
             ) : (
-              <Trans>
+              <>
                 Your profile protection disabling has been triggered. It will
                 take effect in{' '}
                 <b>
                   <CountdownTimer targetDate={coolOffTime} />
                 </b>
-              </Trans>
+              </>
             )}
           </div>
         </GridItemEight>
@@ -96,7 +92,7 @@ const ProtectProfile: FC = () => {
               }
               onClick={() => write()}
             >
-              <Trans>Protect now</Trans>
+              Protect now
             </Button>
           )}
         </GridItemFour>

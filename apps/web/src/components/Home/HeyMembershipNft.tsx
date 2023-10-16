@@ -1,4 +1,4 @@
-import Mint from '@components/Publication/OpenActions/Nft/ZoraNft/Mint';
+import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
@@ -6,9 +6,9 @@ import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
 import { Button, Card, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
-import { type FC, useState } from 'react';
+import type { FC } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
 import { useAppStore } from 'src/store/app';
@@ -26,7 +26,7 @@ const HeyMembershipNft: FC = () => {
 
   const fetchPreferences = async (): Promise<MembershipNft> => {
     const response = await axios.get(
-      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy}`
+      `${PREFERENCES_WORKER_URL}/getHeyMemberNftStatus/${currentProfile?.ownedBy.address}`
     );
     const { data } = response;
 
@@ -55,7 +55,7 @@ const HeyMembershipNft: FC = () => {
         axios.post(
           `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
           {
-            id: currentProfile?.ownedBy,
+            id: currentProfile?.ownedBy.address,
             dismissedOrMinted: true
           },
           {
@@ -65,13 +65,13 @@ const HeyMembershipNft: FC = () => {
           }
         ),
         {
-          loading: t`Updating...`,
+          loading: 'Updating...',
           success: () => {
             refetch();
             setShowMintModal(false);
-            return t`Updated!`;
+            return 'Updated!';
           },
-          error: t`Error updating.`
+          error: 'Error updating.'
         }
       );
     } catch {}
@@ -89,13 +89,11 @@ const HeyMembershipNft: FC = () => {
       />
       <div className="p-5">
         <div className="mb-1 font-bold">
-          <Trans>Hey Buddy! Grab your special Hey NFT Here.</Trans>
+          Hey Buddy! Grab your special Hey NFT Here.
         </div>
         <div className="text-brand-400 mb-4">
-          <Trans>
-            New or OG, this NFT's for our epic times together. Let's keep the
-            vibe alive!
-          </Trans>
+          New or OG, this NFT's for our epic times together. Let's keep the vibe
+          alive!
         </div>
         <div className="flex flex-col items-center space-y-1.5">
           <Button
@@ -108,10 +106,10 @@ const HeyMembershipNft: FC = () => {
             }}
             disabled={loading}
           >
-            <Trans>Mint now</Trans>
+            Mint now
           </Button>
           <Modal
-            title={t`Mint`}
+            title="Mint"
             show={showMintModal}
             icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
             onClose={() => setShowMintModal(false)}

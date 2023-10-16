@@ -7,16 +7,17 @@ import {
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { Publication } from '@hey/lens';
+import type { AnyPublication } from '@hey/lens';
 import nFormatter from '@hey/lib/nFormatter';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 interface PublicationStatsProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
@@ -24,23 +25,16 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
-  const isMirror = publication.__typename === 'Mirror';
-  const commentsCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfComments
-    : publication?.stats?.totalAmountOfComments;
-  const mirrorCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfMirrors
-    : publication?.stats?.totalAmountOfMirrors;
-  const reactionCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalUpvotes
-    : publication?.stats?.totalUpvotes;
-  const collectCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalAmountOfCollects
-    : publication?.stats?.totalAmountOfCollects;
-  const bookmarkCount = isMirror
-    ? publication?.mirrorOf?.stats?.totalBookmarks
-    : publication?.stats?.totalBookmarks;
-  const publicationId = isMirror ? publication?.mirrorOf?.id : publication?.id;
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
+  const commentsCount = targetPublication.stats.comments;
+  const mirrorCount = targetPublication.stats.mirrors;
+  const reactionCount = targetPublication.stats.reactions;
+  const collectCount = targetPublication.stats.countOpenActions;
+  const bookmarkCount = targetPublication.stats.bookmarks;
+  const publicationId = targetPublication.id;
 
   return (
     <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
@@ -49,12 +43,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <b className="text-black dark:text-white">
             {nFormatter(commentsCount)}
           </b>{' '}
-          <Plural
-            value={commentsCount}
-            zero="Comment"
-            one="Comment"
-            other="Comments"
-          />
+          {plur('Comment', commentsCount)}
         </span>
       ) : null}
       {mirrorCount > 0 ? (
@@ -72,15 +61,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(mirrorCount)}
             </b>{' '}
-            <Plural
-              value={mirrorCount}
-              zero="Mirror"
-              one="Mirror"
-              other="Mirrors"
-            />
+            {plur('Mirror', commentsCount)}
           </button>
           <Modal
-            title={t`Mirrored by`}
+            title="Mirrored by"
             icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
             show={showMirrorsModal}
             onClose={() => setShowMirrorsModal(false)}
@@ -104,15 +88,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(reactionCount)}
             </b>{' '}
-            <Plural
-              value={reactionCount}
-              zero="Like"
-              one="Like"
-              other="Likes"
-            />
+            {plur('Like', reactionCount)}
           </button>
           <Modal
-            title={t`Liked by`}
+            title="Liked by"
             icon={<HeartIcon className="text-brand h-5 w-5" />}
             show={showLikesModal}
             onClose={() => setShowLikesModal(false)}
@@ -136,15 +115,10 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(collectCount)}
             </b>{' '}
-            <Plural
-              value={collectCount}
-              zero="Collect"
-              one="Collect"
-              other="Collects"
-            />
+            {plur('Collect', collectCount)}
           </button>
           <Modal
-            title={t`Collected by`}
+            title="Collected by"
             icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
             show={showCollectorsModal}
             onClose={() => setShowCollectorsModal(false)}
@@ -158,12 +132,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <b className="text-black dark:text-white">
             {nFormatter(bookmarkCount)}
           </b>{' '}
-          <Plural
-            value={bookmarkCount}
-            zero="Bookmark"
-            one="Bookmark"
-            other="Bookmarks"
-          />
+          {plur('Bookmarks', bookmarkCount)}
         </span>
       ) : null}
     </div>

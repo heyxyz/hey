@@ -1,19 +1,13 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
-import type { MetadataOutput } from '@hey/lens';
-import { PublicationMainFocus } from '@hey/lens';
 import { describe, expect, test } from 'vitest';
 
 import getThumbnailUrl from './getThumbnailUrl';
 
 describe('getThumbnailUrl', () => {
-  const mockMetadata: MetadataOutput = {
-    attributes: [],
-    media: [],
-    tags: [],
-    mainContentFocus: PublicationMainFocus.Article,
+  const mockMetadata = {
     cover: {
-      original: { url: 'https://example.com/cover.png' },
-      onChain: { url: null }
+      optimized: { uri: 'https://example.com/cover.png' },
+      raw: { uri: null }
     }
   };
 
@@ -26,13 +20,13 @@ describe('getThumbnailUrl', () => {
 
   test('should return the original cover URL if available', () => {
     const metadata = mockMetadata;
-    const result = getThumbnailUrl(metadata);
+    const result = getThumbnailUrl(metadata as any);
     expect(result).toEqual('https://example.com/cover.png');
   });
 
   test('should return the image URL if no original cover URL is available', () => {
     const metadata = { ...mockMetadata, cover: undefined };
-    const result = getThumbnailUrl(metadata);
+    const result = getThumbnailUrl(metadata as any);
     const expectedUrl = `${STATIC_IMAGES_URL}/thumbnail.png`;
     expect(result).toEqual(expectedUrl);
   });

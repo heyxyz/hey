@@ -1,20 +1,21 @@
 import SwitchNetwork from '@components/Shared/SwitchNetwork';
-import { KeyIcon } from '@heroicons/react/24/outline';
+import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { Localstorage } from '@hey/data/storage';
 import { AUTH } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useUserProfilesLazyQuery
+  useProfileLazyQuery,
+  useProfilesManagedQuery
 } from '@hey/lens';
 import getWalletDetails from '@hey/lib/getWalletDetails';
-import { Button, Spinner } from '@hey/ui';
+import { Button, Card, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -32,6 +33,8 @@ import {
   useSignMessage
 } from 'wagmi';
 
+import UserProfile from '../UserProfile';
+
 interface WalletSelectorProps {
   setHasConnected?: Dispatch<SetStateAction<boolean>>;
   setHasProfile?: Dispatch<SetStateAction<boolean>>;
@@ -41,13 +44,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
   setHasProfile
 }) => {
-  const setProfiles = useAppStore((state) => state.setProfiles);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
+    null
+  );
 
   const onError = (error: any) => {
     setIsLoading(false);
@@ -72,7 +77,17 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
-  const [getProfiles, { error: errorProfiles }] = useUserProfilesLazyQuery();
+  const { data: profilesManaged, loading: profilesManagedLoading } =
+    useProfilesManagedQuery({
+      variables: { request: { for: address } },
+      skip: !address,
+      onCompleted: ({ profilesManaged }) => {
+        if (profilesManaged.items.length <= 0) {
+          setHasProfile?.(false);
+        }
+      }
+    });
+  const [getUserProfile] = useProfileLazyQuery();
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -86,13 +101,13 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {}
   };
 
-  const handleSign = async () => {
-    let keepModal = false;
+  const handleSign = async (id: string) => {
     try {
+      setLoggingInProfileId(id);
       setIsLoading(true);
       // Get challenge
       const challenge = await loadChallenge({
-        variables: { request: { address } }
+        variables: { request: { for: id, signedBy: address } }
       });
 
       if (!challenge?.data?.challenge?.text) {
@@ -106,7 +121,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
 
       // Auth user and set cookies
       const auth = await authenticate({
-        variables: { request: { address, signature } }
+        variables: { request: { id: challenge.data.challenge.id, signature } }
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
@@ -115,32 +130,21 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
       // Get authed profiles
-      const { data: profilesData } = await getProfiles({
-        variables: { request: { ownedBy: [address] } }
+      const { data: profile } = await getUserProfile({
+        variables: { request: { forProfileId: id } }
       });
 
-      if (profilesData?.profiles?.items?.length === 0) {
-        setHasProfile?.(false);
-        keepModal = true;
-      } else {
-        const profiles: any = profilesData?.profiles?.items
-          ?.slice()
-          ?.sort((a, b) => Number(a.id) - Number(b.id))
-          ?.sort((a, b) =>
-            a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
-          );
-        const currentProfile = profiles[0];
-        setProfiles(profiles);
-        setCurrentProfile(currentProfile);
+      if (profile?.profile) {
+        const currentProfile = profile.profile;
+        setCurrentProfile(currentProfile as Profile);
         setProfileId(currentProfile.id);
+        Leafwatch.track(AUTH.SIWL);
       }
-      Leafwatch.track(AUTH.SIWL);
     } catch {
     } finally {
       setIsLoading(false);
-      if (!keepModal) {
-        setShowAuthModal(false);
-      }
+      setLoggingInProfileId(null);
+      setShowAuthModal(false);
     }
   };
 
@@ -148,19 +152,40 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     <div className="space-y-3">
       <div className="space-y-2.5">
         {chain === CHAIN_ID ? (
-          <Button
-            disabled={isLoading}
-            icon={
-              isLoading ? (
-                <Spinner className="mr-0.5" size="xs" />
-              ) : (
-                <img className="mr-0.5 h-3" src="/lens.svg" alt="Lens Logo" />
-              )
-            }
-            onClick={handleSign}
-          >
-            <Trans>Sign-In with Lens</Trans>
-          </Button>
+          <Card className="w-full divide-y dark:divide-gray-700">
+            {profilesManagedLoading ? (
+              <div className="space-y-2 p-4 text-center text-sm font-bold">
+                <Spinner size="sm" className="mx-auto" />
+                <div>Loading profiles managed by you...</div>
+              </div>
+            ) : (
+              profilesManaged?.profilesManaged.items.map((profile) => (
+                <div
+                  key={profile.id}
+                  className="flex items-center justify-between p-3"
+                >
+                  <UserProfile
+                    linkToProfile={false}
+                    showUserPreview={false}
+                    profile={profile as Profile}
+                  />
+                  <Button
+                    onClick={() => handleSign(profile.id)}
+                    icon={
+                      isLoading && loggingInProfileId === profile.id ? (
+                        <Spinner className="mr-1" size="xs" />
+                      ) : (
+                        <ArrowRightCircleIcon className="h-5 w-5" />
+                      )
+                    }
+                    disabled={isLoading && loggingInProfileId === profile.id}
+                  >
+                    Login
+                  </Button>
+                </div>
+              ))
+            )}
+          </Card>
         ) : (
           <SwitchNetwork toChainId={CHAIN_ID} />
         )}
@@ -172,12 +197,10 @@ const WalletSelector: FC<WalletSelectorProps> = ({
           className="flex items-center space-x-1 text-sm underline"
         >
           <KeyIcon className="h-4 w-4" />
-          <div>
-            <Trans>Change wallet</Trans>
-          </div>
+          <div>Change wallet</div>
         </button>
       </div>
-      {errorChallenge || errorAuthenticate || errorProfiles ? (
+      {errorChallenge || errorAuthenticate ? (
         <div className="flex items-center space-x-1 font-bold text-red-500">
           <XCircleIcon className="h-5 w-5" />
           <div>{Errors.SomethingWentWrong}</div>
@@ -212,7 +235,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
               <span>
                 {isMounted()
                   ? connector.id === 'injected'
-                    ? t`Browser Wallet`
+                    ? 'Browser Wallet'
                     : getWalletDetails(connector.name).name
                   : getWalletDetails(connector.name).name}
                 {isMounted() ? !connector.ready && ' (unsupported)' : ''}
@@ -236,7 +259,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       {error?.message ? (
         <div className="flex items-center space-x-1 text-red-500">
           <XCircleIcon className="h-5 w-5" />
-          <div>{error?.message ?? t`Failed to connect`}</div>
+          <div>{error?.message ?? 'Failed to connect'}</div>
         </div>
       ) : null}
     </div>

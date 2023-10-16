@@ -126,7 +126,5 @@ export const useGetProfile = (
     return db.lensProfiles.get([myProfileId, conversationKey]);
   }, [myProfileId, conversationKey]);
 
-  return {
-    profile
-  };
+  return { profile };
 };

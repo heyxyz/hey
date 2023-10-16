@@ -14,10 +14,8 @@ import {
 } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getFollowModule from '@hey/lib/getFollowModule';
 import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -57,9 +55,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     >
       <div className="flex items-center space-x-2 text-yellow-600">
         <ShieldCheckIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Staff tool</Trans>
-        </div>
+        <div className="text-lg font-bold">Staff tool</div>
       </div>
       <div className="mt-3 space-y-2">
         {haveUsedHey ? (
@@ -73,62 +69,66 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
                 alt="Logo"
               />
             }
-            value={formatHandle(profile?.handle)}
+            value={profile.id}
           >
-            <Trans>Have used {APP_NAME}</Trans>
+            Have used {APP_NAME}
           </MetaDetails>
         ) : null}
         <MetaDetails
           icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.id}
-          title={t`Profile ID`}
+          value={profile.id}
+          title="Profile ID"
         >
-          {profile?.id}
+          {profile.id}
         </MetaDetails>
         <MetaDetails
           icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.ownedBy}
-          title={t`Address`}
+          value={profile.ownedBy.address}
+          title="Address"
         >
-          {formatAddress(profile?.ownedBy)}
+          {formatAddress(profile.ownedBy.address)}
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
             icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
-            value={profile?.followNftAddress}
-            title={t`NFT address`}
+            value={profile.followNftAddress.address}
+            title="NFT address"
           >
-            {formatAddress(profile?.followNftAddress)}
+            {formatAddress(profile.followNftAddress.address)}
           </MetaDetails>
         ) : null}
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
-          title={t`Can use relay`}
+          value={profile.lensManager ? 'Yes' : 'No'}
+          title="Has Lens Manager"
         >
-          {profile.dispatcher?.canUseRelay ? 'Yes' : 'No'}
+          {profile.lensManager ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.dispatcher?.sponsor ? 'Yes' : 'No'}
-          title={t`Gas sponsored`}
+          value={profile.sponsor ? 'Yes' : 'No'}
+          title="Gas sponsored"
         >
-          {profile.dispatcher?.sponsor ? 'Yes' : 'No'}
+          {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={formatHandle(profile?.handle)}
-          title={t`Follow module`}
+          value={profile.id}
+          title="Follow module"
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
         <MetaDetails
           icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.metadata}
-          title={t`Metadata`}
+          value={profile?.metadata?.rawURI}
+          title="Metadata"
         >
-          <Link href={profile?.metadata ?? ''} target="_blank" rel="noreferrer">
-            <Trans>Open</Trans>
+          <Link
+            href={profile?.metadata?.rawURI}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open
           </Link>
         </MetaDetails>
       </div>

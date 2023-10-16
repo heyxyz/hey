@@ -1,0 +1,19 @@
+fragment StoryMetadataV3Fields on StoryMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}

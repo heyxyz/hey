@@ -1,11 +1,17 @@
 import type { MediaSet } from '@hey/lens';
 
-export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
+export interface IPFSResponse {
+  uri: string;
+  mimeType: string;
+}
 
-export interface NewAttachment extends MediaSetWithoutOnChain {
-  id: string;
+export interface NewAttachment {
+  id?: string;
+  type: 'Image' | 'Video' | 'Audio';
+  uri: string;
+  mimeType: string;
+  previewUri: string;
   file?: File;
-  previewItem: string;
 }
 
 export interface UserSuggestion {
@@ -60,5 +66,13 @@ export interface OptimisticTransaction {
 
 export interface MarkupLinkProps {
   href?: string;
+  title?: string;
+}
+
+export interface MetadataAsset {
+  type: 'Image' | 'Video' | 'Audio';
+  uri: string;
+  cover?: string;
+  artist?: string;
   title?: string;
 }

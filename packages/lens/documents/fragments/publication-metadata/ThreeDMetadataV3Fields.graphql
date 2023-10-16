@@ -1,0 +1,26 @@
+fragment ThreeDMetadataV3Fields on ThreeDMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
+  attributes {
+    ...MetadataAttributeFields
+  }
+  assets {
+    license
+    uri
+    zipPath
+    playerURL
+    format
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}
