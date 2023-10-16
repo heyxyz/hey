@@ -32,7 +32,7 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { username, type, followIntent }
+    query: { handle, id, type, followIntent }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const lowerCaseProfileFeedType = [
@@ -53,10 +53,15 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
-  const handle = username as string;
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } },
-    skip: !handle
+    variables: {
+      request: {
+        ...(id
+          ? { forProfileId: id }
+          : { forHandle: `${HANDLE_PREFIX}${handle}` })
+      }
+    },
+    skip: id ? !id : !handle
   });
 
   const profile = data?.profile;
