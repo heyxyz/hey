@@ -24,7 +24,6 @@ import { FollowUnfollowSource } from '@hey/data/tracking';
 import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
-import formatAddress from '@hey/lib/formatAddress';
 import getAvatar from '@hey/lib/getAvatar';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
@@ -147,18 +146,11 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           className="flex items-center space-x-3"
           data-testid="profile-handle"
         >
-          {profile?.metadata?.displayName ? (
-            <Slug
-              className="text-sm sm:text-base"
-              slug={getProfile(profile).slug}
-              prefix={getProfile(profile).prefix}
-            />
-          ) : (
-            <Slug
-              className="text-sm sm:text-base"
-              slug={formatAddress(profile.ownedBy.address)}
-            />
-          )}
+          <Slug
+            className="text-sm sm:text-base"
+            slug={getProfile(profile).slug}
+            prefix={getProfile(profile).prefix}
+          />
           {currentProfile &&
           currentProfile?.id !== profile.id &&
           profile.operations.isFollowingMe.value ? (

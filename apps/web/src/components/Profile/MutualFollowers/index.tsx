@@ -1,7 +1,7 @@
 import type { Profile } from '@hey/lens';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
 import { useAppStore } from 'src/store/app';
@@ -28,7 +28,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
     skip: !profile?.id || !currentProfile?.id
   });
 
-  const profiles = data?.mutualFollowers?.items ?? [];
+  const profiles = (data?.mutualFollowers?.items as Profile[]) ?? [];
 
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <div
@@ -64,9 +64,7 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 1) {
     return (
       <Wrapper>
-        <span>
-          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}
-        </span>
+        <span>{getProfile(profileOne).displayName}</span>
       </Wrapper>
     );
   }
@@ -74,13 +72,8 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
   if (profiles?.length === 2) {
     return (
       <Wrapper>
-        <span>
-          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}{' '}
-          and{' '}
-        </span>
-        <span>
-          {profileTwo.metadata?.displayName ?? formatHandle(profileTwo?.handle)}
-        </span>
+        <span>{getProfile(profileOne).displayName} and </span>
+        <span>{getProfile(profileTwo).displayName}</span>
       </Wrapper>
     );
   }
@@ -91,18 +84,12 @@ const MutualFollowers: FC<MutualFollowersProps> = ({
 
     return (
       <Wrapper>
+        <span>{getProfile(profileOne).displayName}, </span>
         <span>
-          {profileOne.metadata?.displayName ?? formatHandle(profileOne?.handle)}
-          ,{' '}
-        </span>
-        <span>
-          {profileTwo.metadata?.displayName ?? formatHandle(profileTwo?.handle)}
+          {getProfile(profileTwo).displayName}
           {isZero ? ' and ' : ', '}
         </span>
-        <span>
-          {profileThree.metadata?.displayName ??
-            formatHandle(profileThree?.handle)}{' '}
-        </span>
+        <span>{getProfile(profileThree).displayName} </span>
         {!isZero ? (
           <span>
             and {calculatedCount} {calculatedCount === 1 ? 'other' : 'others'}
