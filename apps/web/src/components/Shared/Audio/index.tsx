@@ -1,7 +1,7 @@
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
-import type { AnyPublication } from '@hey/lens';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import type { AnyPublication, Profile } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { Leafwatch } from '@lib/leafwatch';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
@@ -126,9 +126,7 @@ const Audio: FC<AudioProps> = ({
                     <h5 className="truncate text-lg text-white">{title}</h5>
                     <h6 className="truncate text-white/70">
                       {artist ??
-                        sanitizeDisplayName(
-                          publication?.by.metadata?.displayName
-                        )}
+                        getProfile(publication?.by as Profile).displayName}
                     </h6>
                   </>
                 )}

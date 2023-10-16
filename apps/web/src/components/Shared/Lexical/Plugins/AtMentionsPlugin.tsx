@@ -10,8 +10,8 @@ import {
 } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
@@ -201,7 +201,7 @@ const MentionsPlugin: FC = () => {
           (user) =>
             ({
               id: user?.id,
-              name: sanitizeDisplayName(user.metadata?.displayName),
+              name: getProfile(user).displayName,
               handle: user?.handle,
               picture: getAvatar(user)
             }) as Record<string, string>

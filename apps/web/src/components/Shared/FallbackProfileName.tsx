@@ -1,6 +1,5 @@
 import type { Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC, ReactNode } from 'react';
@@ -30,7 +29,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
       >
         <b className="whitespace-nowrap">
           {profile?.metadata?.displayName ? (
-            sanitizeDisplayName(profile?.metadata.displayName)
+            getProfile(profile).displayName
           ) : (
             <Slug
               slug={getProfile(profile).slug}
