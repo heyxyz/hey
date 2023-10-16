@@ -37,15 +37,26 @@ Have a look at http://localhost:4783. You should find your local instance of hey
 That's it! You're all set to start working on hey project. 🐳
 
 ### VSCode inside containers (optional)
-While everything should be up and running at this point and any changes in code should be automatically reflected in your local version. 
 
-You will notice that you're IDE will tell you don't have any dependencies installed. This is because you're installed inside of docker and invisible to your IDE.
+Hey should be up and running smoothly and any changes in code should be automatically reflected (live-reloaded) in your local instance. However, you might've noticed an issue: your IDE insists that you're missing dependencies. 
 
-While you can installed them locally as well, we do not recommend. Having one set of depedencies available to your IDE and a potentially different one for the runtime only spells trouble.  
+Sure, you could install those dependencies locally as well, but maintaining two sets of potentially slightly different depedencies is not ideal.
 
-Instead, we recommend, if you use VSCode, to attach it directly to your container.
+Instead, you can connect VSCode directly to your container:
 
-https://code.visualstudio.com/docs/devcontainers/attach-container
+1. Open Visual Studio Code.
+
+2. Install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
+
+2. Go to the Command Palette by pressing `F1`.
+
+3. Search for "Dev Containers: Attach to Running Container" and select it. 
+
+4. Select the container you want to connect to.
+
+Now, you're connected to your running Docker container. VSCode can access the dependencies and settings within the container, making your development environment consistent with the runtime environment. You can install extensions, edit code, and debug just like you would when working with a local folder.
+
+Learn more about VSCode and Docker [here](https://code.visualstudio.com/docs/devcontainers/attach-container).
 
 ### Caveats
 
