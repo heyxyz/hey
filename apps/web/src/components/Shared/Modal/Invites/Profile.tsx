@@ -2,7 +2,6 @@ import Slug from '@components/Shared/Slug';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
@@ -19,22 +18,12 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
       <span>
         <b>
           {invite.profileMinted ? (
-            invite.profileMinted.handle ? (
-              <Link
-                href={getProfile(invite.profileMinted).link}
-                target="_blank"
-              >
-                <Slug
-                  prefix="@"
-                  slug={
-                    formatHandle(invite.profileMinted.handle) ||
-                    invite.profileMinted.id
-                  }
-                />
-              </Link>
-            ) : (
-              <Slug prefix="#" slug={invite.profileMinted.id} />
-            )
+            <Link href={getProfile(invite.profileMinted).link} target="_blank">
+              <Slug
+                slug={getProfile(invite.profileMinted).slug}
+                prefix={getProfile(invite.profileMinted).prefix}
+              />
+            </Link>
           ) : (
             formatAddress(invite.by)
           )}

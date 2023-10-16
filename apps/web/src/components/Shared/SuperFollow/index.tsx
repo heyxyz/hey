@@ -1,7 +1,7 @@
 import { StarIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Button, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
@@ -65,8 +65,8 @@ const SuperFollow: FC<SuperFollowProps> = ({
           <span>
             Super follow{' '}
             <Slug
-              slug={formatHandle(profile?.handle) || profile.id}
-              prefix="@"
+              slug={getProfile(profile).slug}
+              prefix={getProfile(profile).prefix}
             />{' '}
             {again ? 'again' : ''}
           </span>

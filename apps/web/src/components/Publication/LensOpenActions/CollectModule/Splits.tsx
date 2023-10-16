@@ -3,7 +3,6 @@ import { POLYGONSCAN_URL } from '@hey/data/constants';
 import type { Profile, RecipientDataOutput } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
@@ -59,16 +58,12 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                     alt="Avatar"
                   />
                   {profile ? (
-                    profile.handle ? (
-                      <Link href={getProfile(profile).link}>
-                        <Slug
-                          slug={formatHandle(profile.handle) as string}
-                          prefix="@"
-                        />
-                      </Link>
-                    ) : (
-                      <Slug slug={profile.id} prefix="#" />
-                    )
+                    <Link href={getProfile(profile).link}>
+                      <Slug
+                        slug={getProfile(profile).slug}
+                        prefix={getProfile(profile).prefix}
+                      />
+                    </Link>
                   ) : (
                     <Link
                       href={`${POLYGONSCAN_URL}/address/${address}`}

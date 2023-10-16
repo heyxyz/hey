@@ -28,6 +28,7 @@ import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
+import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
@@ -152,8 +153,8 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           {profile?.metadata?.displayName ? (
             <Slug
               className="text-sm sm:text-base"
-              slug={formatHandle(profile?.handle) || profile.id}
-              prefix="@"
+              slug={getProfile(profile).slug}
+              prefix={getProfile(profile).prefix}
             />
           ) : (
             <Slug

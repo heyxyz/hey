@@ -1,6 +1,5 @@
 import Slug from '@components/Shared/Slug';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
@@ -26,7 +25,10 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
         />
         <span>
           Invited by{' '}
-          <Slug prefix="@" slug={formatHandle(profile.handle) || profile.id} />
+          <Slug
+            slug={getProfile(profile).slug}
+            prefix={getProfile(profile).prefix}
+          />
         </span>
       </Link>
     </div>

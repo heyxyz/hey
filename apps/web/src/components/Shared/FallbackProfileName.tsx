@@ -1,5 +1,4 @@
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getProfile from '@hey/lib/getProfile';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import cn from '@hey/ui/cn';
@@ -34,8 +33,8 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
             sanitizeDisplayName(profile?.metadata.displayName)
           ) : (
             <Slug
-              slug={formatHandle(profile?.handle) ?? profile.id}
-              prefix={profile?.handle ? '@' : '#'}
+              slug={getProfile(profile).slug}
+              prefix={getProfile(profile).prefix}
             />
           )}
         </b>

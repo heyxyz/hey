@@ -111,8 +111,8 @@ const UserProfile: FC<UserProfileProps> = ({
       <div>
         <Slug
           className="text-sm"
-          slug={formatHandle(profile?.handle) ?? profile.id}
-          prefix={profile?.handle ? '@' : '#'}
+          slug={getProfile(profile).slug}
+          prefix={getProfile(profile).prefix}
         />
         {timestamp ? (
           <span className="lt-text-gray-500">

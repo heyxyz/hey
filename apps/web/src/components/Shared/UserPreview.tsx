@@ -7,6 +7,7 @@ import type { Profile } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
@@ -136,8 +137,8 @@ const UserPreview: FC<UserPreviewProps> = ({
         </div>
         <Slug
           className="text-sm"
-          slug={formatHandle(profile.handle) || profile.id}
-          prefix="@"
+          slug={getProfile(profile).slug}
+          prefix={getProfile(profile).prefix}
         />
       </>
     );

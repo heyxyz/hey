@@ -18,6 +18,7 @@ import {
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Spinner, WarningMessage } from '@hey/ui';
@@ -218,7 +219,10 @@ const FollowModule: FC<FollowModuleProps> = ({
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
           Super follow{' '}
-          <Slug slug={formatHandle(profile?.handle) || profile.id} prefix="@" />{' '}
+          <Slug
+            slug={getProfile(profile).slug}
+            prefix={getProfile(profile).prefix}
+          />{' '}
           {again ? 'again' : ''}
         </div>
         <div className="lt-text-gray-500">

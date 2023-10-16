@@ -57,8 +57,8 @@ const SmallUserProfile: FC<UserProfileProps> = ({
       ) : null}
       <Slug
         className="text-sm"
-        slug={formatHandle(profile?.handle) || profile.id}
-        prefix="@"
+        slug={getProfile(profile).slug}
+        prefix={getProfile(profile).prefix}
       />
       {timestamp ? (
         <span className="lt-text-gray-500">

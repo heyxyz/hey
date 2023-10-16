@@ -2,8 +2,8 @@ import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
 import { FollowModuleType, type Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Button, Image } from '@hey/ui';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
@@ -31,9 +31,9 @@ const FollowModal: FC<FollowModalProps> = ({
           />
           <Slug
             className="flex items-center"
-            slug={formatHandle(profile?.handle) || profile.id}
-            prefix="@"
-          />{' '}
+            slug={getProfile(profile).slug}
+            prefix={getProfile(profile).prefix}
+          />
         </span>
         <span className="flex">
           {followType === FollowModuleType.FeeFollowModule ? (

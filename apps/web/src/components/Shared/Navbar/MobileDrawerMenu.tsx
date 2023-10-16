@@ -1,6 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
@@ -63,10 +62,8 @@ const MobileDrawerMenu: FC = () => {
               <div className="truncate">
                 <Slug
                   className="font-bold"
-                  slug={
-                    formatHandle(currentProfile?.handle) || currentProfile?.id
-                  }
-                  prefix="@"
+                  slug={getProfile(currentProfile).slug}
+                  prefix={getProfile(currentProfile).prefix}
                 />
               </div>
             </div>
