@@ -1,6 +1,7 @@
 import { APP_NAME, DEFAULT_OG } from '@hey/data/constants';
 import type { AnyPublication, Comment } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -26,16 +27,16 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
     : publication;
 
   const { metadata } = targetPublication;
-  const metadataType = metadata.__typename;
+
+  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
+  const filteredAsset = getPublicationData(metadata)?.asset;
+
   const media =
-    metadataType === 'ImageMetadataV3'
-      ? metadata.asset.image.optimized?.uri
-      : metadataType === 'VideoMetadataV3'
-      ? metadata.asset.cover?.optimized?.uri
-      : null;
+    filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
   const profile = targetPublication.by;
   const title = `${targetPublication.__typename} by @${publication.by.handle} • ${APP_NAME}`;
-  const description = truncateByWords(metadata?.marketplace?.description, 30);
+  const description = truncateByWords(filteredContent, 30);
   const image = media
     ? sanitizeDStorageUrl(media)
     : profile

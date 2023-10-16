@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { MirrorNotification } from '@hey/lens';
-import getPublicationData from '@lib/getPublicationData';
+import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import plur from 'plur';
 import type { FC } from 'react';

@@ -1,6 +1,7 @@
 import type { AnyPublication } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import truncateByWords from '@hey/lib/truncateByWords';
@@ -20,18 +21,18 @@ const SinglePublication: FC<PublicationProps> = ({
     ? publication.mirrorOn
     : publication;
   const { stats, metadata } = targetPublication;
-  const metadataType = metadata.__typename;
+
+  const filteredContent = getPublicationData(metadata)?.content || '';
+  const filteredAttachments = getPublicationData(metadata)?.attachments || [];
+  const filteredAsset = getPublicationData(metadata)?.asset;
+
   const media =
-    metadataType === 'ImageMetadataV3'
-      ? metadata.asset.image.optimized?.uri
-      : metadataType === 'VideoMetadataV3'
-      ? metadata.asset.cover?.optimized?.uri
-      : null;
+    filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
   const profile = targetPublication.by;
   const publicationId = targetPublication.id;
   const avatar = getAvatar(profile);
   const attachment = media ? sanitizeDStorageUrl(media) : null;
-  const content = truncateByWords(metadata?.marketplace?.description, 30);
+  const content = truncateByWords(filteredContent, 30);
 
   // Stats
   const commentsCount = stats.comments;

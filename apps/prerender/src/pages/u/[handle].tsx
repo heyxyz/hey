@@ -1,4 +1,5 @@
 import Profile from '@components/Profile';
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import type { PublicationsRequest } from '@hey/lens';
 import {
   CustomFiltersType,
@@ -27,8 +28,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const { data: profileData } = await lensApolloNodeClient.query({
     query: ProfileDocument,
-    variables: { request: { handle } }
+    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
   });
+
+  console.log('profileData', profileData);
 
   if (profileData.profile) {
     const profileId = profileData.profile.id;

@@ -1,6 +1,11 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from '@hey/data/constants';
+import {
+  APP_NAME,
+  HANDLE_PREFIX,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType, useProfileQuery } from '@hey/lens';
@@ -50,7 +55,7 @@ const ViewProfile: NextPage = () => {
 
   const handle = username as string;
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { forHandle: `test/@${handle}` } },
+    variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } },
     skip: !handle
   });
 

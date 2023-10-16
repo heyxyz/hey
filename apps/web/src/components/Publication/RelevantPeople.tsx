@@ -5,9 +5,9 @@ import { Regex } from '@hey/data/regex';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
+import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
-import getPublicationData from '@lib/getPublicationData';
 import type { FC } from 'react';
 
 interface RelevantPeopleProps {

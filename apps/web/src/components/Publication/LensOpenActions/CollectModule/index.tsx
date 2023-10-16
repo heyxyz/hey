@@ -32,6 +32,7 @@ import {
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
+import getPublicationData from '@hey/lib/getPublicationData';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
@@ -84,6 +85,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
+
+  const filteredContent =
+    getPublicationData(targetPublication.metadata)?.content || '';
 
   const collectModule = openAction as
     | SimpleCollectOpenActionSettings
@@ -267,9 +271,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               {targetPublication.metadata?.marketplace?.name}
             </div>
           ) : null}
-          {targetPublication.metadata?.marketplace?.description ? (
+          {filteredContent ? (
             <Markup className="lt-text-gray-500 line-clamp-2">
-              {targetPublication.metadata?.marketplace?.description}
+              {filteredContent}
             </Markup>
           ) : null}
         </div>

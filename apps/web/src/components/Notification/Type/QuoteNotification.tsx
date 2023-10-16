@@ -1,7 +1,7 @@
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
 import { QuoteNotification } from '@hey/lens';
-import getPublicationData from '@lib/getPublicationData';
+import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { memo } from 'react';

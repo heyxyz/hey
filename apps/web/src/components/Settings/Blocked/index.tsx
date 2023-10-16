@@ -3,6 +3,7 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
+import type { Profile } from '@hey/lens';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import {
   Card,
@@ -60,7 +61,7 @@ const BlockedSettings: NextPage = () => {
           ) : error ? (
             <ErrorMessage className="m-5" error={error} />
           ) : (
-            <List profiles={data?.whoHaveBlocked?.items} />
+            <List profiles={data?.whoHaveBlocked?.items as Profile[]} />
           )}
         </Card>
       </GridItemEight>

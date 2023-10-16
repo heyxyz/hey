@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
+import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -18,6 +19,8 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
   const publicationType = targetPublication.__typename;
+  const filteredContent =
+    getPublicationData(targetPublication.metadata)?.content || '';
 
   return (
     <Menu.Item
@@ -30,9 +33,7 @@ const CopyPostText: FC<CopyPostTextProps> = ({ publication }) => {
       }
       onClick={async (event) => {
         stopEventPropagation(event);
-        await navigator.clipboard.writeText(
-          targetPublication?.metadata?.marketplace?.description || ''
-        );
+        await navigator.clipboard.writeText(filteredContent || '');
         toast.success('Copied to clipboard!');
         Leafwatch.track(PUBLICATION.COPY_TEXT, {
           publication_id: publication.id
