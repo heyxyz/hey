@@ -5,8 +5,7 @@ import {
   CustomFiltersType,
   LimitType,
   PublicationDocument,
-  PublicationsDocument,
-  PublicationType
+  PublicationsDocument
 } from '@hey/lens';
 import { lensApolloNodeClient } from '@hey/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
@@ -29,7 +28,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const { data: publicationData } = await lensApolloNodeClient.query({
     query: PublicationDocument,
-    variables: { request: { publicationId: id } }
+    variables: { request: { forId: id } }
   });
 
   if (publicationData.publication) {
@@ -45,7 +44,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
           id,
           ranking: { filter: CommentRankingFilterType.Relevant }
         },
-        publicationTypes: [PublicationType.Comment],
         customFilters: [CustomFiltersType.Gardeners]
       },
       limit: LimitType.Fifty

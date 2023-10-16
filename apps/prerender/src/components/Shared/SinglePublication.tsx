@@ -53,12 +53,12 @@ const SinglePublication: FC<PublicationProps> = ({
       <div data-testid={`publication-${publicationId}`}>
         <div>
           <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            {profile.metadata?.displayName ?? profile.handle}
+            {profile.metadata?.displayName || profile.handle || profile.id}
           </a>
         </div>
         <div>
           <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            @{formatHandle(profile.handle)}
+            @{formatHandle(profile.handle) || profile.id}
           </a>
         </div>
         {h1Content ? (
