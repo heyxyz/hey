@@ -199,8 +199,8 @@ importers:
         specifier: ^5.3.0
         version: 5.3.0(plyr@3.7.8)(react@18.2.0)
       rc-slider:
-        specifier: ^10.3.0
-        version: 10.3.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.3.1
+        version: 10.3.1(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -223,8 +223,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(@types/react@18.2.28)(react@18.2.0)
       react-virtuoso:
-        specifier: ^4.6.1
-        version: 4.6.1(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^4.6.2
+        version: 4.6.2(react-dom@18.2.0)(react@18.2.0)
       remark-breaks:
         specifier: ^4.0.0
         version: 4.0.0
@@ -368,8 +368,8 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
       rc-slider:
-        specifier: ^10.3.0
-        version: 10.3.0(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^10.3.1
+        version: 10.3.1(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -4108,7 +4108,7 @@ packages:
       graphql-ws: 5.14.1(graphql@16.8.1)
       isomorphic-ws: 5.0.0(ws@8.14.2)
       tslib: 2.6.2
-      ws: 8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4394,7 +4394,7 @@ packages:
       isomorphic-ws: 5.0.0(ws@8.14.2)
       tslib: 2.6.2
       value-or-promise: 1.0.12
-      ws: 8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
@@ -6091,7 +6091,7 @@ packages:
   /@solana/web3.js@1.78.5:
     resolution: {integrity: sha512-2ZHsDNqkKdglJQrIvJ3p2DmgS3cGnary3VJyqt9C1SPrpAtLYzcElr3xyXJOznyQTU/8AMw+GoF11lFoKbicKg==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       '@noble/curves': 1.2.0
       '@noble/hashes': 1.3.2
       '@solana/buffer-layout': 4.0.1
@@ -8116,6 +8116,14 @@ packages:
 
   /bufferutil@4.0.7:
     resolution: {integrity: sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.1
+    dev: false
+
+  /bufferutil@4.0.8:
+    resolution: {integrity: sha512-4T53u4PdgsXqKaIctwF8ifXlRTTmEPJ8iEPWFdGZvcf7sbwYo6FKFEX9eNNAnzFZ7EzJAQ3CJeOtCRA4rDp7Pw==}
     engines: {node: '>=6.14.2'}
     requiresBuild: true
     dependencies:
@@ -10823,7 +10831,7 @@ packages:
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     dev: true
 
   /isomorphic.js@0.2.5:
@@ -11662,7 +11670,7 @@ packages:
       stoppable: 1.1.0
       undici: 5.26.3
       workerd: 1.20231010.0
-      ws: 8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       youch: 3.3.2
       zod: 3.22.4
     transitivePeerDependencies:
@@ -12658,30 +12666,30 @@ packages:
     resolution: {integrity: sha512-sln+pNSc8NGaHoLzwNBssFSf/rSYkqeBXzX1AtJlkJiUaVSJSbRAWJk+4omsXkN+EJalzkZhWQ3th1m0FpR5xA==}
     dev: false
 
-  /rc-slider@10.3.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-kt8ehfvPLoZFYJS3Caaf3l+9OF8JUyexC84qy878vf9rOy9IulO/PEdha8E90i8mnj4mtJMSxojk1fJGkYWjpQ==}
+  /rc-slider@10.3.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-XszsZLkbjcG9ogQy/zUC0n2kndoKUAnY/Vnk1Go5Gx+JJQBz0Tl15d5IfSiglwBUZPS9vsUJZkfCmkIZSqWbcA==}
     engines: {node: '>=8.x'}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       classnames: 2.3.2
-      rc-util: 5.37.0(react-dom@18.2.0)(react@18.2.0)
+      rc-util: 5.38.0(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /rc-util@5.37.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-cPMV8DzaHI1KDaS7XPRXAf4J7mtBqjvjikLpQieaeOO7+cEbqY2j7Kso/T0R0OiEZTNcLS/8Zl9YrlXiO9UbjQ==}
+  /rc-util@5.38.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-yV/YBNdFn+edyBpBdCqkPE29Su0jWcHNgwx2dJbRqMrMfrUcMJUjCRV+ZPhcvWyKFJ63GzEerPrz9JIVo0zXmA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      react-is: 16.13.1
+      react-is: 18.2.0
     dev: false
 
   /react-activity-calendar@2.0.2(react-dom@18.2.0)(react@18.2.0):
@@ -12865,8 +12873,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /react-virtuoso@4.6.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-dQq0yOdRjdWIYaiTvUbudqmTodGSdWGt5lVYz3mM07TTEV91yv7eL5Fn3FPEJOA36whScxPWg0GiYBIOZYEIEA==}
+  /react-virtuoso@4.6.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-vvlqvzPif+MvBrJ09+hJJrVY0xJK9yran+A+/1iwY78k0YCVKsyoNPqoLxOxzYPggspNBNXqUXEcvckN29OxyQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=16 || >=17 || >= 18'
@@ -13148,12 +13156,12 @@ packages:
   /rpc-websockets@7.6.0:
     resolution: {integrity: sha512-Jgcs8q6t8Go98dEulww1x7RysgTkzpCMelVxZW4hvuyFtOGpeUz9prpr2KjUa/usqxgFCd9Tu3+yhHEP9GVmiQ==}
     dependencies:
-      '@babel/runtime': 7.23.1
+      '@babel/runtime': 7.23.2
       eventemitter3: 4.0.7
       uuid: 8.3.2
-      ws: 8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10)
+      ws: 8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10)
     optionalDependencies:
-      bufferutil: 4.0.7
+      bufferutil: 4.0.8
       utf-8-validate: 5.0.10
     dev: false
 
@@ -13799,12 +13807,12 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
-      terser: 5.21.0
+      terser: 5.22.0
       webpack: 5.89.0
     dev: false
 
-  /terser@5.21.0:
-    resolution: {integrity: sha512-WtnFKrxu9kaoXuiZFSGrcAvvBqAdmKx0SFNmVNYdJamMu9yyN3I/QF0FbH4QcqJQ+y1CJnzxGIKH0cSj+FGYRw==}
+  /terser@5.22.0:
+    resolution: {integrity: sha512-hHZVLgRA2z4NWcN6aS5rQDc+7Dcy58HOf2zbYwmFcQ+ua3h6eEFf5lIDKTzbWwlazPyOZsFQO8V80/IjVNExEw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -14944,7 +14952,7 @@ packages:
         optional: true
     dev: true
 
-  /ws@8.14.2(bufferutil@4.0.7)(utf-8-validate@5.0.10):
+  /ws@8.14.2(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -14956,7 +14964,7 @@ packages:
       utf-8-validate:
         optional: true
     dependencies:
-      bufferutil: 4.0.7
+      bufferutil: 4.0.8
       utf-8-validate: 5.0.10
 
   /xmtp-content-type-remote-attachment@1.0.7:
