@@ -28,6 +28,9 @@ const SinglePublication: FC<PublicationProps> = ({
 
   const media =
     filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
+  const mediaType = filteredAsset?.type || filteredAttachments[0]?.type;
+  const isVideo = mediaType === 'Video';
+  const isAudio = mediaType === 'Audio';
   const profile = targetPublication.by;
   const publicationId = targetPublication.id;
   const avatar = getAvatar(profile);
@@ -71,9 +74,13 @@ const SinglePublication: FC<PublicationProps> = ({
           </div>
         )}
         {attachment ? (
-          <div>
+          isVideo ? (
+            <video src={attachment} />
+          ) : isAudio ? (
+            <audio src={attachment} />
+          ) : (
             <img alt="attachment" src={attachment} width="500" />
-          </div>
+          )
         ) : null}
       </div>
       <div>
