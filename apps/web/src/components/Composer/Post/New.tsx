@@ -1,5 +1,6 @@
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Card, Image } from '@hey/ui';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
@@ -49,13 +50,7 @@ const NewPost: FC = () => {
         <Image
           src={getAvatar(currentProfile)}
           className="h-9 w-9 cursor-pointer rounded-full border bg-gray-200 dark:border-gray-700"
-          onClick={() =>
-            push(
-              currentProfile?.handle
-                ? `/u/${currentProfile?.handle}`
-                : `/profile/${currentProfile?.id}`
-            )
-          }
+          onClick={() => push(getProfile(currentProfile).link)}
           alt={currentProfile?.id}
         />
         <button

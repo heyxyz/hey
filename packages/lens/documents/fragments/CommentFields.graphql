@@ -11,7 +11,4 @@ fragment CommentFields on Comment {
       ...QuoteBaseFields
     }
   }
-  firstComment {
-    ...CommentBaseFields
-  }
 }

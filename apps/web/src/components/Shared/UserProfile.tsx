@@ -6,6 +6,7 @@ import {
 import { FollowModuleType, type Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
@@ -161,13 +162,7 @@ const UserProfile: FC<UserProfileProps> = ({
       data-testid={`user-profile-${profile.id}`}
     >
       {linkToProfile && profile.id ? (
-        <Link
-          href={
-            profile.handle
-              ? `/u/${formatHandle(profile.handle)}`
-              : `/profile/${profile.id}`
-          }
-        >
+        <Link href={getProfile(profile).link}>
           <UserInfo />
         </Link>
       ) : (

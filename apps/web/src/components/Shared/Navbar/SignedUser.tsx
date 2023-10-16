@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
@@ -68,11 +69,7 @@ const SignedUser: FC = () => {
           >
             <Menu.Item
               as={NextLink}
-              href={
-                currentProfile?.handle
-                  ? `/u/${formatHandle(currentProfile?.handle)}`
-                  : `/profile/${currentProfile?.id}`
-              }
+              href={getProfile(currentProfile).link}
               className="m-2 flex items-center rounded-lg px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
             >
               <div className="flex w-full flex-col">
@@ -114,11 +111,7 @@ const SignedUser: FC = () => {
             <div className="divider" />
             <Menu.Item
               as={NextLink}
-              href={
-                currentProfile?.handle
-                  ? `/u/${formatHandle(currentProfile?.handle)}`
-                  : `/profile/${currentProfile?.id}`
-              }
+              href={getProfile(currentProfile).link}
               className={({ active }: { active: boolean }) =>
                 cn({ 'dropdown-active': active }, 'menu-item')
               }

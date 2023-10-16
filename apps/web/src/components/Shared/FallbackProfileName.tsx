@@ -1,5 +1,6 @@
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
@@ -25,11 +26,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
   return (
     <>
       <Link
-        href={
-          profile.handle
-            ? `/u/${formatHandle(profile.handle)}`
-            : `/profile/${profile.id}`
-        }
+        href={getProfile(profile).link}
         className={cn('max-w-sm truncate hover:underline', className)}
       >
         <b className="whitespace-nowrap">

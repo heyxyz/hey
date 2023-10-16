@@ -3,6 +3,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import type { InvitedResult } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -20,11 +21,7 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
           {invite.profileMinted ? (
             invite.profileMinted.handle ? (
               <Link
-                href={
-                  invite.profileMinted.handle
-                    ? `/u/${formatHandle(invite.profileMinted.handle)}`
-                    : `/profile/${invite.profileMinted.id}`
-                }
+                href={getProfile(invite.profileMinted).link}
                 target="_blank"
               >
                 <Slug

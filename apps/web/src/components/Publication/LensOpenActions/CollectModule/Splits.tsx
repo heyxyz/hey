@@ -5,6 +5,7 @@ import { useProfilesQuery } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -59,13 +60,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   />
                   {profile ? (
                     profile.handle ? (
-                      <Link
-                        href={
-                          profile.handle
-                            ? `/u/${formatHandle(profile.handle)}`
-                            : `/profile/${profile.id}`
-                        }
-                      >
+                      <Link href={getProfile(profile).link}>
                         <Slug
                           slug={formatHandle(profile.handle) as string}
                           prefix="@"

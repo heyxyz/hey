@@ -2,7 +2,7 @@ import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,11 +24,7 @@ const Navbar: FC = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(
-      profile.handle
-        ? `/u/${formatHandle(profile.handle)}`
-        : `/profile/${profile.id}`
-    );
+    router.push(getProfile(profile).link);
   };
 
   interface NavItemProps {

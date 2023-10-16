@@ -2,6 +2,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
@@ -48,11 +49,7 @@ const MobileDrawerMenu: FC = () => {
       <div className="w-full space-y-2">
         <Link
           onClick={closeDrawer}
-          href={
-            currentProfile?.handle
-              ? `/u/${formatHandle(currentProfile?.handle)}`
-              : `/profile/${currentProfile?.id}`
-          }
+          href={getProfile(currentProfile).link}
           className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
         >
           <div className="flex w-full space-x-1.5">
@@ -85,14 +82,7 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <div>
-            <Link
-              href={
-                currentProfile?.handle
-                  ? `/u/${formatHandle(currentProfile?.handle)}`
-                  : `/profile/${currentProfile?.id}`
-              }
-              onClick={closeDrawer}
-            >
+            <Link href={getProfile(currentProfile).link} onClick={closeDrawer}>
               <YourProfile className={cn(itemClass, 'px-4')} />
             </Link>
             <Link href="/settings" onClick={closeDrawer}>

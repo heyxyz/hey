@@ -1,6 +1,6 @@
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { FollowNotification } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import type { FC } from 'react';
 import { memo } from 'react';
@@ -42,11 +42,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
           firstProfile={firstProfile}
           text={text}
           type={type}
-          linkToType={
-            currentProfile?.handle
-              ? `/u/${formatHandle(currentProfile?.handle)}`
-              : `/profile/${currentProfile?.id}`
-          }
+          linkToType={getProfile(currentProfile).link}
         />
       </div>
     </div>

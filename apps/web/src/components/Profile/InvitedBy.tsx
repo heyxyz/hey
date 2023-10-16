@@ -2,6 +2,7 @@ import Slug from '@components/Shared/Slug';
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
@@ -15,11 +16,7 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
     <div data-testid="profile-invited-by">
       <Link
         className="lt-text-gray-500 flex items-center space-x-2 text-sm"
-        href={
-          profile.handle
-            ? `/u/${formatHandle(profile.handle)}`
-            : `/profile/${profile.id}`
-        }
+        href={getProfile(profile).link}
       >
         <Image
           key={profile.id}

@@ -5,6 +5,7 @@ import {
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
@@ -69,13 +70,7 @@ const SmallUserProfile: FC<UserProfileProps> = ({
   );
 
   return (
-    <Link
-      href={
-        profile.handle
-          ? `/u/${formatHandle(profile.handle)}`
-          : `/profile/${profile.id}`
-      }
-    >
+    <Link href={getProfile(profile).link}>
       <div className="flex items-center space-x-2">
         <UserAvatar />
         <UserName />

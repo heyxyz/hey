@@ -5,6 +5,7 @@ import {
 import type { Profile } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
@@ -20,13 +21,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <Link
-      href={
-        profile.handle
-          ? `/u/${formatHandle(profile.handle)}`
-          : `/profile/${profile.id}`
-      }
-    >
+    <Link href={getProfile(profile).link}>
       <Image
         src={getAvatar(profile)}
         className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
@@ -43,11 +38,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
 }) => {
   return (
     <Link
-      href={
-        profile.handle
-          ? `/u/${formatHandle(profile.handle)}`
-          : `/profile/${profile.id}`
-      }
+      href={getProfile(profile).link}
       className="inline-flex items-center space-x-1 font-bold hover:underline"
     >
       <span>

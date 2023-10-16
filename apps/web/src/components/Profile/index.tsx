@@ -9,7 +9,7 @@ import {
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType, useProfileQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -64,7 +64,7 @@ const ViewProfile: NextPage = () => {
     skip: id ? !id : !handle
   });
 
-  const profile = data?.profile;
+  const profile = data?.profile as Profile;
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const isFollowedByMe =
@@ -117,15 +117,11 @@ const ViewProfile: NextPage = () => {
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>
-      {profile?.metadata?.displayName ? (
-        <MetaTags
-          title={`${profile?.metadata?.displayName} (@${formatHandle(
-            profile?.handle
-          )}) • ${APP_NAME}`}
-        />
-      ) : (
-        <MetaTags title={`@${formatHandle(profile?.handle)} • ${APP_NAME}`} />
-      )}
+      <MetaTags
+        title={`${getProfile(profile).displayName} (${
+          getProfile(profile).slugWithPrefix
+        }) • ${APP_NAME}`}
+      />
       <Cover
         cover={
           profile?.metadata?.coverPicture?.raw.uri ||
