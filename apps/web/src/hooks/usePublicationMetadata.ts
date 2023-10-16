@@ -29,9 +29,9 @@ const usePublicationMetadata = () => {
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
       const hasAttachments = attachments.length;
-      const hasImage = attachments[0]?.type === 'Image';
-      const hasAudio = attachments[0]?.type === 'Audio';
-      const hasVideo = attachments[0]?.type === 'Video';
+      const isImage = attachments[0]?.type === 'Image';
+      const isAudio = attachments[0]?.type === 'Audio';
+      const isVideo = attachments[0]?.type === 'Video';
 
       const localBaseMetadata = {
         id: uuid(),
@@ -45,7 +45,7 @@ const usePublicationMetadata = () => {
             ...baseMetadata,
             ...localBaseMetadata
           });
-        case hasImage:
+        case isImage:
           return image({
             ...baseMetadata,
             ...localBaseMetadata,
@@ -59,7 +59,7 @@ const usePublicationMetadata = () => {
               cover: cover
             }))
           });
-        case hasAudio:
+        case isAudio:
           return audio({
             ...baseMetadata,
             ...localBaseMetadata,
@@ -69,7 +69,7 @@ const usePublicationMetadata = () => {
               artist: audioPublication.artist
             }
           });
-        case hasVideo:
+        case isVideo:
           return video({
             ...baseMetadata,
             ...localBaseMetadata,
