@@ -36,6 +36,7 @@ import {
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import type { IGif } from '@hey/types/giphy';
@@ -542,7 +543,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (!attachments.length) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
-          currentProfile.handle,
+          getProfile(currentProfile).slug,
           new Date().toLocaleString()
         );
       }
@@ -558,10 +559,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         marketplace: {
           name: hasAudio
             ? audioPublication.title
-            : `${getTitlePrefix()} by @${currentProfile?.handle}`,
+            : `${getTitlePrefix()} by ${
+                getProfile(currentProfile).slugWithPrefix
+              }`,
           description: processedPublicationContent,
           animation_url: getAnimationUrl() || textNftImageUrl,
-          external_url: `https://hey.xyz/u/${currentProfile?.handle}`
+          external_url: `https://hey.xyz${getProfile(currentProfile).link}`
         }
       };
 

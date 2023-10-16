@@ -5,7 +5,6 @@ import {
   LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import { Card, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { motion } from 'framer-motion';
@@ -128,9 +127,7 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
-                    data-testid={`search-profile-${formatHandle(
-                      profile.handle
-                    )}`}
+                    data-testid={`search-profile-${profile.id}`}
                     aria-hidden="true"
                   >
                     <UserProfile

@@ -1,6 +1,7 @@
 import type { Profile } from '@hey/lens';
 
 import formatHandle from './formatHandle';
+import sanitizeDisplayName from './sanitizeDisplayName';
 
 const getProfile = (
   profile: Profile | null
@@ -28,7 +29,7 @@ const getProfile = (
     prefix,
     slug,
     slugWithPrefix: `${prefix}${slug}`,
-    displayName: profile.metadata?.displayName || slug,
+    displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
     link: profile.handle
       ? `/u/${formatHandle(profile.handle)}`
       : `/profile/${profile.id}`

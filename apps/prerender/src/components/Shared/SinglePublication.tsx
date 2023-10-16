@@ -1,6 +1,6 @@
 import type { AnyPublication } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
@@ -45,9 +45,9 @@ const SinglePublication: FC<PublicationProps> = ({
   return (
     <>
       <div>
-        <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
+        <a href={`${BASE_URL}${getProfile(profile).link}`}>
           <img
-            alt={`@${formatHandle(profile.handle)}'s avatar`}
+            alt={`${getProfile(profile).slugWithPrefix}'s avatar`}
             src={avatar}
             width="64"
           />
@@ -55,13 +55,13 @@ const SinglePublication: FC<PublicationProps> = ({
       </div>
       <div data-testid={`publication-${publicationId}`}>
         <div>
-          <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            {profile.metadata?.displayName || profile.handle || profile.id}
+          <a href={`${BASE_URL}${getProfile(profile).link}`}>
+            {getProfile(profile).displayName}
           </a>
         </div>
         <div>
-          <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>
-            @{formatHandle(profile.handle) || profile.id}
+          <a href={`${BASE_URL}${getProfile(profile).link}`}>
+            {getProfile(profile).slugWithPrefix}
           </a>
         </div>
         {h1Content ? (

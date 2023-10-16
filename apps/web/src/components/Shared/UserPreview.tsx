@@ -10,7 +10,6 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
@@ -125,8 +124,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className={cn(isBig ? 'font-bold' : 'text-md')}>
-            {sanitizeDisplayName(profile.metadata?.displayName) ??
-              formatHandle(profile.handle)}
+            {getProfile(profile).displayName}
           </div>
           {isVerified(profile.id) ? (
             <CheckBadgeIcon className="text-brand h-4 w-4" />

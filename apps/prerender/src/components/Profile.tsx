@@ -1,8 +1,8 @@
 import { APP_NAME } from '@hey/data/constants';
 import type { AnyPublication } from '@hey/lens';
 import { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import truncateByWords from '@hey/lib/truncateByWords';
 import type { FC } from 'react';
 import { JsonLd } from 'react-schemaorg';
@@ -22,9 +22,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
     return <DefaultTags />;
   }
 
-  const title = profile.metadata?.displayName
-    ? `${profile.metadata.displayName} (@${profile?.handle}) • ${APP_NAME}`
-    : `@${profile?.handle} • ${APP_NAME}`;
+  const title = `${getProfile(profile).displayName} (${
+    getProfile(profile).slugWithPrefix
+  }) • ${APP_NAME}`;
   const description = truncateByWords(profile.metadata?.bio ?? '', 30);
   const image = getAvatar(profile);
 
@@ -34,7 +34,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         title={title}
         description={description}
         image={image}
-        url={`${BASE_URL}/u/${formatHandle(profile.handle)}`}
+        url={`${BASE_URL}${getProfile(profile).link}`}
         schema={
           <JsonLd<any>
             item={{
@@ -42,9 +42,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
               '@type': 'ProfilePage',
               author: {
                 '@type': 'Person',
-                additionalName: profile.handle,
+                additionalName: getProfile(profile).slug,
                 description: profile.metadata?.bio,
-                givenName: profile.metadata?.displayName ?? profile.handle,
+                givenName: getProfile(profile).displayName,
                 identifier: profile.id,
                 image: {
                   '@type': 'ImageObject',
@@ -71,7 +71,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
                     userInteractionCount: profile.stats.posts
                   }
                 ],
-                url: `https://hey.xyz/u/${profile.handle}}`
+                url: `https://hey.xyz/${getProfile(profile).slug}}`
               }
             }}
           />
@@ -79,14 +79,14 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
       />
       <header>
         <img
-          alt={`@${formatHandle(profile.handle)}'s avatar`}
+          alt={`${getProfile(profile).slugWithPrefix}'s avatar`}
           src={image}
           width="64"
         />
-        <h1 data-testid="profile-name">
-          {profile.metadata?.displayName ?? profile.handle}
-        </h1>
-        <h2 data-testid="profile-handle">@{formatHandle(profile.handle)}</h2>
+        <h1 data-testid="profile-name">{getProfile(profile).displayName}</h1>
+        <h2 data-testid="profile-handle">
+          {getProfile(profile).slugWithPrefix}
+        </h2>
         <h3 data-testid="profile-bio">
           {truncateByWords(profile.metadata?.bio ?? '', 30)}
         </h3>
@@ -100,39 +100,25 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         <hr />
         <nav>
           <div>
-            <a href={`${BASE_URL}/u/${formatHandle(profile.handle)}`}>Feed</a>
+            <a href={`${BASE_URL}${getProfile(profile).link}`}>Feed</a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=replies`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=replies`}>
               Replies
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(profile.handle)}?type=media`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=media`}>
               Media
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=collects`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=collects`}>
               Collected
             </a>
           </div>
           <div>
-            <a
-              href={`${BASE_URL}/u/${formatHandle(
-                profile.handle
-              )}?type=gallery`}
-            >
+            <a href={`${BASE_URL}${getProfile(profile).link}?type=gallery`}>
               Gallery
             </a>
           </div>

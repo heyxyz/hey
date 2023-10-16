@@ -16,8 +16,8 @@ import {
   useFeedLazyQuery,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Image, Input, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -112,9 +112,7 @@ const SeeThroughLens: FC = () => {
             alt={profile?.id}
           />
           <span>
-            {seeThroughProfile
-              ? `@${formatHandle(profile?.handle)}`
-              : 'My Feed'}
+            {seeThroughProfile ? getProfile(profile).slugWithPrefix : 'My Feed'}
           </span>
           <ChevronDownIcon className="h-4 w-4" />
         </button>

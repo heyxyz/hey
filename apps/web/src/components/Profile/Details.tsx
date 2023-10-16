@@ -25,13 +25,11 @@ import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
 import buildConversationId from '@lib/buildConversationId';
 import { buildConversationKey } from '@lib/conversationKey';
@@ -126,8 +124,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
           <div className="truncate" data-testid="profile-name">
-            {sanitizeDisplayName(profile?.metadata?.displayName) ??
-              formatHandle(profile?.handle)}
+            {getProfile(profile).displayName}
           </div>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">

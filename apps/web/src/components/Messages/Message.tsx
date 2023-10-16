@@ -4,8 +4,8 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import formatHandle from '@hey/lib/formatHandle';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import type { Profile } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { Card, GridItemEight, GridLayout } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
@@ -153,9 +153,7 @@ const Message: FC<MessageProps> = ({}) => {
 
   const showLoading = !missingXmtpAuth && !currentProfile;
 
-  const userNameForTitle =
-    sanitizeDisplayName(profile?.metadata?.displayName) ??
-    formatHandle(profile?.handle);
+  const userNameForTitle = getProfile(profile as Profile).displayName;
 
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`

@@ -32,7 +32,7 @@ const handleRequest = async (request: Request, env: EnvType) => {
   }
 
   const profileInfo = profile
-    ? `User ID: ${profile.id}\nHandle: ${profile.handle}`
+    ? `User ID: ${profile.id}\nHandle: ${profile.handle || 'Not set'}`
     : 'Not signed in';
   const textBody = `${profileInfo}\n\nMessage:\n${body}`;
   try {

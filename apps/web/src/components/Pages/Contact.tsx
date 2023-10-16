@@ -65,7 +65,7 @@ const Contact: FC = () => {
         profile: currentProfile
           ? {
               id: currentProfile?.id,
-              handle: currentProfile?.handle
+              handle: currentProfile?.handle || ''
             }
           : null,
         category,

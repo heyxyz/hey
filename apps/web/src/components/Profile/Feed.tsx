@@ -8,7 +8,7 @@ import {
   PublicationType,
   usePublicationsQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
@@ -111,7 +111,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         message={
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(profile?.handle)}
+              {getProfile(profile).slugWithPrefix}
             </span>
             <span>{emptyMessage}</span>
           </div>

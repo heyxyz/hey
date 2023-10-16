@@ -4,7 +4,7 @@ import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { FollowingRequest, Profile } from '@hey/lens';
 import { LimitType, useFollowingQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
@@ -53,7 +53,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
         message={
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(profile?.handle)}
+              {getProfile(profile).slugWithPrefix}
             </span>
             <span>doesn’t follow anyone.</span>
           </div>

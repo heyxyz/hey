@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
@@ -32,7 +32,8 @@ const Block: FC<BlockProps> = ({ profile }) => {
       <div className="flex items-center space-x-2">
         <NoSymbolIcon className="h-4 w-4" />
         <div>
-          {isBlockedByMe ? 'Unblock' : 'Block'} @{formatHandle(profile.handle)}
+          {isBlockedByMe ? 'Unblock' : 'Block'}{' '}
+          {getProfile(profile).slugWithPrefix}
         </div>
       </div>
     </Menu.Item>

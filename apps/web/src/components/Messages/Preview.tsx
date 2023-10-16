@@ -4,11 +4,10 @@ import {
 } from '@heroicons/react/24/solid';
 import type { Profile } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import hasMisused from '@hey/lib/hasMisused';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { getTimeFromNow } from '@lib/formatTime';
@@ -92,9 +91,8 @@ const Preview: FC<PreviewProps> = ({
             <div className="flex justify-between space-x-1">
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
-                  {profile?.handle
-                    ? sanitizeDisplayName(profile?.metadata?.displayName) ||
-                      formatHandle(profile.handle)
+                  {profile?.id
+                    ? getProfile(profile).displayName
                     : ensName || formatAddress(conversationKey?.split('/')[0])}
                 </div>
                 {isVerified(profile?.id) ? (

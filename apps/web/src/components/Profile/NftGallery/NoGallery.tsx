@@ -1,6 +1,6 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
+import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -59,9 +59,7 @@ const NoGallery: FC<NoGalleryProps> = ({ profile }) => {
         {!isOwner ? (
           <>
             <h5 className="mb-2 text-xl">
-              {sanitizeDisplayName(profile?.metadata?.displayName) ??
-                profile.handle}{' '}
-              hasn't setup gallery yet!
+              {getProfile(profile).displayName} hasn't setup gallery yet!
             </h5>
             <p className="text-sm opacity-60">Check again later</p>
           </>
