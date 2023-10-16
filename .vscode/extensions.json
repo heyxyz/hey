@@ -11,6 +11,7 @@
     "mquandalle.graphql",
     "PKief.material-icon-theme",
     "christian-kohler.npm-intellisense",
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "ms-vscode-remote.remote-containers",
   ]
 }
