@@ -11,7 +11,6 @@
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
     "start": "next start --port 4783",
-    "test:dev": "playwright test",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -79,7 +78,6 @@
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
-    "@playwright/test": "^1.39.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.6",
     "@types/node": "^20.8.6",
