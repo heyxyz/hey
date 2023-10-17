@@ -15,11 +15,13 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
   const avatarUrl =
     // Group Avatar fallbacks
     profile?.avatar ??
-    // Lens Avatar fallbacks
+    // Lens NFT Avatar fallbacks
     profile?.metadata?.picture?.image?.optimized?.uri ??
-    profile?.metadata?.picture?.raw?.optimized?.uri ??
+    profile?.metadata?.picture?.image?.raw?.uri ??
+    // Lens Profile Avatar fallbacks
     profile?.metadata?.picture?.optimized?.uri ??
     profile?.metadata?.picture?.raw?.uri ??
+    // Stamp.fyi Avatar fallbacks
     getStampFyiURL(profile?.ownedBy.address ?? ZERO_ADDRESS);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);

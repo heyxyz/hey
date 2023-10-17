@@ -6,9 +6,9 @@ describe('hasOwnedLensProfiles', () => {
   test('should return true if the ID has a lens profile', async () => {
     expect(
       await hasOwnedLensProfiles(
-        '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3',
-        '0x0d',
-        true
+        '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef',
+        '0x1c',
+        false
       )
     ).toBeTruthy();
   });
@@ -18,7 +18,7 @@ describe('hasOwnedLensProfiles', () => {
       await hasOwnedLensProfiles(
         '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef',
         '0x05',
-        true
+        false
       )
     ).toBeFalsy();
   });

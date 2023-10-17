@@ -5,7 +5,7 @@ import formatHandle from './formatHandle';
 
 describe('formatHandle', () => {
   test('should return empty string when handle is null', () => {
-    expect(formatHandle(null)).toBe('');
+    expect(formatHandle(null)).toBeNull();
   });
 
   test(`should return ${LENSPROTOCOL_HANDLE} when given handle is ${LENSPROTOCOL_HANDLE}`, () => {
@@ -14,6 +14,10 @@ describe('formatHandle', () => {
   });
 
   test('should remove handle prefix', () => {
-    expect(formatHandle('@lens/username123')).toBe('username123');
+    expect(formatHandle('lens/@username123')).toBe('username123');
+  });
+
+  test('should remove handle prefix for namespaces', () => {
+    expect(formatHandle('hey/@username123')).toBe('hey/@username123');
   });
 });
