@@ -1,6 +1,7 @@
 import type { SnapshotMetadata } from '@hey/types/embed';
 
-export const regex = /https:\/\/snapshot\.org\/#\/(\w+\.eth)\/proposal\/(\w+)/;
+export const regex =
+  /https:\/\/snapshot\.org\/#\/([\w.\-]+)\/proposal\/([\w\-]+)/;
 
 const getSnapshot = (url: string): SnapshotMetadata | null => {
   const matches = regex.exec(url);
