@@ -32,140 +32,154 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     : publication;
 
   const commentsCount = targetPublication.stats.comments;
-  const mirrorCount = targetPublication.stats.mirrors;
+  const mirrorsCount = targetPublication.stats.mirrors;
   const quotesCount = targetPublication.stats.quotes;
   const reactionCount = targetPublication.stats.reactions;
   const collectCount = targetPublication.stats.countOpenActions;
   const bookmarkCount = targetPublication.stats.bookmarks;
   const publicationId = targetPublication.id;
 
+  const showStats =
+    mirrorsCount > 0 ||
+    quotesCount > 0 ||
+    reactionCount > 0 ||
+    collectCount > 0 ||
+    bookmarkCount > 0;
+
+  if (!showStats) {
+    return null;
+  }
+
   return (
-    <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
-      {commentsCount > 0 ? (
-        <span data-testid="comment-stats">
-          <b className="text-black dark:text-white">
-            {nFormatter(commentsCount)}
-          </b>{' '}
-          {plur('Comment', commentsCount)}
-        </span>
-      ) : null}
-      {mirrorCount > 0 ? (
-        <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowMirrorsModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
-                publication_id: publicationId
-              });
-            }}
-            data-testid="mirror-stats"
-          >
+    <>
+      <div className="divider" />
+      <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+        {commentsCount > 0 ? (
+          <span data-testid="comment-stats">
             <b className="text-black dark:text-white">
-              {nFormatter(mirrorCount)}
+              {nFormatter(commentsCount)}
             </b>{' '}
-            {plur('Mirror', commentsCount)}
-          </button>
-          <Modal
-            title="Mirrored by"
-            icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
-            show={showMirrorsModal}
-            onClose={() => setShowMirrorsModal(false)}
-          >
-            <Mirrors publicationId={publicationId} />
-          </Modal>
-        </>
-      ) : null}
-      {quotesCount > 0 ? (
-        <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowQuotesModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
-                publication_id: publicationId
-              });
-            }}
-            data-testid="quote-stats"
-          >
+            {plur('Comment', commentsCount)}
+          </span>
+        ) : null}
+        {mirrorsCount > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                setShowMirrorsModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
+                  publication_id: publicationId
+                });
+              }}
+              data-testid="mirrors-stats"
+            >
+              <b className="text-black dark:text-white">
+                {nFormatter(mirrorsCount)}
+              </b>{' '}
+              {plur('Mirror', commentsCount)}
+            </button>
+            <Modal
+              title="Mirrored by"
+              icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
+              show={showMirrorsModal}
+              onClose={() => setShowMirrorsModal(false)}
+            >
+              <Mirrors publicationId={publicationId} />
+            </Modal>
+          </>
+        ) : null}
+        {quotesCount > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                setShowQuotesModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
+                  publication_id: publicationId
+                });
+              }}
+              data-testid="quotes-stats"
+            >
+              <b className="text-black dark:text-white">
+                {nFormatter(quotesCount)}
+              </b>{' '}
+              {plur('Quote', quotesCount)}
+            </button>
+            <Modal
+              title="Quoted by"
+              icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
+              show={showQuotesModal}
+              onClose={() => setShowQuotesModal(false)}
+            >
+              <Quotes publicationId={publicationId} />
+            </Modal>
+          </>
+        ) : null}
+        {reactionCount > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                setShowLikesModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_LIKES, {
+                  publication_id: publicationId
+                });
+              }}
+              data-testid="like-stats"
+            >
+              <b className="text-black dark:text-white">
+                {nFormatter(reactionCount)}
+              </b>{' '}
+              {plur('Like', reactionCount)}
+            </button>
+            <Modal
+              title="Liked by"
+              icon={<HeartIcon className="text-brand h-5 w-5" />}
+              show={showLikesModal}
+              onClose={() => setShowLikesModal(false)}
+            >
+              <Likes publicationId={publicationId} />
+            </Modal>
+          </>
+        ) : null}
+        {collectCount > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => {
+                setShowCollectorsModal(true);
+                Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
+                  publication_id: publicationId
+                });
+              }}
+              data-testid="collect-stats"
+            >
+              <b className="text-black dark:text-white">
+                {nFormatter(collectCount)}
+              </b>{' '}
+              {plur('Collect', collectCount)}
+            </button>
+            <Modal
+              title="Collected by"
+              icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
+              show={showCollectorsModal}
+              onClose={() => setShowCollectorsModal(false)}
+            >
+              <Collectors publicationId={publicationId} />
+            </Modal>
+          </>
+        ) : null}
+        {bookmarkCount > 0 ? (
+          <span data-testid="bookmark-stats">
             <b className="text-black dark:text-white">
-              {nFormatter(quotesCount)}
+              {nFormatter(bookmarkCount)}
             </b>{' '}
-            {plur('Quote', quotesCount)}
-          </button>
-          <Modal
-            title="Quoted by"
-            icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
-            show={showQuotesModal}
-            onClose={() => setShowQuotesModal(false)}
-          >
-            <Quotes publicationId={publicationId} />
-          </Modal>
-        </>
-      ) : null}
-      {reactionCount > 0 ? (
-        <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowLikesModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_LIKES, {
-                publication_id: publicationId
-              });
-            }}
-            data-testid="like-stats"
-          >
-            <b className="text-black dark:text-white">
-              {nFormatter(reactionCount)}
-            </b>{' '}
-            {plur('Like', reactionCount)}
-          </button>
-          <Modal
-            title="Liked by"
-            icon={<HeartIcon className="text-brand h-5 w-5" />}
-            show={showLikesModal}
-            onClose={() => setShowLikesModal(false)}
-          >
-            <Likes publicationId={publicationId} />
-          </Modal>
-        </>
-      ) : null}
-      {collectCount > 0 ? (
-        <>
-          <button
-            type="button"
-            onClick={() => {
-              setShowCollectorsModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
-                publication_id: publicationId
-              });
-            }}
-            data-testid="collect-stats"
-          >
-            <b className="text-black dark:text-white">
-              {nFormatter(collectCount)}
-            </b>{' '}
-            {plur('Collect', collectCount)}
-          </button>
-          <Modal
-            title="Collected by"
-            icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
-            show={showCollectorsModal}
-            onClose={() => setShowCollectorsModal(false)}
-          >
-            <Collectors publicationId={publicationId} />
-          </Modal>
-        </>
-      ) : null}
-      {bookmarkCount > 0 ? (
-        <span data-testid="bookmark-stats">
-          <b className="text-black dark:text-white">
-            {nFormatter(bookmarkCount)}
-          </b>{' '}
-          {plur('Bookmarks', bookmarkCount)}
-        </span>
-      ) : null}
-    </div>
+            {plur('Bookmarks', bookmarkCount)}
+          </span>
+        ) : null}
+      </div>
+    </>
   );
 };
 

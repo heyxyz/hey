@@ -61,7 +61,7 @@ test.describe('Publication', () => {
     test('should have mirror stats', async ({ page }) => {
       const publicationMirrorStats = page
         .getByTestId('publication-0x0d-0x01')
-        .getByTestId('mirror-stats');
+        .getByTestId('mirrors-stats');
       await expect(publicationMirrorStats).toContainText('Mirrors');
 
       // click mirror stats and check if it opens mirror modal

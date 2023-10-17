@@ -21,13 +21,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const { metadata, createdAt, stats } = targetPublication;
-
-  // Count check to show the publication stats only if the publication has a comment, like or collect
-  const mirrorCount = stats.mirrors;
-  const reactionCount = stats.reactions;
-  const collectCount = stats.countOpenActions;
-  const showStats = mirrorCount > 0 || reactionCount > 0 || collectCount > 0;
+  const { metadata, createdAt } = targetPublication;
 
   return (
     <article className="p-5" data-testid={`publication-${publication.id}`}>
@@ -51,12 +45,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
                 </div>
                 <FeaturedGroup tags={metadata.tags} />
               </div>
-              {showStats ? (
-                <>
-                  <div className="divider" />
-                  <PublicationStats publication={targetPublication} />
-                </>
-              ) : null}
+              <PublicationStats publication={targetPublication} />
               <div className="divider" />
               <PublicationActions publication={targetPublication} showCount />
             </>
