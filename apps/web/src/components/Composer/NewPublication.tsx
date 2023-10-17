@@ -793,7 +793,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          {/* remove quoteOn object in quotedPublication */}
           <QuotedPublication
             publication={removeQuoteOn(quotedPublication as Quote)}
             isNew
