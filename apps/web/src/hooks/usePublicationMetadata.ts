@@ -58,18 +58,26 @@ const usePublicationMetadata = () => {
         appId: APP_NAME
       };
 
+      const attachmentsToBeUploaded = attachments.map((attachment) => ({
+        item: attachment.uri,
+        type: attachment.mimeType,
+        cover: cover
+      }));
+
       switch (true) {
         case isMint:
           return mint({
             ...baseMetadata,
             ...localBaseMetadata,
-            mintLink: getNft(urls)?.mintLink
+            mintLink: getNft(urls)?.mintLink,
+            attachments: attachmentsToBeUploaded
           });
         case isEmbed:
           return embed({
             ...baseMetadata,
             ...localBaseMetadata,
-            embed: getEmbed(urls)?.embed
+            embed: getEmbed(urls)?.embed,
+            attachments: attachmentsToBeUploaded
           });
         case isLiveStream:
           return liveStream({
@@ -92,11 +100,7 @@ const usePublicationMetadata = () => {
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType
             },
-            attachments: attachments.map((attachment) => ({
-              item: attachment.uri,
-              type: attachment.mimeType,
-              cover: cover
-            }))
+            attachments: attachmentsToBeUploaded
           });
         case isAudio:
           return audio({
@@ -106,7 +110,8 @@ const usePublicationMetadata = () => {
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
               artist: audioPublication.artist
-            }
+            },
+            attachments: attachmentsToBeUploaded
           });
         case isVideo:
           return video({
@@ -116,7 +121,8 @@ const usePublicationMetadata = () => {
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
               duration: parseInt(videoDurationInSeconds)
-            }
+            },
+            attachments: attachmentsToBeUploaded
           });
         default:
           return null;
