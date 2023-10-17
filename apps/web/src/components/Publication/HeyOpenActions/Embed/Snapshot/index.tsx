@@ -3,20 +3,22 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Proposal, Vote } from '@hey/snapshot';
 import { useProposalQuery } from '@hey/snapshot';
 import { snapshotApolloClient } from '@hey/snapshot/apollo';
+import type { SnapshotMetadata } from '@hey/types/embed';
 import { Spinner } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
 
-import Wrapper from '../../../Shared/Embed/Wrapper';
+import Wrapper from '../../../../Shared/Embed/Wrapper';
 import Choices from './Choices';
 import Header from './Header';
 
 interface SnapshotProps {
-  proposalId: string;
+  embedMetadata: SnapshotMetadata;
 }
 
-const Snapshot: FC<SnapshotProps> = ({ proposalId }) => {
+const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { proposal: proposalId } = embedMetadata;
 
   const { data, loading, error, refetch } = useProposalQuery({
     client: snapshotApolloClient,

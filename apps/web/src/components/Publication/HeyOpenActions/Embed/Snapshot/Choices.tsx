@@ -22,7 +22,7 @@ import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
 import { useSignTypedData } from 'wagmi';
 
-import New from '../../../Shared/Badges/New';
+import New from '../../../../Shared/Badges/New';
 import VoteProposal from './VoteProposal';
 
 interface ChoicesProps {

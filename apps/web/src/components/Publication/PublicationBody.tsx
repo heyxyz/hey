@@ -6,7 +6,6 @@ import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
-import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
 import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -18,8 +17,8 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
+import Embed from './HeyOpenActions/Embed';
 import Nft from './HeyOpenActions/Nft';
-import Snapshot from './HeyOpenActions/Snapshot';
 import NotSupportedPublication from './NotSupportedPublication';
 
 interface PublicationBodyProps {
@@ -45,23 +44,13 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const canShowMore = filteredContent?.length > 450 && showMore;
   const urls = getURLs(filteredContent);
   const hasURLs = urls.length > 0;
-  const snapshotProposalId = getSnapshotProposalId(urls);
 
-  const filterId = snapshotProposalId;
   let rawContent = filteredContent;
 
   if (isIOS && isMobile && canShowMore) {
     const truncatedRawContent = rawContent?.split('\n')?.[0];
     if (truncatedRawContent) {
       rawContent = truncatedRawContent;
-    }
-  }
-
-  if (filterId) {
-    for (const url of urls) {
-      if (url.includes(filterId)) {
-        rawContent = rawContent.replace(url, '');
-      }
     }
   }
 
@@ -75,17 +64,17 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const showNft = metadata.__typename === 'MintMetadataV3';
   // Show live if it's there
   const showLive = metadata.__typename === 'LiveStreamMetadataV3';
-  // Show snapshot if it's there
-  const showSnapshot = snapshotProposalId;
+  // Show embed if it's there
+  const showEmbed = metadata.__typename === 'EmbedMetadataV3';
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
     hasURLs &&
-    !showLive &&
     !showNft &&
+    !showLive &&
+    !showEmbed &&
     !showAttachments &&
-    !showSnapshot &&
     !quoted;
 
   // Remove URL at the end if oembed is there
@@ -119,7 +108,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         <Attachments attachments={filteredAttachments} asset={filteredAsset} />
       ) : null}
       {/* Open actions */}
-      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
+      {showEmbed ? <Embed embed={metadata.embed} /> : null}
       {showNft ? (
         <Nft mintLink={metadata.mintLink} publication={publication} />
       ) : null}
