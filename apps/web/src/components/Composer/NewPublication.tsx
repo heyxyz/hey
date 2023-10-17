@@ -72,6 +72,8 @@ import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
+import LivestreamSettings from './Actions/LivestreamSettings';
+import LivestreamEditor from './Actions/LivestreamSettings/LivestreamEditor';
 import PollEditor from './Actions/PollSettings/PollEditor';
 import Editor from './Editor';
 import Discard from './Post/Discard';
@@ -145,7 +147,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     showPollEditor,
     setShowPollEditor,
     resetPollConfig,
-    pollConfig
+    pollConfig,
+    showLiveVideoEditor,
+    setShowLiveVideoEditor,
+    resetLiveVideoConfig
   } = usePublicationStore();
 
   // Transaction persist store
@@ -197,6 +202,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setQuotedPublication(null);
     setShowPollEditor(false);
     resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -666,6 +673,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     setPublicationContent('');
     setShowPollEditor(false);
     resetPollConfig();
+    setShowLiveVideoEditor(false);
+    resetLiveVideoConfig();
     setAttachments([]);
     setVideoThumbnail({
       url: '',
@@ -697,6 +706,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         </div>
       ) : null}
       {showPollEditor ? <PollEditor /> : null}
+      {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
           <QuotedPublication publication={quotedPublication as Quote} isNew />
@@ -733,6 +743,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
+          <LivestreamSettings />
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button

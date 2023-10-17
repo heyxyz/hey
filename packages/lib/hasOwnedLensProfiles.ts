@@ -11,7 +11,7 @@ const hasOwnedLensProfile = async (
   isMainnet: boolean
 ) => {
   const response = await fetch(
-    isMainnet ? 'https://api.lens.dev' : 'https://api-mumbai.lens.dev',
+    isMainnet ? 'https://api.lens.dev' : 'https://api-v2-mumbai.lens.dev',
     {
       method: 'POST',
       headers: {
@@ -36,6 +36,18 @@ const hasOwnedLensProfile = async (
 
   const json: { data: { profilesManaged: { items: { id: string }[] } } } =
     await response.json();
+
+  console.log(`
+  query ProfilesManaged {
+    profilesManaged(request: {
+      for: "${address}"
+    }) {
+      items {
+        id
+      }
+    }
+  }
+`);
 
   const ids = json.data.profilesManaged.items.map((item) => item.id);
   const hasOwned = ids.includes(id);

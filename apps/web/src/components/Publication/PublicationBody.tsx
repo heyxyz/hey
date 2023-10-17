@@ -2,6 +2,7 @@ import Attachments from '@components/Shared/Attachments';
 import Quote from '@components/Shared/Embed/Quote';
 import Markup from '@components/Shared/Markup';
 import Oembed from '@components/Shared/Oembed';
+import Video from '@components/Shared/Video';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@hey/lens';
 import getPublicationData from '@hey/lib/getPublicationData';
@@ -72,13 +73,20 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   // Show NFT if it's there
   const showNft = metadata.__typename === 'MintMetadataV3';
+  // Show live if it's there
+  const showLive = metadata.__typename === 'LiveStreamMetadataV3';
   // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
   // Show attachments if it's there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
   // Show oembed if no NFT, no attachments, no snapshot, no quoted publication
   const showOembed =
-    hasURLs && !showNft && !showAttachments && !showSnapshot && !quoted;
+    hasURLs &&
+    !showLive &&
+    !showNft &&
+    !showAttachments &&
+    !showSnapshot &&
+    !quoted;
 
   // Remove URL at the end if oembed is there
   const onOembedData = (data: OG) => {
@@ -114,6 +122,11 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? (
         <Nft mintLink={metadata.mintLink} publication={publication} />
+      ) : null}
+      {showLive ? (
+        <div className="mt-3">
+          <Video src={metadata.liveURL || metadata.playbackURL} />
+        </div>
       ) : null}
       {showOembed ? (
         <Oembed

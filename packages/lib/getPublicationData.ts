@@ -22,9 +22,6 @@ const getPublicationData = (
         attachments: getAttachmentsData(metadata.attachments)
       };
     case 'TextOnlyMetadataV3':
-      return {
-        content: metadata.content
-      };
     case 'LinkMetadataV3':
       return {
         content: metadata.content
@@ -62,6 +59,11 @@ const getPublicationData = (
     case 'MintMetadataV3':
       return {
         content: removeUrlsByHostnames(metadata.content, knownNftMarketplace),
+        attachments: getAttachmentsData(metadata.attachments)
+      };
+    case 'LiveStreamMetadataV3':
+      return {
+        content: metadata.content,
         attachments: getAttachmentsData(metadata.attachments)
       };
     default:

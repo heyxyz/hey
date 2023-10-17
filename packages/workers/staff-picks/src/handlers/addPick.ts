@@ -50,7 +50,11 @@ export default async (request: WorkerRequest) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.id, picker_id, true);
+    const hasOwned = await hasOwnedLensProfiles(
+      payload.evmAddress,
+      picker_id,
+      true
+    );
     if (!hasOwned) {
       return response({ success: false, error: Errors.InvalidProfileId });
     }

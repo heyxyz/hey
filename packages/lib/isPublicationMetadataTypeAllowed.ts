@@ -4,7 +4,8 @@ const allowedTypes = [
   'ImageMetadataV3',
   'TextOnlyMetadataV3',
   'VideoMetadataV3',
-  'MintMetadataV3'
+  'MintMetadataV3',
+  'LiveStreamMetadataV3'
 ];
 
 const isPublicationMetadataTypeAllowed = (type?: string): boolean => {

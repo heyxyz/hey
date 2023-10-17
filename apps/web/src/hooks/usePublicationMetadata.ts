@@ -1,7 +1,14 @@
 import { APP_NAME } from '@hey/data/constants';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
-import { audio, image, mint, textOnly, video } from '@lens-protocol/metadata';
+import {
+  audio,
+  image,
+  liveStream,
+  mint,
+  textOnly,
+  video
+} from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -17,7 +24,9 @@ const usePublicationMetadata = () => {
     audioPublication,
     videoThumbnail,
     videoDurationInSeconds,
-    publicationContent
+    publicationContent,
+    showLiveVideoEditor,
+    liveVideoConfig
   } = usePublicationStore();
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
@@ -38,6 +47,8 @@ const usePublicationMetadata = () => {
       const isAudio = attachments[0]?.type === 'Audio';
       const isVideo = attachments[0]?.type === 'Video';
       const isMint = Boolean(getNft(urls)?.mintLink);
+      const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
+      console.log('isLiveStream', showLiveVideoEditor, liveVideoConfig);
 
       const localBaseMetadata = {
         id: uuid(),
@@ -51,6 +62,14 @@ const usePublicationMetadata = () => {
             ...baseMetadata,
             ...localBaseMetadata,
             mintLink: getNft(urls)?.mintLink
+          });
+        case isLiveStream:
+          return liveStream({
+            ...baseMetadata,
+            ...localBaseMetadata,
+            liveUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+            playbackUrl: `https://livepeercdn.studio/hls/${liveVideoConfig.playbackId}/index.m3u8`,
+            startsAt: new Date().toISOString()
           });
         case !hasAttachments:
           return textOnly({
@@ -100,7 +119,9 @@ const usePublicationMetadata = () => {
       videoDurationInSeconds,
       audioPublication,
       cover,
-      publicationContent
+      publicationContent,
+      showLiveVideoEditor,
+      liveVideoConfig
     ]
   );
 

@@ -43,7 +43,7 @@ export default async (request: WorkerRequest) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    if (payload.id !== id) {
+    if (payload.evmAddress !== id) {
       return response({ success: false, error: Errors.InvalidAddress });
     }
 

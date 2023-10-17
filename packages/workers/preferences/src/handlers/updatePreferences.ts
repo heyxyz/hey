@@ -67,11 +67,11 @@ export default async (request: WorkerRequest) => {
     }
 
     const { payload } = jwt.decode(accessToken);
-    if (updateByAdmin && !adminAddresses.includes(payload.id)) {
+    if (updateByAdmin && !adminAddresses.includes(payload.evmAddress)) {
       return response({ success: false, error: Errors.NotAdmin });
     }
 
-    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
+    const hasOwned = await hasOwnedLensProfiles(payload.evmAddress, id, true);
     if (!updateByAdmin && !hasOwned) {
       return response({ success: false, error: Errors.InvalidProfileId });
     }
