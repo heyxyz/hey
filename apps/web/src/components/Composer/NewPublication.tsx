@@ -44,6 +44,7 @@ import { useApolloClient } from '@hey/lens/apollo';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
+import removeQuoteOn from '@hey/lib/removeQuoteOn';
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
@@ -792,7 +793,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       {showLiveVideoEditor ? <LivestreamEditor /> : null}
       {quotedPublication ? (
         <Wrapper className="m-5" zeroPadding>
-          <QuotedPublication publication={quotedPublication as Quote} isNew />
+          {/* remove quoteOn object in quotedPublication */}
+          <QuotedPublication
+            publication={removeQuoteOn(quotedPublication as Quote)}
+            isNew
+          />
         </Wrapper>
       ) : null}
       <div className="block items-center px-5 sm:flex">

@@ -9,6 +9,10 @@ interface QuoteProps {
 }
 
 const Quote: FC<QuoteProps> = ({ publication }) => {
+  if (!publication) {
+    return null;
+  }
+
   return (
     <Wrapper zeroPadding>
       <QuotedPublication publication={publication} />
