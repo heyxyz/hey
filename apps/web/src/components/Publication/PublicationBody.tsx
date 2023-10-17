@@ -8,7 +8,6 @@ import getPublicationData from '@hey/lib/getPublicationData';
 import getSnapshotProposalId from '@hey/lib/getSnapshotProposalId';
 import getURLs from '@hey/lib/getURLs';
 import isPublicationMetadataTypeAllowed from '@hey/lib/isPublicationMetadataTypeAllowed';
-import getNft from '@hey/lib/nft/getNft';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OG } from '@hey/types/misc';
@@ -46,7 +45,6 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const urls = getURLs(filteredContent);
   const hasURLs = urls.length > 0;
   const snapshotProposalId = getSnapshotProposalId(urls);
-  const nft = getNft(urls);
 
   const filterId = snapshotProposalId;
   let rawContent = filteredContent;
@@ -73,7 +71,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   // Show NFT if it's there
-  const showNft = nft;
+  const showNft = metadata.__typename === 'MintMetadataV3';
   // Show snapshot if it's there
   const showSnapshot = snapshotProposalId;
   // Show attachments if it's there
@@ -114,7 +112,9 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {/* Open actions */}
       {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
-      {showNft ? <Nft nftMetadata={nft} publication={publication} /> : null}
+      {showNft ? (
+        <Nft mintLink={metadata.mintLink} publication={publication} />
+      ) : null}
       {showOembed ? (
         <Oembed
           url={urls[0]}

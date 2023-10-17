@@ -2,6 +2,8 @@ import type { PublicationMetadata } from '@hey/lens';
 import type { MetadataAsset } from '@hey/types/misc';
 
 import getAttachmentsData from './getAttachmentsData';
+import { knownNftMarketplace } from './nft/getNft';
+import removeUrlsByHostnames from './removeUrlsByHostnames';
 
 const getPublicationData = (
   metadata: PublicationMetadata
@@ -55,6 +57,11 @@ const getPublicationData = (
           cover: metadata.asset.cover?.optimized?.uri,
           type: 'Video'
         },
+        attachments: getAttachmentsData(metadata.attachments)
+      };
+    case 'MintMetadataV3':
+      return {
+        content: removeUrlsByHostnames(metadata.content, knownNftMarketplace),
         attachments: getAttachmentsData(metadata.attachments)
       };
     default:

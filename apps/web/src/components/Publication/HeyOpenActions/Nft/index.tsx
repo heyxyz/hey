@@ -1,8 +1,8 @@
 import type { AnyPublication } from '@hey/lens';
+import getNft from '@hey/lib/nft/getNft';
 import type {
   BasePaintCanvasMetadata,
   BasicNftMetadata,
-  NftMetadata,
   UnlonelyChannelMetadata,
   UnlonelyNfcMetadata
 } from '@hey/types/nft';
@@ -14,11 +14,17 @@ import UnlonelyNfc from './UnlonelyNfc';
 import ZoraNft from './ZoraNft';
 
 interface NftProps {
-  nftMetadata: NftMetadata;
+  mintLink: string;
   publication: AnyPublication;
 }
 
-const Nft: FC<NftProps> = ({ nftMetadata, publication }) => {
+const Nft: FC<NftProps> = ({ mintLink, publication }) => {
+  const nftMetadata = getNft([mintLink]);
+
+  if (!nftMetadata) {
+    return null;
+  }
+
   const { provider } = nftMetadata;
 
   return provider === 'zora' ? (

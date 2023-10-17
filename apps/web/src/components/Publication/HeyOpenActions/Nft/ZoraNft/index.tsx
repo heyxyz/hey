@@ -2,10 +2,8 @@ import {
   CursorArrowRaysIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
-import { REWARDS_ADDRESS } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
-import getZoraChainIsMainnet from '@hey/lib/nft/getZoraChainIsMainnet';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
@@ -59,12 +57,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
     'ERC1155_COLLECTION_TOKEN'
   ].includes(nft.contractType);
 
-  const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.';
-  const zoraLink = urlcat(`https://${network}zora.co/collect/:chain::address`, {
-    chain,
-    address,
-    referrer: REWARDS_ADDRESS
-  });
+  const zoraLink = nftMetadata.mintLink;
 
   return (
     <Card

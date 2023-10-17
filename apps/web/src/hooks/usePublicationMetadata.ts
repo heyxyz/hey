@@ -1,5 +1,7 @@
 import { APP_NAME } from '@hey/data/constants';
-import { audio, image, textOnly, video } from '@lens-protocol/metadata';
+import getURLs from '@hey/lib/getURLs';
+import getNft from '@hey/lib/nft/getNft';
+import { audio, image, mint, textOnly, video } from '@lens-protocol/metadata';
 import getUserLocale from '@lib/getUserLocale';
 import { useCallback } from 'react';
 import { usePublicationStore } from 'src/store/publication';
@@ -14,7 +16,8 @@ const usePublicationMetadata = () => {
     attachments,
     audioPublication,
     videoThumbnail,
-    videoDurationInSeconds
+    videoDurationInSeconds,
+    publicationContent
   } = usePublicationStore();
 
   const attachmentsHasAudio = attachments[0]?.type === 'Audio';
@@ -28,10 +31,13 @@ const usePublicationMetadata = () => {
 
   const getMetadata = useCallback(
     ({ baseMetadata }: UsePublicationMetadataProps) => {
+      const urls = getURLs(publicationContent);
+
       const hasAttachments = attachments.length;
       const isImage = attachments[0]?.type === 'Image';
       const isAudio = attachments[0]?.type === 'Audio';
       const isVideo = attachments[0]?.type === 'Video';
+      const isMint = Boolean(getNft(urls)?.mintLink);
 
       const localBaseMetadata = {
         id: uuid(),
@@ -40,6 +46,12 @@ const usePublicationMetadata = () => {
       };
 
       switch (true) {
+        case isMint:
+          return mint({
+            ...baseMetadata,
+            ...localBaseMetadata,
+            mintLink: getNft(urls)?.mintLink
+          });
         case !hasAttachments:
           return textOnly({
             ...baseMetadata,
@@ -83,7 +95,13 @@ const usePublicationMetadata = () => {
           return null;
       }
     },
-    [attachments, videoDurationInSeconds, audioPublication, cover]
+    [
+      attachments,
+      videoDurationInSeconds,
+      audioPublication,
+      cover,
+      publicationContent
+    ]
   );
 
   return getMetadata;

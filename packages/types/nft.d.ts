@@ -1,22 +1,23 @@
-export interface NftProvider {
+export interface NftProviderWithMintLink {
   provider: 'zora' | 'basepaint' | 'unlonely-channel' | 'unlonely-nfc';
+  mintLink: string;
 }
 
-export interface BasicNftMetadata extends NftProvider {
+export interface BasicNftMetadata extends NftProviderWithMintLink {
   chain: string;
   address: string;
   token: string;
 }
 
-export interface BasePaintCanvasMetadata extends NftProvider {
+export interface BasePaintCanvasMetadata extends NftProviderWithMintLink {
   id: number;
 }
 
-export interface UnlonelyChannelMetadata extends NftProvider {
+export interface UnlonelyChannelMetadata extends NftProviderWithMintLink {
   slug: string;
 }
 
-export interface UnlonelyNfcMetadata extends NftProvider {
+export interface UnlonelyNfcMetadata extends NftProviderWithMintLink {
   id: string;
 }
 
