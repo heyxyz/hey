@@ -45,6 +45,7 @@ export const PUBLICATION = {
   CLICK_MENTION: 'Click publication mention',
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
+  OPEN_QUOTES: 'Open quotes modal',
   OPEN_COLLECTORS: 'Open collectors modal',
   OPEN_GIFS: 'Open GIFs modal',
   ATTACHMENT: {
@@ -209,6 +210,7 @@ export enum FollowUnfollowSource {
   WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
   LIKES_MODAL = 'likes_modal',
   MIRRORS_MODAL = 'mirrors_modal',
+  QUOTES_MODAL = 'quotes_modal',
   COLLECTORS_MODAL = 'collectors_modal',
   FOLLOWERS_MODAL = 'followers_modal',
   FOLLOWING_MODAL = 'following_modal',

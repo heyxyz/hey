@@ -1,6 +1,7 @@
 import Collectors from '@components/Shared/Modal/Collectors';
 import Likes from '@components/Shared/Modal/Likes';
 import Mirrors from '@components/Shared/Modal/Mirrors';
+import Quotes from '@components/Shared/Modal/Quotes';
 import {
   ArrowsRightLeftIcon,
   HeartIcon,
@@ -22,6 +23,7 @@ interface PublicationStatsProps {
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
+  const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
 
@@ -31,6 +33,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
 
   const commentsCount = targetPublication.stats.comments;
   const mirrorCount = targetPublication.stats.mirrors;
+  const quotesCount = targetPublication.stats.quotes;
   const reactionCount = targetPublication.stats.reactions;
   const collectCount = targetPublication.stats.countOpenActions;
   const bookmarkCount = targetPublication.stats.bookmarks;
@@ -70,6 +73,33 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             onClose={() => setShowMirrorsModal(false)}
           >
             <Mirrors publicationId={publicationId} />
+          </Modal>
+        </>
+      ) : null}
+      {quotesCount > 0 ? (
+        <>
+          <button
+            type="button"
+            onClick={() => {
+              setShowQuotesModal(true);
+              Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
+                publication_id: publicationId
+              });
+            }}
+            data-testid="quote-stats"
+          >
+            <b className="text-black dark:text-white">
+              {nFormatter(quotesCount)}
+            </b>{' '}
+            {plur('Quote', quotesCount)}
+          </button>
+          <Modal
+            title="Quoted by"
+            icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
+            show={showQuotesModal}
+            onClose={() => setShowQuotesModal(false)}
+          >
+            <Quotes publicationId={publicationId} />
           </Modal>
         </>
       ) : null}
