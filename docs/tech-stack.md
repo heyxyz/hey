@@ -11,11 +11,6 @@
 - [Cloudflare Workers](https://workers.cloudflare.com/) - Serverless platform
 - [Node.js](https://nodejs.org/en/) - JavaScript runtime
 
-## Testing
-
-- [Playwright](https://playwright.dev/) - Browser automation framework
-- [Synpress](https://github.com/Synthetixio/synpress) - Playwright helper for Web3
-
 ## Telemetry
 
 - [Leafwatch](../packages/workers/leafwatch/README.md) - Telemetry tracking built in-house by Hey
