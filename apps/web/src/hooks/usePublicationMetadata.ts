@@ -69,15 +69,15 @@ const usePublicationMetadata = () => {
           return mint({
             ...baseMetadata,
             ...localBaseMetadata,
-            mintLink: getNft(urls)?.mintLink,
-            attachments: attachmentsToBeUploaded
+            ...(hasAttachments && { attachments: attachmentsToBeUploaded }),
+            mintLink: getNft(urls)?.mintLink
           });
         case isEmbed:
           return embed({
             ...baseMetadata,
             ...localBaseMetadata,
-            embed: getEmbed(urls)?.embed,
-            attachments: attachmentsToBeUploaded
+            ...(hasAttachments && { attachments: attachmentsToBeUploaded }),
+            embed: getEmbed(urls)?.embed
           });
         case isLiveStream:
           return liveStream({
