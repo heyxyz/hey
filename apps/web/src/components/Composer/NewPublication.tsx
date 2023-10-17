@@ -18,6 +18,7 @@ import type {
   MomokaPostRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
+  OnchainQuoteRequest,
   Quote
 } from '@hey/lens';
 import {
@@ -29,11 +30,15 @@ import {
   useCommentOnMomokaMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateMomokaPostTypedDataMutation,
+  useCreateMomokaQuoteTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
+  useCreateOnchainQuoteTypedDataMutation,
   usePostOnchainMutation,
   usePostOnMomokaMutation,
-  usePublicationLazyQuery
+  usePublicationLazyQuery,
+  useQuoteOnchainMutation,
+  useQuoteOnMomokaMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import getProfile from '@hey/lib/getProfile';
@@ -177,6 +182,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   const isComment = Boolean(publication);
+  const isQuote = Boolean(quotedPublication);
   const hasAudio = attachments[0]?.type === 'Audio';
   const hasVideo = attachments[0]?.type === 'Video';
 
@@ -280,7 +286,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const { error, write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: isComment ? 'comment' : 'post',
+    functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post',
     onSuccess: ({ hash }) => {
       onCompleted();
       setUserSigNonce(userSigNonce + 1);
@@ -361,6 +367,12 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   };
 
   // Normal typed data generation
+  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
+    onCompleted: async ({ createOnchainPostTypedData }) =>
+      await typedDataGenerator(createOnchainPostTypedData),
+    onError
+  });
+
   const [createOnchainCommentTypedData] =
     useCreateOnchainCommentTypedDataMutation({
       onCompleted: async ({ createOnchainCommentTypedData }) =>
@@ -368,9 +380,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       onError
     });
 
-  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
-    onCompleted: async ({ createOnchainPostTypedData }) =>
-      await typedDataGenerator(createOnchainPostTypedData),
+  const [createOnchainQuoteTypedData] = useCreateOnchainQuoteTypedDataMutation({
+    onCompleted: async ({ createOnchainQuoteTypedData }) =>
+      await typedDataGenerator(createOnchainQuoteTypedData),
     onError
   });
 
@@ -385,6 +397,25 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       onCompleted: async ({ createMomokaCommentTypedData }) =>
         await typedDataGenerator(createMomokaCommentTypedData, true)
     });
+
+  const [createMomokaQuoteTypedData] = useCreateMomokaQuoteTypedDataMutation({
+    onCompleted: async ({ createMomokaQuoteTypedData }) =>
+      await typedDataGenerator(createMomokaQuoteTypedData, true)
+  });
+
+  // Onchain mutations
+  const [postOnchain] = usePostOnchainMutation({
+    onCompleted: ({ postOnchain }) => {
+      onCompleted(postOnchain.__typename);
+      if (postOnchain.__typename === 'RelaySuccess') {
+        setTxnQueue([
+          generateOptimisticPublication({ txId: postOnchain.txId }),
+          ...txnQueue
+        ]);
+      }
+    },
+    onError
+  });
 
   const [commentOnchain] = useCommentOnchainMutation({
     onCompleted: ({ commentOnchain }) => {
@@ -401,14 +432,32 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [postOnchain] = usePostOnchainMutation({
-    onCompleted: ({ postOnchain }) => {
-      onCompleted(postOnchain.__typename);
-      if (postOnchain.__typename === 'RelaySuccess') {
+  const [quoteOnchain] = useQuoteOnchainMutation({
+    onCompleted: ({ quoteOnchain }) => {
+      onCompleted(quoteOnchain.__typename);
+      if (quoteOnchain.__typename === 'RelaySuccess') {
         setTxnQueue([
-          generateOptimisticPublication({ txId: postOnchain.txId }),
+          generateOptimisticPublication({
+            txId: quoteOnchain.txId
+          }),
           ...txnQueue
         ]);
+      }
+    },
+    onError
+  });
+
+  // Momoka mutations
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onCompleted: (data) => {
+      if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+        return;
+      }
+
+      if (data.postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        const { id } = data.postOnMomoka;
+        push(`/posts/${id}`);
       }
     },
     onError
@@ -431,15 +480,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const [postOnMomoka] = usePostOnMomokaMutation({
+  const [quoteOnMomoka] = useQuoteOnMomokaMutation({
     onCompleted: (data) => {
-      if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
         return;
       }
 
-      if (data.postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      if (data.quoteOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         onCompleted();
-        const { id } = data.postOnMomoka;
+        const { id } = data.quoteOnMomoka;
         push(`/posts/${id}`);
       }
     },
@@ -456,6 +505,18 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
       ) {
         await createMomokaCommentTypedData({ variables: { request } });
+      }
+
+      return;
+    }
+
+    if (isQuote) {
+      const { data } = await quoteOnMomoka({
+        variables: { request }
+      });
+
+      if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+        await createMomokaQuoteTypedData({ variables: { request } });
       }
 
       return;
@@ -489,6 +550,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return;
     }
 
+    if (isQuote) {
+      const { data } = await quoteOnchain({
+        variables: { request }
+      });
+      if (data?.quoteOnchain?.__typename === 'LensProfileManagerRelayError') {
+        return await createOnchainQuoteTypedData({ variables });
+      }
+
+      return;
+    }
+
     const { data } = await postOnchain({ variables: { request } });
     if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainPostTypedData({ variables });
@@ -510,7 +582,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       return 'Video';
     }
 
-    return isComment ? 'Comment' : 'Post';
+    return isComment ? 'Comment' : isQuote ? 'Quote' : 'Post';
   };
 
   const createPublication = async () => {
@@ -541,7 +613,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       if (publicationContent.length === 0 && attachments.length === 0) {
         return setPublicationContentError(
-          `${isComment ? 'Comment' : 'Post'} should not be empty!`
+          `${
+            isComment ? 'Comment' : isQuote ? 'Quote' : 'Post'
+          } should not be empty!`
         );
       }
 
@@ -592,11 +666,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       // Payload for the post/comment
-      const request: OnchainPostRequest | OnchainCommentRequest = {
+      const request:
+        | OnchainPostRequest
+        | OnchainCommentRequest
+        | OnchainQuoteRequest = {
         contentURI: `ar://${arweaveId}`,
-        ...(isComment && {
-          commentOn: targetPublication.id
-        }),
+        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isQuote && { quoteOn: quotedPublication?.id }),
         openActionModules,
         ...(onlyFollowers && {
           referenceModule:
@@ -616,9 +692,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       // Payload for the data availability post/comment
       const dataAvailablityRequest: MomokaPostRequest | MomokaCommentRequest = {
-        ...(isComment && {
-          commentOn: targetPublication.id
-        }),
+        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
 
@@ -639,11 +714,19 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
+      if (isQuote) {
+        return await createOnchainQuoteTypedData({
+          variables: {
+            options: { overrideSigNonce: userSigNonce },
+            request: request as OnchainQuoteRequest
+          }
+        });
+      }
+
       return await createOnchainPostTypedData({
         variables: { options: { overrideSigNonce: userSigNonce }, request }
       });
     } catch (error) {
-      console.log('error', error);
       onError(error);
     }
   };
@@ -743,7 +826,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
             </>
           ) : null}
           <PollSettings />
-          <LivestreamSettings />
+          {!isComment && <LivestreamSettings />}
         </div>
         <div className="ml-auto pt-2 sm:pt-0">
           <Button
