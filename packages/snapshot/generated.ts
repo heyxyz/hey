@@ -2,20 +2,33 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Any: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Any: { input: any; output: any };
 };
 
 export type Alias = {
@@ -245,7 +258,6 @@ export type Query = {
   vp?: Maybe<Vp>;
 };
 
-
 export type QueryAliasesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
@@ -253,7 +265,6 @@ export type QueryAliasesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<AliasWhere>;
 };
-
 
 export type QueryFollowsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -263,7 +274,6 @@ export type QueryFollowsArgs = {
   where?: InputMaybe<FollowWhere>;
 };
 
-
 export type QueryMessagesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Scalars['String']['input']>;
@@ -272,11 +282,9 @@ export type QueryMessagesArgs = {
   where?: InputMaybe<MessageWhere>;
 };
 
-
 export type QueryProposalArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QueryProposalsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -286,23 +294,19 @@ export type QueryProposalsArgs = {
   where?: InputMaybe<ProposalWhere>;
 };
 
-
 export type QueryRankingArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RankingWhere>;
 };
 
-
 export type QueryRolesArgs = {
   where?: InputMaybe<RolesWhere>;
 };
 
-
 export type QuerySpaceArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QuerySpacesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -312,11 +316,9 @@ export type QuerySpacesArgs = {
   where?: InputMaybe<SpaceWhere>;
 };
 
-
 export type QueryStatementArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QueryStatementsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -326,11 +328,9 @@ export type QueryStatementsArgs = {
   where?: InputMaybe<StatementsWhere>;
 };
 
-
 export type QueryStrategyArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QuerySubscriptionsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -340,11 +340,9 @@ export type QuerySubscriptionsArgs = {
   where?: InputMaybe<SubscriptionWhere>;
 };
 
-
 export type QueryUserArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QueryUsersArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -354,11 +352,9 @@ export type QueryUsersArgs = {
   where?: InputMaybe<UsersWhere>;
 };
 
-
 export type QueryVoteArgs = {
   id?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 export type QueryVotesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -367,7 +363,6 @@ export type QueryVotesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<VoteWhere>;
 };
-
 
 export type QueryVpArgs = {
   proposal?: InputMaybe<Scalars['String']['input']>;
@@ -641,40 +636,63 @@ export type ProposalQueryVariables = Exact<{
   where?: InputMaybe<VoteWhere>;
 }>;
 
-
-export type ProposalQuery = { __typename?: 'Query', proposal?: { __typename?: 'Proposal', id: string, author: string, state?: string | null, title: string, choices: Array<string | null>, scores?: Array<number | null> | null, scores_total?: number | null, snapshot?: string | null, symbol: string, network: string, type?: string | null, end: number, space?: { __typename?: 'Space', id: string, name?: string | null } | null, strategies: Array<{ __typename?: 'Strategy', network?: string | null, name: string, params?: any | null } | null> } | null, votes?: Array<{ __typename?: 'Vote', choice: any } | null> | null };
-
+export type ProposalQuery = {
+  __typename?: 'Query';
+  proposal?: {
+    __typename?: 'Proposal';
+    id: string;
+    author: string;
+    state?: string | null;
+    title: string;
+    choices: Array<string | null>;
+    scores?: Array<number | null> | null;
+    scores_total?: number | null;
+    snapshot?: string | null;
+    symbol: string;
+    network: string;
+    type?: string | null;
+    end: number;
+    space?: { __typename?: 'Space'; id: string; name?: string | null } | null;
+    strategies: Array<{
+      __typename?: 'Strategy';
+      network?: string | null;
+      name: string;
+      params?: any | null;
+    } | null>;
+  } | null;
+  votes?: Array<{ __typename?: 'Vote'; choice: any } | null> | null;
+};
 
 export const ProposalDocument = gql`
-    query Proposal($id: String, $where: VoteWhere) {
-  proposal(id: $id) {
-    id
-    author
-    state
-    title
-    choices
-    scores
-    scores_total
-    snapshot
-    symbol
-    network
-    type
-    end
-    space {
+  query Proposal($id: String, $where: VoteWhere) {
+    proposal(id: $id) {
       id
-      name
-    }
-    strategies {
+      author
+      state
+      title
+      choices
+      scores
+      scores_total
+      snapshot
+      symbol
       network
-      name
-      params
+      type
+      end
+      space {
+        id
+        name
+      }
+      strategies {
+        network
+        name
+        params
+      }
+    }
+    votes(where: $where) {
+      choice
     }
   }
-  votes(where: $where) {
-    choice
-  }
-}
-    `;
+`;
 
 /**
  * __useProposalQuery__
@@ -693,25 +711,42 @@ export const ProposalDocument = gql`
  *   },
  * });
  */
-export function useProposalQuery(baseOptions?: Apollo.QueryHookOptions<ProposalQuery, ProposalQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalQuery, ProposalQueryVariables>(ProposalDocument, options);
-      }
-export function useProposalLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalQuery, ProposalQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalQuery, ProposalQueryVariables>(ProposalDocument, options);
-        }
+export function useProposalQuery(
+  baseOptions?: Apollo.QueryHookOptions<ProposalQuery, ProposalQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
+    options
+  );
+}
+export function useProposalLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProposalQuery,
+    ProposalQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
+    options
+  );
+}
 export type ProposalQueryHookResult = ReturnType<typeof useProposalQuery>;
-export type ProposalLazyQueryHookResult = ReturnType<typeof useProposalLazyQuery>;
-export type ProposalQueryResult = Apollo.QueryResult<ProposalQuery, ProposalQueryVariables>;
+export type ProposalLazyQueryHookResult = ReturnType<
+  typeof useProposalLazyQuery
+>;
+export type ProposalQueryResult = Apollo.QueryResult<
+  ProposalQuery,
+  ProposalQueryVariables
+>;
 
-      export interface PossibleTypesResultData {
-        possibleTypes: {
-          [key: string]: string[]
-        }
-      }
-      const result: PossibleTypesResultData = {
-  "possibleTypes": {}
+export interface PossibleTypesResultData {
+  possibleTypes: {
+    [key: string]: string[];
+  };
+}
+const result: PossibleTypesResultData = {
+  possibleTypes: {}
 };
-      export default result;
-    
+export default result;
