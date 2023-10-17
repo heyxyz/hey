@@ -1,8 +1,10 @@
 import { APP_NAME } from '@hey/data/constants';
+import getEmbed from '@hey/lib/embeds/getEmbed';
 import getURLs from '@hey/lib/getURLs';
 import getNft from '@hey/lib/nft/getNft';
 import {
   audio,
+  embed,
   image,
   liveStream,
   mint,
@@ -47,8 +49,8 @@ const usePublicationMetadata = () => {
       const isAudio = attachments[0]?.type === 'Audio';
       const isVideo = attachments[0]?.type === 'Video';
       const isMint = Boolean(getNft(urls)?.mintLink);
+      const isEmbed = Boolean(getEmbed(urls)?.embed);
       const isLiveStream = Boolean(showLiveVideoEditor && liveVideoConfig.id);
-      console.log('isLiveStream', showLiveVideoEditor, liveVideoConfig);
 
       const localBaseMetadata = {
         id: uuid(),
@@ -62,6 +64,12 @@ const usePublicationMetadata = () => {
             ...baseMetadata,
             ...localBaseMetadata,
             mintLink: getNft(urls)?.mintLink
+          });
+        case isEmbed:
+          return embed({
+            ...baseMetadata,
+            ...localBaseMetadata,
+            embed: getEmbed(urls)?.embed
           });
         case isLiveStream:
           return liveStream({

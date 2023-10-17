@@ -1,8 +1,9 @@
 import type { PublicationMetadata } from '@hey/lens';
 import type { MetadataAsset } from '@hey/types/misc';
 
+import { knownEmbedHostnames } from './embeds/getEmbed';
 import getAttachmentsData from './getAttachmentsData';
-import { knownNftMarketplace } from './nft/getNft';
+import { knownMintHostnames } from './nft/getNft';
 import removeUrlsByHostnames from './removeUrlsByHostnames';
 
 const getPublicationData = (
@@ -58,7 +59,12 @@ const getPublicationData = (
       };
     case 'MintMetadataV3':
       return {
-        content: removeUrlsByHostnames(metadata.content, knownNftMarketplace),
+        content: removeUrlsByHostnames(metadata.content, knownMintHostnames),
+        attachments: getAttachmentsData(metadata.attachments)
+      };
+    case 'EmbedMetadataV3':
+      return {
+        content: removeUrlsByHostnames(metadata.content, knownEmbedHostnames),
         attachments: getAttachmentsData(metadata.attachments)
       };
     case 'LiveStreamMetadataV3':

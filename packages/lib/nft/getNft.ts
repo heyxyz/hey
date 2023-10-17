@@ -5,7 +5,7 @@ import getUnlonelyChannel from './getUnlonelyChannel';
 import getUnlonelyNfc from './getUnlonelyNfc';
 import getZoraNFT from './getZoraNft';
 
-export const knownNftMarketplace = new Set([
+export const knownMintHostnames = new Set([
   'zora.co',
   'testnet.zora.co',
   'basepaint.art',
@@ -25,7 +25,7 @@ const getNft = (urls: string[]): NftMetadata | null => {
   const knownUrls = urls.filter((url) => {
     const parsedUrl = new URL(url);
     const hostname = parsedUrl.hostname.replace('www.', '');
-    return knownNftMarketplace.has(hostname);
+    return knownMintHostnames.has(hostname);
   });
 
   if (!knownUrls.length) {

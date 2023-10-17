@@ -5,6 +5,7 @@ const allowedTypes = [
   'TextOnlyMetadataV3',
   'VideoMetadataV3',
   'MintMetadataV3',
+  'EmbedMetadataV3',
   'LiveStreamMetadataV3'
 ];
 
