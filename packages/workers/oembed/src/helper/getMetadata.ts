@@ -32,7 +32,9 @@ const getMetadata = async (url: string, env: Env): Promise<any> => {
     description: getDescription(document),
     image: proxiedUrl,
     site: getSite(document),
-    favicon: `https://www.google.com/s2/favicons?domain=${url}`,
+    favicon: `https://external-content.duckduckgo.com/ip3/${url
+      .replace('https://', '')
+      .replace('http://', '')}.ico`,
     isLarge,
     html: generateIframe(getEmbedUrl(document), url)
   };

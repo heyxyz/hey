@@ -280,14 +280,17 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={urlcat('https://www.google.com/s2/favicons', {
-                    domain: getProfileAttribute(
-                      profile?.metadata?.attributes,
-                      'website'
-                    )
-                      ?.replace('https://', '')
-                      .replace('http://', '')
-                  })}
+                  src={urlcat(
+                    'https://external-content.duckduckgo.com/ip3/:domain.ico',
+                    {
+                      domain: getProfileAttribute(
+                        profile?.metadata?.attributes,
+                        'website'
+                      )
+                        ?.replace('https://', '')
+                        .replace('http://', '')
+                    }
+                  )}
                   className="h-4 w-4 rounded-full"
                   height={16}
                   width={16}

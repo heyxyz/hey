@@ -35,8 +35,8 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     title: data?.title,
     description: data?.description,
     site: data?.site,
-    favicon: urlcat('https://www.google.com/s2/favicons', {
-      domain: data.url
+    favicon: urlcat('https://external-content.duckduckgo.com/ip3/:domain.ico', {
+      domain: data.url.replace('https://', '').replace('http://', '')
     }),
     image: data?.image,
     isLarge: data?.isLarge,
