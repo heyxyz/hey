@@ -1,4 +1,4 @@
-import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
+import { SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import getProfile from '@hey/lib/getProfile';
 import axios from 'axios';
@@ -22,8 +22,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
           title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
-          length: pollConfig.length,
-          isMainnet: IS_MAINNET
+          length: pollConfig.length
         },
         {
           headers: {
