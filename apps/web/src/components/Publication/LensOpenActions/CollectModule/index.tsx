@@ -68,10 +68,13 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const { openActionCount, setOpenActionCount } = useOpenActionStore();
+  const { setActingPublicationConfig, getCountByPublicationId } =
+    useOpenActionStore();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+
+  const openActionCount = getCountByPublicationId(publication?.id);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -102,6 +105,13 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const referralFee = collectModule?.referralFee;
   const amount = rawAmount / 10 ** assetDecimals;
 
+  const isLimitedCollectAllCollected = collectLimit
+    ? openActionCount >= collectLimit
+    : false;
+  const isCollectExpired = endTimestamp
+    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
+    : false;
+
   const isFreeCollectModule = !collectModule;
   const isSimpleFreeCollectModule =
     collectModule.__typename === 'SimpleCollectOpenActionSettings';
@@ -114,7 +124,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     }
 
     setIsLoading(false);
-    setOpenActionCount(openActionCount + 1);
+    setActingPublicationConfig({
+      countOpenActions: openActionCount + 1,
+      publicationId: publication?.id
+    });
     setHasCollectedByMe(true);
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
@@ -228,16 +241,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     }
   };
 
-  const isLimitedCollectAllCollected = collectLimit
-    ? openActionCount >= collectLimit
-    : false;
-  const isCollectExpired = endTimestamp
-    ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
-    : false;
-
   return (
     <>
-      {/* {JSON.stringify(collectModule.amount)} */}
+      {JSON.stringify(collectLimit)}
+      {JSON.stringify(openActionCount)}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"

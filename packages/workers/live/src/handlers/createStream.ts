@@ -8,7 +8,6 @@ export default async (request: WorkerRequest) => {
 
   try {
     const { payload } = jwt.decode(accessToken as string);
-
     const livepeerResponse = await fetch('https://livepeer.studio/api/stream', {
       method: 'POST',
       headers: {

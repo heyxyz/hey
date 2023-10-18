@@ -17,14 +17,31 @@ import { create } from 'zustand';
 import List from './List';
 
 interface OpenActionState {
-  openActionCount: number;
-  setOpenActionCount: (openActionCount: number) => void;
+  actingPublicationConfig: {
+    publicationId: string;
+    countOpenActions: number;
+  };
+  setActingPublicationConfig: (actingPublicationConfig: {
+    publicationId: string;
+    countOpenActions: number;
+  }) => void;
+  getCountByPublicationId: (publicationId: string) => number;
 }
 
-export const useOpenActionStore = create<OpenActionState>((set) => ({
-  openActionCount: 0,
-  setOpenActionCount: (openActionCount) =>
-    set((state) => ({ ...state, openActionCount }))
+export const useOpenActionStore = create<OpenActionState>((set, get) => ({
+  actingPublicationConfig: {
+    publicationId: '',
+    countOpenActions: 0
+  },
+  setActingPublicationConfig: (actingPublicationConfig) =>
+    set({ actingPublicationConfig }),
+  getCountByPublicationId: (publicationId) => {
+    const { actingPublicationConfig } = get();
+    if (actingPublicationConfig.publicationId === publicationId) {
+      return actingPublicationConfig.countOpenActions;
+    }
+    return 0;
+  }
 }));
 
 interface OpenActionProps {
@@ -33,16 +50,21 @@ interface OpenActionProps {
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
-  const { openActionCount, setOpenActionCount } = useOpenActionStore();
+  const { getCountByPublicationId, setActingPublicationConfig } =
+    useOpenActionStore();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
   const hasActed = targetPublication.operations.hasActed.value;
+  const openActionCount = getCountByPublicationId(targetPublication.id);
 
   useEffect(() => {
     if (targetPublication.stats.countOpenActions) {
-      setOpenActionCount(targetPublication.stats.countOpenActions);
+      setActingPublicationConfig({
+        countOpenActions: targetPublication.stats.countOpenActions,
+        publicationId: targetPublication.id
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
