@@ -35,22 +35,21 @@ export default async (request: WorkerRequest) => {
   const { address, isMainnet } = body as ExtensionRequest;
 
   try {
-    const mutation = `
-      mutation Invite($request: InviteRequest!) {
-        invite(request: $request)
-      }
-    `;
     const inviteResponse = await fetch(
       isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
+          'X-Access-Token': `Bearer ${accessToken}`,
           'User-agent': 'Hey.xyz'
         },
         body: JSON.stringify({
-          query: mutation,
+          query: `
+            mutation Invite($request: InviteRequest!) {
+              invite(request: $request)
+            }
+          `,
           variables: {
             request: {
               invites: [address],

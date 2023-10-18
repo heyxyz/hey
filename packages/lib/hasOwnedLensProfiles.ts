@@ -1,3 +1,5 @@
+import LensEndpoint from '@hey/data/lens-endpoints';
+
 /**
  * Get is lens profile owned by wallet address
  * @param address Wallet address
@@ -11,7 +13,7 @@ const hasOwnedLensProfile = async (
   isMainnet: boolean
 ) => {
   const response = await fetch(
-    isMainnet ? 'https://api.lens.dev' : 'https://api-v2-mumbai.lens.dev',
+    isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
     {
       method: 'POST',
       headers: {

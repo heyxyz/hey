@@ -1,3 +1,5 @@
+import LensEndpoint from '@hey/data/lens-endpoints';
+
 /**
  * Validate lens account using Lens API verify endpoint
  * @param accessToken Lens access token
@@ -6,7 +8,7 @@
  */
 const validateLensAccount = async (accessToken: string, isMainnet: boolean) => {
   const response = await fetch(
-    isMainnet ? 'https://api.lens.dev' : 'https://api-v2-mumbai.lens.dev',
+    isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
     {
       method: 'POST',
       headers: {

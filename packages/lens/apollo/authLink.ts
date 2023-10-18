@@ -39,7 +39,7 @@ const authLink = new ApolloLink((operation, forward) => {
   if (!expiringSoon) {
     operation.setContext({
       headers: {
-        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+        'X-Access-Token': accessToken ? `Bearer ${accessToken}` : ''
       }
     });
 
@@ -61,7 +61,7 @@ const authLink = new ApolloLink((operation, forward) => {
         const accessToken = data?.data?.refresh?.accessToken;
         const refreshToken = data?.data?.refresh?.refreshToken;
         operation.setContext({
-          headers: { 'x-access-token': `Bearer ${accessToken}` }
+          headers: { 'X-Access-Token': `Bearer ${accessToken}` }
         });
 
         localStorage.setItem(Localstorage.AccessToken, accessToken);
