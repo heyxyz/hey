@@ -17,30 +17,41 @@ import { create } from 'zustand';
 import List from './List';
 
 interface OpenActionState {
-  actingPublicationConfig: {
+  openActionPublicationConfig: {
     publicationId: string;
     countOpenActions: number;
+    acted: boolean;
   };
-  setActingPublicationConfig: (actingPublicationConfig: {
+  setOpenActionPublicationConfig: (openActionPublicationConfig: {
     publicationId: string;
     countOpenActions: number;
+    acted: boolean;
   }) => void;
-  getCountByPublicationId: (publicationId: string) => number;
+  getOpenActionCountByPublicationId: (publicationId: string) => number;
+  hasActedByMe: (publicationId: string) => boolean;
 }
 
 export const useOpenActionStore = create<OpenActionState>((set, get) => ({
-  actingPublicationConfig: {
+  openActionPublicationConfig: {
     publicationId: '',
-    countOpenActions: 0
+    countOpenActions: 0,
+    acted: false
   },
-  setActingPublicationConfig: (actingPublicationConfig) =>
-    set({ actingPublicationConfig }),
-  getCountByPublicationId: (publicationId) => {
-    const { actingPublicationConfig } = get();
-    if (actingPublicationConfig.publicationId === publicationId) {
-      return actingPublicationConfig.countOpenActions;
+  setOpenActionPublicationConfig: (openActionPublicationConfig) =>
+    set({ openActionPublicationConfig }),
+  getOpenActionCountByPublicationId: (publicationId) => {
+    const { openActionPublicationConfig } = get();
+    if (openActionPublicationConfig.publicationId === publicationId) {
+      return openActionPublicationConfig.countOpenActions;
     }
     return 0;
+  },
+  hasActedByMe: (publicationId) => {
+    const { openActionPublicationConfig } = get();
+    if (openActionPublicationConfig.publicationId === publicationId) {
+      return openActionPublicationConfig.acted;
+    }
+    return false;
   }
 }));
 
@@ -50,20 +61,26 @@ interface OpenActionProps {
 }
 
 const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
-  const { getCountByPublicationId, setActingPublicationConfig } =
-    useOpenActionStore();
+  const {
+    getOpenActionCountByPublicationId,
+    hasActedByMe,
+    setOpenActionPublicationConfig
+  } = useOpenActionStore();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const hasActed = targetPublication.operations.hasActed.value;
-  const openActionCount = getCountByPublicationId(targetPublication.id);
+  const hasActed = hasActedByMe(targetPublication.id);
+  const openActionCount = getOpenActionCountByPublicationId(
+    targetPublication.id
+  );
 
   useEffect(() => {
     if (targetPublication.stats.countOpenActions) {
-      setActingPublicationConfig({
+      setOpenActionPublicationConfig({
         countOpenActions: targetPublication.stats.countOpenActions,
-        publicationId: targetPublication.id
+        publicationId: targetPublication.id,
+        acted: targetPublication.operations.hasActed.value
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

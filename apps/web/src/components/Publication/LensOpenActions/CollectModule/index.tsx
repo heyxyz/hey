@@ -68,13 +68,13 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const { setActingPublicationConfig, getCountByPublicationId } =
+  const { setOpenActionPublicationConfig, getOpenActionCountByPublicationId } =
     useOpenActionStore();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const openActionCount = getCountByPublicationId(publication?.id);
+  const openActionCount = getOpenActionCountByPublicationId(publication?.id);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -124,9 +124,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     }
 
     setIsLoading(false);
-    setActingPublicationConfig({
+    setOpenActionPublicationConfig({
       countOpenActions: openActionCount + 1,
-      publicationId: publication?.id
+      publicationId: publication?.id,
+      acted: true
     });
     setHasCollectedByMe(true);
     toast.success('Collected successfully!');
@@ -243,8 +244,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
-      {JSON.stringify(collectLimit)}
-      {JSON.stringify(openActionCount)}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
