@@ -5,12 +5,15 @@ import { MISCELLANEOUS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import { useLingui } from '@lingui/react';
-import type { FC } from 'react';
-import { useCallback } from 'react';
+import type { FC, RefCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { SUPPORTED_LOCALES } from 'src/i18n';
 import { usePreferencesStore } from 'src/store/preferences';
+import { useWindowSize } from 'usehooks-ts';
 
 import MenuTransition from '../MenuTransition';
+
+const COLLISION_PADDING = 10;
 
 const Locale: FC = () => {
   const { i18n } = useLingui();
@@ -28,8 +31,19 @@ const Locale: FC = () => {
     location.reload();
   }, []);
 
+  const { height: windowHeight } = useWindowSize();
+  const [menuPositionBottom, setMenuPositionBottom] = useState(0);
+
+  const dropdownRef: RefCallback<HTMLElement> = useCallback((node) => {
+    if (node !== null) {
+      setMenuPositionBottom(node.getBoundingClientRect().bottom);
+    }
+  }, []);
+
+  const collision = menuPositionBottom > windowHeight - COLLISION_PADDING;
+
   return (
-    <Menu as="span">
+    <Menu as="span" className="relative">
       <Menu.Button
         className="inline-flex items-center space-x-1"
         data-testid="locale-selector"
@@ -40,7 +54,11 @@ const Locale: FC = () => {
       <MenuTransition>
         <Menu.Items
           static
-          className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
+          className={cn(
+            'absolute rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900',
+            collision && 'bottom-full'
+          )}
+          ref={dropdownRef}
           data-testid="locale-selector-menu"
         >
           {Object.entries(locales).map(([localeCode, localeName]) => (
