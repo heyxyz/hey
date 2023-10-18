@@ -3,23 +3,28 @@ version: "3.8"
 x-defaults-build: &defaults-build
   context: ../
   dockerfile: ./docker/Dockerfile
+
 x-defaults-healthcheck: &defaults-healthcheck
   start_period: 5s
   interval: 5s
   timeout: 5s
   retries: 5
 
+x-defaults-volumes: &defaults-volumes
+  - ..:/app
+  - /app/node_modules
+
 services:
   worker-live:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/live
+        - WORKSPACE=@workers/live
     ports:
       - 8096:8096
     volumes:
-      - ../packages/workers/live:/app/packages/workers/live
       - /app/packages/workers/live/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8096/' ]
@@ -27,12 +32,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/staff-picks
+        - WORKSPACE=@workers/staff-picks
     ports:
       - 8095:8095
     volumes:
-      - ../packages/workers/staff-picks:/app/packages/workers/staff-picks
       - /app/packages/workers/staff-picks/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8095/' ]
@@ -40,12 +45,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/nft
+        - WORKSPACE=@workers/nft
     ports:
       - 8094:8094
     volumes:
-      - ../packages/workers/nft:/app/packages/workers/nft
       - /app/packages/workers/nft/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8094/' ]
@@ -53,12 +58,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/groups
+        - WORKSPACE=@workers/groups
     ports:
       - 8093:8093
     volumes:
-      - ../packages/workers/groups:/app/packages/workers/groups
       - /app/packages/workers/groups/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8093/' ]
@@ -66,12 +71,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/preferences
+        - WORKSPACE=@workers/preferences
     ports:
       - 8092:8092
     volumes:
-      - ../packages/workers/preferences:/app/packages/workers/preferences
       - /app/packages/workers/preferences/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8092/' ]
@@ -79,12 +84,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/feeds
+        - WORKSPACE=@workers/feeds
     ports:
       - 8091:8091
     volumes:
-      - ../packages/workers/feeds:/app/packages/workers/feeds
       - /app/packages/workers/feeds/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8091/' ]
@@ -92,12 +97,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/invite
+        - WORKSPACE=@workers/invite
     ports:
       - 8090:8090
     volumes:
-      - ../packages/workers/invite:/app/packages/workers/invite
       - /app/packages/workers/invite/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8090/' ]
@@ -105,12 +110,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/achievements
+        - WORKSPACE=@workers/achievements
     ports:
       - 8089:8089
     volumes:
-      - ../packages/workers/achievements:/app/packages/workers/achievements
       - /app/packages/workers/achievements/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8089/' ]
@@ -118,12 +123,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/leafwatch
+        - WORKSPACE=@workers/leafwatch
     ports:
       - 8088:8088
     volumes:
-      - ../packages/workers/leafwatch:/app/packages/workers/leafwatch
       - /app/packages/workers/leafwatch/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8088/' ]
@@ -131,12 +136,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/oembed
+        - WORKSPACE=@workers/oembed
     ports:
       - 8087:8087
     volumes:
-      - ../packages/workers/oembed:/app/packages/workers/oembed
       - /app/packages/workers/oembed/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8087/' ]
@@ -144,12 +149,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/ens
+        - WORKSPACE=@workers/ens
     ports:
       - 8086:8086
     volumes:
-      - ../packages/workers/ens:/app/packages/workers/ens
       - /app/packages/workers/ens/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8086/' ]
@@ -157,12 +162,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/snapshot-relay
+        - WORKSPACE=@workers/snapshot-relay
     ports:
       - 8085:8085
     volumes:
-      - ../packages/workers/snapshot-relay:/app/packages/workers/snapshot-relay
       - /app/packages/workers/snapshot-relay/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8085/' ]
@@ -170,12 +175,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/freshdesk
+        - WORKSPACE=@workers/freshdesk
     ports:
       - 8084:8084
     volumes:
-      - ../packages/workers/freshdesk:/app/packages/workers/freshdesk
       - /app/packages/workers/freshdesk/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8084/' ]
@@ -183,12 +188,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/metadata
+        - WORKSPACE=@workers/metadata
     ports:
       - 8083:8083
     volumes:
-      - ../packages/workers/metadata:/app/packages/workers/metadata
       - /app/packages/workers/metadata/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8083/' ]
@@ -196,12 +201,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @workers/sts
+        - WORKSPACE=@workers/sts
     ports:
       - 8082:8082
     volumes:
-      - ../packages/workers/sts:/app/packages/workers/sts
       - /app/packages/workers/sts/node_modules
+      <<: *defaults-volumes
     healthcheck:
       <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:8082/' ]

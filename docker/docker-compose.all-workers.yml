@@ -6,7 +6,7 @@ services:
       context: ../
       dockerfile: ./docker/Dockerfile
       args:
-        - TURBO_SCOPE=--scope @workers/feeds --scope @workers/invite --scope @workers/metadata --scope @workers/preferences --scope @workers/staff-picks --scope @workers/achievements --scope @workers/freshdesk --scope @workers/leafwatch --scope @workers/nft --scope @workers/prerender --scope @workers/sts --scope @workers/ens --scope @workers/groups --scope @workers/live --scope @workers/oembed --scope @workers/snapshot-relay
+        - WORKSPACE=@workers/*
     ports:
       - 8096:8096
       - 8095:8095
@@ -24,7 +24,7 @@ services:
       - 8083:8083
       - 8082:8082
     volumes:
-      - ../packages/workers:/app/packages/workers
+      - /app/node_modules
       - /app/packages/workers/feeds/node_modules
       - /app/packages/workers/invite/node_modules
       - /app/packages/workers/metadata/node_modules

@@ -14,11 +14,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @hey/prerender
+        - WORKSPACE=@hey/prerender
     ports:
       - 4784:4784
     volumes:
-      - ../apps/prerender:/app/apps/prerender
+      - ..:/app
+      - /app/node_modules
       - /app/apps/prerender/node_modules
       - /app/apps/prerender/.next
     healthcheck:
@@ -28,11 +29,12 @@ services:
     build:
       <<: *defaults-build
       args:
-        - TURBO_SCOPE=--scope @hey/web
+        - WORKSPACE=@hey/web
     ports:
       - 4783:4783
     volumes:
-      - ../apps/web:/app/apps/web
+      - ..:/app
+      - /app/node_modules
       - /app/apps/web/node_modules
       - /app/apps/web/.next
     healthcheck:

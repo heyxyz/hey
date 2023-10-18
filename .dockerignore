@@ -5,8 +5,6 @@
 **/build
 **/dist
 **/.wrangler
-**/.dev.vars
-**/.gitsigners
 **/.idea
 .vercel
 test-results/
