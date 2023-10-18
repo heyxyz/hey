@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
+import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
 import createStream from './handlers/createStream';
@@ -22,7 +23,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .post('/create', createStream)
+  .post('/create', validateLensAccount, createStream)
   .all('*', () => error(404));
 
 export default {

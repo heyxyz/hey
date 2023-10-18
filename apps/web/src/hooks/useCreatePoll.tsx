@@ -1,4 +1,4 @@
-import { SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import getProfile from '@hey/lib/getProfile';
 import axios from 'axios';
@@ -26,7 +26,8 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       );

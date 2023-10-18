@@ -1,6 +1,6 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
@@ -30,7 +30,8 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),

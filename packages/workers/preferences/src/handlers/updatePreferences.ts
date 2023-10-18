@@ -2,7 +2,6 @@ import { Errors } from '@hey/data/errors';
 import { adminAddresses } from '@hey/data/staffs';
 import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
-import validateLensAccount from '@hey/lib/validateLensAccount';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { boolean, object, string } from 'zod';
@@ -40,7 +39,7 @@ export default async (request: WorkerRequest) => {
 
   const accessToken = request.headers.get('X-Access-Token');
   if (!accessToken) {
-    return response({ success: false, error: Errors.NoAccessToken });
+    return response({ success: false, error: Errors.NoProperHeaders });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -61,11 +60,6 @@ export default async (request: WorkerRequest) => {
   } = body as ExtensionRequest;
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, true);
-    if (!isAuthenticated) {
-      return response({ success: false, error: Errors.InvalidAccesstoken });
-    }
-
     const { payload } = jwt.decode(accessToken);
     if (updateByAdmin && !adminAddresses.includes(payload.evmAddress)) {
       return response({ success: false, error: Errors.NotAdmin });

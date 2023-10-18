@@ -1,7 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
-import validateLensAccount from '@hey/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
 import { object, string } from 'zod';
 
@@ -37,11 +36,6 @@ export default async (request: WorkerRequest) => {
   const isMainnet = network === 'mainnet';
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
-    if (!isAuthenticated) {
-      return response({ success: false, error: Errors.InvalidAccesstoken });
-    }
-
     const { payload } = jwt.decode(accessToken);
     const hasOwned = await hasOwnedLensProfiles(
       payload.evmAddress,

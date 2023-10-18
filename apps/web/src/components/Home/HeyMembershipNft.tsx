@@ -1,6 +1,6 @@
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { MISCELLANEOUS, PUBLICATION } from '@hey/data/tracking';
 import type { MembershipNft } from '@hey/types/hey';
@@ -60,7 +60,8 @@ const HeyMembershipNft: FC = () => {
           },
           {
             headers: {
-              'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+              'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+              'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
             }
           }
         ),

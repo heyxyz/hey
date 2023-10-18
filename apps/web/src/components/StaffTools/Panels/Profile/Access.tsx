@@ -1,5 +1,5 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
@@ -81,7 +81,8 @@ const Access: FC<RankProps> = ({ profile }) => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),

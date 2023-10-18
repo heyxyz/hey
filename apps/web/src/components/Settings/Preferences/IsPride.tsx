@@ -1,5 +1,9 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
-import { APP_NAME, PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import {
+  APP_NAME,
+  IS_MAINNET,
+  PREFERENCES_WORKER_URL
+} from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
@@ -24,7 +28,8 @@ const IsPride: FC = () => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),
