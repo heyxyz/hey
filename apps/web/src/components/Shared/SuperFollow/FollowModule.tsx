@@ -192,7 +192,14 @@ const FollowModule: FC<FollowModuleProps> = ({
             follow: [
               {
                 profileId: profile?.id,
-                followModule: { feeFollowModule: true }
+                followModule: {
+                  feeFollowModule: {
+                    amount: {
+                      currency: followModule?.amount?.asset?.symbol,
+                      value: followModule?.amount?.value
+                    }
+                  }
+                }
               }
             ]
           }
