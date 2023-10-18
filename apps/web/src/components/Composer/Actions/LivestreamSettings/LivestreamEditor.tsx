@@ -35,12 +35,12 @@ const LivestreamEditor: FC = () => {
       const response = await axios.post(
         `${LIVE_WORKER_URL}/create`,
         {
-          id: currentProfile?.id,
-          isMainnet: IS_MAINNET
+          id: currentProfile?.id
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       );

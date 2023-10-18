@@ -38,10 +38,11 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       setInviting(true);
       const data = await axios.post(
         INVITE_WORKER_URL,
-        { address, isMainnet: IS_MAINNET },
+        { address },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       );
