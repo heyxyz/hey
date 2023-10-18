@@ -1,18 +1,16 @@
 import { Errors } from '@hey/data/errors';
 import LensEndpoint from '@hey/data/lens-endpoints';
 import response from '@hey/lib/response';
-import { boolean, object, string } from 'zod';
+import { object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   address: string;
-  isMainnet: boolean;
 };
 
 const validationSchema = object({
-  address: string(),
-  isMainnet: boolean()
+  address: string()
 });
 
 export default async (request: WorkerRequest) => {
@@ -22,8 +20,9 @@ export default async (request: WorkerRequest) => {
   }
 
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoAccessToken });
+  const network = request.headers.get('X-Lens-Network');
+  if (!accessToken || !network) {
+    return response({ success: false, error: Errors.NoProperHeaders });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -32,7 +31,8 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { address, isMainnet } = body as ExtensionRequest;
+  const { address } = body as ExtensionRequest;
+  const isMainnet = network === 'mainnet';
 
   try {
     const inviteResponse = await fetch(

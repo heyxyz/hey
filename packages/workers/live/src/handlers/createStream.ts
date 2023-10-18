@@ -3,18 +3,16 @@ import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
 import validateLensAccount from '@hey/lib/validateLensAccount';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object, string } from 'zod';
+import { object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id: string;
-  isMainnet: boolean;
 };
 
 const validationSchema = object({
-  id: string(),
-  isMainnet: boolean()
+  id: string()
 });
 
 export default async (request: WorkerRequest) => {
@@ -24,8 +22,9 @@ export default async (request: WorkerRequest) => {
   }
 
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoAccessToken });
+  const network = request.headers.get('X-Lens-Network');
+  if (!accessToken || !network) {
+    return response({ success: false, error: Errors.NoProperHeaders });
   }
 
   const validation = validationSchema.safeParse(body);
@@ -34,7 +33,8 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, isMainnet } = body as ExtensionRequest;
+  const { id } = body as ExtensionRequest;
+  const isMainnet = network === 'mainnet';
 
   try {
     const isAuthenticated = await validateLensAccount(accessToken, isMainnet);
