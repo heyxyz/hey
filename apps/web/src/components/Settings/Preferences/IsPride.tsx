@@ -22,10 +22,7 @@ const IsPride: FC = () => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/update`,
-        {
-          id: currentProfile?.id,
-          isPride: !isPride
-        },
+        { isPride: !isPride },
         {
           headers: {
             'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),

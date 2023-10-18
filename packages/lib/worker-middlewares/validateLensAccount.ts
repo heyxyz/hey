@@ -17,7 +17,6 @@ const validateLensAccount = async (request: Request) => {
   }
 
   const isMainnet = network === 'mainnet';
-
   const lensResponse = await fetch(
     isMainnet ? LensEndpoint.Mainnet : LensEndpoint.Testnet,
     {

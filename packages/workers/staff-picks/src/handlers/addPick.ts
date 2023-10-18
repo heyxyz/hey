@@ -1,5 +1,4 @@
 import { Errors } from '@hey/data/errors';
-import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
@@ -11,14 +10,12 @@ import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
   id: string;
-  picker_id: string;
   type: string;
   score: number;
 };
 
 const validationSchema = object({
   id: string(),
-  picker_id: string(),
   type: string(),
   score: number()
 });
@@ -30,30 +27,18 @@ export default async (request: WorkerRequest) => {
   }
 
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoProperHeaders });
-  }
-
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, picker_id, score, type } = body as ExtensionRequest;
+  const { id, score, type } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(
-      payload.evmAddress,
-      picker_id,
-      true
-    );
-    if (!hasOwned) {
-      return response({ success: false, error: Errors.InvalidProfileId });
-    }
+    const { payload } = jwt.decode(accessToken as string);
 
-    const isStaffOnDb = await checkIsStaffFromDb(request, picker_id);
+    const isStaffOnDb = await checkIsStaffFromDb(request, payload.id);
     if (!isStaffOnDb) {
       return response({ success: false, error: Errors.NotAdmin });
     }
@@ -62,7 +47,7 @@ export default async (request: WorkerRequest) => {
 
     const { data, error } = await client
       .from('staff-picks')
-      .upsert({ id, picker_id, type, score })
+      .upsert({ id, picker_id: payload.id, type, score })
       .eq('id', id)
       .select()
       .single();

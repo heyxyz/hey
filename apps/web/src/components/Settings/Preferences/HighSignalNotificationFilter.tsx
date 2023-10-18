@@ -23,10 +23,7 @@ const HighSignalNotificationFilter: FC = () => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/update`,
-        {
-          id: currentProfile?.id,
-          highSignalNotificationFilter: !highSignalNotificationFilter
-        },
+        { highSignalNotificationFilter: !highSignalNotificationFilter },
         {
           headers: {
             'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),

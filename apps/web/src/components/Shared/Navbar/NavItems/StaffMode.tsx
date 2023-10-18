@@ -8,7 +8,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 
 interface StaffModeProps {
@@ -16,7 +15,6 @@ interface StaffModeProps {
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
 
@@ -24,10 +22,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/staffMode`,
-        {
-          id: currentProfile?.id,
-          enabled: !staffMode
-        },
+        { enabled: !staffMode },
         {
           headers: {
             'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),

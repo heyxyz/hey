@@ -1,19 +1,16 @@
 import { Errors } from '@hey/data/errors';
-import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object, string } from 'zod';
+import { boolean, object } from 'zod';
 
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
-  id: string;
   enabled: boolean;
 };
 
 const validationSchema = object({
-  id: string(),
   enabled: boolean()
 });
 
@@ -24,32 +21,23 @@ export default async (request: WorkerRequest) => {
   }
 
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoProperHeaders });
-  }
-
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
     return response({ success: false, error: validation.error.issues });
   }
 
-  const { id, enabled } = body as ExtensionRequest;
+  const { enabled } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken);
-    const hasOwned = await hasOwnedLensProfiles(payload.evmAddress, id, true);
-    if (!hasOwned) {
-      return response({ success: false, error: Errors.InvalidProfileId });
-    }
-
+    const { payload } = jwt.decode(accessToken as string);
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data, error } = await client
       .from('rights')
       .update({ gardener_mode: enabled })
       .eq('is_gardener', true)
-      .eq('id', id)
+      .eq('id', payload.id)
       .select()
       .single();
 

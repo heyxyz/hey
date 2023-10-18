@@ -8,7 +8,6 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 
 interface ModModeProps {
@@ -16,7 +15,6 @@ interface ModModeProps {
 }
 
 const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
   const setGardenerMode = usePreferencesStore((state) => state.setGardenerMode);
 
@@ -24,10 +22,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/gardenerMode`,
-        {
-          id: currentProfile?.id,
-          enabled: !gardenerMode
-        },
+        { enabled: !gardenerMode },
         {
           headers: {
             'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),

@@ -32,18 +32,12 @@ const LivestreamEditor: FC = () => {
   const createLiveStream = async () => {
     try {
       setCreating(true);
-      const response = await axios.post(
-        `${LIVE_WORKER_URL}/create`,
-        {
-          id: currentProfile?.id
-        },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
+      const response = await axios.post(`${LIVE_WORKER_URL}/create`, {
+        headers: {
+          'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+          'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
         }
-      );
+      });
       const { data } = response;
       setLiveVideoConfig({
         id: data.result.id,

@@ -1,51 +1,19 @@
-import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object, string } from 'zod';
 
 import type { WorkerRequest } from '../types';
 
-type ExtensionRequest = {
-  id: string;
-  dismissedOrMinted: boolean;
-};
-
-const validationSchema = object({
-  id: string(),
-  dismissedOrMinted: boolean()
-});
-
 export default async (request: WorkerRequest) => {
-  const body = await request.json();
-  if (!body) {
-    return response({ success: false, error: Errors.NoBody });
-  }
-
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoProperHeaders });
-  }
-
-  const validation = validationSchema.safeParse(body);
-
-  if (!validation.success) {
-    return response({ success: false, error: validation.error.issues });
-  }
-
-  const { id, dismissedOrMinted } = body as ExtensionRequest;
 
   try {
-    const { payload } = jwt.decode(accessToken);
-    if (payload.evmAddress !== id) {
-      return response({ success: false, error: Errors.InvalidAddress });
-    }
-
+    const { payload } = jwt.decode(accessToken as string);
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     const { data, error } = await client
       .from('membership-nft')
-      .upsert({ id, dismissedOrMinted })
+      .upsert({ id: payload.address, dismissedOrMinted: true })
       .select()
       .single();
 
