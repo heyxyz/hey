@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags';
 import RecommendedProfiles from '@components/Home/RecommendedProfiles';
-import Tags from '@components/Home/Tags';
 import Trending from '@components/Home/Trending';
 import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
@@ -92,7 +91,6 @@ const Explore: NextPage = () => {
         </Tab.Group>
       </GridItemEight>
       <GridItemFour>
-        {isLensMember ? <Tags /> : null}
         {isLensMember ? <Trending /> : null}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
