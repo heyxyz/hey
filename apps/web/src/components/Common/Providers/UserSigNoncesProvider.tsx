@@ -12,13 +12,13 @@ const UserSigNoncesProvider: FC = () => {
     share('userSigNonce', useNonceStore);
   }
 
-  // Sync nonce every 10 seconds
+  // Sync nonce every 5 seconds
   useUserSigNoncesQuery({
     skip: !profileId,
     onCompleted: ({ userSigNonces }) => {
       setUserSigNonce(userSigNonces.lensHubOnchainSigNonce);
     },
-    pollInterval: 10000
+    pollInterval: 5000
   });
 
   return null;

@@ -183,7 +183,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     { enabled: Boolean(amount) }
   );
 
-  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+  const { data: balanceData, isRefetching: balanceLoading } = useBalance({
     address,
     token: assetAddress,
     formatUnits: assetDecimals,
@@ -206,6 +206,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
+        setUserSigNonce(userSigNonce + 1);
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
@@ -243,6 +244,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
+      {userSigNonce}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
