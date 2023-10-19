@@ -1,12 +1,7 @@
 query EnabledCurrencies($request: PaginatedOffsetRequest!) {
   currencies(request: $request) {
     items {
-      name
-      symbol
-      decimals
-      contract {
-        ...NetworkAddressFields
-      }
+      ...Erc20Fields
     }
     pageInfo {
       next

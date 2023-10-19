@@ -2,15 +2,13 @@ fragment NftFields on Nft {
   tokenId
   contentURI
   contract {
-    address
-    chainId
+    ...NetworkAddressFields
   }
   contractType
   totalSupply
   collection {
     contract {
-      address
-      chainId
+      ...NetworkAddressFields
     }
     name
     symbol

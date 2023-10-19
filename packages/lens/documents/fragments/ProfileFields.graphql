@@ -40,8 +40,7 @@ fragment ProfileFields on Profile {
     }
   }
   followNftAddress {
-    address
-    chainId
+    ...NetworkAddressFields
   }
   metadata {
     ...ProfileMetadataFields
