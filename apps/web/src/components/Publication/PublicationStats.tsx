@@ -18,12 +18,15 @@ import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
 import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
+import { useReactionStore } from 'src/store/OptimisticActions/useReactionStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
+  const { getReactionCountByPublicationId, setReactionConfig } =
+    useReactionStore();
   const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
     useMirrorOrQuoteStore();
   const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
@@ -38,6 +41,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
+  const reactionsCount = getReactionCountByPublicationId(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
     targetPublication.id
   );
@@ -63,14 +67,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   }, [publication]);
 
   const commentsCount = targetPublication.stats.comments;
-  const reactionCount = targetPublication.stats.reactions;
   const bookmarkCount = targetPublication.stats.bookmarks;
   const publicationId = targetPublication.id;
 
   const showStats =
     mirrorOrQuoteCount > 0 ||
     quotesCount > 0 ||
-    reactionCount > 0 ||
+    reactionsCount > 0 ||
     openActionsCount > 0 ||
     bookmarkCount > 0;
 
@@ -144,7 +147,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {reactionCount > 0 ? (
+        {reactionsCount > 0 ? (
           <>
             <button
               type="button"
@@ -157,9 +160,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               data-testid="like-stats"
             >
               <b className="text-black dark:text-white">
-                {nFormatter(reactionCount)}
+                {nFormatter(reactionsCount)}
               </b>{' '}
-              {plur('Like', reactionCount)}
+              {plur('Like', reactionsCount)}
             </button>
             <Modal
               title="Liked by"

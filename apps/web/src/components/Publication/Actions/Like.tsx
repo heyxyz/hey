@@ -8,8 +8,6 @@ import {
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@hey/lens';
-import type { ApolloCache } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
@@ -18,10 +16,10 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
-import { useState } from 'react';
+import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
+import { useReactionStore } from 'src/store/OptimisticActions/useReactionStore';
 
 interface LikeProps {
   publication: AnyPublication;
@@ -30,36 +28,28 @@ interface LikeProps {
 
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
+  const { getReactionCountByPublicationId, hasReactedByMe, setReactionConfig } =
+    useReactionStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
-  const [liked, setLiked] = useState(targetPublication.operations.hasReacted);
-  const [count, setCount] = useState(targetPublication.stats.reactions);
+  const hasReacted = hasReactedByMe(targetPublication.id);
+  const reactionCount = getReactionCountByPublicationId(targetPublication.id);
+
+  useEffect(() => {
+    if (targetPublication.stats.countOpenActions) {
+      setReactionConfig(targetPublication.id, {
+        countReaction: targetPublication.stats.reactions,
+        reacted: targetPublication.operations.hasReacted
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publication]);
 
   const onError = (error: any) => {
     errorToast(error);
-  };
-
-  const updateCache = (
-    cache: ApolloCache<any>,
-    type: PublicationReactionType.Upvote | PublicationReactionType.Downvote
-  ) => {
-    if (showCount) {
-      cache.modify({
-        id: publicationKeyFields(targetPublication),
-        fields: {
-          stats: (stats) => ({
-            ...stats,
-            reactions:
-              type === PublicationReactionType.Upvote
-                ? stats.reactions + 1
-                : stats.reactions - 1
-          })
-        }
-      });
-    }
   };
 
   const getLikeSource = () => {
@@ -86,21 +76,23 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       Leafwatch.track(PUBLICATION.LIKE, eventProperties);
     },
     onError: (error) => {
-      setLiked(!liked);
-      setCount(count - 1);
+      setReactionConfig(targetPublication.id, {
+        countReaction: reactionCount - 1,
+        reacted: !hasReacted
+      });
       onError(error);
-    },
-    update: (cache) => updateCache(cache, PublicationReactionType.Upvote)
+    }
   });
 
   const [removeReaction] = useRemoveReactionMutation({
     onCompleted: () => Leafwatch.track(PUBLICATION.UNLIKE, eventProperties),
     onError: (error) => {
-      setLiked(!liked);
-      setCount(count + 1);
+      setReactionConfig(targetPublication.id, {
+        countReaction: reactionCount + 1,
+        reacted: !hasReacted
+      });
       onError(error);
-    },
-    update: (cache) => updateCache(cache, PublicationReactionType.Downvote)
+    }
   });
 
   const createLike = () => {
@@ -114,13 +106,17 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       for: targetPublication.id
     };
 
-    if (liked) {
-      setLiked(false);
-      setCount(count - 1);
+    if (hasReacted) {
+      setReactionConfig(targetPublication.id, {
+        countReaction: reactionCount - 1,
+        reacted: false
+      });
       removeReaction({ variables: { request } });
     } else {
-      setLiked(true);
-      setCount(count + 1);
+      setReactionConfig(targetPublication.id, {
+        countReaction: reactionCount + 1,
+        reacted: true
+      });
       addReaction({ variables: { request } });
     }
   };
@@ -132,7 +128,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   return (
     <div
       className={cn(
-        liked ? 'text-brand-500' : 'lt-text-gray-500',
+        hasReacted ? 'text-brand-500' : 'lt-text-gray-500',
         'flex items-center space-x-1'
       )}
     >
@@ -143,16 +139,16 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
       >
         <div
           className={cn(
-            liked ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
+            hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
             'rounded-full p-1.5'
           )}
         >
           <Tooltip
             placement="top"
-            content={liked ? 'Unlike' : 'Like'}
+            content={hasReacted ? 'Unlike' : 'Like'}
             withDelay
           >
-            {liked ? (
+            {hasReacted ? (
               <HeartIconSolid className={iconClassName} />
             ) : (
               <HeartIcon className={iconClassName} />
@@ -160,8 +156,10 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
           </Tooltip>
         </div>
       </motion.button>
-      {count > 0 && !showCount ? (
-        <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>
+      {reactionCount > 0 && !showCount ? (
+        <span className="text-[11px] sm:text-xs">
+          {nFormatter(reactionCount)}
+        </span>
       ) : null}
     </div>
   );
