@@ -34,7 +34,9 @@ const Interests: FC = () => {
     errorToast(error);
   };
 
-  const { data, loading } = useProfileInterestsOptionsQuery();
+  const { data, loading } = useProfileInterestsOptionsQuery({
+    variables: { request: { forProfileId: currentProfile?.id } }
+  });
   const [addProfileInterests] = useAddProfileInterestsMutation({
     onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
     onError
@@ -45,7 +47,7 @@ const Interests: FC = () => {
   });
 
   const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[];
-  const selectedTopics = currentProfile?.interests ?? [];
+  const selectedTopics = data?.profile?.interests ?? [];
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     const request: ProfileInterestsRequest = {
