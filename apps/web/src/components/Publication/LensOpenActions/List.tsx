@@ -1,11 +1,13 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
-import type { AnyPublication } from '@hey/lens';
+import { type AnyPublication, OpenActionModuleType } from '@hey/lens';
+import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 import CollectModule from './CollectModule';
+import CollectModulePreview from './CollectModule/Preview';
 
 interface ListProps {
   publication: AnyPublication;
@@ -37,7 +39,17 @@ const List: FC<ListProps> = ({ publication }) => {
               setOpenActionScreen('ACTION');
             }}
           >
-            <Card className="p-5">{action.type}</Card>
+            <Card className="flex p-5">
+              {(action.type ===
+                OpenActionModuleType.SimpleCollectOpenActionModule ||
+                action.type ===
+                  OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
+                <CollectModulePreview
+                  module={action}
+                  minted={targetPublication.stats.countOpenActions}
+                />
+              )}
+            </Card>
           </button>
         ))
       ) : (
@@ -51,7 +63,9 @@ const List: FC<ListProps> = ({ publication }) => {
             >
               <ArrowLeftIcon className="h-5 w-5" />
             </button>
-            <div className="font-bold">{selectedOpenAction?.type}</div>
+            <div className="font-bold">
+              {getOpenActionModuleData(selectedOpenAction)?.name}
+            </div>
           </div>
           <Card className="mt-5">
             {selectedOpenAction?.__typename ===

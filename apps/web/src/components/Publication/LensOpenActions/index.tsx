@@ -93,7 +93,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         ) : null}
       </div>
       <Modal
-        title="Collect"
+        title="Open Actions"
         icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
         show={showOpenActionModal}
         onClose={() => setShowOpenActionModal(false)}

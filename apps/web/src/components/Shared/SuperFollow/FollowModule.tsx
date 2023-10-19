@@ -214,11 +214,9 @@ const FollowModule: FC<FollowModuleProps> = ({
     return <Loader message="Loading Super follow" />;
   }
 
-  const rawAmount = parseFloat(followModule?.amount?.value || '0');
+  const amount = parseFloat(followModule?.amount?.value || '0');
   const currency = followModule?.amount?.asset?.symbol;
-  const assetDecimals = followModule?.amount?.asset?.decimals;
   const assetName = followModule?.amount?.asset?.name;
-  const amount = rawAmount / 10 ** assetDecimals;
 
   return (
     <div className="p-5">

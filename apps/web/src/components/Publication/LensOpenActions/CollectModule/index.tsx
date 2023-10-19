@@ -1,5 +1,6 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
+import CountdownTimer from '@components/Shared/CountdownTimer';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import Uniswap from '@components/Shared/Uniswap';
@@ -39,7 +40,6 @@ import humanize from '@hey/lib/humanize';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Button, Modal, Spinner, Tooltip, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
-import { formatDate } from '@lib/formatTime';
 import getOpenActionActOnKey from '@lib/getOpenActionActOnKey';
 import getRedstonePrice from '@lib/getRedstonePrice';
 import { Leafwatch } from '@lib/leafwatch';
@@ -100,12 +100,11 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   const endTimestamp = collectModule?.endsAt;
   const collectLimit = parseInt(collectModule?.collectLimit || '0');
-  const rawAmount = parseFloat(collectModule?.amount?.value || '0');
+  const amount = parseFloat(collectModule?.amount?.value || '0');
   const currency = collectModule?.amount?.asset?.symbol;
   const assetAddress = collectModule?.amount?.asset?.contract.address;
   const assetDecimals = collectModule?.amount?.asset?.decimals;
   const referralFee = collectModule?.referralFee;
-  const amount = rawAmount / 10 ** assetDecimals;
 
   const isLimitedCollectAllCollected = collectLimit
     ? openActionCount >= collectLimit
@@ -244,7 +243,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   return (
     <>
-      {userSigNonce}
       {Boolean(collectLimit) ? (
         <Tooltip
           placement="top"
@@ -349,8 +347,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
                 <span className="font-bold text-gray-600">
-                  {formatDate(endTimestamp, 'MMMM DD, YYYY')} at{' '}
-                  {formatDate(endTimestamp, 'hh:mm a')}
+                  <CountdownTimer targetDate={endTimestamp} />
                 </span>
               </div>
             </div>
