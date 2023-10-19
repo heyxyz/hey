@@ -1,27 +1,3 @@
 fragment EventMetadataV3Fields on EventMetadataV3 {
   id
-  rawURI
-  locale
-  tags
-  contentWarning
-  hideFromFeed
-  appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
-  attributes {
-    ...MetadataAttributeFields
-  }
-  geographic {
-    rawURI
-    latitude
-    longitude
-  }
-  startsAt
-  endsAt
-  links
-  location
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
 }

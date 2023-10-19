@@ -1,22 +1,3 @@
 fragment TransactionMetadataV3Fields on TransactionMetadataV3 {
   id
-  rawURI
-  locale
-  tags
-  contentWarning
-  hideFromFeed
-  appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
-  attributes {
-    ...MetadataAttributeFields
-  }
-  type
-  txHash
-  chainId
-  attachments {
-    ...PublicationMetadataMediaFields
-  }
-  content
 }
