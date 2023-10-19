@@ -37,12 +37,10 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
   );
 
   useEffect(() => {
-    if (targetPublication.stats.countOpenActions) {
-      setOpenActionPublicationConfig(targetPublication.id, {
-        countOpenActions: targetPublication.stats.countOpenActions,
-        acted: targetPublication.operations.hasActed.value
-      });
-    }
+    setOpenActionPublicationConfig(targetPublication.id, {
+      countOpenActions: targetPublication.stats.countOpenActions,
+      acted: targetPublication.operations.hasActed.value
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
