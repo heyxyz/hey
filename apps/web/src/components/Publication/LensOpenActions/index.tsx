@@ -12,48 +12,9 @@ import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { create } from 'zustand';
+import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
 
 import List from './List';
-
-interface OpenActionState {
-  openActionPublicationConfig: {
-    publicationId: string;
-    countOpenActions: number;
-    acted: boolean;
-  };
-  setOpenActionPublicationConfig: (openActionPublicationConfig: {
-    publicationId: string;
-    countOpenActions: number;
-    acted: boolean;
-  }) => void;
-  getOpenActionCountByPublicationId: (publicationId: string) => number;
-  hasActedByMe: (publicationId: string) => boolean;
-}
-
-export const useOpenActionStore = create<OpenActionState>((set, get) => ({
-  openActionPublicationConfig: {
-    publicationId: '',
-    countOpenActions: 0,
-    acted: false
-  },
-  setOpenActionPublicationConfig: (openActionPublicationConfig) =>
-    set({ openActionPublicationConfig }),
-  getOpenActionCountByPublicationId: (publicationId) => {
-    const { openActionPublicationConfig } = get();
-    if (openActionPublicationConfig.publicationId === publicationId) {
-      return openActionPublicationConfig.countOpenActions;
-    }
-    return 0;
-  },
-  hasActedByMe: (publicationId) => {
-    const { openActionPublicationConfig } = get();
-    if (openActionPublicationConfig.publicationId === publicationId) {
-      return openActionPublicationConfig.acted;
-    }
-    return false;
-  }
-}));
 
 interface OpenActionProps {
   publication: AnyPublication;
@@ -77,9 +38,8 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
 
   useEffect(() => {
     if (targetPublication.stats.countOpenActions) {
-      setOpenActionPublicationConfig({
+      setOpenActionPublicationConfig(targetPublication.id, {
         countOpenActions: targetPublication.stats.countOpenActions,
-        publicationId: targetPublication.id,
         acted: targetPublication.operations.hasActed.value
       });
     }

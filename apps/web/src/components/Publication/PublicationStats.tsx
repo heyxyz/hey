@@ -15,13 +15,20 @@ import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
+import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
 }
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
+  const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
+    useMirrorOrQuoteStore();
+  const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
+    useOpenActionStore();
+
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
@@ -31,19 +38,40 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
-  const commentsCount = targetPublication.stats.comments;
-  const mirrorsCount = targetPublication.stats.mirrors;
+  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
+    targetPublication.id
+  );
+  const openActionsCount = getOpenActionCountByPublicationId(
+    targetPublication.id
+  );
   const quotesCount = targetPublication.stats.quotes;
+
+  useEffect(() => {
+    if (targetPublication.stats.countOpenActions) {
+      setMirrorOrQuoteConfig(targetPublication.id, {
+        // We done substracting quotes because quotes are counted separately
+        countMirrorOrQuote:
+          targetPublication.stats.mirrors - targetPublication.stats.quotes,
+        mirroredOrQuoted: targetPublication.operations.hasMirrored
+      });
+      setOpenActionPublicationConfig(targetPublication.id, {
+        countOpenActions: targetPublication.stats.countOpenActions,
+        acted: targetPublication.operations.hasActed.value
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publication]);
+
+  const commentsCount = targetPublication.stats.comments;
   const reactionCount = targetPublication.stats.reactions;
-  const collectCount = targetPublication.stats.countOpenActions;
   const bookmarkCount = targetPublication.stats.bookmarks;
   const publicationId = targetPublication.id;
 
   const showStats =
-    mirrorsCount > 0 ||
+    mirrorOrQuoteCount > 0 ||
     quotesCount > 0 ||
     reactionCount > 0 ||
-    collectCount > 0 ||
+    openActionsCount > 0 ||
     bookmarkCount > 0;
 
   if (!showStats) {
@@ -62,7 +90,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             {plur('Comment', commentsCount)}
           </span>
         ) : null}
-        {mirrorsCount > 0 ? (
+        {mirrorOrQuoteCount > 0 ? (
           <>
             <button
               type="button"
@@ -75,7 +103,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               data-testid="mirrors-stats"
             >
               <b className="text-black dark:text-white">
-                {nFormatter(mirrorsCount)}
+                {nFormatter(mirrorOrQuoteCount)}
               </b>{' '}
               {plur('Mirror', commentsCount)}
             </button>
@@ -143,7 +171,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {collectCount > 0 ? (
+        {openActionsCount > 0 ? (
           <>
             <button
               type="button"
@@ -156,9 +184,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               data-testid="collect-stats"
             >
               <b className="text-black dark:text-white">
-                {nFormatter(collectCount)}
+                {nFormatter(openActionsCount)}
               </b>{' '}
-              {plur('Collect', collectCount)}
+              {plur('Collect', openActionsCount)}
             </button>
             <Modal
               title="Collected by"

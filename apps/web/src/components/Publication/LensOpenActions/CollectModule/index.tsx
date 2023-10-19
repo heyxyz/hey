@@ -52,6 +52,7 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
+import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
 import {
   useAccount,
   useBalance,
@@ -59,7 +60,6 @@ import {
   useSignTypedData
 } from 'wagmi';
 
-import { useOpenActionStore } from '..';
 import Splits from './Splits';
 
 interface CollectModuleProps {
@@ -68,22 +68,20 @@ interface CollectModuleProps {
 }
 
 const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
-  const { setOpenActionPublicationConfig, getOpenActionCountByPublicationId } =
-    useOpenActionStore();
+  const {
+    setOpenActionPublicationConfig,
+    hasActedByMe,
+    getOpenActionCountByPublicationId
+  } = useOpenActionStore();
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-
-  const openActionCount = getOpenActionCountByPublicationId(publication?.id);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [hasCollectedByMe, setHasCollectedByMe] = useState(
-    targetPublication.operations.hasActed.value
-  );
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const [allowed, setAllowed] = useState(true);
   const { address } = useAccount();
@@ -91,6 +89,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
   const filteredContent =
     getPublicationData(targetPublication.metadata)?.content || '';
+  const openActionCount = getOpenActionCountByPublicationId(
+    targetPublication.id
+  );
+  const hasActed = hasActedByMe(targetPublication.id);
 
   const collectModule = openAction as
     | SimpleCollectOpenActionSettings
@@ -123,13 +125,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       return;
     }
 
-    setIsLoading(false);
-    setOpenActionPublicationConfig({
+    setOpenActionPublicationConfig(targetPublication.id, {
       countOpenActions: openActionCount + 1,
-      publicationId: publication?.id,
       acted: true
     });
-    setHasCollectedByMe(true);
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
       publication_id: publication?.id,
@@ -376,7 +375,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         </div>
         <div className="flex items-center space-x-2">
           {currentProfile &&
-          (!hasCollectedByMe ||
+          (!hasActed ||
             (!isFreeCollectModule && !isSimpleFreeCollectModule)) ? (
             allowanceLoading || balanceLoading ? (
               <div className="shimmer mt-5 h-[34px] w-28 rounded-lg" />

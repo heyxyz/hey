@@ -15,19 +15,17 @@ import {
   useCreateOnchainMirrorTypedDataMutation,
   useMirrorOnchainMutation
 } from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
 import { useNonceStore } from 'src/store/nonce';
+import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
@@ -37,34 +35,28 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
+  const {
+    getMirrorOrQuoteCountByPublicationId,
+    hasQuotedOrMirroredByMe,
+    setMirrorOrQuoteConfig
+  } = useMirrorOrQuoteStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
   const userSigNonce = useNonceStore((state) => state.userSigNonce);
   const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [mirrored, setMirrored] = useState(
-    targetPublication.operations.hasMirrored
-  );
+
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { cache } = useApolloClient();
 
   // Lens manager
   const canUseRelay = currentProfile?.lensManager;
   const isSponsored = currentProfile?.sponsor;
 
-  const updateCache = () => {
-    cache.modify({
-      id: publicationKeyFields(targetPublication),
-      fields: {
-        mirrors: (mirrors) => [...mirrors, currentProfile?.id],
-        stats: (stats) => ({
-          ...stats,
-          totalAmountOfMirrors: stats.totalAmountOfMirrors + 1
-        })
-      }
-    });
-  };
+  const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
+  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
+    targetPublication.id
+  );
 
   const onCompleted = (
     __typename?:
@@ -80,9 +72,11 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       return;
     }
 
-    updateCache();
     setIsLoading(false);
-    setMirrored(true);
+    setMirrorOrQuoteConfig(targetPublication.id, {
+      countMirrorOrQuote: mirrorOrQuoteCount + 1,
+      mirroredOrQuoted: true
+    });
     toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
@@ -217,7 +211,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          mirrored ? 'text-green-500' : '',
+          hasQuotedOrMirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
@@ -226,7 +220,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{mirrored ? 'Unmirror' : 'Mirror'}</div>
+        <div>{hasQuotedOrMirrored ? 'Mirrored' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );
