@@ -39,12 +39,10 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const reactionCount = getReactionCountByPublicationId(targetPublication.id);
 
   useEffect(() => {
-    if (targetPublication.stats.countOpenActions) {
-      setReactionConfig(targetPublication.id, {
-        countReaction: targetPublication.stats.reactions,
-        reacted: targetPublication.operations.hasReacted
-      });
-    }
+    setReactionConfig(targetPublication.id, {
+      countReaction: targetPublication.stats.reactions,
+      reacted: targetPublication.operations.hasReacted
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 

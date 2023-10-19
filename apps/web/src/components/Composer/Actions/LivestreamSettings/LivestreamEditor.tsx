@@ -12,11 +12,9 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 import { usePublicationStore } from 'src/store/publication';
 
 const LivestreamEditor: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const setShowLiveVideoEditor = usePublicationStore(
     (state) => state.setShowLiveVideoEditor
   );

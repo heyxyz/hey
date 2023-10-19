@@ -37,13 +37,11 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
   );
 
   useEffect(() => {
-    if (targetPublication.stats.countOpenActions) {
-      setMirrorOrQuoteConfig(targetPublication.id, {
-        countMirrorOrQuote:
-          targetPublication.stats.mirrors + targetPublication.stats.quotes,
-        mirroredOrQuoted: targetPublication.operations.hasMirrored
-      });
-    }
+    setMirrorOrQuoteConfig(targetPublication.id, {
+      countMirrorOrQuote:
+        targetPublication.stats.mirrors + targetPublication.stats.quotes,
+      mirroredOrQuoted: targetPublication.operations.hasMirrored
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);
 
@@ -101,7 +99,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       {mirrorOrQuoteCount > 0 && !showCount ? (
         <span
           className={cn(
-            mirrorOrQuoteCount ? 'text-brand' : 'lt-text-gray-500',
+            hasQuotedOrMirrored ? 'text-brand' : 'lt-text-gray-500',
             'text-[11px] sm:text-xs'
           )}
         >

@@ -41,6 +41,24 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     ? publication?.mirrorOn
     : publication;
 
+  useEffect(() => {
+    setReactionConfig(targetPublication.id, {
+      countReaction: targetPublication.stats.reactions,
+      reacted: targetPublication.operations.hasReacted
+    });
+    setMirrorOrQuoteConfig(targetPublication.id, {
+      // We done substracting quotes because quotes are counted separately
+      countMirrorOrQuote:
+        targetPublication.stats.mirrors - targetPublication.stats.quotes,
+      mirroredOrQuoted: targetPublication.operations.hasMirrored
+    });
+    setOpenActionPublicationConfig(targetPublication.id, {
+      countOpenActions: targetPublication.stats.countOpenActions,
+      acted: targetPublication.operations.hasActed.value
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publication]);
+
   const reactionsCount = getReactionCountByPublicationId(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
     targetPublication.id
@@ -49,23 +67,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     targetPublication.id
   );
   const quotesCount = targetPublication.stats.quotes;
-
-  useEffect(() => {
-    if (targetPublication.stats.countOpenActions) {
-      setMirrorOrQuoteConfig(targetPublication.id, {
-        // We done substracting quotes because quotes are counted separately
-        countMirrorOrQuote:
-          targetPublication.stats.mirrors - targetPublication.stats.quotes,
-        mirroredOrQuoted: targetPublication.operations.hasMirrored
-      });
-      setOpenActionPublicationConfig(targetPublication.id, {
-        countOpenActions: targetPublication.stats.countOpenActions,
-        acted: targetPublication.operations.hasActed.value
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
-
   const commentsCount = targetPublication.stats.comments;
   const bookmarkCount = targetPublication.stats.bookmarks;
   const publicationId = targetPublication.id;

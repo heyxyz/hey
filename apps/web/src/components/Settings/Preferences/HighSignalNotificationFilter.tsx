@@ -7,11 +7,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 import { usePreferencesStore } from 'src/store/preferences';
 
 const HighSignalNotificationFilter: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
   );
