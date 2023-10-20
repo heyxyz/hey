@@ -74,6 +74,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const showStats =
     mirrorOrQuoteCount > 0 ||
     quotesCount > 0 ||
+    commentsCount > 0 ||
     reactionsCount > 0 ||
     openActionsCount > 0 ||
     bookmarkCount > 0;
