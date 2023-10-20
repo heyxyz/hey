@@ -15,6 +15,7 @@ import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import UserSigNoncesProvider from './UserSigNoncesProvider';
 import Web3Provider from './Web3Provider';
+import WebSocketProvider from './WebSocketProvider';
 
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
@@ -30,6 +31,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <Web3Provider>
         <ApolloProvider client={lensApolloWebClient}>
           <UserSigNoncesProvider />
+          <WebSocketProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeaturedGroupsProvider />
