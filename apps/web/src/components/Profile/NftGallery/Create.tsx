@@ -15,7 +15,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
 
 import Picker from './Picker';
 import ReviewSelection from './ReviewSelection';

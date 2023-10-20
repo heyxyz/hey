@@ -3,7 +3,7 @@ import { Localstorage } from '@hey/data/storage';
 import getProfile from '@hey/lib/getProfile';
 import axios from 'axios';
 import { useAppStore } from 'src/store/app';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
 

@@ -21,8 +21,11 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useAppStore } from 'src/store/app';
-import type { NftGalleryItem } from 'src/store/nft-gallery';
-import { GALLERY_DEFAULTS, useNftGalleryStore } from 'src/store/nft-gallery';
+import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
+import {
+  GALLERY_DEFAULTS,
+  useNftGalleryStore
+} from 'src/store/useNftGalleryStore';
 
 import Create from './Create';
 import NftCard from './NftCard';

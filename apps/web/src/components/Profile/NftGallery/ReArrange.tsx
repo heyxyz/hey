@@ -7,7 +7,7 @@ import {
 } from '@dnd-kit/sortable';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
 
 import DraggableCard from './DraggableCard';
 

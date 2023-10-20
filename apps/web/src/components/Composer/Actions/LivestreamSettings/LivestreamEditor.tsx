@@ -12,7 +12,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
   const setShowLiveVideoEditor = usePublicationStore(

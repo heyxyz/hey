@@ -22,7 +22,7 @@ import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {

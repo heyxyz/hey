@@ -11,7 +11,7 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 

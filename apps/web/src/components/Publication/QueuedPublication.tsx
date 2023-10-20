@@ -17,7 +17,7 @@ import { Tooltip } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useTransactionPersistStore } from 'src/store/transaction';
+import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface QueuedPublicationProps {
   txn: OptimisticTransaction;

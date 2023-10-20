@@ -7,8 +7,8 @@ import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import Slug from '../Slug';
 import AppVersion from './NavItems/AppVersion';

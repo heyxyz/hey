@@ -6,7 +6,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {

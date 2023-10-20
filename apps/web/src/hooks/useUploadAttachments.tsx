@@ -2,7 +2,7 @@ import type { NewAttachment } from '@hey/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {

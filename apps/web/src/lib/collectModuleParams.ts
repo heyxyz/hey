@@ -5,7 +5,7 @@ import type {
   RecipientDataInput
 } from '@hey/lens';
 import { CollectOpenActionModuleType } from '@hey/lens';
-import type { CollectModuleType } from 'src/store/collect-module';
+import type { CollectModuleType } from 'src/store/useCollectModuleStore';
 
 import { getTimeAddedNDay } from './formatTime';
 

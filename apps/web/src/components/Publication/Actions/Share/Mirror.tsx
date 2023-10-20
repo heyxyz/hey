@@ -24,7 +24,7 @@ import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/nonce';
+import { useNonceStore } from 'src/store/useNonceStore';
 import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

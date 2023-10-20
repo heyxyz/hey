@@ -15,7 +15,7 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useExploreStore } from 'src/store/explore';
+import { useExploreStore } from 'src/store/useExploreStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;

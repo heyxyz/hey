@@ -13,7 +13,7 @@ import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface SplitConfigProps {
   isRecipientsDuplicated: () => boolean;

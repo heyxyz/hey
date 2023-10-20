@@ -8,7 +8,7 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
-import { useTransactionPersistStore } from 'src/store/transaction';
+import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface FeedProps {
   publication?: AnyPublication;

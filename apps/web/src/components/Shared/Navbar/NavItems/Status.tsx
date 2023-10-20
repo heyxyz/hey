@@ -3,7 +3,7 @@ import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface StatusProps {
   className?: string;

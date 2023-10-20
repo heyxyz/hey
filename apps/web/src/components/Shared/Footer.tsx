@@ -3,7 +3,7 @@ import { MISCELLANEOUS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import urlcat from 'urlcat';
 
 const Footer: FC = () => {

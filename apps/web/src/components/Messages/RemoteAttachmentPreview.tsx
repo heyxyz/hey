@@ -6,7 +6,7 @@ import useXmtpClient from 'src/hooks/useXmtpClient';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore
-} from 'src/store/attachment';
+} from 'src/store/useAttachmentStore';
 import type {
   Attachment as TAttachment,
   RemoteAttachment

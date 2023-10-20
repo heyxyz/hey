@@ -2,8 +2,8 @@ import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { getTimeAddedNDay } from '@lib/formatTime';
 import type { FC } from 'react';
-import type { CollectModuleType } from 'src/store/collect-module';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import type { CollectModuleType } from 'src/store/useCollectModuleStore';
+import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectModuleType) => void;

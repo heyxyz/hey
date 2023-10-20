@@ -3,7 +3,7 @@ import { Subscription } from '@hey/lens/documents/Subscription';
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { useAppPersistStore } from 'src/store/app';
-import { useNotificationPersistStore } from 'src/store/notification';
+import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const WebSocketProvider: FC = () => {

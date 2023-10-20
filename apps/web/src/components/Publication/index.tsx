@@ -19,8 +19,8 @@ import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FullPublication from './FullPublication';

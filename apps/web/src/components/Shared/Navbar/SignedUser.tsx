@@ -6,8 +6,8 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuTransition from '../MenuTransition';
 import Slug from '../Slug';

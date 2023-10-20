@@ -24,7 +24,7 @@ import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import useResizeObserver from 'use-resize-observer';
 import { useEffectOnce } from 'usehooks-ts';
 

@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 const PreferencesProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);

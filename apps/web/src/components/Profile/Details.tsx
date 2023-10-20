@@ -40,7 +40,7 @@ import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import urlcat from 'urlcat';
 
 import Badges from './Badges';

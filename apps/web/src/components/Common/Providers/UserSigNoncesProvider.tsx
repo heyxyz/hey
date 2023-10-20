@@ -2,7 +2,7 @@ import { useUserSigNoncesQuery } from '@hey/lens';
 import type { FC } from 'react';
 import { isSupported, share } from 'shared-zustand';
 import { useAppPersistStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/nonce';
+import { useNonceStore } from 'src/store/useNonceStore';
 
 const UserSigNoncesProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);

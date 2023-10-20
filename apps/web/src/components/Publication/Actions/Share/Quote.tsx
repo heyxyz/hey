@@ -4,8 +4,8 @@ import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { usePublicationStore } from 'src/store/publication';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 interface QuoteProps {
   publication: AnyPublication;

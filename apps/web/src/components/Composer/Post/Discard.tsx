@@ -1,6 +1,6 @@
 import { Alert } from '@hey/ui';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface DiscardProps {
   onDiscard: () => void;

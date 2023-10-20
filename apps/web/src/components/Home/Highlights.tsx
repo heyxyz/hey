@@ -10,7 +10,7 @@ import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
-import { useTransactionPersistStore } from 'src/store/transaction';
+import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 const Highlights: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

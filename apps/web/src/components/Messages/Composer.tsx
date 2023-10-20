@@ -19,7 +19,7 @@ import type {
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore
-} from 'src/store/attachment';
+} from 'src/store/useAttachmentStore';
 import { useMessagePersistStore } from 'src/store/message';
 import { useWindowSize } from 'usehooks-ts';
 import type {

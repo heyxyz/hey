@@ -1,7 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import type { FC } from 'react';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface FollowersConfigProps {
   setCollectType: (data: any) => void;

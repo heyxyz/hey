@@ -17,7 +17,7 @@ import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useOnClickOutside } from 'usehooks-ts';
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);

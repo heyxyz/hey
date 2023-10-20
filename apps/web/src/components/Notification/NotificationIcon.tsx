@@ -1,7 +1,7 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useNotificationPersistStore } from 'src/store/notification';
+import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 
 const NotificationIcon: FC = () => {
   const {

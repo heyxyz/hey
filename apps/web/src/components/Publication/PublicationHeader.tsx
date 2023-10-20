@@ -6,8 +6,8 @@ import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { usePreferencesStore } from 'src/store/preferences';
-import { usePublicationStore } from 'src/store/publication';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';
