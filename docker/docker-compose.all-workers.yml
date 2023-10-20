@@ -24,6 +24,7 @@ services:
       - 8083:8083
       - 8082:8082
     volumes:
+      - ..:/app
       - /app/node_modules
       - /app/packages/workers/feeds/node_modules
       - /app/packages/workers/invite/node_modules

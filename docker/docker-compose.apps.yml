@@ -3,6 +3,7 @@ version: "3.8"
 x-defaults-build: &defaults-build
   context: ../
   dockerfile: ./docker/Dockerfile
+
 x-defaults-healthcheck: &defaults-healthcheck
   start_period: 5s
   interval: 5s
@@ -23,8 +24,8 @@ services:
       - /app/apps/prerender/node_modules
       - /app/apps/prerender/.next
     healthcheck:
-      <<: *defaults-healthcheck
       test: [ 'CMD', 'curl', '-f', '-k', 'http://localhost:4784/' ]
+      <<: *defaults-healthcheck
   web:
     build:
       <<: *defaults-build
