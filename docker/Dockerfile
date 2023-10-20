@@ -6,7 +6,7 @@ RUN corepack enable
 ARG WORKSPACE
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates git
+  && apt-get install -y --no-install-recommends ca-certificates git gnupg2
 
 RUN update-ca-certificates
 
