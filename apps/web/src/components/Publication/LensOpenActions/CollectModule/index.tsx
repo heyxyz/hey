@@ -18,6 +18,7 @@ import { LENSHUB_PROXY, POLYGONSCAN_URL } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
+  ActOnOpenActionLensManagerRequest,
   AnyPublication,
   ApprovedAllowanceAmountResult,
   MultirecipientFeeCollectOpenActionSettings,
@@ -26,6 +27,7 @@ import type {
 } from '@hey/lens';
 import {
   FollowModuleType,
+  useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation
@@ -105,22 +107,26 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const assetAddress = collectModule?.amount?.asset?.contract.address;
   const assetDecimals = collectModule?.amount?.asset?.decimals;
   const referralFee = collectModule?.referralFee;
-
   const isLimitedCollectAllCollected = collectLimit
     ? openActionCount >= collectLimit
     : false;
   const isCollectExpired = endTimestamp
     ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
     : false;
-
-  const isFreeCollectModule = !collectModule;
+  const isFreeCollectModule = !amount;
   const isSimpleFreeCollectModule =
     collectModule.__typename === 'SimpleCollectOpenActionSettings';
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
+  const canUseLensManager = !collectModule?.followerOnly && isFreeCollectModule;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
@@ -215,6 +221,25 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       },
       onError
     });
+  const [actOnOpenAction] = useActOnOpenActionMutation({
+    onCompleted: ({ actOnOpenAction }) =>
+      onCompleted(actOnOpenAction.__typename),
+    onError
+  });
+
+  const createCollectViaLensManager = async (
+    request: ActOnOpenActionLensManagerRequest
+  ) => {
+    const { data, errors } = await actOnOpenAction({ variables: { request } });
+
+    if (errors?.toString().includes('has already acted on')) {
+      return;
+    }
+
+    if (!data?.actOnOpenAction) {
+      return await createActOnOpenActionTypedData({ variables: { request } });
+    }
+  };
 
   const createCollect = async () => {
     if (!currentProfile) {
@@ -227,13 +252,25 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
     try {
       setIsLoading(true);
+      const request: ActOnOpenActionLensManagerRequest = {
+        for: publication?.id,
+        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true },
+        referrers: [
+          {
+            profileId: publication.by.id,
+            publicationId: publication?.id
+          }
+        ]
+      };
+
+      if (canUseLensManager) {
+        return await createCollectViaLensManager(request);
+      }
+
       return await createActOnOpenActionTypedData({
         variables: {
           options: { overrideSigNonce: userSigNonce },
-          request: {
-            for: publication?.id,
-            actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
-          }
+          request
         }
       });
     } catch (error) {
