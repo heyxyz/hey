@@ -18,7 +18,7 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';

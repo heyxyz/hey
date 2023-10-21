@@ -2,9 +2,9 @@ import type { Profile } from '@hey/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { useCallback } from 'react';
-import { useAppStore } from 'src/store/app';
 import type { LensProfile, PreviewMessage } from 'src/store/message-db';
 import { db } from 'src/store/message-db';
+import { useAppStore } from 'src/store/useAppStore';
 
 const decodedMessageToPreview = (
   conversationKey: string,

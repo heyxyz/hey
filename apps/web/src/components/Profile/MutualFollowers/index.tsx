@@ -4,7 +4,7 @@ import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { Image } from '@hey/ui';
 import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface MutualFollowersProps {
   setShowMutualFollowersModal?: Dispatch<SetStateAction<boolean>>;

@@ -14,7 +14,7 @@ import cn from '@hey/ui/cn';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
 
 import Picker from './Picker';

@@ -6,7 +6,7 @@ import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 const Followers: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

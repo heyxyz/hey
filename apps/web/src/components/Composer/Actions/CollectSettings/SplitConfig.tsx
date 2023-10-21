@@ -12,7 +12,7 @@ import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 interface SplitConfigProps {

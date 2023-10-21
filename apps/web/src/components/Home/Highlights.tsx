@@ -8,8 +8,8 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
-import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
+import { useAppStore } from 'src/store/useAppStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 const Highlights: FC = () => {

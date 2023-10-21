@@ -20,7 +20,7 @@ import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import type { NftGalleryItem } from 'src/store/useNftGalleryStore';
 import {
   GALLERY_DEFAULTS,

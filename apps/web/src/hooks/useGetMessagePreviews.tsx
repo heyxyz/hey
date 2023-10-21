@@ -3,8 +3,8 @@ import { buildConversationKey } from '@lib/conversationKey';
 import type { Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useRef, useState } from 'react';
-import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { useAppStore } from 'src/store/useAppStore';
 
 import { useMessageDb } from './useMessageDb';
 

@@ -18,8 +18,8 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 import { useReactionStore } from 'src/store/OptimisticActions/useReactionStore';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface LikeProps {
   publication: AnyPublication;

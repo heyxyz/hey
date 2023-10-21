@@ -2,8 +2,8 @@ import { APP_NAME, APP_VERSION, XMTP_ENV } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { Client } from '@xmtp/xmtp-js';
 import { useCallback, useEffect, useState } from 'react';
-import { useAppStore } from 'src/store/app';
 import { useMessageStore } from 'src/store/message';
+import { useAppStore } from 'src/store/useAppStore';
 import {
   AttachmentCodec,
   RemoteAttachmentCodec

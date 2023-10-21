@@ -2,7 +2,7 @@ import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import OpenAction from '../LensOpenActions';

@@ -6,7 +6,7 @@ import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const EnableMessages: FC = () => {

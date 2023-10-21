@@ -2,7 +2,7 @@ import { CheckBadgeIcon } from '@heroicons/react/24/solid';
 import { Card } from '@hey/ui';
 import isVerified from '@lib/isVerified';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 const Verification: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

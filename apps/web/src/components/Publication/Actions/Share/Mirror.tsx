@@ -23,8 +23,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
 import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
+import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 

@@ -7,7 +7,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import dynamic from 'next/dynamic';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 import Loader from '../Loader';

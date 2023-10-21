@@ -17,7 +17,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppPersistStore } from 'src/store/useAppPersistStore';
+import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {

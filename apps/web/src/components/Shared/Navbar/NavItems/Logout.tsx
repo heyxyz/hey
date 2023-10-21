@@ -9,7 +9,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppPersistStore } from 'src/store/useAppPersistStore';
+import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 

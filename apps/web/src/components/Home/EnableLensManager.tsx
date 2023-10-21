@@ -3,7 +3,7 @@ import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 const EnableLensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

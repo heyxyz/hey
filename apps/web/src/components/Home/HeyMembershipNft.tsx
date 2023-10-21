@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useZoraNft from 'src/hooks/zora/useZoraNft';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useQuery } from 'wagmi';
 
 const HeyMembershipNft: FC = () => {

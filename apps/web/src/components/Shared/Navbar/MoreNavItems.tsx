@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';

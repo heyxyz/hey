@@ -6,7 +6,7 @@ import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 

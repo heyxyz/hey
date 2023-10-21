@@ -13,7 +13,7 @@ import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useSignTypedData } from 'wagmi';
 
 interface VoteProposalProps {

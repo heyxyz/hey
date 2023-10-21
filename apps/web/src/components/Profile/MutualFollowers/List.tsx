@@ -7,7 +7,7 @@ import { ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface MutualFollowersListProps {
   profileId: string;

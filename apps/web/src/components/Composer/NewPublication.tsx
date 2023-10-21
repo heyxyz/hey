@@ -67,7 +67,7 @@ import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useNonceStore } from 'src/store/useNonceStore';

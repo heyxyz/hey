@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import { Button } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import Create from './Create';
 

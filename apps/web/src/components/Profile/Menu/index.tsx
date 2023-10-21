@@ -5,7 +5,7 @@ import type { Profile } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import Block from './Block';
 import Report from './Report';

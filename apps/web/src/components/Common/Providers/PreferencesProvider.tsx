@@ -2,7 +2,8 @@ import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useAppPersistStore } from 'src/store/useAppPersistStore';
+import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 const PreferencesProvider: FC = () => {

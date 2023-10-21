@@ -24,8 +24,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useState } from 'react';
-import { useAppStore } from 'src/store/app';
 import { useTimelineStore } from 'src/store/timeline';
+import { useAppStore } from 'src/store/useAppStore';
 
 const SeeThroughLens: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

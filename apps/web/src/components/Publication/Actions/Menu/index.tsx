@@ -6,7 +6,7 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import Bookmark from './Bookmark';
 import CopyPostText from './CopyPostText';

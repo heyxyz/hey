@@ -7,7 +7,7 @@ import {
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
-import { useAppPersistStore } from 'src/store/app';
+import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { useUpdateEffect } from 'usehooks-ts';

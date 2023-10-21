@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

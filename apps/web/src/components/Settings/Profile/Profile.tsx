@@ -53,7 +53,7 @@ import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';

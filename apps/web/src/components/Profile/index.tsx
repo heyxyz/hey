@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';

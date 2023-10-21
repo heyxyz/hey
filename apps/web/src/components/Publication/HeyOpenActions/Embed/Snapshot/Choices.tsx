@@ -19,7 +19,7 @@ import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useSignTypedData } from 'wagmi';
 
 import New from '../../../../Shared/Badges/New';

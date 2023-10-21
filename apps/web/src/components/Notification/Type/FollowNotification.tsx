@@ -4,7 +4,7 @@ import getProfile from '@hey/lib/getProfile';
 import plur from 'plur';
 import type { FC } from 'react';
 import { memo } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';

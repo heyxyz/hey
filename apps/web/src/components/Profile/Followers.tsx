@@ -9,7 +9,7 @@ import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface FollowersProps {
   profile: Profile;
