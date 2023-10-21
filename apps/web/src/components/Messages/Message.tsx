@@ -32,20 +32,18 @@ import Composer from './Composer';
 import MessagesList from './MessagesList';
 import PreviewList from './PreviewList';
 
-interface MessageProps {
-  conversationKey?: string;
-}
-
-const Message: FC<MessageProps> = ({}) => {
+const Message: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const {
     conversationKey,
-    queuedMessages,
     addQueuedMessage,
     updateQueuedMessage,
     removeQueuedMessage
   } = useMessageStore();
+  const queuedMessages = useMessageStore((state) =>
+    state.queuedMessages.get(conversationKey)
+  );
 
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
 

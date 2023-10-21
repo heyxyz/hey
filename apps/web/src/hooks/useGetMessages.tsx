@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import { useMessageStore } from 'src/store/useMessageStore';
 
 const useGetMessages = (conversationKey: string, endTime?: Date) => {
-  const { conversations, messages, addMessages } = useMessageStore();
+  const { conversations, addMessages } = useMessageStore();
+  const messages = useMessageStore((state) =>
+    state.messages.get(conversationKey)
+  );
   const [hasMore, setHasMore] = useState<Map<string, boolean>>(new Map());
 
   useEffect(() => {
