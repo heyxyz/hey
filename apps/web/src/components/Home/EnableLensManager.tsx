@@ -1,4 +1,4 @@
-import ToggleLensManager from '@components/Settings/Manager/ToggleLensManager';
+import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { Card } from '@hey/ui';
