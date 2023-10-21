@@ -5,7 +5,7 @@ import type {
 } from '@xmtp/xmtp-js';
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { useMessageStore } from 'src/store/message';
+import { useMessageStore } from 'src/store/useMessageStore';
 import { v4 as uuid } from 'uuid';
 import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 

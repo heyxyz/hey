@@ -15,8 +15,8 @@ import isVerified from '@lib/isVerified';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
-import { useMessageStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
 import { ContentTypeRemoteAttachment } from 'xmtp-content-type-remote-attachment';
 

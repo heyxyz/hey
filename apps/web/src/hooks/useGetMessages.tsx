@@ -1,7 +1,7 @@
 import { MESSAGE_PAGE_LIMIT } from '@hey/data/constants';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useState } from 'react';
-import { useMessageStore } from 'src/store/message';
+import { useMessageStore } from 'src/store/useMessageStore';
 
 const useGetMessages = (conversationKey: string, endTime?: Date) => {
   const conversations = useMessageStore((state) => state.conversations);

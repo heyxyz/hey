@@ -15,7 +15,7 @@ import {
   isQueuedMessage,
   type PendingMessage
 } from 'src/hooks/useSendOptimisticMessage';
-import { useMessageStore } from 'src/store/message';
+import { useMessageStore } from 'src/store/useMessageStore';
 
 import MessageContent from './MessageContent';
 

@@ -5,8 +5,8 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
 import useXmtpClient from 'src/hooks/useXmtpClient';
-import { useMessagePersistStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessagePersistStore } from 'src/store/useMessagePersistStore';
 
 const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);

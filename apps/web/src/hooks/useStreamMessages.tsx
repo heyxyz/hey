@@ -1,6 +1,6 @@
 import type { DecodedMessage, Stream } from '@xmtp/xmtp-js';
 import { useEffect, useRef } from 'react';
-import { useMessageStore } from 'src/store/message';
+import { useMessageStore } from 'src/store/useMessageStore';
 
 type MessageStream = Promise<Stream<DecodedMessage>>;
 

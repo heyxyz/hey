@@ -9,7 +9,7 @@ import getStampFyiURL from '@hey/lib/getStampFyiURL';
 import { Image } from '@hey/ui';
 import type { FC } from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { useMessageStore } from 'src/store/message';
+import { useMessageStore } from 'src/store/useMessageStore';
 
 import Follow from '../Shared/Profile/Follow';
 

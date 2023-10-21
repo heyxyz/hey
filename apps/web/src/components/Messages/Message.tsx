@@ -22,8 +22,8 @@ import type {
 } from 'src/hooks/useSendOptimisticMessage';
 import useSendOptimisticMessage from 'src/hooks/useSendOptimisticMessage';
 import useStreamMessages from 'src/hooks/useStreamMessages';
-import { useMessageStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import useResizeObserver from 'use-resize-observer';
 import { useEffectOnce } from 'usehooks-ts';

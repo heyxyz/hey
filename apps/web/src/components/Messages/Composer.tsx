@@ -16,11 +16,11 @@ import type {
   SendMessageContent,
   SendMessageOptions
 } from 'src/hooks/useSendOptimisticMessage';
-import { useMessagePersistStore } from 'src/store/message';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore
 } from 'src/store/useAttachmentStore';
+import { useMessagePersistStore } from 'src/store/useMessagePersistStore';
 import { useWindowSize } from 'usehooks-ts';
 import type {
   Attachment as TAttachment,

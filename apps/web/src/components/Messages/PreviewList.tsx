@@ -15,9 +15,10 @@ import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { MessageTabs } from 'src/enums';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import type { TabValues } from 'src/store/message';
-import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessagePersistStore } from 'src/store/useMessagePersistStore';
+import type { TabValues } from 'src/store/useMessageStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 interface PreviewListProps {

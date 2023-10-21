@@ -38,8 +38,8 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { useMessageDb } from 'src/hooks/useMessageDb';
-import { useMessageStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import urlcat from 'urlcat';
 

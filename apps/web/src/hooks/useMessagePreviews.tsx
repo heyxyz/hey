@@ -12,8 +12,8 @@ import { DecodedMessage } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import useXmtpClient from 'src/hooks/useXmtpClient';
-import { useMessageStore } from 'src/store/message';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 
 import { useMessageDb } from './useMessageDb';
 import { useStreamAllMessages } from './useStreamAllMessages';
