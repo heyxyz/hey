@@ -1,6 +1,7 @@
 import { Card, TabButton } from '@hey/ui';
 import { type FC, useState } from 'react';
 
+import Managed from './Managed';
 import Managers from './Managers';
 
 enum Type {
@@ -28,7 +29,7 @@ const ProfileManager: FC = () => {
         />
       </div>
       {type === Type.MANAGERS && <Managers />}
-      {type === Type.MANAGED && <Managers />}
+      {type === Type.MANAGED && <Managed />}
     </Card>
   );
 };
