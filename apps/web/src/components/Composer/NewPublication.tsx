@@ -135,7 +135,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   );
 
   // Nonce store
-  const { userSigNonce, setUserSigNonce } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
 
   // Publication store
   const {
@@ -290,7 +290,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     functionName: isComment ? 'comment' : isQuote ? 'quote' : 'post',
     onSuccess: ({ hash }) => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       setTxnQueue([
         generateOptimisticPublication({ txHash: hash }),
         ...txnQueue
@@ -298,7 +298,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -536,7 +536,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const createOnChain = async (request: any) => {
     const variables = {
-      options: { overrideSigNonce: userSigNonce },
+      options: { overrideSigNonce: lensHubOnchainSigNonce },
       request
     };
 
@@ -709,7 +709,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (isComment) {
         return await createOnchainCommentTypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: request as OnchainCommentRequest
           }
         });
@@ -718,14 +718,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (isQuote) {
         return await createOnchainQuoteTypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: request as OnchainQuoteRequest
           }
         });
       }
 
       return await createOnchainPostTypedData({
-        variables: { options: { overrideSigNonce: userSigNonce }, request }
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
       });
     } catch (error) {
       onError(error);

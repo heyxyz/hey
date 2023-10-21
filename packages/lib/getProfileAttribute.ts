@@ -1,6 +1,6 @@
 import type { Maybe, MetadataAttribute } from '@hey/lens';
 
-type Key = 'x' | 'location' | 'website' | 'statusEmoji' | 'statusMessage';
+type Key = 'x' | 'location' | 'website';
 
 /**
  * Returns the attribute value for a given key from an array of attributes.

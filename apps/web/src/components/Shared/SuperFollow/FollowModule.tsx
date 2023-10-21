@@ -57,8 +57,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   followUnfollowSource
 }) => {
   const { pathname } = useRouter();
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
@@ -93,11 +92,11 @@ const FollowModule: FC<FollowModuleProps> = ({
     functionName: 'follow',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -187,7 +186,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       setIsLoading(true);
       return await createFollowTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             follow: [
               {

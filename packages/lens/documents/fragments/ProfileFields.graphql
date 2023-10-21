@@ -14,10 +14,6 @@ fragment ProfileFields on Profile {
     ...ProfileOperationsFields
   }
   interests
-  guardian {
-    protected
-    cooldownEndsOn
-  }
   invitedBy {
     id
   }

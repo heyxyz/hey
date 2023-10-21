@@ -2,7 +2,6 @@ import NewPublication from '@components/Composer/NewPublication';
 import ReportPublication from '@components/Shared/Modal/ReportPublication';
 import {
   ArrowRightCircleIcon,
-  FaceSmileIcon,
   ShieldCheckIcon,
   TicketIcon
 } from '@heroicons/react/24/outline';
@@ -15,7 +14,6 @@ import Login from './Login';
 import WrongNetwork from './Login/WrongNetwork';
 import Invites from './Modal/Invites';
 import ReportProfile from './Modal/ReportProfile';
-import Status from './Status';
 import SwitchProfiles from './SwitchProfiles';
 
 const GlobalModals: FC = () => {
@@ -24,8 +22,6 @@ const GlobalModals: FC = () => {
     showPublicationReportModal,
     reportingPublication,
     setShowPublicationReportModal,
-    showStatusModal,
-    setShowStatusModal,
     showProfileSwitchModal,
     setShowProfileSwitchModal,
     showNewPostModal,
@@ -90,14 +86,6 @@ const GlobalModals: FC = () => {
         onClose={() => setShowReportProfileModal(false, reportingProfile)}
       >
         <ReportProfile profile={reportingProfile} />
-      </Modal>
-      <Modal
-        title="Set status"
-        icon={<FaceSmileIcon className="text-brand h-5 w-5" />}
-        show={showStatusModal}
-        onClose={() => setShowStatusModal(false)}
-      >
-        <Status />
       </Modal>
       <Modal
         title="Change Profile"

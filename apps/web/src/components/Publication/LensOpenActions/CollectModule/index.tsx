@@ -53,8 +53,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/useNonceStore';
 import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
+import { useNonceStore } from 'src/store/useNonceStore';
 import {
   useAccount,
   useBalance,
@@ -75,8 +75,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     hasActedByMe,
     getOpenActionCountByPublicationId
   } = useOpenActionStore();
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const {
+    lensPublicActProxyOnchainSigNonce,
+    setLensPublicActProxyOnchainSigNonce
+  } = useNonceStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const targetPublication = isMirrorPublication(publication)
@@ -154,11 +156,15 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     functionName: 'act',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensPublicActProxyOnchainSigNonce(
+        lensPublicActProxyOnchainSigNonce + 1
+      );
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensPublicActProxyOnchainSigNonce(
+        lensPublicActProxyOnchainSigNonce - 1
+      );
     }
   });
 
@@ -211,7 +217,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        setUserSigNonce(userSigNonce + 1);
+        setLensPublicActProxyOnchainSigNonce(
+          lensPublicActProxyOnchainSigNonce + 1
+        );
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
@@ -269,7 +277,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
       return await createActOnOpenActionTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensPublicActProxyOnchainSigNonce },
           request
         }
       });

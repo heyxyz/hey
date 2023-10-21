@@ -24,8 +24,8 @@ import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/useNonceStore';
 import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
+import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
@@ -35,17 +35,16 @@ interface MirrorProps {
 }
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const {
     getMirrorOrQuoteCountByPublicationId,
     hasQuotedOrMirroredByMe,
     setMirrorOrQuoteConfig
   } = useMirrorOrQuoteStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
-  const currentProfile = useAppStore((state) => state.currentProfile);
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -96,11 +95,11 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     functionName: 'mirror',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -153,7 +152,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainMirrorTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
@@ -196,7 +195,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
       return await createOnchainMirrorTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });

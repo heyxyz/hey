@@ -6,7 +6,6 @@ import {
 import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
-import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -56,15 +55,6 @@ const UserProfile: FC<UserProfileProps> = ({
   followUnfollowSource
 }) => {
   const [following, setFollowing] = useState(isFollowing);
-  const statusEmoji = getProfileAttribute(
-    profile?.metadata?.attributes,
-    'statusEmoji'
-  );
-  const statusMessage = getProfileAttribute(
-    profile?.metadata?.attributes,
-    'statusMessage'
-  );
-  const hasStatus = statusEmoji && statusMessage;
 
   const UserAvatar = () => (
     <Image
@@ -91,15 +81,6 @@ const UserProfile: FC<UserProfileProps> = ({
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
-        ) : null}
-        {showStatus && hasStatus ? (
-          <div className="lt-text-gray-500 flex items-center">
-            <span className="mx-1.5">·</span>
-            <span className="flex max-w-[10rem] items-center space-x-1 text-xs">
-              <span>{statusEmoji}</span>
-              <span className="truncate">{statusMessage}</span>
-            </span>
-          </div>
         ) : null}
       </div>
       <div>

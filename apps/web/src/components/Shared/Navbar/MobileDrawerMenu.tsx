@@ -21,7 +21,6 @@ import Mod from './NavItems/Mod';
 import ReportBug from './NavItems/ReportBug';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
-import Status from './NavItems/Status';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -72,8 +71,6 @@ const MobileDrawerMenu: FC = () => {
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <SwitchProfile className={cn(itemClass, 'px-4')} />
-          <div className="divider" />
-          <Status className={cn(itemClass, 'px-4')} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">

@@ -209,15 +209,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         profile.metadata?.attributes
           ?.filter(
             (attr) =>
-              ![
-                'location',
-                'website',
-                'x',
-                'statusEmoji',
-                'statusMessage',
-                'timestamp',
-                'app'
-              ].includes(attr.key)
+              !['location', 'website', 'x', 'timestamp', 'app'].includes(
+                attr.key
+              )
           )
           .map(({ __typename, key, value }) => ({
             type: __typename?.replace('Metadata', '').replace('Attribute', ''),
@@ -243,22 +237,6 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             value: data.website
           },
           { type: MetadataAttributeType.STRING, key: 'x', value: data.x },
-          {
-            type: MetadataAttributeType.STRING,
-            key: 'statusEmoji',
-            value: getProfileAttribute(
-              profile?.metadata?.attributes,
-              'statusEmoji'
-            )
-          },
-          {
-            type: MetadataAttributeType.STRING,
-            key: 'statusMessage',
-            value: getProfileAttribute(
-              profile?.metadata?.attributes,
-              'statusMessage'
-            )
-          },
           {
             type: MetadataAttributeType.STRING,
             key: 'timestamp',

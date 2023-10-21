@@ -2,7 +2,7 @@ import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import type { Profile } from '@hey/lens';
-import { useProfilesQuery } from '@hey/lens';
+import { useCurrentProfileQuery } from '@hey/lens';
 import resetAuthData from '@hey/lib/resetAuthData';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
@@ -11,6 +11,7 @@ import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { useAppPersistStore, useAppStore } from 'src/store/app';
+import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
@@ -29,6 +30,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { currentProfile, setCurrentProfile } = useAppStore();
   const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
+  const {
+    setLensHubOnchainSigNonce,
+    setLensTokenHandleRegistryOnchainSigNonce,
+    setLensPublicActProxyOnchainSigNonce
+  } = useNonceStore();
 
   const isMounted = useIsMounted();
   const { address } = useAccount();
@@ -42,20 +48,23 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     resetPreferences();
   };
 
-  // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useProfilesQuery({
-    variables: { request: { where: { ownedBy: [address] } } },
+  const { loading } = useCurrentProfileQuery({
+    variables: { request: { forProfileId: profileId } },
     skip: !profileId,
-    onCompleted: (data) => {
-      const profiles = data?.profiles?.items;
-
-      if (!profiles.length) {
+    onCompleted: ({ profile, userSigNonces }) => {
+      if (!profile) {
         return resetAuthState();
       }
 
-      const selectedUser = profiles.find((profile) => profile.id === profileId);
-      setCurrentProfile(selectedUser as Profile);
-      setProfileId(selectedUser?.id);
+      setCurrentProfile(profile as Profile);
+      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+      setLensPublicActProxyOnchainSigNonce(
+        userSigNonces.lensPublicActProxyOnchainSigNonce
+      );
+      setLensTokenHandleRegistryOnchainSigNonce(
+        userSigNonces.lensTokenHandleRegistryOnchainSigNonce
+      );
+      setProfileId(profile.id);
     },
     onError: () => setProfileId(null)
   });

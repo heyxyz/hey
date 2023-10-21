@@ -13,9 +13,8 @@ import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import PreferencesProvider from './PreferencesProvider';
-import UserSigNoncesProvider from './UserSigNoncesProvider';
+import SyncProvider from './SyncProvider';
 import Web3Provider from './Web3Provider';
-import WebSocketProvider from './WebSocketProvider';
 
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
@@ -30,8 +29,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <ErrorBoundary>
       <Web3Provider>
         <ApolloProvider client={lensApolloWebClient}>
-          <UserSigNoncesProvider />
-          <WebSocketProvider />
+          <SyncProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeaturedGroupsProvider />

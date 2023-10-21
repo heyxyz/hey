@@ -34,9 +34,8 @@ const newSuperFollowSchema = object({
 });
 
 const SuperFollow: FC = () => {
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState(
     DEFAULT_COLLECT_TOKEN
@@ -73,11 +72,11 @@ const SuperFollow: FC = () => {
     functionName: 'setFollowModule',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -127,7 +126,7 @@ const SuperFollow: FC = () => {
       setIsLoading(true);
       return await createSetFollowModuleTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
             followModule: amount
               ? {

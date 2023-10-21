@@ -20,7 +20,6 @@ import Logout from './NavItems/Logout';
 import Mod from './NavItems/Mod';
 import Settings from './NavItems/Settings';
 import StaffMode from './NavItems/StaffMode';
-import Status from './NavItems/Status';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
@@ -93,17 +92,6 @@ const SignedUser: FC = () => {
               }
             >
               <SwitchProfile />
-            </Menu.Item>
-            <Menu.Item
-              as="div"
-              className={({ active }: { active: boolean }) =>
-                cn(
-                  { 'dropdown-active': active },
-                  'm-2 rounded-lg border dark:border-gray-700'
-                )
-              }
-            >
-              <Status />
             </Menu.Item>
             <div className="divider" />
             <Menu.Item

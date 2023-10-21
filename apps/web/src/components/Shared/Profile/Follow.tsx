@@ -44,8 +44,7 @@ const Follow: FC<FollowProps> = ({
 }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -105,7 +104,7 @@ const Follow: FC<FollowProps> = ({
       const signature = await signTypedDataAsync(
         getSignature(JSON.parse(JSON.stringify(typedData)))
       );
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
@@ -152,11 +151,11 @@ const Follow: FC<FollowProps> = ({
         variables: { request: { follow: [{ profileId: profile?.id }] } }
       });
 
-      if (!data?.follow) {
+      if (data?.follow.__typename === 'LensProfileManagerRelayError') {
         return await createFollowTypedData({
           variables: {
             request: { follow: [{ profileId: profile?.id }] },
-            options: { overrideSigNonce: userSigNonce }
+            options: { overrideSigNonce: lensHubOnchainSigNonce }
           }
         });
       }

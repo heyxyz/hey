@@ -1,4 +1,14 @@
-export const Subscription = `
+export const UserSigNoncesSubscription = `
+  subscription UserSigNonces($address: EvmAddress!) {
+    userSigNonces(address: $address) {
+      lensHubOnchainSigNonce
+      lensTokenHandleRegistryOnchainSigNonce
+      lensPublicActProxyOnchainSigNonce
+    }
+  }
+`;
+
+export const NewNotificationSubscription = `
   subscription NewNotification($for: ProfileId!) {
     newNotification(for: $for) {
       ... on ReactionNotification {

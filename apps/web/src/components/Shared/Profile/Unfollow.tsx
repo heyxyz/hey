@@ -34,8 +34,7 @@ const Unfollow: FC<UnfollowProps> = ({
   setFollowing
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -92,7 +91,7 @@ const Unfollow: FC<UnfollowProps> = ({
       const signature = await signTypedDataAsync(
         getSignature(JSON.parse(JSON.stringify(typedData)))
       );
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
@@ -130,11 +129,11 @@ const Unfollow: FC<UnfollowProps> = ({
         variables: { request: { unfollow: [{ profileId: profile?.id }] } }
       });
 
-      if (!data?.unfollow) {
+      if (data?.unfollow.__typename === 'LensProfileManagerRelayError') {
         return await createUnfollowTypedData({
           variables: {
-            request: { unfollow: [{ profileId: profile?.id }] },
-            options: { overrideSigNonce: userSigNonce }
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: { unfollow: [{ profileId: profile?.id }] }
           }
         });
       }

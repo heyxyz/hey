@@ -8,9 +8,7 @@ describe('getProfileAttribute', () => {
     const attributes: MetadataAttribute[] = [
       { key: 'x', value: '@myx' },
       { key: 'location', value: 'New York' },
-      { key: 'website', value: 'https://www.example.com' },
-      { key: 'statusEmoji', value: '👋' },
-      { key: 'statusMessage', value: 'Hello World!' }
+      { key: 'website', value: 'https://www.example.com' }
     ];
     expect(getProfileAttribute(attributes, 'location')).toEqual('New York');
   });

@@ -26,9 +26,8 @@ interface ToggleLensManagerProps {
 const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   buttonSize = 'md'
 }) => {
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
   const canUseRelay = currentProfile?.lensManager;
 
@@ -54,11 +53,11 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
