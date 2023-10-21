@@ -71,9 +71,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const validateAuthentication = () => {
     const currentProfileAddress = currentProfile?.ownedBy.address;
-    const isSwitchedAccount =
-      currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
+    const isSwitchedAccount = currentProfileAddress !== address;
+    const shouldLogout = !getIsAuthTokensAvailable();
 
     // If there are no auth data, clear and logout
     if (shouldLogout && profileId) {

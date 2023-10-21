@@ -15,7 +15,6 @@ import { useAccount } from 'wagmi';
 
 const SyncProvider: FC = () => {
   const profileId = useAppPersistStore((state) => state.profileId);
-  const { address } = useAccount();
   const setLatestNotificationId = useNotificationPersistStore(
     (state) => state.setLatestNotificationId
   );
@@ -24,6 +23,7 @@ const SyncProvider: FC = () => {
     setLensTokenHandleRegistryOnchainSigNonce,
     setLensPublicActProxyOnchainSigNonce
   } = useNonceStore();
+  const { address } = useAccount();
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
     API_URL.replace('http', 'ws'),

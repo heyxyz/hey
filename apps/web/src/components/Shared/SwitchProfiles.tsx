@@ -9,7 +9,7 @@ import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfileLazyQuery,
-  useProfilesQuery
+  useProfilesManagedQuery
 } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
@@ -46,10 +46,8 @@ const SwitchProfiles: FC = () => {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
 
-  const { data, loading, error } = useProfilesQuery({
-    variables: {
-      request: { where: { ownedBy: currentProfile?.ownedBy.address } }
-    }
+  const { data, loading, error } = useProfilesManagedQuery({
+    variables: { request: { for: address } }
   });
   const [loadChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
@@ -61,7 +59,7 @@ const SwitchProfiles: FC = () => {
     return <Loader message="Loading Profiles" />;
   }
 
-  const profiles = data?.profiles.items || [];
+  const profiles = data?.profilesManaged.items || [];
 
   const switchProfile = async (id: string) => {
     try {

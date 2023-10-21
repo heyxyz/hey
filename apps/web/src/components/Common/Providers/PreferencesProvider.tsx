@@ -44,7 +44,7 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['preferences', profileId],
+    queryKey: ['fetchPreferences', profileId || ''],
     queryFn: fetchPreferences
   });
 
