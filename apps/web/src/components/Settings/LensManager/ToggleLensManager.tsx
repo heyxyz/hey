@@ -101,6 +101,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       setIsLoading(true);
       return await createChangeProfileManagersTypedData({
         variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: { approveLensManager: canUseRelay ? false : true }
         }
       });
