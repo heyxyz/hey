@@ -24,33 +24,32 @@ const MAX_PROFILES_PER_REQUEST = 50;
 const useMessagePreviews = () => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const conversations = useMessageStore((state) => state.conversations);
-  const setConversations = useMessageStore((state) => state.setConversations);
-  const previewMessages = useMessageStore((state) => state.previewMessages);
-  const selectedProfileId = useMessageStore((state) => state.selectedProfileId);
-  const setPreviewMessages = useMessageStore(
-    (state) => state.setPreviewMessages
-  );
-  const setSelectedProfileId = useMessageStore(
-    (state) => state.setSelectedProfileId
-  );
-  const reset = useMessageStore((state) => state.reset);
-  const syncedProfiles = useMessageStore((state) => state.syncedProfiles);
-  const addSyncedProfiles = useMessageStore((state) => state.addSyncedProfiles);
-  const { client, loading: creatingXmtpClient } = useXmtpClient();
+  const {
+    conversations,
+    setConversations,
+    previewMessages,
+    setPreviewMessages,
+    selectedProfileId,
+    setSelectedProfileId,
+    syncedProfiles,
+    addSyncedProfiles,
+    setEnsNames,
+    reset
+  } = useMessageStore();
+
   const [profileIds, setProfileIds] = useState<Set<string>>(new Set<string>());
   const [nonLensProfiles, setNonLensProfiles] = useState<Set<string>>(
     new Set<string>()
   );
-
   const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
   const [profilesLoading, setProfilesLoading] = useState<boolean>(true);
   const [profilesError, setProfilesError] = useState<Error | undefined>();
-  const [loadProfiles] = useProfilesLazyQuery();
-  const setEnsNames = useMessageStore((state) => state.setEnsNames);
   const [profilesToShow, setProfilesToShow] = useState<Map<string, Profile>>(
     new Map()
   );
+
+  const { client, loading: creatingXmtpClient } = useXmtpClient();
+  const [loadProfiles] = useProfilesLazyQuery();
 
   const {
     persistPreviewMessage,

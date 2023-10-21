@@ -44,15 +44,12 @@ const PreviewList: FC<PreviewListProps> = ({
 }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
-  const selectedTab = useMessageStore((state) => state.selectedTab);
-  const ensNames = useMessageStore((state) => state.ensNames);
-  const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
-  const setConversationKey = useMessageStore(
-    (state) => state.setConversationKey
-  );
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
+  const { ensNames, selectedTab, setSelectedTab, setConversationKey } =
+    useMessageStore();
+
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { persistProfile } = useMessageDb();
 

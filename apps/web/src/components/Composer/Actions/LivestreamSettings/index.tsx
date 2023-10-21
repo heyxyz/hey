@@ -5,15 +5,8 @@ import type { FC } from 'react';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamSettings: FC = () => {
-  const showLiveVideoEditor = usePublicationStore(
-    (state) => state.showLiveVideoEditor
-  );
-  const setShowLiveVideoEditor = usePublicationStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const resetLiveVideoConfig = usePublicationStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const { showLiveVideoEditor, setShowLiveVideoEditor, resetLiveVideoConfig } =
+    usePublicationStore();
 
   return (
     <Tooltip placement="top" content="Go Live">

@@ -82,9 +82,7 @@ const useSendOptimisticMessage = (
   conversationKey: string,
   options?: UseSendOptimisticMessageOptions
 ) => {
-  const client = useMessageStore((state) => state.client);
-  const conversations = useMessageStore((state) => state.conversations);
-  const addConversation = useMessageStore((state) => state.addConversation);
+  const { client, conversations, addConversation } = useMessageStore();
   const [missingXmtpAuth, setMissingXmtpAuth] = useState<boolean>(false);
   const pendingMessages = useRef<PendingQueueItem[]>([]);
   const sendingRef = useRef<boolean>(false);

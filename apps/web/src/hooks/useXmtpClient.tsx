@@ -42,8 +42,8 @@ const wipeKeys = (walletAddress: string) => {
 
 const useXmtpClient = (cacheOnly = false) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const client = useMessageStore((state) => state.client);
-  const setClient = useMessageStore((state) => state.setClient);
+  const { client, setClient } = useMessageStore();
+
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
   const { data: walletClient, isLoading } = useEthersWalletClient();
 
@@ -96,9 +96,9 @@ const useXmtpClient = (cacheOnly = false) => {
 };
 
 export const useDisconnectXmtp = () => {
+  const { client, setClient } = useMessageStore();
   const { data: walletClient } = useEthersWalletClient();
-  const client = useMessageStore((state) => state.client);
-  const setClient = useMessageStore((state) => state.setClient);
+
   const disconnect = useCallback(async () => {
     if (walletClient) {
       wipeKeys(await walletClient.getAddress());

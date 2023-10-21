@@ -8,8 +8,8 @@ const useStreamMessages = (
   conversationKey: string,
   onMessageCallback?: () => void
 ) => {
-  const conversations = useMessageStore((state) => state.conversations);
-  const addMessages = useMessageStore((state) => state.addMessages);
+  const { conversations, addMessages } = useMessageStore();
+
   const streamRef = useRef<MessageStream | undefined>();
   const endStreamRef = useRef(async (stream?: MessageStream) => {
     // it's important to reset the stream reference first so that any

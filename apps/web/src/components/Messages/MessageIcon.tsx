@@ -10,18 +10,13 @@ import { useMessagePersistStore } from 'src/store/useMessagePersistStore';
 
 const MessageIcon: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const clearMessagesBadge = useMessagePersistStore(
-    (state) => state.clearMessagesBadge
-  );
-  const viewedMessagesAtNs = useMessagePersistStore(
-    (state) => state.viewedMessagesAtNs
-  );
-  const showMessagesBadge = useMessagePersistStore(
-    (state) => state.showMessagesBadge
-  );
-  const setShowMessagesBadge = useMessagePersistStore(
-    (state) => state.setShowMessagesBadge
-  );
+  const {
+    clearMessagesBadge,
+    viewedMessagesAtNs,
+    showMessagesBadge,
+    setShowMessagesBadge
+  } = useMessagePersistStore();
+
   const { client: cachedClient } = useXmtpClient(true);
 
   const shouldShowBadge = (

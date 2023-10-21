@@ -37,21 +37,20 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({}) => {
-  const listRef = useRef<HTMLDivElement | null>(null);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const conversationKey = useMessageStore((state) => state.conversationKey);
   const staffMode = usePreferencesStore((state) => state.staffMode);
-  const queuedMessages = useMessageStore((state) =>
-    state.queuedMessages.get(conversationKey)
-  );
-  const addQueuedMessage = useMessageStore((state) => state.addQueuedMessage);
-  const removeQueuedMessage = useMessageStore(
-    (state) => state.removeQueuedMessage
-  );
-  const updateQueuedMessage = useMessageStore(
-    (state) => state.updateQueuedMessage
-  );
+  const {
+    conversationKey,
+    queuedMessages,
+    addQueuedMessage,
+    updateQueuedMessage,
+    removeQueuedMessage
+  } = useMessageStore();
+
   const [endTime, setEndTime] = useState<Map<string, Date>>(new Map());
+
+  const listRef = useRef<HTMLDivElement | null>(null);
+
   const { profile } = useGetProfile(currentProfile?.id, conversationKey);
   const { messages, hasMore } = useGetMessages(
     conversationKey,

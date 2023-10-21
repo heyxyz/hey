@@ -15,16 +15,13 @@ import toast from 'react-hot-toast';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
-  const setShowLiveVideoEditor = usePublicationStore(
-    (state) => state.setShowLiveVideoEditor
-  );
-  const liveVideoConfig = usePublicationStore((state) => state.liveVideoConfig);
-  const setLiveVideoConfig = usePublicationStore(
-    (state) => state.setLiveVideoConfig
-  );
-  const resetLiveVideoConfig = usePublicationStore(
-    (state) => state.resetLiveVideoConfig
-  );
+  const {
+    liveVideoConfig,
+    setLiveVideoConfig,
+    setShowLiveVideoEditor,
+    resetLiveVideoConfig
+  } = usePublicationStore();
+
   const [creating, setCreating] = useState(false);
 
   const createLiveStream = async () => {

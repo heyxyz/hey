@@ -23,11 +23,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
   conversationKey
 }) => {
   const [following, setFollowing] = useState(true);
-  const unsyncProfile = useMessageStore((state) => state.unsyncProfile);
-  const ensNames = useMessageStore((state) => state.ensNames);
-  const setConversationKey = useMessageStore(
-    (state) => state.setConversationKey
-  );
+  const { ensNames, unsyncProfile, setConversationKey } = useMessageStore();
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
   const url =
     (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';

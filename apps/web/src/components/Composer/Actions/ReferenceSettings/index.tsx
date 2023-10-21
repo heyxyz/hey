@@ -15,22 +15,15 @@ import type { FC, ReactNode } from 'react';
 import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 
 const ReferenceSettings: FC = () => {
-  const selectedReferenceModule = useReferenceModuleStore(
-    (state) => state.selectedReferenceModule
-  );
-  const setSelectedReferenceModule = useReferenceModuleStore(
-    (state) => state.setSelectedReferenceModule
-  );
-  const onlyFollowers = useReferenceModuleStore((state) => state.onlyFollowers);
-  const setOnlyFollowers = useReferenceModuleStore(
-    (state) => state.setOnlyFollowers
-  );
-  const degreesOfSeparation = useReferenceModuleStore(
-    (state) => state.degreesOfSeparation
-  );
-  const setDegreesOfSeparation = useReferenceModuleStore(
-    (state) => state.setDegreesOfSeparation
-  );
+  const {
+    selectedReferenceModule,
+    setSelectedReferenceModule,
+    onlyFollowers,
+    setOnlyFollowers,
+    degreesOfSeparation,
+    setDegreesOfSeparation
+  } = useReferenceModuleStore();
+
   const MY_FOLLOWS = 'My follows';
   const MY_FOLLOWERS = 'My followers';
   const FRIENDS_OF_FRIENDS = 'Friends of friends';

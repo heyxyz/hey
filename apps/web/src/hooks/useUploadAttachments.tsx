@@ -6,17 +6,13 @@ import { usePublicationStore } from 'src/store/usePublicationStore';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const updateAttachments = usePublicationStore(
-    (state) => state.updateAttachments
-  );
-  const removeAttachments = usePublicationStore(
-    (state) => state.removeAttachments
-  );
-  const setIsUploading = usePublicationStore((state) => state.setIsUploading);
-  const setUploadedPercentage = usePublicationStore(
-    (state) => state.setUploadedPercentage
-  );
+  const {
+    addAttachments,
+    updateAttachments,
+    removeAttachments,
+    setIsUploading,
+    setUploadedPercentage
+  } = usePublicationStore();
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewAttachment[]> => {

@@ -25,19 +25,22 @@ const fetchMostRecentMessage = async (
 };
 
 const useGetMessagePreviews = () => {
-  const conversations = useMessageStore((state) => state.conversations);
-  const previewMessages = useMessageStore((state) => state.previewMessages);
-  const client = useMessageStore((state) => state.client);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { batchPersistPreviewMessages } = useMessageDb();
-  const hasSyncedMessages = useMessageStore((state) => state.hasSyncedMessages);
-  const setHasSyncedMessages = useMessageStore(
-    (state) => state.setHasSyncedMessages
-  );
+  const {
+    client,
+    conversations,
+    previewMessages,
+    hasSyncedMessages,
+    setHasSyncedMessages
+  } = useMessageStore();
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+
   const loadingRef = useRef<boolean>(false);
   const countRef = useRef<number>(0);
-  const [progress, setProgress] = useState<number>(0);
+
+  const { batchPersistPreviewMessages } = useMessageDb();
 
   useEffect(() => {
     if (!client || loadingRef.current || hasSyncedMessages) {

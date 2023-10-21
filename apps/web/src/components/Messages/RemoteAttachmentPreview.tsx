@@ -37,18 +37,9 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   const [status, setStatus] = useState<Status>(Status.UNLOADED);
   const [attachment, setAttachment] = useState<TAttachment | null>(null);
   const { client } = useXmtpClient(true);
-  const loadedAttachmentURLs = useAttachmentStore(
-    (state) => state.loadedAttachmentURLs
-  );
-  const addLoadedAttachmentURL = useAttachmentStore(
-    (state) => state.addLoadedAttachmentURL
-  );
-  const cachedAttachments = useAttachmentCachePersistStore(
-    (state) => state.cachedAttachments
-  );
-  const cacheAttachment = useAttachmentCachePersistStore(
-    (state) => state.cacheAttachment
-  );
+  const { loadedAttachmentURLs, addLoadedAttachmentURL } = useAttachmentStore();
+  const { cacheAttachment, cachedAttachments } =
+    useAttachmentCachePersistStore();
 
   const redactionReason = useMemo<string | null>(() => {
     const cached = cachedAttachments.get(remoteAttachment.url);

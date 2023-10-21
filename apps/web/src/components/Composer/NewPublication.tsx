@@ -160,14 +160,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = usePublicationStore();
 
   // Transaction persist store
-  const { txnQueue, setTxnQueue } = useTransactionPersistStore(
-    (state) => state
-  );
+  const { txnQueue, setTxnQueue } = useTransactionPersistStore();
 
   // Collect module store
-  const { collectModule, reset: resetCollectSettings } = useCollectModuleStore(
-    (state) => state
-  );
+  const { collectModule, reset: resetCollectSettings } =
+    useCollectModuleStore();
 
   // Reference module store
   const { selectedReferenceModule, onlyFollowers, degreesOfSeparation } =
