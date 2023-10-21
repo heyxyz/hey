@@ -11,7 +11,6 @@ interface MessagePersistState {
   clearMessagesBadge: (profileId: string) => void;
   unsentMessages: Map<string, string>;
   setUnsentMessage: (key: string, message: string | null) => void;
-  setUnsentMessages: (unsentMessages: Map<string, string>) => void;
 }
 
 export const useMessagePersistStore = create(
@@ -43,8 +42,7 @@ export const useMessagePersistStore = create(
             newUnsentMessages.delete(key);
           }
           return { unsentMessages: newUnsentMessages };
-        }),
-      setUnsentMessages: (unsentMessages) => set(() => ({ unsentMessages }))
+        })
     }),
     {
       name: Localstorage.MessageStore,

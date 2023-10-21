@@ -34,10 +34,6 @@ interface MessageState {
   setPreviewMessages: (previewMessages: Map<string, DecodedMessage>) => void;
   ensNames: Map<string, string>;
   setEnsNames: (ensNames: Map<string, string>) => void;
-  previewMessagesNonLens: Map<string, DecodedMessage>;
-  setPreviewMessagesNonLens: (
-    previewMessagesNonLens: Map<string, DecodedMessage>
-  ) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
   conversationKey: string;
@@ -133,9 +129,6 @@ export const useMessageStore = create<MessageState>((set) => ({
   setPreviewMessages: (previewMessages) => set(() => ({ previewMessages })),
   ensNames: new Map(),
   setEnsNames: (ensNames) => set(() => ({ ensNames })),
-  previewMessagesNonLens: new Map(),
-  setPreviewMessagesNonLens: (previewMessagesNonLens) =>
-    set(() => ({ previewMessagesNonLens })),
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
