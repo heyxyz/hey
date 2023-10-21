@@ -8,8 +8,9 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { OptmisticPublicationType } from 'src/enums';
-import { useTimelinePersistStore, useTimelineStore } from 'src/store/timeline';
 import { useAppStore } from 'src/store/useAppStore';
+import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
+import { useTimelineStore } from 'src/store/useTimelineStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 const Timeline: FC = () => {

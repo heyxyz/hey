@@ -14,8 +14,8 @@ import { Leafwatch } from '@lib/leafwatch';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useTimelineStore } from 'src/store/timeline';
 import { useAppStore } from 'src/store/useAppStore';
+import { useTimelineStore } from 'src/store/useTimelineStore';
 
 import Suggested from './Suggested';
 

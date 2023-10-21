@@ -4,7 +4,7 @@ import { AdjustmentsVerticalIcon } from '@heroicons/react/24/outline';
 import { Checkbox, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { ChangeEvent, FC } from 'react';
-import { useTimelinePersistStore } from 'src/store/timeline';
+import { useTimelinePersistStore } from 'src/store/useTimelinePersistStore';
 
 const FeedEventFilters: FC = () => {
   const feedEventFilters = useTimelinePersistStore(
