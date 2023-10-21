@@ -1,3 +1,3 @@
-import LensManagerSettings from '@components/Settings/LensManager';
+import ManagerSettings from '@components/Settings/Manager';
 
-export default LensManagerSettings;
+export default ManagerSettings;

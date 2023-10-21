@@ -133,7 +133,7 @@ const PreviewList: FC<PreviewListProps> = ({
           ) : null}
         </div>
         <div className="flex justify-between px-4 py-3">
-          <div className="flex space-x-2">
+          <div className="flex gap-3">
             <TabButton
               className="p-2 px-4"
               name={MessageTabs.Following}
