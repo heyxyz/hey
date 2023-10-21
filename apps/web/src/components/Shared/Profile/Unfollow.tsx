@@ -2,7 +2,7 @@ import { UserMinusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
+import type { Profile, UnfollowRequest } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
@@ -59,7 +59,7 @@ const Unfollow: FC<UnfollowProps> = ({
     }
 
     setIsLoading(false);
-    setFollowing(true);
+    setFollowing(false);
     toast.success('Unfollowed successfully!');
     Leafwatch.track(PROFILE.UNFOLLOW, {
       target: profile?.id
@@ -87,10 +87,7 @@ const Unfollow: FC<UnfollowProps> = ({
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { id, typedData } = createUnfollowTypedData;
-      // TODO: Replace deep clone with right helper
-      const signature = await signTypedDataAsync(
-        getSignature(JSON.parse(JSON.stringify(typedData)))
-      );
+      const signature = await signTypedDataAsync(getSignature(typedData));
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
@@ -125,15 +122,16 @@ const Unfollow: FC<UnfollowProps> = ({
 
     try {
       setIsLoading(true);
+      const request: UnfollowRequest = { unfollow: [profile?.id] };
       const { data } = await unfollow({
-        variables: { request: { unfollow: [{ profileId: profile?.id }] } }
+        variables: { request }
       });
 
       if (data?.unfollow.__typename === 'LensProfileManagerRelayError') {
         return await createUnfollowTypedData({
           variables: {
             options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: { unfollow: [{ profileId: profile?.id }] }
+            request
           }
         });
       }

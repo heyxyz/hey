@@ -100,10 +100,7 @@ const Follow: FC<FollowProps> = ({
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      // TODO: Replace deep clone with right helper
-      const signature = await signTypedDataAsync(
-        getSignature(JSON.parse(JSON.stringify(typedData)))
-      );
+      const signature = await signTypedDataAsync(getSignature(typedData));
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
