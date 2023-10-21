@@ -14,7 +14,7 @@ import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
 import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
@@ -28,7 +28,7 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const { currentProfile, setCurrentProfile } = useAppStore();
+  const { setCurrentProfile } = useAppStore();
   const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
   const {
@@ -38,7 +38,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   } = useNonceStore();
 
   const isMounted = useIsMounted();
-  const { address } = useAccount();
+  const { address, connector } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
   const disconnectXmtp = useDisconnectXmtp();
@@ -47,6 +47,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     setProfileId(null);
     setCurrentProfile(null);
     resetPreferences();
+  };
+
+  const logout = () => {
+    disconnectXmtp();
+    resetAuthState();
+    resetAuthData();
+    disconnect?.();
   };
 
   const { loading } = useCurrentProfileQuery({
@@ -71,18 +78,17 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   });
 
   const validateAuthentication = () => {
-    const currentProfileAddress = currentProfile?.ownedBy.address;
-    const isSwitchedAccount = currentProfileAddress !== address;
-    const shouldLogout = !getIsAuthTokensAvailable();
-
-    // If there are no auth data, clear and logout
-    if (shouldLogout && profileId) {
-      disconnectXmtp();
-      resetAuthState();
-      resetAuthData();
-      disconnect?.();
+    if (!getIsAuthTokensAvailable() && profileId) {
+      logout();
     }
   };
+
+  // Listen for switch account in wallet and logout
+  useEffectOnce(() => {
+    connector?.addListener('change', () => {
+      logout();
+    });
+  });
 
   useUpdateEffect(() => {
     validateAuthentication();
