@@ -14,7 +14,6 @@ import ProfileManager from './ProfileManager';
 
 const ManagerSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.lensManager;
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'manager' });

@@ -4,11 +4,9 @@ import type { Profile } from '@hey/lens';
 import { useProfilesManagedQuery } from '@hey/lens';
 import { ErrorMessage } from '@hey/ui';
 import { type FC } from 'react';
-import { useAppStore } from 'src/store/useAppStore';
 import { useAccount } from 'wagmi';
 
 const Managed: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const { address } = useAccount();
 
   const { data, loading, error } = useProfilesManagedQuery({
