@@ -18,11 +18,13 @@ const ProfileManager: FC = () => {
           name="Managers"
           active={type === Type.MANAGERS}
           onClick={() => setType(Type.MANAGERS)}
+          showOnSm
         />
         <TabButton
           name="Managed"
           active={type === Type.MANAGED}
           onClick={() => setType(Type.MANAGED)}
+          showOnSm
         />
       </div>
       {type === Type.MANAGERS && <Managers />}

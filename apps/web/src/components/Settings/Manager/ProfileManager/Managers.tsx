@@ -1,29 +1,123 @@
 import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { useProfileManagersQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
-import { type FC } from 'react';
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { LensHub } from '@hey/abis';
+import { LENSHUB_PROXY } from '@hey/data/constants';
+import {
+  ChangeProfileManagerActionType,
+  useBroadcastOnchainMutation,
+  useCreateChangeProfileManagersTypedDataMutation,
+  useProfileManagersQuery
+} from '@hey/lens';
+import getSignature from '@hey/lib/getSignature';
+import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import errorToast from '@lib/errorToast';
+import { type FC, useState } from 'react';
+import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
+import { useNonceStore } from 'src/store/useNonceStore';
+import type { Address } from 'viem';
+import { useContractWrite, useSignTypedData } from 'wagmi';
 
 const Managers: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
-  const people = [
-    {
-      name: 'Lindsay Walton',
-      title: 'Front-end Developer',
-      department: 'Optimization',
-      email: 'lindsay.walton@example.com',
-      role: 'Member',
-      image:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+  const handleWrongNetwork = useHandleWrongNetwork();
+
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return;
     }
-    // More people...
-  ];
+
+    toast.success('Removed profile manager successfully!');
+    // Leafwatch.track(PROFILE.UNFOLLOW, {
+    //   target: profile?.id
+    // });
+  };
+
+  const onError = (error: any) => {
+    errorToast(error);
+    setRemovingAddress(null);
+  };
 
   const { data, loading, error } = useProfileManagersQuery({
     variables: { request: { for: currentProfile?.id } }
   });
+
+  const { signTypedDataAsync } = useSignTypedData({ onError });
+  const { write } = useContractWrite({
+    address: LENSHUB_PROXY,
+    abi: LensHub,
+    functionName: 'changeDelegatedExecutorsConfig',
+    onSuccess: () => onCompleted(),
+    onError
+  });
+
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
+  });
+  const [createChangeProfileManagersTypedData] =
+    useCreateChangeProfileManagersTypedDataMutation({
+      onCompleted: async ({ createChangeProfileManagersTypedData }) => {
+        const { id, typedData } = createChangeProfileManagersTypedData;
+        const signature = await signTypedDataAsync(getSignature(typedData));
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
+        });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const {
+            delegatorProfileId,
+            delegatedExecutors,
+            approvals,
+            configNumber,
+            switchToGivenConfig
+          } = typedData.value;
+          return write?.({
+            args: [
+              delegatorProfileId,
+              delegatedExecutors,
+              approvals,
+              configNumber,
+              switchToGivenConfig
+            ]
+          });
+        }
+      },
+      onError
+    });
+
+  const removeManager = async (address: Address) => {
+    if (handleWrongNetwork()) {
+      return;
+    }
+
+    try {
+      setRemovingAddress(address);
+      return await createChangeProfileManagersTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: {
+            approveLensManager: true,
+            changeManagers: [
+              { address, action: ChangeProfileManagerActionType.Remove }
+            ]
+          }
+        }
+      });
+    } catch (error) {
+      onError(error);
+    }
+  };
 
   return (
     <div className="space-y-3 pt-2">
@@ -39,11 +133,29 @@ const Managers: FC = () => {
             Accounts with control over your profile can act on your behalf.
           </div>
           <div className="divider my-5" />
-          {data?.profileManagers.items.map((manager) => (
-            <div key={manager.address}>
-              <WalletProfile address={manager.address} />
-            </div>
-          ))}
+          <div className="space-y-5">
+            {data?.profileManagers.items.map((manager) => (
+              <div
+                key={manager.address}
+                className="flex items-center justify-between"
+              >
+                <WalletProfile address={manager.address} />
+                <Button
+                  icon={
+                    removingAddress === manager.address ? (
+                      <Spinner size="xs" />
+                    ) : (
+                      <MinusCircleIcon className="h-4 w-4" />
+                    )
+                  }
+                  onClick={() => removeManager(manager.address)}
+                  disabled={removingAddress === manager.address}
+                >
+                  Remove
+                </Button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
