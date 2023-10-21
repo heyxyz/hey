@@ -75,7 +75,7 @@
     "wagmi": "^1.4.5",
     "xmtp-content-type-remote-attachment": "^1.0.7",
     "zod": "^3.22.4",
-    "zustand": "^4.4.3"
+    "zustand": "^4.4.4"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
