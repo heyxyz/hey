@@ -15,14 +15,16 @@ interface OembedProps {
 }
 
 const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
-  const { isLoading, error, data } = useQuery(
-    [url],
-    () =>
-      axios
-        .get(`${OEMBED_WORKER_URL}/oembed`, { params: { url } })
-        .then((res) => res.data.oembed),
-    { enabled: Boolean(url) }
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['oembed', url],
+    queryFn: async () => {
+      const response = await axios.get(`${OEMBED_WORKER_URL}/oembed`, {
+        params: { url }
+      });
+      return response.data.oembed;
+    },
+    enabled: Boolean(url)
+  });
 
   if (isLoading || error || !data) {
     return null;

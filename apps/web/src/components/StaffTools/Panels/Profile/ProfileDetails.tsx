@@ -40,11 +40,11 @@ const ProfileDetails: FC<ProfileDetailsProps> = ({ profile }) => {
     }
   };
 
-  const { data } = useQuery(
-    ['getProfileDetails', profile.id],
-    () => getProfileDetails().then((res) => res),
-    { enabled: Boolean(profile.id) }
-  );
+  const { data } = useQuery({
+    queryKey: ['getProfileDetails', profile.id],
+    queryFn: getProfileDetails,
+    enabled: Boolean(profile.id)
+  });
 
   if (!data) {
     return null;

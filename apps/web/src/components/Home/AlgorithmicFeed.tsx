@@ -27,12 +27,11 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     data: publicationIds,
     isLoading: algoLoading,
     error: algoError
-  } = useQuery(
-    ['algorithmicFeed', feedType, currentProfile?.id, 25, offset],
-    () => {
-      return getAlgorithmicFeed(feedType, currentProfile, 25, offset);
-    }
-  );
+  } = useQuery({
+    queryKey: ['getAlgorithmicFeed', feedType, currentProfile?.id, 25, offset],
+    queryFn: async () =>
+      await getAlgorithmicFeed(feedType, currentProfile, 25, offset)
+  });
 
   useEffect(() => {
     setDisplayedPublications([]);

@@ -43,9 +43,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
     }
   };
 
-  const { data: haveUsedHey } = useQuery(['haveUsedHey', profile.id], () =>
-    getHaveUsedHey().then((res) => res)
-  );
+  const { data: haveUsedHey } = useQuery({
+    queryKey: ['getHaveUsedHey', profile.id],
+    queryFn: getHaveUsedHey
+  });
 
   return (
     <Card

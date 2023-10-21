@@ -53,28 +53,30 @@ const Rank: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: followship } = useQuery(
-    ['getRank', profile.id, 'followship'],
-    () => getRank('followship').then((res) => res)
-  );
+  const { data: followship } = useQuery({
+    queryKey: ['getRank', profile.id, 'followship'],
+    queryFn: async () => getRank('followship')
+  });
 
-  const { data: engagement } = useQuery(
-    ['getRank', profile.id, 'engagement'],
-    () => getRank('engagement').then((res) => res)
-  );
+  const { data: engagement } = useQuery({
+    queryKey: ['getRank', profile.id, 'engagement'],
+    queryFn: async () => getRank('engagement')
+  });
 
-  const { data: influencer } = useQuery(
-    ['getRank', profile.id, 'influencer'],
-    () => getRank('influencer').then((res) => res)
-  );
+  const { data: influencer } = useQuery({
+    queryKey: ['getRank', profile.id, 'influencer'],
+    queryFn: async () => getRank('influencer')
+  });
 
-  const { data: creator } = useQuery(['getRank', profile.id, 'creator'], () =>
-    getRank('creator').then((res) => res)
-  );
+  const { data: creator } = useQuery({
+    queryKey: ['getRank', profile.id, 'creator'],
+    queryFn: async () => getRank('creator')
+  });
 
-  const { data: gitcoinScore } = useQuery(['getRank', profile.id], () =>
-    getGitcoinScore().then((res) => res)
-  );
+  const { data: gitcoinScore } = useQuery({
+    queryKey: ['getGitcoinScore', profile.id],
+    queryFn: getGitcoinScore
+  });
 
   return (
     <>

@@ -13,11 +13,11 @@ interface PriceProps {
 
 const Price: FC<PriceProps> = ({ nft }) => {
   const { quantity, setQuantity, canMintOnHey } = useZoraMintStore();
-  const { data: usdPrice, isLoading } = useQuery(
-    ['redstoneData'],
-    () => getRedstonePrice('ETH').then((res) => res),
-    { enabled: Boolean(nft.price) }
-  );
+  const { data: usdPrice, isLoading } = useQuery({
+    queryKey: ['getRedstonePrice'],
+    queryFn: async () => await getRedstonePrice('ETH'),
+    enabled: Boolean(nft.price)
+  });
 
   const price = quantity * parseInt(nft.price);
   const nftPriceInEth = price / 10 ** 18;

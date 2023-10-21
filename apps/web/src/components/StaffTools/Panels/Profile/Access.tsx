@@ -59,11 +59,11 @@ const Access: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: preferences } = useQuery(
-    ['preferences', profile.id],
-    () => getPreferences().then((res) => res),
-    { enabled: Boolean(profile.id) }
-  );
+  const { data: preferences } = useQuery({
+    queryKey: ['getPreferences', profile.id],
+    queryFn: getPreferences,
+    enabled: Boolean(profile.id)
+  });
 
   const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(

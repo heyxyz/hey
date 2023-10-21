@@ -11,11 +11,11 @@ interface PriceProps {
 
 const Price: FC<PriceProps> = ({ openEditionPrice }) => {
   const { quantity, setQuantity } = useBasePaintMintStore();
-  const { data: usdPrice, isLoading } = useQuery(
-    ['redstoneData'],
-    () => getRedstonePrice('ETH').then((res) => res),
-    { enabled: Boolean(openEditionPrice) }
-  );
+  const { data: usdPrice, isLoading } = useQuery({
+    queryKey: ['getRedstonePrice'],
+    queryFn: async () => await getRedstonePrice('ETH'),
+    enabled: Boolean(openEditionPrice)
+  });
 
   if (isLoading) {
     return null;

@@ -58,11 +58,11 @@ const VoteProposal: FC<VoteProposalProps> = ({
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['scoreData', currentProfile?.ownedBy.address, id],
-    () => getVotingPower().then((res) => res),
-    { enabled: state === 'active' }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getVotingPower', currentProfile?.ownedBy.address, id],
+    queryFn: getVotingPower,
+    enabled: state === 'active'
+  });
 
   const sign = async (position: number) => {
     try {

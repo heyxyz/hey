@@ -20,9 +20,13 @@ interface ListProps {
 const List: FC<ListProps> = ({ setEmoji }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState('');
-  const { isLoading, error, data } = useQuery(['emojisData'], () =>
-    axios.get(`${STATIC_ASSETS_URL}/emoji.json`).then((res) => res.data)
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['emojisData'],
+    queryFn: async () => {
+      const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
+      return response.data;
+    }
+  });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);

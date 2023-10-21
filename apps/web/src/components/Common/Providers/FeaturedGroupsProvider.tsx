@@ -15,7 +15,10 @@ const FeaturedGroupsProvider: FC = () => {
     } catch {}
   };
 
-  useQuery(['fetchFeaturedGroups'], () => fetchFeaturedGroups());
+  useQuery({
+    queryKey: ['fetchFeaturedGroups'],
+    queryFn: fetchFeaturedGroups
+  });
 
   return null;
 };

@@ -19,9 +19,10 @@ const StaffPickedGroup: FC<StaffPickedGroupProps> = ({ id }) => {
     return response.data?.result;
   };
 
-  const { data: group, isLoading } = useQuery(['fetchGroup', id], () =>
-    fetchGroup().then((res) => res)
-  );
+  const { data: group, isLoading } = useQuery({
+    queryKey: ['fetchGroup', id],
+    queryFn: fetchGroup
+  });
 
   if (isLoading) {
     return <GroupProfileShimmer />;

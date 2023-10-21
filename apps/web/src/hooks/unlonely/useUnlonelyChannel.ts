@@ -16,7 +16,7 @@ const useUnlonelyChannel = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadUnlonelyChannelDetails = async () => {
+  const getUnlonelyChannelDetails = async () => {
     const response = await axios.get(`${NFT_WORKER_URL}/unlonely/channel`, {
       params: { slug }
     });
@@ -24,11 +24,11 @@ const useUnlonelyChannel = ({
     return response.data?.channel;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['loadUnlonelyChannelDetails', slug],
-    () => loadUnlonelyChannelDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getUnlonelyChannelDetails', slug],
+    queryFn: getUnlonelyChannelDetails,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

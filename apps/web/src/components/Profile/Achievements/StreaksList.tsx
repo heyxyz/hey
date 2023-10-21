@@ -33,9 +33,10 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(['streaksList', profile.id], () =>
-    fetchStreaksList().then((res) => res)
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['fetchStreaksList', profile.id],
+    queryFn: fetchStreaksList
+  });
 
   const EventIcon = ({ event }: { event: string }) => {
     switch (event) {

@@ -188,11 +188,11 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       }
     });
 
-  const { data: usdPrice } = useQuery(
-    ['redstoneData'],
-    () => getRedstonePrice(getAssetSymbol(currency)).then((res) => res),
-    { enabled: Boolean(amount) }
-  );
+  const { data: usdPrice } = useQuery({
+    queryKey: ['getRedstonePrice', currency],
+    queryFn: async () => await getRedstonePrice(getAssetSymbol(currency)),
+    enabled: Boolean(amount)
+  });
 
   const { data: balanceData, isRefetching: balanceLoading } = useBalance({
     address,

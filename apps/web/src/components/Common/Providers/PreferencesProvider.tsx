@@ -43,7 +43,10 @@ const PreferencesProvider: FC = () => {
     }
   };
 
-  useQuery(['preferences', profileId], () => fetchPreferences());
+  useQuery({
+    queryKey: ['preferences', profileId],
+    queryFn: fetchPreferences
+  });
 
   const fetchVerifiedMembers = async () => {
     try {
@@ -53,7 +56,10 @@ const PreferencesProvider: FC = () => {
     } catch {}
   };
 
-  useQuery(['verifiedMembers'], () => fetchVerifiedMembers());
+  useQuery({
+    queryKey: ['fetchVerifiedMembers'],
+    queryFn: fetchVerifiedMembers
+  });
 
   return null;
 };
