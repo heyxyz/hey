@@ -60,7 +60,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         {quoted ? (
           <SmallUserProfile profile={profile} timestamp={timestamp} />
         ) : (
-          <UserProfile profile={profile} timestamp={timestamp} showStatus />
+          <UserProfile profile={profile} timestamp={timestamp} />
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">

@@ -48,7 +48,6 @@ const UserProfile: FC<UserProfileProps> = ({
   showBio = false,
   showFollow = false,
   showUnfollow = false,
-  showStatus = false,
   showUserPreview = true,
   timestamp = '',
   followUnfollowPosition,
