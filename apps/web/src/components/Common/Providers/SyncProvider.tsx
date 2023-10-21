@@ -70,6 +70,7 @@ const SyncProvider: FC = () => {
     }
   }, [lastMessage]);
 
+  // Sync zustand stores between tabs
   if (isSupported()) {
     share('lensHubOnchainSigNonce', useNonceStore);
     share('lensTokenHandleRegistryOnchainSigNonce', useNonceStore);
