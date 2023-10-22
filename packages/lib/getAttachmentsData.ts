@@ -1,5 +1,7 @@
 import type { Maybe, PublicationMetadataMedia } from '@hey/lens';
 
+import replaceWithHeyIpfsGateway from './replaceWithHeyIpfsGateway';
+
 const getAttachmentsData = (
   attachments?: Maybe<PublicationMetadataMedia[]>
 ): any => {
@@ -11,17 +13,17 @@ const getAttachmentsData = (
     switch (attachment.__typename) {
       case 'PublicationMetadataMediaImage':
         return {
-          uri: attachment.image.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(attachment.image.optimized?.uri),
           type: 'Image'
         };
       case 'PublicationMetadataMediaVideo':
         return {
-          uri: attachment.video.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(attachment.video.optimized?.uri),
           type: 'Video'
         };
       case 'PublicationMetadataMediaAudio':
         return {
-          uri: attachment.audio.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(attachment.audio.optimized?.uri),
           type: 'Audio'
         };
       default:

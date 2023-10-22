@@ -5,6 +5,7 @@ import { knownEmbedHostnames } from './embeds/getEmbed';
 import getAttachmentsData from './getAttachmentsData';
 import { knownMintHostnames } from './nft/getNft';
 import removeUrlsByHostnames from './removeUrlsByHostnames';
+import replaceWithHeyIpfsGateway from './replaceWithHeyIpfsGateway';
 
 const getPublicationData = (
   metadata: PublicationMetadata
@@ -31,7 +32,7 @@ const getPublicationData = (
       return {
         content: metadata.content,
         asset: {
-          uri: metadata.asset.image.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(metadata.asset.image.optimized?.uri),
           type: 'Image'
         },
         attachments: getAttachmentsData(metadata.attachments)
@@ -40,8 +41,10 @@ const getPublicationData = (
       return {
         content: metadata.content,
         asset: {
-          uri: metadata.asset.audio.optimized?.uri,
-          cover: metadata.asset.cover?.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(metadata.asset.audio.optimized?.uri),
+          cover: replaceWithHeyIpfsGateway(
+            metadata.asset.cover?.optimized?.uri
+          ),
           artist: metadata.asset.artist,
           title: metadata.title,
           type: 'Audio'
@@ -51,8 +54,10 @@ const getPublicationData = (
       return {
         content: metadata.content,
         asset: {
-          uri: metadata.asset.video.optimized?.uri,
-          cover: metadata.asset.cover?.optimized?.uri,
+          uri: replaceWithHeyIpfsGateway(metadata.asset.video.optimized?.uri),
+          cover: replaceWithHeyIpfsGateway(
+            metadata.asset.cover?.optimized?.uri
+          ),
           type: 'Video'
         },
         attachments: getAttachmentsData(metadata.attachments)
