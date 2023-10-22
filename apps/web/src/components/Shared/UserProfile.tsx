@@ -23,7 +23,6 @@ import UserPreview from './UserPreview';
 
 interface UserProfileProps {
   profile: Profile;
-  followStatusLoading?: boolean;
   isFollowing?: boolean;
   isBig?: boolean;
   linkToProfile?: boolean;
@@ -41,7 +40,6 @@ interface UserProfileProps {
 
 const UserProfile: FC<UserProfileProps> = ({
   profile,
-  followStatusLoading = false,
   isFollowing = false,
   isBig = false,
   linkToProfile = true,
@@ -103,7 +101,6 @@ const UserProfile: FC<UserProfileProps> = ({
       <UserPreview
         handle={profile.handle}
         id={profile.id}
-        followStatusLoading={followStatusLoading}
         showUserPreview={showUserPreview}
       >
         <div className="mr-8 flex items-center space-x-3">
@@ -142,9 +139,7 @@ const UserProfile: FC<UserProfileProps> = ({
         <UserInfo />
       )}
       {showFollow ? (
-        followStatusLoading ? (
-          <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? null : profile?.followModule?.type ===
+        following ? null : profile?.followModule?.type ===
           FollowModuleType.FeeFollowModule ? (
           <SuperFollow
             profile={profile}
@@ -162,9 +157,7 @@ const UserProfile: FC<UserProfileProps> = ({
         )
       ) : null}
       {showUnfollow ? (
-        followStatusLoading ? (
-          <div className="shimmer h-8 w-10 rounded-lg" />
-        ) : following ? (
+        following ? (
           <Unfollow profile={profile} setFollowing={setFollowing} />
         ) : null
       ) : null}

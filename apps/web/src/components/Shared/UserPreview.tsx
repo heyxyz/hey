@@ -32,7 +32,6 @@ interface UserPreviewProps {
   children: ReactNode;
   handle?: string;
   id?: string;
-  followStatusLoading?: boolean;
   showUserPreview?: boolean;
 }
 
@@ -40,7 +39,6 @@ const UserPreview: FC<UserPreviewProps> = ({
   children,
   handle,
   id,
-  followStatusLoading,
   showUserPreview = true
 }) => {
   const [profile, setProfile] = useState<Profile | undefined>();
@@ -139,9 +137,7 @@ const UserPreview: FC<UserPreviewProps> = ({
           <UserAvatar />
           <div onClick={stopEventPropagation} aria-hidden="false">
             {!profile.operations.isFollowedByMe.value ? (
-              followStatusLoading ? (
-                <div className="shimmer h-8 w-10 rounded-lg" />
-              ) : following ? null : profile.followModule?.__typename ===
+              following ? null : profile.followModule?.__typename ===
                 'FeeFollowModuleSettings' ? (
                 <SuperFollow
                   profile={profile}
@@ -193,15 +189,15 @@ const UserPreview: FC<UserPreviewProps> = ({
   return (
     <span onMouseOver={onPreviewStart} onFocus={onPreviewStart}>
       <Tippy
+        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
         placement="bottom-start"
         delay={[POPOVER_SHOW_ANIMATION_MS, POPOVER_HIDE_ANIMATION_MS]}
         hideOnClick={false}
         content={<Preview />}
         arrow={false}
-        interactive
         zIndex={1000}
-        className="preview-tippy-content hidden w-64 !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
         appendTo={() => document.body}
+        interactive
       >
         <span>{children}</span>
       </Tippy>

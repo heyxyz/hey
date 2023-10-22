@@ -26,7 +26,7 @@ const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
         });
       }}
     >
-      <UserPreview isBig={false} handle={handle} followStatusLoading={false}>
+      <UserPreview handle={handle}>
         <Slug slug={formatHandle(handle) as string} prefix="@" useBrandColor />
       </UserPreview>
     </Link>
