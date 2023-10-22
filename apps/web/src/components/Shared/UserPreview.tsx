@@ -13,7 +13,6 @@ import nFormatter from '@hey/lib/nFormatter';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import truncateByWords from '@hey/lib/truncateByWords';
 import { Image } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import isVerified from '@lib/isVerified';
 import Tippy from '@tippyjs/react';
 import plur from 'plur';
@@ -33,7 +32,6 @@ interface UserPreviewProps {
   children: ReactNode;
   handle?: string;
   id?: string;
-  isBig?: boolean;
   followStatusLoading?: boolean;
   showUserPreview?: boolean;
 }
@@ -42,7 +40,6 @@ const UserPreview: FC<UserPreviewProps> = ({
   children,
   handle,
   id,
-  isBig,
   followStatusLoading,
   showUserPreview = true
 }) => {
@@ -110,12 +107,9 @@ const UserPreview: FC<UserPreviewProps> = ({
       <Image
         src={getAvatar(profile)}
         loading="lazy"
-        className={cn(
-          isBig ? 'h-14 w-14' : 'h-10 w-10',
-          'rounded-full border bg-gray-200 dark:border-gray-700'
-        )}
-        height={isBig ? 56 : 40}
-        width={isBig ? 56 : 40}
+        className="h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+        height={40}
+        width={40}
         alt={profile.id}
       />
     );
@@ -123,9 +117,7 @@ const UserPreview: FC<UserPreviewProps> = ({
     const UserName = () => (
       <>
         <div className="flex max-w-sm items-center gap-1 truncate">
-          <div className={cn(isBig ? 'font-bold' : 'text-md')}>
-            {getProfile(profile).displayName}
-          </div>
+          <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
             <CheckBadgeIcon className="text-brand h-4 w-4" />
           ) : null}
@@ -170,13 +162,7 @@ const UserPreview: FC<UserPreviewProps> = ({
           <UserName />
           <div>
             {profile.metadata?.bio ? (
-              <div
-                className={cn(
-                  isBig ? 'text-base' : 'text-sm',
-                  'mt-2',
-                  'linkify break-words leading-6'
-                )}
-              >
+              <div className="linkify mt-2 break-words text-sm leading-6">
                 <Markup>{truncateByWords(profile.metadata.bio, 20)}</Markup>
               </div>
             ) : null}

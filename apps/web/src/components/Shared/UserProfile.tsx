@@ -101,7 +101,6 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserInfo: FC = () => {
     return (
       <UserPreview
-        isBig={isBig}
         handle={profile.handle}
         id={profile.id}
         followStatusLoading={followStatusLoading}

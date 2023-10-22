@@ -1,3 +1,4 @@
+import UserPreview from '@components/Shared/UserPreview';
 import {
   CheckBadgeIcon,
   ExclamationCircleIcon
@@ -19,15 +20,17 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <Link href={getProfile(profile).link}>
-      <Image
-        src={getAvatar(profile)}
-        className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
-        height={32}
-        width={32}
-        alt={profile.id}
-      />
-    </Link>
+    <UserPreview handle={profile.handle} id={profile.id}>
+      <Link href={getProfile(profile).link}>
+        <Image
+          src={getAvatar(profile)}
+          className="h-8 w-8 rounded-full border bg-gray-200 dark:border-gray-700"
+          height={32}
+          width={32}
+          alt={profile.id}
+        />
+      </Link>
+    </UserPreview>
   );
 };
 
@@ -35,17 +38,19 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <Link
-      href={getProfile(profile).link}
-      className="inline-flex items-center space-x-1 font-bold hover:underline"
-    >
-      <span>{getProfile(profile).displayName}</span>
-      {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand h-4 w-4" />
-      ) : null}
-      {hasMisused(profile.id) ? (
-        <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
-      ) : null}
-    </Link>
+    <UserPreview handle={profile.handle} id={profile.id}>
+      <Link
+        href={getProfile(profile).link}
+        className="inline-flex items-center space-x-1 font-bold hover:underline"
+      >
+        <span>{getProfile(profile).displayName}</span>
+        {isVerified(profile.id) ? (
+          <CheckBadgeIcon className="text-brand h-4 w-4" />
+        ) : null}
+        {hasMisused(profile.id) ? (
+          <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
+        ) : null}
+      </Link>
+    </UserPreview>
   );
 };
