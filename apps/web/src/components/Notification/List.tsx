@@ -1,5 +1,6 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import type {
+  ActedNotification as ActedNotificationType,
   CommentNotification as CommentNotificationType,
   FollowNotification as FollowNotificationType,
   MentionNotification as MentionNotificationType,
@@ -21,6 +22,7 @@ import { NotificationTabType } from 'src/enums';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import NotificationShimmer from './Shimmer';
+import ActedNotification from './Type/ActedNotification';
 import CommentNotification from './Type/CommentNotification';
 import FollowNotification from './Type/FollowNotification';
 import MentionNotification from './Type/MentionNotification';
@@ -157,11 +159,11 @@ const List: FC<ListProps> = ({ feedType }) => {
                   notification={notification as QuoteNotificationType}
                 />
               ) : null}
-              {/* {notification.__typename === 'ActedNotification' ? (
-                <CollectNotification
+              {notification.__typename === 'ActedNotification' ? (
+                <ActedNotification
                   notification={notification as ActedNotificationType}
                 />
-              ) : null} */}
+              ) : null}
             </motion.div>
           );
         }}
