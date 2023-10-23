@@ -1,14 +1,9 @@
-import {
-  INVITE_WORKER_URL,
-  IS_MAINNET,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
+import { useInviteMutation } from '@hey/lens';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import axios from 'axios';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -33,21 +28,17 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
     schema: inviteSchema
   });
 
+  const [inviteAddress] = useInviteMutation();
+
   const invite = async (address: string) => {
     try {
       setInviting(true);
-      const data = await axios.post(
-        INVITE_WORKER_URL,
-        { address },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
-        }
-      );
 
-      if (!data.data.alreadyInvited) {
+      const { errors } = await inviteAddress({
+        variables: { request: { invites: [address] } }
+      });
+
+      if (!errors) {
         await refetch();
         form.reset();
         Leafwatch.track(INVITE.INVITE);

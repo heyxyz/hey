@@ -81,9 +81,6 @@ export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
   ? 'https://leafwatch.hey.xyz'
   : 'http://localhost:8088';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.hey.xyz';
-export const INVITE_WORKER_URL = IS_PRODUCTION
-  ? 'https://invite.hey.xyz'
-  : 'http://localhost:8090';
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.hey.xyz'
   : 'http://localhost:8091';
