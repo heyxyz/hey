@@ -83,9 +83,12 @@ const uploadToIPFS = async (
         await task.done();
         const result = await client.headObject(params);
         const metadata = result.Metadata;
+        const cid = metadata?.['ipfs-hash'];
+
+        axios.post(`${STS_GENERATOR_WORKER_URL}/pin?cid=${cid}`);
 
         return {
-          uri: `ipfs://${metadata?.['ipfs-hash']}`,
+          uri: `ipfs://${cid}`,
           mimeType: file.type || FALLBACK_TYPE
         };
       })

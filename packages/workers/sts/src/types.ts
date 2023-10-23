@@ -4,6 +4,7 @@ export interface Env {
   RELEASE: string;
   EVER_ACCESS_KEY: string;
   EVER_ACCESS_SECRET: string;
+  LENS_IPFS_AUTH_LEY: string;
 }
 
 export type WorkerRequest = {
