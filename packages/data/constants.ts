@@ -83,22 +83,22 @@ export const LEAFWATCH_WORKER_URL = IS_PRODUCTION
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.hey.xyz';
 export const FEEDS_WORKER_URL = IS_PRODUCTION
   ? 'https://feeds.hey.xyz'
-  : 'http://localhost:8091';
+  : 'http://localhost:8090';
 export const PREFERENCES_WORKER_URL = IS_PRODUCTION
   ? 'https://preferences.hey.xyz'
-  : 'http://localhost:8092';
+  : 'http://localhost:8091';
 export const GROUPS_WORKER_URL = IS_PRODUCTION
   ? 'https://groups.hey.xyz'
-  : 'http://localhost:8093';
+  : 'http://localhost:8092';
 export const NFT_WORKER_URL = IS_PRODUCTION
   ? 'https://nft.hey.xyz'
-  : 'http://localhost:8094';
+  : 'http://localhost:8093';
 export const STAFF_PICKS_WORKER_URL = IS_PRODUCTION
   ? 'https://staff-picks.hey.xyz'
-  : 'http://localhost:8095';
+  : 'http://localhost:8094';
 export const LIVE_WORKER_URL = IS_PRODUCTION
   ? 'https://live.hey.xyz'
-  : 'http://localhost:8096';
+  : 'http://localhost:8095';
 
 // Tokens / Keys
 export const ALCHEMY_KEY = 'HHfOFn8jsYguteTVvL0cz4g9aydrbjTV';
