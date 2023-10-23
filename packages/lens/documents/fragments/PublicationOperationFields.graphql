@@ -21,6 +21,7 @@ fragment PublicationOperationFields on PublicationOperations {
   canComment
   canMirror
   hasMirrored
+  hasQuoted
   canDecrypt {
     result
     reasons

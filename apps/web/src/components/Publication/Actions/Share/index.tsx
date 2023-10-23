@@ -40,7 +40,9 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
     setMirrorOrQuoteConfig(targetPublication.id, {
       countMirrorOrQuote:
         targetPublication.stats.mirrors + targetPublication.stats.quotes,
-      mirroredOrQuoted: targetPublication.operations.hasMirrored
+      mirroredOrQuoted:
+        targetPublication.operations.hasMirrored ||
+        targetPublication.operations.hasQuoted
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [publication]);

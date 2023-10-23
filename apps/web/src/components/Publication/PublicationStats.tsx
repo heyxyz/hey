@@ -50,7 +50,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       // We done substracting quotes because quotes are counted separately
       countMirrorOrQuote:
         targetPublication.stats.mirrors - targetPublication.stats.quotes,
-      mirroredOrQuoted: targetPublication.operations.hasMirrored
+      mirroredOrQuoted:
+        targetPublication.operations.hasMirrored ||
+        targetPublication.operations.hasQuoted
     });
     setOpenActionPublicationConfig(targetPublication.id, {
       countOpenActions: targetPublication.stats.countOpenActions,
