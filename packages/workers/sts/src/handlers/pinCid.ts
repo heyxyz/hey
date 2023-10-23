@@ -23,6 +23,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, cid: json.cid });
   } catch (error) {
-    throw error;
+    return response({ success: false });
   }
 };
