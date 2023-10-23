@@ -10,6 +10,7 @@ import type {
   OnchainMirrorRequest
 } from '@hey/lens';
 import {
+  TriStateValue,
   useBroadcastOnchainMutation,
   useCreateMomokaMirrorTypedDataMutation,
   useCreateOnchainMirrorTypedDataMutation,
@@ -134,7 +135,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     onError
   });
 
-  if (targetPublication.operations.canMirror === 'NO') {
+  if (targetPublication.operations.canMirror === TriStateValue.No) {
     return null;
   }
 

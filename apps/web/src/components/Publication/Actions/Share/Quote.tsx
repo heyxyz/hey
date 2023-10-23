@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { ChatBubbleBottomCenterTextIcon } from '@heroicons/react/24/outline';
-import type { AnyPublication } from '@hey/lens';
+import { type AnyPublication, TriStateValue } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
@@ -24,7 +24,7 @@ const Quote: FC<QuoteProps> = ({ publication }) => {
     (state) => state.setQuotedPublication
   );
 
-  if (targetPublication.operations.canQuote === 'NO') {
+  if (targetPublication.operations.canQuote === TriStateValue.No) {
     return null;
   }
 

@@ -9,7 +9,7 @@ import PublicationStaffTool from '@components/StaffTools/Panels/Publication';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
-import { usePublicationQuery } from '@hey/lens';
+import { TriStateValue, usePublicationQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
@@ -64,7 +64,8 @@ const ViewPublication: NextPage = () => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const canComment = targetPublication?.operations.canComment === 'YES';
+  const canComment =
+    targetPublication?.operations.canComment === TriStateValue.Yes;
 
   return (
     <GridLayout>
