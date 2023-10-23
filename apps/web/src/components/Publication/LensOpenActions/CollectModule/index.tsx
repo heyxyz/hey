@@ -256,13 +256,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       setIsLoading(true);
       const request: ActOnOpenActionLensManagerRequest = {
         for: targetPublication?.id,
-        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true },
-        referrers: [
-          {
-            profileId: publication.by.id,
-            publicationId: publication?.id
-          }
-        ]
+        actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
       };
 
       if (canUseLensManager) {
