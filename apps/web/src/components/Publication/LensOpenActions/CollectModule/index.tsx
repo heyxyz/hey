@@ -75,10 +75,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     hasActedByMe,
     getOpenActionCountByPublicationId
   } = useOpenActionStore();
-  const {
-    lensPublicActProxyOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce
-  } = useNonceStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const targetPublication = isMirrorPublication(publication)
@@ -138,7 +135,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     });
     toast.success('Collected successfully!');
     Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      publication_id: publication?.id,
+      publication_id: targetPublication?.id,
       collect_module: collectModule?.type
     });
   };
@@ -156,15 +153,11 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     functionName: 'act',
     onSuccess: () => {
       onCompleted();
-      setLensPublicActProxyOnchainSigNonce(
-        lensPublicActProxyOnchainSigNonce + 1
-      );
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setLensPublicActProxyOnchainSigNonce(
-        lensPublicActProxyOnchainSigNonce - 1
-      );
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
@@ -217,9 +210,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensPublicActProxyOnchainSigNonce(
-          lensPublicActProxyOnchainSigNonce + 1
-        );
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
@@ -244,7 +235,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       return;
     }
 
-    if (!data?.actOnOpenAction) {
+    if (
+      !data?.actOnOpenAction ||
+      data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
+    ) {
       return await createActOnOpenActionTypedData({ variables: { request } });
     }
   };
@@ -261,7 +255,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     try {
       setIsLoading(true);
       const request: ActOnOpenActionLensManagerRequest = {
-        for: publication?.id,
+        for: targetPublication?.id,
         actOn: { [getOpenActionActOnKey(collectModule?.type)]: true },
         referrers: [
           {
@@ -277,7 +271,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
 
       return await createActOnOpenActionTypedData({
         variables: {
-          options: { overrideSigNonce: lensPublicActProxyOnchainSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
