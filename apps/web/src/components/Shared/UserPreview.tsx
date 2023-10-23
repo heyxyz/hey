@@ -42,32 +42,29 @@ const UserPreview: FC<UserPreviewProps> = ({
   showUserPreview = true
 }) => {
   const [profile, setProfile] = useState<Profile | undefined>();
-  const [loadProfile, { loading: networkLoading, data }] = useProfileLazyQuery({
+  const [loadProfile, { loading: networkLoading }] = useProfileLazyQuery({
     fetchPolicy: 'cache-first'
   });
 
   const [syntheticLoading, setSyntheticLoading] =
     useState<boolean>(networkLoading);
 
-  const onPreviewStart = () => {
+  const onPreviewStart = async () => {
     if (profile || networkLoading) {
       return;
     }
 
     setSyntheticLoading(true);
-    loadProfile({
+    await loadProfile({
       variables: {
         request: { ...(id ? { forProfileId: id } : { forHandle: handle }) }
-      }
+      },
+      onCompleted: (data) => setProfile(data?.profile as Profile)
     });
     setTimeout(() => {
       setSyntheticLoading(false);
     }, MINIMUM_LOADING_ANIMATION_MS);
   };
-
-  if (data && !profile) {
-    setProfile(data?.profile as Profile);
-  }
 
   const [following, setFollowing] = useState(
     profile?.operations.isFollowedByMe.value
