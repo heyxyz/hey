@@ -29,7 +29,6 @@ const ProofOfHumanity: FC<ProofOfHumanityProps> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/poh.png`}
         alt="Proof Of Humanity Badge"
-        data-testid="profile-poh-badge"
       />
     </Tooltip>
   );

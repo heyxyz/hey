@@ -31,7 +31,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
-          data-testid={`publication-${publication.id}-menu`}
         >
           <EllipsisVerticalIcon
             className={cn('lt-text-gray-500', iconClassName)}
@@ -42,7 +41,6 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
         <Menu.Items
           static
           className="absolute right-0 z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          data-testid={`publication-${publication.id}-menu-items`}
         >
           {currentProfile?.id === publication?.by?.id ? (
             <Delete publication={publication} />

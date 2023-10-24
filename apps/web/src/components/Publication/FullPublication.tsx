@@ -24,7 +24,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
   const { metadata, createdAt } = targetPublication;
 
   return (
-    <article className="p-5" data-testid={`publication-${publication.id}`}>
+    <article className="p-5">
       <PublicationType publication={targetPublication} showType />
       <div>
         <PublicationHeader publication={targetPublication} />

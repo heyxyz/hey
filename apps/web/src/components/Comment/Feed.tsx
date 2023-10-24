@@ -78,10 +78,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId="comments-feed"
-    >
+    <Card className="divide-y-[1px] dark:divide-gray-700">
       {txnQueue.map(
         (txn) =>
           txn?.type === OptmisticPublicationType.NewComment &&

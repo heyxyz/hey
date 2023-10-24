@@ -494,7 +494,6 @@ class ImageCropper extends Component<CropperProps, State> {
             onMouseDown={this.onMouseDown}
             onTouchStart={this.onTouchStart}
             ref={(el) => (this.containerRef = el)}
-            data-testid="container"
             className={cn('reactEasyCrop_Container')}
           >
             {image && (
@@ -519,7 +518,6 @@ class ImageCropper extends Component<CropperProps, State> {
                 width: size.width,
                 height: size.height
               }}
-              data-testid="cropper"
               className={cn(
                 'border-brand-500 border-2',
                 'reactEasyCrop_CropArea'

@@ -100,7 +100,6 @@ const GlobalModals: FC = () => {
         icon={<ArrowRightCircleIcon className="text-brand h-5 w-5" />}
         show={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        dataTestId="login-modal"
       >
         <Login />
       </Modal>
@@ -108,7 +107,6 @@ const GlobalModals: FC = () => {
         title="Wrong Network"
         show={showWrongNetworkModal}
         onClose={() => setShowWrongNetworkModal(false)}
-        dataTestId="wrong-network-modal"
       >
         <WrongNetwork />
       </Modal>

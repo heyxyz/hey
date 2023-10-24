@@ -67,7 +67,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
         onClick={() => {
           setShowMore(!showMore);
         }}
-        dataTestId="none-relevant-feed"
       >
         {showMore ? 'Hide more comments' : 'Show more comments'}
       </Card>

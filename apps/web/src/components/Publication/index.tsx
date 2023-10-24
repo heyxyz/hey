@@ -90,7 +90,7 @@ const ViewPublication: NextPage = () => {
         <NoneRelevantFeed publication={publication} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
-        <Card as="aside" className="p-5" dataTestId="poster-profile">
+        <Card as="aside" className="p-5">
           <UserProfile profile={targetPublication.by} showBio />
         </Card>
         <RelevantPeople publication={publication} />

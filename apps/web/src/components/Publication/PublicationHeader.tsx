@@ -50,7 +50,6 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         quoted ? 'pb-2' : 'pb-4',
         'relative flex justify-between space-x-1.5'
       )}
-      data-testid={`publication-${targetPublication.id}-header`}
     >
       <span
         className="max-w-full"

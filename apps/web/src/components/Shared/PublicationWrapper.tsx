@@ -29,7 +29,6 @@ const PublicationWrapper: FC<PublicationWrapperProps> = ({
           push(`/posts/${publication?.id}`);
         }
       }}
-      data-testid={`publication-${publication.id}`}
       aria-hidden="true"
     >
       {children}

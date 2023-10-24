@@ -58,7 +58,6 @@ const CoverImage: FC<CoverImageProps> = ({
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}
-          data-testid={`attachment-audio-cover-${cover}`}
           ref={imageRef}
         />
       </button>

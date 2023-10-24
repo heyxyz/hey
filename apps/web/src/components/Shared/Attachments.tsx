@@ -74,7 +74,6 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
       }}
       src={imageKit(uri, ATTACHMENT)}
       alt={imageKit(uri, ATTACHMENT)}
-      data-testid={`attachment-image-${uri}`}
     />
   );
 

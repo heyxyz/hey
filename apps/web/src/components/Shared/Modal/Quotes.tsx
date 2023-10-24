@@ -57,7 +57,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" data-testid="quotes-modal">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
         className="m-5"
         title="Failed to load quotes"

@@ -79,10 +79,7 @@ const Feed: FC<FeedProps> = ({
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId="explore-feed"
-    >
+    <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication.id}_${index}`}

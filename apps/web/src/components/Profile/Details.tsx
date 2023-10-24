@@ -86,14 +86,12 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
 
   const MetaDetails = ({
     children,
-    icon,
-    dataTestId = ''
+    icon
   }: {
     children: ReactNode;
     icon: ReactNode;
-    dataTestId?: string;
   }) => (
-    <div className="flex items-center gap-2" data-testid={dataTestId}>
+    <div className="flex items-center gap-2">
       {icon}
       <div className="text-md truncate">{children}</div>
     </div>
@@ -112,7 +110,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           height={128}
           width={128}
           alt={profile.id}
-          data-testid="profile-avatar"
         />
         <LightBox
           show={Boolean(expandedImage)}
@@ -122,30 +119,19 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate" data-testid="profile-name">
-            {getProfile(profile).displayName}
-          </div>
+          <div className="truncate">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">
-              <CheckBadgeIcon
-                className="text-brand h-6 w-6"
-                data-testid="profile-verified-badge"
-              />
+              <CheckBadgeIcon className="text-brand h-6 w-6" />
             </Tooltip>
           ) : null}
           {hasMisused(profile.id) ? (
             <Tooltip content={misuseDetails?.type}>
-              <ExclamationCircleIcon
-                className="h-6 w-6 text-red-500"
-                data-testid="profile-scam-badge"
-              />
+              <ExclamationCircleIcon className="h-6 w-6 text-red-500" />
             </Tooltip>
           ) : null}
         </div>
-        <div
-          className="flex items-center space-x-3"
-          data-testid="profile-handle"
-        >
+        <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
             slug={getProfile(profile).slug}
@@ -161,10 +147,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         </div>
       </div>
       {profile?.metadata?.bio ? (
-        <div
-          className="markup linkify text-md mr-0 break-words sm:mr-10"
-          data-testid="profile-bio"
-        >
+        <div className="markup linkify text-md mr-0 break-words sm:mr-10">
           <Markup>{profile?.metadata.bio}</Markup>
         </div>
       ) : null}
@@ -235,10 +218,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-2">
-          <MetaDetails
-            icon={<HashtagIcon className="h-4 w-4" />}
-            dataTestId="profile-meta-id"
-          >
+          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
             <Tooltip content={`#${profile.id}`}>
               <Link
                 href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
@@ -253,10 +233,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             </Tooltip>
           </MetaDetails>
           {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
-            <MetaDetails
-              icon={<MapPinIcon className="h-4 w-4" />}
-              dataTestId="profile-meta-location"
-            >
+            <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
               {getProfileAttribute(profile?.metadata?.attributes, 'location')}
             </MetaDetails>
           ) : null}
@@ -271,7 +248,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="ENS Logo"
                 />
               }
-              dataTestId="profile-meta-ens"
             >
               {profile?.onchainIdentity?.ens?.name}
             </MetaDetails>
@@ -297,7 +273,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="Website"
                 />
               }
-              dataTestId="profile-meta-website"
             >
               <Link
                 href={`https://${getProfileAttribute(
@@ -328,7 +303,6 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                   alt="X Logo"
                 />
               }
-              dataTestId="profile-meta-x"
             >
               <Link
                 href={urlcat('https://x.com/:username', {

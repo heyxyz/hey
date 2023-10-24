@@ -29,7 +29,6 @@ const Worldcoin: FC<WorldcoinProps> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/worldcoin.png`}
         alt="Worldcoin Badge"
-        data-testid="profile-worldcoin-badge"
       />
     </Tooltip>
   );

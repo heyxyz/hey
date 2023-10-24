@@ -12,7 +12,7 @@ interface InvitedByProps {
 
 const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
   return (
-    <div data-testid="profile-invited-by">
+    <div>
       <Link
         className="lt-text-gray-500 flex items-center space-x-2 text-sm"
         href={getProfile(profile).link}

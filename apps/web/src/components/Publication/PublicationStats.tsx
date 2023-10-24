@@ -97,7 +97,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       <div className="divider" />
       <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
         {commentsCount > 0 ? (
-          <span data-testid="comment-stats">
+          <span>
             <b className="text-black dark:text-white">
               {nFormatter(commentsCount)}
             </b>{' '}
@@ -114,7 +114,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
-              data-testid="mirrors-stats"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(mirrorOrQuoteCount)}
@@ -141,7 +140,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
-              data-testid="quotes-stats"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(quotesCount)}
@@ -168,7 +166,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
-              data-testid="like-stats"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(reactionsCount)}
@@ -195,7 +192,6 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
                   publication_id: publicationId
                 });
               }}
-              data-testid="collect-stats"
             >
               <b className="text-black dark:text-white">
                 {nFormatter(openActionsCount)}
@@ -213,7 +209,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           </>
         ) : null}
         {bookmarksCount > 0 ? (
-          <span data-testid="bookmark-stats">
+          <span>
             <b className="text-black dark:text-white">
               {nFormatter(bookmarksCount)}
             </b>{' '}

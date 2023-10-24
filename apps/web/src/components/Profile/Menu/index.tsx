@@ -25,7 +25,6 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
-          data-testid={`profile-${profile.id}-menu`}
         >
           <EllipsisVerticalIcon className="lt-text-gray-500 h-5 w-5" />
         </button>
@@ -34,7 +33,6 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
         <Menu.Items
           static
           className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          data-testid={`profile-${profile.id}-menu-items`}
         >
           <Share profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (

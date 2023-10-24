@@ -53,7 +53,7 @@ const SinglePublication: FC<PublicationProps> = ({
           />
         </a>
       </div>
-      <div data-testid={`publication-${publicationId}`}>
+      <div>
         <div>
           <a href={`${BASE_URL}${getProfile(profile).link}`}>
             {getProfile(profile).displayName}

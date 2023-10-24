@@ -62,7 +62,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
 
   return (
     <div>
-      <div className="w-full p-2 pb-0 pt-4" data-testid="emoji-search">
+      <div className="w-full p-2 pb-0 pt-4">
         <Input
           onClick={(e) => {
             e.preventDefault();

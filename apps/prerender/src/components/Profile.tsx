@@ -83,13 +83,9 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
           src={image}
           width="64"
         />
-        <h1 data-testid="profile-name">{getProfile(profile).displayName}</h1>
-        <h2 data-testid="profile-handle">
-          {getProfile(profile).slugWithPrefix}
-        </h2>
-        <h3 data-testid="profile-bio">
-          {truncateByWords(profile.metadata?.bio ?? '', 30)}
-        </h3>
+        <h1>{getProfile(profile).displayName}</h1>
+        <h2>{getProfile(profile).slugWithPrefix}</h2>
+        <h3>{truncateByWords(profile.metadata?.bio ?? '', 30)}</h3>
         <div>
           <div>{profile.stats.posts} Posts</div>
           <div>{profile.stats.comments} Replies</div>
@@ -125,7 +121,7 @@ const Profile: FC<ProfileProps> = ({ profile, publications }) => {
         </nav>
         <hr />
       </header>
-      <div data-testid="profile-feed">
+      <div>
         {publications?.map((publication) => {
           const { __typename } = publication;
           return (

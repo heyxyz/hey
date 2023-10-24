@@ -21,7 +21,6 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
         setShowAuthModal(true);
         Leafwatch.track(AUTH.LOGIN);
       }}
-      data-testid="login-button"
     >
       Login
     </Button>

@@ -65,10 +65,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   }
 
   return (
-    <div
-      className="max-h-[80vh] overflow-y-auto"
-      data-testid="followings-modal"
-    >
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
         className="m-5"
         title="Failed to load following"

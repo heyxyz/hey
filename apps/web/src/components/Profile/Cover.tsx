@@ -11,7 +11,6 @@ const Cover: FC<CoverProps> = ({ cover }) => {
   return (
     <div
       className="h-52 sm:h-80"
-      data-testid="profile-cover"
       style={{
         backgroundImage: `url(${
           cover

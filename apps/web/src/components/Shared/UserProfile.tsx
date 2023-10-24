@@ -127,10 +127,7 @@ const UserProfile: FC<UserProfileProps> = ({
   };
 
   return (
-    <div
-      className="flex items-center justify-between"
-      data-testid={`user-profile-${profile.id}`}
-    >
+    <div className="flex items-center justify-between">
       {linkToProfile && profile.id ? (
         <Link href={getProfile(profile).link}>
           <UserInfo />

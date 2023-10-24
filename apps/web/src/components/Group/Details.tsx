@@ -53,9 +53,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate" data-testid="profile-name">
-            {group.name}
-          </div>
+          <div className="truncate">{group.name}</div>
           {group.featured ? (
             <Tooltip content="Featured">
               <FireIcon className="h-6 w-6 text-yellow-500" />
@@ -64,10 +62,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
         </div>
         <Slug className="text-sm sm:text-base" prefix="g/" slug={group.slug} />
       </div>
-      <div
-        className="markup linkify text-md mr-0 break-words sm:mr-10"
-        data-testid="profile-bio"
-      >
+      <div className="markup linkify text-md mr-0 break-words sm:mr-10">
         <Markup>{group.description}</Markup>
       </div>
       <div className="space-y-5">

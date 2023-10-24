@@ -27,7 +27,6 @@ const Ens: FC<EnsProps> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/ens.png`}
         alt="ENS Badge"
-        data-testid="profile-ens-badge"
       />
     </Tooltip>
   );

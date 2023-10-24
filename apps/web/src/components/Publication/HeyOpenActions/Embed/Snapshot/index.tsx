@@ -52,11 +52,7 @@ const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
 
   if (isHeyPoll) {
     return (
-      <span
-        onClick={stopEventPropagation}
-        data-testid={`poll-${proposal.id}`}
-        aria-hidden="true"
-      >
+      <span onClick={stopEventPropagation} aria-hidden="true">
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}
@@ -68,7 +64,7 @@ const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
   }
 
   return (
-    <Wrapper dataTestId={`snapshot-${proposal.id}`}>
+    <Wrapper>
       <Header proposal={proposal as Proposal} />
       <Choices
         proposal={proposal as Proposal}

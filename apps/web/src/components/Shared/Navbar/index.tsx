@@ -46,7 +46,6 @@ const Navbar: FC = () => {
           }
         )}
         aria-current={current ? 'page' : undefined}
-        data-testid={`nav-item-${name.toLowerCase()}`}
       >
         {name}
       </Link>

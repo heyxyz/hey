@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 const Hero: FC = () => {
   return (
-    <div className="divider py-12" data-testid="home-hero">
+    <div className="divider py-12">
       <div className="mx-auto flex w-full max-w-screen-xl items-center px-5 py-8 sm:py-12">
         <img
           src="/logo.png"

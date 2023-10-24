@@ -15,10 +15,7 @@ interface VideoProps {
 
 const Video: FC<VideoProps> = ({ src, poster, className = '' }) => {
   return (
-    <div
-      className={cn('lp-player', className)}
-      data-testid={`attachment-video-${src}`}
-    >
+    <div className={cn('lp-player', className)}>
       <Player
         src={src}
         poster={imageKit(sanitizeDStorageUrl(poster))}

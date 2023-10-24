@@ -30,7 +30,6 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
             profile_id: profile.id
           });
         }}
-        data-testid="profile-followings"
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
         <div className="lt-text-gray-500">
@@ -46,7 +45,6 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
             profile_id: profile.id
           });
         }}
-        data-testid="profile-followers"
       >
         <div className="text-xl">{humanize(profile.stats.followers)}</div>
         <div className="lt-text-gray-500">

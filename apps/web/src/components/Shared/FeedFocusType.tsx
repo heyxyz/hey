@@ -34,7 +34,6 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
       )}
       aria-label={name}
       aria-selected={focus === type}
-      data-testid={`feed-type-${(type ?? 'all_posts').toLowerCase()}`}
     >
       {name}
     </button>

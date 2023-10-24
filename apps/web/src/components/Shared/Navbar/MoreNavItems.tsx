@@ -12,7 +12,7 @@ const MoreNavItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <Menu as="div" data-testid="nav-item-more">
+    <Menu as="div">
       {({ open }) => (
         <>
           <Menu.Button
@@ -31,7 +31,6 @@ const MoreNavItems: FC = () => {
             <Menu.Items
               static
               className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-              data-testid="nav-item-more-dropdown"
             >
               {currentProfile ? (
                 <>

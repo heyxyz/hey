@@ -37,7 +37,6 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/sybil.png`}
         alt="Sybil Badge"
-        data-testid="profile-sybil-badge"
       />
     </Tooltip>
   );

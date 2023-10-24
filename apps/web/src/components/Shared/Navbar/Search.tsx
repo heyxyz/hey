@@ -75,7 +75,7 @@ const Search: FC<SearchProps> = ({
   ) as Profile[];
 
   return (
-    <div aria-hidden="true" className="w-full" data-testid="global-search">
+    <div aria-hidden="true" className="w-full">
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"
@@ -104,7 +104,6 @@ const Search: FC<SearchProps> = ({
             modalWidthClassName
           )}
           ref={dropdownRef}
-          data-testid="search-profiles-dropdown"
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
             {searchUsersLoading ? (
@@ -127,7 +126,6 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
-                    data-testid={`search-profile-${profile.id}`}
                     aria-hidden="true"
                   >
                     <UserProfile

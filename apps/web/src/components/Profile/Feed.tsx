@@ -124,10 +124,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId={`profile-feed-type-${type.toLowerCase()}`}
-    >
+    <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication.id}_${index}`}
