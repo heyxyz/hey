@@ -16,6 +16,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
@@ -31,6 +32,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     useMirrorOrQuoteOptimisticStore();
   const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
     useOpenActionOptimisticStore();
+  const { getBookmarkCountByPublicationId, setBookmarkConfig } =
+    useBookmarkOptimisticStore();
 
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);
@@ -58,8 +61,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
       countOpenActions: targetPublication.stats.countOpenActions,
       acted: targetPublication.operations.hasActed.value
     });
+    setBookmarkConfig(targetPublication.id, {
+      countBookmarks: targetPublication.stats.bookmarks,
+      bookmarked: targetPublication.operations.hasBookmarked
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [publication]);
+  }, [targetPublication]);
 
   const reactionsCount = getReactionCountByPublicationId(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
@@ -68,9 +75,9 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const openActionsCount = getOpenActionCountByPublicationId(
     targetPublication.id
   );
+  const bookmarksCount = getBookmarkCountByPublicationId(targetPublication.id);
   const quotesCount = targetPublication.stats.quotes;
   const commentsCount = targetPublication.stats.comments;
-  const bookmarkCount = targetPublication.stats.bookmarks;
   const publicationId = targetPublication.id;
 
   const showStats =
@@ -79,7 +86,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     commentsCount > 0 ||
     reactionsCount > 0 ||
     openActionsCount > 0 ||
-    bookmarkCount > 0;
+    bookmarksCount > 0;
 
   if (!showStats) {
     return null;
@@ -205,12 +212,12 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
-        {bookmarkCount > 0 ? (
+        {bookmarksCount > 0 ? (
           <span data-testid="bookmark-stats">
             <b className="text-black dark:text-white">
-              {nFormatter(bookmarkCount)}
+              {nFormatter(bookmarksCount)}
             </b>{' '}
-            {plur('Bookmarks', bookmarkCount)}
+            {plur('Bookmarks', bookmarksCount)}
           </span>
         ) : null}
       </div>

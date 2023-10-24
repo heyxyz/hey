@@ -16,8 +16,9 @@ import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import { type FC, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 
 interface BookmarkProps {
   publication: AnyPublication;
@@ -25,28 +26,30 @@ interface BookmarkProps {
 
 const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const { pathname } = useRouter();
+  const {
+    getBookmarkCountByPublicationId,
+    hasBookmarkedByMe,
+    setBookmarkConfig
+  } = useBookmarkOptimisticStore();
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const bookmarked = targetPublication.operations.hasBookmarked;
 
-  const request: PublicationBookmarkRequest = {
-    on: publication.id
-  };
+  const hasBookmarked = hasBookmarkedByMe(targetPublication.id);
+  const bookmarksCount = getBookmarkCountByPublicationId(targetPublication.id);
+
+  useEffect(() => {
+    setBookmarkConfig(targetPublication.id, {
+      countBookmarks: targetPublication.stats.bookmarks,
+      bookmarked: targetPublication.operations.hasBookmarked
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [publication]);
+
+  const request: PublicationBookmarkRequest = { on: targetPublication.id };
 
   const updateCache = (cache: ApolloCache<any>) => {
-    cache.modify({
-      id: publicationKeyFields(targetPublication),
-      fields: {
-        bookmarked: (bookmarked) => !bookmarked,
-        stats: (stats) => ({
-          ...stats,
-          bookmarks: bookmarked ? stats.bookmarks + 1 : stats.bookmarks - 1
-        })
-      }
-    });
-
     // Remove bookmarked publication from bookmarks feed
     if (pathname === '/bookmarks') {
       cache.evict({ id: publicationKeyFields(targetPublication) });
@@ -59,35 +62,55 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
 
   const [addPublicationBookmark] = useAddPublicationBookmarkMutation({
     variables: { request },
-    onError,
+    onError: (error) => {
+      setBookmarkConfig(targetPublication.id, {
+        countBookmarks: bookmarksCount - 1,
+        bookmarked: !hasBookmarked
+      });
+      onError(error);
+    },
     onCompleted: () => {
       toast.success('Publication bookmarked');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        publication_id: publication.id,
+        publication_id: targetPublication.id,
         bookmarked: true
       });
     },
-    update: (cache) => updateCache(cache)
+    update: updateCache
   });
 
   const [removePublicationBookmark] = useRemovePublicationBookmarkMutation({
     variables: { request },
-    onError,
+    onError: (error) => {
+      setBookmarkConfig(targetPublication.id, {
+        countBookmarks: bookmarksCount + 1,
+        bookmarked: !hasBookmarked
+      });
+      onError(error);
+    },
     onCompleted: () => {
       toast.success('Removed publication bookmark');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        publication_id: publication.id,
+        publication_id: targetPublication.id,
         bookmarked: false
       });
     },
-    update: (cache) => updateCache(cache)
+    update: updateCache
   });
 
   const togglePublicationProfileBookmark = async () => {
-    if (bookmarked) {
+    if (hasBookmarked) {
+      setBookmarkConfig(targetPublication.id, {
+        countBookmarks: bookmarksCount - 1,
+        bookmarked: false
+      });
       return await removePublicationBookmark();
     }
 
+    setBookmarkConfig(targetPublication.id, {
+      countBookmarks: bookmarksCount + 1,
+      bookmarked: true
+    });
     return await addPublicationBookmark();
   };
 
@@ -106,7 +129,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       }}
     >
       <div className="flex items-center space-x-2">
-        {bookmarked ? (
+        {hasBookmarked ? (
           <>
             <BookmarkIconSolid className="h-4 w-4" />
             <div>Remove Bookmark</div>

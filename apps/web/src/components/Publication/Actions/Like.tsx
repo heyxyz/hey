@@ -93,7 +93,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     }
   });
 
-  const createLike = () => {
+  const createLike = async () => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -109,14 +109,14 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
         countReaction: reactionCount - 1,
         reacted: false
       });
-      removeReaction({ variables: { request } });
-    } else {
-      setReactionConfig(targetPublication.id, {
-        countReaction: reactionCount + 1,
-        reacted: true
-      });
-      addReaction({ variables: { request } });
+      return await removeReaction({ variables: { request } });
     }
+
+    setReactionConfig(targetPublication.id, {
+      countReaction: reactionCount + 1,
+      reacted: true
+    });
+    return await addReaction({ variables: { request } });
   };
 
   const iconClassName = showCount

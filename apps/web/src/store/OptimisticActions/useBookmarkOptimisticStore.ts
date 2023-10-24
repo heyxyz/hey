@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface PublicationConfig {
-  countBookmark: number;
+  countBookmarks: number;
   bookmarked: boolean;
 }
 
@@ -24,7 +24,7 @@ export const useBookmarkOptimisticStore = create<BookmarkOptimisticState>(
       })),
     getBookmarkCountByPublicationId: (publicationId) => {
       const { bookmarkConfigs } = get();
-      return bookmarkConfigs[publicationId]?.countBookmark || 0;
+      return bookmarkConfigs[publicationId]?.countBookmarks || 0;
     },
     hasBookmarkedByMe: (publicationId) => {
       const { bookmarkConfigs } = get();

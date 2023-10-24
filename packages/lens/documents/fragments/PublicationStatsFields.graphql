@@ -5,4 +5,5 @@ fragment PublicationStatsFields on PublicationStats {
   quotes
   reactions(request: { type: UPVOTE })
   countOpenActions
+  bookmarks
 }
