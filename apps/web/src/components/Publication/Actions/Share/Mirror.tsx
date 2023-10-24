@@ -24,7 +24,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
+import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
@@ -41,7 +41,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     getMirrorOrQuoteCountByPublicationId,
     hasQuotedOrMirroredByMe,
     setMirrorOrQuoteConfig
-  } = useMirrorOrQuoteStore();
+  } = useMirrorOrQuoteOptimisticStore();
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

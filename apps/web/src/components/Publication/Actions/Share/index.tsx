@@ -10,7 +10,7 @@ import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
 import { Fragment, useEffect, useState } from 'react';
-import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
+import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 
 import Mirror from './Mirror';
 import Quote from './Quote';
@@ -25,7 +25,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
     getMirrorOrQuoteCountByPublicationId,
     hasQuotedOrMirroredByMe,
     setMirrorOrQuoteConfig
-  } = useMirrorOrQuoteStore();
+  } = useMirrorOrQuoteOptimisticStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const targetPublication = isMirrorPublication(publication)

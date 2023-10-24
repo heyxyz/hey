@@ -52,7 +52,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
+import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import {
@@ -74,7 +74,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     setOpenActionPublicationConfig,
     hasActedByMe,
     getOpenActionCountByPublicationId
-  } = useOpenActionStore();
+  } = useOpenActionOptimisticStore();
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
 

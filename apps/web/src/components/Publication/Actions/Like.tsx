@@ -18,7 +18,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { type FC, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useReactionStore } from 'src/store/OptimisticActions/useReactionStore';
+import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
 import { useAppStore } from 'src/store/useAppStore';
 
 interface LikeProps {
@@ -29,7 +29,7 @@ interface LikeProps {
 const Like: FC<LikeProps> = ({ publication, showCount }) => {
   const { pathname } = useRouter();
   const { getReactionCountByPublicationId, hasReactedByMe, setReactionConfig } =
-    useReactionStore();
+    useReactionOptimisticStore();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

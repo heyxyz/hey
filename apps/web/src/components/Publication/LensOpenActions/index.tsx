@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
+import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 import List from './List';
 
@@ -26,7 +26,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
     getOpenActionCountByPublicationId,
     hasActedByMe,
     setOpenActionPublicationConfig
-  } = useOpenActionStore();
+  } = useOpenActionOptimisticStore();
   const [showOpenActionModal, setShowOpenActionModal] = useState(false);
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn

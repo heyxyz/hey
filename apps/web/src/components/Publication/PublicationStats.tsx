@@ -16,9 +16,9 @@ import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useMirrorOrQuoteStore } from 'src/store/OptimisticActions/useMirrorOrQuoteStore';
-import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
-import { useReactionStore } from 'src/store/OptimisticActions/useReactionStore';
+import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
+import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
+import { useReactionOptimisticStore } from 'src/store/OptimisticActions/useReactionOptimisticStore';
 
 interface PublicationStatsProps {
   publication: AnyPublication;
@@ -26,11 +26,11 @@ interface PublicationStatsProps {
 
 const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const { getReactionCountByPublicationId, setReactionConfig } =
-    useReactionStore();
+    useReactionOptimisticStore();
   const { getMirrorOrQuoteCountByPublicationId, setMirrorOrQuoteConfig } =
-    useMirrorOrQuoteStore();
+    useMirrorOrQuoteOptimisticStore();
   const { getOpenActionCountByPublicationId, setOpenActionPublicationConfig } =
-    useOpenActionStore();
+    useOpenActionOptimisticStore();
 
   const [showMirrorsModal, setShowMirrorsModal] = useState(false);
   const [showQuotesModal, setShowQuotesModal] = useState(false);

@@ -6,7 +6,7 @@ import getTokenImage from '@hey/lib/getTokenImage';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
+import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
 
 interface CollectModulePreviewProps {
   module: OpenActionModule;
@@ -20,7 +20,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const { getOpenActionCountByPublicationId } = useOpenActionStore();
+  const { getOpenActionCountByPublicationId } = useOpenActionOptimisticStore();
 
   if (
     module.__typename === 'SimpleCollectOpenActionSettings' ||
