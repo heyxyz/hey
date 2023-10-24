@@ -13,7 +13,7 @@ import { isSupported, share } from 'shared-zustand';
 import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 const SyncProvider: FC = () => {
@@ -32,6 +32,10 @@ const SyncProvider: FC = () => {
     API_URL.replace('http', 'ws'),
     { protocols: ['graphql-ws'] }
   );
+
+  useEffectOnce(() => {
+    sendJsonMessage({ type: 'connection_init' });
+  });
 
   useUpdateEffect(() => {
     if (readyState === 1 && profileId && address) {
@@ -57,7 +61,7 @@ const SyncProvider: FC = () => {
         }
       });
     }
-  }, [readyState]);
+  }, [readyState, profileId]);
 
   useUpdateEffect(() => {
     const jsonData = JSON.parse(lastMessage?.data || '{}');
