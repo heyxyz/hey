@@ -2,7 +2,6 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { HANDLE_PREFIX } from '@hey/data/constants';
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
   CustomFiltersType,
@@ -175,9 +174,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             ) : null}
           </div>
-          <span className="text-xs">
-            {option.handle.replace(HANDLE_PREFIX, '')}
-          </span>
+          <span className="text-xs">{option.displayHandle}</span>
         </div>
       </div>
     </li>
