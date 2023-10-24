@@ -14,7 +14,7 @@
     <a href="https://deepsource.io/gh/heyxyz/hey">
         <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://www.gitpoap.io/gh/heyxyz/hey">
+    <a href="https://www.gitpoap.io/gh/lensterxyz">
         <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
     <a href="https://translate.hey.xyz">
