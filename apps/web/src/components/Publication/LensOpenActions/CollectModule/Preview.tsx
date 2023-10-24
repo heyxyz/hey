@@ -1,20 +1,27 @@
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon';
-import type { OpenActionModule } from '@hey/lens';
+import type { AnyPublication, OpenActionModule } from '@hey/lens';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import getTokenImage from '@hey/lib/getTokenImage';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import plur from 'plur';
 import type { FC } from 'react';
+import { useOpenActionStore } from 'src/store/OptimisticActions/useOpenActionStore';
 
 interface CollectModulePreviewProps {
   module: OpenActionModule;
-  minted: number;
+  publication: AnyPublication;
 }
 
 const CollectModulePreview: FC<CollectModulePreviewProps> = ({
   module,
-  minted
+  publication
 }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const { getOpenActionCountByPublicationId } = useOpenActionStore();
+
   if (
     module.__typename === 'SimpleCollectOpenActionSettings' ||
     module.__typename === 'MultirecipientFeeCollectOpenActionSettings'
@@ -22,6 +29,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
     const endTimestamp = module?.endsAt;
     const amount = parseFloat(module?.amount?.value || '0');
     const currency = module?.amount?.asset?.symbol;
+    const mints = getOpenActionCountByPublicationId(targetPublication.id);
 
     return (
       <div className="w-full space-y-1.5 text-left">
@@ -35,7 +43,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
           <div className="space-x-1.5">
             {module.collectLimit ? (
               <b className="w-fit rounded-full bg-gray-500 px-3 py-0.5 text-xs text-white">
-                {module.collectLimit || 0 - minted} left
+                {module.collectLimit || 0 - mints} left
               </b>
             ) : null}
             {module.referralFee ? (
@@ -64,11 +72,11 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
             <span>FREE</span>
           </div>
         )}
-        {minted ? (
+        {mints > 0 && (
           <div className="lt-text-gray-500">
-            {minted} {plur('mint', minted)}
+            {mints} {plur('mint', mints)}
           </div>
-        ) : null}
+        )}
         {endTimestamp ? (
           <div className="space-x-1.5 text-sm">
             <span>Sale Ends in</span>

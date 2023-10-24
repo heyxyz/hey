@@ -46,7 +46,7 @@ const List: FC<ListProps> = ({ publication }) => {
                   OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
                 <CollectModulePreview
                   module={action}
-                  minted={targetPublication.stats.countOpenActions}
+                  publication={publication}
                 />
               )}
             </Card>
