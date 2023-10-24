@@ -35,3 +35,9 @@ export const NewNotificationSubscription = `
     }
   }
 `;
+
+export const AuthorizationRecordRevokedSubscription = `
+  subscription AuthorizationRecordRevoked($authorizationId: UUID!) {
+    authorizationRecordRevoked(authorizationId: $authorizationId)
+  }
+`;

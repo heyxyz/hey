@@ -1,9 +1,12 @@
 import { API_URL } from '@hey/data/constants';
 import type { Notification, UserSigNonces } from '@hey/lens';
 import {
+  AuthorizationRecordRevokedSubscription,
   NewNotificationSubscription,
   UserSigNoncesSubscription
 } from '@hey/lens/documents/Subscription';
+import resetAuthData from '@hey/lib/resetAuthData';
+import getCurrentSessionId from '@lib/getCurrentSessionId';
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
@@ -45,6 +48,14 @@ const SyncProvider: FC = () => {
         type: 'start',
         payload: { variables: { address }, query: UserSigNoncesSubscription }
       });
+      sendJsonMessage({
+        id: '3',
+        type: 'start',
+        payload: {
+          variables: { authorizationId: getCurrentSessionId() },
+          query: AuthorizationRecordRevokedSubscription
+        }
+      });
     }
   }, [readyState]);
 
@@ -66,6 +77,10 @@ const SyncProvider: FC = () => {
         setLensPublicActProxyOnchainSigNonce(
           userSigNonces.lensPublicActProxyOnchainSigNonce
         );
+      }
+      if (jsonData.id === '3') {
+        resetAuthData();
+        location.reload();
       }
     }
   }, [lastMessage]);
