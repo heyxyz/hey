@@ -170,7 +170,7 @@ const SeeThroughLens: FC = () => {
                         'cursor-pointer overflow-hidden rounded-lg p-1'
                       )
                     }
-                    key={profile?.handle}
+                    key={profile?.handle?.id}
                     onClick={() => {
                       setSeeThroughProfile(profile);
                       setSearchText('');

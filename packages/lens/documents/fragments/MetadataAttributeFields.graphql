@@ -1,22 +1,5 @@
 fragment MetadataAttributeFields on MetadataAttribute {
-  ... on MetadataBooleanAttribute {
-    key
-    value
-  }
-  ... on MetadataDateAttribute {
-    key
-    value
-  }
-  ... on MetadataNumberAttribute {
-    key
-    value
-  }
-  ... on MetadataJSONAttribute {
-    key
-    value
-  }
-  ... on MetadataStringAttribute {
-    key
-    value
-  }
+  type
+  key
+  value
 }

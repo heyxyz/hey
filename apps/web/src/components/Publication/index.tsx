@@ -10,7 +10,6 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import { TriStateValue, usePublicationQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
@@ -72,9 +71,7 @@ const ViewPublication: NextPage = () => {
       <MetaTags
         title={
           publication.__typename && publication?.by?.handle
-            ? `${publication.__typename} by @${formatHandle(
-                publication.by.handle
-              )} • ${APP_NAME}`
+            ? `${publication.__typename} by ${publication.by.handle.suggestedFormatted.localName} • ${APP_NAME}`
             : APP_NAME
         }
       />

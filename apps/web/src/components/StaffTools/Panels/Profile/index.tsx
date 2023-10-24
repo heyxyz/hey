@@ -100,10 +100,10 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         ) : null}
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile.lensManager ? 'Yes' : 'No'}
+          value={profile.signless ? 'Yes' : 'No'}
           title="Has Lens Manager"
         >
-          {profile.lensManager ? 'Yes' : 'No'}
+          {profile.signless ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
           icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}

@@ -99,7 +99,7 @@ const UserProfile: FC<UserProfileProps> = ({
   const UserInfo: FC = () => {
     return (
       <UserPreview
-        handle={profile.handle}
+        handle={profile.handle?.fullHandle}
         id={profile.id}
         showUserPreview={showUserPreview}
       >

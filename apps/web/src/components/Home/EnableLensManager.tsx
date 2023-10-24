@@ -7,7 +7,7 @@ import { useAppStore } from 'src/store/useAppStore';
 
 const EnableLensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
 
   if (canUseRelay) {
     return null;

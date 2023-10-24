@@ -33,7 +33,6 @@ import {
   useCreateActOnOpenActionTypedDataMutation
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
-import formatHandle from '@hey/lib/formatHandle';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getSignature from '@hey/lib/getSignature';
@@ -294,7 +293,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           <div className="pb-5">
             <CollectWarning
               handle={
-                formatHandle(publication?.by?.handle) || publication.by.id
+                publication?.by?.handle?.suggestedFormatted.localName ||
+                publication.by.id
               }
               isSuperFollow={
                 publication?.by?.followModule?.type ===

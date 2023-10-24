@@ -1,9 +1,12 @@
 fragment ProfileFields on Profile {
   id
+  handle {
+    ...HandleInfoFields
+  }
   ownedBy {
     ...NetworkAddressFields
   }
-  lensManager
+  signless
   sponsor
   txHash
   createdAt
@@ -44,5 +47,4 @@ fragment ProfileFields on Profile {
   followModule {
     ...FollowModuleFields
   }
-  handle
 }

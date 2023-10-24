@@ -1,0 +1,17 @@
+fragment HandleInfoFields on HandleInfo {
+  id
+  fullHandle
+  namespace
+  localName
+  suggestedFormatted {
+    full
+    localName
+  }
+  linkedTo {
+    contract {
+      ...NetworkAddressFields
+    }
+    nftTokenId
+  }
+  ownedBy
+}

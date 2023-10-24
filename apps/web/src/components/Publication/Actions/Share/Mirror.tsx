@@ -50,7 +50,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
 
   const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);

@@ -20,7 +20,7 @@ export const NotificationProfileAvatar: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <UserPreview handle={profile.handle} id={profile.id}>
+    <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link href={getProfile(profile).link}>
         <Image
           src={getAvatar(profile)}
@@ -38,7 +38,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
   profile
 }) => {
   return (
-    <UserPreview handle={profile.handle} id={profile.id}>
+    <UserPreview handle={profile.handle?.fullHandle} id={profile.id}>
       <Link
         href={getProfile(profile).link}
         className="inline-flex items-center space-x-1 font-bold hover:underline"

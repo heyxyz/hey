@@ -185,7 +185,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = attachments[0]?.type === 'Video';
 
   // Lens manager
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (

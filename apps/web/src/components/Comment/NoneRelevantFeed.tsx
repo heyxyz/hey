@@ -4,7 +4,6 @@ import {
   CommentRankingFilterType,
   CustomFiltersType,
   LimitType,
-  PublicationsOrderByType,
   usePublicationsQuery
 } from '@hey/lens';
 import { Card } from '@hey/ui';
@@ -32,7 +31,6 @@ const NoneRelevantFeed: FC<NoneRelevantFeedProps> = ({ publication }) => {
       },
       customFilters: [CustomFiltersType.Gardeners]
     },
-    orderBy: PublicationsOrderByType.CommentOfQueryRanking,
     limit: LimitType.TwentyFive
   };
 

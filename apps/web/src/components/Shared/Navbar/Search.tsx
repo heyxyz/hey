@@ -119,7 +119,7 @@ const Search: FC<SearchProps> = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    key={profile?.handle}
+                    key={profile.id}
                     className="cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     onClick={() => {
                       if (onProfileSelected) {

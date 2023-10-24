@@ -3,7 +3,7 @@ import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { LimitType, useApprovedAuthenticationQuery } from '@hey/lens';
+import { LimitType, useApprovedAuthenticationsQuery } from '@hey/lens';
 import {
   Card,
   ErrorMessage,
@@ -26,7 +26,7 @@ const SessionsSettings: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'sessions' });
   });
 
-  const { data, loading, error } = useApprovedAuthenticationQuery({
+  const { data, loading, error } = useApprovedAuthenticationsQuery({
     variables: { request: { limit: LimitType.Fifty } },
     skip: !currentProfile?.id
   });
@@ -60,7 +60,7 @@ const SessionsSettings: NextPage = () => {
           ) : error ? (
             <ErrorMessage className="m-5" error={error} />
           ) : (
-            <Sessions sessions={data?.approvedAuthentication?.items} />
+            <Sessions sessions={data?.approvedAuthentications?.items} />
           )}
         </Card>
       </GridItemEight>

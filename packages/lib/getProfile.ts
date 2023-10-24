@@ -1,6 +1,5 @@
 import type { Profile } from '@hey/lens';
 
-import formatHandle from './formatHandle';
 import sanitizeDisplayName from './sanitizeDisplayName';
 
 const getProfile = (
@@ -23,7 +22,7 @@ const getProfile = (
   }
 
   const prefix = profile.handle ? '@' : '#';
-  const slug = formatHandle(profile.handle) || profile.id;
+  const slug = profile.handle?.localName || profile.id;
 
   return {
     prefix,
@@ -31,7 +30,7 @@ const getProfile = (
     slugWithPrefix: `${prefix}${slug}`,
     displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
     link: profile.handle
-      ? `/u/${formatHandle(profile.handle)}`
+      ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`
   };
 };

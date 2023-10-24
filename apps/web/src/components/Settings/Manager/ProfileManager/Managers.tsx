@@ -107,7 +107,7 @@ const Managers: FC = () => {
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
-            approveLensManager: true,
+            approveSignless: true,
             changeManagers: [
               { address, action: ChangeProfileManagerActionType.Remove }
             ]

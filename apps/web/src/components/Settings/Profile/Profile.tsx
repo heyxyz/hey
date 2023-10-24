@@ -109,7 +109,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (

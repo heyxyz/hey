@@ -29,7 +29,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -102,7 +102,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       return await createChangeProfileManagersTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: { approveLensManager: canUseRelay ? false : true }
+          request: { approveSignless: canUseRelay ? false : true }
         }
       });
     } catch (error) {

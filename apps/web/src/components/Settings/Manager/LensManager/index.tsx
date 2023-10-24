@@ -7,7 +7,7 @@ import ToggleLensManager from './ToggleLensManager';
 
 const LensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.lensManager;
+  const canUseRelay = currentProfile?.signless;
 
   return (
     <Card className="linkify space-y-2 p-5">
