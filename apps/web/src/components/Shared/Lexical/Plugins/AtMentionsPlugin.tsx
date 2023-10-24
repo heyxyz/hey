@@ -209,8 +209,8 @@ const MentionsPlugin: FC = () => {
             ({
               id: user?.id,
               name: getProfile(user).displayName,
-              handle: user?.handle?.fullHandle,
-              displayHandle: user?.handle?.suggestedFormatted.localName,
+              handle: getProfile(user).slug,
+              displayHandle: getProfile(user).slugWithPrefix,
               picture: getAvatar(user)
             }) as Record<string, string>
         );

@@ -34,6 +34,7 @@ import {
 } from '@hey/lens';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
+import getProfile from '@hey/lib/getProfile';
 import getPublicationData from '@hey/lib/getPublicationData';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
@@ -292,10 +293,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         {collectModule?.followerOnly ? (
           <div className="pb-5">
             <CollectWarning
-              handle={
-                publication?.by?.handle?.suggestedFormatted.localName ||
-                publication.by.id
-              }
+              handle={getProfile(publication.by).slugWithPrefix}
               isSuperFollow={
                 publication?.by?.followModule?.type ===
                 FollowModuleType.FeeFollowModule
