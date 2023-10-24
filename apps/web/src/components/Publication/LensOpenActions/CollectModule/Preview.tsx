@@ -3,6 +3,7 @@ import GetOpenActionModuleIcon from '@components/Shared/GetOpenActionModuleIcon'
 import type { OpenActionModule } from '@hey/lens';
 import getOpenActionModuleData from '@hey/lib/getOpenActionModuleData';
 import getTokenImage from '@hey/lib/getTokenImage';
+import plur from 'plur';
 import type { FC } from 'react';
 
 interface CollectModulePreviewProps {
@@ -63,7 +64,11 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
             <span>FREE</span>
           </div>
         )}
-        {minted ? <div className="lt-text-gray-500">{minted} mints</div> : null}
+        {minted ? (
+          <div className="lt-text-gray-500">
+            {minted} {plur('mint', minted)}
+          </div>
+        ) : null}
         {endTimestamp ? (
           <div className="space-x-1.5 text-sm">
             <span>Sale Ends in</span>
