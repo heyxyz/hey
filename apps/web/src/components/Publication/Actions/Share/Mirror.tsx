@@ -181,14 +181,14 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
         mirrorOn: publication?.id
       };
 
-      // Payload for the data availability mirror
-      const dataAvailablityRequest: MomokaMirrorRequest = {
+      // Payload for the Momoka mirror
+      const momokaRequest: MomokaMirrorRequest = {
         mirrorOn: publication?.id
       };
 
       if (canUseRelay) {
         if (publication.momoka?.proof && isSponsored) {
-          return await createViaMomoka(dataAvailablityRequest);
+          return await createViaMomoka(momokaRequest);
         }
 
         return await createOnChain(request);

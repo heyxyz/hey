@@ -346,11 +346,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const typedDataGenerator = async (
     generatedData: any,
-    isDataAvailabilityPublication = false
+    isMomokaPublication = false
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    if (isDataAvailabilityPublication) {
+    if (isMomokaPublication) {
       return await broadcastOnMomoka({
         variables: { request: { id, signature } }
       });
@@ -384,7 +384,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  // Data availability typed data generation
+  // Momoka typed data generation
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) =>
       await typedDataGenerator(createMomokaPostTypedData, true)
@@ -650,8 +650,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const metadata = getMetadata({ baseMetadata });
 
       const noCollect = !collectModule.type;
-      const useDataAvailability = isComment
-        ? publication.momoka?.proof && noCollect
+      // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
+      const useMomoka = isComment
+        ? publication.momoka?.proof
+        : isQuote
+        ? quotedPublication?.momoka?.proof
         : noCollect;
       const arweaveId = await uploadToArweave(metadata);
 
@@ -688,16 +691,16 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         })
       };
 
-      // Payload for the data availability post/comment
-      const dataAvailablityRequest: MomokaPostRequest | MomokaCommentRequest = {
+      // Payload for the Momoka post/comment
+      const momokaRequest: MomokaPostRequest | MomokaCommentRequest = {
         ...(isComment && { commentOn: targetPublication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
 
       if (canUseRelay) {
-        if (useDataAvailability && isSponsored) {
-          return await createOnMomka(dataAvailablityRequest);
+        if (useMomoka && isSponsored) {
+          return await createOnMomka(momokaRequest);
         }
 
         return await createOnChain(request);

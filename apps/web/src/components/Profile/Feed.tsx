@@ -46,17 +46,15 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   // Variables
   const publicationTypes: PublicationType[] =
     type === ProfileFeedType.Feed
-      ? [PublicationType.Post, PublicationType.Mirror]
+      ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]
       : type === ProfileFeedType.Replies
       ? [PublicationType.Comment]
       : type === ProfileFeedType.Media
-      ? [PublicationType.Post, PublicationType.Comment]
+      ? [PublicationType.Post, PublicationType.Comment, PublicationType.Quote]
       : [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror];
   const metadata =
     type === ProfileFeedType.Media
-      ? {
-          mainContentFocus: getMediaFilters()
-        }
+      ? { mainContentFocus: getMediaFilters() }
       : null;
   const request: PublicationsRequest = {
     where: {
