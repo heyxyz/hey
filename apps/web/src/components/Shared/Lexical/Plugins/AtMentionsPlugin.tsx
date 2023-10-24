@@ -2,13 +2,13 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import type { Profile, ProfileSearchRequest } from '@hey/lens';
 import {
   CustomFiltersType,
   LimitType,
   useSearchProfilesLazyQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
@@ -106,14 +106,22 @@ const getPossibleQueryMatch = (text: string): MenuTextMatch | null => {
 class MentionTypeaheadOption extends MenuOption {
   id: string;
   name: string;
-  picture: string;
   handle: string;
+  displayHandle: string;
+  picture: string;
 
-  constructor(id: string, name: string, picture: string, handle: string) {
+  constructor(
+    id: string,
+    name: string,
+    handle: string,
+    displayHandle: string,
+    picture: string
+  ) {
     super(name);
     this.id = id;
     this.name = name;
     this.handle = handle;
+    this.displayHandle = displayHandle;
     this.picture = picture;
   }
 }
@@ -167,7 +175,9 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             ) : null}
           </div>
-          <span className="text-xs">{formatHandle(option.handle)}</span>
+          <span className="text-xs">
+            {option.handle.replace(HANDLE_PREFIX, '')}
+          </span>
         </div>
       </div>
     </li>
@@ -203,6 +213,7 @@ const MentionsPlugin: FC = () => {
               id: user?.id,
               name: getProfile(user).displayName,
               handle: user?.handle?.fullHandle,
+              displayHandle: user?.handle?.suggestedFormatted.localName,
               picture: getAvatar(user)
             }) as Record<string, string>
         );
@@ -218,12 +229,13 @@ const MentionsPlugin: FC = () => {
   const options = useMemo(
     () =>
       results
-        .map(({ id, name, picture, handle }) => {
+        .map(({ id, name, handle, displayHandle, picture }) => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            picture,
-            handle
+            handle,
+            displayHandle,
+            picture
           );
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),
