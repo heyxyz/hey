@@ -67,6 +67,7 @@ export interface OptimisticTransaction {
 export interface MarkupLinkProps {
   href?: string;
   title?: string;
+  mentions?: ProfileMentioned[];
 }
 
 export interface MetadataAsset {

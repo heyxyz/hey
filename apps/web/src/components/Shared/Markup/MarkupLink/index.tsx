@@ -5,19 +5,19 @@ import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
 
-const MarkupLink = ({ href, title = href }: MarkupLinkProps) => {
+const MarkupLink = ({ href, title = href, mentions }: MarkupLinkProps) => {
   if (!href) {
     return null;
   }
 
   // Mentions
   if (href.startsWith('@')) {
-    return <Mention href={href} title={title} />;
+    return <Mention title={title} mentions={mentions} />;
   }
 
   // Hashtags
   if (href.startsWith('#')) {
-    return <Hashtag href={href} title={title} />;
+    return <Hashtag title={title} />;
   }
 
   return (

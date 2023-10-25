@@ -1,4 +1,5 @@
 import { Regex } from '@hey/data/regex';
+import type { ProfileMentioned } from '@hey/lens';
 import trimify from '@hey/lib/trimify';
 import type { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -18,20 +19,27 @@ const plugins = [
   linkifyRegex(Regex.hashtag)
 ];
 
-const components = {
-  a: MarkupLink,
-  code: Code
-};
-
 interface MarkupProps {
   children: string;
+  mentions?: ProfileMentioned[];
   className?: string;
 }
 
-const Markup: FC<MarkupProps> = ({ children, className = '' }) => {
+const Markup: FC<MarkupProps> = ({
+  children,
+  mentions = [],
+  className = ''
+}) => {
   if (!children) {
     return null;
   }
+
+  const components = {
+    a: (props: any) => (
+      <MarkupLink href={props.href} title={props.title} mentions={mentions} />
+    ),
+    code: Code
+  };
 
   return (
     <ReactMarkdown

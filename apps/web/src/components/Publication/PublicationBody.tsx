@@ -94,6 +94,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
           { 'line-clamp-5': canShowMore },
           'markup linkify text-md break-words'
         )}
+        mentions={targetPublication.profilesMentioned}
       >
         {content}
       </Markup>
