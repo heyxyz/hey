@@ -6,6 +6,7 @@ import {
   UserSigNoncesSubscription
 } from '@hey/lens/documents/Subscription';
 import resetAuthData from '@hey/lib/resetAuthData';
+import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
@@ -70,6 +71,7 @@ const SyncProvider: FC = () => {
     if (profileId && address && wsData) {
       if (jsonData.id === '1') {
         const notification = wsData.newNotification as Notification;
+        BrowserPush.notify(notification.id);
         setLatestNotificationId(notification.id);
       }
       if (jsonData.id === '2') {

@@ -4,7 +4,7 @@ import { Localstorage } from '@hey/data/storage';
 let worker: Worker;
 
 if (typeof Worker !== 'undefined') {
-  worker = new Worker(new URL('./worker', import.meta.url));
+  worker = new Worker(new URL('./leafwatchWorker', import.meta.url));
 }
 
 /**
