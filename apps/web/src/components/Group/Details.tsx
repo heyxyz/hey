@@ -4,6 +4,7 @@ import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
 import formatHandle from '@hey/lib/formatHandle';
+import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
@@ -63,7 +64,9 @@ const Details: FC<DetailsProps> = ({ group }) => {
         <Slug className="text-sm sm:text-base" prefix="g/" slug={group.slug} />
       </div>
       <div className="markup linkify text-md mr-0 break-words sm:mr-10">
-        <Markup>{group.description}</Markup>
+        <Markup mentions={getMentions(group.description)}>
+          {group.description}
+        </Markup>
       </div>
       <div className="space-y-5">
         <div className="divider w-full" />

@@ -1,5 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import type { Profile } from '@hey/lens';
+import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
@@ -24,7 +25,12 @@ const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
         <p>Profile is marked as {misuseDetails.type.toLowerCase()}!</p>
       </div>
       {misuseDetails?.description ? (
-        <Markup className="text-sm">{misuseDetails?.description}</Markup>
+        <Markup
+          className="text-sm"
+          mentions={getMentions(misuseDetails?.description)}
+        >
+          {misuseDetails?.description}
+        </Markup>
       ) : null}
       {misuseDetails?.identifiedOn ? (
         <p className="text-sm italic">

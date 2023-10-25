@@ -7,6 +7,7 @@ import type { Profile } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
 import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
+import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import nFormatter from '@hey/lib/nFormatter';
@@ -156,7 +157,9 @@ const UserPreview: FC<UserPreviewProps> = ({
           <div>
             {profile.metadata?.bio ? (
               <div className="linkify mt-2 break-words text-sm leading-6">
-                <Markup>{truncateByWords(profile.metadata.bio, 20)}</Markup>
+                <Markup mentions={getMentions(profile.metadata.bio)}>
+                  {truncateByWords(profile.metadata.bio, 20)}
+                </Markup>
               </div>
             ) : null}
           </div>

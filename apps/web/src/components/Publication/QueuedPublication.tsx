@@ -10,6 +10,7 @@ import {
   usePublicationLazyQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import getMentions from '@hey/lib/getMentions';
 import getURLs from '@hey/lib/getURLs';
 import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@hey/types/misc';
@@ -99,7 +100,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       </div>
       <div className="ml-[53px]">
         <div className="markup linkify text-md break-words">
-          <Markup>{content}</Markup>
+          <Markup mentions={getMentions(content)}>{content}</Markup>
         </div>
         {txn?.attachments?.length > 0 ? (
           <NewAttachments attachments={txn?.attachments} hideDelete />

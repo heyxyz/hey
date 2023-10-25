@@ -1,5 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import type { Profile } from '@hey/lens';
+import getMentions from '@hey/lib/getMentions';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC, ReactNode } from 'react';
 import { useRef } from 'react';
@@ -52,7 +53,9 @@ const MessageContent: FC<MessageContentProps> = ({
     );
   }
 
-  return <Markup>{message.content}</Markup>;
+  return (
+    <Markup mentions={getMentions(message.content)}>{message.content}</Markup>
+  );
 };
 
 export default MessageContent;

@@ -25,6 +25,7 @@ import getEnvConfig from '@hey/data/utils/getEnvConfig';
 import type { Profile } from '@hey/lens';
 import { FollowModuleType } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
@@ -148,7 +149,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
       </div>
       {profile?.metadata?.bio ? (
         <div className="markup linkify text-md mr-0 break-words sm:mr-10">
-          <Markup>{profile?.metadata.bio}</Markup>
+          <Markup mentions={getMentions(profile?.metadata.bio)}>
+            {profile?.metadata.bio}
+          </Markup>
         </div>
       ) : null}
       <div className="space-y-5">

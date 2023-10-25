@@ -36,7 +36,6 @@ const Markup: FC<MarkupProps> = ({
 
   const components = {
     a: (props: any) => {
-      console.log(props);
       return <MarkupLink title={props.title} mentions={mentions} />;
     },
     code: Code

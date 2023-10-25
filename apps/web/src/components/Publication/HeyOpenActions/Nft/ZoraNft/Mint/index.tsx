@@ -1,5 +1,6 @@
 import Markup from '@components/Shared/Markup';
 import type { AnyPublication } from '@hey/lens';
+import getMentions from '@hey/lib/getMentions';
 import type { ZoraNft } from '@hey/types/nft';
 import type { FC } from 'react';
 import { create } from 'zustand';
@@ -36,7 +37,10 @@ const Mint: FC<MintProps> = ({ nft, zoraLink, publication, onCompleted }) => {
       <div className="mb-4">
         <div className="mb-1 text-xl font-bold">{nft.name}</div>
         <MintedBy address={nft.creator} />
-        <Markup className="lt-text-gray-500 line-clamp-4">
+        <Markup
+          className="lt-text-gray-500 line-clamp-4"
+          mentions={getMentions(nft.description)}
+        >
           {nft.description}
         </Markup>
       </div>

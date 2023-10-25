@@ -5,6 +5,7 @@ import {
 } from '@heroicons/react/24/solid';
 import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
 import { Image } from '@hey/ui';
@@ -117,7 +118,9 @@ const UserProfile: FC<UserProfileProps> = ({
                   'linkify leading-6'
                 )}
               >
-                <Markup>{profile?.metadata.bio}</Markup>
+                <Markup mentions={getMentions(profile.metadata.bio)}>
+                  {profile?.metadata.bio}
+                </Markup>
               </div>
             ) : null}
           </div>
