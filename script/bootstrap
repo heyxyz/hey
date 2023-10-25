@@ -32,7 +32,7 @@ echo "IMAGEKIT_URL=https://ik.imagekit.io/lensterdev" >> .dev.vars
 cd ../../../
 # -------------------------------------
 echo "Installing dependencies 📦"
-bun install --frozen-lockfile
+bun install --no-save
 echo "Dependencies installed 📦"
 # -------------------------------------
 echo "GraphQL Codegen 🧬"

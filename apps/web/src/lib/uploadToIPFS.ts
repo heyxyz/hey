@@ -60,7 +60,8 @@ const uploadToIPFS = async (
 ): Promise<MediaSetWithoutOnChain[]> => {
   try {
     const files = Array.from(data);
-    const client = await getS3Client();
+    // const client:any this is for meanwhile to avoid typescript errors while i want to commit the changes
+    const client: any = await getS3Client();
     const attachments = await Promise.all(
       files.map(async (_: any, i: number) => {
         const file = data[i];
