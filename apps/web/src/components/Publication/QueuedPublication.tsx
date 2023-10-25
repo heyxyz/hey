@@ -1,7 +1,5 @@
 import Markup from '@components/Shared/Markup';
-import NewAttachments from '@components/Shared/NewAttachments';
-import Oembed from '@components/Shared/Oembed';
-import UserProfile from '@components/Shared/UserProfile';
+import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import type { Profile } from '@hey/lens';
 import {
   LensTransactionStatusType,
@@ -11,12 +9,9 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import getMentions from '@hey/lib/getMentions';
-import getURLs from '@hey/lib/getURLs';
-import removeUrlAtEnd from '@hey/lib/removeUrlAtEnd';
 import type { OptimisticTransaction } from '@hey/types/misc';
-import { Tooltip } from '@hey/ui';
+import { Card, Tooltip } from '@hey/ui';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
@@ -28,25 +23,15 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
   const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+
   const { cache } = useApolloClient();
   const txHash = txn?.txHash;
   const txId = txn?.txId;
-  const [content, setContent] = useState(txn.content);
-  const urls = getURLs(content);
-
-  const onData = () => {
-    const updatedContent = removeUrlAtEnd(urls, content);
-    if (updatedContent !== content) {
-      setContent(updatedContent);
-    }
-  };
 
   const removeTxn = () => {
-    if (txHash) {
-      setTxnQueue(txnQueue.filter((o) => o.txHash !== txHash));
-    } else {
-      setTxnQueue(txnQueue.filter((o) => o.txId !== txId));
-    }
+    setTxnQueue(
+      txnQueue.filter((o) => (txHash ? o.txHash !== txHash : o.txId !== txId))
+    );
   };
 
   const [getPublication] = usePublicationLazyQuery({
@@ -62,7 +47,6 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
             }
           }
         });
-        removeTxn();
       }
     }
   });
@@ -71,7 +55,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
     variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
-    onCompleted: ({ lensTransactionStatus }) => {
+    onCompleted: async ({ lensTransactionStatus }) => {
       if (lensTransactionStatus?.status === LensTransactionStatusType.Failed) {
         return removeTxn();
       }
@@ -79,36 +63,30 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
       if (
         lensTransactionStatus?.status === LensTransactionStatusType.Complete
       ) {
-        getPublication({
-          variables: {
-            request: { forTxHash: lensTransactionStatus?.txHash }
-          }
-        });
+        if (txn.commentOn) {
+          await getPublication({
+            variables: { request: { forTxHash: lensTransactionStatus.txHash } }
+          });
+        }
+        removeTxn();
       }
     }
   });
 
   return (
-    <article className="p-5">
+    <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <UserProfile profile={currentProfile as Profile} />
+        <SmallUserProfile profile={currentProfile as Profile} />
         <Tooltip content="Indexing" placement="top">
           <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />
           </div>
         </Tooltip>
       </div>
-      <div className="ml-[53px]">
-        <div className="markup linkify text-md break-words">
-          <Markup mentions={getMentions(content)}>{content}</Markup>
-        </div>
-        {txn?.attachments?.length > 0 ? (
-          <NewAttachments attachments={txn?.attachments} hideDelete />
-        ) : txn?.attachments && urls.length > 0 ? (
-          <Oembed url={urls[0]} onData={onData} />
-        ) : null}
+      <div className="markup linkify text-md break-words">
+        <Markup mentions={getMentions(txn.content)}>{txn.content}</Markup>
       </div>
-    </article>
+    </Card>
   );
 };
 

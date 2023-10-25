@@ -45,6 +45,7 @@ import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import removeQuoteOn from '@hey/lib/removeQuoteOn';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import type { IGif } from '@hey/types/giphy';
 import type { NewAttachment } from '@hey/types/misc';
 import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
@@ -63,7 +64,6 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { OptmisticPublicationType } from 'src/enums';
 import useCreatePoll from 'src/hooks/useCreatePoll';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import usePublicationMetadata from 'src/hooks/usePublicationMetadata';
@@ -75,7 +75,6 @@ import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useReferenceModuleStore } from 'src/store/useReferenceModuleStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
-import { v4 as uuid } from 'uuid';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 import LivestreamSettings from './Actions/LivestreamSettings';
@@ -262,18 +261,15 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     txId?: string;
   }) => {
     return {
-      id: uuid(),
-      ...(isComment && { parent: publication.id }),
+      ...(isComment && { commentOn: publication.id }),
       type: isComment
         ? OptmisticPublicationType.NewComment
+        : isQuote
+        ? OptmisticPublicationType.NewQuote
         : OptmisticPublicationType.NewPost,
       txHash,
       txId,
-      content: publicationContent,
-      attachments,
-      title: audioPublication.title,
-      cover: audioPublication.cover,
-      author: audioPublication.artist
+      content: publicationContent
     };
   };
 
@@ -737,7 +733,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const setGifAttachment = (gif: IGif) => {
     const attachment: NewAttachment = {
-      id: uuid(),
       uri: gif.images.original.url,
       mimeType: 'image/gif',
       previewUri: gif.images.original.url,

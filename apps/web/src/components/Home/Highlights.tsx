@@ -4,10 +4,10 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { LightBulbIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, FeedHighlightsRequest } from '@hey/lens';
 import { LimitType, useFeedHighlightsQuery } from '@hey/lens';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { OptmisticPublicationType } from 'src/enums';
 import { useAppStore } from 'src/store/useAppStore';
 import { useTimelineStore } from 'src/store/useTimelineStore';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
@@ -63,7 +63,7 @@ const Highlights: FC = () => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <>
       {txnQueue.map((txn) =>
         txn?.type === OptmisticPublicationType.NewPost ? (
           <div key={txn.id}>
@@ -71,16 +71,18 @@ const Highlights: FC = () => {
           </div>
         ) : null
       )}
-      {publications?.map((publication, index) => (
-        <SinglePublication
-          key={`${publication?.id}_${index}`}
-          isFirst={index === 0}
-          isLast={index === publications.length - 1}
-          publication={publication as AnyPublication}
-        />
-      ))}
-      {hasMore ? <span ref={observe} /> : null}
-    </Card>
+      <Card className="divide-y-[1px] dark:divide-gray-700">
+        {publications?.map((publication, index) => (
+          <SinglePublication
+            key={`${publication?.id}_${index}`}
+            isFirst={index === 0}
+            isLast={index === publications.length - 1}
+            publication={publication as AnyPublication}
+          />
+        ))}
+        {hasMore ? <span ref={observe} /> : null}
+      </Card>
+    </>
   );
 };
 

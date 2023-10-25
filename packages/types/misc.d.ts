@@ -1,4 +1,4 @@
-import type { MediaSet } from '@hey/lens';
+import type { OptmisticPublicationType } from './enums';
 
 export interface IPFSResponse {
   uri: string;
@@ -55,13 +55,11 @@ export interface MessageDescriptor {
 }
 
 export interface OptimisticTransaction {
+  type: OptmisticPublicationType;
+  content: string;
+  commentOn?: string;
   txHash?: string;
   txId?: string;
-  title?: string;
-  cover?: string;
-  author?: string;
-  content: string;
-  attachments: MediaSet[];
 }
 
 export interface MarkupLinkProps {

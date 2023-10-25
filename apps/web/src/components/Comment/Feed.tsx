@@ -4,10 +4,10 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
+import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { OptmisticPublicationType } from 'src/enums';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface FeedProps {
@@ -78,29 +78,31 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   }
 
   return (
-    <Card className="divide-y-[1px] dark:divide-gray-700">
+    <>
       {txnQueue.map(
         (txn) =>
           txn?.type === OptmisticPublicationType.NewComment &&
-          txn?.parent === publication?.id && (
+          txn?.commentOn === publication?.id && (
             <div key={txn.id}>
               <QueuedPublication txn={txn} />
             </div>
           )
       )}
-      {comments?.map((comment, index) =>
-        comment?.__typename !== 'Comment' || comment.isHidden ? null : (
-          <SinglePublication
-            key={`${comment.id}`}
-            isFirst={index === 0}
-            isLast={index === comments.length - 1}
-            publication={comment as Comment}
-            showType={false}
-          />
-        )
-      )}
-      {hasMore ? <span ref={observe} /> : null}
-    </Card>
+      <Card className="divide-y-[1px] dark:divide-gray-700">
+        {comments?.map((comment, index) =>
+          comment?.__typename !== 'Comment' || comment.isHidden ? null : (
+            <SinglePublication
+              key={`${comment.id}`}
+              isFirst={index === 0}
+              isLast={index === comments.length - 1}
+              publication={comment as Comment}
+              showType={false}
+            />
+          )
+        )}
+        {hasMore ? <span ref={observe} /> : null}
+      </Card>
+    </>
   );
 };
 

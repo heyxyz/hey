@@ -1,8 +1,3 @@
-export enum OptmisticPublicationType {
-  NewPost = 'NEW_POST',
-  NewComment = 'NEW_COMMENT'
-}
-
 export enum NotificationTabType {
   All = 'ALL',
   Mentions = 'MENTIONS',

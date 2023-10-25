@@ -5,7 +5,7 @@ const getPushNotificationData = (
 ): {
   title: string;
 } | null => {
-  switch (notification.__typename) {
+  switch (notification?.__typename) {
     case 'ActedNotification':
       const actedProfile = notification.actions[0].by;
       const actedHandle =
