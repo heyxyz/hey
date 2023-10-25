@@ -51,7 +51,11 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   if (publications?.length === 0) {
     return (
       <EmptyState
-        message="No publications for <b>&ldquo;{query}&rdquo;</b>"
+        message={
+          <span>
+            No publications for <b>&ldquo;{query}&rdquo;</b>
+          </span>
+        }
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
     );

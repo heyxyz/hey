@@ -51,7 +51,11 @@ const Profiles: FC<ProfilesProps> = ({ query }) => {
   if (profiles?.length === 0) {
     return (
       <EmptyState
-        message="No profiles for <b>&ldquo;{query}&rdquo;</b>"
+        message={
+          <span>
+            No profiles for <b>&ldquo;{query}&rdquo;</b>
+          </span>
+        }
         icon={<UsersIcon className="text-brand h-8 w-8" />}
       />
     );
