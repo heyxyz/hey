@@ -27,4 +27,10 @@ fragment QuoteBaseFields on Quote {
   referenceModule {
     ...ReferenceModuleFields
   }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+  hashtagsMentioned
 }

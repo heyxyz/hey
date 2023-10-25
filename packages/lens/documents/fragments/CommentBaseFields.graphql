@@ -30,4 +30,10 @@ fragment CommentBaseFields on Comment {
   root {
     ...PostFields
   }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+  hashtagsMentioned
 }
