@@ -95,13 +95,7 @@ const List: FC<ListProps> = ({ feedType }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage
-        className="m-3"
-        title="Failed to load notifications"
-        error={error}
-      />
-    );
+    return <ErrorMessage title="Failed to load notifications" error={error} />;
   }
 
   if (notifications?.length === 0) {
