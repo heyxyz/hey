@@ -17,9 +17,9 @@ echo "Branch created 🎉"
 
 # Update dependencies in package.json
 echo "Updating dependencies in package.json 📦"
-pnpm update --interactive --recursive --latest
-# Clean up pnpm-lock.yaml file and install dependencies
-rm pnpm-lock.yaml && pnpm install
+bun update --interactive --recursive --latest
+# Clean up bun.lockb file and install dependencies
+rm bun.lockb && bun install
 # Git operations
 git add -A
 git commit -am "chore: update dependencies 📦"
