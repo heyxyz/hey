@@ -23,6 +23,16 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
     return title;
   }
 
+  const canShowUserPreview = (handle: string) => {
+    const foundMention = mentions?.find(
+      (mention) => mention.snapshotHandleMentioned.fullHandle === handle
+    );
+
+    return foundMention?.snapshotHandleMentioned.linkedTo?.nftTokenId
+      ? true
+      : false;
+  };
+
   const getLocalNameFromFullHandle = (handle: string) => {
     const foundMention = mentions?.find(
       (mention) => mention.snapshotHandleMentioned.fullHandle === handle
@@ -30,7 +40,7 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
     return foundMention?.snapshotHandleMentioned.localName;
   };
 
-  return (
+  return canShowUserPreview(handle) ? (
     <Link
       href={`/u/${getLocalNameFromFullHandle(handle)}`}
       onClick={(event) => {
@@ -48,6 +58,8 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
         />
       </UserPreview>
     </Link>
+  ) : (
+    <Slug slug={getLocalNameFromFullHandle(handle)} prefix="@" useBrandColor />
   );
 };
 
