@@ -1,17 +1,16 @@
-import Loader from '@components/Shared/Loader';
-import WalletProfile from '@components/Shared/WalletProfile';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
+import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation,
-  useProfileManagersQuery
+  useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
 import getSignature from '@hey/lib/getSignature';
-import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
@@ -19,46 +18,65 @@ import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
 import { useNonceStore } from 'src/store/useNonceStore';
-import type { Address } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import { object, string } from 'zod';
 
-const Managers: FC = () => {
+const newProfileManagerSchema = object({
+  manager: string()
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
+});
+
+interface AddProfileManagerProps {
+  setShowAddManagerModal: (show: boolean) => void;
+}
+
+const AddProfileManager: FC<AddProfileManagerProps> = ({
+  setShowAddManagerModal
+}) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
-  const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
-  ) => {
-    if (
-      __typename === 'RelayError' ||
-      __typename === 'LensProfileManagerRelayError'
-    ) {
+  const form = useZodForm({
+    schema: newProfileManagerSchema
+  });
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
+    if (__typename === 'RelayError') {
       return;
     }
 
-    toast.success('Manager removed successfully!');
-    Leafwatch.track(SETTINGS.MANAGER.REMOVE_MANAGER);
+    setIsLoading(false);
+    setShowAddManagerModal(false);
+    form.reset();
+    toast.success('Manager added successfully!');
+    Leafwatch.track(SETTINGS.MANAGER.ADD_MANAGER);
   };
 
   const onError = (error: any) => {
+    setIsLoading(false);
     errorToast(error);
-    setRemovingAddress(null);
   };
 
-  const { data, loading, error } = useProfileManagersQuery({
-    variables: { request: { for: currentProfile?.id } }
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
   });
 
-  const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => onCompleted(),
-    onError
+    onSuccess: () => {
+      onCompleted();
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+    },
+    onError: (error) => {
+      onError(error);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
+    }
   });
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
@@ -96,20 +114,23 @@ const Managers: FC = () => {
       onError
     });
 
-  const removeManager = async (address: Address) => {
+  const addManager = async (manager: string) => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
     if (handleWrongNetwork()) {
       return;
     }
 
     try {
-      setRemovingAddress(address);
+      setIsLoading(true);
       return await createChangeProfileManagersTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request: {
-            approveSignless: true,
             changeManagers: [
-              { address, action: ChangeProfileManagerActionType.Remove }
+              { address: manager, action: ChangeProfileManagerActionType.Add }
             ]
           }
         }
@@ -120,44 +141,40 @@ const Managers: FC = () => {
   };
 
   return (
-    <div className="space-y-3 pt-2">
+    <Form
+      form={form}
+      className="space-y-4 p-5"
+      onSubmit={async ({ manager }) => {
+        await addManager(manager);
+      }}
+    >
       <div>
-        <div>
-          Accounts with control over your profile can act on your behalf.
-        </div>
-        <div className="divider my-5" />
-        <div className="space-y-5">
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrorMessage error={error} />
-          ) : (
-            data?.profileManagers.items.map((manager) => (
-              <div
-                key={manager.address}
-                className="flex items-center justify-between"
-              >
-                <WalletProfile address={manager.address} />
-                <Button
-                  icon={
-                    removingAddress === manager.address ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <MinusCircleIcon className="h-4 w-4" />
-                    )
-                  }
-                  onClick={() => removeManager(manager.address)}
-                  disabled={removingAddress === manager.address}
-                >
-                  Remove
-                </Button>
-              </div>
-            ))
-          )}
+        <Input
+          label="Manager address"
+          type="text"
+          placeholder="0x3A5bd...5e3"
+          {...form.register('manager')}
+        />
+      </div>
+      <div className="ml-auto">
+        <div className="block space-x-0 space-y-2 sm:flex sm:space-x-2 sm:space-y-0">
+          <Button
+            type="submit"
+            disabled={isLoading}
+            icon={
+              isLoading ? (
+                <Spinner size="xs" />
+              ) : (
+                <PlusCircleIcon className="h-4 w-4" />
+              )
+            }
+          >
+            Add manager
+          </Button>
         </div>
       </div>
-    </div>
+    </Form>
   );
 };
 
-export default Managers;
+export default AddProfileManager;

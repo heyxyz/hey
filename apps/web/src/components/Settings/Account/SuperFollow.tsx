@@ -44,6 +44,13 @@ const SuperFollow: FC = () => {
     useState('WMATIC');
   const handleWrongNetwork = useHandleWrongNetwork();
 
+  const form = useZodForm({
+    schema: newSuperFollowSchema,
+    defaultValues: {
+      recipient: currentProfile?.ownedBy.address
+    }
+  });
+
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return;
@@ -77,13 +84,6 @@ const SuperFollow: FC = () => {
     onError: (error) => {
       onError(error);
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
-    }
-  });
-
-  const form = useZodForm({
-    schema: newSuperFollowSchema,
-    defaultValues: {
-      recipient: currentProfile?.ownedBy.address
     }
   });
 

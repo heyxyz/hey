@@ -135,7 +135,9 @@ export const SETTINGS = {
   },
   MANAGER: {
     TOGGLE: 'Toggle lens manager',
-    UPDATE: 'Update lens manager'
+    UPDATE: 'Update lens manager',
+    ADD_MANAGER: 'Add profile manager',
+    REMOVE_MANAGER: 'Remove profile manager'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'
