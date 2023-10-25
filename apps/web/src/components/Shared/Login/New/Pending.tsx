@@ -1,21 +1,17 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import { Button, Spinner } from '@hey/ui';
-import Link from 'next/link';
+import { Spinner } from '@hey/ui';
 import type { FC } from 'react';
 import { useState } from 'react';
 
 interface PendingProps {
-  handle: string;
   txId: string;
 }
 
-const Pending: FC<PendingProps> = ({ handle, txId }) => {
+const Pending: FC<PendingProps> = ({ txId }) => {
   const [pollInterval, setPollInterval] = useState(500);
 
   const { data, loading } = useLensTransactionStatusQuery({
@@ -51,16 +47,6 @@ const Pending: FC<PendingProps> = ({ handle, txId }) => {
         <div className="space-y-3">
           <div className="text-[40px]">🌿</div>
           <div>Account created successfully</div>
-          <div className="pt-3">
-            <Link href={`/u/${formatHandle(handle)}`}>
-              <Button
-                className="mx-auto"
-                icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}
-              >
-                Go to profile
-              </Button>
-            </Link>
-          </div>
         </div>
       )}
     </div>

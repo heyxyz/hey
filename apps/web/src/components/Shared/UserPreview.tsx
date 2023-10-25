@@ -5,7 +5,6 @@ import {
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
 import getAvatar from '@hey/lib/getAvatar';
 import getMentions from '@hey/lib/getMentions';
 import getProfile from '@hey/lib/getProfile';
@@ -87,7 +86,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <div />
           </div>
           <div className="flex p-3">
-            <div>{handle ? `@${formatHandle(handle)}` : `#${id}`}</div>
+            <div>{handle ?? `#${id}`}</div>
           </div>
         </div>
       );

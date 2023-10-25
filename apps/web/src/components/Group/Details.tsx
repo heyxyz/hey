@@ -3,7 +3,6 @@ import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import formatHandle from '@hey/lib/formatHandle';
 import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
@@ -83,8 +82,8 @@ const Details: FC<DetailsProps> = ({ group }) => {
                 />
               }
             >
-              <Link href={`/u/${formatHandle(group.lens)}`}>
-                <Slug slug={formatHandle(group.lens) as string} />
+              <Link href={`/u/${group.lens}`}>
+                <Slug slug={group.lens} />
               </Link>
             </MetaDetails>
           ) : null}
