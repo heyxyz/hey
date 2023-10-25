@@ -89,9 +89,7 @@ const Timeline: FC = () => {
     <>
       {txnQueue.map((txn) =>
         txn?.type !== OptmisticPublicationType.NewComment ? (
-          <div key={txn.id}>
-            <QueuedPublication txn={txn} />
-          </div>
+          <QueuedPublication key={txn.id} txn={txn} />
         ) : null
       )}
       <Card className="divide-y-[1px] dark:divide-gray-700">

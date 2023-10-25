@@ -83,9 +83,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         (txn) =>
           txn?.type === OptmisticPublicationType.NewComment &&
           txn?.commentOn === publication?.id && (
-            <div key={txn.id}>
-              <QueuedPublication txn={txn} />
-            </div>
+            <QueuedPublication key={txn.id} txn={txn} />
           )
       )}
       <Card className="divide-y-[1px] dark:divide-gray-700">
