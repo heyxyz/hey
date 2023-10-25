@@ -8,6 +8,7 @@ import {
 import resetAuthData from '@hey/lib/resetAuthData';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
+import getPushNotificationData from '@lib/getPushNotificationData';
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
@@ -71,7 +72,12 @@ const SyncProvider: FC = () => {
     if (profileId && address && wsData) {
       if (jsonData.id === '1') {
         const notification = wsData.newNotification as Notification;
-        BrowserPush.notify(notification.id);
+        if (getPushNotificationData(notification)) {
+          const notify = getPushNotificationData(notification);
+          BrowserPush.notify({
+            title: notify?.title || ''
+          });
+        }
         setLatestNotificationId(notification.id);
       }
       if (jsonData.id === '2') {

@@ -10,18 +10,14 @@ if (typeof Worker !== 'undefined') {
  * Browser push notification
  */
 export const BrowserPush = {
-  notify: (name: string) => {
-    browserPushWorker.postMessage({
-      name
-    });
+  notify: ({ title }: { title: string }) => {
+    browserPushWorker.postMessage({ title });
 
     browserPushWorker.onmessage = function (event: MessageEvent) {
       const response = event.data;
-      console.log(response);
-      // new push notification
       new Notification('Hey', {
-        body: response.id,
-        icon: ''
+        body: response.title,
+        icon: '/logo.png'
       });
     };
   }
