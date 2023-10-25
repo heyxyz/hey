@@ -42,7 +42,9 @@ const MentionNotification: FC<MentionNotificationProps> = ({
           href={`/posts/${notification?.publication?.id}`}
           className="lt-text-gray-500 linkify mt-2 line-clamp-2"
         >
-          <Markup>{filteredContent}</Markup>
+          <Markup mentions={notification?.publication.profilesMentioned}>
+            {filteredContent}
+          </Markup>
         </Link>
       </div>
     </div>

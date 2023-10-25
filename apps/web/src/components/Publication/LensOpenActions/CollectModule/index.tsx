@@ -308,7 +308,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
             </div>
           ) : null}
           {filteredContent ? (
-            <Markup className="lt-text-gray-500 line-clamp-2">
+            <Markup
+              mentions={targetPublication.profilesMentioned}
+              className="lt-text-gray-500 line-clamp-2"
+            >
               {filteredContent}
             </Markup>
           ) : null}

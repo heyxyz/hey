@@ -40,7 +40,9 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
           href={`/posts/${notification?.quote?.id}`}
           className="lt-text-gray-500 linkify mt-2 line-clamp-2"
         >
-          <Markup>{filteredContent}</Markup>
+          <Markup mentions={notification.quote.profilesMentioned}>
+            {filteredContent}
+          </Markup>
         </Link>
       </div>
     </div>
