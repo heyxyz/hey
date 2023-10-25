@@ -63,7 +63,7 @@ const getPushNotificationData = (
       const reactedType = notification.publication.__typename?.toLowerCase();
 
       return {
-        title: `${reactedHandle} reacted on your ${reactedType}`
+        title: `${reactedHandle} liked your ${reactedType}`
       };
     case 'FollowNotification':
       const followedProfile = notification.followers[0];
