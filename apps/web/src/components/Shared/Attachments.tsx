@@ -31,31 +31,52 @@ const getClass = (attachments: number) => {
   }
 };
 
+interface MetadataAttachment {
+  uri: string;
+  type: 'Image' | 'Video' | 'Audio';
+}
+
 interface AttachmentsProps {
-  attachments: {
-    uri: string;
-    type: 'Image' | 'Video' | 'Audio';
-  }[];
+  attachments: MetadataAttachment[];
   asset?: MetadataAsset;
 }
 
 const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
-  const attachmentsLength = attachments.length
-    ? attachments.length
-    : asset
-    ? 1
-    : 0;
+  const processedAttachments = attachments.slice(0, 4);
 
-  const isImages =
-    asset?.type === 'Image' ||
-    attachments.map((attachment) => attachment.type === 'Image').includes(true);
-  const isVideo =
-    asset?.type === 'Video' ||
-    attachments.map((attachment) => attachment.type === 'Video').includes(true);
-  const isAudio =
-    asset?.type === 'Audio' ||
-    attachments.map((attachment) => attachment.type === 'Audio').includes(true);
+  const assetIsImage = asset?.type === 'Image';
+  const assetIsVideo = asset?.type === 'Video';
+  const assetIsAudio = asset?.type === 'Audio';
+
+  const attachmentsHasImage = processedAttachments.some(
+    (attachment) => attachment.type === 'Image'
+  );
+
+  const determineDisplay = ():
+    | 'displayVideoAsset'
+    | 'displayAudioAsset'
+    | 'displayImageAsset'
+    | MetadataAttachment[]
+    | null => {
+    if (assetIsVideo) {
+      return 'displayVideoAsset';
+    } else if (assetIsAudio) {
+      return 'displayAudioAsset';
+    } else if (attachmentsHasImage) {
+      const imageAttachments = processedAttachments.filter(
+        (attachment) => attachment.type === 'Image'
+      );
+
+      return imageAttachments;
+    } else if (assetIsImage) {
+      return 'displayImageAsset';
+    }
+
+    return null;
+  };
+
+  const displayDecision = determineDisplay();
 
   const ImageComponent = ({ uri }: { uri: string }) => (
     <Image
@@ -78,8 +99,8 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
   );
 
   return (
-    <div className={cn(getClass(attachmentsLength)?.row, 'mt-3 grid gap-2')}>
-      {isImages && asset?.type === 'Image' && attachmentsLength === 1 ? (
+    <div className="mt-3">
+      {displayDecision === 'displayImageAsset' && assetIsImage && (
         <div
           className={cn(getClass(1)?.aspect, 'w-2/3')}
           onClick={stopEventPropagation}
@@ -87,32 +108,41 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
         >
           <ImageComponent uri={asset.uri} />
         </div>
-      ) : isImages ? (
-        attachments.map((attachment, index) => {
-          return (
-            <div
-              key={index}
-              className={cn(
-                `${getClass(attachmentsLength)?.aspect} ${
-                  attachmentsLength === 3 && index === 0 ? 'row-span-2' : ''
-                }`,
-                { 'w-2/3': attachmentsLength === 1 },
-                'relative'
-              )}
-              onClick={stopEventPropagation}
-              aria-hidden="true"
-            >
-              <ImageComponent uri={attachment.uri} />
-            </div>
-          );
-        })
-      ) : null}
-      {isVideo && (
-        <Video src={asset?.uri || attachments[0].uri} poster={asset?.cover} />
       )}
-      {isAudio && (
+      {Array.isArray(displayDecision) && (
+        <div
+          className={cn('grid gap-2', getClass(displayDecision.length)?.row)}
+        >
+          {displayDecision.map((attachment, index) => {
+            return (
+              <div
+                key={index}
+                className={cn(
+                  `${getClass(displayDecision.length)?.aspect} ${
+                    displayDecision.length === 3 && index === 0
+                      ? 'row-span-2'
+                      : ''
+                  }`,
+                  { 'w-2/3': displayDecision.length === 1 }
+                )}
+                onClick={stopEventPropagation}
+                aria-hidden="true"
+              >
+                <ImageComponent uri={attachment.uri} />
+              </div>
+            );
+          })}
+        </div>
+      )}
+      {displayDecision === 'displayVideoAsset' && (
+        <Video
+          src={asset?.uri || processedAttachments[0].uri}
+          poster={asset?.cover}
+        />
+      )}
+      {displayDecision === 'displayAudioAsset' && (
         <Audio
-          src={asset?.uri || attachments[0].uri}
+          src={asset?.uri || processedAttachments[0].uri}
           poster={asset?.cover as string}
           artist={asset?.artist}
           title={asset?.title}
