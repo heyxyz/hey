@@ -10,6 +10,7 @@ import {
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from '@hey/lens';
+import { useApolloClient } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -28,6 +29,7 @@ const Managers: FC = () => {
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { cache } = useApolloClient();
 
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
@@ -39,6 +41,7 @@ const Managers: FC = () => {
       return;
     }
 
+    cache.evict({ id: `ProfilesManagedResult:${removingAddress}` });
     toast.success('Manager removed successfully!');
     Leafwatch.track(SETTINGS.MANAGER.REMOVE_MANAGER);
   };

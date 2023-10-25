@@ -10,3 +10,7 @@ export const publicationKeyFields = (publication: any): string => {
     createdAt: publication.createdAt
   })}`;
 };
+
+export const profilesManagedKeyFields = (profilesManaged: any): string => {
+  return `${profilesManaged.__typename}:${profilesManaged.address}`;
+};

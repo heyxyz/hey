@@ -2,6 +2,7 @@ import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
 import { publicationKeyFields } from '../lib';
+import { profilesManagedKeyFields } from '../lib/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createApprovedAuthenticationFieldPolicy from './createApprovedAuthenticationFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
@@ -13,7 +14,9 @@ import createMutualFollowersProfilesFieldPolicy from './createMutualFollowersPro
 import createNftsFieldPolicy from './createNftsFieldPolicy';
 import createNotificationsFieldPolicy from './createNotificationsFieldPolicy';
 import createProfileActionHistoryFieldPolicy from './createProfileActionHistoryFieldPolicy';
+import createProfileManagersFieldPolicy from './createProfileManagersFieldPolicy';
 import createProfilesFieldPolicy from './createProfilesFieldPolicy';
+import createProfilesManagedFieldPolicy from './createProfilesManagedFieldPolicy';
 import createPublicationsFieldPolicy from './createPublicationsFieldPolicy';
 import createSearchProfilesFieldPolicy from './createSearchProfilesFieldPolicy';
 import createSearchPublicationsPolicy from './createSearchPublicationsPolicy';
@@ -25,6 +28,8 @@ const cache = new InMemoryCache({
     Post: { keyFields: publicationKeyFields },
     Comment: { keyFields: publicationKeyFields },
     Mirror: { keyFields: publicationKeyFields },
+    Quote: { keyFields: publicationKeyFields },
+    ProfilesManagedResult: { keyFields: profilesManagedKeyFields },
     Query: {
       fields: {
         feed: createFeedFieldPolicy(),
@@ -43,7 +48,9 @@ const cache = new InMemoryCache({
         whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
         approvedAuthentication: createApprovedAuthenticationFieldPolicy(),
-        profileActionHistory: createProfileActionHistoryFieldPolicy()
+        profileActionHistory: createProfileActionHistoryFieldPolicy(),
+        profileManagers: createProfileManagersFieldPolicy(),
+        profilesManaged: createProfilesManagedFieldPolicy()
       }
     }
   }
