@@ -121,20 +121,18 @@ const Managers: FC = () => {
 
   return (
     <div className="space-y-3 pt-2">
-      {loading ? (
-        <div className="py-5">
-          <Loader />
-        </div>
-      ) : error ? (
-        <ErrorMessage className="m-5" error={error} />
-      ) : (
+      <div>
         <div>
-          <div>
-            Accounts with control over your profile can act on your behalf.
-          </div>
-          <div className="divider my-5" />
-          <div className="space-y-5">
-            {data?.profileManagers.items.map((manager) => (
+          Accounts with control over your profile can act on your behalf.
+        </div>
+        <div className="divider my-5" />
+        <div className="space-y-5">
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <ErrorMessage error={error} />
+          ) : (
+            data?.profileManagers.items.map((manager) => (
               <div
                 key={manager.address}
                 className="flex items-center justify-between"
@@ -154,10 +152,10 @@ const Managers: FC = () => {
                   Remove
                 </Button>
               </div>
-            ))}
-          </div>
+            ))
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
