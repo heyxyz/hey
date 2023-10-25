@@ -35,5 +35,4 @@ fragment CommentBaseFields on Comment {
       ...HandleInfoFields
     }
   }
-  hashtagsMentioned
 }

@@ -32,5 +32,4 @@ fragment QuoteBaseFields on Quote {
       ...HandleInfoFields
     }
   }
-  hashtagsMentioned
 }
