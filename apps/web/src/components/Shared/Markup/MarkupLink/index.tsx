@@ -1,28 +1,23 @@
-import truncateUrl from '@hey/lib/truncateUrl';
 import type { MarkupLinkProps } from '@hey/types/misc';
 
 import ExternalLink from './ExternalLink';
 import Hashtag from './Hashtag';
 import Mention from './Mention';
 
-const MarkupLink = ({ href, title = href, mentions }: MarkupLinkProps) => {
-  if (!href) {
+const MarkupLink = ({ title, mentions }: MarkupLinkProps) => {
+  if (!title) {
     return null;
   }
 
-  // Mentions
-  if (href.startsWith('@')) {
+  if (title.startsWith('@')) {
     return <Mention title={title} mentions={mentions} />;
   }
 
-  // Hashtags
-  if (href.startsWith('#')) {
+  if (title.startsWith('#')) {
     return <Hashtag title={title} />;
   }
 
-  return (
-    <ExternalLink href={href} title={title ? truncateUrl(title, 30) : title} />
-  );
+  return <ExternalLink title={title} />;
 };
 
 export default MarkupLink;

@@ -35,9 +35,10 @@ const Markup: FC<MarkupProps> = ({
   }
 
   const components = {
-    a: (props: any) => (
-      <MarkupLink href={props.href} title={props.title} mentions={mentions} />
-    ),
+    a: (props: any) => {
+      console.log(props);
+      return <MarkupLink title={props.title} mentions={mentions} />;
+    },
     code: Code
   };
 
