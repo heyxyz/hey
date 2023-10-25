@@ -44,7 +44,7 @@ const UserPreview: FC<UserPreviewProps> = ({
 }) => {
   const [profile, setProfile] = useState<Profile | undefined>();
   const [loadProfile, { loading: networkLoading }] = useProfileLazyQuery({
-    fetchPolicy: 'cache-first'
+    fetchPolicy: 'no-cache'
   });
 
   const [syntheticLoading, setSyntheticLoading] =
