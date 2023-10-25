@@ -1,11 +1,8 @@
 import UserProfileShimmer from '@components/Shared/Shimmer/UserProfileShimmer';
 import UserProfile from '@components/Shared/UserProfile';
-import { HANDLE_PREFIX } from '@hey/data/constants';
-import { Regex } from '@hey/data/regex';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import { useProfilesQuery } from '@hey/lens';
-import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
@@ -18,35 +15,18 @@ const RelevantPeople: FC<RelevantPeopleProps> = ({ publication }) => {
   const targetPublication = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
-  const { metadata } = targetPublication;
-  const filteredContent = getPublicationData(metadata)?.content || '';
+  const { profilesMentioned } = targetPublication;
 
-  const mentions =
-    filteredContent
-      .replace(`@${HANDLE_PREFIX}/`, HANDLE_PREFIX)
-      ?.match(Regex.mention) ?? [];
-
-  const processedMentions = mentions.map((mention: string) => {
-    return mention.trim().replace('@', '');
-  });
-
-  const cleanedMentions = processedMentions.reduce(
-    (handles: string[], handle: string) => {
-      if (!handles.includes(handle)) {
-        handles.push(handle);
-      }
-
-      return handles;
-    },
-    []
+  const profileIds = profilesMentioned.map(
+    (profile) => profile.snapshotHandleMentioned.linkedTo?.nftTokenId
   );
 
   const { data, loading, error } = useProfilesQuery({
-    variables: { request: { where: { handles: cleanedMentions.slice(0, 5) } } },
-    skip: mentions.length <= 0
+    variables: { request: { where: { profileIds } } },
+    skip: profileIds.length <= 0
   });
 
-  if (mentions.length <= 0) {
+  if (profileIds.length <= 0) {
     return null;
   }
 
