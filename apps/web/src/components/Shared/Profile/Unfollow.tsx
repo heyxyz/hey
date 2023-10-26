@@ -43,8 +43,12 @@ const Unfollow: FC<UnfollowProps> = ({
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: `Profile:${profile?.id}`,
-      fields: { isFollowedByMe: () => false }
+      id: cache.identify(profile.operations),
+      fields: {
+        isFollowedByMe: (existingValue) => {
+          return { ...existingValue, value: false };
+        }
+      }
     });
   };
 

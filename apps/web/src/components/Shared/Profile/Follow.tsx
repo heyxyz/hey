@@ -2,7 +2,7 @@ import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
+import type { FollowRequest, Profile } from '@hey/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
@@ -53,8 +53,12 @@ const Follow: FC<FollowProps> = ({
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: `Profile:${profile?.id}`,
-      fields: { isFollowedByMe: () => true }
+      id: cache.identify(profile.operations),
+      fields: {
+        isFollowedByMe: (existingValue) => {
+          return { ...existingValue, value: true };
+        }
+      }
     });
   };
 
@@ -144,15 +148,14 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-      const { data } = await follow({
-        variables: { request: { follow: [{ profileId: profile?.id }] } }
-      });
+      const request: FollowRequest = { follow: [{ profileId: profile?.id }] };
+      const { data } = await follow({ variables: { request } });
 
       if (data?.follow.__typename === 'LensProfileManagerRelayError') {
         return await createFollowTypedData({
           variables: {
-            request: { follow: [{ profileId: profile?.id }] },
-            options: { overrideSigNonce: lensHubOnchainSigNonce }
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request
           }
         });
       }

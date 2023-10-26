@@ -1,4 +1,4 @@
-import { type AnyPublication, TriStateValue } from '@hey/lens';
+import { type AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
@@ -30,8 +30,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const canMirror = currentProfile
     ? targetPublication.operations.canMirror
     : true;
-  const canAct =
-    targetPublication.operations.canAct === TriStateValue.Yes && hasOpenAction;
+  const canAct = hasOpenAction;
 
   return (
     <span
