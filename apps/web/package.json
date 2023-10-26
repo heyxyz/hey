@@ -42,7 +42,6 @@
     "axios": "^1.5.1",
     "dayjs": "^1.11.10",
     "dayjs-twitter": "^0.5.0",
-    "dexie": "^3.2.4",
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",
     "lexical": "^0.12.2",
