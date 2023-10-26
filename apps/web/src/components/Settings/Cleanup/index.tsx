@@ -7,7 +7,6 @@ import { Button, Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import toast from 'react-hot-toast';
-import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -15,7 +14,6 @@ import SettingsSidebar from '../Sidebar';
 
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const disconnectXmtp = useDisconnectXmtp();
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
@@ -67,22 +65,6 @@ const CleanupSettings: NextPage = () => {
                 </div>
               </div>
               <Button onClick={() => cleanup(Localstorage.TimelineStore)}>
-                Cleanup
-              </Button>
-            </div>
-            <div className="flex items-center justify-between">
-              <div className="space-y-1">
-                <b>Direct message keys</b>
-                <div className="lt-text-gray-500 text-xs font-bold">
-                  Clean your DM encryption key
-                </div>
-              </div>
-              <Button
-                onClick={() => {
-                  disconnectXmtp();
-                  toast.success('Cleared DM keys');
-                }}
-              >
                 Cleanup
               </Button>
             </div>

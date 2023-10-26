@@ -15,7 +15,6 @@ import { useEffectOnce } from 'usehooks-ts';
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
 import EnableLensManager from './EnableLensManager';
-import EnableMessages from './EnableMessages';
 import FeedType from './FeedType';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
@@ -72,7 +71,6 @@ const Home: NextPage = () => {
           {loggedIn && (
             <>
               <EnableLensManager />
-              <EnableMessages />
               <SetProfile />
             </>
           )}

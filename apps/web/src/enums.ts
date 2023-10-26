@@ -14,8 +14,3 @@ export enum ProfileFeedType {
   Gallery = 'GALLERY',
   Stats = 'STATS'
 }
-
-export enum MessageTabs {
-  Inbox = 'Inbox',
-  Following = 'Following'
-}
