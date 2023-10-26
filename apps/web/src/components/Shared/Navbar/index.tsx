@@ -1,4 +1,3 @@
-import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
@@ -115,12 +114,7 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? (
-              <>
-                <MessageIcon />
-                <NotificationIcon />
-              </>
-            ) : null}
+            {currentProfile ? <NotificationIcon /> : null}
             <MenuItems />
           </div>
         </div>
