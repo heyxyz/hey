@@ -8,7 +8,6 @@ import {
   useUndoPublicationNotInterestedMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -33,8 +32,12 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
-      id: publicationKeyFields(targetPublication),
-      fields: { notInterested: () => notInterested }
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, isNotInterested: notInterested };
+        }
+      }
     });
   };
 

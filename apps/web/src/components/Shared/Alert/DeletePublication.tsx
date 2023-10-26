@@ -1,6 +1,5 @@
 import { PUBLICATION } from '@hey/data/tracking';
 import { useHidePublicationMutation } from '@hey/lens';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import { Alert } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
@@ -25,7 +24,9 @@ const DeletePublication: FC = () => {
       toast.success('Publication deleted successfully');
     },
     update: (cache) => {
-      cache.evict({ id: publicationKeyFields(deletingPublication) });
+      cache.evict({
+        id: `${deletingPublication?.__typename}:${deletingPublication?.id}`
+      });
     }
   });
 

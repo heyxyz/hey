@@ -1,7 +1,6 @@
 import { InMemoryCache } from '@apollo/client';
 
 import result from '../../generated';
-import { publicationKeyFields } from '../lib';
 import { profilesManagedKeyFields } from '../lib/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
 import createApprovedAuthenticationFieldPolicy from './createApprovedAuthenticationFieldPolicy';
@@ -25,10 +24,6 @@ import createWhoHaveBlockedFieldPolicy from './createWhoHaveBlockedFieldPolicy';
 const cache = new InMemoryCache({
   possibleTypes: result.possibleTypes,
   typePolicies: {
-    Post: { keyFields: publicationKeyFields },
-    Comment: { keyFields: publicationKeyFields },
-    Mirror: { keyFields: publicationKeyFields },
-    Quote: { keyFields: publicationKeyFields },
     ProfilesManagedResult: { keyFields: profilesManagedKeyFields },
     Query: {
       fields: {

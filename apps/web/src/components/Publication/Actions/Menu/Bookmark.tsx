@@ -9,7 +9,6 @@ import {
   useRemovePublicationBookmarkMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
@@ -52,7 +51,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const updateCache = (cache: ApolloCache<any>) => {
     // Remove bookmarked publication from bookmarks feed
     if (pathname === '/bookmarks') {
-      cache.evict({ id: publicationKeyFields(targetPublication) });
+      cache.evict({ id: cache.identify(targetPublication) });
     }
   };
 
