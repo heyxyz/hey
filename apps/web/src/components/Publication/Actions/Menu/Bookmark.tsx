@@ -49,6 +49,22 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
   const request: PublicationBookmarkRequest = { on: targetPublication.id };
 
   const updateCache = (cache: ApolloCache<any>) => {
+    cache.modify({
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, hasBookmarked: !hasBookmarked };
+        }
+      }
+    });
+    cache.modify({
+      id: cache.identify(targetPublication.stats),
+      fields: {
+        bookmarks: () =>
+          hasBookmarked ? bookmarksCount - 1 : bookmarksCount + 1
+      }
+    });
+
     // Remove bookmarked publication from bookmarks feed
     if (pathname === '/bookmarks') {
       cache.evict({ id: cache.identify(targetPublication) });
@@ -69,7 +85,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError(error);
     },
     onCompleted: () => {
-      toast.success('Publication bookmarked');
+      toast.success('Publication bookmarked!');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
         publication_id: targetPublication.id,
         bookmarked: true
@@ -88,7 +104,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
       onError(error);
     },
     onCompleted: () => {
-      toast.success('Removed publication bookmark');
+      toast.success('Removed publication bookmark!');
       Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
         publication_id: targetPublication.id,
         bookmarked: false
