@@ -34,8 +34,8 @@ import { useNonceStore } from 'src/store/useNonceStore';
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi';
 
 import Loader from '../Loader';
+import NoBalanceError from '../NoBalanceError';
 import Slug from '../Slug';
-import Uniswap from '../Uniswap';
 
 interface FollowModuleProps {
   profile: Profile;
@@ -313,7 +313,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           ) : (
             <WarningMessage
               className="mt-5"
-              message={<Uniswap module={followModule} />}
+              message={<NoBalanceError moduleAmount={followModule.amount} />}
             />
           )
         ) : (

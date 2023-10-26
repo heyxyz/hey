@@ -128,7 +128,7 @@ const MintAction: FC<MintActionProps> = ({
           onClick={() => write?.()}
           icon={
             isContractWriteLoading ? (
-              <Spinner className="mr-1" size="xs" />
+              <Spinner size="xs" />
             ) : (
               <CursorArrowRaysIcon className="h-5 w-5" />
             )

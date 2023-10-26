@@ -12,13 +12,13 @@ import { useState } from 'react';
 import type { Address } from 'viem';
 
 interface IndexStatusProps {
-  type?: string;
+  message?: string;
   txHash: Address;
   reload?: boolean;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
-  type = 'Transaction',
+  message = 'Transaction Indexing',
   txHash,
   reload = false
 }) => {
@@ -56,7 +56,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
         LensTransactionStatusType.Processing ? (
         <div className="flex items-center space-x-1.5">
           <Spinner size="xs" />
-          <div>{type} Indexing</div>
+          <div>{message}</div>
         </div>
       ) : data?.lensTransactionStatus?.status ===
         LensTransactionStatusType.Failed ? (

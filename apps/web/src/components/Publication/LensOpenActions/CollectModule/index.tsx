@@ -3,7 +3,7 @@ import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
 import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
-import Uniswap from '@components/Shared/Uniswap';
+import NoBalanceError from '@components/Shared/NoBalanceError';
 import {
   BanknotesIcon,
   ClockIcon,
@@ -434,7 +434,9 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               ) : (
                 <WarningMessage
                   className="mt-5 w-full"
-                  message={<Uniswap module={collectModule} />}
+                  message={
+                    <NoBalanceError moduleAmount={collectModule.amount} />
+                  }
                 />
               )
             ) : (

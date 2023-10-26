@@ -174,9 +174,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                     onClick={() => handleSign(profile.id)}
                     icon={
                       isLoading && loggingInProfileId === profile.id ? (
-                        <Spinner className="mr-1" size="xs" />
+                        <Spinner size="xs" />
                       ) : (
-                        <ArrowRightCircleIcon className="h-5 w-5" />
+                        <ArrowRightCircleIcon className="h-4 w-4" />
                       )
                     }
                     disabled={isLoading && loggingInProfileId === profile.id}

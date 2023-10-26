@@ -1,20 +1,25 @@
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { PUBLICATION } from '@hey/data/tracking';
+import type { Amount } from '@hey/lens';
 import getUniswapURL from '@hey/lib/getUniswapURL';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
 
-interface UniswapProps {
-  module: any;
+import WrapWmatic from './WrapWmatic';
+
+interface NoBalanceErrorProps {
+  moduleAmount: Amount;
 }
 
-const Uniswap: FC<UniswapProps> = ({ module }) => {
-  const amount = module?.amount?.value ?? module?.fee?.amount?.value;
-  const currency =
-    module?.amount?.asset?.symbol ?? module?.fee?.amount?.asset?.symbol;
-  const assetAddress =
-    module?.amount?.asset?.address ?? module?.fee?.amount?.asset?.address;
+const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
+  const amount = moduleAmount?.value;
+  const currency = moduleAmount?.asset?.symbol;
+  const assetAddress = moduleAmount?.asset?.contract.address;
+
+  if (currency === 'WMATIC') {
+    return <WrapWmatic moduleAmount={moduleAmount} />;
+  }
 
   return (
     <div className="space-y-1">
@@ -41,4 +46,4 @@ const Uniswap: FC<UniswapProps> = ({ module }) => {
   );
 };
 
-export default Uniswap;
+export default NoBalanceError;

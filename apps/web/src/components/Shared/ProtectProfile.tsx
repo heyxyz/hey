@@ -85,9 +85,9 @@ const ProtectProfile: FC = () => {
               disabled={isLoading}
               icon={
                 isLoading ? (
-                  <Spinner size="xs" className="mr-1" />
+                  <Spinner size="xs" />
                 ) : (
-                  <LockClosedIcon className="h-5 w-5" />
+                  <LockClosedIcon className="h-4 w-4" />
                 )
               }
               onClick={() => write()}
