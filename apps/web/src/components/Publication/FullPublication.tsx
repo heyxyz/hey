@@ -29,8 +29,8 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
       <div>
         <PublicationHeader publication={targetPublication} />
         <div className="ml-[53px]">
-          {publication.isHidden ? (
-            <HiddenPublication type={publication.__typename} />
+          {targetPublication.isHidden ? (
+            <HiddenPublication type={targetPublication.__typename} />
           ) : (
             <>
               <PublicationBody publication={targetPublication} />
