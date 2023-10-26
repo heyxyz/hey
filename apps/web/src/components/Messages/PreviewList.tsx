@@ -6,18 +6,16 @@ import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@hey/data/errors';
 import { MESSAGES } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { Card, ErrorMessage, GridItemFour, Modal, TabButton } from '@hey/ui';
+import { Card, ErrorMessage, GridItemFour, Modal } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-import { MessageTabs } from 'src/enums';
 import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/useAppStore';
 import { useMessagePersistStore } from 'src/store/useMessagePersistStore';
-import type { TabValues } from 'src/store/useMessageStore';
 import { useMessageStore } from 'src/store/useMessageStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
@@ -47,8 +45,7 @@ const PreviewList: FC<PreviewListProps> = ({
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
-  const { ensNames, selectedTab, setSelectedTab, setConversationKey } =
-    useMessageStore();
+  const { ensNames, setConversationKey } = useMessageStore();
 
   const [showSearchModal, setShowSearchModal] = useState(false);
   const { persistProfile } = useMessageDb();
@@ -74,31 +71,11 @@ const PreviewList: FC<PreviewListProps> = ({
   const onProfileSelected = async (profile: Profile) => {
     const conversationKey = profile.ownedBy.address.toLowerCase();
     await persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile.operations.isFollowedByMe.value
-      ? MessageTabs.Following
-      : MessageTabs.Inbox;
-    setSelectedTab(selectedTab);
     setConversationKey(conversationKey);
     setShowSearchModal(false);
   };
 
-  const partitionedProfiles = Array.from(profilesToShow || []).reduce(
-    (result, [key, profile]) => {
-      if (profile.operations.isFollowedByMe.value) {
-        result[0].set(key, profile);
-      } else {
-        result[1].set(key, profile);
-      }
-      return result;
-    },
-    [new Map<string, Profile>(), new Map<string, Profile>()]
-  );
-
-  const sortedProfiles = Array.from(
-    selectedTab === MessageTabs.Following
-      ? partitionedProfiles[0]
-      : profilesToShow
-  ).sort(([keyA], [keyB]) => {
+  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
@@ -128,30 +105,6 @@ const PreviewList: FC<PreviewListProps> = ({
               max={100}
             />
           ) : null}
-        </div>
-        <div className="flex justify-between px-4 py-3">
-          <div className="flex gap-3">
-            <TabButton
-              className="p-2 px-4"
-              name={MessageTabs.Following}
-              active={selectedTab === MessageTabs.Following}
-              onClick={() => {
-                setSelectedTab(MessageTabs.Following);
-                Leafwatch.track(MESSAGES.SWITCH_FOLLOWING_TAB);
-              }}
-              showOnSm
-            />
-            <TabButton
-              className="p-2 px-4"
-              name={MessageTabs.Inbox}
-              active={selectedTab === MessageTabs.Inbox}
-              onClick={() => {
-                setSelectedTab(MessageTabs.Inbox);
-                Leafwatch.track(MESSAGES.SWITCH_INBOX_TAB);
-              }}
-              showOnSm
-            />
-          </div>
         </div>
         <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
