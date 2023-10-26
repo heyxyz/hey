@@ -221,11 +221,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     <div className="p-5">
       <div className="space-y-1.5 pb-2">
         <div className="text-lg font-bold">
-          Super follow{' '}
-          <Slug
-            slug={getProfile(profile).slug}
-            prefix={getProfile(profile).prefix}
-          />{' '}
+          Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
           {again ? 'again' : ''}
         </div>
         <div className="lt-text-gray-500">

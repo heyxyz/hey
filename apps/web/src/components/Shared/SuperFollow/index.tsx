@@ -63,11 +63,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
       <Modal
         title={
           <span>
-            Super follow{' '}
-            <Slug
-              slug={getProfile(profile).slug}
-              prefix={getProfile(profile).prefix}
-            />{' '}
+            Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
             {again ? 'again' : ''}
           </span>
         }

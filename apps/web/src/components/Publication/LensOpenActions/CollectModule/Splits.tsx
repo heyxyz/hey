@@ -59,10 +59,7 @@ const Splits: FC<SplitsProps> = ({ recipients }) => {
                   />
                   {profile ? (
                     <Link href={getProfile(profile).link}>
-                      <Slug
-                        slug={getProfile(profile).slug}
-                        prefix={getProfile(profile).prefix}
-                      />
+                      <Slug slug={getProfile(profile).slugWithPrefix} />
                     </Link>
                   ) : (
                     <Link

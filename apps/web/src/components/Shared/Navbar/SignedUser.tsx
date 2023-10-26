@@ -75,8 +75,7 @@ const SignedUser: FC = () => {
                 <div className="truncate">
                   <Slug
                     className="font-bold"
-                    slug={getProfile(currentProfile).slug}
-                    prefix={getProfile(currentProfile).prefix}
+                    slug={getProfile(currentProfile).slugWithPrefix}
                   />
                 </div>
               </div>

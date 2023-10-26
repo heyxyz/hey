@@ -112,8 +112,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"
-            slug={getProfile(profile).slug}
-            prefix={getProfile(profile).prefix}
+            slug={getProfile(profile).slugWithPrefix}
           />
           {currentProfile &&
           currentProfile?.id !== profile.id &&

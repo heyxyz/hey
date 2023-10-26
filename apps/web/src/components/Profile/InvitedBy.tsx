@@ -24,11 +24,7 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
           alt={profile.id}
         />
         <span>
-          Invited by{' '}
-          <Slug
-            slug={getProfile(profile).slug}
-            prefix={getProfile(profile).prefix}
-          />
+          Invited by <Slug slug={getProfile(profile).slugWithPrefix} />
         </span>
       </Link>
     </div>

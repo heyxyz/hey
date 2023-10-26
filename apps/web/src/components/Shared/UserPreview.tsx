@@ -120,11 +120,7 @@ const UserPreview: FC<UserPreviewProps> = ({
             <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
           ) : null}
         </div>
-        <Slug
-          className="text-sm"
-          slug={getProfile(profile).slug}
-          prefix={getProfile(profile).prefix}
-        />
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
       </>
     );
 

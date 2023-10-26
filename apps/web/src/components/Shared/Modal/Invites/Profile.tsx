@@ -19,10 +19,7 @@ const Profile: FC<ProfileProps> = ({ invite }) => {
         <b>
           {invite.profileMinted ? (
             <Link href={getProfile(invite.profileMinted).link} target="_blank">
-              <Slug
-                slug={getProfile(invite.profileMinted).slug}
-                prefix={getProfile(invite.profileMinted).prefix}
-              />
+              <Slug slug={getProfile(invite.profileMinted).slugWithPrefix} />
             </Link>
           ) : (
             formatAddress(invite.by)

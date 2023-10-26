@@ -31,8 +31,7 @@ const FollowModal: FC<FollowModalProps> = ({
           />
           <Slug
             className="flex items-center"
-            slug={getProfile(profile).slug}
-            prefix={getProfile(profile).prefix}
+            slug={getProfile(profile).slugWithPrefix}
           />
         </span>
         <span className="flex">

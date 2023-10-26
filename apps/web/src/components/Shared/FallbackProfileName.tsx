@@ -31,10 +31,7 @@ const FallbackProfileName: FC<FallbackProfileNameProps> = ({
           {profile?.metadata?.displayName ? (
             getProfile(profile).displayName
           ) : (
-            <Slug
-              slug={getProfile(profile).slug}
-              prefix={getProfile(profile).prefix}
-            />
+            <Slug slug={getProfile(profile).slugWithPrefix} />
           )}
         </b>
       </Link>

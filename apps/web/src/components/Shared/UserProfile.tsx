@@ -82,11 +82,7 @@ const UserProfile: FC<UserProfileProps> = ({
         ) : null}
       </div>
       <div>
-        <Slug
-          className="text-sm"
-          slug={getProfile(profile).slug}
-          prefix={getProfile(profile).prefix}
-        />
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
         {timestamp ? (
           <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>

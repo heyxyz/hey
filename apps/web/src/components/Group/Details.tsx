@@ -83,7 +83,7 @@ const Details: FC<DetailsProps> = ({ group }) => {
               }
             >
               <Link href={`/u/${group.lens}`}>
-                <Slug slug={group.lens} />
+                <Slug slug={group.lens} prefix="@" />
               </Link>
             </MetaDetails>
           ) : null}
