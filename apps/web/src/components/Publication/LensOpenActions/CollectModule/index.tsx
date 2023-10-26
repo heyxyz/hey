@@ -188,7 +188,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     enabled: Boolean(amount)
   });
 
-  const { data: balanceData, isRefetching: balanceLoading } = useBalance({
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
     token: assetAddress,
     formatUnits: assetDecimals,
