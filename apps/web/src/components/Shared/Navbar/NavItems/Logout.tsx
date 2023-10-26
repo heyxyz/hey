@@ -8,7 +8,6 @@ import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
@@ -28,7 +27,6 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
-  const disconnectXmtp = useDisconnectXmtp();
 
   const onError = (error: any) => {
     setRevoking(false);
@@ -38,7 +36,6 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted: () => {
       Leafwatch.track(PROFILE.LOGOUT);
-      disconnectXmtp();
       setCurrentProfile(null);
       resetPreferences();
       setProfileId(null);

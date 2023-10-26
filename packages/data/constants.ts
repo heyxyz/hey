@@ -17,10 +17,6 @@ export const IS_MAINNET = API_URL === LensEndpoint.Mainnet;
 export const ADMIN_ADDRESS = '0x03ba34f6ea1496fa316873cf8350a3f7ead317ef';
 export const REWARDS_ADDRESS = '0xf618330f51fa54ce5951d627ee150c0fdadeba43';
 
-// XMTP
-export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
-export const XMTP_PREFIX = 'lens.dev/dm';
-
 // Snapshot
 export const HEY_POLLS_SPACE = 'polls.lenster.xyz';
 export const SNAPSHOT_HUB_URL = 'https://hub.snapshot.org';
@@ -135,10 +131,6 @@ export const ALLOWED_MEDIA_TYPES = [
   ...ALLOWED_IMAGE_TYPES,
   ...ALLOWED_AUDIO_TYPES
 ];
-
-// UI
-export const MESSAGE_PAGE_LIMIT = 15;
-export const MIN_WIDTH_DESKTOP = 1024;
 
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-300,h-300';
