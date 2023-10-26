@@ -1,6 +1,5 @@
 import getUniqueMessages from '@lib/getUniqueMessages';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
-import { MessageTabs } from 'src/enums';
 import type {
   FailedMessage,
   PendingMessage
@@ -38,8 +37,6 @@ interface MessageState {
   setSelectedProfileId: (selectedProfileId: string) => void;
   conversationKey: string;
   setConversationKey: (conversationKey: string) => void;
-  selectedTab: TabValues;
-  setSelectedTab: (selectedTab: TabValues) => void;
   syncedProfiles: Set<string>;
   addSyncedProfiles: (profileIds: string[]) => void;
   unsyncProfile: (profileId: string) => void;
@@ -134,8 +131,6 @@ export const useMessageStore = create<MessageState>((set) => ({
     set(() => ({ selectedProfileId })),
   conversationKey: '',
   setConversationKey: (conversationKey) => set(() => ({ conversationKey })),
-  selectedTab: MessageTabs.Following,
-  setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
   addSyncedProfiles: (profileIds) =>
     set(({ syncedProfiles }) => ({
@@ -155,7 +150,6 @@ export const useMessageStore = create<MessageState>((set) => ({
         messages: new Map(),
         messageProfiles: new Map(),
         previewMessages: new Map(),
-        selectedTab: MessageTabs.Inbox,
         previewMessagesNonLens: new Map(),
         ensNames: new Map()
       };
