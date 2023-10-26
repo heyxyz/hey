@@ -213,7 +213,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             <b className="text-black dark:text-white">
               {nFormatter(bookmarksCount)}
             </b>{' '}
-            {plur('Bookmarks', bookmarksCount)}
+            {plur('Bookmark', bookmarksCount)}
           </span>
         ) : null}
       </div>
