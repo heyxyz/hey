@@ -152,7 +152,7 @@ const Message: FC = () => {
 
   const userNameForTitle = getProfile(profile as Profile).displayName;
 
-  const title = userNameForTitle
+  const title = profile
     ? `${userNameForTitle} • ${APP_NAME}`
     : `Messages • ${APP_NAME}`;
 
