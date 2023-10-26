@@ -47,6 +47,16 @@ progress::-moz-progress-bar {
   @apply hover:text-brand-600 dark:hover:text-brand-500;
 }
 
+.linkify-message a {
+  @apply hover:decoration-2;
+  @apply underline;
+}
+
+/* Override slug color */
+.linkify-message .text-transparent {
+  @apply text-inherit;
+}
+
 .tab-bg {
   @apply hover:bg-brand-200;
 }

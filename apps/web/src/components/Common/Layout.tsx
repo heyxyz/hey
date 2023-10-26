@@ -17,6 +17,7 @@ import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
+import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
@@ -40,6 +41,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { address, connector } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
+  const disconnectXmtp = useDisconnectXmtp();
 
   const resetAuthState = () => {
     setProfileId(null);
@@ -48,6 +50,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   };
 
   const logout = () => {
+    disconnectXmtp();
     resetAuthState();
     resetAuthData();
     disconnect?.();
