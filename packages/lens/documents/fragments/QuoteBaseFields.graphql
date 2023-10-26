@@ -4,6 +4,7 @@ fragment QuoteBaseFields on Quote {
     id
   }
   isHidden
+  isEncrypted
   momoka {
     proof
   }

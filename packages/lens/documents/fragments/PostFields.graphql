@@ -4,6 +4,7 @@ fragment PostFields on Post {
     id
   }
   isHidden
+  isEncrypted
   momoka {
     proof
   }

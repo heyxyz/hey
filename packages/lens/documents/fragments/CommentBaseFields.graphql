@@ -4,6 +4,7 @@ fragment CommentBaseFields on Comment {
     id
   }
   isHidden
+  isEncrypted
   momoka {
     proof
   }

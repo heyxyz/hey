@@ -17,6 +17,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
+import EncryptedPublication from './EncryptedPublication';
 import Embed from './HeyOpenActions/Embed';
 import Nft from './HeyOpenActions/Nft';
 import NotSupportedPublication from './NotSupportedPublication';
@@ -55,6 +56,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   }
 
   const [content, setContent] = useState(rawContent);
+
+  if (targetPublication.isEncrypted) {
+    return <EncryptedPublication type={targetPublication.__typename} />;
+  }
 
   if (!isPublicationMetadataTypeAllowed(metadata.__typename)) {
     return <NotSupportedPublication type={metadata.__typename} />;
