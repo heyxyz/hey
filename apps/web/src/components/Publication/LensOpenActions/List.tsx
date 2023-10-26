@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 import CollectModule from './CollectModule';
 import CollectModulePreview from './CollectModule/Preview';
+import UnknownModulePreview from './UnknownModule/Preview';
 
 interface ListProps {
   publication: AnyPublication;
@@ -34,22 +35,23 @@ const List: FC<ListProps> = ({ publication }) => {
           <button
             key={action.type}
             className="w-full"
+            disabled={
+              action.type === OpenActionModuleType.UnknownOpenActionModule
+            }
             onClick={() => {
               selectedSetOpenActionIndex(index);
               setOpenActionScreen('ACTION');
             }}
           >
-            <Card className="flex p-5">
-              {(action.type ===
-                OpenActionModuleType.SimpleCollectOpenActionModule ||
-                action.type ===
-                  OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
-                <CollectModulePreview
-                  module={action}
-                  publication={publication}
-                />
-              )}
-            </Card>
+            {(action.type ===
+              OpenActionModuleType.SimpleCollectOpenActionModule ||
+              action.type ===
+                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
+              <CollectModulePreview module={action} publication={publication} />
+            )}
+            {action.type === OpenActionModuleType.UnknownOpenActionModule && (
+              <UnknownModulePreview module={action} />
+            )}
           </button>
         ))
       ) : (

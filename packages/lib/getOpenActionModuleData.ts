@@ -17,7 +17,7 @@ const getOpenActionModuleData = (
       };
     default:
       return {
-        name: 'Unknown'
+        name: 'Unknown Module'
       };
   }
 };

@@ -1,6 +1,6 @@
 import {
+  BriefcaseIcon,
   DocumentPlusIcon,
-  RectangleStackIcon,
   UserGroupIcon
 } from '@heroicons/react/24/outline';
 import { type OpenActionModule, OpenActionModuleType } from '@hey/lens';
@@ -22,7 +22,7 @@ const GetOpenActionModuleIcon: FC<GetOpenActionModuleIconProps> = ({
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return <UserGroupIcon className={cn('h-5 w-5', className)} />;
     default:
-      return <RectangleStackIcon className={cn('h-5 w-5', className)} />;
+      return <BriefcaseIcon className={cn('h-5 w-5', className)} />;
   }
 };
 
