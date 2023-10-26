@@ -5,7 +5,6 @@ import sanitizeDisplayName from './sanitizeDisplayName';
 const getProfile = (
   profile: Profile | null
 ): {
-  prefix: '@' | '#';
   slug: string;
   slugWithPrefix: string;
   displayName: string;
@@ -13,7 +12,6 @@ const getProfile = (
 } => {
   if (!profile) {
     return {
-      prefix: '@',
       slug: '...',
       slugWithPrefix: '...',
       displayName: '...',
@@ -25,7 +23,6 @@ const getProfile = (
   const slug = profile.handle?.localName || profile.id;
 
   return {
-    prefix,
     slug,
     slugWithPrefix: `${prefix}${slug}`,
     displayName: sanitizeDisplayName(profile.metadata?.displayName) || slug,
