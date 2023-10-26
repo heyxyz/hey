@@ -107,6 +107,10 @@ const FollowModule: FC<FollowModuleProps> = ({
 
   const followModule = data?.profile?.followModule as FeeFollowModuleSettings;
 
+  const amount = parseFloat(followModule?.amount?.value || '0');
+  const currency = followModule?.amount?.asset?.symbol;
+  const assetName = followModule?.amount?.asset?.name;
+
   const { data: allowanceData, loading: allowanceLoading } =
     useApprovedModuleAllowanceAmountQuery({
       variables: {
@@ -119,9 +123,10 @@ const FollowModule: FC<FollowModuleProps> = ({
       },
       skip: !followModule?.amount?.asset?.contract.address || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(
-          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        const allowedAmount = parseFloat(
+          approvedModuleAllowanceAmount[0]?.allowance.value
         );
+        setAllowed(allowedAmount > amount);
       }
     });
 
@@ -133,10 +138,7 @@ const FollowModule: FC<FollowModuleProps> = ({
   });
   let hasAmount = false;
 
-  if (
-    balanceData &&
-    parseFloat(balanceData?.formatted) < parseFloat(followModule?.amount?.value)
-  ) {
+  if (balanceData && parseFloat(balanceData?.formatted) < amount) {
     hasAmount = false;
   } else {
     hasAmount = true;
@@ -212,10 +214,6 @@ const FollowModule: FC<FollowModuleProps> = ({
   if (loading) {
     return <Loader message="Loading Super follow" />;
   }
-
-  const amount = parseFloat(followModule?.amount?.value || '0');
-  const currency = followModule?.amount?.asset?.symbol;
-  const assetName = followModule?.amount?.asset?.name;
 
   return (
     <div className="p-5">

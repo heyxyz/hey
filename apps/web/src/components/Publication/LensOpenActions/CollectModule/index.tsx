@@ -175,9 +175,10 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       },
       skip: !assetAddress || !currentProfile,
       onCompleted: ({ approvedModuleAllowanceAmount }) => {
-        setAllowed(
-          approvedModuleAllowanceAmount[0]?.allowance.value !== '0x00'
+        const allowedAmount = parseFloat(
+          approvedModuleAllowanceAmount[0]?.allowance.value
         );
+        setAllowed(allowedAmount > amount);
       }
     });
 

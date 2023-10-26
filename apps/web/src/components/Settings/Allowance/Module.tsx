@@ -13,7 +13,9 @@ interface ModuleProps {
 }
 
 const Module: FC<ModuleProps> = ({ module }) => {
-  const [allowed, setAllowed] = useState(module?.allowance.value !== '0x00');
+  const [allowed, setAllowed] = useState(
+    parseFloat(module?.allowance.value) > 0
+  );
 
   return (
     <Card
