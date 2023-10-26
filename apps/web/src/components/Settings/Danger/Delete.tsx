@@ -16,7 +16,6 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
 import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
@@ -27,7 +26,6 @@ const DeleteSettings: FC = () => {
   const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const disconnectXmtp = useDisconnectXmtp();
   const { disconnect } = useDisconnect();
   const handleWrongNetwork = useHandleWrongNetwork();
 
@@ -35,7 +33,6 @@ const DeleteSettings: FC = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
     setCurrentProfile(null);
     setProfileId(null);
-    disconnectXmtp();
     resetAuthData();
     disconnect?.();
     location.href = '/';
