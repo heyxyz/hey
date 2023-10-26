@@ -109,6 +109,13 @@ export const EXPLORE = {
   SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
 };
 
+export const MESSAGES = {
+  SEND: 'Send message',
+  OPEN_NEW_CONVERSATION: 'Open new conversation modal',
+  SWITCH_INBOX_TAB: 'Switch DM inbox tab',
+  SWITCH_FOLLOWING_TAB: 'Switch DM following tab'
+};
+
 export const SETTINGS = {
   ACCOUNT: {
     SET_DEFAULT_PROFILE: 'Set default profile',
@@ -211,6 +218,7 @@ export enum FollowUnfollowSource {
   FOLLOWING_MODAL = 'following_modal',
   MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
   PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
+  DIRECT_MESSAGE_HEADER = 'direct_message_header',
   PROFILE_PAGE = 'profile_page',
   PROFILE_POPOVER = 'profile_popover'
 }
@@ -223,6 +231,7 @@ export const ALL_EVENTS = {
   ...NOTIFICATION,
   ...HOME,
   ...EXPLORE,
+  ...MESSAGES,
   ...SETTINGS,
   ...INVITE,
   ...GARDENER,

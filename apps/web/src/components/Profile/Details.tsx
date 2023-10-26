@@ -1,3 +1,4 @@
+import Message from '@components/Profile/Message';
 import Markup from '@components/Shared/Markup';
 import Follow from '@components/Shared/Profile/Follow';
 import Unfollow from '@components/Shared/Profile/Unfollow';
@@ -30,12 +31,16 @@ import getProfile from '@hey/lib/getProfile';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import hasMisused from '@hey/lib/hasMisused';
 import { Button, Image, LightBox, Modal, Tooltip } from '@hey/ui';
+import buildConversationId from '@lib/buildConversationId';
+import { buildConversationKey } from '@lib/conversationKey';
 import isVerified from '@lib/isVerified';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
+import { useMessageDb } from 'src/hooks/useMessageDb';
 import { useAppStore } from 'src/store/useAppStore';
+import { useMessageStore } from 'src/store/useMessageStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import urlcat from 'urlcat';
 
@@ -55,12 +60,30 @@ interface DetailsProps {
 
 const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const isStaff = usePreferencesStore((state) => state.isStaff);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
   const [expandedImage, setExpandedImage] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
+
+  const { persistProfile } = useMessageDb();
+
+  const onMessageClick = () => {
+    if (!currentProfile) {
+      return;
+    }
+    const conversationId = buildConversationId(currentProfile.id, profile.id);
+    const conversationKey = buildConversationKey(
+      profile.ownedBy.address,
+      conversationId
+    );
+    persistProfile(conversationKey, profile);
+    setConversationKey(conversationKey);
+  };
 
   const MetaDetails = ({
     children,
@@ -177,6 +200,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               />
             )
           ) : null}
+          {currentProfile ? <Message onClick={onMessageClick} /> : null}
           <ProfileMenu profile={profile} />
         </div>
         {currentProfile?.id !== profile.id ? (
