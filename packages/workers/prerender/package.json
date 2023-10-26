@@ -12,7 +12,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231016.0",
+    "@cloudflare/workers-types": "^4.20231025.0",
     "@hey/config": "workspace:*",
     "typescript": "^5.2.2",
     "wrangler": "^3.14.0"

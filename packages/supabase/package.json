@@ -12,7 +12,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.38.2"
+    "@supabase/supabase-js": "^2.38.3"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",
