@@ -1,12 +1,14 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
 import {
   Card,
+  EmptyState,
   ErrorMessage,
   GridItemEight,
   GridItemFour,
@@ -36,6 +38,8 @@ const BlockedSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
+  const whoHaveBlocked = data?.whoHaveBlocked?.items || [];
+
   return (
     <GridLayout>
       <MetaTags title={`Blocked profiles • ${APP_NAME}`} />
@@ -60,8 +64,14 @@ const BlockedSettings: NextPage = () => {
             </div>
           ) : error ? (
             <ErrorMessage className="m-5" error={error} />
+          ) : whoHaveBlocked.length < 1 ? (
+            <EmptyState
+              message="You are not blocking any profiles!"
+              icon={<NoSymbolIcon className="text-brand h-8 w-8" />}
+              hideCard
+            />
           ) : (
-            <List profiles={data?.whoHaveBlocked?.items as Profile[]} />
+            <List profiles={whoHaveBlocked as Profile[]} />
           )}
         </Card>
       </GridItemEight>

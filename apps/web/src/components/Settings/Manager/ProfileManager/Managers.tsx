@@ -1,6 +1,6 @@
 import Loader from '@components/Shared/Loader';
 import WalletProfile from '@components/Shared/WalletProfile';
-import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
@@ -12,7 +12,7 @@ import {
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
-import { Button, ErrorMessage, Spinner } from '@hey/ui';
+import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
@@ -121,6 +121,8 @@ const Managers: FC = () => {
     }
   };
 
+  const profileManagers = data?.profileManagers.items || [];
+
   return (
     <div className="space-y-3 pt-2">
       <div>
@@ -133,8 +135,14 @@ const Managers: FC = () => {
             <Loader />
           ) : error ? (
             <ErrorMessage error={error} />
+          ) : profileManagers.length < 1 ? (
+            <EmptyState
+              message="No profile managers added!"
+              icon={<UserCircleIcon className="text-brand h-8 w-8" />}
+              hideCard
+            />
           ) : (
-            data?.profileManagers.items.map((manager) => (
+            profileManagers.map((manager) => (
               <div
                 key={manager.address}
                 className="flex items-center justify-between"

@@ -1,11 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { QueueListIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
 import {
   Card,
+  EmptyState,
   ErrorMessage,
   GridItemEight,
   GridItemFour,
@@ -35,6 +37,8 @@ const ActionsSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
+  const profileActionHistory = data?.profileActionHistory?.items || [];
+
   return (
     <GridLayout>
       <MetaTags title={`Action History • ${APP_NAME}`} />
@@ -56,8 +60,14 @@ const ActionsSettings: NextPage = () => {
             </div>
           ) : error ? (
             <ErrorMessage className="m-5" error={error} />
+          ) : profileActionHistory.length < 1 ? (
+            <EmptyState
+              message="You have no actions on your account!"
+              icon={<QueueListIcon className="text-brand h-8 w-8" />}
+              hideCard
+            />
           ) : (
-            <Actions actions={data?.profileActionHistory?.items} />
+            <Actions actions={profileActionHistory} />
           )}
         </Card>
       </GridItemEight>

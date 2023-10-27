@@ -1,11 +1,13 @@
 import MetaTags from '@components/Common/MetaTags';
 import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { LimitType, useApprovedAuthenticationsQuery } from '@hey/lens';
 import {
   Card,
+  EmptyState,
   ErrorMessage,
   GridItemEight,
   GridItemFour,
@@ -35,6 +37,8 @@ const SessionsSettings: NextPage = () => {
     return <NotLoggedIn />;
   }
 
+  const approvedAuthentications = data?.approvedAuthentications?.items || [];
+
   return (
     <GridLayout>
       <MetaTags title={`Sessions settings • ${APP_NAME}`} />
@@ -59,8 +63,14 @@ const SessionsSettings: NextPage = () => {
             </div>
           ) : error ? (
             <ErrorMessage className="m-5" error={error} />
+          ) : approvedAuthentications.length < 1 ? (
+            <EmptyState
+              message="You are not logged in on any other devices!"
+              icon={<GlobeAltIcon className="text-brand h-8 w-8" />}
+              hideCard
+            />
           ) : (
-            <Sessions sessions={data?.approvedAuthentications?.items} />
+            <Sessions sessions={approvedAuthentications} />
           )}
         </Card>
       </GridItemEight>
