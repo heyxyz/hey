@@ -11,7 +11,7 @@ export default async (request: WorkerRequest) => {
       {
         method: 'POST',
         headers: {
-          Authorization: `Basic ${request.env.LENS_IPFS_AUTH_LEY}`,
+          Authorization: `Basic ${request.env.LENS_IPFS_AUTH_KEY}`,
           'X-App': 'hey.xyz'
         }
       }
