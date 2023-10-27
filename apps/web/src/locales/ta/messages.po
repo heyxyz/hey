@@ -1642,6 +1642,10 @@ msgid "Next"
 msgstr "அடுத்தது"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#~ msgid "Rearrrange"
+#~ msgstr "மறுசீரமைக்கவும்"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
 msgstr "கேலரி நீக்கப்பட்டது"
 
@@ -1654,8 +1658,8 @@ msgid "Edit"
 msgstr "திருத்து"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Rearrrange"
-msgstr "மறுசீரமைக்கவும்"
+msgid "Rearrange"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"

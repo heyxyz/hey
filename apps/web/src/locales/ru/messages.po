@@ -1642,6 +1642,10 @@ msgid "Next"
 msgstr "Далее"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
+#~ msgid "Rearrrange"
+#~ msgstr "Переставить"
+
+#: src/components/Profile/NftGallery/Gallery.tsx
 msgid "Gallery deleted"
 msgstr "Галерея удалена"
 
@@ -1654,8 +1658,8 @@ msgid "Edit"
 msgstr "Редактировать"
 
 #: src/components/Profile/NftGallery/Gallery.tsx
-msgid "Rearrrange"
-msgstr "Переставить"
+msgid "Rearrange"
+msgstr ""
 
 #: src/components/Profile/NftGallery/NoGallery.tsx
 msgid "Welcome to your gallery"

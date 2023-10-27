@@ -212,7 +212,7 @@ const Gallery: FC<GalleryProps> = ({ galleries }) => {
                   <div className="flex items-center space-x-2">
                     <ArrowsPointingOutIcon className="h-4 w-4" />
                     <div>
-                      <Trans>Rearrrange</Trans>
+                      <Trans>Rearrange</Trans>
                     </div>
                   </div>
                 </Menu.Item>
