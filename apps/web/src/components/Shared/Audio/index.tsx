@@ -97,9 +97,9 @@ const Audio: FC<AudioProps> = ({
               </button>
               <div className="w-full truncate pr-3">
                 {isNew ? (
-                  <div className="flex w-full flex-col">
+                  <div className="flex w-full flex-col space-y-1">
                     <input
-                      className="border-none bg-transparent text-lg text-white outline-none placeholder:text-white"
+                      className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
                       placeholder="Add title"
                       name="title"
                       value={audioPublication.title}
@@ -107,7 +107,7 @@ const Audio: FC<AudioProps> = ({
                       onChange={handleChange}
                     />
                     <input
-                      className="border-none bg-transparent text-white/70 outline-none placeholder:text-white/70"
+                      className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
                       placeholder="Add artist"
                       name="artist"
                       value={audioPublication.artist}

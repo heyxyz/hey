@@ -101,7 +101,7 @@ const SwitchProfiles: FC = () => {
       Leafwatch.track(PROFILE.SWITCH_PROFILE, {
         switch_profile_to: switchedProfile?.id
       });
-      setShowProfileSwitchModal(false);
+      location.reload();
     } catch {
     } finally {
       setIsLoading(false);
