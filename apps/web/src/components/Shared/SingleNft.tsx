@@ -1,4 +1,4 @@
-import { RARIBLE_URL, STATIC_IMAGES_URL } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE, RARIBLE_URL } from '@hey/data/constants';
 import type { Nft } from '@hey/lens';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import { Card } from '@hey/ui';
@@ -28,7 +28,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
             {nft?.metadata?.animationUrl?.includes('.gltf') ? (
               <div
                 style={{
-                  backgroundImage: `url(${`${STATIC_IMAGES_URL}/placeholder.webp`})`,
+                  backgroundImage: `url(${`${PLACEHOLDER_IMAGE}`})`,
                   backgroundSize: 'contain',
                   backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat'
@@ -50,7 +50,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
               backgroundImage: `url(${
                 nft.metadata.image?.optimized?.uri
                   ? sanitizeDStorageUrl(nft.metadata.image.optimized.uri)
-                  : `${STATIC_IMAGES_URL}/placeholder.webp`
+                  : PLACEHOLDER_IMAGE
               })`,
               backgroundSize: 'contain',
               backgroundPosition: 'center center',
