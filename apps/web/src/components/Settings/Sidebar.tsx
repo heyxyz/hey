@@ -17,9 +17,12 @@ import {
 import type { Profile } from '@hey/lens';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
+import { useAccount } from 'wagmi';
 
 const SettingsSidebar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const { address } = useAccount();
+  const enabled = currentProfile?.ownedBy.address === address;
 
   return (
     <div className="mb-4 space-y-1.5 px-3 sm:px-0">
@@ -54,7 +57,8 @@ const SettingsSidebar: FC = () => {
           {
             title: 'Manager',
             icon: <FingerPrintIcon className="h-4 w-4" />,
-            url: '/settings/manager'
+            url: '/settings/manager',
+            enabled
           },
           {
             title: 'Allowance',
@@ -89,7 +93,8 @@ const SettingsSidebar: FC = () => {
           {
             title: <div className="text-red-500">Danger zone</div>,
             icon: <ExclamationTriangleIcon className="h-4 w-4 text-red-500" />,
-            url: '/settings/danger'
+            url: '/settings/danger',
+            enabled
           }
         ]}
       />
