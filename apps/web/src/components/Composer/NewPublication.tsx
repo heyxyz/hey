@@ -628,15 +628,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (showPollEditor) {
         processedPublicationContent = await createPoll();
       }
-
+      const title = hasAudio
+        ? audioPublication.title
+        : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
       const baseMetadata = {
+        title,
         content: processedPublicationContent,
         marketplace: {
-          name: hasAudio
-            ? audioPublication.title
-            : `${getTitlePrefix()} by ${
-                getProfile(currentProfile).slugWithPrefix
-              }`,
+          name: title,
           description: processedPublicationContent,
           animation_url: getAnimationUrl() || textNftImageUrl,
           external_url: `https://hey.xyz${getProfile(currentProfile).link}`
