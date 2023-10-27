@@ -135,14 +135,11 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
         </div>
       )}
       {displayDecision === 'displayVideoAsset' && (
-        <Video
-          src={asset?.uri || processedAttachments[0].uri}
-          poster={asset?.cover}
-        />
+        <Video src={asset?.uri as string} poster={asset?.cover} />
       )}
       {displayDecision === 'displayAudioAsset' && (
         <Audio
-          src={asset?.uri || processedAttachments[0].uri}
+          src={asset?.uri as string}
           poster={asset?.cover as string}
           artist={asset?.artist}
           title={asset?.title}

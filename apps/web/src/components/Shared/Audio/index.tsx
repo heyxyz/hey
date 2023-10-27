@@ -37,6 +37,7 @@ const Audio: FC<AudioProps> = ({
   publication,
   expandCover
 }) => {
+  const [newPreviewUri, setNewPreviewUri] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const audioPublication = usePublicationStore(
     (state) => state.audioPublication
@@ -78,13 +79,14 @@ const Audio: FC<AudioProps> = ({
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew}
-          cover={poster}
-          setCover={(url) =>
+          cover={isNew ? (newPreviewUri as string) : poster}
+          setCover={(previewUri, url) => {
+            setNewPreviewUri(previewUri);
             setAudioPublication({
               ...audioPublication,
               cover: url
-            })
-          }
+            });
+          }}
           imageRef={imageRef}
           expandCover={expandCover}
         />

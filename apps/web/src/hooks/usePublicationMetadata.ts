@@ -109,7 +109,8 @@ const usePublicationMetadata = () => {
             audio: {
               item: attachments[0]?.uri,
               type: attachments[0]?.mimeType,
-              artist: audioPublication.artist
+              artist: audioPublication.artist,
+              cover: audioPublication.cover
             },
             attachments: attachmentsToBeUploaded
           });

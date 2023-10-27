@@ -53,6 +53,7 @@ export const IPFS_GATEWAY = 'https://ipfs.4everland.io/ipfs/';
 export const ARWEAVE_GATEWAY = 'https://arweave.net/';
 export const EVER_API = 'https://endpoint.4everland.co';
 export const DEFAULT_OG = `${STATIC_IMAGES_URL}/og/logo.jpeg`;
+export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 
 // Workers
 export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
