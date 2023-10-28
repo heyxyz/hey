@@ -1,26 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
-import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { NoSymbolIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
-import { LimitType, useWhoHaveBlockedQuery } from '@hey/lens';
-import {
-  Card,
-  EmptyState,
-  ErrorMessage,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import List from './List';
+import Blocked from './Blocked';
 
 const BlockedSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -29,16 +18,9 @@ const BlockedSettings: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'blocked' });
   });
 
-  const { data, loading, error } = useWhoHaveBlockedQuery({
-    variables: { request: { limit: LimitType.Fifty } },
-    skip: !currentProfile?.id
-  });
-
   if (!currentProfile) {
     return <NotLoggedIn />;
   }
-
-  const whoHaveBlocked = data?.whoHaveBlocked?.items || [];
 
   return (
     <GridLayout>
@@ -47,32 +29,16 @@ const BlockedSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <div className="mx-5 mt-5">
-            <div className="space-y-3">
-              <div className="text-lg font-bold">Blocked profiles</div>
-              <p>
-                This is a list of blocked profiles. You can unblock them at any
-                time.
-              </p>
-            </div>
-            <div className="divider my-5" />
+        <Card className="p-5">
+          <div className="space-y-3">
+            <div className="text-lg font-bold">Blocked profiles</div>
+            <p>
+              This is a list of blocked profiles. You can unblock them at any
+              time.
+            </p>
           </div>
-          {loading ? (
-            <div className="py-5">
-              <Loader />
-            </div>
-          ) : error ? (
-            <ErrorMessage className="m-5" error={error} />
-          ) : whoHaveBlocked.length < 1 ? (
-            <EmptyState
-              message="You are not blocking any profiles!"
-              icon={<NoSymbolIcon className="text-brand h-8 w-8" />}
-              hideCard
-            />
-          ) : (
-            <List profiles={whoHaveBlocked as Profile[]} />
-          )}
+          <div className="divider my-5" />
+          <Blocked />
         </Card>
       </GridItemEight>
     </GridLayout>

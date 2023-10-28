@@ -8,12 +8,13 @@ import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
 import Link from 'next/link';
 import type { FC } from 'react';
+import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 
 const Actions: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
+  const request: ProfileActionHistoryRequest = { limit: LimitType.Fifty };
   const { data, loading, error, fetchMore } = useProfileActionHistoryQuery({
     variables: { request },
     skip: !currentProfile?.id
@@ -23,15 +24,17 @@ const Actions: FC = () => {
   const pageInfo = data?.profileActionHistory?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const onEndReached = async () => {
-    if (!hasMore) {
-      return;
-    }
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
 
-    return await fetchMore({
-      variables: { request: { ...request, cursor: pageInfo?.next } }
-    });
-  };
+      return await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+    }
+  });
 
   if (loading) {
     return (
@@ -90,6 +93,7 @@ const Actions: FC = () => {
           </div>
         </Card>
       ))}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };
