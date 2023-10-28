@@ -11,7 +11,7 @@ import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 
-const Actions: FC = () => {
+const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const request: ProfileActionHistoryRequest = { limit: LimitType.Fifty };
@@ -98,4 +98,4 @@ const Actions: FC = () => {
   );
 };
 
-export default Actions;
+export default List;

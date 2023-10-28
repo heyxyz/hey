@@ -8,7 +8,7 @@ import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useAppStore } from 'src/store/useAppStore';
 
-const Blocked: FC = () => {
+const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty };
@@ -67,4 +67,4 @@ const Blocked: FC = () => {
   );
 };
 
-export default Blocked;
+export default List;

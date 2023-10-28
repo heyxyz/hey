@@ -9,7 +9,7 @@ import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Blocked from './Blocked';
+import List from './List';
 
 const BlockedSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -38,7 +38,7 @@ const BlockedSettings: NextPage = () => {
             </p>
           </div>
           <div className="divider my-5" />
-          <Blocked />
+          <List />
         </Card>
       </GridItemEight>
     </GridLayout>

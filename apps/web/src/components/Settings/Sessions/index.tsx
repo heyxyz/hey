@@ -9,7 +9,7 @@ import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Sessions from './Sessions';
+import List from './List';
 
 const SessionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -38,7 +38,7 @@ const SessionsSettings: NextPage = () => {
             </p>
           </div>
           <div className="divider my-5" />
-          <Sessions />
+          <List />
         </Card>
       </GridItemEight>
     </GridLayout>

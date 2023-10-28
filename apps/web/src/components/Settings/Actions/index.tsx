@@ -9,7 +9,7 @@ import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
-import Actions from './Actions';
+import List from './List';
 
 const ActionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -35,7 +35,7 @@ const ActionsSettings: NextPage = () => {
             <p>This is a list of actions on your account.</p>
           </div>
           <div className="divider my-5" />
-          <Actions />
+          <List />
         </Card>
       </GridItemEight>
     </GridLayout>

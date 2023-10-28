@@ -19,7 +19,7 @@ import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
 
-const Sessions: FC = () => {
+const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   const [revoking, setRevoking] = useState(false);
@@ -165,4 +165,4 @@ const Sessions: FC = () => {
   );
 };
 
-export default Sessions;
+export default List;
