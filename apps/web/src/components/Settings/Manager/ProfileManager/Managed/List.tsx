@@ -55,7 +55,7 @@ const List: FC = () => {
   }
 
   return (
-    <div className="space-y-4 pt-2">
+    <div className="space-y-4">
       {profilesManaged?.map((profile) => (
         <div key={profile.id}>
           <UserProfile profile={profile as Profile} />

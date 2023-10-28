@@ -163,7 +163,7 @@ const List: FC = () => {
   }
 
   return (
-    <div className="space-y-4 pt-2">
+    <div className="space-y-4">
       {profileManagers?.map((manager) => (
         <div
           key={manager.address}
