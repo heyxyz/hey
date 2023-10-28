@@ -4,6 +4,7 @@ import { MinusCircleIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
+import type { ProfileManagersRequest } from '@hey/lens';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
@@ -16,6 +17,7 @@ import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
@@ -23,7 +25,7 @@ import { useNonceStore } from 'src/store/useNonceStore';
 import type { Address } from 'viem';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
-const Managers: FC = () => {
+const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [removingAddress, setRemovingAddress] = useState<Address | null>(null);
@@ -51,8 +53,9 @@ const Managers: FC = () => {
     setRemovingAddress(null);
   };
 
-  const { data, loading, error } = useProfileManagersQuery({
-    variables: { request: { for: currentProfile?.id } }
+  const request: ProfileManagersRequest = { for: currentProfile?.id };
+  const { data, loading, error, fetchMore } = useProfileManagersQuery({
+    variables: { request }
   });
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
@@ -121,53 +124,70 @@ const Managers: FC = () => {
     }
   };
 
-  const profileManagers = data?.profileManagers.items || [];
+  const profileManagers = data?.profileManagers.items;
+  const pageInfo = data?.profileManagers?.pageInfo;
+  const hasMore = pageInfo?.next;
+
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      return await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+    }
+  });
+
+  if (loading) {
+    return (
+      <div className="pb-5">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <ErrorMessage error={error} />;
+  }
+
+  if (profileManagers?.length === 0) {
+    return (
+      <EmptyState
+        message="No profile managers added!"
+        icon={<UserCircleIcon className="text-brand h-8 w-8" />}
+        hideCard
+      />
+    );
+  }
 
   return (
-    <div className="space-y-3 pt-2">
-      <div>
-        <div>
-          Accounts with control over your profile can act on your behalf.
+    <div className="space-y-4 pt-2">
+      {profileManagers?.map((manager) => (
+        <div
+          key={manager.address}
+          className="flex items-center justify-between"
+        >
+          <WalletProfile address={manager.address} />
+          <Button
+            icon={
+              removingAddress === manager.address ? (
+                <Spinner size="xs" />
+              ) : (
+                <MinusCircleIcon className="h-4 w-4" />
+              )
+            }
+            onClick={() => removeManager(manager.address)}
+            disabled={removingAddress === manager.address}
+          >
+            Remove
+          </Button>
         </div>
-        <div className="divider my-5" />
-        <div className="space-y-5">
-          {loading ? (
-            <Loader />
-          ) : error ? (
-            <ErrorMessage error={error} />
-          ) : profileManagers.length < 1 ? (
-            <EmptyState
-              message="No profile managers added!"
-              icon={<UserCircleIcon className="text-brand h-8 w-8" />}
-              hideCard
-            />
-          ) : (
-            profileManagers.map((manager) => (
-              <div
-                key={manager.address}
-                className="flex items-center justify-between"
-              >
-                <WalletProfile address={manager.address} />
-                <Button
-                  icon={
-                    removingAddress === manager.address ? (
-                      <Spinner size="xs" />
-                    ) : (
-                      <MinusCircleIcon className="h-4 w-4" />
-                    )
-                  }
-                  onClick={() => removeManager(manager.address)}
-                  disabled={removingAddress === manager.address}
-                >
-                  Remove
-                </Button>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+      ))}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };
 
-export default Managers;
+export default List;
