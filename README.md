@@ -51,13 +51,10 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 
 ## 📦 Environments
 
-| Name            | Link                            |
-| --------------- | ------------------------------- |
-| Mainnet         | https://hey.xyz                 |
-| Testnet         | https://testnet.hey.xyz         |
-| Staging         | https://staging.hey.xyz         |
-| Sandbox         | https://sandbox.hey.xyz         |
-| Staging Sandbox | https://staging-sandbox.hey.xyz |
+| Name    | Link                    |
+| ------- | ----------------------- |
+| Mainnet | https://hey.xyz         |
+| Testnet | https://testnet.hey.xyz |
 
 ## ✅ Community
 

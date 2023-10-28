@@ -1,9 +1,5 @@
 import { LENS_NETWORK } from '../constants';
-import {
-  MainnetContracts,
-  SandboxContracts,
-  TestnetContracts
-} from '../contracts';
+import { MainnetContracts, TestnetContracts } from '../contracts';
 import LensEndpoint from '../lens-endpoints';
 
 const getEnvConfig = (): {
@@ -19,27 +15,6 @@ const getEnvConfig = (): {
         lensHubProxyAddress: TestnetContracts.LensHubProxy,
         defaultCollectToken: TestnetContracts.DefaultToken,
         litProtocolEnvironment: 'mumbai'
-      };
-    case 'staging':
-      return {
-        apiEndpoint: LensEndpoint.Staging,
-        lensHubProxyAddress: TestnetContracts.LensHubProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        litProtocolEnvironment: 'mumbai'
-      };
-    case 'sandbox':
-      return {
-        apiEndpoint: LensEndpoint.Sandbox,
-        lensHubProxyAddress: SandboxContracts.LensHubProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        litProtocolEnvironment: 'mumbai-sandbox'
-      };
-    case 'staging-sandbox':
-      return {
-        apiEndpoint: LensEndpoint.StagingSandbox,
-        lensHubProxyAddress: SandboxContracts.LensHubProxy,
-        defaultCollectToken: TestnetContracts.DefaultToken,
-        litProtocolEnvironment: 'mumbai-sandbox'
       };
     default:
       return {
