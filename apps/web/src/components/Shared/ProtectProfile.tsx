@@ -14,6 +14,7 @@ import { Leafwatch } from '@lib/leafwatch';
 import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
 import { useContractWrite } from 'wagmi';
 
@@ -21,6 +22,8 @@ import CountdownTimer from './CountdownTimer';
 import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
+  const handleWrongNetwork = useHandleWrongNetwork();
+
   const profileGuardianInformation = useProfileGuardianInformationStore(
     (state) => state.profileGuardianInformation
   );
@@ -94,7 +97,13 @@ const ProtectProfile: FC = () => {
                   <LockClosedIcon className="h-5 w-5" />
                 )
               }
-              onClick={() => write()}
+              onClick={() => {
+                if (handleWrongNetwork()) {
+                  return;
+                }
+
+                write();
+              }}
             >
               <Trans>Protect now</Trans>
             </Button>
