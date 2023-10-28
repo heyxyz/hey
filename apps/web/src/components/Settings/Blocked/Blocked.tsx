@@ -17,7 +17,7 @@ const Blocked: FC = () => {
     skip: !currentProfile?.id
   });
 
-  const whoHaveBlocked = data?.whoHaveBlocked?.items || [];
+  const whoHaveBlocked = data?.whoHaveBlocked?.items;
   const pageInfo = data?.whoHaveBlocked?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -45,7 +45,7 @@ const Blocked: FC = () => {
     return <ErrorMessage error={error} />;
   }
 
-  if (whoHaveBlocked.length === 0) {
+  if (whoHaveBlocked?.length === 0) {
     return (
       <EmptyState
         message="You are not blocking any profiles!"
@@ -57,7 +57,7 @@ const Blocked: FC = () => {
 
   return (
     <div className="space-y-4">
-      {whoHaveBlocked.map((profile) => (
+      {whoHaveBlocked?.map((profile) => (
         <div key={profile.id}>
           <UserProfile profile={profile as Profile} />
         </div>

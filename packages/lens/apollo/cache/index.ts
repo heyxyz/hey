@@ -3,7 +3,7 @@ import { InMemoryCache } from '@apollo/client';
 import result from '../../generated';
 import { profilesManagedKeyFields } from '../lib/keyFields';
 import createActedOnPublicationFieldPolicy from './createActedOnPublicationFieldPolicy';
-import createApprovedAuthenticationFieldPolicy from './createApprovedAuthenticationFieldPolicy';
+import createApprovedAuthenticationsFieldPolicy from './createApprovedAuthenticationsFieldPolicy';
 import createExplorePublicationsFieldPolicy from './createExplorePublicationsFieldPolicy';
 import createFeedFieldPolicy from './createFeedFieldPolicy';
 import createFeedHighlightsFieldPolicy from './createFeedHighlightsFieldPolicy';
@@ -42,7 +42,7 @@ const cache = new InMemoryCache({
         whoActedOnPublication: createActedOnPublicationFieldPolicy(),
         whoHaveBlocked: createWhoHaveBlockedFieldPolicy(),
         mutualFollowersProfiles: createMutualFollowersProfilesFieldPolicy(),
-        approvedAuthentication: createApprovedAuthenticationFieldPolicy(),
+        approvedAuthentications: createApprovedAuthenticationsFieldPolicy(),
         profileActionHistory: createProfileActionHistoryFieldPolicy(),
         profileManagers: createProfileManagersFieldPolicy(),
         profilesManaged: createProfilesManagedFieldPolicy()

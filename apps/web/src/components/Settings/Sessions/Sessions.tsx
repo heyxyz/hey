@@ -1,8 +1,13 @@
-import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import Loader from '@components/Shared/Loader';
+import { ComputerDesktopIcon, GlobeAltIcon } from '@heroicons/react/24/outline';
 import { SETTINGS } from '@hey/data/tracking';
-import type { ApprovedAuthentication } from '@hey/lens';
-import { useRevokeAuthenticationMutation } from '@hey/lens';
-import { Button, Card } from '@hey/ui';
+import type { ApprovedAuthenticationRequest } from '@hey/lens';
+import {
+  LimitType,
+  useApprovedAuthenticationsQuery,
+  useRevokeAuthenticationMutation
+} from '@hey/lens';
+import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
@@ -10,13 +15,13 @@ import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 import toast from 'react-hot-toast';
+import { useAppStore } from 'src/store/useAppStore';
 
-interface SessionsProps {
-  sessions?: ApprovedAuthentication[];
-}
+const Sessions: FC = () => {
+  const currentProfile = useAppStore((state) => state.currentProfile);
 
-const Sessions: FC<SessionsProps> = ({ sessions }) => {
   const [revoking, setRevoking] = useState(false);
   const [revokeingSessionId, setRevokeingSessionId] = useState<string | null>(
     null
@@ -43,10 +48,6 @@ const Sessions: FC<SessionsProps> = ({ sessions }) => {
     }
   });
 
-  if (!sessions) {
-    return null;
-  }
-
   const revoke = async (authorizationId: string) => {
     try {
       setRevoking(true);
@@ -60,9 +61,53 @@ const Sessions: FC<SessionsProps> = ({ sessions }) => {
     }
   };
 
+  const request: ApprovedAuthenticationRequest = { limit: LimitType.Ten };
+  const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
+    variables: { request },
+    skip: !currentProfile?.id
+  });
+
+  const approvedAuthentications = data?.approvedAuthentications?.items;
+  const pageInfo = data?.approvedAuthentications?.pageInfo;
+  const hasMore = pageInfo?.next;
+
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView || !hasMore) {
+        return;
+      }
+
+      return await fetchMore({
+        variables: { request: { ...request, cursor: pageInfo?.next } }
+      });
+    }
+  });
+
+  if (loading) {
+    return (
+      <div className="pb-5">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <ErrorMessage error={error} />;
+  }
+
+  if (approvedAuthentications?.length === 0) {
+    return (
+      <EmptyState
+        message="You are not logged in on any other devices!"
+        icon={<GlobeAltIcon className="text-brand h-8 w-8" />}
+        hideCard
+      />
+    );
+  }
+
   return (
-    <div className="space-y-4 px-5 pb-5">
-      {sessions?.map((session) => {
+    <div className="space-y-4">
+      {approvedAuthentications?.map((session) => {
         const currentSession =
           session.authorizationId === getCurrentSessionId();
 
@@ -115,6 +160,7 @@ const Sessions: FC<SessionsProps> = ({ sessions }) => {
           </Card>
         );
       })}
+      {hasMore ? <span ref={observe} /> : null}
     </div>
   );
 };
