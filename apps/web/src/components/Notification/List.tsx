@@ -78,7 +78,7 @@ const List: FC<ListProps> = ({ feedType }) => {
       return;
     }
 
-    await fetchMore({
+    return await fetchMore({
       variables: { request: { ...request, cursor: pageInfo?.next } }
     });
   };
