@@ -7,6 +7,7 @@ import {
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@hey/abis';
 import { APP_NAME, REWARDS_ADDRESS } from '@hey/data/constants';
+import { ZORA_FIXED_PRICE_SALE_STRATEGY } from '@hey/data/contracts';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
 import type { ZoraNft } from '@hey/types/nft';
@@ -28,7 +29,6 @@ import {
 
 import { useZoraMintStore } from '.';
 
-const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182';
 const NO_BALANCE_ERROR = 'exceeds the balance of the account';
 const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress';
 const SALE_INACTIVE_ERROR = 'Sale_Inactive';
@@ -67,7 +67,7 @@ const MintAction: FC<MintActionProps> = ({
     nft.contractStandard === 'ERC721'
       ? [recipient, BigInt(quantity), comment, mintReferral]
       : [
-          FIXED_PRICE_SALE_STRATEGY,
+          ZORA_FIXED_PRICE_SALE_STRATEGY,
           parseInt(nft.tokenId),
           BigInt(quantity),
           encodeAbiParameters(parseAbiParameters('address'), [recipient]),
