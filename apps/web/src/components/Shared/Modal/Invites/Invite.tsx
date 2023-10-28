@@ -3,6 +3,7 @@ import { Regex } from '@hey/data/regex';
 import { INVITE } from '@hey/data/tracking';
 import { useInviteMutation } from '@hey/lens';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
@@ -28,29 +29,32 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
     schema: inviteSchema
   });
 
-  const [inviteAddress] = useInviteMutation();
+  const onError = (error: any) => {
+    setInviting(false);
+    errorToast(error);
+  };
+
+  const [inviteAddress] = useInviteMutation({
+    onCompleted: async () => {
+      await refetch();
+      form.reset();
+      setInviting(false);
+      Leafwatch.track(INVITE.INVITE);
+
+      return toast.success('Invited successfully!');
+    },
+    onError
+  });
 
   const invite = async (address: string) => {
     try {
       setInviting(true);
 
-      const { errors } = await inviteAddress({
+      return await inviteAddress({
         variables: { request: { invites: [address] } }
       });
-
-      if (!errors) {
-        await refetch();
-        form.reset();
-        Leafwatch.track(INVITE.INVITE);
-
-        return toast.success('Invited successfully!');
-      }
-
-      return toast.error('Address already invited!');
-    } catch {
-      return toast.error('Failed to invite!');
-    } finally {
-      setInviting(false);
+    } catch (error) {
+      onError(error);
     }
   };
 
