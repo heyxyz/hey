@@ -1,18 +1,8 @@
 import MetaTags from '@components/Common/MetaTags';
-import Loader from '@components/Shared/Loader';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
-import { QueueListIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
-import { LimitType, useProfileActionHistoryQuery } from '@hey/lens';
-import {
-  Card,
-  EmptyState,
-  ErrorMessage,
-  GridItemEight,
-  GridItemFour,
-  GridLayout
-} from '@hey/ui';
+import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useAppStore } from 'src/store/useAppStore';
@@ -25,19 +15,12 @@ const ActionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'sessions' });
-  });
-
-  const { data, loading, error } = useProfileActionHistoryQuery({
-    variables: { request: { limit: LimitType.Fifty } },
-    skip: !currentProfile?.id
+    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'actions' });
   });
 
   if (!currentProfile) {
     return <NotLoggedIn />;
   }
-
-  const profileActionHistory = data?.profileActionHistory?.items || [];
 
   return (
     <GridLayout>
@@ -46,29 +29,13 @@ const ActionsSettings: NextPage = () => {
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
-        <Card>
-          <div className="mx-5 mt-5">
-            <div className="space-y-3">
-              <div className="text-lg font-bold">Actions</div>
-              <p>This is a list of actions on your account.</p>
-            </div>
-            <div className="divider my-5" />
+        <Card className="p-5">
+          <div className="space-y-3">
+            <div className="text-lg font-bold">Actions</div>
+            <p>This is a list of actions on your account.</p>
           </div>
-          {loading ? (
-            <div className="py-5">
-              <Loader />
-            </div>
-          ) : error ? (
-            <ErrorMessage className="m-5" error={error} />
-          ) : profileActionHistory.length < 1 ? (
-            <EmptyState
-              message="You have no actions on your account!"
-              icon={<QueueListIcon className="text-brand h-8 w-8" />}
-              hideCard
-            />
-          ) : (
-            <Actions actions={profileActionHistory} />
-          )}
+          <div className="divider my-5" />
+          <Actions />
         </Card>
       </GridItemEight>
     </GridLayout>
