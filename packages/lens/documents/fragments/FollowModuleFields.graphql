@@ -1,9 +1,6 @@
 fragment FollowModuleFields on FollowModule {
   ... on FeeFollowModuleSettings {
     type
-    contract {
-      ...NetworkAddressFields
-    }
     amount {
       ...AmountFields
       rate(request: { for: USD }) {
@@ -14,15 +11,8 @@ fragment FollowModuleFields on FollowModule {
   }
   ... on RevertFollowModuleSettings {
     type
-    contract {
-      ...NetworkAddressFields
-    }
   }
   ... on UnknownFollowModuleSettings {
     type
-    contract {
-      ...NetworkAddressFields
-    }
-    followModuleReturnData
   }
 }

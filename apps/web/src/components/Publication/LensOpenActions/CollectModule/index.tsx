@@ -35,7 +35,6 @@ import {
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
-import getPublicationData from '@hey/lib/getPublicationData';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
@@ -88,8 +87,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const filteredContent =
-    getPublicationData(targetPublication.metadata)?.content || '';
   const openActionCount = getOpenActionCountByPublicationId(
     targetPublication.id
   );

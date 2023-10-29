@@ -1,7 +1,8 @@
 const getToastOptions = (theme?: string) => ({
   style: {
     background: theme === 'dark' ? '#18181B' : '',
-    color: theme === 'dark' ? '#fff' : ''
+    color: theme === 'dark' ? '#fff' : '',
+    wordBreak: 'break-word'
   },
   success: {
     className: 'border border-green-500',

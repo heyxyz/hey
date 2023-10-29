@@ -8,7 +8,6 @@ fragment ProfileFields on Profile {
   }
   signless
   sponsor
-  txHash
   createdAt
   stats {
     ...ProfileStatsFields

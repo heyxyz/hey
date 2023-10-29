@@ -1,5 +1,4 @@
 fragment HandleInfoFields on HandleInfo {
-  id
   fullHandle
   localName
   suggestedFormatted {
