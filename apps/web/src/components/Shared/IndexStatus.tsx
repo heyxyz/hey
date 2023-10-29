@@ -13,19 +13,21 @@ import type { Address } from 'viem';
 
 interface IndexStatusProps {
   message?: string;
-  txHash: Address;
+  txHash?: Address;
+  txId?: string;
   reload?: boolean;
 }
 
 const IndexStatus: FC<IndexStatusProps> = ({
   message = 'Transaction Indexing',
   txHash,
+  txId,
   reload = false
 }) => {
   const [hide, setHide] = useState(false);
   const [pollInterval, setPollInterval] = useState(500);
   const { data, loading } = useLensTransactionStatusQuery({
-    variables: { request: { forTxHash: txHash } },
+    variables: { request: { forTxHash: txHash, forTxId: txId } },
     pollInterval,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ lensTransactionStatus }) => {

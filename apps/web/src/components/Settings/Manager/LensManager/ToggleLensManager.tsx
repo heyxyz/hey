@@ -110,13 +110,13 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     }
   };
 
-  const broadcastTxHash =
+  const broadcastTxId =
     broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' &&
-    broadcastData.broadcastOnchain.txHash;
+    broadcastData.broadcastOnchain.txId;
 
-  return writeData?.hash ?? broadcastTxHash ? (
+  return writeData?.hash || broadcastTxId ? (
     <div className="mt-2">
-      <IndexStatus txHash={writeData?.hash ?? broadcastTxHash} reload />
+      <IndexStatus txHash={writeData?.hash} txId={broadcastTxId} reload />
     </div>
   ) : (
     <Button
