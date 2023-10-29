@@ -1,8 +1,0 @@
-fragment MarketplaceMetadataFields on MarketplaceMetadata {
-  name
-  description
-  image {
-    ...ImageSetFields
-  }
-  animationUrl
-}

@@ -4,13 +4,9 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
-  sharingLink
   attachments {
     ...PublicationMetadataMediaFields
   }

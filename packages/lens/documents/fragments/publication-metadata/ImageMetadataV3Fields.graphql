@@ -4,9 +4,6 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

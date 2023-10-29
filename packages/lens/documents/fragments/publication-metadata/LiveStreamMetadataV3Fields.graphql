@@ -4,17 +4,11 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
-  startsAt
-  endsAt
   playbackURL
   liveURL
-  checkLiveAPI
   title
   content
   attachments {

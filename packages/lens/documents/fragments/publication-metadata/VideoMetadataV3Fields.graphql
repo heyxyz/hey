@@ -4,9 +4,6 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
@@ -18,5 +15,4 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   }
   title
   content
-  isShortVideo
 }

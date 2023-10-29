@@ -4,9 +4,6 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

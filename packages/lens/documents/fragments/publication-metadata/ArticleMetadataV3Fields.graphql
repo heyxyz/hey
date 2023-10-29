@@ -4,9 +4,6 @@ fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

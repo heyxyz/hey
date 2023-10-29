@@ -4,9 +4,6 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   locale
   tags
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

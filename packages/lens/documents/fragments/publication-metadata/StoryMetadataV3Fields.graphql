@@ -1,3 +1,0 @@
-fragment StoryMetadataV3Fields on StoryMetadataV3 {
-  id
-}
