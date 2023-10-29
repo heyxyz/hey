@@ -221,6 +221,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
     // Track in leafwatch
     const eventProperties = {
+      // TODO: add encrypted type in future
       publication_type: 'public',
       publication_collect_module: collectModule.type,
       publication_reference_module: selectedReferenceModule,
@@ -230,10 +231,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
           ? degreesOfSeparation
           : null,
       publication_has_attachments: attachments.length > 0,
-      publication_has_poll: showPollEditor
+      publication_has_poll: showPollEditor,
+      publication_is_live: showLiveVideoEditor,
+      comment_on: isComment ? targetPublication.id : null,
+      quote_on: isQuote ? quotedPublication?.id : null
     };
     Leafwatch.track(
-      isComment ? PUBLICATION.NEW_COMMENT : PUBLICATION.NEW_POST,
+      isComment
+        ? PUBLICATION.NEW_COMMENT
+        : isQuote
+        ? PUBLICATION.NEW_QUOTE
+        : PUBLICATION.NEW_POST,
       eventProperties
     );
   };

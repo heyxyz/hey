@@ -3,6 +3,7 @@ import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import {
+  ARWEAVE_GATEWAY,
   AVATAR,
   COVER,
   LENSHUB_PROXY,
@@ -249,7 +250,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       const id = await uploadToArweave(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: `https://arweave.net/${id}`
+        metadataURI: `${ARWEAVE_GATEWAY}/${id}`
       };
 
       if (canUseRelay && isSponsored) {

@@ -30,6 +30,7 @@ export const PROFILE = {
 export const PUBLICATION = {
   NEW_POST: 'New post',
   NEW_COMMENT: 'New comment',
+  NEW_QUOTE: 'New quote',
   LIKE: 'Like publication',
   UNLIKE: 'Unlike publication',
   MIRROR: 'Mirror publication',
