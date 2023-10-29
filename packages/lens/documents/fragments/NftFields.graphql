@@ -18,14 +18,23 @@ fragment NftFields on Nft {
   }
   metadata {
     description
+    externalURL
     name
     image {
+      raw {
+        uri
+      }
       optimized {
         uri
         mimeType
       }
     }
     animationUrl
+    attributes {
+      displayType
+      traitType
+      value
+    }
   }
   owner {
     amount

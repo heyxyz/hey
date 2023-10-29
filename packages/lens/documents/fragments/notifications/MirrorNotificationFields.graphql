@@ -1,0 +1,21 @@
+fragment MirrorNotificationFields on MirrorNotification {
+  id
+  mirrors {
+    mirrorId
+    mirroredAt
+    profile {
+      ...ProfileFields
+    }
+  }
+  publication {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+}

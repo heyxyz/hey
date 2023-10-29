@@ -1,5 +1,5 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { IPFS_GATEWAY } from '@hey/data/constants';
+import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@hey/data/constants';
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
@@ -69,6 +69,15 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
             name="IPFS TRANSACTION"
             uri={`${IPFS_GATEWAY}${hash}`}
             hash={hash}
+          />
+        ) : null}
+        {publication?.txHash ? (
+          <Meta
+            name="TRANSACTION"
+            uri={`${POLYGONSCAN_URL}/tx/${publication.txHash
+              ?.split('/')
+              .pop()}`}
+            hash={publication.txHash}
           />
         ) : null}
       </div>

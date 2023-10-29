@@ -12,8 +12,8 @@ import type { ReactNode } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
+import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
-import SyncProvider from './SyncProvider';
 import Web3Provider from './Web3Provider';
 
 const livepeerClient = createReactClient({
@@ -29,7 +29,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <ErrorBoundary>
       <Web3Provider>
         <ApolloProvider client={lensApolloWebClient}>
-          <SyncProvider />
+          <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeaturedGroupsProvider />

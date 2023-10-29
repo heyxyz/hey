@@ -1,0 +1,23 @@
+fragment NotificationFields on Notification {
+  ... on ReactionNotification {
+    ...ReactionNotificationFields
+  }
+  ... on CommentNotification {
+    ...CommentNotificationFields
+  }
+  ... on MirrorNotification {
+    ...MirrorNotificationFields
+  }
+  ... on QuoteNotification {
+    ...QuoteNotificationFields
+  }
+  ... on ActedNotification {
+    ...ActedNotificationFields
+  }
+  ... on FollowNotification {
+    ...FollowNotificationFields
+  }
+  ... on MentionNotification {
+    ...MentionNotificationFields
+  }
+}
