@@ -188,13 +188,17 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const isSponsored = currentProfile?.sponsor;
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?:
+      | 'RelayError'
+      | 'RelaySuccess'
+      | 'CreateMomokaPublicationResult'
+      | 'LensProfileManagerRelayError'
   ) => {
     if (
       __typename === 'RelayError' ||
       __typename === 'LensProfileManagerRelayError'
     ) {
-      return;
+      return toast.error(Errors.SomethingWentWrong);
     }
 
     setIsLoading(false);
@@ -304,16 +308,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   });
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: (data) => {
-      onCompleted();
-      if (data?.broadcastOnMomoka.__typename === 'RelayError') {
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'RelayError') {
         return toast.error(Errors.SomethingWentWrong);
       }
 
-      if (
-        data?.broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult'
-      ) {
-        push(`/posts/${data?.broadcastOnMomoka.id}`);
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted();
+        push(`/posts/${broadcastOnMomoka.id}`);
       }
     },
     onError
@@ -451,47 +453,35 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   // Momoka mutations
   const [postOnMomoka] = usePostOnMomokaMutation({
-    onCompleted: (data) => {
-      if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-        return;
-      }
+    onCompleted: ({ postOnMomoka }) => {
+      onCompleted(postOnMomoka.__typename);
 
-      if (data.postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        onCompleted();
-        const { id } = data.postOnMomoka;
-        push(`/posts/${id}`);
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        push(`/posts/${postOnMomoka.id}`);
       }
     },
     onError
   });
 
   const [commentOnMomoka] = useCommentOnMomokaMutation({
-    onCompleted: (data) => {
-      if (
-        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
-      ) {
-        return;
-      }
+    onCompleted: ({ commentOnMomoka }) => {
+      onCompleted(commentOnMomoka.__typename);
 
-      if (data.commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        onCompleted();
-        const { id } = data.commentOnMomoka;
-        getPublication({ variables: { request: { forId: id } } });
+      if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        getPublication({
+          variables: { request: { forId: commentOnMomoka.id } }
+        });
       }
     },
     onError
   });
 
   const [quoteOnMomoka] = useQuoteOnMomokaMutation({
-    onCompleted: (data) => {
-      if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-        return;
-      }
+    onCompleted: ({ quoteOnMomoka }) => {
+      onCompleted(quoteOnMomoka.__typename);
 
-      if (data.quoteOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        onCompleted();
-        const { id } = data.quoteOnMomoka;
-        push(`/posts/${id}`);
+      if (quoteOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        push(`/posts/${quoteOnMomoka.id}`);
       }
     },
     onError

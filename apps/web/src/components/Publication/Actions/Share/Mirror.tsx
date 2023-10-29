@@ -71,7 +71,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       __typename === 'RelayError' ||
       __typename === 'LensProfileManagerRelayError'
     ) {
-      return;
+      return toast.error(Errors.SomethingWentWrong);
     }
 
     setIsLoading(false);
