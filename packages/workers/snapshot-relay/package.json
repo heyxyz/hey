@@ -18,7 +18,7 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23",
-    "viem": "^1.17.2"
+    "viem": "^1.18.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",
