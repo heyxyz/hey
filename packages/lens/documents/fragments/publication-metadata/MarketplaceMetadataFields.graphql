@@ -1,3 +1,8 @@
 fragment MarketplaceMetadataFields on MarketplaceMetadata {
-  __typename
+  name
+  description
+  image {
+    ...ImageSetFields
+  }
+  animationUrl
 }

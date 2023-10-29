@@ -103,36 +103,6 @@ export const OPENSEA_KEY = '8b95f9e6d52b42fe8c19ddea847c0f5d';
 export const WALLETCONNECT_PROJECT_ID = 'cd542acc70c2b548030f9901a52e70c8';
 export const GIPHY_KEY = 'yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd';
 
-// Utils
-export const ALLOWED_IMAGE_TYPES = [
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif'
-];
-export const ALLOWED_AUDIO_TYPES = [
-  'audio/mpeg',
-  'audio/wav',
-  'audio/mp4',
-  'audio/aac',
-  'audio/ogg',
-  'audio/webm',
-  'audio/flac',
-  'audio/vnd.wave'
-];
-export const ALLOWED_VIDEO_TYPES = [
-  'video/mp4',
-  'video/mpeg',
-  'video/ogg',
-  'video/webm',
-  'video/quicktime'
-];
-export const ALLOWED_MEDIA_TYPES = [
-  ...ALLOWED_VIDEO_TYPES,
-  ...ALLOWED_IMAGE_TYPES,
-  ...ALLOWED_AUDIO_TYPES
-];
-
 // Named transforms for ImageKit
 export const AVATAR = 'tr:w-300,h-300';
 export const EXPANDED_AVATAR = 'tr:w-1000,h-1000';

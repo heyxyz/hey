@@ -20,23 +20,14 @@ query Nfts($request: NftsRequest!) {
       }
       metadata {
         description
-        externalURL
         name
         image {
-          raw {
-            uri
-          }
           optimized {
             uri
             mimeType
           }
         }
         animationUrl
-        attributes {
-          displayType
-          traitType
-          value
-        }
       }
       owner {
         amount

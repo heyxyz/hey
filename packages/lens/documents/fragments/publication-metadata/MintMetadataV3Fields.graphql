@@ -3,8 +3,6 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
   marketplace {
     ...MarketplaceMetadataFields

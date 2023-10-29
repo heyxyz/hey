@@ -3,8 +3,6 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
   marketplace {
     ...MarketplaceMetadataFields

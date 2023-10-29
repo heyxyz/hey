@@ -14,16 +14,16 @@ describe('getPublicationAttribute', () => {
     expect(getPublicationAttribute(undefined, 'type')).toBe('');
   });
 
-  test('should return empty string if traitType is not found in attributes', () => {
+  test('should return empty string if key is not found in attributes', () => {
     expect(getPublicationAttribute(attributes, 'title')).toBe('');
   });
 
-  test('should return the value of the matching traitType', () => {
+  test('should return the value of the matching key', () => {
     expect(getPublicationAttribute(attributes, 'author')).toBe('John Doe');
     expect(getPublicationAttribute(attributes, 'year')).toBe('2021');
   });
 
-  test('should return the first matching traitType if there are multiple matches', () => {
+  test('should return the first matching key if there are multiple matches', () => {
     const updatedAttributes = [
       ...attributes,
       { key: 'author', value: 'Jane Smith', type: MetadataAttributeType.String }

@@ -3,8 +3,6 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
   marketplace {
     ...MarketplaceMetadataFields
