@@ -342,24 +342,8 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
 
-  const requestNotificationPermission = async () => {
-    if (!('Notification' in window)) {
-      return;
-    }
-    if (Notification.permission === 'granted') {
-      toast.success('You will receive notifications!');
-      return;
-    }
-    if (Notification.permission === 'denied') {
-      toast.error('You will not receive notifications!');
-      return;
-    }
-    await Notification.requestPermission();
-  };
-
   return (
     <>
-      <button onClick={requestNotificationPermission}>gm</button>
       <Card className="p-5">
         <Form
           form={form}
