@@ -5,14 +5,6 @@ fragment ActedNotificationFields on ActedNotification {
     by {
       ...PublicationProfileFields
     }
-    action {
-      ... on KnownCollectOpenActionResult {
-        type
-      }
-      ... on UnknownOpenActionResult {
-        address
-      }
-    }
   }
   publication {
     ... on Post {

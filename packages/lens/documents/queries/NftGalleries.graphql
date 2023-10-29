@@ -7,8 +7,6 @@ query NftGalleries($request: NftGalleriesRequest!) {
       items {
         ...NftFields
       }
-      createdAt
-      updatedAt
     }
     pageInfo {
       next

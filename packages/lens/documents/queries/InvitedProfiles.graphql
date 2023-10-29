@@ -3,7 +3,7 @@ query InvitedProfiles {
     by
     when
     profileMinted {
-      ...ProfileFields
+      ...ListProfileFields
     }
   }
 }

@@ -1,7 +1,7 @@
 query Following($request: FollowingRequest!) {
   following(request: $request) {
     items {
-      ...ProfileFields
+      ...ListProfileFields
     }
     pageInfo {
       next

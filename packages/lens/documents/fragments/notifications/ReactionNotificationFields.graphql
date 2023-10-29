@@ -15,9 +15,5 @@ fragment ReactionNotificationFields on ReactionNotification {
     profile {
       ...PublicationProfileFields
     }
-    reactions {
-      reactedAt
-      reaction
-    }
   }
 }

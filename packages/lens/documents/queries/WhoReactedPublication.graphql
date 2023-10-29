@@ -2,7 +2,7 @@ query WhoReactedPublication($request: WhoReactedPublicationRequest!) {
   whoReactedPublication(request: $request) {
     items {
       profile {
-        ...ProfileFields
+        ...ListProfileFields
       }
     }
     pageInfo {

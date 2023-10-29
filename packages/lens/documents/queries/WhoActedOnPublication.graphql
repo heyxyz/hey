@@ -1,7 +1,7 @@
 query WhoActedOnPublication($request: WhoActedOnPublicationRequest!) {
   whoActedOnPublication(request: $request) {
     items {
-      ...ProfileFields
+      ...ListProfileFields
     }
     pageInfo {
       next

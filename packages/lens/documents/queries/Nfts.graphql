@@ -2,25 +2,13 @@ query Nfts($request: NftsRequest!) {
   nfts(request: $request) {
     items {
       tokenId
-      contentURI
       contract {
         ...NetworkAddressFields
       }
-      contractType
-      totalSupply
       collection {
-        contract {
-          ...NetworkAddressFields
-        }
         name
-        symbol
-        baseUri
-        contractType
-        verified
       }
       metadata {
-        description
-        externalURL
         name
         image {
           raw {
@@ -32,15 +20,6 @@ query Nfts($request: NftsRequest!) {
           }
         }
         animationUrl
-        attributes {
-          displayType
-          traitType
-          value
-        }
-      }
-      owner {
-        amount
-        address
       }
     }
     pageInfo {

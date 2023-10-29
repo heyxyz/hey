@@ -7,9 +7,6 @@ query ApprovedModuleAllowanceAmount(
       asset {
         ...Erc20Fields
       }
-      rate(request: { for: USD }) {
-        ...FiatAmountFields
-      }
     }
     moduleContract {
       ...NetworkAddressFields

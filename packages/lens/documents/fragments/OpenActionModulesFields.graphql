@@ -6,9 +6,6 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
-        ...FiatAmountFields
-      }
     }
     collectLimit
     followerOnly
@@ -24,9 +21,6 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(request: { for: USD }) {
-        ...FiatAmountFields
-      }
     }
     collectLimit
     referralFee
