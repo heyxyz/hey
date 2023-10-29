@@ -11,7 +11,7 @@ fragment CommentBaseFields on Comment {
   txHash
   createdAt
   by {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
   stats {
     ...PublicationStatsFields

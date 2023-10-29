@@ -3,7 +3,7 @@ fragment ActedNotificationFields on ActedNotification {
   actions {
     actedAt
     by {
-      ...ProfileFields
+      ...PublicationProfileFields
     }
     action {
       ... on KnownCollectOpenActionResult {

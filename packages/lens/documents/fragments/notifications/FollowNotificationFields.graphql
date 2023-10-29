@@ -1,6 +1,6 @@
 fragment FollowNotificationFields on FollowNotification {
   id
   followers {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
 }

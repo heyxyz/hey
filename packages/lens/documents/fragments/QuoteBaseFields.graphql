@@ -11,7 +11,7 @@ fragment QuoteBaseFields on Quote {
   txHash
   createdAt
   by {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
   stats {
     ...PublicationStatsFields

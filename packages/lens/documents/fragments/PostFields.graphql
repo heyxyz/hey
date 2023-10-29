@@ -11,7 +11,7 @@ fragment PostFields on Post {
   txHash
   createdAt
   by {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
   stats {
     ...PublicationStatsFields

@@ -10,7 +10,7 @@ fragment MirrorFields on Mirror {
   txHash
   createdAt
   by {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
   mirrorOn {
     ... on Post {

@@ -13,7 +13,7 @@ fragment ReactionNotificationFields on ReactionNotification {
   }
   reactions {
     profile {
-      ...ProfileFields
+      ...PublicationProfileFields
     }
     reactions {
       reactedAt
