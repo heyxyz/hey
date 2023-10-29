@@ -1,6 +1,7 @@
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
+import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import {
   Button,
@@ -13,6 +14,8 @@ import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
+import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite } from 'wagmi';
 
@@ -21,6 +24,11 @@ import IndexStatus from './IndexStatus';
 
 const ProtectProfile: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
+  const handleWrongNetwork = useHandleWrongNetwork();
+
+  const onError = (error: any) => {
+    errorToast(error);
+  };
 
   const { data, write, isLoading } = useContractWrite({
     address: LENSHUB_PROXY,
@@ -29,9 +37,7 @@ const ProtectProfile: FC = () => {
     onSuccess: () => {
       Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE);
     },
-    onError: (error) => {
-      errorToast(error);
-    }
+    onError
   });
 
   if (!currentProfile?.guardian || currentProfile?.guardian?.protected) {
@@ -43,6 +49,22 @@ const ProtectProfile: FC = () => {
     coolOffDate.getTime() + 5 * 60 * 100
   ).toISOString();
   const isCoolOffPassed = new Date(coolOffDate).getTime() < Date.now();
+
+  const handleProtect = async () => {
+    if (!currentProfile) {
+      return toast.error(Errors.SignWallet);
+    }
+
+    if (handleWrongNetwork()) {
+      return;
+    }
+
+    try {
+      return await write();
+    } catch (error) {
+      onError(error);
+    }
+  };
 
   return (
     <div className="border-b border-red-300 bg-red-500/20">
@@ -90,7 +112,7 @@ const ProtectProfile: FC = () => {
                   <LockClosedIcon className="h-4 w-4" />
                 )
               }
-              onClick={() => write()}
+              onClick={handleProtect}
             >
               Protect now
             </Button>

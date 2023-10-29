@@ -1,12 +1,10 @@
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
-import { POLYGONSCAN_URL } from '@hey/data/constants';
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@hey/lens';
 import { Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import type { Address } from 'viem';
@@ -46,12 +44,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
   });
 
   return (
-    <Link
-      className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}
-      href={`${POLYGONSCAN_URL}/tx/${txHash}`}
-      target="_blank"
-      rel="noreferrer noopener"
-    >
+    <span className={cn({ hidden: hide }, 'ml-auto text-sm font-medium')}>
       {loading ||
       !data?.lensTransactionStatus ||
       data?.lensTransactionStatus?.status ===
@@ -72,7 +65,7 @@ const IndexStatus: FC<IndexStatusProps> = ({
           <div className="text-black dark:text-white">Index Successful</div>
         </div>
       )}
-    </Link>
+    </span>
   );
 };
 
