@@ -2,8 +2,6 @@ mutation MirrorOnMomoka($request: MomokaMirrorRequest!) {
   mirrorOnMomoka(request: $request) {
     ... on CreateMomokaPublicationResult {
       id
-      proof
-      momokaId
     }
     ... on LensProfileManagerRelayError {
       reason

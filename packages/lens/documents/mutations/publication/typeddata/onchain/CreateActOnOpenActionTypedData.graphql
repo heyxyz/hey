@@ -32,15 +32,3 @@ mutation CreateActOnOpenActionTypedData(
     }
   }
 }
-
-mutation ActOnOpenAction($request: ActOnOpenActionLensManagerRequest!) {
-  actOnOpenAction(request: $request) {
-    ... on RelaySuccess {
-      txHash
-      txId
-    }
-    ... on LensProfileManagerRelayError {
-      reason
-    }
-  }
-}

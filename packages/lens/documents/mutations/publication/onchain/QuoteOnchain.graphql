@@ -1,7 +1,6 @@
 mutation QuoteOnchain($request: OnchainQuoteRequest!) {
   quoteOnchain(request: $request) {
     ... on RelaySuccess {
-      txHash
       txId
     }
     ... on LensProfileManagerRelayError {

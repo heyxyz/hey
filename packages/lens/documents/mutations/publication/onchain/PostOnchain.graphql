@@ -1,7 +1,6 @@
 mutation PostOnchain($request: OnchainPostRequest!) {
   postOnchain(request: $request) {
     ... on RelaySuccess {
-      txHash
       txId
     }
     ... on LensProfileManagerRelayError {

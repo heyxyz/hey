@@ -2,8 +2,6 @@ mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
   quoteOnMomoka(request: $request) {
     ... on CreateMomokaPublicationResult {
       id
-      proof
-      momokaId
     }
     ... on LensProfileManagerRelayError {
       reason

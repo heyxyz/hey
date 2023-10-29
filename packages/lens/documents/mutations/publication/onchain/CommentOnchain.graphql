@@ -1,7 +1,6 @@
 mutation CommentOnchain($request: OnchainCommentRequest!) {
   commentOnchain(request: $request) {
     ... on RelaySuccess {
-      txHash
       txId
     }
     ... on LensProfileManagerRelayError {

@@ -1,7 +1,6 @@
 mutation MirrorOnchain($request: OnchainMirrorRequest!) {
   mirrorOnchain(request: $request) {
     ... on RelaySuccess {
-      txHash
       txId
     }
     ... on LensProfileManagerRelayError {

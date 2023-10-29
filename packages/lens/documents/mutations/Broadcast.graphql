@@ -1,12 +1,9 @@
 mutation BroadcastOnchain($request: BroadcastRequest!) {
   broadcastOnchain(request: $request) {
     ... on RelaySuccess {
-      __typename
-      txHash
       txId
     }
     ... on RelayError {
-      __typename
       reason
     }
   }
@@ -16,11 +13,8 @@ mutation BroadcastOnMomoka($request: BroadcastRequest!) {
   broadcastOnMomoka(request: $request) {
     ... on CreateMomokaPublicationResult {
       id
-      proof
-      momokaId
     }
     ... on RelayError {
-      __typename
       reason
     }
   }
