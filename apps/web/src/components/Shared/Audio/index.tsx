@@ -77,10 +77,7 @@ const Audio: FC<AudioProps> = ({
           cover={isNew ? (newPreviewUri as string) : poster}
           setCover={(previewUri, url) => {
             setNewPreviewUri(previewUri);
-            setAudioPublication({
-              ...audioPublication,
-              cover: url
-            });
+            setAudioPublication({ ...audioPublication, cover: url });
           }}
           imageRef={imageRef}
           expandCover={expandCover}
