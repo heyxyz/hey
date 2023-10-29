@@ -4,6 +4,7 @@ import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer'
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
 import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
@@ -11,14 +12,13 @@ import { useInView } from 'react-cool-inview';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
 interface FeedProps {
-  publication?: AnyPublication;
+  publication: AnyPublication;
 }
 
 const Feed: FC<FeedProps> = ({ publication }) => {
-  const publicationId =
-    publication?.__typename === 'Mirror'
-      ? publication?.mirrorOn?.id
-      : publication?.id;
+  const publicationId = isMirrorPublication(publication)
+    ? publication?.mirrorOn?.id
+    : publication?.id;
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
 
   // Variables
