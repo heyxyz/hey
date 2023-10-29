@@ -25,9 +25,6 @@ fragment QuoteBaseFields on Quote {
   openActionModules {
     ...OpenActionModulesFields
   }
-  referenceModule {
-    ...ReferenceModuleFields
-  }
   profilesMentioned {
     snapshotHandleMentioned {
       ...HandleInfoFields

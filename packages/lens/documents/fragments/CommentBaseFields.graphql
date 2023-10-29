@@ -25,9 +25,6 @@ fragment CommentBaseFields on Comment {
   openActionModules {
     ...OpenActionModulesFields
   }
-  referenceModule {
-    ...ReferenceModuleFields
-  }
   root {
     ...PostFields
   }

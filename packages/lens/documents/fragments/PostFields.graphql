@@ -25,9 +25,6 @@ fragment PostFields on Post {
   openActionModules {
     ...OpenActionModulesFields
   }
-  referenceModule {
-    ...ReferenceModuleFields
-  }
   profilesMentioned {
     snapshotHandleMentioned {
       ...HandleInfoFields
