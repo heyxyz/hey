@@ -1,21 +1,13 @@
 fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
   video {
-    raw {
-      uri
-    }
     optimized {
       uri
     }
   }
   cover {
-    raw {
-      uri
-    }
     optimized {
       uri
     }
   }
   duration
-  license
-  altTag
 }

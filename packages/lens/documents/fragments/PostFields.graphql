@@ -11,7 +11,7 @@ fragment PostFields on Post {
   txHash
   createdAt
   by {
-    ...ProfileFields
+    ...PublicationProfileFields
   }
   stats {
     ...PublicationStatsFields
@@ -24,9 +24,6 @@ fragment PostFields on Post {
   }
   openActionModules {
     ...OpenActionModulesFields
-  }
-  referenceModule {
-    ...ReferenceModuleFields
   }
   profilesMentioned {
     snapshotHandleMentioned {

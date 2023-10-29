@@ -3,16 +3,10 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
-  sharingLink
   attachments {
     ...PublicationMetadataMediaFields
   }

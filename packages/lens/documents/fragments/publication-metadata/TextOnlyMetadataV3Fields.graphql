@@ -3,12 +3,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

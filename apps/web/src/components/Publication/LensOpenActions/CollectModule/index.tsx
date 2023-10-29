@@ -1,9 +1,9 @@
 import AllowanceButton from '@components/Settings/Allowance/Button';
 import CollectWarning from '@components/Shared/CollectWarning';
 import CountdownTimer from '@components/Shared/CountdownTimer';
-import Markup from '@components/Shared/Markup';
 import Collectors from '@components/Shared/Modal/Collectors';
 import NoBalanceError from '@components/Shared/NoBalanceError';
+import Slug from '@components/Shared/Slug';
 import {
   BanknotesIcon,
   ClockIcon,
@@ -35,7 +35,6 @@ import {
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
-import getPublicationData from '@hey/lib/getPublicationData';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import humanize from '@hey/lib/humanize';
@@ -88,8 +87,6 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const { address } = useAccount();
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  const filteredContent =
-    getPublicationData(targetPublication.metadata)?.content || '';
   const openActionCount = getOpenActionCountByPublicationId(
     targetPublication.id
   );
@@ -302,20 +299,11 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
             />
           </div>
         ) : null}
-        <div className="mb-4 space-y-1.5">
-          {targetPublication.metadata?.marketplace?.name ? (
-            <div className="text-xl font-bold">
-              {targetPublication.metadata?.marketplace?.name}
-            </div>
-          ) : null}
-          {filteredContent ? (
-            <Markup
-              className="lt-text-gray-500 line-clamp-2"
-              mentions={targetPublication.profilesMentioned}
-            >
-              {filteredContent}
-            </Markup>
-          ) : null}
+        <div className="mb-4">
+          <div className="text-xl font-bold">
+            {targetPublication.__typename} by{' '}
+            <Slug slug={getProfile(targetPublication.by).slugWithPrefix} />
+          </div>
         </div>
         {amount ? (
           <div className="flex items-center space-x-1.5 py-2">

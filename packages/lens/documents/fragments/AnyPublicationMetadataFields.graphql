@@ -9,13 +9,13 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
     ...AudioMetadataV3Fields
   }
   ... on CheckingInMetadataV3 {
-    ...CheckingInMetadataV3Fields
+    id
   }
   ... on EmbedMetadataV3 {
     ...EmbedMetadataV3Fields
   }
   ... on EventMetadataV3 {
-    ...EventMetadataV3Fields
+    id
   }
   ... on ImageMetadataV3 {
     ...ImageMetadataV3Fields
@@ -30,18 +30,18 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
     ...MintMetadataV3Fields
   }
   ... on SpaceMetadataV3 {
-    ...SpaceMetadataV3Fields
+    id
   }
   ... on StoryMetadataV3 {
-    ...StoryMetadataV3Fields
+    id
   }
   ... on TextOnlyMetadataV3 {
     ...TextOnlyMetadataV3Fields
   }
   ... on ThreeDMetadataV3 {
-    ...ThreeDMetadataV3Fields
+    id
   }
   ... on TransactionMetadataV3 {
-    ...TransactionMetadataV3Fields
+    id
   }
 }

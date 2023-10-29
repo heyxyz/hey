@@ -3,12 +3,7 @@ fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

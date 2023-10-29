@@ -3,12 +3,7 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   rawURI
   locale
   tags
-  contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
@@ -20,5 +15,4 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   }
   title
   content
-  isShortVideo
 }

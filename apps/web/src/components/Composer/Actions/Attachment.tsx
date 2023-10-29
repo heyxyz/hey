@@ -5,20 +5,29 @@ import {
   PhotoIcon,
   VideoCameraIcon
 } from '@heroicons/react/24/outline';
-import {
-  ALLOWED_AUDIO_TYPES,
-  ALLOWED_IMAGE_TYPES,
-  ALLOWED_MEDIA_TYPES,
-  ALLOWED_VIDEO_TYPES
-} from '@hey/data/constants';
 import { Spinner, Tooltip } from '@hey/ui';
 import cn from '@hey/ui/cn';
+import {
+  MediaAudioMimeType,
+  MediaImageMimeType
+} from '@lens-protocol/metadata';
 import type { ChangeEvent, FC } from 'react';
 import { Fragment, useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useOnClickOutside } from 'usehooks-ts';
+
+const ImageMimeType = Object.values(MediaImageMimeType);
+const AudioMimeType = Object.values(MediaAudioMimeType);
+const VideoMimeType = [
+  'video/mp4',
+  'video/mpeg',
+  'video/ogg',
+  'video/webm',
+  'video/quicktime'
+];
+
 const Attachment: FC = () => {
   const attachments = usePublicationStore((state) => state.attachments);
   const isUploading = usePublicationStore((state) => state.isUploading);
@@ -30,8 +39,14 @@ const Attachment: FC = () => {
   useOnClickOutside(dropdownRef, () => setShowMenu(false));
 
   const isTypeAllowed = (files: FileList) => {
+    const allowedTypes = [
+      ...ImageMimeType,
+      ...AudioMimeType,
+      ...VideoMimeType
+    ] as string[];
+
     for (const file of files) {
-      if (ALLOWED_MEDIA_TYPES.includes(file.type)) {
+      if (allowedTypes.includes(file.type)) {
         return true;
       }
     }
@@ -110,7 +125,7 @@ const Attachment: FC = () => {
               id={`image_${id}`}
               type="file"
               multiple
-              accept={ALLOWED_IMAGE_TYPES.join(',')}
+              accept={ImageMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={disableImageUpload()}
@@ -132,7 +147,7 @@ const Attachment: FC = () => {
             <input
               id={`video_${id}`}
               type="file"
-              accept={ALLOWED_VIDEO_TYPES.join(',')}
+              accept={VideoMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={Boolean(attachments.length)}
@@ -154,7 +169,7 @@ const Attachment: FC = () => {
             <input
               id={`audio_${id}`}
               type="file"
-              accept={ALLOWED_AUDIO_TYPES.join(',')}
+              accept={AudioMimeType.join(',')}
               className="hidden"
               onChange={handleAttachment}
               disabled={Boolean(attachments.length)}

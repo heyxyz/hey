@@ -1,3 +1,0 @@
-fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
-  id
-}

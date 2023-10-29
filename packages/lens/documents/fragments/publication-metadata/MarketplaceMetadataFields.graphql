@@ -1,3 +1,0 @@
-fragment MarketplaceMetadataFields on MarketplaceMetadata {
-  __typename
-}

@@ -1,0 +1,28 @@
+fragment ActedNotificationFields on ActedNotification {
+  id
+  actions {
+    actedAt
+    by {
+      ...PublicationProfileFields
+    }
+    action {
+      ... on KnownCollectOpenActionResult {
+        type
+      }
+      ... on UnknownOpenActionResult {
+        address
+      }
+    }
+  }
+  publication {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Mirror {
+      ...MirrorFields
+    }
+  }
+}

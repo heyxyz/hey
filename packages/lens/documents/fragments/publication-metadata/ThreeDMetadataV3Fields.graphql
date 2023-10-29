@@ -1,3 +1,0 @@
-fragment ThreeDMetadataV3Fields on ThreeDMetadataV3 {
-  id
-}

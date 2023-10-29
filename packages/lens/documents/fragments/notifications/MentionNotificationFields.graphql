@@ -1,0 +1,14 @@
+fragment MentionNotificationFields on MentionNotification {
+  id
+  publication {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+}

@@ -1,3 +1,0 @@
-fragment TransactionMetadataV3Fields on TransactionMetadataV3 {
-  id
-}

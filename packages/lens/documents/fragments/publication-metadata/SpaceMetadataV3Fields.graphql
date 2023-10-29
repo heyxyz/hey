@@ -1,3 +1,0 @@
-fragment SpaceMetadataV3Fields on SpaceMetadataV3 {
-  id
-}

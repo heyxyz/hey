@@ -124,7 +124,6 @@ const ViewProfile: NextPage = () => {
       />
       <Cover
         cover={
-          profile?.metadata?.coverPicture?.raw.uri ||
           profile?.metadata?.coverPicture?.optimized?.uri ||
           `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
