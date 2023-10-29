@@ -12,9 +12,11 @@ import type {
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
   useCreateMomokaMirrorTypedDataMutation,
   useCreateOnchainMirrorTypedDataMutation,
-  useMirrorOnchainMutation
+  useMirrorOnchainMutation,
+  useMirrorOnMomokaMutation
 } from '@hey/lens';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -62,8 +64,8 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     __typename?:
       | 'RelayError'
       | 'RelaySuccess'
+      | 'CreateMomokaPublicationResult'
       | 'LensProfileManagerRelayError'
-      | 'CreateMomokaMirrorBroadcastItemResult'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -109,29 +111,56 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       onCompleted(broadcastOnchain.__typename)
   });
 
-  const [createOnchainMirrorTypedData] =
-    useCreateOnchainMirrorTypedDataMutation({
-      onCompleted: async ({ createOnchainMirrorTypedData }) => {
-        const { id, typedData } = createOnchainMirrorTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] });
-        }
-      },
-      onError
-    });
-
-  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
-    onCompleted: ({ createMomokaMirrorTypedData }) =>
-      onCompleted(createMomokaMirrorTypedData.__typename),
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) =>
+      onCompleted(broadcastOnMomoka.__typename),
     onError
   });
 
+  const typedDataGenerator = async (
+    generatedData: any,
+    isMomokaPublication = false
+  ) => {
+    const { id, typedData } = generatedData;
+    const signature = await signTypedDataAsync(getSignature(typedData));
+    if (isMomokaPublication) {
+      return await broadcastOnMomoka({
+        variables: { request: { id, signature } }
+      });
+    }
+
+    const { data } = await broadcastOnchain({
+      variables: { request: { id, signature } }
+    });
+    if (data?.broadcastOnchain.__typename === 'RelayError') {
+      return write({ args: [typedData.value] });
+    }
+  };
+
+  // On-chain typed data generation
+  const [createOnchainMirrorTypedData] =
+    useCreateOnchainMirrorTypedDataMutation({
+      onCompleted: async ({ createOnchainMirrorTypedData }) =>
+        await typedDataGenerator(createOnchainMirrorTypedData),
+      onError
+    });
+
+  // Momoka typed data generation
+  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
+    onCompleted: async ({ createMomokaMirrorTypedData }) =>
+      await typedDataGenerator(createMomokaMirrorTypedData, true),
+    onError
+  });
+
+  // Onchain mutations
   const [mirrorOnchain] = useMirrorOnchainMutation({
     onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onError
+  });
+
+  // Momoka mutations
+  const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
+    onCompleted: ({ mirrorOnMomoka }) => onCompleted(mirrorOnMomoka.__typename),
     onError
   });
 
@@ -139,10 +168,14 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     return null;
   }
 
-  const createViaMomoka = async (request: MomokaMirrorRequest) => {
-    await createMomokaMirrorTypedData({
+  const createOnMomka = async (request: MomokaMirrorRequest) => {
+    const { data } = await mirrorOnMomoka({
       variables: { request }
     });
+
+    if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      await createMomokaMirrorTypedData({ variables: { request } });
+    }
   };
 
   const createOnChain = async (request: OnchainMirrorRequest) => {
@@ -177,18 +210,13 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
     try {
       setIsLoading(true);
-      const request: OnchainMirrorRequest = {
-        mirrorOn: publication?.id
-      };
-
-      // Payload for the Momoka mirror
-      const momokaRequest: MomokaMirrorRequest = {
+      const request: OnchainMirrorRequest | MomokaMirrorRequest = {
         mirrorOn: publication?.id
       };
 
       if (canUseRelay) {
         if (publication.momoka?.proof && isSponsored) {
-          return await createViaMomoka(momokaRequest);
+          return await createOnMomka(request);
         }
 
         return await createOnChain(request);

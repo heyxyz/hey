@@ -368,7 +368,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     }
   };
 
-  // Normal typed data generation
+  // On-chain typed data generation
   const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
     onCompleted: async ({ createOnchainPostTypedData }) =>
       await typedDataGenerator(createOnchainPostTypedData),
