@@ -39,9 +39,12 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   const pageInfo = data?.publications?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const queuedCount = txnQueue.filter(
-    (o) => o.type === OptmisticPublicationType.NewComment
-  ).length;
+  const queuedComments = txnQueue.filter(
+    (o) =>
+      o.type === OptmisticPublicationType.NewComment &&
+      o.commentOn === publicationId
+  );
+  const queuedCount = queuedComments.length;
   const hiddenCount = comments.filter(
     (o) => o?.__typename === 'Comment' && o.isHidden
   ).length;
@@ -79,13 +82,9 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   return (
     <>
-      {txnQueue.map(
-        (txn) =>
-          txn?.type === OptmisticPublicationType.NewComment &&
-          txn?.commentOn === publication?.id && (
-            <QueuedPublication key={txn.id} txn={txn} />
-          )
-      )}
+      {queuedComments.map((txn) => (
+        <QueuedPublication key={txn.id} txn={txn} />
+      ))}
       <Card className="divide-y-[1px] dark:divide-gray-700">
         {comments?.map((comment, index) =>
           comment?.__typename !== 'Comment' || comment.isHidden ? null : (
