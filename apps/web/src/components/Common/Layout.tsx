@@ -6,6 +6,7 @@ import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
 import { parseJwt } from '@hey/lens/apollo/lib';
 import resetAuthData from '@hey/lib/resetAuthData';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
@@ -81,11 +82,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   useEffectOnce(() => {
     // Get and set profile id from JWT
-    const currentSession = parseJwt(
-      localStorage.getItem(Localstorage.AccessToken) || ''
-    );
-
-    setProfileId(currentSession.id);
+    setProfileId(getCurrentSessionProfileId());
 
     // Listen for switch account in wallet and logout
     connector?.addListener('change', () => {

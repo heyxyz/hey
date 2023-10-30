@@ -20,7 +20,6 @@ import Link from 'next/link';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useAccount, useSignMessage } from 'wagmi';
@@ -29,8 +28,6 @@ import Loader from './Loader';
 
 const SwitchProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const setShowProfileSwitchModal = useGlobalModalStateStore(
     (state) => state.setShowProfileSwitchModal
   );
@@ -96,16 +93,12 @@ const SwitchProfiles: FC = () => {
       });
 
       const switchedProfile = loadedProfile?.profile;
-      setCurrentProfile(switchedProfile as Profile);
-      setProfileId(switchedProfile?.id);
       Leafwatch.track(PROFILE.SWITCH_PROFILE, {
         switch_profile_to: switchedProfile?.id
       });
       location.reload();
-    } catch {
-    } finally {
-      setIsLoading(false);
-      setLoggingInProfileId(null);
+    } catch (error) {
+      onError(error);
     }
   };
 
