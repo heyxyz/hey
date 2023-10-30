@@ -4,7 +4,8 @@ const knownSites = [
   'lenstube.xyz',
   'open.spotify.com',
   'soundcloud.com',
-  'oohlala.xyz'
+  'oohlala.xyz',
+  'lvpr.tv'
 ];
 
 const pickUrlSites = ['open.spotify.com'];
@@ -21,6 +22,8 @@ const youtubeRegex =
   /^https?:\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w-]+)(?:\?.*)?$/;
 const lenstubeRegex =
   /^https?:\/\/lenstube\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/;
+const livepeerUrlRegex = 
+  /^https?:\/\/lvpr\.tv\/\?v=[0-9a-z]{16}$/;
 
 const generateIframe = (
   embedUrl: string | null,
@@ -74,6 +77,12 @@ const generateIframe = (
       }
 
       return null;
+      case 'lvpr.tv':
+        if (livepeerUrlRegex.test(url)) {
+          return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
+        }
+        return null;  
+  
     default:
       return `<iframe src="${pickedUrl}" width="560"></iframe>`;
   }
