@@ -8,7 +8,7 @@ import type { FC } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
 const Privacy: FC = () => {
-  const updatedAt = 'December 11, 2022';
+  const updatedAt = 'October 30, 2023';
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'privacy' });
