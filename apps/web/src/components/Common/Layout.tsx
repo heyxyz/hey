@@ -13,7 +13,7 @@ import { useAppStore } from 'src/store/useAppStore';
 import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import { useAccount, useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
@@ -72,14 +72,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens();
-    if (!accessToken && currentSessionProfileId) {
+    if (!accessToken) {
       logout();
     }
   };
 
-  useUpdateEffect(() => {
+  useEffectOnce(() => {
     validateAuthentication();
-  }, [currentSessionProfileId]);
+  });
 
   if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
