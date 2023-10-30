@@ -1,10 +1,16 @@
-query ProfilesManaged($request: ProfilesManagedRequest!) {
-  profilesManaged(request: $request) {
+query ProfilesManaged(
+  $profilesManagedRequest: ProfilesManagedRequest!
+  $lastLoggedInProfileRequest: LastLoggedInProfileRequest!
+) {
+  profilesManaged(request: $profilesManagedRequest) {
     items {
-      ...ProfileFields
+      ...ListProfileFields
     }
     pageInfo {
       next
     }
+  }
+  lastLoggedInProfile(request: $lastLoggedInProfileRequest) {
+    ...ListProfileFields
   }
 }

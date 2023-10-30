@@ -4,7 +4,11 @@ import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Localstorage } from '@hey/data/storage';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
+import type {
+  LastLoggedInProfileRequest,
+  Profile,
+  ProfileManagersRequest
+} from '@hey/lens';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
@@ -44,8 +48,14 @@ const SwitchProfiles: FC = () => {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage({ onError });
 
+  const request: ProfileManagersRequest | LastLoggedInProfileRequest = {
+    for: address
+  };
   const { data, loading, error } = useProfilesManagedQuery({
-    variables: { request: { for: address } }
+    variables: {
+      profilesManagedRequest: request,
+      lastLoggedInProfileRequest: request
+    }
   });
   const [loadChallenge] = useChallengeLazyQuery({
     fetchPolicy: 'no-cache'
