@@ -1,4 +1,4 @@
 import cursorBasedPagination from './cursorBasedPagination';
-import parseJwt from './parseJwt';
+import parseJwt from '../../../lib/parseJwt';
 
 export { cursorBasedPagination, parseJwt };

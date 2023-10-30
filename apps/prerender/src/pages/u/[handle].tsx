@@ -7,7 +7,7 @@ import {
   ProfileDocument,
   PublicationsDocument
 } from '@hey/lens';
-import { lensApolloNodeClient } from '@hey/lens/apollo';
+import { apolloClient } from '@hey/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const { data: profileData } = await lensApolloNodeClient.query({
+  const { data: profileData } = await apolloClient().query({
     query: ProfileDocument,
     variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
   });
@@ -44,7 +44,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       limit: LimitType.TwentyFive
     };
 
-    const { data: profilePublicationsData } = await lensApolloNodeClient.query({
+    const { data: profilePublicationsData } = await apolloClient().query({
       query: PublicationsDocument,
       variables: { request }
     });

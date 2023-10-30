@@ -1,9 +1,8 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
+import parseJwt from '@hey/lib/parseJwt';
 import axios from 'axios';
-
-import { parseJwt } from './lib';
 
 const resetAuthData = () => {
   localStorage.removeItem(Localstorage.AppStore);

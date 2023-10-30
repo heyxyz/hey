@@ -1,4 +1,5 @@
-import { ApolloProvider, lensApolloWebClient } from '@hey/lens/apollo';
+import { apolloClient, ApolloProvider } from '@hey/lens/apollo';
+import authLink from '@lib/authLink';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -16,10 +17,10 @@ import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import Web3Provider from './Web3Provider';
 
+const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
   provider: studioProvider({ apiKey: '' })
 });
-
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 });
@@ -28,7 +29,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <Web3Provider>
-        <ApolloProvider client={lensApolloWebClient}>
+        <ApolloProvider client={lensApolloClient}>
           <LensSubscriptionsProvider />
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />

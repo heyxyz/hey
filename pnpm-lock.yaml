@@ -63,6 +63,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@apollo/client':
+        specifier: ^3.8.6
+        version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@aws-sdk/client-s3':
         specifier: ^3.438.0
         version: 3.438.0
@@ -371,7 +374,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.8.6
-        version: 3.8.6(graphql@16.8.1)
+        version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -445,7 +448,7 @@ importers:
     dependencies:
       '@apollo/client':
         specifier: ^3.8.6
-        version: 3.8.6(graphql@16.8.1)
+        version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@hey/data':
         specifier: workspace:*
         version: link:../data
@@ -1028,7 +1031,7 @@ packages:
       '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
-  /@apollo/client@3.8.6(graphql@16.8.1):
+  /@apollo/client@3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-FnHg3vhQP8tQzgBs6oTJCFFIbovelDGYujj6MK7CJneiHf62TJstCIO0Ot4A1h7XrgFEtgl8a/OgajQWqrTuYw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -1055,6 +1058,8 @@ packages:
       hoist-non-react-statics: 3.3.2
       optimism: 0.17.5
       prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
       response-iterator: 0.2.6
       symbol-observable: 4.0.0
       ts-invariant: 0.10.3
@@ -6988,7 +6993,7 @@ packages:
   /axios@1.6.0:
     resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.3(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -8782,16 +8787,6 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
-
   /follow-redirects@1.15.3(debug@4.3.4):
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
     engines: {node: '>=4.0'}
@@ -8802,7 +8797,6 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
-    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}

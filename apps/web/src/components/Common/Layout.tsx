@@ -4,7 +4,7 @@ import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
 import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import { parseJwt } from '@hey/lens/apollo/lib';
+import parseJwt from '@hey/lib/parseJwt';
 import resetAuthData from '@hey/lib/resetAuthData';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';

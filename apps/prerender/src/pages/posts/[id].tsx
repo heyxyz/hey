@@ -7,7 +7,7 @@ import {
   PublicationDocument,
   PublicationsDocument
 } from '@hey/lens';
-import { lensApolloNodeClient } from '@hey/lens/apollo';
+import { apolloClient } from '@hey/lens/apollo';
 import type { GetServerSidePropsContext } from 'next';
 
 export const config = {
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const { data: publicationData } = await lensApolloNodeClient.query({
+  const { data: publicationData } = await apolloClient().query({
     query: PublicationDocument,
     variables: { request: { forId: id } }
   });
@@ -49,7 +49,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       limit: LimitType.TwentyFive
     };
 
-    const { data: commentsData } = await lensApolloNodeClient.query({
+    const { data: commentsData } = await apolloClient().query({
       query: PublicationsDocument,
       variables: { request }
     });
