@@ -4,7 +4,6 @@ export const Localstorage = {
   RefreshToken: 'refreshToken',
   AppStore: 'app.store',
   AttachmentStore: 'attachment.store',
-  AttachmentCache: 'attachment-cache.store',
   ModeStore: 'mode.store',
   NotificationStore: 'notification.store',
   NonceStore: 'nonce.store',
