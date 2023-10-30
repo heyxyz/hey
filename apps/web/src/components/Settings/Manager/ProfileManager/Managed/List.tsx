@@ -1,7 +1,11 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
 import { UsersIcon } from '@heroicons/react/24/outline';
-import type { Profile, ProfileManagersRequest } from '@hey/lens';
+import type {
+  LastLoggedInProfileRequest,
+  Profile,
+  ProfileManagersRequest
+} from '@hey/lens';
 import { useProfilesManagedQuery } from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
@@ -11,9 +15,14 @@ import { useAccount } from 'wagmi';
 const List: FC = () => {
   const { address } = useAccount();
 
-  const request: ProfileManagersRequest = { for: address };
+  const request: ProfileManagersRequest | LastLoggedInProfileRequest = {
+    for: address
+  };
   const { data, loading, error, fetchMore } = useProfilesManagedQuery({
-    variables: { request }
+    variables: {
+      profilesManagedRequest: request,
+      lastLoggedInProfileRequest: request
+    }
   });
 
   const profilesManaged = data?.profilesManaged.items;

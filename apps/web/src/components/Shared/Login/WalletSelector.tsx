@@ -4,7 +4,11 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
 import { Localstorage } from '@hey/data/storage';
 import { AUTH } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
+import type {
+  LastLoggedInProfileRequest,
+  Profile,
+  ProfileManagersRequest
+} from '@hey/lens';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
@@ -69,9 +73,15 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   });
   const [authenticate, { error: errorAuthenticate }] =
     useAuthenticateMutation();
+  const request: ProfileManagersRequest | LastLoggedInProfileRequest = {
+    for: address
+  };
   const { data: profilesManaged, loading: profilesManagedLoading } =
     useProfilesManagedQuery({
-      variables: { request: { for: address } },
+      variables: {
+        profilesManagedRequest: request,
+        lastLoggedInProfileRequest: request
+      },
       skip: !address,
       onCompleted: ({ profilesManaged }) => {
         if (profilesManaged.items.length <= 0) {
@@ -125,6 +135,17 @@ const WalletSelector: FC<WalletSelectorProps> = ({
     } catch {}
   };
 
+  const allProfiles = profilesManaged?.profilesManaged.items || [];
+  const lastLogin = profilesManaged?.lastLoggedInProfile;
+
+  const remainingProfiles = lastLogin
+    ? allProfiles.filter((profile) => profile.id !== lastLogin.id)
+    : allProfiles;
+
+  const profiles = lastLogin
+    ? [lastLogin, ...remainingProfiles]
+    : remainingProfiles;
+
   return activeConnector?.id ? (
     <div className="space-y-3">
       <div className="space-y-2.5">
@@ -136,7 +157,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
                 <div>Loading profiles managed by you...</div>
               </div>
             ) : (
-              profilesManaged?.profilesManaged.items.map((profile) => (
+              profiles.map((profile) => (
                 <div
                   key={profile.id}
                   className="flex items-center justify-between p-3"
