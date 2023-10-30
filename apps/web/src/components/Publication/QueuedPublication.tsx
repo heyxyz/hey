@@ -76,7 +76,7 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   return (
     <Card as="article" className="p-5">
       <div className="flex items-start justify-between pb-4">
-        <SmallUserProfile profile={currentProfile as Profile} />
+        <SmallUserProfile profile={currentProfile as Profile} linkToProfile />
         <Tooltip content="Indexing" placement="top">
           <div className="bg-brand-200 flex h-4 w-4 items-center justify-center rounded-full">
             <div className="bg-brand-500 h-2 w-2 animate-pulse rounded-full" />

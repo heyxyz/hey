@@ -1,4 +1,5 @@
 import Beta from '@components/Shared/Badges/Beta';
+import SearchUser from '@components/Shared/SearchUser';
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import {
   ArrowsRightLeftIcon,
@@ -6,8 +7,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { HANDLE_PREFIX } from '@hey/data/constants';
-import { OpenActionModuleType, useProfileLazyQuery } from '@hey/lens';
+import { OpenActionModuleType } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
 import { Button, Input } from '@hey/ui';
@@ -31,8 +31,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
   const hasRecipients = (recipients ?? []).length > 0;
   const splitTotal = recipients?.reduce((acc, curr) => acc + curr.split, 0);
 
-  const [getProfileByHandle, { loading }] = useProfileLazyQuery();
-
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, recipients.length);
     const splits = recipients.map((recipient, i) => {
@@ -44,10 +42,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
     setCollectType({
       recipients: [...splits]
     });
-  };
-
-  const getIsHandle = (handle: string) => {
-    return handle.includes(HANDLE_PREFIX);
   };
 
   const onChangeRecipientOrSplit = (
@@ -67,20 +61,11 @@ const SplitConfig: FC<SplitConfigProps> = ({
       });
     };
 
-    if (type === 'recipient' && getIsHandle(value)) {
-      getProfileByHandle({
-        variables: { request: { forHandle: value } },
-        onCompleted: ({ profile }) => {
-          if (profile) {
-            setCollectType({
-              recipients: getRecipients(profile.ownedBy.address)
-            });
-          }
-        }
-      });
-    }
-
     setCollectType({ recipients: getRecipients(value) });
+  };
+
+  const updateRecipient = (index: number, value: string) => {
+    onChangeRecipientOrSplit(index, value, 'recipient');
   };
 
   return (
@@ -113,20 +98,19 @@ const SplitConfig: FC<SplitConfigProps> = ({
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
-                <Input
-                  placeholder={`0x3A5bd...5e3 or ${HANDLE_PREFIX}wagmi`}
+                <SearchUser
+                  placeholder="0x3A5bd...5e3 or wagmi"
                   value={recipient.recipient}
-                  disabled={loading}
+                  onChange={(event) =>
+                    updateRecipient(index, event.target.value)
+                  }
+                  onProfileSelected={(profile) =>
+                    updateRecipient(index, profile.ownedBy.address)
+                  }
+                  hideDropdown={isValidEthAddress(recipient.recipient)}
                   error={
                     recipient.recipient.length > 0 &&
                     !isValidEthAddress(recipient.recipient)
-                  }
-                  onChange={(event) =>
-                    onChangeRecipientOrSplit(
-                      index,
-                      event.target.value,
-                      'recipient'
-                    )
                   }
                 />
                 <div className="w-1/3">
@@ -175,7 +159,6 @@ const SplitConfig: FC<SplitConfigProps> = ({
                 Add recipient
               </Button>
             )}
-
             <Button
               size="sm"
               outline

@@ -20,12 +20,14 @@ interface UserProfileProps {
   profile: Profile;
   timestamp?: Date;
   smallAvatar?: boolean;
+  linkToProfile?: boolean;
 }
 
 const SmallUserProfile: FC<UserProfileProps> = ({
   profile,
   timestamp = '',
-  smallAvatar = false
+  smallAvatar = false,
+  linkToProfile = false
 }) => {
   const UserAvatar = () => (
     <Image
@@ -62,13 +64,18 @@ const SmallUserProfile: FC<UserProfileProps> = ({
     </div>
   );
 
-  return (
+  return linkToProfile ? (
     <Link href={getProfile(profile).link}>
       <div className="flex items-center space-x-2">
         <UserAvatar />
         <UserName />
       </div>
     </Link>
+  ) : (
+    <div className="flex items-center space-x-2">
+      <UserAvatar />
+      <UserName />
+    </div>
   );
 };
 

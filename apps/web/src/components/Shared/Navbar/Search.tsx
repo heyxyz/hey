@@ -19,14 +19,12 @@ interface SearchProps {
   hideDropdown?: boolean;
   onProfileSelected?: (profile: Profile) => void;
   placeholder?: string;
-  modalWidthClassName?: string;
 }
 
 const Search: FC<SearchProps> = ({
   hideDropdown = false,
   onProfileSelected,
-  placeholder = 'Search…',
-  modalWidthClassName = 'max-w-md'
+  placeholder = 'Search…'
 }) => {
   const { push, pathname, query } = useRouter();
   const [searchText, setSearchText] = useState('');
@@ -99,10 +97,7 @@ const Search: FC<SearchProps> = ({
       !hideDropdown &&
       debouncedSearchText.length > 0 ? (
         <div
-          className={cn(
-            'absolute mt-2 flex w-[94%] flex-col',
-            modalWidthClassName
-          )}
+          className="absolute mt-2 flex w-[94%] max-w-md flex-col"
           ref={dropdownRef}
         >
           <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">

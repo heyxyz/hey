@@ -57,7 +57,11 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         aria-hidden="true"
       >
         {quoted ? (
-          <SmallUserProfile profile={profile} timestamp={timestamp} />
+          <SmallUserProfile
+            profile={profile}
+            timestamp={timestamp}
+            linkToProfile
+          />
         ) : (
           <UserProfile profile={profile} timestamp={timestamp} />
         )}
