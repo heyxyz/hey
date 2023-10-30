@@ -7,8 +7,6 @@ import type {
 import { CollectOpenActionModuleType } from '@hey/lens';
 import type { CollectModuleType } from 'src/store/useCollectModuleStore';
 
-import { getTimeAddedNDay } from './formatTime';
-
 const collectModuleParams = (
   collectModule: CollectModuleType,
   currentProfile: Profile
@@ -24,7 +22,7 @@ const collectModuleParams = (
   const baseCollectModuleParams = {
     collectLimit: collectLimit,
     followerOnly: followerOnly || false,
-    endsAt: endsAt ? getTimeAddedNDay(1) : null
+    endsAt: endsAt
   };
 
   switch (collectModule.type) {

@@ -1,6 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { ClockIcon } from '@heroicons/react/24/outline';
-import { getTimeAddedNDay } from '@lib/formatTime';
+import { Input } from '@hey/ui';
+import { getNumberOfDaysFromDate, getTimeAddedNDay } from '@lib/formatTime';
 import type { FC } from 'react';
 import type { CollectModuleType } from 'src/store/useCollectModuleStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
@@ -22,9 +23,26 @@ const TimeLimitConfig: FC<TimeLimitConfigProps> = ({ setCollectType }) => {
           })
         }
         heading="Time limit"
-        description="Limit collecting to the first 24h"
+        description="Limit collecting to specific period of time"
         icon={<ClockIcon className="h-4 w-4" />}
       />
+      {collectModule.endsAt ? (
+        <div className="pt-4 text-sm">
+          <Input
+            label="Number of days"
+            type="number"
+            placeholder="5"
+            min="1"
+            max="100"
+            value={getNumberOfDaysFromDate(new Date(collectModule.endsAt))}
+            onChange={(event) => {
+              setCollectType({
+                endsAt: getTimeAddedNDay(Number(event.target.value))
+              });
+            }}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };

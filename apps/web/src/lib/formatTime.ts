@@ -27,6 +27,17 @@ export const getTimeAddedNDay = (day: number) => {
 };
 
 /**
+ * Gets the number of days between the current date and time and a specified date and time.
+ * @param date The to date to calculate the number of days.
+ * @returns The number of days between the current date and time and the specified date and time.
+ */
+export const getNumberOfDaysFromDate = (date: Date) => {
+  const currentDate = dayjs().startOf('day');
+  const targetDate = dayjs(date).startOf('day');
+  return targetDate.diff(currentDate, 'day');
+};
+
+/**
  * Formats a date as a string representing the elapsed time between the date and the current time.
  *
  * @param date The date to format.
