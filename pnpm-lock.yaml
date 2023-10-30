@@ -409,9 +409,6 @@ importers:
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
-      vitest:
-        specifier: ^0.34.5
-        version: 0.34.6
 
   packages/lib:
     dependencies:

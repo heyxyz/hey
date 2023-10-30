@@ -10,7 +10,6 @@
     "lint:fix": "eslint . --fix --ext .js,.ts,.tsx",
     "prettier": "prettier --check \"**/*.{js,ts,tsx,md}\"  --cache",
     "prettier:fix": "prettier --write \"**/*.{js,ts,tsx,md}\"  --cache",
-    "test:dev": "vitest --run",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -27,7 +26,6 @@
     "@hey/config": "workspace:*",
     "@parcel/watcher": "^2.3.0",
     "@types/node": "^20.8.9",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.5"
+    "typescript": "^5.2.2"
   }
 }
