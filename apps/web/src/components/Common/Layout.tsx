@@ -14,7 +14,7 @@ import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
-import { useAccount, useDisconnect, useNetwork } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
@@ -35,8 +35,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   } = useNonceStore();
 
   const isMounted = useIsMounted();
-  const { address, connector } = useAccount();
-  const { chain } = useNetwork();
+  const { connector } = useAccount();
   const { disconnect } = useDisconnect();
 
   const currentSessionProfileId = getCurrentSessionProfileId();
@@ -73,7 +72,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens();
-    if (!accessToken && currentSessionProfileId) {
+    if (!accessToken) {
       logout();
     }
   };
