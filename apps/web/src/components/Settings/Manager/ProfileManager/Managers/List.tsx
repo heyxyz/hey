@@ -180,6 +180,7 @@ const List: FC = () => {
             }
             onClick={() => removeManager(manager.address)}
             disabled={removingAddress === manager.address}
+            outline
           >
             Remove
           </Button>
