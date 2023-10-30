@@ -106,8 +106,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@lens-protocol/metadata':
-        specifier: 1.0.0
-        version: 1.0.0(zod@3.22.4)
+        specifier: 1.0.2
+        version: 1.0.2(zod@3.22.4)
       '@lexical/code':
         specifier: ^0.12.2
         version: 0.12.2(lexical@0.12.2)
@@ -3627,8 +3627,8 @@ packages:
     resolution: {integrity: sha512-mscwGroSJQrCTjtNGBu+18FQbZYA4+q6Tyx6K7CXHl6AwgZKbWfZYdgP2F+fyZcRUdGRsMX8QtvU61VcGGtO1A==}
     dev: false
 
-  /@lens-protocol/metadata@1.0.0(zod@3.22.4):
-    resolution: {integrity: sha512-ugusUDJ5qWf5xyjIepuNKQ0n+i+vsh0wWhNHyxwMEqhrh7VARhh664WKjsCUxbTU6mKm7aiGgPzgmQyLTB+7PA==}
+  /@lens-protocol/metadata@1.0.2(zod@3.22.4):
+    resolution: {integrity: sha512-QQZfs5UsaFJEb8vbIdI9ez2S78y4aV6Pgg1Ju2HYlpozHK8o4ZheR/b5mfn4LUMepSIQYlmKnCGdni+5i9R9jg==}
     engines: {node: ^v18.12.1}
     peerDependencies:
       zod: ^3.22.3
