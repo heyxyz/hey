@@ -77,7 +77,7 @@ const generateIframe = (
       }
 
       return null;
-      case 'lvpr.tv':
+    case 'lvpr.tv':
         if (livepeerUrlRegex.test(url)) {
           return `<iframe src="${pickedUrl}" ${universalSize}></iframe>`;
         }
