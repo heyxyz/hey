@@ -6,7 +6,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from '@heroicons/react/24/outline';
-import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@hey/data/constants';
+import { HANDLE_PREFIX } from '@hey/data/constants';
 import { OpenActionModuleType, useProfileLazyQuery } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
 import splitNumber from '@hey/lib/splitNumber';
@@ -47,9 +47,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
   };
 
   const getIsHandle = (handle: string) => {
-    return handle === LENSPROTOCOL_HANDLE
-      ? true
-      : handle.includes(HANDLE_PREFIX);
+    return handle.includes(HANDLE_PREFIX);
   };
 
   const onChangeRecipientOrSplit = (
@@ -116,7 +114,7 @@ const SplitConfig: FC<SplitConfigProps> = ({
             {recipients.map((recipient, index) => (
               <div key={index} className="flex items-center space-x-2 text-sm">
                 <Input
-                  placeholder="0x3A5bd...5e3 or wagmi.lens"
+                  placeholder={`0x3A5bd...5e3 or ${HANDLE_PREFIX}wagmi`}
                   value={recipient.recipient}
                   disabled={loading}
                   error={

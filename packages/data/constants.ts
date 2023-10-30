@@ -35,7 +35,6 @@ export const GIT_COMMIT_SHA =
 
 // Misc
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
 
 // URLs
