@@ -6,8 +6,4 @@ fragment ProfileStatsFields on ProfileStats {
   posts
   mirrors
   quotes
-  publications
-  reactions
-  reacted
-  countOpenActions
 }
