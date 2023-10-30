@@ -103,7 +103,6 @@ const List: FC<ListProps> = ({ feedType }) => {
       <EmptyState
         message="Inbox zero!"
         icon={<BellIcon className="text-brand h-8 w-8" />}
-        hideCard
       />
     );
   }
