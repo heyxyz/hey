@@ -8,8 +8,6 @@ import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
-import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 
@@ -19,11 +17,9 @@ interface LogoutProps {
 }
 
 const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const [revoking, setRevoking] = useState(false);
 
   const { disconnect } = useDisconnect();
@@ -36,11 +32,10 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted: () => {
       Leafwatch.track(PROFILE.LOGOUT);
-      setCurrentProfile(null);
       resetPreferences();
-      setProfileId(null);
       resetAuthData();
       disconnect?.();
+      location.reload();
     },
     onError
   });

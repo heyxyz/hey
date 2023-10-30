@@ -44,14 +44,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
-  const resetAuthState = () => {
-    setProfileId(null);
-    setCurrentProfile(null);
-    resetPreferences();
-  };
-
   const logout = () => {
-    resetAuthState();
+    resetPreferences();
     resetAuthData();
     disconnect?.();
   };
@@ -65,7 +59,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       );
 
       if (!profile || profile.id !== currentSession.id) {
-        return resetAuthState();
+        return logout();
       }
 
       setCurrentProfile(profile as Profile);
@@ -76,8 +70,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setLensTokenHandleRegistryOnchainSigNonce(
         userSigNonces.lensTokenHandleRegistryOnchainSigNonce
       );
-    },
-    onError: () => setProfileId(null)
+    }
   });
 
   useEffectOnce(() => {

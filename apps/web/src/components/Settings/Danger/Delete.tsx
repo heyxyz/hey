@@ -16,14 +16,11 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
   const [showWarningModal, setShowWarningModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { disconnect } = useDisconnect();
@@ -31,8 +28,6 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
-    setCurrentProfile(null);
-    setProfileId(null);
     resetAuthData();
     disconnect?.();
     location.href = '/';

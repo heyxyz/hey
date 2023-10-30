@@ -8,7 +8,6 @@ import type { Profile } from '@hey/lens';
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfileLazyQuery,
   useProfilesManagedQuery
 } from '@hey/lens';
 import getWalletDetails from '@hey/lib/getWalletDetails';
@@ -21,9 +20,6 @@ import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
-import { useAppStore } from 'src/store/useAppStore';
-import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
@@ -45,11 +41,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
   setHasConnected,
   setHasProfile
 }) => {
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
-  const setShowAuthModal = useGlobalModalStateStore(
-    (state) => state.setShowAuthModal
-  );
   const [isLoading, setIsLoading] = useState(false);
   const [loggingInProfileId, setLoggingInProfileId] = useState<string | null>(
     null
@@ -88,7 +79,6 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         }
       }
     });
-  const [getUserProfile] = useProfileLazyQuery();
 
   const onConnect = async (connector: Connector) => {
     try {
@@ -130,23 +120,9 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       localStorage.setItem(Localstorage.AccessToken, accessToken);
       localStorage.setItem(Localstorage.RefreshToken, refreshToken);
 
-      // Get authed profiles
-      const { data: profile } = await getUserProfile({
-        variables: { request: { forProfileId: id } }
-      });
-
-      if (profile?.profile) {
-        const currentProfile = profile.profile;
-        setCurrentProfile(currentProfile as Profile);
-        setProfileId(currentProfile.id);
-        Leafwatch.track(AUTH.SIWL);
-      }
-    } catch {
-    } finally {
-      setIsLoading(false);
-      setLoggingInProfileId(null);
-      setShowAuthModal(false);
-    }
+      Leafwatch.track(AUTH.SIWL);
+      location.reload();
+    } catch {}
   };
 
   return activeConnector?.id ? (
