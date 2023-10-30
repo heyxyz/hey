@@ -1,6 +1,5 @@
 import { Localstorage } from '@hey/data/storage';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 const Tokens: FC = () => {
@@ -11,7 +10,7 @@ const Tokens: FC = () => {
     <>
       <Card className="space-y-2 p-5">
         <div className="pb-1 text-lg font-bold">
-          <Trans>Your temporary access token</Trans>
+          Your temporary access token
         </div>
         <div className="break-words rounded-md bg-gray-300 px-1.5 py-0.5 text-sm font-bold dark:bg-gray-600">
           {accessToken}
@@ -19,7 +18,7 @@ const Tokens: FC = () => {
       </Card>
       <Card className="space-y-2 p-5">
         <div className="pb-1 text-lg font-bold">
-          <Trans>Your temporary refresh token</Trans>
+          Your temporary refresh token
         </div>
         <div className="break-words rounded-md bg-gray-300 px-1.5 py-0.5 text-sm font-bold dark:bg-gray-600">
           {refreshToken}

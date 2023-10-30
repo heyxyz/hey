@@ -2,26 +2,25 @@ import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { LensHub } from '@hey/abis';
 import { LENSHUB_PROXY } from '@hey/data/constants';
 import { PROFILE } from '@hey/data/tracking';
-import type { Profile } from '@hey/lens';
+import type { FollowRequest, Profile } from '@hey/lens';
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
-  useProxyActionMutation
+  useFollowMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
-import { useGlobalModalStateStore } from 'src/store/modals';
-import { useNonceStore } from 'src/store/nonce';
+import { useAppStore } from 'src/store/useAppStore';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
+import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface FollowProps {
@@ -45,8 +44,7 @@ const Follow: FC<FollowProps> = ({
 }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const setShowAuthModal = useGlobalModalStateStore(
     (state) => state.setShowAuthModal
   );
@@ -55,19 +53,28 @@ const Follow: FC<FollowProps> = ({
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
-      id: `Profile:${profile?.id}`,
-      fields: { isFollowedByMe: () => true }
+      id: cache.identify(profile.operations),
+      fields: {
+        isFollowedByMe: (existingValue) => {
+          return { ...existingValue, value: true };
+        }
+      }
     });
   };
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
     setIsLoading(false);
     setFollowing(true);
-    toast.success(t`Followed successfully!`);
+    toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.FOLLOW, {
       path: pathname,
       ...(followUnfollowSource && { source: followUnfollowSource }),
@@ -90,48 +97,44 @@ const Follow: FC<FollowProps> = ({
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
-      // TODO: Replace deep clone with right helper
-      const signature = await signTypedDataAsync(
-        getSignature(JSON.parse(JSON.stringify(typedData)))
-      );
-      setUserSigNonce(userSigNonce + 1);
-      const { data } = await broadcast({
+      const signature = await signTypedDataAsync(getSignature(typedData));
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
-      if (data?.broadcast.__typename === 'RelayError') {
-        const { profileIds, datas } = typedData.value;
-        return write?.({ args: [profileIds, datas] });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        const {
+          followerProfileId,
+          idsOfProfilesToFollow,
+          followTokenIds,
+          datas
+        } = typedData.value;
+        return write?.({
+          args: [
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          ]
+        });
       }
     },
     onError,
     update: updateCache
   });
 
-  const [createFollowProxyAction] = useProxyActionMutation({
-    onCompleted: () => onCompleted(),
+  const [follow] = useFollowMutation({
+    onCompleted: ({ follow }) => onCompleted(follow.__typename),
     onError,
     update: updateCache
   });
-
-  const createViaProxyAction = async (variables: any) => {
-    const { data } = await createFollowProxyAction({
-      variables
-    });
-    if (!data?.proxyAction) {
-      return await createFollowTypedData({
-        variables: {
-          request: { follow: [{ profile: profile?.id }] },
-          options: { overrideSigNonce: userSigNonce }
-        }
-      });
-    }
-  };
 
   const createFollow = async () => {
     if (!currentProfile) {
@@ -145,33 +148,17 @@ const Follow: FC<FollowProps> = ({
 
     try {
       setIsLoading(true);
-      if (profile?.followModule) {
+      const request: FollowRequest = { follow: [{ profileId: profile?.id }] };
+      const { data } = await follow({ variables: { request } });
+
+      if (data?.follow.__typename === 'LensProfileManagerRelayError') {
         return await createFollowTypedData({
           variables: {
-            options: { overrideSigNonce: userSigNonce },
-            request: {
-              follow: [
-                {
-                  profile: profile?.id,
-                  followModule:
-                    profile?.followModule?.__typename ===
-                    'ProfileFollowModuleSettings'
-                      ? {
-                          profileFollowModule: { profileId: currentProfile?.id }
-                        }
-                      : null
-                }
-              ]
-            }
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request
           }
         });
       }
-
-      return await createViaProxyAction({
-        request: {
-          follow: { freeFollow: { profileId: profile?.id } }
-        }
-      });
     } catch (error) {
       onError(error);
     }
@@ -188,7 +175,7 @@ const Follow: FC<FollowProps> = ({
         isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
       }
     >
-      {showText ? t`Follow` : null}
+      {showText ? 'Follow' : null}
     </Button>
   );
 };

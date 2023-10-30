@@ -31,7 +31,7 @@ const useContractMetadata = ({
     }
   };
 
-  const loadContractDetails = async () => {
+  const getContractDetails = async () => {
     const response = await axios.get(
       `https://${getAlchemyChainName()}.g.alchemy.com/nft/v2/${ALCHEMY_KEY}/getContractMetadata`,
       { params: { contractAddress: address } }
@@ -40,11 +40,11 @@ const useContractMetadata = ({
     return response.data?.contractMetadata;
   };
 
-  const { data, error } = useQuery(
-    ['contractMetadata', address],
-    () => loadContractDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, error } = useQuery({
+    queryKey: ['getContractDetails', address],
+    queryFn: getContractDetails,
+    enabled
+  });
 
   return { data, error };
 };

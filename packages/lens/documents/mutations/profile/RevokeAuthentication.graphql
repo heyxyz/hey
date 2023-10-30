@@ -1,0 +1,3 @@
+mutation RevokeAuthentication($request: RevokeAuthenticationRequest!) {
+  revokeAuthentication(request: $request)
+}

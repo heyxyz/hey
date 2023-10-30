@@ -17,7 +17,9 @@ const parseJwt = (
   token: string
 ): {
   id: string;
+  evmAddress: string;
   role: string;
+  authorizationId: string;
   iat: number;
   exp: number;
 } => {
@@ -26,7 +28,9 @@ const parseJwt = (
   } catch {
     return {
       id: '',
+      evmAddress: '',
       role: '',
+      authorizationId: '',
       iat: 0,
       exp: 0
     };

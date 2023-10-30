@@ -12,9 +12,8 @@ import type { ReactNode } from 'react';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
-import LanguageProvider from './LanguageProvider';
+import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
-import UserSigNoncesProvider from './UserSigNoncesProvider';
 import Web3Provider from './Web3Provider';
 
 const livepeerClient = createReactClient({
@@ -28,22 +27,20 @@ const queryClient = new QueryClient({
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
-      <LanguageProvider>
-        <Web3Provider>
-          <ApolloProvider client={lensApolloWebClient}>
-            <UserSigNoncesProvider />
-            <QueryClientProvider client={queryClient}>
-              <PreferencesProvider />
-              <FeaturedGroupsProvider />
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider defaultTheme="light" attribute="class">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-              </LivepeerConfig>
-            </QueryClientProvider>
-          </ApolloProvider>
-        </Web3Provider>
-      </LanguageProvider>
+      <Web3Provider>
+        <ApolloProvider client={lensApolloWebClient}>
+          <LensSubscriptionsProvider />
+          <QueryClientProvider client={queryClient}>
+            <PreferencesProvider />
+            <FeaturedGroupsProvider />
+            <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+              <ThemeProvider defaultTheme="light" attribute="class">
+                <Layout>{children}</Layout>
+              </ThemeProvider>
+            </LivepeerConfig>
+          </QueryClientProvider>
+        </ApolloProvider>
+      </Web3Provider>
     </ErrorBoundary>
   );
 };

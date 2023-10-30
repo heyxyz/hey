@@ -1,0 +1,10 @@
+query WhoActedOnPublication($request: WhoActedOnPublicationRequest!) {
+  whoActedOnPublication(request: $request) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

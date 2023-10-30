@@ -1,22 +1,25 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
-import { useUserProfilesWithGuardianInformationQuery } from '@hey/lens';
+import { useCurrentProfileQuery } from '@hey/lens';
+import { parseJwt } from '@hey/lens/apollo/lib';
 import resetAuthData from '@hey/lib/resetAuthData';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
-import { useIsMounted, useUpdateEffect } from 'usehooks-ts';
+import { useAppPersistStore } from 'src/store/useAppPersistStore';
+import { useAppStore } from 'src/store/useAppStore';
+import { useNonceStore } from 'src/store/useNonceStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
 import { useAccount, useDisconnect, useNetwork } from 'wagmi';
 
-import { useDisconnectXmtp } from '../../hooks/useXmtpClient';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
@@ -27,75 +30,64 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const { setProfiles, currentProfile, setCurrentProfile } = useAppStore();
-  const { setProfileGuardianInformation, resetProfileGuardianInformation } =
-    useProfileGuardianInformationStore();
+  const { setCurrentProfile } = useAppStore();
   const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
+  const {
+    setLensHubOnchainSigNonce,
+    setLensTokenHandleRegistryOnchainSigNonce,
+    setLensPublicActProxyOnchainSigNonce
+  } = useNonceStore();
 
   const isMounted = useIsMounted();
-  const { address } = useAccount();
+  const { address, connector } = useAccount();
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
-  const disconnectXmtp = useDisconnectXmtp();
 
-  const resetAuthState = () => {
-    setProfileId(null);
-    setCurrentProfile(null);
+  const logout = () => {
     resetPreferences();
-    resetProfileGuardianInformation();
+    resetAuthData();
+    disconnect?.();
   };
 
-  // Fetch current profiles and sig nonce owned by the wallet address
-  const { loading } = useUserProfilesWithGuardianInformationQuery({
-    variables: {
-      profileGuardianInformationRequest: { profileId },
-      profilesRequest: { ownedBy: [address] }
-    },
+  const { loading } = useCurrentProfileQuery({
+    variables: { request: { forProfileId: profileId } },
     skip: !profileId,
-    onCompleted: (data) => {
-      const profiles = data?.profiles?.items
-        ?.slice()
-        ?.sort((a, b) => Number(a.id) - Number(b.id))
-        ?.sort((a, b) =>
-          a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1
-        );
+    onCompleted: ({ profile, userSigNonces }) => {
+      const currentSession = parseJwt(
+        localStorage.getItem(Localstorage.AccessToken) || ''
+      );
 
-      if (!profiles.length) {
-        return resetAuthState();
+      if (!profile || profile.id !== currentSession.id) {
+        return logout();
       }
 
-      const selectedUser = profiles.find((profile) => profile.id === profileId);
-      setProfiles(profiles as Profile[]);
-      setCurrentProfile(selectedUser as Profile);
-      setProfileId(selectedUser?.id);
-      setProfileGuardianInformation({
-        isProtected: data.profileGuardianInformation.protected,
-        disablingProtectionTimestamp:
-          data.profileGuardianInformation.disablingProtectionTimestamp
-      });
-    },
-    onError: () => setProfileId(null)
+      setCurrentProfile(profile as Profile);
+      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
+      setLensPublicActProxyOnchainSigNonce(
+        userSigNonces.lensPublicActProxyOnchainSigNonce
+      );
+      setLensTokenHandleRegistryOnchainSigNonce(
+        userSigNonces.lensTokenHandleRegistryOnchainSigNonce
+      );
+    }
   });
 
-  const validateAuthentication = () => {
-    const currentProfileAddress = currentProfile?.ownedBy;
-    const isSwitchedAccount =
-      currentProfileAddress !== undefined && currentProfileAddress !== address;
-    const shouldLogout = !getIsAuthTokensAvailable() || isSwitchedAccount;
+  useEffectOnce(() => {
+    // Get and set profile id from JWT
+    setProfileId(getCurrentSessionProfileId());
 
-    // If there are no auth data, clear and logout
-    if (shouldLogout && profileId) {
-      disconnectXmtp();
-      resetAuthState();
-      resetAuthData();
-      disconnect?.();
-    }
-  };
+    // Listen for switch account in wallet and logout
+    connector?.addListener('change', () => {
+      logout();
+    });
+  });
 
   useUpdateEffect(() => {
-    validateAuthentication();
-  }, [address, chain, disconnect, profileId]);
+    if (!getIsAuthTokensAvailable()) {
+      logout();
+    }
+  }, [address, chain, disconnect]);
 
   if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
@@ -111,6 +103,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       </Head>
       <Toaster
         position="bottom-right"
+        containerStyle={{ wordBreak: 'break-word' }}
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <GlobalModals />

@@ -1,27 +1,31 @@
 import ChooseFile from '@components/Shared/ChooseFile';
 import ImageCropperController from '@components/Shared/ImageCropperController';
 import { PencilIcon } from '@heroicons/react/24/outline';
-import { LensPeriphery } from '@hey/abis';
-import { COVER, LENS_PERIPHERY } from '@hey/data/constants';
+import { LensHub } from '@hey/abis';
+import {
+  ARWEAVE_GATEWAY,
+  AVATAR,
+  COVER,
+  LENSHUB_PROXY,
+  STATIC_IMAGES_URL
+} from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { Regex } from '@hey/data/regex';
 import { SETTINGS } from '@hey/data/tracking';
 import { getCroppedImg } from '@hey/image-cropper/cropUtils';
 import type { Area } from '@hey/image-cropper/types';
-import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
-  Profile
-} from '@hey/lens';
+import type { OnchainSetProfileMetadataRequest, Profile } from '@hey/lens';
 import {
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useSetProfileMetadataMutation
 } from '@hey/lens';
+import getAvatar from '@hey/lib/getAvatar';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
 import imageKit from '@hey/lib/imageKit';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
+import trimify from '@hey/lib/trimify';
 import {
   Button,
   Card,
@@ -34,68 +38,93 @@ import {
   TextArea,
   useZodForm
 } from '@hey/ui';
+import type {
+  MetadataAttribute,
+  ProfileOptions
+} from '@lens-protocol/metadata';
+import {
+  MetadataAttributeType,
+  profile as profileMetadata
+} from '@lens-protocol/metadata';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import uploadCroppedImage, { readFile } from '@lib/profilePictureUtils';
 import uploadToArweave from '@lib/uploadToArweave';
-import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
-import urlcat from 'urlcat';
-import { v4 as uuid } from 'uuid';
+import { useAppStore } from 'src/store/useAppStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
+import type { z } from 'zod';
 import { object, string, union } from 'zod';
 
 const editProfileSchema = object({
   name: string()
-    .max(100, {
-      message: t`Name should not exceed 100 characters`
-    })
+    .max(100, { message: 'Name should not exceed 100 characters' })
     .regex(Regex.profileNameValidator, {
-      message: t`Profile name must not contain restricted symbols`
+      message: 'Profile name must not contain restricted symbols'
     }),
   location: string().max(100, {
-    message: t`Location should not exceed 100 characters`
+    message: 'Location should not exceed 100 characters'
   }),
   website: union([
-    string().regex(Regex.url, { message: t`Invalid website` }),
+    string().regex(Regex.url, { message: 'Invalid website' }),
     string().max(0)
   ]),
-  x: string().max(100, {
-    message: t`X handle must not exceed 100 characters`
-  }),
-  bio: string().max(260, { message: t`Bio should not exceed 260 characters` })
+  x: string().max(100, { message: 'X handle must not exceed 100 characters' }),
+  bio: string().max(260, { message: 'Bio should not exceed 260 characters' })
 });
 
+type FormData = z.infer<typeof editProfileSchema>;
+
 interface ProfileSettingsFormProps {
-  profile: Profile & { coverPicture: MediaSet };
+  profile: Profile;
 }
 
 const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [coverIpfsUrl, setCoverIpfsUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [imageSrc, setImageSrc] = useState('');
-  const [showCropModal, setShowCropModal] = useState(false);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState('');
+
+  // Cover Picture
+  const [coverPictureIpfsUrl, setCoverPictureIpfsUrl] = useState('');
+  const [coverPictureSrc, setCoverPictureSrc] = useState('');
+  const [showCoverPictureCropModal, setShowCoverPictureCropModal] =
+    useState(false);
+  const [croppedCoverPictureAreaPixels, setCoverPictureCroppedAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadedCoverPictureUrl, setUploadedCoverPictureUrl] = useState('');
+  const [uploadingCoverPicture, setUploadingCoverPicture] = useState(false);
+
+  // Picture
+  const [profilePictureIpfsUrl, setProfilePictureIpfsUrl] = useState('');
+  const [profilePictureSrc, setProfilePictureSrc] = useState('');
+  const [showProfilePictureCropModal, setShowProfilePictureCropModal] =
+    useState(false);
+  const [croppedProfilePictureAreaPixels, setCroppedProfilePictureAreaPixels] =
+    useState<Area | null>(null);
+  const [uploadedProfilePictureUrl, setUploadedProfilePictureUrl] =
+    useState('');
+  const [uploadingProfilePicture, setUploadingProfilePicture] = useState(false);
+
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  // Lens manager
+  const canUseRelay = currentProfile?.signless;
+  const isSponsored = currentProfile?.sponsor;
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return;
     }
 
     setIsLoading(false);
-    toast.success(t`Profile updated successfully!`);
+    toast.success('Profile updated successfully!');
     Leafwatch.track(SETTINGS.PROFILE.UPDATE);
   };
 
@@ -106,49 +135,47 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
   const { error, write } = useContractWrite({
-    address: LENS_PERIPHERY,
-    abi: LensPeriphery,
+    address: LENSHUB_PROXY,
+    abi: LensHub,
     functionName: 'setProfileMetadataURI',
     onSuccess: () => onCompleted(),
     onError
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
-  const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async ({ createSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createSetProfileMetadataTypedData;
+  const [createOnchainSetProfileMetadataTypedData] =
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcast({
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         });
-        if (data?.broadcast.__typename === 'RelayError') {
-          const { profileId, metadata } = typedData.value;
-          return write?.({ args: [profileId, metadata] });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const { profileId, metadataURI } = typedData.value;
+          return write?.({ args: [profileId, metadataURI] });
         }
       },
       onError
     });
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename),
-      onError
-    });
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  });
 
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
+  const updateProfile = async (request: OnchainSetProfileMetadataRequest) => {
+    const { data } = await setProfileMetadata({
       variables: { request }
     });
     if (
-      data?.createSetProfileMetadataViaDispatcher?.__typename === 'RelayError'
+      data?.setProfileMetadata?.__typename === 'LensProfileManagerRelayError'
     ) {
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     }
@@ -157,24 +184,18 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const form = useZodForm({
     schema: editProfileSchema,
     defaultValues: {
-      name: profile?.name ?? '',
-      location: getProfileAttribute(profile?.attributes, 'location'),
-      website: getProfileAttribute(profile?.attributes, 'website'),
-      x: getProfileAttribute(profile?.attributes, 'x')?.replace(
+      name: profile?.metadata?.displayName ?? '',
+      location: getProfileAttribute(profile?.metadata?.attributes, 'location'),
+      website: getProfileAttribute(profile?.metadata?.attributes, 'website'),
+      x: getProfileAttribute(profile?.metadata?.attributes, 'x')?.replace(
         /(https:\/\/)?x\.com\//,
         ''
       ),
-      bio: profile?.bio ?? ''
+      bio: profile?.metadata?.bio ?? ''
     }
   });
 
-  const editProfile = async (
-    name: string,
-    location: string | null,
-    website?: string | null,
-    x?: string | null,
-    bio?: string | null
-  ) => {
+  const editProfile = async (data: FormData) => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -185,50 +206,58 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
 
     try {
       setIsLoading(true);
-      const id = await uploadToArweave({
-        name,
-        bio,
-        cover_picture: coverIpfsUrl ? coverIpfsUrl : null,
+      const otherAttributes =
+        profile.metadata?.attributes
+          ?.filter(
+            (attr) =>
+              !['location', 'website', 'x', 'timestamp', 'app'].includes(
+                attr.key
+              )
+          )
+          .map(({ key, value }) => ({ key, value })) ?? [];
+
+      const preparedProfileMetadata: ProfileOptions = {
+        ...(data.name && { name: data.name }),
+        ...(data.bio && { bio: data.bio }),
+        picture: profilePictureIpfsUrl ? profilePictureIpfsUrl : undefined,
+        coverPicture: coverPictureIpfsUrl ? coverPictureIpfsUrl : undefined,
         attributes: [
-          ...(profile?.attributes
-            ?.filter(
-              (attr) =>
-                ![
-                  'location',
-                  'website',
-                  'x',
-                  'statusEmoji',
-                  'statusMessage',
-                  'app'
-                ].includes(attr.key)
-            )
-            .map(({ key, value }) => ({ key, value })) ?? []),
-          { key: 'location', value: location },
-          { key: 'website', value: website },
-          { key: 'x', value: x },
+          ...(otherAttributes as MetadataAttribute[]),
           {
-            key: 'statusEmoji',
-            value: getProfileAttribute(profile?.attributes, 'statusEmoji')
+            type: MetadataAttributeType.STRING,
+            key: 'location',
+            value: data.location
           },
           {
-            key: 'statusMessage',
-            value: getProfileAttribute(profile?.attributes, 'statusMessage')
+            type: MetadataAttributeType.STRING,
+            key: 'website',
+            value: data.website
+          },
+          { type: MetadataAttributeType.STRING, key: 'x', value: data.x },
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'timestamp',
+            value: new Date().toISOString()
           }
-        ],
-        version: '1.0.0',
-        metadata_id: uuid()
-      });
+        ]
+      };
+      preparedProfileMetadata.attributes =
+        preparedProfileMetadata.attributes?.filter((m) =>
+          Boolean(trimify(m.value))
+        );
+      console.log(preparedProfileMetadata);
+      const metadata = profileMetadata(preparedProfileMetadata);
+      const id = await uploadToArweave(metadata);
 
-      const request: CreatePublicSetProfileMetadataUriRequest = {
-        profileId: currentProfile?.id,
-        metadata: urlcat('https://arweave.net/:id', { id })
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: `${ARWEAVE_GATEWAY}/${id}`
       };
 
       if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request);
+        return await updateProfile(request);
       }
 
-      return await createSetProfileMetadataTypedData({
+      return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       });
     } catch (error) {
@@ -236,7 +265,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
   };
 
-  const uploadAndSave = async () => {
+  const uploadAndSave = async (type: 'avatar' | 'cover') => {
     if (!currentProfile) {
       return toast.error(Errors.SignWallet);
     }
@@ -246,34 +275,71 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
     }
 
     try {
-      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+      const croppedImage = await getCroppedImg(
+        type === 'avatar' ? profilePictureSrc : coverPictureSrc,
+        type === 'avatar'
+          ? croppedProfilePictureAreaPixels
+          : croppedCoverPictureAreaPixels
+      );
+
       if (!croppedImage) {
         return toast.error(Errors.SomethingWentWrong);
       }
-      setUploading(true);
+
+      // Update Loading State
+      if (type === 'avatar') {
+        setUploadingProfilePicture(true);
+      } else if (type === 'cover') {
+        setUploadingCoverPicture(true);
+      }
+
       const ipfsUrl = await uploadCroppedImage(croppedImage);
       const dataUrl = croppedImage.toDataURL('image/png');
-      setCoverIpfsUrl(ipfsUrl);
-      setUploadedImageUrl(dataUrl);
+
+      // Update Profile Picture
+      if (type === 'avatar') {
+        setProfilePictureIpfsUrl(ipfsUrl);
+        setUploadedProfilePictureUrl(dataUrl);
+      } else if (type === 'cover') {
+        setCoverPictureIpfsUrl(ipfsUrl);
+        setUploadedCoverPictureUrl(dataUrl);
+      }
     } catch (error) {
       onError(error);
     } finally {
-      setShowCropModal(false);
-      setUploading(false);
+      setShowCoverPictureCropModal(false);
+      setShowProfilePictureCropModal(false);
+      setUploadingCoverPicture(false);
+      setUploadingProfilePicture(false);
     }
   };
 
-  const onFileChange = async (evt: ChangeEvent<HTMLInputElement>) => {
+  const onFileChange = async (
+    evt: ChangeEvent<HTMLInputElement>,
+    type: 'avatar' | 'cover'
+  ) => {
     const file = evt.target.files?.[0];
     if (file) {
-      setImageSrc(await readFile(file));
-      setShowCropModal(true);
+      if (type === 'avatar') {
+        setProfilePictureSrc(await readFile(file));
+        setShowProfilePictureCropModal(true);
+      } else if (type === 'cover') {
+        setCoverPictureSrc(await readFile(file));
+        setShowCoverPictureCropModal(true);
+      }
     }
   };
 
-  const coverPictureUrl = profile?.coverPicture?.original?.url;
-  const coverPictureIpfsUrl = coverPictureUrl
+  const coverPictureUrl =
+    profile?.metadata?.coverPicture?.optimized?.uri ||
+    `${STATIC_IMAGES_URL}/patterns/2.svg`;
+  const renderCoverPictureUrl = coverPictureUrl
     ? imageKit(sanitizeDStorageUrl(coverPictureUrl), COVER)
+    : '';
+
+  const profilePictureUrl = getAvatar(profile);
+  const renderProfilePictureUrl = profilePictureUrl
+    ? imageKit(sanitizeDStorageUrl(profilePictureUrl), AVATAR)
     : '';
 
   return (
@@ -282,53 +348,67 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         <Form
           form={form}
           className="space-y-4"
-          onSubmit={({ name, location, website, x, bio }) => {
-            editProfile(name, location, website, x, bio);
-          }}
+          onSubmit={(data) => editProfile(data)}
         >
           {error ? (
             <ErrorMessage
               className="mb-3"
-              title={t`Transaction failed!`}
+              title="Transaction failed!"
               error={error}
             />
           ) : null}
           <Input
-            label={t`Profile Id`}
+            label="Profile Id"
             type="text"
             value={currentProfile?.id}
             disabled
           />
           <Input
-            label={t`Name`}
+            label="Name"
             type="text"
             placeholder="Gavin"
             {...form.register('name')}
           />
           <Input
-            label={t`Location`}
+            label="Location"
             type="text"
             placeholder="Miami"
             {...form.register('location')}
           />
           <Input
-            label={t`Website`}
+            label="Website"
             type="text"
             placeholder="https://hooli.com"
             {...form.register('website')}
           />
           <Input
-            label={t`X`}
+            label="X"
             type="text"
             prefix="https://x.com"
             placeholder="gavin"
             {...form.register('x')}
           />
           <TextArea
-            label={t`Bio`}
-            placeholder={t`Tell us something about you!`}
+            label="Bio"
+            placeholder="Tell us something about you!"
             {...form.register('bio')}
           />
+          <div className="space-y-1.5">
+            <div className="label">Avatar</div>
+            <div className="space-y-3">
+              <Image
+                className="max-w-xs rounded-lg"
+                onError={({ currentTarget }) => {
+                  currentTarget.src = sanitizeDStorageUrl(
+                    profilePictureIpfsUrl
+                  );
+                }}
+                src={uploadedProfilePictureUrl || renderProfilePictureUrl}
+                alt="Profile picture crop preview"
+              />
+              <ChooseFile onChange={(event) => onFileChange(event, 'avatar')} />
+            </div>
+          </div>
           <div className="space-y-1.5">
             <div className="label">Cover</div>
             <div className="space-y-3">
@@ -336,22 +416,22 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 <Image
                   className="h-60 w-full rounded-lg object-cover"
                   onError={({ currentTarget }) => {
-                    currentTarget.src = sanitizeDStorageUrl(coverIpfsUrl);
+                    currentTarget.src =
+                      sanitizeDStorageUrl(coverPictureIpfsUrl);
                   }}
-                  src={uploadedImageUrl || coverPictureIpfsUrl}
-                  alt={t`Cover picture crop preview`}
+                  src={uploadedCoverPictureUrl || renderCoverPictureUrl}
+                  alt="Cover picture crop preview"
                 />
               </div>
-              <div className="flex items-center space-x-3">
-                <ChooseFile onChange={onFileChange} />
-                {uploading ? <Spinner size="sm" /> : null}
-              </div>
+              <ChooseFile onChange={(event) => onFileChange(event, 'cover')} />
             </div>
           </div>
           <Button
             className="ml-auto"
             type="submit"
-            disabled={isLoading || (!form.formState.isDirty && !imageSrc)}
+            disabled={
+              isLoading || (!form.formState.isDirty && !coverPictureSrc)
+            }
             icon={
               isLoading ? (
                 <Spinner size="xs" />
@@ -360,42 +440,78 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
               )
             }
           >
-            <Trans>Save</Trans>
+            Save
           </Button>
         </Form>
       </Card>
       <Modal
-        title={t`Crop image`}
-        show={showCropModal}
+        title="Crop cover picture"
+        show={showCoverPictureCropModal}
         size="md"
         onClose={
           isLoading
             ? undefined
             : () => {
-                setImageSrc('');
-                setShowCropModal(false);
+                setCoverPictureSrc('');
+                setShowCoverPictureCropModal(false);
               }
         }
       >
         <div className="p-5 text-right">
           <ImageCropperController
-            imageSrc={imageSrc}
-            setCroppedAreaPixels={setCroppedAreaPixels}
+            imageSrc={coverPictureSrc}
+            setCroppedAreaPixels={setCoverPictureCroppedAreaPixels}
             targetSize={{ width: 1500, height: 500 }}
           />
           <Button
             type="submit"
-            disabled={uploading || !imageSrc}
-            onClick={uploadAndSave}
+            disabled={uploadingCoverPicture || !coverPictureSrc}
+            onClick={() => uploadAndSave('cover')}
             icon={
-              uploading ? (
+              uploadingCoverPicture ? (
                 <Spinner size="xs" />
               ) : (
                 <PencilIcon className="h-4 w-4" />
               )
             }
           >
-            <Trans>Upload</Trans>
+            Upload
+          </Button>
+        </div>
+      </Modal>
+      {/* Picture */}
+      <Modal
+        title="Crop profile picture"
+        show={showProfilePictureCropModal}
+        size="sm"
+        onClose={
+          isLoading
+            ? undefined
+            : () => {
+                setCoverPictureSrc('');
+                setShowProfilePictureCropModal(false);
+              }
+        }
+      >
+        <div className="p-5 text-right">
+          <ImageCropperController
+            imageSrc={profilePictureSrc}
+            setCroppedAreaPixels={setCroppedProfilePictureAreaPixels}
+            targetSize={{ width: 300, height: 300 }}
+          />
+          <Button
+            type="submit"
+            disabled={uploadingProfilePicture || !profilePictureSrc}
+            onClick={() => uploadAndSave('avatar')}
+            icon={
+              uploadingProfilePicture ? (
+                <Spinner size="xs" />
+              ) : (
+                <PencilIcon className="h-4 w-4" />
+              )
+            }
+          >
+            Upload
           </Button>
         </div>
       </Modal>

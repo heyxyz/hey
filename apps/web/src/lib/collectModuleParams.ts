@@ -1,60 +1,53 @@
 import type {
-  CollectModuleParams,
-  ModuleFeeAmountParams,
+  AmountInput,
+  CollectActionModuleInput,
   Profile,
   RecipientDataInput
 } from '@hey/lens';
-import { CollectModules } from '@hey/lens';
-import type { CollectModuleType } from 'src/store/collect-module';
-
-import { getTimeAddedNDay } from './formatTime';
+import { CollectOpenActionModuleType } from '@hey/lens';
+import type { CollectModuleType } from 'src/store/useCollectModuleStore';
 
 const collectModuleParams = (
   collectModule: CollectModuleType,
   currentProfile: Profile
-): CollectModuleParams => {
+): CollectActionModuleInput | null => {
   const {
     collectLimit,
-    followerOnlyCollect,
-    timeLimit,
+    followerOnly,
     amount,
     referralFee,
-    recipients
+    recipients,
+    endsAt
   } = collectModule;
   const baseCollectModuleParams = {
     collectLimit: collectLimit,
-    followerOnly: followerOnlyCollect as boolean,
-    endTimestamp: timeLimit ? getTimeAddedNDay(1) : null
-  };
-
-  const baseAmountParams = {
-    amount: amount as ModuleFeeAmountParams,
-    referralFee: referralFee as number
+    followerOnly: followerOnly || false,
+    endsAt: endsAt
   };
 
   switch (collectModule.type) {
-    case CollectModules.SimpleCollectModule:
+    case CollectOpenActionModuleType.SimpleCollectOpenActionModule:
       return {
-        simpleCollectModule: {
+        simpleCollectOpenAction: {
           ...baseCollectModuleParams,
           ...(amount && {
-            fee: {
-              ...baseAmountParams,
-              recipient: currentProfile?.ownedBy
-            }
+            referralFee: referralFee,
+            amount: amount,
+            recipient: currentProfile?.ownedBy.address
           })
         }
       };
-    case CollectModules.MultirecipientFeeCollectModule:
+    case CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
-        multirecipientFeeCollectModule: {
+        multirecipientCollectOpenAction: {
           ...baseCollectModuleParams,
-          ...baseAmountParams,
+          amount: amount as AmountInput,
+          referralFee: referralFee,
           recipients: recipients as RecipientDataInput[]
         }
       };
     default:
-      return { revertCollectModule: true };
+      return null;
   }
 };
 

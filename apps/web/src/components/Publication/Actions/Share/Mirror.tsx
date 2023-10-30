@@ -5,82 +5,81 @@ import { LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { PUBLICATION } from '@hey/data/tracking';
 import type {
-  CreateDataAvailabilityMirrorRequest,
-  CreateMirrorRequest,
-  Publication
+  AnyPublication,
+  MomokaMirrorRequest,
+  OnchainMirrorRequest
 } from '@hey/lens';
 import {
-  useBroadcastMutation,
-  useCreateDataAvailabilityMirrorViaDispatcherMutation,
-  useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
+  TriStateValue,
+  useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaMirrorTypedDataMutation,
+  useCreateOnchainMirrorTypedDataMutation,
+  useMirrorOnchainMutation,
+  useMirrorOnMomokaMutation
 } from '@hey/lens';
-import { useApolloClient } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
 import getSignature from '@hey/lib/getSignature';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useAppStore } from 'src/store/app';
-import { useNonceStore } from 'src/store/nonce';
+import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
+import { useAppStore } from 'src/store/useAppStore';
+import { useNonceStore } from 'src/store/useNonceStore';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface MirrorProps {
-  publication: Publication;
+  publication: AnyPublication;
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
 }
 
 const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const userSigNonce = useNonceStore((state) => state.userSigNonce);
-  const setUserSigNonce = useNonceStore((state) => state.setUserSigNonce);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const [mirrored, setMirrored] = useState(
-    isMirror
-      ? publication?.mirrorOf?.mirrors?.length > 0
-      : // @ts-expect-error
-        publication?.mirrors?.length > 0
-  );
+  const {
+    getMirrorOrQuoteCountByPublicationId,
+    hasQuotedOrMirroredByMe,
+    setMirrorOrQuoteConfig
+  } = useMirrorOrQuoteOptimisticStore();
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+
   const handleWrongNetwork = useHandleWrongNetwork();
-  const { cache } = useApolloClient();
 
-  // Dispatcher
-  const canUseRelay = currentProfile?.dispatcher?.canUseRelay;
-  const isSponsored = currentProfile?.dispatcher?.sponsor;
+  // Lens manager
+  const canUseRelay = currentProfile?.signless;
+  const isSponsored = currentProfile?.sponsor;
 
-  const updateCache = () => {
-    cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
-      fields: {
-        mirrors: (mirrors) => [...mirrors, currentProfile?.id],
-        stats: (stats) => ({
-          ...stats,
-          totalAmountOfMirrors: stats.totalAmountOfMirrors + 1
-        })
-      }
-    });
-  };
+  const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
+  const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
+    targetPublication.id
+  );
 
   const onCompleted = (
     __typename?:
       | 'RelayError'
-      | 'RelayerResult'
-      | 'CreateDataAvailabilityPublicationResult'
+      | 'RelaySuccess'
+      | 'CreateMomokaPublicationResult'
+      | 'LensProfileManagerRelayError'
   ) => {
-    if (__typename === 'RelayError') {
-      return;
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return toast.error(Errors.SomethingWentWrong);
     }
 
-    updateCache();
     setIsLoading(false);
-    setMirrored(true);
-    toast.success(t`Post has been mirrored!`);
+    setMirrorOrQuoteConfig(targetPublication.id, {
+      countMirrorOrQuote: mirrorOrQuoteCount + 1,
+      mirroredOrQuoted: true
+    });
+    toast.success('Post has been mirrored!');
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
     });
@@ -99,62 +98,95 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     functionName: 'mirror',
     onSuccess: () => {
       onCompleted();
-      setUserSigNonce(userSigNonce + 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
     },
     onError: (error) => {
       onError(error);
-      setUserSigNonce(userSigNonce - 1);
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1);
     }
   });
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
 
-  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
-    onCompleted: async ({ createMirrorTypedData }) => {
-      const { id, typedData } = createMirrorTypedData;
-      const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcast({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcast.__typename === 'RelayError') {
-        return write?.({ args: [typedData.value] });
-      }
-    },
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) =>
+      onCompleted(broadcastOnMomoka.__typename),
     onError
   });
 
-  const [createDataAvailabilityMirrorViaDispatcher] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityMirrorViaDispatcher }) =>
-        onCompleted(createDataAvailabilityMirrorViaDispatcher.__typename),
+  const typedDataGenerator = async (
+    generatedData: any,
+    isMomokaPublication = false
+  ) => {
+    const { id, typedData } = generatedData;
+    const signature = await signTypedDataAsync(getSignature(typedData));
+    if (isMomokaPublication) {
+      return await broadcastOnMomoka({
+        variables: { request: { id, signature } }
+      });
+    }
+
+    const { data } = await broadcastOnchain({
+      variables: { request: { id, signature } }
+    });
+    if (data?.broadcastOnchain.__typename === 'RelayError') {
+      return write({ args: [typedData.value] });
+    }
+  };
+
+  // On-chain typed data generation
+  const [createOnchainMirrorTypedData] =
+    useCreateOnchainMirrorTypedDataMutation({
+      onCompleted: async ({ createOnchainMirrorTypedData }) =>
+        await typedDataGenerator(createOnchainMirrorTypedData),
       onError
     });
 
-  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
-    onCompleted: ({ createMirrorViaDispatcher }) =>
-      onCompleted(createMirrorViaDispatcher.__typename),
+  // Momoka typed data generation
+  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
+    onCompleted: async ({ createMomokaMirrorTypedData }) =>
+      await typedDataGenerator(createMomokaMirrorTypedData, true),
     onError
   });
 
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityMirrorRequest
-  ) => {
-    await createDataAvailabilityMirrorViaDispatcher({
+  // Onchain mutations
+  const [mirrorOnchain] = useMirrorOnchainMutation({
+    onCompleted: ({ mirrorOnchain }) => onCompleted(mirrorOnchain.__typename),
+    onError
+  });
+
+  // Momoka mutations
+  const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
+    onCompleted: ({ mirrorOnMomoka }) => onCompleted(mirrorOnMomoka.__typename),
+    onError
+  });
+
+  if (targetPublication.operations.canMirror === TriStateValue.No) {
+    return null;
+  }
+
+  const createOnMomka = async (request: MomokaMirrorRequest) => {
+    const { data } = await mirrorOnMomoka({
       variables: { request }
     });
+
+    if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      await createMomokaMirrorTypedData({ variables: { request } });
+    }
   };
 
-  const createViaDispatcher = async (request: CreateMirrorRequest) => {
-    const { data } = await createMirrorViaDispatcher({
+  const createOnChain = async (request: OnchainMirrorRequest) => {
+    const { data } = await mirrorOnchain({
       variables: { request }
     });
 
-    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      return await createMirrorTypedData({
+    if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
+      return await createOnchainMirrorTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
@@ -170,41 +202,29 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       return;
     }
 
-    if (publication.isDataAvailability && !isSponsored) {
+    if (publication.momoka?.proof && !isSponsored) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       );
     }
 
     try {
       setIsLoading(true);
-      const request: CreateMirrorRequest = {
-        profileId: currentProfile?.id,
-        publicationId: publication?.id,
-        referenceModule: {
-          followerOnlyReferenceModule: false
-        }
-      };
-
-      // Payload for the data availability mirror
-      const dataAvailablityRequest = {
-        from: currentProfile?.id,
-        mirror: publication?.id
+      const request: OnchainMirrorRequest | MomokaMirrorRequest = {
+        mirrorOn: publication?.id
       };
 
       if (canUseRelay) {
-        if (publication.isDataAvailability && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          );
+        if (publication.momoka?.proof && isSponsored) {
+          return await createOnMomka(request);
         }
 
-        return await createViaDispatcher(request);
+        return await createOnChain(request);
       }
 
-      return await createMirrorTypedData({
+      return await createOnchainMirrorTypedData({
         variables: {
-          options: { overrideSigNonce: userSigNonce },
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
@@ -219,7 +239,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       className={({ active }) =>
         cn(
           { 'dropdown-active': active },
-          mirrored ? 'text-green-500' : '',
+          hasQuotedOrMirrored ? 'text-green-500' : '',
           'm-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm'
         )
       }
@@ -228,7 +248,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     >
       <div className="flex items-center space-x-2">
         <ArrowsRightLeftIcon className="h-4 w-4" />
-        <div>{mirrored ? <Trans>Unmirror</Trans> : <Trans>Mirror</Trans>}</div>
+        <div>{hasQuotedOrMirrored ? 'Mirrored' : 'Mirror'}</div>
       </div>
     </Menu.Item>
   );

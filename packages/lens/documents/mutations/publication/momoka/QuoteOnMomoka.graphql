@@ -1,0 +1,10 @@
+mutation QuoteOnMomoka($request: MomokaQuoteRequest!) {
+  quoteOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

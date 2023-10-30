@@ -1,0 +1,15 @@
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  appId
+  attributes {
+    ...MetadataAttributeFields
+  }
+  title
+  content
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+}

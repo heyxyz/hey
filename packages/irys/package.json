@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.16.5"
+    "viem": "^1.18.0"
   },
   "devDependencies": {
     "@hey/config": "workspace:*",

@@ -10,10 +10,9 @@ import { ONBOARDING } from '@hey/data/tracking';
 import { Card } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 interface StatusProps {
   finished: boolean;
@@ -34,16 +33,14 @@ const Status: FC<StatusProps> = ({ finished, title }) => (
 );
 
 const SetProfile: FC = () => {
-  const profiles = useAppStore((state) => state.profiles);
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const hasDefaultProfile = Boolean(profiles.find((o) => o.isDefault));
   const doneSetup =
-    Boolean(currentProfile?.name) &&
-    Boolean(currentProfile?.bio) &&
-    Boolean(currentProfile?.picture) &&
+    Boolean(currentProfile?.metadata?.displayName) &&
+    Boolean(currentProfile?.metadata?.bio) &&
+    Boolean(currentProfile?.metadata?.picture) &&
     Boolean(currentProfile?.interests?.length);
 
-  if (!hasDefaultProfile || doneSetup) {
+  if (doneSetup) {
     return null;
   }
 
@@ -54,22 +51,20 @@ const SetProfile: FC = () => {
     >
       <div className="flex items-center space-x-2 font-bold">
         <PhotoIcon className="h-5 w-5" />
-        <p>
-          <Trans>Setup your {APP_NAME} profile</Trans>
-        </p>
+        <p>Setup your {APP_NAME} profile</p>
       </div>
       <div className="space-y-1 text-sm leading-[22px]">
         <Status
-          finished={Boolean(currentProfile?.name)}
-          title={t`Set profile name`}
+          finished={Boolean(currentProfile?.metadata?.displayName)}
+          title="Set profile name"
         />
         <Status
-          finished={Boolean(currentProfile?.bio)}
-          title={t`Set profile bio`}
+          finished={Boolean(currentProfile?.metadata?.bio)}
+          title="Set profile bio"
         />
         <Status
-          finished={Boolean(currentProfile?.picture)}
-          title={t`Set your avatar`}
+          finished={Boolean(currentProfile?.metadata?.picture)}
+          title="Set your avatar"
         />
         <div>
           <Link
@@ -81,7 +76,7 @@ const SetProfile: FC = () => {
           >
             <Status
               finished={Boolean(currentProfile?.interests?.length)}
-              title={t`Select profile interests`}
+              title="Select profile interests"
             />
             <New />
           </Link>
@@ -93,7 +88,7 @@ const SetProfile: FC = () => {
           onClick={() => Leafwatch.track(ONBOARDING.NAVIGATE_UPDATE_PROFILE)}
           href="/settings"
         >
-          <Trans>Update profile now</Trans>
+          Update profile now
         </Link>
       </div>
     </Card>

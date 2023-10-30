@@ -1,0 +1,7 @@
+fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
+  image {
+    optimized {
+      uri
+    }
+  }
+}

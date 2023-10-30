@@ -1,3 +1,4 @@
+import type { ProfileInterestTypes } from '@hey/lens';
 import type { ProfileInterest } from '@hey/types/misc';
 
 /**
@@ -6,12 +7,11 @@ import type { ProfileInterest } from '@hey/types/misc';
  * @param profileInterests Array of profile interests to sanitize
  * @returns Array of sanitized profile interests
  */
-const sanitizeProfileInterests = (profileInterests: string[]) => {
+const sanitizeProfileInterests = (profileInterests: ProfileInterestTypes[]) => {
   if (!profileInterests) {
     return [];
   }
-
-  const interests: ProfileInterest[] = [];
+  const interests: Array<ProfileInterest> = [];
   const categories = profileInterests.filter(
     (interest) => !interest.includes('__')
   );
@@ -22,7 +22,7 @@ const sanitizeProfileInterests = (profileInterests: string[]) => {
       )
       .map((item) => {
         return {
-          label: item.toLowerCase().split('__')[1].replaceAll('_', ' '),
+          label: item.toLowerCase().split('__')[1].replaceAll('_', ' & '),
           id: item
         };
       });

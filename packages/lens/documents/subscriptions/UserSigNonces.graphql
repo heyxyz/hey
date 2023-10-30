@@ -1,0 +1,7 @@
+subscription UserSigNonces($address: EvmAddress!) {
+  userSigNonces(address: $address) {
+    lensHubOnchainSigNonce
+    lensTokenHandleRegistryOnchainSigNonce
+    lensPublicActProxyOnchainSigNonce
+  }
+}

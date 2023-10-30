@@ -1,10 +1,15 @@
 import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
-import { APP_NAME, IS_MAINNET, STATIC_IMAGES_URL } from '@hey/data/constants';
+import {
+  APP_NAME,
+  HANDLE_PREFIX,
+  IS_MAINNET,
+  STATIC_IMAGES_URL
+} from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { useProfileQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { FollowModuleType, useProfileQuery } from '@hey/lens';
+import getProfile from '@hey/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
@@ -13,7 +18,7 @@ import { useState } from 'react';
 import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
@@ -27,7 +32,7 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { username, type, followIntent }
+    query: { handle, id, type, followIntent }
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const lowerCaseProfileFeedType = [
@@ -48,24 +53,30 @@ const ViewProfile: NextPage = () => {
     Leafwatch.track(PAGEVIEW, { page: 'profile' });
   });
 
-  const handle = formatHandle(username as string, true);
   const { data, loading, error } = useProfileQuery({
-    variables: { request: { handle }, who: currentProfile?.id ?? null },
-    skip: !handle
+    variables: {
+      request: {
+        ...(id
+          ? { forProfileId: id }
+          : { forHandle: `${HANDLE_PREFIX}${handle}` })
+      }
+    },
+    skip: id ? !id : !handle
   });
 
-  const profile = data?.profile;
+  const profile = data?.profile as Profile;
   const [following, setFollowing] = useState<boolean | null>(null);
   const [showFollowModal, setShowFollowModal] = useState(false);
   const isFollowedByMe =
-    Boolean(currentProfile) && Boolean(profile?.isFollowedByMe);
+    Boolean(currentProfile) &&
+    Boolean(profile?.operations.isFollowedByMe.value);
 
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
   const initState = following === null;
   // profile is not defined until the second render
   if (initState && profile) {
     const canFollow =
-      followType !== 'RevertFollowModuleSettings' && !isFollowedByMe;
+      followType !== FollowModuleType.RevertFollowModule && !isFollowedByMe;
     if (followIntent && canFollow) {
       setShowFollowModal(true);
     }
@@ -106,20 +117,15 @@ const ViewProfile: NextPage = () => {
           setShowFollowModal={setShowFollowModal}
         />
       </Modal>
-      {profile?.name ? (
-        <MetaTags
-          title={`${profile?.name} (@${formatHandle(
-            profile?.handle
-          )}) • ${APP_NAME}`}
-        />
-      ) : (
-        <MetaTags title={`@${formatHandle(profile?.handle)} • ${APP_NAME}`} />
-      )}
+      <MetaTags
+        title={`${getProfile(profile).displayName} (${
+          getProfile(profile).slugWithPrefix
+        }) • ${APP_NAME}`}
+      />
       <Cover
         cover={
-          profile?.coverPicture?.__typename === 'MediaSet'
-            ? profile?.coverPicture?.original?.url
-            : `${STATIC_IMAGES_URL}/patterns/2.svg`
+          profile?.metadata?.coverPicture?.optimized?.uri ||
+          `${STATIC_IMAGES_URL}/patterns/2.svg`
         }
       />
       <GridLayout className="pt-6">

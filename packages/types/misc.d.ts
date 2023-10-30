@@ -1,11 +1,17 @@
-import type { MediaSet } from '@hey/lens';
+import type { OptmisticPublicationType } from './enums';
 
-export interface MediaSetWithoutOnChain extends Omit<MediaSet, 'onChain'> {}
+export interface IPFSResponse {
+  uri: string;
+  mimeType: string;
+}
 
-export interface NewAttachment extends MediaSetWithoutOnChain {
-  id: string;
+export interface NewAttachment {
+  id?: string;
+  type: 'Image' | 'Video' | 'Audio';
+  uri: string;
+  mimeType: string;
+  previewUri: string;
   file?: File;
-  previewItem: string;
 }
 
 export interface UserSuggestion {
@@ -49,16 +55,22 @@ export interface MessageDescriptor {
 }
 
 export interface OptimisticTransaction {
+  type: OptmisticPublicationType;
+  content: string;
+  commentOn?: string;
   txHash?: string;
   txId?: string;
-  title?: string;
-  cover?: string;
-  author?: string;
-  content: string;
-  attachments: MediaSet[];
 }
 
 export interface MarkupLinkProps {
-  href?: string;
+  title?: string;
+  mentions?: ProfileMentioned[];
+}
+
+export interface MetadataAsset {
+  type: 'Image' | 'Video' | 'Audio';
+  uri: string;
+  cover?: string;
+  artist?: string;
   title?: string;
 }

@@ -1,5 +1,4 @@
 import { PUBLICATION } from '@hey/data/tracking';
-import formatHandle from '@hey/lib/formatHandle';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { MarkupLinkProps } from '@hey/types/misc';
 import { Leafwatch } from '@lib/leafwatch';
@@ -9,31 +8,58 @@ import type { FC } from 'react';
 import Slug from '../../Slug';
 import UserPreview from '../../UserPreview';
 
-const Mention: FC<MarkupLinkProps> = ({ href, title = href }) => {
+const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
   const handle = title?.slice(1);
 
   if (!handle) {
     return null;
   }
 
-  return (
+  const fullHandles = mentions?.map(
+    (mention) => mention.snapshotHandleMentioned.fullHandle
+  );
+
+  if (!fullHandles?.includes(handle)) {
+    return title;
+  }
+
+  const canShowUserPreview = (handle: string) => {
+    const foundMention = mentions?.find(
+      (mention) => mention.snapshotHandleMentioned.fullHandle === handle
+    );
+
+    return foundMention?.snapshotHandleMentioned.linkedTo?.nftTokenId
+      ? true
+      : false;
+  };
+
+  const getLocalNameFromFullHandle = (handle: string) => {
+    const foundMention = mentions?.find(
+      (mention) => mention.snapshotHandleMentioned.fullHandle === handle
+    );
+    return foundMention?.snapshotHandleMentioned.localName;
+  };
+
+  return canShowUserPreview(handle) ? (
     <Link
-      href={`/u/${formatHandle(handle)}`}
+      href={`/u/${getLocalNameFromFullHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.CLICK_MENTION, {
-          handle: formatHandle(handle)
+          handle: getLocalNameFromFullHandle(handle)
         });
       }}
     >
-      {handle ? (
-        <UserPreview isBig={false} handle={handle} followStatusLoading={false}>
-          <Slug slug={formatHandle(handle)} prefix="@" useBrandColor />
-        </UserPreview>
-      ) : (
-        <Slug slug={formatHandle(handle)} prefix="@" useBrandColor />
-      )}
+      <UserPreview handle={handle}>
+        <Slug
+          slug={getLocalNameFromFullHandle(handle)}
+          prefix="@"
+          useBrandColor
+        />
+      </UserPreview>
     </Link>
+  ) : (
+    <Slug slug={getLocalNameFromFullHandle(handle)} prefix="@" useBrandColor />
   );
 };
 

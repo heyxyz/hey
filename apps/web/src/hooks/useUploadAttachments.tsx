@@ -1,23 +1,18 @@
 import type { NewAttachment } from '@hey/types/misc';
 import uploadToIPFS from '@lib/uploadToIPFS';
-import { t } from '@lingui/macro';
 import { useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 import { v4 as uuid } from 'uuid';
 
 const useUploadAttachments = () => {
-  const addAttachments = usePublicationStore((state) => state.addAttachments);
-  const updateAttachments = usePublicationStore(
-    (state) => state.updateAttachments
-  );
-  const removeAttachments = usePublicationStore(
-    (state) => state.removeAttachments
-  );
-  const setIsUploading = usePublicationStore((state) => state.setIsUploading);
-  const setUploadedPercentage = usePublicationStore(
-    (state) => state.setUploadedPercentage
-  );
+  const {
+    addAttachments,
+    updateAttachments,
+    removeAttachments,
+    setIsUploading,
+    setUploadedPercentage
+  } = usePublicationStore();
 
   const handleUploadAttachments = useCallback(
     async (attachments: any): Promise<NewAttachment[]> => {
@@ -31,12 +26,15 @@ const useUploadAttachments = () => {
 
         return {
           id: attachmentId,
-          file: file,
-          previewItem: URL.createObjectURL(file),
-          original: {
-            url: URL.createObjectURL(file),
-            mimeType: file.type
-          }
+          type: file.type.includes('image')
+            ? 'Image'
+            : file.type.includes('video')
+            ? 'Video'
+            : 'Audio',
+          mimeType: file.type,
+          uri: URL.createObjectURL(file),
+          previewUri: URL.createObjectURL(file),
+          file
         };
       });
 
@@ -46,17 +44,17 @@ const useUploadAttachments = () => {
         const isAudio = file.type.includes('audio');
 
         if (isImage && file.size > 50000000) {
-          toast.error(t`Image size should be less than 50MB`);
+          toast.error('Image size should be less than 50MB');
           return false;
         }
 
         if (isVideo && file.size > 500000000) {
-          toast.error(t`Video size should be less than 500MB`);
+          toast.error('Video size should be less than 500MB');
           return false;
         }
 
         if (isAudio && file.size > 100000000) {
-          toast.error(t`Audio size should be less than 100MB`);
+          toast.error('Audio size should be less than 100MB');
           return false;
         }
 
@@ -80,17 +78,15 @@ const useUploadAttachments = () => {
           attachmentsIPFS = previewAttachments.map(
             (attachment: NewAttachment, index: number) => ({
               ...attachment,
-              original: {
-                url: attachmentsUploaded[index].original.url,
-                mimeType: attachmentsUploaded[index].original.mimeType
-              }
+              uri: attachmentsUploaded[index].uri,
+              mimeType: attachmentsUploaded[index].mimeType
             })
           );
           updateAttachments(attachmentsIPFS);
         }
       } catch {
         removeAttachments(attachmentIds);
-        toast.error(t`Something went wrong while uploading!`);
+        toast.error('Something went wrong while uploading!');
       }
       setIsUploading(false);
 

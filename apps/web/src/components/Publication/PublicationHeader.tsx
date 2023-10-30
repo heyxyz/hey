@@ -1,18 +1,19 @@
 import SmallUserProfile from '@components/Shared/SmallUserProfile';
 import UserProfile from '@components/Shared/UserProfile';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import type { FeedItem, Publication } from '@hey/lens';
+import type { AnyPublication, FeedItem } from '@hey/lens';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import type { FC } from 'react';
-import { usePreferencesStore } from 'src/store/preferences';
-import { usePublicationStore } from 'src/store/publication';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 
 import PublicationMenu from './Actions/Menu';
 import Source from './Source';
 
 interface PublicationHeaderProps {
-  publication: Publication;
+  publication: AnyPublication;
   feedItem?: FeedItem;
   quoted?: boolean;
   isNew?: boolean;
@@ -28,23 +29,20 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
     (state) => state.setQuotedPublication
   );
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const isMirror = publication.__typename === 'Mirror';
+
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
   const firstComment = feedItem?.comments && feedItem.comments[0];
   const rootPublication = feedItem
     ? firstComment
       ? firstComment
       : feedItem?.root
-    : publication;
-  const profile = feedItem
-    ? rootPublication.profile
-    : isMirror
-    ? publication?.mirrorOf?.profile
-    : publication?.profile;
+    : targetPublication;
+  const profile = feedItem ? rootPublication.by : targetPublication.by;
   const timestamp = feedItem
     ? rootPublication.createdAt
-    : isMirror
-    ? publication?.mirrorOf?.createdAt
-    : publication?.createdAt;
+    : targetPublication.createdAt;
 
   return (
     <div
@@ -52,7 +50,6 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         quoted ? 'pb-2' : 'pb-4',
         'relative flex justify-between space-x-1.5'
       )}
-      data-testid={`publication-${publication.id}-header`}
     >
       <span
         className="max-w-full"
@@ -60,15 +57,19 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         aria-hidden="true"
       >
         {quoted ? (
-          <SmallUserProfile profile={profile} timestamp={timestamp} />
+          <SmallUserProfile
+            profile={profile}
+            timestamp={timestamp}
+            linkToProfile
+          />
         ) : (
-          <UserProfile profile={profile} timestamp={timestamp} showStatus />
+          <UserProfile profile={profile} timestamp={timestamp} />
         )}
       </span>
       <div className="!-mr-[7px] flex items-center space-x-1">
-        {gardenerMode ? <Source publication={publication} /> : null}
-        {!publication.hidden && !quoted ? (
-          <PublicationMenu publication={publication} />
+        {gardenerMode ? <Source publication={targetPublication} /> : null}
+        {!publication.isHidden && !quoted ? (
+          <PublicationMenu publication={targetPublication} />
         ) : null}
         {quoted && isNew ? (
           <button

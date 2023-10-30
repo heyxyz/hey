@@ -1,15 +1,11 @@
-import {
-  INVITE_WORKER_URL,
-  IS_MAINNET,
-  STATIC_IMAGES_URL
-} from '@hey/data/constants';
+import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import { Regex } from '@hey/data/regex';
-import { Localstorage } from '@hey/data/storage';
 import { INVITE } from '@hey/data/tracking';
+import { useInviteMutation } from '@hey/lens';
 import { Button, Form, Input, useZodForm } from '@hey/ui';
+import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t, Trans } from '@lingui/macro';
-import axios from 'axios';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -17,8 +13,8 @@ import { object, string } from 'zod';
 
 const inviteSchema = object({
   address: string()
-    .max(42, { message: t`Ethereum address should be within 42 characters` })
-    .regex(Regex.ethereumAddress, { message: t`Invalid Ethereum address` })
+    .max(42, { message: 'Ethereum address should be within 42 characters' })
+    .regex(Regex.ethereumAddress, { message: 'Invalid Ethereum address' })
 });
 
 interface InviteProps {
@@ -33,32 +29,32 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
     schema: inviteSchema
   });
 
+  const onError = (error: any) => {
+    setInviting(false);
+    errorToast(error);
+  };
+
+  const [inviteAddress] = useInviteMutation({
+    onCompleted: async () => {
+      await refetch();
+      form.reset();
+      setInviting(false);
+      Leafwatch.track(INVITE.INVITE);
+
+      return toast.success('Invited successfully!');
+    },
+    onError
+  });
+
   const invite = async (address: string) => {
     try {
       setInviting(true);
-      const data = await axios.post(
-        INVITE_WORKER_URL,
-        { address, isMainnet: IS_MAINNET },
-        {
-          headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
-          }
-        }
-      );
 
-      if (!data.data.alreadyInvited) {
-        await refetch();
-        form.reset();
-        Leafwatch.track(INVITE.INVITE);
-
-        return toast.success(t`Invited successfully!`);
-      }
-
-      return toast.error(t`Address already invited!`);
-    } catch {
-      return toast.error(t`Failed to invite!`);
-    } finally {
-      setInviting(false);
+      return await inviteAddress({
+        variables: { request: { invites: [address] } }
+      });
+    } catch (error) {
+      onError(error);
     }
   };
 
@@ -72,24 +68,14 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         />
         <div className="text-xl">Invite a Fren</div>
         <p className="lt-text-gray-500">
-          <Trans>
-            Send invites to your frens so they can create an Lens account. You
-            can invite a user only once.
-          </Trans>
+          Send invites to your frens so they can create an Lens account. You can
+          invite a user only once.
         </p>
         <div className="pt-2 font-mono text-lg">
-          <Trans>
-            <b>
-              {invitesLeft}{' '}
-              <Plural
-                value={invitesLeft}
-                zero="invite"
-                one="invite"
-                other="invites"
-              />
-            </b>{' '}
-            available!
-          </Trans>
+          <b>
+            {invitesLeft} {plur('invite', invitesLeft)}
+          </b>{' '}
+          available!
         </div>
       </div>
       {invitesLeft !== 0 ? (
@@ -107,7 +93,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
             {...form.register('address')}
           />
           <Button type="submit" disabled={inviting}>
-            <Trans>Invite</Trans>
+            Invite
           </Button>
         </Form>
       ) : null}

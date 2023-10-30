@@ -20,7 +20,7 @@ const useZoraNft = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadZoraNftDetails = async () => {
+  const getZoraNftDetails = async () => {
     const response = await axios.get(`${NFT_WORKER_URL}/zora`, {
       params: { chain, address, token }
     });
@@ -28,11 +28,11 @@ const useZoraNft = ({
     return response.data?.nft;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['loadZoraNftDetails', chain, address, token],
-    () => loadZoraNftDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getZoraNftDetails', chain, address, token],
+    queryFn: getZoraNftDetails,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

@@ -1,0 +1,17 @@
+query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
+  approvedAuthentications(request: $request) {
+    items {
+      authorizationId
+      browser
+      device
+      os
+      origin
+      expiresAt
+      createdAt
+      updatedAt
+    }
+    pageInfo {
+      next
+    }
+  }
+}

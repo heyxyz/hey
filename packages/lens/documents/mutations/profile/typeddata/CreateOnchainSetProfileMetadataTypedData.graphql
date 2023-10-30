@@ -1,0 +1,32 @@
+mutation CreateOnchainSetProfileMetadataTypedData(
+  $options: TypedDataOptions
+  $request: OnchainSetProfileMetadataRequest!
+) {
+  createOnchainSetProfileMetadataTypedData(
+    options: $options
+    request: $request
+  ) {
+    expiresAt
+    id
+    typedData {
+      domain {
+        name
+        chainId
+        version
+        verifyingContract
+      }
+      types {
+        SetProfileMetadataURI {
+          name
+          type
+        }
+      }
+      value {
+        nonce
+        deadline
+        profileId
+        metadataURI
+      }
+    }
+  }
+}

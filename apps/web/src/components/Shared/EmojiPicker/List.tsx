@@ -5,7 +5,6 @@ import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { Emoji } from '@hey/types/misc';
 import { ErrorMessage, Input } from '@hey/ui';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { ChangeEvent, FC } from 'react';
@@ -21,9 +20,13 @@ interface ListProps {
 const List: FC<ListProps> = ({ setEmoji }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState('');
-  const { isLoading, error, data } = useQuery(['emojisData'], () =>
-    axios.get(`${STATIC_ASSETS_URL}/emoji.json`).then((res) => res.data)
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['emojisData'],
+    queryFn: async () => {
+      const response = await axios.get(`${STATIC_ASSETS_URL}/emoji.json`);
+      return response.data;
+    }
+  });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -54,12 +57,12 @@ const List: FC<ListProps> = ({ setEmoji }) => {
   }
 
   if (isLoading) {
-    return <Loader message={t`Loading emojis`} />;
+    return <Loader message="Loading emojis" />;
   }
 
   return (
     <div>
-      <div className="w-full p-2 pb-0 pt-4" data-testid="emoji-search">
+      <div className="w-full p-2 pb-0 pt-4">
         <Input
           onClick={(e) => {
             e.preventDefault();
@@ -69,7 +72,7 @@ const List: FC<ListProps> = ({ setEmoji }) => {
           autoFocus
           type="text"
           className="px-3 py-2 text-sm"
-          placeholder={'Search...'}
+          placeholder="Search..."
           value={searchText}
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={

@@ -1,44 +1,43 @@
 import { Menu } from '@headlessui/react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
-import type {
-  Publication,
-  PublicationProfileNotInterestedRequest
-} from '@hey/lens';
 import {
-  useAddPublicationProfileNotInterestedMutation,
-  useRemovePublicationProfileNotInterestedMutation
+  type AnyPublication,
+  type PublicationNotInterestedRequest,
+  useAddPublicationNotInterestedMutation,
+  useUndoPublicationNotInterestedMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
-import { publicationKeyFields } from '@hey/lens/apollo/lib';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
 
 interface NotInterestedProps {
-  publication: Publication;
+  publication: AnyPublication;
 }
 
 const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
-  const isMirror = publication.__typename === 'Mirror';
-  const notInterested = isMirror
-    ? publication.mirrorOf.notInterested
-    : publication.notInterested;
-  const currentProfile = useAppStore((state) => state.currentProfile);
-  const request: PublicationProfileNotInterestedRequest = {
-    profileId: currentProfile?.id,
-    publicationId: publication.id
+  const targetPublication = isMirrorPublication(publication)
+    ? publication?.mirrorOn
+    : publication;
+  const notInterested = targetPublication.operations.isNotInterested;
+
+  const request: PublicationNotInterestedRequest = {
+    on: publication.id
   };
 
   const updateCache = (cache: ApolloCache<any>, notInterested: boolean) => {
     cache.modify({
-      id: publicationKeyFields(isMirror ? publication?.mirrorOf : publication),
-      fields: { notInterested: () => notInterested }
+      id: cache.identify(targetPublication),
+      fields: {
+        operations: (existingValue) => {
+          return { ...existingValue, isNotInterested: notInterested };
+        }
+      }
     });
   };
 
@@ -46,26 +45,25 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
     errorToast(error);
   };
 
-  const [addPublicationProfileNotInterested] =
-    useAddPublicationProfileNotInterestedMutation({
-      variables: { request },
-      onError,
-      onCompleted: () => {
-        toast.success(t`Marked as not Interested`);
-        Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
-          publication_id: publication.id,
-          not_interested: true
-        });
-      },
-      update: (cache) => updateCache(cache, true)
-    });
+  const [addPublicationNotInterested] = useAddPublicationNotInterestedMutation({
+    variables: { request },
+    onError,
+    onCompleted: () => {
+      toast.success('Marked as not Interested');
+      Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
+        publication_id: publication.id,
+        not_interested: true
+      });
+    },
+    update: (cache) => updateCache(cache, true)
+  });
 
-  const [removePublicationProfileNotInterested] =
-    useRemovePublicationProfileNotInterestedMutation({
+  const [undoPublicationNotInterested] =
+    useUndoPublicationNotInterestedMutation({
       variables: { request },
       onError,
       onCompleted: () => {
-        toast.success(t`Undo Not interested`);
+        toast.success('Undo Not interested');
         Leafwatch.track(PUBLICATION.TOGGLE_NOT_INTERESTED, {
           publication_id: publication.id,
           not_interested: false
@@ -76,10 +74,10 @@ const NotInterested: FC<NotInterestedProps> = ({ publication }) => {
 
   const togglePublicationProfileNotInterested = async () => {
     if (notInterested) {
-      return await removePublicationProfileNotInterested();
+      return await undoPublicationNotInterested();
     }
 
-    return await addPublicationProfileNotInterested();
+    return await addPublicationNotInterested();
   };
 
   return (

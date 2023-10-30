@@ -1,0 +1,10 @@
+mutation Unfollow($request: UnfollowRequest!) {
+  unfollow(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

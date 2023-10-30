@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import getStsToken from './handlers/getStsToken';
+import pinCid from './handlers/pinCid';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -23,6 +24,7 @@ router
     })
   )
   .get('/token', getStsToken)
+  .post('/pin', pinCid)
   .all('*', () => error(404));
 
 export default {

@@ -1,23 +1,20 @@
 import { ShieldCheckIcon as ShieldCheckIconOutline } from '@heroicons/react/24/outline';
 import { ShieldCheckIcon as ShieldCheckIconSolid } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { Localstorage } from '@hey/data/storage';
 import { STAFFTOOLS } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 interface StaffModeProps {
   className?: string;
 }
 
 const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const setStaffMode = usePreferencesStore((state) => state.setStaffMode);
 
@@ -25,25 +22,23 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/staffMode`,
-        {
-          id: currentProfile?.id,
-          enabled: !staffMode
-        },
+        { enabled: !staffMode },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),
       {
-        loading: t`Toggling staff mode...`,
+        loading: 'Toggling staff mode...',
         success: () => {
           setStaffMode(!staffMode);
           Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
-          return t`Staff mode toggled!`;
+          return 'Staff mode toggled!';
         },
-        error: t`Failed to toggle staff mode!`
+        error: 'Failed to toggle staff mode!'
       }
     );
   };
@@ -61,9 +56,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
       ) : (
         <ShieldCheckIconOutline className="h-4 w-4 text-red-500" />
       )}
-      <div>
-        <Trans>Staff mode</Trans>
-      </div>
+      <div>Staff mode</div>
     </button>
   );
 };

@@ -3,9 +3,9 @@ import Footer from '@components/Shared/Footer';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
-  CustomFiltersTypes,
-  PublicationMainFocus,
-  PublicationTypes
+  CustomFiltersType,
+  ExplorePublicationType,
+  PublicationMetadataMainFocusType
 } from '@hey/lens';
 import {
   Button,
@@ -16,11 +16,10 @@ import {
   GridLayout
 } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom404 from 'src/pages/404';
-import { usePreferencesStore } from 'src/store/preferences';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
@@ -30,22 +29,22 @@ const Mod: NextPage = () => {
   const [refresing, setRefreshing] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [publicationTypes, setPublicationTypes] = useState([
-    PublicationTypes.Post,
-    PublicationTypes.Comment
+    ExplorePublicationType.Post,
+    ExplorePublicationType.Quote
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
-    PublicationMainFocus[]
+    PublicationMetadataMainFocusType[]
   >([
-    PublicationMainFocus.Article,
-    PublicationMainFocus.Audio,
-    PublicationMainFocus.Embed,
-    PublicationMainFocus.Image,
-    PublicationMainFocus.Link,
-    PublicationMainFocus.TextOnly,
-    PublicationMainFocus.Video
+    PublicationMetadataMainFocusType.Article,
+    PublicationMetadataMainFocusType.Audio,
+    PublicationMetadataMainFocusType.Embed,
+    PublicationMetadataMainFocusType.Image,
+    PublicationMetadataMainFocusType.Link,
+    PublicationMetadataMainFocusType.TextOnly,
+    PublicationMetadataMainFocusType.Video
   ]);
   const [customFilters, setCustomFilters] = useState([
-    CustomFiltersTypes.Gardeners
+    CustomFiltersType.Gardeners
   ]);
 
   useEffectOnce(() => {
@@ -56,7 +55,7 @@ const Mod: NextPage = () => {
     return <Custom404 />;
   }
 
-  const toggleMainContentFocus = (focus: PublicationMainFocus) => {
+  const toggleMainContentFocus = (focus: PublicationMetadataMainFocusType) => {
     if (mainContentFocus.includes(focus)) {
       setMainContentFocus(mainContentFocus.filter((type) => type !== focus));
     } else {
@@ -64,7 +63,7 @@ const Mod: NextPage = () => {
     }
   };
 
-  const togglePublicationType = (publicationType: PublicationTypes) => {
+  const togglePublicationType = (publicationType: ExplorePublicationType) => {
     if (publicationTypes.includes(publicationType)) {
       setPublicationTypes(
         publicationTypes.filter((type) => type !== publicationType)
@@ -76,7 +75,7 @@ const Mod: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Mod Center • ${APP_NAME}`} />
+      <MetaTags title={`Mod Center • ${APP_NAME}`} />
       <GridItemEight className="space-y-5">
         <Feed
           refresh={refresh}
@@ -93,120 +92,134 @@ const Mod: NextPage = () => {
             className="w-full"
             onClick={() => setRefresh(!refresh)}
           >
-            <Trans>Refresh feed</Trans>
+            Refresh feed
           </Button>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Publication filters</Trans>
-            </span>
+            <span className="font-bold">Publication filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
-                onChange={() => togglePublicationType(PublicationTypes.Post)}
-                checked={publicationTypes.includes(PublicationTypes.Post)}
+                onChange={() =>
+                  togglePublicationType(ExplorePublicationType.Post)
+                }
+                checked={publicationTypes.includes(ExplorePublicationType.Post)}
                 name="posts"
-                label={t`Posts`}
+                label="Posts"
               />
               <Checkbox
-                onChange={() => togglePublicationType(PublicationTypes.Comment)}
-                checked={publicationTypes.includes(PublicationTypes.Comment)}
-                name="comments"
-                label={t`Comments`}
+                onChange={() =>
+                  togglePublicationType(ExplorePublicationType.Quote)
+                }
+                checked={publicationTypes.includes(
+                  ExplorePublicationType.Quote
+                )}
+                name="quotes"
+                label="Quotes"
               />
             </div>
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Media filters</Trans>
-            </span>
+            <span className="font-bold">Media filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Article)
+                  toggleMainContentFocus(
+                    PublicationMetadataMainFocusType.Article
+                  )
                 }
                 checked={mainContentFocus.includes(
-                  PublicationMainFocus.Article
+                  PublicationMetadataMainFocusType.Article
                 )}
                 name="articles"
-                label={t`Articles`}
+                label="Articles"
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Audio)
-                }
-                checked={mainContentFocus.includes(PublicationMainFocus.Audio)}
-                name="audio"
-                label={t`Audio`}
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Embed)
-                }
-                checked={mainContentFocus.includes(PublicationMainFocus.Embed)}
-                name="embeds"
-                label={t`Embeds`}
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Image)
-                }
-                checked={mainContentFocus.includes(PublicationMainFocus.Image)}
-                name="images"
-                label={t`Images`}
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Link)
-                }
-                checked={mainContentFocus.includes(PublicationMainFocus.Link)}
-                name="links"
-                label={t`Links`}
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.TextOnly)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Audio)
                 }
                 checked={mainContentFocus.includes(
-                  PublicationMainFocus.TextOnly
+                  PublicationMetadataMainFocusType.Audio
                 )}
-                name="text"
-                label={t`Text`}
+                name="audio"
+                label="Audio"
               />
               <Checkbox
                 onChange={() =>
-                  toggleMainContentFocus(PublicationMainFocus.Video)
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Embed)
                 }
-                checked={mainContentFocus.includes(PublicationMainFocus.Video)}
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Embed
+                )}
+                name="embeds"
+                label="Embeds"
+              />
+              <Checkbox
+                onChange={() =>
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Image)
+                }
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Image
+                )}
+                name="images"
+                label="Images"
+              />
+              <Checkbox
+                onChange={() =>
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Link)
+                }
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Link
+                )}
+                name="links"
+                label="Links"
+              />
+              <Checkbox
+                onChange={() =>
+                  toggleMainContentFocus(
+                    PublicationMetadataMainFocusType.TextOnly
+                  )
+                }
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.TextOnly
+                )}
+                name="text"
+                label="Text"
+              />
+              <Checkbox
+                onChange={() =>
+                  toggleMainContentFocus(PublicationMetadataMainFocusType.Video)
+                }
+                checked={mainContentFocus.includes(
+                  PublicationMetadataMainFocusType.Video
+                )}
                 name="videos"
-                label={t`Videos`}
+                label="Videos"
               />
             </div>
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">
-              <Trans>Custom filters</Trans>
-            </span>
+            <span className="font-bold">Custom filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               <Checkbox
                 onChange={() => {
-                  if (customFilters.includes(CustomFiltersTypes.Gardeners)) {
+                  if (customFilters.includes(CustomFiltersType.Gardeners)) {
                     setCustomFilters(
                       customFilters.filter(
-                        (type) => type !== CustomFiltersTypes.Gardeners
+                        (type) => type !== CustomFiltersType.Gardeners
                       )
                     );
                   } else {
                     setCustomFilters([
                       ...customFilters,
-                      CustomFiltersTypes.Gardeners
+                      CustomFiltersType.Gardeners
                     ]);
                   }
                 }}
-                checked={customFilters.includes(CustomFiltersTypes.Gardeners)}
+                checked={customFilters.includes(CustomFiltersType.Gardeners)}
                 name="gardeners"
-                label={t`Gardeners`}
+                label="Gardeners"
               />
             </div>
           </div>

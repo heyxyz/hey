@@ -31,7 +31,7 @@ const getAlgorithmicFeed = async (
         feedType.replace('K3L_', '').toLowerCase(),
         limit,
         offset,
-        profile?.handle
+        profile?.handle?.fullHandle
       ).then((data) => data);
     case HomeFeedType.HEY_MOSTVIEWED:
     case HomeFeedType.HEY_MOSTINTERACTED:

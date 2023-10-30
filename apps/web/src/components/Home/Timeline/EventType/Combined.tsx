@@ -1,7 +1,6 @@
 import Profiles from '@components/Shared/Profiles';
 import { SparklesIcon } from '@heroicons/react/24/outline';
 import type { FeedItem } from '@hey/lens';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface CombinedProps {
@@ -9,17 +8,17 @@ interface CombinedProps {
 }
 
 const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { mirrors, collects, reactions } = feedItem;
+  const { mirrors, acted, reactions } = feedItem;
   const comments = feedItem.comments ?? [];
 
   const mirrorsLength = mirrors.length;
-  const collectsLength = collects.length;
+  const actedLength = acted.length;
   const reactionsLength = reactions.length;
   const commentsLength = comments?.length ?? 0;
 
   const getAllProfiles = () => {
-    let profiles = [...mirrors, ...collects, ...reactions, ...comments].map(
-      (event) => event.profile
+    let profiles = [...mirrors, ...acted, ...reactions, ...comments].map(
+      (event) => event.by
     );
     profiles = profiles.filter(
       (profile, index, self) =>
@@ -30,16 +29,16 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
 
   const actionArray = [];
   if (mirrorsLength) {
-    actionArray.push(t`mirrored`);
+    actionArray.push('mirrored');
   }
   if (commentsLength) {
-    actionArray.push(t`commented`);
+    actionArray.push('commented');
   }
-  if (collectsLength) {
-    actionArray.push(t`collected`);
+  if (actedLength) {
+    actionArray.push('acted');
   }
   if (reactionsLength) {
-    actionArray.push(t`liked`);
+    actionArray.push('liked');
   }
 
   return (
@@ -51,11 +50,7 @@ const Combined: FC<CombinedProps> = ({ feedItem }) => {
           <>
             <span key={index}>{action}</span>
             {index < actionArray.length - 2 && <span>, </span>}
-            {index == actionArray.length - 2 && (
-              <span>
-                <Trans>and</Trans>
-              </span>
-            )}
+            {index == actionArray.length - 2 && <span>and</span>}
           </>
         ))}
       </div>

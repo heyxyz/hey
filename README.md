@@ -17,9 +17,6 @@
     <a href="https://www.gitpoap.io/gh/lensterxyz">
         <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
     </a>
-    <a href="https://translate.hey.xyz">
-        <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
-    </a>
     <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
     </a>
@@ -54,13 +51,10 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 
 ## 📦 Environments
 
-| Name            | Link                            |
-| --------------- | ------------------------------- |
-| Mainnet         | https://hey.xyz                 |
-| Testnet         | https://testnet.hey.xyz         |
-| Staging         | https://staging.hey.xyz         |
-| Sandbox         | https://sandbox.hey.xyz         |
-| Staging Sandbox | https://staging-sandbox.hey.xyz |
+| Name    | Link                    |
+| ------- | ----------------------- |
+| Mainnet | https://hey.xyz         |
+| Testnet | https://testnet.hey.xyz |
 
 ## ✅ Community
 
