@@ -88,7 +88,7 @@ const GlobalModals: FC = () => {
         <ReportProfile profile={reportingProfile} />
       </Modal>
       <Modal
-        title="Change Profile"
+        title="Switch Profile"
         show={showProfileSwitchModal}
         onClose={() => setShowProfileSwitchModal(false)}
         size="xs"
