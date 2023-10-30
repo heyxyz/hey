@@ -139,12 +139,12 @@ const Privacy: FC = () => {
               </div>
               <div className="space-y-5 leading-7">
                 <p>
-                  We use <b>Datadog</b> to collect various events from user
+                  We use <b>ClickHouse</b> to collect various events from user
                   actions to analyse and make decisions for Site improvements.
                 </p>
                 <p>
-                  All the data are anonymous and we don’t track user details
-                  such as name, handle, email, wallet address and so on.
+                  We collect profile id to identify the user. This makes sure to
+                  give the best experience to the user.
                 </p>
                 <p>
                   We may change to other third-party analytics service provider.
