@@ -78,9 +78,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     setProfileId(getCurrentSessionProfileId());
 
     // Listen for switch account in wallet and logout
-    connector?.addListener('change', () => {
-      logout();
-    });
+    connector?.addListener('change', () => logout());
   });
 
   useUpdateEffect(() => {
