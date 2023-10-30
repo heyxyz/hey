@@ -53,7 +53,7 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   };
 
   const { data, loading, error } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.Fifty } }
+    variables: { request: { limit: LimitType.TwentyFive } }
   });
 
   if (loading) {

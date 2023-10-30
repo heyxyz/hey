@@ -20,7 +20,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   const request: PublicationSearchRequest = {
     where: { customFilters: [CustomFiltersType.Gardeners] },
     query,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({

@@ -16,7 +16,7 @@ const Following: FC = () => {
 
   const request: FollowingRequest = {
     for: currentProfile?.id,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const [exportFollowing] = useFollowingLazyQuery({

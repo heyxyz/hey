@@ -70,7 +70,7 @@ const SuperFollow: FC = () => {
     onError
   });
   const { data: currencyData, loading } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.Fifty } }
+    variables: { request: { limit: LimitType.TwentyFive } }
   });
 
   const { write } = useContractWrite({

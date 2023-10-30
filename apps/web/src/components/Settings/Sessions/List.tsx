@@ -61,7 +61,9 @@ const List: FC = () => {
     }
   };
 
-  const request: ApprovedAuthenticationRequest = { limit: LimitType.Ten };
+  const request: ApprovedAuthenticationRequest = {
+    limit: LimitType.TwentyFive
+  };
   const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
     variables: { request },
     skip: !currentProfile?.id

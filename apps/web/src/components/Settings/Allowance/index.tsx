@@ -42,7 +42,7 @@ const AllowanceSettings: NextPage = () => {
     loading: enabledModulesLoading,
     error: enabledModulesError
   } = useEnabledCurrenciesQuery({
-    variables: { request: { limit: LimitType.Fifty } }
+    variables: { request: { limit: LimitType.TwentyFive } }
   });
 
   useEffectOnce(() => {

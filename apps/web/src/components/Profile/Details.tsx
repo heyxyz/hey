@@ -190,7 +190,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
             >
-              <MutualFollowersList profileId={profile.id} />
+              <MutualFollowersList profile={profile} />
             </Modal>
           </>
         ) : null}

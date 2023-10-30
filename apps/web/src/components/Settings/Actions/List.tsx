@@ -14,7 +14,7 @@ import { useAppStore } from 'src/store/useAppStore';
 const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const request: ProfileActionHistoryRequest = { limit: LimitType.Fifty };
+  const request: ProfileActionHistoryRequest = { limit: LimitType.TwentyFive };
   const { data, loading, error, fetchMore } = useProfileActionHistoryQuery({
     variables: { request },
     skip: !currentProfile?.id

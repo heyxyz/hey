@@ -21,7 +21,7 @@ const Followers: FC<FollowersProps> = ({ profile }) => {
   // Variables
   const request: FollowersRequest = {
     of: profile?.id,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useFollowersQuery({

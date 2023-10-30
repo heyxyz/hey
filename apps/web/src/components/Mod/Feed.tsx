@@ -41,7 +41,7 @@ const Feed: FC<FeedProps> = ({
       metadata: { mainContentFocus }
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore, refetch } =

@@ -18,7 +18,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
   // Variables
   const request: ProfilesRequest = {
     where: { whoQuotedPublication: publicationId },
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useProfilesQuery({

@@ -11,7 +11,7 @@ import { useAppStore } from 'src/store/useAppStore';
 const List: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty };
+  const request: WhoHaveBlockedRequest = { limit: LimitType.TwentyFive };
   const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({
     variables: { request },
     skip: !currentProfile?.id

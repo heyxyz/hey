@@ -22,7 +22,7 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   // Variables
   const request: WhoReactedPublicationRequest = {
     for: publicationId,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useWhoReactedPublicationQuery({

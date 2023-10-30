@@ -20,7 +20,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
   // Variables
   const request: FollowingRequest = {
     for: profile.id,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
   const currentProfile = useAppStore((state) => state.currentProfile);
 

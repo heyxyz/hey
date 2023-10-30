@@ -46,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
         },
         customFilters: [CustomFiltersType.Gardeners]
       },
-      limit: LimitType.Fifty
+      limit: LimitType.TwentyFive
     };
 
     const { data: commentsData } = await lensApolloNodeClient.query({

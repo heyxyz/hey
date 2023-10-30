@@ -1,51 +1,68 @@
 import Loader from '@components/Shared/Loader';
 import UserProfile from '@components/Shared/UserProfile';
+import { UsersIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
 import type { MutualFollowersRequest, Profile } from '@hey/lens';
 import { LimitType, useMutualFollowersQuery } from '@hey/lens';
-import { ErrorMessage } from '@hey/ui';
+import getProfile from '@hey/lib/getProfile';
+import { EmptyState, ErrorMessage } from '@hey/ui';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import { Virtuoso } from 'react-virtuoso';
 import { useAppStore } from 'src/store/useAppStore';
 
 interface MutualFollowersListProps {
-  profileId: string;
+  profile: Profile;
 }
 
-const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
+const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   // Variables
   const request: MutualFollowersRequest = {
-    viewing: profileId,
+    viewing: profile.id,
     observer: currentProfile?.id,
-    limit: LimitType.Ten
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useMutualFollowersQuery({
     variables: { request },
-    skip: !profileId
+    skip: !profile.id
   });
 
-  const profiles = data?.mutualFollowers?.items;
+  const mutualFollowers = data?.mutualFollowers?.items;
   const pageInfo = data?.mutualFollowers?.pageInfo;
   const hasMore = pageInfo?.next;
 
-  const { observe } = useInView({
-    onChange: async ({ inView }) => {
-      if (!inView || !hasMore) {
-        return;
-      }
-
-      await fetchMore({
-        variables: { request: { ...request, cursor: pageInfo?.next } }
-      });
+  const onEndReached = async () => {
+    if (!hasMore) {
+      return;
     }
-  });
+
+    await fetchMore({
+      variables: { request: { ...request, cursor: pageInfo?.next } }
+    });
+  };
 
   if (loading) {
     return <Loader message="Loading mutual followers" />;
+  }
+
+  if (mutualFollowers?.length === 0) {
+    return (
+      <EmptyState
+        message={
+          <div>
+            <span className="mr-1 font-bold">
+              {getProfile(profile).slugWithPrefix}
+            </span>
+            <span>doesn’t have any mutual followers.</span>
+          </div>
+        }
+        icon={<UsersIcon className="text-brand h-8 w-8" />}
+        hideCard
+      />
+    );
   }
 
   return (
@@ -55,29 +72,32 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profileId }) => {
         title="Failed to load mutual followers"
         error={error}
       />
-
-      <div className="divide-y dark:divide-gray-700">
-        {profiles?.map((profile, index) => (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="p-5"
-            key={profile?.id}
-          >
-            <UserProfile
-              profile={profile as Profile}
-              isFollowing={profile.operations.isFollowedByMe.value}
-              followUnfollowPosition={index + 1}
-              followUnfollowSource={FollowUnfollowSource.MUTUAL_FOLLOWERS_MODAL}
-              showBio
-              showFollow
-              showUserPreview={false}
-            />
-          </motion.div>
-        ))}
-      </div>
-      {hasMore ? <span ref={observe} /> : null}
+      <Virtuoso
+        className="virtual-profile-list"
+        data={mutualFollowers}
+        endReached={onEndReached}
+        itemContent={(index, mutualFollower) => {
+          return (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="p-5"
+            >
+              <UserProfile
+                profile={mutualFollower as Profile}
+                isFollowing={mutualFollower.operations.isFollowedByMe.value}
+                followUnfollowPosition={index + 1}
+                followUnfollowSource={FollowUnfollowSource.FOLLOWERS_MODAL}
+                showBio
+                showFollow={currentProfile?.id !== mutualFollower.id}
+                showUnfollow={currentProfile?.id !== mutualFollower.id}
+                showUserPreview={false}
+              />
+            </motion.div>
+          );
+        }}
+      />
     </div>
   );
 };

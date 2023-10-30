@@ -18,7 +18,7 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   // Variables
   const request: WhoActedOnPublicationRequest = {
     on: publicationId,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   };
 
   const { data, loading, error, fetchMore } = useWhoActedOnPublicationQuery({
