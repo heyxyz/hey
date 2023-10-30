@@ -6,21 +6,21 @@ import {
   type UserSigNonces,
   UserSigNoncesDocument
 } from '@hey/lens';
-import resetAuthData from '@hey/lib/resetAuthData';
 import { BrowserPush } from '@lib/browserPush';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getPushNotificationData from '@lib/getPushNotificationData';
 import type { FC } from 'react';
 import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
+import { signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
-  const profileId = useAppPersistStore((state) => state.profileId);
+  const currentSessionProfileId = getCurrentSessionProfileId();
   const setLatestNotificationId = useNotificationPersistStore(
     (state) => state.setLatestNotificationId
   );
@@ -41,12 +41,12 @@ const LensSubscriptionsProvider: FC = () => {
   });
 
   useUpdateEffect(() => {
-    if (readyState === 1 && profileId && address) {
+    if (readyState === 1 && currentSessionProfileId && address) {
       sendJsonMessage({
         id: '1',
         type: 'start',
         payload: {
-          variables: { for: profileId },
+          variables: { for: currentSessionProfileId },
           query: NewNotificationDocument
         }
       });
@@ -64,13 +64,13 @@ const LensSubscriptionsProvider: FC = () => {
         }
       });
     }
-  }, [readyState, profileId]);
+  }, [readyState, currentSessionProfileId]);
 
   useUpdateEffect(() => {
     const jsonData = JSON.parse(lastMessage?.data || '{}');
     const wsData = jsonData?.payload?.data;
 
-    if (profileId && address && wsData) {
+    if (currentSessionProfileId && address && wsData) {
       if (jsonData.id === '1') {
         const notification = wsData.newNotification as Notification;
         if (getPushNotificationData(notification)) {
@@ -92,7 +92,7 @@ const LensSubscriptionsProvider: FC = () => {
         );
       }
       if (jsonData.id === '3') {
-        resetAuthData();
+        signOut();
         location.reload();
       }
     }

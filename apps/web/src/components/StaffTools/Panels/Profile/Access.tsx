@@ -1,6 +1,5 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +7,7 @@ import axios from 'axios';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
 const Wrapper = ({
   children,
@@ -80,7 +80,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Access-Token': hydrateAuthTokens().accessToken,
             'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }

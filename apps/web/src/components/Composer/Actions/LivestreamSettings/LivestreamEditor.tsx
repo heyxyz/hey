@@ -6,12 +6,12 @@ import {
 } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET, LIVE_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import { Card, Spinner, Tooltip } from '@hey/ui';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 const LivestreamEditor: FC = () => {
@@ -29,7 +29,7 @@ const LivestreamEditor: FC = () => {
       setCreating(true);
       const response = await axios.post(`${LIVE_WORKER_URL}/create`, {
         headers: {
-          'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+          'X-Access-Token': hydrateAuthTokens().accessToken,
           'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
         }
       });

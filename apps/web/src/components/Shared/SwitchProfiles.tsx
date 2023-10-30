@@ -2,7 +2,6 @@ import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { IS_MAINNET } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
-import { Localstorage } from '@hey/data/storage';
 import { PROFILE } from '@hey/data/tracking';
 import type {
   LastLoggedInProfileRequest,
@@ -25,6 +24,7 @@ import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useAppStore } from 'src/store/useAppStore';
+import { signIn } from 'src/store/useAuthPersistStore';
 import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 import { useAccount, useSignMessage } from 'wagmi';
 
@@ -93,9 +93,7 @@ const SwitchProfiles: FC = () => {
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-
-      localStorage.setItem(Localstorage.AccessToken, accessToken);
-      localStorage.setItem(Localstorage.RefreshToken, refreshToken);
+      signIn({ accessToken, refreshToken });
 
       // Get authed profiles
       const { data: loadedProfile } = await getUserProfile({

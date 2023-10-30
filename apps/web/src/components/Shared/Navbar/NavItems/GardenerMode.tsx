@@ -1,13 +1,13 @@
 import { BoltIcon as BoltIconOutline } from '@heroicons/react/24/outline';
 import { BoltIcon as BoltIconSolid } from '@heroicons/react/24/solid';
 import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import { GARDENER } from '@hey/data/tracking';
 import cn from '@hey/ui/cn';
 import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 interface ModModeProps {
@@ -25,7 +25,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         { enabled: !gardenerMode },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Access-Token': hydrateAuthTokens().accessToken,
             'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }

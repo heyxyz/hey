@@ -1,20 +1,12 @@
 import { ApolloLink, fromPromise, toPromise } from '@apollo/client';
 import { API_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import parseJwt from '@hey/lib/parseJwt';
 import axios from 'axios';
-
-const resetAuthData = () => {
-  localStorage.removeItem(Localstorage.AppStore);
-  localStorage.removeItem(Localstorage.ModeStore);
-  localStorage.removeItem(Localstorage.NotificationStore);
-  localStorage.removeItem(Localstorage.TransactionStore);
-  localStorage.removeItem(Localstorage.TimelineStore);
-  localStorage.removeItem(Localstorage.AttachmentStore);
-  localStorage.removeItem(Localstorage.NonceStore);
-  localStorage.removeItem(Localstorage.AccessToken);
-  localStorage.removeItem(Localstorage.RefreshToken);
-};
+import {
+  hydrateAuthTokens,
+  signIn,
+  signOut
+} from 'src/store/useAuthPersistStore';
 
 const REFRESH_AUTHENTICATION_MUTATION = `
   mutation Refresh($request: RefreshRequest!) {
@@ -26,11 +18,10 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 `;
 
 const authLink = new ApolloLink((operation, forward) => {
-  const accessToken = localStorage.getItem(Localstorage.AccessToken);
-  const refreshToken = localStorage.getItem(Localstorage.RefreshToken);
+  const { accessToken, refreshToken } = hydrateAuthTokens();
 
-  if (!accessToken || accessToken === 'undefined') {
-    resetAuthData();
+  if (!accessToken || !refreshToken) {
+    signOut();
     return forward(operation);
   }
 
@@ -63,9 +54,7 @@ const authLink = new ApolloLink((operation, forward) => {
         operation.setContext({
           headers: { 'X-Access-Token': `Bearer ${accessToken}` }
         });
-
-        localStorage.setItem(Localstorage.AccessToken, accessToken);
-        localStorage.setItem(Localstorage.RefreshToken, refreshToken);
+        signIn({ accessToken, refreshToken });
 
         return toPromise(forward(operation));
       })

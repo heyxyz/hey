@@ -1,13 +1,13 @@
 import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 const PreferencesProvider: FC = () => {
-  const profileId = useAppPersistStore((state) => state.profileId);
+  const currentSessionProfileId = getCurrentSessionProfileId();
   const setVerifiedMembers = useAppStore((state) => state.setVerifiedMembers);
   const {
     setIsStaff,
@@ -22,9 +22,9 @@ const PreferencesProvider: FC = () => {
 
   const fetchPreferences = async () => {
     try {
-      if (Boolean(profileId)) {
+      if (Boolean(currentSessionProfileId)) {
         const response = await axios.get(
-          `${PREFERENCES_WORKER_URL}/get/${profileId}`
+          `${PREFERENCES_WORKER_URL}/get/${currentSessionProfileId}`
         );
         const { data } = response;
 
@@ -45,7 +45,7 @@ const PreferencesProvider: FC = () => {
   };
 
   useQuery({
-    queryKey: ['fetchPreferences', profileId || ''],
+    queryKey: ['fetchPreferences', currentSessionProfileId || ''],
     queryFn: fetchPreferences
   });
 

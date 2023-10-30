@@ -2,7 +2,6 @@ import SwitchNetwork from '@components/Shared/SwitchNetwork';
 import { ArrowRightCircleIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import { Errors } from '@hey/data/errors';
-import { Localstorage } from '@hey/data/storage';
 import { AUTH } from '@hey/data/tracking';
 import type {
   LastLoggedInProfileRequest,
@@ -24,6 +23,7 @@ import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import toast from 'react-hot-toast';
 import { CHAIN_ID } from 'src/constants';
+import { signIn } from 'src/store/useAuthPersistStore';
 import { useIsMounted } from 'usehooks-ts';
 import type { Connector } from 'wagmi';
 import {
@@ -126,10 +126,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       });
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
-
-      localStorage.setItem(Localstorage.AccessToken, accessToken);
-      localStorage.setItem(Localstorage.RefreshToken, refreshToken);
-
+      signIn({ accessToken, refreshToken });
       Leafwatch.track(AUTH.SIWL);
       location.reload();
     } catch {}

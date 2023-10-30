@@ -8,7 +8,6 @@ import { APP_NAME, LENSHUB_PROXY } from '@hey/data/constants';
 import { Errors } from '@hey/data/errors';
 import { SETTINGS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import resetAuthData from '@hey/lib/resetAuthData';
 import { Button, Card, Modal, Spinner, WarningMessage } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
@@ -17,6 +16,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
+import { signOut } from 'src/store/useAuthPersistStore';
 import { useContractWrite, useDisconnect } from 'wagmi';
 
 const DeleteSettings: FC = () => {
@@ -28,7 +28,7 @@ const DeleteSettings: FC = () => {
 
   const onCompleted = () => {
     Leafwatch.track(SETTINGS.DANGER.DELETE_PROFILE);
-    resetAuthData();
+    signOut();
     disconnect?.();
     location.href = '/';
   };

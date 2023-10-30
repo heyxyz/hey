@@ -1,13 +1,13 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
 import { useRevokeAuthenticationMutation } from '@hey/lens';
-import resetAuthData from '@hey/lib/resetAuthData';
 import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
+import { signOut } from 'src/store/useAuthPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 
@@ -33,7 +33,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
     onCompleted: () => {
       Leafwatch.track(PROFILE.LOGOUT);
       resetPreferences();
-      resetAuthData();
+      signOut();
       disconnect?.();
       location.reload();
     },

@@ -1,20 +1,16 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
-import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
-import parseJwt from '@hey/lib/parseJwt';
-import resetAuthData from '@hey/lib/resetAuthData';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
-import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
 import Head from 'next/head';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import { useAppPersistStore } from 'src/store/useAppPersistStore';
 import { useAppStore } from 'src/store/useAppStore';
+import { hydrateAuthTokens, signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useEffectOnce, useIsMounted, useUpdateEffect } from 'usehooks-ts';
@@ -31,7 +27,6 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const { setCurrentProfile } = useAppStore();
-  const { profileId, setProfileId } = useAppPersistStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
   const {
     setLensHubOnchainSigNonce,
@@ -44,21 +39,19 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { chain } = useNetwork();
   const { disconnect } = useDisconnect();
 
+  const currentSessionProfileId = getCurrentSessionProfileId();
+
   const logout = () => {
     resetPreferences();
-    resetAuthData();
+    signOut();
     disconnect?.();
   };
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: profileId } },
-    skip: !profileId,
+    variables: { request: { forProfileId: currentSessionProfileId } },
+    skip: !currentSessionProfileId,
     onCompleted: ({ profile, userSigNonces }) => {
-      const currentSession = parseJwt(
-        localStorage.getItem(Localstorage.AccessToken) || ''
-      );
-
-      if (!profile || profile.id !== currentSession.id) {
+      if (!profile) {
         return logout();
       }
 
@@ -74,18 +67,20 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   });
 
   useEffectOnce(() => {
-    // Get and set profile id from JWT
-    setProfileId(getCurrentSessionProfileId());
-
     // Listen for switch account in wallet and logout
     connector?.addListener('change', () => logout());
   });
 
-  useUpdateEffect(() => {
-    if (!getIsAuthTokensAvailable()) {
+  const validateAuthentication = () => {
+    const { accessToken } = hydrateAuthTokens();
+    if (!accessToken && currentSessionProfileId) {
       logout();
     }
-  }, [address, chain, disconnect]);
+  };
+
+  useUpdateEffect(() => {
+    validateAuthentication();
+  }, [disconnect]);
 
   if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;

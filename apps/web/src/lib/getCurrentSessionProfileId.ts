@@ -1,12 +1,11 @@
-import { Localstorage } from '@hey/data/storage';
 import parseJwt from '@hey/lib/parseJwt';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
-const getCurrentSessionProfileId = (): string | null => {
-  const currentSession = parseJwt(
-    localStorage.getItem(Localstorage.AccessToken) || ''
-  );
+const getCurrentSessionProfileId = (): string => {
+  const { accessToken } = hydrateAuthTokens();
 
-  return currentSession.id.length ? currentSession.id : null;
+  const currentSession = parseJwt(accessToken || '');
+  return currentSession?.id;
 };
 
 export default getCurrentSessionProfileId;

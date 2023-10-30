@@ -1,8 +1,8 @@
 import { IS_MAINNET, SNAPSHOR_RELAY_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
 import getProfile from '@hey/lib/getProfile';
 import axios from 'axios';
 import { useAppStore } from 'src/store/useAppStore';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
@@ -26,7 +26,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken),
+            'X-Access-Token': hydrateAuthTokens().accessToken,
             'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }

@@ -1,13 +1,11 @@
-import { Localstorage } from '@hey/data/storage';
 import parseJwt from '@hey/lib/parseJwt';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
 const getCurrentSessionId = (): string => {
-  const currentSession = parseJwt(
-    localStorage.getItem(Localstorage.AccessToken) || ''
-  );
-  const currentAuthorizationId = currentSession?.authorizationId;
+  const { accessToken } = hydrateAuthTokens();
 
-  return currentAuthorizationId;
+  const currentSession = parseJwt(accessToken || '');
+  return currentSession?.authorizationId;
 };
 
 export default getCurrentSessionId;
