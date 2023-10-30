@@ -1,8 +1,10 @@
 import GlobalAlerts from '@components/Shared/GlobalAlerts';
 import GlobalBanners from '@components/Shared/GlobalBanners';
 import BottomNavigation from '@components/Shared/Navbar/BottomNavigation';
+import { Localstorage } from '@hey/data/storage';
 import type { Profile } from '@hey/lens';
 import { useCurrentProfileQuery } from '@hey/lens';
+import { parseJwt } from '@hey/lens/apollo/lib';
 import resetAuthData from '@hey/lib/resetAuthData';
 import getIsAuthTokensAvailable from '@lib/getIsAuthTokensAvailable';
 import getToastOptions from '@lib/getToastOptions';
@@ -57,7 +59,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     variables: { request: { forProfileId: profileId } },
     skip: !profileId,
     onCompleted: ({ profile, userSigNonces }) => {
-      if (!profile) {
+      const currentSession = parseJwt(
+        localStorage.getItem(Localstorage.AccessToken) || ''
+      );
+
+      if (!profile || profile.id !== currentSession.id) {
         return resetAuthState();
       }
 
@@ -69,27 +75,29 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       setLensTokenHandleRegistryOnchainSigNonce(
         userSigNonces.lensTokenHandleRegistryOnchainSigNonce
       );
-      setProfileId(profile.id);
     },
     onError: () => setProfileId(null)
   });
 
-  const validateAuthentication = () => {
-    if (!getIsAuthTokensAvailable() && profileId) {
-      logout();
-    }
-  };
-
-  // Listen for switch account in wallet and logout
   useEffectOnce(() => {
+    // Get and set profile id from JWT
+    const currentSession = parseJwt(
+      localStorage.getItem(Localstorage.AccessToken) || ''
+    );
+
+    setProfileId(currentSession.id);
+
+    // Listen for switch account in wallet and logout
     connector?.addListener('change', () => {
       logout();
     });
   });
 
   useUpdateEffect(() => {
-    validateAuthentication();
-  }, [address, chain, disconnect, profileId]);
+    if (!getIsAuthTokensAvailable()) {
+      logout();
+    }
+  }, [address, chain, disconnect]);
 
   if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
