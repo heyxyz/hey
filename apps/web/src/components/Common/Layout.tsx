@@ -72,14 +72,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens();
-    if (!accessToken) {
+    if (!accessToken && currentSessionProfileId) {
       logout();
     }
   };
 
   useUpdateEffect(() => {
     validateAuthentication();
-  }, [disconnect]);
+  }, [currentSessionProfileId]);
 
   if (loading || loadingPreferences || !isMounted()) {
     return <Loading />;
