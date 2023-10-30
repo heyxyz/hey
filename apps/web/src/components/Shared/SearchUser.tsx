@@ -63,7 +63,7 @@ const SearchUser: FC<SearchUserProps> = ({
               </div>
             ) : (
               <>
-                {profiles.map((profile) => (
+                {profiles.slice(0, 7).map((profile) => (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
