@@ -16,7 +16,14 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
   return (
     <Button
       size={isBig ? 'lg' : 'md'}
-      icon={<img className="mr-0.5 h-3" src="/lens.svg" alt="Lens Logo" />}
+      icon={
+        <img
+          className="mr-0.5 h-3"
+          height={12}
+          src="/lens.svg"
+          alt="Lens Logo"
+        />
+      }
       onClick={() => {
         setShowAuthModal(true);
         Leafwatch.track(AUTH.LOGIN);
