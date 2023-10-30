@@ -28,11 +28,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
   const { setCurrentProfile } = useAppStore();
   const { loadingPreferences, resetPreferences } = usePreferencesStore();
-  const {
-    setLensHubOnchainSigNonce,
-    setLensTokenHandleRegistryOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce
-  } = useNonceStore();
+  const { setLensHubOnchainSigNonce } = useNonceStore();
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();
@@ -56,12 +52,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
-      setLensPublicActProxyOnchainSigNonce(
-        userSigNonces.lensPublicActProxyOnchainSigNonce
-      );
-      setLensTokenHandleRegistryOnchainSigNonce(
-        userSigNonces.lensTokenHandleRegistryOnchainSigNonce
-      );
     }
   });
 

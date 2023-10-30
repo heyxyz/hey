@@ -24,11 +24,7 @@ const LensSubscriptionsProvider: FC = () => {
   const setLatestNotificationId = useNotificationPersistStore(
     (state) => state.setLatestNotificationId
   );
-  const {
-    setLensHubOnchainSigNonce,
-    setLensTokenHandleRegistryOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce
-  } = useNonceStore();
+  const { setLensHubOnchainSigNonce } = useNonceStore();
   const { address } = useAccount();
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
@@ -84,12 +80,6 @@ const LensSubscriptionsProvider: FC = () => {
       if (jsonData.id === '2') {
         const userSigNonces = wsData.userSigNonces as UserSigNonces;
         setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
-        setLensTokenHandleRegistryOnchainSigNonce(
-          userSigNonces.lensTokenHandleRegistryOnchainSigNonce
-        );
-        setLensPublicActProxyOnchainSigNonce(
-          userSigNonces.lensPublicActProxyOnchainSigNonce
-        );
       }
       if (jsonData.id === '3') {
         signOut();
@@ -101,8 +91,6 @@ const LensSubscriptionsProvider: FC = () => {
   // Sync zustand stores between tabs
   if (isSupported()) {
     share('lensHubOnchainSigNonce', useNonceStore);
-    share('lensTokenHandleRegistryOnchainSigNonce', useNonceStore);
-    share('lensPublicActProxyOnchainSigNonce', useNonceStore);
   }
 
   return null;
