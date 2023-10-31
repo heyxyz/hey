@@ -15,7 +15,6 @@ import {
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useExploreStore } from 'src/store/useExploreStore';
 
 interface FeedProps {
   focus?: PublicationMetadataMainFocusType;
@@ -26,16 +25,11 @@ const Feed: FC<FeedProps> = ({
   focus,
   feedType = ExplorePublicationsOrderByType.LensCurated
 }) => {
-  const selectedTag = useExploreStore((state) => state.selectedTag);
-
   // Variables
   const request: ExplorePublicationRequest = {
     where: {
       customFilters: [CustomFiltersType.Gardeners],
-      metadata: {
-        ...(focus && { mainContentFocus: [focus] }),
-        ...(selectedTag && { tags: { oneOf: [selectedTag] } })
-      }
+      metadata: { ...(focus && { mainContentFocus: [focus] }) }
     },
     orderBy: feedType,
     limit: LimitType.TwentyFive
