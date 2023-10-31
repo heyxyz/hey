@@ -3,7 +3,6 @@
 - [Development](development.md)
 - [Tech Stack](tech-stack.md)
 - [Environment](environment.md)
-- [Feature Flags](feature-flags.md)
 - [Ports](ports.md)
 - [DevOps](devops.md)
 - [Monorepo](monorepo.md)
