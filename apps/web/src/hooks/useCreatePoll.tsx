@@ -14,6 +14,7 @@ const useCreatePoll = () => {
     (state) => state.publicationContent
   );
 
+  // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
       const response = await axios.post(
