@@ -48,11 +48,11 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
-  if (loading || !data) {
+  if (loading) {
     return <PublicationPageShimmer />;
   }
 
-  if (!data.publication) {
+  if (!data?.publication) {
     return <Custom404 />;
   }
 

@@ -96,7 +96,7 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (loading || !data) {
+  if (loading) {
     return <ProfilePageShimmer />;
   }
 
