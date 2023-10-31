@@ -196,7 +196,7 @@ const FollowModule: FC<FollowModuleProps> = ({
                 followModule: {
                   feeFollowModule: {
                     amount: {
-                      currency: followModule?.amount?.asset?.symbol,
+                      currency: followModule?.amount?.asset?.contract.address,
                       value: followModule?.amount?.value
                     }
                   }
