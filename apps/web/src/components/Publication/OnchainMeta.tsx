@@ -1,10 +1,15 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
-import { IPFS_GATEWAY, POLYGONSCAN_URL } from '@hey/data/constants';
+import {
+  ARWEAVE_GATEWAY,
+  IPFS_GATEWAY,
+  POLYGONSCAN_URL
+} from '@hey/data/constants';
 import type { AnyPublication } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Card } from '@hey/ui';
 import Link from 'next/link';
 import type { FC } from 'react';
+import urlcat from 'urlcat';
 
 interface MetaProps {
   name: string;
@@ -51,7 +56,7 @@ const OnchainMeta: FC<OnchainMetaProps> = ({ publication }) => {
         {isArweaveHash ? (
           <Meta
             name="ARWEAVE TRANSACTION"
-            uri={`https://arweave.app/tx/${hash}`}
+            uri={urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })}
             hash={hash}
           />
         ) : null}

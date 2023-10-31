@@ -55,6 +55,7 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
 import { useAppStore } from 'src/store/useAppStore';
+import urlcat from 'urlcat';
 import { useContractWrite, useSignTypedData } from 'wagmi';
 import type { z } from 'zod';
 import { object, string, union } from 'zod';
@@ -247,10 +248,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         );
       console.log(preparedProfileMetadata);
       const metadata = profileMetadata(preparedProfileMetadata);
-      const id = await uploadToArweave(metadata);
+      const hash = await uploadToArweave(metadata);
 
       const request: OnchainSetProfileMetadataRequest = {
-        metadataURI: `${ARWEAVE_GATEWAY}/${id}`
+        metadataURI: urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })
       };
 
       if (canUseRelay && isSponsored) {
