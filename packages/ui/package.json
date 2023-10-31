@@ -19,7 +19,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^2.0.0",
-    "next": "^14.0.0",
+    "next": "^14.0.1",
     "react": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "tailwind-merge": "^2.0.0",
