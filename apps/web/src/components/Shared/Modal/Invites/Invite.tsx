@@ -37,6 +37,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
 
   const [inviteAddress] = useInviteMutation({
     onCompleted: async () => {
+      // TODO: use apollo cache instead of refetch
       await refetch();
       form.reset();
       setInviting(false);
