@@ -24,6 +24,7 @@ interface InviteProps {
 
 const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
   const [inviting, setInviting] = useState(false);
+  const [totalInvitesLeft, setTotalInvitesLeft] = useState(invitesLeft);
 
   const form = useZodForm({
     schema: inviteSchema
@@ -39,6 +40,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       await refetch();
       form.reset();
       setInviting(false);
+      setTotalInvitesLeft(totalInvitesLeft - 1);
       Leafwatch.track(INVITE.INVITE);
 
       return toast.success('Invited successfully!');
@@ -73,12 +75,12 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
         </p>
         <div className="pt-2 font-mono text-lg">
           <b>
-            {invitesLeft} {plur('invite', invitesLeft)}
+            {totalInvitesLeft} {plur('invite', totalInvitesLeft)}
           </b>{' '}
           available!
         </div>
       </div>
-      {invitesLeft !== 0 ? (
+      {totalInvitesLeft !== 0 ? (
         <Form
           form={form}
           className="mt-5 space-y-4"

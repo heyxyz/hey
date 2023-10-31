@@ -61,10 +61,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
     errorToast(error);
   };
 
-  const { signTypedDataAsync } = useSignTypedData({
-    onError
-  });
-
+  const { signTypedDataAsync } = useSignTypedData({ onError });
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
