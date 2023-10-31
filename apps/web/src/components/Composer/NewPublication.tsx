@@ -621,7 +621,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         );
       }
 
-      let processedPublicationContent = publicationContent;
+      let processedPublicationContent =
+        publicationContent.length > 0 ? publicationContent : undefined;
 
       if (showPollEditor) {
         processedPublicationContent = await createPoll();
@@ -629,6 +630,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       const title = hasAudio
         ? audioPublication.title
         : `${getTitlePrefix()} by ${getProfile(currentProfile).slugWithPrefix}`;
+
       const baseMetadata = {
         title,
         content: processedPublicationContent,
