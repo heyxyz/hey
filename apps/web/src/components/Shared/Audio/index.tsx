@@ -2,6 +2,7 @@ import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication, Profile } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
+import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import { Leafwatch } from '@lib/leafwatch';
 import type { APITypes } from 'plyr-react';
 import type { ChangeEvent, FC } from 'react';
@@ -70,7 +71,10 @@ const Audio: FC<AudioProps> = ({
   };
 
   return (
-    <div className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0">
+    <div
+      className="bg-brand-500 overflow-hidden rounded-xl border px-3.5 pt-3.5 dark:border-gray-700 md:p-0"
+      onClick={stopEventPropagation}
+    >
       <div className="flex flex-wrap md:flex-nowrap md:space-x-2">
         <CoverImage
           isNew={isNew}
