@@ -7,7 +7,7 @@ import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
 
-const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
+const useCreatePoll = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const pollConfig = usePublicationStore((state) => state.pollConfig);
   const publicationContent = usePublicationStore(
@@ -38,7 +38,7 @@ const useCreatePoll = (): [createPoll: () => Promise<CreatePollResponse>] => {
     }
   };
 
-  return [createPoll];
+  return createPoll;
 };
 
 export default useCreatePoll;
