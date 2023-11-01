@@ -215,7 +215,11 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
                 attr.key
               )
           )
-          .map(({ key, value }) => ({ key, value })) ?? [];
+          .map(({ key, value, type }) => ({
+            key,
+            value,
+            type: MetadataAttributeType[type] as any
+          })) ?? [];
 
       const preparedProfileMetadata: ProfileOptions = {
         ...(data.name && { name: data.name }),
