@@ -67,11 +67,11 @@ importers:
         specifier: ^3.8.6
         version: 3.8.6(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@aws-sdk/client-s3':
-        specifier: ^3.438.0
-        version: 3.438.0
+        specifier: ^3.440.0
+        version: 3.440.0
       '@aws-sdk/lib-storage':
-        specifier: ^3.438.0
-        version: 3.438.0(@aws-sdk/client-s3@3.438.0)
+        specifier: ^3.440.0
+        version: 3.440.0(@aws-sdk/client-s3@3.440.0)
       '@dnd-kit/core':
         specifier: ^6.0.8
         version: 6.0.8(react-dom@18.2.0)(react@18.2.0)
@@ -109,8 +109,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@lens-protocol/metadata':
-        specifier: 1.0.2
-        version: 1.0.2(zod@3.22.4)
+        specifier: 1.0.3
+        version: 1.0.3(zod@3.22.4)
       '@lexical/code':
         specifier: ^0.12.2
         version: 0.12.2(lexical@0.12.2)
@@ -140,7 +140,7 @@ importers:
         version: 4.2.6(react-dom@18.2.0)(react@18.2.0)
       '@wagmi/connectors':
         specifier: ^3.1.3
-        version: 3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4)
+        version: 3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4)
       axios:
         specifier: ^1.6.0
         version: 1.6.0
@@ -226,17 +226,17 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^1.18.1
-        version: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+        specifier: ^1.18.2
+        version: 1.18.2(typescript@5.2.2)(zod@3.22.4)
       wagmi:
         specifier: ^1.4.5
-        version: 1.4.5(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4)
+        version: 1.4.5(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
       zustand:
-        specifier: ^4.4.4
-        version: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+        specifier: ^4.4.5
+        version: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -360,8 +360,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       viem:
-        specifier: ^1.18.1
-        version: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+        specifier: ^1.18.2
+        version: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -428,8 +428,8 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0
       viem:
-        specifier: ^1.18.1
-        version: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+        specifier: ^1.18.2
+        version: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -593,8 +593,8 @@ importers:
         specifier: ^4.0.23
         version: 4.0.23
       viem:
-        specifier: ^1.18.1
-        version: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+        specifier: ^1.18.2
+        version: 1.18.2(typescript@5.2.2)(zod@3.22.4)
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -926,8 +926,8 @@ importers:
         specifier: ^4.0.23
         version: 4.0.23
       viem:
-        specifier: ^1.18.1
-        version: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+        specifier: ^1.18.2
+        version: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: ^4.20231025.0
@@ -1171,8 +1171,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@aws-sdk/client-s3@3.438.0:
-    resolution: {integrity: sha512-5VxdfyZ9oovbK5qzIYW4ZeJ1waD6VqfclSDQLHmgulekM2JYo/goEQJSjWnI4VMWuMsopzvqyeA+L9xq9uXLBQ==}
+  /@aws-sdk/client-s3@3.440.0:
+    resolution: {integrity: sha512-BIALZvf7BNfiY68YwNhQv2OPHER6q+AMTXrpKNXUAL5xJid86FqXiLDB0JmJXjZM4DOf+QUYuT6Ee60LVQgmaQ==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-crypto/sha1-browser': 3.0.0
@@ -1188,7 +1188,7 @@ packages:
       '@aws-sdk/middleware-location-constraint': 3.433.0
       '@aws-sdk/middleware-logger': 3.433.0
       '@aws-sdk/middleware-recursion-detection': 3.433.0
-      '@aws-sdk/middleware-sdk-s3': 3.433.0
+      '@aws-sdk/middleware-sdk-s3': 3.440.0
       '@aws-sdk/middleware-signing': 3.433.0
       '@aws-sdk/middleware-ssec': 3.433.0
       '@aws-sdk/middleware-user-agent': 3.438.0
@@ -1418,13 +1418,13 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@aws-sdk/lib-storage@3.438.0(@aws-sdk/client-s3@3.438.0):
-    resolution: {integrity: sha512-IMoYL22S2Xt9dmhk1vlWCcdPORnoE7STxT6iXj06T/6qAiJiDWsd7P9z8CZmP1GRIE/m2whHNxWrtFID0hmznw==}
+  /@aws-sdk/lib-storage@3.440.0(@aws-sdk/client-s3@3.440.0):
+    resolution: {integrity: sha512-JZ1+vi9WwYWftvlkWvoNUbuhWRU8kN9YSjkQPqOb54hLqCY3les2KQqX1kwk1O6B3aQaw1+57uPqNSBeQDourw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@aws-sdk/client-s3': ^3.0.0
     dependencies:
-      '@aws-sdk/client-s3': 3.438.0
+      '@aws-sdk/client-s3': 3.440.0
       '@smithy/abort-controller': 2.0.12
       '@smithy/middleware-endpoint': 2.1.3
       '@smithy/smithy-client': 2.1.12
@@ -1509,8 +1509,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@aws-sdk/middleware-sdk-s3@3.433.0:
-    resolution: {integrity: sha512-mkn3DiSuMVh4NTLsduC42Av+ApcOor52LMoQY0Wc6M5Mx7Xd05U+G1j8sjI9n/1bs5cZ/PoeRYJ/9bL1Xxznnw==}
+  /@aws-sdk/middleware-sdk-s3@3.440.0:
+    resolution: {integrity: sha512-DVTSr+82Z8jR9xTwDN3YHzxX7qvi0n96V92OfxvSRDq2BldCEx/KEL1orUZjw97SAXhINOlUWjRR7j4HpwWQtQ==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-sdk/types': 3.433.0
@@ -3630,8 +3630,8 @@ packages:
     resolution: {integrity: sha512-mscwGroSJQrCTjtNGBu+18FQbZYA4+q6Tyx6K7CXHl6AwgZKbWfZYdgP2F+fyZcRUdGRsMX8QtvU61VcGGtO1A==}
     dev: false
 
-  /@lens-protocol/metadata@1.0.2(zod@3.22.4):
-    resolution: {integrity: sha512-QQZfs5UsaFJEb8vbIdI9ez2S78y4aV6Pgg1Ju2HYlpozHK8o4ZheR/b5mfn4LUMepSIQYlmKnCGdni+5i9R9jg==}
+  /@lens-protocol/metadata@1.0.3(zod@3.22.4):
+    resolution: {integrity: sha512-8Ql91urT1Anvrndu+QpNm7nMueJIHXQTilH50LjSbfLr1v6LMAeFpa55ZWMxNofvlAMdiJt/bUVjWaXoRP6FfQ==}
     engines: {node: ^v18.12.1}
     peerDependencies:
       zod: ^3.22.3
@@ -3889,7 +3889,7 @@ packages:
       '@tanstack/react-query-persist-client': 4.29.23(@tanstack/react-query@4.29.23)
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-      zustand: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+      zustand: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -3914,7 +3914,7 @@ packages:
       ms: 3.0.0-canary.1
       react: 18.2.0
       tus-js-client: 3.1.1
-      zustand: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+      zustand: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -3934,7 +3934,7 @@ packages:
       multiformats: 9.9.0
       react: 18.2.0
       tus-js-client: 3.1.1
-      zustand: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+      zustand: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -3959,7 +3959,7 @@ packages:
       core-js: 3.33.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+      zustand: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -4988,7 +4988,7 @@ packages:
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.0
-      viem: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -5000,7 +5000,7 @@ packages:
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
       '@safe-global/safe-gateway-typescript-sdk': 3.13.0
-      viem: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
       - typescript
@@ -6165,7 +6165,7 @@ packages:
       pretty-format: 29.7.0
     dev: true
 
-  /@wagmi/connectors@3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4):
+  /@wagmi/connectors@3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4):
     resolution: {integrity: sha512-UgwsQKQDFObJVJMf9pDfFoXTv710o4zrTHyhIWKBTMMkLpCMsMxN5+ZaDhBYt/BgoRinfRYQo8uwuwLhxE6Log==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6185,7 +6185,7 @@ packages:
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -6198,7 +6198,7 @@ packages:
       - zod
     dev: false
 
-  /@wagmi/core@1.4.5(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4):
+  /@wagmi/core@1.4.5(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4):
     resolution: {integrity: sha512-N9luRb1Uk4tBN9kaYcQSWKE9AsRt/rvZaFt5IZech4JPzNN2sQlfhKd9GEjOXYRDqEPHdDvos7qyBKiDNTz4GA==}
     peerDependencies:
       typescript: '>=5.0.4'
@@ -6207,12 +6207,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@wagmi/connectors': 3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4)
+      '@wagmi/connectors': 3.1.3(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       eventemitter3: 4.0.7
       typescript: 5.2.2
-      viem: 1.18.1(typescript@5.2.2)(zod@3.22.4)
-      zustand: 4.4.4(@types/react@18.2.33)(react@18.2.0)
+      viem: 1.18.2(typescript@5.2.2)(zod@3.22.4)
+      zustand: 4.4.5(@types/react@18.2.33)(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -13042,8 +13042,8 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /viem@1.18.1(typescript@5.2.2)(zod@3.22.4):
-    resolution: {integrity: sha512-dkZG1jI8iL7G0+KZ8ZKHCXbzZxzu8Iib7OLCxkdaqdrlNrWTEMIZSp/2AHpbjpPeAg3VFD1CUayKPTJv2ZMXCg==}
+  /viem@1.18.2(typescript@5.2.2)(zod@3.22.4):
+    resolution: {integrity: sha512-ifobXCKwzztmjHbHowAWqTASO6tAqF6udKB9ONXkJQU1cmt830MABiMwJGtTO9Gb9ION1N+324G7nHDbpPn4wg==}
     peerDependencies:
       typescript: '>=5.0.4'
     peerDependenciesMeta:
@@ -13188,7 +13188,7 @@ packages:
       - terser
     dev: true
 
-  /wagmi@1.4.5(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4):
+  /wagmi@1.4.5(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4):
     resolution: {integrity: sha512-Ph62E6cO5n2Z8Z5LTyZrkaNprxTsbC4w0qZJT4OJdXrEELziI8z/b4FO6amVFXdu2rDp/wpvF56e4mhKC8/Kdw==}
     peerDependencies:
       react: '>=17.0.0'
@@ -13201,12 +13201,12 @@ packages:
       '@tanstack/query-sync-storage-persister': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.36.1(@tanstack/react-query@4.36.1)
-      '@wagmi/core': 1.4.5(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.1)(zod@3.22.4)
+      '@wagmi/core': 1.4.5(@types/react@18.2.33)(react@18.2.0)(typescript@5.2.2)(viem@1.18.2)(zod@3.22.4)
       abitype: 0.8.7(typescript@5.2.2)(zod@3.22.4)
       react: 18.2.0
       typescript: 5.2.2
       use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 1.18.1(typescript@5.2.2)(zod@3.22.4)
+      viem: 1.18.2(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -13572,8 +13572,8 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
-  /zustand@4.4.4(@types/react@18.2.33)(react@18.2.0):
-    resolution: {integrity: sha512-5UTUIAiHMNf5+mFp7/AnzJXS7+XxktULFN0+D1sCiZWyX7ZG+AQpqs2qpYrynRij4QvoDdCD+U+bmg/cG3Ucxw==}
+  /zustand@4.4.5(@types/react@18.2.33)(react@18.2.0):
+    resolution: {integrity: sha512-jgIrBBLKncQW74PA2Lclct3gwD4aPughwGE4FqlXrv3rDqQox7JCn8rwUiFK6ygJcbBAvfTf8fF+ICg7HLD2FQ==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'

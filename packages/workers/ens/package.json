@@ -18,7 +18,7 @@
     "@hey/data": "workspace:*",
     "@hey/lib": "workspace:*",
     "itty-router": "^4.0.23",
-    "viem": "^1.18.1",
+    "viem": "^1.18.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
