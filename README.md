@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Hey Logo">
+    <img src="https://github.com/heyxyz/hey/assets/69431456/eaf13483-2b0d-40a6-a4ed-dd3d89018952" alt="Hey Logo">
     <h1>Hey</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
