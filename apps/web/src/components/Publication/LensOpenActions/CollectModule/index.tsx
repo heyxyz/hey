@@ -223,6 +223,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const typedDataGenerator = async (generatedData: any) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
+    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
     if (canBroadcast) {
       const { data } = await broadcastOnchain({

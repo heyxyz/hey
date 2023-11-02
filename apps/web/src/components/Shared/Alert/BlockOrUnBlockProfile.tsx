@@ -10,6 +10,7 @@ import {
   useUnblockMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { Alert } from '@hey/ui';
@@ -38,6 +39,8 @@ const BlockOrUnBlockProfile: FC = () => {
   );
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -90,36 +93,36 @@ const BlockOrUnBlockProfile: FC = () => {
       onCompleted(broadcastOnchain.__typename)
   });
 
+  const typedDataGenerator = async (generatedData: any) => {
+    const { id, typedData } = generatedData;
+    const signature = await signTypedDataAsync(getSignature(typedData));
+    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
+
+    if (canBroadcast) {
+      const { data } = await broadcastOnchain({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        return write({ args: [typedData.value] });
+      }
+      return;
+    }
+
+    return write({ args: [typedData.value] });
+  };
+
   const [createBlockProfilesTypedData] =
     useCreateBlockProfilesTypedDataMutation({
-      onCompleted: async ({ createBlockProfilesTypedData }) => {
-        const { id, typedData } = createBlockProfilesTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] });
-        }
-      },
+      onCompleted: async ({ createBlockProfilesTypedData }) =>
+        await typedDataGenerator(createBlockProfilesTypedData),
       onError,
       update: updateCache
     });
 
   const [createUnblockProfilesTypedData] =
     useCreateUnblockProfilesTypedDataMutation({
-      onCompleted: async ({ createUnblockProfilesTypedData }) => {
-        const { id, typedData } = createUnblockProfilesTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] });
-        }
-      },
+      onCompleted: async ({ createUnblockProfilesTypedData }) =>
+        await typedDataGenerator(createUnblockProfilesTypedData),
       onError,
       update: updateCache
     });
@@ -136,6 +139,22 @@ const BlockOrUnBlockProfile: FC = () => {
     update: updateCache
   });
 
+  const blockViaLensManager = async (request: BlockRequest) => {
+    const { data } = await blockProfile({ variables: { request } });
+
+    if (data?.block.__typename === 'LensProfileManagerRelayError') {
+      await createBlockProfilesTypedData({ variables: { request } });
+    }
+  };
+
+  const unBlockViaLensManager = async (request: UnblockRequest) => {
+    const { data } = await unBlockProfile({ variables: { request } });
+
+    if (data?.unblock.__typename === 'LensProfileManagerRelayError') {
+      await createUnblockProfilesTypedData({ variables: { request } });
+    }
+  };
+
   const blockOrUnblock = async () => {
     if (!currentProfile) {
       return;
@@ -151,27 +170,31 @@ const BlockOrUnBlockProfile: FC = () => {
         profiles: [blockingorUnblockingProfile?.id]
       };
 
+      // Block
       if (hasBlocked) {
-        const { data } = await unBlockProfile({ variables: { request } });
-        if (data?.unblock.__typename === 'LensProfileManagerRelayError') {
-          return await createUnblockProfilesTypedData({
-            variables: {
-              options: { overrideSigNonce: lensHubOnchainSigNonce },
-              request
-            }
-          });
+        if (canUseLensManager) {
+          return await unBlockViaLensManager(request);
         }
-      }
 
-      const { data } = await blockProfile({ variables: { request } });
-      if (data?.block.__typename === 'LensProfileManagerRelayError') {
-        return await createBlockProfilesTypedData({
+        return await createUnblockProfilesTypedData({
           variables: {
             options: { overrideSigNonce: lensHubOnchainSigNonce },
             request
           }
         });
       }
+
+      // Unblock
+      if (canUseLensManager) {
+        return await blockViaLensManager(request);
+      }
+
+      return await createBlockProfilesTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      });
     } catch (error) {
       onError(error);
     }
