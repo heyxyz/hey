@@ -52,8 +52,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const canUseRelay = currentProfile?.signless;
+  const canUseSignless = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
+  const canUseLensManager = canUseSignless && isSponsored;
+  const canUseBroadcast = !canUseSignless && isSponsored;
 
   const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
@@ -123,18 +125,22 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    if (isMomokaPublication) {
-      return await broadcastOnMomoka({
+    if (canUseBroadcast) {
+      if (isMomokaPublication) {
+        return await broadcastOnMomoka({
+          variables: { request: { id, signature } }
+        });
+      }
+
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        return write({ args: [typedData.value] });
+      }
     }
 
-    const { data } = await broadcastOnchain({
-      variables: { request: { id, signature } }
-    });
-    if (data?.broadcastOnchain.__typename === 'RelayError') {
-      return write({ args: [typedData.value] });
-    }
+    return write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -214,8 +220,8 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
         mirrorOn: publication?.id
       };
 
-      if (canUseRelay) {
-        if (publication.momoka?.proof && isSponsored) {
+      if (canUseLensManager) {
+        if (publication.momoka?.proof) {
           return await createOnMomka(request);
         }
 

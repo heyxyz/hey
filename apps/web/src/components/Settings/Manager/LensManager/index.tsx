@@ -7,13 +7,13 @@ import ToggleLensManager from './ToggleLensManager';
 
 const LensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseRelay = currentProfile?.signless;
+  const canUseSignless = currentProfile?.signless;
 
   return (
     <Card className="linkify space-y-2 p-5">
       <div className="space-y-3 pb-2">
         <div className="text-lg font-bold">
-          {canUseRelay
+          {canUseSignless
             ? 'Disable signless transactions'
             : 'Signless transactions'}
         </div>

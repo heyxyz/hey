@@ -29,7 +29,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
-  const canUseRelay = currentProfile?.signless;
+  const canUseSignless = currentProfile?.signless;
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -102,7 +102,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       return await createChangeProfileManagersTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: { approveSignless: canUseRelay ? false : true }
+          request: { approveSignless: canUseSignless ? false : true }
         }
       });
     } catch (error) {
@@ -120,13 +120,13 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
     </div>
   ) : (
     <Button
-      variant={canUseRelay ? 'danger' : 'primary'}
+      variant={canUseSignless ? 'danger' : 'primary'}
       className={cn({ 'text-sm': buttonSize === 'sm' }, 'mr-auto')}
       disabled={isLoading}
       icon={
         isLoading ? (
-          <Spinner variant={canUseRelay ? 'danger' : 'primary'} size="xs" />
-        ) : canUseRelay ? (
+          <Spinner variant={canUseSignless ? 'danger' : 'primary'} size="xs" />
+        ) : canUseSignless ? (
           <XMarkIcon className="h-4 w-4" />
         ) : (
           <CheckCircleIcon className="h-4 w-4" />
@@ -134,7 +134,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       }
       onClick={toggleDispatcher}
     >
-      {canUseRelay ? 'Disable' : 'Enable'}
+      {canUseSignless ? 'Disable' : 'Enable'}
     </Button>
   );
 };

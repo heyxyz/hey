@@ -97,6 +97,12 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   );
   const hasActed = hasActedByMe(targetPublication.id);
 
+  // Lens manager
+  const canUseSignless = currentProfile?.signless;
+  const isSponsored = currentProfile?.sponsor;
+  const canUseLensManager = canUseSignless && isSponsored;
+  const canUseBroadcast = !canUseSignless && isSponsored;
+
   const collectModule = openAction as
     | SimpleCollectOpenActionSettings
     | MultirecipientFeeCollectOpenActionSettings
@@ -124,7 +130,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     collectModule.__typename === 'SimpleCollectOpenActionSettings';
   const isMultirecipientFeeCollectModule =
     collectModule.__typename === 'MultirecipientFeeCollectOpenActionSettings';
-  const canUseLensManager = !collectModule?.followerOnly && isFreeCollectModule;
+  const canUseManager =
+    canUseLensManager && !collectModule?.followerOnly && isFreeCollectModule;
 
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
@@ -214,37 +221,35 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       onCompleted(broadcastOnchain.__typename)
   });
 
+  const typedDataGenerator = async (generatedData: any) => {
+    const { id, typedData } = generatedData;
+    const signature = await signTypedDataAsync(getSignature(typedData));
+
+    if (canUseBroadcast) {
+      const { data } = await broadcastOnchain({
+        variables: { request: { id, signature } }
+      });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        return write({ args: [typedData.value] });
+      }
+    }
+
+    return write({ args: [typedData.value] });
+  };
+
   // Act Typed Data
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
-      onCompleted: async ({ createActOnOpenActionTypedData }) => {
-        const { id, typedData } = createActOnOpenActionTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] });
-        }
-      },
+      onCompleted: async ({ createActOnOpenActionTypedData }) =>
+        await typedDataGenerator(createActOnOpenActionTypedData),
       onError
     });
 
   // Legacy Collect Typed Data
   const [createLegacyCollectTypedData] =
     useCreateLegacyCollectTypedDataMutation({
-      onCompleted: async ({ createLegacyCollectTypedData }) => {
-        const { id, typedData } = createLegacyCollectTypedData;
-        const signature = await signTypedDataAsync(getSignature(typedData));
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] });
-        }
-      },
+      onCompleted: async ({ createLegacyCollectTypedData }) =>
+        await typedDataGenerator(createLegacyCollectTypedData),
       onError
     });
 
@@ -311,7 +316,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           on: targetPublication?.id
         };
 
-        if (canUseLensManager) {
+        if (canUseManager) {
           return await legacyCollectViaLensManager(legcayCollectRequest);
         }
 
@@ -328,7 +333,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         actOn: { [getOpenActionActOnKey(collectModule?.type)]: true }
       };
 
-      if (canUseLensManager) {
+      if (canUseManager) {
         return await actViaLensManager(actOnRequest);
       }
 

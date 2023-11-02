@@ -184,8 +184,10 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasVideo = attachments[0]?.type === 'Video';
 
   // Lens manager
-  const canUseRelay = currentProfile?.signless;
+  const canUseSignless = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
+  const canUseLensManager = canUseSignless && isSponsored;
+  const canUseBroadcast = !canUseSignless && isSponsored;
 
   const onCompleted = (
     __typename?:
@@ -356,18 +358,22 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    if (isMomokaPublication) {
-      return await broadcastOnMomoka({
+    if (canUseBroadcast) {
+      if (isMomokaPublication) {
+        return await broadcastOnMomoka({
+          variables: { request: { id, signature } }
+        });
+      }
+
+      const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
+      if (data?.broadcastOnchain.__typename === 'RelayError') {
+        return write({ args: [typedData.value] });
+      }
     }
 
-    const { data } = await broadcastOnchain({
-      variables: { request: { id, signature } }
-    });
-    if (data?.broadcastOnchain.__typename === 'RelayError') {
-      return write({ args: [typedData.value] });
-    }
+    return write({ args: [typedData.value] });
   };
 
   // On-chain typed data generation
@@ -693,8 +699,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         contentURI: `ar://${arweaveId}`
       };
 
-      if (canUseRelay) {
-        if (useMomoka && isSponsored) {
+      if (canUseLensManager) {
+        if (useMomoka) {
           return await createOnMomka(momokaRequest);
         }
 
