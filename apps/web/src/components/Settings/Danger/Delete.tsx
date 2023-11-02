@@ -56,7 +56,7 @@ const DeleteSettings: FC = () => {
 
     try {
       setIsLoading(true);
-      return write?.({ args: [currentProfile?.id] });
+      return write({ args: [currentProfile?.id] });
     } catch (error) {
       onError(error);
     }

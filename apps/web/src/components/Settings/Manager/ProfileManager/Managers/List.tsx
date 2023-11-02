@@ -99,12 +99,12 @@ const List: FC = () => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write?.({ args });
+            return write({ args });
           }
           return;
         }
 
-        return write?.({ args });
+        return write({ args });
       },
       onError
     });

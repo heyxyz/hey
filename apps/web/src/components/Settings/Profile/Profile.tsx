@@ -160,11 +160,11 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
             variables: { request: { id, signature } }
           });
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write?.({ args: [profileId, metadataURI] });
+            return write({ args: [profileId, metadataURI] });
           }
         }
 
-        return write?.({ args: [profileId, metadataURI] });
+        return write({ args: [profileId, metadataURI] });
       },
       onError
     });
