@@ -62,7 +62,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       metadata,
       ...(type !== ProfileFeedType.Collects
         ? { from: profile?.id }
-        : { actedBy: profile?.ownedBy.address })
+        : { actedBy: profile?.id })
     },
     limit: LimitType.TwentyFive
   };
