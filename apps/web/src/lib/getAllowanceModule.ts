@@ -14,10 +14,17 @@ const getAllowanceModule = (
 } => {
   switch (name) {
     // Collect Modules
+    case OpenActionModuleType.SimpleCollectOpenActionModule:
+      return { name: 'Simple collect', field: 'openActionModule' };
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return { name: 'Multirecipient paid collect', field: 'openActionModule' };
-    case OpenActionModuleType.SimpleCollectOpenActionModule:
-      return { name: 'Basic collect', field: 'openActionModule' };
+    case OpenActionModuleType.LegacySimpleCollectModule:
+      return { name: 'Legacy Simple collect', field: 'openActionModule' };
+    case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
+      return {
+        name: 'Legacy Multirecipient paid collect',
+        field: 'openActionModule'
+      };
 
     // Follow modules
     case FollowModuleType.FeeFollowModule:
