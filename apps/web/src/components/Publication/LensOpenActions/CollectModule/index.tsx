@@ -157,7 +157,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const { write } = useContractWrite({
     address: LENSHUB_PROXY,
     abi: LensHub,
-    functionName: 'act',
+    functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
     onSuccess: () => {
       onCompleted();
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
@@ -242,8 +242,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           variables: { request: { id, signature } }
         });
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          // No write fallback for legacy collect
-          return toast.error(data?.broadcastOnchain.reason);
+          return write?.({ args: [typedData.value] });
         }
       },
       onError
