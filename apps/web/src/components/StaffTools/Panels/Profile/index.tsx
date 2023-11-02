@@ -119,19 +119,21 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         >
           {getFollowModule(profile?.followModule?.__typename).description}
         </MetaDetails>
-        <MetaDetails
-          icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
-          value={profile?.metadata?.rawURI}
-          title="Metadata"
-        >
-          <Link
-            href={profile?.metadata?.rawURI}
-            target="_blank"
-            rel="noreferrer"
+        {profile?.metadata?.rawURI ? (
+          <MetaDetails
+            icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
+            value={profile.metadata.rawURI}
+            title="Metadata"
           >
-            Open
-          </Link>
-        </MetaDetails>
+            <Link
+              href={profile.metadata.rawURI}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open
+            </Link>
+          </MetaDetails>
+        ) : null}
       </div>
       {IS_MAINNET ? (
         <>
