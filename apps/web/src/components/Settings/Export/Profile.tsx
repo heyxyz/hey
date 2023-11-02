@@ -1,8 +1,8 @@
 import { SETTINGS } from '@hey/data/tracking';
 import type { Profile as TProfile, ProfileRequest } from '@hey/lens';
 import { useProfileLazyQuery } from '@hey/lens';
+import downloadJson from '@hey/lib/downloadJson';
 import { Button, Card } from '@hey/ui';
-import downloadJson from '@lib/downloadJson';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
