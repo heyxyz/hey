@@ -3,7 +3,7 @@ import { describe, expect, test } from 'vitest';
 
 import getOpenActionModuleData from './getOpenActionModuleData';
 
-describe('getMisuseDetails', () => {
+describe('getOpenActionModuleData', () => {
   test('should return the correct data for SimpleCollectOpenActionModule', () => {
     const module: any = {
       type: OpenActionModuleType.SimpleCollectOpenActionModule
