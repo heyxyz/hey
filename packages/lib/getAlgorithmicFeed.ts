@@ -1,6 +1,7 @@
 import { AlgorithmProvider, HomeFeedType } from '@hey/data/enums';
 import type { Profile } from '@hey/lens';
-import getPublicationIds from '@hey/lib/getPublicationIds';
+
+import getPublicationIds from './getPublicationIds';
 
 /**
  * Get the algorithmic feed for a given feed type
