@@ -5,7 +5,7 @@ import type {
   RecipientDataInput
 } from '@hey/lens';
 import { CollectOpenActionModuleType } from '@hey/lens';
-import type { CollectModuleType } from 'src/store/useCollectModuleStore';
+import type { CollectModuleType } from '@hey/types/hey';
 
 const collectModuleParams = (
   collectModule: CollectModuleType,

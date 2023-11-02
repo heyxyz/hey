@@ -41,6 +41,7 @@ import {
   useQuoteOnMomokaMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
@@ -52,7 +53,6 @@ import { Button, Card, ErrorMessage, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
 import { $convertFromMarkdownString } from '@lexical/markdown';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import collectModuleParams from '@lib/collectModuleParams';
 import errorToast from '@lib/errorToast';
 import getTextNftUrl from '@lib/getTextNftUrl';
 import { Leafwatch } from '@lib/leafwatch';

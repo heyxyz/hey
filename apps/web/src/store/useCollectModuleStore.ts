@@ -1,23 +1,5 @@
-import type {
-  AmountInput,
-  CollectOpenActionModuleType,
-  RecipientDataInput
-} from '@hey/lens';
+import type { CollectModuleType } from '@hey/types/hey';
 import { create } from 'zustand';
-
-export type CollectModuleType = {
-  type?:
-    | CollectOpenActionModuleType.SimpleCollectOpenActionModule
-    | CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule
-    | null;
-  amount?: AmountInput | null;
-  collectLimit?: string | null;
-  referralFee?: number | null;
-  recipient?: string | null;
-  recipients?: RecipientDataInput[];
-  followerOnly?: boolean;
-  endsAt?: string | null;
-};
 
 const INITIAL_COLLECT_MODULE: CollectModuleType = {
   type: null,

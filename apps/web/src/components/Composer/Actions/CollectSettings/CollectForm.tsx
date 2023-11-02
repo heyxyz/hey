@@ -5,9 +5,9 @@ import {
   useEnabledCurrenciesQuery
 } from '@hey/lens';
 import isValidEthAddress from '@hey/lib/isValidEthAddress';
+import type { CollectModuleType } from '@hey/types/hey';
 import { Button, ErrorMessage, Spinner } from '@hey/ui';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import type { CollectModuleType } from 'src/store/useCollectModuleStore';
 import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 import AmountConfig from './AmountConfig';
