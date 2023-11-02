@@ -150,14 +150,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 <Unfollow
                   profile={profile}
                   setFollowing={setFollowing}
-                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                  unfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
                 />
                 {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow
                     profile={profile}
                     setFollowing={setFollowing}
-                    followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                    superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
                     again
                   />
                 ) : null}
@@ -166,14 +166,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
               <SuperFollow
                 profile={profile}
                 setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                superFollowSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
               />
             ) : (
               <Follow
                 profile={profile}
                 setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
+                followSource={FollowUnfollowSource.PROFILE_PAGE}
                 showText
               />
             )

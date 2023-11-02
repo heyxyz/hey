@@ -29,16 +29,16 @@ interface UnfollowProps {
   showText?: boolean;
 
   // For data analytics
-  followUnfollowPosition?: number;
-  followUnfollowSource?: string;
+  unfollowPosition?: number;
+  unfollowSource?: string;
 }
 
 const Unfollow: FC<UnfollowProps> = ({
   profile,
   showText = false,
   setFollowing,
-  followUnfollowSource,
-  followUnfollowPosition
+  unfollowPosition,
+  unfollowSource
 }) => {
   const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -75,8 +75,8 @@ const Unfollow: FC<UnfollowProps> = ({
     toast.success('Unfollowed successfully!');
     Leafwatch.track(PROFILE.UNFOLLOW, {
       path: pathname,
-      ...(followUnfollowSource && { source: followUnfollowSource }),
-      ...(followUnfollowPosition && { position: followUnfollowPosition }),
+      ...(unfollowPosition && { position: unfollowPosition }),
+      ...(unfollowSource && { source: unfollowSource }),
       target: profile?.id
     });
   };

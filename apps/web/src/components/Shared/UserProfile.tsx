@@ -140,15 +140,15 @@ const UserProfile: FC<UserProfileProps> = ({
           <SuperFollow
             profile={profile}
             setFollowing={setFollowing}
-            followUnfollowPosition={followUnfollowPosition}
-            followUnfollowSource={followUnfollowSource}
+            superFollowPosition={followUnfollowPosition}
+            superFollowSource={followUnfollowSource}
           />
         ) : (
           <Follow
             profile={profile}
             setFollowing={setFollowing}
-            followUnfollowPosition={followUnfollowPosition}
-            followUnfollowSource={followUnfollowSource}
+            followPosition={followUnfollowPosition}
+            followSource={followUnfollowSource}
           />
         )
       ) : null}
@@ -157,8 +157,8 @@ const UserProfile: FC<UserProfileProps> = ({
           <Unfollow
             profile={profile}
             setFollowing={setFollowing}
-            followUnfollowPosition={followUnfollowPosition}
-            followUnfollowSource={followUnfollowSource}
+            unfollowPosition={followUnfollowPosition}
+            unfollowSource={followUnfollowSource}
           />
         ) : null
       ) : null}

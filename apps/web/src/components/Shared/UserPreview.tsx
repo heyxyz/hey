@@ -135,13 +135,13 @@ const UserPreview: FC<UserPreviewProps> = ({
                 <SuperFollow
                   profile={profile}
                   setFollowing={setFollowing}
-                  followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
+                  superFollowSource={FollowUnfollowSource.PROFILE_POPOVER}
                 />
               ) : (
                 <Follow
                   profile={profile}
                   setFollowing={setFollowing}
-                  followUnfollowSource={FollowUnfollowSource.PROFILE_POPOVER}
+                  followSource={FollowUnfollowSource.PROFILE_POPOVER}
                 />
               )
             ) : null}

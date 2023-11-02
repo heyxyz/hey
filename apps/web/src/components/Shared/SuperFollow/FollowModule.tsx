@@ -44,8 +44,8 @@ interface FollowModuleProps {
   again: boolean;
 
   // For data analytics
-  followUnfollowPosition?: number;
-  followUnfollowSource?: string;
+  superFollowPosition?: number;
+  superFollowSource?: string;
 }
 
 const FollowModule: FC<FollowModuleProps> = ({
@@ -53,8 +53,8 @@ const FollowModule: FC<FollowModuleProps> = ({
   setFollowing,
   setShowFollowModal,
   again,
-  followUnfollowPosition,
-  followUnfollowSource
+  superFollowPosition,
+  superFollowSource
 }) => {
   const { pathname } = useRouter();
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
@@ -74,8 +74,8 @@ const FollowModule: FC<FollowModuleProps> = ({
     toast.success('Followed successfully!');
     Leafwatch.track(PROFILE.SUPER_FOLLOW, {
       path: pathname,
-      ...(followUnfollowSource && { source: followUnfollowSource }),
-      ...(followUnfollowPosition && { position: followUnfollowPosition }),
+      ...(superFollowPosition && { position: superFollowPosition }),
+      ...(superFollowSource && { source: superFollowSource }),
       target: profile?.id
     });
   };

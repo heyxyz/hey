@@ -49,7 +49,7 @@ const FollowModal: FC<FollowModalProps> = ({
               <Follow
                 profile={profile}
                 setFollowing={setFollowing}
-                followUnfollowSource={FollowUnfollowSource.FOLLOW_DIALOG}
+                followSource={FollowUnfollowSource.FOLLOW_DIALOG}
                 showText
               />
             </div>
