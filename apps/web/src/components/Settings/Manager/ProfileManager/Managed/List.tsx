@@ -50,7 +50,9 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage title="Failed to load managed profiles" error={error} />
+    );
   }
 
   if (profilesManaged?.length === 0) {

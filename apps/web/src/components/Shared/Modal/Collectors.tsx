@@ -59,9 +59,9 @@ const Collectors: FC<CollectorsProps> = ({ publicationId }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
         title="Failed to load collectors"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"

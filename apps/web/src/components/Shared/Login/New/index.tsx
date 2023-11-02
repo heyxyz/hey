@@ -75,12 +75,12 @@ const NewProfile: FC<NewProfileProps> = ({ isModal = false }) => {
         'CreateProfileWithHandleErrorResult' &&
       data?.createProfileWithHandle.reason ? (
         <ErrorMessage
-          className="mb-3"
           title="Create profile failed!"
           error={{
             name: 'Create profile failed!',
             message: relayErrorToString(data?.createProfileWithHandle?.reason)
           }}
+          className="mb-3"
         />
       ) : null}
       {isModal ? (

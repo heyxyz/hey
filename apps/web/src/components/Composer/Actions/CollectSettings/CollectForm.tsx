@@ -68,9 +68,9 @@ const CollectForm: FC<CollectFormProps> = ({ setShowModal }) => {
   if (error) {
     return (
       <ErrorMessage
-        className="p-5"
         title="Failed to load modules"
         error={error}
+        className="m-5"
       />
     );
   }

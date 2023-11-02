@@ -68,9 +68,9 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
         title="Failed to load mutual followers"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"

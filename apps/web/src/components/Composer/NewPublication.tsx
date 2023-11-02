@@ -781,9 +781,9 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     >
       {error ? (
         <ErrorMessage
-          className="!rounded-none"
           title="Transaction failed!"
           error={error}
+          className="!rounded-none"
         />
       ) : null}
       <Editor />

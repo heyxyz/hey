@@ -45,7 +45,9 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage title="Failed to load profile actions" error={error} />
+    );
   }
 
   if (profileActionHistory?.length === 0) {

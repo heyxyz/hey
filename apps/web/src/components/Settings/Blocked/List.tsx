@@ -42,7 +42,9 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage title="Failed to load blocked profiles" error={error} />
+    );
   }
 
   if (whoHaveBlocked?.length === 0) {

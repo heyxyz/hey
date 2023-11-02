@@ -149,7 +149,9 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} />;
+    return (
+      <ErrorMessage title="Failed to load profile managers" error={error} />
+    );
   }
 
   if (profileManagers?.length === 0) {

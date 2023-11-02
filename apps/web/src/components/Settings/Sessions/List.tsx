@@ -94,7 +94,7 @@ const List: FC = () => {
   }
 
   if (error) {
-    return <ErrorMessage error={error} />;
+    return <ErrorMessage title="Failed to load sessions" error={error} />;
   }
 
   if (approvedAuthentications?.length === 0) {

@@ -363,9 +363,9 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         >
           {error ? (
             <ErrorMessage
-              className="mb-3"
               title="Transaction failed!"
               error={error}
+              className="mb-3"
             />
           ) : null}
           <Input

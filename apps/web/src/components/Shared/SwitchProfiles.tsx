@@ -113,9 +113,9 @@ const SwitchProfiles: FC = () => {
   return (
     <div className="max-h-[80vh] overflow-y-auto p-2">
       <ErrorMessage
-        className="m-2"
         title="Failed to load profiles"
         error={error}
+        className="m-2"
       />
       {profiles.map((profile, index) => (
         <button
