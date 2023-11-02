@@ -30,7 +30,8 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
+  const { canUseSignless, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -72,27 +73,32 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
       onCompleted: async ({ createChangeProfileManagersTypedData }) => {
         const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const {
-            delegatorProfileId,
-            delegatedExecutors,
-            approvals,
-            configNumber,
-            switchToGivenConfig
-          } = typedData.value;
-          return write?.({
-            args: [
-              delegatorProfileId,
-              delegatedExecutors,
-              approvals,
-              configNumber,
-              switchToGivenConfig
-            ]
+        const {
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        } = typedData.value;
+        const args = [
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        ];
+
+        if (canBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
           });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args });
+          }
+          return;
         }
+
+        return write?.({ args });
       },
       onError
     });

@@ -143,7 +143,7 @@ const BlockOrUnBlockProfile: FC = () => {
     const { data } = await blockProfile({ variables: { request } });
 
     if (data?.block.__typename === 'LensProfileManagerRelayError') {
-      await createBlockProfilesTypedData({ variables: { request } });
+      return await createBlockProfilesTypedData({ variables: { request } });
     }
   };
 
@@ -151,7 +151,7 @@ const BlockOrUnBlockProfile: FC = () => {
     const { data } = await unBlockProfile({ variables: { request } });
 
     if (data?.unblock.__typename === 'LensProfileManagerRelayError') {
-      await createUnblockProfilesTypedData({ variables: { request } });
+      return await createUnblockProfilesTypedData({ variables: { request } });
     }
   };
 

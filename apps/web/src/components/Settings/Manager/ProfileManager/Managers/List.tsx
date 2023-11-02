@@ -12,6 +12,7 @@ import {
   useProfileManagersQuery
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, EmptyState, ErrorMessage, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -32,6 +33,7 @@ const List: FC = () => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
   const { cache } = useApolloClient();
+  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
@@ -77,27 +79,32 @@ const List: FC = () => {
         const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const {
-            delegatorProfileId,
-            delegatedExecutors,
-            approvals,
-            configNumber,
-            switchToGivenConfig
-          } = typedData.value;
-          return write?.({
-            args: [
-              delegatorProfileId,
-              delegatedExecutors,
-              approvals,
-              configNumber,
-              switchToGivenConfig
-            ]
+        const {
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        } = typedData.value;
+        const args = [
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        ];
+
+        if (canBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
           });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args });
+          }
+          return;
         }
+
+        return write?.({ args });
       },
       onError
     });

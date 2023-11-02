@@ -9,6 +9,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Form, Input, Spinner, useZodForm } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -39,6 +40,7 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const form = useZodForm({
     schema: newProfileManagerSchema
@@ -86,27 +88,32 @@ const AddProfileManager: FC<AddProfileManagerProps> = ({
         const { id, typedData } = createChangeProfileManagersTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const {
-            delegatorProfileId,
-            delegatedExecutors,
-            approvals,
-            configNumber,
-            switchToGivenConfig
-          } = typedData.value;
-          return write?.({
-            args: [
-              delegatorProfileId,
-              delegatedExecutors,
-              approvals,
-              configNumber,
-              switchToGivenConfig
-            ]
+        const {
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        } = typedData.value;
+        const args = [
+          delegatorProfileId,
+          delegatedExecutors,
+          approvals,
+          configNumber,
+          switchToGivenConfig
+        ];
+
+        if (canBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
           });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args });
+          }
+          return;
         }
+
+        return write?.({ args });
       },
       onError
     });
