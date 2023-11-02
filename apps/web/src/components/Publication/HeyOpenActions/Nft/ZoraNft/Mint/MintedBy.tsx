@@ -11,6 +11,7 @@ const MintedBy: FC<MintedByProps> = ({ address }) => {
     return null;
   }
 
+  // TODO: use default profile
   return (
     <div className="mb-4 flex items-center gap-x-2">
       <span>by</span>
