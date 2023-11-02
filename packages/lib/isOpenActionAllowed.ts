@@ -1,6 +1,8 @@
 import type { Maybe, OpenActionModule } from '@hey/lens';
 
 const allowedTypes = [
+  'LegacySimpleCollectModule',
+  'LegacyMultirecipientFeeCollectModule',
   'SimpleCollectOpenActionModule',
   'MultirecipientFeeCollectOpenActionModule',
   'UnknownOpenActionModule'

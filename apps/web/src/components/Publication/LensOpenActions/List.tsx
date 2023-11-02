@@ -46,7 +46,10 @@ const List: FC<ListProps> = ({ publication }) => {
             {(action.type ===
               OpenActionModuleType.SimpleCollectOpenActionModule ||
               action.type ===
-                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
+                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
+              action.type === OpenActionModuleType.LegacySimpleCollectModule ||
+              action.type ===
+                OpenActionModuleType.LegacyMultirecipientFeeCollectModule) && (
               <CollectModulePreview module={action} publication={publication} />
             )}
             {action.type === OpenActionModuleType.UnknownOpenActionModule && (
