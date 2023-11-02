@@ -69,7 +69,6 @@ describe('getAttachmentsData', () => {
   test('should return an empty array for unknown attachment types', () => {
     const attachments: any[] = [{ __typename: 'UnknownAttachmentType' }];
     const result = getAttachmentsData(attachments);
-    console.log(result);
     expect(result).toEqual([[]]);
   });
 });

@@ -31,8 +31,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     variables: { request: { forHandle: `${HANDLE_PREFIX}${handle}` } }
   });
 
-  console.log('profileData', profileData);
-
   if (profileData.profile) {
     const profileId = profileData.profile.id;
 
