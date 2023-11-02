@@ -3,8 +3,8 @@ mutation CreateActOnOpenActionTypedData(
   $request: ActOnOpenActionRequest!
 ) {
   createActOnOpenActionTypedData(options: $options, request: $request) {
-    expiresAt
     id
+    expiresAt
     typedData {
       types {
         Act {

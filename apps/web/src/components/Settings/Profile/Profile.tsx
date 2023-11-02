@@ -111,8 +111,10 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const canUseRelay = currentProfile?.signless;
+  const canUseSignless = currentProfile?.signless;
   const isSponsored = currentProfile?.sponsor;
+  const canUseLensManager = canUseSignless && isSponsored;
+  const canUseBroadcast = !canUseSignless && isSponsored;
 
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
@@ -152,13 +154,17 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, metadataURI } = typedData.value;
-          return write?.({ args: [profileId, metadataURI] });
+        const { profileId, metadataURI } = typedData.value;
+        if (canUseBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args: [profileId, metadataURI] });
+          }
         }
+
+        return write?.({ args: [profileId, metadataURI] });
       },
       onError
     });
@@ -258,7 +264,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         metadataURI: urlcat(`${ARWEAVE_GATEWAY}/:hash`, { hash })
       };
 
-      if (canUseRelay && isSponsored) {
+      if (canUseLensManager) {
         return await updateProfile(request);
       }
 

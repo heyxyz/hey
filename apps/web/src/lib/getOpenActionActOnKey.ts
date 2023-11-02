@@ -10,6 +10,8 @@ const getOpenActionActOnKey = (name: string): string => {
   switch (name) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
       return 'simpleCollectOpenAction';
+    case OpenActionModuleType.SimpleCollectOpenActionModule:
+      return 'simpleCollectOpenAction';
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return 'multirecipientCollectOpenAction';
     default:

@@ -8,10 +8,12 @@ const getOpenActionModuleData = (
 } => {
   switch (module?.type) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
+    case OpenActionModuleType.LegacySimpleCollectModule:
       return {
         name: 'Simple Collect'
       };
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+    case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
       return {
         name: 'Multirecipient Fee Collect'
       };

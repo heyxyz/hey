@@ -25,7 +25,9 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
 
   if (
     module.__typename === 'SimpleCollectOpenActionSettings' ||
-    module.__typename === 'MultirecipientFeeCollectOpenActionSettings'
+    module.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+    module.__typename === 'LegacySimpleCollectModuleSettings' ||
+    module.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
   ) {
     const endTimestamp = module?.endsAt;
     const amount = parseFloat(module?.amount?.value || '0');

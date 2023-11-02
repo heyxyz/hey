@@ -3,8 +3,8 @@ mutation CreateUnfollowTypedData(
   $request: UnfollowRequest!
 ) {
   createUnfollowTypedData(options: $options, request: $request) {
-    expiresAt
     id
+    expiresAt
     typedData {
       types {
         Unfollow {

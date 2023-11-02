@@ -3,8 +3,8 @@ mutation CreateFollowTypedData(
   $request: FollowRequest!
 ) {
   createFollowTypedData(options: $options, request: $request) {
-    expiresAt
     id
+    expiresAt
     typedData {
       domain {
         name

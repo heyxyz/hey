@@ -6,8 +6,8 @@ mutation CreateOnchainSetProfileMetadataTypedData(
     options: $options
     request: $request
   ) {
-    expiresAt
     id
+    expiresAt
     typedData {
       domain {
         name

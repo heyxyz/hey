@@ -46,7 +46,10 @@ const List: FC<ListProps> = ({ publication }) => {
             {(action.type ===
               OpenActionModuleType.SimpleCollectOpenActionModule ||
               action.type ===
-                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule) && (
+                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
+              action.type === OpenActionModuleType.LegacySimpleCollectModule ||
+              action.type ===
+                OpenActionModuleType.LegacyMultirecipientFeeCollectModule) && (
               <CollectModulePreview module={action} publication={publication} />
             )}
             {action.type === OpenActionModuleType.UnknownOpenActionModule && (
@@ -73,7 +76,11 @@ const List: FC<ListProps> = ({ publication }) => {
             {selectedOpenAction?.__typename ===
               'SimpleCollectOpenActionSettings' ||
             selectedOpenAction?.__typename ===
-              'MultirecipientFeeCollectOpenActionSettings' ? (
+              'MultirecipientFeeCollectOpenActionSettings' ||
+            selectedOpenAction?.__typename ===
+              'LegacySimpleCollectModuleSettings' ||
+            selectedOpenAction?.__typename ===
+              'LegacyMultirecipientFeeCollectModuleSettings' ? (
               <CollectModule
                 publication={publication}
                 openAction={selectedOpenAction}
