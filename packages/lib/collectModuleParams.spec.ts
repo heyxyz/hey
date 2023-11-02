@@ -1,32 +1,88 @@
 import { describe, expect, test } from 'vitest';
 
-import formatAddress from './formatAddress';
+import collectModuleParams from './collectModuleParams';
 
 describe('collectModuleParams', () => {
-  test('should return an empty string if null is passed in', () => {
-    const result = formatAddress(null);
-    expect(result).toBe('');
+  const mockProfile: any = {
+    ownedBy: { address: 'mockAddress' }
+  };
+
+  test('should return null when given an unsupported collect module type', () => {
+    const unsupportedType = 'UnsupportedCollectModuleType';
+    const collectModule: any = {
+      type: unsupportedType,
+      collectLimit: 10,
+      followerOnly: true,
+      endsAt: '2022-01-01',
+      amount: 100,
+      referralFee: 5
+    };
+
+    expect(collectModuleParams(collectModule, mockProfile)).toBeNull();
   });
 
-  test('should match the expected format and shortens middle characters with ellipsis', () => {
-    const result = formatAddress('0x7b9AB70D065f7bA8c57bC819B10E35DdB7A41008');
-    // should shorten address so it only shows first 4 characters and last 4
-    expect(result).toBe('0x7b9A…1008');
-  });
+  test('should return the correct params for CollectOpenActionModuleType.SimpleCollectOpenActionModule', () => {
+    const collectModule: any = {
+      type: 'SimpleCollectOpenActionModule',
+      collectLimit: 10,
+      followerOnly: true,
+      endsAt: '2022-01-01',
+      amount: 100,
+      referralFee: 5
+    };
 
-  test('should match the expected format with 5 on each side and shortens middle characters with ellipsis', () => {
-    const result = formatAddress(
-      '0x7b9AB70D065f7bA8c57bC819B10E35DdB7A41008',
-      5
+    const expectedParams = {
+      simpleCollectOpenAction: {
+        collectLimit: 10,
+        followerOnly: true,
+        endsAt: '2022-01-01',
+        amount: 100,
+        referralFee: 5,
+        recipient: 'mockAddress'
+      }
+    };
+
+    expect(collectModuleParams(collectModule, mockProfile)).toEqual(
+      expectedParams
     );
-    // should shorten address so it only shows first 4 characters and last 4
-    expect(result).toBe('0x7b9AB…41008');
   });
 
-  test("doesn't make any modifications if the address doesn't match the regex", () => {
-    const input = 'not-an-address';
-    const result = formatAddress(input);
+  test('should return the correct params for CollectOpenActionModuleType.MultirecipientFeeCollectOpenActionModule', () => {
+    const collectModule: any = {
+      type: 'MultirecipientFeeCollectOpenActionModule',
+      collectLimit: 10,
+      followerOnly: true,
+      endsAt: '2022-01-01',
+      amount: {
+        value: 100,
+        currency: 'USD'
+      },
+      referralFee: 5,
+      recipients: [
+        { name: 'Recipient 1', address: 'address1' },
+        { name: 'Recipient 2', address: 'address2' }
+      ]
+    };
 
-    expect(result).toBe(input);
+    const expectedParams = {
+      multirecipientCollectOpenAction: {
+        collectLimit: 10,
+        followerOnly: true,
+        endsAt: '2022-01-01',
+        amount: {
+          value: 100,
+          currency: 'USD'
+        },
+        referralFee: 5,
+        recipients: [
+          { name: 'Recipient 1', address: 'address1' },
+          { name: 'Recipient 2', address: 'address2' }
+        ]
+      }
+    };
+
+    expect(collectModuleParams(collectModule, mockProfile)).toEqual(
+      expectedParams
+    );
   });
 });
