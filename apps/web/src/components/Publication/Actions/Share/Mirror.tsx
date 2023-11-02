@@ -123,7 +123,6 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
     if (canBroadcast) {
       if (isMomokaPublication) {
@@ -132,6 +131,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
         });
       }
 
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });

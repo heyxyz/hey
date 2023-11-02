@@ -356,7 +356,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
 
     if (canBroadcast) {
       if (isMomokaPublication) {
@@ -365,6 +364,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });
