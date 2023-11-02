@@ -16,6 +16,7 @@ import {
   useCreateFollowTypedDataMutation,
   useProfileQuery
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import formatAddress from '@hey/lib/formatAddress';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
@@ -61,7 +62,9 @@ const FollowModule: FC<FollowModuleProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [isLoading, setIsLoading] = useState(false);
   const [allowed, setAllowed] = useState(true);
+
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
@@ -152,25 +155,30 @@ const FollowModule: FC<FollowModuleProps> = ({
     onCompleted: async ({ createFollowTypedData }) => {
       const { id, typedData } = createFollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const {
-          followerProfileId,
-          idsOfProfilesToFollow,
-          followTokenIds,
-          datas
-        } = typedData.value;
-        return write?.({
-          args: [
-            followerProfileId,
-            idsOfProfilesToFollow,
-            followTokenIds,
-            datas
-          ]
+      const {
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      } = typedData.value;
+      const args = [
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      ];
+
+      if (canBroadcast) {
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
         });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return write?.({ args });
+        }
+        return;
       }
+
+      return write?.({ args });
     },
     onError
   });
