@@ -3,12 +3,7 @@ import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication, Comment, PublicationsRequest } from '@hey/lens';
-import {
-  CommentRankingFilterType,
-  CustomFiltersType,
-  LimitType,
-  usePublicationsQuery
-} from '@hey/lens';
+import { CustomFiltersType, LimitType, usePublicationsQuery } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
@@ -29,10 +24,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
   // Variables
   const request: PublicationsRequest = {
     where: {
-      commentOn: {
-        id: publicationId,
-        ranking: { filter: CommentRankingFilterType.Relevant }
-      },
+      commentOn: { id: publicationId },
       customFilters: [CustomFiltersType.Gardeners]
     },
     limit: LimitType.TwentyFive

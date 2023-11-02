@@ -1,7 +1,6 @@
 import Publication from '@components/Publication';
 import type { PublicationsRequest } from '@hey/lens';
 import {
-  CommentRankingFilterType,
   CustomFiltersType,
   LimitType,
   PublicationDocument,
@@ -40,10 +39,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
     const request: PublicationsRequest = {
       where: {
-        commentOn: {
-          id,
-          ranking: { filter: CommentRankingFilterType.Relevant }
-        },
+        commentOn: { id },
         customFilters: [CustomFiltersType.Gardeners]
       },
       limit: LimitType.TwentyFive
