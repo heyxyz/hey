@@ -137,15 +137,15 @@ const List: FC = () => {
                 ) : null}
                 <div>
                   <b>Registered -</b>{' '}
-                  {formatDate(session.createdAt, 'MMM D, YYYY - hh:mm A')}
+                  {formatDate(session.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
                 </div>
                 <div>
                   <b>Last accessed -</b>{' '}
-                  {formatDate(session.updatedAt, 'MMM D, YYYY - hh:mm A')}
+                  {formatDate(session.updatedAt, 'MMM D, YYYY - hh:mm:ss A')}
                 </div>
                 <div>
                   <b>Expires at -</b>{' '}
-                  {formatDate(session.expiresAt, 'MMM D, YYYY - hh:mm A')}
+                  {formatDate(session.expiresAt, 'MMM D, YYYY - hh:mm:ss A')}
                 </div>
               </div>
             </div>

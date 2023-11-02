@@ -91,7 +91,7 @@ const List: FC = () => {
                 <span className="mx-2 border-l dark:border-gray-700" />
               </span>
             ) : null}
-            {formatDate(action.actionedOn, 'MMM D, YYYY - hh:mm A')}
+            {formatDate(action.actionedOn, 'MMM D, YYYY - hh:mm:ss A')}
           </div>
         </Card>
       ))}
