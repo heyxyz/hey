@@ -35,7 +35,7 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
     const mints = getOpenActionCountByPublicationId(targetPublication.id);
 
     return (
-      <Card className="flex p-5">
+      <Card className="flex p-5" forceRounded>
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
             <div className="flex items-center space-x-2">

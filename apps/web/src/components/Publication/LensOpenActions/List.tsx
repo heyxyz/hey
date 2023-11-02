@@ -31,32 +31,38 @@ const List: FC<ListProps> = ({ publication }) => {
   return (
     <div className="p-5">
       {openActionScreen === 'LIST' ? (
-        openActions?.map((action, index) => (
-          <button
-            key={action.type}
-            className="w-full"
-            disabled={
-              action.type === OpenActionModuleType.UnknownOpenActionModule
-            }
-            onClick={() => {
-              selectedSetOpenActionIndex(index);
-              setOpenActionScreen('ACTION');
-            }}
-          >
-            {(action.type ===
-              OpenActionModuleType.SimpleCollectOpenActionModule ||
-              action.type ===
-                OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
-              action.type === OpenActionModuleType.LegacySimpleCollectModule ||
-              action.type ===
-                OpenActionModuleType.LegacyMultirecipientFeeCollectModule) && (
-              <CollectModulePreview module={action} publication={publication} />
-            )}
-            {action.type === OpenActionModuleType.UnknownOpenActionModule && (
-              <UnknownModulePreview module={action} />
-            )}
-          </button>
-        ))
+        <div className="space-y-4">
+          {openActions?.map((action, index) => (
+            <button
+              key={action.type}
+              className="w-full"
+              disabled={
+                action.type === OpenActionModuleType.UnknownOpenActionModule
+              }
+              onClick={() => {
+                selectedSetOpenActionIndex(index);
+                setOpenActionScreen('ACTION');
+              }}
+            >
+              {(action.type ===
+                OpenActionModuleType.SimpleCollectOpenActionModule ||
+                action.type ===
+                  OpenActionModuleType.MultirecipientFeeCollectOpenActionModule ||
+                action.type ===
+                  OpenActionModuleType.LegacySimpleCollectModule ||
+                action.type ===
+                  OpenActionModuleType.LegacyMultirecipientFeeCollectModule) && (
+                <CollectModulePreview
+                  module={action}
+                  publication={publication}
+                />
+              )}
+              {action.type === OpenActionModuleType.UnknownOpenActionModule && (
+                <UnknownModulePreview module={action} />
+              )}
+            </button>
+          ))}
+        </div>
       ) : (
         <div>
           <div className="flex items-center space-x-3">

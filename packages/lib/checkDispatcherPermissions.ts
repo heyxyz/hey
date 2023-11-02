@@ -25,7 +25,7 @@ const checkDispatcherPermissions = (
   const canUseSignless = profile.signless;
   const isSponsored = profile.sponsor;
   const canUseLensManager = canUseSignless && isSponsored;
-  const canBroadcast = !canUseSignless && isSponsored;
+  const canBroadcast = isSponsored;
 
   return { canUseSignless, isSponsored, canUseLensManager, canBroadcast };
 };

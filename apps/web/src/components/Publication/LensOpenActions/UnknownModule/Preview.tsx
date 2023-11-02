@@ -13,7 +13,7 @@ const UnknownModulePreview: FC<CollectModulePreviewProps> = ({ module }) => {
     const contract = module?.contract.address;
 
     return (
-      <Card className="flex bg-gray-50 p-5">
+      <Card className="flex bg-gray-50 p-5" forceRounded>
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
             <div className="flex items-center space-x-2">
