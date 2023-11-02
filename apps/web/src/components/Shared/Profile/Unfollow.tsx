@@ -13,6 +13,7 @@ import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -26,13 +27,20 @@ interface UnfollowProps {
   profile: Profile;
   setFollowing: (following: boolean) => void;
   showText?: boolean;
+
+  // For data analytics
+  followUnfollowPosition?: number;
+  followUnfollowSource?: string;
 }
 
 const Unfollow: FC<UnfollowProps> = ({
   profile,
   showText = false,
-  setFollowing
+  setFollowing,
+  followUnfollowSource,
+  followUnfollowPosition
 }) => {
+  const { pathname } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const setShowAuthModal = useGlobalModalStateStore(
@@ -66,6 +74,9 @@ const Unfollow: FC<UnfollowProps> = ({
     setFollowing(false);
     toast.success('Unfollowed successfully!');
     Leafwatch.track(PROFILE.UNFOLLOW, {
+      path: pathname,
+      ...(followUnfollowSource && { source: followUnfollowSource }),
+      ...(followUnfollowPosition && { position: followUnfollowPosition }),
       target: profile?.id
     });
   };
@@ -147,7 +158,6 @@ const Unfollow: FC<UnfollowProps> = ({
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
-      outline
       onClick={createUnfollow}
       disabled={isLoading}
       variant="danger"
@@ -159,6 +169,7 @@ const Unfollow: FC<UnfollowProps> = ({
           <UserMinusIcon className="h-4 w-4" />
         )
       }
+      outline
     >
       {showText ? 'Following' : null}
     </Button>

@@ -150,12 +150,14 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
                 <Unfollow
                   profile={profile}
                   setFollowing={setFollowing}
+                  followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                   showText
                 />
                 {followType === FollowModuleType.FeeFollowModule ? (
                   <SuperFollow
                     profile={profile}
                     setFollowing={setFollowing}
+                    followUnfollowSource={FollowUnfollowSource.PROFILE_PAGE}
                     again
                   />
                 ) : null}

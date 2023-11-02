@@ -1,6 +1,7 @@
 import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
+import { FollowUnfollowSource } from '@hey/data/tracking';
 import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
@@ -48,8 +49,8 @@ const FollowModal: FC<FollowModalProps> = ({
               <Follow
                 profile={profile}
                 setFollowing={setFollowing}
+                followUnfollowSource={FollowUnfollowSource.FOLLOW_DIALOG}
                 showText
-                outline={false}
               />
             </div>
           )}

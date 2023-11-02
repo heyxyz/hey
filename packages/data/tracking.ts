@@ -213,7 +213,8 @@ export enum FollowUnfollowSource {
   MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
   PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
   PROFILE_PAGE = 'profile_page',
-  PROFILE_POPOVER = 'profile_popover'
+  PROFILE_POPOVER = 'profile_popover',
+  FOLLOW_DIALOG = 'follow_dialog'
 }
 
 export const ALL_EVENTS = {

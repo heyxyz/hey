@@ -27,7 +27,6 @@ interface FollowProps {
   profile: Profile;
   setFollowing: (following: boolean) => void;
   showText?: boolean;
-  outline?: boolean;
 
   // For data analytics
   followUnfollowPosition?: number;
@@ -38,7 +37,6 @@ const Follow: FC<FollowProps> = ({
   profile,
   showText = false,
   setFollowing,
-  outline = true,
   followUnfollowSource,
   followUnfollowPosition
 }) => {
@@ -167,13 +165,13 @@ const Follow: FC<FollowProps> = ({
   return (
     <Button
       className="!px-3 !py-1.5 text-sm"
-      outline={outline}
       onClick={createFollow}
       aria-label="Follow"
       disabled={isLoading}
       icon={
         isLoading ? <Spinner size="xs" /> : <UserPlusIcon className="h-4 w-4" />
       }
+      outline
     >
       {showText ? 'Follow' : null}
     </Button>

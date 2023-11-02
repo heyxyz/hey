@@ -154,7 +154,12 @@ const UserProfile: FC<UserProfileProps> = ({
       ) : null}
       {showUnfollow ? (
         following ? (
-          <Unfollow profile={profile} setFollowing={setFollowing} />
+          <Unfollow
+            profile={profile}
+            setFollowing={setFollowing}
+            followUnfollowPosition={followUnfollowPosition}
+            followUnfollowSource={followUnfollowSource}
+          />
         ) : null
       ) : null}
     </div>
