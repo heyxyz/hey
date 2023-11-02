@@ -3390,7 +3390,7 @@ packages:
       graphql-request: 6.1.0(graphql@16.8.1)
       http-proxy-agent: 7.0.0
       https-proxy-agent: 7.0.2
-      jose: 5.0.1
+      jose: 5.0.2
       js-yaml: 4.1.0
       json-stable-stringify: 1.0.2
       lodash: 4.17.21
@@ -4987,7 +4987,7 @@ packages:
   /@safe-global/safe-apps-sdk@8.0.0(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-gYw0ki/EAuV1oSyMxpqandHjnthZjYYy+YWpTAzf8BqfXM3ItcZLpjxfg+3+mXW8HIO+3jw6T9iiqEXsqHaMMw==}
     dependencies:
-      '@safe-global/safe-gateway-typescript-sdk': 3.13.0
+      '@safe-global/safe-gateway-typescript-sdk': 3.13.2
       viem: 1.18.3(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
@@ -4999,7 +4999,7 @@ packages:
   /@safe-global/safe-apps-sdk@8.1.0(typescript@5.2.2)(zod@3.22.4):
     resolution: {integrity: sha512-XJbEPuaVc7b9n23MqlF6c+ToYIS3f7P2Sel8f3cSBQ9WORE4xrSuvhMpK9fDSFqJ7by/brc+rmJR/5HViRr0/w==}
     dependencies:
-      '@safe-global/safe-gateway-typescript-sdk': 3.13.0
+      '@safe-global/safe-gateway-typescript-sdk': 3.13.2
       viem: 1.18.3(typescript@5.2.2)(zod@3.22.4)
     transitivePeerDependencies:
       - bufferutil
@@ -5008,8 +5008,8 @@ packages:
       - zod
     dev: false
 
-  /@safe-global/safe-gateway-typescript-sdk@3.13.0:
-    resolution: {integrity: sha512-VfSILoCLhBm6ll815+/SkmP3n9yTEWtT3neyU8951Xgk2C8poWpc9/wpY8iVnOUiQvOIRH+QvzfFlQONGwlcIg==}
+  /@safe-global/safe-gateway-typescript-sdk@3.13.2:
+    resolution: {integrity: sha512-kGlJecJHBzGrGTq/yhLANh56t+Zur6Ubpt+/w03ARX1poDb4TM8vKU3iV8tuYpk359PPWp+Qvjnqb9oW2YQcYw==}
     engines: {node: '>=16'}
     dev: false
 
@@ -6991,7 +6991,7 @@ packages:
   /axios@1.6.0:
     resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
-      follow-redirects: 1.15.3
+      follow-redirects: 1.15.3(debug@4.3.4)
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -8792,16 +8792,6 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
-  /follow-redirects@1.15.3:
-    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: false
-
   /follow-redirects@1.15.3(debug@4.3.4):
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
     engines: {node: '>=4.0'}
@@ -8812,7 +8802,6 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
-    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -9708,8 +9697,8 @@ packages:
       '@sideway/pinpoint': 2.0.0
     dev: true
 
-  /jose@5.0.1:
-    resolution: {integrity: sha512-gRVzy7s3RRdGbXmcTdlOswJOjhwPLx1ijIgAqLY6ktzFpOJxxYn4l0fC2vHaHHi4YBX/5FOL3aY+6W0cvQgpug==}
+  /jose@5.0.2:
+    resolution: {integrity: sha512-YfXZO3UOHOGmDGEjYh4e6Pf1H+iiiShTH5y/DUcDquy90S8q8/yI0aBNUXokGczm9k+YuXvSO0k+nAmo77Eb1w==}
     dev: true
 
   /js-base64@3.7.5:
