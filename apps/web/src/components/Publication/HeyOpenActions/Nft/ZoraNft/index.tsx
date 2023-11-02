@@ -4,10 +4,10 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@hey/data/tracking';
 import type { AnyPublication } from '@hey/lens';
+import getZoraChainInfo from '@hey/lib/getZoraChainInfo';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { BasicNftMetadata } from '@hey/types/nft';
 import { Button, Card, Modal, Tooltip } from '@hey/ui';
-import getZoraChainInfo from '@lib/getZoraChainInfo';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
 import type { FC } from 'react';
