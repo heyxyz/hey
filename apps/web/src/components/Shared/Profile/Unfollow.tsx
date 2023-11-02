@@ -9,6 +9,7 @@ import {
   useUnfollowMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -48,6 +49,9 @@ const Unfollow: FC<UnfollowProps> = ({
   );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -104,16 +108,20 @@ const Unfollow: FC<UnfollowProps> = ({
       const { id, typedData } = createUnfollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const { unfollowerProfileId, idsOfProfilesToUnfollow } =
-          typedData.value;
-        return write?.({
-          args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+      const { unfollowerProfileId, idsOfProfilesToUnfollow } = typedData.value;
+      const args = [unfollowerProfileId, idsOfProfilesToUnfollow];
+
+      if (canBroadcast) {
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
         });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return write?.({ args });
+        }
+        return;
       }
+
+      return write?.({ args });
     },
     onError,
     update: updateCache
@@ -124,6 +132,14 @@ const Unfollow: FC<UnfollowProps> = ({
     onError,
     update: updateCache
   });
+
+  const unfollowViaLensManager = async (request: UnfollowRequest) => {
+    const { data } = await unfollow({ variables: { request } });
+
+    if (data?.unfollow?.__typename === 'LensProfileManagerRelayError') {
+      await createUnfollowTypedData({ variables: { request } });
+    }
+  };
 
   const createUnfollow = async () => {
     if (!currentProfile) {
@@ -138,18 +154,17 @@ const Unfollow: FC<UnfollowProps> = ({
     try {
       setIsLoading(true);
       const request: UnfollowRequest = { unfollow: [profile?.id] };
-      const { data } = await unfollow({
-        variables: { request }
-      });
 
-      if (data?.unfollow.__typename === 'LensProfileManagerRelayError') {
-        return await createUnfollowTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
-        });
+      if (canUseLensManager) {
+        return await unfollowViaLensManager(request);
       }
+
+      return await createUnfollowTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      });
     } catch (error) {
       onError(error);
     }

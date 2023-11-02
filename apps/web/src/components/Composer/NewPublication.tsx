@@ -356,6 +356,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
+
     if (canBroadcast) {
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
@@ -369,6 +370,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return write({ args: [typedData.value] });
       }
+      return;
     }
 
     return write({ args: [typedData.value] });

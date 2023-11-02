@@ -9,6 +9,7 @@ import {
   useFollowMutation
 } from '@hey/lens';
 import type { ApolloCache } from '@hey/lens/apollo';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import errorToast from '@lib/errorToast';
@@ -48,6 +49,9 @@ const Follow: FC<FollowProps> = ({
   );
   const [isLoading, setIsLoading] = useState(false);
   const handleWrongNetwork = useHandleWrongNetwork();
+
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const updateCache = (cache: ApolloCache<any>) => {
     cache.modify({
@@ -104,25 +108,30 @@ const Follow: FC<FollowProps> = ({
       const { id, typedData } = createFollowTypedData;
       const signature = await signTypedDataAsync(getSignature(typedData));
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1);
-      const { data } = await broadcastOnchain({
-        variables: { request: { id, signature } }
-      });
-      if (data?.broadcastOnchain.__typename === 'RelayError') {
-        const {
-          followerProfileId,
-          idsOfProfilesToFollow,
-          followTokenIds,
-          datas
-        } = typedData.value;
-        return write?.({
-          args: [
-            followerProfileId,
-            idsOfProfilesToFollow,
-            followTokenIds,
-            datas
-          ]
+      const {
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      } = typedData.value;
+      const args = [
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      ];
+
+      if (canBroadcast) {
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
         });
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return write?.({ args });
+        }
+        return;
       }
+
+      return write?.({ args });
     },
     onError,
     update: updateCache
@@ -133,6 +142,14 @@ const Follow: FC<FollowProps> = ({
     onError,
     update: updateCache
   });
+
+  const followViaLensManager = async (request: FollowRequest) => {
+    const { data } = await follow({ variables: { request } });
+
+    if (data?.follow?.__typename === 'LensProfileManagerRelayError') {
+      await createFollowTypedData({ variables: { request } });
+    }
+  };
 
   const createFollow = async () => {
     if (!currentProfile) {
@@ -147,16 +164,17 @@ const Follow: FC<FollowProps> = ({
     try {
       setIsLoading(true);
       const request: FollowRequest = { follow: [{ profileId: profile?.id }] };
-      const { data } = await follow({ variables: { request } });
 
-      if (data?.follow.__typename === 'LensProfileManagerRelayError') {
-        return await createFollowTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
-        });
+      if (canUseLensManager) {
+        return await followViaLensManager(request);
       }
+
+      return await createFollowTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      });
     } catch (error) {
       onError(error);
     }

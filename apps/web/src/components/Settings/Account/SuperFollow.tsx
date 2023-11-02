@@ -12,6 +12,7 @@ import {
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrenciesQuery
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import getTokenImage from '@hey/lib/getTokenImage';
 import { Button, Card, Form, Input, Spinner, useZodForm } from '@hey/ui';
@@ -43,6 +44,7 @@ const SuperFollow: FC = () => {
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] =
     useState('WMATIC');
   const handleWrongNetwork = useHandleWrongNetwork();
+  const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const form = useZodForm({
     schema: newSuperFollowSchema,
@@ -96,16 +98,21 @@ const SuperFollow: FC = () => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { id, typedData } = createSetFollowModuleTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        });
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { profileId, followModule, followModuleInitData } =
-            typedData.value;
-          return write?.({
-            args: [profileId, followModule, followModuleInitData]
+        const { profileId, followModule, followModuleInitData } =
+          typedData.value;
+        const args = [profileId, followModule, followModuleInitData];
+
+        if (canBroadcast) {
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
           });
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args });
+          }
+          return;
         }
+
+        return write?.({ args });
       },
       onError
     });

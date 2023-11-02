@@ -154,6 +154,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const { profileId, metadataURI } = typedData.value;
+
         if (canBroadcast) {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }

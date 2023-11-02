@@ -231,6 +231,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       if (data?.broadcastOnchain.__typename === 'RelayError') {
         return write({ args: [typedData.value] });
       }
+      return;
     }
 
     return write({ args: [typedData.value] });
