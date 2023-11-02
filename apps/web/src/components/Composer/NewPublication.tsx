@@ -41,6 +41,7 @@ import {
   useQuoteOnMomokaMutation
 } from '@hey/lens';
 import { useApolloClient } from '@hey/lens/apollo';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import collectModuleParams from '@hey/lib/collectModuleParams';
 import getProfile from '@hey/lib/getProfile';
 import getSignature from '@hey/lib/getSignature';
@@ -178,16 +179,13 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const getMetadata = usePublicationMetadata();
   const handleWrongNetwork = useHandleWrongNetwork();
 
+  const { isSponsored, canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
+
   const isComment = Boolean(publication);
   const isQuote = Boolean(quotedPublication);
   const hasAudio = attachments[0]?.type === 'Audio';
   const hasVideo = attachments[0]?.type === 'Video';
-
-  // Lens manager
-  const canUseSignless = currentProfile?.signless;
-  const isSponsored = currentProfile?.sponsor;
-  const canUseLensManager = canUseSignless && isSponsored;
-  const canUseBroadcast = !canUseSignless && isSponsored;
 
   const onCompleted = (
     __typename?:
@@ -358,7 +356,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    if (canUseBroadcast) {
+    if (canBroadcast) {
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
           variables: { request: { id, signature } }

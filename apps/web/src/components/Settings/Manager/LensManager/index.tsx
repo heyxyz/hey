@@ -1,4 +1,5 @@
 import { APP_NAME } from '@hey/data/constants';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
@@ -7,7 +8,7 @@ import ToggleLensManager from './ToggleLensManager';
 
 const LensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseSignless = currentProfile?.signless;
+  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
 
   return (
     <Card className="linkify space-y-2 p-5">

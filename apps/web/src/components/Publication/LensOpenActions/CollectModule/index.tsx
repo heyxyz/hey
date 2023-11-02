@@ -37,6 +37,7 @@ import {
   useCreateLegacyCollectTypedDataMutation,
   useLegacyCollectMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import formatAddress from '@hey/lib/formatAddress';
 import getAssetSymbol from '@hey/lib/getAssetSymbol';
 import getProfile from '@hey/lib/getProfile';
@@ -98,10 +99,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
   const hasActed = hasActedByMe(targetPublication.id);
 
   // Lens manager
-  const canUseSignless = currentProfile?.signless;
-  const isSponsored = currentProfile?.sponsor;
-  const canUseLensManager = canUseSignless && isSponsored;
-  const canUseBroadcast = !canUseSignless && isSponsored;
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const collectModule = openAction as
     | SimpleCollectOpenActionSettings
@@ -225,7 +224,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
 
-    if (canUseBroadcast) {
+    if (canBroadcast) {
       const { data } = await broadcastOnchain({
         variables: { request: { id, signature } }
       });

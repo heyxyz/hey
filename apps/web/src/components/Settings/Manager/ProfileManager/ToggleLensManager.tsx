@@ -7,6 +7,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { Button, Spinner } from '@hey/ui';
 import cn from '@hey/ui/cn';
@@ -29,7 +30,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
   const [isLoading, setIsLoading] = useState(false);
-  const canUseSignless = currentProfile?.signless;
+  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {

@@ -18,6 +18,7 @@ import {
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getSignature from '@hey/lib/getSignature';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
@@ -51,11 +52,8 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
 
   const handleWrongNetwork = useHandleWrongNetwork();
 
-  // Lens manager
-  const canUseSignless = currentProfile?.signless;
-  const isSponsored = currentProfile?.sponsor;
-  const canUseLensManager = canUseSignless && isSponsored;
-  const canUseBroadcast = !canUseSignless && isSponsored;
+  const { isSponsored, canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const hasQuotedOrMirrored = hasQuotedOrMirroredByMe(targetPublication.id);
   const mirrorOrQuoteCount = getMirrorOrQuoteCountByPublicationId(
@@ -125,7 +123,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   ) => {
     const { id, typedData } = generatedData;
     const signature = await signTypedDataAsync(getSignature(typedData));
-    if (canUseBroadcast) {
+    if (canBroadcast) {
       if (isMomokaPublication) {
         return await broadcastOnMomoka({
           variables: { request: { id, signature } }

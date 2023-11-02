@@ -20,6 +20,7 @@ import {
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@hey/lens';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import getAvatar from '@hey/lib/getAvatar';
 import getProfileAttribute from '@hey/lib/getProfileAttribute';
 import getSignature from '@hey/lib/getSignature';
@@ -111,10 +112,8 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
   const handleWrongNetwork = useHandleWrongNetwork();
 
   // Lens manager
-  const canUseSignless = currentProfile?.signless;
-  const isSponsored = currentProfile?.sponsor;
-  const canUseLensManager = canUseSignless && isSponsored;
-  const canUseBroadcast = !canUseSignless && isSponsored;
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(currentProfile);
 
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
@@ -155,7 +154,7 @@ const ProfileSettingsForm: FC<ProfileSettingsFormProps> = ({ profile }) => {
         const { id, typedData } = createOnchainSetProfileMetadataTypedData;
         const signature = await signTypedDataAsync(getSignature(typedData));
         const { profileId, metadataURI } = typedData.value;
-        if (canUseBroadcast) {
+        if (canBroadcast) {
           const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           });

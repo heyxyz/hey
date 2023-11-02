@@ -1,13 +1,14 @@
 import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
 import { HandRaisedIcon } from '@heroicons/react/24/outline';
 import { APP_NAME } from '@hey/data/constants';
+import checkDispatcherPermissions from '@hey/lib/checkDispatcherPermissions';
 import { Card } from '@hey/ui';
 import type { FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 const EnableLensManager: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const canUseSignless = currentProfile?.signless;
+  const { canUseSignless } = checkDispatcherPermissions(currentProfile);
 
   if (canUseSignless) {
     return null;
