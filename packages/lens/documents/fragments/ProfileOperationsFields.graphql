@@ -9,4 +9,6 @@ fragment ProfileOperationsFields on ProfileOperations {
   isFollowingMe {
     value
   }
+  canFollow
+  canUnfollow
 }
