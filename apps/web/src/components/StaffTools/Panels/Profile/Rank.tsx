@@ -6,6 +6,7 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { HashtagIcon } from '@heroicons/react/24/solid';
+import { GITCOIN_PASSPORT_KEY } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { formatDate } from '@lib/formatTime';
 import { useQuery } from '@tanstack/react-query';
@@ -25,7 +26,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
       const response = await axios.get(
         urlcat('https://lens-api.k3l.io/profile/rank', {
           strategy,
-          handle: profile.handle
+          handle: profile.handle?.localName
         })
       );
 
@@ -42,9 +43,7 @@ const Rank: FC<RankProps> = ({ profile }) => {
           id: 335,
           address: profile.ownedBy.address
         }),
-        {
-          headers: { 'X-API-Key': 'xn9e7AFv.aEfS0ioNhaVtww1jdwnsWtxnrNHspVsS' }
-        }
+        { headers: { 'X-API-Key': GITCOIN_PASSPORT_KEY } }
       );
 
       return response.data;
@@ -148,6 +147,19 @@ const Rank: FC<RankProps> = ({ profile }) => {
             <div className="shimmer h-4 w-5 rounded" />
           )}
         </MetaDetails>
+        {gitcoinScore?.stamp_scores &&
+        Object.keys(gitcoinScore?.stamp_scores).length > 0 ? (
+          <div className="lt-text-gray-500 ml-5 space-y-1 text-xs">
+            {Object.keys(gitcoinScore.stamp_scores).map((key) => {
+              return (
+                <div key={key}>
+                  <b className="ml-1">{key}: </b>
+                  {gitcoinScore?.stamp_scores[key]}
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </>
   );

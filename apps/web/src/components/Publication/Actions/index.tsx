@@ -1,4 +1,5 @@
 import { type AnyPublication } from '@hey/lens';
+import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
@@ -30,7 +31,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const canMirror = currentProfile
     ? targetPublication.operations.canMirror
     : true;
-  const canAct = hasOpenAction;
+  const canAct =
+    hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
 
   return (
     <span
