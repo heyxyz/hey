@@ -76,7 +76,11 @@ const List: FC<ListProps> = ({ publication }) => {
             {selectedOpenAction?.__typename ===
               'SimpleCollectOpenActionSettings' ||
             selectedOpenAction?.__typename ===
-              'MultirecipientFeeCollectOpenActionSettings' ? (
+              'MultirecipientFeeCollectOpenActionSettings' ||
+            selectedOpenAction?.__typename ===
+              'LegacySimpleCollectModuleSettings' ||
+            selectedOpenAction?.__typename ===
+              'LegacyMultirecipientFeeCollectModuleSettings' ? (
               <CollectModule
                 publication={publication}
                 openAction={selectedOpenAction}
