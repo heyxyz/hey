@@ -197,7 +197,7 @@ const MintAction: FC<MintActionProps> = ({
         <Button
           className="mt-5 w-full justify-center"
           disabled={!write}
-          onClick={() => write()}
+          onClick={() => write?.()}
           icon={
             isContractWriteLoading ? (
               <Spinner size="xs" />
