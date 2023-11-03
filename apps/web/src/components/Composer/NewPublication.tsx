@@ -188,6 +188,14 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasAudio = attachments[0]?.type === 'Audio';
   const hasVideo = attachments[0]?.type === 'Video';
 
+  const noCollect = !collectModule.type;
+  // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
+  const useMomoka = isComment
+    ? publication.momoka?.proof
+    : isQuote
+    ? quotedPublication?.momoka?.proof
+    : noCollect;
+
   const onError = (error?: any) => {
     setIsLoading(false);
     errorToast(error);
@@ -615,8 +623,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       }
 
       setPublicationContentError('');
-      let textNftImageUrl = null;
-      if (!attachments.length) {
+      let textNftImageUrl;
+      if (!attachments.length && !useMomoka) {
         textNftImageUrl = await getTextNftUrl(
           publicationContent,
           getProfile(currentProfile).slug,
@@ -647,13 +655,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
       const metadata = getMetadata({ baseMetadata });
 
-      const noCollect = !collectModule.type;
-      // Use Momoka if the profile the comment or quote has momoka proof and also check collect module has been disabled
-      const useMomoka = isComment
-        ? publication.momoka?.proof
-        : isQuote
-        ? quotedPublication?.momoka?.proof
-        : noCollect;
       const arweaveId = await uploadToArweave(metadata);
 
       // Payload for the open action module
