@@ -19,7 +19,9 @@ import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { NotificationTabType } from 'src/enums';
+import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import NotificationShimmer from './Shimmer';
 import ActedNotification from './Type/ActedNotification';
@@ -37,6 +39,9 @@ interface ListProps {
 const List: FC<ListProps> = ({ feedType }) => {
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
+  );
+  const latestNotificationId = useNotificationPersistStore(
+    (state) => state.latestNotificationId
   );
 
   const getNotificationType = () => {
@@ -65,13 +70,17 @@ const List: FC<ListProps> = ({ feedType }) => {
     }
   };
 
-  const { data, loading, error, fetchMore } = useNotificationsQuery({
+  const { data, loading, error, fetchMore, refetch } = useNotificationsQuery({
     variables: { request }
   });
 
   const notifications = data?.notifications?.items;
   const pageInfo = data?.notifications?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  useUpdateEffect(() => {
+    refetch();
+  }, [latestNotificationId]);
 
   const onEndReached = async () => {
     if (!hasMore) {
