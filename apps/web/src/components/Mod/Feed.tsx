@@ -24,6 +24,7 @@ interface FeedProps {
   publicationTypes: ExplorePublicationType[];
   mainContentFocus: PublicationMetadataMainFocusType[];
   customFilters: CustomFiltersType[];
+  apps: string[] | null;
 }
 
 const Feed: FC<FeedProps> = ({
@@ -31,14 +32,18 @@ const Feed: FC<FeedProps> = ({
   setRefreshing,
   publicationTypes,
   mainContentFocus,
-  customFilters
+  customFilters,
+  apps
 }) => {
   // Variables
   const request: ExplorePublicationRequest = {
     where: {
       customFilters,
       publicationTypes,
-      metadata: { mainContentFocus }
+      metadata: {
+        mainContentFocus,
+        ...(apps && { publishedOn: apps })
+      }
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
     limit: LimitType.TwentyFive

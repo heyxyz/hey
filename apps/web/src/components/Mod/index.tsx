@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags';
 import Footer from '@components/Shared/Footer';
+import { apps as knownApps } from '@hey/data/apps';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import {
@@ -24,6 +25,8 @@ import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
+const FILTER_APPS = knownApps;
+
 const Mod: NextPage = () => {
   const isGardener = usePreferencesStore((state) => state.isGardener);
   const [refresing, setRefreshing] = useState(false);
@@ -34,18 +37,18 @@ const Mod: NextPage = () => {
   ]);
   const [mainContentFocus, setMainContentFocus] = useState<
     PublicationMetadataMainFocusType[]
-  >([
-    PublicationMetadataMainFocusType.Article,
-    PublicationMetadataMainFocusType.Audio,
-    PublicationMetadataMainFocusType.Embed,
-    PublicationMetadataMainFocusType.Image,
-    PublicationMetadataMainFocusType.Link,
-    PublicationMetadataMainFocusType.TextOnly,
-    PublicationMetadataMainFocusType.Video
-  ]);
+  >(
+    Object.keys(PublicationMetadataMainFocusType).map(
+      (key) =>
+        PublicationMetadataMainFocusType[
+          key as keyof typeof PublicationMetadataMainFocusType
+        ]
+    )
+  );
   const [customFilters, setCustomFilters] = useState([
     CustomFiltersType.Gardeners
   ]);
+  const [apps, setApps] = useState<string[] | null>(null);
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'mod' });
@@ -83,6 +86,7 @@ const Mod: NextPage = () => {
           publicationTypes={publicationTypes}
           mainContentFocus={mainContentFocus}
           customFilters={customFilters}
+          apps={apps}
         />
       </GridItemEight>
       <GridItemFour>
@@ -122,80 +126,25 @@ const Mod: NextPage = () => {
           <div className="space-y-2">
             <span className="font-bold">Media filters</span>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(
-                    PublicationMetadataMainFocusType.Article
-                  )
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Article
-                )}
-                name="articles"
-                label="Articles"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMetadataMainFocusType.Audio)
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Audio
-                )}
-                name="audio"
-                label="Audio"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMetadataMainFocusType.Embed)
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Embed
-                )}
-                name="embeds"
-                label="Embeds"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMetadataMainFocusType.Image)
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Image
-                )}
-                name="images"
-                label="Images"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMetadataMainFocusType.Link)
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Link
-                )}
-                name="links"
-                label="Links"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(
-                    PublicationMetadataMainFocusType.TextOnly
-                  )
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.TextOnly
-                )}
-                name="text"
-                label="Text"
-              />
-              <Checkbox
-                onChange={() =>
-                  toggleMainContentFocus(PublicationMetadataMainFocusType.Video)
-                }
-                checked={mainContentFocus.includes(
-                  PublicationMetadataMainFocusType.Video
-                )}
-                name="videos"
-                label="Videos"
-              />
+              {Object.keys(PublicationMetadataMainFocusType).map((key) => (
+                <Checkbox
+                  key={key}
+                  onChange={() =>
+                    toggleMainContentFocus(
+                      PublicationMetadataMainFocusType[
+                        key as keyof typeof PublicationMetadataMainFocusType
+                      ]
+                    )
+                  }
+                  checked={mainContentFocus.includes(
+                    PublicationMetadataMainFocusType[
+                      key as keyof typeof PublicationMetadataMainFocusType
+                    ]
+                  )}
+                  name={key}
+                  label={key}
+                />
+              ))}
             </div>
           </div>
           <div className="divider my-3" />
@@ -221,6 +170,27 @@ const Mod: NextPage = () => {
                 name="gardeners"
                 label="Gardeners"
               />
+            </div>
+          </div>
+          <div className="divider my-3" />
+          <div className="space-y-2">
+            <span className="font-bold">Known apps filter</span>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              {FILTER_APPS.map((app) => (
+                <Checkbox
+                  key={app}
+                  onChange={() => {
+                    if (apps?.includes(app)) {
+                      setApps(apps.filter((currentApp) => currentApp !== app));
+                    } else {
+                      setApps([...(apps || []), app]);
+                    }
+                  }}
+                  checked={apps?.includes(app)}
+                  name={app}
+                  label={app}
+                />
+              ))}
             </div>
           </div>
         </Card>
