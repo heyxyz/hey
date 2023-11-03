@@ -30,7 +30,7 @@ const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
       <div className="flex items-center space-x-3">
         <UserPlusIcon className="text-brand-500/70 h-6 w-6" />
         <div className="flex items-center space-x-1">
-          {followers.map((follower) => (
+          {followers.slice(0, 10).map((follower) => (
             <div key={follower.id}>
               <NotificationProfileAvatar profile={follower} />
             </div>
