@@ -34,7 +34,7 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const range = 'A1:B5000';
+    const range = 'A1:B50000';
     const apiKey = request.env.GOOGLE_API_KEY;
 
     const sheetsResponse = await fetch(
