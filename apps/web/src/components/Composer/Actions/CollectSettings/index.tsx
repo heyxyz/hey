@@ -1,10 +1,9 @@
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
 import { Modal, Tooltip } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useCollectModuleStore } from 'src/store/collect-module';
+import { useCollectModuleStore } from 'src/store/useCollectModuleStore';
 
 import CollectForm from './CollectForm';
 
@@ -25,7 +24,7 @@ const CollectSettings: FC = () => {
         </motion.button>
       </Tooltip>
       <Modal
-        title={t`Collect settings`}
+        title="Collect settings"
         icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
         show={showModal}
         onClose={() => {

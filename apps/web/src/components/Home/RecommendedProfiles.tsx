@@ -8,16 +8,14 @@ import {
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { FollowUnfollowSource, MISCELLANEOUS } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
-import { useRecommendedProfilesQuery } from '@hey/lens';
+import { useProfileRecommendationsQuery } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage, Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
-import { useTimelineStore } from 'src/store/timeline';
+import { useAppStore } from 'src/store/useAppStore';
+import { useTimelineStore } from 'src/store/useTimelineStore';
 
 import Suggested from './Suggested';
 
@@ -25,28 +23,21 @@ const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
       <SparklesIcon className="h-4 w-4 text-yellow-500" />
-      <div>
-        <Trans>Who to follow</Trans>
-      </div>
+      <div>Who to follow</div>
     </div>
   );
 };
 
 const RecommendedProfiles: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const seeThroughProfile = useTimelineStore(
     (state) => state.seeThroughProfile
   );
   const [showSuggestedModal, setShowSuggestedModal] = useState(false);
 
-  const { data, loading, error } = useRecommendedProfilesQuery({
+  const { data, loading, error } = useProfileRecommendationsQuery({
     variables: {
-      options: {
-        profileId: isLensMember
-          ? seeThroughProfile?.id ?? currentProfile?.id
-          : null
-      }
+      request: { for: seeThroughProfile?.id ?? currentProfile?.id }
     }
   });
 
@@ -65,20 +56,20 @@ const RecommendedProfiles: FC = () => {
     );
   }
 
-  if (data?.recommendedProfiles?.length === 0) {
+  if (data?.profileRecommendations.items.length === 0) {
     return (
       <>
         <Title />
         <EmptyState
-          message={t`No recommendations!`}
+          message="No recommendations!"
           icon={<UsersIcon className="text-brand h-8 w-8" />}
         />
       </>
     );
   }
 
-  const recommendedProfiles = data?.recommendedProfiles.filter(
-    (profile) => !profile.isFollowedByMe
+  const recommendedProfiles = data?.profileRecommendations.items.filter(
+    (profile) => !profile.operations.isBlockedByMe.value
   );
 
   return (
@@ -86,10 +77,7 @@ const RecommendedProfiles: FC = () => {
       <Title />
       <Card as="aside">
         <div className="space-y-4 p-5">
-          <ErrorMessage
-            title={t`Failed to load recommendations`}
-            error={error}
-          />
+          <ErrorMessage title="Failed to load recommendations" error={error} />
           {recommendedProfiles?.slice(0, 5)?.map((profile, index) => (
             <motion.div
               initial={{ opacity: 0 }}
@@ -101,7 +89,7 @@ const RecommendedProfiles: FC = () => {
               <div className="w-full">
                 <UserProfile
                   profile={profile as Profile}
-                  isFollowing={profile.isFollowedByMe}
+                  isFollowing={profile.operations.isFollowedByMe.value}
                   followUnfollowPosition={index + 1}
                   followUnfollowSource={FollowUnfollowSource.WHO_TO_FOLLOW}
                   showFollow
@@ -124,13 +112,11 @@ const RecommendedProfiles: FC = () => {
           }}
         >
           <EllipsisHorizontalCircleIcon className="h-4 w-4" />
-          <span>
-            <Trans>Show more</Trans>
-          </span>
+          <span>Show more</span>
         </button>
       </Card>
       <Modal
-        title={t`Suggested for you`}
+        title="Suggested for you"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}

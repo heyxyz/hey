@@ -14,10 +14,7 @@ const Player: FC<PlayerProps> = ({ playerRef, src }) => {
   return (
     <Plyr
       ref={playerRef}
-      source={{
-        type: 'audio',
-        sources: [{ src }]
-      }}
+      source={{ type: 'audio', sources: [{ src }] }}
       options={{
         controls: ['progress', 'current-time', 'mute', 'volume']
       }}

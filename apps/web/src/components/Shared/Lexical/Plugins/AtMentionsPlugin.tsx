@@ -2,20 +2,15 @@ import {
   CheckBadgeIcon,
   ExclamationCircleIcon
 } from '@heroicons/react/24/solid';
-import { AVATAR } from '@hey/data/constants';
-import type {
-  MediaSet,
-  NftImage,
-  Profile,
-  ProfileSearchResult
+import type { Profile, ProfileSearchRequest } from '@hey/lens';
+import {
+  CustomFiltersType,
+  LimitType,
+  useSearchProfilesLazyQuery
 } from '@hey/lens';
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
-import getStampFyiURL from '@hey/lib/getStampFyiURL';
+import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import hasMisused from '@hey/lib/hasMisused';
-import imageKit from '@hey/lib/imageKit';
-import sanitizeDisplayName from '@hey/lib/sanitizeDisplayName';
-import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
 import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import type { MenuTextMatch } from '@lexical/react/LexicalTypeaheadMenuPlugin';
@@ -46,7 +41,7 @@ const PUNC = DocumentMentionsRegex.PUNCTUATION;
 const TRIGGERS = ['@'].join('');
 const VALID_CHARS = '[^' + TRIGGERS + PUNC + '\\s]';
 const VALID_JOINS = '(?:' + '\\.[ |$]|' + ' |' + '[' + PUNC + ']|' + ')';
-const LENGTH_LIMIT = 75;
+const LENGTH_LIMIT = 32;
 const ALIAS_LENGTH_LIMIT = 50;
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
@@ -110,14 +105,22 @@ const getPossibleQueryMatch = (text: string): MenuTextMatch | null => {
 class MentionTypeaheadOption extends MenuOption {
   id: string;
   name: string;
-  picture: string;
   handle: string;
+  displayHandle: string;
+  picture: string;
 
-  constructor(id: string, name: string, picture: string, handle: string) {
+  constructor(
+    id: string,
+    name: string,
+    handle: string,
+    displayHandle: string,
+    picture: string
+  ) {
     super(name);
     this.id = id;
     this.name = name;
     this.handle = handle;
+    this.displayHandle = displayHandle;
     this.picture = picture;
   }
 }
@@ -171,7 +174,7 @@ const MentionsTypeaheadMenuItem: FC<MentionsTypeaheadMenuItemProps> = ({
               <ExclamationCircleIcon className="h-4 w-4 text-red-500" />
             ) : null}
           </div>
-          <span className="text-xs">{formatHandle(option.handle)}</span>
+          <span className="text-xs">{option.displayHandle}</span>
         </div>
       </div>
     </li>
@@ -184,45 +187,31 @@ const MentionsPlugin: FC = () => {
   const [editor] = useLexicalComposerContext();
   const [searchUsers] = useSearchProfilesLazyQuery();
 
-  const getUserPicture = (user: Profile | undefined) => {
-    const picture = user?.picture;
-    if (picture && picture.hasOwnProperty('original')) {
-      const mediaSet = user.picture as MediaSet;
-      return mediaSet.original?.url;
-    }
-
-    if (picture && picture.hasOwnProperty('uri')) {
-      const nftImage = user.picture as NftImage;
-      return nftImage?.uri;
-    }
-
-    return getStampFyiURL(user?.ownedBy);
-  };
-
   useUpdateEffect(() => {
     if (queryString) {
-      searchUsers({
-        variables: {
-          request: {
-            type: SearchRequestTypes.Profile,
-            query: queryString,
-            limit: 5
-          }
-        }
-      }).then(({ data }) => {
-        const search = data?.search;
-        const profileSearchResult = search as ProfileSearchResult;
-        const profiles: Profile[] =
+      // Variables
+      const request: ProfileSearchRequest = {
+        where: { customFilters: [CustomFiltersType.Gardeners] },
+        query: queryString,
+        limit: LimitType.Ten
+      };
+
+      searchUsers({ variables: { request } }).then(({ data }) => {
+        const search = data?.searchProfiles;
+        const profileSearchResult = search;
+        const profiles = (
           search && search.hasOwnProperty('items')
             ? profileSearchResult?.items
-            : [];
+            : []
+        ) as Profile[];
         const profilesResults = profiles.map(
-          (user: Profile) =>
+          (user) =>
             ({
               id: user?.id,
-              name: sanitizeDisplayName(user?.name),
-              handle: user?.handle,
-              picture: getUserPicture(user)
+              name: getProfile(user).displayName,
+              handle: user.handle?.fullHandle,
+              displayHandle: getProfile(user).slugWithPrefix,
+              picture: getAvatar(user)
             }) as Record<string, string>
         );
         setResults(profilesResults);
@@ -237,12 +226,13 @@ const MentionsPlugin: FC = () => {
   const options = useMemo(
     () =>
       results
-        .map(({ id, name, picture, handle }) => {
+        .map(({ id, name, handle, displayHandle, picture }) => {
           return new MentionTypeaheadOption(
             id,
             name ?? handle,
-            imageKit(sanitizeDStorageUrl(picture), AVATAR),
-            handle
+            handle,
+            displayHandle,
+            picture
           );
         })
         .slice(0, SUGGESTION_LIST_LENGTH_LIMIT),

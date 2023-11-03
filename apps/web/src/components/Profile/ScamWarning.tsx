@@ -1,8 +1,8 @@
 import Markup from '@components/Shared/Markup';
 import type { Profile } from '@hey/lens';
+import getMentions from '@hey/lib/getMentions';
 import getMisuseDetails from '@hey/lib/getMisuseDetails';
 import { Card } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface ScamWarningProps {
@@ -22,14 +22,15 @@ const ScamWarning: FC<ScamWarningProps> = ({ profile }) => {
       className="mb-4 space-y-2.5 border-red-400 !bg-red-300/20 p-5 text-red-600"
     >
       <div className="flex items-center space-x-2 font-bold">
-        <p>
-          <Trans>
-            Profile is marked as {misuseDetails.type.toLowerCase()}!
-          </Trans>
-        </p>
+        <p>Profile is marked as {misuseDetails.type.toLowerCase()}!</p>
       </div>
       {misuseDetails?.description ? (
-        <Markup className="text-sm">{misuseDetails?.description}</Markup>
+        <Markup
+          className="text-sm"
+          mentions={getMentions(misuseDetails?.description)}
+        >
+          {misuseDetails?.description}
+        </Markup>
       ) : null}
       {misuseDetails?.identifiedOn ? (
         <p className="text-sm italic">

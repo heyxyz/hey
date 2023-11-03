@@ -12,7 +12,6 @@ import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
 import { PROFILE, PUBLICATION } from '@hey/data/tracking';
 import type { Profile } from '@hey/lens';
 import { Card } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -34,9 +33,10 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     }
   };
 
-  const { data, isLoading } = useQuery(['streaksList', profile.id], () =>
-    fetchStreaksList().then((res) => res)
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['fetchStreaksList', profile.id],
+    queryFn: fetchStreaksList
+  });
 
   const EventIcon = ({ event }: { event: string }) => {
     switch (event) {
@@ -63,21 +63,21 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const EventName = ({ event }: { event: string }) => {
     switch (event) {
       case PROFILE.FOLLOW:
-        return t`Followed a profile`;
+        return 'Followed a profile';
       case PROFILE.SUPER_FOLLOW:
-        return t`Super followed a profile`;
+        return 'Super followed a profile';
       case PUBLICATION.LIKE:
-        return t`Liked a publication`;
+        return 'Liked a publication';
       case PUBLICATION.NEW_POST:
-        return t`Created a new post`;
+        return 'Created a new post';
       case PUBLICATION.NEW_COMMENT:
-        return t`Commented on a publication`;
+        return 'Commented on a publication';
       case PUBLICATION.MIRROR:
-        return t`Mirrored a publication`;
+        return 'Mirrored a publication';
       case PUBLICATION.COLLECT_MODULE.COLLECT:
-        return t`Collected a publication`;
+        return 'Collected a publication';
       case PUBLICATION.WIDGET.SNAPSHOT.VOTE:
-        return t`Voted on a poll`;
+        return 'Voted on a poll';
       default:
         return null;
     }
@@ -103,9 +103,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
         <CalendarIcon className="text-brand h-6 w-6" />
-        <span>
-          <Trans>Latest events</Trans>
-        </span>
+        <span>Latest events</span>
       </div>
       <div className="divider" />
       <div className="space-y-4 p-6">

@@ -1,0 +1,10 @@
+mutation MirrorOnchain($request: OnchainMirrorRequest!) {
+  mirrorOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

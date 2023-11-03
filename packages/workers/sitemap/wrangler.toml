@@ -1,0 +1,12 @@
+name = "sitemap"
+main = "src/index.ts"
+compatibility_date = "2023-01-25"
+keep_vars = true
+
+routes = [
+	{ pattern = "sitemap.hey.xyz", custom_domain = true }
+]
+
+[env.production.vars]
+RELEASE = ""
+GOOGLE_API_KEY = ""

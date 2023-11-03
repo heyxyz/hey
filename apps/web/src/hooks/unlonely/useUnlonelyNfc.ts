@@ -16,7 +16,7 @@ const useUnlonelyNfc = ({
   loading: boolean;
   error: unknown;
 } => {
-  const loadUnlonelyNfcDetails = async () => {
+  const getUnlonelyNfcDetails = async () => {
     const response = await axios.get(`${NFT_WORKER_URL}/unlonely/nfc`, {
       params: { id }
     });
@@ -24,11 +24,11 @@ const useUnlonelyNfc = ({
     return response.data?.nfc;
   };
 
-  const { data, isLoading, error } = useQuery(
-    ['loadUnlonelyChannelDetails', id],
-    () => loadUnlonelyNfcDetails().then((res) => res),
-    { enabled }
-  );
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['getUnlonelyNfcDetails', id],
+    queryFn: getUnlonelyNfcDetails,
+    enabled
+  });
 
   return { data, loading: isLoading, error };
 };

@@ -1,5 +1,4 @@
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import type { FC, ReactNode } from 'react';
 import { toast } from 'react-hot-toast';
 
@@ -25,7 +24,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({
     )}
     onClick={async () => {
       await navigator.clipboard.writeText(value);
-      toast.success(t`Copied to clipboard!`);
+      toast.success('Copied to clipboard!');
     }}
     aria-hidden="true"
   >

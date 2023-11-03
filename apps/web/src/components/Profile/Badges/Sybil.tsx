@@ -2,7 +2,6 @@ import { CheckCircleIcon } from '@heroicons/react/24/solid';
 import { STATIC_IMAGES_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Tooltip } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface SybilProps {
@@ -10,7 +9,7 @@ interface SybilProps {
 }
 
 const Sybil: FC<SybilProps> = ({ profile }) => {
-  if (!profile?.onChainIdentity?.sybilDotOrg?.verified) {
+  if (!profile?.onchainIdentity?.sybilDotOrg?.verified) {
     return null;
   }
 
@@ -19,15 +18,13 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
       content={
         <span>
           <span className="flex items-center space-x-1">
-            <span>
-              <Trans>Sybil verified</Trans>
-            </span>
+            <span>Sybil verified</span>
             <CheckCircleIcon className="h-4 w-4" />
           </span>
           <span>
             X:{' '}
             <b>
-              @{profile?.onChainIdentity?.sybilDotOrg?.source?.twitter?.handle}
+              @{profile?.onchainIdentity?.sybilDotOrg?.source?.twitter?.handle}
             </b>
           </span>
         </span>
@@ -40,7 +37,6 @@ const Sybil: FC<SybilProps> = ({ profile }) => {
         width={75}
         src={`${STATIC_IMAGES_URL}/badges/sybil.png`}
         alt="Sybil Badge"
-        data-testid="profile-sybil-badge"
       />
     </Tooltip>
   );

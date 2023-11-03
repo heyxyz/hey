@@ -11,7 +11,9 @@ const getBasePaintCanvas = (url: string): BasePaintCanvasMetadata | null => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const id = parseInt(matches[1]);
-    return { id, provider: 'basepaint' };
+    const mintLink = `https://basepaint.art/mint/${id}`;
+
+    return { id, mintLink, provider: 'basepaint' };
   }
 
   return null;

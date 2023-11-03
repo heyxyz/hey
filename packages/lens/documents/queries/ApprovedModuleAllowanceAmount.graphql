@@ -2,9 +2,15 @@ query ApprovedModuleAllowanceAmount(
   $request: ApprovedModuleAllowanceAmountRequest!
 ) {
   approvedModuleAllowanceAmount(request: $request) {
-    currency
-    module
-    allowance
-    contractAddress
+    allowance {
+      value
+      asset {
+        ...Erc20Fields
+      }
+    }
+    moduleContract {
+      ...NetworkAddressFields
+    }
+    moduleName
   }
 }

@@ -1,37 +1,33 @@
 fragment PostFields on Post {
   id
-  profile {
-    ...ProfileFields
+  publishedOn {
+    id
   }
-  reaction(request: $reactionRequest)
-  mirrors(by: $profileId)
-  bookmarked(by: $profileId)
-  notInterested(by: $profileId)
-  hasCollectedByMe
-  onChainContentURI
-  isGated
-  isDataAvailability
-  dataAvailabilityProofs
-  canComment(profileId: $profileId) {
-    result
+  isHidden
+  isEncrypted
+  momoka {
+    proof
   }
-  canMirror(profileId: $profileId) {
-    result
-  }
-  canDecrypt(profileId: $profileId) {
-    result
-    reasons
-  }
-  collectModule {
-    ...CollectModuleFields
+  txHash
+  createdAt
+  by {
+    ...PublicationProfileFields
   }
   stats {
-    ...StatsFields
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
   }
   metadata {
-    ...MetadataFields
+    ...AnyPublicationMetadataFields
   }
-  hidden
-  createdAt
-  appId
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
 }

@@ -1,0 +1,10 @@
+mutation PostOnMomoka($request: MomokaPostRequest!) {
+  postOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

@@ -1,0 +1,10 @@
+query EnabledCurrencies($request: PaginatedOffsetRequest!) {
+  currencies(request: $request) {
+    items {
+      ...Erc20Fields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

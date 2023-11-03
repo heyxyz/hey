@@ -1,8 +1,7 @@
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/outline';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface SwitchProfileProps {
   className?: string;
@@ -26,9 +25,7 @@ const SwitchProfile: FC<SwitchProfileProps> = ({ className = '' }) => {
         <div>
           <ArrowsRightLeftIcon className="h-4 w-4" />
         </div>
-        <span>
-          <Trans>Switch profile</Trans>
-        </span>
+        <span>Switch profile</span>
       </div>
     </button>
   );

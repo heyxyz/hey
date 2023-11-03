@@ -1,0 +1,18 @@
+fragment ListProfileFields on Profile {
+  id
+  handle {
+    ...HandleInfoFields
+  }
+  ownedBy {
+    ...NetworkAddressFields
+  }
+  operations {
+    ...ProfileOperationsFields
+  }
+  metadata {
+    ...ProfileMetadataFields
+  }
+  followModule {
+    ...FollowModuleFields
+  }
+}

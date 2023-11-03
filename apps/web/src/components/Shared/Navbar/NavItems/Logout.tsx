@@ -1,14 +1,14 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { PROFILE } from '@hey/data/tracking';
-import resetAuthData from '@hey/lib/resetAuthData';
+import { useRevokeAuthenticationMutation } from '@hey/lens';
 import cn from '@hey/ui/cn';
+import errorToast from '@lib/errorToast';
+import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useDisconnectXmtp } from 'src/hooks/useXmtpClient';
-import { useAppPersistStore, useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
-import { useProfileGuardianInformationStore } from 'src/store/profile-guardian-information';
+import { useState } from 'react';
+import { signOut } from 'src/store/useAuthPersistStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useDisconnect } from 'wagmi';
 
 interface LogoutProps {
@@ -17,27 +17,40 @@ interface LogoutProps {
 }
 
 const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
-  const { disconnect } = useDisconnect();
-  const disconnectXmtp = useDisconnectXmtp();
-
-  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
   );
-  const resetProfileGuardianInformation = useProfileGuardianInformationStore(
-    (state) => state.resetProfileGuardianInformation
-  );
-  const setProfileId = useAppPersistStore((state) => state.setProfileId);
+  const [revoking, setRevoking] = useState(false);
 
-  const logout = () => {
-    Leafwatch.track(PROFILE.LOGOUT);
-    disconnectXmtp();
-    setCurrentProfile(null);
-    resetPreferences();
-    resetProfileGuardianInformation();
-    setProfileId(null);
-    resetAuthData();
-    disconnect?.();
+  const { disconnect } = useDisconnect();
+
+  const onError = (error: any) => {
+    setRevoking(false);
+    errorToast(error);
+  };
+
+  const [revokeAuthentication] = useRevokeAuthenticationMutation({
+    onCompleted: () => {
+      Leafwatch.track(PROFILE.LOGOUT);
+      resetPreferences();
+      signOut();
+      disconnect?.();
+      location.reload();
+    },
+    onError
+  });
+
+  const logout = async () => {
+    try {
+      setRevoking(true);
+      return await revokeAuthentication({
+        variables: { request: { authorizationId: getCurrentSessionId() } }
+      });
+    } catch (error) {
+      onError(error);
+    } finally {
+      setRevoking(false);
+    }
   };
 
   return (
@@ -51,14 +64,13 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
         'flex w-full px-2 py-1.5 text-left text-sm text-gray-700 dark:text-gray-200',
         className
       )}
+      disabled={revoking}
     >
       <div className="flex items-center space-x-1.5">
         <div>
           <ArrowRightOnRectangleIcon className="h-4 w-4" />
         </div>
-        <div>
-          <Trans>Logout</Trans>
-        </div>
+        <div>Logout</div>
       </div>
     </button>
   );

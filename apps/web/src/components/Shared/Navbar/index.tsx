@@ -1,16 +1,14 @@
-import MessageIcon from '@components/Messages/MessageIcon';
 import NotificationIcon from '@components/Notification/NotificationIcon';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import cn from '@hey/ui/cn';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useAppStore } from 'src/store/useAppStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
@@ -25,7 +23,7 @@ const Navbar: FC = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const onProfileSelected = (profile: Profile) => {
-    router.push(`/u/${formatHandle(profile?.handle)}`);
+    router.push(getProfile(profile).link);
   };
 
   interface NavItemProps {
@@ -47,7 +45,6 @@ const Navbar: FC = () => {
           }
         )}
         aria-current={current ? 'page' : undefined}
-        data-testid={`nav-item-${name.toLowerCase()}`}
       >
         {name}
       </Link>
@@ -59,10 +56,10 @@ const Navbar: FC = () => {
 
     return (
       <>
-        <NavItem url="/" name={t`Home`} current={pathname === '/'} />
+        <NavItem url="/" name="Home" current={pathname === '/'} />
         <NavItem
           url="/explore"
-          name={t`Explore`}
+          name="Explore"
           current={pathname === '/explore'}
         />
         <MoreNavItems />
@@ -117,12 +114,7 @@ const Navbar: FC = () => {
             />
           </Link>
           <div className="flex items-center gap-4">
-            {currentProfile ? (
-              <>
-                <MessageIcon />
-                <NotificationIcon />
-              </>
-            ) : null}
+            {currentProfile ? <NotificationIcon /> : null}
             <MenuItems />
           </div>
         </div>

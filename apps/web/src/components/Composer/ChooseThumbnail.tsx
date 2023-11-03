@@ -2,14 +2,12 @@ import ThumbnailsShimmer from '@components/Shared/Shimmer/ThumbnailsShimmer';
 import { CheckCircleIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { generateVideoThumbnails } from '@hey/lib/generateVideoThumbnails';
 import getFileFromDataURL from '@hey/lib/getFileFromDataURL';
-import type { MediaSetWithoutOnChain } from '@hey/types/misc';
 import { Spinner } from '@hey/ui';
 import { uploadFileToIPFS } from '@lib/uploadToIPFS';
-import { t, Trans } from '@lingui/macro';
 import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { usePublicationStore } from 'src/store/publication';
+import { usePublicationStore } from 'src/store/usePublicationStore';
 import { useUpdateEffect } from 'usehooks-ts';
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -18,7 +16,6 @@ export const THUMBNAIL_GENERATE_COUNT = 4;
 interface Thumbnail {
   blobUrl: string;
   ipfsUrl: string;
-  mimeType: string;
 }
 
 const ChooseThumbnail: FC = () => {
@@ -34,12 +31,12 @@ const ChooseThumbnail: FC = () => {
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
     setVideoThumbnail({ uploading: true });
-    const result: MediaSetWithoutOnChain = await uploadFileToIPFS(fileToUpload);
-    if (!result.original.url) {
-      toast.error(t`Failed to upload thumbnail`);
+    const result = await uploadFileToIPFS(fileToUpload);
+    if (!result.uri) {
+      toast.error('Failed to upload thumbnail');
     }
     setVideoThumbnail({
-      url: result.original.url,
+      url: result.uri,
       type: fileToUpload.type || 'image/jpeg',
       uploading: false
     });
@@ -56,13 +53,13 @@ const ChooseThumbnail: FC = () => {
         'thumbnail.jpeg',
         async (file: any) => {
           if (!file) {
-            return toast.error(t`Please upload a custom thumbnail`);
+            return toast.error('Please upload a custom thumbnail');
           }
           const ipfsResult = await uploadThumbnailToIpfs(file);
           setThumbnails(
             thumbnails.map((thumbnail, i) => {
               if (i === index) {
-                thumbnail.ipfsUrl = ipfsResult.original.url;
+                thumbnail.ipfsUrl = ipfsResult.uri;
               }
               return thumbnail;
             })
@@ -72,7 +69,6 @@ const ChooseThumbnail: FC = () => {
     } else {
       setVideoThumbnail({
         url: thumbnails[index]?.ipfsUrl,
-        type: thumbnails[index]?.mimeType || 'image/jpeg',
         uploading: false
       });
     }
@@ -86,11 +82,7 @@ const ChooseThumbnail: FC = () => {
       );
       const thumbnailList: Thumbnail[] = [];
       for (const thumbnailBlob of thumbnailArray) {
-        thumbnailList.push({
-          blobUrl: thumbnailBlob,
-          ipfsUrl: '',
-          mimeType: 'image/jpeg'
-        });
+        thumbnailList.push({ blobUrl: thumbnailBlob, ipfsUrl: '' });
       }
       setThumbnails(thumbnailList);
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
@@ -121,16 +113,12 @@ const ChooseThumbnail: FC = () => {
         const result = await uploadThumbnailToIpfs(file);
         const preview = window.URL?.createObjectURL(file);
         setThumbnails([
-          {
-            blobUrl: preview,
-            ipfsUrl: result.original.url,
-            mimeType: file.type || 'image/jpeg'
-          },
+          { blobUrl: preview, ipfsUrl: result.uri },
           ...thumbnails
         ]);
         setSelectedThumbnailIndex(0);
       } catch {
-        toast.error(t`Failed to upload thumbnail`);
+        toast.error('Failed to upload thumbnail');
       } finally {
         setImageUploading(false);
       }
@@ -141,9 +129,7 @@ const ChooseThumbnail: FC = () => {
 
   return (
     <div className="mt-5">
-      <b>
-        <Trans>Choose Thumbnail</Trans>
-      </b>
+      <b>Choose Thumbnail</b>
       <div className="mt-1 grid grid-cols-3 gap-3 py-0.5 md:grid-cols-5">
         <label
           htmlFor="chooseThumbnail"
@@ -161,9 +147,7 @@ const ChooseThumbnail: FC = () => {
           ) : (
             <>
               <PhotoIcon className="mb-1 h-5 w-5" />
-              <span className="text-sm">
-                <Trans>Upload</Trans>
-              </span>
+              <span className="text-sm">Upload</span>
             </>
           )}
         </label>

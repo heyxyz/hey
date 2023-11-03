@@ -15,14 +15,16 @@ interface OembedProps {
 }
 
 const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
-  const { isLoading, error, data } = useQuery(
-    [url],
-    () =>
-      axios
-        .get(`${OEMBED_WORKER_URL}/oembed`, { params: { url } })
-        .then((res) => res.data.oembed),
-    { enabled: Boolean(url) }
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['oembed', url],
+    queryFn: async () => {
+      const response = await axios.get(`${OEMBED_WORKER_URL}/oembed`, {
+        params: { url }
+      });
+      return response.data.oembed;
+    },
+    enabled: Boolean(url)
+  });
 
   if (isLoading || error || !data) {
     return null;
@@ -35,8 +37,8 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
     title: data?.title,
     description: data?.description,
     site: data?.site,
-    favicon: urlcat('https://www.google.com/s2/favicons', {
-      domain: data.url
+    favicon: urlcat('https://external-content.duckduckgo.com/ip3/:domain.ico', {
+      domain: data.url.replace('https://', '').replace('http://', '')
     }),
     image: data?.image,
     isLarge: data?.isLarge,

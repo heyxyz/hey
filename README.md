@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://user-images.githubusercontent.com/69431456/183576577-2486db3f-f0a9-4252-b283-a8322e5eb8b6.png" alt="Hey Logo">
+    <img src="https://github.com/heyxyz/hey/assets/69431456/1f411680-e561-4203-b8a2-d610aa4fe4cb" alt="Hey Logo">
     <h1>Hey</h1>
     <strong>Decentralized, and permissionless social media app 🌿</strong>
 </div>
@@ -14,11 +14,8 @@
     <a href="https://deepsource.io/gh/heyxyz/hey">
         <img src="https://deepsource.io/gh/heyxyz/hey.svg/?label=active+issues&show_trend=true" alt="GitHub actions">
     </a>
-    <a href="https://www.gitpoap.io/gh/heyxyz/hey">
+    <a href="https://www.gitpoap.io/gh/lensterxyz">
         <img src="https://public-api.gitpoap.io/v1/repo/heyxyz/hey/badge" alt="Gitpoap">
-    </a>
-    <a href="https://translate.hey.xyz">
-        <img src="https://badges.crowdin.net/heyxyz/localized.svg" alt="Crowdin">
     </a>
     <a href="https://status.hey.xyz">
         <img height="20px" src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Uptime">
@@ -54,13 +51,10 @@ Hey is a cutting-edge social media application that leverages the power of [Lens
 
 ## 📦 Environments
 
-| Name            | Link                            |
-| --------------- | ------------------------------- |
-| Mainnet         | https://hey.xyz                 |
-| Testnet         | https://testnet.hey.xyz         |
-| Staging         | https://staging.hey.xyz         |
-| Sandbox         | https://sandbox.hey.xyz         |
-| Staging Sandbox | https://staging-sandbox.hey.xyz |
+| Name    | Link                    |
+| ------- | ----------------------- |
+| Mainnet | https://hey.xyz         |
+| Testnet | https://testnet.hey.xyz |
 
 ## ✅ Community
 

@@ -11,7 +11,9 @@ const getUnlonelyNfc = (url: string): UnlonelyNfcMetadata | null => {
   const matches = regex.exec(url);
   if (matches && matches[1]) {
     const id = matches[1];
-    return { id, provider: 'unlonely-nfc' };
+    const mintLink = `https://www.unlonely.app/nfc/${id}`;
+
+    return { id, mintLink, provider: 'unlonely-nfc' };
   }
 
   return null;
