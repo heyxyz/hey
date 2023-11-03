@@ -56,8 +56,8 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
   return (
     <button
       type="button"
-      onClick={() => {
-        logout();
+      onClick={async () => {
+        await logout();
         onClick?.();
       }}
       className={cn(
