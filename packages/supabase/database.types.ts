@@ -134,6 +134,7 @@ export interface Database {
           {
             foreignKeyName: 'staff-picks_picker_id_fkey';
             columns: ['picker_id'];
+            isOneToOne: false;
             referencedRelation: 'rights';
             referencedColumns: ['id'];
           }
