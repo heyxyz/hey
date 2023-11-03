@@ -17,6 +17,7 @@ import {
 import getAvatar from '@hey/lib/getAvatar';
 import getProfile from '@hey/lib/getProfile';
 import { ErrorMessage, Image, Spinner } from '@hey/ui';
+import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { Leafwatch } from '@lib/leafwatch';
 import Link from 'next/link';
@@ -135,7 +136,12 @@ const SwitchProfiles: FC = () => {
               src={getAvatar(profile)}
               alt={profile.id}
             />
-            <div className="truncate">
+            <div
+              className={cn(
+                currentProfile?.id === profile?.id && 'font-bold',
+                'truncate'
+              )}
+            >
               {getProfile(profile as Profile).slugWithPrefix}
             </div>
           </span>
