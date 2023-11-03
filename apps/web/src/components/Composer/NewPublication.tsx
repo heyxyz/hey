@@ -347,7 +347,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       const metadata = getMetadata({ baseMetadata });
-
       const arweaveId = await uploadToArweave(metadata);
 
       // Payload for the open action module
