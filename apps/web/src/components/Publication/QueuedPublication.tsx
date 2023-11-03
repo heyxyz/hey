@@ -52,7 +52,12 @@ const QueuedPublication: FC<QueuedPublicationProps> = ({ txn }) => {
   });
 
   useLensTransactionStatusQuery({
-    variables: { request: { forTxHash: txHash, forTxId: txId } },
+    variables: {
+      request: {
+        ...(txHash && { forTxHash: txHash }),
+        ...(txId && { forTxId: txId })
+      }
+    },
     pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: async ({ lensTransactionStatus }) => {
