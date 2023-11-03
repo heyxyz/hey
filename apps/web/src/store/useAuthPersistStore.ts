@@ -23,8 +23,8 @@ export const useAuthPersistStore = create(
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: () => {
-        const allKeys = Object.keys(Localstorage);
-        for (const key of allKeys) {
+        const allValues = Object.values(Localstorage);
+        for (const key of allValues) {
           localStorage.removeItem(key);
         }
       },
