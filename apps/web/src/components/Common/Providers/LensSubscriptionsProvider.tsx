@@ -69,7 +69,7 @@ const LensSubscriptionsProvider: FC = () => {
     if (currentSessionProfileId && address && wsData) {
       if (jsonData.id === '1') {
         const notification = wsData.newNotification as Notification;
-        if (getPushNotificationData(notification)) {
+        if (notification && getPushNotificationData(notification)) {
           const notify = getPushNotificationData(notification);
           BrowserPush.notify({
             title: notify?.title || ''
