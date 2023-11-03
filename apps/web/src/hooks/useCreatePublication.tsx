@@ -39,17 +39,15 @@ import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore
 import { useContractWrite, useSignTypedData } from 'wagmi';
 
 interface CreatePublicationProps {
-  isComment?: boolean;
-  isQuote?: boolean;
   commentOn?: AnyPublication;
+  quoteOn?: AnyPublication;
   onError: (error: any) => void;
   onCompleted: (status?: any) => void;
 }
 
 const useCreatePublication = ({
-  isComment,
-  isQuote,
   commentOn,
+  quoteOn,
   onError,
   onCompleted
 }: CreatePublicationProps) => {
@@ -60,6 +58,9 @@ const useCreatePublication = ({
   const { publicationContent } = usePublicationStore();
   const { txnQueue, setTxnQueue } = useTransactionPersistStore();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
+
+  const isComment = Boolean(commentOn);
+  const isQuote = Boolean(quoteOn);
 
   const generateOptimisticPublication = ({
     txHash,
