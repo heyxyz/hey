@@ -145,10 +145,10 @@ const Follow: FC<FollowProps> = ({
 
   const followViaLensManager = async (request: FollowRequest) => {
     const { data } = await follow({ variables: { request } });
-
     if (data?.follow?.__typename === 'LensProfileManagerRelayError') {
       await createFollowTypedData({ variables: { request } });
     }
+    return;
   };
 
   const createFollow = async () => {
