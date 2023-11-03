@@ -1,5 +1,0 @@
-mutation RemovePublicationProfileNotInterested(
-  $request: PublicationProfileNotInterestedRequest!
-) {
-  removePublicationProfileNotInterested(request: $request)
-}

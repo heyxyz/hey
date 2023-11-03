@@ -1,0 +1,6 @@
+fragment QuoteNotificationFields on QuoteNotification {
+  id
+  quote {
+    ...QuoteFields
+  }
+}

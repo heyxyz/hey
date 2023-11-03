@@ -46,7 +46,6 @@ const TabButton: FC<TabButtonProps> = ({
         'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30 justify-center',
         className
       )}
-      data-testid={`tab-button-${name.toLowerCase()}`}
       aria-label={name}
     >
       {icon}

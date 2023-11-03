@@ -1,8 +1,7 @@
 import { Menu } from '@headlessui/react';
 import cn from '@hey/ui/cn';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import MenuTransition from '../MenuTransition';
 import Bookmarks from './NavItems/Bookmarks';
@@ -13,7 +12,7 @@ const MoreNavItems: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
   return (
-    <Menu as="div" data-testid="nav-item-more">
+    <Menu as="div">
       {({ open }) => (
         <>
           <Menu.Button
@@ -26,13 +25,12 @@ const MoreNavItems: FC = () => {
               }
             )}
           >
-            <Trans>More</Trans>
+            More
           </Menu.Button>
           <MenuTransition>
             <Menu.Items
               static
               className="absolute mt-2 rounded-xl border bg-white py-1 shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-              data-testid="nav-item-more-dropdown"
             >
               {currentProfile ? (
                 <>

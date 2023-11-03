@@ -1,6 +1,9 @@
 name: Deploy cloudflare workers
 
 on:
+  # TODO: remove this once workers got deployed
+  schedule:
+    - cron: '*/5 * * * *'
   push:
     branches: [main]
   workflow_dispatch:

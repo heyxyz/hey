@@ -1,0 +1,16 @@
+query ProfilesManaged(
+  $profilesManagedRequest: ProfilesManagedRequest!
+  $lastLoggedInProfileRequest: LastLoggedInProfileRequest!
+) {
+  profilesManaged(request: $profilesManagedRequest) {
+    items {
+      ...ListProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+  lastLoggedInProfile(request: $lastLoggedInProfileRequest) {
+    ...ListProfileFields
+  }
+}

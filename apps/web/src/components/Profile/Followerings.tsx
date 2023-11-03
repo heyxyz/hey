@@ -4,7 +4,7 @@ import type { Profile } from '@hey/lens';
 import humanize from '@hey/lib/humanize';
 import { Modal } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { Plural, t } from '@lingui/macro';
+import plur from 'plur';
 import type { FC } from 'react';
 import { useState } from 'react';
 
@@ -30,18 +30,10 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
             profile_id: profile.id
           });
         }}
-        data-testid="profile-followings"
       >
-        <div className="text-xl">
-          {humanize(profile?.stats?.totalFollowing)}
-        </div>
+        <div className="text-xl">{humanize(profile.stats.following)}</div>
         <div className="lt-text-gray-500">
-          <Plural
-            value={profile?.stats?.totalFollowing}
-            zero="Following"
-            one="Following"
-            other="Following"
-          />
+          {plur('Following', profile.stats.following)}
         </div>
       </button>
       <button
@@ -53,22 +45,14 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
             profile_id: profile.id
           });
         }}
-        data-testid="profile-followers"
       >
-        <div className="text-xl">
-          {humanize(profile?.stats?.totalFollowers)}
-        </div>
+        <div className="text-xl">{humanize(profile.stats.followers)}</div>
         <div className="lt-text-gray-500">
-          <Plural
-            value={profile?.stats?.totalFollowers}
-            zero="Follower"
-            one="Follower"
-            other="Followers"
-          />
+          {plur('Follower', profile.stats.followers)}
         </div>
       </button>
       <Modal
-        title={t`Following`}
+        title="Following"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showFollowingModal}
         onClose={() => setShowFollowingModal(false)}
@@ -76,7 +60,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         <Following profile={profile} />
       </Modal>
       <Modal
-        title={t`Followers`}
+        title="Followers"
         icon={<UsersIcon className="text-brand h-5 w-5" />}
         show={showFollowersModal}
         onClose={() => setShowFollowersModal(false)}

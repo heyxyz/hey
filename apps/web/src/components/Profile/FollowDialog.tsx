@@ -1,11 +1,11 @@
 import Follow from '@components/Shared/Profile/Follow';
 import Slug from '@components/Shared/Slug';
 import SuperFollow from '@components/Shared/SuperFollow';
-import type { Profile } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import { FollowUnfollowSource } from '@hey/data/tracking';
+import { FollowModuleType, type Profile } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import { Button, Image } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
 interface FollowModalProps {
@@ -19,7 +19,7 @@ const FollowModal: FC<FollowModalProps> = ({
   setFollowing,
   setShowFollowModal
 }) => {
-  const followType = profile?.followModule?.__typename;
+  const followType = profile?.followModule?.type;
 
   return (
     <div className="p-5">
@@ -28,16 +28,15 @@ const FollowModal: FC<FollowModalProps> = ({
           <Image
             src={getAvatar(profile)}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
-            alt={formatHandle(profile?.handle)}
+            alt={profile?.id}
           />
           <Slug
             className="flex items-center"
-            slug={formatHandle(profile?.handle)}
-            prefix="@"
-          />{' '}
+            slug={getProfile(profile).slugWithPrefix}
+          />
         </span>
         <span className="flex">
-          {followType === 'FeeFollowModuleSettings' ? (
+          {followType === FollowModuleType.FeeFollowModule ? (
             <div className="flex space-x-2">
               <SuperFollow
                 profile={profile}
@@ -50,8 +49,8 @@ const FollowModal: FC<FollowModalProps> = ({
               <Follow
                 profile={profile}
                 setFollowing={setFollowing}
+                followSource={FollowUnfollowSource.FOLLOW_DIALOG}
                 showText
-                outline={false}
               />
             </div>
           )}
@@ -61,9 +60,9 @@ const FollowModal: FC<FollowModalProps> = ({
             onClick={() => {
               setShowFollowModal(false);
             }}
-            aria-label={t`Not now`}
+            aria-label="Not now"
           >
-            <Trans>Not now</Trans>
+            Not now
           </Button>
         </span>
       </div>

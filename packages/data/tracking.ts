@@ -22,12 +22,15 @@ export const PROFILE = {
   SWITCH_PROFILE_STATS_TAB: 'Switch profile stats tab',
   SWITCH_PROFILE: 'Switch profile',
   REPORT_PROFILE: 'Report profile',
+  BLOCK: 'Block profile',
+  UNBLOCK: 'Unblock profile',
   LOGOUT: 'Profile logout'
 };
 
 export const PUBLICATION = {
   NEW_POST: 'New post',
   NEW_COMMENT: 'New comment',
+  NEW_QUOTE: 'New quote',
   LIKE: 'Like publication',
   UNLIKE: 'Unlike publication',
   MIRROR: 'Mirror publication',
@@ -43,6 +46,7 @@ export const PUBLICATION = {
   CLICK_MENTION: 'Click publication mention',
   OPEN_LIKES: 'Open likes modal',
   OPEN_MIRRORS: 'Open mirrors modal',
+  OPEN_QUOTES: 'Open quotes modal',
   OPEN_COLLECTORS: 'Open collectors modal',
   OPEN_GIFS: 'Open GIFs modal',
   ATTACHMENT: {
@@ -58,12 +62,6 @@ export const PUBLICATION = {
     OPEN_COLLECT: 'Open collect modal',
     COLLECT: 'Collect publication',
     OPEN_UNISWAP: 'Open Uniswap'
-  },
-  TOKEN_GATED: {
-    CHECKLIST_NAVIGATED_TO_COLLECT: 'Decrypt checklist navigated to collect',
-    CHECKLIST_NAVIGATED_TO_TOKEN: 'Decrypt checklist navigated to token',
-    CHECKLIST_NAVIGATED_TO_NFT: 'Decrypt checklist navigated to NFT',
-    DECRYPT: 'Decrypt token gated publication'
   },
   WIDGET: {
     SNAPSHOT: {
@@ -97,7 +95,6 @@ export const NOTIFICATION = {
 };
 
 export const HOME = {
-  SWITCH_FOR_YOU_FEED: 'Switch to for you feed',
   SWITCH_FOLLOWING_FEED: 'Switch to following feed',
   SWITCH_HIGHLIGHTS_FEED: 'Switch to highlights feed',
   SELECT_USER_FEED: 'Select user feed',
@@ -111,13 +108,6 @@ export const HOME = {
 export const EXPLORE = {
   SWITCH_EXPLORE_FEED_TAB: 'Switch explore feed tab',
   SWITCH_EXPLORE_FEED_FOCUS: 'Switch explore feed focus'
-};
-
-export const MESSAGES = {
-  SEND: 'Send message',
-  OPEN_NEW_CONVERSATION: 'Open new conversation modal',
-  SWITCH_INBOX_TAB: 'Switch DM inbox tab',
-  SWITCH_FOLLOWING_TAB: 'Switch DM following tab'
 };
 
 export const SETTINGS = {
@@ -137,12 +127,17 @@ export const SETTINGS = {
       'Toggle high signal notification filter',
     TOGGLE_IS_PRIDE: 'Toggle is pride'
   },
-  DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher',
-    UPDATE: 'Update dispatcher'
+  MANAGER: {
+    TOGGLE: 'Toggle lens manager',
+    UPDATE: 'Update lens manager',
+    ADD_MANAGER: 'Add profile manager',
+    REMOVE_MANAGER: 'Remove profile manager'
   },
   ALLOWANCE: {
     TOGGLE: 'Toggle allowance'
+  },
+  SESSIONS: {
+    REVOKE: 'Revoke session'
   },
   INTERESTS: {
     ADD: 'Add profile interest',
@@ -211,14 +206,15 @@ export enum FollowUnfollowSource {
   WHO_TO_FOLLOW_MODAL = 'who_to_follow_modal',
   LIKES_MODAL = 'likes_modal',
   MIRRORS_MODAL = 'mirrors_modal',
+  QUOTES_MODAL = 'quotes_modal',
   COLLECTORS_MODAL = 'collectors_modal',
   FOLLOWERS_MODAL = 'followers_modal',
   FOLLOWING_MODAL = 'following_modal',
   MUTUAL_FOLLOWERS_MODAL = 'mutual_followers_modal',
   PUBLICATION_RELEVANT_PROFILES = 'publication_relevant_profiles',
-  DIRECT_MESSAGE_HEADER = 'direct_message_header',
   PROFILE_PAGE = 'profile_page',
-  PROFILE_POPOVER = 'profile_popover'
+  PROFILE_POPOVER = 'profile_popover',
+  FOLLOW_DIALOG = 'follow_dialog'
 }
 
 export const ALL_EVENTS = {
@@ -229,7 +225,6 @@ export const ALL_EVENTS = {
   ...NOTIFICATION,
   ...HOME,
   ...EXPLORE,
-  ...MESSAGES,
   ...SETTINGS,
   ...INVITE,
   ...GARDENER,

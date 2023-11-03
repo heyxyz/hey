@@ -1,0 +1,14 @@
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ... on Post {
+      ...PostFields
+    }
+    ... on Comment {
+      ...CommentBaseFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
+  }
+}

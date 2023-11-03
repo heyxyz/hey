@@ -1,8 +1,18 @@
-mutation Broadcast($request: BroadcastRequest!) {
-  broadcast(request: $request) {
-    ... on RelayerResult {
-      txHash
+mutation BroadcastOnchain($request: BroadcastRequest!) {
+  broadcastOnchain(request: $request) {
+    ... on RelaySuccess {
       txId
+    }
+    ... on RelayError {
+      reason
+    }
+  }
+}
+
+mutation BroadcastOnMomoka($request: BroadcastRequest!) {
+  broadcastOnMomoka(request: $request) {
+    ... on CreateMomokaPublicationResult {
+      id
     }
     ... on RelayError {
       reason

@@ -4,7 +4,7 @@ import { GROUPS_WORKER_URL } from '@hey/data/constants';
 import type { Group } from '@hey/types/hey';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 interface StaffPickedGroupProps {
   id: string;
@@ -19,9 +19,10 @@ const StaffPickedGroup: FC<StaffPickedGroupProps> = ({ id }) => {
     return response.data?.result;
   };
 
-  const { data: group, isLoading } = useQuery(['fetchGroup', id], () =>
-    fetchGroup().then((res) => res)
-  );
+  const { data: group, isLoading } = useQuery({
+    queryKey: ['fetchGroup', id],
+    queryFn: fetchGroup
+  });
 
   if (isLoading) {
     return <GroupProfileShimmer />;

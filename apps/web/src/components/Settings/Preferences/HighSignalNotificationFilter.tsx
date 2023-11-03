@@ -1,18 +1,15 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { SwatchIcon } from '@heroicons/react/24/outline';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import { SETTINGS } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import axios from 'axios';
 import type { FC } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 const HighSignalNotificationFilter: FC = () => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const highSignalNotificationFilter = usePreferencesStore(
     (state) => state.highSignalNotificationFilter
   );
@@ -24,18 +21,16 @@ const HighSignalNotificationFilter: FC = () => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/update`,
-        {
-          id: currentProfile?.id,
-          highSignalNotificationFilter: !highSignalNotificationFilter
-        },
+        { highSignalNotificationFilter: !highSignalNotificationFilter },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': hydrateAuthTokens().accessToken,
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),
       {
-        loading: t`Updating preference settings...`,
+        loading: 'Updating preference settings...',
         success: () => {
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
           Leafwatch.track(
@@ -45,9 +40,9 @@ const HighSignalNotificationFilter: FC = () => {
             }
           );
 
-          return t`Notification preference updated`;
+          return 'Notification preference updated';
         },
-        error: t`Error updating notification preference`
+        error: 'Error updating notification preference'
       }
     );
   };
@@ -56,8 +51,8 @@ const HighSignalNotificationFilter: FC = () => {
     <ToggleWithHelper
       on={highSignalNotificationFilter}
       setOn={toggleHighSignalNotificationFilter}
-      heading={t`Notification Signal filter`}
-      description={t`Turn on high-signal notification filter`}
+      heading="Notification Signal filter"
+      description="Turn on high-signal notification filter"
       icon={<SwatchIcon className="h-4 w-4" />}
     />
   );

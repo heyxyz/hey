@@ -1,0 +1,6 @@
+fragment CommentNotificationFields on CommentNotification {
+  id
+  comment {
+    ...CommentFields
+  }
+}

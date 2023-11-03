@@ -732,9 +732,24 @@ export function useProposalLazyQuery(
     options
   );
 }
+export function useProposalSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    ProposalQuery,
+    ProposalQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<ProposalQuery, ProposalQueryVariables>(
+    ProposalDocument,
+    options
+  );
+}
 export type ProposalQueryHookResult = ReturnType<typeof useProposalQuery>;
 export type ProposalLazyQueryHookResult = ReturnType<
   typeof useProposalLazyQuery
+>;
+export type ProposalSuspenseQueryHookResult = ReturnType<
+  typeof useProposalSuspenseQuery
 >;
 export type ProposalQueryResult = Apollo.QueryResult<
   ProposalQuery,

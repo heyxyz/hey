@@ -1,82 +1,59 @@
 import Markup from '@components/Shared/Markup';
-import UserPreview from '@components/Shared/UserPreview';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
-import type { NewMirrorNotification } from '@hey/lens';
-import type { MessageDescriptor } from '@hey/types/misc';
-import { formatTime, getTimeFromNow } from '@lib/formatTime';
-import { defineMessage } from '@lingui/macro';
-import { Trans } from '@lingui/react';
+import { MirrorNotification } from '@hey/lens';
+import getPublicationData from '@hey/lib/getPublicationData';
 import Link from 'next/link';
+import plur from 'plur';
 import type { FC } from 'react';
 import { memo } from 'react';
 
-import { NotificationProfileAvatar, NotificationProfileName } from '../Profile';
-
-const messages: Record<string, MessageDescriptor> = {
-  comment: defineMessage({
-    id: '<0><1/> mirrored your <2>comment</2></0>'
-  }),
-  mirror: defineMessage({
-    id: '<0><1/> mirrored your <2>mirror</2></0>'
-  }),
-  post: defineMessage({
-    id: '<0><1/> mirrored your <2>post</2></0>'
-  })
-};
-
-const defaultMessage = (typeName: string): string => {
-  return '<0><1/> mirrored your <2>' + typeName + '</2></0>';
-};
+import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
+import { NotificationProfileAvatar } from '../Profile';
 
 interface MirrorNotificationProps {
-  notification: NewMirrorNotification;
+  notification: MirrorNotification;
 }
 
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
-  const typeName = notification?.publication.__typename?.toLowerCase() || '';
+  const metadata = notification?.publication.metadata;
+  const filteredContent = getPublicationData(metadata)?.content || '';
+  const mirrors = notification?.mirrors;
+  const firstProfile = mirrors?.[0]?.profile;
+  const length = mirrors.length - 1;
+  const moreThanOneProfile = length > 1;
+
+  const text = moreThanOneProfile
+    ? `and ${length} ${plur('other', length)} mirrored your`
+    : 'mirrored your';
+  const type = notification?.publication.__typename;
+
   return (
-    <div className="flex items-start justify-between">
-      <div className="flex-1 space-y-2">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <ArrowsRightLeftIcon className="text-brand-500/70 h-6 w-6" />
-            <UserPreview profile={notification?.profile}>
-              <NotificationProfileAvatar profile={notification?.profile} />
-            </UserPreview>
-          </div>
-          <div
-            className="min-w-fit text-[12px] text-gray-400"
-            title={formatTime(notification?.createdAt)}
-          >
-            {getTimeFromNow(notification?.createdAt)}
-          </div>
+    <div className="space-y-2">
+      <div className="flex items-center space-x-3">
+        <ArrowsRightLeftIcon className="text-brand-500/70 h-6 w-6" />
+        <div className="flex items-center space-x-1">
+          {mirrors.slice(0, 10).map((mirror) => (
+            <div key={mirror.mirrorId}>
+              <NotificationProfileAvatar profile={mirror.profile} />
+            </div>
+          ))}
         </div>
-        <div className="ml-9">
-          <Trans
-            id={messages[typeName]?.id || defaultMessage(typeName)}
-            components={[
-              <span
-                className="pl-0.5 text-gray-600 dark:text-gray-400"
-                key=""
-              />,
-              <NotificationProfileName
-                profile={notification?.profile}
-                key=""
-              />,
-              <Link
-                href={`/posts/${notification?.publication?.id}`}
-                className="font-bold"
-                key=""
-              />
-            ]}
-          />
-          <Link
-            href={`/posts/${notification?.publication?.id}`}
-            className="lt-text-gray-500 linkify mt-2 line-clamp-2"
-          >
-            <Markup>{notification?.publication?.metadata?.content}</Markup>
-          </Link>
-        </div>
+      </div>
+      <div className="ml-9">
+        <AggregatedNotificationTitle
+          firstProfile={firstProfile}
+          text={text}
+          type={type}
+          linkToType={`/posts/${notification?.publication?.id}`}
+        />
+        <Link
+          href={`/posts/${notification?.publication?.id}`}
+          className="lt-text-gray-500 linkify mt-2 line-clamp-2"
+        >
+          <Markup mentions={notification.publication.profilesMentioned}>
+            {filteredContent}
+          </Markup>
+        </Link>
       </div>
     </div>
   );

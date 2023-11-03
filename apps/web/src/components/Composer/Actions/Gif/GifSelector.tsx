@@ -1,6 +1,5 @@
 import type { IGif } from '@hey/types/giphy';
 import { Input } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
@@ -25,7 +24,7 @@ const GifSelector: FC<GifSelectorProps> = ({
       <div className="m-3">
         <Input
           type="text"
-          placeholder={t`Search for GIFs`}
+          placeholder="Search for GIFs"
           value={searchText}
           onChange={(event) => setSearchText(event.target.value)}
         />

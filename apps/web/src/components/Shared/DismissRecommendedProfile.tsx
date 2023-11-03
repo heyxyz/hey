@@ -17,7 +17,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
   dismissPosition
 }) => {
   const [dismissRecommendedProfile] = useDismissRecommendedProfilesMutation({
-    variables: { request: { profileIds: [profile.id] } },
+    variables: { request: { dismiss: [profile.id] } },
     update: (cache) => {
       cache.evict({ id: cache.identify(profile) });
     }

@@ -1,0 +1,15 @@
+fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  appId
+  attributes {
+    ...MetadataAttributeFields
+  }
+  embed
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
+}

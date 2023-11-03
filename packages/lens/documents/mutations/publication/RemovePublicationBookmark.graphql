@@ -1,0 +1,3 @@
+mutation RemovePublicationBookmark($request: PublicationBookmarkRequest!) {
+  removePublicationBookmark(request: $request)
+}

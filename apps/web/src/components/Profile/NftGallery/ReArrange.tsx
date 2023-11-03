@@ -7,7 +7,7 @@ import {
 } from '@dnd-kit/sortable';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useNftGalleryStore } from 'src/store/nft-gallery';
+import { useNftGalleryStore } from 'src/store/useNftGalleryStore';
 
 import DraggableCard from './DraggableCard';
 
@@ -60,12 +60,12 @@ const ReArrange: FC = () => {
       <SortableContext
         strategy={rectSortingStrategy}
         items={allNfts.map(
-          (i) => `${i.chainId}_${i.contractAddress}_${i.tokenId}`
+          (i) => `${i.contract.chainId}_${i.contract.address}_${i.tokenId}`
         )}
       >
         <div className="grid gap-5 py-5 md:grid-cols-3">
           {allNfts.map((item) => {
-            const id = `${item.chainId}_${item.contractAddress}_${item.tokenId}`;
+            const id = `${item.contract.chainId}_${item.contract.address}_${item.tokenId}`;
             return <DraggableCard key={id} id={id} nft={item} />;
           })}
         </div>

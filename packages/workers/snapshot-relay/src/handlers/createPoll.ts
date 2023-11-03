@@ -3,12 +3,9 @@ import response from '@hey/lib/response';
 
 import {
   HEY_POLLS_SPACE,
-  MAINNET_PROPOSAL_CREATOR_ADDRESS,
-  MAINNET_SNAPSHOT_SEQUNECER_URL,
-  MAINNET_SNAPSHOT_URL,
-  TESTNET_PROPOSAL_CREATOR_ADDRESS,
-  TESTNET_SNAPSHOT_SEQUNECER_URL,
-  TESTNET_SNAPSHOT_URL
+  PROPOSAL_CREATOR_ADDRESS,
+  SNAPSHOT_SEQUNECER_URL,
+  SNAPSHOT_URL
 } from '../constants';
 import { keysValidator } from '../helpers/keysValidator';
 import publicClient from '../helpers/publicClient';
@@ -21,7 +18,6 @@ type ExtensionRequest = {
   description: string;
   choices: string[];
   length: number;
-  isMainnet: boolean;
 };
 
 type SnapshotResponse = {
@@ -34,7 +30,6 @@ type SnapshotResponse = {
 };
 
 const requiredKeys: (keyof ExtensionRequest)[] = [
-  'isMainnet',
   'title',
   'description',
   'choices',
@@ -47,27 +42,20 @@ export default async (request: WorkerRequest) => {
     return response({ success: false, error: Errors.NoBody });
   }
 
-  const { isMainnet, title, description, choices, length } =
-    body as ExtensionRequest;
+  const { title, description, choices, length } = body as ExtensionRequest;
 
   const missingKeysError = keysValidator(requiredKeys, body);
   if (missingKeysError) {
     return missingKeysError;
   }
 
-  const sequencerUrl = isMainnet
-    ? MAINNET_SNAPSHOT_SEQUNECER_URL
-    : TESTNET_SNAPSHOT_SEQUNECER_URL;
-  const snapshotUrl = isMainnet ? MAINNET_SNAPSHOT_URL : TESTNET_SNAPSHOT_URL;
-  const relayerAddress = isMainnet
-    ? MAINNET_PROPOSAL_CREATOR_ADDRESS
-    : TESTNET_PROPOSAL_CREATOR_ADDRESS;
-  const relayerPrivateKey = isMainnet
-    ? request.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY
-    : request.env.TESTNET_PROPOSAL_CREATOR_PRIVATE_KEY;
+  const sequencerUrl = SNAPSHOT_SEQUNECER_URL;
+  const snapshotUrl = SNAPSHOT_URL;
+  const relayerAddress = PROPOSAL_CREATOR_ADDRESS;
+  const relayerPrivateKey = request.env.PROPOSAL_CREATOR_PRIVATE_KEY;
 
-  const client = walletClient(relayerPrivateKey, isMainnet);
-  const block = await publicClient(isMainnet).getBlockNumber();
+  const client = walletClient(relayerPrivateKey);
+  const block = await publicClient().getBlockNumber();
   const blockNumber = Number(block) - 10;
 
   try {

@@ -1,17 +1,14 @@
 import { Errors } from '@hey/data/errors';
 import { adminAddresses } from '@hey/data/staffs';
-import hasOwnedLensProfiles from '@hey/lib/hasOwnedLensProfiles';
 import response from '@hey/lib/response';
-import validateLensAccount from '@hey/lib/validateLensAccount';
 import createSupabaseClient from '@hey/supabase/createSupabaseClient';
 import jwt from '@tsndr/cloudflare-worker-jwt';
-import { boolean, object, string } from 'zod';
+import { boolean, object } from 'zod';
 
 import { VERIFIED_KV_KEY } from '../constants';
 import type { WorkerRequest } from '../types';
 
 type ExtensionRequest = {
-  id: string;
   isStaff?: boolean;
   isGardener?: boolean;
   isLensMember?: boolean;
@@ -22,7 +19,6 @@ type ExtensionRequest = {
 };
 
 const validationSchema = object({
-  id: string(),
   isStaff: boolean().optional(),
   isGardener: boolean().optional(),
   isLensMember: boolean().optional(),
@@ -39,10 +35,6 @@ export default async (request: WorkerRequest) => {
   }
 
   const accessToken = request.headers.get('X-Access-Token');
-  if (!accessToken) {
-    return response({ success: false, error: Errors.NoAccessToken });
-  }
-
   const validation = validationSchema.safeParse(body);
 
   if (!validation.success) {
@@ -50,7 +42,6 @@ export default async (request: WorkerRequest) => {
   }
 
   const {
-    id,
     isGardener,
     isStaff,
     isLensMember,
@@ -61,19 +52,9 @@ export default async (request: WorkerRequest) => {
   } = body as ExtensionRequest;
 
   try {
-    const isAuthenticated = await validateLensAccount(accessToken, true);
-    if (!isAuthenticated) {
-      return response({ success: false, error: Errors.InvalidAccesstoken });
-    }
-
-    const { payload } = jwt.decode(accessToken);
-    if (updateByAdmin && !adminAddresses.includes(payload.id)) {
+    const { payload } = jwt.decode(accessToken as string);
+    if (updateByAdmin && !adminAddresses.includes(payload.evmAddress)) {
       return response({ success: false, error: Errors.NotAdmin });
-    }
-
-    const hasOwned = await hasOwnedLensProfiles(payload.id, id, true);
-    if (!updateByAdmin && !hasOwned) {
-      return response({ success: false, error: Errors.InvalidProfileId });
     }
 
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
@@ -81,7 +62,7 @@ export default async (request: WorkerRequest) => {
     const { data, error } = await client
       .from('rights')
       .upsert({
-        id,
+        id: payload.id,
         ...(updateByAdmin && {
           is_staff: isStaff,
           is_gardener: isGardener,

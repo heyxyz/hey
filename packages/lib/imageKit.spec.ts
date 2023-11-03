@@ -1,6 +1,6 @@
 import {
   LENS_MEDIA_SNAPSHOT_URL,
-  STATIC_IMAGES_URL
+  PLACEHOLDER_IMAGE
 } from '@hey/data/constants';
 import { describe, expect, test } from 'vitest';
 
@@ -13,7 +13,7 @@ describe('imageKit', () => {
   });
 
   test('should return the same url if it includes static-assets.hey.xyz', () => {
-    const url = `${STATIC_IMAGES_URL}/placeholder.webp`;
+    const url = PLACEHOLDER_IMAGE;
     const result = imageKit(url);
     expect(result).toEqual(url);
   });

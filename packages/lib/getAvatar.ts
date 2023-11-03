@@ -13,10 +13,16 @@ import sanitizeDStorageUrl from './sanitizeDStorageUrl';
  */
 const getAvatar = (profile: any, namedTransform = AVATAR): string => {
   const avatarUrl =
+    // Group Avatar fallbacks
     profile?.avatar ??
-    profile?.picture?.original?.url ??
-    profile?.picture?.uri ??
-    getStampFyiURL(profile?.ownedBy ?? ZERO_ADDRESS);
+    // Lens NFT Avatar fallbacks
+    profile?.metadata?.picture?.image?.optimized?.uri ??
+    profile?.metadata?.picture?.image?.raw?.uri ??
+    // Lens Profile Avatar fallbacks
+    profile?.metadata?.picture?.optimized?.uri ??
+    profile?.metadata?.picture?.raw?.uri ??
+    // Stamp.fyi Avatar fallbacks
+    getStampFyiURL(profile?.ownedBy.address ?? ZERO_ADDRESS);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

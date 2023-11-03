@@ -1,7 +1,6 @@
 import Profiles from '@components/Shared/Profiles';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import type { ReactionEvent } from '@hey/lens';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 
 interface LikedProps {
@@ -10,7 +9,7 @@ interface LikedProps {
 
 const Liked: FC<LikedProps> = ({ reactions }) => {
   const getLikedProfiles = () => {
-    let profiles = reactions.map((event) => event.profile);
+    let profiles = reactions.map((event) => event.by);
     profiles = profiles.filter(
       (profile, index, self) =>
         index === self.findIndex((t) => t.id === profile.id)
@@ -25,7 +24,7 @@ const Liked: FC<LikedProps> = ({ reactions }) => {
       }
     >
       <HeartIcon className="h-4 w-4" />
-      <Profiles profiles={getLikedProfiles()} context={t`liked`} />
+      <Profiles profiles={getLikedProfiles()} context="liked" />
     </div>
   );
 };

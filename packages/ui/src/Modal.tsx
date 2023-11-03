@@ -11,7 +11,6 @@ interface ModalProps {
   size?: 'xs' | 'sm' | 'md' | 'lg';
   show: boolean;
   children: ReactNode[] | ReactNode;
-  dataTestId?: string;
   onClose?: () => void;
 }
 
@@ -21,7 +20,6 @@ export const Modal: FC<ModalProps> = ({
   size = 'sm',
   show,
   children,
-  dataTestId = '',
   onClose
 }) => {
   return (
@@ -30,7 +28,6 @@ export const Modal: FC<ModalProps> = ({
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={() => onClose?.()}
-        data-testid={dataTestId}
       >
         <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
           <Transition.Child
