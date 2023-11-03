@@ -136,9 +136,8 @@ const Unfollow: FC<UnfollowProps> = ({
   const unfollowViaLensManager = async (request: UnfollowRequest) => {
     const { data } = await unfollow({ variables: { request } });
     if (data?.unfollow?.__typename === 'LensProfileManagerRelayError') {
-      await createUnfollowTypedData({ variables: { request } });
+      return await createUnfollowTypedData({ variables: { request } });
     }
-    return;
   };
 
   const createUnfollow = async () => {
