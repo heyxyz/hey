@@ -26,7 +26,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, result: result });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

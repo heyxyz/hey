@@ -51,7 +51,6 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
