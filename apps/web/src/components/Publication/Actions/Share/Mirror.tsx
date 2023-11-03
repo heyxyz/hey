@@ -181,7 +181,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     });
 
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaMirrorTypedData({ variables: { request } });
+      return await createMomokaMirrorTypedData({ variables: { request } });
     }
   };
 
@@ -221,11 +221,15 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
         mirrorOn: publication?.id
       };
 
-      if (canUseLensManager) {
-        if (publication.momoka?.proof) {
+      if (publication.momoka?.proof) {
+        if (canUseLensManager) {
           return await createOnMomka(request);
         }
 
+        return await createMomokaMirrorTypedData({ variables: { request } });
+      }
+
+      if (canUseLensManager) {
         return await createOnChain(request);
       }
 
