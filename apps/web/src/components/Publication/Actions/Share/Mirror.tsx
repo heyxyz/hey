@@ -176,32 +176,22 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
   }
 
   const createOnMomka = async (request: MomokaMirrorRequest) => {
-    const { data } = await mirrorOnMomoka({
-      variables: { request }
-    });
-
+    const { data } = await mirrorOnMomoka({ variables: { request } });
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaMirrorTypedData({ variables: { request } });
+      return await createMomokaMirrorTypedData({ variables: { request } });
     }
-
-    return;
   };
 
   const createOnChain = async (request: OnchainMirrorRequest) => {
-    const { data } = await mirrorOnchain({
-      variables: { request }
-    });
-
+    const { data } = await mirrorOnchain({ variables: { request } });
     if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
-      await createOnchainMirrorTypedData({
+      return await createOnchainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
     }
-
-    return;
   };
 
   const createMirror = async () => {

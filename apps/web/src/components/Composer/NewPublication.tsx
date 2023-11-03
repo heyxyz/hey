@@ -502,32 +502,23 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const createPostOnMomka = async (request: MomokaPostRequest) => {
     const { data } = await postOnMomoka({ variables: { request } });
-
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaPostTypedData({ variables: { request } });
+      return await createMomokaPostTypedData({ variables: { request } });
     }
-
-    return;
   };
 
   const createCommentOnMomka = async (request: MomokaCommentRequest) => {
     const { data } = await commentOnMomoka({ variables: { request } });
-
     if (data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaCommentTypedData({ variables: { request } });
+      return await createMomokaCommentTypedData({ variables: { request } });
     }
-
-    return;
   };
 
   const createQuoteOnMomka = async (request: MomokaQuoteRequest) => {
     const { data } = await quoteOnMomoka({ variables: { request } });
-
     if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      await createMomokaQuoteTypedData({ variables: { request } });
+      return await createMomokaQuoteTypedData({ variables: { request } });
     }
-
-    return;
   };
 
   const createPostOnChain = async (request: OnchainPostRequest) => {
@@ -540,8 +531,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainPostTypedData({ variables });
     }
-
-    return;
   };
 
   const createCommentOnChain = async (request: OnchainCommentRequest) => {
@@ -554,8 +543,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainCommentTypedData({ variables });
     }
-
-    return;
   };
 
   const createQuoteOnChain = async (request: OnchainQuoteRequest) => {
@@ -568,8 +555,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     if (data?.quoteOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainQuoteTypedData({ variables });
     }
-
-    return;
   };
 
   const getAnimationUrl = () => {
@@ -665,32 +650,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
-      // Payload for the post/comment
-      const request:
-        | OnchainPostRequest
-        | OnchainCommentRequest
-        | OnchainQuoteRequest = {
-        contentURI: `ar://${arweaveId}`,
-        ...(isComment && { commentOn: targetPublication.id }),
-        ...(isQuote && { quoteOn: quotedPublication?.id }),
-        openActionModules,
-        ...(onlyFollowers && {
-          referenceModule:
-            selectedReferenceModule ===
-            ReferenceModuleType.FollowerOnlyReferenceModule
-              ? { followerOnlyReferenceModule: true }
-              : {
-                  degreesOfSeparationReferenceModule: {
-                    commentsRestricted: true,
-                    mirrorsRestricted: true,
-                    quotesRestricted: true,
-                    degreesOfSeparation
-                  }
-                }
-        })
-      };
-
-      // Payload for the Momoka post/comment
+      // Payload for the Momoka post/comment/quote
       const momokaRequest:
         | MomokaPostRequest
         | MomokaCommentRequest
@@ -734,22 +694,51 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         });
       }
 
+      // Payload for the post/comment/quote
+      const onChainRequest:
+        | OnchainPostRequest
+        | OnchainCommentRequest
+        | OnchainQuoteRequest = {
+        contentURI: `ar://${arweaveId}`,
+        ...(isComment && { commentOn: targetPublication.id }),
+        ...(isQuote && { quoteOn: quotedPublication?.id }),
+        openActionModules,
+        ...(onlyFollowers && {
+          referenceModule:
+            selectedReferenceModule ===
+            ReferenceModuleType.FollowerOnlyReferenceModule
+              ? { followerOnlyReferenceModule: true }
+              : {
+                  degreesOfSeparationReferenceModule: {
+                    commentsRestricted: true,
+                    mirrorsRestricted: true,
+                    quotesRestricted: true,
+                    degreesOfSeparation
+                  }
+                }
+        })
+      };
+
       if (canUseLensManager) {
         if (isComment) {
-          return await createCommentOnChain(request as OnchainCommentRequest);
+          return await createCommentOnChain(
+            onChainRequest as OnchainCommentRequest
+          );
         }
 
         if (isQuote) {
-          return await createQuoteOnChain(request as OnchainQuoteRequest);
+          return await createQuoteOnChain(
+            onChainRequest as OnchainQuoteRequest
+          );
         }
 
-        return await createPostOnChain(request);
+        return await createPostOnChain(onChainRequest);
       }
 
       return await createOnchainPostTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
+          request: onChainRequest
         }
       });
     } catch (error) {
