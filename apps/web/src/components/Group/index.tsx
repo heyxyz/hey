@@ -38,7 +38,9 @@ const ViewGroup: NextPage = () => {
     data: group,
     isLoading,
     error
-  } = useQuery(['fetchGroup', slug], () => fetchGroup().then((res) => res), {
+  } = useQuery({
+    queryKey: ['fetchGroup', slug],
+    queryFn: fetchGroup,
     enabled: isReady
   });
 

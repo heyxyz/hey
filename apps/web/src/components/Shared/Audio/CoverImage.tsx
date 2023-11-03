@@ -12,7 +12,7 @@ import { useState } from 'react';
 interface CoverImageProps {
   isNew: boolean;
   cover: string;
-  setCover: (url: string, mimeType: string) => void;
+  setCover: (previewUri: string, url: string) => void;
   imageRef: Ref<HTMLImageElement>;
   expandCover: (url: string) => void;
 }
@@ -35,8 +35,9 @@ const CoverImage: FC<CoverImageProps> = ({
     if (event.target.files?.length) {
       try {
         setLoading(true);
-        const attachment = await uploadFileToIPFS(event.target.files[0]);
-        setCover(attachment.original.url, attachment.original.mimeType);
+        const file = event.target.files[0];
+        const attachment = await uploadFileToIPFS(file);
+        setCover(URL.createObjectURL(file), attachment.uri);
       } catch (error) {
         onError(error);
       }
@@ -58,7 +59,6 @@ const CoverImage: FC<CoverImageProps> = ({
           className="h-24 w-24 rounded-xl object-cover md:h-40 md:w-40 md:rounded-none"
           draggable={false}
           alt={`attachment-audio-cover-${cover}`}
-          data-testid={`attachment-audio-cover-${cover}`}
           ref={imageRef}
         />
       </button>

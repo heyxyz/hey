@@ -3,11 +3,10 @@ import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Leafwatch } from '@lib/leafwatch';
-import { t } from '@lingui/macro';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import FeedType from './FeedType';
@@ -38,7 +37,7 @@ const Notification: FC = () => {
 
   return (
     <div className="flex grow justify-center px-0 py-8 sm:px-6 lg:px-8">
-      <MetaTags title={t`Notifications • ${APP_NAME}`} />
+      <MetaTags title={`Notifications • ${APP_NAME}`} />
       <div className="w-full max-w-4xl space-y-3">
         <div className="flex flex-wrap justify-between gap-3 pb-2">
           <FeedType setFeedType={setFeedType} feedType={feedType} />

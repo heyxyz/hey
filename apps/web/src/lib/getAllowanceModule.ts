@@ -1,5 +1,4 @@
-import { CollectModules, FollowModules, ReferenceModules } from '@hey/lens';
-import { t } from '@lingui/macro';
+import { FollowModuleType, OpenActionModuleType } from '@hey/lens';
 
 /**
  * Returns the name and field of the specified module.
@@ -15,20 +14,22 @@ const getAllowanceModule = (
 } => {
   switch (name) {
     // Collect Modules
-    case CollectModules.MultirecipientFeeCollectModule:
-      return { name: t`Multirecipient paid collect`, field: 'collectModule' };
-    case CollectModules.SimpleCollectModule:
-      return { name: t`Basic collect`, field: 'collectModule' };
-    case CollectModules.RevertCollectModule:
-      return { name: t`No collect`, field: 'collectModule' };
+    case OpenActionModuleType.SimpleCollectOpenActionModule:
+      return { name: 'Simple collect', field: 'openActionModule' };
+    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
+      return { name: 'Multirecipient paid collect', field: 'openActionModule' };
+    case OpenActionModuleType.LegacySimpleCollectModule:
+      return { name: 'Legacy Simple collect', field: 'openActionModule' };
+    case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
+      return {
+        name: 'Legacy Multirecipient paid collect',
+        field: 'openActionModule'
+      };
 
     // Follow modules
-    case FollowModules.FeeFollowModule:
-      return { name: t`Fee follow`, field: 'followModule' };
+    case FollowModuleType.FeeFollowModule:
+      return { name: 'Fee follow', field: 'followModule' };
 
-    // Reference modules
-    case ReferenceModules.FollowerOnlyReferenceModule:
-      return { name: t`Follower only reference`, field: 'referenceModule' };
     default:
       return { name, field: 'collectModule' };
   }

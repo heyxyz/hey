@@ -1,7 +1,6 @@
 import { Alert } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
-import { useGlobalModalStateStore } from 'src/store/modals';
+import { useGlobalModalStateStore } from 'src/store/useGlobalModalStateStore';
 
 interface DiscardProps {
   onDiscard: () => void;
@@ -20,10 +19,10 @@ const Discard: FC<DiscardProps> = ({ onDiscard }) => {
     <Alert
       isDestructive
       show={showDiscardModal}
-      title={t`Discard Post`}
-      description={t`This can’t be undone and you’ll lose your draft.`}
+      title="Discard Post"
+      description="This can’t be undone and you’ll lose your draft."
       onClose={() => setShowDiscardModal(false)}
-      confirmText={t`Discard`}
+      confirmText="Discard"
       onConfirm={onDiscard}
     />
   );

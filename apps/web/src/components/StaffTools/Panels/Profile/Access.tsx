@@ -1,14 +1,13 @@
 import { AdjustmentsVerticalIcon } from '@heroicons/react/24/solid';
-import { PREFERENCES_WORKER_URL } from '@hey/data/constants';
-import { Localstorage } from '@hey/data/storage';
+import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@hey/data/constants';
 import type { Profile } from '@hey/lens';
 import { Spinner, Toggle } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC, ReactNode } from 'react';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 
 const Wrapper = ({
   children,
@@ -60,18 +59,17 @@ const Access: FC<RankProps> = ({ profile }) => {
     }
   };
 
-  const { data: preferences } = useQuery(
-    ['preferences', profile.id],
-    () => getPreferences().then((res) => res),
-    { enabled: Boolean(profile.id) }
-  );
+  const { data: preferences } = useQuery({
+    queryKey: ['getPreferences', profile.id],
+    queryFn: getPreferences,
+    enabled: Boolean(profile.id)
+  });
 
   const staffUpdatePreferences = async (type: AccessType) => {
     toast.promise(
       axios.post(
         `${PREFERENCES_WORKER_URL}/update`,
         {
-          id: profile.id,
           ...(type === Type.VERIFIED && { isVerified: !isVerified }),
           ...(type === Type.STAFF && { isStaff: !isStaff }),
           ...(type === Type.GARDENER && { isGardener: !isGardener }),
@@ -82,12 +80,13 @@ const Access: FC<RankProps> = ({ profile }) => {
         },
         {
           headers: {
-            'X-Access-Token': localStorage.getItem(Localstorage.AccessToken)
+            'X-Access-Token': hydrateAuthTokens().accessToken,
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
           }
         }
       ),
       {
-        loading: t`Updating access...`,
+        loading: 'Updating access...',
         success: () => {
           if (type === Type.VERIFIED) {
             setIsVerified(!isVerified);
@@ -99,9 +98,9 @@ const Access: FC<RankProps> = ({ profile }) => {
             setIsLensMember(!isLensMember);
           }
 
-          return t`Access updated`;
+          return 'Access updated';
         },
-        error: t`Error updating access`
+        error: 'Error updating access'
       }
     );
   };
@@ -110,56 +109,54 @@ const Access: FC<RankProps> = ({ profile }) => {
     <>
       <div className="mt-5 flex items-center space-x-2 text-yellow-600">
         <AdjustmentsVerticalIcon className="h-5 w-5" />
-        <div className="text-lg font-bold">
-          <Trans>Access</Trans>
-        </div>
+        <div className="text-lg font-bold">Access</div>
       </div>
       <div className="mt-3 space-y-2 font-bold">
         {preferences ? (
-          <Wrapper title={<Trans>Verified member</Trans>}>
+          <Wrapper title="Verified member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.VERIFIED)}
               on={isVerified}
             />
           </Wrapper>
         ) : (
-          <Wrapper title={<Trans>Verified member</Trans>}>
+          <Wrapper title="Verified member">
             <Spinner size="xs" />
           </Wrapper>
         )}
         {preferences ? (
-          <Wrapper title={<Trans>Staff member</Trans>}>
+          <Wrapper title="Staff member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.STAFF)}
               on={isStaff}
             />
           </Wrapper>
         ) : (
-          <Wrapper title={<Trans>Staff member</Trans>}>
+          <Wrapper title="Staff member">
             <Spinner size="xs" />
           </Wrapper>
         )}
         {preferences ? (
-          <Wrapper title={<Trans>Gardener member</Trans>}>
+          <Wrapper title="Gardener member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.GARDENER)}
               on={isGardener}
             />
           </Wrapper>
         ) : (
-          <Wrapper title={<Trans>Gardener member</Trans>}>
+          <Wrapper title="Gardener member">
             <Spinner size="xs" />
           </Wrapper>
         )}
         {preferences ? (
-          <Wrapper title={<Trans>Lens Team member</Trans>}>
+          <Wrapper title="Lens Team member">
             <Toggle
               setOn={() => staffUpdatePreferences(Type.TUSTED_MEMBER)}
               on={isLensMember}
             />
           </Wrapper>
         ) : (
-          <Wrapper title={<Trans>Trusted member</Trans>}>
+          <Wrapper title="Trusted member">
             <Spinner size="xs" />
           </Wrapper>
         )}

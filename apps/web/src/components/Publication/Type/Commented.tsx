@@ -9,11 +9,11 @@ interface CommentedProps {
 
 const Commented: FC<CommentedProps> = ({ publication }) => {
   const commentOn: Comment | any = publication?.commentOn;
-  const mainPost = commentOn?.mainPost;
+  const root = commentOn?.root;
 
   return (
     <>
-      {mainPost ? <ThreadBody publication={mainPost} /> : null}
+      {root ? <ThreadBody publication={root} /> : null}
       <ThreadBody publication={commentOn} />
     </>
   );

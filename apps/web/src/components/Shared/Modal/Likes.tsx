@@ -1,10 +1,13 @@
 import UserProfile from '@components/Shared/UserProfile';
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { FollowUnfollowSource } from '@hey/data/tracking';
-import type { Profile, WhoReactedPublicationRequest } from '@hey/lens';
-import { useLikesQuery } from '@hey/lens';
+import {
+  LimitType,
+  type Profile,
+  useWhoReactedPublicationQuery,
+  type WhoReactedPublicationRequest
+} from '@hey/lens';
 import { EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import { motion } from 'framer-motion';
 import type { FC } from 'react';
 import { Virtuoso } from 'react-virtuoso';
@@ -18,11 +21,11 @@ interface LikesProps {
 const Likes: FC<LikesProps> = ({ publicationId }) => {
   // Variables
   const request: WhoReactedPublicationRequest = {
-    publicationId: publicationId,
-    limit: 50
+    for: publicationId,
+    limit: LimitType.TwentyFive
   };
 
-  const { data, loading, error, fetchMore } = useLikesQuery({
+  const { data, loading, error, fetchMore } = useWhoReactedPublicationQuery({
     variables: { request },
     skip: !publicationId
   });
@@ -42,14 +45,14 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   };
 
   if (loading) {
-    return <Loader message={t`Loading likes`} />;
+    return <Loader message="Loading likes" />;
   }
 
   if (profiles?.length === 0) {
     return (
       <div className="p-5">
         <EmptyState
-          message={t`No likes.`}
+          message="No likes."
           icon={<HeartIcon className="text-brand h-8 w-8" />}
           hideCard
         />
@@ -58,11 +61,11 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
   }
 
   return (
-    <div className="max-h-[80vh] overflow-y-auto" data-testid="likes-modal">
+    <div className="max-h-[80vh] overflow-y-auto">
       <ErrorMessage
-        className="m-5"
-        title={t`Failed to load likes`}
+        title="Failed to load likes"
         error={error}
+        className="m-5"
       />
       <Virtuoso
         className="virtual-profile-list"
@@ -77,8 +80,8 @@ const Likes: FC<LikesProps> = ({ publicationId }) => {
               className="p-5"
             >
               <UserProfile
-                profile={like?.profile as Profile}
-                isFollowing={like?.profile?.isFollowedByMe}
+                profile={like.profile as Profile}
+                isFollowing={like.profile.operations.isFollowedByMe.value}
                 followUnfollowPosition={index + 1}
                 followUnfollowSource={FollowUnfollowSource.LIKES_MODAL}
                 showBio

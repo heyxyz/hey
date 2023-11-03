@@ -4,14 +4,14 @@ import { APP_NAME } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
 import HighSignalNotificationFilter from './HighSignalNotificationFilter';
 import IsPride from './IsPride';
+import PushNotifications from './PushNotifications';
 
 const PreferencesSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -26,26 +26,23 @@ const PreferencesSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Cleanup settings • ${APP_NAME}`} />
+      <MetaTags title={`Cleanup settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card className="p-5">
-          <div className="space-y-5">
-            <div className="text-lg font-bold">
-              <Trans>Your Preferences</Trans>
-            </div>
+          <div className="space-y-3">
+            <div className="text-lg font-bold">Your Preferences</div>
             <p>
-              <Trans>
-                Update your preferences to control how you can change your
-                experience on {APP_NAME}.
-              </Trans>
+              Update your preferences to control how you can change your
+              experience on {APP_NAME}.
             </p>
           </div>
           <div className="divider my-5" />
           <div className="space-y-6">
             <HighSignalNotificationFilter />
+            <PushNotifications />
             <IsPride />
           </div>
         </Card>

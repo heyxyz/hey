@@ -1,47 +1,34 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type {
-  Publication,
-  PublicationSearchResult,
-  SearchQueryRequest
-} from '@hey/lens';
+import type { AnyPublication, PublicationSearchRequest } from '@hey/lens';
 import {
-  CustomFiltersTypes,
-  SearchRequestTypes,
+  CustomFiltersType,
+  LimitType,
   useSearchPublicationsQuery
 } from '@hey/lens';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t, Trans } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
-import { useAppStore } from 'src/store/app';
 
 interface PublicationsProps {
-  query: string | string[];
+  query: string;
 }
 
 const Publications: FC<PublicationsProps> = ({ query }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
-
   // Variables
-  const request: SearchQueryRequest = {
+  const request: PublicationSearchRequest = {
+    where: { customFilters: [CustomFiltersType.Gardeners] },
     query,
-    type: SearchRequestTypes.Publication,
-    customFilters: [CustomFiltersTypes.Gardeners],
-    limit: 30
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
-    variables: { request, reactionRequest, profileId }
+    variables: { request }
   });
 
-  const search = data?.search as PublicationSearchResult;
-  const publications = search?.items as Publication[];
+  const search = data?.searchPublications;
+  const publications = search?.items as AnyPublication[];
   const pageInfo = search?.pageInfo;
   const hasMore = pageInfo?.next;
 
@@ -52,11 +39,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });
@@ -69,9 +52,9 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
     return (
       <EmptyState
         message={
-          <Trans>
+          <span>
             No publications for <b>&ldquo;{query}&rdquo;</b>
-          </Trans>
+          </span>
         }
         icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
       />
@@ -79,9 +62,7 @@ const Publications: FC<PublicationsProps> = ({ query }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load publications`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load publications" error={error} />;
   }
 
   return (

@@ -1,10 +1,9 @@
 import { APP_NAME } from '@hey/data/constants';
-import { Trans } from '@lingui/macro';
 import type { FC } from 'react';
 
 const Hero: FC = () => {
   return (
-    <div className="divider py-12" data-testid="home-hero">
+    <div className="divider py-12">
       <div className="mx-auto flex w-full max-w-screen-xl items-center px-5 py-8 sm:py-12">
         <img
           src="/logo.png"
@@ -12,10 +11,10 @@ const Hero: FC = () => {
         />
         <div className="flex-1 space-y-1 tracking-tight sm:max-w-lg">
           <div className="text-2xl font-extrabold sm:text-5xl">
-            <Trans>Welcome to {APP_NAME},</Trans>
+            Welcome to {APP_NAME},
           </div>
           <div className="lt-text-gray-500 text-2xl font-extrabold sm:text-5xl">
-            <Trans>a social network built on Lens Protocol</Trans>
+            a social network built on Lens Protocol
           </div>
         </div>
       </div>

@@ -1,0 +1,33 @@
+fragment QuoteBaseFields on Quote {
+  id
+  publishedOn {
+    id
+  }
+  isHidden
+  isEncrypted
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
+    ...PublicationProfileFields
+  }
+  stats {
+    ...PublicationStatsFields
+  }
+  operations {
+    ...PublicationOperationFields
+  }
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  profilesMentioned {
+    snapshotHandleMentioned {
+      ...HandleInfoFields
+    }
+  }
+}

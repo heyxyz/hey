@@ -5,8 +5,9 @@ import type { Profile } from '@hey/lens';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
 import { Fragment } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
+import Block from './Block';
 import Report from './Report';
 import Share from './Share';
 
@@ -24,7 +25,6 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
           className="rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
-          data-testid={`profile-${profile.id}-menu`}
         >
           <EllipsisVerticalIcon className="lt-text-gray-500 h-5 w-5" />
         </button>
@@ -33,11 +33,13 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ profile }) => {
         <Menu.Items
           static
           className="absolute z-[5] mt-1 w-max rounded-xl border bg-white shadow-sm focus:outline-none dark:border-gray-700 dark:bg-gray-900"
-          data-testid={`profile-${profile.id}-menu-items`}
         >
           <Share profile={profile} />
           {currentProfile && currentProfile?.id !== profile.id ? (
-            <Report profile={profile} />
+            <>
+              <Block profile={profile} />
+              <Report profile={profile} />
+            </>
           ) : null}
         </Menu.Items>
       </MenuTransition>

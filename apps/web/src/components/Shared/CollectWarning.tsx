@@ -24,7 +24,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
         <>
           <StarIcon className="h-4 w-4 text-pink-500" />
           <span>Only </span>
-          <Slug slug={`${handle}'s`} prefix="@" />
+          <Slug slug={`${handle}'s`} />
           <span className="text-pink-500"> super followers</span>
           <span> can collect</span>
         </>
@@ -32,7 +32,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
         <>
           <UsersIcon className="text-brand h-4 w-4" />
           <span>Only </span>
-          <Slug slug={`${handle}'s`} prefix="@" />
+          <Slug slug={`${handle}'s`} />
           <span> followers can collect</span>
         </>
       )}

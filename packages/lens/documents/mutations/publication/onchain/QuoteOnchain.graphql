@@ -1,0 +1,10 @@
+mutation QuoteOnchain($request: OnchainQuoteRequest!) {
+  quoteOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

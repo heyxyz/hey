@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from '@hey/data/constants';
+import { PLACEHOLDER_IMAGE } from '@hey/data/constants';
 import type {
   DetailedHTMLProps,
   ImgHTMLAttributes,
@@ -36,9 +36,7 @@ export const Image = forwardRef(function Image(
   return (
     <img
       {...props}
-      src={
-        imageLoadFailed ? `${STATIC_IMAGES_URL}/placeholder.webp` : props.src
-      }
+      src={imageLoadFailed ? PLACEHOLDER_IMAGE : props.src}
       onError={handleError}
       alt={props.alt || ''}
       ref={ref}

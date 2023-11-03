@@ -15,10 +15,7 @@ interface EmbedProps {
 
 const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
   return (
-    <div
-      className="mt-4 text-sm sm:w-4/6"
-      data-testid={`normal-oembed-${og.url}`}
-    >
+    <div className="mt-4 text-sm sm:w-4/6">
       <Link
         href={og.url}
         onClick={(event) => {

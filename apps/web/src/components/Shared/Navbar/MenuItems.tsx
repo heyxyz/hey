@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 
 import LoginButton from './LoginButton';
 import SignedUser from './SignedUser';

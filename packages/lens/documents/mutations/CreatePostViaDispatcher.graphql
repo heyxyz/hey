@@ -1,5 +1,0 @@
-mutation CreatePostViaDispatcher($request: CreatePublicPostRequest!) {
-  createPostViaDispatcher(request: $request) {
-    ...RelayerResultFields
-  }
-}

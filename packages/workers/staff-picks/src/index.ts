@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
+import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
 import addPick from './handlers/addPick';
@@ -27,8 +28,8 @@ router
   )
   .get('/get/:id', getStaffPick)
   .get('/all', getStaffPicks)
-  .post('/addPick', addPick)
-  .post('/removePick', removePick)
+  .post('/addPick', validateLensAccount, addPick)
+  .post('/removePick', validateLensAccount, removePick)
   .all('*', () => error(404));
 
 export default {

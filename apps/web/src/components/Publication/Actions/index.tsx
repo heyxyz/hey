@@ -1,30 +1,38 @@
-import type { ElectedMirror, Publication } from '@hey/lens';
+import { type AnyPublication } from '@hey/lens';
+import isOpenActionAllowed from '@hey/lib/isOpenActionAllowed';
+import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import stopEventPropagation from '@hey/lib/stopEventPropagation';
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
-import { usePreferencesStore } from 'src/store/preferences';
+import { useAppStore } from 'src/store/useAppStore';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
-import Collect from './Collect';
+import OpenAction from '../LensOpenActions';
 import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';
 import ShareMenu from './Share';
 
 interface PublicationActionsProps {
-  publication: Publication;
-  electedMirror?: ElectedMirror;
+  publication: AnyPublication;
   showCount?: boolean;
 }
 
 const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
-  electedMirror,
   showCount = false
 }) => {
+  const targetPublication = isMirrorPublication(publication)
+    ? publication.mirrorOn
+    : publication;
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
-  const collectModuleType = publication?.collectModule.__typename;
-  const canMirror = currentProfile ? publication?.canMirror?.result : true;
+  const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
+
+  const canMirror = currentProfile
+    ? targetPublication.operations.canMirror
+    : true;
+  const canAct =
+    hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
 
   return (
     <span
@@ -37,12 +45,8 @@ const PublicationActions: FC<PublicationActionsProps> = ({
         <ShareMenu publication={publication} showCount={showCount} />
       ) : null}
       <Like publication={publication} showCount={showCount} />
-      {collectModuleType !== 'RevertCollectModuleSettings' ? (
-        <Collect
-          electedMirror={electedMirror}
-          publication={publication}
-          showCount={showCount}
-        />
+      {canAct ? (
+        <OpenAction publication={publication} showCount={showCount} />
       ) : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />

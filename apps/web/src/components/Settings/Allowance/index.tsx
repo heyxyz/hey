@@ -5,19 +5,18 @@ import { APP_NAME, DEFAULT_COLLECT_TOKEN } from '@hey/data/constants';
 import { PAGEVIEW } from '@hey/data/tracking';
 import type { Erc20 } from '@hey/lens';
 import {
-  CollectModules,
-  FollowModules,
-  ReferenceModules,
+  FollowModuleType,
+  LimitType,
+  OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useEnabledModulesQuery
+  useEnabledCurrenciesQuery
 } from '@hey/lens';
 import { Card, GridItemEight, GridItemFour, GridLayout } from '@hey/ui';
 import { Leafwatch } from '@lib/leafwatch';
-import { t, Trans } from '@lingui/macro';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import Custom500 from 'src/pages/500';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useEffectOnce } from 'usehooks-ts';
 
 import SettingsSidebar from '../Sidebar';
@@ -26,13 +25,13 @@ import Allowance from './Allowance';
 const getAllowancePayload = (currency: string) => {
   return {
     currencies: [currency],
-    collectModules: [
-      CollectModules.SimpleCollectModule,
-      CollectModules.RevertCollectModule,
-      CollectModules.MultirecipientFeeCollectModule
+    openActionModules: [
+      OpenActionModuleType.SimpleCollectOpenActionModule,
+      OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
+      OpenActionModuleType.LegacySimpleCollectModule,
+      OpenActionModuleType.LegacyMultirecipientFeeCollectModule
     ],
-    followModules: [FollowModules.FeeFollowModule],
-    referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
+    followModules: [FollowModuleType.FeeFollowModule]
   };
 };
 
@@ -44,7 +43,9 @@ const AllowanceSettings: NextPage = () => {
     data: enabledModules,
     loading: enabledModulesLoading,
     error: enabledModulesError
-  } = useEnabledModulesQuery();
+  } = useEnabledCurrenciesQuery({
+    variables: { request: { limit: LimitType.TwentyFive } }
+  });
 
   useEffectOnce(() => {
     Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
@@ -66,28 +67,22 @@ const AllowanceSettings: NextPage = () => {
 
   return (
     <GridLayout>
-      <MetaTags title={t`Allowance settings • ${APP_NAME}`} />
+      <MetaTags title={`Allowance settings • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsSidebar />
       </GridItemFour>
       <GridItemEight>
         <Card>
           <div className="mx-5 mt-5">
-            <div className="space-y-5">
-              <div className="text-lg font-bold">
-                <Trans>Allow / revoke modules</Trans>
-              </div>
+            <div className="space-y-3">
+              <div className="text-lg font-bold">Allow / revoke modules</div>
               <p>
-                <Trans>
-                  In order to use collect feature you need to allow the module
-                  you use, you can allow and revoke the module anytime.
-                </Trans>
+                In order to use collect feature you need to allow the module you
+                use, you can allow and revoke the module anytime.
               </p>
             </div>
             <div className="divider my-5" />
-            <div className="label mt-6">
-              <Trans>Select currency</Trans>
-            </div>
+            <div className="label mt-6">Select currency</div>
             <select
               className="focus:border-brand-500 focus:ring-brand-400 w-full rounded-xl border border-gray-300 bg-white outline-none dark:border-gray-700 dark:bg-gray-800"
               onChange={(e) => {
@@ -100,13 +95,14 @@ const AllowanceSettings: NextPage = () => {
               {enabledModulesLoading ? (
                 <option>Loading...</option>
               ) : (
-                enabledModules?.enabledModuleCurrencies.map(
-                  (currency: Erc20) => (
-                    <option key={currency.address} value={currency.address}>
-                      {currency.name}
-                    </option>
-                  )
-                )
+                enabledModules?.currencies.items.map((currency: Erc20) => (
+                  <option
+                    key={currency.contract.address}
+                    value={currency.contract.address}
+                  >
+                    {currency.name}
+                  </option>
+                ))
               )}
             </select>
           </div>

@@ -1,5 +1,6 @@
 import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
+import validateLensAccount from '@hey/lib/worker-middlewares/validateLensAccount';
 import { createCors, error, Router, status } from 'itty-router';
 
 import getHeyMemberNftStatus from './handlers/getHeyMemberNftStatus';
@@ -31,10 +32,14 @@ router
   .get('/get/:id', getPreferences)
   .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
   .get('/verified', getVerified)
-  .post('/update', updatePreferences)
-  .post('/updateHeyMemberNftStatus', updateHeyMemberNftStatus)
-  .post('/staffMode', updateStaffMode)
-  .post('/gardenerMode', updateGardenerMode)
+  .post('/update', validateLensAccount, updatePreferences)
+  .post(
+    '/updateHeyMemberNftStatus',
+    validateLensAccount,
+    updateHeyMemberNftStatus
+  )
+  .post('/staffMode', validateLensAccount, updateStaffMode)
+  .post('/gardenerMode', validateLensAccount, updateGardenerMode)
   .all('*', () => error(404));
 
 export default {

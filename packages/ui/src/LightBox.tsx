@@ -61,7 +61,6 @@ export const LightBox: FC<LightBoxProps> = ({ show, url, onClose }) => {
                   target="_blank"
                   rel="noreferrer noopener"
                   onClick={stopEventPropagation}
-                  data-testid="lightbox-open-original"
                 >
                   Open original
                 </Link>

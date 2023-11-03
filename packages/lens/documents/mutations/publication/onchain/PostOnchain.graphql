@@ -1,0 +1,10 @@
+mutation PostOnchain($request: OnchainPostRequest!) {
+  postOnchain(request: $request) {
+    ... on RelaySuccess {
+      txId
+    }
+    ... on LensProfileManagerRelayError {
+      reason
+    }
+  }
+}

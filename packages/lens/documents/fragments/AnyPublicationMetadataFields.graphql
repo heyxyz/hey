@@ -1,0 +1,47 @@
+fragment AnyPublicationMetadataFields on PublicationMetadata {
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
+  }
+  ... on ArticleMetadataV3 {
+    ...ArticleMetadataV3Fields
+  }
+  ... on AudioMetadataV3 {
+    ...AudioMetadataV3Fields
+  }
+  ... on CheckingInMetadataV3 {
+    id
+  }
+  ... on EmbedMetadataV3 {
+    ...EmbedMetadataV3Fields
+  }
+  ... on EventMetadataV3 {
+    id
+  }
+  ... on ImageMetadataV3 {
+    ...ImageMetadataV3Fields
+  }
+  ... on LinkMetadataV3 {
+    ...LinkMetadataV3Fields
+  }
+  ... on LiveStreamMetadataV3 {
+    ...LiveStreamMetadataV3Fields
+  }
+  ... on MintMetadataV3 {
+    ...MintMetadataV3Fields
+  }
+  ... on SpaceMetadataV3 {
+    id
+  }
+  ... on StoryMetadataV3 {
+    id
+  }
+  ... on TextOnlyMetadataV3 {
+    ...TextOnlyMetadataV3Fields
+  }
+  ... on ThreeDMetadataV3 {
+    id
+  }
+  ... on TransactionMetadataV3 {
+    id
+  }
+}

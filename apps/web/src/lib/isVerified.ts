@@ -1,5 +1,5 @@
 import { IS_MAINNET } from '@hey/data/constants';
-import { verifiedMembers } from 'src/store/app';
+import { verifiedMembers } from 'src/store/useAppStore';
 
 /**
  * Checks whether a profile is verified or not.

@@ -1,20 +1,19 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
-import type { Profile, Publication, PublicationsQueryRequest } from '@hey/lens';
+import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfileFeedQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@hey/lens';
-import formatHandle from '@hey/lib/formatHandle';
+import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import { t } from '@lingui/macro';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
-import { useAppStore } from 'src/store/app';
-import { useProfileFeedStore } from 'src/store/profile-feed';
+import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
 
 interface FeedProps {
   profile: Profile;
@@ -26,59 +25,50 @@ interface FeedProps {
 }
 
 const Feed: FC<FeedProps> = ({ profile, type }) => {
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
 
   const getMediaFilters = () => {
-    let filters: PublicationMainFocus[] = [];
+    let filters: PublicationMetadataMainFocusType[] = [];
     if (mediaFeedFilters.images) {
-      filters.push(PublicationMainFocus.Image);
+      filters.push(PublicationMetadataMainFocusType.Image);
     }
     if (mediaFeedFilters.video) {
-      filters.push(PublicationMainFocus.Video);
+      filters.push(PublicationMetadataMainFocusType.Video);
     }
     if (mediaFeedFilters.audio) {
-      filters.push(PublicationMainFocus.Audio);
+      filters.push(PublicationMetadataMainFocusType.Audio);
     }
     return filters;
   };
 
   // Variables
-  const publicationTypes =
+  const publicationTypes: PublicationType[] =
     type === ProfileFeedType.Feed
-      ? [PublicationTypes.Post, PublicationTypes.Mirror]
+      ? [PublicationType.Post, PublicationType.Mirror, PublicationType.Quote]
       : type === ProfileFeedType.Replies
-      ? [PublicationTypes.Comment]
+      ? [PublicationType.Comment]
       : type === ProfileFeedType.Media
-      ? [PublicationTypes.Post, PublicationTypes.Comment]
-      : [
-          PublicationTypes.Post,
-          PublicationTypes.Comment,
-          PublicationTypes.Mirror
-        ];
+      ? [PublicationType.Post, PublicationType.Comment, PublicationType.Quote]
+      : [PublicationType.Post, PublicationType.Comment, PublicationType.Mirror];
   const metadata =
     type === ProfileFeedType.Media
-      ? {
-          mainContentFocus: getMediaFilters()
-        }
+      ? { mainContentFocus: getMediaFilters() }
       : null;
-  const request: PublicationsQueryRequest = {
-    publicationTypes,
-    metadata,
-    ...(type !== ProfileFeedType.Collects
-      ? { profileId: profile?.id }
-      : { collectedBy: profile?.ownedBy }),
-    limit: 30
+  const request: PublicationsRequest = {
+    where: {
+      publicationTypes,
+      metadata,
+      ...(type !== ProfileFeedType.Collects
+        ? { from: profile?.id }
+        : { actedBy: profile?.id })
+    },
+    limit: LimitType.TwentyFive
   };
-  const reactionRequest = currentProfile
-    ? { profileId: currentProfile?.id }
-    : null;
-  const profileId = currentProfile?.id ?? null;
 
-  const { data, loading, error, fetchMore } = useProfileFeedQuery({
-    variables: { request, reactionRequest, profileId },
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
     skip: !profile?.id
   });
 
@@ -93,11 +83,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
       }
 
       await fetchMore({
-        variables: {
-          request: { ...request, cursor: pageInfo?.next },
-          reactionRequest,
-          profileId
-        }
+        variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
   });
@@ -123,7 +109,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         message={
           <div>
             <span className="mr-1 font-bold">
-              @{formatHandle(profile?.handle)}
+              {getProfile(profile).slugWithPrefix}
             </span>
             <span>{emptyMessage}</span>
           </div>
@@ -134,22 +120,17 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   }
 
   if (error) {
-    return (
-      <ErrorMessage title={t`Failed to load profile feed`} error={error} />
-    );
+    return <ErrorMessage title="Failed to load profile feed" error={error} />;
   }
 
   return (
-    <Card
-      className="divide-y-[1px] dark:divide-gray-700"
-      dataTestId={`profile-feed-type-${type.toLowerCase()}`}
-    >
+    <Card className="divide-y-[1px] dark:divide-gray-700">
       {publications?.map((publication, index) => (
         <SinglePublication
           key={`${publication.id}_${index}`}
           isFirst={index === 0}
           isLast={index === publications.length - 1}
-          publication={publication as Publication}
+          publication={publication as AnyPublication}
           showThread={
             type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
           }

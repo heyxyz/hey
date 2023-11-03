@@ -1,7 +1,6 @@
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { gql, useQuery } from '@hey/lens/apollo';
 import { Button, Spinner } from '@hey/ui';
-import { Trans } from '@lingui/macro';
 import Link from 'next/link';
 import type { FC } from 'react';
 
@@ -52,7 +51,7 @@ const Pending: FC<PendingProps> = ({
                 className="mx-auto"
                 icon={<ArrowRightIcon className="mr-1 h-4 w-4" />}
               >
-                <Trans>Go to {type}</Trans>
+                Go to {type}
               </Button>
             </Link>
           </div>

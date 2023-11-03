@@ -1,0 +1,29 @@
+query Nfts($request: NftsRequest!) {
+  nfts(request: $request) {
+    items {
+      tokenId
+      contract {
+        ...NetworkAddressFields
+      }
+      collection {
+        name
+      }
+      metadata {
+        name
+        image {
+          raw {
+            uri
+          }
+          optimized {
+            uri
+            mimeType
+          }
+        }
+        animationUrl
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

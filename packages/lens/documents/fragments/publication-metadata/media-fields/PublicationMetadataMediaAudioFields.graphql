@@ -1,0 +1,13 @@
+fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
+  artist
+  audio {
+    optimized {
+      uri
+    }
+  }
+  cover {
+    optimized {
+      uri
+    }
+  }
+}

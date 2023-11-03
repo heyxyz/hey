@@ -3,11 +3,10 @@ import Slug from '@components/Shared/Slug';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { FireIcon } from '@heroicons/react/24/solid';
 import { APP_NAME, STATIC_IMAGES_URL } from '@hey/data/constants';
-import formatHandle from '@hey/lib/formatHandle';
+import getMentions from '@hey/lib/getMentions';
 import type { Group } from '@hey/types/hey';
 import { Image, LightBox, Tooltip } from '@hey/ui';
 import { formatDate } from '@lib/formatTime';
-import { t } from '@lingui/macro';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import type { FC, ReactNode } from 'react';
@@ -54,27 +53,24 @@ const Details: FC<DetailsProps> = ({ group }) => {
       </div>
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5 text-2xl font-bold">
-          <div className="truncate" data-testid="profile-name">
-            {group.name}
-          </div>
+          <div className="truncate">{group.name}</div>
           {group.featured ? (
-            <Tooltip content={t`Featured`}>
+            <Tooltip content="Featured">
               <FireIcon className="h-6 w-6 text-yellow-500" />
             </Tooltip>
           ) : null}
         </div>
         <Slug className="text-sm sm:text-base" prefix="g/" slug={group.slug} />
       </div>
-      <div
-        className="markup linkify text-md mr-0 break-words sm:mr-10"
-        data-testid="profile-bio"
-      >
-        <Markup>{group.description}</Markup>
+      <div className="markup linkify text-md mr-0 break-words sm:mr-10">
+        <Markup mentions={getMentions(group.description)}>
+          {group.description}
+        </Markup>
       </div>
       <div className="space-y-5">
         <div className="divider w-full" />
         <div className="space-y-2">
-          {group.instagram ? (
+          {group.lens ? (
             <MetaDetails
               icon={
                 <img
@@ -86,8 +82,8 @@ const Details: FC<DetailsProps> = ({ group }) => {
                 />
               }
             >
-              <Link href={`/u/${formatHandle(group.lens)}`}>
-                <Slug slug={formatHandle(group.lens)} />
+              <Link href={`/u/${group.lens}`}>
+                <Slug slug={group.lens} prefix="@" />
               </Link>
             </MetaDetails>
           ) : null}
