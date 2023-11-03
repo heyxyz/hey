@@ -60,6 +60,11 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     targetPublication.id
   );
 
+  const onError = (error?: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const onCompleted = (
     __typename?:
       | 'RelayError'
@@ -71,7 +76,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       __typename === 'RelayError' ||
       __typename === 'LensProfileManagerRelayError'
     ) {
-      return toast.error(Errors.SomethingWentWrong);
+      return onError();
     }
 
     setIsLoading(false);
@@ -83,11 +88,6 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     Leafwatch.track(PUBLICATION.MIRROR, {
       publication_id: publication.id
     });
-  };
-
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });
@@ -106,15 +106,15 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     }
   });
 
-  const [broadcastOnchain] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
-  });
-
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) =>
       onCompleted(broadcastOnMomoka.__typename),
     onError
+  });
+
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   });
 
   const typedDataGenerator = async (
@@ -181,8 +181,10 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     });
 
     if (data?.mirrorOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-      return await createMomokaMirrorTypedData({ variables: { request } });
+      await createMomokaMirrorTypedData({ variables: { request } });
     }
+
+    return;
   };
 
   const createOnChain = async (request: OnchainMirrorRequest) => {
@@ -191,13 +193,15 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
     });
 
     if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
-      return await createOnchainMirrorTypedData({
+      await createOnchainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
           request
         }
       });
     }
+
+    return;
   };
 
   const createMirror = async () => {
