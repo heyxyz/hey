@@ -251,9 +251,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   } = useCreatePublication({
     onCompleted,
     onError,
-    commentOn: publication,
-    isComment,
-    isQuote
+    commentOn: targetPublication,
+    quoteOn: quotedPublication!
   });
 
   useUpdateEffect(() => {
