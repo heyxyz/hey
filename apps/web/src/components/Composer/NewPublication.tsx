@@ -16,6 +16,7 @@ import type {
   AnyPublication,
   MomokaCommentRequest,
   MomokaPostRequest,
+  MomokaQuoteRequest,
   OnchainCommentRequest,
   OnchainPostRequest,
   OnchainQuoteRequest,
@@ -187,6 +188,11 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
   const hasAudio = attachments[0]?.type === 'Audio';
   const hasVideo = attachments[0]?.type === 'Video';
 
+  const onError = (error?: any) => {
+    setIsLoading(false);
+    errorToast(error);
+  };
+
   const onCompleted = (
     __typename?:
       | 'RelayError'
@@ -198,7 +204,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       __typename === 'RelayError' ||
       __typename === 'LensProfileManagerRelayError'
     ) {
-      return toast.error(Errors.SomethingWentWrong);
+      return onError();
     }
 
     setIsLoading(false);
@@ -248,11 +254,6 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         : PUBLICATION.NEW_POST,
       eventProperties
     );
-  };
-
-  const onError = (error: any) => {
-    setIsLoading(false);
-    errorToast(error);
   };
 
   useUpdateEffect(() => {
@@ -309,10 +310,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {
-      if (broadcastOnMomoka.__typename === 'RelayError') {
-        return toast.error(Errors.SomethingWentWrong);
-      }
-
+      onCompleted(broadcastOnMomoka.__typename);
       if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         onCompleted();
         push(`/posts/${broadcastOnMomoka.id}`);
@@ -494,36 +492,8 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     onError
   });
 
-  const createOnMomka = async (request: any) => {
-    if (isComment) {
-      const { data } = await commentOnMomoka({
-        variables: { request }
-      });
-
-      if (
-        data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError'
-      ) {
-        await createMomokaCommentTypedData({ variables: { request } });
-      }
-
-      return;
-    }
-
-    if (isQuote) {
-      const { data } = await quoteOnMomoka({
-        variables: { request }
-      });
-
-      if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
-        await createMomokaQuoteTypedData({ variables: { request } });
-      }
-
-      return;
-    }
-
-    const { data } = await postOnMomoka({
-      variables: { request }
-    });
+  const createPostOnMomka = async (request: MomokaPostRequest) => {
+    const { data } = await postOnMomoka({ variables: { request } });
 
     if (data?.postOnMomoka?.__typename === 'LensProfileManagerRelayError') {
       await createMomokaPostTypedData({ variables: { request } });
@@ -532,37 +502,63 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
     return;
   };
 
-  const createOnChain = async (request: any) => {
+  const createCommentOnMomka = async (request: MomokaCommentRequest) => {
+    const { data } = await commentOnMomoka({ variables: { request } });
+
+    if (data?.commentOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      await createMomokaCommentTypedData({ variables: { request } });
+    }
+
+    return;
+  };
+
+  const createQuoteOnMomka = async (request: MomokaQuoteRequest) => {
+    const { data } = await quoteOnMomoka({ variables: { request } });
+
+    if (data?.quoteOnMomoka?.__typename === 'LensProfileManagerRelayError') {
+      await createMomokaQuoteTypedData({ variables: { request } });
+    }
+
+    return;
+  };
+
+  const createPostOnChain = async (request: OnchainPostRequest) => {
     const variables = {
       options: { overrideSigNonce: lensHubOnchainSigNonce },
       request
     };
 
-    if (isComment) {
-      const { data } = await commentOnchain({
-        variables: { request }
-      });
-      if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
-        return await createOnchainCommentTypedData({ variables });
-      }
-
-      return;
-    }
-
-    if (isQuote) {
-      const { data } = await quoteOnchain({
-        variables: { request }
-      });
-      if (data?.quoteOnchain?.__typename === 'LensProfileManagerRelayError') {
-        return await createOnchainQuoteTypedData({ variables });
-      }
-
-      return;
-    }
-
     const { data } = await postOnchain({ variables: { request } });
     if (data?.postOnchain?.__typename === 'LensProfileManagerRelayError') {
       return await createOnchainPostTypedData({ variables });
+    }
+
+    return;
+  };
+
+  const createCommentOnChain = async (request: OnchainCommentRequest) => {
+    const variables = {
+      options: { overrideSigNonce: lensHubOnchainSigNonce },
+      request
+    };
+
+    const { data } = await commentOnchain({ variables: { request } });
+    if (data?.commentOnchain?.__typename === 'LensProfileManagerRelayError') {
+      return await createOnchainCommentTypedData({ variables });
+    }
+
+    return;
+  };
+
+  const createQuoteOnChain = async (request: OnchainQuoteRequest) => {
+    const variables = {
+      options: { overrideSigNonce: lensHubOnchainSigNonce },
+      request
+    };
+
+    const { data } = await quoteOnchain({ variables: { request } });
+    if (data?.quoteOnchain?.__typename === 'LensProfileManagerRelayError') {
+      return await createOnchainQuoteTypedData({ variables });
     }
 
     return;
@@ -694,36 +690,59 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       };
 
       // Payload for the Momoka post/comment
-      const momokaRequest: MomokaPostRequest | MomokaCommentRequest = {
+      const momokaRequest:
+        | MomokaPostRequest
+        | MomokaCommentRequest
+        | MomokaQuoteRequest = {
         ...(isComment && { commentOn: targetPublication.id }),
         ...(isQuote && { quoteOn: quotedPublication?.id }),
         contentURI: `ar://${arweaveId}`
       };
 
-      if (canUseLensManager) {
-        if (useMomoka) {
-          return await createOnMomka(momokaRequest);
+      if (useMomoka) {
+        if (canUseLensManager) {
+          if (isComment) {
+            return await createCommentOnMomka(
+              momokaRequest as MomokaCommentRequest
+            );
+          }
+
+          if (isQuote) {
+            return await createQuoteOnMomka(
+              momokaRequest as MomokaQuoteRequest
+            );
+          }
+
+          return await createPostOnMomka(momokaRequest);
         }
 
-        return await createOnChain(request);
-      }
+        if (isComment) {
+          return await createMomokaCommentTypedData({
+            variables: { request: momokaRequest as MomokaCommentRequest }
+          });
+        }
 
-      if (isComment) {
-        return await createOnchainCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: request as OnchainCommentRequest
-          }
+        if (isQuote) {
+          return await createMomokaQuoteTypedData({
+            variables: { request: momokaRequest as MomokaQuoteRequest }
+          });
+        }
+
+        return await createMomokaPostTypedData({
+          variables: { request: momokaRequest }
         });
       }
 
-      if (isQuote) {
-        return await createOnchainQuoteTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: request as OnchainQuoteRequest
-          }
-        });
+      if (canUseLensManager) {
+        if (isComment) {
+          return await createCommentOnChain(request as OnchainCommentRequest);
+        }
+
+        if (isQuote) {
+          return await createQuoteOnChain(request as OnchainQuoteRequest);
+        }
+
+        return await createPostOnChain(request);
       }
 
       return await createOnchainPostTypedData({
