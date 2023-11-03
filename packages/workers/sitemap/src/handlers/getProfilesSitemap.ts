@@ -54,9 +54,7 @@ export default async (request: WorkerRequest) => {
     const xml = buildSitemapXml(entries);
 
     return new Response(xml, {
-      headers: {
-        'content-type': 'application/xml'
-      }
+      headers: { 'content-type': 'application/xml' }
     });
   } catch (error) {
     console.error(error);
