@@ -10,7 +10,7 @@ const nextConfig = {
     return [
       {
         source: '/sitemaps/:match*',
-        destination: 'http://0.0.0.0:8096/:match*'
+        destination: 'https://sitemap.hey.xyz/:match*'
       }
     ];
   },
