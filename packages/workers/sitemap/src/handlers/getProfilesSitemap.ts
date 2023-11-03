@@ -57,7 +57,6 @@ export default async (request: WorkerRequest) => {
       headers: { 'content-type': 'application/xml' }
     });
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };
