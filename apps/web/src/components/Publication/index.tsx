@@ -1,4 +1,5 @@
 import Feed from '@components/Comment/Feed';
+import NoneRelevantFeed from '@components/Comment/NoneRelevantFeed';
 import MetaTags from '@components/Common/MetaTags';
 import NewPublication from '@components/Composer/NewPublication';
 import CommentWarning from '@components/Shared/CommentWarning';
@@ -85,7 +86,7 @@ const ViewPublication: NextPage = () => {
           )
         ) : null}
         <Feed publication={publication} />
-        {/* <NoneRelevantFeed publication={publication} /> */}
+        <NoneRelevantFeed publication={publication} />
       </GridItemEight>
       <GridItemFour className="space-y-5">
         <Card as="aside" className="p-5">
