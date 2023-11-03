@@ -1,6 +1,7 @@
 import { APP_NAME, DEFAULT_OG } from '@hey/data/constants';
 import type { AnyPublication, Comment } from '@hey/lens';
 import getAvatar from '@hey/lib/getAvatar';
+import getProfile from '@hey/lib/getProfile';
 import getPublicationData from '@hey/lib/getPublicationData';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import sanitizeDStorageUrl from '@hey/lib/sanitizeDStorageUrl';
@@ -35,7 +36,9 @@ const Publication: FC<PublicationProps> = ({ publication, comments }) => {
   const media =
     filteredAsset?.uri || filteredAsset?.cover || filteredAttachments[0]?.uri;
   const profile = targetPublication.by;
-  const title = `${targetPublication.__typename} by @${publication.by.handle} • ${APP_NAME}`;
+  const title = `${targetPublication.__typename} by ${
+    getProfile(publication.by).slugWithPrefix
+  } • ${APP_NAME}`;
   const description = truncateByWords(filteredContent, 30);
   const image = media
     ? sanitizeDStorageUrl(media)
