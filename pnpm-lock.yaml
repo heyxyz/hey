@@ -130,8 +130,8 @@ importers:
         specifier: ^0.12.2
         version: 0.12.2(lexical@0.12.2)
       '@livepeer/react':
-        specifier: ^3.0.1
-        version: 3.0.1(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.0.2
+        version: 3.0.2(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query':
         specifier: ^5.4.3
         version: 5.4.3(react-dom@18.2.0)(react@18.2.0)
@@ -235,8 +235,8 @@ importers:
         specifier: ^3.22.4
         version: 3.22.4
       zustand:
-        specifier: ^4.4.5
-        version: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+        specifier: ^4.4.6
+        version: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     devDependencies:
       '@hey/config':
         specifier: workspace:*
@@ -3877,19 +3877,19 @@ packages:
       '@lit-labs/ssr-dom-shim': 1.1.2
     dev: false
 
-  /@livepeer/core-react@2.0.1(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-4NsR62ikthhApQVugsm4BQ3flYyOa8pVRp1EaexH+XFYBsT/fFSpOr71I6fbosgoZwYws5lhZfdw1jHiRJajJQ==}
+  /@livepeer/core-react@2.0.2(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-OYNJ80mvKmuQMg8TXaRZ7lL9mTV15zO84qjgpje7/R8H2JWn0XIuYf/rBRbnhur13SGz86+rkcvvJNF4GWpT1A==}
     peerDependencies:
       react: '>=17.0.0'
     dependencies:
-      '@livepeer/core': 2.0.1(@types/react@18.2.34)(react@18.2.0)
+      '@livepeer/core': 2.0.2(@types/react@18.2.34)(react@18.2.0)
       '@tanstack/query-async-storage-persister': 4.29.23
       '@tanstack/query-core': 4.29.23
       '@tanstack/react-query': 4.29.23(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-query-persist-client': 4.29.23(@tanstack/react-query@4.29.23)
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
-      zustand: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+      zustand: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
@@ -3898,15 +3898,15 @@ packages:
       - react-native
     dev: false
 
-  /@livepeer/core-web@3.0.1(@types/react@18.2.34)(react@18.2.0):
-    resolution: {integrity: sha512-050XvO2Rk9JZmjHdnJYpK5VMZ9XFEc4vTRbPlumXY7RmzR88poCGwzvLLajDU1TU/iACO1RHlLE7WJtdkRCkWA==}
+  /@livepeer/core-web@3.0.2(@types/react@18.2.34)(react@18.2.0):
+    resolution: {integrity: sha512-5RLRpVb2VLVeG016b0XQ87rhhZ/EQXWoqZCdH5pv/3HoeiXFCrGhW4EW5GCW1NUfS1Zxx5WtqDnQSnOqZh84HQ==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
       react:
         optional: true
     dependencies:
-      '@livepeer/core': 2.0.1(@types/react@18.2.34)(react@18.2.0)
+      '@livepeer/core': 2.0.2(@types/react@18.2.34)(react@18.2.0)
       '@stitches/core': 1.2.8
       core-js: 3.33.2
       cross-fetch: 4.0.0
@@ -3914,15 +3914,15 @@ packages:
       ms: 3.0.0-canary.1
       react: 18.2.0
       tus-js-client: 3.1.1
-      zustand: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+      zustand: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
       - immer
     dev: false
 
-  /@livepeer/core@2.0.1(@types/react@18.2.34)(react@18.2.0):
-    resolution: {integrity: sha512-gWu1pXARnQtU3t8xRhPPrzlYdbboE0cB7FbBHRJW+McpA4IfHD8xoRxb4d7kF0ap28pG6VsHWu6q0hxaPgAswg==}
+  /@livepeer/core@2.0.2(@types/react@18.2.34)(react@18.2.0):
+    resolution: {integrity: sha512-S5WeQF+C18oYXdB9DKk2vUKYrCfXQ9VPdiUfEN0lqQOerQAN6YA7gowri16MVm3j9HFDykz5euTgNA+hX6SnIg==}
     peerDependencies:
       react: '>=17.0.0'
     peerDependenciesMeta:
@@ -3934,15 +3934,15 @@ packages:
       multiformats: 9.9.0
       react: 18.2.0
       tus-js-client: 3.1.1
-      zustand: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+      zustand: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - encoding
       - immer
     dev: false
 
-  /@livepeer/react@3.0.1(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-iSEVjaBervJpoS3+XxwNR4mtZdObuMz0xMAWEGCP0yJTPyMTZUhQf6/pG8mdCv1+nLyhp0HouaDUaMku0pORwQ==}
+  /@livepeer/react@3.0.2(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-1+uJwTefkQVQlIz42UZtXpk6gwzfzhG/pF/S/f5vVwmyvv84IxWnZridj6xlNly9u+++oeVvR1CfXfg3ezydbw==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -3950,8 +3950,8 @@ packages:
       react-dom:
         optional: true
     dependencies:
-      '@livepeer/core-react': 2.0.1(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
-      '@livepeer/core-web': 3.0.1(@types/react@18.2.34)(react@18.2.0)
+      '@livepeer/core-react': 2.0.2(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
+      '@livepeer/core-web': 3.0.2(@types/react@18.2.34)(react@18.2.0)
       '@radix-ui/react-dialog': 1.0.5(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-popover': 1.0.7(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-select': 1.2.2(@types/react-dom@18.2.14)(@types/react@18.2.34)(react-dom@18.2.0)(react@18.2.0)
@@ -3959,7 +3959,7 @@ packages:
       core-js: 3.33.2
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      zustand: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+      zustand: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -6207,7 +6207,7 @@ packages:
       eventemitter3: 4.0.7
       typescript: 5.2.2
       viem: 1.18.3(typescript@5.2.2)(zod@3.22.4)
-      zustand: 4.4.5(@types/react@18.2.34)(react@18.2.0)
+      zustand: 4.4.6(@types/react@18.2.34)(react@18.2.0)
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - '@types/react'
@@ -6991,7 +6991,7 @@ packages:
   /axios@1.6.0:
     resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
-      follow-redirects: 1.15.3(debug@4.3.4)
+      follow-redirects: 1.15.3
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -8792,6 +8792,16 @@ packages:
     resolution: {integrity: sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==}
     dev: true
 
+  /follow-redirects@1.15.3:
+    resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /follow-redirects@1.15.3(debug@4.3.4):
     resolution: {integrity: sha512-1VzOtuEM8pC9SFU1E+8KfTjZyMztRsgEfwQl44z8A25uy13jSzTj6dyK2Df52iV0vgHCfBwLhDWevLn95w5v6Q==}
     engines: {node: '>=4.0'}
@@ -8802,6 +8812,7 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4
+    dev: true
 
   /for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -13552,8 +13563,8 @@ packages:
   /zod@3.22.4:
     resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
 
-  /zustand@4.4.5(@types/react@18.2.34)(react@18.2.0):
-    resolution: {integrity: sha512-jgIrBBLKncQW74PA2Lclct3gwD4aPughwGE4FqlXrv3rDqQox7JCn8rwUiFK6ygJcbBAvfTf8fF+ICg7HLD2FQ==}
+  /zustand@4.4.6(@types/react@18.2.34)(react@18.2.0):
+    resolution: {integrity: sha512-Rb16eW55gqL4W2XZpJh0fnrATxYEG3Apl2gfHTyDSE965x/zxslTikpNch0JgNjJA9zK6gEFW8Fl6d1rTZaqgg==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       '@types/react': '>=16.8'
