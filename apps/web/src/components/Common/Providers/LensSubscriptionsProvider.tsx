@@ -75,7 +75,7 @@ const LensSubscriptionsProvider: FC = () => {
             title: notify?.title || ''
           });
         }
-        setLatestNotificationId(notification.id);
+        setLatestNotificationId(notification?.id);
       }
       if (jsonData.id === '2') {
         const userSigNonces = wsData.userSigNonces as UserSigNonces;
