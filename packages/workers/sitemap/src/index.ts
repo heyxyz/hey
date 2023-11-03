@@ -2,7 +2,7 @@ import { Errors } from '@hey/data/errors';
 import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
-import getSitemap from './handlers/getSitemap';
+import getProfilesSitemap from './handlers/getProfilesSitemap';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
@@ -22,7 +22,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
-  .get('/sitemap', getSitemap)
+  .get('/profiles', getProfilesSitemap)
   .all('*', () => error(404));
 
 export default {

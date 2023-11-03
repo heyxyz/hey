@@ -9,12 +9,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/sitemap.xml',
-        destination: 'https://sitemap.hey.xyz/sitemap.xml'
-      },
-      {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.hey.xyz/:match*'
+        destination: 'http://0.0.0.0:8096/:match*'
       }
     ];
   },
