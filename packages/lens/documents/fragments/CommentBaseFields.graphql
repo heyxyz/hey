@@ -26,7 +26,12 @@ fragment CommentBaseFields on Comment {
     ...OpenActionModulesFields
   }
   root {
-    ...PostFields
+    ... on Post {
+      ...PostFields
+    }
+    ... on Quote {
+      ...QuoteBaseFields
+    }
   }
   profilesMentioned {
     snapshotHandleMentioned {
