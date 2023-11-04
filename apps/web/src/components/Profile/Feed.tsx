@@ -47,6 +47,13 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     return filters;
   };
 
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
+
   // Variables
   const publicationTypes: PublicationType[] =
     type === ProfileFeedType.Feed
@@ -69,13 +76,6 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         : { actedBy: profile?.id })
     },
     limit: LimitType.TwentyFive
-  };
-
-  const fetchAndStoreViews = async (ids: string[]) => {
-    if (ids.length) {
-      const viewsResponse = await getPublicationsViews(ids);
-      setViews((prev) => [...prev, ...viewsResponse]);
-    }
   };
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({

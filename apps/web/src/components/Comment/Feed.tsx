@@ -9,10 +9,13 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@hey/lens';
+import getPublicationViewCountById from '@hey/lib/getPublicationViewCountById';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@hey/types/enums';
+import type { PublicationViewCount } from '@hey/types/hey';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import getPublicationsViews from '@lib/getPublicationsViews';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
 
@@ -25,6 +28,14 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     ? publication?.mirrorOn?.id
     : publication?.id;
   const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
+  const [views, setViews] = useState<PublicationViewCount[] | []>([]);
+
+  const fetchAndStoreViews = async (ids: string[]) => {
+    if (ids.length) {
+      const viewsResponse = await getPublicationsViews(ids);
+      setViews((prev) => [...prev, ...viewsResponse]);
+    }
+  };
 
   // Variables
   const request: PublicationsRequest = {
@@ -40,7 +51,11 @@ const Feed: FC<FeedProps> = ({ publication }) => {
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !publicationId
+    skip: !publicationId,
+    onCompleted: async (data) => {
+      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const comments = data?.publications?.items ?? [];
@@ -65,9 +80,11 @@ const Feed: FC<FeedProps> = ({ publication }) => {
         return;
       }
 
-      await fetchMore({
+      const pageItem = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids = pageItem?.data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -101,6 +118,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
               isFirst={index === 0}
               isLast={index === comments.length - 1}
               publication={comment as Comment}
+              views={getPublicationViewCountById(views, comment.id)}
               showType={false}
             />
           )
