@@ -61,9 +61,9 @@ export const STS_GENERATOR_WORKER_URL = IS_PRODUCTION
 export const METADATA_WORKER_URL = IS_PRODUCTION
   ? 'https://metadata.hey.xyz'
   : 'http://localhost:8083';
-export const FRESHDESK_WORKER_URL = IS_PRODUCTION
-  ? 'https://freshdesk.hey.xyz'
-  : 'http://localhost:8084';
+export const WEBSOCKET_WORKER_URL = IS_PRODUCTION
+  ? 'wss://ws.hey.xyz'
+  : 'wss://localhost:8084';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.hey.xyz'
   : 'http://localhost:8085';
