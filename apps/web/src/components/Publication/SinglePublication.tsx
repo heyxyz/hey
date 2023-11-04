@@ -18,6 +18,7 @@ import PublicationType from './Type';
 interface SinglePublicationProps {
   publication: AnyPublication;
   feedItem?: FeedItem;
+  views?: number;
   showType?: boolean;
   showActions?: boolean;
   showModActions?: boolean;
@@ -30,6 +31,7 @@ interface SinglePublicationProps {
 const SinglePublication: FC<SinglePublicationProps> = ({
   publication,
   feedItem,
+  views,
   showType = true,
   showActions = true,
   showModActions = false,
@@ -95,7 +97,10 @@ const SinglePublication: FC<SinglePublicationProps> = ({
             />
             <div className="flex flex-wrap items-center gap-x-7">
               {showActions ? (
-                <PublicationActions publication={rootPublication} />
+                <PublicationActions
+                  publication={rootPublication}
+                  views={views}
+                />
               ) : null}
               <FeaturedGroup className="mt-3" tags={metadata?.tags} />
             </div>

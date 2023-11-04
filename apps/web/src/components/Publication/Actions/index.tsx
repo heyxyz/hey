@@ -11,14 +11,17 @@ import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';
 import ShareMenu from './Share';
+import Views from './Views';
 
 interface PublicationActionsProps {
   publication: AnyPublication;
+  views?: number;
   showCount?: boolean;
 }
 
 const PublicationActions: FC<PublicationActionsProps> = ({
   publication,
+  views,
   showCount = false
 }) => {
   const targetPublication = isMirrorPublication(publication)
@@ -46,6 +49,9 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       <Like publication={publication} showCount={showCount} />
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
+      ) : null}
+      {views && gardenerMode ? (
+        <Views views={views} showCount={showCount} />
       ) : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
