@@ -26,7 +26,7 @@ const Source: FC<SourceProps> = ({ publication }) => {
   return (
     <Tooltip content={appName} placement="top">
       <img
-        className="h-4 w-4 rounded-full"
+        className="w-4"
         src={`${STATIC_IMAGES_URL}/source/${appId}.jpeg`}
         alt={appName}
       />
