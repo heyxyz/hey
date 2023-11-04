@@ -1,6 +1,6 @@
 import type { Env } from '../types';
 
-const ingestView = async (payload: any, websocket: any, env: Env) => {
+const ingestImpression = async (payload: any, websocket: any, env: Env) => {
   if (payload.viewer_id && payload.publication_id) {
     const { viewer_id, publication_id } = payload;
     const insertedRecently = await fetch(
@@ -54,4 +54,4 @@ const ingestView = async (payload: any, websocket: any, env: Env) => {
   }
 };
 
-export default ingestView;
+export default ingestImpression;
