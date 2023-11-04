@@ -2,6 +2,7 @@ query ProfileManagers($request: ProfileManagersRequest!) {
   profileManagers(request: $request) {
     items {
       address
+      isLensManager
     }
     pageInfo {
       next
