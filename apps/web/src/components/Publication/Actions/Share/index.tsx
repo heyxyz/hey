@@ -58,7 +58,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           className={cn(
             hasQuotedOrMirrored
               ? 'text-brand-500 hover:bg-brand-300/20 outline-brand-500'
-              : 'lt-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+              : 'ld-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
             'rounded-full p-1.5 outline-offset-2'
           )}
           whileTap={{ scale: 0.9 }}
@@ -102,7 +102,7 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
       {mirrorOrQuoteCount > 0 && !showCount ? (
         <span
           className={cn(
-            hasQuotedOrMirrored ? 'text-brand-500' : 'lt-text-gray-500',
+            hasQuotedOrMirrored ? 'text-brand-500' : 'ld-text-gray-500',
             'text-[11px] sm:text-xs'
           )}
         >

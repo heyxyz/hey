@@ -14,7 +14,7 @@ const InvitedBy: FC<InvitedByProps> = ({ profile }) => {
   return (
     <div>
       <Link
-        className="lt-text-gray-500 flex items-center space-x-2 text-sm"
+        className="ld-text-gray-500 flex items-center space-x-2 text-sm"
         href={getProfile(profile).link}
       >
         <Image

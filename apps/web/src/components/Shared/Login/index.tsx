@@ -17,7 +17,7 @@ const Login: FC = () => {
           {hasConnected ? (
             <div className="space-y-1">
               <div className="text-xl font-bold">Please sign the message.</div>
-              <div className="lt-text-gray-500 text-sm">
+              <div className="ld-text-gray-500 text-sm">
                 {APP_NAME} uses this signature to verify that you're the owner
                 of this address.
               </div>
@@ -25,7 +25,7 @@ const Login: FC = () => {
           ) : (
             <div className="space-y-1">
               <div className="text-xl font-bold">Connect your wallet.</div>
-              <div className="lt-text-gray-500 text-sm">
+              <div className="ld-text-gray-500 text-sm">
                 Connect with one of our available wallet providers or create a
                 new one.
               </div>
@@ -59,7 +59,7 @@ const Login: FC = () => {
               </Link>{' '}
               to claim your profile now 🏃‍♂️
             </div>
-            <div className="lt-text-gray-500 text-sm">
+            <div className="ld-text-gray-500 text-sm">
               Make sure to check back here when done!
             </div>
           </div>

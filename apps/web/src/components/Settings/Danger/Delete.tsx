@@ -95,7 +95,7 @@ const DeleteSettings: FC = () => {
         </p>
       </div>
       <div className="text-lg font-bold">What else you should know</div>
-      <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
+      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           You cannot restore your Lens profile if it was accidentally or
           wrongfully deleted.
