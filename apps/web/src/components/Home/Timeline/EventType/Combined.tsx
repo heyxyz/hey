@@ -8,8 +8,7 @@ interface CombinedProps {
 }
 
 const Combined: FC<CombinedProps> = ({ feedItem }) => {
-  const { mirrors, acted, reactions } = feedItem;
-  const comments = feedItem.comments ?? [];
+  const { mirrors, acted, reactions, comments } = feedItem;
 
   const mirrorsLength = mirrors.length;
   const actedLength = acted.length;
