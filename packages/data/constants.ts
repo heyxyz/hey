@@ -63,7 +63,7 @@ export const METADATA_WORKER_URL = IS_PRODUCTION
   : 'http://localhost:8083';
 export const WEBSOCKET_WORKER_URL = IS_PRODUCTION
   ? 'wss://ws.hey.xyz'
-  : 'wss://localhost:8084';
+  : 'ws://localhost:8084';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_PRODUCTION
   ? 'https://snapshot-relay.hey.xyz'
   : 'http://localhost:8085';
