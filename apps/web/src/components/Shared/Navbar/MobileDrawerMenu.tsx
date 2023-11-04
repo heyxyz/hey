@@ -124,7 +124,6 @@ const MobileDrawerMenu: FC = () => {
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-hidden="true"
               >
                 <GardenerMode className={cn(itemClass, 'px-4 py-3')} />
               </div>
@@ -136,7 +135,6 @@ const MobileDrawerMenu: FC = () => {
               <div
                 onClick={closeDrawer}
                 className="hover:bg-gray-200 dark:hover:bg-gray-800"
-                aria-hidden="true"
               >
                 <StaffMode className={cn(itemClass, 'px-4 py-3')} />
               </div>

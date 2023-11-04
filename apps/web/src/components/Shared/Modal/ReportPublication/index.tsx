@@ -72,7 +72,7 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   };
 
   return (
-    <div onClick={stopEventPropagation} aria-hidden="true">
+    <div onClick={stopEventPropagation}>
       {submitData?.reportPublication === null ? (
         <EmptyState
           message="Publication reported successfully!"

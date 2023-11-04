@@ -41,10 +41,7 @@ export const Modal: FC<ModalProps> = ({
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-900/80" />
           </Transition.Child>
-          <span
-            className="hidden sm:inline-block sm:h-screen sm:align-middle"
-            aria-hidden="true"
-          />
+          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-100"

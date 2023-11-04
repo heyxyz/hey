@@ -128,7 +128,7 @@ const UserPreview: FC<UserPreviewProps> = ({
       <>
         <div className="flex items-center justify-between px-3.5 pb-1 pt-4">
           <UserAvatar />
-          <div onClick={stopEventPropagation} aria-hidden="false">
+          <div onClick={stopEventPropagation}>
             {!profile.operations.isFollowedByMe.value ? (
               following ? null : profile.followModule?.__typename ===
                 'FeeFollowModuleSettings' ? (

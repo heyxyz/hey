@@ -21,7 +21,6 @@ export const Toggle: FC<ToggleProps> = ({ on, setOn }) => {
       )}
     >
       <span
-        aria-hidden="true"
         className={cn(
           on ? 'translate-x-5' : 'translate-x-0',
           'pointer-events-none inline-block h-[18px] w-[18px] rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out'

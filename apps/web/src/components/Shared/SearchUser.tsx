@@ -75,7 +75,6 @@ const SearchUser: FC<SearchUserProps> = ({
                         onProfileSelected(profile);
                       }
                     }}
-                    aria-hidden="true"
                   >
                     <SmallUserProfile profile={profile} />
                   </motion.div>

@@ -26,7 +26,6 @@ const MetaDetails: FC<MetaDetailsProps> = ({
       await navigator.clipboard.writeText(value);
       toast.success('Copied to clipboard!');
     }}
-    aria-hidden="true"
   >
     <div className="flex items-center gap-1">
       {icon}

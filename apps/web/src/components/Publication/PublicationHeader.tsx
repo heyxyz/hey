@@ -51,11 +51,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         'relative flex justify-between space-x-1.5'
       )}
     >
-      <span
-        className="max-w-full"
-        onClick={stopEventPropagation}
-        aria-hidden="true"
-      >
+      <span className="max-w-full" onClick={stopEventPropagation}>
         {quoted ? (
           <SmallUserProfile
             profile={profile}
