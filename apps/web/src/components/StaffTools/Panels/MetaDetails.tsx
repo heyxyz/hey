@@ -30,7 +30,7 @@ const MetaDetails: FC<MetaDetailsProps> = ({
     <div className="flex items-center gap-1">
       {icon}
       {title ? (
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {title}
           {noFlex ? '' : ':'}
         </div>

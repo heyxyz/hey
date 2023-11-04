@@ -94,7 +94,7 @@ progress::-moz-progress-bar {
   @apply border-b dark:border-gray-700;
 }
 
-.lt-text-gray-500 {
+.ld-text-gray-500 {
   @apply text-gray-500 dark:text-gray-200;
 }
 

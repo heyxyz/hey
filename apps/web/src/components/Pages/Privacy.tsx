@@ -32,7 +32,7 @@ const Privacy: FC = () => {
       <div className="relative">
         <div className="flex justify-center">
           <div className="max-w-3/4 relative mx-auto rounded-lg sm:w-2/4">
-            <div className="lt-text-gray-500 max-w-none !p-8">
+            <div className="ld-text-gray-500 max-w-none !p-8">
               {/* 1. Overview beings */}
               <div className="mb-5 text-xl font-bold text-black dark:text-white">
                 1. Overview

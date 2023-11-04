@@ -397,8 +397,8 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               <span className="text-xs">{currency}</span>
               {usdPrice ? (
                 <>
-                  <span className="lt-text-gray-500 px-0.5">·</span>
-                  <span className="lt-text-gray-500 text-xs font-bold">
+                  <span className="ld-text-gray-500 px-0.5">·</span>
+                  <span className="ld-text-gray-500 text-xs font-bold">
                     ${(amount * usdPrice).toFixed(2)}
                   </span>
                 </>
@@ -409,7 +409,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
         <div className="space-y-1.5">
           <div className="block items-center space-y-1 sm:flex sm:space-x-5">
             <div className="flex items-center space-x-2">
-              <UsersIcon className="lt-text-gray-500 h-4 w-4" />
+              <UsersIcon className="ld-text-gray-500 h-4 w-4" />
               <button
                 className="font-bold"
                 type="button"
@@ -428,7 +428,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
             </div>
             {collectLimit ? (
               <div className="flex items-center space-x-2">
-                <PhotoIcon className="lt-text-gray-500 h-4 w-4" />
+                <PhotoIcon className="ld-text-gray-500 h-4 w-4" />
                 <div className="font-bold">
                   {collectLimit - openActionCount} available
                 </div>
@@ -436,14 +436,14 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
             ) : null}
             {referralFee ? (
               <div className="flex items-center space-x-2">
-                <BanknotesIcon className="lt-text-gray-500 h-4 w-4" />
+                <BanknotesIcon className="ld-text-gray-500 h-4 w-4" />
                 <div className="font-bold">{referralFee}% referral fee</div>
               </div>
             ) : null}
           </div>
           {endTimestamp ? (
             <div className="flex items-center space-x-2">
-              <ClockIcon className="lt-text-gray-500 h-4 w-4" />
+              <ClockIcon className="ld-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>Sale Ends:</span>
                 <span className="font-bold text-gray-600">
@@ -454,7 +454,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
           ) : null}
           {collectModule.contract.address ? (
             <div className="flex items-center space-x-2">
-              <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
+              <PuzzlePieceIcon className="ld-text-gray-500 h-4 w-4" />
               <div className="space-x-1.5">
                 <span>Token:</span>
                 <Link
