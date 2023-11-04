@@ -124,7 +124,30 @@ const Mod: NextPage = () => {
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">Media filters</span>
+            <div className="flex items-center space-x-2">
+              <span className="font-bold">Media filters</span>
+              <button
+                className="text-xs underline"
+                onClick={() => {
+                  mainContentFocus.length ===
+                  Object.keys(PublicationMetadataMainFocusType).length
+                    ? setMainContentFocus([])
+                    : setMainContentFocus(
+                        Object.keys(PublicationMetadataMainFocusType).map(
+                          (key) =>
+                            PublicationMetadataMainFocusType[
+                              key as keyof typeof PublicationMetadataMainFocusType
+                            ]
+                        )
+                      );
+                }}
+              >
+                {mainContentFocus.length ===
+                Object.keys(PublicationMetadataMainFocusType).length
+                  ? 'Unselect all'
+                  : 'Select all'}
+              </button>
+            </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {Object.keys(PublicationMetadataMainFocusType).map((key) => (
                 <Checkbox
@@ -174,7 +197,12 @@ const Mod: NextPage = () => {
           </div>
           <div className="divider my-3" />
           <div className="space-y-2">
-            <span className="font-bold">Known apps filter</span>
+            <div className="flex items-center space-x-2">
+              <span className="font-bold">Known apps filter</span>
+              <button className="text-xs underline" onClick={() => setApps([])}>
+                Reset
+              </button>
+            </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
               {FILTER_APPS.map((app) => (
                 <Checkbox
