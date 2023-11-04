@@ -12,6 +12,24 @@ query Feed($request: FeedRequest!) {
           ...QuoteFields
         }
       }
+      mirrors {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      acted {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      reactions {
+        by {
+          ...PublicationProfileFields
+        }
+      }
+      comments {
+        ...CommentBaseFields
+      }
     }
     pageInfo {
       next
