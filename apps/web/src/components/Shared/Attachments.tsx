@@ -104,7 +104,6 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
         <div
           className={cn(getClass(1)?.aspect, 'w-2/3')}
           onClick={stopEventPropagation}
-          aria-hidden="true"
         >
           <ImageComponent uri={asset.uri} />
         </div>
@@ -126,7 +125,6 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
                   { 'w-2/3': displayDecision.length === 1 }
                 )}
                 onClick={stopEventPropagation}
-                aria-hidden="true"
               >
                 <ImageComponent uri={attachment.uri} />
               </div>

@@ -49,14 +49,14 @@ const SmallUserProfile: FC<UserProfileProps> = ({
         {getProfile(profile).displayName}
       </div>
       {isVerified(profile.id) ? (
-        <CheckBadgeIcon className="text-brand mr-1 h-4 w-4" />
+        <CheckBadgeIcon className="text-brand-500 mr-1 h-4 w-4" />
       ) : null}
       {hasMisused(profile.id) ? (
         <ExclamationCircleIcon className="mr-2 h-4 w-4 text-red-500" />
       ) : null}
       <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
       {timestamp ? (
-        <span className="lt-text-gray-500">
+        <span className="ld-text-gray-500">
           <span className="mx-1.5">·</span>
           <span className="text-xs">{getTwitterFormat(timestamp)}</span>
         </span>

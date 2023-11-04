@@ -100,7 +100,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <div className="truncate">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
             <Tooltip content="Verified">
-              <CheckBadgeIcon className="text-brand h-6 w-6" />
+              <CheckBadgeIcon className="text-brand-500 h-6 w-6" />
             </Tooltip>
           ) : null}
           {hasMisused(profile.id) ? (
@@ -188,7 +188,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             />
             <Modal
               title="Followers you know"
-              icon={<UsersIcon className="text-brand h-5 w-5" />}
+              icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
               show={showMutualFollowersModal}
               onClose={() => setShowMutualFollowersModal(false)}
             >

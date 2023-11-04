@@ -91,7 +91,7 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(subCategory.id) ? (
-                      <CheckCircleIcon className="text-brand h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
                     ) : (
                       <PlusCircleIcon className="h-4 w-4" />
                     )
@@ -120,7 +120,7 @@ const Interests: FC = () => {
                   }
                   icon={
                     selectedTopics.includes(category.id) ? (
-                      <CheckCircleIcon className="text-brand h-4 w-4" />
+                      <CheckCircleIcon className="text-brand-500 h-4 w-4" />
                     ) : (
                       <PlusCircleIcon className="h-4 w-4" />
                     )

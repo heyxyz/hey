@@ -50,7 +50,7 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
         />
         <Link
           href={`/posts/${notification?.publication?.id}`}
-          className="lt-text-gray-500 linkify mt-2 line-clamp-2"
+          className="ld-text-gray-500 linkify mt-2 line-clamp-2"
         >
           <Markup mentions={notification.publication.profilesMentioned}>
             {filteredContent}

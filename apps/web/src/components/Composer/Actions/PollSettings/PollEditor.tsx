@@ -19,7 +19,7 @@ const PollEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <Bars3BottomLeftIcon className="text-brand h-4 w-4" />
+          <Bars3BottomLeftIcon className="text-brand-500 h-4 w-4" />
           <b>Poll</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -34,7 +34,7 @@ const PollEditor: FC = () => {
           </Button>
           <Modal
             title="Poll length"
-            icon={<ClockIcon className="text-brand h-5 w-5" />}
+            icon={<ClockIcon className="text-brand-500 h-5 w-5" />}
             show={showPollLengthModal}
             onClose={() => setShowPollLengthModal(false)}
           >
@@ -117,7 +117,7 @@ const PollEditor: FC = () => {
         ))}
         {pollConfig.choices.length !== 10 ? (
           <button
-            className="text-brand mt-2 flex items-center space-x-2 text-sm"
+            className="text-brand-500 mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
               const newChoices = [...pollConfig.choices];
               newChoices.push('');

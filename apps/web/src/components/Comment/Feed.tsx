@@ -83,7 +83,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     return (
       <EmptyState
         message="Be the first one to comment!"
-        icon={<ChatBubbleLeftRightIcon className="text-brand h-8 w-8" />}
+        icon={<ChatBubbleLeftRightIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

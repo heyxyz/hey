@@ -230,7 +230,7 @@ const FollowModule: FC<FollowModuleProps> = ({
           Super follow <Slug slug={getProfile(profile).slugWithPrefix} />{' '}
           {again ? 'again' : ''}
         </div>
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           Follow {again ? 'again' : ''} and get some awesome perks!
         </div>
       </div>
@@ -249,7 +249,7 @@ const FollowModule: FC<FollowModuleProps> = ({
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <UserIcon className="lt-text-gray-500 h-4 w-4" />
+        <UserIcon className="ld-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
           <span>Recipient:</span>
           <Link
@@ -264,7 +264,7 @@ const FollowModule: FC<FollowModuleProps> = ({
       </div>
       <div className="space-y-2 pt-5">
         <div className="text-lg font-bold">Perks you get</div>
-        <ul className="lt-text-gray-500 space-y-1 text-sm">
+        <ul className="ld-text-gray-500 space-y-1 text-sm">
           <li className="flex space-x-2 leading-6 tracking-normal">
             <div>•</div>
             <div>

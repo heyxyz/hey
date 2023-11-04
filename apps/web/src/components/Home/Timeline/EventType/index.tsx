@@ -30,7 +30,7 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
   ]);
 
   return (
-    <span onClick={stopEventPropagation} aria-hidden="true">
+    <span onClick={stopEventPropagation}>
       {canCombined ? (
         <Combined feedItem={feedItem} />
       ) : (

@@ -43,6 +43,7 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
   return canShowUserPreview(handle) ? (
     <Link
       href={`/u/${getLocalNameFromFullHandle(handle)}`}
+      className="outline-brand-500 outline-offset-2"
       onClick={(event) => {
         stopEventPropagation(event);
         Leafwatch.track(PUBLICATION.CLICK_MENTION, {

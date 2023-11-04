@@ -73,7 +73,7 @@ const Search: FC<SearchProps> = ({
   ) as Profile[];
 
   return (
-    <div aria-hidden="true" className="w-full">
+    <div className="w-full">
       <form onSubmit={handleKeyDown}>
         <Input
           type="text"
@@ -121,7 +121,6 @@ const Search: FC<SearchProps> = ({
                       }
                       setSearchText('');
                     }}
-                    aria-hidden="true"
                   >
                     <UserProfile
                       linkToProfile={!onProfileSelected}

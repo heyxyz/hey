@@ -11,8 +11,9 @@ import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from '@lens-protocol/metadata';
+import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
-import { Fragment, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/usePublicationStore';
@@ -91,16 +92,20 @@ const Attachment: FC = () => {
 
   return (
     <Menu as="div">
-      <Menu.Button as={Fragment}>
-        <button onClick={() => setShowMenu(!showMenu)} aria-label="More">
-          {isUploading ? (
-            <Spinner size="sm" />
-          ) : (
-            <Tooltip placement="top" content="Media">
-              <PhotoIcon className="text-brand h-5 w-5" />
-            </Tooltip>
-          )}
-        </button>
+      <Menu.Button
+        as={motion.button}
+        className="outline-brand-500 rounded-full outline-offset-8"
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowMenu(!showMenu)}
+        aria-label="More"
+      >
+        {isUploading ? (
+          <Spinner size="sm" />
+        ) : (
+          <Tooltip placement="top" content="Media">
+            <PhotoIcon className="text-brand-500 h-5 w-5" />
+          </Tooltip>
+        )}
       </Menu.Button>
       <MenuTransition show={showMenu}>
         <Menu.Items
@@ -119,7 +124,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`image_${id}`}
           >
-            <PhotoIcon className="text-brand h-4 w-4" />
+            <PhotoIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload image(s)</span>
             <input
               id={`image_${id}`}
@@ -142,7 +147,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`video_${id}`}
           >
-            <VideoCameraIcon className="text-brand h-4 w-4" />
+            <VideoCameraIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload video</span>
             <input
               id={`video_${id}`}
@@ -164,7 +169,7 @@ const Attachment: FC = () => {
             }
             htmlFor={`audio_${id}`}
           >
-            <MusicalNoteIcon className="text-brand h-4 w-4" />
+            <MusicalNoteIcon className="text-brand-500 h-4 w-4" />
             <span className="text-sm">Upload audio</span>
             <input
               id={`audio_${id}`}

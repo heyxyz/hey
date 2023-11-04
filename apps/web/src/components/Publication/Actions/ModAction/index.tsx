@@ -94,7 +94,6 @@ const ModAction: FC<ModActionProps> = ({ publication, className = '' }) => {
     <span
       className={cn('flex flex-wrap items-center gap-3 text-sm', className)}
       onClick={stopEventPropagation}
-      aria-hidden="true"
     >
       <ReportButton
         config={[
