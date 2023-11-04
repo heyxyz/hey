@@ -3,7 +3,9 @@ import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@hey/lens';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import cn from '@hey/ui/cn';
-import type { FC } from 'react';
+import { type FC } from 'react';
+import { useInView } from 'react-cool-inview';
+import { useLeafwatchStore } from 'src/store/useLeafwatchStore';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -36,6 +38,8 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   isFirst = false,
   isLast = false
 }) => {
+  const { setViewedPublication } = useLeafwatchStore();
+
   const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
     ? firstComment
@@ -46,6 +50,18 @@ const SinglePublication: FC<SinglePublicationProps> = ({
     ? publication.mirrorOn
     : publication;
 
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
+
+      if (rootPublication.id) {
+        setViewedPublication(rootPublication.id);
+      }
+    }
+  });
+
   return (
     <PublicationWrapper
       className={cn(
@@ -55,6 +71,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       publication={rootPublication}
     >
+      <span ref={observe} />
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (

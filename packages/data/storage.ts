@@ -5,5 +5,6 @@ export const Localstorage = {
   NotificationStore: 'notification.store',
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  AlgorithmStore: 'algorithm.store'
+  AlgorithmStore: 'algorithm.store',
+  LeafwatchStore: 'leafwatch.store'
 };
