@@ -14,7 +14,7 @@ const Footer: FC = () => {
       className={`sticky text-sm leading-7 ${staffMode ? 'top-28' : 'top-20'}`}
     >
       <div className="mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0">
-        <span className="ld-text-gray-500 font-bold">
+        <span className="lt-text-gray-500 font-bold">
           &copy; {new Date().getFullYear()} {APP_NAME}.xyz
         </span>
         <Link href="/terms">Terms</Link>

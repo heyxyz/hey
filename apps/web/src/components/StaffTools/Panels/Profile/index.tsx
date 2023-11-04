@@ -76,14 +76,14 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.id}
           title="Profile ID"
         >
           {profile.id}
         </MetaDetails>
         <MetaDetails
-          icon={<BanknotesIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<BanknotesIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.ownedBy.address}
           title="Address"
         >
@@ -91,7 +91,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         {profile?.followNftAddress ? (
           <MetaDetails
-            icon={<PhotoIcon className="ld-text-gray-500 h-4 w-4" />}
+            icon={<PhotoIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile.followNftAddress.address}
             title="NFT address"
           >
@@ -99,21 +99,21 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
           </MetaDetails>
         ) : null}
         <MetaDetails
-          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.signless ? 'Yes' : 'No'}
           title="Has Lens Manager"
         >
           {profile.signless ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<HandRaisedIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<HandRaisedIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.sponsor ? 'Yes' : 'No'}
           title="Gas sponsored"
         >
           {profile.sponsor ? 'Yes' : 'No'}
         </MetaDetails>
         <MetaDetails
-          icon={<IdentificationIcon className="ld-text-gray-500 h-4 w-4" />}
+          icon={<IdentificationIcon className="lt-text-gray-500 h-4 w-4" />}
           value={profile.id}
           title="Follow module"
         >
@@ -121,7 +121,7 @@ const ProfileStaffTool: FC<ProfileStaffToolProps> = ({ profile }) => {
         </MetaDetails>
         {profile?.metadata?.rawURI ? (
           <MetaDetails
-            icon={<LinkIcon className="ld-text-gray-500 h-4 w-4" />}
+            icon={<LinkIcon className="lt-text-gray-500 h-4 w-4" />}
             value={profile.metadata.rawURI}
             title="Metadata"
           >

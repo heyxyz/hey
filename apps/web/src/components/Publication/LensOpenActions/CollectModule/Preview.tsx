@@ -84,14 +84,14 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
             </div>
           )}
           {mints > 0 && (
-            <div className="ld-text-gray-500">
+            <div className="lt-text-gray-500">
               {mints} {plur('mint', mints)}
             </div>
           )}
           {endTimestamp ? (
             <div className="space-x-1.5 text-sm">
               <span>Sale Ends in</span>
-              <span className="ld-text-gray-500">
+              <span className="lt-text-gray-500">
                 <CountdownTimer targetDate={endTimestamp} />
               </span>
             </div>

@@ -126,7 +126,7 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
   return (
     <div
       className={cn(
-        hasReacted ? 'text-brand-500' : 'ld-text-gray-500',
+        hasReacted ? 'text-brand-500' : 'lt-text-gray-500',
         'flex items-center space-x-1'
       )}
     >

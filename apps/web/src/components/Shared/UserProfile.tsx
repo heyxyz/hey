@@ -60,7 +60,7 @@ const UserProfile: FC<UserProfileProps> = ({
       loading="lazy"
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
-        'max-w-fit rounded-full border bg-gray-200 dark:border-gray-700'
+        'rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}
@@ -72,42 +72,19 @@ const UserProfile: FC<UserProfileProps> = ({
     <>
       <div className="flex max-w-sm items-center">
         <div className={cn(isBig ? 'font-bold' : 'text-md', 'grid')}>
-          {linkToProfile && profile.id ? (
-            <Link
-              href={getProfile(profile).link}
-              className="outline-brand-500 outline-offset-2"
-            >
-              <div className="truncate hover:underline">
-                {getProfile(profile).displayName}
-              </div>
-            </Link>
-          ) : (
-            <div className="truncate">{getProfile(profile).displayName}</div>
-          )}
+          <div className="truncate">{getProfile(profile).displayName}</div>
         </div>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand-500 ml-1 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />
         ) : null}
       </div>
       <div>
-        {linkToProfile && profile.id ? (
-          <Link
-            href={getProfile(profile).link}
-            className="outline-brand-500 outline-offset-2"
-          >
-            <Slug
-              className="text-sm"
-              slug={getProfile(profile).slugWithPrefix}
-            />
-          </Link>
-        ) : (
-          <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
-        )}
+        <Slug className="text-sm" slug={getProfile(profile).slugWithPrefix} />
         {timestamp ? (
-          <span className="ld-text-gray-500">
+          <span className="lt-text-gray-500">
             <span className="mx-1.5">·</span>
             <span className="text-xs">{getTwitterFormat(timestamp)}</span>
           </span>
@@ -124,16 +101,7 @@ const UserProfile: FC<UserProfileProps> = ({
         showUserPreview={showUserPreview}
       >
         <div className="mr-8 flex items-center space-x-3">
-          {linkToProfile && profile.id ? (
-            <Link
-              href={getProfile(profile).link}
-              className="outline-brand-500 rounded-full"
-            >
-              <UserAvatar />
-            </Link>
-          ) : (
-            <UserAvatar />
-          )}
+          <UserAvatar />
           <div>
             <UserName />
             {showBio && profile?.metadata?.bio ? (
@@ -159,7 +127,16 @@ const UserProfile: FC<UserProfileProps> = ({
 
   return (
     <div className="flex items-center justify-between">
-      <UserInfo />
+      {linkToProfile && profile.id ? (
+        <Link
+          href={getProfile(profile).link}
+          className="outline-brand-500 rounded-xl outline-offset-4"
+        >
+          <UserInfo />
+        </Link>
+      ) : (
+        <UserInfo />
+      )}
       {showFollow ? (
         following ? null : profile?.followModule?.type ===
           FollowModuleType.FeeFollowModule ? (

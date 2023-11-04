@@ -73,7 +73,7 @@ const Explore: NextPage = () => {
                       'border-brand-500 border-b-2 !text-black dark:!text-white':
                         selected
                     },
-                    'ld-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
+                    'lt-text-gray-500 px-4 pb-2 text-xs font-medium outline-none sm:text-sm'
                   )
                 }
               >

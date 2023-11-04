@@ -24,7 +24,7 @@ const ToggleWithHelper: FC<ToggleWithHelperProps> = ({
       </div>
       <div className="flex items-center space-x-2">
         <Toggle on={on} setOn={setOn} />
-        <div className="ld-text-gray-500 text-sm font-bold">{description}</div>
+        <div className="lt-text-gray-500 text-sm font-bold">{description}</div>
       </div>
     </div>
   );

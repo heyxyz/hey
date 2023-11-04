@@ -52,7 +52,7 @@ const List: FC = () => {
                 <div className="text-sm">by {algorithm.by}</div>
               </div>
             </div>
-            <div className="ld-text-gray-500 max-w-sm text-sm">
+            <div className="lt-text-gray-500 max-w-sm text-sm">
               {algorithm.description}
             </div>
           </div>

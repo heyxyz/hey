@@ -76,7 +76,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
             }}
             aria-label="Remove Quote"
           >
-            <XMarkIcon className="ld-text-gray-500 w-[15px] sm:w-[18px]" />
+            <XMarkIcon className="lt-text-gray-500 w-[15px] sm:w-[18px]" />
           </button>
         ) : null}
       </div>

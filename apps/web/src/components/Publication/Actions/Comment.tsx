@@ -24,7 +24,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
     : 'w-[15px] sm:w-[18px]';
 
   return (
-    <div className="ld-text-gray-500 flex items-center space-x-1">
+    <div className="lt-text-gray-500 flex items-center space-x-1">
       <motion.button
         className="rounded-full p-1.5 outline-offset-2 outline-gray-400 hover:bg-gray-300/20"
         whileTap={{ scale: 0.9 }}

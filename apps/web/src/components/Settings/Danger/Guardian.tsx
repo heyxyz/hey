@@ -73,7 +73,7 @@ const GuardianSettings: FC = () => {
         </p>
       </div>
       <div className="text-lg font-bold">What else you should know</div>
-      <div className="ld-text-gray-500 divide-y text-sm dark:divide-gray-700">
+      <div className="lt-text-gray-500 divide-y text-sm dark:divide-gray-700">
         <p className="pb-3">
           A 7-day Security Cooldown Period need to be elapsed for the Profile
           Guardian to become effectively disabled.

@@ -60,7 +60,7 @@ const SingleNft: FC<SingleNftProps> = ({ nft, linkToDetail = true }) => {
         )}
         <div className="space-y-1 px-5 py-3 text-sm">
           {nft.collection.name ? (
-            <div className="ld-text-gray-500 truncate">
+            <div className="lt-text-gray-500 truncate">
               {nft.collection.name}
             </div>
           ) : null}
