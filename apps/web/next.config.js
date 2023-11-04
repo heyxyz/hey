@@ -6,7 +6,6 @@ const nextConfig = {
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: { scrollRestoration: true },
-  output: 'export',
   async rewrites() {
     return [
       {
