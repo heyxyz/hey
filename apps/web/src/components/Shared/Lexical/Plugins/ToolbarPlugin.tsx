@@ -51,7 +51,7 @@ const ToolbarPlugin: FC = () => {
         <i className="toolbar-icon bold text-brand-500" />
       </button>
       <button
-        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
+        className={cn(isItalic && 'bg-brand-100', 'outline-brand-500')}
         title="Italic"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
@@ -60,7 +60,7 @@ const ToolbarPlugin: FC = () => {
         <i className="toolbar-icon italic" />
       </button>
       <button
-        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
+        className={cn(isCode && 'bg-brand-100', 'outline-brand-500')}
         title="Code"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');
