@@ -13,7 +13,7 @@ export default async (request: WorkerRequest) => {
 
     const { data, error } = await client
       .from('membership-nft')
-      .upsert({ id: payload.address, dismissedOrMinted: true })
+      .upsert({ id: payload.evmAddress, dismissedOrMinted: true })
       .select()
       .single();
 
@@ -23,6 +23,7 @@ export default async (request: WorkerRequest) => {
 
     return response({ success: true, result: data });
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };

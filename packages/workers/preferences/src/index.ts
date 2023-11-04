@@ -15,7 +15,7 @@ import type { Env, WorkerRequest } from './types';
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
-  methods: ['HEAD', 'GET', 'POST']
+  methods: ['HEAD', 'GET', 'POST', 'PATCH']
 });
 
 const router = Router();
@@ -33,7 +33,7 @@ router
   .get('/getHeyMemberNftStatus/:id', getHeyMemberNftStatus)
   .get('/verified', getVerified)
   .post('/update', validateLensAccount, updatePreferences)
-  .post(
+  .patch(
     '/updateHeyMemberNftStatus',
     validateLensAccount,
     updateHeyMemberNftStatus
