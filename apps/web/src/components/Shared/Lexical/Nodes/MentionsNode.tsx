@@ -16,7 +16,7 @@ export class MentionNode extends TextNode {
   createDOM(config: EditorConfig): HTMLElement {
     const dom = super.createDOM(config);
     dom.style.cssText = '';
-    dom.className = 'text-brand';
+    dom.className = 'text-brand-500';
 
     return dom;
   }

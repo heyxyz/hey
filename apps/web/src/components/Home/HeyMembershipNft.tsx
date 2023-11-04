@@ -74,7 +74,7 @@ const HeyMembershipNft: FC = () => {
   return (
     <Card
       as="aside"
-      className="text-brand dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
+      className="text-brand-500 dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
     >
       <img
         src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
@@ -105,7 +105,7 @@ const HeyMembershipNft: FC = () => {
           <Modal
             title="Mint"
             show={showMintModal}
-            icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
+            icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
             onClose={() => setShowMintModal(false)}
           >
             <Mint

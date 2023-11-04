@@ -114,7 +114,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
             <span>{emptyMessage}</span>
           </div>
         }
-        icon={<RectangleStackIcon className="text-brand h-8 w-8" />}
+        icon={<RectangleStackIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

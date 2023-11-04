@@ -38,7 +38,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
       </div>
       <div className="mt-3 space-y-2">
         <MetaDetails
-          icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
+          icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
           value={publication?.id}
           title="Publication ID"
         >
@@ -46,7 +46,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         </MetaDetails>
         {isComment ? (
           <MetaDetails
-            icon={<HashtagIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<HashtagIcon className="ld-text-gray-500 h-4 w-4" />}
             value={targetPublication?.commentOn?.id}
             title="Comment on"
           >
@@ -55,7 +55,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         ) : null}
         {targetPublication?.openActionModules?.length ? (
           <MetaDetails
-            icon={<RectangleStackIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<RectangleStackIcon className="ld-text-gray-500 h-4 w-4" />}
             value={JSON.stringify(targetPublication?.openActionModules)}
             title="Open action modules"
             noFlex
@@ -67,7 +67,7 @@ const PublicationStaffTool: FC<PublicationStaffToolProps> = ({
         ) : null}
         {(targetPublication?.metadata.tags ?? []).length > 0 ? (
           <MetaDetails
-            icon={<TagIcon className="lt-text-gray-500 h-4 w-4" />}
+            icon={<TagIcon className="ld-text-gray-500 h-4 w-4" />}
             value={JSON.stringify(targetPublication?.metadata?.tags)}
             title="Tags"
             noFlex

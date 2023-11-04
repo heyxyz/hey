@@ -46,7 +46,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       case PUBLICATION.LIKE:
         return <HeartIcon className="h-5 w-5 text-red-500" />;
       case PUBLICATION.NEW_POST:
-        return <PencilSquareIcon className="text-brand h-5 w-5" />;
+        return <PencilSquareIcon className="text-brand-500 h-5 w-5" />;
       case PUBLICATION.NEW_COMMENT:
         return <ChatBubbleLeftRightIcon className="text-brand h-5 w-5" />;
       case PUBLICATION.MIRROR:
@@ -102,7 +102,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
-        <CalendarIcon className="text-brand h-6 w-6" />
+        <CalendarIcon className="text-brand-500 h-6 w-6" />
         <span>Latest events</span>
       </div>
       <div className="divider" />

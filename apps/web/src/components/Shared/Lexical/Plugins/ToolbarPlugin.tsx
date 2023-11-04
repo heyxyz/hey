@@ -1,3 +1,4 @@
+import cn from '@hey/ui/cn';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
   $getSelection,
@@ -41,16 +42,16 @@ const ToolbarPlugin: FC = () => {
   return (
     <div className="toolbar-icons divider flex items-center space-x-1 px-5 py-2">
       <button
-        className={isBold ? 'bg-brand-100' : ''}
+        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
         title="Bold"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
       >
-        <i className="toolbar-icon bold text-brand" />
+        <i className="toolbar-icon bold text-brand-500" />
       </button>
       <button
-        className={isItalic ? 'bg-brand-100' : ''}
+        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
         title="Italic"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
@@ -59,7 +60,7 @@ const ToolbarPlugin: FC = () => {
         <i className="toolbar-icon italic" />
       </button>
       <button
-        className={isCode ? 'bg-brand-100' : ''}
+        className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}
         title="Code"
         onClick={() => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code');

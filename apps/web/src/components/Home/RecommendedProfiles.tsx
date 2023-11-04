@@ -62,7 +62,7 @@ const RecommendedProfiles: FC = () => {
         <Title />
         <EmptyState
           message="No recommendations!"
-          icon={<UsersIcon className="text-brand h-8 w-8" />}
+          icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         />
       </>
     );
@@ -117,7 +117,7 @@ const RecommendedProfiles: FC = () => {
       </Card>
       <Modal
         title="Suggested for you"
-        icon={<UsersIcon className="text-brand h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
         show={showSuggestedModal}
         onClose={() => setShowSuggestedModal(false)}
       >

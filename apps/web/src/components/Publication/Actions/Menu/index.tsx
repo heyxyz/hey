@@ -28,12 +28,12 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
     <Menu as="div" className="relative">
       <Menu.Button as={Fragment}>
         <button
-          className="rounded-full p-1.5 hover:bg-gray-300/20"
+          className="outline-brand-500 rounded-full p-1.5 hover:bg-gray-300/20"
           onClick={stopEventPropagation}
           aria-label="More"
         >
           <EllipsisVerticalIcon
-            className={cn('lt-text-gray-500', iconClassName)}
+            className={cn('ld-text-gray-500', iconClassName)}
           />
         </button>
       </Menu.Button>

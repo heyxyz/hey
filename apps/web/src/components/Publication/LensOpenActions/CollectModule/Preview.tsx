@@ -39,7 +39,10 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
             <div className="flex items-center space-x-2">
-              <GetOpenActionModuleIcon module={module} className="text-brand" />
+              <GetOpenActionModuleIcon
+                module={module}
+                className="text-brand-500"
+              />
               <b className="text-lg font-bold">
                 {getOpenActionModuleData(module)?.name}
               </b>
@@ -81,14 +84,14 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
             </div>
           )}
           {mints > 0 && (
-            <div className="lt-text-gray-500">
+            <div className="ld-text-gray-500">
               {mints} {plur('mint', mints)}
             </div>
           )}
           {endTimestamp ? (
             <div className="space-x-1.5 text-sm">
               <span>Sale Ends in</span>
-              <span className="lt-text-gray-500">
+              <span className="ld-text-gray-500">
                 <CountdownTimer targetDate={endTimestamp} />
               </span>
             </div>

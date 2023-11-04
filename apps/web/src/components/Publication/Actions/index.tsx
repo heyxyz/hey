@@ -38,7 +38,6 @@ const PublicationActions: FC<PublicationActionsProps> = ({
     <span
       className="-ml-2 mt-3 flex flex-wrap items-center gap-x-6 gap-y-1 sm:gap-8"
       onClick={stopEventPropagation}
-      aria-hidden="true"
     >
       <Comment publication={publication} showCount={showCount} />
       {canMirror ? (

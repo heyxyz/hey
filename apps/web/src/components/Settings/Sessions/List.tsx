@@ -101,7 +101,7 @@ const List: FC = () => {
     return (
       <EmptyState
         message="You are not logged in on any other devices!"
-        icon={<GlobeAltIcon className="text-brand h-8 w-8" />}
+        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );
@@ -129,7 +129,7 @@ const List: FC = () => {
                   {session.os ? <span> - {session.os}</span> : null}
                 </div>
               </div>
-              <div className="lt-text-gray-500 space-y-1 text-sm">
+              <div className="ld-text-gray-500 space-y-1 text-sm">
                 {session.origin ? (
                   <div>
                     <b>Origin -</b> {session.origin}

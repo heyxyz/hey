@@ -52,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const outlineStyles = {
-      'text-brand hover:bg-brand-50 active:bg-brand-100':
+      'text-brand-500 hover:bg-brand-50 active:bg-brand-100':
         outline && variant === 'primary',
       'text-gray-500 hover:bg-gray-50 active:bg-gray-100':
         outline && variant === 'secondary',

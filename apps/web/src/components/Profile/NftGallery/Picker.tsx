@@ -63,7 +63,7 @@ const Picker: FC<PickerProps> = ({ onlyAllowOne }) => {
     return (
       <div className="flex flex-1 flex-col items-center justify-center justify-items-center space-y-2 p-5">
         <div>
-          <RectangleStackIcon className="text-brand h-8 w-8" />
+          <RectangleStackIcon className="text-brand-500 h-8 w-8" />
         </div>
         <div>
           <div>

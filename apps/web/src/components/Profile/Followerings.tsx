@@ -32,7 +32,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile.stats.following)}</div>
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {plur('Following', profile.stats.following)}
         </div>
       </button>
@@ -47,13 +47,13 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
         }}
       >
         <div className="text-xl">{humanize(profile.stats.followers)}</div>
-        <div className="lt-text-gray-500">
+        <div className="ld-text-gray-500">
           {plur('Follower', profile.stats.followers)}
         </div>
       </button>
       <Modal
         title="Following"
-        icon={<UsersIcon className="text-brand h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
         show={showFollowingModal}
         onClose={() => setShowFollowingModal(false)}
       >
@@ -61,7 +61,7 @@ const Followerings: FC<FolloweringsProps> = ({ profile }) => {
       </Modal>
       <Modal
         title="Followers"
-        icon={<UsersIcon className="text-brand h-5 w-5" />}
+        icon={<UsersIcon className="text-brand-500 h-5 w-5" />}
         show={showFollowersModal}
         onClose={() => setShowFollowersModal(false)}
       >

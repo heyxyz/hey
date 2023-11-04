@@ -50,7 +50,7 @@ const LivestreamEditor: FC = () => {
     <Card className="m-5 px-5 py-3" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
-          <VideoCameraIcon className="text-brand h-4 w-4" />
+          <VideoCameraIcon className="text-brand-500 h-4 w-4" />
           <b>Go Live</b>
         </div>
         <div className="flex items-center space-x-3">
@@ -115,7 +115,7 @@ const LivestreamEditor: FC = () => {
                   </>
                 ) : (
                   <>
-                    <SignalIcon className="text-brand h-5 w-5" />
+                    <SignalIcon className="text-brand-500 h-5 w-5" />
                     <div>Create Live Stream</div>
                   </>
                 )}

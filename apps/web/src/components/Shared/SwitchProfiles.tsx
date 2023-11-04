@@ -160,7 +160,7 @@ const SwitchProfiles: FC = () => {
         >
           <span className="flex items-center space-x-2">
             <div className="dark:border-brand-700 border-brand-400 bg-brand-500/20 flex h-6 w-6 items-center justify-center rounded-full border">
-              <UserPlusIcon className="text-brand h-3 w-3" />
+              <UserPlusIcon className="text-brand-500 h-3 w-3" />
             </div>
             <div>Create Profile</div>
           </span>

@@ -54,7 +54,7 @@ const NewPost: FC = () => {
           alt={currentProfile?.id}
         />
         <button
-          className="flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+          className="outline-brand-500 flex w-full items-center space-x-2 rounded-xl border bg-gray-100 px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
           type="button"
           onClick={() => openModal()}
         >

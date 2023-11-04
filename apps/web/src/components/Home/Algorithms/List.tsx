@@ -40,7 +40,7 @@ const List: FC = () => {
                       algorithm.isPersonalized ? 'Personalized' : 'Global'
                     }
                   >
-                    <div className="text-brand">
+                    <div className="text-brand-500">
                       {algorithm.isPersonalized ? (
                         <UserCircleIcon className="h-4 w-4" />
                       ) : (
@@ -52,7 +52,7 @@ const List: FC = () => {
                 <div className="text-sm">by {algorithm.by}</div>
               </div>
             </div>
-            <div className="lt-text-gray-500 max-w-sm text-sm">
+            <div className="ld-text-gray-500 max-w-sm text-sm">
               {algorithm.description}
             </div>
           </div>

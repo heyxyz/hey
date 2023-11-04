@@ -1,7 +1,6 @@
 import QuotedPublication from '@components/Publication/QuotedPublication';
 import { AudioPublicationSchema } from '@components/Shared/Audio';
 import Wrapper from '@components/Shared/Embed/Wrapper';
-import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import NewAttachments from '@components/Shared/NewAttachments';
 import {
@@ -66,6 +65,9 @@ const Attachment = dynamic(
     loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
   }
 );
+const EmojiPicker = dynamic(() => import('@components/Shared/EmojiPicker'), {
+  loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
+});
 const Gif = dynamic(() => import('@components/Composer/Actions/Gif'), {
   loading: () => <div className="shimmer mb-1 h-5 w-5 rounded-lg" />
 });
@@ -541,7 +543,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand"
+            emojiClassName="text-brand-500"
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
             setEmoji={(emoji) => {

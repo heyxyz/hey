@@ -95,7 +95,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   return (
     <>
       <div className="divider" />
-      <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+      <div className="ld-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
         {commentsCount > 0 ? (
           <span>
             <b className="text-black dark:text-white">
@@ -108,6 +108,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <>
             <button
               type="button"
+              className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowMirrorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
@@ -122,7 +123,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </button>
             <Modal
               title="Mirrored by"
-              icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
+              icon={<ArrowsRightLeftIcon className="text-brand-500 h-5 w-5" />}
               show={showMirrorsModal}
               onClose={() => setShowMirrorsModal(false)}
             >
@@ -134,6 +135,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <>
             <button
               type="button"
+              className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowQuotesModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
@@ -148,7 +150,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </button>
             <Modal
               title="Quoted by"
-              icon={<ArrowsRightLeftIcon className="text-brand h-5 w-5" />}
+              icon={<ArrowsRightLeftIcon className="text-brand-500 h-5 w-5" />}
               show={showQuotesModal}
               onClose={() => setShowQuotesModal(false)}
             >
@@ -160,6 +162,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <>
             <button
               type="button"
+              className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowLikesModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_LIKES, {
@@ -174,7 +177,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </button>
             <Modal
               title="Liked by"
-              icon={<HeartIcon className="text-brand h-5 w-5" />}
+              icon={<HeartIcon className="text-brand-500 h-5 w-5" />}
               show={showLikesModal}
               onClose={() => setShowLikesModal(false)}
             >
@@ -186,6 +189,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
           <>
             <button
               type="button"
+              className="outline-brand-500 outline-offset-2"
               onClick={() => {
                 setShowCollectorsModal(true);
                 Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
@@ -200,7 +204,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             </button>
             <Modal
               title="Collected by"
-              icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
+              icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
               show={showCollectorsModal}
               onClose={() => setShowCollectorsModal(false)}
             >

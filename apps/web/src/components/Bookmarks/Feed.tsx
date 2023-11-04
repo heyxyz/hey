@@ -50,7 +50,7 @@ const Feed: FC<FeedProps> = ({ focus }) => {
     return (
       <EmptyState
         message="No bookmarks yet!"
-        icon={<BookmarkIcon className="text-brand h-8 w-8" />}
+        icon={<BookmarkIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

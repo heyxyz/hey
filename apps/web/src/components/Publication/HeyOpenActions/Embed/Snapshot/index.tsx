@@ -52,7 +52,7 @@ const Snapshot: FC<SnapshotProps> = ({ embedMetadata }) => {
 
   if (isHeyPoll) {
     return (
-      <span onClick={stopEventPropagation} aria-hidden="true">
+      <span onClick={stopEventPropagation}>
         <Choices
           proposal={proposal as Proposal}
           votes={votes as Vote[]}

@@ -13,19 +13,19 @@ const Algorithms: FC = () => {
   return (
     <>
       <button
-        className="rounded-md p-1 hover:bg-gray-300/20"
+        className="outline-brand-500 rounded-md p-1 hover:bg-gray-300/20"
         onClick={() => {
           setShowAlgorithmsModal(true);
           Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
         }}
       >
         <Tooltip placement="top" content="Algorithms">
-          <SparklesIcon className="text-brand h-5 w-5" />
+          <SparklesIcon className="text-brand-500 h-5 w-5" />
         </Tooltip>
       </button>
       <Modal
         title="Algorithms"
-        icon={<SparklesIcon className="text-brand h-5 w-5" />}
+        icon={<SparklesIcon className="text-brand-500 h-5 w-5" />}
         show={showAlgorithmsModal}
         onClose={() => setShowAlgorithmsModal(false)}
       >
