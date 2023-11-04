@@ -19,7 +19,7 @@ const Custom500: FC = () => {
         <h1 className="mb-4 text-3xl font-bold">
           Looks like something went wrong!
         </h1>
-        <div className="ld-text-gray-500 mb-4">
+        <div className="lt-text-gray-500 mb-4">
           We track these errors automatically, but if the problem persists feel
           free to contact us. In the meantime, try refreshing.
         </div>

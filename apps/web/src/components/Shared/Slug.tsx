@@ -17,7 +17,7 @@ const Slug: FC<SlugProps> = ({
   return (
     <span
       className={cn(
-        useBrandColor ? 'text-brand-500' : 'ld-text-gray-500',
+        useBrandColor ? 'text-brand-500' : 'lt-text-gray-500',
         className
       )}
     >

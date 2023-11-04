@@ -58,7 +58,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                   <div className="truncate font-bold">{og.title}</div>
                 ) : null}
                 {og.description ? (
-                  <div className="ld-text-gray-500 line-clamp-1 whitespace-break-spaces">
+                  <div className="lt-text-gray-500 line-clamp-1 whitespace-break-spaces">
                     {og.description}
                   </div>
                 ) : null}
@@ -73,7 +73,7 @@ const Embed: FC<EmbedProps> = ({ og, publicationId }) => {
                         alt="Favicon"
                       />
                     ) : null}
-                    <div className="ld-text-gray-500 text-xs">{og.site}</div>
+                    <div className="lt-text-gray-500 text-xs">{og.site}</div>
                   </div>
                 ) : null}
               </div>

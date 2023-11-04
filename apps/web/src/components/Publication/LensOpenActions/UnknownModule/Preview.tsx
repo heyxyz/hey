@@ -26,7 +26,7 @@ const UnknownModulePreview: FC<CollectModulePreviewProps> = ({ module }) => {
               </b>
             </div>
           </div>
-          <div className="ld-text-gray-500 text-sm">{contract}</div>
+          <div className="lt-text-gray-500 text-sm">{contract}</div>
         </div>
       </Card>
     );
