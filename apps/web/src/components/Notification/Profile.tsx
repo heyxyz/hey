@@ -45,7 +45,7 @@ export const NotificationProfileName: FC<NotificationProfileProps> = ({
       >
         <span>{getProfile(profile).displayName}</span>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand h-4 w-4" />
+          <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="h-4 w-4 text-red-500" />

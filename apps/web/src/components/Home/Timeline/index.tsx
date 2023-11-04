@@ -76,7 +76,7 @@ const Timeline: FC = () => {
     return (
       <EmptyState
         message="No posts yet!"
-        icon={<UserGroupIcon className="text-brand h-8 w-8" />}
+        icon={<UserGroupIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

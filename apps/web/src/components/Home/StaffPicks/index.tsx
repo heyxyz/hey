@@ -16,7 +16,7 @@ import StaffPickedProfile from './StaffPickedProfile';
 const Title = () => {
   return (
     <div className="mb-2 flex items-center gap-2 px-5 sm:px-0">
-      <CursorArrowRippleIconSolid className="text-brand h-4 w-4" />
+      <CursorArrowRippleIconSolid className="text-brand-500 h-4 w-4" />
       <div>What's poppin'?</div>
     </div>
   );
@@ -58,7 +58,9 @@ const StaffPicks: FC = () => {
         <Title />
         <EmptyState
           message="Nothing here!"
-          icon={<CursorArrowRippleIconOutline className="text-brand h-8 w-8" />}
+          icon={
+            <CursorArrowRippleIconOutline className="text-brand-500 h-8 w-8" />
+          }
         />
       </div>
     );

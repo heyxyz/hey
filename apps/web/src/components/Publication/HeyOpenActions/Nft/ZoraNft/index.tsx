@@ -109,7 +109,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
             <Modal
               title="Mint on Zora"
               show={showMintModal}
-              icon={<CursorArrowRaysIcon className="text-brand h-5 w-5" />}
+              icon={<CursorArrowRaysIcon className="text-brand-500 h-5 w-5" />}
               onClose={() => setShowMintModal(false)}
             >
               <Mint nft={nft} zoraLink={zoraLink} publication={publication} />

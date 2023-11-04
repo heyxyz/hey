@@ -419,7 +419,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
               </button>
               <Modal
                 title="Collected by"
-                icon={<RectangleStackIcon className="text-brand h-5 w-5" />}
+                icon={<RectangleStackIcon className="text-brand-500 h-5 w-5" />}
                 show={showCollectorsModal}
                 onClose={() => setShowCollectorsModal(false)}
               >

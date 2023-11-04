@@ -114,7 +114,7 @@ const UserPreview: FC<UserPreviewProps> = ({
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div className="text-md">{getProfile(profile).displayName}</div>
           {isVerified(profile.id) ? (
-            <CheckBadgeIcon className="text-brand h-4 w-4" />
+            <CheckBadgeIcon className="text-brand-500 h-4 w-4" />
           ) : null}
           {hasMisused(profile.id) ? (
             <ExclamationCircleIcon className="h-4 w-4 text-red-500" />

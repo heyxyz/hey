@@ -48,7 +48,7 @@ const ToolbarPlugin: FC = () => {
           activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
       >
-        <i className="toolbar-icon bold text-brand" />
+        <i className="toolbar-icon bold text-brand-500" />
       </button>
       <button
         className={cn(isBold && 'bg-brand-100', 'outline-brand-500')}

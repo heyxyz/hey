@@ -72,7 +72,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
     return (
       <EmptyState
         message="No posts yet!"
-        icon={<SparklesIcon className="text-brand h-8 w-8" />}
+        icon={<SparklesIcon className="text-brand-500 h-8 w-8" />}
       />
     );
   }

@@ -30,7 +30,7 @@ const CollectWarning: FC<CollectWarningProps> = ({
         </>
       ) : (
         <>
-          <UsersIcon className="text-brand h-4 w-4" />
+          <UsersIcon className="text-brand-500 h-4 w-4" />
           <span>Only </span>
           <Slug slug={`${handle}'s`} />
           <span> followers can collect</span>

@@ -22,7 +22,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({
       <input
         id={id}
         type="radio"
-        className="text-brand dark:text-brand h-4 w-4 border focus:ring-0 focus:ring-offset-0"
+        className="text-brand-500 dark:text-brand-500 h-4 w-4 border focus:ring-0 focus:ring-offset-0"
         {...rest}
       />
       <label htmlFor={id}>

@@ -58,7 +58,7 @@ const Following: FC<FollowingProps> = ({ profile, onProfileSelected }) => {
             <span>doesn’t follow anyone.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand h-8 w-8" />}
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );

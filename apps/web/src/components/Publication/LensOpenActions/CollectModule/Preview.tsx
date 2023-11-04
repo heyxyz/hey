@@ -39,7 +39,10 @@ const CollectModulePreview: FC<CollectModulePreviewProps> = ({
         <div className="w-full space-y-1.5 text-left">
           <div className="flex items-center justify-between space-x-2">
             <div className="flex items-center space-x-2">
-              <GetOpenActionModuleIcon module={module} className="text-brand" />
+              <GetOpenActionModuleIcon
+                module={module}
+                className="text-brand-500"
+              />
               <b className="text-lg font-bold">
                 {getOpenActionModuleData(module)?.name}
               </b>

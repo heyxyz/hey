@@ -59,7 +59,7 @@ const MutualFollowersList: FC<MutualFollowersListProps> = ({ profile }) => {
             <span>doesn’t have any mutual followers.</span>
           </div>
         }
-        icon={<UsersIcon className="text-brand h-8 w-8" />}
+        icon={<UsersIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );

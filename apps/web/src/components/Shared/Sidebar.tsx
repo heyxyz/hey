@@ -13,7 +13,7 @@ const Menu: FC<MenuProps> = ({ children, current, url }) => (
   <Link
     href={url}
     className={cn(
-      { 'bg-brand-100 dark:bg-brand-300/20 text-brand font-bold': current },
+      { 'bg-brand-100 dark:bg-brand-300/20 text-brand-500 font-bold': current },
       'hover:bg-brand-100/80 hover:text-brand-400 dark:hover:bg-brand-300/30',
       'flex items-center space-x-2 rounded-lg px-3 py-2'
     )}

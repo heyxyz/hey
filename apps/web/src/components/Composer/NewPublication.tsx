@@ -543,7 +543,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
         <div className="flex items-center space-x-4">
           <Attachment />
           <EmojiPicker
-            emojiClassName="text-brand"
+            emojiClassName="text-brand-500"
             setShowEmojiPicker={setShowEmojiPicker}
             showEmojiPicker={showEmojiPicker}
             setEmoji={(emoji) => {

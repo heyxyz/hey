@@ -218,7 +218,7 @@ const Choices: FC<ChoicesProps> = ({
       <Modal
         show={voteConfig.show}
         title="Cast your vote"
-        icon={<CheckCircleIconOutline className="text-brand h-5 w-5" />}
+        icon={<CheckCircleIconOutline className="text-brand-500 h-5 w-5" />}
         onClose={() => setVoteConfig({ show: false, position: 0 })}
       >
         <VoteProposal

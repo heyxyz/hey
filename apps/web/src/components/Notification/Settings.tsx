@@ -20,7 +20,7 @@ const Settings: FC = () => {
       </button>
       <Modal
         title="Notification settings"
-        icon={<BellIcon className="text-brand h-5 w-5" />}
+        icon={<BellIcon className="text-brand-500 h-5 w-5" />}
         show={showNotificationSettings}
         onClose={() => setShowNotificationSettings(false)}
       >

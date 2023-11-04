@@ -101,7 +101,7 @@ const List: FC = () => {
     return (
       <EmptyState
         message="You are not logged in on any other devices!"
-        icon={<GlobeAltIcon className="text-brand h-8 w-8" />}
+        icon={<GlobeAltIcon className="text-brand-500 h-8 w-8" />}
         hideCard
       />
     );

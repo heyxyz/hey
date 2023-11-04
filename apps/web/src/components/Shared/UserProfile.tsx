@@ -86,7 +86,7 @@ const UserProfile: FC<UserProfileProps> = ({
           )}
         </div>
         {isVerified(profile.id) ? (
-          <CheckBadgeIcon className="text-brand ml-1 h-4 w-4" />
+          <CheckBadgeIcon className="text-brand-500 ml-1 h-4 w-4" />
         ) : null}
         {hasMisused(profile.id) ? (
           <ExclamationCircleIcon className="ml-1 h-4 w-4 text-red-500" />

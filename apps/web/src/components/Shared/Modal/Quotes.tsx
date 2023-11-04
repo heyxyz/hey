@@ -49,7 +49,7 @@ const Quotes: FC<QuotesProps> = ({ publicationId }) => {
       <div className="p-5">
         <EmptyState
           message="No quotes."
-          icon={<ArrowsRightLeftIcon className="text-brand h-8 w-8" />}
+          icon={<ArrowsRightLeftIcon className="text-brand-500 h-8 w-8" />}
           hideCard
         />
       </div>

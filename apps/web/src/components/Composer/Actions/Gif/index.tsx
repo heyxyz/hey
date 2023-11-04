@@ -36,12 +36,12 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
           disabled={attachments.length >= 4}
           aria-label="Choose GIFs"
         >
-          <GifIcon className="text-brand h-5 w-5" />
+          <GifIcon className="text-brand-500 h-5 w-5" />
         </motion.button>
       </Tooltip>
       <Modal
         title="Select GIF"
-        icon={<PhotoIcon className="text-brand h-5 w-5" />}
+        icon={<PhotoIcon className="text-brand-500 h-5 w-5" />}
         show={showModal}
         onClose={() => setShowModal(false)}
       >
