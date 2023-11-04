@@ -33,7 +33,6 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
         'bg-brand-100 dark:bg-brand-300/20'
       )}
       aria-label={name}
-      aria-selected={focus === type}
     >
       {name}
     </button>

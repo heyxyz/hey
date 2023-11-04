@@ -63,7 +63,6 @@ const EmojiMenuItem: FC<EmojiMenuItemProps> = ({
       id={`typeahead-item-${index}`}
       onMouseEnter={onMouseEnter}
       onClick={onClick}
-      aria-selected={isSelected}
     >
       <div className="flex items-center space-x-2">
         <span className="text-base">{emoji}</span>
