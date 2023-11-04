@@ -1,5 +1,7 @@
 import ToggleWithHelper from '@components/Shared/ToggleWithHelper';
 import { BellIcon } from '@heroicons/react/24/outline';
+import { SETTINGS } from '@hey/data/tracking';
+import { Leafwatch } from '@lib/leafwatch';
 import { type FC, useState } from 'react';
 import { useEffectOnce } from 'usehooks-ts';
 
@@ -19,6 +21,10 @@ const PushNotifications: FC = () => {
       if (status === 'granted') {
         setPushNotificationsEnabled(true);
       }
+
+      Leafwatch.track(SETTINGS.PREFERENCES.TOGGLE_PUSH_NOTIFICATIONS, {
+        enabled: status === 'granted'
+      });
     }
   };
 
