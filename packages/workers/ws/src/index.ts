@@ -1,4 +1,4 @@
-import ingestView from './helpers/ingestView';
+import ingestImpression from './helpers/ingestImpression';
 import type { Env } from './types';
 
 const handleSession = async (websocket: any, env: Env) => {
@@ -14,7 +14,7 @@ const handleSession = async (websocket: any, env: Env) => {
       websocket.send(JSON.stringify({ type: 'connection_ack' }));
     } else if (message.type === 'start') {
       const payload = JSON.parse(message.payload);
-      await ingestView(payload, websocket, env);
+      await ingestImpression(payload, websocket, env);
     } else {
       websocket.send(JSON.stringify({ error: 'Unknown message received' }));
     }
