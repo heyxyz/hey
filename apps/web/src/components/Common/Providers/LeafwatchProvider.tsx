@@ -13,26 +13,20 @@ const LeafwatchProvider: FC = () => {
   const { sendJsonMessage, readyState } = useWebSocket(WEBSOCKET_WORKER_URL);
 
   useEffectOnce(() => {
-    sendJsonMessage({
-      id: '1',
-      type: 'connection_init'
-    });
+    sendJsonMessage({ type: 'connection_init' });
     if (!viewerId) {
       setViewerId(uuid());
     }
   });
 
   useInterval(() => {
-    sendJsonMessage({
-      id: '2',
-      type: 'ka'
-    });
+    sendJsonMessage({ type: 'connection_init' });
   }, 10000);
 
   useUpdateEffect(() => {
     if (readyState === 1 && viewedPublication) {
       sendJsonMessage({
-        id: '3',
+        id: '1',
         type: 'start',
         payload: JSON.stringify({
           viewer_id: viewerId,
