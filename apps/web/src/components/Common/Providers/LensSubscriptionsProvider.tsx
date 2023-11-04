@@ -16,7 +16,7 @@ import { isSupported, share } from 'shared-zustand';
 import { signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useInterval, useUpdateEffect } from 'usehooks-ts';
 import { useAccount } from 'wagmi';
 
 const LensSubscriptionsProvider: FC = () => {
@@ -35,6 +35,10 @@ const LensSubscriptionsProvider: FC = () => {
   useEffectOnce(() => {
     sendJsonMessage({ type: 'connection_init' });
   });
+
+  useInterval(() => {
+    sendJsonMessage({ type: 'connection_init' });
+  }, 10000);
 
   useUpdateEffect(() => {
     if (readyState === 1 && currentSessionProfileId && address) {
