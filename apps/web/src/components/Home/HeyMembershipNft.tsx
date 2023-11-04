@@ -52,12 +52,16 @@ const HeyMembershipNft: FC = () => {
   const updateHeyMemberNftStatus = async () => {
     try {
       toast.promise(
-        axios.post(`${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`, {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+        axios.patch(
+          `${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`,
+          undefined,
+          {
+            headers: {
+              'X-Access-Token': hydrateAuthTokens().accessToken,
+              'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            }
           }
-        }),
+        ),
         {
           loading: 'Updating...',
           success: () => {
