@@ -8,10 +8,8 @@ import {
   useRevokeAuthenticationMutation
 } from '@hey/lens';
 import { Button, Card, EmptyState, ErrorMessage } from '@hey/ui';
-import cn from '@hey/ui/cn';
 import errorToast from '@lib/errorToast';
 import { formatDate } from '@lib/formatTime';
-import getCurrentSessionId from '@lib/getCurrentSessionId';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -109,59 +107,51 @@ const List: FC = () => {
 
   return (
     <div className="space-y-4">
-      {approvedAuthentications?.map((session) => {
-        const currentSession =
-          session.authorizationId === getCurrentSessionId();
-
-        return (
-          <Card
-            key={session.authorizationId}
-            className="flex flex-wrap items-start justify-between p-5"
-            forceRounded
-          >
-            <div>
-              <div className="mb-3 flex items-center space-x-2">
-                <ComputerDesktopIcon
-                  className={cn(currentSession && 'text-green-500', 'h-8 w-8')}
-                />
-                <div>
-                  {session.browser ? <span>{session.browser}</span> : null}
-                  {session.os ? <span> - {session.os}</span> : null}
-                </div>
-              </div>
-              <div className="lt-text-gray-500 space-y-1 text-sm">
-                {session.origin ? (
-                  <div>
-                    <b>Origin -</b> {session.origin}
-                  </div>
-                ) : null}
-                <div>
-                  <b>Registered -</b>{' '}
-                  {formatDate(session.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
-                </div>
-                <div>
-                  <b>Last accessed -</b>{' '}
-                  {formatDate(session.updatedAt, 'MMM D, YYYY - hh:mm:ss A')}
-                </div>
-                <div>
-                  <b>Expires at -</b>{' '}
-                  {formatDate(session.expiresAt, 'MMM D, YYYY - hh:mm:ss A')}
-                </div>
+      {approvedAuthentications?.map((session) => (
+        <Card
+          key={session.authorizationId}
+          className="flex flex-wrap items-start justify-between p-5"
+          forceRounded
+        >
+          <div>
+            <div className="mb-3 flex items-center space-x-2">
+              <ComputerDesktopIcon className="h-8 w-8" />
+              <div>
+                {session.browser ? <span>{session.browser}</span> : null}
+                {session.os ? <span> - {session.os}</span> : null}
               </div>
             </div>
-            <Button
-              variant="danger"
-              disabled={
-                (revoking && revokeingSessionId === session.authorizationId) ||
-                currentSession
-              }
-              onClick={() => revoke(session.authorizationId)}
-            >
-              Revoke
-            </Button>
-          </Card>
-        );
-      })}
+            <div className="lt-text-gray-500 space-y-1 text-sm">
+              {session.origin ? (
+                <div>
+                  <b>Origin -</b> {session.origin}
+                </div>
+              ) : null}
+              <div>
+                <b>Registered -</b>{' '}
+                {formatDate(session.createdAt, 'MMM D, YYYY - hh:mm:ss A')}
+              </div>
+              <div>
+                <b>Last accessed -</b>{' '}
+                {formatDate(session.updatedAt, 'MMM D, YYYY - hh:mm:ss A')}
+              </div>
+              <div>
+                <b>Expires at -</b>{' '}
+                {formatDate(session.expiresAt, 'MMM D, YYYY - hh:mm:ss A')}
+              </div>
+            </div>
+          </div>
+          <Button
+            variant="danger"
+            disabled={
+              revoking && revokeingSessionId === session.authorizationId
+            }
+            onClick={() => revoke(session.authorizationId)}
+          >
+            Revoke
+          </Button>
+        </Card>
+      ))}
       {hasMore ? <span ref={observe} /> : null}
     </div>
   );
