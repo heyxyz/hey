@@ -44,7 +44,7 @@ const ViewGroup: NextPage = () => {
     enabled: isReady
   });
 
-  if (isLoading) {
+  if (!isReady || isLoading) {
     return <GroupPageShimmer />;
   }
 

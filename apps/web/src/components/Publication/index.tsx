@@ -36,7 +36,8 @@ const ViewPublication: NextPage = () => {
   );
 
   const {
-    query: { id }
+    query: { id },
+    isReady
   } = useRouter();
 
   useEffectOnce(() => {
@@ -48,7 +49,7 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
-  if (loading) {
+  if (!isReady || loading) {
     return <PublicationPageShimmer />;
   }
 

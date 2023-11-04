@@ -32,7 +32,8 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { handle, id, type, followIntent }
+    query: { handle, id, type, followIntent },
+    isReady
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const lowerCaseProfileFeedType = [
@@ -96,7 +97,7 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (loading) {
+  if (!isReady || loading) {
     return <ProfilePageShimmer />;
   }
 
