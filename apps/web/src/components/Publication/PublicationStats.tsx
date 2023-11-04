@@ -95,7 +95,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   return (
     <>
       <div className="divider" />
-      <div className="lt-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
+      <div className="ld-text-gray-500 flex flex-wrap items-center gap-6 py-3 text-sm sm:gap-8">
         {commentsCount > 0 ? (
           <span>
             <b className="text-black dark:text-white">

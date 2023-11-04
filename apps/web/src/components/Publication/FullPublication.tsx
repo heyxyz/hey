@@ -35,7 +35,7 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
             <>
               <PublicationBody publication={targetPublication} />
               <div className="flex items-center gap-x-3">
-                <div className="lt-text-gray-500 my-3 text-sm">
+                <div className="ld-text-gray-500 my-3 text-sm">
                   <span>
                     {formatDate(new Date(createdAt), 'hh:mm A · MMM D, YYYY')}
                   </span>

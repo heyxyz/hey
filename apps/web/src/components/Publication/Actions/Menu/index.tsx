@@ -33,7 +33,7 @@ const PublicationMenu: FC<PublicationMenuProps> = ({ publication }) => {
           aria-label="More"
         >
           <EllipsisVerticalIcon
-            className={cn('lt-text-gray-500', iconClassName)}
+            className={cn('ld-text-gray-500', iconClassName)}
           />
         </button>
       </Menu.Button>
