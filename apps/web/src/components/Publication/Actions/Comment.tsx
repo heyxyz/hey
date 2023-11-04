@@ -5,7 +5,7 @@ import nFormatter from '@hey/lib/nFormatter';
 import { isMirrorPublication } from '@hey/lib/publicationHelpers';
 import { Tooltip } from '@hey/ui';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import type { FC } from 'react';
 
 interface CommentProps {
@@ -14,6 +14,7 @@ interface CommentProps {
 }
 
 const Comment: FC<CommentProps> = ({ publication, showCount }) => {
+  const { push } = useRouter();
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
@@ -24,18 +25,21 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
 
   return (
     <div className="lt-text-gray-500 flex items-center space-x-1">
-      <motion.button whileTap={{ scale: 0.9 }} aria-label="Comment">
-        <Link href={`/posts/${publication.id}`}>
-          <div className="rounded-full p-1.5 hover:bg-gray-300/20">
-            <Tooltip
-              placement="top"
-              content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
-              withDelay
-            >
-              <ChatBubbleLeftRightIcon className={iconClassName} />
-            </Tooltip>
-          </div>
-        </Link>
+      <motion.button
+        className="outline-brand-500 rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
+        whileTap={{ scale: 0.9 }}
+        aria-label="Comment"
+        onClick={() => {
+          push(`/posts/${publication.id}`);
+        }}
+      >
+        <Tooltip
+          placement="top"
+          content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
+          withDelay
+        >
+          <ChatBubbleLeftRightIcon className={iconClassName} />
+        </Tooltip>
       </motion.button>
       {count > 0 && !showCount ? (
         <span className="text-[11px] sm:text-xs">{nFormatter(count)}</span>

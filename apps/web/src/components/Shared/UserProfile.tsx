@@ -60,7 +60,7 @@ const UserProfile: FC<UserProfileProps> = ({
       loading="lazy"
       className={cn(
         isBig ? 'h-14 w-14' : 'h-10 w-10',
-        'rounded-full border bg-gray-200 dark:border-gray-700'
+        'max-w-fit rounded-full border bg-gray-200 dark:border-gray-700'
       )}
       height={isBig ? 56 : 40}
       width={isBig ? 56 : 40}

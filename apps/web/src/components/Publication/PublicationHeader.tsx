@@ -69,7 +69,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
         ) : null}
         {quoted && isNew ? (
           <button
-            className="rounded-full border p-1.5 hover:bg-gray-300/20"
+            className="outline-brand-500 rounded-full border p-1.5 hover:bg-gray-300/20"
             onClick={(event) => {
               stopEventPropagation(event);
               setQuotedPublication(null);

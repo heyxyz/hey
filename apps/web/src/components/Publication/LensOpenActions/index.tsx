@@ -57,6 +57,10 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
         )}
       >
         <motion.button
+          className={cn(
+            hasActed ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
+            'outline-brand-500 rounded-full p-1.5 outline-offset-2'
+          )}
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowOpenActionModal(true);
@@ -64,27 +68,20 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
           }}
           aria-label="Action"
         >
-          <div
-            className={cn(
-              hasActed ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
-              'rounded-full p-1.5'
-            )}
+          <Tooltip
+            placement="top"
+            content={`${humanize(openActionCount)} ${plur(
+              'Action',
+              openActionCount
+            )}`}
+            withDelay
           >
-            <Tooltip
-              placement="top"
-              content={`${humanize(openActionCount)} ${plur(
-                'Action',
-                openActionCount
-              )}`}
-              withDelay
-            >
-              {hasActed ? (
-                <RectangleStackIconSolid className={iconClassName} />
-              ) : (
-                <RectangleStackIcon className={iconClassName} />
-              )}
-            </Tooltip>
-          </div>
+            {hasActed ? (
+              <RectangleStackIconSolid className={iconClassName} />
+            ) : (
+              <RectangleStackIcon className={iconClassName} />
+            )}
+          </Tooltip>
         </motion.button>
         {openActionCount > 0 && !showCount ? (
           <span className="text-[11px] sm:text-xs">
