@@ -18,15 +18,15 @@ interface ActionTypeProps {
 }
 
 const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
-  const publication = feedItem.root;
-  const isComment = publication.__typename === 'Comment';
-  const showThread = isComment || (feedItem.comments?.length ?? 0) > 0;
+  const { root, mirrors, reactions, acted, comments } = feedItem;
+  const isComment = root.__typename === 'Comment';
+  const showThread = isComment || (comments?.length ?? 0) > 0;
 
   const canCombined = getCanCombined([
-    feedItem.mirrors?.length ?? 0,
-    feedItem.reactions?.length ?? 0,
-    feedItem.acted?.length ?? 0,
-    feedItem.comments?.length ?? 0
+    mirrors?.length ?? 0,
+    reactions?.length ?? 0,
+    acted?.length ?? 0,
+    comments?.length ?? 0
   ]);
 
   return (
@@ -35,14 +35,12 @@ const ActionType: FC<ActionTypeProps> = ({ feedItem }) => {
         <Combined feedItem={feedItem} />
       ) : (
         <>
-          {feedItem.mirrors?.length && !isComment ? (
-            <Mirrored mirrors={feedItem.mirrors} />
+          {mirrors?.length && !isComment ? (
+            <Mirrored mirrors={mirrors} />
           ) : null}
-          {feedItem.acted?.length && !isComment ? (
-            <Acted acted={feedItem.acted} />
-          ) : null}
-          {feedItem.reactions?.length && !isComment ? (
-            <Liked reactions={feedItem.reactions} />
+          {acted?.length && !isComment ? <Acted acted={acted} /> : null}
+          {reactions?.length && !isComment ? (
+            <Liked reactions={reactions} />
           ) : null}
         </>
       )}

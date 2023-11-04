@@ -33,7 +33,7 @@ const PublicationHeader: FC<PublicationHeaderProps> = ({
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
     : publication;
-  const firstComment = feedItem?.comments && feedItem.comments[0];
+  const firstComment = feedItem?.comments?.[0];
   const rootPublication = feedItem
     ? firstComment
       ? firstComment
