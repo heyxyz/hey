@@ -14,9 +14,5 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/role-supports-aria-props': 'off'
   },
-  settings: {
-    react: {
-      version: 'detect'
-    }
-  }
+  settings: { react: { version: 'detect' } }
 };

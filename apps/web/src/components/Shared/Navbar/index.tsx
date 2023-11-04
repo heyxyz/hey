@@ -44,7 +44,6 @@ const Navbar: FC = () => {
               !current
           }
         )}
-        aria-current={current ? 'page' : undefined}
       >
         {name}
       </Link>
