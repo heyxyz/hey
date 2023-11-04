@@ -1,6 +1,7 @@
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
 import { RectangleStackIcon } from '@heroicons/react/24/outline';
+import { ACHIEVEMENTS_WORKER_URL } from '@hey/data/constants';
 import type { AnyPublication, Profile, PublicationsRequest } from '@hey/lens';
 import {
   LimitType,
@@ -10,7 +11,8 @@ import {
 } from '@hey/lens';
 import getProfile from '@hey/lib/getProfile';
 import { Card, EmptyState, ErrorMessage } from '@hey/ui';
-import type { FC } from 'react';
+import axios from 'axios';
+import { type FC, useState } from 'react';
 import { useInView } from 'react-cool-inview';
 import { ProfileFeedType } from 'src/enums';
 import { useProfileFeedStore } from 'src/store/useProfileFeedStore';
@@ -28,6 +30,14 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
   const mediaFeedFilters = useProfileFeedStore(
     (state) => state.mediaFeedFilters
   );
+
+  const [views, setViews] = useState<
+    | {
+        id: string;
+        views: number;
+      }[]
+    | []
+  >([]);
 
   const getMediaFilters = () => {
     let filters: PublicationMetadataMainFocusType[] = [];
@@ -67,9 +77,29 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
     limit: LimitType.TwentyFive
   };
 
+  const fetchAndStoreViews = async (ids: string[]) => {
+    console.log('fetchAndStoreViews', ids);
+    if (ids.length) {
+      const viewsResponse = await axios.post(
+        `${ACHIEVEMENTS_WORKER_URL}/publicationViews`,
+        { ids }
+      );
+      // push new views to state viewsResponse.data?.views
+      setViews((prev) => [...prev, ...viewsResponse.data?.views]);
+    }
+  };
+
+  const getViewCountById = (id: string) => {
+    return views.find((v) => v.id === id)?.views || 0;
+  };
+
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !profile?.id
+    skip: !profile?.id,
+    onCompleted: async (data) => {
+      const ids = data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
+    }
   });
 
   const publications = data?.publications?.items;
@@ -82,9 +112,11 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
         return;
       }
 
-      await fetchMore({
+      const pageItem = await fetchMore({
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
+      const ids = pageItem?.data?.publications?.items?.map((p) => p.id) || [];
+      await fetchAndStoreViews(ids);
     }
   });
 
@@ -131,6 +163,7 @@ const Feed: FC<FeedProps> = ({ profile, type }) => {
           isFirst={index === 0}
           isLast={index === publications.length - 1}
           publication={publication as AnyPublication}
+          views={getViewCountById(publication.id)}
           showThread={
             type !== ProfileFeedType.Media && type !== ProfileFeedType.Collects
           }

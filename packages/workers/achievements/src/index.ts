@@ -3,6 +3,7 @@ import response from '@hey/lib/response';
 import { createCors, error, Router, status } from 'itty-router';
 
 import haveUsedHey from './handlers/haveUsedHey';
+import publicationViews from './handlers/publicationViews';
 import streaksCalendar from './handlers/streaksCalendar';
 import streaksList from './handlers/streaksList';
 import buildRequest from './helpers/buildRequest';
@@ -24,6 +25,7 @@ router
       version: request.env.RELEASE ?? 'unknown'
     })
   )
+  .post('/publicationViews', publicationViews)
   .get('/haveUsedHey/:id', haveUsedHey)
   .get('/streaks/:id', streaksCalendar)
   .get('/streaks/:id/:date', streaksList)
