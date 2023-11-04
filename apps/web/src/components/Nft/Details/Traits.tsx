@@ -17,7 +17,7 @@ const NftTraits: FC<NftTraitsProps> = ({ nft }) => {
       <p className="flex flex-wrap gap-2 p-5">
         {nft.traits.map((trait, index) => (
           <div key={index} className="rounded-lg border px-3 py-1 text-center">
-            <div className="ld-text-gray-500 text-xs">{trait.trait_type}</div>
+            <div className="lt-text-gray-500 text-xs">{trait.trait_type}</div>
             <div className="text-sm font-bold">{trait.value}</div>
           </div>
         ))}

@@ -104,7 +104,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
         {content}
       </Markup>
       {canShowMore ? (
-        <div className="ld-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
+        <div className="lt-text-gray-500 mt-4 flex items-center space-x-1 text-sm font-bold">
           <EyeIcon className="h-4 w-4" />
           <Link href={`/posts/${id}`}>Show more</Link>
         </div>

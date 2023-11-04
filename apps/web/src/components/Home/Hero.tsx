@@ -13,7 +13,7 @@ const Hero: FC = () => {
           <div className="text-2xl font-extrabold sm:text-5xl">
             Welcome to {APP_NAME},
           </div>
-          <div className="ld-text-gray-500 text-2xl font-extrabold sm:text-5xl">
+          <div className="lt-text-gray-500 text-2xl font-extrabold sm:text-5xl">
             a social network built on Lens Protocol
           </div>
         </div>

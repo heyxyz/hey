@@ -20,7 +20,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center space-x-2">
-        <PuzzlePieceIcon className="ld-text-gray-500 h-4 w-4" />
+        <PuzzlePieceIcon className="lt-text-gray-500 h-4 w-4" />
         <div className="space-x-1.5">
           <span>Type:</span>
           <b>{nft.contractStandard === 'ERC721' ? 'ERC-721' : 'ERC-1155'}</b>
@@ -28,13 +28,13 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
       </div>
       {nft.totalMinted > 0 ? (
         <div className="flex items-center space-x-2">
-          <UsersIcon className="ld-text-gray-500 h-4 w-4" />
+          <UsersIcon className="lt-text-gray-500 h-4 w-4" />
           <b>{humanize(nft.totalMinted)} minted</b>
         </div>
       ) : null}
       {!nft.isOpenEdition ? (
         <div className="flex items-center space-x-2">
-          <ShoppingBagIcon className="ld-text-gray-500 h-4 w-4" />
+          <ShoppingBagIcon className="lt-text-gray-500 h-4 w-4" />
           <b>{humanize(nft.remainingSupply)} remaining</b>
         </div>
       ) : null}
@@ -49,7 +49,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
           });
         }}
       >
-        <ArrowTopRightOnSquareIcon className="ld-text-gray-500 h-4 w-4" />
+        <ArrowTopRightOnSquareIcon className="lt-text-gray-500 h-4 w-4" />
         <b>Open in Zora</b>
       </Link>
     </div>

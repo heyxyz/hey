@@ -41,7 +41,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
         />
         <Link
           href={`/posts/${notification?.comment?.id}`}
-          className="ld-text-gray-500 linkify mt-2 line-clamp-2"
+          className="lt-text-gray-500 linkify mt-2 line-clamp-2"
         >
           <Markup mentions={notification.comment.profilesMentioned}>
             {filteredContent}

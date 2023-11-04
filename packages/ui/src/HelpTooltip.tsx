@@ -21,7 +21,7 @@ const HelpTooltip: FC<HelpTooltipProps> = ({ children }) => {
       content={<span>{children}</span>}
     >
       <span>
-        <InformationCircleIcon className="ld-text-gray-500 h-[15px] w-[15px]" />
+        <InformationCircleIcon className="lt-text-gray-500 h-[15px] w-[15px]" />
       </span>
     </Tippy>
   );

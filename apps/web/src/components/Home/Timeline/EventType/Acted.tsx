@@ -18,7 +18,7 @@ const Acted: FC<ActedProps> = ({ acted }) => {
   };
 
   return (
-    <div className="ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
+    <div className="lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]">
       <RectangleStackIcon className="h-4 w-4" />
       <Profiles profiles={getCollectedProfiles()} context="acted" />
     </div>

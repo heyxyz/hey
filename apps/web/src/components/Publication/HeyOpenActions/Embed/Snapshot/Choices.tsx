@@ -179,7 +179,7 @@ const Choices: FC<ChoicesProps> = ({
                         {nFormatter(score)} {isHeyPoll ? null : symbol}
                       </span>
                       <span className="mx-1.5">·</span>
-                      <span className="ld-text-gray-500">
+                      <span className="lt-text-gray-500">
                         {Number.isNaN(percentage) ? 0 : percentage.toFixed(2)}%
                       </span>
                     </div>

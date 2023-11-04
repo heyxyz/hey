@@ -20,7 +20,7 @@ const Liked: FC<LikedProps> = ({ reactions }) => {
   return (
     <div
       className={
-        'ld-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]'
+        'lt-text-gray-500 flex items-center space-x-1 pb-4 text-[13px]'
       }
     >
       <HeartIcon className="h-4 w-4" />

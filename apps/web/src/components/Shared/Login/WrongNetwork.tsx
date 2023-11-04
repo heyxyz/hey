@@ -13,7 +13,7 @@ const WrongNetwork: FC = () => {
     <div className="p-5">
       <div className="mb-4 space-y-1">
         <div className="text-xl font-bold">Change network.</div>
-        <div className="ld-text-gray-500 text-sm">
+        <div className="lt-text-gray-500 text-sm">
           Connect to the correct network to continue
         </div>
       </div>
