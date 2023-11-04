@@ -26,6 +26,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
     <>
       <Tooltip placement="top" content="GIF">
         <motion.button
+          className="outline-brand-500 rounded-full outline-offset-8"
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => {

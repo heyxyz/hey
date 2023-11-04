@@ -83,7 +83,11 @@ const ReferenceSettings: FC = () => {
         placement="top"
         content={getSelectedReferenceModuleTooltipText()}
       >
-        <Menu.Button as={motion.button} whileTap={{ scale: 0.9 }}>
+        <Menu.Button
+          as={motion.button}
+          className="outline-brand-500 rounded-full outline-offset-8"
+          whileTap={{ scale: 0.9 }}
+        >
           <div className="text-brand">
             {isEveryone ? <GlobeAltIcon className="w-5" /> : null}
             {isMyFollowers ? <UsersIcon className="w-5" /> : null}

@@ -15,6 +15,7 @@ const CollectSettings: FC = () => {
     <>
       <Tooltip placement="top" content="Collect">
         <motion.button
+          className="outline-brand-500 rounded-full outline-offset-8"
           whileTap={{ scale: 0.9 }}
           type="button"
           onClick={() => setShowModal(!showModal)}

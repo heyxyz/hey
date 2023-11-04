@@ -132,8 +132,10 @@ const Like: FC<LikeProps> = ({ publication, showCount }) => {
     >
       <motion.button
         className={cn(
-          hasReacted ? 'hover:bg-brand-300/20' : 'hover:bg-gray-300/20',
-          'outline-brand-500 rounded-full p-1.5 outline-offset-2'
+          hasReacted
+            ? 'hover:bg-brand-300/20 outline-brand-500'
+            : 'outline-gray-400 hover:bg-gray-300/20',
+          'rounded-full p-1.5 outline-offset-2'
         )}
         whileTap={{ scale: 0.9 }}
         onClick={createLike}

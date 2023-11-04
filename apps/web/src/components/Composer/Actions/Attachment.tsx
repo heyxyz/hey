@@ -11,8 +11,9 @@ import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from '@lens-protocol/metadata';
+import { motion } from 'framer-motion';
 import type { ChangeEvent, FC } from 'react';
-import { Fragment, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import useUploadAttachments from 'src/hooks/useUploadAttachments';
 import { usePublicationStore } from 'src/store/usePublicationStore';
@@ -91,16 +92,20 @@ const Attachment: FC = () => {
 
   return (
     <Menu as="div">
-      <Menu.Button as={Fragment}>
-        <button onClick={() => setShowMenu(!showMenu)} aria-label="More">
-          {isUploading ? (
-            <Spinner size="sm" />
-          ) : (
-            <Tooltip placement="top" content="Media">
-              <PhotoIcon className="text-brand h-5 w-5" />
-            </Tooltip>
-          )}
-        </button>
+      <Menu.Button
+        as={motion.button}
+        className="outline-brand-500 rounded-full outline-offset-8"
+        whileTap={{ scale: 0.9 }}
+        onClick={() => setShowMenu(!showMenu)}
+        aria-label="More"
+      >
+        {isUploading ? (
+          <Spinner size="sm" />
+        ) : (
+          <Tooltip placement="top" content="Media">
+            <PhotoIcon className="text-brand h-5 w-5" />
+          </Tooltip>
+        )}
       </Menu.Button>
       <MenuTransition show={showMenu}>
         <Menu.Items

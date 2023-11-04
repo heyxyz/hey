@@ -14,6 +14,7 @@ const PollSettings: FC = () => {
   return (
     <Tooltip placement="top" content="Poll">
       <motion.button
+        className="outline-brand-500 rounded-full outline-offset-8"
         whileTap={{ scale: 0.9 }}
         type="button"
         onClick={() => {

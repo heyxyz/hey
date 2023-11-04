@@ -57,9 +57,9 @@ const ShareMenu: FC<PublicationMenuProps> = ({ publication, showCount }) => {
           as={motion.button}
           className={cn(
             hasQuotedOrMirrored
-              ? 'text-brand hover:bg-brand-300/20'
-              : 'lt-text-gray-500 hover:bg-gray-300/20',
-            'outline-brand-500 rounded-full p-1.5 outline-offset-2'
+              ? 'text-brand hover:bg-brand-300/20 outline-brand-500'
+              : 'lt-text-gray-500 outline-gray-400 hover:bg-gray-300/20',
+            'rounded-full p-1.5 outline-offset-2'
           )}
           whileTap={{ scale: 0.9 }}
           onClick={stopEventPropagation}
