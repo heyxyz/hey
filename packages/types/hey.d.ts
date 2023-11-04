@@ -25,3 +25,8 @@ export type CollectModuleType = {
   followerOnly?: boolean;
   endsAt?: string | null;
 };
+
+export type PublicationViewCount = {
+  id: string;
+  views: number;
+};
